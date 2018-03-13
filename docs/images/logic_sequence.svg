@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 150.228 144.32257"
+   height="144.32257mm"
+   width="150.228mm">
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-28.675957,-9.6488822)"
+     style="display:inline"
+     id="layer2">
+    <path
+       id="path897"
+       style="fill:none;stroke:#000000;stroke-width:0.0264583px"
+       d="M 0,0 V 296.99999 M 5.2916665,0 V 296.99999 M 10.583333,0 V 296.99999 M 15.875,0 V 296.99999 M 21.166666,0 V 296.99999 M 26.458333,0 V 296.99999 M 31.749999,0 V 296.99999 M 37.041666,0 V 296.99999 M 42.333332,0 V 296.99999 M 47.624999,0 V 296.99999 M 52.916665,0 V 296.99999 M 58.208332,0 V 296.99999 M 63.499999,0 V 296.99999 M 68.791665,0 V 296.99999 M 74.083332,0 V 296.99999 M 79.374998,0 V 296.99999 M 84.666665,0 V 296.99999 M 89.958331,0 V 296.99999 M 95.249998,0 V 296.99999 M 100.54166,0 V 296.99999 M 105.83333,0 V 296.99999 M 111.125,0 V 296.99999 M 116.41666,0 V 296.99999 M 121.70833,0 V 296.99999 M 127,0 V 296.99999 M 132.29166,0 V 296.99999 M 137.58333,0 V 296.99999 M 142.875,0 V 296.99999 M 148.16666,0 V 296.99999 M 153.45833,0 V 296.99999 M 158.75,0 V 296.99999 M 164.04166,0 V 296.99999 M 169.33333,0 V 296.99999 M 174.625,0 V 296.99999 M 179.91666,0 V 296.99999 M 185.20833,0 V 296.99999 M 190.5,0 V 296.99999 M 195.79166,0 V 296.99999 M 201.08333,0 V 296.99999 M 206.375,0 V 296.99999 M 0,0 H 210 M 0,5.2916665 H 210 M 0,10.583333 H 210 M 0,15.875 H 210 M 0,21.166666 H 210 M 0,26.458333 H 210 M 0,31.749999 H 210 M 0,37.041666 H 210 M 0,42.333332 H 210 M 0,47.624999 H 210 M 0,52.916665 H 210 M 0,58.208332 H 210 M 0,63.499999 H 210 M 0,68.791665 H 210 M 0,74.083332 H 210 M 0,79.374998 H 210 M 0,84.666665 H 210 M 0,89.958331 H 210 M 0,95.249998 H 210 M 0,100.54166 H 210 M 0,105.83333 H 210 M 0,111.125 H 210 M 0,116.41666 H 210 M 0,121.70833 H 210 M 0,127 H 210 M 0,132.29166 H 210 M 0,137.58333 H 210 M 0,142.875 H 210 M 0,148.16666 H 210 M 0,153.45833 H 210 M 0,158.75 H 210 M 0,164.04166 H 210 M 0,169.33333 H 210 M 0,174.625 H 210 M 0,179.91666 H 210 M 0,185.20833 H 210 M 0,190.5 H 210 M 0,195.79166 H 210 M 0,201.08333 H 210 M 0,206.375 H 210 M 0,211.66666 H 210 M 0,216.95833 H 210 M 0,222.24999 H 210 M 0,227.54166 H 210 M 0,232.83333 H 210 M 0,238.12499 H 210 M 0,243.41666 H 210 M 0,248.70833 H 210 M 0,253.99999 H 210 M 0,259.29166 H 210 M 0,264.58333 H 210 M 0,269.87499 H 210 M 0,275.16666 H 210 M 0,280.45833 H 210 M 0,285.74999 H 210 M 0,291.04166 H 210 M 0,296.33333 h 210" />
+  </g>
+  <g
+     transform="translate(-28.675957,-9.6488822)"
+     style="display:inline"
+     id="layer1">
+    <text
+       id="text817"
+       y="17.329166"
+       x="33.675957"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="17.329166"
+         x="33.675957"
+         id="tspan815"><tspan
+   id="tspan899"
+   style="fill:#669900">#include</tspan> &lt;<tspan
+   id="tspan909"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic'">ESP8266WiFi.h</tspan>&gt;</tspan><tspan
+         id="tspan819"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="21.738888"
+         x="33.675957"><tspan
+   id="tspan905"
+   style="fill:#669900">#include</tspan> &lt;<tspan
+   id="tspan915"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic'">ESP8266WebServer.h</tspan>&gt;</tspan><tspan
+         id="tspan821"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="26.148611"
+         x="33.675957"><tspan
+   id="tspan907"
+   style="fill:#669900">#include</tspan> &lt;<tspan
+   id="tspan921"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic'">AutoConnect.h</tspan>&gt;</tspan><tspan
+         id="tspan823"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="30.558332"
+         x="33.675957" /><tspan
+         id="tspan825"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="34.968056"
+         x="33.675957"><tspan
+   id="tspan923"
+   style="fill:#ff6600">ESP8266WebServer</tspan> Server;</tspan><tspan
+         id="tspan827"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="39.377777"
+         x="33.675957"><tspan
+   id="tspan927"
+   style="fill:#ff6600">AutoConnect</tspan>           Portal(Server);</tspan><tspan
+         id="tspan829"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="43.787498"
+         x="33.675957" /><tspan
+         id="tspan831"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="48.19722"
+         x="33.675957"><tspan
+   id="tspan929"
+   style="fill:#3366cc">void</tspan> rootPage() {</tspan><tspan
+         id="tspan833"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="52.606941"
+         x="33.675957">  <tspan
+   id="tspan981"
+   style="fill:#3366cc">char</tspan> content[] = &quot;Hello, world&quot;;</tspan><tspan
+         id="tspan835"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="57.016666"
+         x="33.675957">  Server.<tspan
+   id="tspan955"
+   style="fill:#ff6600">send</tspan>(200, &quot;text/plain&quot;, content);</tspan><tspan
+         id="tspan837"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="61.426388"
+         x="33.675957">}</tspan><tspan
+         id="tspan839"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="65.836113"
+         x="33.675957" /><tspan
+         id="tspan841"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="70.245834"
+         x="33.675957"><tspan
+   id="tspan937"
+   style="fill:#3366cc">void</tspan> <tspan
+   id="tspan935"
+   style="fill:#808080">setup</tspan>() {</tspan><tspan
+         id="tspan843"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="74.655556"
+         x="33.675957">  <tspan
+   id="tspan949"
+   style="fill:#ff6600">delay</tspan>(1000);</tspan><tspan
+         id="tspan849"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="79.065277"
+         x="33.675957" /><tspan
+         id="tspan851"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="83.474998"
+         x="33.675957">  Server.<tspan
+   id="tspan947"
+   style="fill:#ff6600">on</tspan>(<tspan
+   id="tspan963"
+   style="fill:#003399">&quot;/&quot;</tspan>, rootPage);</tspan><tspan
+         id="tspan853"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="87.88472"
+         x="33.675957">  </tspan><tspan
+         id="tspan4825"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="92.294441"
+         x="33.675957"><tspan
+   id="tspan4827"
+   style="fill:#3366cc">  boolean</tspan> r = Portal.<tspan
+   id="tspan961"
+   style="fill:#ff6600">begin</tspan>();</tspan><tspan
+         id="tspan971"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="96.704163"
+         x="33.675957">  </tspan><tspan
+         id="tspan4830"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="101.11388"
+         x="33.675957"><tspan
+   id="tspan4832"
+   style="fill:#404040">  if</tspan> (!r) {</tspan><tspan
+         id="tspan855"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="105.52361"
+         x="33.675957">    <tspan
+   id="tspan945"
+   style="fill:#ff6600">delay</tspan>(1000);<tspan
+   id="tspan969"
+   style="fill:#003399"></tspan></tspan><tspan
+         id="tspan5494"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="109.93333"
+         x="33.675957"><tspan
+   id="tspan5496"
+   style="fill:#003399">    </tspan>ESP.reset();</tspan><tspan
+         id="tspan857"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="114.34306"
+         x="33.675957">  }</tspan><tspan
+         id="tspan859"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="118.75278"
+         x="33.675957">}</tspan><tspan
+         id="tspan861"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="123.1625"
+         x="33.675957" /><tspan
+         id="tspan863"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="127.57222"
+         x="33.675957"><tspan
+   id="tspan939"
+   style="fill:#3366cc">void</tspan> loop() {</tspan><tspan
+         id="tspan865"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="131.98193"
+         x="33.675957">    Server.<tspan
+   id="tspan941"
+   style="fill:#ff6600">handleClient</tspan>();</tspan><tspan
+         id="tspan867"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="136.39166"
+         x="33.675957">}</tspan><tspan
+         id="tspan869"
+         style="font-size:3.52777767px;stroke-width:0.26458332"
+         y="140.80139"
+         x="33.675957" /></text>
+  </g>
+  <g
+     transform="translate(-28.675957,-9.6488822)"
+     id="layer3">
+    <g
+       transform="translate(7.0295931,1.4967093)"
+       id="g5584">
+      <g
+         id="g5577">
+        <rect
+           y="120.4157"
+           x="96.916679"
+           height="26.788187"
+           width="69.782677"
+           id="rect987-6-7-1-5-4"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.34999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="120.4157"
+           x="96.90123"
+           height="26.884048"
+           width="2.7517393"
+           id="rect985-1-0-3-6-7"
+           style="opacity:1;fill:#c8aabd;fill-opacity:1;stroke:#c8aabd;stroke-width:0.34999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="102.72446"
+         y="126.50675"
+         id="text5481-6"><tspan
+           id="tspan5479-9"
+           x="102.72446"
+           y="126.50675"
+           style="stroke-width:0.26458332">loop()</tspan></text>
+    </g>
+    <g
+       transform="translate(7.0295931,1.4967093)"
+       id="g5536">
+      <g
+         id="g5529">
+        <rect
+           y="63.351486"
+           x="96.967033"
+           height="52.881226"
+           width="69.681969"
+           id="rect987-6-7-1-5"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.34999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="63.335812"
+           x="96.949257"
+           height="52.912579"
+           width="2.6556907"
+           id="rect985-1-0-3-6"
+           style="opacity:1;fill:#c8aabd;fill-opacity:1;stroke:#c8aabd;stroke-width:0.34999999;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="102.72446"
+         y="69.392189"
+         id="text5481"><tspan
+           id="tspan5479"
+           x="102.72446"
+           y="69.392189"
+           style="stroke-width:0.26458332">setup()</tspan></text>
+    </g>
+    <g
+       transform="translate(-30.012096,13.667544)"
+       id="g5450">
+      <g
+         id="g5117"
+         transform="translate(33.994579,-19.143525)">
+        <rect
+           y="82.389336"
+           x="104.77654"
+           height="10.649512"
+           width="61.649513"
+           id="rect987-6-9"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.35048801;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="82.389336"
+           x="104.77654"
+           height="10.655192"
+           width="2.6608834"
+           id="rect985-1-9"
+           style="opacity:1;fill:#83bee2;fill-opacity:1;stroke:#83bee2;stroke-width:0.34480736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="143.86685"
+         y="70.421936"
+         id="text995-0-8"><tspan
+           id="tspan993-7-0"
+           x="143.86685"
+           y="70.421936"
+           style="font-size:4.93888903px;stroke-width:0.26458332">Set URL handler</tspan></text>
+    </g>
+    <g
+       transform="translate(-30.012096,12.080043)"
+       id="g5443">
+      <g
+         transform="translate(33.994579,-8.488335)"
+         id="g5117-1">
+        <rect
+           y="82.389336"
+           x="104.77654"
+           height="10.649512"
+           width="61.649513"
+           id="rect987-6-9-8"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.35048801;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="82.389336"
+           x="104.77654"
+           height="10.655192"
+           width="2.6608834"
+           id="rect985-1-9-7"
+           style="opacity:1;fill:#83bee2;fill-opacity:1;stroke:#83bee2;stroke-width:0.34480736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="143.70769"
+         y="80.545097"
+         id="text995-0-8-6"><tspan
+           id="tspan993-7-0-9"
+           x="143.70769"
+           y="80.545097"
+           style="font-size:4.93888903px;stroke-width:0.26458332">Begin AutoConnect</tspan></text>
+    </g>
+    <g
+       transform="translate(-30.012096,12.080043)"
+       id="g5436">
+      <g
+         id="g5182"
+         transform="translate(2.8998751,-3.571875)">
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.649512"
+           width="61.649513"
+           id="rect987-6-9-9"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.35048801;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.655192"
+           width="2.6608834"
+           id="rect985-1-9-5"
+           style="opacity:1;fill:#83bee2;fill-opacity:1;stroke:#83bee2;stroke-width:0.34480736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="143.76074"
+         y="96.497292"
+         id="text995-0-6"><tspan
+           id="tspan993-7-8"
+           x="143.76074"
+           y="96.497292"
+           style="font-size:4.93888903px;stroke-width:0.26458332">Check connection</tspan></text>
+    </g>
+    <g
+       transform="translate(7.0295931,2.5550426)"
+       id="g5525">
+      <g
+         id="g5518">
+        <rect
+           y="129.02588"
+           x="101.72944"
+           height="10.649512"
+           width="61.649513"
+           id="rect987-6-9-9-1"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.35048801;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="129.02588"
+           x="101.72944"
+           height="10.655192"
+           width="2.6608834"
+           id="rect985-1-9-5-8"
+           style="opacity:1;fill:#83bee2;fill-opacity:1;stroke:#83bee2;stroke-width:0.34480736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="106.666"
+         y="135.73148"
+         id="text995-0-6-6"><tspan
+           id="tspan993-7-8-4"
+           x="106.666"
+           y="135.73148"
+           style="font-size:4.93888903px;stroke-width:0.26458332">Do handleClent()</tspan></text>
+    </g>
+    <g
+       transform="translate(-30.012096,1.4967093)"
+       id="g5472">
+      <g
+         id="g5182-0-5-1-3"
+         transform="translate(2.899875,-78.485552)">
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.649512"
+           width="61.649513"
+           id="rect987-6-9-9-1-3-5-2"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.35048801;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.655192"
+           width="2.6608834"
+           id="rect985-1-9-5-8-8-0-9"
+           style="opacity:1;fill:#83bee2;fill-opacity:1;stroke:#83bee2;stroke-width:0.34480736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="143.85994"
+         y="21.571556"
+         id="text995"><tspan
+           id="tspan993"
+           x="143.85994"
+           y="21.571556"
+           style="font-size:4.93888903px;stroke-width:0.26458332">Include directive</tspan></text>
+    </g>
+    <g
+       transform="translate(-30.012096,1.4967093)"
+       id="g5457">
+      <g
+         id="g5182-0-5"
+         transform="translate(2.899875,-45.969931)">
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.649512"
+           width="61.649513"
+           id="rect987-6-9-9-1-3"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.35048801;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.655192"
+           width="2.6608834"
+           id="rect985-1-9-5-8-8"
+           style="opacity:1;fill:#83bee2;fill-opacity:1;stroke:#83bee2;stroke-width:0.34480736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="143.76074"
+         y="54.099236"
+         id="text995-0"><tspan
+           id="tspan993-7"
+           x="143.76074"
+           y="54.099236"
+           style="font-size:4.93888903px;stroke-width:0.26458332">URL handler fucntion</tspan></text>
+    </g>
+    <g
+       transform="translate(-30.012096,1.4967093)"
+       id="g5465">
+      <g
+         id="g5182-0-5-1"
+         transform="translate(2.899875,-63.495841)">
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.649512"
+           width="61.649513"
+           id="rect987-6-9-9-1-3-5"
+           style="opacity:1;fill:#e4eeb3;fill-opacity:0.62745098;stroke:#7f7f7f;stroke-width:0.35048801;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+        <rect
+           y="92.892113"
+           x="135.87125"
+           height="10.655192"
+           width="2.6608834"
+           id="rect985-1-9-5-8-8-0"
+           style="opacity:1;fill:#83bee2;fill-opacity:1;stroke:#83bee2;stroke-width:0.34480736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:3.79147911px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="143.13184"
+         y="34.170132"
+         id="text995-9"><tspan
+           id="tspan4983"
+           x="143.13184"
+           y="34.170132"
+           style="font-size:3.88055563px;line-height:3.79147911px;stroke-width:0.26458332">Declare ESP8266WebServer</tspan><tspan
+           id="tspan4987"
+           x="143.13184"
+           y="38.164337"
+           style="font-size:3.88055563px;line-height:3.79147911px;stroke-width:0.26458332">         &amp; AutoConnect</tspan></text>
+    </g>
+  </g>
+</svg>

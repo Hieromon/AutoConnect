@@ -1,0 +1,38 @@
+.lead {
+	color: gray;
+	font-size: 15px;
+}
+
+.md-typeset h2 {
+	border-bottom: solid 1px #d3d3d3;
+	padding-bottom: 5px;
+}
+
+.md-typeset pre {
+  font-size: 12px;
+}
+
+.md-typeset .codehilitetable {
+  margin-left:-20px;
+  margin-right: -20px;
+  border-radius: 0;
+}
+
+.md-typeset .codehilitetable .linenodiv {
+  background-color: #364549 !important;
+}
+
+.md-typeset .codehilitetable .linenodiv pre {
+  background-color: #364549 !important;
+  color: #aaa;
+  margin: 0;
+}
+
+.apidef {
+  display: inline-block;
+  width: 100px;
+}
+
+.apidl {
+  margin-left: 20px;
+}

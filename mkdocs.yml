@@ -1,0 +1,76 @@
+# Project information
+site_name: 'AutoConnect for ESP8266'
+site_description: 'ESP8266 WLAN configuration at run time with web interface'
+site_author: 'Hieromon Ikasamo'
+site_url: 'https://Hieromon.github.io/AutoConnect/'
+
+# Docs
+docs_dir: 'docs'
+
+# Pages
+pages:
+  - 'Overview' : index.md
+  - 'Getting started' : gettingstarted.md
+  - 'AutoConnect menu' : menu.md
+  - 'Usage the library' : usage.md
+  - 'Library APIs' : api.md
+  - 'Examples' : examples.md
+  - 'FAQ' : faq.md
+  - 'License' : license.md
+
+# Repository
+repo_name: 'Hieromon/AutoConnect'
+repo_url: 'https://github.com/Hieromon/AutoConnect'
+
+# Copyright
+copyright: 'Copyright &copy; 2018 Hieromon Ikasamo'
+
+# Configuration
+theme:
+  name: 'material'
+  feature:
+    tabs: true
+  language: 'en'
+  logo: 'images/arduino-logo.svg'
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
+# Customization
+extra_css:
+  - 'css/paragraph.css'
+extra_javascript:
+  - 'js/gifffer.min.js'
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/Hieromon'
+    - type: 'twitter'
+      link: 'https://twitter.com/hieromon'
+
+# Google Analytics
+google_analytics:
+  - 'UA-XXXXXXXX-X'
+  - 'auto'
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - codehilite:
+      linenums: none
+      use_pygments: true
+  - toc:
+      permalink: true

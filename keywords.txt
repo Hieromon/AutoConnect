@@ -1,0 +1,31 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+AutoConnect	KEYWORD1
+AutoConnectConfig	KEYWORD1
+AutoConnectCredential	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+config	KEYWORD2
+begin	KEYWORD2
+del	KEYWORD2
+end	KEYWORD2
+entries	KEYWORD2
+handleClient	KEYWORD2
+handleRequest	KEYWORD2
+home	KEYWORD2
+host	KEYWORD2
+load	KEYWORD2
+onDetect	KEYWORD2
+onNotFound	KEYWORD2
+save	KEYWORD2
+
+#######################################
+# Literals (KEYWORD3)
+#######################################
+AC_WEBSERVER_PARASITIC	LITERAL1
+AC_WEBSERVER_HOSTED	LITERAL1
+AC_SAVECREDENTIAL_NEVER	LITERAL1
+AC_SAVECREDENTIAL_AUTO	LITERAL1

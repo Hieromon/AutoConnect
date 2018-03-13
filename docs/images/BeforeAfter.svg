@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 278.73105 210.63869"
+   height="210.63869mm"
+   width="278.73105mm">
+  <defs
+     id="defs2">
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible">
+      <path
+         id="path6600"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path6582"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Tail"
+       style="overflow:visible">
+      <g
+         id="g6627"
+         transform="scale(-1.2)"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1">
+        <path
+           id="path6615"
+           d="M -3.8048674,-3.9585227 0.54352094,0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-opacity:1" />
+        <path
+           id="path6617"
+           d="M -1.2866832,-3.9585227 3.0617053,0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-opacity:1" />
+        <path
+           id="path6619"
+           d="M 1.3053582,-3.9585227 5.6537466,0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-opacity:1" />
+        <path
+           id="path6621"
+           d="M -3.8048674,4.1775838 0.54352094,0.21974226"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-opacity:1" />
+        <path
+           id="path6623"
+           d="M -1.2866832,4.1775838 3.0617053,0.21974226"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-opacity:1" />
+        <path
+           id="path6625"
+           d="M 1.3053582,4.1775838 5.6537466,0.21974226"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-opacity:1" />
+      </g>
+    </marker>
+    <linearGradient
+       id="linearGradient6499"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop6497" />
+    </linearGradient>
+    <marker
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-9"
+       style="overflow:visible">
+      <path
+         id="path6600-6"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     style="display:inline"
+     id="layer4">
+    <path
+       transform="translate(81.157196,-138.76399)"
+       d="M 68.550633,144.7085 V 349.40267 M 73.842303,144.7085 V 349.40267 M 79.133963,144.7085 V 349.40267 M 84.425633,144.7085 V 349.40267 M 89.717303,144.7085 V 349.40267 M 95.008953,144.7085 V 349.40267 M 100.30059,144.7085 V 349.40267 M 105.59223,144.7085 V 349.40267 M 110.88386,144.7085 V 349.40267 M 116.17552,144.7085 V 349.40267 M 121.46719,144.7085 V 349.40267 M 126.75885,144.7085 V 349.40267 M 132.05052,144.7085 V 349.40267 M 137.34219,144.7085 V 349.40267 M 142.63385,144.7085 V 349.40267 M 147.92552,144.7085 V 349.40267 M 153.21719,144.7085 V 349.40267 M 158.50885,144.7085 V 349.40267 M 163.80052,144.7085 V 349.40267 M 169.09219,144.7085 V 349.40267 M 174.38385,144.7085 V 349.40267 M 179.67552,144.7085 V 349.40267 M 184.96719,144.7085 V 349.40267 M 190.25885,144.7085 V 349.40267 M 195.55051,144.7085 V 349.40267 M 68.550633,144.7085 H 197.57386 M 68.550633,150.00016 H 197.57386 M 68.550633,155.29183 H 197.57386 M 68.550633,160.5835 H 197.57386 M 68.550633,165.87516 H 197.57386 M 68.550633,171.16683 H 197.57386 M 68.550633,176.4585 H 197.57386 M 68.550633,181.75016 H 197.57386 M 68.550633,187.04183 H 197.57386 M 68.550633,192.33349 H 197.57386 M 68.550633,197.62516 H 197.57386 M 68.550633,202.91683 H 197.57386 M 68.550633,208.2085 H 197.57386 M 68.550633,213.50018 H 197.57386 M 68.550633,218.79184 H 197.57386 M 68.550633,224.0835 H 197.57386 M 68.550633,229.37518 H 197.57386 M 68.550633,234.66684 H 197.57386 M 68.550633,239.95851 H 197.57386 M 68.550633,245.25017 H 197.57386 M 68.550633,250.54184 H 197.57386 M 68.550633,255.83351 H 197.57386 M 68.550633,261.12517 H 197.57386 M 68.550633,266.41684 H 197.57386 M 68.550633,271.70851 H 197.57386 M 68.550633,277.00016 H 197.57386 M 68.550633,282.29184 H 197.57386 M 68.550633,287.58351 H 197.57386 M 68.550633,292.87516 H 197.57386 M 68.550633,298.16684 H 197.57386 M 68.550633,303.45851 H 197.57386 M 68.550633,308.75016 H 197.57386 M 68.550633,314.04184 H 197.57386 M 68.550633,319.33351 H 197.57386 M 68.550633,324.62516 H 197.57386 M 68.550633,329.91684 H 197.57386 M 68.550633,335.20851 H 197.57386 M 68.550633,340.50016 H 197.57386 M 68.550633,345.79184 H 197.57386"
+       style="display:inline;fill:none;stroke:#7f7f7f;stroke-width:0.04;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path6560-5-2" />
+    <path
+       d="M -79.569366,144.70851 V 349.40267 M -74.2777,144.70851 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291667,-204.69416 V 349.40267 M -58.4027,144.70851 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291666,-204.69416 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291666,-204.69416 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291667,-204.69416 V 349.40267 M -5.486035,144.70851 V 349.40267 M -0.194366,144.70851 V 349.40267 M 5.097298,144.70851 v 204.69416 m 5.291667,-204.69416 v 204.69416 m 5.291666,-204.69416 v 204.69416 m 5.291662,-204.69416 v 204.69416 m 5.29167,-204.69416 v 204.69416 m 5.29167,-204.69416 v 204.69416 m 5.29167,-204.69416 v 204.69416 m 5.29166,-204.69416 v 204.69416 m 5.29167,-204.69416 V 349.40267 M -79.569366,144.70851 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29166 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29166 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29167 H 49.453963 M -79.569366,192.3335 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29167 H 49.453963 M -79.569366,208.2085 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29165 H 49.453963 M -79.569366,224.0835 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29165 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29166 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29166 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29165 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29165 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29165 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29165 H 49.453963 m -129.023329,5.29168 H 49.453963 m -129.023329,5.29167 H 49.453963 m -129.023329,5.29165 H 49.453963 m -129.023329,5.29168 H 49.453963"
+       style="display:inline;fill:none;stroke:#7f7f7f;stroke-width:0.04;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path6560-9"
+       transform="translate(81.157196,-138.76399)" />
+  </g>
+  <g
+     style="display:inline"
+     id="layer3">
+    <g
+       transform="translate(93.61583,-34.456309)"
+       style="display:inline"
+       id="layer1-9">
+      <rect
+         y="40.883331"
+         x="-93.133331"
+         height="197.90833"
+         width="180.44583"
+         id="rect5031"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.96499997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.89499987, 2.89499987;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill" />
+      <text
+         id="text817"
+         y="49.379761"
+         x="-86.579216"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="49.379761"
+           x="-86.579216"
+           id="tspan815"><tspan
+   id="tspan951"
+   style="fill:#669900">#include</tspan> &lt;<tspan
+   id="tspan885"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Italic'">ESP8266WiFi.h</tspan>&gt;</tspan><tspan
+           id="tspan819"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="55.317192"
+           x="-86.579216"><tspan
+   id="tspan953"
+   style="fill:#669900">#include</tspan> &lt;<tspan
+   id="tspan887"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Italic'">ESP8266WebServer.h</tspan>&gt;</tspan><tspan
+           id="tspan821"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="61.25462"
+           x="-86.579216" /><tspan
+           id="tspan823"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="66.987259"
+           x="-86.579216" /><tspan
+           id="tspan825"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="72.719894"
+           x="-86.579216"><tspan
+   id="tspan933"
+   style="fill:#ff6600">ESP8266WebServer</tspan><tspan
+   id="tspan907"
+   style="fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:0">Server</tspan>;</tspan><tspan
+           id="tspan827"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="78.657326"
+           x="-86.579216" /><tspan
+           id="tspan829"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="84.389969"
+           x="-86.579216" /><tspan
+           id="tspan831"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="90.122604"
+           x="-86.579216"><tspan
+   id="tspan957"
+   style="fill:#3366cc">void</tspan> rootPage() {</tspan><tspan
+           id="tspan833"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="96.060036"
+           x="-86.579216"><tspan
+   id="tspan967"
+   style="fill:#3366cc">char</tspan> content[] = <tspan
+   id="tspan971"
+   style="fill:#003399">&quot;Hello, world&quot;</tspan>;</tspan><tspan
+           id="tspan835"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="101.99747"
+           x="-86.579216">  Server.<tspan
+   id="tspan969"
+   style="fill:#ff6600">send</tspan>(200, <tspan
+   id="tspan973"
+   style="fill:#003399">&quot;text/plain&quot;</tspan>, content);</tspan><tspan
+           id="tspan837"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="107.93489"
+           x="-86.579216">}</tspan><tspan
+           id="tspan839"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="113.87232"
+           x="-86.579216" /><tspan
+           id="tspan841"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="119.60496"
+           x="-86.579216"><tspan
+   id="tspan959"
+   style="fill:#3366cc">void</tspan><tspan
+   id="tspan963"
+   style="fill:#808080">setup</tspan>() {</tspan><tspan
+           id="tspan843"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="125.54239"
+           x="-86.579216"><tspan
+   id="tspan975"
+   style="fill:#ff6600">  delay</tspan>(1000);</tspan><tspan
+           id="tspan845"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="131.47983"
+           x="-86.579216"><tspan
+   id="tspan977"
+   style="fill:#ff6600">  Serial</tspan>.<tspan
+   id="tspan979"
+   style="fill:#ff6600">begin</tspan>(115200);</tspan><tspan
+           id="tspan847"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="137.41725"
+           x="-86.579216"><tspan
+   id="tspan981"
+   style="fill:#ff6600">  Serial</tspan>.<tspan
+   id="tspan983"
+   style="fill:#ff6600">println</tspan>();</tspan><tspan
+           id="tspan849"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="143.35468"
+           x="-86.579216" /><tspan
+           id="tspan1201"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="149.08731"
+           x="-86.579216"><tspan
+   id="tspan1238"
+   style="fill:#ff6600">  WiFi</tspan>.<tspan
+   id="tspan1236"
+   style="fill:#ff6600">begin</tspan>(<tspan
+   id="tspan1248"
+   style="fill:#003399">&quot;ssid&quot;</tspan>, <tspan
+   id="tspan1250"
+   style="fill:#003399">&quot;pass&quot;</tspan>);</tspan><tspan
+           id="tspan1203"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="155.02475"
+           x="-86.579216"><tspan
+   id="tspan1240"
+   style="fill:#808080">  while</tspan> (<tspan
+   id="tspan1234"
+   style="fill:#ff6600">WiFi</tspan>.status() != WL_CONNECTED) {</tspan><tspan
+           id="tspan1205"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="160.96217"
+           x="-86.579216"><tspan
+   id="tspan1242"
+   style="fill:#ff6600">    delay</tspan>(100);</tspan><tspan
+           id="tspan1207"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="166.89961"
+           x="-86.579216">  }</tspan><tspan
+           id="tspan1209"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="172.83704"
+           x="-86.579216" /><tspan
+           id="tspan851"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="178.56967"
+           x="-86.579216">  Server.<tspan
+   id="tspan985"
+   style="fill:#ff6600">on</tspan>(<tspan
+   id="tspan987"
+   style="fill:#003399">&quot;/&quot;</tspan>, rootPage);</tspan><tspan
+           id="tspan857"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="184.50711"
+           x="-86.579216">  Server.<tspan
+   id="tspan989"
+   style="fill:#ff6600">begin</tspan>();</tspan><tspan
+           id="tspan859"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="190.44453"
+           x="-86.579216"><tspan
+   id="tspan10241"
+   style="fill:#ff6600">  Serial</tspan>.<tspan
+   id="tspan10243"
+   style="fill:#ff6600">println</tspan>(<tspan
+   id="tspan10245"
+   style="fill:#003399">&quot;WiFi connected: &quot;</tspan> +</tspan><tspan
+           id="tspan10156"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="196.38196"
+           x="-86.579216"><tspan
+   id="tspan10247"
+   style="fill:#ff6600">                 WiFi</tspan>.<tspan
+   id="tspan10249"
+   style="fill:#ff6600">localIP</tspan>().toString());</tspan><tspan
+           id="tspan10158"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="202.3194"
+           x="-86.579216">}</tspan><tspan
+           id="tspan861"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="208.25682"
+           x="-86.579216" /><tspan
+           id="tspan5027"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="213.98946"
+           x="-86.579216" /><tspan
+           id="tspan5029"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="219.72211"
+           x="-86.579216" /><tspan
+           id="tspan863"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="225.45474"
+           x="-86.579216"><tspan
+   id="tspan961"
+   style="fill:#3366cc">void</tspan><tspan
+   id="tspan965"
+   style="fill:#808080">loop</tspan>() {</tspan><tspan
+           id="tspan865"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="231.39217"
+           x="-86.579216">  Server.<tspan
+   id="tspan1001"
+   style="fill:#ff6600">handleClient</tspan>();</tspan><tspan
+           id="tspan867"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="237.32961"
+           x="-86.579216">}</tspan></text>
+      <text
+         id="text817-4"
+         y="49.908928"
+         x="61.450211"
+         style="font-style:normal;font-weight:normal;font-size:4.58611107px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="49.908928"
+           x="61.450211"
+           id="tspan815-6"><tspan
+   id="tspan951-0"
+   style="fill:#669900;stroke-width:0.26458332">#include</tspan> &lt;<tspan
+   id="tspan885-9"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Italic';stroke-width:0.26458332">ESP8266WiFi.h</tspan>&gt;</tspan><tspan
+           id="tspan819-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="55.846359"
+           x="61.450211"><tspan
+   id="tspan953-1"
+   style="fill:#669900;stroke-width:0.26458332">#include</tspan> &lt;<tspan
+   id="tspan887-6"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Italic';stroke-width:0.26458332">ESP8266WebServer.h</tspan>&gt;</tspan><tspan
+           id="tspan821-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="61.783787"
+           x="61.450211"><tspan
+   id="tspan955-1"
+   style="fill:#669900;stroke-width:0.26458332">#include</tspan> &lt;<tspan
+   id="tspan889-5"
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Italic';stroke-width:0.26458332">AutoConnect.h</tspan>&gt;</tspan><tspan
+           id="tspan823-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="67.721214"
+           x="61.450211" /><tspan
+           id="tspan825-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="73.453857"
+           x="61.450211"><tspan
+   id="tspan933-1"
+   style="fill:#ff6600;stroke-width:0.26458332">ESP8266WebServer </tspan><tspan
+   id="tspan907-7"
+   style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:0">Server</tspan>;</tspan><tspan
+           id="tspan827-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="79.391281"
+           x="61.450211"><tspan
+   id="tspan939-3"
+   style="fill:#ff6600;stroke-width:0.26458332">AutoConnect</tspan>      Portal(Server);</tspan><tspan
+           id="tspan829-9"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="85.328712"
+           x="61.450211" /><tspan
+           id="tspan831-6"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="91.061356"
+           x="61.450211"><tspan
+   id="tspan957-4"
+   style="fill:#3366cc;stroke-width:0.26458332">void</tspan> rootPage() {</tspan><tspan
+           id="tspan833-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="96.998779"
+           x="61.450211"><tspan
+   id="tspan967-0"
+   style="fill:#3366cc;stroke-width:0.26458332">  char</tspan> content[] = <tspan
+   id="tspan971-3"
+   style="fill:#003399;stroke-width:0.26458332">&quot;Hello, world&quot;</tspan>;</tspan><tspan
+           id="tspan835-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="102.93621"
+           x="61.450211">  Server.<tspan
+   id="tspan969-6"
+   style="fill:#ff6600;stroke-width:0.26458332">send</tspan>(200, <tspan
+   id="tspan973-5"
+   style="fill:#003399;stroke-width:0.26458332">&quot;text/plain&quot;</tspan>, content);</tspan><tspan
+           id="tspan837-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="108.87364"
+           x="61.450211">}</tspan><tspan
+           id="tspan839-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="114.81107"
+           x="61.450211" /><tspan
+           id="tspan841-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="120.54371"
+           x="61.450211"><tspan
+   id="tspan959-3"
+   style="fill:#3366cc;stroke-width:0.26458332">void </tspan><tspan
+   id="tspan963-4"
+   style="fill:#808080;stroke-width:0.26458332">setup</tspan>() {</tspan><tspan
+           id="tspan843-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="126.48114"
+           x="61.450211"><tspan
+   id="tspan975-8"
+   style="fill:#ff6600;stroke-width:0.26458332">  delay</tspan>(1000);</tspan><tspan
+           id="tspan845-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="132.41856"
+           x="61.450211"><tspan
+   id="tspan977-5"
+   style="fill:#ff6600;stroke-width:0.26458332">  Serial</tspan>.<tspan
+   id="tspan979-0"
+   style="fill:#ff6600;stroke-width:0.26458332">begin</tspan>(115200);</tspan><tspan
+           id="tspan847-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="138.356"
+           x="61.450211"><tspan
+   id="tspan981-2"
+   style="fill:#ff6600;stroke-width:0.26458332">  Serial</tspan>.<tspan
+   id="tspan983-4"
+   style="fill:#ff6600;stroke-width:0.26458332">println</tspan>();</tspan><tspan
+           id="tspan849-7"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="144.29343"
+           x="61.450211" /><tspan
+           id="tspan851-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="150.02606"
+           x="61.450211" /><tspan
+           id="tspan4949"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="155.75871"
+           x="61.450211" /><tspan
+           id="tspan4953"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="161.49135"
+           x="61.450211" /><tspan
+           id="tspan4957"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="167.22398"
+           x="61.450211" /><tspan
+           id="tspan4961"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="172.95662"
+           x="61.450211" /><tspan
+           id="tspan8589"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="178.68925"
+           x="61.450211">  Server.<tspan
+   id="tspan985-8"
+   style="fill:#ff6600;stroke-width:0.26458332">on</tspan>(<tspan
+   id="tspan987-9"
+   style="fill:#003399;stroke-width:0.26458332">&quot;/&quot;</tspan>, rootPage);</tspan><tspan
+           id="tspan10135"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="184.62669"
+           x="61.450211"><tspan
+   id="tspan10139"
+   style="fill:#3366cc">  boolean</tspan> r = Portal.<tspan
+   id="tspan10137"
+   style="fill:#ff6600">begin</tspan>();</tspan><tspan
+           id="tspan853-4"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="190.56412"
+           x="61.450211"><tspan
+   id="tspan1007-8"
+   style="fill:#808080;stroke-width:0.26458332">  if</tspan> (r) {</tspan><tspan
+           id="tspan855-6"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="196.50156"
+           x="61.450211"><tspan
+   id="tspan991-8"
+   style="fill:#ff6600;stroke-width:0.26458332">    Serial</tspan>.<tspan
+   id="tspan993-0"
+   style="fill:#ff6600;stroke-width:0.26458332">println</tspan>(<tspan
+   id="tspan995-3"
+   style="fill:#003399;stroke-width:0.26458332">&quot;WiFi connected: &quot;</tspan> + </tspan><tspan
+           id="tspan6550"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="202.43898"
+           x="61.450211"><tspan
+   id="tspan6552"
+   style="fill:#ff6600;stroke-width:0.26458332">                   WiFi</tspan>.<tspan
+   id="tspan999-4"
+   style="fill:#ff6600;stroke-width:0.26458332">localIP</tspan>().toString());</tspan><tspan
+           id="tspan857-9"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="208.3764"
+           x="61.450211">  }</tspan><tspan
+           id="tspan859-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="214.31384"
+           x="61.450211">}</tspan><tspan
+           id="tspan8585"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="220.25127"
+           x="61.450211" /><tspan
+           id="tspan863-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="225.9839"
+           x="61.450211"><tspan
+   id="tspan961-0"
+   style="fill:#3366cc;stroke-width:0.26458332">void </tspan><tspan
+   id="tspan965-0"
+   style="fill:#808080;stroke-width:0.26458332">loop</tspan>() {</tspan><tspan
+           id="tspan865-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="231.92134"
+           x="61.450211">  Portal.<tspan
+   id="tspan1001-9"
+   style="fill:#ff6600;stroke-width:0.26458332">handleClient</tspan>();</tspan><tspan
+           id="tspan867-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas;stroke-width:0.26458332"
+           y="237.85876"
+           x="61.450211">}</tspan></text>
+      <path
+         id="path6541"
+         style="fill:none;stroke:none;stroke-width:0.0264583px"
+         d="M -93.133329,40.88333 V 238.79165 M -87.841663,40.88333 V 238.79165 M -82.549996,40.88333 V 238.79165 M -77.25833,40.88333 V 238.79165 M -71.966663,40.88333 V 238.79165 M -66.674996,40.88333 V 238.79165 M -61.38333,40.88333 V 238.79165 M -56.091663,40.88333 V 238.79165 M -50.799997,40.88333 V 238.79165 M -45.50833,40.88333 V 238.79165 M -40.216664,40.88333 V 238.79165 M -34.924997,40.88333 V 238.79165 M -29.633331,40.88333 V 238.79165 M -24.341664,40.88333 V 238.79165 M -19.049998,40.88333 V 238.79165 M -13.758331,40.88333 V 238.79165 M -8.4666644,40.88333 V 238.79165 M -3.1749979,40.88333 V 238.79165 M 2.1166687,40.88333 V 238.79165 M 7.4083352,40.88333 V 238.79165 M 12.700002,40.88333 V 238.79165 M 17.991668,40.88333 V 238.79165 M 23.283335,40.88333 V 238.79165 M 28.575001,40.88333 V 238.79165 M 33.866668,40.88333 V 238.79165 M 39.158334,40.88333 V 238.79165 M 44.450001,40.88333 V 238.79165 M 49.741668,40.88333 V 238.79165 M 55.033334,40.88333 V 238.79165 M 60.325001,40.88333 V 238.79165 M 65.616667,40.88333 V 238.79165 M 70.908334,40.88333 V 238.79165 M 76.2,40.88333 V 238.79165 M 81.491667,40.88333 V 238.79165 M 86.783333,40.88333 V 238.79165 M -93.133329,40.88333 H 87.312498 M -93.133329,46.174997 H 87.312498 M -93.133329,51.466663 H 87.312498 M -93.133329,56.75833 H 87.312498 M -93.133329,62.049997 H 87.312498 M -93.133329,67.341663 H 87.312498 M -93.133329,72.63333 H 87.312498 M -93.133329,77.924996 H 87.312498 M -93.133329,83.216663 H 87.312498 M -93.133329,88.508329 H 87.312498 M -93.133329,93.799996 H 87.312498 M -93.133329,99.091662 H 87.312498 M -93.133329,104.38333 H 87.312498 M -93.133329,109.675 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 M -93.133329,125.55 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29166 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29167 H 87.312498 m -180.445827,5.29166 H 87.312498" />
+      <rect
+         y="40.883331"
+         x="-93.133331"
+         height="203.72917"
+         width="128.05833"
+         id="rect6558"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.96499997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.89499987, 2.89499987;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill" />
+      <text
+         id="text8720"
+         y="39.311832"
+         x="-37.417728"
+         style="font-style:normal;font-weight:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-size:6.3499999px;stroke-width:0.26458332"
+           y="39.311832"
+           x="-37.417728"
+           id="tspan8718">Before</tspan></text>
+      <text
+         id="text8720-4"
+         y="39.311832"
+         x="108.89342"
+         style="font-style:normal;font-weight:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-size:6.3499999px;stroke-width:0.26458332"
+           y="39.311832"
+           x="108.89342"
+           id="tspan8718-5">After</tspan></text>
+    </g>
+  </g>
+  <g
+     style="display:inline"
+     transform="translate(81.157197,-138.76399)"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#cc0000;fill-opacity:0.5884476;stroke:none;stroke-width:0.26458332"
+       x="40.037697"
+       y="166.73872"
+       id="text4947"><tspan
+         id="tspan4945"
+         x="40.037697"
+         y="166.73872"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#cc0000;fill-opacity:0.5884476;stroke-width:0.26458332">Insert</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#cc0000;fill-opacity:0.5884476;stroke:none;stroke-width:0.26458332"
+       x="40.037697"
+       y="184.13321"
+       id="text4947-7"><tspan
+         id="tspan4945-8"
+         x="40.037697"
+         y="184.13321"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#cc0000;fill-opacity:0.5884476;stroke-width:0.26458332">Insert</tspan></text>
+    <path
+       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:0.5884476;stroke:#000000;stroke-width:0.04;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill"
+       id="path8601"
+       d="M 58.774079,77.788551 52.28775,81.533435 V 74.043668 Z"
+       transform="matrix(0.81717396,0,0,0.87052198,21.795133,114.15624)" />
+    <path
+       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:0.5884476;stroke:#000000;stroke-width:0.04;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill"
+       id="path8601-8"
+       d="M 58.774079,77.788551 52.28775,81.533435 V 74.043668 Z"
+       transform="matrix(0.81717396,0,0,0.87052198,21.795133,96.761759)" />
+    <path
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:0.58823529"
+       d="M 72.114683,167.42599 H 136.51327"
+       id="path8701" />
+    <path
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:1.15039361;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.30078721, 2.30078721;stroke-dashoffset:0;stroke-opacity:0.58823529"
+       d="M 71.755433,185.31781 H 156.98093"
+       id="path8701-6" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#cc0000;fill-opacity:0.58823529;stroke:none;stroke-width:0.26458332"
+       x="42.387871"
+       y="261.29605"
+       id="text4947-7-7"><tspan
+         id="tspan4945-8-3"
+         x="42.387871"
+         y="261.29605"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#cc0000;fill-opacity:0.58823529;stroke-width:0.26458332">Remove</tspan></text>
+    <path
+       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:0.58823529;stroke:#000000;stroke-width:0.04;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill"
+       id="path8601-2"
+       d="M 58.774079,77.788551 52.28775,81.533435 V 74.043668 Z"
+       transform="matrix(0.81717396,0,0,0.87052198,-7.50529,190.98005)" />
+    <path
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:0.58823529"
+       d="m -72.033307,247.67462 v 27.45676 h 104.21089 v -27.20715 z"
+       id="path8699" />
+    <path
+       style="display:inline;fill:none;stroke:#cc0000;stroke-width:1.13;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.58823529"
+       d="M 21.700583,287.63911 H -27.340845"
+       id="path8682" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#cc0000;fill-opacity:0.58823529;stroke:none;stroke-width:0.26458332"
+       x="29.687849"
+       y="289.42407"
+       id="text4947-7-7-1"><tspan
+         id="tspan4945-8-3-2"
+         x="29.687849"
+         y="289.42407"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#cc0000;fill-opacity:0.58823529;stroke-width:0.26458332">Replace</tspan></text>
+    <path
+       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:0.58823529;stroke:#000000;stroke-width:0.04;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill"
+       id="path8601-2-1"
+       d="M 58.774079,77.788551 52.28775,81.533435 V 74.043668 Z"
+       transform="matrix(0.81717396,0,0,0.87052198,-21.094365,219.93372)" />
+    <path
+       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:0.58823529;stroke:#000000;stroke-width:0.04;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill"
+       id="path8601-2-1-2"
+       d="M 58.774079,77.788551 52.28775,81.533435 V 74.043668 Z"
+       transform="matrix(0.81717396,0,0,0.87052198,27.103313,219.93372)" />
+    <path
+       style="display:inline;fill:none;stroke:#cc0000;stroke-width:1.13;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.58823529"
+       d="m 69.885303,287.73791 h -8.68119"
+       id="path8682-3" />
+    <path
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:1.14999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.3, 2.3;stroke-dashoffset:0;stroke-opacity:0.58823529"
+       d="m -69.10603,290.54068 h 37.675386"
+       id="path8701-6-3" />
+    <path
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:1.14999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.3, 2.3;stroke-dashoffset:0;stroke-opacity:0.58823529"
+       d="M 78.780993,290.54068 H 147.78207"
+       id="path8701-6-3-0" />
+    <path
+       style="display:inline;fill:none;stroke:#cc0000;stroke-width:1.13;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.58823529"
+       d="M 21.741973,334.36742 H -12.558384"
+       id="path8682-0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;display:inline;fill:#cc0000;fill-opacity:0.58823529;stroke:none;stroke-width:0.26458332"
+       x="29.729242"
+       y="336.15237"
+       id="text4947-7-7-1-1"><tspan
+         id="tspan4945-8-3-2-6"
+         x="29.729242"
+         y="336.15237"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.3499999px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#cc0000;fill-opacity:0.58823529;stroke-width:0.26458332">Replace</tspan></text>
+    <path
+       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:0.58823529;stroke:#000000;stroke-width:0.04;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill"
+       id="path8601-2-1-1"
+       d="M 58.774079,77.788551 52.28775,81.533435 V 74.043668 Z"
+       transform="matrix(0.81717396,0,0,0.87052198,-21.052974,266.66203)" />
+    <path
+       style="display:inline;opacity:1;fill:#cc0000;fill-opacity:0.58823529;stroke:#000000;stroke-width:0.04;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0;paint-order:markers stroke fill"
+       id="path8601-2-1-2-6"
+       d="M 58.774079,77.788551 52.28775,81.533435 V 74.043668 Z"
+       transform="matrix(0.81717396,0,0,0.87052198,27.144704,266.66203)" />
+    <path
+       style="display:inline;fill:none;stroke:#cc0000;stroke-width:1.13000011;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.58823529"
+       d="M 69.926694,334.46622 H 61.245503"
+       id="path8682-3-5" />
+    <path
+       style="display:inline;fill:none;stroke:#ff0000;stroke-width:1.14999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.3, 2.3;stroke-dashoffset:0;stroke-opacity:0.58823529"
+       d="m -69.064641,337.26899 h 15.35838"
+       id="path8701-6-3-3" />
+    <path
+       style="display:inline;opacity:1;fill:none;stroke:#ff0000;stroke-width:1.14999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.3, 2.3;stroke-dashoffset:0;stroke-opacity:0.58823529"
+       d="M 78.822388,337.26899 H 94.503219"
+       id="path8701-6-3-0-1" />
+  </g>
+</svg>

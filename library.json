@@ -1,0 +1,13 @@
+{
+  "name": "AutoConnect",
+  "keywords": "communication, http, server, web, wifi, wi-fi",
+  "description": "ESP8266 WLAN configuration at runtime with web interface.",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/Hieromon/AutoConnect.git"
+  },
+  "frameworks": "arduino",
+  "platforms": "espressif8266",
+  "version": "0.9.1"
+}
