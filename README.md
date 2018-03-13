@@ -7,7 +7,7 @@ An Arduino library for ESP8266 WLAN configuration at run time with web interface
 To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class.
 Easily implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.
 
-<img style="display:inline-block;width:460px;margin-right:30px;" src="docs/images/ov.png" /><img style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;" src="docs/images/ov.gif" />
+<img width="460" src="docs/images/ov.png" /><img width="182" src="docs/images/ov.gif" />
 
 ### No need pre-coded SSID &amp; password
 
