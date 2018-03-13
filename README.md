@@ -1,4 +1,4 @@
-# AutoConnect <small>for ESP8266</small>
+# AutoConnect for ESP8266
 
 An Arduino library for ESP8266 WLAN configuration at run time with web interface. [![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
 
