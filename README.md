@@ -52,7 +52,7 @@ Apply the [Arduino core](https://github.com/esp8266/Arduino) of the ESP8266 Comm
 
 Most simple approach to applying AutoConnect for the existing sketches, follow the below steps.
 
-<div align="center"><img src="docs/images/BeforeAfter.svg" width="800"></div>
+<img src="docs/images/BeforeAfter.svg" width="800">
 
 ## More usages and Documentation
 
