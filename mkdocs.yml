@@ -5,7 +5,7 @@ site_author: 'Hieromon Ikasamo'
 site_url: 'https://Hieromon.github.io/AutoConnect/'
 
 # Docs
-docs_dir: 'docs'
+docs_dir: 'mkdocs'
 
 # Pages
 pages:
@@ -21,11 +21,13 @@ pages:
 # Repository
 repo_name: 'Hieromon/AutoConnect'
 repo_url: 'https://github.com/Hieromon/AutoConnect'
+edit_uri: ""
 
 # Copyright
 copyright: 'Copyright &copy; 2018 Hieromon Ikasamo'
 
 # Configuration
+use_directory_urls: false
 theme:
   name: 'material'
   feature:
@@ -53,7 +55,7 @@ extra:
 
 # Google Analytics
 google_analytics:
-  - 'UA-XXXXXXXX-X'
+  - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
   - 'auto'
 
 # Extensions

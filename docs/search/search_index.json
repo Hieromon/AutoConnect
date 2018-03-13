@@ -1,0 +1,544 @@
+{
+    "docs": [
+        {
+            "location": "/index.html",
+            "text": "AutoConnect \nfor ESP8266\n\u00b6\n\n\nAn Arduino library for ESP8266 WLAN configuration at run time with web interface.\n\n\nOverview\n\u00b6\n\n\nTo the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with \nESP8266WebServer\n class.\nEasily implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.\n\n\n\n\n No need pre-coded SSID & password\n\u00b6\n\n\nIt is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266 and WLAN. You can input SSID & Password from a smartphone via the web interface at runtime.\n\n\n Simple usage\n\u00b6\n\n\nAutoConnect control screen will be displayed automatically for establishing new connections. It aids by the \ncaptive portal\n when vested the connection cannot be detected.\nBy using the \nAutoConnect menu\n, to manage the connections convenient.\n\n\n Store the established connection\n\u00b6\n\n\nThe connection authentication data as credentials are saved automatically in EEPROM of ESP8266 and You can select the past SSID from the \nAutoConnect menu\n.\n\n\n Easy to embed in\n\u00b6\n\n\nAutoConnect can be embedded easily into your sketch, just \"\nbegin\n\" and \"\nhandleClient\n\".\n\n\n Lives with the your sketches\n\u00b6\n\n\nThe sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.\n\n\nInstallation\n\u00b6\n\n\nRequirements\n\u00b6\n\n\nSupported hardware\n\u00b6\n\n\n\n\n Generic ESP8266 modules (applying the ESP8266 Community's Arduino core)\n\n\n Adafruit HUZZAH ESP8266 (ESP-12)\n\n\n ESP-WROOM-02\n\n\n Heltec WiFi Kit 8\n\n\n NodeMCU 0.9 (ESP-12) / NodeMCU 1.0 (ESP-12E)\n\n\n Olimex MOD-WIFI-ESP8266\n\n\n SparkFun Thing\n\n\n SweetPea ESP-210\n\n\n\n\n\n\nAbout flash size on the module\n\n\nThe AutoConnect sketch size is relatively large. Large flash capacity is necessary. 512Kbyte (4Mbits) flash inclusion module such as ESP-01 is not recommended.\n\n\n\n\nRequired libraries\n\u00b6\n\n\nAutoConnect requires the following environment and libraries.\n\n\n \nArduino IDE\n\n\nThe current upstream at the 1.8 level or later is needed. Please install from the \nofficial Arduino IDE download page\n. This step is not required if you already have a modern version.\n\n\n \nESP8266 Arduino core\n\n\nAutoConnect targets sketches made on the assumption of \nESP8266 Community's Arduino core\n. The \nlatest release\n is recommended.\n\nInstall third-party platform using the \nBoards Manager\n of Arduino IDE. Package URL is \nhttp://arduino.esp8266.com/stable/package_esp8266com_index.json\n\n\n \nAdditional necessary library\n\n\nThe \nPageBuilder\n library to build HTML for ESP8266WebServer is needed.\n\nTo install the PageBuilder library into your Arduino IDE, you can use the \nLibrary Manager\n. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '\npagebuilder\n' in the topic '\nCommunication\n', then you can see the \nPageBuilder\n. The latest version or 1.0.0 later is required.\n\n\n\n\nInstall the AutoConnect\n\u00b6\n\n\nClone or download from the \nAutoConnect GitHub repository\n.\n\n\n\n\nWhen you select Download, you can import it to Arduino IDE immediately. After downloaded, the AutoConnect-master.zip file will be saved in your download folder. Then in the Arduino IDE, navigate to \n\"Sketch > Include Library\"\n. At the top of the drop down list, select the option to \n\"Add .ZIP Library...\"\n. Details for \nArduino official page\n.\n\n\n\n\n\n  window.onload = function() {\n    Gifffer();\n  }",
+            "title": "Overview"
+        },
+        {
+            "location": "/index.html#autoconnect-for-esp8266",
+            "text": "An Arduino library for ESP8266 WLAN configuration at run time with web interface.",
+            "title": "AutoConnect for ESP8266"
+        },
+        {
+            "location": "/index.html#overview",
+            "text": "To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with  ESP8266WebServer  class.\nEasily implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.",
+            "title": "Overview"
+        },
+        {
+            "location": "/index.html#no-need-pre-coded-ssid-password",
+            "text": "It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266 and WLAN. You can input SSID & Password from a smartphone via the web interface at runtime.",
+            "title": " No need pre-coded SSID &amp; password"
+        },
+        {
+            "location": "/index.html#simple-usage",
+            "text": "AutoConnect control screen will be displayed automatically for establishing new connections. It aids by the  captive portal  when vested the connection cannot be detected. By using the  AutoConnect menu , to manage the connections convenient.",
+            "title": " Simple usage"
+        },
+        {
+            "location": "/index.html#store-the-established-connection",
+            "text": "The connection authentication data as credentials are saved automatically in EEPROM of ESP8266 and You can select the past SSID from the  AutoConnect menu .",
+            "title": " Store the established connection"
+        },
+        {
+            "location": "/index.html#easy-to-embed-in",
+            "text": "AutoConnect can be embedded easily into your sketch, just \" begin \" and \" handleClient \".",
+            "title": " Easy to embed in"
+        },
+        {
+            "location": "/index.html#lives-with-the-your-sketches",
+            "text": "The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.",
+            "title": " Lives with the your sketches"
+        },
+        {
+            "location": "/index.html#installation",
+            "text": "",
+            "title": "Installation"
+        },
+        {
+            "location": "/index.html#requirements",
+            "text": "",
+            "title": "Requirements"
+        },
+        {
+            "location": "/index.html#supported-hardware",
+            "text": "Generic ESP8266 modules (applying the ESP8266 Community's Arduino core)   Adafruit HUZZAH ESP8266 (ESP-12)   ESP-WROOM-02   Heltec WiFi Kit 8   NodeMCU 0.9 (ESP-12) / NodeMCU 1.0 (ESP-12E)   Olimex MOD-WIFI-ESP8266   SparkFun Thing   SweetPea ESP-210    About flash size on the module  The AutoConnect sketch size is relatively large. Large flash capacity is necessary. 512Kbyte (4Mbits) flash inclusion module such as ESP-01 is not recommended.",
+            "title": "Supported hardware"
+        },
+        {
+            "location": "/index.html#required-libraries",
+            "text": "AutoConnect requires the following environment and libraries.    Arduino IDE  The current upstream at the 1.8 level or later is needed. Please install from the  official Arduino IDE download page . This step is not required if you already have a modern version.    ESP8266 Arduino core  AutoConnect targets sketches made on the assumption of  ESP8266 Community's Arduino core . The  latest release  is recommended. \nInstall third-party platform using the  Boards Manager  of Arduino IDE. Package URL is  http://arduino.esp8266.com/stable/package_esp8266com_index.json    Additional necessary library  The  PageBuilder  library to build HTML for ESP8266WebServer is needed. \nTo install the PageBuilder library into your Arduino IDE, you can use the  Library Manager . Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword ' pagebuilder ' in the topic ' Communication ', then you can see the  PageBuilder . The latest version or 1.0.0 later is required.",
+            "title": "Required libraries"
+        },
+        {
+            "location": "/index.html#install-the-autoconnect",
+            "text": "Clone or download from the  AutoConnect GitHub repository .   When you select Download, you can import it to Arduino IDE immediately. After downloaded, the AutoConnect-master.zip file will be saved in your download folder. Then in the Arduino IDE, navigate to  \"Sketch > Include Library\" . At the top of the drop down list, select the option to  \"Add .ZIP Library...\" . Details for  Arduino official page .   \n  window.onload = function() {\n    Gifffer();\n  }",
+            "title": "Install the AutoConnect"
+        },
+        {
+            "location": "/gettingstarted/index.html",
+            "text": "Let's do the most simple sketch\n\u00b6\n\n\nOpen the Arduino IDE, write the following sketch and upload it. The feature of this sketch is that the SSID and Password are not coded.\n\n\n#include\n \n<ESP8266WiFi.h>\n\n\n#include\n \n<ESP8266WebServer.h>\n\n\n#include\n \n<AutoConnect.h>\n\n\n\nESP8266WebServer\n \nServer\n;\n\n\nAutoConnect\n      \nPortal\n(\nServer\n);\n\n\n\nvoid\n \nrootPage\n()\n \n{\n\n  \nchar\n \ncontent\n[]\n \n=\n \n\"Hello, world\"\n;\n\n  \nServer\n.\nsend\n(\n200\n,\n \n\"text/plain\"\n,\n \ncontent\n);\n\n\n}\n\n\n\nvoid\n \nsetup\n()\n \n{\n\n  \ndelay\n(\n1000\n);\n\n  \nSerial\n.\nbegin\n(\n115200\n);\n\n  \nSerial\n.\nprintln\n();\n\n\n  \nServer\n.\non\n(\n\"/\"\n,\n \nrootPage\n);\n\n  \nif\n \n(\nPortal\n.\nbegin\n())\n \n{\n\n    \nSerial\n.\nprintln\n(\n\"WiFi connected: \"\n \n+\n \nWiFi\n.\nlocalIP\n().\ntoString\n());\n\n  \n}\n\n\n}\n\n\n\nvoid\n \nloop\n()\n \n{\n\n    \nPortal\n.\nhandleClient\n();\n\n\n}\n\n\n\n\n\n Run at first\n\u00b6\n\n\nAfter about 30 seconds, if the ESP8266 cannot connect to nearby Wi-Fi spot, you pull out your smartphone and open \nWi-Fi settings\n from the \nSettings\n Apps. You can see the \nesp8266ap\n in the list of \n\"CHOOSE A NETWORK...\"\n. Then tap the esp8266ap and enter password \n12345678\n, a something screen pops up automatically as shown below.\n\n\n\n\nThis is the AutoConnect statistics screen. This screen displays the current status of the established connection, WiFi mode, IP address, free memory size, and etc. Also, the \nhamburger icon\n is the control menu of AutoConnect seems at the upper right. By tap the hamburger icon, the control menu appears as the below.\n\n\n Join to the new access point\n\u00b6\n\n\nHere, tap \n\"Configure new AP\"\n to connect the new access point then the SSID configuration screen would be shown. Enter the \nSSID\n and \nPassphrase\n and tap \napply\n to start connecting the access point.\n\n\n\n\n Connection establishment\n\u00b6\n\n\nAfter connection established, the current status screen will appear. It is already connected to WLAN with WiFi mode as WIFI_AP_STA and the IP connection status is displayed there including the SSID. Then at this screen, you have two options for the next step.\n\n\nFor one, continues execution of the sketch while keeping this connection. You can access ESP8266 via browser through the established IP address after cancel to \"\nLog in\n\" by upper right on the screen.\n\nOr, \"\nRESET\n\" can be selected. The ESP8266 resets and reboots. After that, immediately before the connection will be restored automatically with WIFI_STA mode.\n\n\n\n\n Run for usually\n\u00b6\n\n\nThe IP address of ESP8266 would be displayed on the serial monitor after connection recovered. Please access its address from the browser. The \"Hello, world\" page will respond. It's the page that was handled by in the sketch with \"\non\n\" function of \nESP8266WebServer\n.\n\n\n\n\n\n  window.onload = function() {\n    Gifffer();\n  }",
+            "title": "Getting started"
+        },
+        {
+            "location": "/gettingstarted/index.html#lets-do-the-most-simple-sketch",
+            "text": "Open the Arduino IDE, write the following sketch and upload it. The feature of this sketch is that the SSID and Password are not coded.  #include   <ESP8266WiFi.h>  #include   <ESP8266WebServer.h>  #include   <AutoConnect.h>  ESP8266WebServer   Server ;  AutoConnect        Portal ( Server );  void   rootPage ()   { \n   char   content []   =   \"Hello, world\" ; \n   Server . send ( 200 ,   \"text/plain\" ,   content );  }  void   setup ()   { \n   delay ( 1000 ); \n   Serial . begin ( 115200 ); \n   Serial . println (); \n\n   Server . on ( \"/\" ,   rootPage ); \n   if   ( Portal . begin ())   { \n     Serial . println ( \"WiFi connected: \"   +   WiFi . localIP (). toString ()); \n   }  }  void   loop ()   { \n     Portal . handleClient ();  }",
+            "title": "Let's do the most simple sketch"
+        },
+        {
+            "location": "/gettingstarted/index.html#run-at-first",
+            "text": "After about 30 seconds, if the ESP8266 cannot connect to nearby Wi-Fi spot, you pull out your smartphone and open  Wi-Fi settings  from the  Settings  Apps. You can see the  esp8266ap  in the list of  \"CHOOSE A NETWORK...\" . Then tap the esp8266ap and enter password  12345678 , a something screen pops up automatically as shown below.   This is the AutoConnect statistics screen. This screen displays the current status of the established connection, WiFi mode, IP address, free memory size, and etc. Also, the  hamburger icon  is the control menu of AutoConnect seems at the upper right. By tap the hamburger icon, the control menu appears as the below.",
+            "title": " Run at first"
+        },
+        {
+            "location": "/gettingstarted/index.html#join-to-the-new-access-point",
+            "text": "Here, tap  \"Configure new AP\"  to connect the new access point then the SSID configuration screen would be shown. Enter the  SSID  and  Passphrase  and tap  apply  to start connecting the access point.",
+            "title": " Join to the new access point"
+        },
+        {
+            "location": "/gettingstarted/index.html#connection-establishment",
+            "text": "After connection established, the current status screen will appear. It is already connected to WLAN with WiFi mode as WIFI_AP_STA and the IP connection status is displayed there including the SSID. Then at this screen, you have two options for the next step.  For one, continues execution of the sketch while keeping this connection. You can access ESP8266 via browser through the established IP address after cancel to \" Log in \" by upper right on the screen. \nOr, \" RESET \" can be selected. The ESP8266 resets and reboots. After that, immediately before the connection will be restored automatically with WIFI_STA mode.",
+            "title": " Connection establishment"
+        },
+        {
+            "location": "/gettingstarted/index.html#run-for-usually",
+            "text": "The IP address of ESP8266 would be displayed on the serial monitor after connection recovered. Please access its address from the browser. The \"Hello, world\" page will respond. It's the page that was handled by in the sketch with \" on \" function of  ESP8266WebServer .   \n  window.onload = function() {\n    Gifffer();\n  }",
+            "title": " Run for usually"
+        },
+        {
+            "location": "/menu/index.html",
+            "text": "Luxbar\n\n\nThe AutoConnect menu is developed using the \nLuxBar\n which is licensed under the MIT License. See the \nLicense\n.\n\n\n\n\n Where the from\n\u00b6\n\n\nThe AutoConnect menu appears when you access the \nAutoConnect root path\n. It is assigned to \"\n/_ac\n\" located on ESP8266 \nlocal IP address\n by default. This location can be changed in the sketch. The following screen will appear at access to \nhttp://{localIP}/_ac\n as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here. (e.g. \nhttp://192.168.244.1/_ac\n for SoftAP mode.)\n\nTo invoke the menu tap \n at right on top.\n\n\n\n\n\n\nWhat's local IP?\n\n\nA local IP means Local IP at connection established or SoftAP's IP.\n\n\n\n\n Right on top\n\u00b6\n\n\nCurrently, AutoConnect supports four menus. Undermost menu returns to home path of its sketch.\n\n\n\n\nConfigure new AP\n : Configure SSID and Password for new access point.\n\n\nOpen SSIDs\n : Opens the past SSID which has been established connection from EEPROM.\n\n\nDisconnect\n : Disconnects current connection.\n\n\nReset...\n : Rest the ESP8266 module.\n\n\nHOME\n : Return to user home page.\n\n\n\n\n\n\n Configure new AP\n\u00b6\n\n\nScan all available access point and display it. Strength and security of the detected AP are marked. The \n is indicated for the SSID that needs a security key. \"\nHidden:\n\" means the number of hidden SSIDs discovered.\n\nEnter SSID and Passphrase and tap \"\napply\n\" to try connection. \n\n\n\n\n Open SSIDs\n\u00b6\n\n\nOnce it was established connection, its SSID and Password will be stored to the EEPROM of ESP8266 automatically. The \nOpen SSIDs\n menu reads the saved SSID credentials from the EEPROM. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. To tap the SSID button starts connection it.\n\n\n\n\n Disconnect\n\u00b6\n\n\nDisconnect ESP8266 from the current connection. After the menu tapped, AutoConnect menu cannot be accessed. Once disconnected, you will need to set the SSID again to connect to the WLAN.\n\n\nIt can also reset the ESP8266 automatically after being disconnected from the \nAPI\n used in the sketch.\n\n\n Reset...\n\u00b6\n\n\nReset the ESP8266, it will be rebooted. After rebooting complete, the ESP8266 begins establishing the previous connection by WIFI_STA mode and the \nesp8266ap\n as SoftAP disappears from the WLAN.\n\n\n\n\n\n\nNot every module will be rebooted normally\n\n\nThe Reset menu is using the \nESP.reset()\n function. This is an almost hardware reset. In order to resume the sketch normally, the \nstate of GPIO0\n is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also \nFAQ\n.",
+            "title": "AutoConnect menu"
+        },
+        {
+            "location": "/menu/index.html#where-the-from",
+            "text": "The AutoConnect menu appears when you access the  AutoConnect root path . It is assigned to \" /_ac \" located on ESP8266  local IP address  by default. This location can be changed in the sketch. The following screen will appear at access to  http://{localIP}/_ac  as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here. (e.g.  http://192.168.244.1/_ac  for SoftAP mode.) \nTo invoke the menu tap   at right on top.    What's local IP?  A local IP means Local IP at connection established or SoftAP's IP.",
+            "title": " Where the from"
+        },
+        {
+            "location": "/menu/index.html#right-on-top",
+            "text": "Currently, AutoConnect supports four menus. Undermost menu returns to home path of its sketch.   Configure new AP  : Configure SSID and Password for new access point.  Open SSIDs  : Opens the past SSID which has been established connection from EEPROM.  Disconnect  : Disconnects current connection.  Reset...  : Rest the ESP8266 module.  HOME  : Return to user home page.",
+            "title": " Right on top"
+        },
+        {
+            "location": "/menu/index.html#configure-new-ap",
+            "text": "Scan all available access point and display it. Strength and security of the detected AP are marked. The   is indicated for the SSID that needs a security key. \" Hidden: \" means the number of hidden SSIDs discovered. \nEnter SSID and Passphrase and tap \" apply \" to try connection.",
+            "title": " Configure new AP"
+        },
+        {
+            "location": "/menu/index.html#open-ssids",
+            "text": "Once it was established connection, its SSID and Password will be stored to the EEPROM of ESP8266 automatically. The  Open SSIDs  menu reads the saved SSID credentials from the EEPROM. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. To tap the SSID button starts connection it.",
+            "title": " Open SSIDs"
+        },
+        {
+            "location": "/menu/index.html#disconnect",
+            "text": "Disconnect ESP8266 from the current connection. After the menu tapped, AutoConnect menu cannot be accessed. Once disconnected, you will need to set the SSID again to connect to the WLAN.  It can also reset the ESP8266 automatically after being disconnected from the  API  used in the sketch.",
+            "title": " Disconnect"
+        },
+        {
+            "location": "/menu/index.html#reset",
+            "text": "Reset the ESP8266, it will be rebooted. After rebooting complete, the ESP8266 begins establishing the previous connection by WIFI_STA mode and the  esp8266ap  as SoftAP disappears from the WLAN.    Not every module will be rebooted normally  The Reset menu is using the  ESP.reset()  function. This is an almost hardware reset. In order to resume the sketch normally, the  state of GPIO0  is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also  FAQ .",
+            "title": " Reset..."
+        },
+        {
+            "location": "/usage/index.html",
+            "text": "Simple usage\n\u00b6\n\n\n Embed to the sketches\n\u00b6\n\n\nHow embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps.\n\n\n\n\n Insert \n#include\n \n<AutoConnect.h>\n to behind of \n#include\n \n<ESP8266WebServer.h>\n.\n\n\n Insert \nAutoConnect\nPORTAL(WEBSERVER);\n to behind of \nESP8266WebServer\nWEBSERVER;\n declaration.\n1\n\n\n Remove \nWiFi.begin(\nSSID\n,\nPSK\n)\n and the subsequent logic for the connection status check.\n\n\n Replace \nWEBSERVER\n.begin\n()\n to \nPORTAL\n.begin\n()\n.\n2\n\n\n Replace \nWEBSERVER\n.handleClient\n()\n to \nPORTAL\n.handleClient\n()\n.\n3\n\n\n If the connection successful logic is needed, you can check the return value as \ntrue\n or \nfalse\n of \nPORTAL\n.begin\n()\n.\n\n\nBasic usage\n\u00b6\n\n\n Basic logic sequence for the user sketches\n\u00b6\n\n\n1. A typical logic sequence\n\u00b6\n\n\n\n\n\n\nInclude headers,\n \nESP8266WebServer.h\n and \nAutoConnect.h\n  \n\n\nDeclare ESP8266WebServer variable.\n  \n\n\nDeclare AutoConnect variable.\n  \n\n\nImplements the URL handler \nfunction()\n.\n  \n\n\nsetup()\n\n   5.1 \nSets URL handler \nfunction()\n to ESP8266WebServer by\nESP8266WebServer::on\n.\n\n   5.2 \nStarts \nAutoConnect::begin()\n.\n\n   5.3 \nCheck connection status.\n  \n\n\nloop()\n\n   6.1 \nInvokes \nAutoConnect::handleClient()\n,\nor invokes \nESP8266WebServer::handleClient()\n then \nAutoConnect::handleRequest()\n.\n\n   6.2 \nDo the process for actual sketch.\n  \n\n\n\n\n\n\n2. Declare AutoConnect object\n\u00b6\n\n\nTwo options\n are available for \nAutoConnect constructor\n.\n\n\nAutoConnect\n \nVARIABLE\n(\n&\nESP8266WebServer\n);\n\n\n\nor\n\n\nAutoConnect\n \nVARIABLE\n;\n\n\n\n\n\n\n\n\n\nParameter with ESP8266WebServer variable:\n An ESP8266WebServer object variable must be declared in the sketch. AutoConnect uses its variable for handling the AutoConnect menu.\n\n\n\n\n\n\nWith no parameter:\n The sketch does not declare ESP8266WebServer object. In this case, AutoConnect allocates an instance of the ESP8266WebServer internally and the logic sequence of the sketch is somewhat different as the above. To register a URL handler function by \nESP8266WebServer::on\n should be performed after \nAutoConnect::begin\n.\n\n\n\n\n\n\n3. No need WiFI.begin(...)\n\u00b6\n\n\nAutoConnect performs \nWiFi.begin\n for establishing a connection with WLAN internally. There is no need for a general process to establish a connection with \nWiFi.begin\n in a sketch.\n\n\n4. Alternate ESP8266WebServer::begin()\n\u00b6\n\n\nAutoConnect::begin\n internally executes \nESP8266WebServer::begin\n too and it starts DNS server to behave as a captive portal. So the sketch does not need to call \nESP8266WebServer::begin\n.\n\n\n\n\nWhy DNS Server Starts\n\n\nAutoConnect traps the detection of captive portals and directs them to the AutoConnect menu to achieve a connection with the WLAN interactively. In order to trap, it temporarily responds SoftAP address to all DNS queries. When the connection with the WLAN is successfully established, the DNS server will stop.\n\n\n\n\n5. AutoConnect::begin with SSID and Password\n\u00b6\n\n\nSSID and Password can also specify by \nAutoConnect::begin\n. ESP8266 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.\n\n\n6. Use ESP8266WebServer::on to handle URL\n\u00b6\n\n\nAutoConnect is designed to coexist with the process for handling the web pages by user sketches. The page processing function which will send an HTML to the client invoked by the \"\non\n\" function is the same as when using ESP8266WebServer natively.\n\n\n7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()\n\u00b6\n\n\nBoth classes member function name is the same: \nhandleClient\n, but behavior is different. Using the AutoConnect embedded along with ESP8266WebServer::handleClient has limitations. Refer to the below section for details. \n\n\n ESP8266WebServer hosted or parasitic\n\u00b6\n\n\nThe interoperable process with an ESP8266WebServer depends on the parameters of the \nAutoConnect constructor\n.\n\n\n\n\n\n\n\n\nDeclaration parameter\n\n\nUse ESP8266WebServer::handleClient\n\n\nUse AutoConnect::handleClient\n\n\n\n\n\n\n\n\n\n\nNone\n\n\nAutoConnect menu not available.\nhost() is needed.\n\n\nAutoConnect menu available.\nhost() is needed.\n\n\n\n\n\n\nReference to ESP8266WebServer\n\n\nAutoConnect menu not available.\nhost() not necessary.\n\n\nAutoConnect menu available.\nhost() not necessary.\n\n\n\n\n\n\n\n\n\n\n\n\nBy declaration for the AutoConnect variable with no parameter\n: The ESP8266WebServer instance is hosted by AutoConnect automatically then the sketches use \nAutoConnect::host\n as API to get it after \nAutoConnect::begin\n performed.\n\n\n\n\n\n\nBy declaration for the AutoConnect variable with the reference of ESP8266WebServer\n: AutoConnect will use it. The sketch can use it is too.\n\n\n\n\n\n\nIn use ESP8266WebServer::handleClient()\n: AutoConnect menu can be dispatched but not works normally. It is necessary to call \nAutoConnect::handleRequest\n after \nESP8255WebServer::handleClient\n invoking.\n\n\n\n\n\n\nIn use \nAutoConnect::handleClient()\n: The handleClient() process and the AutoConnect menu is available without calling \nESP8266WebServer::handleClient\n.\n\n\n\n\n\n\n\n\nWhy AutoConnect::handleRequest is needed when using ESP8266::handleClient\n\n\nThe AutoConnect menu function may affect WiFi connection state. It follows that the menu process must execute outside \nESP8266WebServer::handleClient\n.\n\n\nAutoConnect::handleClient\n is equivalent \nESP8266WebServer::handleClient\n included \nAutoConnect::handleRequest\n.\n\n\n\n\nAdvanced usage\n\u00b6\n\n\n 404 handler\n\u00b6\n\n\nRegistering the \"not found\" handler is a different way than ESP8266. The \nonNotFound\n of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides \nESP8266WebServer::onNotFound\n to handle a captive portal. To register \"not found\" handler, use \nAutoConnect::onNotFound\n.\n\n\n Captive portal start detection\n\u00b6\n\n\nThe captive portal will only be activated if the first \nWiFi::begin\n fails. Sketch can detect with the \nonDetect\n funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.\n\n\nAutoConnect\n \nPortal\n;\n\n\n\nbool\n \nstartCP\n(\nIPAddress\n \nip\n)\n \n{\n\n\n  \ndigitalWrite\n(\nBUILTIN_LED\n,\n \nHIGH\n);\n\n  \nSerial\n.\nprintln\n(\n\"C.P. started, IP:\"\n \n+\n \nWiFi\n.\nlocalIP\n().\ntoString\n());\n\n  \nreturn\n \ntrue\n;\n\n\n}\n\n\n\nvoid\n \nsetup\n()\n \n{\n\n  \nSerial\n.\nbegin\n(\n115200\n);\n\n  \npinMode\n(\nBUILTIN_LED\n,\n \noutput\n);\n\n  \ndigitalWrite\n(\nBUILTIN_LED\n,\n \nLOW\n);\n\n\n  \nPortal\n.\nonDetect\n(\nstartCP\n);\n\n\n  \nif\n \n(\nPortal\n.\nbegin\n())\n \n{\n\n    \ndigitalWrite\n(\nBUILTIN_LED\n,\n \nLOW\n);\n\n  \n}\n\n\n}\n\n\n\nvoid\n \nloop\n()\n \n{\n\n  \nPortal\n.\nhandleClient\n();\n\n\n}\n\n\n\n\n\n Combination with mDNS\n\u00b6\n\n\nWith \nmDNS library\n, you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after AutoConnect::begin.\n\n\n#include\n \n<ESP8266WiFi.h>\n\n\n#include\n \n<ESP8266mDNS.h>\n\n\n#include\n \n<ESP8266WebServer.h>\n\n\nAutoConnect\n \nPortal\n;\n\n\n\nvoid\n \nsetup\n()\n \n{\n\n  \nif\n \n(\nPortal\n.\nbegin\n())\n \n{\n\n\n    \nif\n \n(\nMDNS\n.\nbegin\n(\n\"esp8266\"\n))\n \n{\n\n\n      \nMDNS\n.\naddService\n(\n\"http\"\n,\n \n\"tcp\"\n,\n \n80\n);\n\n\n    \n}\n\n  \n}\n\n\n}\n\n\n\nvoid\n \nloop\n()\n \n{\n\n  \nPortal\n.\nhandleClient\n();\n\n\n}\n\n\n\n\n\n Credential data\n\u00b6\n\n\nBy default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the \nautoSave\n parameter specified by \nAutoConnect::config\n.\n\n\nAutoConnect\n       \nPortal\n;\n\n\nAutoConnectConfig\n \nConfig\n;\n\n\nConfig\n.\nautoSave\n \n=\n \nAC_SAVECREDENTIAL_NEVER\n;\n\n\nPortal\n.\nconfig\n(\nConfig\n);\n\n\nPortal\n.\nbegin\n();\n\n\n\n\n\n\n\nAutoConnect::config before AutoConnect::begin\n\n\nAutoConnect::config\n must be executed before \nAutoConnect::begin\n.\n\n\n\n\n Debug print\n\u00b6\n\n\nYou can output AutoConnect monitor messages to the \nSerial\n. A monitor message activation switch is in an include header file \nAutoConnect.h\n of library source. Define \nAC_DEBUG\n macro to output monitor messages.\n\n\n#define AC_DEBUG\n\n\n\n\n\n Refers the hosted ESP8266WebServer\n\u00b6\n\n\nConstructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer inside the AutoConnect. This object variable could be referred by \nAutoConnect::host()\n function to access ESP8266WebServer instance as like below.\n\n\nAutoConnect\n \nPortal\n;\n\n\n\nPortal\n.\nbegin\n();\n\n\nESP8266WebServer\n&\n \nserver\n \n=\n \nPortal\n.\nhost\n();\n\n\nserver\n.\nsend\n(\n200\n,\n \n\"text/plain\"\n,\n \n\"Hello, world\"\n);\n\n\n\n\n\n\n\nWhen host() is valid\n\n\nThe host() can be referred at after \nAutoConnect::begin\n.\n\n\n\n\n Usage for automatically instantiated ESP8266WebServer\n\u00b6\n\n\nThe sketch can handle URL requests using ESP8266WebServer that AutoConnect started internally. ESP8266WebServer instantiated dynamically by AutoConnect can be referred to by \nAutoConnect::host\n function. The sketch can use the '\non\n' function, '\nsend\n' function, '\nclient\n' function and others by ESP8266WebServer reference of its return value.\n\n\n#include\n \n<ESP8266WiFi.h>\n\n\n#include\n \n<ESP8266WebServer.h>\n\n\n#include\n \n<AutoConnect.h>\n\n\n\nAutoConnect\n       \nPortal\n;\n\n\n\nvoid\n \nhandleRoot\n()\n \n{\n\n\n  \nESP8266WebServer\n&\n \nIntServer\n \n=\n \nPortal\n.\nhost\n();\n\n\n  \nIntServer\n.\nsend\n(\n200\n,\n \n\"text/html\"\n,\n \n\"Hello, world\"\n);\n\n\n}\n\n\n\nvoid\n \nhandleNotFound\n()\n \n{\n\n\n  \nESP8266WebServer\n&\n \nIntServer\n \n=\n \nPortal\n.\nhost\n();\n\n\n  \nIntServer\n.\nsend\n(\n404\n,\n \n\"text/html\"\n,\n \n\"Unknown.\"\n);\n\n\n}\n\n\n\nvoid\n \nsetup\n()\n \n{\n\n  \nbool\n \nr\n \n=\n \nPortal\n.\nbegin\n();\n\n  \nif\n \n(\nr\n)\n \n{\n\n\n    \nESP8266WebServer\n&\n \nIntServer\n \n=\n \nPortal\n.\nhost\n();\n\n\n    \nIntServer\n.\non\n(\n\"/\"\n,\n \nhandleRoot\n);\n\n\n    \nPortal\n.\nonNotFound\n(\nhandleNotFound\n);\n    \n// For only onNotFound.\n\n  \n}\n\n\n}\n\n\n\nvoid\n \nloop\n()\n \n{\n\n\n  \nPortal\n.\nhost\n().\nhandleClient\n();\n\n\n  \nPortal\n.\nhandleRequest\n();\n\n  \n/* or following one line code is equ.\n\n\n  Portal.handleClient();\n\n\n  */\n\n\n}\n\n\n\n\n\n\n\nESP8266WebServer function should be called after AutoConnect::begin\n\n\nThe sketch cannot refer to an instance of ESP8266WebServer until AutoConnect::begin completes successfully.\n\n\n\n\n\n\nDo not use with ESP8266WebServer::begin\n\n\nESP8266WebServer is already running inside the AutoConnect.\n\n\n\n\n Use with the \nPageBuilder\n library\n\u00b6\n\n\nIn ordinary, the URL handler will respond the request by sending some HTML. \nPageBuilder\n library is HTML assembly aid. it can handle predefined HTML as like a template and simplify an HTML string assemble logic, and also the generated HTML send automatically.\n\n\nAn example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for \nGithub repository\n.\n\n\n\n\nConfiguration functions\n\u00b6\n\n\n Configuration for Soft AP\n\u00b6\n\n\nAutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP settings are stored in \nAutoConnectConfig\n as the following parameters. The sketch could be configured SoftAP using these parameters, refer \nAutoConnectConfig API\n for details.\n\n\n\n\nIP address of SoftAP activated.\n\n\nGateway IP address.\n\n\nSubnet mask.\n\n\nSSID for SoftAP.\n\n\nPassword for SoftAP.\n\n\nChannel.\n\n\nHidden attribute.\n\n\nAuto save credential.\n\n\nAuto reset after connection establishment.\n\n\nHome URL of the user sketch application.\n\n\n\n\n Assign user sketch's home path\n\u00b6\n\n\n\"\nHOME\n\" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the \nAutoConnect::home\n function.\n\n\n\n\n Relocate the AutoConnect home path\n\u00b6\n\n\nA home path of AutoConnect is \n_ac\n by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising  \nAUTOCONNECT_URI\n macro in the include header file as \nAutoConnect.h\n.\n\n\n#define AUTOCONNECT_URI         \"/_ac\"\n\n\n\n\n\n\n\n\n\n\n\n\n\nEach \nVARIABLE\n conforms to the actual declaration in the sketches.\u00a0\n\u21a9\n\n\n\n\n\n\nWiFi SSID and Password can be specified AutoConnect::begin() too.\u00a0\n\u21a9\n\n\n\n\n\n\nReplacement the \nhandleClient\n method is not indispensable. AutoConnect can still connect with the captive portal as it is ESP8266WebServer::handleClient. But it can \nnot valid AutoConnect menu\n.\u00a0\n\u21a9",
+            "title": "Usage the library"
+        },
+        {
+            "location": "/usage/index.html#simple-usage",
+            "text": "",
+            "title": "Simple usage"
+        },
+        {
+            "location": "/usage/index.html#embed-to-the-sketches",
+            "text": "How embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps.    Insert  #include   <AutoConnect.h>  to behind of  #include   <ESP8266WebServer.h> .   Insert  AutoConnect PORTAL(WEBSERVER);  to behind of  ESP8266WebServer WEBSERVER;  declaration. 1   Remove  WiFi.begin( SSID , PSK )  and the subsequent logic for the connection status check.   Replace  WEBSERVER .begin ()  to  PORTAL .begin () . 2   Replace  WEBSERVER .handleClient ()  to  PORTAL .handleClient () . 3   If the connection successful logic is needed, you can check the return value as  true  or  false  of  PORTAL .begin () .",
+            "title": " Embed to the sketches"
+        },
+        {
+            "location": "/usage/index.html#basic-usage",
+            "text": "",
+            "title": "Basic usage"
+        },
+        {
+            "location": "/usage/index.html#basic-logic-sequence-for-the-user-sketches",
+            "text": "",
+            "title": " Basic logic sequence for the user sketches"
+        },
+        {
+            "location": "/usage/index.html#1-a-typical-logic-sequence",
+            "text": "Include headers,   ESP8266WebServer.h  and  AutoConnect.h     Declare ESP8266WebServer variable.     Declare AutoConnect variable.     Implements the URL handler  function() .     setup() \n   5.1  Sets URL handler  function()  to ESP8266WebServer by ESP8266WebServer::on . \n   5.2  Starts  AutoConnect::begin() . \n   5.3  Check connection status.     loop() \n   6.1  Invokes  AutoConnect::handleClient() , or invokes  ESP8266WebServer::handleClient()  then  AutoConnect::handleRequest() . \n   6.2  Do the process for actual sketch.",
+            "title": "1. A typical logic sequence"
+        },
+        {
+            "location": "/usage/index.html#2-declare-autoconnect-object",
+            "text": "Two options  are available for  AutoConnect constructor .  AutoConnect   VARIABLE ( & ESP8266WebServer );  \nor  AutoConnect   VARIABLE ;     Parameter with ESP8266WebServer variable:  An ESP8266WebServer object variable must be declared in the sketch. AutoConnect uses its variable for handling the AutoConnect menu.    With no parameter:  The sketch does not declare ESP8266WebServer object. In this case, AutoConnect allocates an instance of the ESP8266WebServer internally and the logic sequence of the sketch is somewhat different as the above. To register a URL handler function by  ESP8266WebServer::on  should be performed after  AutoConnect::begin .",
+            "title": "2. Declare AutoConnect object"
+        },
+        {
+            "location": "/usage/index.html#3-no-need-wifibegin",
+            "text": "AutoConnect performs  WiFi.begin  for establishing a connection with WLAN internally. There is no need for a general process to establish a connection with  WiFi.begin  in a sketch.",
+            "title": "3. No need WiFI.begin(...)"
+        },
+        {
+            "location": "/usage/index.html#4-alternate-esp8266webserverbegin",
+            "text": "AutoConnect::begin  internally executes  ESP8266WebServer::begin  too and it starts DNS server to behave as a captive portal. So the sketch does not need to call  ESP8266WebServer::begin .   Why DNS Server Starts  AutoConnect traps the detection of captive portals and directs them to the AutoConnect menu to achieve a connection with the WLAN interactively. In order to trap, it temporarily responds SoftAP address to all DNS queries. When the connection with the WLAN is successfully established, the DNS server will stop.",
+            "title": "4. Alternate ESP8266WebServer::begin()"
+        },
+        {
+            "location": "/usage/index.html#5-autoconnectbegin-with-ssid-and-password",
+            "text": "SSID and Password can also specify by  AutoConnect::begin . ESP8266 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.",
+            "title": "5. AutoConnect::begin with SSID and Password"
+        },
+        {
+            "location": "/usage/index.html#6-use-esp8266webserveron-to-handle-url",
+            "text": "AutoConnect is designed to coexist with the process for handling the web pages by user sketches. The page processing function which will send an HTML to the client invoked by the \" on \" function is the same as when using ESP8266WebServer natively.",
+            "title": "6. Use ESP8266WebServer::on to handle URL"
+        },
+        {
+            "location": "/usage/index.html#7-use-either-esp8266webserverhandleclient-or-autoconnecthandleclient",
+            "text": "Both classes member function name is the same:  handleClient , but behavior is different. Using the AutoConnect embedded along with ESP8266WebServer::handleClient has limitations. Refer to the below section for details.",
+            "title": "7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()"
+        },
+        {
+            "location": "/usage/index.html#esp8266webserver-hosted-or-parasitic",
+            "text": "The interoperable process with an ESP8266WebServer depends on the parameters of the  AutoConnect constructor .     Declaration parameter  Use ESP8266WebServer::handleClient  Use AutoConnect::handleClient      None  AutoConnect menu not available. host() is needed.  AutoConnect menu available. host() is needed.    Reference to ESP8266WebServer  AutoConnect menu not available. host() not necessary.  AutoConnect menu available. host() not necessary.       By declaration for the AutoConnect variable with no parameter : The ESP8266WebServer instance is hosted by AutoConnect automatically then the sketches use  AutoConnect::host  as API to get it after  AutoConnect::begin  performed.    By declaration for the AutoConnect variable with the reference of ESP8266WebServer : AutoConnect will use it. The sketch can use it is too.    In use ESP8266WebServer::handleClient() : AutoConnect menu can be dispatched but not works normally. It is necessary to call  AutoConnect::handleRequest  after  ESP8255WebServer::handleClient  invoking.    In use  AutoConnect::handleClient() : The handleClient() process and the AutoConnect menu is available without calling  ESP8266WebServer::handleClient .     Why AutoConnect::handleRequest is needed when using ESP8266::handleClient  The AutoConnect menu function may affect WiFi connection state. It follows that the menu process must execute outside  ESP8266WebServer::handleClient .  AutoConnect::handleClient  is equivalent  ESP8266WebServer::handleClient  included  AutoConnect::handleRequest .",
+            "title": " ESP8266WebServer hosted or parasitic"
+        },
+        {
+            "location": "/usage/index.html#advanced-usage",
+            "text": "",
+            "title": "Advanced usage"
+        },
+        {
+            "location": "/usage/index.html#404-handler",
+            "text": "Registering the \"not found\" handler is a different way than ESP8266. The  onNotFound  of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides  ESP8266WebServer::onNotFound  to handle a captive portal. To register \"not found\" handler, use  AutoConnect::onNotFound .",
+            "title": " 404 handler"
+        },
+        {
+            "location": "/usage/index.html#captive-portal-start-detection",
+            "text": "The captive portal will only be activated if the first  WiFi::begin  fails. Sketch can detect with the  onDetect  funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.  AutoConnect   Portal ;  bool   startCP ( IPAddress   ip )   {     digitalWrite ( BUILTIN_LED ,   HIGH ); \n   Serial . println ( \"C.P. started, IP:\"   +   WiFi . localIP (). toString ()); \n   return   true ;  }  void   setup ()   { \n   Serial . begin ( 115200 ); \n   pinMode ( BUILTIN_LED ,   output ); \n   digitalWrite ( BUILTIN_LED ,   LOW );     Portal . onDetect ( startCP );     if   ( Portal . begin ())   { \n     digitalWrite ( BUILTIN_LED ,   LOW ); \n   }  }  void   loop ()   { \n   Portal . handleClient ();  }",
+            "title": " Captive portal start detection"
+        },
+        {
+            "location": "/usage/index.html#combination-with-mdns",
+            "text": "With  mDNS library , you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after AutoConnect::begin.  #include   <ESP8266WiFi.h>  #include   <ESP8266mDNS.h>  #include   <ESP8266WebServer.h>  AutoConnect   Portal ;  void   setup ()   { \n   if   ( Portal . begin ())   {       if   ( MDNS . begin ( \"esp8266\" ))   {         MDNS . addService ( \"http\" ,   \"tcp\" ,   80 );       } \n   }  }  void   loop ()   { \n   Portal . handleClient ();  }",
+            "title": " Combination with mDNS"
+        },
+        {
+            "location": "/usage/index.html#credential-data",
+            "text": "By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the  autoSave  parameter specified by  AutoConnect::config .  AutoConnect         Portal ;  AutoConnectConfig   Config ;  Config . autoSave   =   AC_SAVECREDENTIAL_NEVER ;  Portal . config ( Config );  Portal . begin ();    AutoConnect::config before AutoConnect::begin  AutoConnect::config  must be executed before  AutoConnect::begin .",
+            "title": " Credential data"
+        },
+        {
+            "location": "/usage/index.html#debug-print",
+            "text": "You can output AutoConnect monitor messages to the  Serial . A monitor message activation switch is in an include header file  AutoConnect.h  of library source. Define  AC_DEBUG  macro to output monitor messages.  #define AC_DEBUG",
+            "title": " Debug print"
+        },
+        {
+            "location": "/usage/index.html#refers-the-hosted-esp8266webserver",
+            "text": "Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer inside the AutoConnect. This object variable could be referred by  AutoConnect::host()  function to access ESP8266WebServer instance as like below.  AutoConnect   Portal ;  Portal . begin ();  ESP8266WebServer &   server   =   Portal . host ();  server . send ( 200 ,   \"text/plain\" ,   \"Hello, world\" );    When host() is valid  The host() can be referred at after  AutoConnect::begin .",
+            "title": " Refers the hosted ESP8266WebServer"
+        },
+        {
+            "location": "/usage/index.html#usage-for-automatically-instantiated-esp8266webserver",
+            "text": "The sketch can handle URL requests using ESP8266WebServer that AutoConnect started internally. ESP8266WebServer instantiated dynamically by AutoConnect can be referred to by  AutoConnect::host  function. The sketch can use the ' on ' function, ' send ' function, ' client ' function and others by ESP8266WebServer reference of its return value.  #include   <ESP8266WiFi.h>  #include   <ESP8266WebServer.h>  #include   <AutoConnect.h>  AutoConnect         Portal ;  void   handleRoot ()   {     ESP8266WebServer &   IntServer   =   Portal . host ();     IntServer . send ( 200 ,   \"text/html\" ,   \"Hello, world\" );  }  void   handleNotFound ()   {     ESP8266WebServer &   IntServer   =   Portal . host ();     IntServer . send ( 404 ,   \"text/html\" ,   \"Unknown.\" );  }  void   setup ()   { \n   bool   r   =   Portal . begin (); \n   if   ( r )   {       ESP8266WebServer &   IntServer   =   Portal . host ();       IntServer . on ( \"/\" ,   handleRoot );       Portal . onNotFound ( handleNotFound );      // For only onNotFound. \n   }  }  void   loop ()   {     Portal . host (). handleClient ();     Portal . handleRequest (); \n   /* or following one line code is equ.    Portal.handleClient();    */  }    ESP8266WebServer function should be called after AutoConnect::begin  The sketch cannot refer to an instance of ESP8266WebServer until AutoConnect::begin completes successfully.    Do not use with ESP8266WebServer::begin  ESP8266WebServer is already running inside the AutoConnect.",
+            "title": " Usage for automatically instantiated ESP8266WebServer"
+        },
+        {
+            "location": "/usage/index.html#use-with-the-pagebuilder-library",
+            "text": "In ordinary, the URL handler will respond the request by sending some HTML.  PageBuilder  library is HTML assembly aid. it can handle predefined HTML as like a template and simplify an HTML string assemble logic, and also the generated HTML send automatically.  An example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for  Github repository .",
+            "title": " Use with the PageBuilder library"
+        },
+        {
+            "location": "/usage/index.html#configuration-functions",
+            "text": "",
+            "title": "Configuration functions"
+        },
+        {
+            "location": "/usage/index.html#configuration-for-soft-ap",
+            "text": "AutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP settings are stored in  AutoConnectConfig  as the following parameters. The sketch could be configured SoftAP using these parameters, refer  AutoConnectConfig API  for details.   IP address of SoftAP activated.  Gateway IP address.  Subnet mask.  SSID for SoftAP.  Password for SoftAP.  Channel.  Hidden attribute.  Auto save credential.  Auto reset after connection establishment.  Home URL of the user sketch application.",
+            "title": " Configuration for Soft AP"
+        },
+        {
+            "location": "/usage/index.html#assign-user-sketchs-home-path",
+            "text": "\" HOME \" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the  AutoConnect::home  function.",
+            "title": " Assign user sketch's home path"
+        },
+        {
+            "location": "/usage/index.html#relocate-the-autoconnect-home-path",
+            "text": "A home path of AutoConnect is  _ac  by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising   AUTOCONNECT_URI  macro in the include header file as  AutoConnect.h .  #define AUTOCONNECT_URI         \"/_ac\"       Each  VARIABLE  conforms to the actual declaration in the sketches.\u00a0 \u21a9    WiFi SSID and Password can be specified AutoConnect::begin() too.\u00a0 \u21a9    Replacement the  handleClient  method is not indispensable. AutoConnect can still connect with the captive portal as it is ESP8266WebServer::handleClient. But it can  not valid AutoConnect menu .\u00a0 \u21a9",
+            "title": " Relocate the AutoConnect home path"
+        },
+        {
+            "location": "/api/index.html",
+            "text": "Include headers\n\u00b6\n\n\n AutoConnect.h\n\u00b6\n\n\n#include\n \n<AutoConnect.h>\n\n\n\n\n\nDefine macros\n\u00b6\n\n\n#define AC_DEBUG                                \n// Monitor message output activation\n\n\n#define AC_DEBUG_PORT           Serial          \n// Default message output device\n\n\n#define AUTOCONNECT_AP_IP       0x01F4A8C0      \n// Default SoftAP IP\n\n\n#define AUTOCONNECT_AP_GW       0x01F4A8C0      \n// Default SoftAP Gateway IP\n\n\n#define AUTOCONNECT_AP_NM       0x00FFFFFF      \n// Default subnet mask\n\n\n#define AUTOCONNECT_DNSPORT     53              \n// Default DNS port at captive portal\n\n\n#define AUTOCONNECT_MENU_TITLE  \"AutoConnect\"   \n// Default AutoConnect menu title\n\n\n#define AUTOCONNECT_URI         \"/_ac\"          \n// Default AutoConnect root path\n\n\n\n\n\nAutoConnect API\n\u00b6\n\n\n Constructors\n\u00b6\n\n\nAutoConnect\n\u00b6\n\n\nAutoConnect\n()\n\n\n\n\n\nAutoConnect default constructor. This entry activates WebServer internally and the web server is allocated internal.\n\n\nAutoConnect\n(\nESP8266WebServer\n&\n \nwebServer\n)\n\n\n\n\n\nRun the AutoConnect site using the externally ensured ESP 8266 WebServer. User's added URI handler response can be included in handleClient method.\n\n\n    \nParameters\n\n    \nwebServer\nA reference of ESP8266WebServer instance.\n\n\n\n\n Public member functions\n\u00b6\n\n\nbegin\n\u00b6\n\n\nbool\n \nbegin\n()\n\n\n\n\nbool\n \nbegin\n(\nconst\n \nchar\n*\n \nssid\n,\n \nconst\n \nchar\n*\n \npassphraase\n)\n\n\n\n\nbool\n \nbegin\n(\nconst\n \nchar\n*\n \nssid\n,\n \nconst\n \nchar\n*\n \npassphraase\n,\n \nunsinged\n \nlong\n \ntimeout\n)\n\n\n\n\nStarts establishing WiFi connection. Before establishing, start the Web server and DNS server for the captive portal. Then begins connection establishment in WIFI_STA mode. If connection can not established with the specified SSID and password, switch to WIFI_AP_STA mode and activate SoftAP.\n\n\n    \nParameters\n\n    \nssid\nSSID to be connected.\n\n    \npassphrase\nPassword for connection.\n\n    \ntimeout\nA time out value in milliseconds for waiting connection.\n\n    \nReturn value\n\n    \ntrue\nConnection established, AutoConnect service started with WIFI_STA mode.\n\n    \nfalse\nCould not connected, Captive portal started with WIFI_AP_STA mode.\n\n\n\n\nconfig\n\u00b6\n\n\nbool\n \nconfig\n(\nAutoConnectConfig\n&\n \nconfig\n)\n\n\n\n\nbool\n \nconfig\n(\nconst\n \nchar\n*\n \nap\n,\n \nconst\n \nchar\n*\n \npassword\n \n=\n \nnullptr\n)\n\n\n\n\nSets SoftAP's WiFi configuration. \n\n\n    \nParameters\n\n    \nconfig\nReference to AutoConnectConfig containing SoftAP's parameters.\n\n    \nap\nSSID for SoftAP. The default value is \nesp8266ap\n.\n\n    \npassword\nPassword for SodtAP. The default value is \n12345678\n.\n\n    \nReturn value\n\n    \ntrue\nSuccessfully configured.\n\n    \nfalse\nConfiguration parameter is invalid, some values out of range.\n\n\n\n\nend\n\u00b6\n\n\nvoid\n \nend\n()\n\n\n\n\n\nStops AutoConnect captive portal service. Release ESP8266WebServer and DNSServer. \n\n\n\n\nAttention to end\n\n\nThe end function releases the instance of ESP8266WebServer and DNSServer. It can not process them after the end function.\n\n\n\n\nhandleClient\n\u00b6\n\n\nvoid\n \nhandleClient\n()\n\n\n\n\n\nHandling for the AutoConnect web interface. Invoke the handleClient of the parent web server to process client request of the AutoConnect WEB interface. No effects when the web server is not available.\n\n\nhandleRequest\n\u00b6\n\n\nvoid\n \nhandleRequest\n()\n\n\n\n\n\nHandling for the AutoConnect menu request.\n\n\n\n\nAbout used in combination with handleClient\n\n\nThe handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266::handleClient.\n\n\n\n\nhome\n\u00b6\n\n\nvoid\n \nhome\n(\nString\n \nuri\n)\n\n\n\n\n\nPut a user site's home URI. The URI specified by home is linked from \"HOME\" in the AutoConnect portal menu.\n\n\n    \nParameters\n\n    \nuri\n A URI string of user site's home path.\n\n\n\n\nhost\n\u00b6\n\n\nReturns the reference of the ESP8266WebServer which is allocated in AutoConnect automatically.\n\n\nESP8266WebServer\n&\n \nhost\n()\n\n\n\n\n\n    \nReturn value\n\n    \nA reference of the ESP8266WebServer.\n\n\n\n\n\n\n&reference is not a pointer\n\n\nA reference cannot be re-assigned, and must be assigned at initialization. It's like as bind as alias.    \n\n\nESP8266WebServer\n&\n \nserver\n \n=\n \nportal\n.\nhost\n();\n\n\nserver\n.\nhandleClient\n();\n\n\n\nor\n\n\nportal\n.\nhost\n().\nhandleClient\n();\n\n\n\n\n\n\nonDetect\n\u00b6\n\n\nvoid\n \nonDetect\n(\nDetectExit_ft\n \nfn\n)\n\n\n\nRegister the function which will call from AutoConnect at the start of the captive portal.\n\n\n    \nParameters\n\n    \nfn\nFunction called at the captive portal start.\n\n\n\n\n\nAn \nfn\n specifies the function called when the captive portal starts. Its prototype declaration is defined as \"\nDetectFunc_ft\n\".\n\n\ntypedef\n \nstd\n::\nfunction\n<\nbool\n(\nIPAddress\n \nsoftapIP\n)\n>\n  \nDetectExit_ft\n\n\n\n\n\n    \nParameters\n\n    \nsoftapIP\nAn IP address of SoftAP for the captive portal.\n\n    \nRetuen value\n\n    \ntrue\nContinues captive portal handling.\n\n    \nfalse\nCancel the captive portal. AutoConnect::begin function will return with a false.\n\n\n\n\nonNotFound\n\u00b6\n\n\nvoid\n \nonNotFound\n(\nESP8266WebServer\n::\nTHandlerFunction\n \nfn\n)\n\n\n\nRegister the handler function for undefined URL request detected.\n\n\n    \nParameters\n\n    \nfn\nA function of the \"not found\" handler.\n\n\n\n\nAutoConnectConfig API\n\u00b6\n\n\n Constructor\n\u00b6\n\n\nAutoConnectConfig\n\u00b6\n\n\nAutoConnectConfig\n();\n\n\n\n\nAutoConnectConfig\n(\nconst\n \nchar\n*\n \nap\n,\n \nconst\n \nchar\n*\n \npassword\n);\n\n\n\n\n\n    \nParameters\n\n    \nap\nSSID for SoftAP. The length should be up to 31. The default value is \nesp8266ap\n.\n\n    \npassword\nPassword for SodtAP. The length should be from 8 to up to 63. The default value is \n12345678\n.\n\n\n\n\n Public member variables\n\u00b6\n\n\napid\n\u00b6\n\n\nSoftAP's SSID.\n\n\n    \nType\n\n    \nString\n\n\n\n\napip\n\u00b6\n\n\nSets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.\n\n\n    \nType\n\n    \nIPAddress\n\n\n\n\nautoReset\n\u00b6\n\n\nReset ESP8266 module automatically when WLAN disconnected.\n\n\n    \nType\n\n    \nbool\n\n    \nValue\n\n    \ntrue\nReset after WiFi disconnected automatically.\n\n    \nfalse\nNo reset.\n\n\n\n\nautoSave\n\u00b6\n\n\nThe credential saved automatically at the connection establishment.\n\n\n    \nType\n\n    \nAC_SAVECREDENTIAL_t\n\n    \nValue\n\n    \nAC_SAVECREDENTIAL_AUTO\nThe credential saved automatically.\n\n    \nAC_SAVECREDENTIAL_NEVER\nThe credential no saved.\n\n\n\n\nchannel\n\u00b6\n\n\nThe channel number of WIFi when SoftAP starts.\n\n\n    \nType\n\n    \nuint8_t\n\n    \nValue\n\n    \n1 ~ 14. The default value is 1.\n\n\n\n\n\n\nSee Application note\n\n\nEspressif Systems had announced the \napplication note\n about Wi-Fi channel selection.\n\n\n\n\ngateway\n\u00b6\n\n\nSets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.\n\n\n    \nType\n\n    \nIPAddress\n\n\n\n\nhidden\n\u00b6\n\n\nSets SoftAP to hidden SSID.\n\n\n    \nType\n\n    \nuint8_t\n\n    \nValue\n\n    \n0\nSSID will be appeared. This is the default.\n\n    \n1\nSSID will be hidden.\n\n\n\n\nhomeUri\n\u00b6\n\n\nSets the home path of user sketch. This path would be linked from 'HOME' in the AutoConnect menu.\n\n\n    \nType\n\n    \nString\n\n\n\n\nnetmask\n\u00b6\n\n\nSets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.\n\n\n    \nType\n\n    \nIPAddress\n\n\n\n\npsk\n\u00b6\n\n\nSets password for SoftAP. The length should be from 8 to up to 63. The default value is \n12345678\n.\n\n\n    \nType\n\n    \nString\n\n\n\n\n AutoConnectConfig example\n\u00b6\n\n\nAutoConenct\n        \nPortal\n;\n\n\nAutoConenctConfig\n  \nConfig\n(\n\"\"\n,\n \n\"passpass\"\n);\n    \n// SoftAp name is determined at runtime\n\n\nConfig\n.\napid\n \n=\n \nESP\n.\nhostname\n();\n                 \n// Retrieve host name to SotAp identification\n\n\nConfig\n.\napip\n \n=\n \nIPAddress\n(\n192\n,\n168\n,\n10\n,\n101\n);\n      \n// Sets SoftAP IP address\n\n\nConfig\n.\ngateway\n \n=\n \nIPAddress\n(\n192\n,\n168\n,\n10\n,\n1\n);\n     \n// Sets WLAN router IP address\n\n\nConfig\n.\nnetmask\n \n=\n \nIPAddress\n(\n255\n,\n255\n,\n255\n,\n0\n);\n    \n// Sets WLAN scope\n\n\nConfig\n.\nautoSave\n \n=\n \nAC_SAVECREDENTIAL_NEVER\n;\n    \n// No save credential\n\n\nConfig\n.\nhomeUri\n \n=\n \n\"/index.html\"\n                \n// Sets home path of the sketch application\n\n\nPortal\n.\nconfig\n(\nConfig\n);\n                        \n// Configure AutoConnect\n\n\nPortal\n.\nbegin\n();\n                               \n// Starts and behaves captive portal\n\n\n\n\n\n Something extra\n\u00b6\n\n\nThe library presents two PNG icons which can be used to embed a hyperlink to the AutoConnect menu.\n\n\n\n\nBar type \n\n\nCog type \n\n\n\n\nTo reference the icon, use the \nAUTOCONNECT_LINK\n macro in the sketch. It expands into the string literal as an HTML \n<a></a>\n tag with PNG embedded of the AutoConnect menu hyperlinks. Icon type is specified by the parameter of the macro.\n\n\n\n    \nBAR_32\nBars icon, 32x32.\n\n    \nBAR_48\nBars icon, 48x48.\n\n    \nCOG_24\nCog icon, 24x24.\n\n    \nCOG_32\nCog icon, 32x32.\n\n\n\n\n\n\n\nUsage\n\n\nString\n \nhtml\n \n=\n \n\"<html>\"\n;\n\n\nhtml\n \n+=\n \nAUTOCONNECT_LINK\n(\nBAR_32\n);\n\n\nhtml\n \n+=\n \n\"</html>\"\n;\n\n\nserver\n.\nsend\n(\n200\n,\n \n\"text/html\"\n,\n \nhtml\n);",
+            "title": "Library APIs"
+        },
+        {
+            "location": "/api/index.html#include-headers",
+            "text": "",
+            "title": "Include headers"
+        },
+        {
+            "location": "/api/index.html#autoconnecth",
+            "text": "#include   <AutoConnect.h>",
+            "title": " AutoConnect.h"
+        },
+        {
+            "location": "/api/index.html#define-macros",
+            "text": "#define AC_DEBUG                                 // Monitor message output activation  #define AC_DEBUG_PORT           Serial           // Default message output device  #define AUTOCONNECT_AP_IP       0x01F4A8C0       // Default SoftAP IP  #define AUTOCONNECT_AP_GW       0x01F4A8C0       // Default SoftAP Gateway IP  #define AUTOCONNECT_AP_NM       0x00FFFFFF       // Default subnet mask  #define AUTOCONNECT_DNSPORT     53               // Default DNS port at captive portal  #define AUTOCONNECT_MENU_TITLE  \"AutoConnect\"    // Default AutoConnect menu title  #define AUTOCONNECT_URI         \"/_ac\"           // Default AutoConnect root path",
+            "title": "Define macros"
+        },
+        {
+            "location": "/api/index.html#autoconnect-api",
+            "text": "",
+            "title": "AutoConnect API"
+        },
+        {
+            "location": "/api/index.html#constructors",
+            "text": "",
+            "title": " Constructors"
+        },
+        {
+            "location": "/api/index.html#autoconnect",
+            "text": "AutoConnect ()   AutoConnect default constructor. This entry activates WebServer internally and the web server is allocated internal.  AutoConnect ( ESP8266WebServer &   webServer )   Run the AutoConnect site using the externally ensured ESP 8266 WebServer. User's added URI handler response can be included in handleClient method. \n     Parameters \n     webServer A reference of ESP8266WebServer instance.",
+            "title": "AutoConnect"
+        },
+        {
+            "location": "/api/index.html#public-member-functions",
+            "text": "",
+            "title": " Public member functions"
+        },
+        {
+            "location": "/api/index.html#begin",
+            "text": "bool   begin ()   bool   begin ( const   char *   ssid ,   const   char *   passphraase )   bool   begin ( const   char *   ssid ,   const   char *   passphraase ,   unsinged   long   timeout )   Starts establishing WiFi connection. Before establishing, start the Web server and DNS server for the captive portal. Then begins connection establishment in WIFI_STA mode. If connection can not established with the specified SSID and password, switch to WIFI_AP_STA mode and activate SoftAP. \n     Parameters \n     ssid SSID to be connected. \n     passphrase Password for connection. \n     timeout A time out value in milliseconds for waiting connection. \n     Return value \n     true Connection established, AutoConnect service started with WIFI_STA mode. \n     false Could not connected, Captive portal started with WIFI_AP_STA mode.",
+            "title": "begin"
+        },
+        {
+            "location": "/api/index.html#config",
+            "text": "bool   config ( AutoConnectConfig &   config )   bool   config ( const   char *   ap ,   const   char *   password   =   nullptr )   Sets SoftAP's WiFi configuration.  \n     Parameters \n     config Reference to AutoConnectConfig containing SoftAP's parameters. \n     ap SSID for SoftAP. The default value is  esp8266ap . \n     password Password for SodtAP. The default value is  12345678 . \n     Return value \n     true Successfully configured. \n     false Configuration parameter is invalid, some values out of range.",
+            "title": "config"
+        },
+        {
+            "location": "/api/index.html#end",
+            "text": "void   end ()   Stops AutoConnect captive portal service. Release ESP8266WebServer and DNSServer.    Attention to end  The end function releases the instance of ESP8266WebServer and DNSServer. It can not process them after the end function.",
+            "title": "end"
+        },
+        {
+            "location": "/api/index.html#handleclient",
+            "text": "void   handleClient ()   Handling for the AutoConnect web interface. Invoke the handleClient of the parent web server to process client request of the AutoConnect WEB interface. No effects when the web server is not available.",
+            "title": "handleClient"
+        },
+        {
+            "location": "/api/index.html#handlerequest",
+            "text": "void   handleRequest ()   Handling for the AutoConnect menu request.   About used in combination with handleClient  The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266::handleClient.",
+            "title": "handleRequest"
+        },
+        {
+            "location": "/api/index.html#home",
+            "text": "void   home ( String   uri )   Put a user site's home URI. The URI specified by home is linked from \"HOME\" in the AutoConnect portal menu. \n     Parameters \n     uri  A URI string of user site's home path.",
+            "title": "home"
+        },
+        {
+            "location": "/api/index.html#host",
+            "text": "Returns the reference of the ESP8266WebServer which is allocated in AutoConnect automatically.  ESP8266WebServer &   host ()   \n     Return value \n     A reference of the ESP8266WebServer.    &reference is not a pointer  A reference cannot be re-assigned, and must be assigned at initialization. It's like as bind as alias.      ESP8266WebServer &   server   =   portal . host ();  server . handleClient ();  \nor  portal . host (). handleClient ();",
+            "title": "host"
+        },
+        {
+            "location": "/api/index.html#ondetect",
+            "text": "void   onDetect ( DetectExit_ft   fn )  \nRegister the function which will call from AutoConnect at the start of the captive portal. \n     Parameters \n     fn Function called at the captive portal start.   An  fn  specifies the function called when the captive portal starts. Its prototype declaration is defined as \" DetectFunc_ft \".  typedef   std :: function < bool ( IPAddress   softapIP ) >    DetectExit_ft   \n     Parameters \n     softapIP An IP address of SoftAP for the captive portal. \n     Retuen value \n     true Continues captive portal handling. \n     false Cancel the captive portal. AutoConnect::begin function will return with a false.",
+            "title": "onDetect"
+        },
+        {
+            "location": "/api/index.html#onnotfound",
+            "text": "void   onNotFound ( ESP8266WebServer :: THandlerFunction   fn )  \nRegister the handler function for undefined URL request detected. \n     Parameters \n     fn A function of the \"not found\" handler.",
+            "title": "onNotFound"
+        },
+        {
+            "location": "/api/index.html#autoconnectconfig-api",
+            "text": "",
+            "title": "AutoConnectConfig API"
+        },
+        {
+            "location": "/api/index.html#constructor",
+            "text": "",
+            "title": " Constructor"
+        },
+        {
+            "location": "/api/index.html#autoconnectconfig",
+            "text": "AutoConnectConfig ();   AutoConnectConfig ( const   char *   ap ,   const   char *   password );   \n     Parameters \n     ap SSID for SoftAP. The length should be up to 31. The default value is  esp8266ap . \n     password Password for SodtAP. The length should be from 8 to up to 63. The default value is  12345678 .",
+            "title": "AutoConnectConfig"
+        },
+        {
+            "location": "/api/index.html#public-member-variables",
+            "text": "",
+            "title": " Public member variables"
+        },
+        {
+            "location": "/api/index.html#apid",
+            "text": "SoftAP's SSID. \n     Type \n     String",
+            "title": "apid"
+        },
+        {
+            "location": "/api/index.html#apip",
+            "text": "Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this. \n     Type \n     IPAddress",
+            "title": "apip"
+        },
+        {
+            "location": "/api/index.html#autoreset",
+            "text": "Reset ESP8266 module automatically when WLAN disconnected. \n     Type \n     bool \n     Value \n     true Reset after WiFi disconnected automatically. \n     false No reset.",
+            "title": "autoReset"
+        },
+        {
+            "location": "/api/index.html#autosave",
+            "text": "The credential saved automatically at the connection establishment. \n     Type \n     AC_SAVECREDENTIAL_t \n     Value \n     AC_SAVECREDENTIAL_AUTO The credential saved automatically. \n     AC_SAVECREDENTIAL_NEVER The credential no saved.",
+            "title": "autoSave"
+        },
+        {
+            "location": "/api/index.html#channel",
+            "text": "The channel number of WIFi when SoftAP starts. \n     Type \n     uint8_t \n     Value \n     1 ~ 14. The default value is 1.    See Application note  Espressif Systems had announced the  application note  about Wi-Fi channel selection.",
+            "title": "channel"
+        },
+        {
+            "location": "/api/index.html#gateway",
+            "text": "Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this. \n     Type \n     IPAddress",
+            "title": "gateway"
+        },
+        {
+            "location": "/api/index.html#hidden",
+            "text": "Sets SoftAP to hidden SSID. \n     Type \n     uint8_t \n     Value \n     0 SSID will be appeared. This is the default. \n     1 SSID will be hidden.",
+            "title": "hidden"
+        },
+        {
+            "location": "/api/index.html#homeuri",
+            "text": "Sets the home path of user sketch. This path would be linked from 'HOME' in the AutoConnect menu. \n     Type \n     String",
+            "title": "homeUri"
+        },
+        {
+            "location": "/api/index.html#netmask",
+            "text": "Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this. \n     Type \n     IPAddress",
+            "title": "netmask"
+        },
+        {
+            "location": "/api/index.html#psk",
+            "text": "Sets password for SoftAP. The length should be from 8 to up to 63. The default value is  12345678 . \n     Type \n     String",
+            "title": "psk"
+        },
+        {
+            "location": "/api/index.html#autoconnectconfig-example",
+            "text": "AutoConenct          Portal ;  AutoConenctConfig    Config ( \"\" ,   \"passpass\" );      // SoftAp name is determined at runtime  Config . apid   =   ESP . hostname ();                   // Retrieve host name to SotAp identification  Config . apip   =   IPAddress ( 192 , 168 , 10 , 101 );        // Sets SoftAP IP address  Config . gateway   =   IPAddress ( 192 , 168 , 10 , 1 );       // Sets WLAN router IP address  Config . netmask   =   IPAddress ( 255 , 255 , 255 , 0 );      // Sets WLAN scope  Config . autoSave   =   AC_SAVECREDENTIAL_NEVER ;      // No save credential  Config . homeUri   =   \"/index.html\"                  // Sets home path of the sketch application  Portal . config ( Config );                          // Configure AutoConnect  Portal . begin ();                                 // Starts and behaves captive portal",
+            "title": " AutoConnectConfig example"
+        },
+        {
+            "location": "/api/index.html#something-extra",
+            "text": "The library presents two PNG icons which can be used to embed a hyperlink to the AutoConnect menu.   Bar type   Cog type    To reference the icon, use the  AUTOCONNECT_LINK  macro in the sketch. It expands into the string literal as an HTML  <a></a>  tag with PNG embedded of the AutoConnect menu hyperlinks. Icon type is specified by the parameter of the macro.  \n     BAR_32 Bars icon, 32x32. \n     BAR_48 Bars icon, 48x48. \n     COG_24 Cog icon, 24x24. \n     COG_32 Cog icon, 32x32.    Usage  String   html   =   \"<html>\" ;  html   +=   AUTOCONNECT_LINK ( BAR_32 );  html   +=   \"</html>\" ;  server . send ( 200 ,   \"text/html\" ,   html );",
+            "title": " Something extra"
+        },
+        {
+            "location": "/examples/index.html",
+            "text": "How to embed the AutoConnect\n\u00b6\n\n\nHere holds two case examples. Both examples perform the same function. Only how to incorporate the \nAutoConnect\n into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the \nPageBuilder\n library for HTML assemblies.\n\n\nWhat does this example do?\n\u00b6\n\n\nUses the web interface to light the LED connected to the \nNodeMCU\n module D0 port (which could be referred to as \nBUILTIN_LED\n), the following animation is it.\n\n\nAccess to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED blinks according to the value of the button that was clicked. This example is a typical sketch of manipulating ESP8266's GPIO via WLN.\n\n\n\n\nEmbed AutoConnect library into this sketch. There are few places to be changed. And you can use AutoConnect's captive portal function to establish a connection freely to other WiFi spots.\n\n\nEmbed AutoConnect\n\u00b6\n\n\n Pattern A.\n\u00b6\n\n\nBind to ESP8266WebServer, performs handleClient with handleRequest.\n\n\n\n\n\n\nIn what situations should the handleRequest be used.\n\n\nIt is something needs to be done immediately after the handle client. It is better to call only AutoConnect::handleClient whenever possible.\n\n\n\n\n Pattern B.\n\u00b6\n\n\nDeclare only AutoConnect, performs handleClient.\n\n\n\n\n\n  window.onload = function() {\n    Gifffer();\n  }",
+            "title": "Examples"
+        },
+        {
+            "location": "/examples/index.html#how-to-embed-the-autoconnect",
+            "text": "Here holds two case examples. Both examples perform the same function. Only how to incorporate the  AutoConnect  into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the  PageBuilder  library for HTML assemblies.",
+            "title": "How to embed the AutoConnect"
+        },
+        {
+            "location": "/examples/index.html#what-does-this-example-do",
+            "text": "Uses the web interface to light the LED connected to the  NodeMCU  module D0 port (which could be referred to as  BUILTIN_LED ), the following animation is it.  Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED blinks according to the value of the button that was clicked. This example is a typical sketch of manipulating ESP8266's GPIO via WLN.   Embed AutoConnect library into this sketch. There are few places to be changed. And you can use AutoConnect's captive portal function to establish a connection freely to other WiFi spots.",
+            "title": "What does this example do?"
+        },
+        {
+            "location": "/examples/index.html#embed-autoconnect",
+            "text": "",
+            "title": "Embed AutoConnect"
+        },
+        {
+            "location": "/examples/index.html#pattern-a",
+            "text": "Bind to ESP8266WebServer, performs handleClient with handleRequest.    In what situations should the handleRequest be used.  It is something needs to be done immediately after the handle client. It is better to call only AutoConnect::handleClient whenever possible.",
+            "title": " Pattern A."
+        },
+        {
+            "location": "/examples/index.html#pattern-b",
+            "text": "Declare only AutoConnect, performs handleClient.   \n  window.onload = function() {\n    Gifffer();\n  }",
+            "title": " Pattern B."
+        },
+        {
+            "location": "/faq/index.html",
+            "text": "After connected, AutoConnect menu performs but no happens.\n\u00b6\n\n\nIf you can access the \nAutoConnect root path\n as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses \nESP8266WebServer::handleClient()\n without \nAutoConnect::handleRequest()\n.\n\nFor AutoConnect menus to work properly, call \nAutoConnect::handleRequest()\n after \nESP8266WebServer::handleClient()\n invoked, or use \nAutoConnect::handleClient()\n. \nAutoConnect::handleClient()\n is equivalent \nESP8266WebServer::handleClient\n combinated \nAutoConnect::handleRequest()\n.\n\n\n An esp8266ap as SoftAP was connected but Captive portal does not start.\n\u00b6\n\n\nCaptive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.\n\n\n Does not appear esp8266ap in smartphone.\n\u00b6\n\n\nMaybe it is successfully connected at the \nfirst WiFi.begin\n. ESP8266 remembers the SSID successfully connected and will use at the next. It means SoftAP will only start up when the first \nWiFi.begin()\n fails.\n\n\nThe saved SSID would be cleared by  \nWiFi.disconnect()\n with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.\n\n\n#include\n \n<ESP8266WiFi.h>\n\n\n\nvoid\n \nsetup\n()\n \n{\n\n  \ndelay\n(\n1000\n);\n\n  \nSerial\n.\nbegin\n(\n115200\n);\n\n  \nWiFi\n.\nmode\n(\nWIFI_STA\n);\n\n  \ndelay\n(\n100\n);\n\n  \nWiFi\n.\nbegin\n();\n\n  \nif\n \n(\nWiFi\n.\nwaitForConnectResult\n()\n \n==\n \nWL_CONNECTED\n)\n \n{\n\n    \nWiFi\n.\ndisconnect\n();\n\n    \nwhile\n \n(\nWiFi\n.\nstatus\n()\n \n==\n \nWL_CONNECTED\n)\n\n      \ndelay\n(\n100\n);\n\n  \n}\n\n  \nSerial\n.\nprintln\n(\n\"WiFi disconnected.\"\n);\n\n\n}\n\n\n\nvoid\n \nloop\n()\n \n{\n\n  \ndelay\n(\n1000\n);\n\n\n}\n\n\n\n\n\nYou can interactively check the WiFi state of ESP8266.\nPlease try \nESPShaker\n. It is ESP8266 interactive serial command processor.\n Does not response from _ac.\n\u00b6\n\n\nProbably \nWiFi.begin\n failed with the specified SSID. Activating the \ndebug printing\n will help you to track down the cause.\n\n\n How change esp8266ap for SSID name in Captive portal?\n\u00b6\n\n\nAn \nesp8266\n is default SSID name for SoftAP of captive portal and password is \n12345678\n. You can change both by using \nAutoConnectConfig\n.\n\n\n Hang up after Reset?\n\u00b6\n\n\nIf ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: \nhttps://github.com/esp8266/Arduino/issues/1017\n\n\nIf you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.\n\n\nets Jan  8 2013,rst cause:2, boot mode:(1,6) or (1,7)\nets Jan  8 2013,rst cause:4, boot mode:(1,6) or (1,7)\nwdt reset\n\n\n\n\nThe correct boot mode for starting the sketch is \n(3, x)\n.\n\n\n How erase the credentials saved in EEPROM?\n\u00b6\n\n\nMake some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with \nAutoConnectCredential\n. The \nAutoConnectCrendential\n class provides the access method to the saved credential in EEPROM and library source file is including it.\n\n\nA class description of AutoConnectCredentail is follows.\n\n\nConstructor\n\u00b6\n\n\n#include\n \n<AutoConnectCredential.h>\n\n\n\nAutoConnectCredential\n();\n\n\n\n\n\nPublic member functions\n\u00b6\n\n\n\n\n\n\nuint8_t \nentries()\n\n   Returns number of entries as contained credentials.\n\n\n\n\n\n\nint8_t \nload(const char* \nssid\n, struct station_config* \nconfig\n)\n\n   Load a credential entry specified \nssid\n to \nconfig\n. Returns -1 as unsuccessfully loaded.\n\n\n\n\n\n\nbool \nload(int8_t \nentry\n, struct station_config* \nconfig\n)\n\n   Load a credential entry to \nconfig\n. The \nentry\n parameter specify to index of the entry.\n\n\n\n\n\n\nbool \nsave(const struct station_config* \nconfig\n)\n\n   Save a credential entry stored in \nconfig\n to EEPROM. Returns the true as succeeded.\n\n\n\n\n\n\nbool \ndel(const char* \nssid\n)\n\n   Delete a credential entry specified \nssid\n. Returns the true as successfully deleted.\n\n\n\n\n\n\nData structures\n\u00b6\n\n\n\n\nstation_config\n\n  A structure is included in the ESP8266 SDK. You can use it in the sketch like as follows.\n\n\n\n\nextern\n \n\"C\"\n \n{\n\n\n#include\n \n<user_interface.h>\n\n\n}\n\n\n\n\n\nstruct\n \nstation_config\n \n{\n\n    \nuint8\n \nssid\n[\n32\n];\n\n    \nuint8\n \npassword\n[\n64\n];\n\n    \nuint8\n \nbssid_set\n;\n\n    \nuint8\n \nbssid\n[\n6\n];\n\n\n};\n\n\n\n\n\n\n\nEEPROM data structure\n\n  A data structure of the credential saving area in EEPROM as the below. \n1\n\n\n\n\n\n\n\n\n\n\nByte offset\n\n\nLength\n\n\nValue\n\n\n\n\n\n\n\n\n\n\n0\n\n\n8\n\n\nAC_CREDT\n\n\n\n\n\n\n8\n\n\n1\n\n\nNumber of contained entries (uint8_t)\n\n\n\n\n\n\n9\n\n\n2\n\n\nContainer size, excluding size of AC_CREDT and size of the number of entries(width for uint16_t type).\n\n\n\n\n\n\n11\n\n\nvariable\n\n\nSSID terminated by 0x00. Max length is 32 bytes.\n\n\n\n\n\n\nvariable\n\n\nvariable\n\n\nPassword plain text terminated by 0x00. Max length is 64 bytes.\n\n\n\n\n\n\nvariable\n\n\n6\n\n\nBSSID\n\n\n\n\n\n\nvariable\n\n\n\n\nContained the next entries. (Continuation SSID+Password+BSSID)\n\n\n\n\n\n\nvariable\n\n\n1\n\n\n0x00. End of container.\n\n\n\n\n\n\n\n\n\n\nHint\n\n\nWith the \nESPShaker\n, you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.\n\n\n\n\n How locate the link button to the  AutoConnect menu?\n\u00b6\n\n\nLink button to AutoConnect menu can be embedded into Sketch's web page. The root path of the menu is \n/_ac\n by default and embed the following \n<a></a>\n tag in the generating HTML.\n\n\n<\na\n \nstyle\n=\n\"background-color:SteelBlue; display:inline-block; padding:7px 13px; text-decoration:none;\"\n \nhref\n=\n\"/_ac\"\n>\nMENU\n</\na\n>\n\n\n\n\n\n How much memory consumption is AutoConnect?\n\u00b6\n\n\nSketch size\n\u00b6\n\n\nIt increases about 57K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced at the Getting started is about 330K bytes. (270K byte without AutoConnect)\n\n\nHeap size\n\u00b6\n\n\nIt consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.\n\n\n I cannot complete to Wi-Fi login from smartphone.\n\u00b6\n\n\nBecause AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.\n\n\n\n\n\n\n\n\n\n\nThere may be 0xff as an invalid data in the credential saving area. The 0xff area would be reused.\u00a0\n\u21a9",
+            "title": "FAQ"
+        },
+        {
+            "location": "/faq/index.html#after-connected-autoconnect-menu-performs-but-no-happens",
+            "text": "If you can access the  AutoConnect root path  as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses  ESP8266WebServer::handleClient()  without  AutoConnect::handleRequest() . \nFor AutoConnect menus to work properly, call  AutoConnect::handleRequest()  after  ESP8266WebServer::handleClient()  invoked, or use  AutoConnect::handleClient() .  AutoConnect::handleClient()  is equivalent  ESP8266WebServer::handleClient  combinated  AutoConnect::handleRequest() .",
+            "title": " After connected, AutoConnect menu performs but no happens."
+        },
+        {
+            "location": "/faq/index.html#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start",
+            "text": "Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.",
+            "title": " An esp8266ap as SoftAP was connected but Captive portal does not start."
+        },
+        {
+            "location": "/faq/index.html#does-not-appear-esp8266ap-in-smartphone",
+            "text": "Maybe it is successfully connected at the  first WiFi.begin . ESP8266 remembers the SSID successfully connected and will use at the next. It means SoftAP will only start up when the first  WiFi.begin()  fails.  The saved SSID would be cleared by   WiFi.disconnect()  with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.  #include   <ESP8266WiFi.h>  void   setup ()   { \n   delay ( 1000 ); \n   Serial . begin ( 115200 ); \n   WiFi . mode ( WIFI_STA ); \n   delay ( 100 ); \n   WiFi . begin (); \n   if   ( WiFi . waitForConnectResult ()   ==   WL_CONNECTED )   { \n     WiFi . disconnect (); \n     while   ( WiFi . status ()   ==   WL_CONNECTED ) \n       delay ( 100 ); \n   } \n   Serial . println ( \"WiFi disconnected.\" );  }  void   loop ()   { \n   delay ( 1000 );  }   You can interactively check the WiFi state of ESP8266. Please try  ESPShaker . It is ESP8266 interactive serial command processor.",
+            "title": " Does not appear esp8266ap in smartphone."
+        },
+        {
+            "location": "/faq/index.html#does-not-response-from-95ac",
+            "text": "Probably  WiFi.begin  failed with the specified SSID. Activating the  debug printing  will help you to track down the cause.",
+            "title": " Does not response from _ac."
+        },
+        {
+            "location": "/faq/index.html#how-change-esp8266ap-for-ssid-name-in-captive-portal",
+            "text": "An  esp8266  is default SSID name for SoftAP of captive portal and password is  12345678 . You can change both by using  AutoConnectConfig .",
+            "title": " How change esp8266ap for SSID name in Captive portal?"
+        },
+        {
+            "location": "/faq/index.html#hang-up-after-reset",
+            "text": "If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core:  https://github.com/esp8266/Arduino/issues/1017  If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.  ets Jan  8 2013,rst cause:2, boot mode:(1,6) or (1,7)\nets Jan  8 2013,rst cause:4, boot mode:(1,6) or (1,7)\nwdt reset  The correct boot mode for starting the sketch is  (3, x) .",
+            "title": " Hang up after Reset?"
+        },
+        {
+            "location": "/faq/index.html#how-erase-the-credentials-saved-in-eeprom",
+            "text": "Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with  AutoConnectCredential . The  AutoConnectCrendential  class provides the access method to the saved credential in EEPROM and library source file is including it.  A class description of AutoConnectCredentail is follows.",
+            "title": " How erase the credentials saved in EEPROM?"
+        },
+        {
+            "location": "/faq/index.html#constructor",
+            "text": "#include   <AutoConnectCredential.h>  AutoConnectCredential ();",
+            "title": "Constructor"
+        },
+        {
+            "location": "/faq/index.html#public-member-functions",
+            "text": "uint8_t  entries() \n   Returns number of entries as contained credentials.    int8_t  load(const char*  ssid , struct station_config*  config ) \n   Load a credential entry specified  ssid  to  config . Returns -1 as unsuccessfully loaded.    bool  load(int8_t  entry , struct station_config*  config ) \n   Load a credential entry to  config . The  entry  parameter specify to index of the entry.    bool  save(const struct station_config*  config ) \n   Save a credential entry stored in  config  to EEPROM. Returns the true as succeeded.    bool  del(const char*  ssid ) \n   Delete a credential entry specified  ssid . Returns the true as successfully deleted.",
+            "title": "Public member functions"
+        },
+        {
+            "location": "/faq/index.html#data-structures",
+            "text": "station_config \n  A structure is included in the ESP8266 SDK. You can use it in the sketch like as follows.   extern   \"C\"   {  #include   <user_interface.h>  }   struct   station_config   { \n     uint8   ssid [ 32 ]; \n     uint8   password [ 64 ]; \n     uint8   bssid_set ; \n     uint8   bssid [ 6 ];  };    EEPROM data structure \n  A data structure of the credential saving area in EEPROM as the below.  1      Byte offset  Length  Value      0  8  AC_CREDT    8  1  Number of contained entries (uint8_t)    9  2  Container size, excluding size of AC_CREDT and size of the number of entries(width for uint16_t type).    11  variable  SSID terminated by 0x00. Max length is 32 bytes.    variable  variable  Password plain text terminated by 0x00. Max length is 64 bytes.    variable  6  BSSID    variable   Contained the next entries. (Continuation SSID+Password+BSSID)    variable  1  0x00. End of container.      Hint  With the  ESPShaker , you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.",
+            "title": "Data structures"
+        },
+        {
+            "location": "/faq/index.html#how-locate-the-link-button-to-the-autoconnect-menu",
+            "text": "Link button to AutoConnect menu can be embedded into Sketch's web page. The root path of the menu is  /_ac  by default and embed the following  <a></a>  tag in the generating HTML.  < a   style = \"background-color:SteelBlue; display:inline-block; padding:7px 13px; text-decoration:none;\"   href = \"/_ac\" > MENU </ a >",
+            "title": " How locate the link button to the  AutoConnect menu?"
+        },
+        {
+            "location": "/faq/index.html#how-much-memory-consumption-is-autoconnect",
+            "text": "",
+            "title": " How much memory consumption is AutoConnect?"
+        },
+        {
+            "location": "/faq/index.html#sketch-size",
+            "text": "It increases about 57K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced at the Getting started is about 330K bytes. (270K byte without AutoConnect)",
+            "title": "Sketch size"
+        },
+        {
+            "location": "/faq/index.html#heap-size",
+            "text": "It consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.",
+            "title": "Heap size"
+        },
+        {
+            "location": "/faq/index.html#i-cannot-complete-to-wi-fi-login-from-smartphone",
+            "text": "Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.      There may be 0xff as an invalid data in the credential saving area. The 0xff area would be reused.\u00a0 \u21a9",
+            "title": " I cannot complete to Wi-Fi login from smartphone."
+        },
+        {
+            "location": "/license/index.html",
+            "text": "MIT License\n\n\nCopyright \u00a9 2018 Hieromon Ikasamo\n\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS\nIN THE SOFTWARE.\n\n\nAcknowledgments\n\n\nThe \nLuxbar\n is licensed under the MIT License.\n\n\nhttps://github.com/balzss/luxbar",
+            "title": "License"
+        }
+    ]
+}
