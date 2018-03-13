@@ -46,7 +46,8 @@ Apply the [Arduino core](https://github.com/esp8266/Arduino) of the ESP8266 Comm
 
 ### The AutoConnect menu
 
-
+<img src="mkdocs/images/menu_r.png" width="200">&emsp;<img src="mkdocs/images/statistics.png" width="200">&emsp;<img src="mkdocs/images/confignew.png"
+ width="200">&emsp;<img src="mkdocs/images/openssid.png" width="200">
 
 ### How embed the AutoConnect to the sketches you have
 
