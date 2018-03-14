@@ -313,6 +313,18 @@ Sets password for SoftAP. The length should be from 8 to up to 63. The default v
     <dd>String</dd>
 </dl>
 
+#### saveOffset
+
+Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)  
+The default value is 0.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>uint16_t</dd>
+</dl>
+
+!!! warning "It will conflict with user data."
+    If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.
+
 ### <i class="fa fa-code"></i> AutoConnectConfig example
 
 ```arduino

@@ -157,8 +157,9 @@ class AutoConnectConfig {
   uint8_t   channel;    /**< SoftAP used wifi channel */
   uint8_t   hidden;     /**< SoftAP SSID hidden */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
+  uint16_t  saveOffset; /**< The save storage offset of EEPROM */
   int       uptime;     /**< Length of start up time */
-  bool      autoRise;   /**< automatic starting the captive portal */
+  bool      autoRise;   /**< Automatic starting the captive portal */
   bool      autoReset;  /**< Reset ESP8266 module automatically when WLAN disconnected. */
   String    homeUri;    /**< A URI of user site */
 };

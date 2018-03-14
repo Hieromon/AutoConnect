@@ -603,6 +603,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#saveoffset" title="saveOffset" class="md-nav__link">
+    saveOffset
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -947,6 +954,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#saveoffset" title="saveOffset" class="md-nav__link">
+    saveOffset
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1230,6 +1244,17 @@ Register the handler function for undefined URL request detected.
     <dt><strong>Type</strong></dt>
     <dd>String</dd>
 </dl></p>
+<h4 id="saveoffset">saveOffset<a class="headerlink" href="#saveoffset" title="Permanent link">&para;</a></h4>
+<p>Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)<br />
+The default value is 0.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>uint16_t</dd>
+</dl></p>
+<div class="admonition warning">
+<p class="admonition-title">It will conflict with user data.</p>
+<p>If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.</p>
+</div>
 <h3 id="autoconnectconfig-example"><i class="fa fa-code"></i> AutoConnectConfig example<a class="headerlink" href="#autoconnectconfig-example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="n">AutoConenct</span>        <span class="n">Portal</span><span class="p">;</span>
 <span class="n">AutoConenctConfig</span>  <span class="nf">Config</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;passpass&quot;</span><span class="p">);</span>    <span class="c1">// SoftAp name is determined at runtime</span>

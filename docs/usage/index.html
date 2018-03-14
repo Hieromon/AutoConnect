@@ -489,6 +489,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#move-the-saving-area-of-eeprom-for-the-credentials" title=" Move the saving area of EEPROM for the credentials" class="md-nav__link">
+     Move the saving area of EEPROM for the credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#refers-the-hosted-esp8266webserver" title=" Refers the hosted ESP8266WebServer" class="md-nav__link">
      Refers the hosted ESP8266WebServer
   </a>
@@ -778,6 +785,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#move-the-saving-area-of-eeprom-for-the-credentials" title=" Move the saving area of EEPROM for the credentials" class="md-nav__link">
+     Move the saving area of EEPROM for the credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#refers-the-hosted-esp8266webserver" title=" Refers the hosted ESP8266WebServer" class="md-nav__link">
      Refers the hosted ESP8266WebServer
   </a>
@@ -897,7 +911,7 @@ or</p>
 
 <ul>
 <li>
-<p><strong>Parameter with ESP8266WebServer variable:</strong> An ESP8266WebServer object variable must be declared in the sketch. AutoConnect uses its variable for handling the AutoConnect menu.</p>
+<p><strong>Parameter with ESP8266WebServer variable:</strong> An ESP8266WebServer object variable must be declared in the sketch. AutoConnect uses its variable for handling the <a href="../menu/index.html">AutoConnect menu</a>.</p>
 </li>
 <li>
 <p><strong>With no parameter:</strong> The sketch does not declare ESP8266WebServer object. In this case, AutoConnect allocates an instance of the ESP8266WebServer internally and the logic sequence of the sketch is somewhat different as the above. To register a URL handler function by <em>ESP8266WebServer::on</em> should be performed after <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a>.</p>
@@ -912,9 +926,9 @@ or</p>
 <p>AutoConnect traps the detection of captive portals and directs them to the AutoConnect menu to achieve a connection with the WLAN interactively. In order to trap, it temporarily responds SoftAP address to all DNS queries. When the connection with the WLAN is successfully established, the DNS server will stop.</p>
 </div>
 <h4 id="5-autoconnectbegin-with-ssid-and-password">5. AutoConnect::begin with SSID and Password<a class="headerlink" href="#5-autoconnectbegin-with-ssid-and-password" title="Permanent link">&para;</a></h4>
-<p>SSID and Password can also specify by <a href="../api.me#begin">AutoConnect::begin</a>. ESP8266 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.</p>
+<p>SSID and Password can also specify by <a href="../api.me#begin"><em>AutoConnect::begin</em></a>. ESP8266 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.</p>
 <h4 id="6-use-esp8266webserveron-to-handle-url">6. Use ESP8266WebServer::on to handle URL<a class="headerlink" href="#6-use-esp8266webserveron-to-handle-url" title="Permanent link">&para;</a></h4>
-<p>AutoConnect is designed to coexist with the process for handling the web pages by user sketches. The page processing function which will send an HTML to the client invoked by the "<strong>on</strong>" function is the same as when using ESP8266WebServer natively.</p>
+<p>AutoConnect is designed to coexist with the process for handling the web pages by user sketches. The page processing function which will send an HTML to the client invoked by the "<em>on::ESP8266WebServer</em>" function is the same as when using ESP8266WebServer natively.</p>
 <h4 id="7-use-either-esp8266webserverhandleclient-or-autoconnecthandleclient">7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()<a class="headerlink" href="#7-use-either-esp8266webserverhandleclient-or-autoconnecthandleclient" title="Permanent link">&para;</a></h4>
 <p>Both classes member function name is the same: <em>handleClient</em>, but behavior is different. Using the AutoConnect embedded along with ESP8266WebServer::handleClient has limitations. Refer to the below section for details. </p>
 <h3 id="esp8266webserver-hosted-or-parasitic"><i class="fa fa-caret-right"></i> ESP8266WebServer hosted or parasitic<a class="headerlink" href="#esp8266webserver-hosted-or-parasitic" title="Permanent link">&para;</a></h3>
@@ -963,7 +977,7 @@ or</p>
 <h3 id="404-handler"><i class="fa fa-caret-right"></i> 404 handler<a class="headerlink" href="#404-handler" title="Permanent link">&para;</a></h3>
 <p>Registering the "not found" handler is a different way than ESP8266. The <em>onNotFound</em> of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="../api/index.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
 <h3 id="auto-save-credential"><i class="fa fa-caret-right"></i> Auto save Credential<a class="headerlink" href="#auto-save-credential" title="Permanent link">&para;</a></h3>
-<p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <strong>autoSave</strong> parameter specified by <a href="../api/index.html#config"><em>AutoConnect::config</em></a>.</p>
+<p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <a href="../api/index.html#autosave"><strong>autoSave</strong></a> parameter specified by <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>
 <span class="n">AutoConnectConfig</span> <span class="n">Config</span><span class="p">;</span>
 <span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>
@@ -972,7 +986,7 @@ or</p>
 </pre></div>
 
 <h3 id="captive-portal-start-detection"><i class="fa fa-caret-right"></i> Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h3>
-<p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="../api/index.html#ondetect"><em>onDetect</em></a> funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
+<p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="../api/index.html#ondetect"><em>AutoConnect::onDetect</em></a> funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="n">Portal</span><span class="p">;</span>
 
 <span class="hll"><span class="kr">bool</span> <span class="nf">startCP</span><span class="p">(</span><span class="nf">IPAddress</span> <span class="n">ip</span><span class="p">)</span> <span class="p">{</span>
@@ -997,7 +1011,7 @@ or</p>
 </pre></div>
 
 <h3 id="combination-with-mdns"><i class="fa fa-caret-right"></i> Combination with mDNS<a class="headerlink" href="#combination-with-mdns" title="Permanent link">&para;</a></h3>
-<p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after AutoConnect::begin.</p>
+<p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a>.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WiFi.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;ESP8266mDNS.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span><span class="cp"></span>
@@ -1021,13 +1035,13 @@ or</p>
 <p><em>AutoConnect::config</em> must be executed before <em>AutoConnect::begin</em>.</p>
 </div>
 <h3 id="debug-print"><i class="fa fa-caret-right"></i> Debug print<a class="headerlink" href="#debug-print" title="Permanent link">&para;</a></h3>
-<p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h"><em>AutoConnect.h</em></a> of library source. Define <strong>AC_DEBUG</strong> macro to output monitor messages.</p>
+<p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a> of library source. Define <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27"><strong>AC_DEBUG</strong></a> macro to output monitor messages.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#define AC_DEBUG</span>
 </pre></div>
 
 <h3 id="disable-the-captive-portal"><i class="fa fa-caret-right"></i> Disable the captive portal<a class="headerlink" href="#disable-the-captive-portal" title="Permanent link">&para;</a></h3>
-<p>It can also prevent the captive portal from starting even if the connection at the first <em>WiFi.begin</em> fails. In this case, the behavior of <em>AutoConnect::begin</em> is the same as <em>WiFi.begin</em>.</p>
-<p>For disabling the captive portal, <strong>autoRise</strong> sets to false with AutoConnectConfig.</p>
+<p>It can also prevent the captive portal from starting even if the connection at the first <em>WiFi.begin</em> fails. In this case, the behavior of <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a> is the same as <em>WiFi.begin</em>.</p>
+<p>For disabling the captive portal, <a href="../api/index.html#autorise"><strong>autoRise</strong></a> sets to false with <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">portal</span><span class="p">;</span>
 <span class="n">AutoConnectConfig</span> <span class="n">acConfig</span><span class="p">;</span>
 
@@ -1036,6 +1050,25 @@ or</p>
 <span class="n">portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
 </pre></div>
 
+<h3 id="move-the-saving-area-of-eeprom-for-the-credentials"><i class="fa fa-caret-right"></i> Move the saving area of EEPROM for the credentials<a class="headerlink" href="#move-the-saving-area-of-eeprom-for-the-credentials" title="Permanent link">&para;</a></h3>
+<p>By default, the credentials saving area is occupied from the beginning of EEPROM. <a href="http://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=eeprom#flash-layout">ESP8266 Arduino core document</a> says that:</p>
+<blockquote>
+<p>The following diagram illustrates flash layout used in Arduino environment:</p>
+</blockquote>
+<div class="highlight">
+<pre><span></span>
+  <span class="o">|--------------|-------|---------------|--|--|--|--|--|</span>
+  <span class="o">^</span>              <span class="o">^</span>       <span class="o">^</span>               <span class="o">^</span>     <span class="o">^</span>
+  <span class="n">Sketch</span>    <span class="n">OTA</span> <span class="n">update</span>   <span class="n">File</span> <span class="n">system</span>   <span class="n"><span class="highlighted">EEPROM</span></span>  <span class="n">WiFi</span> <span class="n">config</span> <span class="p">(</span><span class="n">SDK</span><span class="p">)</span>
+</pre>
+</div>
+
+<p>and</p>
+<blockquote>
+<p>EEPROM library uses one sector of flash located <a href="http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom">just after the SPIFFS</a>.</p>
+</blockquote>
+<p>So in the default state, the credential storage area used by AutoConnect conflicts with data area owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.</p>
+<p>The <a href="../api/index.html#saveoffset"><strong>saveOffset</strong></a> in <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> specifies the start offset of the credentials storage area. The default value is 0.</p>
 <h3 id="refers-the-hosted-esp8266webserver"><i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer<a class="headerlink" href="#refers-the-hosted-esp8266webserver" title="Permanent link">&para;</a></h3>
 <p>Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer inside the AutoConnect. This object variable could be referred by <a href="../api/index.html#host"><em>AutoConnect::host()</em></a> function to access ESP8266WebServer instance as like below.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="n">Portal</span><span class="p">;</span>
@@ -1099,7 +1132,7 @@ or</p>
 <p><img src="../images/PageBuilder.png" style="width:640px;"/></p>
 <h2 id="configuration-functions">Configuration functions<a class="headerlink" href="#configuration-functions" title="Permanent link">&para;</a></h2>
 <h3 id="configuration-for-soft-ap"><i class="fa fa-caret-right"></i> Configuration for Soft AP<a class="headerlink" href="#configuration-for-soft-ap" title="Permanent link">&para;</a></h3>
-<p>AutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP settings are stored in <a href="../api/index.html#autoconnectconfig-api"><em>AutoConnectConfig</em></a> as the following parameters. The sketch could be configured SoftAP using these parameters, refer <a href="../api/index.html#autoconnectconfig-api">AutoConnectConfig API</a> for details.</p>
+<p>AutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP settings are stored in <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> as the following parameters. The sketch could be configured SoftAP using these parameters, refer the <a href="../api/index.html#autoconnectconfig-api">AutoConnectConfig API</a> for details.</p>
 <ul>
 <li>IP address of SoftAP activated.</li>
 <li>Gateway IP address.</li>
@@ -1109,6 +1142,9 @@ or</p>
 <li>Channel.</li>
 <li>Hidden attribute.</li>
 <li>Auto save credential.</li>
+<li>Offset address of the credentials storage area in EEPROM.</li>
+<li>Length of start up time after reset.</li>
+<li>Automatic starting the captive portal.</li>
 <li>Auto reset after connection establishment.</li>
 <li>Home URL of the user sketch application.</li>
 </ul>
@@ -1116,7 +1152,7 @@ or</p>
 <p>"<strong>HOME</strong>" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the <a href="../api/index.html#home"><em>AutoConnect::home</em></a> function.</p>
 <p><img src="../images/menu_home.png" /></p>
 <h3 id="relocate-the-autoconnect-home-path"><i class="fa fa-caret-right"></i> Relocate the AutoConnect home path<a class="headerlink" href="#relocate-the-autoconnect-home-path" title="Permanent link">&para;</a></h3>
-<p>A home path of AutoConnect is <strong>_ac</strong> by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising  <strong>AUTOCONNECT_URI</strong> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a>.</p>
+<p>A home path of AutoConnect is <strong>_ac</strong> by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58"><strong>AUTOCONNECT_URI</strong></a> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a>.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
 </pre></div>
 
