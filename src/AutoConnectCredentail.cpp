@@ -11,7 +11,7 @@
 #include "AutoConnectCredentail.h"
 
 #define AC_IDENTIFIER "AC_CREDT"
-#define AC_HEADERSIZE ((int)(AC_IDENTIFIER_OFFSET + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t)))
+#define AC_HEADERSIZE ((int)(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t)))
 
 /**
  *  AutoConnectCredential constructor takes the available count of saved
@@ -33,15 +33,22 @@
  *  Free area are filled with FF, which is reused as an area for insertion.
  */
 AutoConnectCredential::AutoConnectCredential() {
+  AutoConnectCredential(AC_IDENTIFIER_OFFSET);
+}
+
+AutoConnectCredential::AutoConnectCredential(uint16_t offset) {
   char    id_c[sizeof(AC_IDENTIFIER) - 1];
   uint8_t c;
+
+  // Save offset for the credential area.
+  _offset = offset;
 
   EEPROM.begin(AC_HEADERSIZE);
 
   // Validate the save area of the EEPROM.
   // If it is a valid area, retrieve the stored number of entries,
   // if the identifier is not saved, initialize the EEPROM area.
-  for (c = AC_IDENTIFIER_OFFSET; c < AC_IDENTIFIER_OFFSET + sizeof(id_c); c++) {
+  for (c = _offset; c < _offset + sizeof(id_c); c++) {
     id_c[c] = static_cast<char>(EEPROM.read(c));
   }
   if (!strncmp(id_c, AC_IDENTIFIER, sizeof(id_c))) {

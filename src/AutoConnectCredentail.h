@@ -31,6 +31,7 @@ extern "C" {
 class AutoConnectCredential {
  public:
   AutoConnectCredential();
+  AutoConnectCredential(uint16_t offset);
   ~AutoConnectCredential();
   uint8_t   entries() { return _entries; }
   bool      del(const char* ssid);
@@ -44,6 +45,7 @@ class AutoConnectCredential {
   uint16_t  _containSize;   /**< Container size */
   int       _dp;            /**< The current address in EEPROM */
   int       _ep;            /**< The current entry address in EEPROM */
+  uint16_t  _offset;        /**< The offset for the saved area of credentials in EEPROM. */
 };
 
 #endif  // _AUTOCONNECTCREDENTAIL_H_
