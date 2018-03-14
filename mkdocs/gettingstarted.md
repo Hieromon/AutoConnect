@@ -52,7 +52,7 @@ After connection established, the current status screen will appear. It is alrea
 For one, continues execution of the sketch while keeping this connection. You can access ESP8266 via browser through the established IP address after cancel to "**Log in**" by upper right on the screen.  
 Or, "**RESET**" can be selected. The ESP8266 resets and reboots. After that, immediately before the connection will be restored automatically with WIFI\_STA mode.
 
-<img src="../images/established.png" style="border:1px solid lightgrey;width:280px;" /><img src="./images/arrow_right.svg" style="vertical-align:top;padding-top:120px;width:48px;margin-left:30px;margin-right:30px;" /><img src="../images/reset.png" style="border:1px solid lightgrey;width:280px;" />
+<img src="../images/established.png" style="border:1px solid lightgrey;width:280px;" /><img src="../images/arrow_right.svg" style="vertical-align:top;padding-top:120px;width:48px;margin-left:30px;margin-right:30px;" /><img src="../images/reset.png" style="border:1px solid lightgrey;width:280px;" />
 
 ### <i class="fa fa-play-circle"></i> Run for usually
 
