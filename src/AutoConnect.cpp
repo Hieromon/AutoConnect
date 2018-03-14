@@ -99,46 +99,53 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase) {
   cs = _waitForConnect(_portalTimeout) == WL_CONNECTED;
   _currentHostIP = WiFi.localIP();
 
-  // Rushing into the portal.
+  // It doesn't matter the connection status for launching the Web server.
   _startWebServer();
+
+  // Rushing into the portal.
   if (!cs) {
-    // Change WiFi working mode, Enable AP with STA
-    WiFi.setAutoConnect(false);
-    WiFi.disconnect();
-    WiFi.mode(WIFI_AP_STA);
-    delay(100);
 
-    // Connection unsuccessful, launch the captive portal.
-    if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
-      _config();
-    }
-    WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
-    while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0))
-      yield();
-    _currentHostIP = WiFi.softAPIP();
-    AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, WiFi.softAPIP().toString().c_str());
+    // The captive portal is effective at the autoRise is valid only.
+    if (_apConfig.autoRise) {
 
-    // Fork to the exit routine that starts captive portal.
-    cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true; 
-    
-    // Start captive portal without cancellation by DetectExit.
-    if (cs) {
-      // Prepare for redirecting captive portal detection.
-      // Pass all URL requests to _captivePortal to disguise the captive portal.
-      _startDNSServer();
+      // Change WiFi working mode, Enable AP with STA
+      WiFi.setAutoConnect(false);
+      WiFi.disconnect();
+      WiFi.mode(WIFI_AP_STA);
+      delay(100);
 
-      // Start the captive portal to make a new connection
-      while (WiFi.status() != WL_CONNECTED && !_rfReset) {
-        handleClient();
-        // Force execution of queued processes.
-        yield();
+      // Connection unsuccessful, launch the captive portal.
+      if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
+        _config();
       }
-      cs = WiFi.status() == WL_CONNECTED;
+      WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
+      while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0))
+        yield();
+      _currentHostIP = WiFi.softAPIP();
+      AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, WiFi.softAPIP().toString().c_str());
 
-      // If WLAN successfully connected, release DNS server.
+      // Fork to the exit routine that starts captive portal.
+      cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true; 
+      
+      // Start captive portal without cancellation by DetectExit.
       if (cs) {
-        _dnsServer->stop();
-        _dnsServer.reset();
+        // Prepare for redirecting captive portal detection.
+        // Pass all URL requests to _captivePortal to disguise the captive portal.
+        _startDNSServer();
+
+        // Start the captive portal to make a new connection
+        while (WiFi.status() != WL_CONNECTED && !_rfReset) {
+          handleClient();
+          // Force execution of queued processes.
+          yield();
+        }
+        cs = WiFi.status() == WL_CONNECTED;
+
+        // If WLAN successfully connected, release DNS server.
+        if (cs) {
+          _dnsServer->stop();
+          _dnsServer.reset();
+        }
       }
     }
   }

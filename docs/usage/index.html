@@ -454,6 +454,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#auto-save-credential" title=" Auto save Credential" class="md-nav__link">
+     Auto save Credential
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#captive-portal-start-detection" title=" Captive portal start detection" class="md-nav__link">
      Captive portal start detection
   </a>
@@ -468,15 +475,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#credential-data" title=" Credential data" class="md-nav__link">
-     Credential data
+  <a href="#debug-print" title=" Debug print" class="md-nav__link">
+     Debug print
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#debug-print" title=" Debug print" class="md-nav__link">
-     Debug print
+  <a href="#disable-the-captive-portal" title=" Disable the captive portal" class="md-nav__link">
+     Disable the captive portal
   </a>
   
 </li>
@@ -736,6 +743,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#auto-save-credential" title=" Auto save Credential" class="md-nav__link">
+     Auto save Credential
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#captive-portal-start-detection" title=" Captive portal start detection" class="md-nav__link">
      Captive portal start detection
   </a>
@@ -750,15 +764,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#credential-data" title=" Credential data" class="md-nav__link">
-     Credential data
+  <a href="#debug-print" title=" Debug print" class="md-nav__link">
+     Debug print
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#debug-print" title=" Debug print" class="md-nav__link">
-     Debug print
+  <a href="#disable-the-captive-portal" title=" Disable the captive portal" class="md-nav__link">
+     Disable the captive portal
   </a>
   
 </li>
@@ -846,12 +860,15 @@
 <h3 id="embed-to-the-sketches"><i class="fa fa-edit"></i> Embed to the sketches<a class="headerlink" href="#embed-to-the-sketches" title="Permanent link">&para;</a></h3>
 <p>How embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps.</p>
 <p><img src="../images/BeforeAfter.svg" /></p>
-<p><i class="fa fa-edit"></i> Insert <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span><span class="cp"></span></code> to behind of <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span><span class="cp"></span></code>.<br />
-<i class="fa fa-edit"></i> Insert <code class="codehilite">AutoConnect</code><em><code class="codehilite">PORTAL(WEBSERVER);</code></em> to behind of <code class="codehilite">ESP8266WebServer</code><em><code class="codehilite">WEBSERVER;</code></em> declaration.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup><br />
-<i class="fa fa-edit"></i> Remove <code class="codehilite">WiFi.begin(</code><em><code class="codehilite">SSID</code></em><code class="codehilite">,</code><em><code class="codehilite">PSK</code></em><code class="codehilite">)</code> and the subsequent logic for the connection status check.<br />
-<i class="fa fa-edit"></i> Replace <em><code class="codehilite">WEBSERVER</code></em><code class="codehilite"><span class="na">.begin</span><span class="p">()</span></code> to <em><code class="codehilite">PORTAL</code></em><code class="codehilite"><span class="na">.begin</span><span class="p">()</span></code>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br />
-<i class="fa fa-edit"></i> Replace <em><code class="codehilite">WEBSERVER</code></em><code class="codehilite"><span class="na">.handleClient</span><span class="p">()</span></code> to <em><code class="codehilite">PORTAL</code></em><code class="codehilite"><span class="na">.handleClient</span><span class="p">()</span></code>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup><br />
-<i class="fa fa-edit"></i> If the connection successful logic is needed, you can check the return value as <code class="codehilite">true</code> or <code class="codehilite">false</code> of <em><code class="codehilite">PORTAL</code></em><code class="codehilite"><span class="na">.begin</span><span class="p">()</span></code>.</p>
+<ul class="ulsty-edit" style="list-style:none;">
+  <li>Insert <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span></code> to behind of <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span></code>.</li>
+  <li>Insert <code class="codehilite"><span class="na">AutoConnect</span> <em>PORTAL(WEBSERVER);</em></code> to behind of <code class="codehilite"><span class="na">ESP8266WebServer</span> <em>WEBSERVER;</em></code> declaration.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></li>
+  <li>Remove <code class="codehilite">WiFi.<span class="na">begin</span>(<em>SSID</em>,<em>PSK</em>)</code> and the subsequent logic for the connection status check.</li>
+  <li>Replace <code class="codehilite"><em>WEBSERVER</em>.<span class="na">begin</span><span class="p">()</span></code> to <code class="codehilite"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></li>
+  <li>Replace <code class="codehilite"><em>WEBSERVER</em>.<span class="na">handleClient</span><span class="p">()</span></code> to <code class="codehilite"><em>PORTAL</em>.<span class="na">handleClient</span><span class="p">()</span></code>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></li>
+  <li>If the connection checks logic is needed, you can check the return value according to <code class="codehilite"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code> with <code class="codehilite">true</code> or <code class="codehilite">false</code>.</li>
+</ul>
+
 <h2 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <h3 id="basic-logic-sequence-for-the-user-sketches"><i class="fa fa-caret-right"></i> Basic logic sequence for the user sketches<a class="headerlink" href="#basic-logic-sequence-for-the-user-sketches" title="Permanent link">&para;</a></h3>
 <h4 id="1-a-typical-logic-sequence">1. A typical logic sequence<a class="headerlink" href="#1-a-typical-logic-sequence" title="Permanent link">&para;</a></h4>
@@ -945,6 +962,15 @@ or</p>
 <h2 id="advanced-usage">Advanced usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
 <h3 id="404-handler"><i class="fa fa-caret-right"></i> 404 handler<a class="headerlink" href="#404-handler" title="Permanent link">&para;</a></h3>
 <p>Registering the "not found" handler is a different way than ESP8266. The <em>onNotFound</em> of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="../api/index.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
+<h3 id="auto-save-credential"><i class="fa fa-caret-right"></i> Auto save Credential<a class="headerlink" href="#auto-save-credential" title="Permanent link">&para;</a></h3>
+<p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <strong>autoSave</strong> parameter specified by <a href="../api/index.html#config"><em>AutoConnect::config</em></a>.</p>
+<div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>
+<span class="n">AutoConnectConfig</span> <span class="n">Config</span><span class="p">;</span>
+<span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>
+</span><span class="n">Portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>
+<span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
+</pre></div>
+
 <h3 id="captive-portal-start-detection"><i class="fa fa-caret-right"></i> Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h3>
 <p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="../api/index.html#ondetect"><em>onDetect</em></a> funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="n">Portal</span><span class="p">;</span>
@@ -990,15 +1016,6 @@ or</p>
 <span class="p">}</span>
 </pre></div>
 
-<h3 id="credential-data"><i class="fa fa-caret-right"></i> Credential data<a class="headerlink" href="#credential-data" title="Permanent link">&para;</a></h3>
-<p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <strong>autoSave</strong> parameter specified by <a href="../api/index.html#config"><em>AutoConnect::config</em></a>.</p>
-<div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>
-<span class="n">AutoConnectConfig</span> <span class="n">Config</span><span class="p">;</span>
-<span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>
-</span><span class="n">Portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>
-<span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
-</pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">AutoConnect::config before AutoConnect::begin</p>
 <p><em>AutoConnect::config</em> must be executed before <em>AutoConnect::begin</em>.</p>
@@ -1006,6 +1023,17 @@ or</p>
 <h3 id="debug-print"><i class="fa fa-caret-right"></i> Debug print<a class="headerlink" href="#debug-print" title="Permanent link">&para;</a></h3>
 <p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h"><em>AutoConnect.h</em></a> of library source. Define <strong>AC_DEBUG</strong> macro to output monitor messages.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#define AC_DEBUG</span>
+</pre></div>
+
+<h3 id="disable-the-captive-portal"><i class="fa fa-caret-right"></i> Disable the captive portal<a class="headerlink" href="#disable-the-captive-portal" title="Permanent link">&para;</a></h3>
+<p>It can also prevent the captive portal from starting even if the connection at the first <em>WiFi.begin</em> fails. In this case, the behavior of <em>AutoConnect::begin</em> is the same as <em>WiFi.begin</em>.</p>
+<p>For disabling the captive portal, <strong>autoRise</strong> sets to false with AutoConnectConfig.</p>
+<div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">portal</span><span class="p">;</span>
+<span class="n">AutoConnectConfig</span> <span class="n">acConfig</span><span class="p">;</span>
+
+<span class="hll"><span class="n">acConfig</span><span class="p">.</span><span class="n">autoRaise</span> <span class="o">=</span> <span class="kr">false</span><span class="p">;</span>
+</span><span class="n">portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">acConfig</span><span class="p">);</span>
+<span class="n">portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
 </pre></div>
 
 <h3 id="refers-the-hosted-esp8266webserver"><i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer<a class="headerlink" href="#refers-the-hosted-esp8266webserver" title="Permanent link">&para;</a></h3>

@@ -36,3 +36,9 @@
 .apidl {
   margin-left: 20px;
 }
+
+.ulsty-edit > li:before {
+  font-family: 'FontAwesome';
+  content: '\f044';
+  margin:0 0.8em 0 -1.8em;
+}

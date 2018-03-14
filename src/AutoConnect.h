@@ -110,8 +110,9 @@ class AutoConnectConfig {
     channel(1),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
-    autoReset(true),
     uptime(AUTOCONNECT_STARTUPTIME),
+    autoRise(true),
+    autoReset(true),
     homeUri(AUTOCONNECT_HOMEURI) {}
   /**
    *  Configure by SSID for the captive portal access point and password.
@@ -125,8 +126,9 @@ class AutoConnectConfig {
     channel(1),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
-    autoReset(true),
     uptime(AUTOCONNECT_STARTUPTIME),
+    autoRise(true),
+    autoReset(true),
     homeUri(AUTOCONNECT_HOMEURI) {}
 
   ~AutoConnectConfig() {}
@@ -140,8 +142,9 @@ class AutoConnectConfig {
     channel = o.channel;
     hidden = o.hidden;
     autoSave = o.autoSave;
-    autoReset = o.autoReset;
     uptime = o.uptime;
+    autoRise = o.autoRise;
+    autoReset = o.autoReset;
     homeUri = o.homeUri;
     return *this;
   }
@@ -154,8 +157,9 @@ class AutoConnectConfig {
   uint8_t   channel;    /**< SoftAP used wifi channel */
   uint8_t   hidden;     /**< SoftAP SSID hidden */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
-  bool      autoReset;  /**< Reset ESP8266 module automatically when WLAN disconnected. */
   int       uptime;     /**< Length of start up time */
+  bool      autoRise;   /**< automatic starting the captive portal */
+  bool      autoReset;  /**< Reset ESP8266 module automatically when WLAN disconnected. */
   String    homeUri;    /**< A URI of user site */
 };
 

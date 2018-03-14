@@ -16,7 +16,9 @@
 #define AUTOCONNECT_AP_NM       0x00FFFFFF      // Default subnet mask
 #define AUTOCONNECT_DNSPORT     53              // Default DNS port at captive portal
 #define AUTOCONNECT_MENU_TITLE  "AutoConnect"   // Default AutoConnect menu title
+#define AUTOCONNECT_STARTUPTIME 10              // Default waiting time[s] for after reset
 #define AUTOCONNECT_URI         "/_ac"          // Default AutoConnect root path
+#define AUTOCONNECT_TIMEOUT     30000           // Default connection timeout[ms]
 ```
 
 ## AutoConnect API
@@ -231,6 +233,17 @@ Reset ESP8266 module automatically when WLAN disconnected.
     <dt>**Value**</dt>
     <dd><span class="apidef" style="width:230px;">true</span>Reset after WiFi disconnected automatically.</dd>
     <dd><span class="apidef" style="width:230px;">false</span>No reset.</dd>
+</dl>
+
+#### autoRise
+
+Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the first *WiFi.begin* fails.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>bool</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef" style="width:230px;">true</span>Enable the captive portal. This is a default.</dd>
+    <dd><span class="apidef" style="width:230px;">false</span>Disable the captive portal.</dd>
 </dl>
 
 #### autoSave

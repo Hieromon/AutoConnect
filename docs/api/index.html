@@ -548,6 +548,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#autorise" title="autoRise" class="md-nav__link">
+    autoRise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#autosave" title="autoSave" class="md-nav__link">
     autoSave
   </a>
@@ -885,6 +892,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#autorise" title="autoRise" class="md-nav__link">
+    autoRise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#autosave" title="autoSave" class="md-nav__link">
     autoSave
   </a>
@@ -989,7 +1003,9 @@
 <span class="cp">#define AUTOCONNECT_AP_NM       0x00FFFFFF      </span><span class="c1">// Default subnet mask</span>
 <span class="cp">#define AUTOCONNECT_DNSPORT     53              </span><span class="c1">// Default DNS port at captive portal</span>
 <span class="cp">#define AUTOCONNECT_MENU_TITLE  &quot;AutoConnect&quot;   </span><span class="c1">// Default AutoConnect menu title</span>
+<span class="cp">#define AUTOCONNECT_STARTUPTIME 10              </span><span class="c1">// Default waiting time[s] for after reset</span>
 <span class="cp">#define AUTOCONNECT_URI         &quot;/_ac&quot;          </span><span class="c1">// Default AutoConnect root path</span>
+<span class="cp">#define AUTOCONNECT_TIMEOUT     30000           </span><span class="c1">// Default connection timeout[ms]</span>
 </pre></div>
 
 <h2 id="autoconnect-api">AutoConnect API<a class="headerlink" href="#autoconnect-api" title="Permanent link">&para;</a></h2>
@@ -1150,6 +1166,15 @@ Register the handler function for undefined URL request detected.
     <dt><strong>Value</strong></dt>
     <dd><span class="apidef" style="width:230px;">true</span>Reset after WiFi disconnected automatically.</dd>
     <dd><span class="apidef" style="width:230px;">false</span>No reset.</dd>
+</dl></p>
+<h4 id="autorise">autoRise<a class="headerlink" href="#autorise" title="Permanent link">&para;</a></h4>
+<p>Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the first <em>WiFi.begin</em> fails.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>bool</dd>
+    <dt><strong>Value</strong></dt>
+    <dd><span class="apidef" style="width:230px;">true</span>Enable the captive portal. This is a default.</dd>
+    <dd><span class="apidef" style="width:230px;">false</span>Disable the captive portal.</dd>
 </dl></p>
 <h4 id="autosave">autoSave<a class="headerlink" href="#autosave" title="Permanent link">&para;</a></h4>
 <p>The credential saved automatically at the connection establishment.

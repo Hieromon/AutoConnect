@@ -6,12 +6,14 @@ How embed the AutoConnect to the sketches you have. Most simple approach to appl
 
 <img src="../images/BeforeAfter.svg" />
 
-<i class="fa fa-edit"></i> Insert `#include <AutoConnect.h>` to behind of `#include <ESP8266WebServer.h>`.  
-<i class="fa fa-edit"></i> Insert `AutoConnect`*`PORTAL(WEBSERVER);`* to behind of `ESP8266WebServer`*`WEBSERVER;`* declaration.[^1]  
-<i class="fa fa-edit"></i> Remove `WiFi.begin(`*`SSID`*`,`*`PSK`*`)` and the subsequent logic for the connection status check.  
-<i class="fa fa-edit"></i> Replace *`WEBSERVER`*`.begin()` to *`PORTAL`*`.begin()`.[^2]  
-<i class="fa fa-edit"></i> Replace *`WEBSERVER`*`.handleClient()` to *`PORTAL`*`.handleClient()`.[^3]  
-<i class="fa fa-edit"></i> If the connection successful logic is needed, you can check the return value as `true` or `false` of *`PORTAL`*`.begin()`.
+<ul class="ulsty-edit" style="list-style:none;">
+  <li>Insert <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span></code> to behind of <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span></code>.</li>
+  <li>Insert <code class="codehilite"><span class="na">AutoConnect</span> <em>PORTAL(WEBSERVER);</em></code> to behind of <code class="codehilite"><span class="na">ESP8266WebServer</span> <em>WEBSERVER;</em></code> declaration.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></li>
+  <li>Remove <code class="codehilite">WiFi.<span class="na">begin</span>(<em>SSID</em>,<em>PSK</em>)</code> and the subsequent logic for the connection status check.</li>
+  <li>Replace <code class="codehilite"><em>WEBSERVER</em>.<span class="na">begin</span><span class="p">()</span></code> to <code class="codehilite"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></li>
+  <li>Replace <code class="codehilite"><em>WEBSERVER</em>.<span class="na">handleClient</span><span class="p">()</span></code> to <code class="codehilite"><em>PORTAL</em>.<span class="na">handleClient</span><span class="p">()</span></code>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></li>
+  <li>If the connection checks logic is needed, you can check the return value according to <code class="codehilite"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code> with <code class="codehilite">true</code> or <code class="codehilite">false</code>.</li>
+</ul>
 
 [^1]:
 Each *VARIABLE* conforms to the actual declaration in the sketches.  
@@ -108,6 +110,18 @@ Reference to ESP8266WebServer | AutoConnect menu not available.<br>host() not ne
 
 Registering the "not found" handler is a different way than ESP8266. The *onNotFound* of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides *ESP8266WebServer::onNotFound* to handle a captive portal. To register "not found" handler, use [*AutoConnect::onNotFound*](api.md#onnotfound).
 
+### <i class="fa fa-caret-right"></i> Auto save Credential
+
+By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the **autoSave** parameter specified by [*AutoConnect::config*](api.md#config).
+
+```arduino hl_lines="3"
+AutoConnect       Portal;
+AutoConnectConfig Config;
+Config.autoSave = AC_SAVECREDENTIAL_NEVER;
+Portal.config(Config);
+Portal.begin();
+```
+
 ### <i class="fa fa-caret-right"></i> Captive portal start detection
 
 The captive portal will only be activated if the first *WiFi::begin* fails. Sketch can detect with the [*onDetect*](api.md#ondetect) funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.
@@ -159,18 +173,6 @@ void loop() {
 }
 ```
 
-### <i class="fa fa-caret-right"></i> Credential data
-
-By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the **autoSave** parameter specified by [*AutoConnect::config*](api.md#config).
-
-```arduino hl_lines="3"
-AutoConnect       Portal;
-AutoConnectConfig Config;
-Config.autoSave = AC_SAVECREDENTIAL_NEVER;
-Portal.config(Config);
-Portal.begin();
-```
-
 !!! note "AutoConnect::config before AutoConnect::begin"
     *AutoConnect::config* must be executed before *AutoConnect::begin*.
 
@@ -180,6 +182,21 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 
 ```cpp
 #define AC_DEBUG
+```
+
+### <i class="fa fa-caret-right"></i> Disable the captive portal
+
+It can also prevent the captive portal from starting even if the connection at the first *WiFi.begin* fails. In this case, the behavior of *AutoConnect::begin* is the same as *WiFi.begin*.
+
+For disabling the captive portal, **autoRise** sets to false with AutoConnectConfig.
+
+```arduino hl_lines="4"
+AutoConnect       portal;
+AutoConnectConfig acConfig;
+
+acConfig.autoRaise = false;
+portal.config(acConfig);
+portal.begin();
 ```
 
 ### <i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer
