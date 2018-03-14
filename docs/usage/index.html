@@ -975,7 +975,7 @@ or</p>
 </div>
 <h2 id="advanced-usage">Advanced usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
 <h3 id="404-handler"><i class="fa fa-caret-right"></i> 404 handler<a class="headerlink" href="#404-handler" title="Permanent link">&para;</a></h3>
-<p>Registering the "not found" handler is a different way than ESP8266. The <em>onNotFound</em> of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="../api/index.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
+<p>Registering the "not found" handler is a different way than ESP8266WebServer. The <em>onNotFound</em> of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="../api/index.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
 <h3 id="auto-save-credential"><i class="fa fa-caret-right"></i> Auto save Credential<a class="headerlink" href="#auto-save-credential" title="Permanent link">&para;</a></h3>
 <p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <a href="../api/index.html#autosave"><strong>autoSave</strong></a> parameter specified by <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>

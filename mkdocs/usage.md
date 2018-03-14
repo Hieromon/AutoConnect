@@ -108,7 +108,7 @@ Reference to ESP8266WebServer | AutoConnect menu not available.<br>host() not ne
 
 ### <i class="fa fa-caret-right"></i> 404 handler
 
-Registering the "not found" handler is a different way than ESP8266. The *onNotFound* of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides *ESP8266WebServer::onNotFound* to handle a captive portal. To register "not found" handler, use [*AutoConnect::onNotFound*](api.md#onnotfound).
+Registering the "not found" handler is a different way than ESP8266WebServer. The *onNotFound* of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides *ESP8266WebServer::onNotFound* to handle a captive portal. To register "not found" handler, use [*AutoConnect::onNotFound*](api.md#onnotfound).
 
 ### <i class="fa fa-caret-right"></i> Auto save Credential
 
