@@ -53,16 +53,16 @@ Apply the [Arduino core](https://github.com/esp8266/Arduino) of the ESP8266 Comm
 
 Most simple approach to applying AutoConnect for the existing sketches, follow the below steps.
 
-<img src="docs/images/BeforeAfter.svg" width="800">
+<img src="mkdocs/images/beforeafter.png">
 
 ## More usages and Documentation
 
-The documentation is available on https://Hieromon.github.io/AutoConnect, here are some shortcuts:
+Full documentation is available on https://Hieromon.github.io/AutoConnect, some quick links at the list:
 
-- [Installation](https://hieromon.github.io/AutoConnect/index.html#installation).
-- [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted/index.html).
-- [Usage the Library](https://hieromon.github.io/AutoConnect/usage/index.html).
-- [API reference](https://hieromon.github.io/AutoConnect/api/index.html).
+- The [Installation](https://hieromon.github.io/AutoConnect/index.html#installation) is the installation procedure and requirements for the library.
+- [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted/index.html) with the most simple sketch for using AutoConnect.
+- The [Usage the Library](https://hieromon.github.io/AutoConnect/usage/index.html) quides to using the library correctly.
+- The [API reference](https://hieromon.github.io/AutoConnect/api/index.html) describes the AutoConnect functions specification.
 - [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
 
 ## License
