@@ -774,10 +774,6 @@
 <span class="p">}</span>
 </pre></div>
 
-<div class="admonition note">
-<p class="admonition-title">AutoConnect::config before AutoConnect::begin</p>
-<p><em>AutoConnect::config</em> must be executed before <em>AutoConnect::begin</em>.</p>
-</div>
 <h3 id="debug-print"><i class="fa fa-caret-right"></i> Debug print<a class="headerlink" href="#debug-print" title="Permanent link">&para;</a></h3>
 <p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a> of library source. Define <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27"><strong>AC_DEBUG</strong></a> macro to output monitor messages.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#define AC_DEBUG</span>
@@ -892,6 +888,10 @@
 <li>Auto reset after connection establishment.</li>
 <li>Home URL of the user sketch application.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">AutoConnect::config before AutoConnect::begin</p>
+<p><em>AutoConnect::config</em> must be executed before <em>AutoConnect::begin</em>.</p>
+</div>
 <h3 id="assign-user-sketchs-home-path"><i class="fa fa-caret-right"></i> Assign user sketch's home path<a class="headerlink" href="#assign-user-sketchs-home-path" title="Permanent link">&para;</a></h3>
 <p>"<strong>HOME</strong>" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the <a href="../api/index.html#home"><em>AutoConnect::home</em></a> function.</p>
 <p><img src="../images/menu_home.png" /></p>

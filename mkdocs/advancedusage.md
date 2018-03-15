@@ -67,9 +67,6 @@ void loop() {
 }
 ```
 
-!!! note "AutoConnect::config before AutoConnect::begin"
-    *AutoConnect::config* must be executed before *AutoConnect::begin*.
-
 ### <i class="fa fa-caret-right"></i> Debug print
 
 You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27) macro to output monitor messages.
@@ -203,6 +200,9 @@ AutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP setting
 - Automatic starting the captive portal.
 - Auto reset after connection establishment.
 - Home URL of the user sketch application.
+
+!!! note "AutoConnect::config before AutoConnect::begin"
+    *AutoConnect::config* must be executed before *AutoConnect::begin*.
 
 ### <i class="fa fa-caret-right"></i> Assign user sketch's home path
 
