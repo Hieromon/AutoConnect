@@ -19,7 +19,7 @@ void rootPage() {
     "<body>"
     "<h2 align=\"center\" style=\"color:blue;margin:20px;\">Hello, world</h2>"
     "<h3 align=\"center\" style=\"color:gray;margin:10px;\">{{DateTime}}</h3>"
-    "<p><a href=\"" AUTOCONNECT_URI "\">AutoConnect menu</a></p>"
+    "<p style=\"padding-top:10px;text-align:center\">" AUTOCONNECT_LINK(COG_32) "</p>"
     "</body>"
     "</html>";
   static const char *wd[7] = { "Sun","Mon","Tue","Wed","Thr","Fri","Sat" };
