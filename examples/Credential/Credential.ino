@@ -15,7 +15,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>
-#include <AutoConnectCredentail.h>
+#include <AutoConnectCredential.h>
 #include <PageBuilder.h>
 
 ESP8266WebServer Server;

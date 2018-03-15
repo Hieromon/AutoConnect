@@ -1,6 +1,6 @@
 /**
- *	AutoConnectCredentail class implementation.
- *	@file	AutoConnectCredentail.cpp
+ *	AutoConnectCredential class implementation.
+ *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
  *	@version	1.0.0
  *	@date	2018-02-17

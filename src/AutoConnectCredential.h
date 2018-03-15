@@ -7,8 +7,8 @@
  *  @copyright  MIT license.
  */
 
-#ifndef _AUTOCONNECTCREDENTAIL_H_
-#define _AUTOCONNECTCREDENTAIL_H_
+#ifndef _AUTOCONNECTCREDENTIAL_H_
+#define _AUTOCONNECTCREDENTIAL_H_
 
 #if defined(ARDUINO) && ARDUINO >= 100
   #include "arduino.h"
@@ -50,4 +50,4 @@ class AutoConnectCredential {
   uint16_t  _offset;        /**< The offset for the saved area of credentials in EEPROM. */
 };
 
-#endif  // _AUTOCONNECTCREDENTAIL_H_
+#endif  // _AUTOCONNECTCREDENTIAL_H_

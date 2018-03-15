@@ -66,7 +66,7 @@ The correct boot mode for starting the sketch is **(3, x)**.
 
 Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it.
 
-A class description of AutoConnectCredentail is follows.
+A class description of AutoConnectCredential is follows.
 
 ### Constructor
 
