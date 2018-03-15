@@ -10,7 +10,7 @@
 #include <ESP8266WiFi.h>
 #include "AutoConnect.h"
 #include "AutoConnectPage.h"
-#include "AutoConnectCredentail.h"
+#include "AutoConnectCredential.h"
 extern "C" {
 #include <user_interface.h>
 }

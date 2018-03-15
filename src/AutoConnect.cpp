@@ -8,7 +8,6 @@
  */
 
 #include "AutoConnect.h"
-#include "AutoConnectCredentail.h"
 
 /**
  *  AutoConnect default constructor. This entry activates WebServer
@@ -299,7 +298,7 @@ void AutoConnect::handleRequest() {
 
       // Save current credential
       if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
-        AutoConnectCredential credit;
+        AutoConnectCredential credit(_apConfig.saveOffset);
         credit.save(&_credential);
         AC_DBG("%s credential saved\n", _credential.ssid);
       }
@@ -444,7 +443,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   // Retrieve credential from the post method content.
   if (args.hasArg(AUTOCONNECT_PARAMID_CRED)) {
     // Read from EEPROM
-    AutoConnectCredential credential;
+    AutoConnectCredential credential(_apConfig.saveOffset);
     struct station_config entry;
     AC_DBG("Load credential:%s\n", args.arg(AUTOCONNECT_PARAMID_CRED).c_str());
     credential.load(args.arg(AUTOCONNECT_PARAMID_CRED).c_str(), &entry);

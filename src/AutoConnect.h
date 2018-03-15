@@ -22,9 +22,10 @@ extern "C" {
 #include <user_interface.h>
 }
 #include "AutoConnectPage.h"
+#include "AutoConnectCredential.h"
 
 // Uncomment the following AC_DEBUG to enable debug output.
-//#define AC_DEBUG
+#define AC_DEBUG
 
 // Debug output destination can be defined externally with AC_DEBUG_PORT
 #ifndef AC_DEBUG_PORT
@@ -114,6 +115,7 @@ class AutoConnectConfig {
     channel(1),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
+    saveOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
@@ -130,6 +132,7 @@ class AutoConnectConfig {
     channel(1),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
+    saveOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
@@ -146,6 +149,7 @@ class AutoConnectConfig {
     channel = o.channel;
     hidden = o.hidden;
     autoSave = o.autoSave;
+    saveOffset = o.saveOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
     autoReset = o.autoReset;

@@ -40,7 +40,9 @@ class AutoConnectCredential {
   bool      save(const struct station_config* config);
 
  private:
+  void      _allocateEntry();   /**< Initialize storage for credentials. */
   void      _retrieveEntry(char* ssid, char* password, uint8_t* bssid);   /**< Read an available entry. */
+
   uint8_t   _entries;       /**< Count of the available entry */
   uint16_t  _containSize;   /**< Container size */
   int       _dp;            /**< The current address in EEPROM */

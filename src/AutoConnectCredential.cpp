@@ -8,7 +8,7 @@
  */
 
 #include <EEPROM.h>
-#include "AutoConnectCredentail.h"
+#include "AutoConnectCredential.h"
 
 #define AC_IDENTIFIER "AC_CREDT"
 #define AC_HEADERSIZE ((int)(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t)))
@@ -33,15 +33,19 @@
  *  Free area are filled with FF, which is reused as an area for insertion.
  */
 AutoConnectCredential::AutoConnectCredential() {
-  AutoConnectCredential(AC_IDENTIFIER_OFFSET);
+  _offset = AC_IDENTIFIER_OFFSET;
+  _allocateEntry();
 }
 
 AutoConnectCredential::AutoConnectCredential(uint16_t offset) {
-  char    id_c[sizeof(AC_IDENTIFIER) - 1];
-  uint8_t c;
-
   // Save offset for the credential area.
   _offset = offset;
+  _allocateEntry();
+}
+
+void AutoConnectCredential::_allocateEntry() {
+  char    id_c[sizeof(AC_IDENTIFIER) - 1];
+  uint8_t c;
 
   EEPROM.begin(AC_HEADERSIZE);
 
