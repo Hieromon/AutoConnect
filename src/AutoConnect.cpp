@@ -231,7 +231,7 @@ void AutoConnect::_startWebServer() {
   // Boot Web server
   if (!_webServer) {
     // Only when hosting WebServer internally
-    _webServer.reset(new ESP8266WebServer(80));
+    _webServer.reset(new ESP8266WebServer(AUTOCONNECT_HTTPPORT));
     _webServerAlloc = AC_WEBSERVER_HOSTED;
     AC_DBG("ESP8266WebServer allocated\n");
   }

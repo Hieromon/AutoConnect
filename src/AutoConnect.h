@@ -84,8 +84,12 @@ extern "C" {
 #define AUTOCONNECT_STARTUPTIME 10
 #endif
 
+#ifndef AUTOCONNECT_HTTPPORT
+#define AUTOCONNECT_HTTPPORT    80
+#endif
+
 #ifndef AUTOCONNECT_DNSPORT
-#define AUTOCONNECT_DNSPORT 53
+#define AUTOCONNECT_DNSPORT     53
 #endif
 
 /**< A type to save established credential at WiFi.begin automatically. */

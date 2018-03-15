@@ -15,6 +15,7 @@
 #define AUTOCONNECT_AP_GW       0x01F4A8C0      // Default SoftAP Gateway IP
 #define AUTOCONNECT_AP_NM       0x00FFFFFF      // Default subnet mask
 #define AUTOCONNECT_DNSPORT     53              // Default DNS port at captive portal
+#define AUTOCONNECT_HTTPPORT    80              // Default HTTP
 #define AUTOCONNECT_MENU_TITLE  "AutoConnect"   // Default AutoConnect menu title
 #define AUTOCONNECT_STARTUPTIME 10              // Default waiting time[s] for after reset
 #define AUTOCONNECT_URI         "/_ac"          // Default AutoConnect root path
