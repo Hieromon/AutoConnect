@@ -1,7 +1,7 @@
 ## <i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.
 
-If you can access the **AutoConnect root path** as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses *ESP8266WebServer::handleClient()* without *AutoConnect::handleRequest()*.  
-For AutoConnect menus to work properly, call *AutoConnect::handleRequest()* after *ESP8266WebServer::handleClient()* invoked, or use *AutoConnect::handleClient()*. *AutoConnect::handleClient()* is equivalent *ESP8266WebServer::handleClient* combinated *AutoConnect::handleRequest()*.
+If you can access the **AutoConnect root path** as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses *ESP8266WebServer::handleClient()* without [*AutoConnect::handleRequest()*](api.md#handlerequest).  
+For AutoConnect menus to work properly, call [*AutoConnect::handleRequest()*](api.md#handlerequest) after *ESP8266WebServer::handleClient()* invoked, or use [*AutoConnect::handleClient()*](api.md#handleclient). [*AutoConnect::handleClient()*](api.md#handleclient) is equivalent *ESP8266WebServer::handleClient* combinated [*AutoConnect::handleRequest()*](api.md#handlerequest).
 
 ## <i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.
 
@@ -46,7 +46,15 @@ Probably **WiFi.begin** failed with the specified SSID. Activating the [debug pr
 
 ## <i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?
 
-An **esp8266** is default SSID name for SoftAP of captive portal and password is **12345678**. You can change both by using [AutoConnectConfig](api.md#string-apid).
+An **esp8266** is default SSID name for SoftAP of captive portal and password is **12345678**. You can change both by using [AutoConnectConfig](api.md#autoconnectconfig-api).
+
+## <i class="fa fa-question-circle"></i> How change HTTP port?
+
+HTTP port number is defined as a macro in [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/77d5cb5dc6d50651fd15f74b47859105c71fc317/src/AutoConnect.h#L89) header file. You can change it directly with several editors and must re-compile.
+
+```cpp
+#define AUTOCONNECT_HTTPPORT    80
+```
 
 ## <i class="fa fa-question-circle"></i> Hang up after Reset?
 
