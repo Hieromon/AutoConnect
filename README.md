@@ -61,7 +61,8 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 - The [Installation](https://hieromon.github.io/AutoConnect/index.html#installation) is the installation procedure and requirements for the library.
 - [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted/index.html) with the most simple sketch for using AutoConnect.
-- The [Usage the Library](https://hieromon.github.io/AutoConnect/usage/index.html) quides to using the library correctly.
+- The [Basic usage](https://hieromon.github.io/AutoConnect/basicusage/index.html) quides to using the library correctly.
+- Details are explained in the [Advanced usage](https://hieromon.github.io/AutoConnect/advancedusage/index.html).
 - The [API reference](https://hieromon.github.io/AutoConnect/api/index.html) describes the AutoConnect functions specification.
 - [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
 
