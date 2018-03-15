@@ -6,7 +6,7 @@
 The AutoConnect menu appears when you access the **AutoConnect root path**. It is assigned to "**/_ac**" located on ESP8266 *local IP address* by default. This location can be changed in the sketch. The following screen will appear at access to `http://{localIP}/_ac` as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here. (e.g. `http://192.168.244.1/_ac` for SoftAP mode.)  
 To invoke the menu tap <i class="fa fa-bars"></i> at right on top.
 
-<img src="../images/_ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
+<img src="../images/ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
 !!! note "What's local IP?"
     A local IP means Local IP at connection established or SoftAP's IP.

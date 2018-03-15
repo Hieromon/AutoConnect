@@ -455,6 +455,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-change-http-port" title=" How change HTTP port?" class="md-nav__link">
+     How change HTTP port?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hang-up-after-reset" title=" Hang up after Reset?" class="md-nav__link">
      Hang up after Reset?
   </a>
@@ -620,6 +627,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-change-http-port" title=" How change HTTP port?" class="md-nav__link">
+     How change HTTP port?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hang-up-after-reset" title=" Hang up after Reset?" class="md-nav__link">
      Hang up after Reset?
   </a>
@@ -728,8 +742,8 @@
                   <h1>FAQ</h1>
                 
                 <h2 id="after-connected-autoconnect-menu-performs-but-no-happens"><i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.<a class="headerlink" href="#after-connected-autoconnect-menu-performs-but-no-happens" title="Permanent link">&para;</a></h2>
-<p>If you can access the <strong>AutoConnect root path</strong> as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses <em>ESP8266WebServer::handleClient()</em> without <em>AutoConnect::handleRequest()</em>.<br />
-For AutoConnect menus to work properly, call <em>AutoConnect::handleRequest()</em> after <em>ESP8266WebServer::handleClient()</em> invoked, or use <em>AutoConnect::handleClient()</em>. <em>AutoConnect::handleClient()</em> is equivalent <em>ESP8266WebServer::handleClient</em> combinated <em>AutoConnect::handleRequest()</em>.</p>
+<p>If you can access the <strong>AutoConnect root path</strong> as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses <em>ESP8266WebServer::handleClient()</em> without <a href="../api/index.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.<br />
+For AutoConnect menus to work properly, call <a href="../api/index.html#handlerequest"><em>AutoConnect::handleRequest()</em></a> after <em>ESP8266WebServer::handleClient()</em> invoked, or use <a href="../api/index.html#handleclient"><em>AutoConnect::handleClient()</em></a>. <a href="../api/index.html#handleclient"><em>AutoConnect::handleClient()</em></a> is equivalent <em>ESP8266WebServer::handleClient</em> combinated <a href="../api/index.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.</p>
 <h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
 <h2 id="does-not-appear-esp8266ap-in-smartphone"><i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.<a class="headerlink" href="#does-not-appear-esp8266ap-in-smartphone" title="Permanent link">&para;</a></h2>
@@ -759,7 +773,12 @@ For AutoConnect menus to work properly, call <em>AutoConnect::handleRequest()</e
 <details class="hint"><summary>You can interactively check the WiFi state of ESP8266.</summary><p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p><p><img src="../images/espshaker.gif" /></p></details><h2 id="does-not-response-from-95ac"><i class="fa fa-question-circle"></i> Does not response from _ac.<a class="headerlink" href="#does-not-response-from-95ac" title="Permanent link">&para;</a></h2>
 <p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="../advancedusage/index.html#debug-print">debug printing</a> will help you to track down the cause.</p>
 <h2 id="how-change-esp8266ap-for-ssid-name-in-captive-portal"><i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?<a class="headerlink" href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title="Permanent link">&para;</a></h2>
-<p>An <strong>esp8266</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong>. You can change both by using <a href="../api/index.html#string-apid">AutoConnectConfig</a>.</p>
+<p>An <strong>esp8266</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong>. You can change both by using <a href="../api/index.html#autoconnectconfig-api">AutoConnectConfig</a>.</p>
+<h2 id="how-change-http-port"><i class="fa fa-question-circle"></i> How change HTTP port?<a class="headerlink" href="#how-change-http-port" title="Permanent link">&para;</a></h2>
+<p>HTTP port number is defined as a macro in <a href="https://github.com/Hieromon/AutoConnect/blob/77d5cb5dc6d50651fd15f74b47859105c71fc317/src/AutoConnect.h#L89">AutoConnect.h</a> header file. You can change it directly with several editors and must re-compile.</p>
+<div class="codehilite"><pre><span></span><span class="cp">#define AUTOCONNECT_HTTPPORT    80</span>
+</pre></div>
+
 <h2 id="hang-up-after-reset"><i class="fa fa-question-circle"></i> Hang up after Reset?<a class="headerlink" href="#hang-up-after-reset" title="Permanent link">&para;</a></h2>
 <p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a></p>
 <p>If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.</p>
