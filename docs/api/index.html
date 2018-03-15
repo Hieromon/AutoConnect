@@ -609,6 +609,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#boundaryoffset" title="boundaryOffset" class="md-nav__link">
+    boundaryOffset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#channel" title="channel" class="md-nav__link">
     channel
   </a>
@@ -646,13 +653,6 @@
           <li class="md-nav__item">
   <a href="#psk" title="psk" class="md-nav__link">
     psk
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#saveoffset" title="saveOffset" class="md-nav__link">
-    saveOffset
   </a>
   
 </li>
@@ -960,6 +960,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#boundaryoffset" title="boundaryOffset" class="md-nav__link">
+    boundaryOffset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#channel" title="channel" class="md-nav__link">
     channel
   </a>
@@ -997,13 +1004,6 @@
           <li class="md-nav__item">
   <a href="#psk" title="psk" class="md-nav__link">
     psk
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#saveoffset" title="saveOffset" class="md-nav__link">
-    saveOffset
   </a>
   
 </li>
@@ -1235,7 +1235,7 @@ Register the handler function for undefined URL request detected.
     <dt><strong>Type</strong></dt>
     <dd>bool</dd>
     <dt><strong>Value</strong></dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Enable the captive portal. This is a default.</dd>
+    <dd><span class="apidef" style="width:230px;">true</span>Enable the captive portal. This is the default.</dd>
     <dd><span class="apidef" style="width:230px;">false</span>Disable the captive portal.</dd>
 </dl></p>
 <h4 id="autosave">autoSave<a class="headerlink" href="#autosave" title="Permanent link">&para;</a></h4>
@@ -1247,6 +1247,17 @@ Register the handler function for undefined URL request detected.
     <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_AUTO</span>The credential saved automatically.</dd>
     <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_NEVER</span>The credential no saved.</dd>
 </dl></p>
+<h4 id="boundaryoffset">boundaryOffset<a class="headerlink" href="#boundaryoffset" title="Permanent link">&para;</a></h4>
+<p>Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)<br />
+The default value is 0.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>uint16_t</dd>
+</dl></p>
+<div class="admonition warning">
+<p class="admonition-title">It will conflict with user data.</p>
+<p>If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.</p>
+</div>
 <h4 id="channel">channel<a class="headerlink" href="#channel" title="Permanent link">&para;</a></h4>
 <p>The channel number of WIFi when SoftAP starts.
 <dl class="apidl">
@@ -1292,17 +1303,6 @@ Register the handler function for undefined URL request detected.
     <dt><strong>Type</strong></dt>
     <dd>String</dd>
 </dl></p>
-<h4 id="saveoffset">saveOffset<a class="headerlink" href="#saveoffset" title="Permanent link">&para;</a></h4>
-<p>Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)<br />
-The default value is 0.
-<dl class="apidl">
-    <dt><strong>Type</strong></dt>
-    <dd>uint16_t</dd>
-</dl></p>
-<div class="admonition warning">
-<p class="admonition-title">It will conflict with user data.</p>
-<p>If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.</p>
-</div>
 <h3 id="autoconnectconfig-example"><i class="fa fa-code"></i> AutoConnectConfig example<a class="headerlink" href="#autoconnectconfig-example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="n">AutoConenct</span>        <span class="n">Portal</span><span class="p">;</span>
 <span class="n">AutoConenctConfig</span>  <span class="nf">Config</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;passpass&quot;</span><span class="p">);</span>    <span class="c1">// SoftAp name is determined at runtime</span>
@@ -1311,6 +1311,7 @@ The default value is 0.
 <span class="n">Config</span><span class="p">.</span><span class="n">gateway</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">// Sets WLAN router IP address</span>
 <span class="n">Config</span><span class="p">.</span><span class="n">netmask</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>    <span class="c1">// Sets WLAN scope</span>
 <span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>    <span class="c1">// No save credential</span>
+<span class="n">COnfig</span><span class="p">.</span><span class="n">boundaryOffet</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>                    <span class="c1">// Reserve 64 bytes for the user data in EEPROM. </span>
 <span class="n">Config</span><span class="p">.</span><span class="n">homeUri</span> <span class="o">=</span> <span class="s">&quot;/index.html&quot;</span>                <span class="c1">// Sets home path of the sketch application</span>
 <span class="n">Portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>                        <span class="c1">// Configure AutoConnect</span>
 <span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>                               <span class="c1">// Starts and behaves captive portal</span>

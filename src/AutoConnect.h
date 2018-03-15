@@ -25,7 +25,7 @@ extern "C" {
 #include "AutoConnectCredential.h"
 
 // Uncomment the following AC_DEBUG to enable debug output.
-#define AC_DEBUG
+//#define AC_DEBUG
 
 // Debug output destination can be defined externally with AC_DEBUG_PORT
 #ifndef AC_DEBUG_PORT
@@ -115,7 +115,7 @@ class AutoConnectConfig {
     channel(1),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
-    saveOffset(AC_IDENTIFIER_OFFSET),
+    boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
@@ -132,7 +132,7 @@ class AutoConnectConfig {
     channel(1),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
-    saveOffset(AC_IDENTIFIER_OFFSET),
+    boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
@@ -149,7 +149,7 @@ class AutoConnectConfig {
     channel = o.channel;
     hidden = o.hidden;
     autoSave = o.autoSave;
-    saveOffset = o.saveOffset;
+    boundaryOffset = o.boundaryOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
     autoReset = o.autoReset;
@@ -165,7 +165,7 @@ class AutoConnectConfig {
   uint8_t   channel;    /**< SoftAP used wifi channel */
   uint8_t   hidden;     /**< SoftAP SSID hidden */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
-  uint16_t  saveOffset; /**< The save storage offset of EEPROM */
+  uint16_t  boundaryOffset; /**< The save storage offset of EEPROM */
   int       uptime;     /**< Length of start up time */
   bool      autoRise;   /**< Automatic starting the captive portal */
   bool      autoReset;  /**< Reset ESP8266 module automatically when WLAN disconnected. */

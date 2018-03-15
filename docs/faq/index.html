@@ -470,6 +470,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#include-header" title="Include header" class="md-nav__link">
+    Include header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#constructor" title="Constructor" class="md-nav__link">
     Constructor
   </a>
@@ -628,6 +635,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#include-header" title="Include header" class="md-nav__link">
+    Include header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#constructor" title="Constructor" class="md-nav__link">
     Constructor
   </a>
@@ -758,12 +772,19 @@ wdt reset
 <h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
 <p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it.</p>
 <p>A class description of AutoConnectCredential is follows.</p>
-<h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<h3 id="include-header">Include header<a class="headerlink" href="#include-header" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;AutoConnectCredential.h&gt;</span><span class="cp"></span>
-
-<span class="n">AutoConnectCredential</span><span class="p">();</span>
 </pre></div>
 
+<h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="n">AutoConnectCredential</span><span class="p">();</span>
+</pre></div>
+
+<p>AutoConnectCredential default constructor. The default offset value is 0. If the offset value is 0, the credential storage area starts from the top of the EEPROM. AutoConnect sometimes overwrites data when using this area with user sketch.</p>
+<div class="codehilite"><pre><span></span><span class="n">AutoConnectCredential</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">offset</span><span class="p">);</span>
+</pre></div>
+
+<p>Specify offset from the top of the EEPROM for the credential storage area together. The offset value is from 0 to the flash sector size.</p>
 <h3 id="public-member-functions">Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
 <ul>
 <li>

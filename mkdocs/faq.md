@@ -68,13 +68,25 @@ Make some sketches for erasing the EEPROM area, or some erasing utility is neede
 
 A class description of AutoConnectCredential is follows.
 
-### Constructor
+### Include header
 
 ```cpp
 #include <AutoConnectCredential.h>
+```
 
+### Constructor
+
+```cpp
 AutoConnectCredential();
 ```
+
+AutoConnectCredential default constructor. The default offset value is 0. If the offset value is 0, the credential storage area starts from the top of the EEPROM. AutoConnect sometimes overwrites data when using this area with user sketch.
+
+```cpp
+AutoConnectCredential(uint16_t offset);
+```
+
+Specify offset from the top of the EEPROM for the credential storage area together. The offset value is from 0 to the flash sector size.
 
 ### Public member functions
 

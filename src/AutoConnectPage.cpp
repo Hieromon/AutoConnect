@@ -899,7 +899,7 @@ String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
 }
 
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
-  AutoConnectCredential credit;
+  AutoConnectCredential credit(_apConfig.boundaryOffset);
   struct station_config entry;
   String ssidList = "";
   

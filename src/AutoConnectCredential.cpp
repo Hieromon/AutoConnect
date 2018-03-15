@@ -52,13 +52,14 @@ void AutoConnectCredential::_allocateEntry() {
   // Validate the save area of the EEPROM.
   // If it is a valid area, retrieve the stored number of entries,
   // if the identifier is not saved, initialize the EEPROM area.
-  for (c = _offset; c < _offset + sizeof(id_c); c++) {
-    id_c[c] = static_cast<char>(EEPROM.read(c));
+  _dp = _offset;
+  for (c = 0; c < sizeof(id_c); c++) {
+    id_c[c] = static_cast<char>(EEPROM.read(_dp++));
   }
   if (!strncmp(id_c, AC_IDENTIFIER, sizeof(id_c))) {
-    _entries = EEPROM.read(static_cast<int>(c++));
-    _containSize = EEPROM.read(static_cast<int>(c++));
-    _containSize += EEPROM.read(static_cast<int>(c)) << 8;
+    _entries = EEPROM.read(static_cast<int>(_dp++));
+    _containSize = EEPROM.read(static_cast<int>(_dp++));
+    _containSize += EEPROM.read(static_cast<int>(_dp)) << 8;
   }
   else {
     _entries = 0;
@@ -106,7 +107,7 @@ bool AutoConnectCredential::del(const char* ssid) {
 
     // End 0xff writing, update headers.
     _entries--;
-    EEPROM.write(static_cast<int>(sizeof(AC_IDENTIFIER)) - 1, _entries);
+    EEPROM.write(_offset + static_cast<int>(sizeof(AC_IDENTIFIER)) - 1, _entries);
 
     // commit it.
     rc = EEPROM.commit();
@@ -203,9 +204,9 @@ bool AutoConnectCredential::save(const struct station_config* config) {
     // Same entry not found. increase the entry.
     _entries++;
     int i;
-    for (i = AC_IDENTIFIER_OFFSET; i < static_cast<int>(sizeof(_id)) - 1; i++)
-      EEPROM.write(i, (uint8_t)_id[i]);
-    EEPROM.write(i, _entries);
+    for (i = 0; i < static_cast<int>(sizeof(_id)) - 1; i++)
+      EEPROM.write(i + _offset, (uint8_t)_id[i]);
+    EEPROM.write(i + _offset, _entries);
   }
 
   // Seek insertion point, evaluate capacity to insert the new entry.
@@ -245,8 +246,8 @@ bool AutoConnectCredential::save(const struct station_config* config) {
 
     // Update container size
     _containSize = _dp - AC_HEADERSIZE;
-    EEPROM.write(sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize);
-    EEPROM.write(sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8));
+    EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize);
+    EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8));
   }
 
   bool rc = EEPROM.commit();

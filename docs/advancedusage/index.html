@@ -812,7 +812,7 @@
 <p>EEPROM library uses one sector of flash located <a href="http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom">just after the SPIFFS</a>.</p>
 </blockquote>
 <p>So in the default state, the credential storage area used by AutoConnect conflicts with data area owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.</p>
-<p>The <a href="../api/index.html#saveoffset"><strong>saveOffset</strong></a> in <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> specifies the start offset of the credentials storage area. The default value is 0.</p>
+<p>The <a href="../api/index.html#boundaryoffset"><strong>boundaryOffset</strong></a> in <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> specifies the start offset of the credentials storage area. The default value is 0.</p>
 <h3 id="refers-the-hosted-esp8266webserver"><i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer<a class="headerlink" href="#refers-the-hosted-esp8266webserver" title="Permanent link">&para;</a></h3>
 <p>Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer inside the AutoConnect. This object variable could be referred by <a href="../api/index.html#host"><em>AutoConnect::host()</em></a> function to access ESP8266WebServer instance as like below.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="n">Portal</span><span class="p">;</span>

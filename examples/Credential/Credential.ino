@@ -23,6 +23,10 @@ AutoConnect      Portal(Server);
 String viewCredential(PageArgument&);
 String delCredential(PageArgument&);
 
+// Specified the offset if the user data exists.
+//#define CREDENTIAL_OFFSET 0
+#define CREDENTIAL_OFFSET 64
+
 /**
  *  An HTML for the operation page.
  *  In PageBuilder, the token {{SSID}} contained in an HTML template below is
@@ -81,7 +85,7 @@ PageBuilder delPage("/del", { elmDel });
 // Retrieve the credential entries from EEPROM, Build the SSID line
 // with the <li> tag.
 String viewCredential(PageArgument& args) {
-  AutoConnectCredential  ac;
+  AutoConnectCredential  ac(CREDENTIAL_OFFSET);
   struct station_config  entry;
   String content = "";
   uint8_t  count = ac.entries();          // Get number of entries.
@@ -99,14 +103,14 @@ String viewCredential(PageArgument& args) {
 // Delete a credential entry, the entry to be deleted is passed in the
 // request parameter 'num'.
 String delCredential(PageArgument& args) {
-  AutoConnectCredential  ac;
+  AutoConnectCredential  ac(CREDENTIAL_OFFSET);
   if (args.hasArg("num")) {
     int8_t  e = args.arg("num").toInt();
     if (e > 0) {
       struct  station_config entry;
 
       // If the input number is valid, delete that entry.
-      int8_t  de = ac.load(e, &entry);
+      int8_t  de = ac.load(e - 1, &entry);  // A base of entry num is 0.
       if (de > 0) {
         ac.del((char *)entry.ssid);
 
@@ -134,6 +138,12 @@ void setup() {
   rootPage.insert(Server);    // Instead of Server.on("/", ...);
   delPage.insert(Server);     // Instead of Server.on("/del", ...);
 
+  // Set an address of the credential area.
+  AutoConnectConfig Config;
+  Config.boundaryOffset = CREDENTIAL_OFFSET;
+  Portal.config(Config);
+
+  // Start
   if (Portal.begin()) {
     Serial.println("WiFi connected: " + WiFi.localIP().toString());
   }
