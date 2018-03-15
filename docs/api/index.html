@@ -218,6 +218,17 @@
         
       
         
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../basicusage/index.html" title="Usage the library" class="md-tabs__link">
+          Usage the library
+        </a>
+      
+    </li>
+  
+
       
         
       
@@ -313,10 +324,46 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="../usage/index.html" title="Usage the library" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
       Usage the library
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Usage the library
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basicusage/index.html" title="Basic usage" class="md-nav__link">
+      Basic usage
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advancedusage/index.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -1016,6 +1063,7 @@
 <span class="cp">#define AUTOCONNECT_AP_GW       0x01F4A8C0      </span><span class="c1">// Default SoftAP Gateway IP</span>
 <span class="cp">#define AUTOCONNECT_AP_NM       0x00FFFFFF      </span><span class="c1">// Default subnet mask</span>
 <span class="cp">#define AUTOCONNECT_DNSPORT     53              </span><span class="c1">// Default DNS port at captive portal</span>
+<span class="cp">#define AUTOCONNECT_HTTPPORT    80              </span><span class="c1">// Default HTTP</span>
 <span class="cp">#define AUTOCONNECT_MENU_TITLE  &quot;AutoConnect&quot;   </span><span class="c1">// Default AutoConnect menu title</span>
 <span class="cp">#define AUTOCONNECT_STARTUPTIME 10              </span><span class="c1">// Default waiting time[s] for after reset</span>
 <span class="cp">#define AUTOCONNECT_URI         &quot;/_ac&quot;          </span><span class="c1">// Default AutoConnect root path</span>
@@ -1309,7 +1357,7 @@ The default value is 0.
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../usage/index.html" title="Usage the library" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../advancedusage/index.html" title="Advanced usage" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1318,7 +1366,7 @@ The default value is 0.
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Usage the library
+                Advanced usage
               </span>
             </div>
           </a>

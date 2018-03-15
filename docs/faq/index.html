@@ -218,6 +218,17 @@
         
       
         
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../basicusage/index.html" title="Usage the library" class="md-tabs__link">
+          Usage the library
+        </a>
+      
+    </li>
+  
+
       
         
       
@@ -313,10 +324,46 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="../usage/index.html" title="Usage the library" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
       Usage the library
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Usage the library
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basicusage/index.html" title="Basic usage" class="md-nav__link">
+      Basic usage
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../advancedusage/index.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -696,7 +743,7 @@ For AutoConnect menus to work properly, call <em>AutoConnect::handleRequest()</e
 </pre></div>
 
 <details class="hint"><summary>You can interactively check the WiFi state of ESP8266.</summary><p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p><p><img src="../images/espshaker.gif" /></p></details><h2 id="does-not-response-from-95ac"><i class="fa fa-question-circle"></i> Does not response from _ac.<a class="headerlink" href="#does-not-response-from-95ac" title="Permanent link">&para;</a></h2>
-<p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="../usage/index.html#debug-print">debug printing</a> will help you to track down the cause.</p>
+<p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="../advancedusage/index.html#debug-print">debug printing</a> will help you to track down the cause.</p>
 <h2 id="how-change-esp8266ap-for-ssid-name-in-captive-portal"><i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?<a class="headerlink" href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title="Permanent link">&para;</a></h2>
 <p>An <strong>esp8266</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong>. You can change both by using <a href="../api/index.html#string-apid">AutoConnectConfig</a>.</p>
 <h2 id="hang-up-after-reset"><i class="fa fa-question-circle"></i> Hang up after Reset?<a class="headerlink" href="#hang-up-after-reset" title="Permanent link">&para;</a></h2>
@@ -710,7 +757,7 @@ wdt reset
 <p>The correct boot mode for starting the sketch is <strong>(3, x)</strong>.</p>
 <h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
 <p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it.</p>
-<p>A class description of AutoConnectCredentail is follows.</p>
+<p>A class description of AutoConnectCredential is follows.</p>
 <h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;AutoConnectCredential.h&gt;</span><span class="cp"></span>
 
@@ -824,7 +871,7 @@ wdt reset
 
 <h2 id="how-much-memory-consumption-is-autoconnect"><i class="fa fa-question-circle"></i> How much memory consumption is AutoConnect?<a class="headerlink" href="#how-much-memory-consumption-is-autoconnect" title="Permanent link">&para;</a></h2>
 <h3 id="sketch-size">Sketch size<a class="headerlink" href="#sketch-size" title="Permanent link">&para;</a></h3>
-<p>It increases about 57K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced at the Getting started is about 330K bytes. (270K byte without AutoConnect)</p>
+<p>It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced at the Getting started is about 330K bytes. (270K byte without AutoConnect)</p>
 <h3 id="heap-size">Heap size<a class="headerlink" href="#heap-size" title="Permanent link">&para;</a></h3>
 <p>It consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.</p>
 <h2 id="i-cannot-complete-to-wi-fi-login-from-smartphone"><i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.<a class="headerlink" href="#i-cannot-complete-to-wi-fi-login-from-smartphone" title="Permanent link">&para;</a></h2>

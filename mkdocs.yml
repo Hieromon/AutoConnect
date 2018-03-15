@@ -12,7 +12,9 @@ pages:
   - 'Overview' : index.md
   - 'Getting started' : gettingstarted.md
   - 'AutoConnect menu' : menu.md
-  - 'Usage the library' : usage.md
+  - 'Usage the library' :
+    - 'Basic usage' : basicusage.md
+    - 'Advanced usage' : advancedusage.md
   - 'Library APIs' : api.md
   - 'Examples' : examples.md
   - 'FAQ' : faq.md

@@ -42,7 +42,7 @@ void loop() {
 
 ## <i class="fa fa-question-circle"></i> Does not response from \_ac.
 
-Probably **WiFi.begin** failed with the specified SSID. Activating the [debug printing](usage.md#debug-print) will help you to track down the cause.
+Probably **WiFi.begin** failed with the specified SSID. Activating the [debug printing](advancedusage.md#debug-print) will help you to track down the cause.
 
 ## <i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?
 
@@ -145,7 +145,7 @@ Link button to AutoConnect menu can be embedded into Sketch's web page. The root
 
 ### Sketch size
 
-It increases about 57K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced at the Getting started is about 330K bytes. (270K byte without AutoConnect)
+It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced at the Getting started is about 330K bytes. (270K byte without AutoConnect)
 
 ### Heap size
 
