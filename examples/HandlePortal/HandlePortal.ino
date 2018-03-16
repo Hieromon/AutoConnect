@@ -1,3 +1,19 @@
+/*
+  HandlePortal.ino, Example for the AutoConnect library.
+  Copyright (c) 2018, Hieromon Ikasamo
+  https://github.com/Hieromon/AutoConnect
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+*/
+/*
+  This is a way of not explicitly declaring ESP8266WebServer. It uses
+  the ESP8266WebServer function without its declaration.
+  I recommend that you consider this example compared to HandlePortalEX.ino.
+  https://github.com/Hieromon/AutoConnect/blob/master/examples/HandlePortalEX/HandlePortalEX.ino
+  It will help you understand AutoConnect usage.
+*/
+
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>

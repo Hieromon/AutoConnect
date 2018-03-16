@@ -1,3 +1,12 @@
+/*
+  Simple.ino, Example for the AutoConnect library.
+  Copyright (c) 2018, Hieromon Ikasamo
+  https://github.com/Hieromon/AutoConnect
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+*/
+
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <time.h>

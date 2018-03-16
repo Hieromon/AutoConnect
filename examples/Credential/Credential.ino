@@ -1,17 +1,19 @@
-/**
- *  AutoConnect for ESP8266.
- *  https://github.com/Hieromon/AutoConnect
- *  Copyright 2018, Hieromon Ikasamo.
- *  Licensed under The MIT License.
- *  https://opensource.org/licenses/mit-license.php
- *  An example sketch for an Arduino library for ESP8266 WLAN configuration
- *  via the Web interface. This sketch provides a conservation measures
- *  utility for saved credentials in EEPROM.
- *  By accessing the root path, you can see the list of currently saved
- *  credentials via the browser. Enter an entry number of the credential,
- *  that entry will be deleted from EEPROM.
- *  This sketch uses PageBuilder to support handling of operation pages.
- */
+/*
+  Credential.ino, AutoConnect for ESP8266.
+  https://github.com/Hieromon/AutoConnect
+  Copyright 2018, Hieromon Ikasamo.
+  Licensed under The MIT License.
+  https://opensource.org/licenses/MIT
+
+  An example sketch for an Arduino library for ESP8266 WLAN configuration
+  via the Web interface. This sketch provides a conservation measures
+  utility for saved credentials in EEPROM.
+  By accessing the root path, you can see the list of currently saved
+  credentials via the browser. Enter an entry number of the credential,
+  that entry will be deleted from EEPROM.
+  This sketch uses PageBuilder to support handling of operation pages.
+*/
+
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>
@@ -24,8 +26,12 @@ String viewCredential(PageArgument&);
 String delCredential(PageArgument&);
 
 // Specified the offset if the user data exists.
-//#define CREDENTIAL_OFFSET 0
-#define CREDENTIAL_OFFSET 64
+// The following two lines define the boundalyOffset value to be supplied to
+// AutoConnectConfig respectively. It may be necessary to adjust the value
+// accordingly to the actual situation.
+
+#define CREDENTIAL_OFFSET 0
+//#define CREDENTIAL_OFFSET 64
 
 /**
  *  An HTML for the operation page.

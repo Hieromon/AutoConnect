@@ -1,7 +1,24 @@
+/*
+  HandlePortalEX.ino, Example for the AutoConnect library.
+  Copyright (c) 2018, Hieromon Ikasamo
+  https://github.com/Hieromon/AutoConnect
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+*/
+/*
+  This is an explicit declaration of ESP8266WebServer. AutoConnect uses
+  its declaration. Also, by using PageBuilder for HTML assembly, you can
+  display the web page without using the ESP8266WebServer::send() function.
+  I recommend that you consider this example compared to HandlePortal.ino.
+  https://github.com/Hieromon/AutoConnect/blob/master/examples/HandlePortal/HandlePortal.ino
+  It will help you understand AutoConnect usage.
+*/
+
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <PageBuilder.h>
-#include "AutoConnect.h"
+#include <AutoConnect.h>
 
 ESP8266WebServer server;
 AutoConnect      portal(server);
@@ -72,6 +89,8 @@ String gpio(PageArgument& args) {
 PageElement elm_io("{{IO}}", { {"IO", gpio} });
 PageBuilder io("/io", { elm_io });
 
+// This function is for redirect only.
+// The actual sending the HTML performs in PageBuilder.
 void sendRedirect(String uri) {
   server.sendHeader("Location", uri, true);
   server.send(302, "text/plain", "");
