@@ -10,11 +10,7 @@
 #ifndef _AUTOCONNECTCREDENTIAL_H_
 #define _AUTOCONNECTCREDENTIAL_H_
 
-#if defined(ARDUINO) && ARDUINO >= 100
-  #include "arduino.h"
-#else
-  #include "WProgram.h"
-#endif
+#include <Arduino.h>
 extern "C" {
 #include <user_interface.h>
 }
