@@ -3,13 +3,15 @@
 If you can access the **AutoConnect root path** as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses *ESP8266WebServer::handleClient()* without [*AutoConnect::handleRequest()*](api.md#handlerequest).  
 For AutoConnect menus to work properly, call [*AutoConnect::handleRequest()*](api.md#handlerequest) after *ESP8266WebServer::handleClient()* invoked, or use [*AutoConnect::handleClient()*](api.md#handleclient). [*AutoConnect::handleClient()*](api.md#handleclient) is equivalent *ESP8266WebServer::handleClient* combinated [*AutoConnect::handleRequest()*](api.md#handlerequest).
 
+See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasitic).
+
 ## <i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
-Maybe it is successfully connected at the **first WiFi.begin**. ESP8266 remembers the SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
+Maybe it is successfully connected at the **first WiFi.begin**. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
 
 The saved SSID would be cleared by  *WiFi.disconnect()* with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.
 
@@ -40,13 +42,13 @@ void loop() {
 
     <img src="../images/espshaker.gif" />
 
-## <i class="fa fa-question-circle"></i> Does not response from \_ac.
+## <i class="fa fa-question-circle"></i> Does not response from /\_ac.
 
 Probably **WiFi.begin** failed with the specified SSID. Activating the [debug printing](advancedusage.md#debug-print) will help you to track down the cause.
 
 ## <i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?
 
-An **esp8266** is default SSID name for SoftAP of captive portal and password is **12345678**. You can change both by using [AutoConnectConfig](api.md#autoconnectconfig-api).
+An **esp8266ap** is default SSID name for SoftAP of captive portal and password is **12345678**. You can change both by using [AutoConnectConfig](api.md#autoconnectconfig-api).
 
 ## <i class="fa fa-question-circle"></i> How change HTTP port?
 
@@ -161,11 +163,11 @@ Link button to AutoConnect menu can be embedded into Sketch's web page. The root
 <a style="background-color:SteelBlue; display:inline-block; padding:7px 13px; text-decoration:none;" href="/_ac">MENU</a>
 ```
 
-## <i class="fa fa-question-circle"></i> How much memory consumption is AutoConnect?
+## <i class="fa fa-question-circle"></i> How much memory does AutoConnect consume?
 
 ### Sketch size
 
-It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced at the Getting started is about 330K bytes. (270K byte without AutoConnect)
+It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)
 
 ### Heap size
 

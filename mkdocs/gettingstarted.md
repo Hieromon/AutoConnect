@@ -56,7 +56,7 @@ Or, "**RESET**" can be selected. The ESP8266 resets and reboots. After that, imm
 
 ### <i class="fa fa-play-circle"></i> Run for usually
 
-The IP address of ESP8266 would be displayed on the serial monitor after connection recovered. Please access its address from the browser. The "Hello, world" page will respond. It's the page that was handled by in the sketch with "**on**" function of *ESP8266WebServer*.
+The IP address of ESP8266 would be displayed on the serial monitor after connection restored. Please access its address from the browser. The "Hello, world" page will respond. It's the page that was handled by in the sketch with "**on**" function of *ESP8266WebServer*.
 
 <img src="../images/serial.png" style="vertical-align:top;" /><img src="../images/arrow_right.svg" style="vertical-align:top;padding-top:60px;width:48px;margin-left:45px;margin-right:30px;" /><img src="../images/hello_world.png" style="border:1px solid lightgrey;width:280px;" />
 

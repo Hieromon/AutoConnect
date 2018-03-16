@@ -18,7 +18,7 @@ Portal.begin();
 
 ### <i class="fa fa-caret-right"></i> Captive portal start detection
 
-The captive portal will only be activated if the first *WiFi::begin* fails. Sketch can detect with the [*AutoConnect::onDetect*](api.md#ondetect) funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.
+The captive portal will only be activated if the first *WiFi::begin* fails. Sketch can detect with the [*AutoConnect::onDetect*](api.md#ondetect) function that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.
 
 ```arduino hl_lines="3 13"
 AutoConnect Portal;
@@ -92,7 +92,7 @@ portal.begin();
 
 ### <i class="fa fa-caret-right"></i> Move the saving area of EEPROM for the credentials
 
-By default, the credentials saving area is occupied from the beginning of EEPROM. [ESP8266 Arduino core document](http://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=eeprom#flash-layout) says that:
+By default, the credentials saving area is occupied from the beginning of EEPROM area. [ESP8266 Arduino core document](http://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=eeprom#flash-layout) says that:
 
 
 > The following diagram illustrates flash layout used in Arduino environment:
@@ -109,7 +109,7 @@ and
 
 > EEPROM library uses one sector of flash located [just after the SPIFFS](http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom).
 
-So in the default state, the credential storage area used by AutoConnect conflicts with data area owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.
+So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.
 
 The [**boundaryOffset**](api.md#boundaryoffset) in [**AutoConnectConfig**](api.md#autoconnectconfig-api) specifies the start offset of the credentials storage area. The default value is 0.
 
@@ -212,7 +212,7 @@ AutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP setting
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 
-A home path of AutoConnect is **\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58) macro in the include header file as [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h).
+A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58) macro in the include header file as [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h).
 
 ```cpp
 #define AUTOCONNECT_URI         "/_ac"

@@ -677,7 +677,7 @@
 <p>An Arduino library for ESP8266 WLAN configuration at run time with web interface.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with <em>ESP8266WebServer</em> class.
-Easily implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.</p>
+Easy implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.</p>
 <p><img style="display:inline-block;width:460px;margin-right:30px;" src="./images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="./images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span></p>
 <h3 id="no-need-pre-coded-ssid-password"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> No need pre-coded SSID &amp; password<a class="headerlink" href="#no-need-pre-coded-ssid-password" title="Permanent link">&para;</a></h3>
 <p><span class="lead">It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266 and WLAN. You can input SSID &amp; Password from a smartphone via the web interface at runtime.</span></p>
@@ -686,7 +686,7 @@ Easily implementing the Web interface constituting the WLAN for ESP8266 WiFi con
 <h3 id="store-the-established-connection"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Store the established connection<a class="headerlink" href="#store-the-established-connection" title="Permanent link">&para;</a></h3>
 <p><span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266 and You can select the past SSID from the <a href="menu/index.html">AutoConnect menu</a>.</span></p>
 <h3 id="easy-to-embed-in"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in<a class="headerlink" href="#easy-to-embed-in" title="Permanent link">&para;</a></h3>
-<p><span class="lead">AutoConnect can be embedded easily into your sketch, just "<strong>begin</strong>" and "<strong>handleClient</strong>".</span></p>
+<p><span class="lead">AutoConnect can be placed easily in your sketch. It's "<strong>begin</strong>" and "<strong>handleClient</strong>" only.</span></p>
 <h3 id="lives-with-the-your-sketches"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with the your sketches<a class="headerlink" href="#lives-with-the-your-sketches" title="Permanent link">&para;</a></h3>
 <p><span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.</span></p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
@@ -715,7 +715,7 @@ Easily implementing the Web interface constituting the WLAN for ESP8266 WiFi con
 Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. Package URL is <a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a></p>
 <p><i class="fa fa-download"></i> <strong>Additional necessary library</strong></p>
 <p>The <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library to build HTML for ESP8266WebServer is needed.<br />
-To install the PageBuilder library into your Arduino IDE, you can use the <em>Library Manager</em>. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '<strong>pagebuilder</strong>' in the topic '<strong>Communication</strong>', then you can see the <em>PageBuilder</em>. The latest version or 1.0.0 later is required.</p>
+To install the PageBuilder library into your Arduino IDE, you can use the <em>Library Manager</em>. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '<strong>pagebuilder</strong>' with the topic '<strong>Communication</strong>', then you can see the <em>PageBuilder</em>. The latest version or 1.0.0 later is required.</p>
 <p><img src="./images/lm.png" width="640"/></p>
 <h3 id="install-the-autoconnect">Install the AutoConnect<a class="headerlink" href="#install-the-autoconnect" title="Permanent link">&para;</a></h3>
 <p>Clone or download from the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect GitHub repository</a>.</p>

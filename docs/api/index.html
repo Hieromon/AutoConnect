@@ -1076,6 +1076,7 @@
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span><span class="p">()</span>
 </pre></div>
 
+<p><a id="withparameter"></a></p>
 <p>AutoConnect default constructor. This entry activates WebServer internally and the web server is allocated internal.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span><span class="p">(</span><span class="n">ESP8266WebServer</span><span class="o">&amp;</span> <span class="n">webServer</span><span class="p">)</span>
 </pre></div>
@@ -1177,7 +1178,7 @@ Register the function which will call from AutoConnect at the start of the capti
     <dd><span class="apidef">fn</span>Function called at the captive portal start.</dd></p>
 </dl>
 
-<p>An <em>fn</em> specifies the function called when the captive portal starts. Its prototype declaration is defined as "<em>DetectFunc_ft</em>".</p>
+<p>An <em>fn</em> specifies the function called when the captive portal starts. Its prototype declaration is defined as "<em>DetectExit_ft</em>".</p>
 <p><div class="codehilite"><pre><span></span><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">(</span><span class="n">IPAddress</span> <span class="n">softapIP</span><span class="p">)</span><span class="o">&gt;</span>  <span class="n">DetectExit_ft</span>
 </pre></div>
 <dl class="apidl">
@@ -1218,10 +1219,10 @@ Register the handler function for undefined URL request detected.
 <p>Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
-    <dd>IPAddress</dd>
+    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is <strong>192.168.244.1</strong></dd>
 </dl></p>
 <h4 id="autoreset">autoReset<a class="headerlink" href="#autoreset" title="Permanent link">&para;</a></h4>
-<p>Reset ESP8266 module automatically when WLAN disconnected.
+<p>Reset ESP8266 module automatically after WLAN disconnected.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>bool</dd>
@@ -1244,7 +1245,7 @@ Register the handler function for undefined URL request detected.
     <dt><strong>Type</strong></dt>
     <dd>AC_SAVECREDENTIAL_t</dd>
     <dt><strong>Value</strong></dt>
-    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_AUTO</span>The credential saved automatically.</dd>
+    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_AUTO</span>The credential saved automatically. This is the default.</dd>
     <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_NEVER</span>The credential no saved.</dd>
 </dl></p>
 <h4 id="boundaryoffset">boundaryOffset<a class="headerlink" href="#boundaryoffset" title="Permanent link">&para;</a></h4>
@@ -1267,14 +1268,14 @@ The default value is 0.
     <dd>1 ~ 14. The default value is 1.</dd>
 </dl></p>
 <div class="admonition info">
-<p class="admonition-title">See Application note</p>
+<p class="admonition-title">How do I choose Channel</p>
 <p>Espressif Systems had announced the <a href="https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf">application note</a> about Wi-Fi channel selection.</p>
 </div>
 <h4 id="gateway">gateway<a class="headerlink" href="#gateway" title="Permanent link">&para;</a></h4>
 <p>Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
-    <dd>IPAddress</dd>
+    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is <strong>192.168.244.1</strong></dd>
 </dl></p>
 <h4 id="hidden">hidden<a class="headerlink" href="#hidden" title="Permanent link">&para;</a></h4>
 <p>Sets SoftAP to hidden SSID.
@@ -1295,7 +1296,7 @@ The default value is 0.
 <p>Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
-    <dd>IPAddress</dd>
+    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is <strong>255.255.255.0</strong></dd>
 </dl></p>
 <h4 id="psk">psk<a class="headerlink" href="#psk" title="Permanent link">&para;</a></h4>
 <p>Sets password for SoftAP. The length should be from 8 to up to 63. The default value is <strong>12345678</strong>.

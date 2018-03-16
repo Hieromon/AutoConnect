@@ -5,7 +5,7 @@ An Arduino library for ESP8266 WLAN configuration at run time with web interface
 ## Overview
 
 To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class.
-Easily implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.
+Easy implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.
 
 <img style="display:inline-block;width:460px;margin-right:30px;" src="./images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="./images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span>
 
@@ -23,7 +23,7 @@ Easily implementing the Web interface constituting the WLAN for ESP8266 WiFi con
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in
 
-<span class="lead">AutoConnect can be embedded easily into your sketch, just "**begin**" and "**handleClient**".</span>
+<span class="lead">AutoConnect can be placed easily in your sketch. It's "**begin**" and "**handleClient**" only.</span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with the your sketches
 
@@ -63,7 +63,7 @@ Install third-party platform using the *Boards Manager* of Arduino IDE. Package 
 <i class="fa fa-download"></i> <strong>Additional necessary library</strong>
 
 The [PageBuilder](https://github.com/Hieromon/PageBuilder) library to build HTML for ESP8266WebServer is needed.  
-To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**pagebuilder**' in the topic '**Communication**', then you can see the *PageBuilder*. The latest version or 1.0.0 later is required.
+To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**pagebuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version or 1.0.0 later is required.
 
 <img src="./images/lm.png" width="640"/>
 

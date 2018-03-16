@@ -730,7 +730,7 @@
 </pre></div>
 
 <h3 id="captive-portal-start-detection"><i class="fa fa-caret-right"></i> Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h3>
-<p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="../api/index.html#ondetect"><em>AutoConnect::onDetect</em></a> funciton that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
+<p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="../api/index.html#ondetect"><em>AutoConnect::onDetect</em></a> function that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="n">Portal</span><span class="p">;</span>
 
 <span class="hll"><span class="kr">bool</span> <span class="nf">startCP</span><span class="p">(</span><span class="nf">IPAddress</span> <span class="n">ip</span><span class="p">)</span> <span class="p">{</span>
@@ -791,7 +791,7 @@
 </pre></div>
 
 <h3 id="move-the-saving-area-of-eeprom-for-the-credentials"><i class="fa fa-caret-right"></i> Move the saving area of EEPROM for the credentials<a class="headerlink" href="#move-the-saving-area-of-eeprom-for-the-credentials" title="Permanent link">&para;</a></h3>
-<p>By default, the credentials saving area is occupied from the beginning of EEPROM. <a href="http://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=eeprom#flash-layout">ESP8266 Arduino core document</a> says that:</p>
+<p>By default, the credentials saving area is occupied from the beginning of EEPROM area. <a href="http://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=eeprom#flash-layout">ESP8266 Arduino core document</a> says that:</p>
 <blockquote>
 <p>The following diagram illustrates flash layout used in Arduino environment:</p>
 </blockquote>
@@ -807,7 +807,7 @@
 <blockquote>
 <p>EEPROM library uses one sector of flash located <a href="http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom">just after the SPIFFS</a>.</p>
 </blockquote>
-<p>So in the default state, the credential storage area used by AutoConnect conflicts with data area owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.</p>
+<p>So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.</p>
 <p>The <a href="../api/index.html#boundaryoffset"><strong>boundaryOffset</strong></a> in <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> specifies the start offset of the credentials storage area. The default value is 0.</p>
 <h3 id="refers-the-hosted-esp8266webserver"><i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer<a class="headerlink" href="#refers-the-hosted-esp8266webserver" title="Permanent link">&para;</a></h3>
 <p>Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer inside the AutoConnect. This object variable could be referred by <a href="../api/index.html#host"><em>AutoConnect::host()</em></a> function to access ESP8266WebServer instance as like below.</p>
@@ -896,7 +896,7 @@
 <p>"<strong>HOME</strong>" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the <a href="../api/index.html#home"><em>AutoConnect::home</em></a> function.</p>
 <p><img src="../images/menu_home.png" /></p>
 <h3 id="relocate-the-autoconnect-home-path"><i class="fa fa-caret-right"></i> Relocate the AutoConnect home path<a class="headerlink" href="#relocate-the-autoconnect-home-path" title="Permanent link">&para;</a></h3>
-<p>A home path of AutoConnect is <strong>_ac</strong> by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58"><strong>AUTOCONNECT_URI</strong></a> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a>.</p>
+<p>A home path of AutoConnect is <strong>/_ac</strong> by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58"><strong>AUTOCONNECT_URI</strong></a> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a>.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
 </pre></div>
                 

@@ -32,6 +32,8 @@
 AutoConnect()
 ```
 
+<a id="withparameter"></a>
+
 AutoConnect default constructor. This entry activates WebServer internally and the web server is allocated internal.
 
 ```cpp
@@ -166,7 +168,7 @@ Register the function which will call from AutoConnect at the start of the capti
 
 </dl>
 
-An *fn* specifies the function called when the captive portal starts. Its prototype declaration is defined as "*DetectFunc_ft*".
+An *fn* specifies the function called when the captive portal starts. Its prototype declaration is defined as "*DetectExit_ft*".
 
 ```cpp
 typedef std::function<bool(IPAddress softapIP)>  DetectExit_ft
@@ -222,12 +224,12 @@ SoftAP's SSID.
 Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd>IPAddress</dd>
+    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
 </dl>
 
 #### autoReset
 
-Reset ESP8266 module automatically when WLAN disconnected.
+Reset ESP8266 module automatically after WLAN disconnected.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>bool</dd>
@@ -254,7 +256,7 @@ The credential saved automatically at the connection establishment.
     <dt>**Type**</dt>
     <dd>AC_SAVECREDENTIAL_t</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_AUTO</span>The credential saved automatically.</dd>
+    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_AUTO</span>The credential saved automatically. This is the default.</dd>
     <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_NEVER</span>The credential no saved.</dd>
 </dl>
 
@@ -280,7 +282,7 @@ The channel number of WIFi when SoftAP starts.
     <dd>1 ~ 14. The default value is 1.</dd>
 </dl>
 
-!!! info "See Application note"
+!!! info "How do I choose Channel"
     Espressif Systems had announced the [application note](https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf) about Wi-Fi channel selection.
 
 #### gateway
@@ -288,7 +290,7 @@ The channel number of WIFi when SoftAP starts.
 Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd>IPAddress</dd>
+    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
 </dl>
 
 #### hidden
@@ -315,7 +317,7 @@ Sets the home path of user sketch. This path would be linked from 'HOME' in the 
 Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd>IPAddress</dd>
+    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **255.255.255.0**</dd>
 </dl>
 
 #### psk
