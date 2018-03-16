@@ -18,7 +18,7 @@ install:
   - arduino --install-boards esp8266:esp8266
   - arduino --board $BD --save-prefs
   - arduino --pref "compiler.warning_level=all" --save-prefs
-  - arduino --install-library "PageBuilder"
+  - arduino --install-library "PageBuilder:1.0.0"
 script:
  - arduino --verify --board $BD $PWD/examples/Credential/Credential.ino
  - arduino --verify --board $BD $PWD/examples/FSBrowser/FSBrowser.ino
