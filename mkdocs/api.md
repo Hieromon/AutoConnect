@@ -354,6 +354,7 @@ The library presents two PNG icons which can be used to embed a hyperlink to the
 To reference the icon, use the **AUTOCONNECT_LINK** macro in the sketch. It expands into the string literal as an HTML ```<a></a>``` tag with PNG embedded of the AutoConnect menu hyperlinks. Icon type is specified by the parameter of the macro.
 
 <dl class="apidl">
+    <dd><span class="apidef">BAR_24</span>Bars icon, 24x24.</dd>
     <dd><span class="apidef">BAR_32</span>Bars icon, 32x32.</dd>
     <dd><span class="apidef">BAR_48</span>Bars icon, 48x48.</dd>
     <dd><span class="apidef">COG_24</span>Cog icon, 24x24.</dd>

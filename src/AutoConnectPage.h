@@ -52,6 +52,11 @@
                                   "ipcbZzrt1HXlfDI58VuhAU5P0Q1Pm2UBAfowcZ0pfIcB53no6jhIjxmDC5zjqxkcPo17w+8w" \
                                   "LTeQyOJS0jA9feWhEw05JiCc4/5wGfeHzuJA7GvsbYeT4NvKgDDamP1Y0RWLMdo8NTUhRjFH" \
                                   "n/8AoRLGHM6hJDMAAAAASUVORK5CYII="
+#define AUTOCONNECT_GLYPH_BAR_24  "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAALVBMVEUAAAAAAAAAAAAAAAAA" \
+                                  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD////BHg4sAAAADXRSTlMACA8YREhJg5mn" \
+                                  "u8rdcKICYgAAAAFiS0dEDm+9ME8AAABFSURBVBjTY2AgDjBWdEBBuwADy104cGBgQ3ASGJj3" \
+                                  "nIGC0wZEmszANGsVFKxUYGBFmBaAykFRRiRAcQ6KQ1G8gOI54gAAQlFeCYGJCTQAAAAASUVO" \
+                                  "RK5CYII="
 #define AUTOCONNECT_GLYPH_BAR_32  "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAApklEQVRYR2NkGGDAOMD2M4w6" \
                                   "YDQEkEMgEJggZwCxGI0T5mug+alAvBFkD7IDXtLBcpjfXgEZ4ugOeAETpHEIgIwHeVYC3QH+" \
                                   "0CgAS9AQgCwHRcFmdAfQ0E7cRo9mw0EVAqPlAKhwEKVTVsBZDsyiQ2k4Wg6gxPKgyoZ0Sn+o" \
