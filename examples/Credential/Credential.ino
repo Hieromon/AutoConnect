@@ -41,47 +41,48 @@ String delCredential(PageArgument&);
  *  The number of the entry to be deleted is passed to the function in the
  *  POST method.
  */
-static const char  html[] PROGMEM = {
-"<!DOCTYPE html>"
-"<html>"
-"<head>"
-  "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-  "<style>"
-  "html {"
-  "font-family:Helvetica,Arial,sans-serif;"
-  "-ms-text-size-adjust:100%;"
-  "-webkit-text-size-adjust:100%;"
-  "}"
-  "a:link, a:visited {"
-    "background-color: #2f4f4f;"
-    "border-radius: 4px;"
-    "color: white;"
-    "display: inline-block;"
-    "padding: 6px 12px;"
-    "text-align: center;"
-    "text-decoration: none;"
-  "}"
-  "a:hover, a:active {"
-    "background-color: #132020;"
-   "}"
-  "</style>"
-"</head>"
-"<body>"
-"<form action=\"/del\" method=\"POST\">"
-  "<ol>"
-  "{{SSID}}"
-  "</ol>"
-  "<p>Enter deleting entry:</p>"
-  "<input type=\"number\" min=\"1\" name=\"num\">"
-  "<input type=\"submit\">"
-"</form>"
-"<p><a href=\"" AUTOCONNECT_URI "\">Menu</a></p>"
-"</body>"
-"</html>"
-};
+static const char PROGMEM html[] = R"*lit(
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  html {
+  font-family:Helvetica,Arial,sans-serif;
+  -ms-text-size-adjust:100%;
+  -webkit-text-size-adjust:100%;
+  }
+  .menu > a:link {
+    position: absolute;
+    display: inline-block;
+    right: 12px;
+    padding: 0 6px;
+    text-decoration: none;
+  }
+  </style>
+</head>
+<body>
+<div class="menu">{{AUTOCONNECT_MENU}}</div>
+<form action="/del" method="POST">
+  <ol>
+  {{SSID}}
+  </ol>
+  <p>Enter deleting entry:</p>
+  <input type="number" min="1" name="num">
+  <input type="submit">
+</form>
+</body>
+</html>
+)*lit";
+
+static const char PROGMEM autoconnectMenu[] = { AUTOCONNECT_LINK(BAR_24) };
 
 // URL path as '/'
-PageElement elmList(html, {{ "SSID", viewCredential }});
+PageElement elmList(html,
+  {{ "SSID", viewCredential },
+   { "AUTOCONNECT_MENU", [](PageArgument& args) {
+                            return String(FPSTR(autoconnectMenu));} }
+  });
 PageBuilder rootPage("/", { elmList });
 
 // URL path as '/del'

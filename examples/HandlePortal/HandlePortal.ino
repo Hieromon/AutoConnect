@@ -32,8 +32,12 @@ void handleRoot() {
     "font-family:'Arial',sans-serif;"
     "text-align:center;"
     "}"
-    ".menu {"
-    "text-align:right;"
+    ".menu > a:link {"
+    "position: absolute;"
+    "display: inline-block;"
+    "right: 12px;"
+    "padding: 0 6px;"
+    "text-decoration: none;"
     "}"
     ".button {"
     "display:inline-block;"
@@ -47,7 +51,7 @@ void handleRoot() {
   "</style>"
 "</head>"
 "<body>"
-  "<p class=\"menu\">" AUTOCONNECT_LINK(BAR_32) "</p>"
+  "<div class=\"menu\">" AUTOCONNECT_LINK(BAR_32) "</div>"
   "BUILT-IN LED<br>"
   "GPIO(");
   page += String(BUILTIN_LED);

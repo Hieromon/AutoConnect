@@ -23,39 +23,45 @@
 ESP8266WebServer server;
 AutoConnect      portal(server);
 
-static const char mold_page[] PROGMEM  = {
-"<html>"
-"</head>"
-  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-  "<style type=\"text/css\">"
-    "body {"
-    "-webkit-appearance:none;"
-    "-moz-appearance:none;"
-    "font-family:'Arial',sans-serif;"
-    "text-align:center;"
-    "}"
-    ".menu {"
-    "text-align:right;"
-    "}"
-    ".button {"
-    "display:inline-block;"
-    "border-radius:7px;"
-    "background:#73ad21;"
-    "margin:0 10px 0 10px;"
-    "padding:10px 20px 10px 20px;"
-    "text-decoration:none;"
-    "color:#000000;"
-    "}"
-  "</style>"
-"</head>"
-"<body>"
-  "<p class=\"menu\">" AUTOCONNECT_LINK(BAR_32) "</p>"
-  "BUILT-IN LED<br>"
-  "GPIO({{LED}}) : <span style=\"font-weight:bold;color:{{COLOR}}\">{{GPIO}}</span>"
-  "<p><a class=\"button\" href=\"/io?v=low\">low</a><a class=\"button\" href=\"/io?v=high\">high</a></p>"
-  "</body>"
-"</html>"
-};
+static const char PROGMEM mold_page[] = R"*lit(
+<html>
+</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+  body {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    font-family:'Arial',sans-serif;
+    text-align:center;
+  }
+  .menu > a:link {
+    position: absolute;
+    display: inline-block;
+    right: 12px;
+    padding: 0 6px;
+    text-decoration: none;
+  }
+  .button {
+    display:inline-block;
+    border-radius:7px;
+    background:#73ad21;
+    margin:0 10px 0 10px;
+    padding:10px 20px 10px 20px;
+    text-decoration:none;
+    color:#000000;
+  }
+  </style>
+</head>
+<body>
+  <div class="menu">{{AUTOCONNECT_MENU}}</div>
+  BUILT-IN LED<br>
+  GPIO({{LED}}) : <span style="font-weight:bold;color:{{COLOR}}">{{GPIO}}</span>
+  <p><a class="button" href="/io?v=low">low</a><a class="button" href="/io?v=high">high</a></p>
+  </body>
+</html>
+)*lit";
+
+static const char PROGMEM autoconnectMenu[] = { AUTOCONNECT_LINK(BAR_24) };
 
 String getLEDPort(PageArgument& args) {
   return String(BUILTIN_LED);
@@ -72,7 +78,9 @@ String readLEDPort(PageArgument& args) {
 PageElement elm_gpio(mold_page, {
   {"LED", getLEDPort},
   {"COLOR", setColor},
-  {"GPIO", readLEDPort}
+  {"GPIO", readLEDPort},
+  {"AUTOCONNECT_MENU", [](PageArgument& args) {
+    return String(FPSTR(autoconnectMenu));}}
 });
 PageBuilder root("/", { elm_gpio });
 
