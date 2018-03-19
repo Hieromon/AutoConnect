@@ -81,6 +81,9 @@ When you select Download, you can import it to Arduino IDE immediately. After do
 
 <img src="./images/ins_lib.png" />
 
+!!! info "Supported by Library manager."
+    AutoConnect was added to the Arduino IDE library manager as of March 17, 2018. It can be used with the PlatformIO library also.
+
 <script>
   window.onload = function() {
     Gifffer();

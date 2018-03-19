@@ -66,6 +66,14 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - The [API reference](https://hieromon.github.io/AutoConnect/api/index.html) describes the AutoConnect functions specification.
 - [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
 
+## Change log
+
+### [0.9.2] March 19, 2018.
+- Improvement of string literal declaration with the examples, no library change.
+
+### [0.9.1] March 13, 2018.
+- A release of the stable.
+
 ## License
 
 License under the [MIT license](LICENSE).

@@ -17,6 +17,7 @@ pages:
   - 'Library APIs' : api.md
   - 'Examples' : examples.md
   - 'FAQ' : faq.md
+  - 'Change log' : changelog.md
   - 'License' : license.md
 
 # Repository
