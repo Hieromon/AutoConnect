@@ -72,6 +72,14 @@ wdt reset
 
 The correct boot mode for starting the sketch is **(3, x)**.
 
+!!! info "ESP8266 Boot Messages"
+    It is described by [ESP8266 Non-OS SDK API Reference](view-source:https://www.espressif.com/en/products/hardware/esp8266ex/resources), section A.5.
+
+    | Messages | Description |
+    |----------|-------------|
+    | rst cause | 1: power on<br>2: external reset<br>4: hardware watchdog reset |
+    | boot mode<br>(the first parameter) | 1: ESP8266 is in UART-down mode (and downloads firmware into flash).<br>3: ESP8266 is in Flash-boot mode (and boots up from flash). |
+
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
 Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it.

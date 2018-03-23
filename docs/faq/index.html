@@ -770,6 +770,28 @@ wdt reset
 </pre></div>
 
 <p>The correct boot mode for starting the sketch is <strong>(3, x)</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">ESP8266 Boot Messages</p>
+<p>It is described by <a href="view-source:https://www.espressif.com/en/products/hardware/esp8266ex/resources">ESP8266 Non-OS SDK API Reference</a>, section A.5.</p>
+<table>
+<thead>
+<tr>
+<th>Messages</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rst cause</td>
+<td>1: power on<br>2: external reset<br>4: hardware watchdog reset</td>
+</tr>
+<tr>
+<td>boot mode<br>(the first parameter)</td>
+<td>1: ESP8266 is in UART-down mode (and downloads firmware into flash).<br>3: ESP8266 is in Flash-boot mode (and boots up from flash).</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
 <p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it.</p>
 <p>A class description of AutoConnectCredential is follows.</p>
