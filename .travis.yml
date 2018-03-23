@@ -20,12 +20,14 @@ install:
   - arduino --pref "compiler.warning_level=all" --save-prefs
 #  - arduino --install-library "PageBuilder"
   - git clone https://github.com/Hieromon/PageBuilder /usr/local/share/arduino/libraries/PageBuilder
+  - arduino --install-library "PubSubClient"
 script:
  - arduino --verify --board $BD $PWD/examples/Credential/Credential.ino
  - arduino --verify --board $BD $PWD/examples/FSBrowser/FSBrowser.ino
  - arduino --verify --board $BD $PWD/examples/HandleClient/HandleClient.ino
  - arduino --verify --board $BD $PWD/examples/HandlePortal/HandlePortal.ino
  - arduino --verify --board $BD $PWD/examples/HandlePortalEX/HandlePortalEX.ino
+ - arduino --verify --board $BD $PWD/examples/mqttRSSI/mqttRSSI.ino
  - arduino --verify --board $BD $PWD/examples/Simple/Simple.ino
 
 notifications:

@@ -29,6 +29,86 @@ Declare only AutoConnect, performs handleClient.
 
 <img src="../images/handlePortal.svg" />
 
+## Used with MQTT as a client application
+
+The effect of AutoConnect is not only for ESP8266 as the Web server. It has a benefit for something WiFi client too. AutoConnect is effective too when publishing with MQTT from various measurement points. Even if the SSID is different for each measurement point, it is no need to modify the sketch.
+
+This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the [ThingSpeak](https://thingspeak.com/) for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as [MQTT client](https://github.com/knolleary/pubsubclient). This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.
+
+<img src="../images/ChannelStatus.png" width="70%"/>
+
+### Advance procedures
+
+- Arduino Client for MQTT - It's the [PubSubClient](https://github.com/knolleary/pubsubclient), install it to Arduino IDE. If you have the latest version already, this step does not need.
+- Create a channel on ThingSpeak.
+- Get the Channel API Keys from ThingSpeak, put its keys to the sketch.
+
+The ThingSpeak is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further. ThingSpeak has the free plan for the account which uses within the scope of this example.[^1] You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/users/sign_up).
+
+!!! warning "Whether you should do sign-up or not."
+    You are entrusted with the final judgment of account creation for ThingSpeak. Create an account at your own risk.
+
+[^1]:As of March 21, 2018.
+
+#### Create a channel on ThingSpeak
+
+Sign in ThingSpeak. Select **Channels** to show the **My Channels**, then click **New Channel**.
+
+At the **New Channel** screen, enter each field as a below. And click **Save Channel** at the bottom of the screen to save.
+
+- Name: ```ESP8266 Signal Strength```
+- Description: ```ESP8266 RSSI publish```
+- Field1: ```RSSI```
+
+<img src="../images/CreateChannel.png" width="70%"/>
+
+#### Get Channel ID and API Keys
+
+The channel successfully created, you can see the channel status screen as a below. **Channel ID** is displayed there.[^2]
+
+[^2]:'454951' in the example above, but your channel ID should be different.
+
+<img src="../images/ChannelID.png" width="70%"/>
+
+Here, switch the channel status tab to **API Keys**. The API key required to publish the message is the **Write API Key**.
+
+<img src="../images/APIKeys.png" width="70%"/>
+
+The last key you need is the **User API Key** and can be confirmed it in the user profile. Pull down **Account** from the top menu, select **My profile**. Then you can see the ThingSpeak settings and the **User API Key** is displayed middle of this screen.
+
+<img src="../images/USERKey.png" width="70%"/>
+
+### The sketch, Publishes messages
+
+The complete code of the sketch is [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) in the [AutoConnect repository](https://github.com/Hieromon/AutoConnect). Replace the following #define in a sketch with **User API Key**, **Write API Key** and **Channel ID**. After Keys updated, compile the sketch and upload it.
+
+```arduino
+#define MQTT_USER_KEY        "****************"  // Replace to User API Key.
+#define CHANNEL_ID           "******"            // Replace to Channel ID.
+#define CHANNEL_API_KEY_WR   "****************"  // Replace to the write API Key.
+```
+
+### Publish messages
+
+After upload and reboot complete, the message publishing will start via the access point now set. The message carries RSSI as the current WiFi signal strength. The signal strength variations in RSSI are displayed on ThingSpeak's Channel status screen.
+
+### How embed to your sketches
+
+For the client sketches, the code required to connect to WiFi is the following four parts only.
+
+1. \#include directive[^3]  
+<img src="../images/include.png" width="55%"/>
+
+2. Declare AutoConnect  
+<img src="../images/declare.png" width="55%"/>
+
+3. Invokes "begin()"  
+<img src="../images/begin.png" width="55%"/>
+
+4. Performs "handleClent()" in "loop()"  
+<img src="../images/handleClient.png" width="55%"/>
+
+[^3]:```#include <ESP8266WebServer.h>``` does not necessary for uses only client.
 <script>
   window.onload = function() {
     Gifffer();
