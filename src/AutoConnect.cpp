@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.1
- *  @date   2018-02-13
+ *  @version    0.9.3
+ *  @date   2018-03-23
  *  @copyright  MIT license.
  */
 
@@ -87,8 +87,25 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 bool AutoConnect::begin(const char* ssid, const char* passphrase) {
   bool  cs;
 
+  // Start WiFi connection.
   WiFi.mode(WIFI_STA);
   delay(100);
+
+  // Advance configuration for STA mode.
+#ifdef AC_DEBUG
+  String staip_s = _apConfig.staip.toString();
+  String staGateway_s = _apConfig.staGateway.toString();
+  String staNetmask_s = _apConfig.staNetmask.toString();
+  String dns1_s = _apConfig.dns1.toString();
+  String dns2_s = _apConfig.dns2.toString();
+  AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s) ", staip_s.c_str(), staGateway_s.c_str(), staNetmask_s.c_str(), dns1_s.c_str(), dns2_s.c_str());
+#endif
+  if (!WiFi.config(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2)) {
+    AC_DBG("failed\n");
+    return false;
+  }
+  AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
+
   // Try to connect by STA immediately.
   if (ssid == nullptr && passphrase == nullptr)
     WiFi.begin();

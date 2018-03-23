@@ -11,7 +11,7 @@ By default, AutoConnect saves the credentials of the established connection in E
 ```arduino hl_lines="3"
 AutoConnect       Portal;
 AutoConnectConfig Config;
-Config.autoSave = AC_SAVECREDENTIAL_NEVER;
+Config.autoSave = AC_SAVECREDENTIAL_NEVER;f
 Portal.config(Config);
 Portal.begin();
 ```
@@ -185,7 +185,7 @@ An example sketch used with the PageBuilder as follows and it explains how it ai
 
 ### <i class="fa fa-caret-right"></i> Configuration for Soft AP
 
-AutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP settings are stored in [**AutoConnectConfig**](api.md#autoconnectconfig) as the following parameters. The sketch could be configured SoftAP using these parameters, refer the [AutoConnectConfig API](api.md#autoconnectconfig-api) for details.
+AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP settings are stored in [**AutoConnectConfig**](api.md#autoconnectconfig) as the following parameters. The sketch could be configured SoftAP using these parameters, refer the [AutoConnectConfig API](api.md#autoconnectconfig-api) for details.
 
 - IP address of SoftAP activated.
 - Gateway IP address.
@@ -217,3 +217,22 @@ A home path of AutoConnect is **/\_ac** by default. You can access from the brow
 ```cpp
 #define AUTOCONNECT_URI         "/_ac"
 ```
+
+### <i class="fa fa-caret-right"></i> Static IP assignment
+
+It is also possible to assign static IP Address to ESP8266 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.[^1]
+
+To assign a static IP Address, specify it in the [AutoConnectConfig parameter](api.md#staip). In the case of assigning a static IP Address, specify the gateway, subnet mask, and DNS server is needed.
+
+```arduino
+AutoConnect        portal;
+AutoConnectConfig  Config;
+Config.staip = IPAddress(192,168,1,10);
+Config.staGateway = IPAddress(192,168,1,1);
+Config.staNetmask = IPAddress(255,255,255,0);
+Config.dns1 = IPAddress(192,168,1,1);
+portal.config(Config);
+portal.begin();
+```
+
+[^1]:Static IP address assignment is available from version 0.9.3.

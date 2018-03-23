@@ -285,6 +285,22 @@ The channel number of WIFi when SoftAP starts.
 !!! info "How do I choose Channel"
     Espressif Systems had announced the [application note](https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf) about Wi-Fi channel selection.
 
+#### dns1
+
+Set primary DNS server address when using static IP address.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>IPAddress</dd>
+</dl>
+
+#### dns2
+
+Set secondary DNS server address when using static IP address.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>IPAddress</dd>
+</dl>
+
 #### gateway
 
 Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
@@ -328,6 +344,30 @@ Sets password for SoftAP. The length should be from 8 to up to 63. The default v
     <dd>String</dd>
 </dl>
 
+#### staip
+
+Set a static IP address. The IP will behave with STA mode.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>IPAddress</dd>
+</dl>
+
+#### staGateway
+
+Set the gateway address when using static IP address.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>IPAddress</dd>
+</dl>
+
+#### staNetmask
+
+Set the subnetmask when using static IP address.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>IPAddress</dd>
+</dl>
+
 ### <i class="fa fa-code"></i> AutoConnectConfig example
 
 ```arduino
@@ -340,6 +380,10 @@ Config.netmask = IPAddress(255,255,255,0);    // Sets WLAN scope
 Config.autoSave = AC_SAVECREDENTIAL_NEVER;    // No save credential
 COnfig.boundaryOffet = 64;                    // Reserve 64 bytes for the user data in EEPROM. 
 Config.homeUri = "/index.html"				  // Sets home path of the sketch application
+Config.staip = IPAddress(192,168,10,10);      // Sets static IP
+Config.staGateway = IPAddress(192,168,10,1);  // Sets WiFi router address
+Config.staNetmask = IPAddress(255,255,255,0); // Sets WLAN scope
+Config.dns1 = IPAddress(192,168,10,1);        // Sets primary DNS address
 Portal.config(Config);                        // Configure AutoConnect
 Portal.begin();                               // Starts and behaves captive portal
 ```

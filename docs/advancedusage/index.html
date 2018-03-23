@@ -464,6 +464,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#static-ip-assignment" title=" Static IP assignment" class="md-nav__link">
+     Static IP assignment
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -670,6 +677,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#static-ip-assignment" title=" Static IP assignment" class="md-nav__link">
+     Static IP assignment
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -701,7 +715,7 @@
 <p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <a href="../api/index.html#autosave"><strong>autoSave</strong></a> parameter specified by <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>
 <span class="n">AutoConnectConfig</span> <span class="n">Config</span><span class="p">;</span>
-<span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>
+<span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span><span class="n">f</span>
 </span><span class="n">Portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>
 <span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
 </pre></div>
@@ -849,7 +863,7 @@
 <p><img src="../images/PageBuilder.png" style="width:640px;"/></p>
 <h2 id="configuration-functions">Configuration functions<a class="headerlink" href="#configuration-functions" title="Permanent link">&para;</a></h2>
 <h3 id="configuration-for-soft-ap"><i class="fa fa-caret-right"></i> Configuration for Soft AP<a class="headerlink" href="#configuration-for-soft-ap" title="Permanent link">&para;</a></h3>
-<p>AutoConnect will activate SoftAP at failed initial WiFi.Begin. It SoftAP settings are stored in <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> as the following parameters. The sketch could be configured SoftAP using these parameters, refer the <a href="../api/index.html#autoconnectconfig-api">AutoConnectConfig API</a> for details.</p>
+<p>AutoConnect will activate SoftAP at failed the first <em>WiFi.begin</em>. It SoftAP settings are stored in <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> as the following parameters. The sketch could be configured SoftAP using these parameters, refer the <a href="../api/index.html#autoconnectconfig-api">AutoConnectConfig API</a> for details.</p>
 <ul>
 <li>IP address of SoftAP activated.</li>
 <li>Gateway IP address.</li>
@@ -876,6 +890,28 @@
 <p>A home path of AutoConnect is <strong>/_ac</strong> by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58"><strong>AUTOCONNECT_URI</strong></a> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a>.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
 </pre></div>
+
+<h3 id="static-ip-assignment"><i class="fa fa-caret-right"></i> Static IP assignment<a class="headerlink" href="#static-ip-assignment" title="Permanent link">&para;</a></h3>
+<p>It is also possible to assign static IP Address to ESP8266 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with <em>WiFi.begin</em>.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+<p>To assign a static IP Address, specify it in the <a href="../api/index.html#staip">AutoConnectConfig parameter</a>. In the case of assigning a static IP Address, specify the gateway, subnet mask, and DNS server is needed.</p>
+<div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>        <span class="n">portal</span><span class="p">;</span>
+<span class="n">AutoConnectConfig</span>  <span class="n">Config</span><span class="p">;</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">staip</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">staGateway</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">staNetmask</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">dns1</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>
+<span class="n">portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
+</pre></div>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Static IP address assignment is available from version 0.9.3.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 

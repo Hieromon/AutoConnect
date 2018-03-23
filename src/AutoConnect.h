@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	0.9.1
- *	@date	2018-02-13
+ *	@version	0.9.3
+ *	@date	2018-03-23
  *	@copyright	MIT license.
  */
 
@@ -119,7 +119,12 @@ class AutoConnectConfig {
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
-    homeUri(AUTOCONNECT_HOMEURI) {}
+    homeUri(AUTOCONNECT_HOMEURI),
+    staip(0U),
+    staGateway(0U),
+    staNetmask(0U),
+    dns1(0U),
+    dns2(0U) {}
   /**
    *  Configure by SSID for the captive portal access point and password.
    */
@@ -136,7 +141,12 @@ class AutoConnectConfig {
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
-    homeUri(AUTOCONNECT_HOMEURI) {}
+    homeUri(AUTOCONNECT_HOMEURI),
+    staip(0U),
+    staGateway(0U),
+    staNetmask(0U),
+    dns1(0U),
+    dns2(0U) {}
 
   ~AutoConnectConfig() {}
 
@@ -154,6 +164,11 @@ class AutoConnectConfig {
     autoRise = o.autoRise;
     autoReset = o.autoReset;
     homeUri = o.homeUri;
+    staip = o.staip;
+    staGateway = o.staGateway;
+    staNetmask = o.staNetmask;
+    dns1 = o.dns1;
+    dns2 = o.dns2;
     return *this;
   }
 
@@ -170,6 +185,11 @@ class AutoConnectConfig {
   bool      autoRise;   /**< Automatic starting the captive portal */
   bool      autoReset;  /**< Reset ESP8266 module automatically when WLAN disconnected. */
   String    homeUri;    /**< A URI of user site */
+  IPAddress staip;      /**< Station static IP address */
+  IPAddress staGateway; /**< Station gateway address */
+  IPAddress staNetmask; /**< Station subnet mask */
+  IPAddress dns1;       /**< Primary DNS server */
+  IPAddress dns2;       /**< Secondary DNS server */
 };
 
 class AutoConnect {

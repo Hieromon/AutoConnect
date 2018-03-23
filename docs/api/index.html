@@ -592,6 +592,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#dns1" title="dns1" class="md-nav__link">
+    dns1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns2" title="dns2" class="md-nav__link">
+    dns2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gateway" title="gateway" class="md-nav__link">
     gateway
   </a>
@@ -622,6 +636,27 @@
           <li class="md-nav__item">
   <a href="#psk" title="psk" class="md-nav__link">
     psk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staip" title="staip" class="md-nav__link">
+    staip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stagateway" title="staGateway" class="md-nav__link">
+    staGateway
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stanetmask" title="staNetmask" class="md-nav__link">
+    staNetmask
   </a>
   
 </li>
@@ -955,6 +990,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#dns1" title="dns1" class="md-nav__link">
+    dns1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns2" title="dns2" class="md-nav__link">
+    dns2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gateway" title="gateway" class="md-nav__link">
     gateway
   </a>
@@ -985,6 +1034,27 @@
           <li class="md-nav__item">
   <a href="#psk" title="psk" class="md-nav__link">
     psk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staip" title="staip" class="md-nav__link">
+    staip
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stagateway" title="staGateway" class="md-nav__link">
+    staGateway
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stanetmask" title="staNetmask" class="md-nav__link">
+    staNetmask
   </a>
   
 </li>
@@ -1252,6 +1322,18 @@ The default value is 0.
 <p class="admonition-title">How do I choose Channel</p>
 <p>Espressif Systems had announced the <a href="https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf">application note</a> about Wi-Fi channel selection.</p>
 </div>
+<h4 id="dns1">dns1<a class="headerlink" href="#dns1" title="Permanent link">&para;</a></h4>
+<p>Set primary DNS server address when using static IP address.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>IPAddress</dd>
+</dl></p>
+<h4 id="dns2">dns2<a class="headerlink" href="#dns2" title="Permanent link">&para;</a></h4>
+<p>Set secondary DNS server address when using static IP address.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>IPAddress</dd>
+</dl></p>
 <h4 id="gateway">gateway<a class="headerlink" href="#gateway" title="Permanent link">&para;</a></h4>
 <p>Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
@@ -1285,6 +1367,24 @@ The default value is 0.
     <dt><strong>Type</strong></dt>
     <dd>String</dd>
 </dl></p>
+<h4 id="staip">staip<a class="headerlink" href="#staip" title="Permanent link">&para;</a></h4>
+<p>Set a static IP address. The IP will behave with STA mode.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>IPAddress</dd>
+</dl></p>
+<h4 id="stagateway">staGateway<a class="headerlink" href="#stagateway" title="Permanent link">&para;</a></h4>
+<p>Set the gateway address when using static IP address.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>IPAddress</dd>
+</dl></p>
+<h4 id="stanetmask">staNetmask<a class="headerlink" href="#stanetmask" title="Permanent link">&para;</a></h4>
+<p>Set the subnetmask when using static IP address.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>IPAddress</dd>
+</dl></p>
 <h3 id="autoconnectconfig-example"><i class="fa fa-code"></i> AutoConnectConfig example<a class="headerlink" href="#autoconnectconfig-example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="n">AutoConenct</span>        <span class="n">Portal</span><span class="p">;</span>
 <span class="n">AutoConenctConfig</span>  <span class="nf">Config</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;passpass&quot;</span><span class="p">);</span>    <span class="c1">// SoftAp name is determined at runtime</span>
@@ -1295,6 +1395,10 @@ The default value is 0.
 <span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>    <span class="c1">// No save credential</span>
 <span class="n">COnfig</span><span class="p">.</span><span class="n">boundaryOffet</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>                    <span class="c1">// Reserve 64 bytes for the user data in EEPROM. </span>
 <span class="n">Config</span><span class="p">.</span><span class="n">homeUri</span> <span class="o">=</span> <span class="s">&quot;/index.html&quot;</span>                <span class="c1">// Sets home path of the sketch application</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">staip</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>      <span class="c1">// Sets static IP</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">staGateway</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>  <span class="c1">// Sets WiFi router address</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">staNetmask</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// Sets WLAN scope</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">dns1</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>        <span class="c1">// Sets primary DNS address</span>
 <span class="n">Portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>                        <span class="c1">// Configure AutoConnect</span>
 <span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>                               <span class="c1">// Starts and behaves captive portal</span>
 </pre></div>
