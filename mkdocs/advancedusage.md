@@ -11,7 +11,7 @@ By default, AutoConnect saves the credentials of the established connection in E
 ```arduino hl_lines="3"
 AutoConnect       Portal;
 AutoConnectConfig Config;
-Config.autoSave = AC_SAVECREDENTIAL_NEVER;f
+Config.autoSave = AC_SAVECREDENTIAL_NEVER;
 Portal.config(Config);
 Portal.begin();
 ```
@@ -31,7 +31,7 @@ bool startCP(IPAddress ip) {
 
 void setup() {
   Serial.begin(115200);
-  pinMode(BUILTIN_LED, output);
+  pinMode(BUILTIN_LED, OUTPUT);
   digitalWrite(BUILTIN_LED, LOW);
   Portal.onDetect(startCP);
   if (Portal.begin()) {
@@ -69,7 +69,7 @@ void loop() {
 
 ### <i class="fa fa-caret-right"></i> Debug print
 
-You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27) macro to output monitor messages.
+You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27) macro to output the monitor messages.
 
 ```cpp
 #define AC_DEBUG
@@ -77,7 +77,7 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 
 ### <i class="fa fa-caret-right"></i> Disable the captive portal
 
-It can also prevent the captive portal from starting even if the connection at the first *WiFi.begin* fails. In this case, the behavior of [*AutoConnect::begin*](api.md#begin) is the same as *WiFi.begin*.
+It can also prevent the captive portal from starting even if the connection at the first *WiFi.begin* fails. In this case, [*AutoConnect::begin*](api.md#begin) behaves same as *WiFi.begin*.
 
 For disabling the captive portal, [**autoRise**](api.md#autorise) sets to false with [**AutoConnectConfig**](api.md#autoconnectconfig-api).
 

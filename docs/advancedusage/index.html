@@ -715,7 +715,7 @@
 <p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <a href="../api/index.html#autosave"><strong>autoSave</strong></a> parameter specified by <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>
 <span class="n">AutoConnectConfig</span> <span class="n">Config</span><span class="p">;</span>
-<span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span><span class="n">f</span>
+<span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>
 </span><span class="n">Portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>
 <span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
 </pre></div>
@@ -732,7 +732,7 @@
 
 <span class="kr">void</span> <span class="nb">setup</span><span class="p">()</span> <span class="p">{</span>
   <span class="nf">Serial</span><span class="p">.</span><span class="nf">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
-  <span class="nf">pinMode</span><span class="p">(</span><span class="n">BUILTIN_LED</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+  <span class="nf">pinMode</span><span class="p">(</span><span class="n">BUILTIN_LED</span><span class="p">,</span> <span class="kr">OUTPUT</span><span class="p">);</span>
   <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">BUILTIN_LED</span><span class="p">,</span> <span class="kr">LOW</span><span class="p">);</span>
 <span class="hll">  <span class="n">Portal</span><span class="p">.</span><span class="n">onDetect</span><span class="p">(</span><span class="n">startCP</span><span class="p">);</span>
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">())</span> <span class="p">{</span>
@@ -766,12 +766,12 @@
 </pre></div>
 
 <h3 id="debug-print"><i class="fa fa-caret-right"></i> Debug print<a class="headerlink" href="#debug-print" title="Permanent link">&para;</a></h3>
-<p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a> of library source. Define <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27"><strong>AC_DEBUG</strong></a> macro to output monitor messages.</p>
+<p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a> of library source. Define <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27"><strong>AC_DEBUG</strong></a> macro to output the monitor messages.</p>
 <div class="codehilite"><pre><span></span><span class="cp">#define AC_DEBUG</span>
 </pre></div>
 
 <h3 id="disable-the-captive-portal"><i class="fa fa-caret-right"></i> Disable the captive portal<a class="headerlink" href="#disable-the-captive-portal" title="Permanent link">&para;</a></h3>
-<p>It can also prevent the captive portal from starting even if the connection at the first <em>WiFi.begin</em> fails. In this case, the behavior of <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a> is the same as <em>WiFi.begin</em>.</p>
+<p>It can also prevent the captive portal from starting even if the connection at the first <em>WiFi.begin</em> fails. In this case, <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a> behaves same as <em>WiFi.begin</em>.</p>
 <p>For disabling the captive portal, <a href="../api/index.html#autorise"><strong>autoRise</strong></a> sets to false with <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">portal</span><span class="p">;</span>
 <span class="n">AutoConnectConfig</span> <span class="n">acConfig</span><span class="p">;</span>
