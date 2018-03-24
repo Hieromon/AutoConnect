@@ -31,7 +31,7 @@ Declare only AutoConnect, performs handleClient.
 
 ## Used with MQTT as a client application
 
-The effect of AutoConnect is not only for ESP8266 as the Web server. It has a benefit for something WiFi client too. AutoConnect is effective too when publishing with MQTT from various measurement points. Even if the SSID is different for each measurement point, it is no need to modify the sketch.
+The effect of AutoConnect is not only for ESP8266 as the Web server. It has advantages for something WiFi client as well. For example, AutoConnect is also effective for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.
 
 This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the [ThingSpeak](https://thingspeak.com/) for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as [MQTT client](https://github.com/knolleary/pubsubclient). This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.
 
@@ -96,19 +96,32 @@ After upload and reboot complete, the message publishing will start via the acce
 
 For the client sketches, the code required to connect to WiFi is the following four parts only.
 
-1. \#include directive[^3]  
-<img src="../images/include.png" width="55%"/>
+1. \#include directive[^3]
+    
+    Include ```AutoConnect.h``` header file behind the include of ```ESP8266WiFi.h```.
 
-2. Declare AutoConnect  
-<img src="../images/declare.png" width="55%"/>
+    <img src="../images/include.png" width="55%"/>
 
-3. Invokes "begin()"  
-<img src="../images/begin.png" width="55%"/>
+2. Declare AutoConnect
+    
+    The declaration of the [**AutoConnect variable**](api.md#autoconnect) is not accompanied by ESP8266WebServer.
 
-4. Performs "handleClent()" in "loop()"  
-<img src="../images/handleClient.png" width="55%"/>
+    <img src="../images/declare.png" width="55%"/>
+
+3. Invokes "begin()"
+    
+    Call [**AutoConnec::begin**](api.md#begin). If you need to assign a static IP address, executes [**AutoConnectConfig**](api.md#autoconnectconfig-api) before that. 
+
+    <img src="../images/begin.png" width="55%"/>
+
+4. Performs "handleClent()" in "loop()"
+    
+    Invokes [**AutoConnect::handleClient()**](api.md#handleclient) at inside ```loop()``` to enable the AutoConnect menu.
+
+    <img src="../images/handleClient.png" width="55%"/>
 
 [^3]:```#include <ESP8266WebServer.h>``` does not necessary for uses only client.
+
 <script>
   window.onload = function() {
     Gifffer();

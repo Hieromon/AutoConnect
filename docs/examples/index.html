@@ -683,7 +683,7 @@
 <p>Declare only AutoConnect, performs handleClient.</p>
 <p><img src="../images/handlePortal.svg" /></p>
 <h2 id="used-with-mqtt-as-a-client-application">Used with MQTT as a client application<a class="headerlink" href="#used-with-mqtt-as-a-client-application" title="Permanent link">&para;</a></h2>
-<p>The effect of AutoConnect is not only for ESP8266 as the Web server. It has a benefit for something WiFi client too. AutoConnect is effective too when publishing with MQTT from various measurement points. Even if the SSID is different for each measurement point, it is no need to modify the sketch.</p>
+<p>The effect of AutoConnect is not only for ESP8266 as the Web server. It has advantages for something WiFi client as well. For example, AutoConnect is also effective for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.</p>
 <p>This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the <a href="https://thingspeak.com/">ThingSpeak</a> for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as <a href="https://github.com/knolleary/pubsubclient">MQTT client</a>. This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.</p>
 <p><img src="../images/ChannelStatus.png" width="70%"/></p>
 <h3 id="advance-procedures">Advance procedures<a class="headerlink" href="#advance-procedures" title="Permanent link">&para;</a></h3>
@@ -726,22 +726,32 @@
 <p>For the client sketches, the code required to connect to WiFi is the following four parts only.</p>
 <ol>
 <li>
-<p>#include directive<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup><br />
-<img src="../images/include.png" width="55%"/></p>
+<p>#include directive<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
+<p>Include <code class="codehilite">AutoConnect.h</code> header file behind the include of <code class="codehilite">ESP8266WiFi.h</code>.</p>
+<p><img src="../images/include.png" width="55%"/></p>
 </li>
 <li>
-<p>Declare AutoConnect<br />
-<img src="../images/declare.png" width="55%"/></p>
+<p>Declare AutoConnect</p>
+<p>The declaration of the <a href="../api/index.html#autoconnect"><strong>AutoConnect variable</strong></a> is not accompanied by ESP8266WebServer.</p>
+<p><img src="../images/declare.png" width="55%"/></p>
 </li>
 <li>
-<p>Invokes "begin()"<br />
-<img src="../images/begin.png" width="55%"/></p>
+<p>Invokes "begin()"</p>
+<p>Call <a href="../api/index.html#begin"><strong>AutoConnec::begin</strong></a>. If you need to assign a static IP address, executes <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> before that. </p>
+<p><img src="../images/begin.png" width="55%"/></p>
 </li>
 <li>
-<p>Performs "handleClent()" in "loop()"<br />
-<img src="../images/handleClient.png" width="55%"/></p>
+<p>Performs "handleClent()" in "loop()"</p>
+<p>Invokes <a href="../api/index.html#handleclient"><strong>AutoConnect::handleClient()</strong></a> at inside <code class="codehilite">loop()</code> to enable the AutoConnect menu.</p>
+<p><img src="../images/handleClient.png" width="55%"/></p>
 </li>
 </ol>
+<script>
+  window.onload = function() {
+    Gifffer();
+  }
+</script>
+
 <div class="footnote">
 <hr />
 <ol>
@@ -752,12 +762,7 @@
 <p>'454951' in the example above, but your channel ID should be different.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:3">
-<p><code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span><span class="cp"></span></code> does not necessary for uses only client.
-<script>
-  window.onload = function() {
-Gifffer();
-  }
-</script>&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p><code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span><span class="cp"></span></code> does not necessary for uses only client.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

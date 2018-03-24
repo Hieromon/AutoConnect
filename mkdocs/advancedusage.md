@@ -218,11 +218,19 @@ A home path of AutoConnect is **/\_ac** by default. You can access from the brow
 #define AUTOCONNECT_URI         "/_ac"
 ```
 
-### <i class="fa fa-caret-right"></i> Static IP assignment
+### <i class="fa fa-caret-right"></i> Static IP assignment [^1]
 
-It is also possible to assign static IP Address to ESP8266 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.[^1]
+It is also possible to assign static IP Address to ESP8266 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.
 
-To assign a static IP Address, specify it in the [AutoConnectConfig parameter](api.md#staip). In the case of assigning a static IP Address, specify the gateway, subnet mask, and DNS server is needed.
+To assign a static IP to ESP8266 with WIFI\_MODE\_STA, the following parameters are required:
+
+- IP address.
+- Gateway address.
+- Subnet mask.
+- Primary DNS server.
+- Secondary DNS server. (optional)
+
+The above parameters must be executed before *AutoConnect::begin* as [arguments of AutoConnectConfig](api.md#staip).
 
 ```arduino
 AutoConnect        portal;

@@ -465,8 +465,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#static-ip-assignment" title=" Static IP assignment" class="md-nav__link">
-     Static IP assignment
+  <a href="#static-ip-assignment-1" title=" Static IP assignment 1" class="md-nav__link">
+     Static IP assignment 1
   </a>
   
 </li>
@@ -678,8 +678,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#static-ip-assignment" title=" Static IP assignment" class="md-nav__link">
-     Static IP assignment
+  <a href="#static-ip-assignment-1" title=" Static IP assignment 1" class="md-nav__link">
+     Static IP assignment 1
   </a>
   
 </li>
@@ -891,9 +891,17 @@
 <div class="codehilite"><pre><span></span><span class="cp">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
 </pre></div>
 
-<h3 id="static-ip-assignment"><i class="fa fa-caret-right"></i> Static IP assignment<a class="headerlink" href="#static-ip-assignment" title="Permanent link">&para;</a></h3>
-<p>It is also possible to assign static IP Address to ESP8266 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with <em>WiFi.begin</em>.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
-<p>To assign a static IP Address, specify it in the <a href="../api/index.html#staip">AutoConnectConfig parameter</a>. In the case of assigning a static IP Address, specify the gateway, subnet mask, and DNS server is needed.</p>
+<h3 id="static-ip-assignment-1"><i class="fa fa-caret-right"></i> Static IP assignment <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup><a class="headerlink" href="#static-ip-assignment-1" title="Permanent link">&para;</a></h3>
+<p>It is also possible to assign static IP Address to ESP8266 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with <em>WiFi.begin</em>.</p>
+<p>To assign a static IP to ESP8266 with WIFI_MODE_STA, the following parameters are required:</p>
+<ul>
+<li>IP address.</li>
+<li>Gateway address.</li>
+<li>Subnet mask.</li>
+<li>Primary DNS server.</li>
+<li>Secondary DNS server. (optional)</li>
+</ul>
+<p>The above parameters must be executed before <em>AutoConnect::begin</em> as <a href="../api/index.html#staip">arguments of AutoConnectConfig</a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>        <span class="n">portal</span><span class="p">;</span>
 <span class="n">AutoConnectConfig</span>  <span class="n">Config</span><span class="p">;</span>
 <span class="n">Config</span><span class="p">.</span><span class="n">staip</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
