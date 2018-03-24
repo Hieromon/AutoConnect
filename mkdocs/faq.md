@@ -1,7 +1,7 @@
 ## <i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.
 
 If you can access the **AutoConnect root path** as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses *ESP8266WebServer::handleClient()* without [*AutoConnect::handleRequest()*](api.md#handlerequest).  
-For AutoConnect menus to work properly, call [*AutoConnect::handleRequest()*](api.md#handlerequest) after *ESP8266WebServer::handleClient()* invoked, or use [*AutoConnect::handleClient()*](api.md#handleclient). [*AutoConnect::handleClient()*](api.md#handleclient) is equivalent *ESP8266WebServer::handleClient* combinated [*AutoConnect::handleRequest()*](api.md#handlerequest).
+For AutoConnect menus to work properly, call [*AutoConnect::handleRequest()*](api.md#handlerequest) after *ESP8266WebServer::handleClient()* invoked, or use [*AutoConnect::handleClient()*](api.md#handleclient). [*AutoConnect::handleClient()*](api.md#handleclient) is equivalent *ESP8266WebServer::handleClient* combined [*AutoConnect::handleRequest()*](api.md#handlerequest).
 
 See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasitic).
 
