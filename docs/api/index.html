@@ -1128,11 +1128,12 @@
 </pre></div>
 
 <p><a id="withparameter"></a></p>
-<p>AutoConnect default constructor. This entry activates WebServer internally and the web server is allocated internal.</p>
+<p>AutoConnect default constructor. This entry internally allocates the ESP8266WebServer and is activated internally.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span><span class="p">(</span><span class="n">ESP8266WebServer</span><span class="o">&amp;</span> <span class="n">webServer</span><span class="p">)</span>
 </pre></div>
 
-<p>Run the AutoConnect site using the externally ensured ESP 8266 WebServer. User's added URI handler response can be included in handleClient method.
+<p>Run the AutoConnect site using the externally ensured ESP8266WebServer.</p>
+<p>The <a href="index.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer. If ESP8266WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the <a href="../api.me#host"><strong>host</strong></a> function.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">webServer</span>A reference of ESP8266WebServer instance.</dd>
@@ -1145,7 +1146,9 @@
 </pre></div>
 <div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphraase</span><span class="p">,</span> <span class="n">unsinged</span> <span class="kt">long</span> <span class="n">timeout</span><span class="p">)</span>
 </pre></div></p>
-<p>Starts establishing WiFi connection. Before establishing, start the Web server and DNS server for the captive portal. Then begins connection establishment in WIFI_STA mode. If connection can not established with the specified SSID and password, switch to WIFI_AP_STA mode and activate SoftAP.
+<p>Starts establishing the WiFi connection.<br />
+AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password missing, its <em>WiFi.begin</em> has no SSID and Password. The WiFi mode at this time is WIFI_STA. Then ESP8266WebServer will be started immediately after the first <em>WiFi.beign</em> regardless of the result.</p>
+<p>The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">ssid</span>SSID to be connected.</dd>
@@ -1160,10 +1163,10 @@
 </pre></div>
 <div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">config</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ap</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span>
 </pre></div></p>
-<p>Sets SoftAP's WiFi configuration. 
+<p>Set SoftAP's WiFi configuration and static IP configuration. 
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">config</span>Reference to AutoConnectConfig containing SoftAP's parameters.</dd>
+    <dd><span class="apidef">config</span>Reference to <a href="index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> containing SoftAP's parameters and static IP parameters.</dd>
     <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is <strong>esp8266ap</strong>.</dd>
     <dd><span class="apidef">password</span>Password for SodtAP. The default value is <strong>12345678</strong>.</dd>
     <dt><strong>Return value</strong></dt>
@@ -1183,7 +1186,7 @@
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleClient</span><span class="p">()</span>
 </pre></div>
 
-<p>Handling for the AutoConnect web interface. Invoke the handleClient of the parent web server to process client request of the AutoConnect WEB interface. No effects when the web server is not available.</p>
+<p>Process the AutoConnect menu interface. It will be processed the client request too contained in the user sketch handler by calling the host <em>handleClient::ESP8266WebServer</em> from the Autoconnect internally.</p>
 <h4 id="handlerequest">handleRequest<a class="headerlink" href="#handlerequest" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleRequest</span><span class="p">()</span>
 </pre></div>
@@ -1197,7 +1200,7 @@
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">home</span><span class="p">(</span><span class="n">String</span> <span class="n">uri</span><span class="p">)</span>
 </pre></div>
 
-<p>Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect portal menu.
+<p>Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect menu.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">uri</span> A URI string of user site's home path.</dd>
