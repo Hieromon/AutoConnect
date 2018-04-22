@@ -68,6 +68,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [0.9.4] April 22, 2018.
+- Automatically focus passphrase after selecting SSID with Configure New AP.
+
 ### [0.9.3] March 23, 2018.
 - Supports a static IP address assignment.
 
