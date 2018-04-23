@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    0.9.1
- *  @date   2018-02-13
+ *  @version    0.9.4
+ *  @date   2018-04-22
  *  @copyright  MIT license.
  */
 
