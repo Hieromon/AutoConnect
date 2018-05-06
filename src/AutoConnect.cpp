@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.3
- *  @date   2018-03-23
+ *  @version    0.9.4
+ *  @date   2018-05-05
  *  @copyright  MIT license.
  */
 
@@ -69,23 +69,10 @@ bool AutoConnect::begin() {
  *  @retval false       Could not connected, Captive portal started with WIFI_AP_STA mode.
  */
 bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long timeout) {
-  _portalTimeout = timeout;
-  return begin(ssid, passphrase);
-}
-
-/**
- *  Starts establishing WiFi connection.
- *  Before establishing, start the Web server and DNS server for the captive
- *  portal. Then begins connection establishment in WIFI_STA mode. If
- *  connection can not established with the specified SSID and password,
- *  switch to WIFI_AP_STA mode and activate SoftAP.
- *  @param  ssid        SSID to be connected.
- *  @param  passphrase  Password for connection.
- *  @retval true        Connection established, AutoConnect service started with WIFI_STA mode.
- *  @retval false       Could not connected, Captive portal started with WIFI_AP_STA mode.
- */
-bool AutoConnect::begin(const char* ssid, const char* passphrase) {
   bool  cs;
+
+  // Overwrite for the current timeout value.
+  _portalTimeout = timeout;
 
   // Start WiFi connection.
   WiFi.mode(WIFI_STA);
@@ -113,6 +100,19 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase) {
     WiFi.begin(ssid, passphrase);
   AC_DBG("WiFi.begin(%s%s%s)\n", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
   cs = _waitForConnect(_portalTimeout) == WL_CONNECTED;
+
+  // Reconnect with a valid credential as the autoReconnect option is enabled.
+  if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
+    // Load a valid credential.
+    if (_loadAvailCredential()) {
+      // Try to reconnect with a stored credential.
+      AC_DBG("Past SSID:%s loaded\n", reinterpret_cast<const char*>(_credential.ssid));
+      const char* psk = strlen(reinterpret_cast<const char*>(_credential.password)) ? reinterpret_cast<const char*>(_credential.password) : nullptr;
+      WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), psk);
+      AC_DBG("WiFi.begin(%s%s%s)\n", _credential.ssid, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
+      cs = _waitForConnect(_portalTimeout) == WL_CONNECTED;
+    }
+  }
   _currentHostIP = WiFi.localIP();
 
   // It doesn't matter the connection status for launching the Web server.
@@ -371,6 +371,30 @@ void AutoConnect::onDetect(DetectExit_ft fn) {
  */
 void AutoConnect::onNotFound(ESP8266WebServer::THandlerFunction fn) {
   _notFoundHandler = fn;
+}
+
+/**
+ *  Load stored credentials that match nearby WLANs.
+ *  @retval true  A matched credential of BSSID was loaded.
+ */
+bool AutoConnect::_loadAvailCredential() {
+  AutoConnectCredential credential(_apConfig.boundaryOffset);
+
+  if (credential.entries() >= 0) {
+    // Scan the vicinity only when the saved credentials are existing.
+    int8_t  nn = WiFi.scanNetworks(false, true);
+    if (nn > 0) {
+      // Determine valid credentials by BSSID.
+      for (uint8_t i = 0; i < credential.entries(); i++) {
+        credential.load(i, &_credential);
+        for (uint8_t n = 0; n <= nn; n++) {
+          if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config::bssid)))
+            return true;
+        }
+      }
+    }
+  }
+  return false;
 }
 
 /**
