@@ -637,8 +637,13 @@
         },
         {
             "location": "/changelog/index.html",
-            "text": "[0.9.3] March 23, 2018.\n\u00b6\n\n\n\n\nSupports a static IP address assignment.\n\n\n\n\n[0.9.2] March 19, 2018.\n\u00b6\n\n\n\n\nImprovement of string literal declaration with the examples, no library change.\n\n\n\n\n[0.9.1] March 13, 2018.\n\u00b6\n\n\n\n\nA release of the stable.",
+            "text": "[0.9.4] April 22, 2018.\n\u00b6\n\n\n\n\nAutomatically focus passphrase after selecting SSID with Configure New AP.\n\n\n\n\n[0.9.3] March 23, 2018.\n\u00b6\n\n\n\n\nSupports a static IP address assignment.\n\n\n\n\n[0.9.2] March 19, 2018.\n\u00b6\n\n\n\n\nImprovement of string literal declaration with the examples, no library change.\n\n\n\n\n[0.9.1] March 13, 2018.\n\u00b6\n\n\n\n\nA release of the stable.",
             "title": "Change log"
+        },
+        {
+            "location": "/changelog/index.html#094-april-22-2018",
+            "text": "Automatically focus passphrase after selecting SSID with Configure New AP.",
+            "title": "[0.9.4] April 22, 2018."
         },
         {
             "location": "/changelog/index.html#093-march-23-2018",
