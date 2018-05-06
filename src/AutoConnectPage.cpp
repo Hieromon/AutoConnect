@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    0.9.1
- *  @date   2018-02-13
+ *  @version    0.9.4
+ *  @date   2018-04-22
  *  @copyright  MIT license.
  */
 
@@ -882,7 +882,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   for (uint8_t i = 0; i < nn; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
-      ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value')\" value=\"")) + ssid + String(F("\">"));
+      ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String(F("\">"));
       ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("%</label>"));
       if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
         ssidList += String(F("<span class=\"img-lock\"></span>"));

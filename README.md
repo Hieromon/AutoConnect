@@ -69,6 +69,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 ## Change log
 
 ### [0.9.4] May 5, 2018.
+- Automatically focus passphrase after selecting SSID with Configure New AP.
 - Supports AutoConnectConfig::autoReconnect option, it will scan the WLAN when it can not connect to the default SSID, apply the applicable credentials if it is saved, and try reconnecting.
 
 ### [0.9.3] March 23, 2018.

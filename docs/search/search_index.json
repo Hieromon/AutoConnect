@@ -656,6 +656,11 @@
             "title": "[0.9.4] May 5, 2018."
         },
         {
+            "location": "/changelog/index.html#094-april-22-2018",
+            "text": "Automatically focus passphrase after selecting SSID with Configure New AP.",
+            "title": "[0.9.4] May 5, 2018."
+        },
+        {
             "location": "/changelog/index.html#093-march-23-2018",
             "text": "Supports a static IP address assignment.",
             "title": "[0.9.3] March 23, 2018."
