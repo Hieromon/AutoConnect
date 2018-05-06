@@ -557,6 +557,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#autoreconnect" title="autoReconnect" class="md-nav__link">
+    autoReconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#autoreset" title="autoReset" class="md-nav__link">
     autoReset
   </a>
@@ -955,6 +962,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#autoreconnect" title="autoReconnect" class="md-nav__link">
+    autoReconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#autoreset" title="autoReset" class="md-nav__link">
     autoReset
   </a>
@@ -1186,7 +1200,7 @@ AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password 
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleClient</span><span class="p">()</span>
 </pre></div>
 
-<p>Process the AutoConnect menu interface. It will be processed the client request too contained in the user sketch handler by calling the host <em>handleClient::ESP8266WebServer</em> from the Autoconnect internally.</p>
+<p>Process the AutoConnect menu interface. It will be processed the client request too contained in the user sketch handler by calling from inside of AutoConnect to the hosted <em>ESP8266WebServer::handleClient</em>.</p>
 <h4 id="handlerequest">handleRequest<a class="headerlink" href="#handlerequest" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleRequest</span><span class="p">()</span>
 </pre></div>
@@ -1275,6 +1289,21 @@ Register the handler function for undefined URL request detected.
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is <strong>192.168.244.1</strong></dd>
 </dl></p>
+<h4 id="autoreconnect">autoReconnect<a class="headerlink" href="#autoreconnect" title="Permanent link">&para;</a></h4>
+<p>Automatically reconnect to past established access point (BSSID) when the current configured SSID in ESP8266 could not be connected. By enabling this option, <em>AutoConnect::begin()</em> function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.<br />
+If the connection fails, starts the captive portal in SoftAP + STA mode.<br />
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>bool</dd>
+    <dt><strong>Value</strong></dt>
+    <dd><span class="apidef" style="width:230px;">true</span>Reconnect automatically.</dd>
+    <dd><span class="apidef" style="width:230px;">false</span>Starts Captive Portal in SoftAP + STA mode without trying to reconnect. This is the default.</dd>
+</dl></p>
+<p>When the autoReconnect option is enabled, an automatic connection will behave if the following conditions are satisfied.</p>
+<ul>
+<li>Invokes <em>AutoConnect::begin</em> without user name and password parameter as <code class="codehilite">begin()</code>.</li>
+<li>If one of the saved BSSIDs (not the SSID) of the credentials matches the BSSID detected by the network scan.</li>
+</ul>
 <h4 id="autoreset">autoReset<a class="headerlink" href="#autoreset" title="Permanent link">&para;</a></h4>
 <p>Reset ESP8266 module automatically after WLAN disconnected.
 <dl class="apidl">
@@ -1395,6 +1424,7 @@ The default value is 0.
 <span class="n">Config</span><span class="p">.</span><span class="n">apip</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">101</span><span class="p">);</span>      <span class="c1">// Sets SoftAP IP address</span>
 <span class="n">Config</span><span class="p">.</span><span class="n">gateway</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">// Sets WLAN router IP address</span>
 <span class="n">Config</span><span class="p">.</span><span class="n">netmask</span> <span class="o">=</span> <span class="nf">IPAddress</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>    <span class="c1">// Sets WLAN scope</span>
+<span class="n">Config</span><span class="p">.</span><span class="n">autoReconnect</span> <span class="o">=</span> <span class="kr">true</span><span class="p">;</span>                  <span class="c1">// Enable auto-reconnect</span>
 <span class="n">Config</span><span class="p">.</span><span class="n">autoSave</span> <span class="o">=</span> <span class="n">AC_SAVECREDENTIAL_NEVER</span><span class="p">;</span>    <span class="c1">// No save credential</span>
 <span class="n">COnfig</span><span class="p">.</span><span class="n">boundaryOffet</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>                    <span class="c1">// Reserve 64 bytes for the user data in EEPROM. </span>
 <span class="n">Config</span><span class="p">.</span><span class="n">homeUri</span> <span class="o">=</span> <span class="s">&quot;/index.html&quot;</span>                <span class="c1">// Sets home path of the sketch application</span>

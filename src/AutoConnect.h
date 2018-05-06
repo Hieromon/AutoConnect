@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	0.9.3
- *	@date	2018-03-23
+ *	@version	0.9.4
+ *	@date	2018-05-05
  *	@copyright	MIT license.
  */
 
@@ -119,6 +119,7 @@ class AutoConnectConfig {
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
+    autoReconnect(false),
     homeUri(AUTOCONNECT_HOMEURI),
     staip(0U),
     staGateway(0U),
@@ -141,6 +142,7 @@ class AutoConnectConfig {
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
+    autoReconnect(false),
     homeUri(AUTOCONNECT_HOMEURI),
     staip(0U),
     staGateway(0U),
@@ -163,6 +165,7 @@ class AutoConnectConfig {
     uptime = o.uptime;
     autoRise = o.autoRise;
     autoReset = o.autoReset;
+    autoReconnect = o.autoReconnect;
     homeUri = o.homeUri;
     staip = o.staip;
     staGateway = o.staGateway;
@@ -184,6 +187,7 @@ class AutoConnectConfig {
   int       uptime;     /**< Length of start up time */
   bool      autoRise;   /**< Automatic starting the captive portal */
   bool      autoReset;  /**< Reset ESP8266 module automatically when WLAN disconnected. */
+  bool      autoReconnect;  /**< Automatic reconnect with past SSID */
   String    homeUri;    /**< A URI of user site */
   IPAddress staip;      /**< Station static IP address */
   IPAddress staGateway; /**< Station gateway address */
@@ -201,8 +205,7 @@ class AutoConnect {
   bool  config(const char* ap, const char* password = nullptr);
   void  home(String uri);
   bool  begin();
-  bool  begin(const char* ssid, const char* passphrase);
-  bool  begin(const char* ssid, const char* passphrase, unsigned long timeout);
+  bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
   void  end();
   void  handleClient();
   void  handleRequest();
@@ -223,6 +226,7 @@ class AutoConnect {
   void  _startWebServer();
   void  _startDNSServer();
   void  _handleNotFound();
+  bool  _loadAvailCredential();
   void  _stopPortal();
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   PageElement*  _setupPage(String uri);

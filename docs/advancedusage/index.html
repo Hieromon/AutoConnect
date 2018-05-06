@@ -368,6 +368,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#automatic-reconnect" title=" Automatic reconnect" class="md-nav__link">
+     Automatic reconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#auto-save-credential" title=" Auto save Credential" class="md-nav__link">
      Auto save Credential
   </a>
@@ -581,6 +588,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#automatic-reconnect" title=" Automatic reconnect" class="md-nav__link">
+     Automatic reconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#auto-save-credential" title=" Auto save Credential" class="md-nav__link">
      Auto save Credential
   </a>
@@ -711,6 +725,17 @@
                 <h2 id="advanced-usage">Advanced usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
 <h3 id="404-handler"><i class="fa fa-caret-right"></i> 404 handler<a class="headerlink" href="#404-handler" title="Permanent link">&para;</a></h3>
 <p>Registering the "not found" handler is a different way than ESP8266WebServer. The <em>onNotFound</em> of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="../api/index.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
+<h3 id="automatic-reconnect"><i class="fa fa-caret-right"></i> Automatic reconnect<a class="headerlink" href="#automatic-reconnect" title="Permanent link">&para;</a></h3>
+<p>When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost.<br />
+If the <a href="../api/index.html#autoreconnect"><strong>autoReconnect</strong></a> option of the <a href="../api/index.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in EEPROM as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.</p>
+<div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>
+<span class="n">AutoConnectConfig</span> <span class="n">Config</span><span class="p">;</span>
+<span class="hll"><span class="n">Config</span><span class="p">.</span><span class="n">autoReconnect</span> <span class="o">=</span> <span class="kr">true</span><span class="p">;</span>
+</span><span class="n">Portal</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="n">Config</span><span class="p">);</span>
+<span class="n">Portal</span><span class="p">.</span><span class="nf">begin</span><span class="p">();</span>
+</pre></div>
+
+<p>An autoReconnect option is available to <em>AutoConnect::begin</em> without SSID and pass passphrase.</p>
 <h3 id="auto-save-credential"><i class="fa fa-caret-right"></i> Auto save Credential<a class="headerlink" href="#auto-save-credential" title="Permanent link">&para;</a></h3>
 <p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <a href="../api/index.html#autosave"><strong>autoSave</strong></a> parameter specified by <a href="../api/index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a>.</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span>       <span class="n">Portal</span><span class="p">;</span>

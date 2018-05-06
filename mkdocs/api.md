@@ -113,7 +113,7 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer and DNSServer
 void handleClient()
 ```
 
-Process the AutoConnect menu interface. It will be processed the client request too contained in the user sketch handler by calling the host *handleClient::ESP8266WebServer* from the Autoconnect internally.
+Process the AutoConnect menu interface. It will be processed the client request too contained in the user sketch handler by calling from inside of AutoConnect to the hosted *ESP8266WebServer::handleClient*.
 
 #### handleRequest
 
@@ -231,6 +231,23 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
     <dt>**Type**</dt>
     <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
 </dl>
+
+#### autoReconnect
+
+Automatically reconnect to past established access point (BSSID) when the current configured SSID in ESP8266 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.  
+If the connection fails, starts the captive portal in SoftAP + STA mode.  
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>bool</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef" style="width:230px;">true</span>Reconnect automatically.</dd>
+    <dd><span class="apidef" style="width:230px;">false</span>Starts Captive Portal in SoftAP + STA mode without trying to reconnect. This is the default.</dd>
+</dl>
+
+When the autoReconnect option is enabled, an automatic connection will behave if the following conditions are satisfied.
+
+- Invokes *AutoConnect::begin* without user name and password parameter as ```begin()```.
+- If one of the saved BSSIDs (not the SSID) of the credentials matches the BSSID detected by the network scan.
 
 #### autoReset
 
@@ -382,6 +399,7 @@ Config.apid = ESP.hostname();                 // Retrieve host name to SotAp ide
 Config.apip = IPAddress(192,168,10,101);      // Sets SoftAP IP address
 Config.gateway = IPAddress(192,168,10,1);     // Sets WLAN router IP address
 Config.netmask = IPAddress(255,255,255,0);    // Sets WLAN scope
+Config.autoReconnect = true;                  // Enable auto-reconnect
 Config.autoSave = AC_SAVECREDENTIAL_NEVER;    // No save credential
 COnfig.boundaryOffet = 64;                    // Reserve 64 bytes for the user data in EEPROM. 
 Config.homeUri = "/index.html"				  // Sets home path of the sketch application
