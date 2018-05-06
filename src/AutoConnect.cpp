@@ -141,8 +141,8 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, WiFi.softAPIP().toString().c_str());
 
       // Fork to the exit routine that starts captive portal.
-      cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true; 
-      
+      cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
+
       // Start captive portal without cancellation by DetectExit.
       if (cs) {
         // Prepare for redirecting captive portal detection.
