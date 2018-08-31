@@ -1,5 +1,5 @@
 /*
-  ESP8266 publish the RSSI as the WiFi signal strength to ThingSpeak channel.
+  ESP8266/ESP32 publish the RSSI as the WiFi signal strength to ThingSpeak channel.
   This example is for explaining how to use the AutoConnect library.
 
   In order to execute this example, the ThingSpeak account is needed. Sing up
@@ -13,7 +13,11 @@
   https://opensource.org/licenses/MIT
 */
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#endif
 #include <PubSubClient.h>
 #include <AutoConnect.h>
 

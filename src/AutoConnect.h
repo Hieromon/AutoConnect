@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	0.9.4
- *	@date	2018-05-05
+ *	@version	0.9.5
+ *	@date	2018-08-27
  *	@copyright	MIT license.
  */
 
@@ -14,18 +14,25 @@
 #include <memory>
 #include <functional>
 #include <DNSServer.h>
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <EEPROM.h>
-#include <PageBuilder.h>
 extern "C" {
 #include <user_interface.h>
 }
+using WebServerClass = ESP8266WebServer;
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#include <WebServer.h>
+using WebServerClass = WebServer;
+#endif
+#include <EEPROM.h>
+#include <PageBuilder.h>
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
 
 // Uncomment the following AC_DEBUG to enable debug output.
-//#define AC_DEBUG
+#define AC_DEBUG
 
 // Debug output destination can be defined externally with AC_DEBUG_PORT
 #ifndef AC_DEBUG_PORT
@@ -38,7 +45,11 @@ extern "C" {
 #endif
 
 #ifndef AUTOCONNECT_APID
+#if defined(ARDUINO_ARCH_ESP8266)
 #define AUTOCONNECT_APID  "esp8266ap"
+#elif defined(ARDUINO_ARCH_ESP32)
+#define AUTOCONNECT_APID  "esp32ap"
+#endif
 #endif
 
 #ifndef AUTOCONNECT_PSK
@@ -199,7 +210,7 @@ class AutoConnectConfig {
 class AutoConnect {
  public:
   AutoConnect();
-  AutoConnect(ESP8266WebServer& webServer);
+  AutoConnect(WebServerClass& webServer);
   ~AutoConnect();
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
@@ -209,11 +220,11 @@ class AutoConnect {
   void  end();
   void  handleClient();
   void  handleRequest();
-  ESP8266WebServer& host();
+  WebServerClass& host();
 
   typedef std::function<bool(IPAddress)>  DetectExit_ft;
   void  onDetect(DetectExit_ft fn);
-  void  onNotFound(ESP8266WebServer::THandlerFunction fn);
+  void  onNotFound(WebServerClass::THandlerFunction fn);
 
  protected:
   enum _webServerAllocateType {
@@ -241,14 +252,17 @@ class AutoConnect {
   bool  _captivePortal();
   bool  _isIP(String ipStr);
   wl_status_t _waitForConnect(unsigned long timeout);
+  void  _disconnectWiFi(bool wifiOff);
 
   /** Utilities */
+  static uint32_t      _getChipId();
+  static uint32_t      _getFlashChipRealSize();
   static String        _toMACAddressString(const uint8_t mac[]);
   static unsigned int  _toWiFiQuality(int32_t rssi);
   DetectExit_ft        _onDetectExit;
-  ESP8266WebServer::THandlerFunction _notFoundHandler;
+  WebServerClass::THandlerFunction _notFoundHandler;
 
-  std::unique_ptr<ESP8266WebServer> _webServer;
+  std::unique_ptr<WebServerClass> _webServer;
   std::unique_ptr<DNSServer>        _dnsServer;
   AC_WEBSERVER_TYPE                 _webServerAlloc;
 
@@ -321,7 +335,11 @@ class AutoConnect {
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);
 
+#if defined(ARDUINO_ARCH_ESP8266)
   friend class ESP8266WebServer;
+#elif defined(ARDUINO_ARCH_ESP32)
+  friend class WebServer;
+#endif
 };
 
 #endif  // _AUTOCONNECT_H_

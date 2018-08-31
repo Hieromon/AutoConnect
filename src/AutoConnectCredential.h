@@ -2,7 +2,7 @@
  *  Declaration of AutoConnectCredential class.
  *  @file AutoConnectCredential.h
  *  @author hieromon@gmail.com
- *  @version  1.0.0
+ *  @version  0.9.5
  *  @date 2018-02-17
  *  @copyright  MIT license.
  */
@@ -11,9 +11,20 @@
 #define _AUTOCONNECTCREDENTIAL_H_
 
 #include <Arduino.h>
+#if defined(ARDUINO_ARCH_ESP8266)
 extern "C" {
 #include <user_interface.h>
 }
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <esp_wifi.h>
+struct station_config {
+    uint8_t  ssid[32];
+    uint8_t  password[64];
+    uint8_t  bssid_set;
+    uint8_t  bssid[6];
+    wifi_fast_scan_threshold_t threshold;
+};
+#endif
 
 /** Credential storage area offset specifier in EEPROM.
  *  By defining AC_IDENTIFIER_OFFSET macro in the user sketch, the credential

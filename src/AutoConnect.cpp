@@ -2,12 +2,24 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.4
- *  @date   2018-05-05
+ *  @version    0.9.5
+ *  @date   2018-08-27
  *  @copyright  MIT license.
  */
 
 #include "AutoConnect.h"
+#ifdef ARDUINO_ARCH_ESP32
+#include <esp_wifi.h>
+#endif
+
+/**
+ *  An actual reset function dependent on the architecture
+ */
+#if defined(ARDUINO_ARCH_ESP8266)
+#define SOFT_RESET()  ESP.reset()
+#elif defined(ARDUINO_ARCH_ESP32)
+#define SOFT_RESET()  ESP.restart()
+#endif
 
 /**
  *  AutoConnect default constructor. This entry activates WebServer
@@ -25,7 +37,7 @@ AutoConnect::AutoConnect() {
  *  User's added URI handler response can be included in handleClient method.
  *  @param  webServer   A reference of ESP8266WebServer instance.
  */
-AutoConnect::AutoConnect(ESP8266WebServer& webServer) {
+AutoConnect::AutoConnect(WebServerClass& webServer) {
   _initialize();
   _webServer.reset(&webServer);
   _dnsServer.reset(nullptr);
@@ -91,7 +103,9 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     AC_DBG("failed\n");
     return false;
   }
+#ifdef ARDUINO_ARCH_ESP8266
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
+#endif
 
   // Try to connect by STA immediately.
   if (ssid == nullptr && passphrase == nullptr)
@@ -126,7 +140,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Change WiFi working mode, Enable AP with STA
       WiFi.setAutoConnect(false);
-      WiFi.disconnect();
+      _disconnectWiFi(true);
       WiFi.mode(WIFI_AP_STA);
       delay(100);
 
@@ -236,7 +250,7 @@ void AutoConnect::end() {
 /**
  *  Returns the current hosted ESP8266WebServer.
  */
-ESP8266WebServer& AutoConnect::host() {
+WebServerClass& AutoConnect::host() {
   return  *_webServer;
 }
 
@@ -247,9 +261,9 @@ void AutoConnect::_startWebServer() {
   // Boot Web server
   if (!_webServer) {
     // Only when hosting WebServer internally
-    _webServer.reset(new ESP8266WebServer(AUTOCONNECT_HTTPPORT));
+    _webServer.reset(new WebServerClass(AUTOCONNECT_HTTPPORT));
     _webServerAlloc = AC_WEBSERVER_HOSTED;
-    AC_DBG("ESP8266WebServer allocated\n");
+    AC_DBG("WebServer allocated\n");
   }
   // Discard the original the not found handler to redirect captive portal detection.
   // It is supposed to evacuate but ESP8266WebServer::_notFoundHandler is not accessible.
@@ -300,10 +314,8 @@ void AutoConnect::handleRequest() {
   // Handling processing requests to AutoConnect.
   if (_rfConnect) {
     // Leave from the AP currently.
-    if (WiFi.status() == WL_CONNECTED) {
-      WiFi.disconnect();
-      delay(100);
-    }
+    if (WiFi.status() == WL_CONNECTED)
+      _disconnectWiFi(true);
 
     // An attempt to establish a new AP.
     AC_DBG("Request for %s\n", (const char*)_credential.ssid);
@@ -332,18 +344,14 @@ void AutoConnect::handleRequest() {
     _stopPortal();
     AC_DBG("Reset");
     delay(1000);
-    ESP.reset();
+    SOFT_RESET();
     delay(1000);
   }
 
   if (_rfDisconnect) {
     // Disconnect from the current AP.
     _stopPortal();
-    WiFi.disconnect();
-    while (WiFi.status() == WL_CONNECTED) {
-      delay(100);
-      yield();
-    }
+    _disconnectWiFi(true);
     AC_DBG("Disconnected");
     // Reset disconnection request, restore the menu title.
     _rfDisconnect = false;
@@ -351,7 +359,7 @@ void AutoConnect::handleRequest() {
 
     if (_apConfig.autoReset) {
       delay(1000);
-      ESP.reset();
+      SOFT_RESET();
       delay(1000);
     }
   }
@@ -369,7 +377,7 @@ void AutoConnect::onDetect(DetectExit_ft fn) {
  *  Register the handler function for undefined url request detected.
  *  @param  fn  A function of the not found handler.
  */
-void AutoConnect::onNotFound(ESP8266WebServer::THandlerFunction fn) {
+void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
   _notFoundHandler = fn;
 }
 
@@ -628,4 +636,18 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
   }
   AC_DBG("%s IP:%s\n", wifiStatus == WL_CONNECTED ? "established" : "time out", WiFi.localIP().toString().c_str());
   return wifiStatus;
+}
+
+/**
+ *  Disconnects the station from an associated access point.
+ *  @param  wifiOff The station mode turning switch.
+ */
+void AutoConnect::_disconnectWiFi(bool wifiOff) {
+#if defined(ARDUINO_ARCH_ESP8266)
+  WiFi.disconnect(wifiOff);
+#elif defined(ARDUINO_ARCH_ESP32)
+  WiFi.disconnect(wifiOff, true);
+#endif
+  while (WiFi.status() == WL_CONNECTED)
+    delay(100);
 }
