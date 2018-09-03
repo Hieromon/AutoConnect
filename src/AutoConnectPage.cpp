@@ -967,17 +967,16 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   struct station_config entry;
   String ssidList = "";
   
+  uint8_t* bssid = WiFi.BSSID();
   for (uint8_t i = 0; i < credit.entries(); i++) {
     credit.load(i, &entry);
+    AC_DBG("A credential #%d loaded\n", (int)i);
     ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String((char*)entry.ssid) + String(F("\">"));
     ssidList += String(F("<label>"));
-    if (memcmp(WiFi.BSSID(), entry.bssid, sizeof(station_config::bssid)) == 0) {
+    if (bssid != NULL && memcmp(bssid, entry.bssid, sizeof(station_config::bssid)) == 0)
       ssidList += String(AutoConnect::_toWiFiQuality(WiFi.RSSI())) + String("%");
-    }
-    else {
+    else
       ssidList += String("N/A");
-
-    }
     ssidList += String(F("</label><br>"));
   }
 

@@ -321,16 +321,20 @@ void AutoConnect::handleRequest() {
     AC_DBG("Request for %s\n", (const char*)_credential.ssid);
     WiFi.begin((const char*)_credential.ssid, (const char*)_credential.password);
     if (_waitForConnect(_portalTimeout) == WL_CONNECTED) {
-      memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
-      _currentHostIP = WiFi.localIP();
-      _redirectURI = String(AUTOCONNECT_URI_SUCCESS);
+      if (WiFi.BSSID() != NULL) {
+        memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
+        _currentHostIP = WiFi.localIP();
+        _redirectURI = String(AUTOCONNECT_URI_SUCCESS);
 
-      // Save current credential
-      if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
-        AutoConnectCredential credit(_apConfig.boundaryOffset);
-        credit.save(&_credential);
-        AC_DBG("%s credential saved\n", _credential.ssid);
+        // Save current credential
+        if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
+          AutoConnectCredential credit(_apConfig.boundaryOffset);
+          credit.save(&_credential);
+          AC_DBG("%s credential saved\n", _credential.ssid);
+        }
       }
+      else
+        AC_DBG("%s has no BSSID, saving is unavailable\n", _credential.ssid);
     }
     else {
       _currentHostIP = WiFi.softAPIP();
@@ -342,7 +346,7 @@ void AutoConnect::handleRequest() {
   if (_rfReset) {
     // Reset or disconnect by portal operation result
     _stopPortal();
-    AC_DBG("Reset");
+    AC_DBG("Reset\n");
     delay(1000);
     SOFT_RESET();
     delay(1000);
@@ -352,7 +356,7 @@ void AutoConnect::handleRequest() {
     // Disconnect from the current AP.
     _stopPortal();
     _disconnectWiFi(true);
-    AC_DBG("Disconnected");
+    AC_DBG("Disconnected\n");
     // Reset disconnection request, restore the menu title.
     _rfDisconnect = false;
     _menuTitle = String(AUTOCONNECT_MENU_TITLE);
@@ -391,11 +395,12 @@ bool AutoConnect::_loadAvailCredential() {
   if (credential.entries() >= 0) {
     // Scan the vicinity only when the saved credentials are existing.
     int8_t  nn = WiFi.scanNetworks(false, true);
+    AC_DBG("%d network(s) found\n", (int)nn);
     if (nn > 0) {
       // Determine valid credentials by BSSID.
       for (uint8_t i = 0; i < credential.entries(); i++) {
         credential.load(i, &_credential);
-        for (uint8_t n = 0; n <= nn; n++) {
+        for (uint8_t n = 0; n < nn; n++) {
           if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config::bssid)))
             return true;
         }
@@ -419,6 +424,7 @@ void AutoConnect::_stopPortal() {
   }
 
   WiFi.softAPdisconnect(false);
+  AC_DBG("SoftAP stopped\n");
 }
 
 /**
@@ -585,9 +591,9 @@ bool AutoConnect::_isIP(String ipStr) {
  *  @retval MAC address string in XX:XX:XX:XX:XX:XX format.
  */
 String AutoConnect::_toMACAddressString(const uint8_t mac[]) {
-  String	macAddr = "";
+  String  macAddr = "";
   for (uint8_t i = 0; i < 6; i++) {
-    char	buf[3];
+    char buf[3];
     sprintf(buf, "%02X", mac[i]);
     macAddr += buf;
     if (i < 5)

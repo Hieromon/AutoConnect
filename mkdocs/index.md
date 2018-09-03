@@ -1,6 +1,6 @@
-# AutoConnect <small>for ESP8266</small>
+# AutoConnect <small>for ESP8266/ESP32</small>
 
-An Arduino library for ESP8266 WLAN configuration at run time with web interface.
+An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface.
 
 ## Overview
 

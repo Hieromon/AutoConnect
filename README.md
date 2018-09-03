@@ -1,17 +1,17 @@
-# AutoConnect for ESP8266
+# AutoConnect for ESP8266/ESP32
 
-An Arduino library for ESP8266 WLAN configuration at run time with web interface. [![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
+An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface. [![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
 
 ## Overview
 
-To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class.
-Easily implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.
+To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class of ESP8266 or *WebServer* class of ESP32.
+Easily implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi connection. With this library to make a sketch easily which connects from ESP8266/ESP32 to the access point at runtime by the web interface without hard-coded SSID and password.
 
 <div align="center"><img alt="Overview" width="460" src="docs/images/ov.png" />&emsp;&emsp;&emsp;<img alt="Captiveportal" width="182" src="docs/images/ov.gif" /></div>
 
 ### No need pre-coded SSID &amp; password
 
-It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266 and WLAN. You can input SSID &amp; Password from a smartphone via the web interface at runtime.
+It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266/ESP32 and WLAN. You can input SSID &amp; Password from a smartphone via the web interface at runtime.
 
 ### Simple usage
 
@@ -19,7 +19,7 @@ AutoConnect control screen will be displayed automatically for establishing new 
 
 ### Store the established connection
 
-The connection authentication data as credentials are saved automatically in EEPROM of ESP8266 and You can select the past SSID from the [AutoConnect menu](https://hieromon.github.io/AutoConnect/menu/index.html).
+The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](https://hieromon.github.io/AutoConnect/menu/index.html).
 
 ### Easy to embed in
 
@@ -27,7 +27,7 @@ AutoConnect can be embedded easily into your sketch, just "**begin**" and "**han
 
 ###  Lives with the your sketches
 
-The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.
+The sketches which provide the web page using ESP8266WebServer/WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object(ESP8266) or WebServer object(ESP32), or itself can assign it.
 
 ## Supported hardware
 
@@ -41,6 +41,16 @@ Apply the [Arduino core](https://github.com/esp8266/Arduino) of the ESP8266 Comm
 - Olimex MOD-WIFI-ESP8266
 - SparkFun Thing
 - SweetPea ESP-210
+
+Alter the platform applying the [arduino-esp32](https://github.com/espressif/arduino-esp32) for the ESP32 modules.
+
+- ESP32Dev Board
+- SparkFun ESP32 Thing
+- WEMOS LOLIN D32
+- Ai-Thinker NodeMCU-32S
+- Heltec WiFi Kit 32
+- M5Stack
+- And other ESP32 modules supported by the Additional Board Manager URLs of the Arduino-IDE.
 
 ## Simple usage
 
@@ -67,6 +77,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
 
 ## Change log
+
+### [0.9.5] Aug. 27, 2018
+- Supports the espressif arduino-esp32 core.
+- Fixed that crash may occur if the number of stored credentials in the EEPROM is smaller than the number of found WiFi networks.
 
 ### [0.9.4] May 5, 2018.
 - Automatically focus passphrase after selecting SSID with Configure New AP.

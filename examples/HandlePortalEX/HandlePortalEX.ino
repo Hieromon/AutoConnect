@@ -15,12 +15,21 @@
   It will help you understand AutoConnect usage.
 */
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#include <WebServer.h>
+#endif
 #include <PageBuilder.h>
 #include <AutoConnect.h>
 
+#if defined(ARDUINO_ARCH_ESP8266)
 ESP8266WebServer server;
+#elif defined(ARDUINO_ARCH_ESP32)
+WebServer server;
+#endif
 AutoConnect      portal(server);
 
 static const char PROGMEM mold_page[] = R"*lit(
