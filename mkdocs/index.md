@@ -79,10 +79,6 @@ To install the PageBuilder library into your Arduino IDE, you can use the *Libra
 
 <img src="./images/lm.png" width="640"/>
 
-!!! warning "Library Manager of Arduino IDE"
-    The version of PageBuilder may not have been updated yet. If the library manager shows only version 0.93.0, please install the latest PageBuilder version than 1.0.0 from the Github repository. [The PageBuilder release](https://github.com/Hieromon/PageBuilder/releases/latest) of the Github repository is the latest version. The [PlatformIO library](https://platformio.org/lib/show/2010/PageBuilder) has the latest version of 1.0.0.  
-    In 0.93.0, the PageBuilder class has a compile error about without the 'cancel' method.
-
 ### Install the AutoConnect
 
 Clone or download from the [AutoConnect GitHub repository](https://github.com/Hieromon/AutoConnect).
@@ -94,7 +90,7 @@ When you select Download, you can import it to Arduino IDE immediately. After do
 <img src="./images/ins_lib.png" />
 
 !!! info "Supported by Library manager."
-    AutoConnect was added to the Arduino IDE library manager as of March 17, 2018. It can be used with the PlatformIO library also.
+    AutoConnect was added to the Arduino IDE library manager. It can be used with the PlatformIO library also.
 
 <script>
   window.onload = function() {
