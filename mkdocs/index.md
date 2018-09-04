@@ -4,14 +4,14 @@ An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web int
 
 ## Overview
 
-To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class.
-Easy implementing the Web interface constituting the WLAN for ESP8266 WiFi connection. With this library to make a sketch easily which connects from ESP8266 to the access point at runtime by the web interface without hard-coded SSID and password.
+To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class for ESP8266 or *WebServer* class for ESP32.
+Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi connection. With this library to make a sketch easily which connects from ESP8266/ESP32 to the access point at runtime by the web interface without hard-coded SSID and password.
 
 <img style="display:inline-block;width:460px;margin-right:30px;" src="./images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="./images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> No need pre-coded SSID &amp; password
 
-<span class="lead">It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266 and WLAN. You can input SSID &amp; Password from a smartphone via the web interface at runtime.</span>
+<span class="lead">It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266/ESP32 and WLAN. You can input SSID &amp; Password from a smartphone via the web interface at runtime.</span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Simple usage
 
@@ -19,7 +19,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266 WiFi conne
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Store the established connection
 
-<span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266 and You can select the past SSID from the [AutoConnect menu](menu.md).</span>
+<span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](menu.md).</span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in
 
@@ -27,7 +27,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266 WiFi conne
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with the your sketches
 
-<span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.</span>
+<span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.<br>This efficacy can also be applied to ESP32. The corresponding class for ESP32 will be the WebServer.</span>
 
 ## Installation
 
@@ -43,6 +43,13 @@ Easy implementing the Web interface constituting the WLAN for ESP8266 WiFi conne
   * [X] Olimex MOD-WIFI-ESP8266
   * [X] SparkFun Thing
   * [X] SweetPea ESP-210
+  * [X] ESP32Dev Board (applying the Espressif's arduino-esp32 core)
+  * [X] SparkFun ESP32 Thing
+  * [X] WEMOS LOLIN D32
+  * [X] Ai-Thinker NodeMCU-32S
+  * [X] Heltec WiFi Kit 32
+  * [X] M5Stack
+  * [X] And other ESP8266/ESP32 modules supported by the Additional Board Manager URLs of the Arduino-IDE.
 
 !!! info "About flash size on the module"
     The AutoConnect sketch size is relatively large. Large flash capacity is necessary. 512Kbyte (4Mbits) flash inclusion module such as ESP-01 is not recommended.
@@ -59,6 +66,11 @@ The current upstream at the 1.8 level or later is needed. Please install from th
 
 AutoConnect targets sketches made on the assumption of [ESP8266 Community's Arduino core](https://github.com/esp8266/Arduino). The [latest release](https://github.com/esp8266/Arduino/releases/latest) is recommended.  
 Install third-party platform using the *Boards Manager* of Arduino IDE. Package URL is http://arduino.esp8266.com/stable/package_esp8266com_index.json
+
+<i class="fa fa-download"></i> <strong>ESP32 Arduino core</strong>
+
+Also, to apply AutoConnect to ESP32, the [arduino-esp32 core](https://github.com/espressif/arduino-esp32) provided by Espressif is needed. The [latest release](https://github.com/espressif/arduino-esp32/releases/latest) is recommended.  
+Install third-party platform using the *Boards Manager* of Arduino IDE. You can add multiple URLs into *Additional Board Manager URLs* field, separating them with commas. Package URL is https://dl.espressif.com/dl/package_esp32_index.json
 
 <i class="fa fa-download"></i> <strong>Additional necessary library</strong>
 
