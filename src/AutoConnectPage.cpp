@@ -981,7 +981,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   }
 
   if (ssidList.length() == 0) {
-    ssidList = String(PSTR("<p><b>No credential saved.</b></p>"));
+    ssidList = String(PSTR("<p><b>No saved credentials.</b></p>"));
   }
   return ssidList;
 }
