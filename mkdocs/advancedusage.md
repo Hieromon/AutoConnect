@@ -2,11 +2,12 @@
 
 ### <i class="fa fa-caret-right"></i> 404 handler
 
-Registering the "not found" handler is a different way than ESP8266WebServer. The *onNotFound* of ESP8266WebServer does not work with AutoConnect. AutoConnect overrides *ESP8266WebServer::onNotFound* to handle a captive portal. To register "not found" handler, use [*AutoConnect::onNotFound*](api.md#onnotfound).
+Registering the "not found" handler is a different way than ESP8266WebServer/WebServer. The *onNotFound* of ESP8266WebServer/WebServer does not work with AutoConnect. AutoConnect overrides *ESP8266WebServer::onNotFound*/*WebServer::onNotFound* to handle a captive portal. To register "not found" handler, use [*AutoConnect::onNotFound*](api.md#onnotfound).
 
 ### <i class="fa fa-caret-right"></i> Automatic reconnect
 
-When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266/ESP32 will be lost.  
+When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost but then the reconnect behavior of ESP32 is somewhat different from this.  
+The [WiFiSTAClass::disconnect](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.  
 If the [**autoReconnect**](api.md#autoreconnect) option of the [**AutoConnectConfig**](api.md#autoconnectconfig-api) class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in EEPROM as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.
 
 ```arduino hl_lines="3"
@@ -30,6 +31,9 @@ Config.autoSave = AC_SAVECREDENTIAL_NEVER;
 Portal.config(Config);
 Portal.begin();
 ```
+
+!!! note "In ESP32, the credentials for AutoConnect are not in NVS"
+    The credentials used by AutoConnect are not saved in NVS on ESP32 module. ESP-IDF saves the WiFi connection configuration to NVS, but AutoConnect stores it on the eeprom partition. You can find the partition table for default as [default.csv](https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv)
 
 ### <i class="fa fa-caret-right"></i> Captive portal start detection
 
@@ -124,13 +128,13 @@ and
 
 > EEPROM library uses one sector of flash located [just after the SPIFFS](http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom).
 
-So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.
+Also, the placement of the EEPROM area of ESP32 is described in the [partition table](https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv). So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.
 
 The [**boundaryOffset**](api.md#boundaryoffset) in [**AutoConnectConfig**](api.md#autoconnectconfig-api) specifies the start offset of the credentials storage area. The default value is 0.
 
-### <i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer
+### <i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer/WebServer
 
-Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer inside the AutoConnect. This object variable could be referred by [*AutoConnect::host()*](api.md#host) function to access ESP8266WebServer instance as like below.
+Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer/WebServer inside the AutoConnect. This object variable could be referred by [*AutoConnect::host()*](api.md#host) function to access ESP8266WebServer/WebServer instance as like below.
 
 ```arduino hl_lines="4"
 AutoConnect Portal;
@@ -143,9 +147,9 @@ server.send(200, "text/plain", "Hello, world");
 !!! info "When host() is valid"
     The host() can be referred at after *AutoConnect::begin*.
 
-### <i class="fa fa-caret-right"></i> Usage for automatically instantiated ESP8266WebServer
+### <i class="fa fa-caret-right"></i> Usage for automatically instantiated ESP8266WebServer/WebServer
 
-The sketch can handle URL requests using ESP8266WebServer that AutoConnect started internally. ESP8266WebServer instantiated dynamically by AutoConnect can be referred to by [*AutoConnect::host*](api.md#host) function. The sketch can use the '**on**' function, '**send**' function, '**client**' function and others by ESP8266WebServer reference of its return value.
+The sketch can handle URL requests using ESP8266WebServer or WebServer that AutoConnect started internally. ESP8266WebServer/WebServer instantiated dynamically by AutoConnect can be referred to by [*AutoConnect::host*](api.md#host) function. The sketch can use the '**on**' function, '**send**' function, '**client**' function and others by ESP8266WebServer/WebServer reference of its return value.
 
 ```arduino hl_lines="8 9 13 14 20 21 27"
 #include <ESP8266WiFi.h>
@@ -182,11 +186,11 @@ void loop() {
 }
 ```
 
-!!! note "ESP8266WebServer function should be called after AutoConnect::begin"
-    The sketch cannot refer to an instance of ESP8266WebServer until AutoConnect::begin completes successfully.
+!!! note "ESP8266WebServer/WebServer function should be called after AutoConnect::begin"
+    The sketch cannot refer to an instance of ESP8266WebServer/WebServer until AutoConnect::begin completes successfully.
 
-!!! warning "Do not use with ESP8266WebServer::begin"
-    ESP8266WebServer is already running inside the AutoConnect.
+!!! warning "Do not use with ESP8266WebServer::begin or WebServer::begin"
+    ESP8266WebServer/WebServer is already running inside the AutoConnect.
 
 ### <i class="fa fa-caret-right"></i> Use with the [PageBuilder](https://github.com/Hieromon/PageBuilder) library
 
@@ -235,9 +239,9 @@ A home path of AutoConnect is **/\_ac** by default. You can access from the brow
 
 ### <i class="fa fa-caret-right"></i> Static IP assignment [^1]
 
-It is also possible to assign static IP Address to ESP8266 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.
+It is also possible to assign static IP Address to ESP8266/ESP32 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.
 
-To assign a static IP to ESP8266 with WIFI\_MODE\_STA, the following parameters are required:
+To assign a static IP to ESP8266/ESP32 with WIFI\_MODE\_STA, the following parameters are required:
 
 - IP address.
 - Gateway address.

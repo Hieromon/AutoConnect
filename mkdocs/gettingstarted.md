@@ -31,6 +31,9 @@ void loop() {
 }
 ```
 
+!!! note ""
+    The above code can be applied to ESP8266. To apply to ESP32, replace ```ESP8266WebServer``` class with ```WebServer``` and include ```WiFi.h``` and ```WebServer.h``` appropriately.
+
 ### <i class="fa fa-play-circle"></i> Run at first
 
 After about 30 seconds, if the ESP8266 cannot connect to nearby Wi-Fi spot, you pull out your smartphone and open *Wi-Fi settings* from the *Settings* Apps. You can see the **esp8266ap** [^1] in the list of *"CHOOSE A NETWORK..."*. Then tap the esp8266ap and enter password **12345678**, a something screen pops up automatically as shown below.
