@@ -10,7 +10,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
-        <meta name="description" content="ESP8266 WLAN configuration at run time with web interface">
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/gettingstarted/index.html">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Getting started - AutoConnect for ESP8266</title>
+        <title>Getting started - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -110,7 +110,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266" class="md-header-nav__button md-logo">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
           
             <img src="../images/arduino-logo.svg" width="24" height="24">
           
@@ -124,7 +124,7 @@
           
             
               <span class="md-header-nav__topic">
-                AutoConnect for ESP8266
+                AutoConnect for ESP8266/ESP32
               </span>
               <span class="md-header-nav__topic">
                 Getting started
@@ -249,7 +249,7 @@
         <img src="../images/arduino-logo.svg" width="48" height="48">
       
     </span>
-    AutoConnect for ESP8266
+    AutoConnect for ESP8266/ESP32
   </label>
   
     <div class="md-nav__source">
@@ -544,11 +544,11 @@
                 
                 <h2 id="lets-do-the-most-simple-sketch">Let's do the most simple sketch<a class="headerlink" href="#lets-do-the-most-simple-sketch" title="Permanent link">&para;</a></h2>
 <p>Open the Arduino IDE, write the following sketch and upload it. The feature of this sketch is that the SSID and Password are not coded.</p>
-<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WiFi.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span><span class="cp"></span>
+<div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WiFi.h&gt;          // Replace with WiFi.h for ESP32</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;     // Replace with WebServer.h for ESP32</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span><span class="cp"></span>
 
-<span class="n">ESP8266WebServer</span> <span class="nf">Server</span><span class="p">;</span>
+<span class="n">ESP8266WebServer</span> <span class="nf">Server</span><span class="p">;</span>          <span class="c1">// Replace with WebServer for ESP32</span>
 <span class="n">AutoConnect</span>      <span class="nf">Portal</span><span class="p">(</span><span class="nf">Server</span><span class="p">);</span>
 
 <span class="kr">void</span> <span class="nf">rootPage</span><span class="p">()</span> <span class="p">{</span>
@@ -572,8 +572,11 @@
 <span class="p">}</span>
 </pre></div>
 
+<div class="admonition note">
+<p>The above code can be applied to ESP8266. To apply to ESP32, replace <code class="codehilite">ESP8266WebServer</code> class with <code class="codehilite">WebServer</code> and include <code class="codehilite">WiFi.h</code> and <code class="codehilite">WebServer.h</code> appropriately.</p>
+</div>
 <h3 id="run-at-first"><i class="fa fa-play-circle"></i> Run at first<a class="headerlink" href="#run-at-first" title="Permanent link">&para;</a></h3>
-<p>After about 30 seconds, if the ESP8266 cannot connect to nearby Wi-Fi spot, you pull out your smartphone and open <em>Wi-Fi settings</em> from the <em>Settings</em> Apps. You can see the <strong>esp8266ap</strong> in the list of <em>"CHOOSE A NETWORK..."</em>. Then tap the esp8266ap and enter password <strong>12345678</strong>, a something screen pops up automatically as shown below.</p>
+<p>After about 30 seconds, if the ESP8266 cannot connect to nearby Wi-Fi spot, you pull out your smartphone and open <em>Wi-Fi settings</em> from the <em>Settings</em> Apps. You can see the <strong>esp8266ap</strong> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> in the list of <em>"CHOOSE A NETWORK..."</em>. Then tap the esp8266ap and enter password <strong>12345678</strong>, a something screen pops up automatically as shown below.</p>
 <p><span style="display:inline-block;width:282px;height:501px;border:1px solid lightgrey;"><img data-gifffer="../images/login_ani.gif" data-gifffer-width="280" style="width:280px;" /></span><img src="../images/arrow_right.svg" style="vertical-align:top;padding-top:120px;width:48px;margin-left:30px;margin-right:30px;" /><img src="../images/stat.png" style="border:1px solid lightgrey;width:280px;" /></span></p>
 <p>This is the AutoConnect statistics screen. This screen displays the current status of the established connection, WiFi mode, IP address, free memory size, and etc. Also, the <strong>hamburger icon</strong> is the control menu of AutoConnect seems at the upper right. By tap the hamburger icon, the control menu appears as the below.</p>
 <h3 id="join-to-the-new-access-point"><i class="fa fa-cog"></i> Join to the new access point<a class="headerlink" href="#join-to-the-new-access-point" title="Permanent link">&para;</a></h3>
@@ -592,6 +595,15 @@ Or, "<strong>RESET</strong>" can be selected. The ESP8266 resets and reboots. Af
     Gifffer();
   }
 </script>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>When applied to ESP32, <strong>esp32ap</strong>&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 

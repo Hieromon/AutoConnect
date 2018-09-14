@@ -10,7 +10,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
-        <meta name="description" content="ESP8266 WLAN configuration at run time with web interface">
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/api/index.html">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Library APIs - AutoConnect for ESP8266</title>
+        <title>Library APIs - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -110,7 +110,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266" class="md-header-nav__button md-logo">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
           
             <img src="../images/arduino-logo.svg" width="24" height="24">
           
@@ -124,7 +124,7 @@
           
             
               <span class="md-header-nav__topic">
-                AutoConnect for ESP8266
+                AutoConnect for ESP8266/ESP32
               </span>
               <span class="md-header-nav__topic">
                 Library APIs
@@ -249,7 +249,7 @@
         <img src="../images/arduino-logo.svg" width="48" height="48">
       
     </span>
-    AutoConnect for ESP8266
+    AutoConnect for ESP8266/ESP32
   </label>
   
     <div class="md-nav__source">
@@ -381,8 +381,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#define-macros" title="Define macros" class="md-nav__link">
-    Define macros
+  <a href="#defined-macros" title="Defined macros" class="md-nav__link">
+    Defined macros
   </a>
   
 </li>
@@ -786,8 +786,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#define-macros" title="Define macros" class="md-nav__link">
-    Define macros
+  <a href="#defined-macros" title="Defined macros" class="md-nav__link">
+    Defined macros
   </a>
   
 </li>
@@ -1121,7 +1121,7 @@
 <div class="codehilite"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span><span class="cp"></span>
 </pre></div>
 
-<h4 id="define-macros">Define macros<a class="headerlink" href="#define-macros" title="Permanent link">&para;</a></h4>
+<h4 id="defined-macros">Defined macros<a class="headerlink" href="#defined-macros" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="cp">#define AC_DEBUG                                </span><span class="c1">// Monitor message output activation</span>
 <span class="cp">#define AC_DEBUG_PORT           Serial          </span><span class="c1">// Default message output device</span>
 <span class="cp">#define AUTOCONNECT_AP_IP       0x01F4A8C0      </span><span class="c1">// Default SoftAP IP</span>
@@ -1142,15 +1142,24 @@
 </pre></div>
 
 <p><a id="withparameter"></a></p>
-<p>AutoConnect default constructor. This entry internally allocates the ESP8266WebServer and is activated internally.</p>
+<p>AutoConnect default constructor. This entry internally allocates the ESP8266WebServer for ESP8266 or WebServer for ESP32 and is activated internally.</p>
+<ul>
+<li>For ESP8266</li>
+</ul>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span><span class="p">(</span><span class="n">ESP8266WebServer</span><span class="o">&amp;</span> <span class="n">webServer</span><span class="p">)</span>
 </pre></div>
 
-<p>Run the AutoConnect site using the externally ensured ESP8266WebServer.</p>
-<p>The <a href="index.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer. If ESP8266WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the <a href="../api.me#host"><strong>host</strong></a> function.
+<ul>
+<li>For ESP32</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">AutoConnect</span><span class="p">(</span><span class="n">WebServer</span><span class="o">&amp;</span> <span class="n">webServer</span><span class="p">)</span>
+</pre></div>
+
+<p>Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.</p>
+<p>The <a href="index.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the <a href="../api.me#host"><strong>host</strong></a> function.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">webServer</span>A reference of ESP8266WebServer instance.</dd>
+    <dd><span class="apidef">webServer</span>A reference of ESP8266WebServer or WebServer instance.</dd>
 </dl></p>
 <h3 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
 <h4 id="begin">begin<a class="headerlink" href="#begin" title="Permanent link">&para;</a></h4>
@@ -1158,10 +1167,10 @@
 </pre></div>
 <div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphraase</span><span class="p">)</span>
 </pre></div>
-<div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphraase</span><span class="p">,</span> <span class="n">unsinged</span> <span class="kt">long</span> <span class="n">timeout</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphraase</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">timeout</span><span class="p">)</span>
 </pre></div></p>
 <p>Starts establishing the WiFi connection.<br />
-AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password missing, its <em>WiFi.begin</em> has no SSID and Password. The WiFi mode at this time is WIFI_STA. Then ESP8266WebServer will be started immediately after the first <em>WiFi.beign</em> regardless of the result.</p>
+AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password missing, its <em>WiFi.begin</em> has no SSID and Password. The WiFi mode at this time is WIFI_STA. Then ESP8266WebServer/WebServer will be started immediately after the first <em>WiFi.begin</em> regardless of the result.</p>
 <p>The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -1181,7 +1190,7 @@ AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password 
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">config</span>Reference to <a href="index.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> containing SoftAP's parameters and static IP parameters.</dd>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is <strong>esp8266ap</strong>.</dd>
+    <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is <strong>esp8266ap</strong> for ESP8266, <strong>esp32ap</strong> for ESP32.</dd>
     <dd><span class="apidef">password</span>Password for SodtAP. The default value is <strong>12345678</strong>.</dd>
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span>Successfully configured.</dd>
@@ -1191,16 +1200,16 @@ AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password 
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">end</span><span class="p">()</span>
 </pre></div>
 
-<p>Stops AutoConnect captive portal service. Release ESP8266WebServer and DNSServer. </p>
+<p>Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and DNSServer. </p>
 <div class="admonition warning">
 <p class="admonition-title">Attention to end</p>
-<p>The end function releases the instance of ESP8266WebServer and DNSServer. It can not process them after the end function.</p>
+<p>The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.</p>
 </div>
 <h4 id="handleclient">handleClient<a class="headerlink" href="#handleclient" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleClient</span><span class="p">()</span>
 </pre></div>
 
-<p>Process the AutoConnect menu interface. It will be processed the client request too contained in the user sketch handler by calling from inside of AutoConnect to the hosted <em>ESP8266WebServer::handleClient</em>.</p>
+<p>Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect and client requests contained in the user sketch handler are also handled.</p>
 <h4 id="handlerequest">handleRequest<a class="headerlink" href="#handlerequest" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleRequest</span><span class="p">()</span>
 </pre></div>
@@ -1208,7 +1217,7 @@ AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password 
 <p>Handling for the AutoConnect menu request.</p>
 <div class="admonition warning">
 <p class="admonition-title">About used in combination with handleClient</p>
-<p>The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266::handleClient.</p>
+<p>The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266WebServer::handleClient or WebServer::handleClient.</p>
 </div>
 <h4 id="home">home<a class="headerlink" href="#home" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">home</span><span class="p">(</span><span class="n">String</span> <span class="n">uri</span><span class="p">)</span>
@@ -1220,12 +1229,21 @@ AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password 
     <dd><span class="apidef">uri</span> A URI string of user site's home path.</dd>
 </dl></p>
 <h4 id="host">host<a class="headerlink" href="#host" title="Permanent link">&para;</a></h4>
-<p>Returns the reference of the ESP8266WebServer which is allocated in AutoConnect automatically.</p>
-<p><div class="codehilite"><pre><span></span><span class="n">ESP8266WebServer</span><span class="o">&amp;</span> <span class="n">host</span><span class="p">()</span>
+<p>Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.</p>
+<ul>
+<li>For ESP8266</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">ESP8266WebServer</span><span class="o">&amp;</span> <span class="n">host</span><span class="p">()</span>
+</pre></div>
+
+<ul>
+<li>For ESP32</li>
+</ul>
+<p><div class="codehilite"><pre><span></span><span class="n">WebServer</span><span class="o">&amp;</span> <span class="n">host</span><span class="p">()</span>
 </pre></div>
 <dl class="apidl">
     <dt><strong>Return value</strong></dt>
-    <dd>A reference of the ESP8266WebServer.</dd>
+    <dd>A reference of the ESP8266WebServer/WebServer.</dd>
 </dl></p>
 <div class="admonition note">
 <p class="admonition-title">&amp;reference is not a pointer</p>
@@ -1257,7 +1275,16 @@ Register the function which will call from AutoConnect at the start of the capti
     <dd><span class="apidef">false</span>Cancel the captive portal. AutoConnect::begin function will return with a false.</dd>
 </dl></p>
 <h4 id="onnotfound">onNotFound<a class="headerlink" href="#onnotfound" title="Permanent link">&para;</a></h4>
-<p><div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">onNotFound</span><span class="p">(</span><span class="n">ESP8266WebServer</span><span class="o">::</span><span class="n">THandlerFunction</span> <span class="n">fn</span><span class="p">)</span>
+<ul>
+<li>For ESP8266</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">onNotFound</span><span class="p">(</span><span class="n">ESP8266WebServer</span><span class="o">::</span><span class="n">THandlerFunction</span> <span class="n">fn</span><span class="p">)</span>
+</pre></div>
+
+<ul>
+<li>For ESP32</li>
+</ul>
+<p><div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">onNotFound</span><span class="p">(</span><span class="n">WebServer</span><span class="o">::</span><span class="n">THandlerFunction</span> <span class="n">fn</span><span class="p">)</span>
 </pre></div>
 Register the handler function for undefined URL request detected.
 <dl class="apidl">
@@ -1273,7 +1300,7 @@ Register the handler function for undefined URL request detected.
 </pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The length should be up to 31. The default value is <strong>esp8266ap</strong>.</dd>
+    <dd><span class="apidef">ap</span>SSID for SoftAP. The length should be up to 31. The default value is <strong>esp8266ap</strong> for ESP8266, <strong>esp32ap</strong> for ESP32.</dd>
     <dd><span class="apidef">password</span>Password for SodtAP. The length should be from 8 to up to 63. The default value is <strong>12345678</strong>.</dd>
 </dl></p>
 <h3 id="public-member-variables"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables" title="Permanent link">&para;</a></h3>
@@ -1290,7 +1317,7 @@ Register the handler function for undefined URL request detected.
     <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is <strong>192.168.244.1</strong></dd>
 </dl></p>
 <h4 id="autoreconnect">autoReconnect<a class="headerlink" href="#autoreconnect" title="Permanent link">&para;</a></h4>
-<p>Automatically reconnect to past established access point (BSSID) when the current configured SSID in ESP8266 could not be connected. By enabling this option, <em>AutoConnect::begin()</em> function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.<br />
+<p>Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, <em>AutoConnect::begin()</em> function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.<br />
 If the connection fails, starts the captive portal in SoftAP + STA mode.<br />
 <dl class="apidl">
     <dt><strong>Type</strong></dt>

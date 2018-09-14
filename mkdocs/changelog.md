@@ -1,3 +1,8 @@
+#### [0.9.5] Aug.27, 2018.
+
+- Supports ESP32.
+- Fixed that crash may occur if the number of stored credentials in the EEPROM is smaller than the number of found WiFi networks.
+
 #### [0.9.4] May 5, 2018.
 
 - Automatically focus passphrase after selecting SSID with Configure New AP.

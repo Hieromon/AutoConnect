@@ -74,6 +74,17 @@ void mqttPublish(String msg) {
   mqttClient.publish(topic, payload);
 }
 
+int getStrength(uint8_t points) {
+  uint8_t sc = points;
+  long    rssi = 0;
+
+  while (sc--) {
+    rssi += WiFi.RSSI();
+    delay(20);
+  }
+  return points ? (int)(rssi / points) : 0;
+}
+
 unsigned long   lastPub = 0;
 
 void setup() {
@@ -100,7 +111,7 @@ void loop() {
     if (!mqttClient.connected()) {
       mqttConnect();
     }
-    String item = String("field1=") + String(WiFi.RSSI());
+    String item = String("field1=") + String(getStrength(7));
     mqttPublish(item);
     mqttClient.loop();
     lastPub = millis();
