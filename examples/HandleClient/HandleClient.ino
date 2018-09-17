@@ -17,9 +17,9 @@
 #include <AutoConnect.h>
 
 #if defined(ARDUINO_ARCH_ESP8266)
-ESP8266WebServer Server;
+ESP8266WebServer server;
 #elif defined(ARDUINO_ARCH_ESP32)
-WebServer Server;
+WebServer server;
 #endif
 
 AutoConnect         portal(server);
