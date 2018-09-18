@@ -3,7 +3,7 @@ dist: trusty
 group: deprecated-2017Q4
 language: c
 env:
-  - BD=esp8266:esp8266:nodemcuv2:CpuFrequency=160,FlashSize=4M3M
+  - BD1=esp8266:esp8266:nodemcuv2:CpuFrequency=160,FlashSize=4M3M BD2=esp32:esp32:esp32:FlashSize=4M
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
   - sleep 3
@@ -14,21 +14,30 @@ before_install:
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/AutoConnect
-  - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
+  - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json,https://dl.espressif.com/dl/package_esp32_index.json" --save-prefs
   - arduino --install-boards esp8266:esp8266
-  - arduino --board $BD --save-prefs
+  - arduino --board $BD1 --save-prefs
+  - arduino --install-boards esp32:esp32
+  - arduino --board $BD2 --save-prefs
   - arduino --pref "compiler.warning_level=all" --save-prefs
 #  - arduino --install-library "PageBuilder"
   - git clone https://github.com/Hieromon/PageBuilder /usr/local/share/arduino/libraries/PageBuilder
   - arduino --install-library "PubSubClient"
 script:
- - arduino --verify --board $BD $PWD/examples/Credential/Credential.ino
- - arduino --verify --board $BD $PWD/examples/FSBrowser/FSBrowser.ino
- - arduino --verify --board $BD $PWD/examples/HandleClient/HandleClient.ino
- - arduino --verify --board $BD $PWD/examples/HandlePortal/HandlePortal.ino
- - arduino --verify --board $BD $PWD/examples/HandlePortalEX/HandlePortalEX.ino
- - arduino --verify --board $BD $PWD/examples/mqttRSSI/mqttRSSI.ino
- - arduino --verify --board $BD $PWD/examples/Simple/Simple.ino
+ - arduino --verify --board $BD1 $PWD/examples/Credential/Credential.ino
+ - arduino --verify --board $BD2 $PWD/examples/Credential/Credential.ino
+ - arduino --verify --board $BD1 $PWD/examples/FSBrowser/FSBrowser.ino
+ - arduino --verify --board $BD2 $PWD/examples/FSBrowser/FSBrowser.ino
+ - arduino --verify --board $BD1 $PWD/examples/HandleClient/HandleClient.ino
+ - arduino --verify --board $BD2 $PWD/examples/HandleClient/HandleClient.ino
+ - arduino --verify --board $BD1 $PWD/examples/HandlePortal/HandlePortal.ino
+ - arduino --verify --board $BD2 $PWD/examples/HandlePortal/HandlePortal.ino
+ - arduino --verify --board $BD1 $PWD/examples/HandlePortalEX/HandlePortalEX.ino
+ - arduino --verify --board $BD2 $PWD/examples/HandlePortalEX/HandlePortalEX.ino
+ - arduino --verify --board $BD1 $PWD/examples/mqttRSSI/mqttRSSI.ino
+ - arduino --verify --board $BD2 $PWD/examples/mqttRSSI/mqttRSSI.ino
+ - arduino --verify --board $BD1 $PWD/examples/Simple/Simple.ino
+ - arduino --verify --board $BD2 $PWD/examples/Simple/Simple.ino
 
 notifications:
   email:
