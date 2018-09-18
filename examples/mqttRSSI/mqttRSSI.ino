@@ -55,10 +55,11 @@ bool mqttConnect() {
     } else {
       Serial.println("Connection failed:" + String(mqttClient.state()));
       if (!--retry)
-        return false;
+        break;
     }
     delay(3000);
   }
+  return false;
 }
 
 void mqttPublish(String msg) {

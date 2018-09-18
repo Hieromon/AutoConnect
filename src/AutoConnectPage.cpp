@@ -804,6 +804,11 @@ String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
   case WIFI_AP_STA:
     wifiMode = "AP_STA";
     break;
+#ifdef ARDUINO_ARCH_ESP32
+  case WIFI_MODE_MAX:
+    wifiMode = "MAX";
+    break;
+#endif
   }
   return String(wifiMode);
 }
@@ -855,7 +860,8 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     "CONNECTED",
     "CONNECT_FAILED",
     "CONNECTION_LOST",
-    "DISCONNECTED"
+    "DISCONNECTED",
+    "NO_SHIELD"
   };
   st = WiFi.status();
   switch (st) {
@@ -879,6 +885,9 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     break;
   case WL_DISCONNECTED:
     wlStatusSymbol = wlStatusSymbols[6];
+    break;
+  case WL_NO_SHIELD:
+    wlStatusSymbol = wlStatusSymbols[7];
     break;
   }
 #endif

@@ -22,6 +22,10 @@ ESP8266WebServer server;
 WebServer server;
 #endif
 
+#ifndef BUILTIN_LED
+#define BUILTIN_LED  2  // backward compatibility
+#endif
+
 AutoConnect         portal(server);
 
 void handleRoot() {
@@ -114,7 +118,11 @@ void loop() {
   server.handleClient();
   portal.handleRequest();   // Need to handle AutoConnect menu.
   if (WiFi.status() == WL_IDLE_STATUS) {
+#if defined(ARDUINO_ARCH_ESP8266)
     ESP.reset();
+#elif defined(ARDUINO_ARCH_ESP32)
+    ESP.restart();
+#endif
     delay(1000);
   }
 }

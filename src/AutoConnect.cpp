@@ -392,7 +392,7 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
 bool AutoConnect::_loadAvailCredential() {
   AutoConnectCredential credential(_apConfig.boundaryOffset);
 
-  if (credential.entries() >= 0) {
+  if (credential.entries() > 0) {
     // Scan the vicinity only when the saved credentials are existing.
     int8_t  nn = WiFi.scanNetworks(false, true);
     AC_DBG("%d network(s) found\n", (int)nn);

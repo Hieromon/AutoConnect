@@ -25,6 +25,10 @@
 #include <PageBuilder.h>
 #include <AutoConnect.h>
 
+#ifndef BUILTIN_LED
+#define BUILTIN_LED  2  // backward compatibility
+#endif
+
 #if defined(ARDUINO_ARCH_ESP8266)
 ESP8266WebServer server;
 #elif defined(ARDUINO_ARCH_ESP32)
@@ -147,7 +151,11 @@ void setup() {
 void loop() {
   portal.handleClient();
   if (WiFi.status() == WL_IDLE_STATUS) {
+#if defined(ARDUINO_ARCH_ESP8266)
     ESP.reset();
+#elif defined(ARDUINO_ARCH_ESP32)
+    ESP.restart();
+#endif
     delay(1000);
   }
 }
