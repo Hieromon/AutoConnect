@@ -860,8 +860,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     "CONNECTED",
     "CONNECT_FAILED",
     "CONNECTION_LOST",
-    "DISCONNECTED",
-    "NO_SHIELD"
+    "DISCONNECTED"
   };
   st = WiFi.status();
   switch (st) {
@@ -885,9 +884,6 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     break;
   case WL_DISCONNECTED:
     wlStatusSymbol = wlStatusSymbols[6];
-    break;
-  case WL_NO_SHIELD:
-    wlStatusSymbol = wlStatusSymbols[7];
     break;
   }
 #endif

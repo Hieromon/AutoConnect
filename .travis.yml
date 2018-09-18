@@ -16,9 +16,7 @@ install:
   - ln -s $PWD /usr/local/share/arduino/libraries/AutoConnect
   - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json,https://dl.espressif.com/dl/package_esp32_index.json" --save-prefs
   - arduino --install-boards esp8266:esp8266
-  - arduino --board $BD1 --save-prefs
   - arduino --install-boards esp32:esp32
-  - arduino --board $BD2 --save-prefs
   - arduino --pref "compiler.warning_level=all" --save-prefs
 #  - arduino --install-library "PageBuilder"
   - git clone https://github.com/Hieromon/PageBuilder /usr/local/share/arduino/libraries/PageBuilder
