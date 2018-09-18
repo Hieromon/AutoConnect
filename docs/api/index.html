@@ -1165,13 +1165,13 @@
 <h4 id="begin">begin<a class="headerlink" href="#begin" title="Permanent link">&para;</a></h4>
 <p><div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">()</span>
 </pre></div>
-<div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphraase</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphrase</span><span class="p">)</span>
 </pre></div>
-<div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphraase</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">timeout</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kt">bool</span> <span class="n">begin</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">passphrase</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">timeout</span><span class="p">)</span>
 </pre></div></p>
-<p>Starts establishing the WiFi connection.<br />
-AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password missing, its <em>WiFi.begin</em> has no SSID and Password. The WiFi mode at this time is WIFI_STA. Then ESP8266WebServer/WebServer will be started immediately after the first <em>WiFi.begin</em> regardless of the result.</p>
-<p>The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
+<p>Starts establishing the WiFi connection. The WiFi mode at this time is WIFI_STA.<br />
+AutoConnect first invokes <em>WiFi.begin</em>. If the <em>ssid</em> and the <em>passphrase</em> are missing, its <em>WiFi.begin</em> has no SSID and Password. Regardless of the result, ESP8266WebServer/WebServer will start immediately after the first <em>WiFi.begin</em>.<br />
+The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">ssid</span>SSID to be connected.</dd>
@@ -1209,7 +1209,7 @@ AutoConnect first invokes <em>WiFi.begin</em>. If the case of SSID and Password 
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleClient</span><span class="p">()</span>
 </pre></div>
 
-<p>Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect and client requests contained in the user sketch handler are also handled.</p>
+<p>Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect, and the client request handlers contained in the user sketch are also handled.</p>
 <h4 id="handlerequest">handleRequest<a class="headerlink" href="#handlerequest" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kt">void</span> <span class="n">handleRequest</span><span class="p">()</span>
 </pre></div>

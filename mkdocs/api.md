@@ -64,15 +64,14 @@ The [**handleClient**](api.md#handleclient) function of AutoConnect can include 
 bool begin()
 ```  
 ```cpp
-bool begin(const char* ssid, const char* passphraase)
+bool begin(const char* ssid, const char* passphrase)
 ```  
 ```cpp
-bool begin(const char* ssid, const char* passphraase, unsigned long timeout)
+bool begin(const char* ssid, const char* passphrase, unsigned long timeout)
 ```
 
-Starts establishing the WiFi connection.  
-AutoConnect first invokes *WiFi.begin*. If the case of SSID and Password missing, its *WiFi.begin* has no SSID and Password. The WiFi mode at this time is WIFI_STA. Then ESP8266WebServer/WebServer will be started immediately after the first *WiFi.begin* regardless of the result.
-
+Starts establishing the WiFi connection. The WiFi mode at this time is WIFI_STA.  
+AutoConnect first invokes *WiFi.begin*. If the *ssid* and the *passphrase* are missing, its *WiFi.begin* has no SSID and Password. Regardless of the result, ESP8266WebServer/WebServer will start immediately after the first *WiFi.begin*.  
 The captive portal will not be started if the connection has been established with first *WiFi.begin*. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
 <dl class="apidl">
     <dt>**Parameters**</dt>
@@ -121,7 +120,7 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
 void handleClient()
 ```
 
-Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect and client requests contained in the user sketch handler are also handled.
+Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect, and the client request handlers contained in the user sketch are also handled.
 
 #### handleRequest
 
