@@ -888,7 +888,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   }
 #endif
 
-  return "(" + String(st) + ")" + String(wlStatusSymbol);
+  return "(" + String(st) + ") " + String(wlStatusSymbol);
 }
 
 String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
