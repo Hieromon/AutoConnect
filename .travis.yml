@@ -3,8 +3,8 @@ env:
   global:
     - IDE_VERSION=1.8.5
   matrix:
-    - BOARD="esp8266:esp8266:nodemcuv2"
-    - BOARD="espressif:esp32:esp32"
+    - BOARD="esp8266:esp8266:nodemcuv2:CpuFrequency=160,FlashSize=4M3M"
+    - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M"
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
   - sleep 3
@@ -17,8 +17,8 @@ before_install:
   - if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then
       arduino --install-boards esp8266:esp8266;
     fi
-  - if [[ "$BOARD" =~ "espressif:esp32:" ]]; then
-      arduino --install-boards espressif:esp32;
+  - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then
+      arduino --install-boards esp32:esp32;
     fi
   - arduino --install-library PubSubClient,PageBuilder:1.1.0
   - buildExampleSketch() { arduino --verbose-build --verify --board $BOARD $PWD/examples/$1/$1.ino; }
