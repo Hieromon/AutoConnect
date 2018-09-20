@@ -29,6 +29,7 @@ script:
   - buildExampleSketch Credential
   - buildExampleSketch FSBrowser
   - buildExampleSketch HandleClient
-  - buildExampleSketch HandleClientEX
+  - buildExampleSketch HandlePortal
+  - buildExampleSketch HandlePortalEX
   - buildExampleSketch Simple
   - buildExampleSketch mqttRSSI
