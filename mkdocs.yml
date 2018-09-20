@@ -1,6 +1,6 @@
 # Project information
-site_name: 'AutoConnect for ESP8266'
-site_description: 'ESP8266 WLAN configuration at run time with web interface'
+site_name: 'AutoConnect for ESP8266/ESP32'
+site_description: 'ESP8266/ESP32 WLAN configuration at run time with web interface'
 site_author: 'Hieromon Ikasamo'
 site_url: 'https://Hieromon.github.io/AutoConnect/'
 

@@ -2,18 +2,24 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    0.9.4
- *  @date   2018-04-22
+ *  @version    0.9.5
+ *  @date   2018-08-27
  *  @copyright  MIT license.
  */
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
-#include "AutoConnect.h"
-#include "AutoConnectPage.h"
-#include "AutoConnectCredential.h"
 extern "C" {
 #include <user_interface.h>
 }
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <esp_spi_flash.h>
+#include <WiFi.h>
+#define ENC_TYPE_NONE WIFI_AUTH_OPEN
+#endif
+#include "AutoConnect.h"
+#include "AutoConnectPage.h"
+#include "AutoConnectCredential.h"
 
 /**< Basic CSS common to all pages */
 const char AutoConnect::_CSS_BASE[] PROGMEM = {
@@ -723,6 +729,24 @@ const char  AutoConnect::_PAGE_DISCONN[] PROGMEM = {
   "</html>"
 };
 
+uint32_t AutoConnect::_getChipId() {
+#if defined(ARDUINO_ARCH_ESP8266)
+  return ESP.getChipId();
+#elif defined(ARDUINO_ARCH_ESP32)
+  uint64_t  chipId;
+  chipId = ESP.getEfuseMac();
+  return (uint32_t)(chipId >> 32);
+#endif
+}
+
+uint32_t AutoConnect::_getFlashChipRealSize() {
+#if defined(ARDUINO_ARCH_ESP8266)
+  return ESP.getFlashChipRealSize();
+#elif defined(ARDUINO_ARCH_ESP32)
+  return (uint32_t)spi_flash_get_chip_size();
+#endif
+}
+
 String AutoConnect::_token_CSS_BASE(PageArgument& args) {
   return String(_CSS_BASE);
 }
@@ -780,6 +804,11 @@ String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
   case WIFI_AP_STA:
     wifiMode = "AP_STA";
     break;
+#ifdef ARDUINO_ARCH_ESP32
+  case WIFI_MODE_MAX:
+    wifiMode = "MAX";
+    break;
+#endif
   }
   return String(wifiMode);
 }
@@ -789,7 +818,10 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
 }
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
+  uint8_t     st;
   const char* wlStatusSymbol;
+
+#if defined(ARDUINO_ARCH_ESP8266)
   static const char *wlStatusSymbols[] = {
     "IDLE",
     "CONNECTING",
@@ -798,7 +830,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     "CONNECT_FAIL",
     "GOT_IP"
   };
-  uint8_t st = wifi_station_get_connect_status();
+  st = wifi_station_get_connect_status();
   switch (st) {
   case STATION_IDLE:
     wlStatusSymbol = wlStatusSymbols[0];
@@ -819,7 +851,44 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     wlStatusSymbol = wlStatusSymbols[5];
     break;
   }
-  return "(" + String(st) + ")" + String(wlStatusSymbol);
+
+#elif defined(ARDUINO_ARCH_ESP32)
+  static const char *wlStatusSymbols[] = {
+    "IDLE",
+    "NO_SSID_AVAIL",
+    "SCAN_COMPLETED",
+    "CONNECTED",
+    "CONNECT_FAILED",
+    "CONNECTION_LOST",
+    "DISCONNECTED"
+  };
+  st = WiFi.status();
+  switch (st) {
+  case WL_IDLE_STATUS:
+    wlStatusSymbol = wlStatusSymbols[0];
+    break;
+  case WL_NO_SSID_AVAIL:
+    wlStatusSymbol = wlStatusSymbols[1];
+    break;
+  case WL_SCAN_COMPLETED:
+    wlStatusSymbol = wlStatusSymbols[2];
+    break;
+  case WL_CONNECTED:
+    wlStatusSymbol = wlStatusSymbols[3];
+    break;
+  case WL_CONNECT_FAILED:
+    wlStatusSymbol = wlStatusSymbols[4];
+    break;
+  case WL_CONNECTION_LOST:
+    wlStatusSymbol = wlStatusSymbols[5];
+    break;
+  case WL_DISCONNECTED:
+    wlStatusSymbol = wlStatusSymbols[6];
+    break;
+  }
+#endif
+
+  return "(" + String(st) + ") " + String(wlStatusSymbol);
 }
 
 String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
@@ -864,11 +933,11 @@ String AutoConnect::_token_CPU_FREQ(PageArgument& args) {
 }
 
 String AutoConnect::_token_FLASH_SIZE(PageArgument& args) {
-  return String(ESP.getFlashChipRealSize());
+  return String(_getFlashChipRealSize());
 }
 
 String AutoConnect::_token_CHIP_ID(PageArgument& args) {
-  return String(ESP.getChipId());
+  return String(_getChipId());
 }
 
 String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
@@ -903,22 +972,21 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   struct station_config entry;
   String ssidList = "";
   
+  uint8_t* bssid = WiFi.BSSID();
   for (uint8_t i = 0; i < credit.entries(); i++) {
     credit.load(i, &entry);
+    AC_DBG("A credential #%d loaded\n", (int)i);
     ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String((char*)entry.ssid) + String(F("\">"));
     ssidList += String(F("<label>"));
-    if (memcmp(WiFi.BSSID(), entry.bssid, sizeof(station_config::bssid)) == 0) {
+    if (bssid != NULL && memcmp(bssid, entry.bssid, sizeof(station_config::bssid)) == 0)
       ssidList += String(AutoConnect::_toWiFiQuality(WiFi.RSSI())) + String("%");
-    }
-    else {
+    else
       ssidList += String("N/A");
-
-    }
     ssidList += String(F("</label><br>"));
   }
 
   if (ssidList.length() == 0) {
-    ssidList = String(PSTR("<p><b>No credential saved.</b></p>"));
+    ssidList = String(PSTR("<p><b>No saved credentials.</b></p>"));
   }
   return ssidList;
 }

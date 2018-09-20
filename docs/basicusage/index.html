@@ -10,7 +10,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
-        <meta name="description" content="ESP8266 WLAN configuration at run time with web interface">
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/basicusage/index.html">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Basic usage - AutoConnect for ESP8266</title>
+        <title>Basic usage - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -110,7 +110,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266" class="md-header-nav__button md-logo">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
           
             <img src="../images/arduino-logo.svg" width="24" height="24">
           
@@ -124,7 +124,7 @@
           
             
               <span class="md-header-nav__topic">
-                AutoConnect for ESP8266
+                AutoConnect for ESP8266/ESP32
               </span>
               <span class="md-header-nav__topic">
                 Basic usage
@@ -249,7 +249,7 @@
         <img src="../images/arduino-logo.svg" width="48" height="48">
       
     </span>
-    AutoConnect for ESP8266
+    AutoConnect for ESP8266/ESP32
   </label>
   
     <div class="md-nav__source">
@@ -398,8 +398,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-alternate-esp8266webserverbegin" title="4. Alternate ESP8266WebServer::begin()" class="md-nav__link">
-    4. Alternate ESP8266WebServer::begin()
+  <a href="#4-alternate-esp8266webserverbegin-and-webserverbegin" title="4. Alternate ESP8266WebServer::begin() and WebServer::begin()" class="md-nav__link">
+    4. Alternate ESP8266WebServer::begin() and WebServer::begin()
   </a>
   
 </li>
@@ -412,15 +412,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-use-esp8266webserveron-to-handle-url" title="6. Use ESP8266WebServer::on to handle URL" class="md-nav__link">
-    6. Use ESP8266WebServer::on to handle URL
+  <a href="#6-use-esp8266webserveron-and-webserveron-to-handle-url" title="6. Use ESP8266WebServer::on and WebServer::on to handle URL" class="md-nav__link">
+    6. Use ESP8266WebServer::on and WebServer::on to handle URL
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-use-either-esp8266webserverhandleclient-or-autoconnecthandleclient" title="7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()" class="md-nav__link">
-    7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()
+  <a href="#7-use-either-esp8266webserverhandleclientwebserverhandleclient-or-autoconnecthandleclient" title="7. Use either ESP8266WebServer::handleClient()/WebServer::handleClient() or AutoConnect::handleClient()" class="md-nav__link">
+    7. Use either ESP8266WebServer::handleClient()/WebServer::handleClient() or AutoConnect::handleClient()
   </a>
   
 </li>
@@ -431,8 +431,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#esp8266webserver-hosted-or-parasitic" title=" ESP8266WebServer hosted or parasitic" class="md-nav__link">
-     ESP8266WebServer hosted or parasitic
+  <a href="#esp8266webserverwebserver-hosted-or-parasitic" title=" ESP8266WebServer/WebServer hosted or parasitic" class="md-nav__link">
+     ESP8266WebServer/WebServer hosted or parasitic
   </a>
   
 </li>
@@ -601,8 +601,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-alternate-esp8266webserverbegin" title="4. Alternate ESP8266WebServer::begin()" class="md-nav__link">
-    4. Alternate ESP8266WebServer::begin()
+  <a href="#4-alternate-esp8266webserverbegin-and-webserverbegin" title="4. Alternate ESP8266WebServer::begin() and WebServer::begin()" class="md-nav__link">
+    4. Alternate ESP8266WebServer::begin() and WebServer::begin()
   </a>
   
 </li>
@@ -615,15 +615,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-use-esp8266webserveron-to-handle-url" title="6. Use ESP8266WebServer::on to handle URL" class="md-nav__link">
-    6. Use ESP8266WebServer::on to handle URL
+  <a href="#6-use-esp8266webserveron-and-webserveron-to-handle-url" title="6. Use ESP8266WebServer::on and WebServer::on to handle URL" class="md-nav__link">
+    6. Use ESP8266WebServer::on and WebServer::on to handle URL
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-use-either-esp8266webserverhandleclient-or-autoconnecthandleclient" title="7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()" class="md-nav__link">
-    7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()
+  <a href="#7-use-either-esp8266webserverhandleclientwebserverhandleclient-or-autoconnecthandleclient" title="7. Use either ESP8266WebServer::handleClient()/WebServer::handleClient() or AutoConnect::handleClient()" class="md-nav__link">
+    7. Use either ESP8266WebServer::handleClient()/WebServer::handleClient() or AutoConnect::handleClient()
   </a>
   
 </li>
@@ -634,8 +634,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#esp8266webserver-hosted-or-parasitic" title=" ESP8266WebServer hosted or parasitic" class="md-nav__link">
-     ESP8266WebServer hosted or parasitic
+  <a href="#esp8266webserverwebserver-hosted-or-parasitic" title=" ESP8266WebServer/WebServer hosted or parasitic" class="md-nav__link">
+     ESP8266WebServer/WebServer hosted or parasitic
   </a>
   
 </li>
@@ -666,7 +666,7 @@
                 
                 <h2 id="simple-usage">Simple usage<a class="headerlink" href="#simple-usage" title="Permanent link">&para;</a></h2>
 <h3 id="embed-to-the-sketches"><i class="fa fa-edit"></i> Embed to the sketches<a class="headerlink" href="#embed-to-the-sketches" title="Permanent link">&para;</a></h3>
-<p>How embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps.</p>
+<p>How embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps. The below sketch is for ESP8266. For ESP32, replace <code class="codehilite">ESP8266WebServer</code> with <code class="codehilite">WebServer</code> and <code class="codehilite">ESP8266WiFi.h</code> with <code class="codehilite">WiFi.h</code> respectively.</p>
 <p><img src="../images/BeforeAfter.svg" /></p>
 <ul class="ulsty-edit" style="list-style:none;">
   <li>Insert <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span></code> to behind of <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span></code>.</li>
@@ -682,22 +682,23 @@
 <h4 id="1-a-typical-logic-sequence">1. A typical logic sequence<a class="headerlink" href="#1-a-typical-logic-sequence" title="Permanent link">&para;</a></h4>
 <div class="admonition note">
 <ol>
-<li><strong>Include headers,</strong> <code class="codehilite">ESP8266WebServer.h</code> and <code class="codehilite">AutoConnect.h</code>  </li>
-<li><strong>Declare ESP8266WebServer variable.</strong>  </li>
-<li><strong>Declare AutoConnect variable.</strong>  </li>
-<li><strong>Implements the URL handler with the <em>function()</em>.</strong>  </li>
+<li><strong>Include headers,</strong> <code class="codehilite">ESP8266WebServer.h</code>/<code class="codehilite">WebServer.h</code> and <code class="codehilite">AutoConnect.h</code>  </li>
+<li><strong>Declare an ESP8266WebServer variable for ESP8266 or a WebServer variable for ESP32.</strong>  </li>
+<li><strong>Declare an AutoConnect variable.</strong>  </li>
+<li><strong>Implement the URL handlers provided for the </strong><code class="codehilite">on</code><strong> method of ESP8266WebServer/WebServer with the <em>function()</em>.</strong>  </li>
 <li><strong>setup()</strong><br />
-   5.1 <strong>Sets URL handler <em>function()</em> to ESP8266WebServer by</strong><code class="codehilite">ESP8266WebServer::on</code><strong>.</strong><br />
+   5.1 <strong>Sets URL handler the <em>function()</em> to ESP8266WebServer/WebServer by</strong><code class="codehilite">ESP8266WebServer::on</code><strong>/</strong><code class="codehilite">WebServer::on</code><strong>.</strong><br />
    5.2 <strong>Starts </strong><code class="codehilite">AutoConnect::begin()</code><strong>.</strong><br />
    5.3 <strong>Check WiFi connection status.</strong>  </li>
 <li><strong>loop()</strong><br />
-   6.1 <strong>Invokes </strong><code class="codehilite">AutoConnect::handleClient()</code><strong>, or invokes </strong><code class="codehilite">ESP8266WebServer::handleClient()</code><strong> then </strong><code class="codehilite">AutoConnect::handleRequest()</code><strong>.</strong><br />
-   6.2 <strong>Do the process for actual sketch.</strong>  </li>
+   6.1 <strong>Do the process for actual sketch.</strong><br />
+   6.2 <strong>Invokes </strong><code class="codehilite">AutoConnect::handleClient()</code><strong>, or invokes </strong><code class="codehilite">ESP8266WebServer::handleClient()</code><strong>/</strong><code class="codehilite">WebServer::handleClient</code><strong> then </strong><code class="codehilite">AutoConnect::handleRequest()</code><strong>.</strong>  </li>
 </ol>
 </div>
 <h4 id="2-declare-autoconnect-object">2. Declare AutoConnect object<a class="headerlink" href="#2-declare-autoconnect-object" title="Permanent link">&para;</a></h4>
 <p><a href="#esp8266webserver-hosted-or-parasitic">Two options</a> are available for <a href="../api/index.html#constructors">AutoConnect constructor</a>.</p>
-<p><div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="nf">VARIABLE</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ESP8266WebServer</span><span class="p">);</span>
+<p><div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="nf">VARIABLE</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ESP8266WebServer</span><span class="p">);</span>  <span class="c1">// For ESP8266</span>
+<span class="n">AutoConnect</span> <span class="nf">VARIABLE</span><span class="p">(</span><span class="o">&amp;</span><span class="n">WebServer</span><span class="p">);</span>         <span class="c1">// For ESP32</span>
 </pre></div>
 or</p>
 <div class="codehilite"><pre><span></span><span class="n">AutoConnect</span> <span class="n">VARIABLE</span><span class="p">;</span>
@@ -705,44 +706,44 @@ or</p>
 
 <ul>
 <li>
-<p><strong>The parameter with an ESP8266WebServer variable:</strong> An ESP8266WebServer object variable must be declared. AutoConnect uses its variable to handles the <a href="../menu/index.html">AutoConnect menu</a>.</p>
+<p><strong>The parameter with an ESP8266WebServer/WebServer variable:</strong> An ESP8266WebServer/WebServer object variable must be declared. AutoConnect uses its variable to handles the <a href="../menu/index.html">AutoConnect menu</a>.</p>
 </li>
 <li>
-<p><strong>With no parameter:</strong> The sketch does not declare ESP8266WebServer object. In this case, AutoConnect allocates an instance of the ESP8266WebServer internally. The logic sequence of the sketch is somewhat different as the above. To register a URL handler function by <em>ESP8266WebServer::on</em> should be performed after <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a>.</p>
+<p><strong>With no parameter:</strong> The sketch does not declare ESP8266WebServer/WebServer object. In this case, AutoConnect allocates an instance of the ESP8266WebServer/WebServer internally. The logic sequence of the sketch is somewhat different as the above. To register a URL handler function by <em>ESP8266WebServer::on</em> or <em>WebServer::on</em> should be performed after <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a>.</p>
 </li>
 </ul>
 <h4 id="3-no-need-wifibegin">3. No need WiFI.begin(...)<a class="headerlink" href="#3-no-need-wifibegin" title="Permanent link">&para;</a></h4>
 <p>AutoConnect internally performs <em>WiFi.begin</em> to establish a WiFi connection. There is no need for a general process to establish a connection using <em>WiFi.begin</em> with a sketch code.</p>
-<h4 id="4-alternate-esp8266webserverbegin">4. Alternate ESP8266WebServer::begin()<a class="headerlink" href="#4-alternate-esp8266webserverbegin" title="Permanent link">&para;</a></h4>
-<p><a href="../api/index.html#begin"><em>AutoConnect::begin</em></a> executes <em>ESP8266WebServer::begin</em> internally too and it starts the DNS server to behave as a Captive portal. So it is not needed to call <em>ESP8266WebServer::begin</em> with the sketch.</p>
+<h4 id="4-alternate-esp8266webserverbegin-and-webserverbegin">4. Alternate ESP8266WebServer::begin() and WebServer::begin()<a class="headerlink" href="#4-alternate-esp8266webserverbegin-and-webserverbegin" title="Permanent link">&para;</a></h4>
+<p><a href="../api/index.html#begin"><em>AutoConnect::begin</em></a> executes <em>ESP8266WebServer::begin</em>/<em>WebServer::begin</em> internally too and it starts the DNS server to behave as a Captive portal. So it is not needed to call <em>ESP8266WebServer::begin</em>/<em>WebServer::begin</em> in the sketch.</p>
 <div class="admonition info">
 <p class="admonition-title">Why DNS Server starts</p>
-<p>AutoConnect traps the detection of the captive portal and achieves a connection with the WLAN interactively by the AutoConnect menu. It responds SoftAP address to all DNS queries temporarily to trap. When the WLAN connection establishes, then stops DNS server.</p>
+<p>AutoConnect traps the detection of the captive portal and achieves a connection with the WLAN interactively by the AutoConnect menu. It responds SoftAP address to all DNS queries temporarily to trap. Once a WiFi connection establishes, the DNS server contributed by AutoConnect stops.</p>
 </div>
 <h4 id="5-autoconnectbegin-with-ssid-and-password">5. AutoConnect::begin with SSID and Password<a class="headerlink" href="#5-autoconnectbegin-with-ssid-and-password" title="Permanent link">&para;</a></h4>
-<p>SSID and Password can also specify by <a href="../api.me#begin"><em>AutoConnect::begin</em></a>. ESP8266 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.</p>
-<h4 id="6-use-esp8266webserveron-to-handle-url">6. Use ESP8266WebServer::on to handle URL<a class="headerlink" href="#6-use-esp8266webserveron-to-handle-url" title="Permanent link">&para;</a></h4>
-<p>AutoConnect is designed to coexist with the process for handling the web pages by user sketches. The page processing function which will send an HTML to the client invoked by the "<em>on::ESP8266WebServer</em>" function is the same as when using ESP8266WebServer natively.</p>
-<h4 id="7-use-either-esp8266webserverhandleclient-or-autoconnecthandleclient">7. Use either ESP8266WebServer::handleClient() or AutoConnect::handleClient()<a class="headerlink" href="#7-use-either-esp8266webserverhandleclient-or-autoconnecthandleclient" title="Permanent link">&para;</a></h4>
-<p>Both classes member function name is the same: <em>handleClient</em>, but the behavior is different. Using the AutoConnect embedded along with ESP8266WebServer::handleClient has limitations. Refer to the below section for details. </p>
-<h3 id="esp8266webserver-hosted-or-parasitic"><i class="fa fa-caret-right"></i> ESP8266WebServer hosted or parasitic<a class="headerlink" href="#esp8266webserver-hosted-or-parasitic" title="Permanent link">&para;</a></h3>
-<p>The interoperable process with an ESP8266WebServer depends on the parameters of the <a href="../api/index.html#constructors">AutoConnect constructor</a>.</p>
+<p>SSID and Password can also specify by <a href="../api.me#begin"><em>AutoConnect::begin</em></a>. ESP8266/ESP32 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.</p>
+<h4 id="6-use-esp8266webserveron-and-webserveron-to-handle-url">6. Use ESP8266WebServer::on and WebServer::on to handle URL<a class="headerlink" href="#6-use-esp8266webserveron-and-webserveron-to-handle-url" title="Permanent link">&para;</a></h4>
+<p>AutoConnect is designed to coexist with the process for handling the web pages by user sketches. The page processing function which will send an HTML to the client invoked by the "<em>on::ESP8266WebServer</em>" or the "<em>on::WebServer</em>" function is the same as when using ESP8266WebServer/WebServer natively.</p>
+<h4 id="7-use-either-esp8266webserverhandleclientwebserverhandleclient-or-autoconnecthandleclient">7. Use either ESP8266WebServer::handleClient()/WebServer::handleClient() or AutoConnect::handleClient()<a class="headerlink" href="#7-use-either-esp8266webserverhandleclientwebserverhandleclient-or-autoconnecthandleclient" title="Permanent link">&para;</a></h4>
+<p>Both classes member function name is the same: <em>handleClient</em>, but the behavior is different. Using the AutoConnect embedded along with ESP8266WebServer::handleClient/WebServer::handleClient has limitations. Refer to the below section for details. </p>
+<h3 id="esp8266webserverwebserver-hosted-or-parasitic"><i class="fa fa-caret-right"></i> ESP8266WebServer/WebServer hosted or parasitic<a class="headerlink" href="#esp8266webserverwebserver-hosted-or-parasitic" title="Permanent link">&para;</a></h3>
+<p>The interoperable process with an ESP8266WebServer/WebServer depends on the parameters of the <a href="../api/index.html#constructors">AutoConnect constructor</a>.</p>
 <table>
 <thead>
 <tr>
 <th>Declaration parameter for the constructor</th>
-<th>Use ESP8266WebServer::handleClient only</th>
+<th>Use ESP8266WebServer::handleClient or WebServer::handleClient only</th>
 <th>Use AutoConnect::handleClient</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><a href="../api/index.html#constructors">None</a></td>
-<td>AutoConnect menu not available.<br>To use AutoConnect menu, need <a href="../api/index.html#handlerequest">AutoConnect::handleRequest()</a>.<br>also to use ESP8266WebServer natively, need <a href="../api/index.html#host">AutoConnect::host()</a>.</td>
-<td>AutoConnect menu available.<br>To use ESP8266WebServer natively, need <a href="../api/index.html#host">AutoConnect::host()</a>.</td>
+<td>AutoConnect menu not available.<br>To use AutoConnect menu, need <a href="../api/index.html#handlerequest">AutoConnect::handleRequest()</a>.<br>also to use ESP8266WebServer/WebServer natively, need <a href="../api/index.html#host">AutoConnect::host()</a>.</td>
+<td>AutoConnect menu available.<br>To use ESP8266WebServer/WebServer natively, need <a href="../api/index.html#host">AutoConnect::host()</a>.</td>
 </tr>
 <tr>
-<td><a href="../api/index.html#withparameter">Reference to ESP8266WebServer</a></td>
+<td><a href="../api/index.html#withparameter">Reference to ESP8266WebServer/WebServer</a></td>
 <td>AutoConnect menu not available.<br>To use AutoConnect menu, need <a href="../api/index.html#handlerequest">AutoConnect::handleRequest()</a>.</td>
 <td>AutoConnect menu available.</td>
 </tr>
@@ -750,22 +751,22 @@ or</p>
 </table>
 <ul>
 <li>
-<p><strong>By declaration for the AutoConnect variable with no parameter</strong>: The ESP8266WebServer instance is hosted by AutoConnect automatically then the sketches use <a href="../api/index.html#host"><em>AutoConnect::host</em></a> as API to get it after <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a> performed.</p>
+<p><strong>By declaration for the AutoConnect variable with no parameter</strong>: The ESP8266WebServer/WebServer instance is hosted by AutoConnect automatically then the sketches use <a href="../api/index.html#host"><em>AutoConnect::host</em></a> as API to get it after <a href="../api/index.html#begin"><em>AutoConnect::begin</em></a> performed.</p>
 </li>
 <li>
-<p><strong>By declaration for the AutoConnect variable with the reference of ESP8266WebServer</strong>: AutoConnect will use it. The sketch can use it is too.</p>
+<p><strong>By declaration for the AutoConnect variable with the reference of ESP8266WebServer/WebServer</strong>: AutoConnect will use it. The sketch can use it is too.</p>
 </li>
 <li>
-<p><strong>In use ESP8266WebServer::handleClient()</strong>: AutoConnect menu can be dispatched but not works normally. It is necessary to call <a href="../api/index.html#void-handlerequest"><em>AutoConnect::handleRequest</em></a> after <em>ESP8255WebServer::handleClient</em> invoking.</p>
+<p><strong>In use ESP8266WebServer::handleClient()/WebServer::handleClient()</strong>: AutoConnect menu can be dispatched but not works normally. It is necessary to call <a href="../api/index.html#void-handlerequest"><em>AutoConnect::handleRequest</em></a> after <em>ESP8255WebServer::handleClient</em>/<em>WebServer::handleClient</em> invoking.</p>
 </li>
 <li>
 <p><strong>In use <a href="../api/index.html#void-handleclient">AutoConnect::handleClient()</a></strong>: The handleClient() process and the AutoConnect menu is available without calling <em>ESP8266WebServer::handleClient</em>.</p>
 </li>
 </ul>
 <div class="admonition info">
-<p class="admonition-title">Why AutoConnect::handleRequest is needed when using ESP8266::handleClient</p>
-<p>The AutoConnect menu function may affect WiFi connection state. It follows that the menu process must execute outside <em>ESP8266WebServer::handleClient</em>.<br />
-<a href="../api/index.html#void-handleclient"><em>AutoConnect::handleClient</em></a> is equivalent <em>ESP8266WebServer::handleClient</em> included <a href="../api/index.html#void-handlerequest"><em>AutoConnect::handleRequest</em></a>.</p>
+<p class="admonition-title">Why AutoConnect::handleRequest is needed when using ESP8266WebServer::handleClient/WebServer::handleClient</p>
+<p>The AutoConnect menu function may affect WiFi connection state. It follows that the menu process must execute outside <em>ESP8266WebServer::handleClient</em> and <em>WebServer::handleClient</em>.<br />
+<a href="../api/index.html#void-handleclient"><em>AutoConnect::handleClient</em></a> is equivalent <em>ESP8266WebServer::handleClient</em> and <em>WEbServer::handleClient</em> included <a href="../api/index.html#void-handlerequest"><em>AutoConnect::handleRequest</em></a>.</p>
 </div>
 <div class="footnote">
 <hr />

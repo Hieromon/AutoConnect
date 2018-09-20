@@ -14,13 +14,23 @@
   This sketch uses PageBuilder to support handling of operation pages.
 */
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#include <WebServer.h>
+#endif
 #include <AutoConnect.h>
 #include <AutoConnectCredential.h>
 #include <PageBuilder.h>
 
+#if defined(ARDUINO_ARCH_ESP8266)
 ESP8266WebServer Server;
+#elif defined(ARDUINO_ARCH_ESP32)
+WebServer Server;
+#endif
+
 AutoConnect      Portal(Server);
 String viewCredential(PageArgument&);
 String delCredential(PageArgument&);

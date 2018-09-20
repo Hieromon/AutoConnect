@@ -14,9 +14,18 @@
   It will help you understand AutoConnect usage.
 */
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#include <WebServer.h>
+#endif
 #include <AutoConnect.h>
+
+#ifndef BUILTIN_LED
+#define BUILTIN_LED  2  // backward compatibility
+#endif
 
 AutoConnect portal;
 
@@ -64,7 +73,7 @@ void handleRoot() {
 }
 
 void handleGPIO() {
-  ESP8266WebServer& server = portal.host();
+  WebServerClass& server = portal.host();
   if (server.arg("v") == "low")
     digitalWrite(BUILTIN_LED, LOW);
   else if (server.arg("v") == "high")
@@ -73,7 +82,7 @@ void handleGPIO() {
 }
 
 void sendRedirect(String uri) {
-  ESP8266WebServer& server = portal.host();
+  WebServerClass& server = portal.host();
   server.sendHeader("Location", uri, true);
   server.send(302, "text/plain", "");
   server.client().stop();
@@ -97,7 +106,7 @@ void setup() {
   // Starts user web site included the AutoConnect portal.
   portal.onDetect(atDetect);
   if (portal.begin()) {
-    ESP8266WebServer& server = portal.host();
+    WebServerClass& server = portal.host();
     server.on("/", handleRoot);
     server.on("/io", handleGPIO);
     Serial.println("Started, IP:" + WiFi.localIP().toString());
@@ -111,7 +120,11 @@ void setup() {
 void loop() {
   portal.handleClient();
   if (WiFi.status() == WL_IDLE_STATUS) {
+#if defined(ARDUINO_ARCH_ESP8266)
     ESP.reset();
+#elif defined(ARDUINO_ARCH_ESP32)
+    ESP.restart();
+#endif
     delay(1000);
   }
 }

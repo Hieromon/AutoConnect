@@ -6,7 +6,7 @@
 #include <AutoConnect.h>
 ```
 
-#### Define macros
+#### Defined macros
 
 ```cpp
 #define AC_DEBUG                                // Monitor message output activation
@@ -34,18 +34,26 @@ AutoConnect()
 
 <a id="withparameter"></a>
 
-AutoConnect default constructor. This entry internally allocates the ESP8266WebServer and is activated internally.
+AutoConnect default constructor. This entry internally allocates the ESP8266WebServer for ESP8266 or WebServer for ESP32 and is activated internally.
+
+- For ESP8266
 
 ```cpp
 AutoConnect(ESP8266WebServer& webServer)
 ```
 
-Run the AutoConnect site using the externally ensured ESP8266WebServer.
+- For ESP32
 
-The [**handleClient**](api.md#handleclient) function of AutoConnect can include the response of the URI handler added by the user using the "*on*" function of ESP8266WebServer. If ESP8266WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the [**host**](api.me#host) function.
+```cpp
+AutoConnect(WebServer& webServer)
+```
+
+Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.
+
+The [**handleClient**](api.md#handleclient) function of AutoConnect can include the response of the URI handler added by the user using the "*on*" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the [**host**](api.me#host) function.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">webServer</span>A reference of ESP8266WebServer instance.</dd>
+    <dd><span class="apidef">webServer</span>A reference of ESP8266WebServer or WebServer instance.</dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -56,15 +64,14 @@ The [**handleClient**](api.md#handleclient) function of AutoConnect can include 
 bool begin()
 ```  
 ```cpp
-bool begin(const char* ssid, const char* passphraase)
+bool begin(const char* ssid, const char* passphrase)
 ```  
 ```cpp
-bool begin(const char* ssid, const char* passphraase, unsinged long timeout)
+bool begin(const char* ssid, const char* passphrase, unsigned long timeout)
 ```
 
-Starts establishing the WiFi connection.  
-AutoConnect first invokes *WiFi.begin*. If the case of SSID and Password missing, its *WiFi.begin* has no SSID and Password. The WiFi mode at this time is WIFI_STA. Then ESP8266WebServer will be started immediately after the first *WiFi.beign* regardless of the result.
-
+Starts establishing the WiFi connection. The WiFi mode at this time is WIFI_STA.  
+AutoConnect first invokes *WiFi.begin*. If the *ssid* and the *passphrase* are missing, its *WiFi.begin* has no SSID and Password. Regardless of the result, ESP8266WebServer/WebServer will start immediately after the first *WiFi.begin*.  
 The captive portal will not be started if the connection has been established with first *WiFi.begin*. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
 <dl class="apidl">
     <dt>**Parameters**</dt>
@@ -89,7 +96,7 @@ Set SoftAP's WiFi configuration and static IP configuration.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">config</span>Reference to [**AutoConnectConfig**](api.md#autoconnectconfig) containing SoftAP's parameters and static IP parameters.</dd>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is **esp8266ap**.</dd>
+    <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</dd>
     <dd><span class="apidef">password</span>Password for SodtAP. The default value is **12345678**.</dd>
     <dt>**Return value**</dt>
     <dd><span class="apidef">true</span>Successfully configured.</dd>
@@ -102,10 +109,10 @@ Set SoftAP's WiFi configuration and static IP configuration.
 void end()
 ```
 
-Stops AutoConnect captive portal service. Release ESP8266WebServer and DNSServer. 
+Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and DNSServer. 
 
 !!! warning "Attention to end"
-    The end function releases the instance of ESP8266WebServer and DNSServer. It can not process them after the end function.
+    The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
 
 #### handleClient
 
@@ -113,7 +120,7 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer and DNSServer
 void handleClient()
 ```
 
-Process the AutoConnect menu interface. It will be processed the client request too contained in the user sketch handler by calling from inside of AutoConnect to the hosted *ESP8266WebServer::handleClient*.
+Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect, and the client request handlers contained in the user sketch are also handled.
 
 #### handleRequest
 
@@ -124,7 +131,7 @@ void handleRequest()
 Handling for the AutoConnect menu request.
 
 !!! warning "About used in combination with handleClient"
-    The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266::handleClient.
+    The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266WebServer::handleClient or WebServer::handleClient.
 
 #### home
 
@@ -140,14 +147,22 @@ Put a user site's home URI. The URI specified by home is linked from "HOME" in t
 
 #### host
 
-Returns the reference of the ESP8266WebServer which is allocated in AutoConnect automatically.
+Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.
+
+- For ESP8266
 
 ```cpp
 ESP8266WebServer& host()
 ```
+
+- For ESP32
+
+```cpp
+WebServer& host()
+```
 <dl class="apidl">
     <dt>**Return value**</dt>
-    <dd>A reference of the ESP8266WebServer.</dd>
+    <dd>A reference of the ESP8266WebServer/WebServer.</dd>
 </dl>
 
 !!! note "&reference is not a pointer"
@@ -188,8 +203,16 @@ typedef std::function<bool(IPAddress softapIP)>  DetectExit_ft
 
 #### onNotFound
 
+- For ESP8266
+
 ```cpp
 void onNotFound(ESP8266WebServer::THandlerFunction fn)
+```
+
+- For ESP32
+
+```cpp
+void onNotFound(WebServer::THandlerFunction fn)
 ```
 Register the handler function for undefined URL request detected.
 <dl class="apidl">
@@ -211,7 +234,7 @@ AutoConnectConfig(const char* ap, const char* password);
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The length should be up to 31. The default value is **esp8266ap**.</dd>
+    <dd><span class="apidef">ap</span>SSID for SoftAP. The length should be up to 31. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</dd>
     <dd><span class="apidef">password</span>Password for SodtAP. The length should be from 8 to up to 63. The default value is **12345678**.</dd>
 </dl>
 
@@ -234,7 +257,7 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
 
 #### autoReconnect
 
-Automatically reconnect to past established access point (BSSID) when the current configured SSID in ESP8266 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.  
+Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.  
 If the connection fails, starts the captive portal in SoftAP + STA mode.  
 <dl class="apidl">
     <dt>**Type**</dt>

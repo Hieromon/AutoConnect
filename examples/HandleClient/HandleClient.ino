@@ -7,11 +7,25 @@
   https://opensource.org/licenses/MIT
 */
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#include <WebServer.h>
+#endif
 #include <AutoConnect.h>
 
-ESP8266WebServer    server;
+#if defined(ARDUINO_ARCH_ESP8266)
+ESP8266WebServer server;
+#elif defined(ARDUINO_ARCH_ESP32)
+WebServer server;
+#endif
+
+#ifndef BUILTIN_LED
+#define BUILTIN_LED  2  // backward compatibility
+#endif
+
 AutoConnect         portal(server);
 
 void handleRoot() {
@@ -104,7 +118,11 @@ void loop() {
   server.handleClient();
   portal.handleRequest();   // Need to handle AutoConnect menu.
   if (WiFi.status() == WL_IDLE_STATUS) {
+#if defined(ARDUINO_ARCH_ESP8266)
     ESP.reset();
+#elif defined(ARDUINO_ARCH_ESP32)
+    ESP.restart();
+#endif
     delay(1000);
   }
 }

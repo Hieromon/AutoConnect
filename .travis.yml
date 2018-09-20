@@ -1,36 +1,35 @@
-sudo: required
-dist: trusty
-group: deprecated-2017Q4
-language: c
+language: generic
 env:
-  - BD=esp8266:esp8266:nodemcuv2:CpuFrequency=160,FlashSize=4M3M
+  global:
+    - IDE_VERSION=1.8.5
+  matrix:
+    - BOARD="esp8266:esp8266:nodemcuv2:CpuFrequency=160,FlashSize=4M3M"
+    - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M"
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
   - sleep 3
   - export DISPLAY=:1.0
-  - wget http://downloads.arduino.cc/arduino-1.8.2-linux64.tar.xz
-  - tar xf arduino-1.8.2-linux64.tar.xz
-  - sudo mv arduino-1.8.2 /usr/local/share/arduino
-  - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
+  - wget http://downloads.arduino.cc/arduino-$IDE_VERSION-linux64.tar.xz
+  - tar xf arduino-$IDE_VERSION-linux64.tar.xz
+  - sudo mv arduino-$IDE_VERSION ~/arduino-ide
+  - export PATH=$PATH:~/arduino-ide
+  - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json,http://dl.espressif.com/dl/package_esp32_index.json" --save-prefs
+  - if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then
+      arduino --install-boards esp8266:esp8266;
+    fi
+  - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then
+      arduino --install-boards esp32:esp32;
+    fi
+  - arduino --install-library PubSubClient,PageBuilder:1.1.0
+  - buildExampleSketch() { arduino --verbose-build --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
-  - ln -s $PWD /usr/local/share/arduino/libraries/AutoConnect
-  - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
-  - arduino --install-boards esp8266:esp8266
-  - arduino --board $BD --save-prefs
-  - arduino --pref "compiler.warning_level=all" --save-prefs
-#  - arduino --install-library "PageBuilder"
-  - git clone https://github.com/Hieromon/PageBuilder /usr/local/share/arduino/libraries/PageBuilder
-  - arduino --install-library "PubSubClient"
+  - mkdir -p ~/Arduino/libraries
+  - ln -s $PWD ~/Arduino/libraries/.
 script:
- - arduino --verify --board $BD $PWD/examples/Credential/Credential.ino
- - arduino --verify --board $BD $PWD/examples/FSBrowser/FSBrowser.ino
- - arduino --verify --board $BD $PWD/examples/HandleClient/HandleClient.ino
- - arduino --verify --board $BD $PWD/examples/HandlePortal/HandlePortal.ino
- - arduino --verify --board $BD $PWD/examples/HandlePortalEX/HandlePortalEX.ino
- - arduino --verify --board $BD $PWD/examples/mqttRSSI/mqttRSSI.ino
- - arduino --verify --board $BD $PWD/examples/Simple/Simple.ino
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+  - buildExampleSketch Credential
+  - buildExampleSketch FSBrowser
+  - buildExampleSketch HandleClient
+  - buildExampleSketch HandlePortal
+  - buildExampleSketch HandlePortalEX
+  - buildExampleSketch Simple
+  - buildExampleSketch mqttRSSI

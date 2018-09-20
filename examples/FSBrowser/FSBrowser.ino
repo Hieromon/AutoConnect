@@ -22,11 +22,19 @@
   access the sample web page at http://esp8266fs.local
   edit the page by going to http://esp8266fs.local/edit
 */
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <FS.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
+#include <SPIFFS.h>
+#endif
 //Add a below line for AutoConnect.
 #include <AutoConnect.h>
 
@@ -34,9 +42,15 @@
 
 const char* ssid = "wifi-ssid";
 const char* password = "wifi-password";
+#if defined(ARDUINO_ARCH_ESP8266)
 const char* host = "esp8266fs";
 
 ESP8266WebServer server(80);
+#elif defined(ARDUINO_ARCH_ESP32)
+const char* host = "esp32fs";
+
+WebServer server(80);
+#endif
 //Add a below line for AutoConnect.
 AutoConnect      portal(server);
 //holds the current upload
@@ -144,10 +158,15 @@ void handleFileList() {
   
   String path = server.arg("dir");
   DBG_OUTPUT_PORT.println("handleFileList: " + path);
+#if defined(ARDUINO_ARCH_ESP8266)
   Dir dir = SPIFFS.openDir(path);
+#elif defined(ARDUINO_ARCH_ESP32)
+  File root = SPIFFS.open(path);
+#endif
   path = String();
 
   String output = "[";
+#if defined(ARDUINO_ARCH_ESP8266)
   while(dir.next()){
     File entry = dir.openFile("r");
     if (output != "[") output += ',';
@@ -159,6 +178,22 @@ void handleFileList() {
     output += "\"}";
     entry.close();
   }
+#elif defined(ARDUINO_ARCH_ESP32)
+  if(root.isDirectory()){
+    File file = root.openNextFile();
+    while(file){
+      if (output != "[") {
+        output += ',';
+      }
+      output += "{\"type\":\"";
+      output += (file.isDirectory()) ? "dir" : "file";
+      output += "\",\"name\":\"";
+      output += String(file.name()).substring(1);
+      output += "\"}";
+      file = root.openNextFile();
+    }
+  }
+#endif
   
   output += "]";
   server.send(200, "text/json", output);
@@ -170,12 +205,23 @@ void setup(void){
   DBG_OUTPUT_PORT.setDebugOutput(true);
   SPIFFS.begin();
   {
+#if defined(ARDUINO_ARCH_ESP8266)
     Dir dir = SPIFFS.openDir("/");
     while (dir.next()) {    
       String fileName = dir.fileName();
       size_t fileSize = dir.fileSize();
       DBG_OUTPUT_PORT.printf("FS File: %s, size: %s\n", fileName.c_str(), formatBytes(fileSize).c_str());
     }
+#elif defined(ARDUINO_ARCH_ESP32)
+    File root = SPIFFS.open("/");
+    File file = root.openNextFile();
+    while(file){
+      String fileName = file.name();
+      size_t fileSize = file.size();
+      DBG_OUTPUT_PORT.printf("FS File: %s, size: %s\n", fileName.c_str(), formatBytes(fileSize).c_str());
+      file = root.openNextFile();
+    }
+#endif
     DBG_OUTPUT_PORT.printf("\n");
   }
   
@@ -222,7 +268,11 @@ void setup(void){
     String json = "{";
     json += "\"heap\":"+String(ESP.getFreeHeap());
     json += ", \"analog\":"+String(analogRead(A0));
+#if defined(ARDUINO_ARCH_ESP8266)
     json += ", \"gpio\":"+String((uint32_t)(((GPI | GPO) & 0xFFFF) | ((GP16I & 0x01) << 16)));
+#elif defined(ARDUINO_ARCH_ESP32)
+    json += ", \"gpio\":" + String((uint32_t)(0));
+#endif
     json += "}";
     server.send(200, "text/json", json);
     json = String();

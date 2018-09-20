@@ -1,5 +1,5 @@
 /*
-  ESP8266 publish the RSSI as the WiFi signal strength to ThingSpeak channel.
+  ESP8266/ESP32 publish the RSSI as the WiFi signal strength to ThingSpeak channel.
   This example is for explaining how to use the AutoConnect library.
 
   In order to execute this example, the ThingSpeak account is needed. Sing up
@@ -13,7 +13,11 @@
   https://opensource.org/licenses/MIT
 */
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#endif
 #include <PubSubClient.h>
 #include <AutoConnect.h>
 
@@ -51,10 +55,11 @@ bool mqttConnect() {
     } else {
       Serial.println("Connection failed:" + String(mqttClient.state()));
       if (!--retry)
-        return false;
+        break;
     }
     delay(3000);
   }
+  return false;
 }
 
 void mqttPublish(String msg) {
@@ -68,6 +73,17 @@ void mqttPublish(String msg) {
   msg.toCharArray(payload, mLen + 1);
 
   mqttClient.publish(topic, payload);
+}
+
+int getStrength(uint8_t points) {
+  uint8_t sc = points;
+  long    rssi = 0;
+
+  while (sc--) {
+    rssi += WiFi.RSSI();
+    delay(20);
+  }
+  return points ? (int)(rssi / points) : 0;
 }
 
 unsigned long   lastPub = 0;
@@ -96,7 +112,7 @@ void loop() {
     if (!mqttClient.connected()) {
       mqttConnect();
     }
-    String item = String("field1=") + String(WiFi.RSSI());
+    String item = String("field1=") + String(getStrength(7));
     mqttPublish(item);
     mqttClient.loop();
     lastPub = millis();

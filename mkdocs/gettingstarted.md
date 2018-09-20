@@ -3,11 +3,11 @@
 Open the Arduino IDE, write the following sketch and upload it. The feature of this sketch is that the SSID and Password are not coded.
 
 ```arduino
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
+#include <ESP8266WiFi.h>          // Replace with WiFi.h for ESP32
+#include <ESP8266WebServer.h>     // Replace with WebServer.h for ESP32
 #include <AutoConnect.h>
 
-ESP8266WebServer Server;
+ESP8266WebServer Server;          // Replace with WebServer for ESP32
 AutoConnect      Portal(Server);
 
 void rootPage() {
@@ -31,9 +31,14 @@ void loop() {
 }
 ```
 
+!!! note ""
+    The above code can be applied to ESP8266. To apply to ESP32, replace ```ESP8266WebServer``` class with ```WebServer``` and include ```WiFi.h``` and ```WebServer.h``` of arduino-esp32 appropriately.
+
 ### <i class="fa fa-play-circle"></i> Run at first
 
-After about 30 seconds, if the ESP8266 cannot connect to nearby Wi-Fi spot, you pull out your smartphone and open *Wi-Fi settings* from the *Settings* Apps. You can see the **esp8266ap** in the list of *"CHOOSE A NETWORK..."*. Then tap the esp8266ap and enter password **12345678**, a something screen pops up automatically as shown below.
+After about 30 seconds, if the ESP8266 cannot connect to nearby Wi-Fi spot, you pull out your smartphone and open *Wi-Fi settings* from the *Settings* Apps. You can see the **esp8266ap** [^1] in the list of *"CHOOSE A NETWORK..."*. Then tap the esp8266ap and enter password **12345678**, a something screen pops up automatically as shown below.
+
+[^1]:When applied to ESP32, SSID will appear as **esp32ap**.
 
 <span style="display:inline-block;width:282px;height:501px;border:1px solid lightgrey;"><img data-gifffer="../images/login_ani.gif" data-gifffer-width="280" style="width:280px;" /></span><img src="../images/arrow_right.svg" style="vertical-align:top;padding-top:120px;width:48px;margin-left:30px;margin-right:30px;" /><img src="../images/stat.png" style="border:1px solid lightgrey;width:280px;" /></span>
 

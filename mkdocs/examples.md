@@ -31,7 +31,7 @@ Declare only AutoConnect, performs handleClient.
 
 ## Used with MQTT as a client application
 
-The effect of AutoConnect is not only for ESP8266 as the Web server. It has advantages for something WiFi client as well. For example, AutoConnect is also effective for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.
+The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also effective for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.
 
 This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the [ThingSpeak](https://thingspeak.com/) for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as [MQTT client](https://github.com/knolleary/pubsubclient). This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.
 
