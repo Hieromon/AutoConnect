@@ -14,8 +14,12 @@ before_install:
   - sudo mv arduino-$IDE_VERSION ~/arduino-ide
   - export PATH=$PATH:~/arduino-ide
   - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json,http://dl.espressif.com/dl/package_esp32_index.json" --save-prefs
-  - arduino --install-boards esp8266:esp8266
-  - arduino --install-boards espressif:esp32
+  - if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then
+      arduino --install-boards esp8266:esp8266;
+    fi
+  - if [[ "$BOARD" =~ "espressif:esp32:" ]]; then
+      arduino --install-boards espressif:esp32;
+    fi
   - arduino --install-library PubSubClient,PageBuilder:1.1.0
   - buildExampleSketch() { arduino --verbose-build --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
