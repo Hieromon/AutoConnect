@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    0.9.5
- *  @date   2018-08-27
+ *  @version    0.9.6
+ *  @date   2018-09-27
  *  @copyright  MIT license.
  */
 
@@ -617,6 +617,7 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
   "<title>AutoConnect credentials</title>"
   "<style type=\"text/css\">"
   "{{CSS_BASE}}"
+  "{{CSS_ICON_LOCK}}"
   "{{CSS_INPUT_BUTTON}}"
   "{{CSS_LUXBAR}}"
   "</style>"
@@ -952,7 +953,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
       ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String(F("\">"));
-      ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("%</label>"));
+      ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;</label>"));
       if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
         ssidList += String(F("<span class=\"img-lock\"></span>"));
       ssidList += String(F("<br>"));
@@ -970,23 +971,32 @@ String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   AutoConnectCredential credit(_apConfig.boundaryOffset);
   struct station_config entry;
-  String ssidList = "";
-  
-  uint8_t* bssid = WiFi.BSSID();
-  for (uint8_t i = 0; i < credit.entries(); i++) {
+  String ssidList;
+  String rssiSym;
+  int16_t wn;
+
+  uint8_t creEntries = credit.entries();
+  if (creEntries > 0) {
+    ssidList = String("");
+    wn = WiFi.scanNetworks(false, true);
+  }
+  else
+    ssidList = String(F("<p><b>No saved credentials.</b></p>"));
+
+  for (uint8_t i = 0; i < creEntries; i++) {
     credit.load(i, &entry);
     AC_DBG("A credential #%d loaded\n", (int)i);
-    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String((char*)entry.ssid) + String(F("\">"));
-    ssidList += String(F("<label>"));
-    if (bssid != NULL && memcmp(bssid, entry.bssid, sizeof(station_config::bssid)) == 0)
-      ssidList += String(AutoConnect::_toWiFiQuality(WiFi.RSSI())) + String("%");
-    else
-      ssidList += String("N/A");
-    ssidList += String(F("</label><br>"));
-  }
-
-  if (ssidList.length() == 0) {
-    ssidList = String(PSTR("<p><b>No saved credentials.</b></p>"));
+    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label>"));
+    rssiSym = String(F("N/A</label>"));
+    for (int8_t sc = 0; sc < wn; sc++) {
+      if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config::bssid))) {
+        rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;</label>"));
+        if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
+          rssiSym += String(F("<span class=\"img-lock\"></span>"));
+        break;
+      }
+    }
+    ssidList += rssiSym + String(F("<br>"));
   }
   return ssidList;
 }
@@ -1059,6 +1069,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->setMold(_PAGE_OPENCREDT);
     elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(PSTR("CSS_ICON_LOCK"), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
     elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));

@@ -81,6 +81,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [0.9.6] Sep. 27, 2018
+- Improvement of detecting RSSI of saved SSID.
+- Fixed disconnection SoftAP completely at the first connection phase of the AutoConnect::begin.
+
 ### [0.9.5] Aug. 27, 2018
 - Supports the espressif arduino-esp32 core.
 - Fixed that crash may occur if the number of stored credentials in the EEPROM is smaller than the number of found WiFi networks.

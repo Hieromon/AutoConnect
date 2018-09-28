@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.5
- *  @date   2018-08-27
+ *  @version    0.9.6
+ *  @date   2018-09-27
  *  @copyright  MIT license.
  */
 
@@ -86,7 +86,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // Overwrite for the current timeout value.
   _portalTimeout = timeout;
 
-  // Start WiFi connection.
+  // Start WiFi connection with station mode.
+  WiFi.softAPdisconnect(false);
+  WiFi.enableAP(false);
+  delay(100);
   WiFi.mode(WIFI_STA);
   delay(100);
 

@@ -1,3 +1,8 @@
+#### [0.9.6] Sep.27, 2018.
+
+- Improvement of detecting RSSI of saved SSID.
+- Fixed disconnection SoftAP completely at the first connection phase of the AutoConnect::begin.
+
 #### [0.9.5] Aug.27, 2018.
 
 - Supports ESP32.
