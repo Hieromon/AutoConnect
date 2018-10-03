@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectCredential class.
  *  @file AutoConnectCredential.h
  *  @author hieromon@gmail.com
- *  @version  0.9.5
- *  @date 2018-02-17
+ *  @version  0.9.6
+ *  @date 2018-09-27
  *  @copyright  MIT license.
  */
 
@@ -38,7 +38,7 @@ struct station_config {
 class AutoConnectCredential {
  public:
   AutoConnectCredential();
-  AutoConnectCredential(uint16_t offset);
+  explicit AutoConnectCredential(uint16_t offset);
   ~AutoConnectCredential();
   uint8_t   entries() { return _entries; }
   bool      del(const char* ssid);
