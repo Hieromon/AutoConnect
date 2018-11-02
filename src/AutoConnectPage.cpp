@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    0.9.6
- *  @date   2018-09-27
+ *  @version    0.9.7
+ *  @date   2018-11-17
  *  @copyright  MIT license.
  */
 
@@ -103,6 +103,10 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
   "width:86px;"
   "margin-right:10px;"
   "text-align:right;"
+  "}"
+  "ul.noorder>input[type=\"checkbox\"]{"
+  "-moz-appearance: checkbox;"
+  "-webkit-appearance: checkbox;"
   "}"
 };
 
@@ -448,7 +452,7 @@ const char AutoConnect::_ELM_HTML_HEAD[] PROGMEM = {
 };
 
 /**< LuxBar menu element. */
-const char  AutoConnect::_ELM_MENU[]  PROGMEM = {
+const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
   "<header id=\"luxbar\" class=\"luxbar-fixed\">"
   "<input type=\"checkbox\" class=\"luxbar-checkbox\" id=\"luxbar-checkbox\"/>"
   "<div class=\"luxbar-menu luxbar-menu-right luxbar-menu-material-bluegrey\">"
@@ -459,6 +463,13 @@ const char  AutoConnect::_ELM_MENU[]  PROGMEM = {
   "</li>"
   "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">Configure new AP</a></li>"
   "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
+};
+
+const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
+  "{{AUX_MENU}}" 
+};
+
+const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
   "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">Disconnect</a></li>"
   "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">Reset...</a></li>"
   "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
@@ -505,7 +516,9 @@ const char  AutoConnect::_PAGE_STAT[] PROGMEM = {
   "</head>"
   "<body style=\"padding-top:58px;\">"
   "<div class=\"container\">"
-  "{{MENU}}"
+  "{{MENU_PRE}}"
+  "{{MENU_AUX}}"
+  "{{MENU_POST}}"
   "<div>"
   "<table class=\"info\" style=\"border:none;\">"
   "<tbody>"
@@ -588,7 +601,9 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
   "</head>"
   "<body style=\"padding-top:58px;\">"
   "<div class=\"container\">"
-  "{{MENU}}"
+  "{{MENU_PRE}}"
+  "{{MENU_AUX}}"
+  "{{MENU_POST}}"
   "<div class=\"base-panel\">"
   "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
   "{{LIST_SSID}}"
@@ -624,7 +639,9 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
   "</head>"
   "<body style=\"padding-top:58px;\">"
   "<div class=\"container\">"
-  "{{MENU}}"
+  "{{MENU_PRE}}"
+  "{{MENU_AUX}}"
+  "{{MENU_POST}}"
   "<div class=\"base-panel\">"
   "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
   "{{OPEN_SSID}}"
@@ -647,7 +664,9 @@ const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
   "</head>"
   "<body style=\"padding-top:58px;\">"
   "<div class=\"container\">"
-  "{{MENU}}"
+  "{{MENU_PRE}}"
+  "{{MENU_AUX}}"
+  "{{MENU_POST}}"
   "<div>"
   "<table class=\"info\" style=\"border:none;\">"
   "<tbody>"
@@ -697,7 +716,9 @@ const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
   "</head>"
   "<body style=\"padding-top:58px;\">"
   "<div class=\"container\">"
-  "{{MENU}}"
+  "{{MENU_PRE}}"
+  "{{MENU_AUX}}"
+  "{{MENU_POST}}"
   "<div>"
   "<table class=\"info\" style=\"border:none;\">"
   "<tbody>"
@@ -775,11 +796,24 @@ String AutoConnect::_token_HEAD(PageArgument& args) {
   return String(_ELM_HTML_HEAD);
 }
 
-String AutoConnect::_token_MENU(PageArgument& args) {
-  String  currentMenu = String(_ELM_MENU);
+String AutoConnect::_token_MENU_PRE(PageArgument& args) {
+  String  currentMenu = String(_ELM_MENU_PRE);
   currentMenu.replace(String("MENU_TITLE"), _menuTitle);
   currentMenu.replace(String("HOME_URI"), _apConfig.homeUri);
   return currentMenu;
+}
+
+String AutoConnect::_token_MENU_AUX(PageArgument& args) {
+  String  menuItem;
+  if (_aux) {
+    AutoConnectAux* aux = _aux.get();
+    menuItem = aux->_injectMenu(args);
+  }
+  return menuItem;
+}
+
+String AutoConnect::_token_MENU_POST(PageArgument& args) {
+  return String(FPSTR(_ELM_MENU_POST));
 }
 
 String AutoConnect::_token_CSS_LUXBAR(PageArgument& args) {
@@ -819,11 +853,9 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
 }
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
-  uint8_t     st;
   const char* wlStatusSymbol;
-
-#if defined(ARDUINO_ARCH_ESP8266)
   static const char *wlStatusSymbols[] = {
+#if defined(ARDUINO_ARCH_ESP8266)
     "IDLE",
     "CONNECTING",
     "WRONG_PASSWORD",
@@ -831,7 +863,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     "CONNECT_FAIL",
     "GOT_IP"
   };
-  st = wifi_station_get_connect_status();
+  uint8_t st = wifi_station_get_connect_status();
   switch (st) {
   case STATION_IDLE:
     wlStatusSymbol = wlStatusSymbols[0];
@@ -851,19 +883,17 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   case STATION_GOT_IP:
     wlStatusSymbol = wlStatusSymbols[5];
     break;
-  }
-
 #elif defined(ARDUINO_ARCH_ESP32)
-  static const char *wlStatusSymbols[] = {
     "IDLE",
     "NO_SSID_AVAIL",
     "SCAN_COMPLETED",
     "CONNECTED",
     "CONNECT_FAILED",
     "CONNECTION_LOST",
-    "DISCONNECTED"
+    "DISCONNECTED",
+    "NO_SHIELD"
   };
-  st = WiFi.status();
+  wl_status_t st = WiFi.status();
   switch (st) {
   case WL_IDLE_STATUS:
     wlStatusSymbol = wlStatusSymbols[0];
@@ -886,9 +916,10 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   case WL_DISCONNECTED:
     wlStatusSymbol = wlStatusSymbols[6];
     break;
-  }
+  default:
+    wlStatusSymbol = wlStatusSymbols[7];
 #endif
-
+  }
   return "(" + String(st) + ") " + String(wlStatusSymbol);
 }
 
@@ -1016,6 +1047,9 @@ String AutoConnect::_token_UPTIME(PageArgument& args) {
 PageElement* AutoConnect::_setupPage(String uri) {
   PageElement *elm = new PageElement();
 
+  // Restore menu title
+  _menuTitle = String(AUTOCONNECT_MENU_TITLE);
+
   // Build the elements of current requested page.
   if (uri == String(AUTOCONNECT_URI)) {
 
@@ -1025,7 +1059,9 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_TABLE"), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(PSTR("ESTAB_SSID"), std::bind(&AutoConnect::_token_ESTAB_SSID, this, std::placeholders::_1));
     elm->addToken(PSTR("WIFI_MODE"), std::bind(&AutoConnect::_token_WIFI_MODE, this, std::placeholders::_1));
     elm->addToken(PSTR("WIFI_STATUS"), std::bind(&AutoConnect::_token_WIFI_STATUS, this, std::placeholders::_1));
@@ -1053,7 +1089,9 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(PSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(PSTR("LIST_SSID"), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
     elm->addToken(PSTR("HIDDEN_COUNT"), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
   }
@@ -1072,18 +1110,23 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(PSTR("CSS_ICON_LOCK"), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(PSTR("OPEN_SSID"), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_DISCON)) {
 
     // Setup /auto/disc
+    _menuTitle = String("Disconnect");
     elm->setMold(_PAGE_DISCONN);
     elm->addToken(PSTR("DISCONNECT"), std::bind(&AutoConnect::_induceDisconnect, this, std::placeholders::_1));
     elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_RESET)) {
 
@@ -1108,7 +1151,9 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_TABLE"), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(PSTR("ESTAB_SSID"), std::bind(&AutoConnect::_token_ESTAB_SSID, this, std::placeholders::_1));
     elm->addToken(PSTR("WIFI_MODE"), std::bind(&AutoConnect::_token_WIFI_MODE, this, std::placeholders::_1));
     elm->addToken(PSTR("WIFI_STATUS"), std::bind(&AutoConnect::_token_WIFI_STATUS, this, std::placeholders::_1));
@@ -1126,7 +1171,9 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_TABLE"), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
     elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(PSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(PSTR("STATION_STATUS"), std::bind(&AutoConnect::_token_STATION_STATUS, this, std::placeholders::_1));
   }
   else {

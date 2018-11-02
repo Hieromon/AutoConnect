@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.6
- *  @date   2018-09-27
+ *  @version    0.9.7
+ *  @date   2018-11-17
  *  @copyright  MIT license.
  */
 
@@ -51,6 +51,7 @@ void AutoConnect::_initialize() {
   _menuTitle = String(AUTOCONNECT_MENU_TITLE);
   _portalTimeout = AUTOCONNECT_TIMEOUT;
   memset(&_credential, 0x00, sizeof(struct station_config));
+  _aux.release();
 }
 
 /**
@@ -258,6 +259,34 @@ WebServerClass& AutoConnect::host() {
 }
 
 /**
+ *  Append auxiliary pages made up with AutoConnectAux.
+ *  @param  aux A reference to AutoConnectAux that made up
+ *  the auxiliary page to be added.
+ */
+void AutoConnect::join(AutoConnectAux& aux) {
+  if (_aux) {
+    AutoConnectAux* addon = _aux.get();
+    addon->_append(aux);
+  }
+  else
+    _aux.reset(&aux);
+  aux._join(*this);
+  AC_DBG("%s contained\n", aux._uri);
+}
+
+/**
+*  Append auxiliary pages made up with AutoConnectAux.
+*  @param  aux A vector of reference to AutoConnectAux that made up
+*  the auxiliary page to be added.
+*/
+void AutoConnect::join(std::vector<std::reference_wrapper<AutoConnectAux>> aux) {
+  for (std::size_t n = 0; n < aux.size(); n++) {
+    AutoConnectAux& addon = aux[n + 1].get();
+    join(addon);
+  }
+}
+
+/**
  *  Starts Web server for AutoConnect service.
  */
 void AutoConnect::_startWebServer() {
@@ -360,9 +389,9 @@ void AutoConnect::handleRequest() {
     _stopPortal();
     _disconnectWiFi(true);
     AC_DBG("Disconnected\n");
-    // Reset disconnection request, restore the menu title.
+    // Reset disconnection request //, restore the menu title.
     _rfDisconnect = false;
-    _menuTitle = String(AUTOCONNECT_MENU_TITLE);
+//    _menuTitle = String(AUTOCONNECT_MENU_TITLE);
 
     if (_apConfig.autoReset) {
       delay(1000);
@@ -485,7 +514,6 @@ String AutoConnect::_induceReset(PageArgument& args) {
  */
 String AutoConnect::_induceDisconnect(PageArgument& args) {
   _rfDisconnect = true;
-  _menuTitle = String("Disconnect");
   return "";
 }
 
@@ -552,7 +580,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
  *  a part of the handling of http request originated from handleClient.
  */
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
-  AC_DBG("%s%s\n", _webServer->hostHeader().c_str(), uri.c_str());
+  AC_DBG("Host:%s, URI:%s\n", _webServer->hostHeader().c_str(), uri.c_str());
   if (uri == _uri) {
     return true;  // The response page already exists.
   }
@@ -567,6 +595,12 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   if ((_currentPageElement = _setupPage(uri)) != nullptr) {
     _uri = String(uri);
     _responsePage->addElement(*_currentPageElement);
+  } else if (_aux) {
+    // Requested URL is not a normal page, exploring AUX pages
+    if ((_currentPageElement = _aux->_setupPage(uri)) != nullptr) {
+      _uri = String(uri);
+      _responsePage->addElement(*_currentPageElement);
+    }
   }
   _responsePage->setUri(_uri.c_str());
   AC_DBG("Page[%s] allocated\n", _responsePage->uri());

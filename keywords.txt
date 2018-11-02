@@ -4,6 +4,11 @@
 AutoConnect	KEYWORD1
 AutoConnectConfig	KEYWORD1
 AutoConnectCredential	KEYWORD1
+AutoConnectAux	KEYWORD1
+AutoConnectText	KEYWORD1
+AutoConnectInput	KEYWORD1
+AutoConnectButon	KEYWORD1
+AutoConnectSubmit	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -17,6 +22,7 @@ handleClient	KEYWORD2
 handleRequest	KEYWORD2
 home	KEYWORD2
 host	KEYWORD2
+join	KEYWORD2
 load	KEYWORD2
 onDetect	KEYWORD2
 onNotFound	KEYWORD2
