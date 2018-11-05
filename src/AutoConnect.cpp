@@ -111,13 +111,23 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
 #endif
 
-  // Try to connect by STA immediately.
-  if (ssid == nullptr && passphrase == nullptr)
-    WiFi.begin();
-  else
-    WiFi.begin(ssid, passphrase);
-  AC_DBG("WiFi.begin(%s%s%s)\n", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
-  cs = _waitForConnect(_portalTimeout) == WL_CONNECTED;
+  // If the portal is requested promptly skip the first WiFi.begin and 
+  // immediately start the portal.
+  if (_apConfig.immediateStart) {
+    cs = false;
+    _apConfig.autoReconnect = false;
+    _apConfig.autoRise = true;
+    AC_DBG("Start the portal immediately\n");
+  }
+  else {
+    // Try to connect by STA immediately.
+    if (ssid == nullptr && passphrase == nullptr)
+      WiFi.begin();
+    else
+      WiFi.begin(ssid, passphrase);
+    AC_DBG("WiFi.begin(%s%s%s)\n", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
+    cs = _waitForConnect(_portalTimeout) == WL_CONNECTED;
+  }
 
   // Reconnect with a valid credential as the autoReconnect option is enabled.
   if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
@@ -264,14 +274,12 @@ WebServerClass& AutoConnect::host() {
  *  the auxiliary page to be added.
  */
 void AutoConnect::join(AutoConnectAux& aux) {
-  if (_aux) {
-    AutoConnectAux* addon = _aux.get();
-    addon->_append(aux);
-  }
+  aux._join(*this);
+  AC_DBG("%s on hands\n", aux.uri());
+  if (_aux)
+    _aux->_concat(aux);
   else
     _aux.reset(&aux);
-  aux._join(*this);
-  AC_DBG("%s contained\n", aux._uri);
 }
 
 /**

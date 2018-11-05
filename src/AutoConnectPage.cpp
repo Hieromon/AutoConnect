@@ -805,10 +805,8 @@ String AutoConnect::_token_MENU_PRE(PageArgument& args) {
 
 String AutoConnect::_token_MENU_AUX(PageArgument& args) {
   String  menuItem;
-  if (_aux) {
-    AutoConnectAux* aux = _aux.get();
-    menuItem = aux->_injectMenu(args);
-  }
+  if (_aux)
+    menuItem = _aux->_injectMenu(args);
   return menuItem;
 }
 

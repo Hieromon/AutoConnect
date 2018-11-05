@@ -10,7 +10,20 @@
 #include "AutoConnect.h"
 #include "AutoConnectAux.h"
 
+/**
+ * Template for auxiliary page composed with AutoConnectAux of user sketch.
+ * 
+ * The structure of the auxiliary page depends on this template for 
+ * the purpose to be incorporated into the AutoConnect Menu.
+ * The page element implemented by AutoConnectElement is placed at the 
+ * position of {{AUX_ELEMENT}} token. This token is contained in a 
+ * <div> block with a class defined in 'base-panel' and is held by a 
+ * <form> element with an ID '_aux'.
+ * The JavaScript that named 'sa' at the end of the template determines 
+ * the behavior of AutoConnectSubmit.
+ */
 const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
+  "{{EXIT_HANDLE}}"
   "{{HEAD}}"
   "<title>{{AUX_TITLE}}</title>"
   "<style type=\"text/css\">"
@@ -57,7 +70,7 @@ AutoConnectAux::~AutoConnectAux() {
 
 void AutoConnectAux::add(AutoConnectElement& addon) {
   _addonElm.push_back(addon);
-  AC_DBG("ELM:%s placed\n", addon.name().c_str());
+  AC_DBG("%s placed in %s\n", addon.name().c_str(), uri());
 }
 
 void AutoConnectAux::add(AutoConnectElementVT addons) {
@@ -65,21 +78,17 @@ void AutoConnectAux::add(AutoConnectElementVT addons) {
     add(addons[n]);
 }
 
-void AutoConnectAux::_append(AutoConnectAux& aux) {
-  if (_next) {
-    AutoConnectAux* next = _next.get();
-    next->_append(aux);
-  }
+void AutoConnectAux::_concat(AutoConnectAux& aux) {
+  if (_next)
+    _next->_concat(aux);
   else
     _next.reset(&aux);
 }
 
 void AutoConnectAux::_join(AutoConnect& ac) {
   _ac.reset(&ac);
-  if (_next) {
-    AutoConnectAux *next = _next.get();
-    next->_join(ac);
-  }
+  if (_next)
+    _next->_join(ac);
 }
 
 const String AutoConnectAux::_insertElement(PageArgument& args) {
@@ -105,10 +114,16 @@ PageElement* AutoConnectAux::_setupPage(String uri) {
       elm = new PageElement();
 
       // Overwrite the default menu title
-      mother->_menuTitle = _title;
+      if (_title.length()) {
+        mother->_menuTitle = _title;
+        _activeTitle = String();
+      }
+      else
+        _activeTitle = mother->_menuTitle;
 
       // Construct the auxiliary page
       elm->setMold(_PAGE_AUX);
+      elm->addToken(PSTR("EXIT_HANDLE"), std::bind(&AutoConnectAux::_exitHandle, this, std::placeholders::_1));
       elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, mother, std::placeholders::_1));
       elm->addToken(PSTR("AUX_TITLE"), std::bind(&AutoConnectAux::_injectTitle, this, std::placeholders::_1));
       elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, mother, std::placeholders::_1));
@@ -125,11 +140,20 @@ PageElement* AutoConnectAux::_setupPage(String uri) {
   return elm;
 }
 
-const String  AutoConnectAux::_injectMenu(PageArgument& args) {
-  String  menuItem = String(FPSTR("<li class=\"luxbar-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
-  if (_next) {
-    AutoConnectAux* next = _next.get();
-    menuItem += next->_injectMenu(args);
-  }
+const String AutoConnectAux::_injectMenu(PageArgument& args) {
+  String  menuItem;
+  
+  if (_title.length())
+    menuItem = String(FPSTR("<li class=\"luxbar-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
+  if (_next)
+    menuItem += _next->_injectMenu(args);
   return menuItem;
+}
+
+const String AutoConnectAux::_exitHandle(PageArgument& args) {
+  if (_handler) {
+    AC_DBG("CB %s\n", *this->uri());
+    (*_handler)(*this, args);
+  }
+  return "";
 }

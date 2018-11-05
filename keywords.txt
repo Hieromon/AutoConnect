@@ -9,10 +9,15 @@ AutoConnectText	KEYWORD1
 AutoConnectInput	KEYWORD1
 AutoConnectButon	KEYWORD1
 AutoConnectSubmit	KEYWORD1
+ACText	KEYWORD1
+ACInput	KEYWORD1
+ACButton	KEYWORD1
+ACSubmit	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+add	KEYWORD2
 config	KEYWORD2
 begin	KEYWORD2
 del	KEYWORD2
@@ -24,9 +29,12 @@ home	KEYWORD2
 host	KEYWORD2
 join	KEYWORD2
 load	KEYWORD2
+name	KEYWORD2
+on	KEYWORD2
 onDetect	KEYWORD2
 onNotFound	KEYWORD2
 save	KEYWORD2
+value	KEYWORD2
 
 #######################################
 # Literals (KEYWORD3)

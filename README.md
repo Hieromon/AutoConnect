@@ -32,6 +32,10 @@ AutoConnect can be embedded easily into your sketch, just "**begin**" and "**han
 
 The sketches which provide the web page using ESP8266WebServer/WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object(ESP8266) or WebServer object(ESP32), or itself can assign it.
 
+### Adding the user-owned web screen can easily
+
+You can easily add your own web screen with sketch. It can be called from the AutoConnect menu and parameters can be passed.
+
 ## Supported hardware
 
 Apply the [Arduino core](https://github.com/esp8266/Arduino) of the ESP8266 Community.
@@ -81,7 +85,11 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [0.9.6] Sep. 27, 2018
+### [0.9.7] Nov. 11, 2018
+- Supports addition of AutoConnect menu with user sketch by AutoConnectAux implementation.
+- Supports AutoConnectConfig::immediateStart option, to start the portal immediately without first trying WiFi.begin.
+
+### [0.9.6] Sept. 27, 2018
 - Improvement of RSSI detection for saved SSIDs.
 - Fixed disconnection SoftAP completely at the first connection phase of the AutoConnect::begin.
 
