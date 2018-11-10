@@ -274,12 +274,12 @@ WebServerClass& AutoConnect::host() {
  *  the auxiliary page to be added.
  */
 void AutoConnect::join(AutoConnectAux& aux) {
-  aux._join(*this);
-  AC_DBG("%s on hands\n", aux.uri());
   if (_aux)
     _aux->_concat(aux);
   else
     _aux.reset(&aux);
+  aux._join(*this);
+  AC_DBG("%s on hands\n", aux.uri());
 }
 
 /**
@@ -289,7 +289,7 @@ void AutoConnect::join(AutoConnectAux& aux) {
 */
 void AutoConnect::join(std::vector<std::reference_wrapper<AutoConnectAux>> aux) {
   for (std::size_t n = 0; n < aux.size(); n++) {
-    AutoConnectAux& addon = aux[n + 1].get();
+    AutoConnectAux& addon = aux[n].get();
     join(addon);
   }
 }
@@ -397,9 +397,8 @@ void AutoConnect::handleRequest() {
     _stopPortal();
     _disconnectWiFi(true);
     AC_DBG("Disconnected\n");
-    // Reset disconnection request //, restore the menu title.
+    // Reset disconnection request
     _rfDisconnect = false;
-//    _menuTitle = String(AUTOCONNECT_MENU_TITLE);
 
     if (_apConfig.autoReset) {
       delay(1000);

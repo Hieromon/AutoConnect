@@ -105,6 +105,8 @@ using WebServerClass = WebServer;
 #define AUTOCONNECT_DNSPORT     53
 #endif
 
+#define AC_UNUSED(expr) do { (void)(expr); } while (0)
+
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_NEVER,

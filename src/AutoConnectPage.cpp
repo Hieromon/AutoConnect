@@ -138,6 +138,9 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
   "border-color:#1b5e20;"
   "width:16em;"
   "}"
+  ".aux-page input[type=\"button\"]{"
+  "width:auto;"
+  "}"
   "input#sb[type=\"submit\"]{"
   "width:16em;"
   "}"
@@ -146,7 +149,7 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
   "border-color:#006064;"
   "}"
   "input[type=\"button\"], input[type=\"submit\"]:focus,"
-  "input[type=\"button\"], input[type=\"submit\"]:active {"
+  "input[type=\"button\"], input[type=\"submit\"]:active{"
   "outline:none;"
   "text-decoration:none;"
   "}"
@@ -154,15 +157,17 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
 
 /**< INPUT text style */
 const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
-  "input[type=\"text\"], input[type=\"password\"]{"
+  "input[type=\"text\"], input[type=\"password\"], .aux-page select{"
   "background-color:#fff;"
-  "padding:10px;"
   "border:1px solid #ccc;"
-  "margin:8px 0 8px 0;"
-  "width:calc(100% - 124px);"
   "border-radius:2px;"
-  "font-weight:300;"
   "color:#444;"
+  "margin:8px 0 8px 0;"
+  "padding:10px;"
+  "}"
+  "input[type=\"text\"], input[type=\"password\"]{"
+  "font-weight:300;"
+  "width:calc(100% - 124px);"
   "-webkit-transition:all 0.20s ease-in;"
   "-moz-transition:all 0.20s ease-in;"
   "-o-transition:all 0.20s ease-in;"
@@ -197,6 +202,9 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
   "}"
   "input.error:-ms-input-placeholder{"
   "color:#D9434E;"
+  "}"
+  ".aux-page label{"
+    "padding:10px 0.5em;"
   "}"
 };
 
@@ -463,6 +471,9 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
   "</li>"
   "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">Configure new AP</a></li>"
   "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
+  "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">Disconnect</a></li>"
+  "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">Reset...</a></li>"
+  "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
 };
 
 const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
@@ -470,9 +481,6 @@ const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
 };
 
 const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
-  "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">Disconnect</a></li>"
-  "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">Reset...</a></li>"
-  "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
   "</ul>"
   "</div>"
   "<div class=\"lap\" id=\"rdlg\"><a href=\"#reset\" class=\"overlap\"></a>"
@@ -770,33 +778,41 @@ uint32_t AutoConnect::_getFlashChipRealSize() {
 }
 
 String AutoConnect::_token_CSS_BASE(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_CSS_BASE);
 }
 
 String AutoConnect::_token_CSS_UL(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_CSS_UL);
 }
 
 String AutoConnect::_token_CSS_ICON_LOCK(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_CSS_ICON_LOCK);
 }
 String AutoConnect::_token_CSS_INPUT_BUTTON(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_CSS_INPUT_BUTTON);
 }
 
 String AutoConnect::_token_CSS_INPUT_TEXT(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_CSS_INPUT_TEXT);
 }
 
 String AutoConnect::_token_CSS_TABLE(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_CSS_TABLE);
 }
 
 String AutoConnect::_token_HEAD(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_ELM_HTML_HEAD);
 }
 
 String AutoConnect::_token_MENU_PRE(PageArgument& args) {
+  AC_UNUSED(args);
   String  currentMenu = String(_ELM_MENU_PRE);
   currentMenu.replace(String("MENU_TITLE"), _menuTitle);
   currentMenu.replace(String("HOME_URI"), _apConfig.homeUri);
@@ -811,18 +827,22 @@ String AutoConnect::_token_MENU_AUX(PageArgument& args) {
 }
 
 String AutoConnect::_token_MENU_POST(PageArgument& args) {
+  AC_UNUSED(args);
   return String(FPSTR(_ELM_MENU_POST));
 }
 
 String AutoConnect::_token_CSS_LUXBAR(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_CSS_LUXBAR);
 }
 
 String AutoConnect::_token_ESTAB_SSID(PageArgument& args) {
+  AC_UNUSED(args);
   return (WiFi.status() == WL_CONNECTED ? WiFi.SSID() : String("N/A"));
 }
 
 String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
+  AC_UNUSED(args);
   const char* wifiMode = "";
   switch (WiFi.getMode()) {
   case WIFI_OFF:
@@ -847,10 +867,12 @@ String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
 }
 
 String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
+  AC_UNUSED(args);
   return String(WiFi.status());
 }
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
+  AC_UNUSED(args);
   const char* wlStatusSymbol;
   static const char *wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -922,59 +944,72 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
 }
 
 String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.localIP().toString();
 }
 
 String AutoConnect::_token_SOFTAP_IP(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.softAPIP().toString();
 }
 
 String AutoConnect::_token_GATEWAY(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.gatewayIP().toString();
 }
 
 String AutoConnect::_token_NETMASK(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.subnetMask().toString();
 }
 
 String AutoConnect::_token_AP_MAC(PageArgument& args) {
+  AC_UNUSED(args);
   uint8_t macAddress[6];
   WiFi.softAPmacAddress(macAddress);
   return AutoConnect::_toMACAddressString(macAddress);
 }
 
 String AutoConnect::_token_STA_MAC(PageArgument& args) {
+  AC_UNUSED(args);
   uint8_t macAddress[6];
   WiFi.macAddress(macAddress);
   return AutoConnect::_toMACAddressString(macAddress);
 }
 
 String AutoConnect::_token_CHANNEL(PageArgument& args) {
+  AC_UNUSED(args);
   return String(WiFi.channel());
 }
 
 String AutoConnect::_token_DBM(PageArgument& args) {
+  AC_UNUSED(args);
   int32_t dBm = WiFi.RSSI();
   return (dBm == 31 ? String("N/A") : String(dBm));
 }
 
 String AutoConnect::_token_CPU_FREQ(PageArgument& args) {
+  AC_UNUSED(args);
   return String(ESP.getCpuFreqMHz());
 }
 
 String AutoConnect::_token_FLASH_SIZE(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_getFlashChipRealSize());
 }
 
 String AutoConnect::_token_CHIP_ID(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_getChipId());
 }
 
 String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
+  AC_UNUSED(args);
   return String(ESP.getFreeHeap());
 }
 
 String AutoConnect::_token_LIST_SSID(PageArgument& args) {
+  AC_UNUSED(args);
   String ssidList = "";
   _hiddenSSIDCount = 0;
   int8_t nn = WiFi.scanNetworks(false, true);
@@ -994,10 +1029,12 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
 }
 
 String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_hiddenSSIDCount);
 }
 
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
+  AC_UNUSED(args);
   AutoConnectCredential credit(_apConfig.boundaryOffset);
   struct station_config entry;
   String ssidList;
@@ -1031,6 +1068,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
 }
 
 String AutoConnect::_token_UPTIME(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_apConfig.uptime);
 }
 

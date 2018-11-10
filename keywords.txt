@@ -5,14 +5,13 @@ AutoConnect	KEYWORD1
 AutoConnectConfig	KEYWORD1
 AutoConnectCredential	KEYWORD1
 AutoConnectAux	KEYWORD1
-AutoConnectText	KEYWORD1
+AutoConnectButton	KEYWORD1
+AutoConnectCheckbox	KEYWORD1
+AutoConnectElement	KEYWORD1
 AutoConnectInput	KEYWORD1
-AutoConnectButon	KEYWORD1
+AutoConnectSelect	KEYWORD1
 AutoConnectSubmit	KEYWORD1
-ACText	KEYWORD1
-ACInput	KEYWORD1
-ACButton	KEYWORD1
-ACSubmit	KEYWORD1
+AutoConnectText	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -29,11 +28,15 @@ home	KEYWORD2
 host	KEYWORD2
 join	KEYWORD2
 load	KEYWORD2
+menu	KEYWORD2
 name	KEYWORD2
 on	KEYWORD2
 onDetect	KEYWORD2
 onNotFound	KEYWORD2
+release	KEYWORD2
 save	KEYWORD2
+setTitle	KEYWORD2
+toHTML	KEYWORD2
 value	KEYWORD2
 
 #######################################
@@ -43,3 +46,14 @@ AC_WEBSERVER_PARASITIC	LITERAL1
 AC_WEBSERVER_HOSTED	LITERAL1
 AC_SAVECREDENTIAL_NEVER	LITERAL1
 AC_SAVECREDENTIAL_AUTO	LITERAL1
+
+#######################################
+# PREPROCESSOR (KEYWORD3)
+#######################################
+ACButton	PREPROCESSOR
+ACCheckbox	PREPROCESSOR
+ACElement	PREPROCESSOR
+ACInput	PREPROCESSOR
+ACSelect	PREPROCESSOR
+ACSubmit	PREPROCESSOR
+ACText	PREPROCESSOR
