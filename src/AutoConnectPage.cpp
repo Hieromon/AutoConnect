@@ -477,7 +477,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
 };
 
 const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
-  "{{AUX_MENU}}" 
+  "{{AUX_MENU}}"
 };
 
 const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
@@ -712,7 +712,8 @@ const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
   "</body>"
   "</html>"
 };
- /**< A response page for connection failed. */
+
+/**< A response page for connection failed. */
 const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
   "{{HEAD}}"
   "<title>AutoConnect statistics</title>"

@@ -58,11 +58,12 @@ class AutoConnectButton : public AutoConnectElement {
  */
 class AutoConnectCheckbox : public AutoConnectElement {
  public:
-  explicit AutoConnectCheckbox(const char* name = "", const char* value = "", const char* label = "") : AutoConnectElement(name, value), label(String(label)) {}
+  explicit AutoConnectCheckbox(const char* name = "", const char* value = "", const char* label = "", const bool checked = false) : AutoConnectElement(name, value), label(String(label)), checked(checked) {}
   ~AutoConnectCheckbox() {}
   const String  toHTML(void) const;
 
   String  label;    /**< A label for a subsequent input box */
+  bool    checked;  /**< The element should be pre-selected */
 };
 
 /**
@@ -157,7 +158,14 @@ typedef std::vector<std::reference_wrapper<AutoConnectElement>> AutoConnectEleme
 
 // A type of callback function when  AutoConnectAux page requested.
 //typedef std::function<void(AutoConnectAux&, PageArgument&)> AuxHandleFuncT;
-typedef std::function<void(PageArgument&)>  AuxHandlerFunctionT;
+typedef std::function<String(PageArgument&)>  AuxHandlerFunctionT;
+
+// A type for the order in which callback functions are called.
+typedef enum {
+  AC_EXIT_AHEAD = 1,
+  AC_EXIT_LATER = 2,
+  AC_EXIT_BOTH = 3
+} AutoConnectExitOrder_t;
 
 /**
  *  A class that handles an auxiliary page with AutoConnectElement
@@ -178,7 +186,7 @@ class AutoConnectAux : public PageBuilder {
   bool  release(const String name);                                     /**< Release an AutoConnectElement */
   void  setTitle(const char* title) { _title = String(title); }         /**< Set a title of the auxiliary page. */
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux. */
-  void  on(const AuxHandlerFunctionT handler) { _handler = handler; }   /**< Set user handler */
+  void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
 
  protected:
   void  _concat(AutoConnectAux& aux);
@@ -187,7 +195,6 @@ class AutoConnectAux : public PageBuilder {
   const String  _insertElement(PageArgument& args);
   const String  _injectTitle(PageArgument& args) { return _title; }
   const String  _injectMenu(PageArgument& args);
-  const String  _exitHandle(PageArgument& args);
 
   String  _title;                             /**< A title of the page */
   bool    _menu;                              /**< Switch for menu displaying */
@@ -195,6 +202,7 @@ class AutoConnectAux : public PageBuilder {
   std::unique_ptr<AutoConnectAux> _next;      /**< Auxiliary pages chain list */
   std::unique_ptr<AutoConnect>    _ac;        /**< Hosted AutoConnect instance */
   AuxHandlerFunctionT   _handler;             /**< User sketch callback function when AutoConnectAux page requested. */
+  AutoConnectExitOrder_t  _order;             /**< The order in which callback functions are called. */
 
   static const char _PAGE_AUX[] PROGMEM;      /**< Auxiliary page template */
 

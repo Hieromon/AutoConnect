@@ -23,7 +23,6 @@
  * the behavior of AutoConnectSubmit.
  */
 const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
-  "{{EXIT_HANDLE}}"
   "{{HEAD}}"
   "<title>{{AUX_TITLE}}</title>"
   "<style type=\"text/css\">"
@@ -40,7 +39,7 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "{{MENU_AUX}}"
   "{{MENU_POST}}"
   "<div class=\"base-panel\"><div class=\"aux-page\">"
-  "<form id='_aux' method=\"post\">"
+  "<form id='_aux' method=\"post\" onsubmit=\"return false;\">"
   "<ul class=\"noorder\">"
   "{{AUX_ELEMENT}}"
   "</ul>"
@@ -78,6 +77,8 @@ const String AutoConnectCheckbox::toHTML(void) const {
   String  html;
 
   html = String(FPSTR("<input type=\"checkbox\" name=\"")) + name + String(FPSTR("\" value=\"")) + value + String("\"");
+  if (checked)
+    html += String(FPSTR(" checked"));
   if (label.length())
     html += String(" id=\"") + name + String("\"><label for=\"") + name + String("\">") + label + String(FPSTR("</label"));
   html += String(FPSTR("><br>"));
@@ -238,10 +239,23 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   AC_UNUSED(args);
   String  body = String();
 
+  if (_handler)
+    if (_order & AC_EXIT_AHEAD) {
+      AC_DBG("CB %s\n", uri());
+      body += _handler(args);
+    }
+
   for (std::size_t n = 0; n < _addonElm.size(); n++) {
     AutoConnectElement& addon = _addonElm[n];
     body += addon.toHTML();
   }
+
+  if (_handler)
+    if (_order & AC_EXIT_LATER) {
+      AC_DBG("CB %s\n", uri());
+      body += _handler(args);
+    }
+
   return body;
 }
 
@@ -271,7 +285,6 @@ PageElement* AutoConnectAux::_setupPage(String uri) {
       elm = new PageElement();
       // Construct the auxiliary page
       elm->setMold(_PAGE_AUX);
-      elm->addToken(PSTR("EXIT_HANDLE"), std::bind(&AutoConnectAux::_exitHandle, this, std::placeholders::_1));
       elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, mother, std::placeholders::_1));
       elm->addToken(PSTR("AUX_TITLE"), std::bind(&AutoConnectAux::_injectTitle, this, std::placeholders::_1));
       elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, mother, std::placeholders::_1));
@@ -304,15 +317,4 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
   if (_next)
     menuItem += _next->_injectMenu(args);
   return menuItem;
-}
-
-/**
- *  The 'on' handler callback behavior wrapper.
- */
-const String AutoConnectAux::_exitHandle(PageArgument& args) {
-  if (_handler) {
-    AC_DBG("CB %s\n", uri());
-    _handler(args);
-  }
-  return "";
 }
