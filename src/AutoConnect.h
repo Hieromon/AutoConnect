@@ -28,84 +28,10 @@ using WebServerClass = WebServer;
 #endif
 #include <EEPROM.h>
 #include <PageBuilder.h>
+#include "AutoConnectDefs.h"
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
 #include "AutoConnectAux.h"
-
-// Uncomment the following AC_DEBUG to enable debug output.
-#define AC_DEBUG
-
-// Debug output destination can be defined externally with AC_DEBUG_PORT
-#ifndef AC_DEBUG_PORT
-#define AC_DEBUG_PORT Serial
-#endif
-#ifdef AC_DEBUG
-#define AC_DBG(...) do {AC_DEBUG_PORT.print("[AC] "); AC_DEBUG_PORT.printf( __VA_ARGS__ );} while (0)
-#else
-#define AC_DBG(...)
-#endif
-
-#ifndef AUTOCONNECT_APID
-#if defined(ARDUINO_ARCH_ESP8266)
-#define AUTOCONNECT_APID  "esp8266ap"
-#elif defined(ARDUINO_ARCH_ESP32)
-#define AUTOCONNECT_APID  "esp32ap"
-#endif
-#endif
-
-#ifndef AUTOCONNECT_PSK
-#define AUTOCONNECT_PSK   "12345678"
-#endif
-
-#ifndef AUTOCONNECT_AP_IP
-#define AUTOCONNECT_AP_IP 0x01F4A8C0  //*< 192.168.244.1 */
-#endif // !AUTOCONNECT_AP_IP
-#ifndef AUTOCONNECT_AP_GW
-#define AUTOCONNECT_AP_GW 0x01F4A8C0  //*< 192.168.244.1 */
-#endif // !AUTOCONNECT_AP_GW
-#ifndef AUTOCONNECT_AP_NM
-#define AUTOCONNECT_AP_NM 0x00FFFFFF  //*< 255.255.255.0 */
-#endif // !AUTOCONNECT_AP_NM
-
-#ifndef AUTOCONNECT_URI
-#define AUTOCONNECT_URI         "/_ac"
-#endif
-
-#ifndef AUTOCONNECT_HOMEURI
-#define AUTOCONNECT_HOMEURI     "/"
-#endif
-
-#ifndef AUTOCONNECT_MENU_TITLE
-#define AUTOCONNECT_MENU_TITLE  "AutoConnect"
-#endif
-#define AUTOCONNECT_MENU_TITLE_CONNETED  "Connected"
-
-#define AUTOCONNECT_URI_CONFIG  AUTOCONNECT_URI "/config"
-#define AUTOCONNECT_URI_CONNECT AUTOCONNECT_URI "/connect"
-#define AUTOCONNECT_URI_RESULT  AUTOCONNECT_URI "/result"
-#define AUTOCONNECT_URI_OPEN    AUTOCONNECT_URI "/open"
-#define AUTOCONNECT_URI_DISCON  AUTOCONNECT_URI "/disc"
-#define AUTOCONNECT_URI_RESET   AUTOCONNECT_URI "/reset"
-#define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
-#define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
-
-#ifndef AUTOCONNECT_TIMEOUT
-#define AUTOCONNECT_TIMEOUT     30000
-#endif
-
-#ifndef AUTOCONNECT_STARTUPTIME
-#define AUTOCONNECT_STARTUPTIME 10
-#endif
-
-#ifndef AUTOCONNECT_HTTPPORT
-#define AUTOCONNECT_HTTPPORT    80
-#endif
-
-#ifndef AUTOCONNECT_DNSPORT
-#define AUTOCONNECT_DNSPORT     53
-#endif
-
-#define AC_UNUSED(expr) do { (void)(expr); } while (0)
 
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
@@ -286,7 +212,7 @@ class AutoConnect {
 
   /** Extended pages made up with AutoConnectAux */
   std::unique_ptr<AutoConnectAux> _aux;
-  
+
   /** Saved configurations */
   AutoConnectConfig     _apConfig;
   struct station_config _credential;
@@ -363,6 +289,7 @@ class AutoConnect {
 #elif defined(ARDUINO_ARCH_ESP32)
   friend class WebServer;
 #endif
+
   friend class AutoConnectAux;
 };
 

@@ -1,18 +1,22 @@
 /**
- *  Implementation of AutoConnectAux class and subordinated AutoConnectElement class.
- *  @file AutoConnectAux.cpp
- *  @author hieromon@gmail.com
- *  @version  0.9.7
- *  @date 2018-11-17
- *  @copyright  MIT license.
+ * Implementation of AutoConnectAux class.
+ * @file AutoConnectAuxBasisImpl.h
+ * @author hieromon@gmail.com
+ * @version  0.9.7
+ * @date 2018-11-17
+ * @copyright  MIT license.
  */
 
 #include "AutoConnect.h"
 #include "AutoConnectAux.h"
+#include "AutoConnectElement.h"
+#include "AutoConnectElementBasisImpl.h"
+#ifdef AUTOCONNECT_USE_JSON
+#include "AutoConnectElementJsonImpl.h"
+#endif
 
 /**
  * Template for auxiliary page composed with AutoConnectAux of user sketch.
- * 
  * The structure of the auxiliary page depends on this template for 
  * the purpose to be incorporated into the AutoConnect Menu.
  * The page element implemented by AutoConnectElement is placed at the 
@@ -57,100 +61,8 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
 };
 
 /**
- *  Generate an HTML <button> element. The onclick behavior depends on 
- *  the code held in ÅfactionÅf member.
- *  @return String  an HTML string.
- */
-const String AutoConnectButton::toHTML(void) const {
-  return String(FPSTR("<button type=\"button\" name=\"")) + name + String(FPSTR("\" value=\"")) + value + String(FPSTR("\" onclick=\"")) + action + String("\">") + value + String(FPSTR("</button>"));
-}
-
-/**
- *  Generate an HTML <input type=checkbox> element.
- *  A "value" is associated with the input tag and sent by the form 
- *  action as the value of "name". If the label member is contained, it
- *  is placed to the right side of the checkbox to be labeled.
- *  If the label member is empty, only the checkbox is placed.
- *  @return String  an HTML string.
- */
-const String AutoConnectCheckbox::toHTML(void) const {
-  String  html;
-
-  html = String(FPSTR("<input type=\"checkbox\" name=\"")) + name + String(FPSTR("\" value=\"")) + value + String("\"");
-  if (checked)
-    html += String(FPSTR(" checked"));
-  if (label.length())
-    html += String(" id=\"") + name + String("\"><label for=\"") + name + String("\">") + label + String(FPSTR("</label"));
-  html += String(FPSTR("><br>"));
-  return html;
-}
-
-/**
- *  Generate an HTML <input type=text> element.
- *  If the value member is contained, it is reflected in the placeholder 
- *  attribute. The entered value can be obtained using the user callback
- *  function registered by AutoConnectAux::on after the form is sent in 
- *  combination with AutoConnectSubmit.
- *  @return String  an HTML string.
- */
-const String AutoConnectInput::toHTML(void) const {
-  String  html = String();
-
-  if (label.length())
-    html = String(FPSTR("<label for=\"")) + name + String("\">") + label + String(FPSTR("</label>"));
-  html += String(FPSTR("<input type=\"text\" id=\"")) + name + String(FPSTR("\" name=\"")) + name;
-  if (value.length())
-    html += String(FPSTR("\" placeholder=\"")) + value;
-  html += String(FPSTR("\"><br>"));
-
-  return html;
-}
-
-/**
- *  Generate an HTML <select> element with an <option> element.
- *  The attribute value of the <option> element is given to the 
- *  AutoConnectSelect class as a string array, which would be stored 
- *  in the 'options' member. If a label member is contained, the <label>
- *  element would be generated the preface of <select>.
- *  @return String  an HTML string.
- */
-const String AutoConnectSelect::toHTML(void) const {
-  String  html = String();
-
-  if (label.length())
-    html = String(FPSTR("<label>")) + label + String(FPSTR("</label>"));
-  html += String(FPSTR("<select name=\"")) + name + String("\">");
-  std::size_t n = _options.size();
-  if (n) {
-    for (std::size_t n = 0; n < _options.size(); n++)
-      html += String(FPSTR("<option value=\"")) + _options[n] + "\">" + _options[n] + String(FPSTR("</option>"));
-  }
-  html += String(FPSTR("</select><br>"));
-  return html;
-}
-
-/**
- *  Generate an HTML <input type=button> element. This element is used 
- *  for form submission. An 'onclick' attribute calls fixed JavaScript 
- *  code as 'sa' named and it's included in the template.
- *  @return String  an HTML string.
- */
-const String AutoConnectSubmit::toHTML(void) const {
-  return String(FPSTR("<input type=\"button\" name=\"")) + name + String(FPSTR("\" value=\"")) + value + String(FPSTR("\" onclick=\"_sa('")) + uri + String("')\">");
-}
-
-/**
- *  Generate an HTML text element from a string of the value member. If a style
- *  exists, it gives a style attribute.
- *  @return String  an HTML string.
- */
-const String AutoConnectText::toHTML(void) const {
-  return String(FPSTR("<div style=\"")) + style + String("\">") + value + String(FPSTR("</div>"));
-}
-
-/**
- *  Destructs container of AutoConnectElement and release a unique
- *  pointer of AutoConnect instance.
+ * Destructs container of AutoConnectElement and release a unique
+ * pointer of AutoConnect instance.
  */
 AutoConnectAux::~AutoConnectAux() {
   _addonElm.clear();
@@ -160,17 +72,17 @@ AutoConnectAux::~AutoConnectAux() {
 }
 
 /**
- *  Add an AutoConnectElement
- *  @param  addon A reference of AutoConnectElement.
+ * Add an AutoConnectElement
+ * @param  addon A reference of AutoConnectElement.
  */
 void AutoConnectAux::add(AutoConnectElement& addon) {
   _addonElm.push_back(addon);
-  AC_DBG("%s placed on %s\n", addon.name.c_str(), uri());
+  AC_DBG("%s placed on %s\n", addon.name.length() ? addon.name.c_str() : "*nonamed*", uri());
 }
 
 /**
- *  Add an AutoConnectElement vector container to the AutoConnectAux page.
- *  @param  addons  AutoConnectElementVT collection.
+ * Add an AutoConnectElement vector container to the AutoConnectAux page.
+ * @param  addons  AutoConnectElementVT collection.
  */
 void AutoConnectAux::add(AutoConnectElementVT addons) {
   for (std::size_t n = 0; n < addons.size(); n++)
@@ -178,12 +90,12 @@ void AutoConnectAux::add(AutoConnectElementVT addons) {
 }
 
 /**
- *  Releases the AutoConnectElements with the specified name from 
- *  the AutoConnectAux page. Releases all AutoConnectElements with 
- *  the same name in AutoConnectAux.
- *  @param  name  
- *  @return true  The specified AutoConnectElements have been released.
- *  @return false The specified AutoConnectElement not found in AutoConnectAux.
+ * Releases the AutoConnectElements with the specified name from 
+ * the AutoConnectAux page. Releases all AutoConnectElements with 
+ * the same name in AutoConnectAux.
+ * @param  name  
+ * @return true  The specified AutoConnectElements have been released.
+ * @return false The specified AutoConnectElement not found in AutoConnectAux.
  */
 bool AutoConnectAux::release(const String name) {
   bool  rc = false;
@@ -199,13 +111,13 @@ bool AutoConnectAux::release(const String name) {
 }
 
 /**
- *  Concatenates subsequent AutoConnectAux pages starting from oneself 
- *  to the chain list. 
- *  AutoConnectAux is collected in the chain list and each object is 
- *  chained by the "_next". AutoConnect follows the "_next" to manage 
- *  auxiliary pages. The _concat function concatenates subsequent 
- *  AutoConnectAuxs.
- *  @param  aux   A reference of AutoConnectAux.
+ * Concatenates subsequent AutoConnectAux pages starting from oneself 
+ * to the chain list. 
+ * AutoConnectAux is collected in the chain list and each object is 
+ * chained by the "_next". AutoConnect follows the "_next" to manage 
+ * auxiliary pages. The _concat function concatenates subsequent 
+ * AutoConnectAuxs.
+ * @param  aux   A reference of AutoConnectAux.
  */
 void AutoConnectAux::_concat(AutoConnectAux& aux) {
   if (_next)
@@ -215,11 +127,11 @@ void AutoConnectAux::_concat(AutoConnectAux& aux) {
 }
 
 /**
- *  Register the AutoConnect that owns itself.
- *  AutoConenctAux needs to access the AutoConnect member. Also 
- *  AutoConnectAux is cataloged by chain list. The _join function 
- *  registers AutoConnect in the following AutoConnectAux chain list.
- *  @param  ac    A reference of AutoConnect.
+ * Register the AutoConnect that owns itself.
+ * AutoConenctAux needs to access the AutoConnect member. Also 
+ * AutoConnectAux is cataloged by chain list. The _join function 
+ * registers AutoConnect in the following AutoConnectAux chain list.
+ * @param  ac    A reference of AutoConnect.
  */
 void AutoConnectAux::_join(AutoConnect& ac) {
   _ac.reset(&ac);
@@ -230,10 +142,10 @@ void AutoConnectAux::_join(AutoConnect& ac) {
 }
 
 /**
- *  Insert the token handler of PageBuilder. This handler inserts HTML
- *  elements generated by the whole AutoConnectElements to the auxiliary page.
- *  @param  args  A reference of PageArgument but unused.
- *  @return HTML string that should be inserted.
+ * Insert the token handler of PageBuilder. This handler inserts HTML
+ * elements generated by the whole AutoConnectElements to the auxiliary page.
+ * @param  args  A reference of PageArgument but unused.
+ * @return HTML string that should be inserted.
  */
 const String AutoConnectAux::_insertElement(PageArgument& args) {
   AC_UNUSED(args);
@@ -260,13 +172,13 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
 }
 
 /**
- *  Generate an auxiliary page assembled with the AutoConnectElement.
- *  This function is the core procedure of AutoConnectAux, and uses 
- *  PageBuilder from the _PAGE_AUX template to build an AutoConnect 
- *  menu and insert HTML elements. A template of an auxiliary page is 
- *  fixed and its structure inherits from the AutoConnect.
- *  @param  uri   An uri of the auxiliary page.
- *  @return A PageElement of auxiliary page.
+ * Generate an auxiliary page assembled with the AutoConnectElement.
+ * This function is the core procedure of AutoConnectAux, and uses 
+ * PageBuilder from the _PAGE_AUX template to build an AutoConnect 
+ * menu and insert HTML elements. A template of an auxiliary page is 
+ * fixed and its structure inherits from the AutoConnect.
+ * @param  uri   An uri of the auxiliary page.
+ * @return A PageElement of auxiliary page.
  */
 PageElement* AutoConnectAux::_setupPage(String uri) {
   PageElement*  elm = nullptr;
@@ -302,12 +214,12 @@ PageElement* AutoConnectAux::_setupPage(String uri) {
 }
 
 /**
- *  Inject the <li> element depending on the "luxbar-item" attribute 
- *  for implementing the AutoConnect menu.
- *  @param  args  A reference of PageArgument but it's only used for 
- *  interface alignment and is not actually used. 
- *  @return A concatenated string of <li> elements for the menu item of 
- *  AutoConnect.
+ * Inject the <li> element depending on the "luxbar-item" attribute 
+ * for implementing the AutoConnect menu.
+ * @param  args  A reference of PageArgument but it's only used for 
+ * interface alignment and is not actually used. 
+ * @return A concatenated string of <li> elements for the menu item of 
+ * AutoConnect.
  */
 const String AutoConnectAux::_injectMenu(PageArgument& args) {
   String  menuItem;
@@ -318,3 +230,184 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
     menuItem += _next->_injectMenu(args);
   return menuItem;
 }
+
+#ifdef AUTOCONNECT_USE_JSON
+
+/**
+ * Create an instance from the AutoConnectElement of the JSON object.
+ * @param  json  A reference of JSON
+ * @return A pointer of created AutoConnectElement instance.
+ */
+AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
+  AutoConnectElement* elm = nullptr;
+  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+
+  switch (_asElementType(type)) {
+  case AC_Element:
+    elm = new AutoConnectElement;
+    break;
+  case AC_Button: {
+    AutoConnectButton*  cert_elm = new AutoConnectButton;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
+  case AC_Checkbox: {
+    AutoConnectCheckbox*  cert_elm = new AutoConnectCheckbox;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
+  case AC_Input: {
+    AutoConnectInput* cert_elm = new AutoConnectInput;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
+  case AC_Select: {
+    AutoConnectSelect*  cert_elm = new AutoConnectSelect;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
+  case AC_Submit: {
+    AutoConnectSubmit*  cert_elm = new AutoConnectSubmit;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
+  case AC_Text: {
+    AutoConnectText*  cert_elm = new AutoConnectText;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
+  }
+  return elm;
+}
+
+/**
+ * Load element specified by the name parameter from the stream
+ * described by JSON. Usually, the Stream is specified a storm file of
+ * SD or SPIFFS. The Stream must be opened before invoking the function.
+ * @param  in    Reference of the Stream which contains the parameter
+ * file described by JSON.
+ * @param  name  The element name to be loaded.
+ * @return A reference of loaded AutoConnectElement instance.
+ */
+AutoConnectElement& AutoConnectAux::loadElement(Stream& in, const String name) {
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& jb = jsonBuffer.parseObject(in);
+
+  if (!jb.success())
+    return _nullElement();
+
+  JsonArray&  aux = jb[AUTOCONNECT_JSON_KEY_AUX];
+  if (!aux.success())
+    return _nullElement();
+
+  for (JsonObject& page : aux) {
+    if (page["uri"].as<String>() == String(uri())) {
+      JsonArray& element = page[AUTOCONNECT_JSON_KEY_ELEMENT];
+      for (JsonObject& elm : element) {
+        if (name.equalsIgnoreCase(elm.get<String>(F(AUTOCONNECT_JSON_KEY_NAME)))) {
+          // The specified element is defined in the JSON stream.
+          // Loads from JSON object.
+          const String  inType = elm[AUTOCONNECT_JSON_KEY_TYPE].as<String>();
+          AutoConnectElement* auxElm = _getElement(name);
+          // The element is not created yet, create new one.
+          if (!auxElm) {
+            if ((auxElm = _createElement(elm))) {
+              AC_DBG("%s<%d> of %s created\n", name.c_str(), (int)(auxElm->typeOf()), uri());
+              add(*auxElm);   // Insert to AutoConnect
+            }
+            else {
+              AC_DBG("%s unknown element type\n", name.c_str());
+              return _nullElement();
+            }
+          }
+          if (auxElm->loadElement(elm)) {
+            AC_DBG("%s<%d> of %s loaded\n", name.c_str(), (int)auxElm->typeOf(), uri());
+          }
+          else {
+            // Element type mismatch
+            AC_DBG("Type of %s element mismatched\n", name.c_str());
+            return _nullElement();
+          }
+        }
+      }
+    }
+  }
+  return _nullElement();
+}
+
+/**
+ * Serialize the element to JSON and write it to the stream.
+ * @param out An output stream
+ * @param element A reference of the element to be output.
+ * @return  Number of byte output
+ */
+size_t AutoConnectAux::saveElement(Stream& out, const AutoConnectElement& element) {
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& jb = jsonBuffer.parseObject(out);
+
+  if (!jb.success())
+    return 0;
+
+  JsonArray&  aux = jb[AUTOCONNECT_JSON_KEY_AUX];
+  if (!aux.success())
+    return 0;
+
+  for (JsonObject& page : aux) {
+    if (page["uri"].as<String>() == String(uri())) {
+      JsonArray& element_j = page[AUTOCONNECT_JSON_KEY_ELEMENT];
+      for (JsonObject& elm : element_j) {
+        if (elm[AUTOCONNECT_JSON_KEY_NAME].as<String>() == element.name) {
+          elm.set(F(AUTOCONNECT_JSON_KEY_VALUE), element.value);
+          return jb.prettyPrintTo(out);
+        }
+      }
+    }
+  }
+  return 0;
+}
+
+/**
+ * Get already registered AutoConnectElement.
+ * @param  name  Element name
+ * @return A pointer to the registered AutoConnectElement.
+ */
+AutoConnectElement* AutoConnectAux::_getElement(const String name) {
+  for (std::size_t n = 0; n < _addonElm.size(); n++)
+    if (_addonElm[n].get().name == name)
+      return &(_addonElm[n].get());
+  return nullptr;
+}
+
+/**
+ * Convert element type from type as String.
+ * @param  type  An element type as String
+ * @return A type of ACElement_t
+ */
+const ACElement_t AutoConnectAux::_asElementType(const String type) {
+  typedef struct {
+    const char* tName;
+    ACElement_t tEnum;
+  } ACElementType_t;
+  static const ACElementType_t  types[] PROGMEM = {
+    { AUTOCONNECT_JSON_TYPE_ACBUTTON, AC_Button },
+    { AUTOCONNECT_JSON_TYPE_ACCHECKBOX, AC_Checkbox },
+    { AUTOCONNECT_JSON_TYPE_ACELEMENT, AC_Element },
+    { AUTOCONNECT_JSON_TYPE_ACINPUT, AC_Input },
+    { AUTOCONNECT_JSON_TYPE_ACSELECT, AC_Select },
+    { AUTOCONNECT_JSON_TYPE_ACSUBMIT, AC_Submit },
+    { AUTOCONNECT_JSON_TYPE_ACTEXT, AC_Text }
+  };
+
+  ACElement_t  t = AC_Unknown;
+  for (size_t n = 0; n < (sizeof(types) / sizeof(ACElementType_t)); n++) {
+    if (type.equalsIgnoreCase(String(types[n].tName)))
+      return types[n].tEnum;
+  }
+  return t;
+}
+
+/**
+ * Returns a null element as static storage.
+ * This static element is referred by invalid JSON data.
+ * @return A reference of a static element defined by name as null.
+ */
+AutoConnectElement& AutoConnectAux::_nullElement() {
+  static AutoConnectElement nullElement("","");
+  return nullElement;
+}
+
+#endif
