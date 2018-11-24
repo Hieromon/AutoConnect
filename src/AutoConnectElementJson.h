@@ -13,21 +13,27 @@
 #include "AutoConnectElementBasis.h"
 #include <ArduinoJson.h>
 
-#define AUTOCONNECT_JSON_KEY_AUX         "aux"
-#define AUTOCONNECT_JSON_KEY_ELEMENT     "element"
 #define AUTOCONNECT_JSON_KEY_ACTION      "action"
+#define AUTOCONNECT_JSON_KEY_ARRANGE     "arrange"
+#define AUTOCONNECT_JSON_KEY_AUX         "aux"
 #define AUTOCONNECT_JSON_KEY_CHECKED     "checked"
+#define AUTOCONNECT_JSON_KEY_ELEMENT     "element"
+#define AUTOCONNECT_JSON_KEY_HORIZONTAL  "horizontal"
 #define AUTOCONNECT_JSON_KEY_LABEL       "label"
+#define AUTOCONNECT_JSON_KEY_MENU        "menu"
 #define AUTOCONNECT_JSON_KEY_NAME        "name"
-#define AUTOCONNECT_JSON_KEY_OPTIONS     "options"
+#define AUTOCONNECT_JSON_KEY_OPTION      "option"
 #define AUTOCONNECT_JSON_KEY_STYLE       "style"
+#define AUTOCONNECT_JSON_KEY_TITLE       "title"
 #define AUTOCONNECT_JSON_KEY_TYPE        "type"
 #define AUTOCONNECT_JSON_KEY_URI         "uri"
 #define AUTOCONNECT_JSON_KEY_VALUE       "value"
+#define AUTOCONNECT_JSON_KEY_VERTICAL    "vertival"
 #define AUTOCONNECT_JSON_TYPE_ACBUTTON   "ACButton"
 #define AUTOCONNECT_JSON_TYPE_ACCHECKBOX "ACCheckBox"
 #define AUTOCONNECT_JSON_TYPE_ACELEMENT  "ACElement"
 #define AUTOCONNECT_JSON_TYPE_ACINPUT    "ACInput"
+#define AUTOCONNECT_JSON_TYPE_ACRADIO    "ACRadio"
 #define AUTOCONNECT_JSON_TYPE_ACSELECT   "ACSelect"
 #define AUTOCONNECT_JSON_TYPE_ACSUBMIT   "ACSubmit"
 #define AUTOCONNECT_JSON_TYPE_ACTEXT     "ACText"
@@ -109,6 +115,27 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
   }
   ~AutoConnectInputJson() {}
   bool  loadElement(const JsonObject& json);
+};
+
+/**
+* Radio-button arrangement class, a part of AutoConnectAux element.
+* Place a group of radio-button items and selectable mark checked.
+* @param  name     Radio-button name string.
+* @param  options  Array of value collection.
+* @param  label    A label string that follows radio-buttons group.
+* @param  checked  Index of check marked item.
+*/
+class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRadioBasis {
+ public:
+  explicit AutoConnectRadioJson(const char* name = "", std::vector<String> values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) {
+    AutoConnectRadioBasis::name = name;
+    AutoConnectRadioBasis::_values = values;
+    AutoConnectRadioBasis::label = label;
+    AutoConnectRadioBasis::order = order;
+    AutoConnectRadioBasis::checked = checked;
+  }
+  ~AutoConnectRadioJson() {}
+  bool loadElement(const JsonObject& json);
 };
 
 /**

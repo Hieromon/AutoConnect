@@ -77,7 +77,7 @@ AutoConnectAux::~AutoConnectAux() {
  */
 void AutoConnectAux::add(AutoConnectElement& addon) {
   _addonElm.push_back(addon);
-  AC_DBG("%s placed on %s\n", addon.name.length() ? addon.name.c_str() : "*nonamed*", uri());
+  AC_DBG("%s placed on %s\n", addon.name.length() ? addon.name.c_str() : "*noname", uri());
 }
 
 /**
@@ -258,6 +258,10 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
     AutoConnectInput* cert_elm = new AutoConnectInput;
     return reinterpret_cast<AutoConnectElement*>(cert_elm);
   }
+  case AC_Radio: {
+    AutoConnectRadio*  cert_elm = new AutoConnectRadio;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
   case AC_Select: {
     AutoConnectSelect*  cert_elm = new AutoConnectSelect;
     return reinterpret_cast<AutoConnectElement*>(cert_elm);
@@ -275,17 +279,86 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
 }
 
 /**
+ * Constructs an AutoConnectAux instance by reading all the
+ * AutoConnectElements of the specified URI from the elements defined JSON.
+ * @param  in    AutoConnectAux element data which is described by JSON.
+ * @param  uri   AutoConnectAux uri to be loaded.
+ * @return true  The element collection successfully loaded.
+ * @return false Invalid JSON data occurred. 
+ */
+bool AutoConnectAux::load(const char* in, const String uri) {
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& jb = jsonBuffer.parseObject(in);
+  return _load(jb, uri);
+}
+
+bool AutoConnectAux::load(const __FlashStringHelper* in, const String uri) {
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& jb = jsonBuffer.parseObject(in);
+  return _load(jb, uri);
+}
+
+bool AutoConnectAux::load(Stream& in, const String uri) {
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& jb = jsonBuffer.parseObject(in);
+  return _load(jb, uri);
+}
+
+bool AutoConnectAux::_load(JsonObject& jb, const String uri) {
+  bool rc = jb.success();
+  if (rc) {
+    JsonArray&  aux = jb[AUTOCONNECT_JSON_KEY_AUX];
+    if ((rc = aux.success())) {
+      rc = false;
+      for (JsonObject& page : aux) {
+        const String  j_uri = page.get<String>(F(AUTOCONNECT_JSON_KEY_URI));
+        if (uri == j_uri) {
+          AC_DBG("Loading %s\n", j_uri.c_str());
+          _title = page.get<String>(F(AUTOCONNECT_JSON_KEY_TITLE));
+          _menu = page.get<bool>(F(AUTOCONNECT_JSON_KEY_MENU));
+          _uriStr = j_uri;
+          setUri(_uriStr.c_str());
+          (void)_loadElement(jb, "*");
+          rc = true;
+          break;
+        }
+      }
+    }
+  }
+  return rc;
+}
+
+/**
  * Load element specified by the name parameter from the stream
  * described by JSON. Usually, the Stream is specified a storm file of
  * SD or SPIFFS. The Stream must be opened before invoking the function.
  * @param  in    Reference of the Stream which contains the parameter
  * file described by JSON.
- * @param  name  The element name to be loaded.
+ * @param  name  The element name to be loaded. '*'specifies that all
+ * elements are to be loaded.
  * @return A reference of loaded AutoConnectElement instance.
  */
+AutoConnectElement& AutoConnectAux::loadElement(const char* in, const String name) {
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& jb = jsonBuffer.parseObject(in);
+  return _loadElement(jb, name);
+}
+
+AutoConnectElement& AutoConnectAux::loadElement(const __FlashStringHelper* in, const String name) {
+  DynamicJsonBuffer jsonBuffer;
+  JsonObject& jb = jsonBuffer.parseObject(in);
+  return _loadElement(jb, name);
+}
+
 AutoConnectElement& AutoConnectAux::loadElement(Stream& in, const String name) {
   DynamicJsonBuffer jsonBuffer;
   JsonObject& jb = jsonBuffer.parseObject(in);
+  return _loadElement(jb, name);
+}
+
+AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& jb, const String name) {
+  AutoConnectElement* auxElm = nullptr;
+  bool  wc = name == "*";
 
   if (!jb.success())
     return _nullElement();
@@ -295,38 +368,39 @@ AutoConnectElement& AutoConnectAux::loadElement(Stream& in, const String name) {
     return _nullElement();
 
   for (JsonObject& page : aux) {
-    if (page["uri"].as<String>() == String(uri())) {
+    if (page[AUTOCONNECT_JSON_KEY_URI].as<String>() == String(uri())) {
       JsonArray& element = page[AUTOCONNECT_JSON_KEY_ELEMENT];
       for (JsonObject& elm : element) {
-        if (name.equalsIgnoreCase(elm.get<String>(F(AUTOCONNECT_JSON_KEY_NAME)))) {
+        String  elmName = elm.get<String>(F(AUTOCONNECT_JSON_KEY_NAME));
+        if (wc || name.equalsIgnoreCase(elmName)) {
           // The specified element is defined in the JSON stream.
           // Loads from JSON object.
           const String  inType = elm[AUTOCONNECT_JSON_KEY_TYPE].as<String>();
-          AutoConnectElement* auxElm = _getElement(name);
+          auxElm = _getElement(elmName);
           // The element is not created yet, create new one.
           if (!auxElm) {
             if ((auxElm = _createElement(elm))) {
-              AC_DBG("%s<%d> of %s created\n", name.c_str(), (int)(auxElm->typeOf()), uri());
+              AC_DBG("%s<%d> of %s created\n", elmName.c_str(), (int)(auxElm->typeOf()), uri());
               add(*auxElm);   // Insert to AutoConnect
             }
             else {
-              AC_DBG("%s unknown element type\n", name.c_str());
-              return _nullElement();
+              AC_DBG("%s unknown element type\n", elmName.c_str());
+              continue;
             }
           }
           if (auxElm->loadElement(elm)) {
-            AC_DBG("%s<%d> of %s loaded\n", name.c_str(), (int)auxElm->typeOf(), uri());
+            AC_DBG("%s<%d> of %s loaded\n", auxElm->name.c_str(), (int)auxElm->typeOf(), uri());
           }
           else {
             // Element type mismatch
-            AC_DBG("Type of %s element mismatched\n", name.c_str());
-            return _nullElement();
+            AC_DBG("Type of %s element mismatched\n", elmName.c_str());
+            continue;
           }
         }
       }
     }
   }
-  return _nullElement();
+  return auxElm ? *auxElm : _nullElement();
 }
 
 /**
@@ -387,6 +461,7 @@ const ACElement_t AutoConnectAux::_asElementType(const String type) {
     { AUTOCONNECT_JSON_TYPE_ACCHECKBOX, AC_Checkbox },
     { AUTOCONNECT_JSON_TYPE_ACELEMENT, AC_Element },
     { AUTOCONNECT_JSON_TYPE_ACINPUT, AC_Input },
+    { AUTOCONNECT_JSON_TYPE_ACRADIO, AC_Radio },
     { AUTOCONNECT_JSON_TYPE_ACSELECT, AC_Select },
     { AUTOCONNECT_JSON_TYPE_ACSUBMIT, AC_Submit },
     { AUTOCONNECT_JSON_TYPE_ACTEXT, AC_Text }

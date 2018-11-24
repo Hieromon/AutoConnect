@@ -86,6 +86,32 @@ bool AutoConnectInputJson::loadElement(const JsonObject& json) {
 }
 
 /**
+* Load a radio-button element attribute member from the JSON object.
+* @param  json  A JSON object with the definition of AutoConnectElement.
+* @return true  AutoConnectElement loaded
+* @return false Type of AutoConnectElement is mismatched.
+*/
+bool AutoConnectRadioJson::loadElement(const JsonObject& json) {
+  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACRADIO))) {
+    _setElement(json);
+    label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    checked = static_cast<uint8_t>(json.get<int>(F(AUTOCONNECT_JSON_KEY_CHECKED)));
+    String  arrange = json.get<String>(F(AUTOCONNECT_JSON_KEY_ARRANGE));
+    if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_VERTICAL)))
+      order = AC_Vertical;
+    else if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_HORIZONTAL)))
+      order = AC_Horizontal;
+    empty();
+    JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
+    for (auto value : optionArray)
+      option(value.as<String>());
+    return true;
+  }
+  return false;
+}
+
+/**
  * Load a select element attribute member from the JSON object.
  * @param  json  A JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
@@ -95,9 +121,9 @@ bool AutoConnectSelectJson::loadElement(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSELECT))) {
     _setElement(json);
-    empty();
     label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
-    JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_OPTIONS];
+    empty();
+    JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
     for (auto value : optionArray)
       option(value.as<String>());
     return true;

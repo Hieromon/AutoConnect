@@ -10,11 +10,14 @@
 #ifndef _AUTOCONNECTAUX_H_
 #define _AUTOCONNECTAUX_H_
 
+#include "AutoConnectDefs.h"
 #include <vector>
 #include <memory>
 #include <functional>
+#ifdef AUTOCONNECT_USE_JSON
+#include <Stream.h>
+#endif
 #include <PageBuilder.h>
-#include "AutoConnectDefs.h"
 #include "AutoConnectElement.h"
 
 class AutoConnect;
@@ -57,7 +60,12 @@ class AutoConnectAux : public PageBuilder {
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
 
 #ifdef AUTOCONNECT_USE_JSON
-  AutoConnectElement& loadElement(Stream& in, const String name);
+  bool load(const char* in, const String uri);
+  bool load(const __FlashStringHelper* in, const String uri);
+  bool load(Stream& in, const String uri);
+  AutoConnectElement& loadElement(const char* in, const String name = "*");
+  AutoConnectElement& loadElement(const __FlashStringHelper* in, const String name = "*");
+  AutoConnectElement& loadElement(Stream& in, const String name = "*");
   size_t  saveElement(Stream& out, const AutoConnectElement& element);
 #endif
 
@@ -70,6 +78,8 @@ class AutoConnectAux : public PageBuilder {
   const String  _injectMenu(PageArgument& args);
 
 #ifdef AUTOCONNECT_USE_JSON
+  bool _load(JsonObject& in, const String uri);
+  AutoConnectElement& _loadElement(JsonObject& in, const String name);
   AutoConnectElement* _createElement(const JsonObject& json);
   AutoConnectElement* _getElement(const String name);
   static const ACElement_t  _asElementType(const String type);
@@ -78,6 +88,7 @@ class AutoConnectAux : public PageBuilder {
 
   String  _title;                             /**< A title of the page */
   bool    _menu;                              /**< Switch for menu displaying */
+  String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */
   std::unique_ptr<AutoConnectAux> _next;      /**< Auxiliary pages chain list */
   std::unique_ptr<AutoConnect>    _ac;        /**< Hosted AutoConnect instance */
