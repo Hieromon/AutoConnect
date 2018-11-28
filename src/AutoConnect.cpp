@@ -310,6 +310,7 @@ void AutoConnect::_startWebServer() {
   _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
   // here, Prepare PageBuilders for captive portal
   _responsePage = new PageBuilder();
+  _responsePage->chunked(PB_ByteStream);
   _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
   _responsePage->insert(*_webServer);
 
@@ -538,10 +539,11 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     // Read from EEPROM
     AutoConnectCredential credential(_apConfig.boundaryOffset);
     struct station_config entry;
-    AC_DBG("Load credential:%s\n", args.arg(AUTOCONNECT_PARAMID_CRED).c_str());
+//    AC_DBG("Load credential:%s\n", args.arg(AUTOCONNECT_PARAMID_CRED).c_str());
     credential.load(args.arg(AUTOCONNECT_PARAMID_CRED).c_str(), &entry);
     strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));
+    AC_DBG("Credential loaded:%s %s\n", _credential.ssid, _credential.password);
   }
   else {
     // Credential had by the post parameter.

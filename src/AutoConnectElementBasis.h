@@ -18,11 +18,17 @@ typedef enum {
   AC_Checkbox,
   AC_Element,
   AC_Input,
+  AC_Radio,
   AC_Select,
   AC_Submit,
   AC_Text,
   AC_Unknown
 } ACElement_t;      /**< AutoConnectElement class type */
+
+typedef enum {
+  AC_Horizontal,
+  AC_Vertical
+} ACArrange_t;      /**< The element arrange order */
 
 /**
  * AutoConnectAux element base.
@@ -42,7 +48,7 @@ class AutoConnectElementBasis {
   String  name;       /**< Element name */
   String  value;      /**< Element value */
 
-protected:
+ protected:
   ACElement_t _type;  /**< Element type identifier */
 };
 
@@ -104,6 +110,32 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
 };
 
 /**
+ * Radio-button arrangement class, a part of AutoConnectAux element.
+ * Place a group of radio-button items and selectable mark checked.
+ * @param  name     Radio-button name string.
+ * @param  options  Array of value collection.
+ * @param  label    A label string that follows radio-buttons group.
+ * @param  checked  Index of check marked item.
+ */
+class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
+ public:
+  explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) : AutoConnectElementBasis(name, ""), label(label), order(order), checked(checked), _values(values) {
+    _type = AC_Radio;
+  }
+  virtual ~AutoConnectRadioBasis() {}
+  const String  toHTML(void) const;
+  void  add(const String value) { _values.push_back(value); }
+  void  empty(void) { _values.clear(); }
+
+  String      label;    /**< A label for a subsequent radio buttons */
+  ACArrange_t order;    /**< layout order */
+  uint8_t     checked;  /**< Index of check marked item */
+
+ protected:
+  std::vector<String> _values; /**< Items in a group */
+};
+
+/**
  * Selection-box arrangement class, A part of AutoConnectAux element.
  * Place a optionally labeled Selection-box that can be added by user sketch.
  * @param  name     Input-box name string.
@@ -113,12 +145,12 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
  public:
-   explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> options = {}, const char* label = "") : AutoConnectElementBasis(name, ""), label(String(label)), _options(options) {
+  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> options = {}, const char* label = "") : AutoConnectElementBasis(name, ""), label(String(label)), _options(options) {
     _type = AC_Select;
   }
   virtual ~AutoConnectSelectBasis() {}
   const String  toHTML(void) const;
-  void  option(const String value) { _options.push_back(value); }
+  void  add(const String option) { _options.push_back(option); }
   void  empty(void) { _options.clear(); }
 
   String  label;                /**< A label for a subsequent input box */

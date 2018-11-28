@@ -63,6 +63,30 @@ const String AutoConnectInputBasis::toHTML(void) const {
 }
 
 /**
+*  Generate an HTML <input type=radio> element with an <option> element.
+*  @return String  an HTML string.
+*/
+const String AutoConnectRadioBasis::toHTML(void) const {
+  String  html = String();
+
+  if (label.length()) {
+    html = label;
+    if (order == AC_Vertical)
+      html += String("<br>");
+  }
+  for (std::size_t n = 0; n < _values.size(); n++) {
+    String value = _values[n];
+    html += String(FPSTR("<input type=\"radio\" name=\"")) + name + String(FPSTR("\" id=\"")) + value + String(FPSTR("\" value=\"")) + value + String("\"");
+    if (n == checked - 1)
+      html += String(FPSTR(" checked"));
+    html += String(FPSTR("><label for=\"")) + value + String("\">") + value + String(FPSTR("</label>"));
+    if (order == AC_Vertical)
+      html += String("<br>");
+  }
+  return html;
+}
+
+/**
  *  Generate an HTML <select> element with an <option> element.
  *  The attribute value of the <option> element is given to the
  *  AutoConnectSelect class as a string array, which would be stored
@@ -74,14 +98,14 @@ const String AutoConnectSelectBasis::toHTML(void) const {
   String  html = String();
 
   if (label.length())
-    html = String(FPSTR("<label>")) + label + String(FPSTR("</label>"));
-  html += String(FPSTR("<select name=\"")) + name + String("\">");
+    html = String(FPSTR("<label for=\"")) + name + String("\">") + label + String(FPSTR("</label>"));
+  html += String(FPSTR("<select name=\"")) + name + String("\" id=\"") + name + String("\">");
   std::size_t n = _options.size();
   if (n) {
     for (std::size_t n = 0; n < _options.size(); n++)
       html += String(FPSTR("<option value=\"")) + _options[n] + "\">" + _options[n] + String(FPSTR("</option>"));
   }
-  html += String(FPSTR("</select><br>"));
+  html += String(FPSTR("</select>"));
   return html;
 }
 

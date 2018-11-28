@@ -20,6 +20,7 @@ using AutoConnectElement  = AutoConnectElementJson;
 using AutoConnectButton   = AutoConnectButtonJson;
 using AutoConnectCheckbox = AutoConnectCheckboxJson;
 using AutoConnectInput    = AutoConnectInputJson;
+using AutoConnectRadio    = AutoConnectRadioJson;
 using AutoConnectSelect   = AutoConnectSelectJson;
 using AutoConnectSubmit   = AutoConnectSubmitJson;
 using AutoConnectText     = AutoConnectTextJson;
@@ -28,6 +29,7 @@ using AutoConnectElement  = AutoConnectElementBasis;
 using AutoConnectButton   = AutoConnectButtonBasis;
 using AutoConnectCheckbox = AutoConnectCheckboxBasis;
 using AutoConnectInput    = AutoConnectInputBasis;
+using AutoConnectRadio    = AutoConnectRadioBasis;
 using AutoConnectSelect   = AutoConnectSelectBasis;
 using AutoConnectSubmit   = AutoConnectSubmitBasis;
 using AutoConnectText     = AutoConnectTextBasis;
@@ -42,6 +44,7 @@ using AutoConnectText     = AutoConnectTextBasis;
 #define ACButton(n, ...)   AutoConnectButton n(#n, ##__VA_ARGS__)
 #define ACCheckbox(n, ...) AutoConnectCheckbox n(#n, ##__VA_ARGS__)
 #define ACInput(n, ...)    AutoConnectInput n(#n, ##__VA_ARGS__)
+#define ACRadio(n, ...)    AutoConnectRadio n(#n, ##__VA_ARGS__)
 #define ACSelect(n, ...)   AutoConnectSelect n(#n, ##__VA_ARGS__)
 #define ACSubmit(n, ...)   AutoConnectSubmit n(#n, ##__VA_ARGS__)
 #define ACText(n, ...)     AutoConnectText n(#n, ##__VA_ARGS__)
