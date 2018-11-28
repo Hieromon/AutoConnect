@@ -11,11 +11,9 @@
 #define _AUTOCONENCTELEMENT_H_
 
 #include "AutoConnectElementBasis.h"
-//#include "AutoConnectElementBasisImpl.h"
 #ifdef AUTOCONNECT_USE_JSON
 #include <ArduinoJson.h>
 #include "AutoConnectElementJson.h"
-//#include "AutoConnectElementJsonImpl.h"
 using AutoConnectElement  = AutoConnectElementJson;
 using AutoConnectButton   = AutoConnectButtonJson;
 using AutoConnectCheckbox = AutoConnectCheckboxJson;

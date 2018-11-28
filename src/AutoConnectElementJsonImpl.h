@@ -121,8 +121,8 @@ bool AutoConnectSelectJson::loadElement(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSELECT))) {
     _setElement(json);
-    empty();
     label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    empty();
     JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
     for (auto value : optionArray)
       add(value.as<String>());
