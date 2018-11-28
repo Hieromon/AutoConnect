@@ -282,50 +282,43 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
  * Constructs an AutoConnectAux instance by reading all the
  * AutoConnectElements of the specified URI from the elements defined JSON.
  * @param  in    AutoConnectAux element data which is described by JSON.
- * @param  uri   AutoConnectAux uri to be loaded.
  * @return true  The element collection successfully loaded.
  * @return false Invalid JSON data occurred. 
  */
-bool AutoConnectAux::load(const char* in, const String uri) {
-  DynamicJsonBuffer jsonBuffer;
+bool AutoConnectAux::load(const char* in) {
+//  DynamicJsonBuffer jsonBuffer();
+  const size_t bufferSize = 2*JSON_ARRAY_SIZE(2) + 3*JSON_ARRAY_SIZE(3) + JSON_ARRAY_SIZE(9) + JSON_OBJECT_SIZE(1) + 2*JSON_OBJECT_SIZE(3) + 9*JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(5) + JSON_OBJECT_SIZE(6) + 1080;
+  DynamicJsonBuffer jsonBuffer(bufferSize);
   JsonObject& jb = jsonBuffer.parseObject(in);
-  return _load(jb, uri);
+  return _load(jb);
 }
 
-bool AutoConnectAux::load(const __FlashStringHelper* in, const String uri) {
-  DynamicJsonBuffer jsonBuffer;
+bool AutoConnectAux::load(const __FlashStringHelper* in) {
+//  DynamicJsonBuffer jsonBuffer();
+  const size_t bufferSize = 2*JSON_ARRAY_SIZE(2) + 3*JSON_ARRAY_SIZE(3) + JSON_ARRAY_SIZE(9) + JSON_OBJECT_SIZE(1) + 2*JSON_OBJECT_SIZE(3) + 9*JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(5) + JSON_OBJECT_SIZE(6) + 1080;
+  DynamicJsonBuffer jsonBuffer(bufferSize);
   JsonObject& jb = jsonBuffer.parseObject(in);
-  return _load(jb, uri);
+  return _load(jb);
 }
 
-bool AutoConnectAux::load(Stream& in, const String uri) {
-  DynamicJsonBuffer jsonBuffer;
+bool AutoConnectAux::load(Stream& in) {
+//  DynamicJsonBuffer jsonBuffer();
+  const size_t bufferSize = 2*JSON_ARRAY_SIZE(2) + 3*JSON_ARRAY_SIZE(3) + JSON_ARRAY_SIZE(9) + JSON_OBJECT_SIZE(1) + 2*JSON_OBJECT_SIZE(3) + 9*JSON_OBJECT_SIZE(4) + JSON_OBJECT_SIZE(5) + JSON_OBJECT_SIZE(6) + 1080;
+  DynamicJsonBuffer jsonBuffer(bufferSize);
   JsonObject& jb = jsonBuffer.parseObject(in);
-  return _load(jb, uri);
+  return _load(jb);
 }
 
-bool AutoConnectAux::_load(JsonObject& jb, const String uri) {
-  bool rc = jb.success();
-  if (rc) {
-    JsonArray&  aux = jb[AUTOCONNECT_JSON_KEY_AUX];
-    if ((rc = aux.success())) {
-      rc = false;
-      for (JsonObject& page : aux) {
-        const String  j_uri = page.get<String>(F(AUTOCONNECT_JSON_KEY_URI));
-        if (uri == j_uri) {
-          AC_DBG("Loading %s\n", j_uri.c_str());
-          _title = page.get<String>(F(AUTOCONNECT_JSON_KEY_TITLE));
-          _menu = page.get<bool>(F(AUTOCONNECT_JSON_KEY_MENU));
-          _uriStr = j_uri;
-          setUri(_uriStr.c_str());
-          (void)_loadElement(jb, "*");
-          rc = true;
-          break;
-        }
-      }
-    }
-  }
-  return rc;
+bool AutoConnectAux::_load(JsonObject& jb) {
+  if (!jb.success())
+    return false;
+
+  _title = jb.get<String>(F(AUTOCONNECT_JSON_KEY_TITLE));
+  _uriStr = jb.get<String>(F(AUTOCONNECT_JSON_KEY_URI));
+  _uri = _uriStr.c_str();
+  _menu = jb.get<bool>(F(AUTOCONNECT_JSON_KEY_MENU));
+  (void)_loadElement(jb, "*");
+  return true;
 }
 
 /**
@@ -333,7 +326,7 @@ bool AutoConnectAux::_load(JsonObject& jb, const String uri) {
  * described by JSON. Usually, the Stream is specified a storm file of
  * SD or SPIFFS. The Stream must be opened before invoking the function.
  * @param  in    Reference of the Stream which contains the parameter
- * file described by JSON.
+ * data described by JSON.
  * @param  name  The element name to be loaded. '*'specifies that all
  * elements are to be loaded.
  * @return A reference of loaded AutoConnectElement instance.
@@ -363,40 +356,30 @@ AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& jb, const String na
   if (!jb.success())
     return _nullElement();
 
-  JsonArray&  aux = jb[AUTOCONNECT_JSON_KEY_AUX];
-  if (!aux.success())
-    return _nullElement();
-
-  for (JsonObject& page : aux) {
-    if (page[AUTOCONNECT_JSON_KEY_URI].as<String>() == String(uri())) {
-      JsonArray& element = page[AUTOCONNECT_JSON_KEY_ELEMENT];
-      for (JsonObject& elm : element) {
-        String  elmName = elm.get<String>(F(AUTOCONNECT_JSON_KEY_NAME));
-        if (wc || name.equalsIgnoreCase(elmName)) {
-          // The specified element is defined in the JSON stream.
-          // Loads from JSON object.
-          const String  inType = elm[AUTOCONNECT_JSON_KEY_TYPE].as<String>();
-          auxElm = _getElement(elmName);
-          // The element is not created yet, create new one.
-          if (!auxElm) {
-            if ((auxElm = _createElement(elm))) {
-              AC_DBG("%s<%d> of %s created\n", elmName.c_str(), (int)(auxElm->typeOf()), uri());
-              add(*auxElm);   // Insert to AutoConnect
-            }
-            else {
-              AC_DBG("%s unknown element type\n", elmName.c_str());
-              continue;
-            }
-          }
-          if (auxElm->loadElement(elm)) {
-            AC_DBG("%s<%d> of %s loaded\n", auxElm->name.c_str(), (int)auxElm->typeOf(), uri());
-          }
-          else {
-            // Element type mismatch
-            AC_DBG("Type of %s element mismatched\n", elmName.c_str());
-            continue;
-          }
+  JsonArray& elements = jb[AUTOCONNECT_JSON_KEY_ELEMENT];
+  for (JsonObject& element : elements) {
+    String  elmName = element.get<String>(F(AUTOCONNECT_JSON_KEY_NAME));
+    if (wc || name.equalsIgnoreCase(elmName)) {
+      // The specified element is defined in the JSON stream.
+      // Loads from JSON object.
+      auxElm = _getElement(elmName);
+      // The element is not created yet, create new one.
+      if (!auxElm) {
+        if ((auxElm = _createElement(element))) {
+          AC_DBG("%s<%d> of %s created\n", elmName.c_str(), (int)(auxElm->typeOf()), uri());
+          add(*auxElm);   // Insert to AutoConnect
         }
+        else {
+          AC_DBG("%s unknown element type\n", elmName.c_str());
+          continue;
+        }
+      }
+      if (auxElm->loadElement(element))
+        AC_DBG("%s<%d> of %s loaded\n", auxElm->name.c_str(), (int)auxElm->typeOf(), uri());
+      else {
+        // Element type mismatch
+        AC_DBG("Type of %s element mismatched\n", elmName.c_str());
+        continue;
       }
     }
   }
@@ -416,12 +399,12 @@ size_t AutoConnectAux::saveElement(Stream& out, const AutoConnectElement& elemen
   if (!jb.success())
     return 0;
 
-  JsonArray&  aux = jb[AUTOCONNECT_JSON_KEY_AUX];
+  JsonArray&  aux = jb["aux"];
   if (!aux.success())
     return 0;
 
   for (JsonObject& page : aux) {
-    if (page["uri"].as<String>() == String(uri())) {
+    if (page["aux"].as<String>() == String(uri())) {
       JsonArray& element_j = page[AUTOCONNECT_JSON_KEY_ELEMENT];
       for (JsonObject& elm : element_j) {
         if (elm[AUTOCONNECT_JSON_KEY_NAME].as<String>() == element.name) {

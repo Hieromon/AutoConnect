@@ -60,9 +60,9 @@ class AutoConnectAux : public PageBuilder {
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
 
 #ifdef AUTOCONNECT_USE_JSON
-  bool load(const char* in, const String uri);
-  bool load(const __FlashStringHelper* in, const String uri);
-  bool load(Stream& in, const String uri);
+  bool load(const char* in);
+  bool load(const __FlashStringHelper* in);
+  bool load(Stream& in);
   AutoConnectElement& loadElement(const char* in, const String name = "*");
   AutoConnectElement& loadElement(const __FlashStringHelper* in, const String name = "*");
   AutoConnectElement& loadElement(Stream& in, const String name = "*");
@@ -78,7 +78,7 @@ class AutoConnectAux : public PageBuilder {
   const String  _injectMenu(PageArgument& args);
 
 #ifdef AUTOCONNECT_USE_JSON
-  bool _load(JsonObject& in, const String uri);
+  bool _load(JsonObject& in);
   AutoConnectElement& _loadElement(JsonObject& in, const String name);
   AutoConnectElement* _createElement(const JsonObject& json);
   AutoConnectElement* _getElement(const String name);

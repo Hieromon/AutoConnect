@@ -9,6 +9,7 @@ AutoConnectButton	KEYWORD1
 AutoConnectCheckbox	KEYWORD1
 AutoConnectElement	KEYWORD1
 AutoConnectInput	KEYWORD1
+AutoConnectRadio    KEYWORD1
 AutoConnectSelect	KEYWORD1
 AutoConnectSubmit	KEYWORD1
 AutoConnectText	KEYWORD1
@@ -54,6 +55,7 @@ ACButton	PREPROCESSOR
 ACCheckbox	PREPROCESSOR
 ACElement	PREPROCESSOR
 ACInput	PREPROCESSOR
+ACRadio PREPROCESSOR
 ACSelect	PREPROCESSOR
 ACSubmit	PREPROCESSOR
 ACText	PREPROCESSOR

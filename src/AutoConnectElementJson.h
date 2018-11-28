@@ -15,7 +15,6 @@
 
 #define AUTOCONNECT_JSON_KEY_ACTION      "action"
 #define AUTOCONNECT_JSON_KEY_ARRANGE     "arrange"
-#define AUTOCONNECT_JSON_KEY_AUX         "aux"
 #define AUTOCONNECT_JSON_KEY_CHECKED     "checked"
 #define AUTOCONNECT_JSON_KEY_ELEMENT     "element"
 #define AUTOCONNECT_JSON_KEY_HORIZONTAL  "horizontal"
@@ -28,7 +27,7 @@
 #define AUTOCONNECT_JSON_KEY_TYPE        "type"
 #define AUTOCONNECT_JSON_KEY_URI         "uri"
 #define AUTOCONNECT_JSON_KEY_VALUE       "value"
-#define AUTOCONNECT_JSON_KEY_VERTICAL    "vertival"
+#define AUTOCONNECT_JSON_KEY_VERTICAL    "vertical"
 #define AUTOCONNECT_JSON_TYPE_ACBUTTON   "ACButton"
 #define AUTOCONNECT_JSON_TYPE_ACCHECKBOX "ACCheckBox"
 #define AUTOCONNECT_JSON_TYPE_ACELEMENT  "ACElement"

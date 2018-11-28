@@ -105,7 +105,7 @@ bool AutoConnectRadioJson::loadElement(const JsonObject& json) {
     empty();
     JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
     for (auto value : optionArray)
-      option(value.as<String>());
+      add(value.as<String>());
     return true;
   }
   return false;
@@ -125,7 +125,7 @@ bool AutoConnectSelectJson::loadElement(const JsonObject& json) {
     empty();
     JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
     for (auto value : optionArray)
-      option(value.as<String>());
+      add(value.as<String>());
     return true;
   }
   return false;
