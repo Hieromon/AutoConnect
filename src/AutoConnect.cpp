@@ -589,6 +589,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   AC_DBG("Host:%s, URI:%s\n", _webServer->hostHeader().c_str(), uri.c_str());
   if (uri == _uri) {
+    AC_DBG("%s already allocated\n", _uri.c_str());
     return true;  // The response page already exists.
   }
 
