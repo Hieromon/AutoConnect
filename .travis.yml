@@ -1,7 +1,7 @@
 language: generic
 env:
   global:
-    - IDE_VERSION=1.8.5
+    - IDE_VERSION=1.8.6
   matrix:
     - BOARD="esp8266:esp8266:nodemcuv2:CpuFrequency=160,FlashSize=4M3M"
     - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M"
@@ -20,7 +20,7 @@ before_install:
   - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then
       arduino --install-boards esp32:esp32;
     fi
-  - arduino --install-library PubSubClient,PageBuilder:1.2.0
+  - arduino --install-library PubSubClient,ArduinoJson:5.13.3,PageBuilder:1.2.0
   - buildExampleSketch() { arduino --verbose-build --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
   - mkdir -p ~/Arduino/libraries

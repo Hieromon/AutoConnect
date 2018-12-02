@@ -13,3 +13,6 @@ IN THE SOFTWARE.
 
 The **Luxbar** is licensed under the MIT License.  
 https://github.com/balzss/luxbar
+
+**ArduinoJson** is licensed under the MIT License.
+https://arduinojson.org/

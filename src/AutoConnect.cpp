@@ -156,11 +156,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       WiFi.setAutoConnect(false);
       _disconnectWiFi(true);
       WiFi.mode(WIFI_AP_STA);
-      delay(100);
+      delay(300);
 
       // Connection unsuccessful, launch the captive portal.
       if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
-        _config();
+        if (!_config()) {
+          AC_DBG("APConfig failed\n");
+        }
       }
       WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
       while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0))

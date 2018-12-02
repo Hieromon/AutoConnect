@@ -20,7 +20,11 @@
 #define AUTOCONNECT_STARTUPTIME 10              // Default waiting time[s] for after reset
 #define AUTOCONNECT_URI         "/_ac"          // Default AutoConnect root path
 #define AUTOCONNECT_TIMEOUT     30000           // Default connection timeout[ms]
+#define AUTOCONNECT_USE_JSON                    // Allow AutoConnect elements to be handled by JSON format
 ```
+
+!!! note "Macros placement moved"
+    Source code placement of the above macros provided for user sketch changed from v0.9.7. The new code is in ```AutoConnectDefs.h```.
 
 ## AutoConnect API
 

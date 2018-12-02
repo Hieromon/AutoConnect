@@ -88,7 +88,9 @@ void loop() {
 
 ### <i class="fa fa-caret-right"></i> Debug print
 
-You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L27) macro to output the monitor messages.
+You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14) macro to output the monitor messages.[^1]
+
+[^1]:The source code placement of common macros for AutoConnect since v0.9.7 has changed.
 
 ```cpp
 #define AC_DEBUG
@@ -237,7 +239,7 @@ A home path of AutoConnect is **/\_ac** by default. You can access from the brow
 #define AUTOCONNECT_URI         "/_ac"
 ```
 
-### <i class="fa fa-caret-right"></i> Static IP assignment [^1]
+### <i class="fa fa-caret-right"></i> Static IP assignment [^2]
 
 It is also possible to assign static IP Address to ESP8266/ESP32 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.
 
@@ -262,4 +264,4 @@ portal.config(Config);
 portal.begin();
 ```
 
-[^1]:Static IP address assignment is available from version 0.9.3.
+[^2]:Static IP address assignment is available from version 0.9.3.

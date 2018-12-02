@@ -20,7 +20,9 @@
 #include <PageBuilder.h>
 #include "AutoConnectElement.h"
 
-class AutoConnect;
+#define AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH   3  
+
+class AutoConnect;  // Reference to avoid circular
 
 // Manage placed AutoConnectElement with a vector
 typedef std::vector<std::reference_wrapper<AutoConnectElement>> AutoConnectElementVT;
@@ -31,12 +33,10 @@ typedef std::function<String(PageArgument&)>  AuxHandlerFunctionT;
 
 // A type for the order in which callback functions are called.
 typedef enum {
-  AC_EXIT_AHEAD = 1,
+  AC_EXIT_AHEAD = 1,    /**< */
   AC_EXIT_LATER = 2,
   AC_EXIT_BOTH = 3
 } AutoConnectExitOrder_t;
-
-//class AutoConnect;  // Reference to avoid circular
 
 /**
  *  A class that handles an auxiliary page with AutoConnectElement
@@ -60,30 +60,30 @@ class AutoConnectAux : public PageBuilder {
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
 
 #ifdef AUTOCONNECT_USE_JSON
-  bool load(const char* in);
-  bool load(const __FlashStringHelper* in);
-  bool load(Stream& in);
-  AutoConnectElement& loadElement(const char* in, const String name = "*");
-  AutoConnectElement& loadElement(const __FlashStringHelper* in, const String name = "*");
-  AutoConnectElement& loadElement(Stream& in, const String name = "*");
-  size_t  saveElement(Stream& out, const AutoConnectElement& element);
+  bool load(const char* in);                                            /**< Load whole elements to AutoConnectAux Page */
+  bool load(const __FlashStringHelper* in);                             /**< Load whole elements to AutoConnectAux Page */
+  bool load(Stream& in, const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);  /**< Load whole elements to AutoConnectAux Page */
+  AutoConnectElement& loadElement(const char* in, const String name = "*");  /**< Load specified element */
+  AutoConnectElement& loadElement(const __FlashStringHelper* in, const String name = "*");  /**< Load specified element */
+  AutoConnectElement& loadElement(Stream& in, const String name = "*", const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);   /**< Load specified element */
+  size_t  saveElement(Stream& out, const AutoConnectElement& element);    /**< Load specified element */
 #endif
 
  protected:
-  void  _concat(AutoConnectAux& aux);
-  void  _join(AutoConnect& ac);
-  PageElement*  _setupPage(String uri);
-  const String  _insertElement(PageArgument& args);
-  const String  _injectTitle(PageArgument& args) { return _title; }
-  const String  _injectMenu(PageArgument& args);
+  void  _concat(AutoConnectAux& aux);                                   /**< Make up chain of AutoConnectAux */
+  void  _join(AutoConnect& ac);                                         /**< Make a link to AutoConnect */
+  PageElement*  _setupPage(String uri);                                 /**< AutoConnectAux page builder */
+  const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
+  const String  _injectTitle(PageArgument& args) { return _title; }     /**< Returns title of this page to PageBuilder */
+  const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
 
 #ifdef AUTOCONNECT_USE_JSON
-  bool _load(JsonObject& in);
-  AutoConnectElement& _loadElement(JsonObject& in, const String name);
-  AutoConnectElement* _createElement(const JsonObject& json);
-  AutoConnectElement* _getElement(const String name);
-  static const ACElement_t  _asElementType(const String type);
-  static AutoConnectElement&  _nullElement(void);
+  bool _load(JsonObject& in);                                           /**< Load all elements from JSON object */
+  AutoConnectElement& _loadElement(JsonObject& in, const String name);  /**< Load an element as specified name from JSON object */
+  AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
+  AutoConnectElement* _getElement(const String name);                   /**< Get registered AutoConnectElement as specified name */
+  static const ACElement_t  _asElementType(const String type);          /**< Convert a string of element type to the enumeration value */
+  static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
 #endif
 
   String  _title;                             /**< A title of the page */
@@ -99,6 +99,25 @@ class AutoConnectAux : public PageBuilder {
 
   // Protected members can be used from AutoConnect which handles AutoConnectAux pages.
   friend class AutoConnect;
+
+ private:
+  size_t  _calcJsonBufferSize(const char* in);  /**< Calculate JSON buffer size for constant character array */
+  size_t  _calcJsonBufferSize(const __FlashStringHelper* in);  /**< Calculate JSON buffer size for pgm_data */
+  void    _initJsonBufferSize(void);          /**< Initialize the stacks for JSON Dynamic buffer size calculation */
+  void    _accJsonBufferSize(const char c);   /**< Accumulate JSON Dynamic buffer size */
+  size_t  _resultJsonBufferSize(void);        /**< Retrieve accumulated result value */
+
+  int16_t   _jbSize;                          /**< JSON dynamic buffer size */
+  uint16_t  _jbByte;                          /**< Byte count for calculation of JSON buffer */
+  uint8_t   _jbObject;                        /**< Object count for calculation of JSON buffer */
+  uint8_t   _jbArray;                         /**< Array count for calculation of JSON buffer */
+  uint8_t   _jbNest;                          /**< JSON array nest count */
+  uint8_t   _kStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON array counter stack */
+  uint8_t   _nStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON object counter stack */
+  int8_t    _kp;                              /**< Stack pointer for JSON array counter */
+  int8_t    _np;                              /**< Stack pointer for JSON object counter */
+  bool      _jbOpen;                          /**< JSON object paring status */
+  bool      _jbLiteral;                       /**< JSON object lexical status */
 };
 
 #endif // _AUTOCONNECTAUX_H_

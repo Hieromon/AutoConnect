@@ -32,13 +32,13 @@ AutoConnect can be embedded easily into your sketch, just "**begin**" and "**han
 
 The sketches which provide the web page using ESP8266WebServer/WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object(ESP8266) or WebServer object(ESP32), or itself can assign it.
 
-### Adding the user-owned web screen can easily <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
+### Easily add user-owned web screen and  parameters <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
 
-You can easily add your own web screen with sketch. It can be called from the AutoConnect menu and parameters can be passed.
+You can easily add your own web screen that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, SUBMIT into the menu. It can be invoked from the AutoConnect menu and parameters can be passed.
 
-### Adding the extended menu with a simple code can easily <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
+### Just loading the JSON description <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
 
-Just loading the elements of portal screen extension written with JSON allows you to incorporate your owned portal screen into the AutoConnect menu.
+These HTML elements that make up the user-owned screen can be easily loaded from the JSON description stored in PROGMEM, SPIFFS or SD.
 
 ## Supported hardware
 
@@ -89,11 +89,11 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [0.9.7] Nov. 11, 2018
+### [0.9.7] Dec. 11, 2018
 - Supports AutoConnect menu extention by user sketch with **AutoConnectAux** implementation that attached **AutoConnectElement**.
 - Supports loading and saving of user-defined parameters with JSON format.
 - Supports AutoConnectConfig::immediateStart option, to start the portal immediately without first trying WiFi.begin.
-- Improved source code placement of predefined macros. Defined macros have been moved to ```AutoConnectDefs.h```.
+- Improved source code placement of predefined macros. Defined common macros have been moved to ```AutoConnectDefs.h```.
 
 ### [0.9.6] Sept. 27, 2018
 - Improvement of RSSI detection for saved SSIDs.
