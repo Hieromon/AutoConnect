@@ -47,6 +47,7 @@ AutoConnect::AutoConnect(WebServerClass& webServer) {
 void AutoConnect::_initialize() {
   _rfConnect = false;
   _rfReset = false;
+  _responsePage = nullptr;
   _currentPageElement = nullptr;
   _menuTitle = String(AUTOCONNECT_MENU_TITLE);
   _portalTimeout = AUTOCONNECT_TIMEOUT;
@@ -88,9 +89,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   _portalTimeout = timeout;
 
   // Start WiFi connection with station mode.
-  WiFi.softAPdisconnect(false);
+  WiFi.softAPdisconnect(true);
   WiFi.enableAP(false);
-  delay(100);
+  _disconnectWiFi(false);
+  WiFi.setAutoReconnect(false);
   WiFi.mode(WIFI_STA);
   delay(100);
 
@@ -143,9 +145,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   }
   _currentHostIP = WiFi.localIP();
 
-  // It doesn't matter the connection status for launching the Web server.
-  _startWebServer();
-
   // Rushing into the portal.
   if (!cs) {
 
@@ -155,8 +154,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       // Change WiFi working mode, Enable AP with STA
       WiFi.setAutoConnect(false);
       _disconnectWiFi(true);
-      WiFi.mode(WIFI_AP_STA);
-      delay(300);
 
       // Connection unsuccessful, launch the captive portal.
       if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
@@ -172,6 +169,14 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Fork to the exit routine that starts captive portal.
       cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
+
+      // Activate the AP mode with configured softAP and start the access point.
+      WiFi.mode(WIFI_AP_STA);
+      while (WiFi.getMode() != WIFI_AP_STA)
+        yield();
+
+      // Start Web server when TCP connection is enabled.
+      _startWebServer();
 
       // Start captive portal without cancellation by DetectExit.
       if (cs) {
@@ -195,6 +200,11 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       }
     }
   }
+
+  // It doesn't matter the connection status for launching the Web server.
+  if (!_responsePage)
+    _startWebServer();
+
   return cs;
 }
 
@@ -312,6 +322,7 @@ void AutoConnect::_startWebServer() {
   _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
   // here, Prepare PageBuilders for captive portal
   _responsePage = new PageBuilder();
+//  _responsePage->chunked(PB_ByteStream);
   _responsePage->chunked(PB_ByteStream);
   _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
   _responsePage->insert(*_webServer);
@@ -362,7 +373,8 @@ void AutoConnect::handleRequest() {
 
     // An attempt to establish a new AP.
     AC_DBG("Request for %s\n", (const char*)_credential.ssid);
-    WiFi.begin((const char*)_credential.ssid, (const char*)_credential.password);
+//    WiFi.begin((const char*)_credential.ssid, (const char*)_credential.password);
+    WiFi.begin((const char*)_credential.ssid, (const char*)_credential.password, _apConfig.channel);
     if (_waitForConnect(_portalTimeout) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
@@ -686,7 +698,7 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
     }
 #ifdef AC_DEBUG
     AC_DEBUG_PORT.print('.');
-#endif // AC_DEBUG
+#endif // !AC_DEBUG
     delay(300);
   }
   AC_DBG("%s IP:%s\n", wifiStatus == WL_CONNECTED ? "established" : "time out", WiFi.localIP().toString().c_str());
@@ -699,6 +711,8 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
  */
 void AutoConnect::_disconnectWiFi(bool wifiOff) {
 #if defined(ARDUINO_ARCH_ESP8266)
+  if (wifiOff)
+    ESP.eraseConfig();
   WiFi.disconnect(wifiOff);
 #elif defined(ARDUINO_ARCH_ESP32)
   WiFi.disconnect(wifiOff, true);

@@ -52,7 +52,7 @@ class AutoConnectConfig {
     netmask(AUTOCONNECT_AP_NM),
     apid(String(AUTOCONNECT_APID)),
     psk(String(AUTOCONNECT_PSK)),
-    channel(1),
+    channel(AUTOCONNECT_AP_CH),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
@@ -70,13 +70,13 @@ class AutoConnectConfig {
   /**
    *  Configure by SSID for the captive portal access point and password.
    */
-  AutoConnectConfig(const char* ap, const char* password) :
+  AutoConnectConfig(const char* ap, const char* password, const uint8_t channel = AUTOCONNECT_AP_CH) :
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
     apid(String(ap)),
     psk(String(password)),
-    channel(1),
+    channel(channel),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
