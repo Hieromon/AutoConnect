@@ -92,7 +92,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   WiFi.softAPdisconnect(true);
   WiFi.enableAP(false);
   _disconnectWiFi(false);
-  WiFi.setAutoReconnect(false);
   WiFi.mode(WIFI_STA);
   delay(100);
 
@@ -103,7 +102,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   String staNetmask_s = _apConfig.staNetmask.toString();
   String dns1_s = _apConfig.dns1.toString();
   String dns2_s = _apConfig.dns2.toString();
-  AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s) ", staip_s.c_str(), staGateway_s.c_str(), staNetmask_s.c_str(), dns1_s.c_str(), dns2_s.c_str());
+  AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s)\n", staip_s.c_str(), staGateway_s.c_str(), staNetmask_s.c_str(), dns1_s.c_str(), dns2_s.c_str());
 #endif
   if (!WiFi.config(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2)) {
     AC_DBG("failed\n");
@@ -165,7 +164,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0))
         yield();
       _currentHostIP = WiFi.softAPIP();
-      AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, WiFi.softAPIP().toString().c_str());
+      AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, _currentHostIP.toString().c_str());
 
       // Fork to the exit routine that starts captive portal.
       cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
@@ -373,7 +372,6 @@ void AutoConnect::handleRequest() {
 
     // An attempt to establish a new AP.
     AC_DBG("Request for %s\n", (const char*)_credential.ssid);
-//    WiFi.begin((const char*)_credential.ssid, (const char*)_credential.password);
     WiFi.begin((const char*)_credential.ssid, (const char*)_credential.password, _apConfig.channel);
     if (_waitForConnect(_portalTimeout) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
@@ -711,8 +709,6 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
  */
 void AutoConnect::_disconnectWiFi(bool wifiOff) {
 #if defined(ARDUINO_ARCH_ESP8266)
-  if (wifiOff)
-    ESP.eraseConfig();
   WiFi.disconnect(wifiOff);
 #elif defined(ARDUINO_ARCH_ESP32)
   WiFi.disconnect(wifiOff, true);
