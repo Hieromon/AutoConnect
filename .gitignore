@@ -2,6 +2,7 @@
 .vs/
 __vm/
 debug/
+Release/
 img/
 *.tmp
 *.TMP
