@@ -91,7 +91,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // Start WiFi connection with station mode.
   WiFi.softAPdisconnect(true);
   WiFi.enableAP(false);
-  _disconnectWiFi(false);
   WiFi.mode(WIFI_STA);
   delay(100);
 
@@ -124,8 +123,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     // Try to connect by STA immediately.
     if (ssid == nullptr && passphrase == nullptr)
       WiFi.begin();
-    else
+    else {
+      _disconnectWiFi(false);
       WiFi.begin(ssid, passphrase);
+    }
     AC_DBG("WiFi.begin(%s%s%s)\n", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
     cs = _waitForConnect(_portalTimeout) == WL_CONNECTED;
   }
@@ -284,25 +285,27 @@ WebServerClass& AutoConnect::host() {
  *  @param  aux A reference to AutoConnectAux that made up
  *  the auxiliary page to be added.
  */
-void AutoConnect::join(AutoConnectAux& aux) {
+bool AutoConnect::join(AutoConnectAux& aux) {
   if (_aux)
     _aux->_concat(aux);
   else
     _aux.reset(&aux);
   aux._join(*this);
   AC_DBG("%s on hands\n", aux.uri());
+  return true;
 }
 
 /**
-*  Append auxiliary pages made up with AutoConnectAux.
-*  @param  aux A vector of reference to AutoConnectAux that made up
-*  the auxiliary page to be added.
-*/
-void AutoConnect::join(std::vector<std::reference_wrapper<AutoConnectAux>> aux) {
+ *  Append auxiliary pages made up with AutoConnectAux.
+ *  @param  aux A vector of reference to AutoConnectAux that made up
+ *  the auxiliary page to be added.
+ */
+bool AutoConnect::join(std::vector<std::reference_wrapper<AutoConnectAux>> aux) {
   for (std::size_t n = 0; n < aux.size(); n++) {
     AutoConnectAux& addon = aux[n].get();
     join(addon);
   }
+  return true;
 }
 
 /**

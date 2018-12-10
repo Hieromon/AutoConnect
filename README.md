@@ -91,8 +91,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ### [0.9.7] Dec. 11, 2018
 - Supports AutoConnect menu extention by user sketch with **AutoConnectAux** implementation that attached **AutoConnectElement**.
+- Improved the WiFi connection sequence at the first WiFi.begin. Even if **AutoConnectConfig::autoReconnect** is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
 - Supports loading and saving of user-defined parameters with JSON format.
-- Supports AutoConnectConfig::immediateStart option, to start the portal immediately without first trying WiFi.begin.
+- Supports **AutoConnectConfig::immediateStart** option, to start the portal immediately without first trying WiFi.begin.
+- Improved boot uri after reset. **AutoConnectConfig::bootUri** can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
 - Improved source code placement of predefined macros. Defined common macros have been moved to ```AutoConnectDefs.h```.
 
 ### [0.9.6] Sept. 27, 2018

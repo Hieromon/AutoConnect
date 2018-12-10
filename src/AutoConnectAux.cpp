@@ -235,6 +235,98 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
 #ifdef AUTOCONNECT_USE_JSON
 
 /**
+ * Static storage for JSON buffer size calculation.
+ */
+int16_t   AutoConnectAux::_jbSize;    /**< JSON dynamic buffer size */
+uint16_t  AutoConnectAux::_jbByte;    /**< Byte count for calculation of JSON buffer */
+uint8_t   AutoConnectAux::_jbObject;  /**< Object count for calculation of JSON buffer */
+uint8_t   AutoConnectAux::_jbArray;   /**< Array count for calculation of JSON buffer */
+uint8_t   AutoConnectAux::_jbNest;    /**< JSON array nest count */
+uint8_t   AutoConnectAux::_kStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON array counter stack */
+uint8_t   AutoConnectAux::_nStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON object counter stack */
+int8_t    AutoConnectAux::_kp;        /**< Stack pointer for JSON array counter */
+int8_t    AutoConnectAux::_np;        /**< Stack pointer for JSON object counter */
+bool      AutoConnectAux::_jbOpen;    /**< JSON object paring status */
+bool      AutoConnectAux::_jbLiteral; /**< JSON object lexical status */
+
+/**
+ * Load AutoConnectAux page from JSON description stored in the sketch.
+ * This function can load AutoConnectAux for multiple AUX pages written
+ * in JSON and is registered in AutoConnect.
+ * @param  aux  JSON description to be load.
+ * @return true Successfully loaded.
+ */
+bool AutoConnect::join(const char* aux) {
+  const size_t  bufferSize = AutoConnectAux::_calcJsonBufferSize(aux);
+  DynamicJsonBuffer jsonBuffer(bufferSize);
+  JsonVariant jv = jsonBuffer.parse(aux);
+  return _load(jv);
+}
+
+/**
+ * Load AutoConnectAux page from JSON description stored in PROGMEM.
+ * This function can load AutoConnectAux for multiple AUX pages written
+ * in JSON and is registered in AutoConnect.
+ * @param  aux  JSON description to be load.
+ * @return true Successfully loaded.
+ */
+bool AutoConnect::join(const __FlashStringHelper* aux) {
+  const size_t  bufferSize = AutoConnectAux::_calcJsonBufferSize(aux);
+  DynamicJsonBuffer jsonBuffer(bufferSize);
+  JsonVariant jv = jsonBuffer.parse(aux);
+  return _load(jv);
+}
+
+/**
+* Load AutoConnectAux page from JSON description from the stream.
+* This function can load AutoConnectAux for multiple AUX pages written
+* in JSON and is registered in AutoConnect.
+* @param  aux  Stream for read AutoConnectAux elements.
+* @return true Successfully loaded.
+*/
+bool AutoConnect::join(Stream& aux, size_t bufferSize) {
+  DynamicJsonBuffer jsonBuffer(bufferSize);
+  JsonVariant jv = jsonBuffer.parse(aux);
+  return _load(jv);
+}
+
+/**
+ * Load AutoConnectAux page from JSON object.
+ * @param  aux  A JsonVariant object that stores each element of AutoConnectAuxl.
+ * @return true Successfully loaded.
+ */
+bool AutoConnect::_load(JsonVariant& aux) {
+  bool  rc = true;
+  if (aux.success()) {
+    if (aux.is<JsonArray>()) {
+      JsonArray& jb = aux.as<JsonArray>();
+      for (JsonObject& auxJson : jb) {
+        AutoConnectAux* newAux = new AutoConnectAux;
+        if (newAux->_load(auxJson))
+          join(*newAux);
+        else {
+          delete newAux;
+          rc = false;
+          break;
+        }
+      }
+    }
+    else {
+      JsonObject& jb = aux.as<JsonObject>();
+      AutoConnectAux* newAux = new AutoConnectAux;
+      if (newAux->_load(jb))
+        join(*newAux);
+      else {
+        delete newAux;
+        rc = false;
+      }
+    }
+  }
+  else
+    return rc;
+}
+
+/**
  * Create an instance from the AutoConnectElement of the JSON object.
  * @param  json  A reference of JSON
  * @return A pointer of created AutoConnectElement instance.

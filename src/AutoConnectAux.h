@@ -101,23 +101,23 @@ class AutoConnectAux : public PageBuilder {
   friend class AutoConnect;
 
  private:
-  size_t  _calcJsonBufferSize(const char* in);  /**< Calculate JSON buffer size for constant character array */
-  size_t  _calcJsonBufferSize(const __FlashStringHelper* in);  /**< Calculate JSON buffer size for pgm_data */
-  void    _initJsonBufferSize(void);          /**< Initialize the stacks for JSON Dynamic buffer size calculation */
-  void    _accJsonBufferSize(const char c);   /**< Accumulate JSON Dynamic buffer size */
-  size_t  _resultJsonBufferSize(void);        /**< Retrieve accumulated result value */
+  static size_t  _calcJsonBufferSize(const char* in);  /**< Calculate JSON buffer size for constant character array */
+  static size_t  _calcJsonBufferSize(const __FlashStringHelper* in);  /**< Calculate JSON buffer size for pgm_data */
+  static void    _initJsonBufferSize(void);          /**< Initialize the stacks for JSON Dynamic buffer size calculation */
+  static void    _accJsonBufferSize(const char c);   /**< Accumulate JSON Dynamic buffer size */
+  static size_t  _resultJsonBufferSize(void);        /**< Retrieve accumulated result value */
 
-  int16_t   _jbSize;                          /**< JSON dynamic buffer size */
-  uint16_t  _jbByte;                          /**< Byte count for calculation of JSON buffer */
-  uint8_t   _jbObject;                        /**< Object count for calculation of JSON buffer */
-  uint8_t   _jbArray;                         /**< Array count for calculation of JSON buffer */
-  uint8_t   _jbNest;                          /**< JSON array nest count */
-  uint8_t   _kStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON array counter stack */
-  uint8_t   _nStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON object counter stack */
-  int8_t    _kp;                              /**< Stack pointer for JSON array counter */
-  int8_t    _np;                              /**< Stack pointer for JSON object counter */
-  bool      _jbOpen;                          /**< JSON object paring status */
-  bool      _jbLiteral;                       /**< JSON object lexical status */
+  static int16_t   _jbSize;                          /**< JSON dynamic buffer size */
+  static uint16_t  _jbByte;                          /**< Byte count for calculation of JSON buffer */
+  static uint8_t   _jbObject;                        /**< Object count for calculation of JSON buffer */
+  static uint8_t   _jbArray;                         /**< Array count for calculation of JSON buffer */
+  static uint8_t   _jbNest;                          /**< JSON array nest count */
+  static uint8_t   _kStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON array counter stack */
+  static uint8_t   _nStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON object counter stack */
+  static int8_t    _kp;                              /**< Stack pointer for JSON array counter */
+  static int8_t    _np;                              /**< Stack pointer for JSON object counter */
+  static bool      _jbOpen;                          /**< JSON object paring status */
+  static bool      _jbLiteral;                       /**< JSON object lexical status */
 };
 
 #endif // _AUTOCONNECTAUX_H_

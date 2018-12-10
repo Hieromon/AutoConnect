@@ -511,7 +511,7 @@ const char  AutoConnect::_PAGE_404[] PROGMEM = {
 /**< The page that started the reset. */
 const char  AutoConnect::_PAGE_RESETTING[] PROGMEM = {
   "{{HEAD}}"
-  "<meta http-equiv=\"refresh\" content=\"{{UPTIME}};URL=" AUTOCONNECT_URI "\">"
+  "<meta http-equiv=\"refresh\" content=\"{{UPTIME}};URL={{BOOTURI}}\">"
   "<title>AutoConnect resetting</title>"
   "</head>"
   "<body>"
@@ -1081,6 +1081,17 @@ String AutoConnect::_token_UPTIME(PageArgument& args) {
   return String(_apConfig.uptime);
 }
 
+String AutoConnect::_token_BOOTURI(PageArgument& args) {
+  AC_UNUSED(args);
+  if (_apConfig.bootUri == AC_URIONBOOT_ROOT)
+    return String(AUTOCONNECT_URI);
+  else if (_apConfig.bootUri == AC_URIONBOOT_HOME)
+    return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
+  else
+    return "";  
+}
+
+
 /**
  *  This function dynamically build up the response pages that conform to
  *  the requested URI. A PageBuilder instance is stored in _rensponsePage
@@ -1178,6 +1189,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     // Setup /auto/reset
     elm->setMold(_PAGE_RESETTING);
     elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(PSTR("BOOTURI"), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));
     elm->addToken(PSTR("UPTIME"), std::bind(&AutoConnect::_token_UPTIME, this, std::placeholders::_1));
     elm->addToken(PSTR("RESET"), std::bind(&AutoConnect::_induceReset, this, std::placeholders::_1));
 

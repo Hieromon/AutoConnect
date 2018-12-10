@@ -39,6 +39,11 @@ typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_AUTO
 } AC_SAVECREDENTIAL_t;
 
+typedef enum AC_URIONBOOT {
+  AC_URIONBOOT_ROOT,
+  AC_URIONBOOT_HOME
+} AC_URIONBOOT_t;
+
 class AutoConnectConfig {
  public:
   /**
@@ -55,6 +60,7 @@ class AutoConnectConfig {
     channel(AUTOCONNECT_AP_CH),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
+    bootUri(AC_URIONBOOT_ROOT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -79,6 +85,7 @@ class AutoConnectConfig {
     channel(channel),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
+    bootUri(AC_URIONBOOT_ROOT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -103,6 +110,7 @@ class AutoConnectConfig {
     channel = o.channel;
     hidden = o.hidden;
     autoSave = o.autoSave;
+    bootUri = o.bootUri;
     boundaryOffset = o.boundaryOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
@@ -126,6 +134,7 @@ class AutoConnectConfig {
   uint8_t   channel;            /**< SoftAP used wifi channel */
   uint8_t   hidden;             /**< SoftAP SSID hidden */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
+  AC_URIONBOOT_t  bootUri;      /**< An uri invoking after reset */
   uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
   int       uptime;             /**< Length of start up time */
   bool      autoRise;           /**< Automatic starting the captive portal */
@@ -154,8 +163,16 @@ class AutoConnect {
   void  handleClient();
   void  handleRequest();
   WebServerClass& host();
-  void  join(AutoConnectAux& aux);
-  void  join(std::vector<std::reference_wrapper<AutoConnectAux>> aux);
+  bool  join(AutoConnectAux& aux);
+  bool  join(std::vector<std::reference_wrapper<AutoConnectAux>> aux);
+
+  /** For AutoConnectAux described in JSON */
+#ifdef AUTOCONNECT_USE_JSON
+  bool  join(const char* aux);
+  bool  join(const __FlashStringHelper* aux);
+  bool  join(Stream& aux, size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);
+  bool  _load(JsonVariant& aux);
+#endif
 
   typedef std::function<bool(IPAddress)>  DetectExit_ft;
   void  onDetect(DetectExit_ft fn);
@@ -283,6 +300,7 @@ class AutoConnect {
   String _token_HIDDEN_COUNT(PageArgument& args);
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);
+  String _token_BOOTURI(PageArgument& args);
 
 #if defined(ARDUINO_ARCH_ESP8266)
   friend class ESP8266WebServer;
