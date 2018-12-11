@@ -54,10 +54,12 @@ const String AutoConnectInputBasis::toHTML(void) const {
 
   if (label.length())
     html = String(FPSTR("<label for=\"")) + name + String("\">") + label + String(FPSTR("</label>"));
-  html += String(FPSTR("<input type=\"text\" id=\"")) + name + String(FPSTR("\" name=\"")) + name;
+  html += String(FPSTR("<input type=\"text\" id=\"")) + name + String(FPSTR("\" name=\"")) + name + String("\"");
+  if (placeholder.length())
+    html += String(FPSTR(" placeholder=\"")) + placeholder + String("\"");
   if (value.length())
-    html += String(FPSTR("\" placeholder=\"")) + value;
-  html += String(FPSTR("\"><br>"));
+    html += String(FPSTR(" value=\"")) + value + String("\"");
+  html += String(FPSTR("><br>"));
 
   return html;
 }

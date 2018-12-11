@@ -165,14 +165,15 @@ class AutoConnect {
   WebServerClass& host();
   bool  join(AutoConnectAux& aux);
   bool  join(std::vector<std::reference_wrapper<AutoConnectAux>> aux);
+  bool  on(const char* uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
-  bool  join(const char* aux);
-  bool  join(const __FlashStringHelper* aux);
-  bool  join(Stream& aux, size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);
+  bool  load(const char* aux);
+  bool  load(const __FlashStringHelper* aux);
+  bool  load(Stream& aux, size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);
   bool  _load(JsonVariant& aux);
-#endif
+#endif // !AUTOCONNECT_USE_JSON
 
   typedef std::function<bool(IPAddress)>  DetectExit_ft;
   void  onDetect(DetectExit_ft fn);

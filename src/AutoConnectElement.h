@@ -32,7 +32,7 @@ using AutoConnectRadio    = AutoConnectRadioBasis;
 using AutoConnectSelect   = AutoConnectSelectBasis;
 using AutoConnectSubmit   = AutoConnectSubmitBasis;
 using AutoConnectText     = AutoConnectTextBasis;
-#endif
+#endif // !AUTOCONNECT_USE_JSON
 
 /**
  * Support declare the AutoConnectElement variable with reducing the

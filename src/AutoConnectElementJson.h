@@ -22,6 +22,7 @@
 #define AUTOCONNECT_JSON_KEY_MENU        "menu"
 #define AUTOCONNECT_JSON_KEY_NAME        "name"
 #define AUTOCONNECT_JSON_KEY_OPTION      "option"
+#define AUTOCONNECT_JSON_KEY_PLACEHOLDER "placeholder"
 #define AUTOCONNECT_JSON_KEY_STYLE       "style"
 #define AUTOCONNECT_JSON_KEY_TITLE       "title"
 #define AUTOCONNECT_JSON_KEY_TYPE        "type"
@@ -107,9 +108,10 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
  */
 class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectInputBasis {
  public:
-  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "") {
+  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* placeholder = "", const char* label = "") {
     AutoConnectInputBasis::name = name;
     AutoConnectInputBasis::value = value;
+    AutoConnectInputBasis::placeholder = placeholder;
     AutoConnectInputBasis::label = label;
   }
   ~AutoConnectInputJson() {}

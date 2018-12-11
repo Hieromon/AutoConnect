@@ -16,20 +16,21 @@
 #include <functional>
 #ifdef AUTOCONNECT_USE_JSON
 #include <Stream.h>
-#endif
+#endif // !AUTOCONNECT_USE_JSON
 #include <PageBuilder.h>
 #include "AutoConnectElement.h"
 
 #define AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH   3  
 
 class AutoConnect;  // Reference to avoid circular
+class AutoConnectAux;  // Reference to avoid circular
 
 // Manage placed AutoConnectElement with a vector
 typedef std::vector<std::reference_wrapper<AutoConnectElement>> AutoConnectElementVT;
 
 // A type of callback function when  AutoConnectAux page requested.
 //typedef std::function<void(AutoConnectAux&, PageArgument&)> AuxHandleFuncT;
-typedef std::function<String(PageArgument&)>  AuxHandlerFunctionT;
+typedef std::function<String(AutoConnectAux&, PageArgument&)>  AuxHandlerFunctionT;
 
 // A type for the order in which callback functions are called.
 typedef enum {
@@ -53,6 +54,9 @@ class AutoConnectAux : public PageBuilder {
   ~AutoConnectAux();
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page. */
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page. */
+  template<typename T>
+  T& getElement(const String name);                                     /**< Get AutoConnect element */
+  AutoConnectElement* getElement(const String name);                    /**< Get registered AutoConnectElement as specified name */
   bool  release(const char* name) { return release(String(name)); }     /**< Release an AutoConnectElement */
   bool  release(const String name);                                     /**< Release an AutoConnectElement */
   void  setTitle(const char* title) { _title = String(title); }         /**< Set a title of the auxiliary page. */
@@ -67,7 +71,7 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement& loadElement(const __FlashStringHelper* in, const String name = "*");  /**< Load specified element */
   AutoConnectElement& loadElement(Stream& in, const String name = "*", const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);   /**< Load specified element */
   size_t  saveElement(Stream& out, const AutoConnectElement& element);    /**< Load specified element */
-#endif
+#endif // !AUTOCONNECT_USE_JSON
 
  protected:
   void  _concat(AutoConnectAux& aux);                                   /**< Make up chain of AutoConnectAux */
@@ -81,10 +85,9 @@ class AutoConnectAux : public PageBuilder {
   bool _load(JsonObject& in);                                           /**< Load all elements from JSON object */
   AutoConnectElement& _loadElement(JsonObject& in, const String name);  /**< Load an element as specified name from JSON object */
   AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
-  AutoConnectElement* _getElement(const String name);                   /**< Get registered AutoConnectElement as specified name */
   static const ACElement_t  _asElementType(const String type);          /**< Convert a string of element type to the enumeration value */
   static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
-#endif
+#endif // !AUTOCONNECT_USE_JSON
 
   String  _title;                             /**< A title of the page */
   bool    _menu;                              /**< Switch for menu displaying */

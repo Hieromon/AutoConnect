@@ -89,6 +89,18 @@ void AutoConnectAux::add(AutoConnectElementVT addons) {
 }
 
 /**
+* Get already registered AutoConnectElement.
+* @param  name  Element name
+* @return A pointer to the registered AutoConnectElement.
+*/
+AutoConnectElement* AutoConnectAux::getElement(const String name) {
+  for (std::size_t n = 0; n < _addonElm.size(); n++)
+    if (_addonElm[n].get().name == name)
+      return &(_addonElm[n].get());
+  return nullptr;
+}
+
+/**
  * Releases the AutoConnectElements with the specified name from 
  * the AutoConnectAux page. Releases all AutoConnectElements with 
  * the same name in AutoConnectAux.
@@ -153,7 +165,7 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   if (_handler) {
     if (_order & AC_EXIT_AHEAD) {
       AC_DBG("CB %s\n", uri());
-      body += _handler(args);
+      body += _handler(*this, args);
     }
   }
 
@@ -165,7 +177,7 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   if (_handler) {
     if (_order & AC_EXIT_LATER) {
       AC_DBG("CB %s\n", uri());
-      body += _handler(args);
+      body += _handler(*this, args);
     }
   }
 
@@ -232,7 +244,114 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
   return menuItem;
 }
 
-#ifdef AUTOCONNECT_USE_JSON
+#ifndef AUTOCONNECT_USE_JSON
+
+/**
+ * Get AutoConnectButtonBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectButton class.
+ */
+template<>
+AutoConnectButtonBasis& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Button)
+      return *(reinterpret_cast<AutoConnectButtonBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectButtonBasis&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectCheckboxBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectCheckbox class.
+ */
+template<>
+AutoConnectCheckboxBasis& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Checkbox)
+      return *(reinterpret_cast<AutoConnectCheckboxBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectCheckboxBasis&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectInputBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectInput class.
+ */
+template<>
+AutoConnectInputBasis& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Input)
+      return *(reinterpret_cast<AutoConnectInputBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectInputBasis&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectRadioBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectRadio class.
+ */
+template<>
+AutoConnectRadioBasis& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Radio)
+      return *(reinterpret_cast<AutoConnectRadioBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectRadioBasis&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectSelectBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectSelect class.
+ */
+template<>
+AutoConnectSelectBasis& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Select)
+      return *(reinterpret_cast<AutoConnectSelectBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectSelectBasis&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectSubmitBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectSubmit class.
+ */
+template<>
+AutoConnectSubmitBasis& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Submit)
+      return *(reinterpret_cast<AutoConnectSubmitBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectSubmitBasis&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectTextBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectText class.
+ */
+template<>
+AutoConnectTextBasis& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Text)
+      return *(reinterpret_cast<AutoConnectTextBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectTextBasis&>(_nullElement());
+}
+
+#else
 
 /**
  * Static storage for JSON buffer size calculation.
@@ -250,13 +369,118 @@ bool      AutoConnectAux::_jbOpen;    /**< JSON object paring status */
 bool      AutoConnectAux::_jbLiteral; /**< JSON object lexical status */
 
 /**
+ * Get AutoConnectButtonJson element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectButton class.
+ */
+template<>
+AutoConnectButtonJson& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Button)
+      return *(reinterpret_cast<AutoConnectButtonJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectButtonJson&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectCheckboxJson element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectCheckbox class.
+ */
+template<>
+AutoConnectCheckboxJson& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Checkbox)
+      return *(reinterpret_cast<AutoConnectCheckboxJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectCheckboxJson&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectInputJson element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectInput class.
+ */
+template<>
+AutoConnectInputJson& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Input)
+      return *(reinterpret_cast<AutoConnectInputJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectInputJson&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectRadioJson element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectRadio class.
+ */
+template<>
+AutoConnectRadioJson& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Radio)
+      return *(reinterpret_cast<AutoConnectRadioJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectRadioJson&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectSelectJson element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectSelect class.
+ */
+template<>
+AutoConnectSelectJson& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Select)
+      return *(reinterpret_cast<AutoConnectSelectJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectSelectJson&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectSubmitJson element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectSubmit class.
+ */
+template<>
+AutoConnectSubmitJson& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Submit)
+      return *(reinterpret_cast<AutoConnectSubmitJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectSubmitJson&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectTextJson element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectText class.
+ */
+template<>
+AutoConnectTextJson& AutoConnectAux::getElement(const String name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Text)
+      return *(reinterpret_cast<AutoConnectTextJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectTextJson&>(_nullElement());
+}
+
+/**
  * Load AutoConnectAux page from JSON description stored in the sketch.
  * This function can load AutoConnectAux for multiple AUX pages written
  * in JSON and is registered in AutoConnect.
  * @param  aux  JSON description to be load.
  * @return true Successfully loaded.
  */
-bool AutoConnect::join(const char* aux) {
+bool AutoConnect::load(const char* aux) {
   const size_t  bufferSize = AutoConnectAux::_calcJsonBufferSize(aux);
   DynamicJsonBuffer jsonBuffer(bufferSize);
   JsonVariant jv = jsonBuffer.parse(aux);
@@ -270,7 +494,7 @@ bool AutoConnect::join(const char* aux) {
  * @param  aux  JSON description to be load.
  * @return true Successfully loaded.
  */
-bool AutoConnect::join(const __FlashStringHelper* aux) {
+bool AutoConnect::load(const __FlashStringHelper* aux) {
   const size_t  bufferSize = AutoConnectAux::_calcJsonBufferSize(aux);
   DynamicJsonBuffer jsonBuffer(bufferSize);
   JsonVariant jv = jsonBuffer.parse(aux);
@@ -284,7 +508,7 @@ bool AutoConnect::join(const __FlashStringHelper* aux) {
 * @param  aux  Stream for read AutoConnectAux elements.
 * @return true Successfully loaded.
 */
-bool AutoConnect::join(Stream& aux, size_t bufferSize) {
+bool AutoConnect::load(Stream& aux, size_t bufferSize) {
   DynamicJsonBuffer jsonBuffer(bufferSize);
   JsonVariant jv = jsonBuffer.parse(aux);
   return _load(jv);
@@ -480,7 +704,7 @@ AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& jb, const String na
     if (wc || name.equalsIgnoreCase(elmName)) {
       // The specified element is defined in the JSON stream.
       // Loads from JSON object.
-      auxElm = _getElement(elmName);
+      auxElm = getElement(elmName);
       // The element is not created yet, create new one.
       if (!auxElm) {
         if ((auxElm = _createElement(element))) {
@@ -533,18 +757,6 @@ size_t AutoConnectAux::saveElement(Stream& out, const AutoConnectElement& elemen
     }
   }
   return 0;
-}
-
-/**
- * Get already registered AutoConnectElement.
- * @param  name  Element name
- * @return A pointer to the registered AutoConnectElement.
- */
-AutoConnectElement* AutoConnectAux::_getElement(const String name) {
-  for (std::size_t n = 0; n < _addonElm.size(); n++)
-    if (_addonElm[n].get().name == name)
-      return &(_addonElm[n].get());
-  return nullptr;
 }
 
 /**
@@ -723,4 +935,4 @@ size_t AutoConnectAux::_resultJsonBufferSize() {
   }
 }
 
-#endif
+#endif // AUTOCONNECT_USE_JSON

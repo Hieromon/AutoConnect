@@ -425,6 +425,29 @@ void AutoConnect::handleRequest() {
 }
 
 /**
+ *  Register the exit routine for AutoConnectAux.
+ *  @param  uri     Specify the URI of the AutoConnectAux page that
+ *  registers the exit routine.
+ *  @param  handler A handler function of the exit routine.
+ *  @param  order   Specify an enumeration type of
+ *  AutoConnectExitOrder_t for the call timing of the exit routine.
+ *  @return true    An exit routine registered.
+ *  @return false   AutoConnectAux page for the specified URI is not
+ *  registered.
+ */
+bool AutoConnect::on(const char* uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order) {
+  AutoConnectAux* aux = _aux.get();
+  while (aux) {
+    if (!strcmp(uri, aux->uri())) {
+      aux->on(handler, order);
+      return true;
+    }
+    aux = aux->_next.get();
+  }
+  return false;
+}
+
+/**
  *  Register the exit routine for the starting captive portal.
  *  @param  fn  A function of the exit routine.
  */

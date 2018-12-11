@@ -79,6 +79,7 @@ bool AutoConnectInputJson::loadElement(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACINPUT))) {
     _setElement(json);
+    placeholder = json.get<String>(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER));
     label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
     return true;
   }
