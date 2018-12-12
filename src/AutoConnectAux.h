@@ -55,22 +55,28 @@ class AutoConnectAux : public PageBuilder {
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page. */
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page. */
   template<typename T>
-  T& getElement(const String name);                                     /**< Get AutoConnect element */
+  T& getElement(const char* name);                                /**< Get AutoConnect element */
+  AutoConnectElement* getElement(const char* name) { return getElement(String(name)); }   /**< Get registered AutoConnectElement as specified name */
   AutoConnectElement* getElement(const String name);                    /**< Get registered AutoConnectElement as specified name */
+  void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux. */
   bool  release(const char* name) { return release(String(name)); }     /**< Release an AutoConnectElement */
   bool  release(const String name);                                     /**< Release an AutoConnectElement */
-  void  setTitle(const char* title) { _title = String(title); }         /**< Set a title of the auxiliary page. */
-  void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux. */
+  bool  setElementValue(const char* name, const String value) { return setElementValue(String(name), value); }
+  bool  setElementValue(const String name, const String value);
+  bool  setElementValue(const char* name, std::vector<String> values) { return setElementValue(String(name), values); }
+  bool  setElementValue(const String name, std::vector<String> values);
+  void  setTitle(const char* title) { setTitle(String(title)); }        /**< Set a title of the auxiliary page. */
+  void  setTitle(const String title) { _title = title; }                /**< Set a title of the auxiliary page. */
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
 
 #ifdef AUTOCONNECT_USE_JSON
   bool load(const char* in);                                            /**< Load whole elements to AutoConnectAux Page */
   bool load(const __FlashStringHelper* in);                             /**< Load whole elements to AutoConnectAux Page */
   bool load(Stream& in, const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);  /**< Load whole elements to AutoConnectAux Page */
-  AutoConnectElement& loadElement(const char* in, const String name = "*");  /**< Load specified element */
+  AutoConnectElement& loadElement(const String in, const String name = "*");  /**< Load specified element */
   AutoConnectElement& loadElement(const __FlashStringHelper* in, const String name = "*");  /**< Load specified element */
   AutoConnectElement& loadElement(Stream& in, const String name = "*", const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);   /**< Load specified element */
-  size_t  saveElement(Stream& out, const AutoConnectElement& element);    /**< Load specified element */
+  size_t  save(Stream& out);                                            /**< Save specified element */
 #endif // !AUTOCONNECT_USE_JSON
 
  protected:
@@ -80,13 +86,13 @@ class AutoConnectAux : public PageBuilder {
   const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
   const String  _injectTitle(PageArgument& args) { return _title; }     /**< Returns title of this page to PageBuilder */
   const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
+  static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
 
 #ifdef AUTOCONNECT_USE_JSON
   bool _load(JsonObject& in);                                           /**< Load all elements from JSON object */
   AutoConnectElement& _loadElement(JsonObject& in, const String name);  /**< Load an element as specified name from JSON object */
   AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
   static const ACElement_t  _asElementType(const String type);          /**< Convert a string of element type to the enumeration value */
-  static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
 #endif // !AUTOCONNECT_USE_JSON
 
   String  _title;                             /**< A title of the page */

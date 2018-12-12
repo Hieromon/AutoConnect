@@ -52,9 +52,11 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
   }
   ~AutoConnectElementJson() {}
   virtual bool  loadElement(const JsonObject& json);
+  virtual void  serialize(JsonObject& json);
 
  protected:
   void  _setElement(const JsonObject& json);
+  void  _serialize(JsonObject& json);
 };
 
 /**
@@ -73,7 +75,8 @@ class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectB
     AutoConnectButtonBasis::action = action;
   }
   ~AutoConnectButtonJson() {}
-  bool  loadElement(const JsonObject& json);
+  bool  loadElement(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
 };
 
 /**
@@ -94,7 +97,8 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
     AutoConnectCheckboxBasis::checked = checked;
   }
   ~AutoConnectCheckboxJson() {}
-  bool  loadElement(const JsonObject& json);
+  bool  loadElement(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
 };
 
 /**
@@ -115,7 +119,8 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
     AutoConnectInputBasis::label = label;
   }
   ~AutoConnectInputJson() {}
-  bool  loadElement(const JsonObject& json);
+  bool  loadElement(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
 };
 
 /**
@@ -136,7 +141,8 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
     AutoConnectRadioBasis::checked = checked;
   }
   ~AutoConnectRadioJson() {}
-  bool loadElement(const JsonObject& json);
+  bool  loadElement(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
 };
 
 /**
@@ -155,7 +161,8 @@ class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectS
     AutoConnectSelectBasis::label = label;
   }
   ~AutoConnectSelectJson() {}
-  bool  loadElement(const JsonObject& json);
+  bool  loadElement(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
 };
 
 /**
@@ -175,7 +182,8 @@ class AutoConnectSubmitJson : public AutoConnectElementJson, public AutoConnectS
     AutoConnectSubmitBasis::uri = uri;
   }
   ~AutoConnectSubmitJson() {}
-  bool  loadElement(const JsonObject& json);
+  bool  loadElement(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
 };
 
 /**
@@ -195,7 +203,8 @@ class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTex
     AutoConnectTextBasis::style = style;
   }
   ~AutoConnectTextJson() {}
-  bool  loadElement(const JsonObject& json);
+  bool  loadElement(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
 };
 
 #endif // _AUTOCONNECTELEMENTJSON_H_

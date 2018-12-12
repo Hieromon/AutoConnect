@@ -14,7 +14,7 @@
 
 /**
  * Set items common to any type of AutoConnectElement from JSON objects.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  */
 void AutoConnectElementJson::_setElement(const JsonObject& json) {
   name = json.get<String>(F(AUTOCONNECT_JSON_KEY_NAME));
@@ -22,8 +22,17 @@ void AutoConnectElementJson::_setElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectElement to JSON.
+ * This function is base for each element.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectElementJson::_serialize(JsonObject& json) {
+  json.set(F(AUTOCONNECT_JSON_KEY_NAME), name);
+}
+
+/**
  * Load an element member value from the JSON object.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
  * @return false Type of AutoConnectElement is mismatched.
  */
@@ -37,8 +46,17 @@ bool AutoConnectElementJson::loadElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectElement to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectElementJson::serialize(JsonObject& json) {
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACELEMENT));
+  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+}
+
+/**
  * Load a button element attribute member from the JSON object.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
  * @return false Type of AutoConnectElement is mismatched.
  */
@@ -53,8 +71,19 @@ bool AutoConnectButtonJson::loadElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectButton to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectButtonJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACBUTTON));
+  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+  json.set(F(AUTOCONNECT_JSON_KEY_ACTION), action);
+}
+
+/**
  * Load a checkbox element attribute member from the JSON object.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
  * @return false Type of AutoConnectElement is mismatched.
  */
@@ -70,8 +99,21 @@ bool AutoConnectCheckboxJson::loadElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectCheckbox to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectCheckboxJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACCHECKBOX));
+  json.set(F(AUTOCONNECT_JSON_KEY_NAME), name);
+  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+  json.set(F(AUTOCONNECT_JSON_KEY_CHECKED), checked);
+}
+
+/**
  * Load a input-box element attribute member from the JSON object.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
  * @return false Type of AutoConnectElement is mismatched.
  */
@@ -87,8 +129,20 @@ bool AutoConnectInputJson::loadElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectInput to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectInputJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACINPUT));
+  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+  json.set(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER), placeholder);
+  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+}
+
+/**
 * Load a radio-button element attribute member from the JSON object.
-* @param  json  A JSON object with the definition of AutoConnectElement.
+* @param  json  JSON object with the definition of AutoConnectElement.
 * @return true  AutoConnectElement loaded
 * @return false Type of AutoConnectElement is mismatched.
 */
@@ -113,8 +167,30 @@ bool AutoConnectRadioJson::loadElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectRadio to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectRadioJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACRADIO));
+  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+  JsonArray&  values = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_VALUE));
+  for (String v : _values)
+    values.add(v);
+  switch (order) {
+  case AC_Horizontal:
+    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_KEY_HORIZONTAL);
+    break;
+  case AC_Vertical:
+    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_KEY_VERTICAL);
+    break;
+  }
+  json.set(F(AUTOCONNECT_JSON_KEY_CHECKED), checked);
+}
+
+/**
  * Load a select element attribute member from the JSON object.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
  * @return false Type of AutoConnectElement is mismatched.
  */
@@ -133,8 +209,21 @@ bool AutoConnectSelectJson::loadElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectSelect to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectSelectJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACSELECT));
+  JsonArray&  options = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_OPTION));
+  for (String o : _options)
+    options.add(o);
+  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+}
+
+/**
  * Load a submit element attribute member from the JSON object.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
  * @return false Type of AutoConnectElement is mismatched.
  */
@@ -149,8 +238,19 @@ bool AutoConnectSubmitJson::loadElement(const JsonObject& json) {
 }
 
 /**
+ * Serialize AutoConnectSubmit to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectSubmitJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACSUBMIT));
+  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+  json.set(F(AUTOCONNECT_JSON_KEY_URI), uri);
+}
+
+/**
  * Load a text element attribute member from the JSON object.
- * @param  json  A JSON object with the definition of AutoConnectElement.
+ * @param  json  JSON object with the definition of AutoConnectElement.
  * @return true  AutoConnectElement loaded
  * @return false Type of AutoConnectElement is mismatched.
  */
@@ -162,6 +262,17 @@ bool AutoConnectTextJson::loadElement(const JsonObject& json) {
     return true;
   }
   return false;
+}
+
+/**
+ * Serialize AutoConnectText to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectTextJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACTEXT));
+  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+  json.set(F(AUTOCONNECT_JSON_KEY_STYLE), style);
 }
 
 #endif // _AUTOCONNECTELEMENTJSONIMPL_H_

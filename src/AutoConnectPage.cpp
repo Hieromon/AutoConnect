@@ -1083,9 +1083,9 @@ String AutoConnect::_token_UPTIME(PageArgument& args) {
 
 String AutoConnect::_token_BOOTURI(PageArgument& args) {
   AC_UNUSED(args);
-  if (_apConfig.bootUri == AC_URIONBOOT_ROOT)
+  if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
     return String(AUTOCONNECT_URI);
-  else if (_apConfig.bootUri == AC_URIONBOOT_HOME)
+  else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
     return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
   else
     return "";  

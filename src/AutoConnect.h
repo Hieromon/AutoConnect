@@ -39,10 +39,10 @@ typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_AUTO
 } AC_SAVECREDENTIAL_t;
 
-typedef enum AC_URIONBOOT {
-  AC_URIONBOOT_ROOT,
-  AC_URIONBOOT_HOME
-} AC_URIONBOOT_t;
+typedef enum AC_ONBOOTURI {
+  AC_ONBOOTURI_ROOT,
+  AC_ONBOOTURI_HOME
+} AC_ONBOOTURI_t;
 
 class AutoConnectConfig {
  public:
@@ -60,7 +60,7 @@ class AutoConnectConfig {
     channel(AUTOCONNECT_AP_CH),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
-    bootUri(AC_URIONBOOT_ROOT),
+    bootUri(AC_ONBOOTURI_ROOT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -85,7 +85,7 @@ class AutoConnectConfig {
     channel(channel),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
-    bootUri(AC_URIONBOOT_ROOT),
+    bootUri(AC_ONBOOTURI_ROOT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -134,7 +134,7 @@ class AutoConnectConfig {
   uint8_t   channel;            /**< SoftAP used wifi channel */
   uint8_t   hidden;             /**< SoftAP SSID hidden */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
-  AC_URIONBOOT_t  bootUri;      /**< An uri invoking after reset */
+  AC_ONBOOTURI_t  bootUri;      /**< An uri invoking after reset */
   uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
   int       uptime;             /**< Length of start up time */
   bool      autoRise;           /**< Automatic starting the captive portal */

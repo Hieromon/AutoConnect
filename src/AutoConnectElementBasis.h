@@ -65,7 +65,7 @@ class AutoConnectButtonBasis : virtual public AutoConnectElementBasis {
     _type = AC_Button;
   }
   ~AutoConnectButtonBasis() {}
-  const String  toHTML(void) const;
+  const String  toHTML(void) const override;
 
   String  action;
 };
@@ -84,7 +84,7 @@ class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
     _type = AC_Checkbox;
   }
   virtual ~AutoConnectCheckboxBasis() {}
-  const String  toHTML(void) const;
+  const String  toHTML(void) const override;
 
   String  label;      /**< A label for a subsequent input box */
   bool    checked;    /**< The element should be pre-selected */
@@ -104,7 +104,7 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
     _type = AC_Input;
   }
   virtual ~AutoConnectInputBasis() {}
-  const String  toHTML(void) const;
+  const String  toHTML(void) const override;
 
   String  placeholder;
   String  label;      /**< A label for a subsequent input box */
@@ -124,7 +124,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
     _type = AC_Radio;
   }
   virtual ~AutoConnectRadioBasis() {}
-  const String  toHTML(void) const;
+  const String  toHTML(void) const override;
   void  add(const String value) { _values.push_back(value); }
   void  empty(void) { _values.clear(); }
 
@@ -150,7 +150,7 @@ class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
     _type = AC_Select;
   }
   virtual ~AutoConnectSelectBasis() {}
-  const String  toHTML(void) const;
+  const String  toHTML(void) const override;
   void  add(const String option) { _options.push_back(option); }
   void  empty(void) { _options.clear(); }
 
@@ -175,7 +175,7 @@ class AutoConnectSubmitBasis : virtual public AutoConnectElementBasis {
     _type = AC_Submit;
   }
   virtual ~AutoConnectSubmitBasis() {}
-  const String  toHTML(void) const;
+  const String  toHTML(void) const override;
 
   String  uri;        /**< An url of submitting to */
 };
@@ -195,7 +195,7 @@ class AutoConnectTextBasis : virtual public AutoConnectElementBasis {
     _type = AC_Text;
   }
   virtual ~AutoConnectTextBasis() {}
-  const String  toHTML(void) const;
+  const String  toHTML(void) const override;
 
   String  style;      /**< CSS style modifier native code */
 };
