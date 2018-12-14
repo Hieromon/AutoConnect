@@ -18,6 +18,7 @@ AutoConnectText	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 add	KEYWORD2
+aux	KEYWORD2
 config	KEYWORD2
 begin	KEYWORD2
 del	KEYWORD2
@@ -38,6 +39,8 @@ onDetect	KEYWORD2
 onNotFound	KEYWORD2
 release	KEYWORD2
 save	KEYWORD2
+saveElement	KEYWORD2
+setElementValue	KEYWORD2
 setTitle	KEYWORD2
 toHTML	KEYWORD2
 value	KEYWORD2

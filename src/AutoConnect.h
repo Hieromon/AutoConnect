@@ -154,6 +154,7 @@ class AutoConnect {
   AutoConnect();
   AutoConnect(WebServerClass& webServer);
   ~AutoConnect();
+  AutoConnectAux* aux(const char* uri) const;
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
   void  home(String uri);

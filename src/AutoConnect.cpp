@@ -281,6 +281,21 @@ WebServerClass& AutoConnect::host() {
 }
 
 /**
+ *  Returns AutoConnectAux instance of specified.
+ *  @param  uri  An uri string.
+ *  @return A pointer of AutoConnectAux instance.
+ */
+AutoConnectAux* AutoConnect::aux(const char* uri) const {
+  AutoConnectAux* aux_p = _aux.get();
+  while (aux_p) {
+    if (!strcmp(aux_p->uri(), uri))
+      break;
+    aux_p = aux_p->_next.get();
+  }
+  return aux_p;
+}
+
+/**
  *  Append auxiliary pages made up with AutoConnectAux.
  *  @param  aux A reference to AutoConnectAux that made up
  *  the auxiliary page to be added.

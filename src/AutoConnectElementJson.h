@@ -51,11 +51,12 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
     AutoConnectElementBasis::value = value;
   }
   ~AutoConnectElementJson() {}
-  virtual bool  loadElement(const JsonObject& json);
+  virtual const size_t  getObjectSize(void) const;
+  virtual bool  loadMember(const JsonObject& json);
   virtual void  serialize(JsonObject& json);
 
  protected:
-  void  _setElement(const JsonObject& json);
+  void  _setMember(const JsonObject& json);
   void  _serialize(JsonObject& json);
 };
 
@@ -68,14 +69,15 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
  * @param  action   Script code to execute with the button pushed.
  */
 class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectButtonBasis {
- public:
+public:
   explicit AutoConnectButtonJson(const char* name = "", const char* value = "", const String action = String()) {
     AutoConnectButtonBasis::name = name;
     AutoConnectButtonBasis::value = value;
     AutoConnectButtonBasis::action = action;
   }
   ~AutoConnectButtonJson() {}
-  bool  loadElement(const JsonObject& json) override;
+  const size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
 
@@ -97,7 +99,8 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
     AutoConnectCheckboxBasis::checked = checked;
   }
   ~AutoConnectCheckboxJson() {}
-  bool  loadElement(const JsonObject& json) override;
+  const size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
 
@@ -119,7 +122,8 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
     AutoConnectInputBasis::label = label;
   }
   ~AutoConnectInputJson() {}
-  bool  loadElement(const JsonObject& json) override;
+  const size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
 
@@ -141,7 +145,8 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
     AutoConnectRadioBasis::checked = checked;
   }
   ~AutoConnectRadioJson() {}
-  bool  loadElement(const JsonObject& json) override;
+  const size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
 
@@ -161,7 +166,8 @@ class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectS
     AutoConnectSelectBasis::label = label;
   }
   ~AutoConnectSelectJson() {}
-  bool  loadElement(const JsonObject& json) override;
+  const size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
 
@@ -182,7 +188,8 @@ class AutoConnectSubmitJson : public AutoConnectElementJson, public AutoConnectS
     AutoConnectSubmitBasis::uri = uri;
   }
   ~AutoConnectSubmitJson() {}
-  bool  loadElement(const JsonObject& json) override;
+  const size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
 
@@ -203,7 +210,8 @@ class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTex
     AutoConnectTextBasis::style = style;
   }
   ~AutoConnectTextJson() {}
-  bool  loadElement(const JsonObject& json) override;
+  const size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
 

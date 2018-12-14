@@ -40,12 +40,12 @@ typedef enum {
 } AutoConnectExitOrder_t;
 
 /**
- *  A class that handles an auxiliary page with AutoConnectElement
- *  that placed on it by binding it to the AutoConnect menu.
- *  @param  uri     An uri string of this page.
- *  @param  title   A title string of this page.
- *  @param  addons  A set of AutoConnectElement vector.
- *  @param  menu    A switch for item displaying in AutoConnect menu.
+ * A class that handles an auxiliary page with AutoConnectElement
+ * that placed on it by binding it to the AutoConnect menu.
+ * @param  uri     An uri string of this page.
+ * @param  title   A title string of this page.
+ * @param  addons  A set of AutoConnectElement vector.
+ * @param  menu    A switch for item displaying in AutoConnect menu.
  */
 class AutoConnectAux : public PageBuilder {
  public:
@@ -61,6 +61,7 @@ class AutoConnectAux : public PageBuilder {
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux. */
   bool  release(const char* name) { return release(String(name)); }     /**< Release an AutoConnectElement */
   bool  release(const String name);                                     /**< Release an AutoConnectElement */
+  AutoConnectElement& setElement(AutoConnectElement& element);          /**< Set or replace the element */
   bool  setElementValue(const char* name, const String value) { return setElementValue(String(name), value); }
   bool  setElementValue(const String name, const String value);
   bool  setElementValue(const char* name, std::vector<String> values) { return setElementValue(String(name), values); }
@@ -76,7 +77,9 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement& loadElement(const String in, const String name = "*");  /**< Load specified element */
   AutoConnectElement& loadElement(const __FlashStringHelper* in, const String name = "*");  /**< Load specified element */
   AutoConnectElement& loadElement(Stream& in, const String name = "*", const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);   /**< Load specified element */
-  size_t  save(Stream& out);                                            /**< Save specified element */
+  size_t  save(Stream& out);                                            /**< Write AutoConnectAux elements to the stream */
+  size_t  saveElement(const char* name, Stream& out) { return saveElement(String(name), out); } /**< Write an element of AutoConnectAux to the stream */
+  size_t  saveElement(const String name, Stream& out);                   /**< Write an element of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
 
  protected:

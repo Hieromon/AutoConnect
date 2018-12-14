@@ -95,7 +95,7 @@ void AutoConnectAux::add(AutoConnectElementVT addons) {
 */
 AutoConnectElement* AutoConnectAux::getElement(const String name) {
   for (std::size_t n = 0; n < _addonElm.size(); n++)
-    if (_addonElm[n].get().name == name)
+    if (name.equalsIgnoreCase(_addonElm[n].get().name))
       return &(_addonElm[n].get());
   AC_DBG("Element<%s> not registered\n", name.c_str());
   return nullptr;
@@ -113,7 +113,7 @@ bool AutoConnectAux::release(const String name) {
   bool  rc = false;
   for (std::size_t n = 0; n < _addonElm.size(); n++) {
     String  elmName = _addonElm[n].get().name;
-    if (elmName == name) {
+    if (name.equalsIgnoreCase(elmName)) {
       AC_DBG("%s release from %s\n", elmName.c_str(), uri());
       _addonElm.erase(_addonElm.begin() + n);
       rc = true;
@@ -140,8 +140,6 @@ bool AutoConnectAux::setElementValue(const String name, const String value) {
     else
       AC_DBG("Element<%s> value type mismatch\n", name.c_str());
   }
-  else
-    AC_DBG("Element<%s> not registered\n", name.c_str());
   return false;
 }
 
@@ -181,9 +179,6 @@ bool AutoConnectAux::setElementValue(const String name, std::vector<String> valu
     }
     }
   }
-  else
-    AC_DBG("Element<%s> not registered\n", name.c_str());
-
   return rc;
 }
 
@@ -624,8 +619,8 @@ bool AutoConnect::load(Stream& aux, size_t bufferSize) {
  * @return true Successfully loaded.
  */
 bool AutoConnect::_load(JsonVariant& aux) {
-  bool  rc = true;
-  if (aux.success()) {
+  bool  rc = aux.success();
+  if (rc) {
     if (aux.is<JsonArray>()) {
       JsonArray& jb = aux.as<JsonArray>();
       for (JsonObject& auxJson : jb) {
@@ -650,8 +645,10 @@ bool AutoConnect::_load(JsonVariant& aux) {
       }
     }
   }
-  else
-    return rc;
+  else {
+    AC_DBG("JSON parse error\n");
+  }
+  return rc;
 }
 
 /**
@@ -820,7 +817,7 @@ AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& jb, const String na
           continue;
         }
       }
-      if (auxElm->loadElement(element))
+      if (auxElm->loadMember(element))
         AC_DBG("%s<%d> of %s loaded\n", auxElm->name.c_str(), (int)auxElm->typeOf(), uri());
       else {
         // Element type mismatch
@@ -833,28 +830,51 @@ AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& jb, const String na
 }
 
 /**
- * Serialize a element to JSON and write it to the stream.
+ * Serialize whole elements owned by an AutoConnectAux into the stream.
  * @param out An output stream
- * @return  Number of byte output
+ * @return  Number of bytes output
  */
 size_t AutoConnectAux::save(Stream& out) {
+  size_t  bs = 0;
   size_t  e = _addonElm.size();
-  if (e <= 0)
-    return e;
 
-  DynamicJsonBuffer auxBuffer(3 + JSON_ARRAY_SIZE(e) + JSON_OBJECT_SIZE(5) * e);
-  JsonObject&  json = auxBuffer.createObject();
+  for (size_t n = 0; n < e; e++) {
+    AutoConnectElement& elm = _addonElm[n];
+    bs += elm.getObjectSize();
+  }
+  if (bs <= 0)
+    return 0;
+
+  DynamicJsonBuffer jb(bs + JSON_OBJECT_SIZE(4)+ JSON_ARRAY_SIZE(1));
+  JsonObject&  json = jb.createObject();
   json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
   json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
   json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
   JsonArray&  elements = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_ELEMENT));
-  for (size_t i = 0; i < e; i++) {
+  for (std::size_t n = 0; n < e; n++) {
     JsonObject& element = elements.createNestedObject();
-    AutoConnectElement& elm = _addonElm[i];
+    AutoConnectElement& elm = _addonElm[n];
     elm.serialize(element);
   }
-
   return static_cast<size_t>(json.prettyPrintTo(out));
+}
+
+/**
+ * Serialize an element specified the name into the stream.
+ * @param  name  An element name to be output.
+ * @return Number of bytes output
+ */
+size_t AutoConnectAux::saveElement(const String name, Stream& out) {
+  for (std::size_t n = 0; n < _addonElm.size(); n++) {
+    AutoConnectElement& elm = _addonElm[n];
+    if (elm.name == name) {
+      DynamicJsonBuffer jb(elm.getObjectSize());
+      JsonObject& element = jb.createObject();
+      elm.serialize(element);
+      return static_cast<size_t>(element.prettyPrintTo(out));
+    }
+  }
+  return 0;
 }
 
 /**
