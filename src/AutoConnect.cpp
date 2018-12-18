@@ -89,7 +89,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   _portalTimeout = timeout;
 
   // Start WiFi connection with station mode.
-  WiFi.softAPdisconnect(true);
+//  WiFi.softAPdisconnect(true);
   WiFi.enableAP(false);
   WiFi.mode(WIFI_STA);
   delay(100);
@@ -153,7 +153,12 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Change WiFi working mode, Enable AP with STA
       WiFi.setAutoConnect(false);
-      _disconnectWiFi(true);
+      _disconnectWiFi(false);
+
+      // Activate the AP mode with configured softAP and start the access point.
+      WiFi.mode(WIFI_AP_STA);
+      while (WiFi.getMode() != WIFI_AP_STA)
+        yield();
 
       // Connection unsuccessful, launch the captive portal.
       if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
@@ -169,11 +174,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Fork to the exit routine that starts captive portal.
       cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
-
-      // Activate the AP mode with configured softAP and start the access point.
-      WiFi.mode(WIFI_AP_STA);
-      while (WiFi.getMode() != WIFI_AP_STA)
-        yield();
 
       // Start Web server when TCP connection is enabled.
       _startWebServer();
@@ -410,6 +410,12 @@ void AutoConnect::handleRequest() {
     else {
       _currentHostIP = WiFi.softAPIP();
       _redirectURI = String(AUTOCONNECT_URI_FAIL);
+      _rsConnect = WiFi.status();
+      WiFi.disconnect();
+      while (WiFi.status() != WL_IDLE_STATUS) {
+        delay(100);
+        yield();
+      }
     }
     _rfConnect = false;
   }
@@ -426,7 +432,11 @@ void AutoConnect::handleRequest() {
   if (_rfDisconnect) {
     // Disconnect from the current AP.
     _stopPortal();
-    _disconnectWiFi(true);
+    _disconnectWiFi(false);
+    while (WiFi.status() == WL_CONNECTED) {
+      delay(100);
+      yield();
+    }
     AC_DBG("Disconnected\n");
     // Reset disconnection request
     _rfDisconnect = false;

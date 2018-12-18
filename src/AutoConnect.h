@@ -242,6 +242,7 @@ class AutoConnect {
   bool  _rfConnect;             /**< URI /connect requested */
   bool  _rfDisconnect;          /**< URI /disc requested */
   bool  _rfReset;               /**< URI /reset requested */
+  wl_status_t   _rsConnect;     /**< connection result */
 
   /** HTTP header information of the currently requested page. */
   String        _uri;           /**< Requested URI */
