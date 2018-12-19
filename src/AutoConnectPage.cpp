@@ -831,7 +831,7 @@ String AutoConnect::_token_MENU_PRE(PageArgument& args) {
 }
 
 String AutoConnect::_token_MENU_AUX(PageArgument& args) {
-  String  menuItem;
+  String  menuItem = "";
   if (_aux)
     menuItem = _aux->_injectMenu(args);
   return menuItem;
@@ -885,7 +885,7 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   AC_UNUSED(args);
   const char* wlStatusSymbol;
-  static const char *wlStatusSymbols[] = {
+  static const char* wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
     "IDLE",
     "CONNECTING",

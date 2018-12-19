@@ -388,8 +388,8 @@ void AutoConnect::handleRequest() {
       _disconnectWiFi(true);
 
     // An attempt to establish a new AP.
-    AC_DBG("Request for %s\n", (const char*)_credential.ssid);
-    WiFi.begin((const char*)_credential.ssid, (const char*)_credential.password, _apConfig.channel);
+    AC_DBG("Request for %s\n", reinterpret_cast<const char*>(_credential.ssid));
+    WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), reinterpret_cast<const char*>(_credential.password), _apConfig.channel);
     if (_waitForConnect(_portalTimeout) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
@@ -400,19 +400,19 @@ void AutoConnect::handleRequest() {
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
           AutoConnectCredential credit(_apConfig.boundaryOffset);
           credit.save(&_credential);
-          AC_DBG("%s credential saved\n", _credential.ssid);
+          AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
         }
       }
       else
-        AC_DBG("%s has no BSSID, saving is unavailable\n", _credential.ssid);
+        AC_DBG("%s has no BSSID, saving is unavailable\n", reinterpret_cast<const char*>(_credential.ssid));
     }
     else {
       _currentHostIP = WiFi.softAPIP();
       _redirectURI = String(AUTOCONNECT_URI_FAIL);
       _rsConnect = WiFi.status();
-      WiFi.disconnect();
+      _disconnectWiFi(false);
       while (WiFi.status() != WL_IDLE_STATUS) {
-        delay(100);
+        delay(10);
         yield();
       }
     }
@@ -433,7 +433,7 @@ void AutoConnect::handleRequest() {
     _stopPortal();
     _disconnectWiFi(false);
     while (WiFi.status() == WL_CONNECTED) {
-      delay(100);
+      delay(10);
       yield();
     }
     AC_DBG("Disconnected\n");
@@ -651,9 +651,9 @@ String AutoConnect::_invokeResult(PageArgument& args) {
  *  a part of the handling of http request originated from handleClient.
  */
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
-  AC_DBG("Host:%s, URI:%s\n", _webServer->hostHeader().c_str(), uri.c_str());
+  AC_DBG("Host:%s, URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
   if (uri == _uri) {
-    AC_DBG("%s already allocated\n", _uri.c_str());
+    AC_DBG_DUMB(", already allocated\n", _uri.c_str());
     return true;  // The response page already exists.
   }
 
@@ -661,22 +661,21 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   _responsePage->clearElement();
   if (_currentPageElement != nullptr)
     delete _currentPageElement;
-  _uri = String();
+  _uri = String("");
 
   // Create the page dynamically
-  if ((_currentPageElement = _setupPage(uri)) != nullptr) {
-    _uri = String(uri);
-    _responsePage->addElement(*_currentPageElement);
-  } else if (_aux) {
-    // Requested URL is not a normal page, exploring AUX pages
-    if ((_currentPageElement = _aux->_setupPage(uri)) != nullptr) {
-      _uri = String(uri);
-      _responsePage->addElement(*_currentPageElement);
+  if ((_currentPageElement = _setupPage(uri)) == nullptr)
+    if (_aux) {
+      // Requested URL is not a normal page, exploring AUX pages
+      _currentPageElement = _aux->_setupPage(uri);
     }
+  if (_currentPageElement != nullptr) {
+    AC_DBG_DUMB(", generated:%s", uri.c_str());
+    _uri = uri;
+    _responsePage->addElement(*_currentPageElement);
+    _responsePage->setUri(_uri.c_str());
   }
-  _responsePage->setUri(_uri.c_str());
-  AC_DBG("Page[%s] allocated\n", _responsePage->uri());
-
+  AC_DBG_DUMB(", %s\n", _currentPageElement != nullptr ? "allocated" : "ignored");
   return _currentPageElement != nullptr ? true : false;
 }
 
