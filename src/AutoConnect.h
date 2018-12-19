@@ -154,7 +154,7 @@ class AutoConnect {
   AutoConnect();
   AutoConnect(WebServerClass& webServer);
   ~AutoConnect();
-  AutoConnectAux* aux(const char* uri) const;
+  AutoConnectAux* aux(const String& uri) const;
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
   void  home(String uri);
@@ -166,11 +166,11 @@ class AutoConnect {
   WebServerClass& host();
   bool  join(AutoConnectAux& aux);
   bool  join(std::vector<std::reference_wrapper<AutoConnectAux>> aux);
-  bool  on(const char* uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
+  bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
-  bool  load(const char* aux);
+  bool  load(const String& aux);
   bool  load(const __FlashStringHelper* aux);
   bool  load(Stream& aux, size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);
   bool  _load(JsonVariant& aux);

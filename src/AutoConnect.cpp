@@ -285,10 +285,10 @@ WebServerClass& AutoConnect::host() {
  *  @param  uri  An uri string.
  *  @return A pointer of AutoConnectAux instance.
  */
-AutoConnectAux* AutoConnect::aux(const char* uri) const {
+AutoConnectAux* AutoConnect::aux(const String& uri) const {
   AutoConnectAux* aux_p = _aux.get();
   while (aux_p) {
-    if (!strcmp(aux_p->uri(), uri))
+    if (!strcmp(aux_p->uri(), uri.c_str()))
       break;
     aux_p = aux_p->_next.get();
   }
@@ -339,7 +339,6 @@ void AutoConnect::_startWebServer() {
   _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
   // here, Prepare PageBuilders for captive portal
   _responsePage = new PageBuilder();
-//  _responsePage->chunked(PB_ByteStream);
   _responsePage->chunked(PB_ByteStream);
   _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
   _responsePage->insert(*_webServer);
@@ -460,10 +459,10 @@ void AutoConnect::handleRequest() {
  *  @return false   AutoConnectAux page for the specified URI is not
  *  registered.
  */
-bool AutoConnect::on(const char* uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order) {
+bool AutoConnect::on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order) {
   AutoConnectAux* aux = _aux.get();
   while (aux) {
-    if (!strcmp(uri, aux->uri())) {
+    if (!strcmp(uri.c_str(), aux->uri())) {
       aux->on(handler, order);
       return true;
     }

@@ -819,7 +819,7 @@ String AutoConnect::_token_CSS_TABLE(PageArgument& args) {
 
 String AutoConnect::_token_HEAD(PageArgument& args) {
   AC_UNUSED(args);
-  return String((_ELM_HTML_HEAD));
+  return String(FPSTR(_ELM_HTML_HEAD));
 }
 
 String AutoConnect::_token_MENU_PRE(PageArgument& args) {
