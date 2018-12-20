@@ -151,7 +151,7 @@ bool AutoConnectAux::setElementValue(const String& name, const String value) {
  * @return false An element specified name is not registered,
  * or its element value must be array.
  */
-bool AutoConnectAux::setElementValue(const String& name, std::vector<String> values) {
+bool AutoConnectAux::setElementValue(const String& name, std::vector<String> const& values) {
   bool  rc = false;
 
   AutoConnectElement* elm = getElement(name);
@@ -842,51 +842,73 @@ AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& element, const Stri
 }
 
 /**
- * Serialize whole elements owned by an AutoConnectAux into the stream.
- * @param out An output stream
- * @return  Number of bytes output
- */
-size_t AutoConnectAux::save(Stream& out) {
-  size_t  bs = 0;
-  size_t  e = _addonElm.size();
-
-  for (size_t n = 0; n < e; e++) {
-    AutoConnectElement& elm = _addonElm[n];
-    bs += elm.getObjectSize();
-  }
-  if (bs <= 0)
-    return 0;
-
-  DynamicJsonBuffer jb(bs + JSON_OBJECT_SIZE(4)+ JSON_ARRAY_SIZE(1));
-  JsonObject&  json = jb.createObject();
-  json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
-  json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
-  json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
-  JsonArray&  elements = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_ELEMENT));
-  for (std::size_t n = 0; n < e; n++) {
-    JsonObject& element = elements.createNestedObject();
-    AutoConnectElement& elm = _addonElm[n];
-    elm.serialize(element);
-  }
-  return static_cast<size_t>(json.prettyPrintTo(out));
-}
-
-/**
  * Serialize an element specified the name into the stream.
  * @param  name  An element name to be output.
  * @return Number of bytes output
  */
-size_t AutoConnectAux::saveElement(const String& name, Stream& out) {
-  for (std::size_t n = 0; n < _addonElm.size(); n++) {
-    AutoConnectElement& elm = _addonElm[n];
-    if (elm.name == name) {
-      DynamicJsonBuffer jb(elm.getObjectSize());
-      JsonObject& element = jb.createObject();
-      elm.serialize(element);
-      return static_cast<size_t>(element.prettyPrintTo(out));
+size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names) {
+  size_t  bufferSize = 0;
+  size_t  stores = _addonElm.size();
+  size_t  amount = names.size();
+  size_t  size_n = 0;
+
+  // Calculate JSON buffer size
+  if (amount == 0)
+    bufferSize += JSON_OBJECT_SIZE(4);
+  if (amount != 1)
+    bufferSize += JSON_ARRAY_SIZE(amount);
+  for (size_t n = 0; n < amount; n++) {
+    for (size_t e = 0; e < stores; e++) {
+      AutoConnectElement& elm = _addonElm[e];
+      if (elm.name.equalsIgnoreCase(names[n])) {
+        bufferSize += elm.getObjectSize();
+        break;
+      }
     }
   }
-  return 0;
+
+  if (bufferSize > 0) {
+    DynamicJsonBuffer jb(bufferSize);
+    if (amount == 1) {
+      JsonObject& element = jb.createObject();
+      for (size_t e = 0; e < stores; e++) {
+        AutoConnectElement& elm = _addonElm[e];
+        if (elm.name.equalsIgnoreCase(names[0])) {
+          elm.serialize(element);
+          break;
+        }
+      }
+      size_n = element.printTo(out);
+    }
+    else if (amount == 0) {
+      JsonObject& json = jb.createObject();
+      json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
+      json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
+      json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
+      JsonArray&  elements = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_ELEMENT));
+      for (size_t e = 0; e < stores; e++) {
+        JsonObject& element = elements.createNestedObject();
+        AutoConnectElement& elm = _addonElm[e];
+        elm.serialize(element);
+      }
+      size_n = json.prettyPrintTo(out);
+    }
+    else if (amount >= 2) {
+      JsonArray& elements = jb.createArray();
+      for (size_t n = 0; n < amount; n++) {
+        for (size_t e = 0; e < stores; e++) {
+          AutoConnectElement& elm = _addonElm[e];
+          if (elm.name.equalsIgnoreCase(names[n])) {
+            JsonObject& element = elements.createNestedObject();
+            elm.serialize(element);
+            break;
+          }
+        }
+      }
+      size_n = elements.prettyPrintTo(out);
+    }
+  }
+  return size_n;
 }
 
 /**

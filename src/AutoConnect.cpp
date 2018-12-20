@@ -496,6 +496,7 @@ bool AutoConnect::_loadAvailCredential() {
 
   if (credential.entries() > 0) {
     // Scan the vicinity only when the saved credentials are existing.
+    WiFi.scanDelete();
     int8_t  nn = WiFi.scanNetworks(false, true);
     AC_DBG("%d network(s) found\n", (int)nn);
     if (nn > 0) {

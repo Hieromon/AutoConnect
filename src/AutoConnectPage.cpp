@@ -1021,7 +1021,9 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   AC_UNUSED(args);
   String ssidList = "";
   _hiddenSSIDCount = 0;
+  WiFi.scanDelete();
   int8_t nn = WiFi.scanNetworks(false, true);
+  AC_DBG("%d network(s) found\n", (int)nn);
   for (uint8_t i = 0; i < nn; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {

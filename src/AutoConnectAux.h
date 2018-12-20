@@ -59,7 +59,7 @@ class AutoConnectAux : public PageBuilder {
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
-  bool  setElementValue(const String& name, std::vector<String> values);  /**< Set values collection to specified element */
+  bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
   void  setTitle(const String title) { _title = title; }                /**< Set a title of the auxiliary page */
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
 
@@ -70,8 +70,7 @@ class AutoConnectAux : public PageBuilder {
   bool loadElement(const String& in, const String& name = String(""));              /**< Load specified element */
   bool loadElement(const __FlashStringHelper* in, const String& name = String("")); /**< Load specified element */
   bool loadElement(Stream& in, const String& name = String(""), const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);   /**< Load specified element */
-  size_t  save(Stream& out);                                            /**< Write AutoConnectAux elements to the stream */
-  size_t  saveElement(const String& name, Stream& out);                 /**< Write an element of AutoConnectAux to the stream */
+  size_t  saveElement(Stream& out, std::vector<String> const& names = {});    /**< Write elements of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
 
  protected:
