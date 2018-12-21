@@ -111,6 +111,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
 #endif
 
+  // Set host name
+  if (_apConfig.hostName.length())
+    WiFi.hostname(_apConfig.hostName.c_str());
+
   // If the portal is requested promptly skip the first WiFi.begin and 
   // immediately start the portal.
   if (_apConfig.immediateStart) {

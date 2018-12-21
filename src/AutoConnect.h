@@ -67,6 +67,7 @@ class AutoConnectConfig {
     autoReset(true),
     autoReconnect(false),
     immediateStart(false),
+    hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     staip(0U),
     staGateway(0U),
@@ -92,6 +93,7 @@ class AutoConnectConfig {
     autoReset(true),
     autoReconnect(false),
     immediateStart(false),
+    hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     staip(0U),
     staGateway(0U),
@@ -117,6 +119,7 @@ class AutoConnectConfig {
     autoReset = o.autoReset;
     autoReconnect = o.autoReconnect;
     immediateStart = o.immediateStart;
+    hostName = o.hostName;
     homeUri = o.homeUri;
     staip = o.staip;
     staGateway = o.staGateway;
@@ -141,6 +144,7 @@ class AutoConnectConfig {
   bool      autoReset;          /**< Reset ESP8266 module automatically when WLAN disconnected. */
   bool      autoReconnect;      /**< Automatic reconnect with past SSID */
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
+  String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   IPAddress staip;              /**< Station static IP address */
   IPAddress staGateway;         /**< Station gateway address */
