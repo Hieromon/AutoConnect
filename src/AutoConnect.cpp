@@ -602,7 +602,6 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     // Read from EEPROM
     AutoConnectCredential credential(_apConfig.boundaryOffset);
     struct station_config entry;
-//    AC_DBG("Load credential:%s\n", args.arg(AUTOCONNECT_PARAMID_CRED).c_str());
     credential.load(args.arg(AUTOCONNECT_PARAMID_CRED).c_str(), &entry);
     strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));

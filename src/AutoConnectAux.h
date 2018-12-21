@@ -58,6 +58,8 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement* getElement(const String& name);                   /**< Get registered AutoConnectElement as specified name */
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
+//  bool  setElementValue(const String& name, const bool checked);        /**< Set checked value to specified AutoConnectChechbox element */
+//  bool  setElementValue(const String& name, const uint8_t checked);     /**< Set checked value to specified AutoConnectRadio element */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
   void  setTitle(const String title) { _title = title; }                /**< Set a title of the auxiliary page */
@@ -80,6 +82,7 @@ class AutoConnectAux : public PageBuilder {
   const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
   const String  _injectTitle(PageArgument& args) const { (void)(args); return _title; } /**< Returns title of this page to PageBuilder */
   const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
+  const String  _indicateUri(PageArgument& args);                       /**< Inject the uri that caused the request */
   static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
 
 #ifdef AUTOCONNECT_USE_JSON
