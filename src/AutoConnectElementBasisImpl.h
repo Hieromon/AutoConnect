@@ -65,9 +65,9 @@ const String AutoConnectInputBasis::toHTML(void) const {
 }
 
 /**
-*  Generate an HTML <input type=radio> element with an <option> element.
-*  @return String  an HTML string.
-*/
+ *  Generate an HTML <input type=radio> element with an <option> element.
+ *  @return String  an HTML string.
+ */
 const String AutoConnectRadioBasis::toHTML(void) const {
   String  html = String();
 
@@ -86,6 +86,20 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       html += String("<br>");
   }
   return html;
+}
+
+/**
+ * Indicate an entry with the specified value in the value's collection.
+ * @param value     The value to indicates in the collection.
+ */
+void AutoConnectRadioBasis::check(const String& value) {
+  for (std::size_t n = 0; n < _values.size(); n++) {
+    String& v = _values[n];
+    if (v.equalsIgnoreCase(value)) {
+      checked = n + 1;
+      break;
+    }
+  }
 }
 
 /**

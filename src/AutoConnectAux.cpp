@@ -53,7 +53,7 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "function _sa(url) {"
   "var uri=document.createElement('input');"
   "uri.setAttribute('type','hidden');"
-  "uri.setAttribute('name','uri');"
+  "uri.setAttribute('name','" AUTOCONNECT_AUXURI_PARAM "');"
   "uri.setAttribute('value','{{AUX_URI}}');"
   "document.getElementById('_aux').appendChild(uri);"
   "document.getElementById('_aux').action=url;"
@@ -76,6 +76,16 @@ AutoConnectAux::~AutoConnectAux() {
 }
 
 /**
+ * Returns a null element as static storage.
+ * This static element is referred by invalid JSON data.
+ * @return A reference of a static element defined by name as null.
+ */
+AutoConnectElement& AutoConnectAux::_nullElement() {
+  static AutoConnectElement nullElement("", "");
+  return nullElement;
+}
+
+/**
  * Add an AutoConnectElement
  * @param  addon A reference of AutoConnectElement.
  */
@@ -89,19 +99,19 @@ void AutoConnectAux::add(AutoConnectElement& addon) {
  * @param  addons  AutoConnectElementVT collection.
  */
 void AutoConnectAux::add(AutoConnectElementVT addons) {
-  for (std::size_t n = 0; n < addons.size(); n++)
-    add(addons[n]);
+  for (AutoConnectElement& element : addons)
+    add(element);
 }
 
 /**
-* Get already registered AutoConnectElement.
-* @param  name  Element name
-* @return A pointer to the registered AutoConnectElement.
-*/
+ * Get already registered AutoConnectElement.
+ * @param  name  Element name
+ * @return A pointer to the registered AutoConnectElement.
+ */
 AutoConnectElement* AutoConnectAux::getElement(const String& name) {
-  for (std::size_t n = 0; n < _addonElm.size(); n++)
-    if (name.equalsIgnoreCase(_addonElm[n].get().name))
-      return &(_addonElm[n].get());
+  for (AutoConnectElement& elm : _addonElm)
+    if (elm.name.equalsIgnoreCase(name))
+      return &elm;
   AC_DBG("Element<%s> not registered\n", name.c_str());
   return nullptr;
 }
@@ -128,28 +138,6 @@ bool AutoConnectAux::release(const String& name) {
 }
 
 /**
- * Set the value to AutoConnectRadio element.
- * @param  name    A string of AutoConnectRadio element name to set the value.
- * @param  checked A checked value.
- * @return true  The value was set.
- * @return false An element specified name is not registered,
- * or its element value does not match storage type.
- */
-//bool AutoConnectAux::setElementValue(const String& name, const uint8_t checked) {
-//  AutoConnectElement* elm = getElement(name);
-//  if (elm) {
-//    if (elm->typeOf() == AC_Radio) {
-//      AutoConnectRadio* elmRadio = reinterpret_cast<AutoConnectRadio*>(elm);
-//      elmRadio->checked = checked;
-//      return true;
-//    }
-//    else
-//      AC_DBG("Element<%s> value type mismatch\n", name.c_str());
-//  }
-//  return false;
-//}
-
-/**
  * Set the value to specified element.
  * @param  name  A string of element name to set the value.
  * @param  value Setting value. (String)
@@ -169,7 +157,7 @@ bool AutoConnectAux::setElementValue(const String& name, const String value) {
       }
       else if (elm->typeOf() == AC_Radio) {
         AutoConnectRadio* elmRadio = reinterpret_cast<AutoConnectRadio*>(elm);
-        elmRadio->checked = static_cast<uint8_t>(value.toInt());
+        elmRadio->check(value);
       }
       else
         elm->value = value;
@@ -252,11 +240,29 @@ void AutoConnectAux::_join(AutoConnect& ac) {
 }
 
 /**
+ * Inject the <li> element depending on the "luxbar-item" attribute
+ * for implementing the AutoConnect menu.
+ * @param  args  A reference of PageArgument but it's only used for
+ * interface alignment and is not actually used.
+ * @return A concatenated string of <li> elements for the menu item of
+ * AutoConnect.
+ */
+const String AutoConnectAux::_injectMenu(PageArgument& args) {
+  String  menuItem;
+
+  if (_menu)
+    menuItem = String(FPSTR("<li class=\"luxbar-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
+  if (_next)
+    menuItem += _next->_injectMenu(args);
+  return menuItem;
+}
+
+/**
  * Insert the uri that caused the request to the aux.
  */
 const String AutoConnectAux::_indicateUri(PageArgument& args) {
   AC_UNUSED(args);
-  String  lastUri = _ac->_auxLastUri;
+  String  lastUri = _uriStr;
   lastUri.replace(String("/"), String("&#47;"));
   return lastUri;
 }
@@ -268,35 +274,8 @@ const String AutoConnectAux::_indicateUri(PageArgument& args) {
  * @return HTML string that should be inserted.
  */
 const String AutoConnectAux::_insertElement(PageArgument& args) {
-  // Save elements owned by AutoConnectAux that caused the request.
-  String  auxUri = args.arg("uri");
-  if (auxUri.length()) {
-    auxUri.replace(String("&#47;"), String("/"));
-    AutoConnectAux* auxPage = _ac->_aux.get();
-    while (auxPage) {
-      if (auxPage->_uriStr == auxUri)
-        break;
-      auxPage = auxPage->_next.get();
-    }
-    // Caused page is exist, restore elements value.
-    if (auxPage) {
-      for (size_t n = 0; n < args.size(); n++) {
-        String  elmName = args.argName(n);
-        String  elmValue = args.arg(n);
-        AutoConnectElement* elm = auxPage->getElement(elmName);
-        if (elm) {
-          if (elm->typeOf() == AC_Checkbox)
-            elmValue = "checked";
-          auxPage->setElementValue(elmName, elmValue);
-        }
-      }
-    }
-  }
-  // Save invoked Aux.
-  _ac->_auxLastUri = _uriStr;
+  String  body = String("");
 
-  // Build the current Aux page.
-  String  body = String();
   if (_handler) {
     if (_order & AC_EXIT_AHEAD) {
       AC_DBG("CB in AHEAD %s\n", uri());
@@ -304,10 +283,12 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
     }
   }
 
-  for (std::size_t n = 0; n < _addonElm.size(); n++) {
-    AutoConnectElement& addon = _addonElm[n];
+  for (AutoConnectElement& addon : _addonElm)
     body += addon.toHTML();
-  }
+  //for (std::size_t n = 0; n < _addonElm.size(); n++) {
+  //  AutoConnectElement& addon = _addonElm[n];
+  //  body += addon.toHTML();
+  //}
 
   if (_handler) {
     if (_order & AC_EXIT_LATER) {
@@ -362,31 +343,21 @@ PageElement* AutoConnectAux::_setupPage(String uri) {
 }
 
 /**
- * Inject the <li> element depending on the "luxbar-item" attribute 
- * for implementing the AutoConnect menu.
- * @param  args  A reference of PageArgument but it's only used for 
- * interface alignment and is not actually used. 
- * @return A concatenated string of <li> elements for the menu item of 
- * AutoConnect.
+ * Store element values owned by AutoConnectAux that caused the request.
+ * Save the current arguments remaining in the Web server object when
+ * this function invoked.
+ * @param webServer A pointer to the class object of WebServerClass
  */
-const String AutoConnectAux::_injectMenu(PageArgument& args) {
-  String  menuItem;
-
-  if (_menu)
-    menuItem = String(FPSTR("<li class=\"luxbar-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
-  if (_next)
-    menuItem += _next->_injectMenu(args);
-  return menuItem;
-}
-
-/**
- * Returns a null element as static storage.
- * This static element is referred by invalid JSON data.
- * @return A reference of a static element defined by name as null.
- */
-AutoConnectElement& AutoConnectAux::_nullElement() {
-  static AutoConnectElement nullElement("", "");
-  return nullElement;
+void AutoConnectAux::_storeElements(WebServerClass* webServer) {
+  for (uint8_t n = 0; n < webServer->args(); n++) {
+    String  elmValue = webServer->arg(n);
+    AutoConnectElement* elm = getElement(webServer->argName(n));
+    if (elm) {
+      if (elm->typeOf() == AC_Checkbox)
+        elmValue = "checked";
+      setElementValue(webServer->argName(n), elmValue);
+    }
+  }
 }
 
 #ifndef AUTOCONNECT_USE_JSON
@@ -931,31 +902,24 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
     bufferSize += JSON_OBJECT_SIZE(4);
   if (amount != 1)
     bufferSize += JSON_ARRAY_SIZE(amount);
-  for (size_t n = 0; n < amount; n++) {
-    for (size_t e = 0; e < stores; e++) {
-      AutoConnectElement& elm = _addonElm[e];
-      if (elm.name.equalsIgnoreCase(names[n])) {
+
+  for (String name : names)
+    for (AutoConnectElement& elm : _addonElm)
+      if (elm.name.equalsIgnoreCase(name)) {
         bufferSize += elm.getObjectSize();
         break;
       }
-    }
-  }
 
   if (bufferSize > 0) {
     DynamicJsonBuffer jb(bufferSize);
     if (amount == 1) {
       JsonObject& element = jb.createObject();
-      for (size_t e = 0; e < stores; e++) {
-        AutoConnectElement& elm = _addonElm[e];
+      for (AutoConnectElement& elm : _addonElm)
         if (elm.name.equalsIgnoreCase(names[0])) {
           elm.serialize(element);
           break;
         }
-      }
       size_n = element.printTo(out);
-      AC_DBG("");
-      element.printTo(Serial);
-      AC_DBG_DUMB("\n");
     }
     else if (amount == 0) {
       JsonObject& json = jb.createObject();
@@ -963,32 +927,22 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
       json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
       json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
       JsonArray&  elements = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_ELEMENT));
-      for (size_t e = 0; e < stores; e++) {
+      for (AutoConnectElement& elm : _addonElm) {
         JsonObject& element = elements.createNestedObject();
-        AutoConnectElement& elm = _addonElm[e];
         elm.serialize(element);
       }
       size_n = json.prettyPrintTo(out);
-      AC_DBG("");
-      json.printTo(Serial);
-      AC_DBG_DUMB("\n");
     }
     else if (amount >= 2) {
       JsonArray& elements = jb.createArray();
-      for (size_t n = 0; n < amount; n++) {
-        for (size_t e = 0; e < stores; e++) {
-          AutoConnectElement& elm = _addonElm[e];
-          if (elm.name.equalsIgnoreCase(names[n])) {
+      for (String name : names)
+        for (AutoConnectElement& elm : _addonElm)
+          if (elm.name.equalsIgnoreCase(name)) {
             JsonObject& element = elements.createNestedObject();
             elm.serialize(element);
             break;
           }
-        }
-      }
       size_n = elements.prettyPrintTo(out);
-      AC_DBG("");
-      elements.printTo(Serial);
-      AC_DBG_DUMB("\n");
     }
   }
   return size_n;

@@ -235,7 +235,6 @@ class AutoConnect {
 
   /** Extended pages made up with AutoConnectAux */
   std::unique_ptr<AutoConnectAux> _aux;
-  String  _auxLastUri;
 
   /** Saved configurations */
   AutoConnectConfig     _apConfig;

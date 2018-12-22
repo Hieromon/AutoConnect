@@ -127,6 +127,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
   const String  toHTML(void) const override;
   void  add(const String value) { _values.push_back(value); }
   void  empty(void) { _values.clear(); }
+  void  check(const String& value);
 
   String      label;    /**< A label for a subsequent radio buttons */
   ACArrange_t order;    /**< layout order */

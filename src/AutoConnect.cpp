@@ -656,6 +656,26 @@ String AutoConnect::_invokeResult(PageArgument& args) {
  */
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   AC_DBG("Host:%s, URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
+
+  // At the time when handleClient calls RequestHandler, the parsed http
+  // argument remains the last one in the request.
+  // If the current request argument contains AutoConnectElement, it is
+  // the form data of the AutoConnectAux page and with this timing save
+  // the value of each element.
+  if (_webServer->hasArg(String(AUTOCONNECT_AUXURI_PARAM))) {
+    String  auxUri = _webServer->arg(AUTOCONNECT_AUXURI_PARAM);
+    auxUri.replace(String("&#47;"), String("/"));
+    AutoConnectAux* aux = _aux.get();
+    while (aux) {
+      if (aux->_uriStr == auxUri) {
+        aux->_storeElements(_webServer.get());
+        break;
+      }
+      aux = aux->_next.get();
+    }
+  }
+
+  // Here, classify requested uri
   if (uri == _uri) {
     AC_DBG_DUMB(", already allocated\n", _uri.c_str());
     return true;  // The response page already exists.
@@ -747,12 +767,10 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
       if (millis() - st > timeout)
         break;
     }
-#ifdef AC_DEBUG
-    AC_DEBUG_PORT.print('.');
-#endif // !AC_DEBUG
+    AC_DBG_DUMB("%c", '.');
     delay(300);
   }
-  AC_DBG("%s IP:%s\n", wifiStatus == WL_CONNECTED ? "established" : "time out", WiFi.localIP().toString().c_str());
+  AC_DBG_DUMB("%s IP:%s\n", wifiStatus == WL_CONNECTED ? "established" : "time out", WiFi.localIP().toString().c_str());
   return wifiStatus;
 }
 

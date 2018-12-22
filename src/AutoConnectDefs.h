@@ -65,6 +65,11 @@
 #define AUTOCONNECT_HOMEURI     "/"
 #endif // !AUTOCONNECT_HOMEURI
 
+// AutoConnectAux form argument name
+#ifndef AUTOCONNECT_AUXURI_PARAM
+#define AUTOCONNECT_AUXURI_PARAM  "_acuri"
+#endif // !AUTOCONNECT_AUXURI_PARAM
+
 // AutoConnect menu title
 #ifndef AUTOCONNECT_MENU_TITLE
 #define AUTOCONNECT_MENU_TITLE  "AutoConnect"
