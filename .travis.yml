@@ -33,3 +33,4 @@ script:
   - buildExampleSketch HandlePortalEX
   - buildExampleSketch Simple
   - buildExampleSketch mqttRSSI
+  - buildExampleSketch mqttRSSI_FS
