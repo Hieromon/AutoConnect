@@ -20,6 +20,7 @@
 
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <SPIFFS.h>
@@ -31,6 +32,7 @@
 #define PARAM_FILE      "/param.json"
 #define AUX_MQTTSETTING "/mqtt_setting"
 #define AUX_MQTTSAVE    "/mqtt_save"
+#define AUX_MQTTCLEAR   "/mqtt_clear"
 
 AutoConnect  portal;
 AutoConnectConfig config;
@@ -118,41 +120,45 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
 }
 
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
-  String  echo;
-
   serverName = args.arg("mqttserver");
   serverName.trim();
-  echo = "mqttserver: " + serverName + "<br>";
 
   channelId = args.arg("channelid");
   channelId.trim();
-  echo += "channelid: " + channelId + "<br>";
   
   userKey = args.arg("userkey");
   userKey.trim();
-  echo += "userkey: " + userKey + "<br>";
   
   apiKey = args.arg("apikey");
   apiKey.trim();
-  echo += "apikey: " + apiKey + "<br>";
   
   String upd = args.arg("period");
   updateInterval = upd.substring(0, 2).toInt() * 1000;
-  echo += "period: " + String(updateInterval) + "<br>";
 
   String uniqueid = args.arg("uniqueid");
-  echo += "uniqueid: " + uniqueid + "<br>";
 
   hostName = args.arg("hostname");
   hostName.trim();
-  echo += "hostname: " + hostName + "<br>";
   
+  // In order to retrieve the elements of /mqtt_setting,
+  // it is necessary to get the AutoConnectAux object of /mqtt_setting.
   SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "w");
   portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "period", "uniqueid", "hostname" });
   param.close();
   SPIFFS.end();
-  return echo;
+
+  // Echo back saved parameters to AutoConnectAux page.
+  AutoConnectText&  echo = aux.getElement<AutoConnectText>("parameters");
+  echo.value = "Server: " + serverName + "<br>";
+  echo.value += "Channel ID: " + channelId + "<br>";
+  echo.value += "User Key: " + userKey + "<br>";
+  echo.value += "API Key: " + apiKey + "<br>";
+  echo.value += "Update period: " + String(updateInterval / 1000) + " sec.<br>";
+  echo.value += "Use APID unique: " + uniqueid + "<br>";
+  echo.value += "ESP host name: " + hostName + "<br>";
+
+  return "";
 }
 
 void handleRoot() {
@@ -175,6 +181,32 @@ void handleRoot() {
   server.send(200, "text/html", content);
 }
 
+// Clear channel using Thingspeak's API.
+void handleClearChannel() {
+  HTTPClient  httpClient;
+  String  endpoint = serverName;
+  endpoint.replace("mqtt", "api");
+  String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userKey;
+
+  Serial.println(delUrl + ":" + String(httpClient.begin(delUrl)));
+  Serial.println("res:" + String(httpClient.sendRequest("DELETE")));
+  String  res = httpClient.getString();
+  httpClient.end();
+
+  // Returns the redirect response. The page is reloaded and its contents
+  // are updated to the state after deletion.
+#if defined(ARDUINO_ARCH_ESP8266)
+  ESP8266WebServer& server = portal.host();
+#elif defined(ARDUINO_ARCH_ESP32)
+  WebServer&  server = portal.host();
+#endif
+  server.sendHeader("Location", String("http://") + server.client().localIP().toString() + String("/"));
+  server.send(302, "text/plain", "");
+  server.client().flush();
+  server.client().stop();
+}
+
+// Load AutoConnectAux JSON from SPIFFS.
 bool loadAux(const String auxName) {
   bool  rc = false;
   String  fn = auxName + ".json";
@@ -208,10 +240,12 @@ void setup() {
     if (hostnameElm.value.length()) {
       config.hostName = hostnameElm.value;
     }
+    config.bootUri = AC_ONBOOTURI_HOME;
+    config.homeUri = "/";
+    portal.config(config);
 
     portal.on(AUX_MQTTSETTING, loadParams);
-    portal.on(AUX_MQTTSAVE, saveParams, AC_EXIT_LATER);
-    portal.config(config);
+    portal.on(AUX_MQTTSAVE, saveParams);
   }
   else
     Serial.println("aux. load error");
@@ -234,6 +268,7 @@ void setup() {
   WebServer&  server = portal.host();
 #endif
   server.on("/", handleRoot);
+  server.on(AUX_MQTTCLEAR, handleClearChannel);
 }
 
 void loop() {
