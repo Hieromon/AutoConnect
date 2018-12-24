@@ -97,6 +97,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Supports **AutoConnectConfig::immediateStart** option, to start the portal immediately without first trying WiFi.begin.
 - Improved boot uri after reset. **AutoConnectConfig::bootUri** can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
 - Improved source code placement of predefined macros. Defined common macros have been moved to ```AutoConnectDefs.h```.
+- Supports **AutoConnectConfig::hostName**. It activates ```WiFi.hostname()```.
 
 ### [0.9.6] Sept. 27, 2018
 - Improvement of RSSI detection for saved SSIDs.
