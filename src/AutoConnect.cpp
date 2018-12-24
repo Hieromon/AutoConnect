@@ -657,8 +657,8 @@ String AutoConnect::_invokeResult(PageArgument& args) {
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   AC_DBG("Host:%s, URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
 
-  // At the time when handleClient calls RequestHandler, the parsed http
-  // argument remains the last one in the request.
+  // When handleClient calls RequestHandler, the parsed http argument remains
+  // the previous request.
   // If the current request argument contains AutoConnectElement, it is
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
@@ -677,7 +677,7 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
 
   // Here, classify requested uri
   if (uri == _uri) {
-    AC_DBG_DUMB(", already allocated\n", _uri.c_str());
+    AC_DBG_DUMB(", already allocated\n");
     return true;  // The response page already exists.
   }
 
