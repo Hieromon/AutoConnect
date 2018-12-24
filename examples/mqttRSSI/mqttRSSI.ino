@@ -15,6 +15,7 @@
 
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <SPIFFS.h>
@@ -26,7 +27,14 @@
 #define PARAM_FILE      "/param.json"
 #define AUX_SETTING_URI "/mqtt_setting"
 #define AUX_SAVE_URI    "/mqtt_save"
+#define AUX_CLEAR_URI   "/mqtt_clear"
 
+// JSON definition of AutoConnectAux.
+// Multiple AutoConnectAux can be defined in the JSON array.
+// In this example, JSON is hard-coded to make it easier to
+// understand the AutoConnectAux API. In practice, it will be
+// an external content which separated from the sketch,
+// as the mqtt_RSSI_FS example shows.
 static const char AUX_mqtt_setting[] PROGMEM = R"raw(
 [
   {
@@ -125,6 +133,16 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "type": "ACText",
         "value": "<h4>Parameters saved as:</h4>",
         "style": "text-align:center;color:#2f4f4f;padding:10px;"
+      },
+      {
+        "name": "parameters",
+        "type": "ACText"
+      },
+      {
+        "name": "clear",
+        "type": "ACSubmit",
+        "value": "Clear channel",
+        "uri": "/mqtt_clear"
       }
     ]
   }
@@ -202,6 +220,8 @@ int getStrength(uint8_t points) {
   return points ? static_cast<int>(rssi / points) : 0;
 }
 
+// Load parameters saved with  saveParams from SPIFFS into
+// the elements defined in /mqtt_setting JSON.
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
   SPIFFS.begin();
@@ -216,42 +236,54 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
   return "";
 }
 
+// Save the value of each element entered by /mqtt_setting to
+// the parameter file. The saveParams as below is a callback
+// function of /mqtt_save.
+// When this callback is invoked, the input value of each element
+// of /mqtt_setting is already stored in the AutoConnectAux object.
+// In Sketch, you can output to stream its elements specified by name.
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
-  String  echo;
-
+  // PageArgument is a copy set of the elements that AutoConnectAux has.
   serverName = args.arg("mqttserver");
   serverName.trim();
-  echo = "mqttserver: " + serverName + "<br>";
 
   channelId = args.arg("channelid");
   channelId.trim();
-  echo += "channelid: " + channelId + "<br>";
   
   userKey = args.arg("userkey");
   userKey.trim();
-  echo += "userkey: " + userKey + "<br>";
   
   apiKey = args.arg("apikey");
   apiKey.trim();
-  echo += "apikey: " + apiKey + "<br>";
   
   String upd = args.arg("period");
   updateInterval = upd.substring(0, 2).toInt() * 1000;
-  echo += "period: " + String(updateInterval) + "<br>";
 
   String uniqueid = args.arg("uniqueid");
-  echo += "uniqueid: " + uniqueid + "<br>";
 
   hostName = args.arg("hostname");
   hostName.trim();
-  echo += "hostname: " + hostName + "<br>";
   
+  // The entered value is owned by AutoConnectAux of /mqtt_setting.
+  // In order to retrieve the elements of /mqtt_setting,
+  // it is necessary to get the AutoConnectAux object of /mqtt_setting.
   SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "w");
   portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "period", "uniqueid", "hostname" });
   param.close();
   SPIFFS.end();
-  return echo;
+
+  // Echo back saved parameters to AutoConnectAux page.
+  AutoConnectText&  echo = aux.getElement<AutoConnectText>("parameters");
+  echo.value = "Server: " + serverName + "<br>";
+  echo.value += "Channel ID: " + channelId + "<br>";
+  echo.value += "User Key: " + userKey + "<br>";
+  echo.value += "API Key: " + apiKey + "<br>";
+  echo.value += "Update period: " + String(updateInterval / 1000) + " sec.<br>";
+  echo.value += "Use APID unique: " + uniqueid + "<br>";
+  echo.value += "ESP host name: " + hostName + "<br>";
+
+  return "";
 }
 
 void handleRoot() {
@@ -262,7 +294,7 @@ void handleRoot() {
     "</head>"
     "<body>"
     "<iframe width=\"450\" height=\"260\" style=\"transform:scale(0.79);-o-transform:scale(0.79);-webkit-transform:scale(0.79);-moz-transform:scale(0.79);-ms-transform:scale(0.79);transform-origin:0 0;-o-transform-origin:0 0;-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;border: 1px solid #cccccc;\" src=\"https://thingspeak.com/channels/454951/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&type=line\"></iframe>"
-    "<p style=\"padding-top:10px;text-align:center\">" AUTOCONNECT_LINK(COG_24) "</p>"
+    "<p style=\"padding-top:5px;text-align:center\">" AUTOCONNECT_LINK(COG_24) "</p>"
     "</body>"
     "</html>";
 
@@ -272,6 +304,31 @@ void handleRoot() {
   WebServer&  server = portal.host();
 #endif
   server.send(200, "text/html", content);
+}
+
+// Clear channel using Thingspeak's API.
+void handleClearChannel() {
+  HTTPClient  httpClient;
+  String  endpoint = serverName;
+  endpoint.replace("mqtt", "api");
+  String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userKey;
+
+  Serial.println(delUrl + ":" + String(httpClient.begin(delUrl)));
+  Serial.println("res:" + String(httpClient.sendRequest("DELETE")));
+  String  res = httpClient.getString();
+  httpClient.end();
+
+  // Returns the redirect response. The page is reloaded and its contents
+  // are updated to the state after deletion.
+#if defined(ARDUINO_ARCH_ESP8266)
+  ESP8266WebServer& server = portal.host();
+#elif defined(ARDUINO_ARCH_ESP32)
+  WebServer&  server = portal.host();
+#endif
+  server.sendHeader("Location", String("http://") + server.client().localIP().toString() + String("/"));
+  server.send(302, "text/plain", "");
+  server.client().flush();
+  server.client().stop();
 }
 
 void setup() {
@@ -289,10 +346,12 @@ void setup() {
     if (hostnameElm.value.length()) {
       config.hostName = hostnameElm.value;
     }
+    config.bootUri = AC_ONBOOTURI_HOME;
+    config.homeUri = "/";
+    portal.config(config);
 
     portal.on(AUX_SETTING_URI, loadParams);
-    portal.on(AUX_SAVE_URI, saveParams, AC_EXIT_LATER);
-    portal.config(config);
+    portal.on(AUX_SAVE_URI, saveParams);
   }
   else
     Serial.println("load error");
@@ -315,6 +374,7 @@ void setup() {
   WebServer&  server = portal.host();
 #endif
   server.on("/", handleRoot);
+  server.on(AUX_CLEAR_URI, handleClearChannel);
 }
 
 void loop() {
