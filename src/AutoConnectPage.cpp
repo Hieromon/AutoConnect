@@ -464,8 +464,6 @@ const char AutoConnect::_ELM_HTML_HEAD[] PROGMEM = {
   "<!DOCTYPE html>"
   "<html>"
   "<head>"
-  "<meta http-equiv=\"Pragma\" content=\"no-cache\">"
-  "<meta http-equiv=\"Cache-Control\" content=\"no-cache\">"
   "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
 };
 
