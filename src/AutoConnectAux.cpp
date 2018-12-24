@@ -349,13 +349,22 @@ PageElement* AutoConnectAux::_setupPage(String uri) {
  * @param webServer A pointer to the class object of WebServerClass
  */
 void AutoConnectAux::_storeElements(WebServerClass* webServer) {
-  for (uint8_t n = 0; n < webServer->args(); n++) {
-    String  elmValue = webServer->arg(n);
-    AutoConnectElement* elm = getElement(webServer->argName(n));
-    if (elm) {
-      if (elm->typeOf() == AC_Checkbox)
-        elmValue = "checked";
-      setElementValue(webServer->argName(n), elmValue);
+  for (AutoConnectElement& elm : _addonElm) {
+    // Overwrite the value of all cataloged AutoConnectElements with
+    // arguments inherited from the last http request.
+    // Relies on AutoConnectRadio, it restores to false at the being
+    // because the checkbox argument will not pass if it is not checked.
+    if (elm.typeOf() == AC_Checkbox)
+      reinterpret_cast<AutoConnectCheckbox&>(elm).checked = false;
+
+    // Seek by argument, store the value to its element.
+    for (int8_t n = 0; n < static_cast<int8_t>(webServer->args()); n++) {
+      if (webServer->argName(n).equalsIgnoreCase(elm.name)) {
+        String  elmValue = webServer->arg(n);
+        if (elm.typeOf() == AC_Checkbox)
+          elmValue = "checked";
+        setElementValue(elm.name, elmValue);
+      }
     }
   }
 }
