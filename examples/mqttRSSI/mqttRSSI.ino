@@ -126,7 +126,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
   {
     "title": "MQTT Setting",
     "uri": "/mqtt_save",
-    "name": "mqttsave",
+    "menu": false,
     "element": [
       {
         "name": "caption",
