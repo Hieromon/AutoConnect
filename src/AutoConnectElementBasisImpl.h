@@ -77,7 +77,8 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       html += String("<br>");
   }
   for (std::size_t n = 0; n < _values.size(); n++) {
-    String value = _values[n];
+//    String value = _values[n];
+    String value = String(_values[n].c_str());
     html += String(FPSTR("<input type=\"radio\" name=\"")) + name + String(FPSTR("\" id=\"")) + value + String(FPSTR("\" value=\"")) + value + String("\"");
     if (n == checked - 1)
       html += String(FPSTR(" checked"));
@@ -94,7 +95,8 @@ const String AutoConnectRadioBasis::toHTML(void) const {
  */
 void AutoConnectRadioBasis::check(const String& value) {
   for (std::size_t n = 0; n < _values.size(); n++) {
-    String& v = _values[n];
+//    String& v = _values[n];
+    String v = String(_values[n].c_str());
     if (v.equalsIgnoreCase(value)) {
       checked = n + 1;
       break;

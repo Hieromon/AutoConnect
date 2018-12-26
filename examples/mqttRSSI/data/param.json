@@ -1,0 +1,27 @@
+[
+  {
+    "name": "mqttserver",
+    "type": "ACInput",
+    "value": "mqtt.thingspeak.com",
+    "placeholder": "MQTT broker server",
+    "label": "Server"
+  },
+  {
+    "name": "channelid",
+    "type": "ACInput",
+    "value": "454951",
+    "label": "Channel ID"
+  },
+  {
+    "name": "userkey",
+    "type": "ACInput",
+    "value": "NRTFYGJ6TJFGX4RC",
+    "label": "User Key"
+  },
+  {
+    "name": "apikey",
+    "type": "ACInput",
+    "value": "HBVQ2XV6VYBI4582",
+    "label": "API Key"
+  }
+]

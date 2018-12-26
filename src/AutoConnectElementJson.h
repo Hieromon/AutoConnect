@@ -143,6 +143,9 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
     AutoConnectRadioBasis::label = label;
     AutoConnectRadioBasis::order = order;
     AutoConnectRadioBasis::checked = checked;
+    //for (String v : values) {
+    //  AutoConnectRadioBasis::add(v);
+    //}
   }
   ~AutoConnectRadioJson() {}
   const size_t  getObjectSize(void) const override;

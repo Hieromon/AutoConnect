@@ -1,16 +1,16 @@
 /*
-  ESP8266/ESP32 publish the RSSI as the WiFi signal strength to ThingSpeak channel.
-  This example is for explaining how to use the AutoConnect library.
+ESP8266/ESP32 publish the RSSI as the WiFi signal strength to ThingSpeak channel.
+This example is for explaining how to use the AutoConnect library.
 
-  In order to execute this example, the ThingSpeak account is needed. Sing up
-  for New User Account and create a New Channel via My Channels.
-  For details, please refer to the project page.
-  https://hieromon.github.io/AutoConnect/examples/index.html#used-with-mqtt-as-a-client-application
+In order to execute this example, the ThingSpeak account is needed. Sing up
+for New User Account and create a New Channel via My Channels.
+For details, please refer to the project page.
+https://hieromon.github.io/AutoConnect/examples/index.html#used-with-mqtt-as-a-client-application
 
-  This example is based on the environment as of March 20, 2018.
-  Copyright (c) 2018 Hieromon Ikasamo.
-  This software is released under the MIT License.
-  https://opensource.org/licenses/MIT
+This example is based on the environment as of March 20, 2018.
+Copyright (c) 2018 Hieromon Ikasamo.
+This software is released under the MIT License.
+https://opensource.org/licenses/MIT
 */
 
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -57,26 +57,22 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "mqttserver",
         "type": "ACInput",
-        "value": "mqtt.thingspeak.com",
         "placeholder": "MQTT broker server",
         "label": "Server"
       },
       {
         "name": "channelid",
         "type": "ACInput",
-        "value": "454951",
         "label": "Channel ID"
       },
       {
         "name": "userkey",
         "type": "ACInput",
-        "value": "NRTFYGJ6TJFGX4RC",
         "label": "User Key"
       },
       {
         "name": "apikey",
         "type": "ACInput",
-        "value": "HBVQ2XV6VYBI4582",
         "label": "API Key"
       },
       {
@@ -85,8 +81,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "label": "Update period",
         "value": [
           "30 sec.",
-          "60 sec.",
-          "180 sec."
+          "60 sec."
         ],
         "arrange": "vertical",
         "checked": 1
@@ -112,7 +107,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "save",
         "type": "ACSubmit",
-        "value": "Save&Start",
+        "value": "Save&amp;Start",
         "uri": "/mqtt_save"
       },
       {
@@ -166,8 +161,8 @@ unsigned long lastPub = 0;
 
 bool mqttConnect() {
   static const char alphanum[] = "0123456789"
-                                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                                 "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
   char    clientId[9];
 
   uint8_t retry = 10;
@@ -186,7 +181,8 @@ bool mqttConnect() {
     if (mqttClient.connect(clientId, MQTT_USER_ID, userKey.c_str())) {
       Serial.println("Established:" + String(clientId));
       return true;
-    } else {
+    }
+    else {
       Serial.println("Connection failed:" + String(mqttClient.state()));
       if (!--retry)
         break;
@@ -227,7 +223,10 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
   SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "r");
   if (param) {
-    aux.loadElement(param);
+    // if (aux.loadElement(param))
+    //   Serial.println(PARAM_FILE " loaded");
+    // else
+    //   Serial.println(PARAM_FILE " failed to load");
     param.close();
   }
   else
@@ -249,13 +248,13 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
 
   channelId = args.arg("channelid");
   channelId.trim();
-  
+
   userKey = args.arg("userkey");
   userKey.trim();
-  
+
   apiKey = args.arg("apikey");
   apiKey.trim();
-  
+
   String upd = args.arg("period");
   updateInterval = upd.substring(0, 2).toInt() * 1000;
 
@@ -263,7 +262,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
 
   hostName = args.arg("hostname");
   hostName.trim();
-  
+
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // In order to retrieve the elements of /mqtt_setting,
   // it is necessary to get the AutoConnectAux object of /mqtt_setting.
@@ -360,7 +359,8 @@ void setup() {
   if (portal.begin()) {
     Serial.println("connected:" + WiFi.SSID());
     Serial.println("IP:" + WiFi.localIP().toString());
-  } else {
+  }
+  else {
     Serial.println("connection failed:" + String(WiFi.status()));
     while (1) {
       delay(100);

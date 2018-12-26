@@ -120,13 +120,23 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) : AutoConnectElementBasis(name, ""), label(label), order(order), checked(checked), _values(values) {
+  explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) : AutoConnectElementBasis(name, ""), label(label), order(order), checked(checked), _values(values) {
     _type = AC_Radio;
+//    _values = values;
+//    for (String v : values) {
+//      add(v);
+//      const std::string sv = v.c_str();
+//      _values.push_back(sv);
+//    }
   }
   virtual ~AutoConnectRadioBasis() {}
   const String  toHTML(void) const override;
-  void  add(const String value) { _values.push_back(value); }
-  void  empty(void) { _values.clear(); }
+  void  add(const String& value) { _values.push_back(value); }
+  //void  add(const String& value) {
+  //  std::string sv = value.c_str();
+  //  _values.push_back(sv);
+  //}
+  void  empty(const size_t reserve = 0) { _values.reserve(reserve);  _values.clear(); std::vector<String>().swap(_values); }
   void  check(const String& value);
 
   String      label;    /**< A label for a subsequent radio buttons */
@@ -135,6 +145,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
 
  protected:
   std::vector<String> _values; /**< Items in a group */
+//  std::vector<std::string> _values; /**< Items in a group */
 };
 
 /**
@@ -147,13 +158,13 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> options = {}, const char* label = "") : AutoConnectElementBasis(name, ""), label(String(label)), _options(options) {
+  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "") : AutoConnectElementBasis(name, ""), label(String(label)), _options(options) {
     _type = AC_Select;
   }
   virtual ~AutoConnectSelectBasis() {}
   const String  toHTML(void) const override;
-  void  add(const String option) { _options.push_back(option); }
-  void  empty(void) { _options.clear(); }
+  void  add(const String& option) { _options.push_back(option); }
+  void  empty(const size_t reserve = 0) { _options.reserve(reserve); _options.clear(); std::vector<String>().swap(_options); }
 
   String  label;                /**< A label for a subsequent input box */
 
