@@ -57,6 +57,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "mqttserver",
         "type": "ACInput",
+        "value": "",
         "placeholder": "MQTT broker server",
         "label": "Server"
       },
@@ -76,17 +77,6 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "label": "API Key"
       },
       {
-        "name": "period",
-        "type": "ACRadio",
-        "label": "Update period",
-        "value": [
-          "30 sec.",
-          "60 sec."
-        ],
-        "arrange": "vertical",
-        "checked": 1
-      },
-      {
         "name": "newline",
         "type": "ACElement",
         "value": "<hr>"
@@ -96,7 +86,24 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "type": "ACCheckbox",
         "value": "unique",
         "label": "Use APID unique",
-        "checked": true
+        "checked": false
+      },
+      {
+        "name": "period",
+        "type": "ACRadio",
+        "label": "Update period",
+        "value": [
+          "30 sec.",
+          "60 sec.",
+          "180 sec."
+        ],
+        "arrange": "vertical",
+        "checked": 1
+      },
+      {
+        "name": "newline",
+        "type": "ACElement",
+        "value": "<hr>"
       },
       {
         "name": "hostname",
@@ -223,10 +230,10 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
   SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "r");
   if (param) {
-    // if (aux.loadElement(param))
-    //   Serial.println(PARAM_FILE " loaded");
-    // else
-    //   Serial.println(PARAM_FILE " failed to load");
+    if (aux.loadElement(param))
+      Serial.println(PARAM_FILE " loaded");
+    else
+      Serial.println(PARAM_FILE " failed to load");
     param.close();
   }
   else
@@ -341,9 +348,11 @@ void setup() {
     AutoConnectInput&     hostnameElm = setting->getElement<AutoConnectInput>("hostname");
     if (uniqueidElm.checked) {
       config.apid = String("ESP") + "_" + String(ESP.getChipId(), HEX);
+      Serial.println("apid set to " + config.apid);
     }
     if (hostnameElm.value.length()) {
       config.hostName = hostnameElm.value;
+      Serial.println("hostname set to " + config.hostName);
     }
     config.bootUri = AC_ONBOOTURI_HOME;
     config.homeUri = "/";

@@ -18,14 +18,14 @@
     {
       "name": "mqttserver",
       "type": "ACInput",
-      "value": "mqtt.thingspeak.com",
+      "value": "",
       "placeholder": "MQTT broker server",
       "label": "Server"
     },
     {
       "name": "channelid",
       "type": "ACInput",
-      "value": "454951",
+      "value": "",
       "label": "Channel ID"
     },
     {
@@ -37,7 +37,7 @@
     {
       "name": "apikey",
       "type": "ACInput",
-      "value": "HBVQ2XV6VYBI4582",
+      "value": "",
       "label": "API Key"
     },
     {
@@ -62,7 +62,7 @@
       "type": "ACCheckbox",
       "value": "unique",
       "label": "Use APID unique",
-      "checked": true
+      "checked": false
     },
     {
       "name": "hostname",

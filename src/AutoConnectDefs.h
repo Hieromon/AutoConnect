@@ -11,7 +11,7 @@
 #define _AUTOCONNECTDEFS_H_
 
 // Uncomment the following AC_DEBUG to enable debug output.
-#define AC_DEBUG
+//#define AC_DEBUG
 
 // Debug output destination can be defined externally with AC_DEBUG_PORT
 #ifndef AC_DEBUG_PORT
@@ -22,6 +22,7 @@
 #define AC_DBG(...) do {AC_DEBUG_PORT.print("[AC] "); AC_DEBUG_PORT.printf( __VA_ARGS__ );} while (0)
 #else
 #define AC_DBG(...)
+#define AC_DBG_DUMB(...)
 #endif // !AC_DEBUG
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.

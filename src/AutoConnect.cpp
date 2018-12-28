@@ -662,9 +662,9 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   // If the current request argument contains AutoConnectElement, it is
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
-  if (_webServer->hasArg(String(AUTOCONNECT_AUXURI_PARAM))) {
+  if (_webServer->hasArg(AUTOCONNECT_AUXURI_PARAM)) {
     String  auxUri = _webServer->arg(AUTOCONNECT_AUXURI_PARAM);
-    auxUri.replace(String("&#47;"), String("/"));
+    auxUri.replace("&#47;", "/");
     AutoConnectAux* aux = _aux.get();
     while (aux) {
       if (aux->_uriStr == auxUri) {

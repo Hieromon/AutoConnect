@@ -263,7 +263,7 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
 const String AutoConnectAux::_indicateUri(PageArgument& args) {
   AC_UNUSED(args);
   String  lastUri = _uriStr;
-  lastUri.replace(String("/"), String("&#47;"));
+  lastUri.replace("/", "&#47;");
   return lastUri;
 }
 
@@ -1118,8 +1118,8 @@ size_t AutoConnectAux::_resultJsonBufferSize() {
     return -1;
   }
   else {
-    AC_DBG("json buffer size:%d\n", _jbSize + _jbByte + 200);
-    return static_cast<size_t>(_jbSize + _jbByte + 200);
+    AC_DBG("json buffer size:%d\n", _jbSize + _jbByte);
+    return static_cast<size_t>(_jbSize + _jbByte);
   }
 }
 

@@ -3,7 +3,7 @@
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
  * @version  0.9.7
- * @date 2018-11-17
+ * @date 2018-12-29
  * @copyright  MIT license.
  */
 
@@ -121,23 +121,15 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
 class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  public:
   explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) : AutoConnectElementBasis(name, ""), label(label), order(order), checked(checked), _values(values) {
-    _type = AC_Radio;
-//    _values = values;
-//    for (String v : values) {
-//      add(v);
-//      const std::string sv = v.c_str();
-//      _values.push_back(sv);
-//    }
+   _type = AC_Radio;
   }
   virtual ~AutoConnectRadioBasis() {}
   const String  toHTML(void) const override;
-  void  add(const String& value) { _values.push_back(value); }
-  //void  add(const String& value) {
-  //  std::string sv = value.c_str();
-  //  _values.push_back(sv);
-  //}
-  void  empty(const size_t reserve = 0) { _values.reserve(reserve);  _values.clear(); std::vector<String>().swap(_values); }
+  const String& operator [] (const std::size_t n) const { return at(n); }
+  void  add(const String& value) { _values.push_back(String(value)); }
+  const String& at(const std::size_t n) const { return _values.at(n); }
   void  check(const String& value);
+  void  empty(const size_t reserve = 0);
 
   String      label;    /**< A label for a subsequent radio buttons */
   ACArrange_t order;    /**< layout order */
@@ -145,7 +137,6 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
 
  protected:
   std::vector<String> _values; /**< Items in a group */
-//  std::vector<std::string> _values; /**< Items in a group */
 };
 
 /**
@@ -163,8 +154,10 @@ class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
   }
   virtual ~AutoConnectSelectBasis() {}
   const String  toHTML(void) const override;
-  void  add(const String& option) { _options.push_back(option); }
-  void  empty(const size_t reserve = 0) { _options.reserve(reserve); _options.clear(); std::vector<String>().swap(_options); }
+  const String& operator [] (const std::size_t n) const { return at(n); }
+  void  add(const String& option) { _options.push_back(String(option)); }
+  const String& at(const std::size_t n) const { return _options.at(n); }
+  void  empty(const size_t reserve = 0);
 
   String  label;                /**< A label for a subsequent input box */
 

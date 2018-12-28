@@ -236,9 +236,11 @@ void setup() {
     AutoConnectInput&     hostnameElm = setting->getElement<AutoConnectInput>("hostname");
     if (uniqueidElm.checked) {
       config.apid = String("ESP") + "_" + String(ESP.getChipId(), HEX);
+      Serial.println("apid set to " + config.apid);
     }
     if (hostnameElm.value.length()) {
       config.hostName = hostnameElm.value;
+      Serial.println("hostname set to " + config.hostName);
     }
     config.bootUri = AC_ONBOOTURI_HOME;
     config.homeUri = "/";

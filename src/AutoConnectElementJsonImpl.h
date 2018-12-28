@@ -216,10 +216,6 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
   json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACRADIO));
   json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
   JsonArray&  values = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_VALUE));
-  //for (std::string& v : _values) {
-  //  String  s = String(v.c_str());
-  //  values.add(s);
-  //}
   for (String v : _values)
     values.add(v);
   switch (order) {

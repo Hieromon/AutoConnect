@@ -22,7 +22,7 @@ using AutoConnectRadio    = AutoConnectRadioJson;
 using AutoConnectSelect   = AutoConnectSelectJson;
 using AutoConnectSubmit   = AutoConnectSubmitJson;
 using AutoConnectText     = AutoConnectTextJson;
-#define AUTOCONNECT_JSON_BUFFER_SIZE  3000
+#define AUTOCONNECT_JSON_BUFFER_SIZE  512
 #else
 using AutoConnectElement  = AutoConnectElementBasis;
 using AutoConnectButton   = AutoConnectButtonBasis;

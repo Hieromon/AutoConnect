@@ -3,7 +3,7 @@
  * @file AutoConnectElementImpl.h
  * @author hieromon@gmail.com
  * @version  0.9.7
- * @date 2018-11-17
+ * @date 2018-12-29
  * @copyright  MIT license.
  */
 
@@ -65,11 +65,37 @@ const String AutoConnectInputBasis::toHTML(void) const {
 }
 
 /**
+* Indicate an entry with the specified value in the value's collection.
+* @param value     The value to indicates in the collection.
+*/
+void AutoConnectRadioBasis::check(const String& value) {
+  for (std::size_t n = 0; n < _values.size(); n++) {
+    if (at(n).equalsIgnoreCase(value)) {
+      checked = n + 1;
+      break;
+    }
+  }
+}
+
+/**
+ * Clear value items of AutoConnetRadio and reallocate new storage.
+ * All hold items are released.
+ * @param reserve  If 'reserve' is greater than 0, this function
+ * allocates new holding storage with the value.
+ */
+void AutoConnectRadioBasis::empty(const size_t reserve) {
+  _values.clear();
+  std::vector<String>().swap(_values);
+  if (reserve)
+    _values.reserve(reserve);
+}
+
+/**
  *  Generate an HTML <input type=radio> element with an <option> element.
  *  @return String  an HTML string.
  */
 const String AutoConnectRadioBasis::toHTML(void) const {
-  String  html = String();
+  String  html = "";
 
   if (label.length()) {
     html = label;
@@ -77,12 +103,12 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       html += String("<br>");
   }
   for (std::size_t n = 0; n < _values.size(); n++) {
-//    String value = _values[n];
-    String value = String(_values[n].c_str());
-    html += String(FPSTR("<input type=\"radio\" name=\"")) + name + String(FPSTR("\" id=\"")) + value + String(FPSTR("\" value=\"")) + value + String("\"");
+    String  value = at(n);
+    String  id = name + "_" + String(n);
+    html += String(FPSTR("<input type=\"radio\" name=\"")) + name + String(FPSTR("\" id=\"")) + id + String(FPSTR("\" value=\"")) + value + String("\"");
     if (n == checked - 1)
       html += String(FPSTR(" checked"));
-    html += String(FPSTR("><label for=\"")) + value + String("\">") + value + String(FPSTR("</label>"));
+    html += String(FPSTR("><label for=\"")) + id + String("\">") + value + String(FPSTR("</label>"));
     if (order == AC_Vertical)
       html += String("<br>");
   }
@@ -90,18 +116,16 @@ const String AutoConnectRadioBasis::toHTML(void) const {
 }
 
 /**
- * Indicate an entry with the specified value in the value's collection.
- * @param value     The value to indicates in the collection.
+ * Clear option items of AutoConnetSelect and reallocate new storage.
+ * All hold items are released.
+ * @param reserve  If 'reserve' is greater than 0, this function
+ * allocates new holding storage with the value.
  */
-void AutoConnectRadioBasis::check(const String& value) {
-  for (std::size_t n = 0; n < _values.size(); n++) {
-//    String& v = _values[n];
-    String v = String(_values[n].c_str());
-    if (v.equalsIgnoreCase(value)) {
-      checked = n + 1;
-      break;
-    }
-  }
+void AutoConnectSelectBasis::empty(const size_t reserve) {
+  _options.clear();
+  std::vector<String>().swap(_options);
+  if (reserve)
+    _options.reserve(reserve);
 }
 
 /**
@@ -113,7 +137,7 @@ void AutoConnectRadioBasis::check(const String& value) {
  *  @return String  an HTML string.
  */
 const String AutoConnectSelectBasis::toHTML(void) const {
-  String  html = String();
+  String  html = "";
 
   if (label.length())
     html = String(FPSTR("<label for=\"")) + name + String("\">") + label + String(FPSTR("</label>"));
