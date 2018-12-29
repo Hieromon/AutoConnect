@@ -115,7 +115,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   if (_apConfig.hostName.length())
     WiFi.hostname(_apConfig.hostName.c_str());
 
-  // If the portal is requested promptly skip the first WiFi.begin and 
+  // If the portal is requested promptly skip the first WiFi.begin and
   // immediately start the portal.
   if (_apConfig.immediateStart) {
     cs = false;

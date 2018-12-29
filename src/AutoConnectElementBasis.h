@@ -121,11 +121,11 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
 class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  public:
   explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) : AutoConnectElementBasis(name, ""), label(label), order(order), checked(checked), _values(values) {
-   _type = AC_Radio;
+    _type = AC_Radio;
   }
   virtual ~AutoConnectRadioBasis() {}
   const String  toHTML(void) const override;
-  const String& operator [] (const std::size_t n) const { return at(n); }
+  const String& operator[] (const std::size_t n) const { return at(n); }
   void  add(const String& value) { _values.push_back(String(value)); }
   const String& at(const std::size_t n) const { return _values.at(n); }
   void  check(const String& value);
@@ -154,7 +154,7 @@ class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
   }
   virtual ~AutoConnectSelectBasis() {}
   const String  toHTML(void) const override;
-  const String& operator [] (const std::size_t n) const { return at(n); }
+  const String& operator[] (const std::size_t n) const { return at(n); }
   void  add(const String& option) { _options.push_back(String(option)); }
   const String& at(const std::size_t n) const { return _options.at(n); }
   void  empty(const size_t reserve = 0);

@@ -285,10 +285,6 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
 
   for (AutoConnectElement& addon : _addonElm)
     body += addon.toHTML();
-  //for (std::size_t n = 0; n < _addonElm.size(); n++) {
-  //  AutoConnectElement& addon = _addonElm[n];
-  //  body += addon.toHTML();
-  //}
 
   if (_handler) {
     if (_order & AC_EXIT_LATER) {
@@ -308,7 +304,7 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
  * @param  uri   An uri of the auxiliary page.
  * @return A PageElement of auxiliary page.
  */
-PageElement* AutoConnectAux::_setupPage(String uri) {
+PageElement* AutoConnectAux::_setupPage(const String& uri) {
   PageElement*  elm = nullptr;
 
   if (_ac) {

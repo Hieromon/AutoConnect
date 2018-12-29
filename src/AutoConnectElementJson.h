@@ -69,7 +69,7 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
  * @param  action   Script code to execute with the button pushed.
  */
 class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectButtonBasis {
-public:
+ public:
   explicit AutoConnectButtonJson(const char* name = "", const char* value = "", const String action = String()) {
     AutoConnectButtonBasis::name = name;
     AutoConnectButtonBasis::value = value;
@@ -137,7 +137,7 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
 */
 class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRadioBasis {
  public:
-  explicit AutoConnectRadioJson(const char* name = "", std::vector<String> values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) {
+  explicit AutoConnectRadioJson(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) {
     AutoConnectRadioBasis::name = name;
     AutoConnectRadioBasis::_values = values;
     AutoConnectRadioBasis::label = label;
@@ -160,7 +160,7 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
  */
 class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectSelectBasis {
  public:
-  explicit AutoConnectSelectJson(const char* name = "", std::vector<String> options = {}, const char* label = "") {
+  explicit AutoConnectSelectJson(const char* name = "", std::vector<String> const& options = {}, const char* label = "") {
     AutoConnectSelectBasis::name = name;
     AutoConnectSelectBasis::_options = options;
     AutoConnectSelectBasis::label = label;

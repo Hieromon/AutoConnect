@@ -58,8 +58,6 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement* getElement(const String& name);                   /**< Get registered AutoConnectElement as specified name */
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
-//  bool  setElementValue(const String& name, const bool checked);        /**< Set checked value to specified AutoConnectChechbox element */
-//  bool  setElementValue(const String& name, const uint8_t checked);     /**< Set checked value to specified AutoConnectRadio element */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
   void  setTitle(const String title) { _title = title; }                /**< Set a title of the auxiliary page */
@@ -78,7 +76,7 @@ class AutoConnectAux : public PageBuilder {
  protected:
   void  _concat(AutoConnectAux& aux);                                   /**< Make up chain of AutoConnectAux */
   void  _join(AutoConnect& ac);                                         /**< Make a link to AutoConnect */
-  PageElement*  _setupPage(String uri);                                 /**< AutoConnectAux page builder */
+  PageElement*  _setupPage(const String& uri);                          /**< AutoConnectAux page builder */
   const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
   const String  _injectTitle(PageArgument& args) const { (void)(args); return _title; } /**< Returns title of this page to PageBuilder */
   const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
