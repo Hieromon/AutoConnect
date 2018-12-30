@@ -177,7 +177,6 @@ class AutoConnect {
   bool  load(const String& aux);
   bool  load(const __FlashStringHelper* aux);
   bool  load(Stream& aux);
-  bool  _load(JsonVariant& aux);
 #endif // !AUTOCONNECT_USE_JSON
 
   typedef std::function<bool(IPAddress)>  DetectExit_ft;
@@ -199,6 +198,9 @@ class AutoConnect {
   void  _stopPortal();
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   PageElement*  _setupPage(String uri);
+#ifdef AUTOCONNECT_USE_JSON
+  bool  _load(JsonVariant& aux);
+#endif // !AUTOCONNECT_USE_JSON
 
   /** Request handlers implemented by Page Builder */
   String  _induceConnect(PageArgument& args);
