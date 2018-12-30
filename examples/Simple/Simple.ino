@@ -39,32 +39,7 @@ static const char AUX_TIMEZONE[] PROGMEM = R"(
       "name": "timezone",
       "type": "ACSelect",
       "label": "Select TZ name",
-      "option": [
-        "Europe/London",
-        "Europe/Berlin",
-        "Europe/Helsinki",
-        "Europe/Moscow",
-        "Asia/Dubai",
-        "Asia/Karachi",
-        "Asia/Dhaka",
-        "Asia/Jakarta",
-        "Asia/Manila",
-        "Asia/Tokyo",
-        "Australia/Brisbane",
-        "Pacific/Noumea",
-        "Pacific/Auckland",
-        "Pacific/Tongatapu",
-        "Pacific/Kiritimati",
-        "America/Sao_Paulo",
-        "America/Santiago",
-        "America/Detroit",
-        "America/Chicago",
-        "America/Denver",
-        "America/LosAngeles",
-        "America/Anchorage",
-        "Pacific/Honolulu",
-        "Pacific/Samoa"
-      ]
+      "option": []
     },
     {
       "name": "newline",
@@ -110,7 +85,7 @@ static const Timezone_t TZ[] = {
   { "America/Denver", "north-america.pool.ntp.org", -7 },
   { "America/Los_Angeles", "north-america.pool.ntp.org", -8 },
   { "America/Anchorage", "north-america.pool.ntp.org", -9 },
-  { "Pacific/Honolulu", "north - america.pool.ntp.org", -10 },
+  { "Pacific/Honolulu", "north-america.pool.ntp.org", -10 },
   { "Pacific/Samoa", "oceania.pool.ntp.org", -11 }
 };
 
@@ -179,7 +154,15 @@ void setup() {
   Config.autoReconnect = true;
   Portal.config(Config);
 
-  Timezone.load(AUX_TIMEZONE);      // Load aux. page
+  // Load aux. page
+  Timezone.load(AUX_TIMEZONE);
+  // Retrieve the select element that holds the time zone code and
+  // register the zone mnemonic in advance.
+  AutoConnectSelect&  tz = Timezone.getElement<AutoConnectSelect>("timezone");
+  for (uint8_t n = 0; n < sizeof(TZ) / sizeof(Timezone_t); n++) {
+    tz.add(String(TZ[n].zone));
+  }
+
   Portal.join({ Timezone });        // Register aux. page
 
   // Behavior a root path of ESP8266WebServer.
