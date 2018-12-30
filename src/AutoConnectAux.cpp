@@ -489,21 +489,6 @@ AutoConnectTextBasis& AutoConnectAux::getElement(const String& name) {
 #else
 
 /**
- * Static storage for JSON buffer size calculation.
- */
-int16_t   AutoConnectAux::_jbSize;    /**< JSON dynamic buffer size */
-uint16_t  AutoConnectAux::_jbByte;    /**< Byte count for calculation of JSON buffer */
-uint8_t   AutoConnectAux::_jbObject;  /**< Object count for calculation of JSON buffer */
-uint8_t   AutoConnectAux::_jbArray;   /**< Array count for calculation of JSON buffer */
-uint8_t   AutoConnectAux::_jbNest;    /**< JSON array nest count */
-uint8_t   AutoConnectAux::_kStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON array counter stack */
-uint8_t   AutoConnectAux::_nStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON object counter stack */
-int8_t    AutoConnectAux::_kp;        /**< Stack pointer for JSON array counter */
-int8_t    AutoConnectAux::_np;        /**< Stack pointer for JSON object counter */
-bool      AutoConnectAux::_jbOpen;    /**< JSON object paring status */
-bool      AutoConnectAux::_jbLiteral; /**< JSON object lexical status */
-
-/**
  * Get AutoConnectButtonJson element.
  * @param  name  An element name.
  * @return A reference of AutoConnectButton class.
@@ -630,8 +615,7 @@ AutoConnectTextJson& AutoConnectAux::getElement(const String& name) {
  * @return true Successfully loaded.
  */
 bool AutoConnect::load(const String& aux) {
-  const size_t  bufferSize = AutoConnectAux::_calcJsonBufferSize(aux.c_str());
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonVariant jv = jsonBuffer.parse(aux);
   return _load(jv);
 }
@@ -644,8 +628,7 @@ bool AutoConnect::load(const String& aux) {
 * @return true Successfully loaded.
 */
 bool AutoConnect::load(const __FlashStringHelper* aux) {
-  const size_t  bufferSize = AutoConnectAux::_calcJsonBufferSize(aux);
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonVariant jv = jsonBuffer.parse(aux);
   return _load(jv);
 }
@@ -657,8 +640,8 @@ bool AutoConnect::load(const __FlashStringHelper* aux) {
 * @param  aux  Stream for read AutoConnectAux elements.
 * @return true Successfully loaded.
 */
-bool AutoConnect::load(Stream& aux, size_t bufferSize) {
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+bool AutoConnect::load(Stream& aux) {
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonVariant jv = jsonBuffer.parse(aux);
   return _load(jv);
 }
@@ -755,8 +738,7 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
  * @return false Invalid JSON data occurred. 
  */
 bool AutoConnectAux::load(const String& in) {
-  const size_t  bufferSize = _calcJsonBufferSize(in.c_str());
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonObject& jb = jsonBuffer.parseObject(in);
   return _load(jb);
 }
@@ -770,8 +752,7 @@ bool AutoConnectAux::load(const String& in) {
  * @return false Invalid JSON data occurred. 
  */
 bool AutoConnectAux::load(const __FlashStringHelper* in) {
-  const size_t  bufferSize = _calcJsonBufferSize(in);
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonObject& jb = jsonBuffer.parseObject(in);
   return _load(jb);
 }
@@ -784,8 +765,8 @@ bool AutoConnectAux::load(const __FlashStringHelper* in) {
  * @return true  The element collection successfully loaded.
  * @return false Invalid JSON data occurred. 
  */
-bool AutoConnectAux::load(Stream& in, const size_t bufferSize) {
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+bool AutoConnectAux::load(Stream& in) {
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonObject& jb = jsonBuffer.parseObject(in);
   return _load(jb);
 }
@@ -822,21 +803,19 @@ bool AutoConnectAux::_load(JsonObject& jb) {
  * @return A reference of loaded AutoConnectElement instance.
  */
 bool AutoConnectAux::loadElement(const String& in, const String& name) {
-  const size_t  bufferSize = _calcJsonBufferSize(in.c_str());
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonVariant jb = jsonBuffer.parse(in);
   return _loadElement(jb, name);
 }
 
 bool AutoConnectAux::loadElement(const __FlashStringHelper* in, const String& name) {
-  const size_t  bufferSize = _calcJsonBufferSize(in);
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonVariant jb = jsonBuffer.parse(in);
   return _loadElement(jb, name);
 }
 
-bool AutoConnectAux::loadElement(Stream& in, const String& name, const size_t bufferSize) {
-  DynamicJsonBuffer jsonBuffer(bufferSize);
+bool AutoConnectAux::loadElement(Stream& in, const String& name) {
+  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
   JsonVariant jb = jsonBuffer.parse(in);
   return _loadElement(jb, name);
 }
@@ -873,19 +852,26 @@ AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& element, const Stri
     auxElm = getElement(elmName);
     // The element is not created yet, create new one.
     if (!auxElm) {
-      if ((auxElm = _createElement(element))) {
-        AC_DBG("%s<%d> of %s created\n", elmName.c_str(), (int)(auxElm->typeOf()), uri());
-        add(*auxElm);   // Insert to AutoConnect
+      if (elmName.length()) {
+        if ((auxElm = _createElement(element))) {
+          AC_DBG("%s<%d> of %s created\n", elmName.c_str(), (int)(auxElm->typeOf()), uri());
+          add(*auxElm);   // Insert to AutoConnect
+        }
+        else {
+          AC_DBG("%s unknown element type\n", elmName.c_str());
+        }
       }
       else {
-        AC_DBG("%s unknown element type\n", elmName.c_str());
+        AC_DBG("Element name missing\n");
       }
     }
-    if (auxElm->loadMember(element))
-      AC_DBG("%s<%d> of %s loaded\n", auxElm->name.c_str(), (int)auxElm->typeOf(), uri());
-    else {
-      // Element type mismatch
-      AC_DBG("Type of %s element mismatched\n", elmName.c_str());
+    if (auxElm) {
+      if (auxElm->loadMember(element))
+        AC_DBG("%s<%d> of %s loaded\n", auxElm->name.c_str(), (int)auxElm->typeOf(), uri());
+      else {
+        // Element type mismatch
+        AC_DBG("Type of %s element mismatched\n", elmName.c_str());
+      }
     }
   }
   return auxElm ? *auxElm : _nullElement();
@@ -980,143 +966,6 @@ const ACElement_t AutoConnectAux::_asElementType(const String& type) {
       return types[n].tEnum;
   }
   return t;
-}
-
-/**
- * Calculate JSON dynamic buffer size.
- * @param  in    JSON string
- * @return Estimated buffer size.
- */
-size_t AutoConnectAux::_calcJsonBufferSize(const char* in) {
-  _initJsonBufferSize();
-  while (*in)
-    _accJsonBufferSize(*in++);
-  return _resultJsonBufferSize();
-}
-
-/**
- * Calculate JSON dynamic buffer size.
- * @param  in    JSON string stored in pgm_data.
- * @return Estimated buffer size.
- */
-size_t AutoConnectAux::_calcJsonBufferSize(const __FlashStringHelper* in) {
-  _initJsonBufferSize();
-  uint8_t c = pgm_read_byte_near(reinterpret_cast<const char*>(in));
-  size_t  l = 0;
-  while (c) {
-    _accJsonBufferSize(static_cast<const char>(c));
-    c = pgm_read_byte_near(reinterpret_cast<const char*>(in) + ++l);
-  }
-  return _resultJsonBufferSize();
-}
-
-/**
- * Initialize the stacks for JSON Dynamic buffer size calculation.
- */
-void AutoConnectAux::_initJsonBufferSize() {
-  _jbSize = 0;
-  _jbByte = 0;
-  _jbObject = 0;
-  _jbArray = 0;
-  _jbNest = 0;
-  _kp = -1;
-  _np = -1;
-  _jbOpen = false;
-  _jbLiteral = false;
-}
-
-/**
- * Accumulate JSON Dynamic buffer size.
- */
-void AutoConnectAux::_accJsonBufferSize(const char c) {
-  if (_jbSize < 0)
-    return;
-
-  if (!isGraph(c))
-    return;
-
-  if (_jbLiteral)
-    _jbByte++;
-
-  switch (c) {
-  case '"':
-    _jbLiteral = !_jbLiteral;
-    break;
-  case ':':
-    _jbObject++;
-    _jbOpen = false;
-    break;
-  case '{':
-    if (_jbObject > 0) {
-      if (_np >= AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH) {
-        _jbSize = -1;
-        break;
-      }
-      _nStack[++_np] = _jbObject;
-    }
-    _jbObject = 0;
-    _jbOpen = true;
-    break;
-  case '}':
-    if (_jbNest > 0)
-      _jbArray++;
-    if (_jbObject > 0) {
-      _jbSize += JSON_OBJECT_SIZE(_jbObject);
-      _jbByte += 2;
-    }
-    _jbObject = _nStack[_np--];
-    _jbOpen = false;
-    break;
-  case '[':
-    if (_jbNest++ > 0) {
-      if (_kp >= AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH) {
-        _jbSize = -1;
-        break;
-      }
-      _kStack[++_kp] = _jbArray;
-    }
-    _jbArray = 0;
-    if (_jbObject > 0) {
-      if (_np >= AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH) {
-        _jbSize = -1;
-        break;
-      }
-      _nStack[++_np] = _jbObject;
-      _jbObject = 0;
-    }
-    _jbOpen = true;
-    break;
-  case ']':
-    if (_jbOpen)
-      _jbArray++;
-    _jbSize += JSON_ARRAY_SIZE(_jbArray);
-    _jbByte += 2;
-    _jbArray = _nStack[_kp--];
-    _jbNest--;
-    if (_np >= 0)
-      _jbObject = _nStack[_np--];
-    _jbObject = false;
-    break;
-  case ',':
-    if (_jbObject && _jbNest > 0)
-      _jbArray++;
-    break;
-  }
-}
-
-/**
- * Retrieve accumulated result value of JSON dynamic buffer size.
- * @return  the JSON Dynamic Buffer Size
- */
-size_t AutoConnectAux::_resultJsonBufferSize() {
-  if (_jbSize < 0) {
-    AC_DBG("json buffer calculation error\n");
-    return -1;
-  }
-  else {
-    AC_DBG("json buffer size:%d\n", _jbSize + _jbByte);
-    return static_cast<size_t>(_jbSize + _jbByte);
-  }
 }
 
 #endif // AUTOCONNECT_USE_JSON

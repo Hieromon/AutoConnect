@@ -176,7 +176,7 @@ class AutoConnect {
 #ifdef AUTOCONNECT_USE_JSON
   bool  load(const String& aux);
   bool  load(const __FlashStringHelper* aux);
-  bool  load(Stream& aux, size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);
+  bool  load(Stream& aux);
   bool  _load(JsonVariant& aux);
 #endif // !AUTOCONNECT_USE_JSON
 

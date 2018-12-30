@@ -66,10 +66,10 @@ class AutoConnectAux : public PageBuilder {
 #ifdef AUTOCONNECT_USE_JSON
   bool load(const String& in);                                          /**< Load whole elements to AutoConnectAux Page */
   bool load(const __FlashStringHelper* in);                             /**< Load whole elements to AutoConnectAux Page */
-  bool load(Stream& in, const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);    /**< Load whole elements to AutoConnectAux Page */
+  bool load(Stream& in);                                                /**< Load whole elements to AutoConnectAux Page */
   bool loadElement(const String& in, const String& name = String(""));              /**< Load specified element */
   bool loadElement(const __FlashStringHelper* in, const String& name = String("")); /**< Load specified element */
-  bool loadElement(Stream& in, const String& name = String(""), const size_t bufferSize = AUTOCONNECT_JSON_BUFFER_SIZE);   /**< Load specified element */
+  bool loadElement(Stream& in, const String& name = String(""));       /**< Load specified element */
   size_t  saveElement(Stream& out, std::vector<String> const& names = {});    /**< Write elements of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
 
@@ -105,25 +105,6 @@ class AutoConnectAux : public PageBuilder {
 
   // Protected members can be used from AutoConnect which handles AutoConnectAux pages.
   friend class AutoConnect;
-
- private:
-  static size_t  _calcJsonBufferSize(const char* in);  /**< Calculate JSON buffer size for constant character array */
-  static size_t  _calcJsonBufferSize(const __FlashStringHelper* in);  /**< Calculate JSON buffer size for pgm_data */
-  static void    _initJsonBufferSize(void);          /**< Initialize the stacks for JSON Dynamic buffer size calculation */
-  static void    _accJsonBufferSize(const char c);   /**< Accumulate JSON Dynamic buffer size */
-  static size_t  _resultJsonBufferSize(void);        /**< Retrieve accumulated result value */
-
-  static int16_t   _jbSize;                          /**< JSON dynamic buffer size */
-  static uint16_t  _jbByte;                          /**< Byte count for calculation of JSON buffer */
-  static uint8_t   _jbObject;                        /**< Object count for calculation of JSON buffer */
-  static uint8_t   _jbArray;                         /**< Array count for calculation of JSON buffer */
-  static uint8_t   _jbNest;                          /**< JSON array nest count */
-  static uint8_t   _kStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON array counter stack */
-  static uint8_t   _nStack[AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH]; /**< JSON object counter stack */
-  static int8_t    _kp;                              /**< Stack pointer for JSON array counter */
-  static int8_t    _np;                              /**< Stack pointer for JSON object counter */
-  static bool      _jbOpen;                          /**< JSON object paring status */
-  static bool      _jbLiteral;                       /**< JSON object lexical status */
 };
 
 #endif // _AUTOCONNECTAUX_H_
