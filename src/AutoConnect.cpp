@@ -91,10 +91,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   _portalTimeout = timeout;
 
   // Start WiFi connection with station mode.
-//  WiFi.softAPdisconnect(true);
   WiFi.enableAP(false);
   WiFi.mode(WIFI_STA);
   delay(100);
+
+  // Set host name
+  if (_apConfig.hostName.length())
+    SET_HOSTNAME(_apConfig.hostName.c_str());
 
   // Advance configuration for STA mode.
 #ifdef AC_DEBUG
@@ -112,10 +115,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 #ifdef ARDUINO_ARCH_ESP8266
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
 #endif
-
-  // Set host name
-  if (_apConfig.hostName.length())
-    SET_HOSTNAME(_apConfig.hostName.c_str());
 
   // If the portal is requested promptly skip the first WiFi.begin and
   // immediately start the portal.
@@ -173,8 +172,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         }
       }
       WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
-      while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0))
+      while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0)) {
+        delay(100);
         yield();
+      }
       _currentHostIP = WiFi.softAPIP();
       AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, _currentHostIP.toString().c_str());
 
@@ -390,8 +391,8 @@ void AutoConnect::handleRequest() {
   // Handling processing requests to AutoConnect.
   if (_rfConnect) {
     // Leave from the AP currently.
-    if (WiFi.status() == WL_CONNECTED)
-      _disconnectWiFi(true);
+//    if (WiFi.status() == WL_CONNECTED)
+//      _disconnectWiFi(true);
 
     // An attempt to establish a new AP.
     AC_DBG("Request for %s\n", reinterpret_cast<const char*>(_credential.ssid));
