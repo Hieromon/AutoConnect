@@ -242,6 +242,8 @@ void setup() {
 
   AutoConnectAux* setting = portal.aux(AUX_MQTTSETTING);
   if (setting) {
+    PageArgument  args;
+    loadParams(*setting, args);
     AutoConnectCheckbox&  uniqueidElm = setting->getElement<AutoConnectCheckbox>("uniqueid");
     AutoConnectInput&     hostnameElm = setting->getElement<AutoConnectInput>("hostname");
     if (uniqueidElm.checked) {

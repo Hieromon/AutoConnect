@@ -49,7 +49,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "name": "header",
         "type": "ACText",
         "value": "<h2>MQTT broker settings</h2>",
-        "style": "text-align:center;color:#2f4f4f;padding:10px;"
+        "style": "text-align:center;color:#2f4f4f;"
       },
       {
         "name": "caption",
@@ -89,7 +89,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "type": "ACCheckbox",
         "value": "unique",
         "label": "Use APID unique",
-        "checked": true
+        "checked": false
       },
       {
         "name": "period",
@@ -354,6 +354,8 @@ void setup() {
 
   if (portal.load(FPSTR(AUX_mqtt_setting))) {
     AutoConnectAux* setting = portal.aux(AUX_SETTING_URI);
+    PageArgument  args;
+    loadParams(*setting, args);
     AutoConnectCheckbox&  uniqueidElm = setting->getElement<AutoConnectCheckbox>("uniqueid");
     AutoConnectInput&     hostnameElm = setting->getElement<AutoConnectInput>("hostname");
     if (uniqueidElm.checked) {

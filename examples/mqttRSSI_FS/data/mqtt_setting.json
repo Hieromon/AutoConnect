@@ -7,7 +7,7 @@
       "name": "header",
       "type": "ACText",
       "value": "<h2>MQTT broker settings</h2>",
-      "style": "text-align:center;color:#2f4f4f;padding:10px;"
+      "style": "text-align:center;color:#2f4f4f;"
     },
     {
       "name": "caption",
