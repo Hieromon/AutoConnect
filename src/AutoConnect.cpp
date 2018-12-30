@@ -17,8 +17,10 @@
  */
 #if defined(ARDUINO_ARCH_ESP8266)
 #define SOFT_RESET()  ESP.reset()
+#define	SET_HOSTNAME(x)	do { WiFi.hostname(x); } while(0)
 #elif defined(ARDUINO_ARCH_ESP32)
 #define SOFT_RESET()  ESP.restart()
+#define	SET_HOSTNAME(x)	do { WiFi.setHostname(x); } while(0)
 #endif
 
 /**
@@ -113,7 +115,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
   // Set host name
   if (_apConfig.hostName.length())
-    WiFi.hostname(_apConfig.hostName.c_str());
+    SET_HOSTNAME(_apConfig.hostName.c_str());
 
   // If the portal is requested promptly skip the first WiFi.begin and
   // immediately start the portal.

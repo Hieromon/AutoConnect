@@ -16,9 +16,12 @@ https://opensource.org/licenses/MIT
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#define GET_CHIPID()	(ESP.getChipId())
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <SPIFFS.h>
+#include <HTTPClient.h>
+#define GET_CHIPID()	((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
 #include <FS.h>
 #include <PubSubClient.h>
@@ -86,7 +89,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "type": "ACCheckbox",
         "value": "unique",
         "label": "Use APID unique",
-        "checked": false
+        "checked": true
       },
       {
         "name": "period",
@@ -150,6 +153,13 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
   }
 ]
 )raw";
+
+// Adjusting WebServer class with between ESP8266 and ESP32.
+#if defined(ARDUINO_ARCH_ESP8266)
+typedef ESP8266WebServer  WiFiWebServer;
+#elif defined(ARDUINO_ARCH_ESP32)
+typedef WebServer WiFiWebServer;
+#endif
 
 AutoConnect  portal;
 AutoConnectConfig config;
@@ -236,8 +246,10 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
       Serial.println(PARAM_FILE " failed to load");
     param.close();
   }
-  else
+  else {
     Serial.println(PARAM_FILE " open failed");
+    Serial.println("If you get error as 'SPIFFS: mount failed, -10025', Please modify with 'SPIFFS.begin(true)'.");
+  }
   SPIFFS.end();
   return "";
 }
@@ -275,7 +287,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // it is necessary to get the AutoConnectAux object of /mqtt_setting.
   SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "w");
-  portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "period", "uniqueid", "hostname" });
+  portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "hostname" });
   param.close();
   SPIFFS.end();
 
@@ -304,33 +316,31 @@ void handleRoot() {
     "</body>"
     "</html>";
 
-#if defined(ARDUINO_ARCH_ESP8266)
-  ESP8266WebServer& server = portal.host();
-#elif defined(ARDUINO_ARCH_ESP32)
-  WebServer&  server = portal.host();
-#endif
+  WiFiWebServer&  server = portal.host();
   server.send(200, "text/html", content);
 }
 
-// Clear channel using Thingspeak's API.
+// Clear channel using ThingSpeak's API.
 void handleClearChannel() {
   HTTPClient  httpClient;
   String  endpoint = serverName;
   endpoint.replace("mqtt", "api");
   String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userKey;
 
-  Serial.println(delUrl + ":" + String(httpClient.begin(delUrl)));
-  Serial.println("res:" + String(httpClient.sendRequest("DELETE")));
-  String  res = httpClient.getString();
-  httpClient.end();
+  Serial.print("DELETE " + delUrl);
+  if (httpClient.begin(delUrl)) {
+    Serial.print(":");
+    int resCode = httpClient.sendRequest("DELETE");
+    String  res = httpClient.getString();
+    httpClient.end();
+    Serial.println(String(resCode) + "," + res);
+  }
+  else
+    Serial.println(" failed");
 
   // Returns the redirect response. The page is reloaded and its contents
   // are updated to the state after deletion.
-#if defined(ARDUINO_ARCH_ESP8266)
-  ESP8266WebServer& server = portal.host();
-#elif defined(ARDUINO_ARCH_ESP32)
-  WebServer&  server = portal.host();
-#endif
+  WiFiWebServer&  server = portal.host();
   server.sendHeader("Location", String("http://") + server.client().localIP().toString() + String("/"));
   server.send(302, "text/plain", "");
   server.client().flush();
@@ -347,7 +357,7 @@ void setup() {
     AutoConnectCheckbox&  uniqueidElm = setting->getElement<AutoConnectCheckbox>("uniqueid");
     AutoConnectInput&     hostnameElm = setting->getElement<AutoConnectInput>("hostname");
     if (uniqueidElm.checked) {
-      config.apid = String("ESP") + "_" + String(ESP.getChipId(), HEX);
+      config.apid = String("ESP") + "_" + String(GET_CHIPID(), HEX);
       Serial.println("apid set to " + config.apid);
     }
     if (hostnameElm.value.length()) {
@@ -377,11 +387,7 @@ void setup() {
     }
   }
 
-#if defined(ARDUINO_ARCH_ESP8266)
-  ESP8266WebServer& server = portal.host();
-#elif defined(ARDUINO_ARCH_ESP32)
-  WebServer&  server = portal.host();
-#endif
+  WiFiWebServer&  server = portal.host();
   server.on("/", handleRoot);
   server.on(AUX_CLEAR_URI, handleClearChannel);
 }
