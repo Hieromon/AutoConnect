@@ -34,11 +34,18 @@ The sketches which provide the web page using ESP8266WebServer/WebServer there i
 
 ### Easily add user-owned web screen and  parameters <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
 
-You can easily add your own web screen that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, SUBMIT into the menu. It can be invoked from the AutoConnect menu and parameters can be passed.
+You can easily add your own web screen that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, RADIO, SELECT, SUBMIT into the menu. It can be invoked from the AutoConnect menu and parameters can be passed.
 
 ### Just loading the JSON description <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
 
 These HTML elements that make up the user-owned screen can be easily loaded from the JSON description stored in PROGMEM, SPIFFS or SD.
+
+<p align="left">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img width="380" src="mkdocs/images/aux_json.png">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img width="240" src="mkdocs/images/AutoConnectAux.gif" width="250">
+</p>
 
 ## Supported hardware
 
@@ -94,7 +101,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Supports AutoConnect menu extention by user sketch with **AutoConnectAux**.
 - Supports loading and saving of user-defined parameters with JSON format.
 - Improved the WiFi connection sequence at the first WiFi.begin. Even if **AutoConnectConfig::autoReconnect** is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
-- Supports **AutoConnectConfig::immediateStart** option, to start the portal immediately without first trying WiFi.begin.
+- Supports the **AutoConnectConfig::immediateStart** option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the **AutoConnectConfig::autoRise** option.
 - Improved boot uri after reset. **AutoConnectConfig::bootUri** can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
 - Improved source code placement of predefined macros. Defined common macros have been moved to ```AutoConnectDefs.h```.
 - Supports **AutoConnectConfig::hostName**. It activates ```WiFi.hostname()```.
