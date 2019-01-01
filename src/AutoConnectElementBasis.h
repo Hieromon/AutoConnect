@@ -61,7 +61,7 @@ class AutoConnectElementBasis {
  */
 class AutoConnectButtonBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String action = String()) : AutoConnectElementBasis(name, value), action(action) {
+  explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String("")) : AutoConnectElementBasis(name, value), action(String(action)) {
     _type = AC_Button;
   }
   ~AutoConnectButtonBasis() {}

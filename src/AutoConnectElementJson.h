@@ -47,8 +47,8 @@
 class AutoConnectElementJson : virtual public AutoConnectElementBasis {
  public:
   explicit AutoConnectElementJson(const char* name = "", const char* value = "") {
-    AutoConnectElementBasis::name = name;
-    AutoConnectElementBasis::value = value;
+    AutoConnectElementBasis::name = String(name);
+    AutoConnectElementBasis::value = String(value);
   }
   ~AutoConnectElementJson() {}
   virtual const size_t  getObjectSize(void) const;
@@ -70,10 +70,10 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
  */
 class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectButtonBasis {
  public:
-  explicit AutoConnectButtonJson(const char* name = "", const char* value = "", const String action = String()) {
-    AutoConnectButtonBasis::name = name;
-    AutoConnectButtonBasis::value = value;
-    AutoConnectButtonBasis::action = action;
+  explicit AutoConnectButtonJson(const char* name = "", const char* value = "", const String& action = String("")) {
+    AutoConnectButtonBasis::name = String(name);
+    AutoConnectButtonBasis::value = String(value);
+    AutoConnectButtonBasis::action = String(action);
   }
   ~AutoConnectButtonJson() {}
   const size_t  getObjectSize(void) const override;
@@ -93,9 +93,9 @@ class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectB
 class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnectCheckboxBasis {
  public:
   explicit AutoConnectCheckboxJson(const char* name = "", const char* value = "", const char* label = "", const bool checked = false) {
-    AutoConnectCheckboxBasis::name = name;
-    AutoConnectCheckboxBasis::value = value;
-    AutoConnectCheckboxBasis::label = label;
+    AutoConnectCheckboxBasis::name = String(name);
+    AutoConnectCheckboxBasis::value = String(value);
+    AutoConnectCheckboxBasis::label = String(label);
     AutoConnectCheckboxBasis::checked = checked;
   }
   ~AutoConnectCheckboxJson() {}
@@ -116,10 +116,10 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
 class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectInputBasis {
  public:
   explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* placeholder = "", const char* label = "") {
-    AutoConnectInputBasis::name = name;
-    AutoConnectInputBasis::value = value;
-    AutoConnectInputBasis::placeholder = placeholder;
-    AutoConnectInputBasis::label = label;
+    AutoConnectInputBasis::name = String(name);
+    AutoConnectInputBasis::value = String(value);
+    AutoConnectInputBasis::placeholder = String(placeholder);
+    AutoConnectInputBasis::label = String(label);
   }
   ~AutoConnectInputJson() {}
   const size_t  getObjectSize(void) const override;
@@ -138,9 +138,9 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
 class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRadioBasis {
  public:
   explicit AutoConnectRadioJson(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) {
-    AutoConnectRadioBasis::name = name;
+    AutoConnectRadioBasis::name = String(name);
     AutoConnectRadioBasis::_values = values;
-    AutoConnectRadioBasis::label = label;
+    AutoConnectRadioBasis::label = String(label);
     AutoConnectRadioBasis::order = order;
     AutoConnectRadioBasis::checked = checked;
   }
@@ -161,9 +161,9 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
 class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectSelectBasis {
  public:
   explicit AutoConnectSelectJson(const char* name = "", std::vector<String> const& options = {}, const char* label = "") {
-    AutoConnectSelectBasis::name = name;
+    AutoConnectSelectBasis::name = String(name);
     AutoConnectSelectBasis::_options = options;
-    AutoConnectSelectBasis::label = label;
+    AutoConnectSelectBasis::label = String(label);
   }
   ~AutoConnectSelectJson() {}
   const size_t  getObjectSize(void) const override;
@@ -183,9 +183,9 @@ class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectS
 class AutoConnectSubmitJson : public AutoConnectElementJson, public AutoConnectSubmitBasis {
  public:
   explicit AutoConnectSubmitJson(const char* name = "", const char* value = "", const char* uri = "") {
-    AutoConnectSubmitBasis::name = name;
-    AutoConnectSubmitBasis::value = value;
-    AutoConnectSubmitBasis::uri = uri;
+    AutoConnectSubmitBasis::name = String(name);
+    AutoConnectSubmitBasis::value = String(value);
+    AutoConnectSubmitBasis::uri = String(uri);
   }
   ~AutoConnectSubmitJson() {}
   const size_t  getObjectSize(void) const override;
@@ -205,9 +205,9 @@ class AutoConnectSubmitJson : public AutoConnectElementJson, public AutoConnectS
 class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTextBasis {
  public:
   explicit AutoConnectTextJson(const char* name = "", const char* value = "", const char* style = "") {
-    AutoConnectTextBasis::name = name;
-    AutoConnectTextBasis::value = value;
-    AutoConnectTextBasis::style = style;
+    AutoConnectTextBasis::name = String(name);
+    AutoConnectTextBasis::value = String(value);
+    AutoConnectTextBasis::style = String(style);
   }
   ~AutoConnectTextJson() {}
   const size_t  getObjectSize(void) const override;
