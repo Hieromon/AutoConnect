@@ -18,7 +18,6 @@ AutoConnectText	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 add	KEYWORD2
-aux	KEYWORD2
 config	KEYWORD2
 begin	KEYWORD2
 del	KEYWORD2
