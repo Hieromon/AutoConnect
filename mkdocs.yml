@@ -8,13 +8,23 @@ site_url: 'https://Hieromon.github.io/AutoConnect/'
 docs_dir: 'mkdocs'
 
 # Pages
-pages:
+nav:
   - 'Overview' : index.md
   - 'Getting started' : gettingstarted.md
   - 'AutoConnect menu' : menu.md
   - 'Basic usage' : basicusage.md
   - 'Advanced usage' : advancedusage.md
-  - 'Library APIs' : api.md
+  - 'Custom Web pages' :
+    - 'Custom Web pages with AutoConnect' : acintro.md
+    - 'AutoConnectElements' : acelements.md
+    - 'AutoConnectAux with JSON' : acjson.md
+    - 'Handling AutoConnectAux' : achandling.md
+  - 'Library APIs' :
+    - 'AutoConnect API': api.md
+    - 'AutoConnectConfig API': apiconfig.md
+    - 'AutoConnectAux API': apiaux.md
+    - 'AutoConnectElements API': apielements.md
+    - 'Something extra': apiextra.md
   - 'Examples' : examples.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
@@ -62,10 +72,12 @@ google_analytics:
 
 # Extensions
 markdown_extensions:
+  - attr_list
   - admonition
   - footnotes
   - pymdownx.betterem:
       smart_enable: all
+  - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.inlinehilite

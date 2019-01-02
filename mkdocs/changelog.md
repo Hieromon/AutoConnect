@@ -1,3 +1,14 @@
+### [0.9.7] Jan. 1, 2019
+
+- Fixed crash in some environments. Thank you @ageurtse
+- Supports AutoConnect menu extention by user sketch with **AutoConnectAux**.
+- Supports loading and saving of user-defined parameters with JSON format.
+- Improved the WiFi connection sequence at the first WiFi.begin. Even if [**AutoConnectConfig::autoReconnect**](api.md#autoreconnect) is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
+- Supports the [**AutoConnectConfig::immediateStart**](api.md#immediatestart) option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the [**AutoConnectConfig::autoRise**](api.md#autorise) option.
+- Improved boot uri after reset. [**AutoConnectConfig::bootUri**](api.md#booturi) can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
+- Improved source code placement of predefined macros. Defined common macros have been moved to ```AutoConnectDefs.h```.
+- Supports [**AutoConnectConfig::hostName**](api.md#hostname). It activates ```WiFi.hostname()```/```WiFi.setHostName()```.
+
 #### [0.9.6] Sep.27, 2018.
 
 - Improvement of RSSI detection for saved SSIDs.

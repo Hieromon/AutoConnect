@@ -125,5 +125,5 @@ For the client sketches, the code required to connect to WiFi is the following f
 <script>
   window.onload = function() {
     Gifffer();
-  }
+  };
 </script>

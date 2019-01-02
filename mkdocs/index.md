@@ -29,6 +29,13 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 
 <span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.<br>This efficacy can also be applied to ESP32. The corresponding class for ESP32 will be the WebServer.</span>
 
+### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to add custom web screen<sup><sub>ENHANCED w/v0.9.7</sub></sup>
+
+<span class="lead">You can easily add your own web screen that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, RADIO, SELECT, SUBMIT into the menu. It can be invoked from the AutoConnect menu and parameters can be passed. Custom screens can be written easily with JSON and can be loaded from PROGMEM, SPIFFS or SD.</span>
+
+<img style="float:center;margin:0 10px 0 10px;width:380px" src="./images/aux_json.png">
+<img style="float:center;margin:0 10px 0 10px;width:240px" src="./images/AutoConnectAux.gif">
+
 ## Installation
 
 ### Requirements
@@ -75,15 +82,15 @@ Install third-party platform using the *Boards Manager* of Arduino IDE. You can 
 <i class="fa fa-download"></i> <strong>Additional necessary library</strong>
 
 The [PageBuilder](https://github.com/Hieromon/PageBuilder) library to build HTML for ESP8266WebServer is needed.  
-To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required 1.2.0 later for ESP32.[^1]
+To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required 1.2.3 later for ESP32.[^1]
 
 <img src="./images/lm.png" width="640"/>
 
-[^1]:Since AutoConnect v0.9.7, PageBuilder v1.2.0 later is required.
+[^1]:Since AutoConnect v0.9.7, PageBuilder v1.2.3 later is required.
 
 <i class="fa fa-download"></i> <strong>Optional required library</strong>
 
-The [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library is necessary to be able to process AutoConnect elements with JSON description. Since AutoConnect v0.9.7, you can insert user owned screens that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, SUBMIT to the AutoConnect menu. These HTML elements can also be programmatic added from user sketches using the AutoConnect API, but they can be easily loaded from JSON description stored in PROGMEM, SPIFFS or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this function.
+The [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library is necessary to be able to process the *AutoConnectElement* with JSON description. Since AutoConnect v0.9.7, you can insert user owned screens that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT to the AutoConnect menu. These HTML elements can also be added from user sketches using the AutoConnect API, but they can be easily loaded JSON description stored in PROGMEM, SPIFFS or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this function.
 
 !!! info "ArduinoJson version 6 is still in beta"
     The Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
@@ -104,5 +111,5 @@ When you select Download, you can import it to Arduino IDE immediately. After do
 <script>
   window.onload = function() {
     Gifffer();
-  }
+  };
 </script>

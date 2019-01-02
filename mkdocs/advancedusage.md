@@ -134,6 +134,31 @@ Also, the placement of the EEPROM area of ESP32 is described in the [partition t
 
 The [**boundaryOffset**](api.md#boundaryoffset) in [**AutoConnectConfig**](api.md#autoconnectconfig-api) specifies the start offset of the credentials storage area. The default value is 0.
 
+### <i class="fa fa-caret-right"></i> On-demand start the captive portal
+
+If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the [**autoRise**](api.md#autorise) option with the [**immediateStart**](api.md#immediatestart) option to achieve on-demand connection. This behavior is similar to the [WiFiManager's startConfigPortal](https://github.com/tzapu/WiFiManager#on-demand-configuration-portal) function. In order to do this, you usually configure only with AutoConnectConfig in *setup()* and [*AutoConnect::begin()*](api.md#begin) handles in *loop()*.
+
+```arduino hl_lines="5 6"
+AutoConnect       Portal;
+AutoConnectConfig Config;
+
+void setup() {
+  Config.autoRise = false;
+  Config.immediateStart = true;
+  Portal.config(Config);
+}
+
+void loop() {
+  if (digitalRead(TRIGGER_PIN) == LOW) {
+    while (digitalRead(TRIGGER_PIN) == LOW)
+      yield();
+    Portal.begin();
+  }
+  Portal.handleClient();
+}
+```
+The above example does not connect to WiFi until TRIGGER\_PIN goes LOW. When TRIGGER\_PIN goes LOW, the captive portal starts and you can connect to WiFi. Even if you reset the module, it will not automatically reconnect.
+
 ### <i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer/WebServer
 
 Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer/WebServer inside the AutoConnect. This object variable could be referred by [*AutoConnect::host()*](api.md#host) function to access ESP8266WebServer/WebServer instance as like below.
@@ -204,7 +229,7 @@ An example sketch used with the PageBuilder as follows and it explains how it ai
 
 ## Configuration functions
 
-### <i class="fa fa-caret-right"></i> Configuration for Soft AP
+### <i class="fa fa-caret-right"></i> Configuration for Soft AP and captive portal
 
 AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP settings are stored in [**AutoConnectConfig**](api.md#autoconnectconfig) as the following parameters. The sketch could be configured SoftAP using these parameters, refer the [AutoConnectConfig API](api.md#autoconnectconfig-api) for details.
 
@@ -214,11 +239,13 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - SSID for SoftAP.
 - Password for SoftAP.
 - Channel.
+- SoftAP name.
 - Hidden attribute.
 - Auto save credential.
 - Offset address of the credentials storage area in EEPROM.
 - Length of start up time after reset.
 - Automatic starting the captive portal.
+- Start the captive portal forcely.
 - Auto reset after connection establishment.
 - Home URL of the user sketch application.
 
@@ -265,3 +292,7 @@ portal.begin();
 ```
 
 [^2]:Static IP address assignment is available from version 0.9.3.
+
+### <i class="fa fa-caret-right"></i> Station host name
+
+

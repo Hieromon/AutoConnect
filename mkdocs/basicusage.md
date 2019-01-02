@@ -74,7 +74,7 @@ AutoConnect internally performs *WiFi.begin* to establish a WiFi connection. The
 
 #### 5. AutoConnect::begin with SSID and Password
 
-SSID and Password can also specify by [*AutoConnect::begin*](api.me#begin). ESP8266/ESP32 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.
+SSID and Password can also specify by [*AutoConnect::begin*](api.md#begin). ESP8266/ESP32 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.
 
 #### 6. Use ESP8266WebServer::on and WebServer::on to handle URL
 

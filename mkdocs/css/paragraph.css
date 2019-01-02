@@ -42,3 +42,13 @@
   content: '\f044';
   margin:0 0.8em 0 -1.8em;
 }
+
+.horizontal-list {
+  list-style-type: none;
+  overflow: hidden;
+}
+
+.horizontal-list > li {
+  float: left;
+  display: block;
+}

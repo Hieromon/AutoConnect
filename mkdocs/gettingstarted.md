@@ -68,5 +68,5 @@ The IP address of ESP8266 would be displayed on the serial monitor after connect
 <script>
   window.onload = function() {
     Gifffer();
-  }
+  };
 </script>

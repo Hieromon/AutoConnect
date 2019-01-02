@@ -1,0 +1,1 @@
+To process the described AutoConnect element written in the JSON is you need to install the ArduinoJson library.
