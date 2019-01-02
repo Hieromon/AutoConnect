@@ -359,7 +359,7 @@ void setup() {
     AutoConnectCheckbox&  uniqueidElm = setting->getElement<AutoConnectCheckbox>("uniqueid");
     AutoConnectInput&     hostnameElm = setting->getElement<AutoConnectInput>("hostname");
     if (uniqueidElm.checked) {
-      config.apid = String("ESP") + "_" + String(GET_CHIPID(), HEX);
+      config.apid = String("ESP") + "-" + String(GET_CHIPID(), HEX);
       Serial.println("apid set to " + config.apid);
     }
     if (hostnameElm.value.length()) {
