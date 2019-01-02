@@ -168,8 +168,8 @@ class AutoConnect {
   void  handleClient();
   void  handleRequest();
   WebServerClass& host();
-  bool  join(AutoConnectAux& aux);
-  bool  join(std::vector<std::reference_wrapper<AutoConnectAux>> aux);
+  void  join(AutoConnectAux& aux);
+  void  join(std::vector<std::reference_wrapper<AutoConnectAux>> aux);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
 
   /** For AutoConnectAux described in JSON */

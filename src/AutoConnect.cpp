@@ -307,14 +307,13 @@ AutoConnectAux* AutoConnect::aux(const String& uri) const {
  *  @param  aux A reference to AutoConnectAux that made up
  *  the auxiliary page to be added.
  */
-bool AutoConnect::join(AutoConnectAux& aux) {
+void AutoConnect::join(AutoConnectAux& aux) {
   if (_aux)
     _aux->_concat(aux);
   else
     _aux.reset(&aux);
   aux._join(*this);
   AC_DBG("%s on hands\n", aux.uri());
-  return true;
 }
 
 /**
@@ -322,12 +321,11 @@ bool AutoConnect::join(AutoConnectAux& aux) {
  *  @param  aux A vector of reference to AutoConnectAux that made up
  *  the auxiliary page to be added.
  */
-bool AutoConnect::join(std::vector<std::reference_wrapper<AutoConnectAux>> aux) {
+void AutoConnect::join(std::vector<std::reference_wrapper<AutoConnectAux>> aux) {
   for (std::size_t n = 0; n < aux.size(); n++) {
     AutoConnectAux& addon = aux[n].get();
     join(addon);
   }
-  return true;
 }
 
 /**
