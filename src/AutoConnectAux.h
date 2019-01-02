@@ -48,7 +48,7 @@ typedef enum {
  */
 class AutoConnectAux : public PageBuilder {
  public:
-  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const AutoConnectElementVT addons = AutoConnectElementVT(), const bool menu = true) :
+  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT()) :
     _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons) { _uri = _uriStr.c_str(); _next.release(); _ac.release(); }
   ~AutoConnectAux();
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
