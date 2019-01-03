@@ -20,7 +20,7 @@ before_install:
   - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then
       arduino --install-boards esp32:esp32;
     fi
-  - arduino --install-library PubSubClient,ArduinoJson:5.13.3,PageBuilder:1.2.3
+  - arduino --install-library PubSubClient,ArduinoJson:5.13.4,PageBuilder:1.2.3
   - buildExampleSketch() { arduino --verbose-build --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
   - mkdir -p ~/Arduino/libraries
