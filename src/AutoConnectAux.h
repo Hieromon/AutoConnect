@@ -55,7 +55,8 @@ class AutoConnectAux : public PageBuilder {
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page */
   template<typename T>
   T&    getElement(const String& name);
-  AutoConnectElement* getElement(const String& name);                   /**< Get registered AutoConnectElement as specified name */
+  AutoConnectElement*   getElement(const String& name);                 /**< Get registered AutoConnectElement as specified name */
+  AutoConnectElementVT& getElements(void) { return _addonElm; }         /**< Get vector of all elements */
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
