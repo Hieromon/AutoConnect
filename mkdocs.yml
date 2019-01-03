@@ -72,8 +72,13 @@ google_analytics:
 
 # Extensions
 markdown_extensions:
-  - attr_list
   - admonition
+  - attr_list
+  - codehilite:
+      linenums: none
+      noclasses: true
+      use_pygments: true
+      pygments_style: monokai
   - footnotes
   - pymdownx.betterem:
       smart_enable: all
@@ -85,8 +90,5 @@ markdown_extensions:
   - pymdownx.smartsymbols
   - pymdownx.superfences
   - pymdownx.tasklist
-  - codehilite:
-      linenums: none
-      use_pygments: true
   - toc:
       permalink: true
