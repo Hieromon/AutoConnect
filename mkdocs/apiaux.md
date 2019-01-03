@@ -5,6 +5,12 @@
 ```cpp
 AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT())
 ```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">uri</span>URI of this custom Web Page.</dd>
+    <dd><span class="apidef">title</span>Page title of this custom web page. It will appear on the auto connection menu and at the top of that page.</dd>
+    <dd><span class="apidef">addons</span>Reference to AutoConnectElement collection.</dt>
+</dl>
 
 ## <i class="fa fa-code"></i> Public member functions
 
@@ -16,7 +22,7 @@ void add(AutoConnectElement& addon)
 ```cpp
 void add(AutoConnectElementVT addons)
 ```
-Add an element to the auxiliary page. Add the element set to the auxiliary page.
+Add an element to the AutoConnectAux. An added element is displayed on the custom Web page invoked from the AutoConnect menu.
 
 
   template<typename T>

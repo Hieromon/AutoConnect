@@ -17,6 +17,7 @@ AutoConnectConfig(const char* ap, const char* password);
 ## <i class="fa fa-code"></i> Public member variables
 
 ### apid
+
 SoftAP's SSID.
 <dl class="apidl">
     <dt>**Type**</dt>
@@ -89,7 +90,7 @@ Specify the location to be redirected after module reset in the AutoConnect menu
     <dd>AC_ONBOOTURI_t</dd>
     <dt>**Value**</dt>
     <dd><span class="apidef" style="width:230px;">AC_ONBOOTURI_ROOT</span>Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in AutoConnectDefs.h.</dd>
-    <dd><span class="apidef" style="width:230px;">AC_ONBOOTURI_HOME</span>It is redirected to the uri specified by [**AutoConnectConfig::homeUri**](api.md#homeuri).</dd>
+    <dd><span class="apidef" style="width:230px;">AC_ONBOOTURI_HOME</span>It is redirected to the uri specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</dd>
 </dl>
 
 ### boundaryOffset
@@ -170,7 +171,7 @@ Sets the station host name of ESP8266/ESP32.
 
 ### immediateStart
 
-Disable the first WiFi.begin() and start the captive portal. If this option is enabled, the module will be in AP_STA mode and the captive portal will be activated regardless of [**autoRise::AutoConnectConfig**](api.md#autorise) specification.
+Disable the first WiFi.begin() and start the captive portal. If this option is enabled, the module will be in AP_STA mode and the captive portal will be activated regardless of [**AutoConnectConfig::autoRise**](apiconfig.md#autorise) specification.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>bool</dd>

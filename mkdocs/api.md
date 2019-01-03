@@ -112,7 +112,7 @@ bool config(const char* ap, const char* password = nullptr)
 Set SoftAP's WiFi configuration and static IP configuration. 
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">config</span>Reference to [**AutoConnectConfig**](api.md#autoconnectconfig) containing SoftAP's parameters and static IP parameters.</dd>
+    <dd><span class="apidef">config</span>Reference to [**AutoConnectConfig**](apiconfig.md) containing SoftAP's parameters and static IP parameters.</dd>
     <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</dd>
     <dd><span class="apidef">password</span>Password for SodtAP. The default value is **12345678**.</dd>
     <dt>**Return value**</dt>

@@ -31,19 +31,8 @@ You can create multiple custom pages, integrate them into the AutoConnect menu, 
 <img align="center" width="520px" src="../images/ac_auxjoin_multi.svg">
 
 <ul class="horizontal-list">
-    <li><span style="margin-left:20px;float:right;width:320px;height:550px;"><img data-gifffer="../images/aux_menu.gif" data-gifffer-width="320" data-gifffer-height="550" /></span><b>False</b> is specified as the third parameter of &#39;<i>aux2</i>&#39; in the above code. The third parameter of the AutoConnectAux constructor is an indicator of whether it's shown to the AutoConnect menu. Right animation is the execution result of the above code. You will see that the custom web page&#39;s menu is displayed only in the last two lines. Because &#39;<i>aux1</i>&#39; and &#39;<i>aux2</i>&#39; in this example have a pair of page transitions. The sketch of this animation is written to transition to &#39;<i>aux2</i>&#39; by the utility of the <b>AutoConnectSubmit</b> element owned by &#39;<i>aux1</i>&#39;.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>An &#39;<i>aux2</i>&#39; page transitions only from the submit button of &#39;<i>aux1</i>&#39;. It is a page that saves the parameters you entered on the previous page as shown in mqttRSSI in the library example. It is to want to hide &#39;<i>aux2</i>&#39; from AutoConnect menu lines. The third parameter of the AutoConnectAux constructor is used for this purpose.</li>
+    <li><span style="margin-left:20px;float:right;width:320px;height:550px;"><img data-gifffer="../images/aux_menu.gif" data-gifffer-width="320" data-gifffer-height="550" /></span><b>False</b> is specified as the third parameter of &#39;<i>aux2</i>&#39; in the above code. The third parameter of the AutoConnectAux constructor is an indicator of whether it's shown to the AutoConnect menu. Right animation is the execution result of the above code. You will see that the custom web page&#39;s menu is displayed only in the last two lines. Because &#39;<i>aux1</i>&#39; and &#39;<i>aux2</i>&#39; in this example have a pair of page transitions. The sketch of this animation is written to transition to &#39;<i>aux2</i>&#39; by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by &#39;<i>aux1</i>&#39;.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>An &#39;<i>aux2</i>&#39; page transitions only from the submit button of &#39;<i>aux1</i>&#39;. It is a page that saves the parameters you entered on the previous page as shown in mqttRSSI in the library example. It is to want to hide &#39;<i>aux2</i>&#39; from AutoConnect menu lines. The third parameter of the AutoConnectAux constructor is used for this purpose.</li>
 </ul>
-
-## Basic steps to use custom Web pages
-
-So, the basic procedure is as follows.
-
-1. Create or define AutoConnectAux.
-2. Create or define [AutoConnectElement(s)](acelements.md).
-3. Add [AutoConnectElement(s)](acelements.md) to AutoConnectAux.
-4. Create more AutoConnectAux containing [AutoConnectElement(s)](acelements.md), if necessary.
-5. Join prepared AutoConnectAux(s) to [AutoConnect](api.md#autoconnect-api).
-6. Invoke [AutoConnect::begin()](api.md#begin).
 
 [^2]:
     The sketch is actually this:
@@ -74,6 +63,107 @@ So, the basic procedure is as follows.
       portal.handleClient();
     }
     ```
+
+## Basic steps to use custom Web pages
+
+So, the basic procedure is as follows.
+
+1. Create or define AutoConnectAux.
+2. Create or define [AutoConnectElement(s)](acelements.md).
+3. Add [AutoConnectElement(s)](acelements.md) to AutoConnectAux.
+4. Create more AutoConnectAux containing [AutoConnectElement(s)](acelements.md), if necessary.
+5. Join prepared AutoConnectAux(s) to [AutoConnect](api.md#join).
+6. Invoke [AutoConnect::begin()](api.md#begin).
+
+## Write the custom Web page with JSON
+
+You can also write the custom Web page in JSON without using sketch codes.[^3] It is possible to describe the entire page in JSON and can be described for each element also. The JSON description can be saved in SPIFFS or SD and read using AutoConnect's [**load**](api.md#load) function. If you take this approach, you can further reduce the above basic steps. However, this method consumes a lot of memory.
+The following JSON code and sketch will execute the custom Web page as the example in the above figure. That is, the sketch of this code and footnote[^2] is equivalent.
+
+**custom_page.json**
+```json
+[
+  {
+    "title": "MQTT Setting",
+    "uri": "/mqtt_setting",
+    "menu": true,
+    "element": [
+      {
+        "name": "header",
+        "type": "ACText",
+        "value": "MQTT broker settings"
+      },
+      {
+        "name": "caption1",
+        "type": "ACText",
+        "value": "Publishing the WiFi..."
+      },
+      {
+        "name": "save",
+        "type": "ACSubmit",
+        "value": "SAVE",
+        "uri": "/mqtt_save"
+      }
+    ]
+  },
+  {
+    "title": "MQTT Setting",
+    "uri": "/mqtt_save",
+    "menu": false,
+    "element": [
+      {
+        "name": "caption2",
+        "type": "ACText",
+        "value": "Save parameters"
+      },
+      {
+        "name": "start",
+        "type": "ACSubmit",
+        "value": "START",
+        "uri": "/mqtt_start"
+      }
+    ]
+  },
+  {
+    "title": "MQTT Start",
+    "uri": "/mqtt_start",
+    "menu": true,
+    "element": []
+  }
+]
+```
+
+**The sketch**
+```cpp hl_lines="15 16"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <FS.h>
+#include <AutoConnect.h>
+
+AutoConnect  portal;
+
+void setup() {
+  delay(1000);
+  Serial.begin(115200);
+  Serial.println();
+  
+  SPIFFS.begin();
+
+  File page = SPIFFS.open("/custom_page.json", "r");
+  portal.load(page);
+
+  page.close();
+  SPIFFS.end();
+
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+[^3]: Installation of the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) v.5.13.4 library is required.
 
 <script>
   window.onload = function() {
