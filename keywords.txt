@@ -18,12 +18,14 @@ AutoConnectText	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 add	KEYWORD2
+aux	KEYWORD2
 config	KEYWORD2
 begin	KEYWORD2
 del	KEYWORD2
 end	KEYWORD2
 entries	KEYWORD2
 getElement	KEYWORD2
+getElements	KEYWORD2
 handleClient	KEYWORD2
 handleRequest	KEYWORD2
 home	KEYWORD2
@@ -38,9 +40,11 @@ onDetect	KEYWORD2
 onNotFound	KEYWORD2
 release	KEYWORD2
 save	KEYWORD2
+saveElement	KEYWORD2
 setElementValue	KEYWORD2
 setTitle	KEYWORD2
 toHTML	KEYWORD2
+typeOf	KEYWORD2
 value	KEYWORD2
 
 #######################################
@@ -55,6 +59,14 @@ AC_URIONBOOT_HOME	LITERAL1
 AC_EXIT_AHEAD	LITERAL1
 AC_EXIT_LATER	LITERAL1
 AC_EXIT_BOTH	LITERAL1
+AC_Button	LITERAL1
+AC_Checkbox	LITERAL1
+AC_Element	LITERAL1
+AC_Input	LITERAL1
+AC_Radio	LITERAL1
+AC_Select	LITERAL1
+AC_Submit	LITERAL1
+AC_Text	LITERAL1
 
 #######################################
 # PREPROCESSOR (KEYWORD3)
