@@ -24,6 +24,7 @@
 #define GET_CHIPID()  (ESP.getChipId())
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
+#include <WebServer.h>
 #include <SPIFFS.h>
 #include <HTTPClient.h>
 #define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
