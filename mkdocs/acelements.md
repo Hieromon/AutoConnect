@@ -75,7 +75,7 @@ for (AutoConnectElement& elm : elements) {
 
 The enumerators for *ACElement_t* are as follows:
 
--  AutoConnetButton: **AC_Button**
+-  AutoConnectButton: **AC_Button**
 -  AutoConnectCheckbox: **AC_Checkbox** 
 -  AutoConnectElement: **AC_Element**
 -  AutoConnectInput: **AC_Input**
