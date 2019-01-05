@@ -3,20 +3,28 @@
 ### AutoConnectConfig
 
 ```cpp
-AutoConnectConfig();
+AutoConnectConfig()
 ```  
 ```cpp
-AutoConnectConfig(const char* ap, const char* password);
+AutoConnectConfig(const char* ap, const char* password)
+```
+```cpp
+AutoConnectConfig(const char* ap, const char* password, const unsigned long timeout)
+```
+```cpp
+AutoConnectConfig(const char* ap, const char* password, const unsigned long timeout, const uint8_t channel)
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">ap</span>SSID for SoftAP. The length should be up to 31. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</dd>
     <dd><span class="apidef">password</span>Password for SodtAP. The length should be from 8 to up to 63. The default value is **12345678**.</dd>
+    <dd><span class="apidef">timeout</span>The timeout value of the captive portal in [ms] units. The default value is 0.</dd>
+    <dd><span class="apidef">channel</span>The channel number of WIFi when SoftAP starts. The default values is 1.</dd>
 </dl>
 
 ## <i class="fa fa-code"></i> Public member variables
 
-### apid
+### <i class="fa fa-caret-right"></i> apid
 
 SoftAP's SSID.
 <dl class="apidl">
@@ -24,7 +32,7 @@ SoftAP's SSID.
     <dd>String</dd>
 </dl>
 
-### apip
+### <i class="fa fa-caret-right"></i> apip
 
 Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
@@ -32,7 +40,7 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
     <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
 </dl>
 
-### autoReconnect
+### <i class="fa fa-caret-right"></i> autoReconnect
 
 Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.  
 If the connection fails, starts the captive portal in SoftAP + STA mode.  
@@ -49,7 +57,7 @@ When the autoReconnect option is enabled, an automatic connection will behave if
 - Invokes *AutoConnect::begin* without user name and password parameter as ```begin()```.
 - If one of the saved BSSIDs (not the SSID) of the credentials matches the BSSID detected by the network scan.
 
-### autoReset
+### <i class="fa fa-caret-right"></i> autoReset
 
 Reset ESP8266 module automatically after WLAN disconnected.
 <dl class="apidl">
@@ -60,7 +68,7 @@ Reset ESP8266 module automatically after WLAN disconnected.
     <dd><span class="apidef" style="width:230px;">false</span>No reset.</dd>
 </dl>
 
-### autoRise
+### <i class="fa fa-caret-right"></i> autoRise
 
 Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the first *WiFi.begin* fails.
 <dl class="apidl">
@@ -71,7 +79,7 @@ Captive portal activation switch. False for disabling the captive portal. It pre
     <dd><span class="apidef" style="width:230px;">false</span>Disable the captive portal.</dd>
 </dl>
 
-### autoSave
+### <i class="fa fa-caret-right"></i> autoSave
 
 The credential saved automatically at the connection establishment.
 <dl class="apidl">
@@ -82,7 +90,7 @@ The credential saved automatically at the connection establishment.
     <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_NEVER</span>The credential no saved.</dd>
 </dl>
 
-### bootUri
+### <i class="fa fa-caret-right"></i> bootUri
 
 Specify the location to be redirected after module reset in the AutoConnect menu. It is given as an enumeration value of **AC_ONBOOTURI_t** indicating either the AutoConnect root path or the user screen home path.
 <dl class="apidl">
@@ -93,7 +101,7 @@ Specify the location to be redirected after module reset in the AutoConnect menu
     <dd><span class="apidef" style="width:230px;">AC_ONBOOTURI_HOME</span>It is redirected to the uri specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</dd>
 </dl>
 
-### boundaryOffset
+### <i class="fa fa-caret-right"></i> boundaryOffset
 
 Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)  
 The default value is 0.
@@ -105,7 +113,7 @@ The default value is 0.
 !!! warning "It will conflict with user data."
     If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.
 
-### channel
+### <i class="fa fa-caret-right"></i> channel
 
 The channel number of WIFi when SoftAP starts.
 <dl class="apidl">
@@ -118,7 +126,7 @@ The channel number of WIFi when SoftAP starts.
 !!! info "How do I choose Channel"
     Espressif Systems had announced the [application note](https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf) about Wi-Fi channel selection.
 
-### dns1
+### <i class="fa fa-caret-right"></i> dns1
 
 Set primary DNS server address when using static IP address.
 <dl class="apidl">
@@ -126,7 +134,7 @@ Set primary DNS server address when using static IP address.
     <dd>IPAddress</dd>
 </dl>
 
-#### dns2
+### <i class="fa fa-caret-right"></i> dns2
 
 Set secondary DNS server address when using static IP address.
 <dl class="apidl">
@@ -134,7 +142,7 @@ Set secondary DNS server address when using static IP address.
     <dd>IPAddress</dd>
 </dl>
 
-### gateway
+### <i class="fa fa-caret-right"></i> gateway
 
 Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
@@ -142,7 +150,7 @@ Sets gateway address for Soft AP in captive portal. When AutoConnect fails the i
     <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
 </dl>
 
-### hidden
+### <i class="fa fa-caret-right"></i> hidden
 
 Sets SoftAP to hidden SSID.
 <dl class="apidl">
@@ -153,7 +161,7 @@ Sets SoftAP to hidden SSID.
     <dd><span class="apidef" style="width:230px;">1</span>SSID will be hidden.</dd>
 </dl>
 
-### homeUri
+### <i class="fa fa-caret-right"></i> homeUri
 
 Sets the home path of user sketch. This path would be linked from 'HOME' in the AutoConnect menu. The default for homeUri is "/".
 <dl class="apidl">
@@ -161,7 +169,7 @@ Sets the home path of user sketch. This path would be linked from 'HOME' in the 
     <dd>String</dd>
 </dl>
 
-### hostName
+### <i class="fa fa-caret-right"></i> hostName
 
 Sets the station host name of ESP8266/ESP32.
 <dl class="apidl">
@@ -169,7 +177,7 @@ Sets the station host name of ESP8266/ESP32.
     <dd>String</dd>
 </dl>
 
-### immediateStart
+### <i class="fa fa-caret-right"></i> immediateStart
 
 Disable the first WiFi.begin() and start the captive portal. If this option is enabled, the module will be in AP_STA mode and the captive portal will be activated regardless of [**AutoConnectConfig::autoRise**](apiconfig.md#autorise) specification.
 <dl class="apidl">
@@ -180,7 +188,7 @@ Disable the first WiFi.begin() and start the captive portal. If this option is e
     <dd><span class="apidef" style="width:230px;">false</span>Enable the first WiFi.begin() and it will start captive portal when connection failed. This is default.</dd>
 </dl>
 
-### netmask
+### <i class="fa fa-caret-right"></i> netmask
 
 Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
@@ -188,7 +196,15 @@ Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initi
     <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **255.255.255.0**</dd>
 </dl>
 
-### psk
+### <i class="fa fa-caret-right"></i> portalTimeout
+
+Specify the timeout value of the captive portal in [ms] units. It is valid when the station is not connected and does not time out if the station is connected to the ESP module in SoftAP mode (ie Attempting WiFi connection with the portal function). If 0, the captive portal will not be timed-out.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef" style="width:230px;">unsigned long</span>Captive portal timeout value. The default value is 0.</dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> psk
 
 Sets password for SoftAP. The length should be from 8 to up to 63. The default value is **12345678**.
 <dl class="apidl">
@@ -196,7 +212,21 @@ Sets password for SoftAP. The length should be from 8 to up to 63. The default v
     <dd>String</dd>
 </dl>
 
-### staip
+### <i class="fa fa-caret-right"></i> retainlPortal
+
+Specify whether to continue the portal function even if the captive portal timed out. If the true, when a timeout occurs, the [**AutoConnect::begin**](api.md#begin) function is exited with returns false, but the portal facility remains alive. So SoftAP remains alive and you can invoke AutoConnect while continuing sketch execution. The default is false.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>bool</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef" style="width:230px;">true</span>Continue the portal function even if the captive portal times out. The STA + SoftAP mode of the ESP module continues and accepts the connection request to the AP.</dd>
+    <dd><span class="apidef" style="width:230px;">false</span>When the captive portal times out, STA + SoftAP mode of the ESP module is stopped. This is default.</dd>
+</dl>
+
+!!! hint "Connection request after timed-out"
+    With the **retainPortal**, even if AutoConnect::begin in the setup() is timed out, you can execute the sketch and the portal function as a WiFi connection attempt by calling AutoConnect::handleClient in the loop().
+
+### <i class="fa fa-caret-right"></i> staip
 
 Set a static IP address. The IP will behave with STA mode.
 <dl class="apidl">
@@ -204,7 +234,7 @@ Set a static IP address. The IP will behave with STA mode.
     <dd>IPAddress</dd>
 </dl>
 
-### staGateway
+### <i class="fa fa-caret-right"></i> staGateway
 
 Set the gateway address when using static IP address.
 <dl class="apidl">
@@ -212,7 +242,7 @@ Set the gateway address when using static IP address.
     <dd>IPAddress</dd>
 </dl>
 
-### staNetmask
+### <i class="fa fa-caret-right"></i> staNetmask
 
 Set the subnetmask when using static IP address.
 <dl class="apidl">
@@ -231,7 +261,9 @@ Config.gateway = IPAddress(192,168,10,1);     // Sets WLAN router IP address
 Config.netmask = IPAddress(255,255,255,0);    // Sets WLAN scope
 Config.autoReconnect = true;                  // Enable auto-reconnect
 Config.autoSave = AC_SAVECREDENTIAL_NEVER;    // No save credential
-COnfig.boundaryOffet = 64;                    // Reserve 64 bytes for the user data in EEPROM. 
+Config.boundaryOffet = 64;                    // Reserve 64 bytes for the user data in EEPROM.
+Config.portalTimeout = 60000;                 // Sets timeout value for the captive portal
+Config.retainPortal = true;                   // Retains the portal function after timed-out
 Config.homeUri = "/index.html"				  // Sets home path of the sketch application
 Config.staip = IPAddress(192,168,10,10);      // Sets static IP
 Config.staGateway = IPAddress(192,168,10,1);  // Sets WiFi router address

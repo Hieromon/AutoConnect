@@ -6,8 +6,10 @@ Registering the "not found" handler is a different way than ESP8266WebServer/Web
 
 ### <i class="fa fa-caret-right"></i> Automatic reconnect
 
-When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost but then the reconnect behavior of ESP32 is somewhat different from this.  
-The [WiFiSTAClass::disconnect](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.  
+When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost but then the reconnect behavior of ESP32 is somewhat different from this.
+
+The [WiFiSTAClass::disconnect](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.
+
 If the [**autoReconnect**](api.md#autoreconnect) option of the [**AutoConnectConfig**](api.md#autoconnectconfig-api) class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in EEPROM as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.
 
 ```arduino hl_lines="3"
@@ -60,6 +62,92 @@ void setup() {
 
 void loop() {
   Portal.handleClient();
+}
+```
+### <i class="fa fa-caret-right"></i> Captive portal timeout control
+
+AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of [*AutoConnect::begin*](api.md#begin). Default value is macro defined by [**AUTOCONNECT_TIMEOUT**](api.md#defined-macros) in the `AutoConnectDef.h` file.
+
+The other is timeout control for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the [**immediateStart**](#on-demand-start-the-captive-portal) option to create sketches with high mobility.
+
+The timeout of the captive portal is specified together with [**AutoConnectConfig::portalTimeout**](apiconfig.md#portaltimeout) as follows.
+
+```cpp hl_lines="9"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+AutoConnect  portal;
+AutoConnectConfig  config;
+
+void setup() {
+  config.portalTimeout = 60000;  // It will time out in 60 seconds
+  portal.config(config);
+  portal.begin();
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    // Some sketck code for the connected scene is here.
+  }
+  else {
+    // Some sketch code for not connected scene is here.
+  }
+  portal.handleClient();
+}
+```
+Also, if you want to stop AutoConnect completely when the captive portal is timed out, you need to call the [**AutoConnect::end**](api.md#end) function. It looks like the following code:
+
+```cpp
+bool acEnable;
+
+void setup() {
+  config.portalTimeout = 60000;  // It will time out in 60 seconds
+  portal.config(config);
+  acEnable = portal.begin();
+  if (!acEnable) {
+    portal.end();
+  }
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    // Some sketck code for the connected scene is here.
+  }
+  else {
+    // Some sketch code for not connected scene is here.
+  }
+  if (acEnable) {
+    portal.handleClient();
+  }
+}
+```
+
+There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The [**AutoConnectConfig::retainPortal**](apiconfig.md#retainlportal) option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. The following code is its example. It can enable the captive portal after timed-out without changing sketch skeleton compared to the above code which does not specify an option.
+
+```cpp hl_lines="10"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+AutoConnect  portal;
+AutoConnectConfig  config;
+
+void setup() {
+  config.portalTimeout = 60000;  // It will time out in 60 seconds
+  config.retainPortal = true;
+  portal.config(config);
+  portal.begin();
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    // Some sketck code for the connected scene is here.
+  }
+  else {
+    // Some sketch code for not connected scene is here.
+  }
+  portal.handleClient();
 }
 ```
 
@@ -243,6 +331,8 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - Hidden attribute.
 - Auto save credential.
 - Offset address of the credentials storage area in EEPROM.
+- Captive portal time out limit.
+- Retains the portal function after time out.
 - Length of start up time after reset.
 - Automatic starting the captive portal.
 - Start the captive portal forcely.

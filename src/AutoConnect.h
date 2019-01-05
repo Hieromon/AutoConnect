@@ -67,6 +67,8 @@ class AutoConnectConfig {
     autoReset(true),
     autoReconnect(false),
     immediateStart(false),
+    retainPortal(false),
+    portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     staip(0U),
@@ -77,7 +79,7 @@ class AutoConnectConfig {
   /**
    *  Configure by SSID for the captive portal access point and password.
    */
-  AutoConnectConfig(const char* ap, const char* password, const uint8_t channel = AUTOCONNECT_AP_CH) :
+  AutoConnectConfig(const char* ap, const char* password, const unsigned long portalTimeout = 0, const uint8_t channel = AUTOCONNECT_AP_CH) :
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
@@ -93,6 +95,8 @@ class AutoConnectConfig {
     autoReset(true),
     autoReconnect(false),
     immediateStart(false),
+    retainPortal(false),
+    portalTimeout(portalTimeout),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     staip(0U),
@@ -119,6 +123,8 @@ class AutoConnectConfig {
     autoReset = o.autoReset;
     autoReconnect = o.autoReconnect;
     immediateStart = o.immediateStart;
+    retainPortal = o.retainPortal;
+    portalTimeout = o.portalTimeout;
     hostName = o.hostName;
     homeUri = o.homeUri;
     staip = o.staip;
@@ -144,6 +150,8 @@ class AutoConnectConfig {
   bool      autoReset;          /**< Reset ESP8266 module automatically when WLAN disconnected. */
   bool      autoReconnect;      /**< Automatic reconnect with past SSID */
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
+  bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
+  unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   IPAddress staip;              /**< Station static IP address */
@@ -197,6 +205,7 @@ class AutoConnect {
   bool  _loadAvailCredential();
   void  _stopPortal();
   bool  _classifyHandle(HTTPMethod mothod, String uri);
+  void  _purgePages(void);
   PageElement*  _setupPage(String uri);
 #ifdef AUTOCONNECT_USE_JSON
   bool  _load(JsonVariant& aux);
@@ -210,6 +219,7 @@ class AutoConnect {
 
   /** For portal control */
   bool  _captivePortal();
+  bool  _hasTimeout(unsigned long timeout);
   bool  _isIP(String ipStr);
   wl_status_t _waitForConnect(unsigned long timeout);
   void  _disconnectWiFi(bool wifiOff);
@@ -242,7 +252,8 @@ class AutoConnect {
   AutoConnectConfig     _apConfig;
   struct station_config _credential;
   uint8_t       _hiddenSSIDCount;
-  unsigned long _portalTimeout;
+  unsigned long _connectTimeout;
+  unsigned long _portalAccessPeriod;
 
   /** The control indicators */
   bool  _rfConnect;             /**< URI /connect requested */

@@ -22,6 +22,7 @@ They contain in ```AutoConnectDefs.h```.
 #define AUTOCONNECT_STARTUPTIME 10              // Default waiting time[s] for after reset
 #define AUTOCONNECT_URI         "/_ac"          // Default AutoConnect root path
 #define AUTOCONNECT_TIMEOUT     30000           // Default connection timeout[ms]
+#define AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT  0    // Captive portal timeout value
 #define AUTOCONNECT_USE_JSON                    // Allow AutoConnect elements to be handled by JSON format
 ```
 
