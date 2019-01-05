@@ -252,7 +252,7 @@ Set the subnetmask when using static IP address.
 
 ## <i class="fa fa-code"></i> AutoConnectConfig example
 
-```arduino
+```cpp
 AutoConenct        Portal;
 AutoConenctConfig  Config("", "passpass");    // SoftAp name is determined at runtime
 Config.apid = ESP.hostname();                 // Retrieve host name to SotAp identification

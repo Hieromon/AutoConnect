@@ -47,13 +47,13 @@ Replacement the **handleClient** method is not indispensable. AutoConnect can st
 
 [Two options](#esp8266webserver-hosted-or-parasitic) are available for [AutoConnect constructor](api.md#constructors).
 
-```arduino
+```cpp
 AutoConnect VARIABLE(&ESP8266WebServer);  // For ESP8266
 AutoConnect VARIABLE(&WebServer);         // For ESP32
 ```
 or
 
-```arduino
+```cpp
 AutoConnect VARIABLE;
 ```
 

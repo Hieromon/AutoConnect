@@ -15,7 +15,7 @@ Maybe it is successfully connected at the **first WiFi.begin**. ESP8266 remember
 
 The saved SSID would be cleared by  *WiFi.disconnect()* with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.
 
-```arduino
+```cpp
 #include <ESP8266WiFi.h>
 
 void setup() {

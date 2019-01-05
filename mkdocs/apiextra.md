@@ -16,7 +16,7 @@ To reference the icon, use the **AUTOCONNECT_LINK** macro in the sketch. It expa
 </dl>
 
 !!! note "Usage"
-    ```arduino
+    ```cpp
     String html = "<html>";
     html += AUTOCONNECT_LINK(BAR_32);
     html += "</html>";

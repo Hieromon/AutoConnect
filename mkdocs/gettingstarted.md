@@ -2,7 +2,7 @@
 
 Open the Arduino IDE, write the following sketch and upload it. The feature of this sketch is that the SSID and Password are not coded.
 
-```arduino
+```cpp
 #include <ESP8266WiFi.h>          // Replace with WiFi.h for ESP32
 #include <ESP8266WebServer.h>     // Replace with WebServer.h for ESP32
 #include <AutoConnect.h>
