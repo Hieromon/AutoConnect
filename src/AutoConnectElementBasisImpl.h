@@ -78,7 +78,7 @@ void AutoConnectRadioBasis::check(const String& value) {
 }
 
 /**
- * Clear value items of AutoConnetRadio and reallocate new storage.
+ * Clear value items of AutoConnectRadio and reallocate new storage.
  * All hold items are released.
  * @param reserve  If 'reserve' is greater than 0, this function
  * allocates new holding storage with the value.
@@ -116,7 +116,7 @@ const String AutoConnectRadioBasis::toHTML(void) const {
 }
 
 /**
- * Clear option items of AutoConnetSelect and reallocate new storage.
+ * Clear option items of AutoConnectSelect and reallocate new storage.
  * All hold items are released.
  * @param reserve  If 'reserve' is greater than 0, this function
  * allocates new holding storage with the value.
