@@ -134,7 +134,7 @@ The following JSON code and sketch will execute the custom Web page as the examp
 ```
 
 **The sketch**
-```cpp hl_lines="15 16"
+```cpp hl_lines="11 12"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <FS.h>
@@ -143,10 +143,6 @@ The following JSON code and sketch will execute the custom Web page as the examp
 AutoConnect  portal;
 
 void setup() {
-  delay(1000);
-  Serial.begin(115200);
-  Serial.println();
-  
   SPIFFS.begin();
 
   File page = SPIFFS.open("/custom_page.json", "r");

@@ -17,8 +17,8 @@ nav:
   - 'Custom Web pages' :
     - 'Custom Web pages with AutoConnect' : acintro.md
     - 'AutoConnectElements' : acelements.md
-    - 'AutoConnectAux with JSON' : acjson.md
-    - 'Handling AutoConnectAux' : achandling.md
+    - 'Custom Web pages with JSON' : acjson.md
+    - 'Handling custom Web pages' : achandling.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
     - 'AutoConnectConfig API': apiconfig.md
@@ -36,7 +36,7 @@ repo_url: 'https://github.com/Hieromon/AutoConnect'
 edit_uri: ""
 
 # Copyright
-copyright: 'Copyright &copy; 2018 Hieromon Ikasamo'
+copyright: 'Copyright &copy; 2018-2019 Hieromon Ikasamo'
 
 # Configuration
 use_directory_urls: false
