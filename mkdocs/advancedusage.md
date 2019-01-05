@@ -12,7 +12,7 @@ The [WiFiSTAClass::disconnect](https://github.com/espressif/arduino-esp32/blob/a
 
 If the [**autoReconnect**](api.md#autoreconnect) option of the [**AutoConnectConfig**](api.md#autoconnectconfig-api) class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in EEPROM as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.
 
-```arduino hl_lines="3"
+```cpp hl_lines="3"
 AutoConnect       Portal;
 AutoConnectConfig Config;
 Config.autoReconnect = true;
@@ -26,7 +26,7 @@ An autoReconnect option is available to *AutoConnect::begin* without SSID and pa
 
 By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the [**autoSave**](api.md#autosave) parameter specified by [**AutoConnectConfig**](api.md#autoconnectconfig).
 
-```arduino hl_lines="3"
+```cpp hl_lines="3"
 AutoConnect       Portal;
 AutoConnectConfig Config;
 Config.autoSave = AC_SAVECREDENTIAL_NEVER;
@@ -41,7 +41,7 @@ Portal.begin();
 
 The captive portal will only be activated if the first *WiFi::begin* fails. Sketch can detect with the [*AutoConnect::onDetect*](api.md#ondetect) function that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.
 
-```arduino hl_lines="3 13"
+```cpp hl_lines="3 13"
 AutoConnect Portal;
 
 bool startCP(IPAddress ip) {
@@ -155,7 +155,7 @@ void loop() {
 
 With [mDNS library](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS), you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after [*AutoConnect::begin*](api.md#begin).
 
-```arduino hl_lines="8 9"
+```cpp hl_lines="8 9"
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
@@ -190,7 +190,7 @@ It can also prevent the captive portal from starting even if the connection at t
 
 For disabling the captive portal, [**autoRise**](api.md#autorise) sets to false with [**AutoConnectConfig**](api.md#autoconnectconfig-api).
 
-```arduino hl_lines="4"
+```cpp hl_lines="4"
 AutoConnect       portal;
 AutoConnectConfig acConfig;
 
@@ -198,6 +198,23 @@ acConfig.autoRaise = false;
 portal.config(acConfig);
 portal.begin();
 ```
+
+### <i class="fa fa-caret-right"></i> Make SSID of SoftAP unique
+
+You can change SoftAP's SSID and password programmatically when the captive portal starts up. By using chip specific ID of esp8266/esp32 you can make SSID of SoftAP unique. SSID and password for SoftAP is [**AutoConnectConfig::apid**](apiconfig.md#apid) and [**AutoConnectConfig::psk**](apiconfig.md#psk).
+
+```cpp
+AutoConnect       portal;
+AutoConnectConfig acConfig;
+
+acConfig.apid = "ESP-" + String(ESP.getChipId(), HEX);
+acConfig.psk = YOUR_PASSWORD;
+portal.config(acConfig);
+portal.begin();
+```
+
+!!! hint "Obtaining chip ID for ESP32"
+    `acConfig.apid = "ESP-" + String((uint32_t)(ESP.getEfuseMac() >> 32), HEX);`
 
 ### <i class="fa fa-caret-right"></i> Move the saving area of EEPROM for the credentials
 
@@ -226,7 +243,7 @@ The [**boundaryOffset**](api.md#boundaryoffset) in [**AutoConnectConfig**](api.m
 
 If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the [**autoRise**](api.md#autorise) option with the [**immediateStart**](api.md#immediatestart) option to achieve on-demand connection. This behavior is similar to the [WiFiManager's startConfigPortal](https://github.com/tzapu/WiFiManager#on-demand-configuration-portal) function. In order to do this, you usually configure only with AutoConnectConfig in *setup()* and [*AutoConnect::begin()*](api.md#begin) handles in *loop()*.
 
-```arduino hl_lines="5 6"
+```cpp hl_lines="5 6"
 AutoConnect       Portal;
 AutoConnectConfig Config;
 
@@ -251,7 +268,7 @@ The above example does not connect to WiFi until TRIGGER\_PIN goes LOW. When TRI
 
 Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer/WebServer inside the AutoConnect. This object variable could be referred by [*AutoConnect::host()*](api.md#host) function to access ESP8266WebServer/WebServer instance as like below.
 
-```arduino hl_lines="4"
+```cpp hl_lines="4"
 AutoConnect Portal;
 
 Portal.begin();
@@ -266,7 +283,7 @@ server.send(200, "text/plain", "Hello, world");
 
 The sketch can handle URL requests using ESP8266WebServer or WebServer that AutoConnect started internally. ESP8266WebServer/WebServer instantiated dynamically by AutoConnect can be referred to by [*AutoConnect::host*](api.md#host) function. The sketch can use the '**on**' function, '**send**' function, '**client**' function and others by ESP8266WebServer/WebServer reference of its return value.
 
-```arduino hl_lines="8 9 13 14 20 21 27"
+```cpp hl_lines="8 9 13 14 20 21 27"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>
@@ -370,7 +387,7 @@ To assign a static IP to ESP8266/ESP32 with WIFI\_MODE\_STA, the following param
 
 The above parameters must be executed before *AutoConnect::begin* as [arguments of AutoConnectConfig](api.md#staip).
 
-```arduino
+```cpp
 AutoConnect        portal;
 AutoConnectConfig  Config;
 Config.staip = IPAddress(192,168,1,10);
