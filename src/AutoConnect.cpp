@@ -216,7 +216,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
           _dnsServer->stop();
           _dnsServer.reset();
         }
-        // Captive portal styaing time exceeds timeout,
+        // Captive portal staying time exceeds timeout,
         // Close the portal if an option for keeping the portal is false.
         else if (hasTimeout) {
           if (_apConfig.retainPortal) {
@@ -284,9 +284,12 @@ void AutoConnect::end() {
   if (_responsePage != nullptr) {
     _responsePage->~PageBuilder();
     delete _responsePage;
+    _responsePage = nullptr;
   }
-  if (_currentPageElement != nullptr)
+  if (_currentPageElement != nullptr) {
     _currentPageElement->~PageElement();
+    _currentPageElement = nullptr;
+  }
 
   _stopPortal();
   if (_webServer) {
@@ -366,13 +369,18 @@ void AutoConnect::_startWebServer() {
   // It is supposed to evacuate but ESP8266WebServer::_notFoundHandler is not accessible.
   _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
   // here, Prepare PageBuilders for captive portal
-  _responsePage = new PageBuilder();
-  _responsePage->chunked(PB_ByteStream);
-  _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
-  _responsePage->insert(*_webServer);
+  if (!_responsePage) {
+    _responsePage = new PageBuilder();
+    _responsePage->chunked(PB_ByteStream);
+    _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
+    _responsePage->insert(*_webServer);
 
-  _webServer->begin();
-  AC_DBG("http server started\n");
+    _webServer->begin();
+    AC_DBG("http server started\n");
+  }
+  else {
+    AC_DBG("http server readied\n");
+  }
 }
 
 /**
