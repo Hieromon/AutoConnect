@@ -63,7 +63,7 @@ The [**handleClient**](api.md#handleclient) function of AutoConnect can include 
 
 ## <i class="fa fa-code"></i> Public member functions
 
-### aux
+### <i class="fa fa-caret-right"></i> aux
 
 ```cpp
 AutoConnectAux* aux(const String& uri) const
@@ -76,7 +76,7 @@ Returns a pointer to AutoConnectAux with the URI specified by *uri*. If AutoConn
     <dd>A Pointer of the AutoConnectAux instance.</dd>
 </dl>
 
-### begin
+### <i class="fa fa-caret-right"></i> begin
 
 ```cpp
 bool begin()
@@ -101,7 +101,7 @@ The captive portal will not be started if the connection has been established wi
     <dd><span class="apidef">false</span>Could not connected, Captive portal started with WIFI_AP_STA mode.</dd>
 </dl>
 
-### config
+### <i class="fa fa-caret-right"></i> config
 
 ```cpp
 bool config(AutoConnectConfig& config)
@@ -121,7 +121,7 @@ Set SoftAP's WiFi configuration and static IP configuration.
     <dd><span class="apidef">false</span>Configuration parameter is invalid, some values out of range.</dd>
 </dl>
 
-### end
+### <i class="fa fa-caret-right"></i> end
 
 ```cpp
 void end()
@@ -132,7 +132,7 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
 !!! warning "Attention to end"
     The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
 
-### handleClient
+### <i class="fa fa-caret-right"></i> handleClient
 
 ```cpp
 void handleClient()
@@ -140,7 +140,7 @@ void handleClient()
 
 Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect, and the client request handlers contained in the user sketch are also handled.
 
-### handleRequest
+### <i class="fa fa-caret-right"></i> handleRequest
 
 ```cpp
 void handleRequest()
@@ -151,7 +151,7 @@ Handling for the AutoConnect menu request.
 !!! warning "About used in combination with handleClient"
     The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266WebServer::handleClient or WebServer::handleClient.
 
-### home
+### <i class="fa fa-caret-right"></i> home
 
 ```cpp
 void home(String uri)
@@ -163,7 +163,7 @@ Put a user site's home URI. The URI specified by home is linked from "HOME" in t
     <dd><span class="apidef">uri</span> A URI string of user site's home path.</dd>
 </dl>
 
-### host
+### <i class="fa fa-caret-right"></i> host
 
 - For ESP8266
 
@@ -194,7 +194,7 @@ Returns the reference of the ESP8266WebServer/WebServer which is allocated in Au
     portal.host().handleClient();
     ```
 
-### join
+### <i class="fa fa-caret-right"></i> join
 
 ```cpp
 void join(AutoConnectAux& aux)
@@ -208,7 +208,7 @@ Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joi
     <dd><span class="apidef">aux</span>Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization).</dd>
 </dl>
 
-### load
+### <i class="fa fa-caret-right"></i> load
 
 ```cpp
 bool load(const String& aux)
@@ -221,7 +221,7 @@ bool load(Stream& aux)
 ```
 Load 
 
-### on
+### <i class="fa fa-caret-right"></i> on
 
 ```cpp
 bool on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD)
@@ -230,7 +230,7 @@ bool on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrd
 !!! caution "It is not ESP8266WebServer::on, not WebServer::on for ESP32."
     This function effects to AutoConnectAux only. However, it coexists with that of ESP8266WebServer::on or WebServer::on of ESP32. 
 
-### onDetect
+### <i class="fa fa-caret-right"></i> onDetect
 
 ```cpp
 void onDetect(DetectExit_ft fn)
@@ -255,7 +255,7 @@ typedef std::function<bool(IPAddress softapIP)>  DetectExit_ft
     <dd><span class="apidef">false</span>Cancel the captive portal. AutoConnect::begin function will return with a false.</dd>
 </dl>
 
-### onNotFound
+### <i class="fa fa-caret-right"></i> onNotFound
 
 - For ESP8266
 
