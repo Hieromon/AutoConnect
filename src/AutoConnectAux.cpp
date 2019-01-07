@@ -651,11 +651,11 @@ bool AutoConnect::load(Stream& aux) {
  * @param  aux  A JsonVariant object that stores each element of AutoConnectAuxl.
  * @return true Successfully loaded.
  */
-bool AutoConnect::_load(JsonVariant& aux) {
-  bool  rc = aux.success();
+bool AutoConnect::_load(JsonVariant& auxJson) {
+  bool  rc = auxJson.success();
   if (rc) {
-    if (aux.is<JsonArray>()) {
-      JsonArray& jb = aux.as<JsonArray>();
+    if (auxJson.is<JsonArray>()) {
+      JsonArray& jb = auxJson.as<JsonArray>();
       for (JsonObject& auxJson : jb) {
         AutoConnectAux* newAux = new AutoConnectAux;
         if (newAux->_load(auxJson))
@@ -668,7 +668,7 @@ bool AutoConnect::_load(JsonVariant& aux) {
       }
     }
     else {
-      JsonObject& jb = aux.as<JsonObject>();
+      JsonObject& jb = auxJson.as<JsonObject>();
       AutoConnectAux* newAux = new AutoConnectAux;
       if (newAux->_load(jb))
         join(*newAux);

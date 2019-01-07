@@ -127,6 +127,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
   const String  toHTML(void) const override;
   const String& operator[] (const std::size_t n) const { return at(n); }
   void  add(const String& value) { _values.push_back(String(value)); }
+  size_t  size(void) const { return _values.size(); }
   const String& at(const std::size_t n) const { return _values.at(n); }
   void  check(const String& value);
   void  empty(const size_t reserve = 0);
@@ -156,6 +157,7 @@ class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
   const String  toHTML(void) const override;
   const String& operator[] (const std::size_t n) const { return at(n); }
   void  add(const String& option) { _options.push_back(String(option)); }
+  size_t  size(void) const { return _options.size(); }
   const String& at(const std::size_t n) const { return _options.at(n); }
   void  empty(const size_t reserve = 0);
 
