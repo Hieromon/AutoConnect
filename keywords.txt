@@ -9,7 +9,7 @@ AutoConnectButton	KEYWORD1
 AutoConnectCheckbox	KEYWORD1
 AutoConnectElement	KEYWORD1
 AutoConnectInput	KEYWORD1
-AutoConnectRadio    KEYWORD1
+AutoConnectRadio	KEYWORD1
 AutoConnectSelect	KEYWORD1
 AutoConnectSubmit	KEYWORD1
 AutoConnectText	KEYWORD1
