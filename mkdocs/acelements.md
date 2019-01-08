@@ -11,8 +11,6 @@ Representative HTML elements for making the custom Web page are provided as Auto
 - [AutoConnectSubmit](#autoconnectsubmit): Submit button
 - [AutoConnectText](#autoconnecttext): Style attributed text
 
-Each element has a common attribute and its own attributes.
-
 ## Layout on custom Web page
 
 You can specify the direction to arrange the radio buttons as [**AutoConnectRadio**](#autoconnectradio) vertically or horizontally. Other elements are arranged vertically in the order of addition to AutoConnectAux. This basic layout depends on the CSS of the AutoConnect menu so it can not be changed drastically.
@@ -35,7 +33,7 @@ AutoConnectElement(const char* name, const char* value)
 
 ### <i class="fa fa-caret-right"></i> name
 
-Every element has a name. **Name** is the String data type. To access its element in the sketches you can identify by the name. Its method is useful for loading elements in JSON. In the load function of AutoConnectElement(s) described [**later**](acjson.md), these objects are not created in advance by sketches. Therefore, access to the attribute of that element by name as follows:
+Each element has a name. **Name** is the String data type. To access its element in the sketches you can identify by the name. Its method is useful for loading elements in JSON. In the load function of AutoConnectElement(s) described [**later**](acjson.md), these objects are not created in advance by sketches. Therefore, access to the attribute of that element by the **name** as follows:
 
 ```cpp hl_lines="4 10"
 AutoConnectAux customPage("/custom_page", "Custom page");
@@ -149,11 +147,25 @@ A label is an optional string. If you specify a label, an `id` attribute is atta
 
 ### <i class="fa fa-caret-right"></i> checked
 
-A checked is a Boolean value and indicates the checked status of the checkbox.
+A checked is a Boolean value and indicates the checked status of the checkbox. The value of the checkbox element checked is packed in the query string and sent.
 
 ## AutoConnectInput
 
-AutoConnectInput genarates an HTML `input type="text"` tag and a `label` tag. It can also have a placeholder.
+AutoConnectInput genarates an HTML `input type="text"` tag and a `label` tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the sketches.
+
+### <i class="fa fa-edit"></i> Constructor
+
+```cpp
+AutoConnectInput(const char* name, const char* value, const char* label, const char* placeholder)
+```
+
+### <i class="fa fa-caret-right"></i> name
+
+It is the name of the AutoConnectInput element and matches the name attribute of the input tag. It also becomes the parameter name of the query string when submitted.
+
+### <i class="fa fa-caret-right"></i> value
+
+
 
 ## AutoConnectRadio
 
@@ -167,23 +179,25 @@ AutoConnectInput genarates an HTML `input type="text"` tag and a `label` tag. It
 
 ### Definition in sketch
 
-Each element can be defined by a macro. By using the macro, you can treat element names that are String types as variables in sketches.
+Each element can be defined by a macro. By using the macro, you can treat element names that are String types as variables in sketches.[^2]
 
-ACElement( *name* \[, *value* \] )
+[^2]: The square brackets in the syntax are optional parameters. The stroke is a selection parameter.
 
-ACButton( *name* \[, *value* \] \[, *action* \] )
+ACElement ( *name* <small>\[</small> , *value* <small>\]</small> )
 
-ACCheckbox( *name* \[, *value* \] \[, *label* \] \[, **true** | **false** \] )
+ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *action* <small>\]</small> )
+ 
+ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **true** | **false** <small>\]</small> )
 
-ACInput( *name* \[, *value* \] \[, *placeholder* \] \[, *label* \] )
+ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> )
 
-ACRadio( *name* \[, *values* \] \[, *label* \] \[, **AC\_Horitontal** | **AC\_Vertical** \] \[, *checked* ] )
+ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_Horitontal** | **AC\_Vertical** <small>\]</small> <small>\[</small> , *checked* <small>\]</small> )
 
-ACSelect( *name* \[, *options* \] \[, *label* \] )
+ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</small> , *label* <small>\]</small> )
 
-ACSubmit( *name* \[, *value* \] \[, *uri* \] )
+ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> )
 
-ACText( *name* \[, *value* \] \[, *style* \] )
+ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> )
 
 ### Variant for AutoConnectElements
 
