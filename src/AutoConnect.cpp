@@ -145,7 +145,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     // Load a valid credential.
     if (_loadAvailCredential()) {
       // Try to reconnect with a stored credential.
-      AC_DBG("Past SSID:%s loaded\n", reinterpret_cast<const char*>(_credential.ssid));
+      AC_DBG("autoReconnect loaded SSID:%s\n", reinterpret_cast<const char*>(_credential.ssid));
       const char* psk = strlen(reinterpret_cast<const char*>(_credential.password)) ? reinterpret_cast<const char*>(_credential.password) : nullptr;
       WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), psk);
       AC_DBG("WiFi.begin(%s%s%s)\n", _credential.ssid, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
@@ -228,6 +228,9 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
           }
         }
       }
+    }
+    else {
+      AC_DBG("Suppress autoRise\n");
     }
   }
 
