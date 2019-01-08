@@ -115,11 +115,11 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
  */
 class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectInputBasis {
  public:
-  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* placeholder = "", const char* label = "") {
+  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* placeholder = "") {
     AutoConnectInputBasis::name = String(name);
     AutoConnectInputBasis::value = String(value);
-    AutoConnectInputBasis::placeholder = String(placeholder);
     AutoConnectInputBasis::label = String(label);
+    AutoConnectInputBasis::placeholder = String(placeholder);
   }
   ~AutoConnectInputJson() {}
   const size_t  getObjectSize(void) const override;

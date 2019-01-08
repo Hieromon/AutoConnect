@@ -100,14 +100,14 @@ class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* placeholder = "", const char* label = "") : AutoConnectElementBasis(name, value), placeholder(String(placeholder)), label(String(label)) {
+  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* placeholder = "") : AutoConnectElementBasis(name, value), label(String(label)), placeholder(String(placeholder))  {
     _type = AC_Input;
   }
   virtual ~AutoConnectInputBasis() {}
   const String  toHTML(void) const override;
 
-  String  placeholder;
   String  label;      /**< A label for a subsequent input box */
+  String  placeholder;
 };
 
 /**
