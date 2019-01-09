@@ -34,6 +34,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 <span class="lead">You can easily add your own web screen that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, RADIO, SELECT, SUBMIT into the menu. It can be invoked from the AutoConnect menu and parameters can be passed. Custom screens can be written easily with JSON and can be loaded from PROGMEM, SPIFFS or SD.</span>
 
 <img style="float:center;margin:0 10px 0 10px;width:380px" src="./images/aux_json.png">
+<img style="float:center;margin:0 5px 200px 5px;width:32px;" src="./images/arrow_right.png">
 <img style="float:center;margin:0 10px 0 10px;width:240px" src="./images/AutoConnectAux.gif">
 
 ## Installation
