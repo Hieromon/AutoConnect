@@ -94,6 +94,11 @@ Furthermore, to convert an entity that is not an AutoConnectElement to its nativ
 
 AutoConnectButton generates an HTML `<button type="button">` tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an onclick attribute of HTML button tag. An onclick attribute is generated from an `action` member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.
 
+<i class="fa fa-eye"></i> **Sample**<br>
+<small>`AutoConnectButton button("button", "OK", "myFunction()");`</small>
+
+<small>On the page:</small><br><img src="../images/acbutton.png">
+
 ### <i class="fa fa-edit"></i> Constructor
 
 ```cpp
@@ -177,7 +182,7 @@ AutoConnectInput(const char* name, const char* value, const char* label, const c
 
 ### <i class="fa fa-caret-right"></i> name
 
-It is the `name` of the AutoConnectInput element and matches the name attribute of the input tag. It also becomes the parameter name of the query string when submitted.
+It is the `name` of the AutoConnectInput element and matches the name attribute, the id attribute of the input tag. It also becomes the parameter name of the query string when submitted.
 
 ### <i class="fa fa-caret-right"></i> value
 
@@ -185,7 +190,7 @@ It becomes a string value of the `value` attribute of an HTML `<input type="text
 
 ### <i class="fa fa-caret-right"></i> label
 
-A `label` is an optional string. A label is always arranged on the right side of the input box. Specification of a label will generate an HTML `<label>` tag with an id attribute. The input box and the label are connected by the id attribute.
+A `label` is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `<label>` tag with an id attribute. The input box and the label are connected by the id attribute.
 
 ### <i class="fa fa-caret-right"></i> placeholder
 
@@ -233,9 +238,12 @@ A `checked` specifies the index number (1-based) of `values` to be checked.
 
 ## AutoConnectSelect
 
-AutoConnectSelect generates an HTML `<select>` tag and few `<option>` tags.
+AutoConnectSelect generates an HTML `<select>` tag (drop-down list) and few `<option>` tags.
 
 <i class="fa fa-eye"></i> **Sample**<br>
+<small>`AutoConnectSelect select("select", { String("Europe/London"), String("Europe/Berlin"), String("Europe/Helsinki"), String("Europe/Moscow"), String("Asia/Dubai") }, "Select TZ name");`</small>
+
+<small>On the page:</small><br><img src="../images/acselect.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -245,9 +253,15 @@ AutoConnectSelect(const char* name, std::vector<String> const& options, const ch
 
 ### <i class="fa fa-caret-right"></i> name
 
+It is the `name` of the AutoConnectSelect element and matches the name attribute of the select tags.
+
 ### <i class="fa fa-caret-right"></i> options
 
+An `options` is an array of String type for the options which as actually [std::vector](https://en.cppreference.com/w/cpp/container/vector) for an HTML `<option>` tag. It is an initialization list can be used. The option tags will be generated from each entry in the options, the amount of which is the same as the number of items in an `options`.
+
 ### <i class="fa fa-caret-right"></i> label
+
+A `label` is an optional string. A label is always arranged on the left side of the drop-down list. Specification of a label will generate an HTML `<label>` tag with an id attribute. The select tag and the label are connected by the id attribute.
 
 ## AutoConnectSubmit
 
@@ -274,7 +288,7 @@ It becomes a string of the `value` attribute of an HTML `<input type="button">` 
 
 ### <i class="fa fa-caret-right"></i> uri
 
-A `uri` specifes the URI to send form data when the button declared by AutoConnectSubmit is clicked.
+A `uri` specifies the URI to send form data when the button declared by AutoConnectSubmit is clicked.
 
 The query string of the form data sent with AutoConnectSubmit contains the URI of the page. Its parameter name is `_acuri`. In Sketch, you can know the called URI by referring to the `_acuri` parameter with the destination page handler. The actual query string is as follows:
 
@@ -285,7 +299,7 @@ The query string of the form data sent with AutoConnectSubmit contains the URI o
 AutoConnectText generates an HTML `<div>` tag. A `style` attribute will be attached if a [style](#style) parameter is passed.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family :serif;color :#4682b4;");`</small>
+<small>`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");`</small>
 
 <small>On the page:</small><br><img src="../images/actext.png">
 
@@ -331,10 +345,10 @@ ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small
 
 ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> )
 
-!!! hint "A declaration macro usage"
+!!! hint "Declaration macro usage"
     For example, *AutoConnectText* can be declared using macros.
     ```cpp
-    AutoConnectText caption("caption", "hello, world", "color:bule;")
+    AutoConnectText caption("caption", "hello, world", "color:blue;")
     ```
     equals by using *ACText* macro.<br>
     ```cpp
@@ -343,5 +357,12 @@ ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> 
 
 ### <i class="fa fa-edit"></i> Variant for AutoConnectElements
 
+Some AutoConnectAux APIs specify AutoConnectElement as an argument. There are also functions that returns a pointer to AutoConnectElement. In order to make these interfaces single, AutoConnectElement behaves as a variant type of other elements. Use [reinterpret_cast](https://en.cppreference.com/w/cpp/language/reinterpret_cast) to cast from a variant pointer to an Actual type pointer of AutoConnectElements.
 
-
+```cpp
+AutoConnectAux aux;
+ACText(Text1, "hello, world");
+aux.add(Text1);
+AutoConnectText* text_p = reinterpret_cast<AutoConnectText>(aux.getElement("Text1"));
+AutoConnectText& text = aux.getElement<AutoConnectText>("Text1");
+```
