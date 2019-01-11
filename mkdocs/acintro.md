@@ -76,7 +76,7 @@ So, the basic procedure is as follows.
 
 ## Write the custom Web page with JSON
 
-You can write the custom Web page in JSON without using sketch codes.[^3] It is possible to describe the entire page in JSON and can be described for each element also. The JSON description can be saved in SPIFFS or SD and read using AutoConnect's [**load**](api.md#load) function. If you take this approach, you can further reduce the above basic steps. However, this method consumes a lot of memory.
+You can write the custom Web page in JSON without using sketch codes.[^3] It is possible to describe the entire page in JSON and can be described for each element also. The JSON description can be saved in SPIFFS or SD and read using AutoConnect's [**load**](api.md#load) function. If you take this approach, you can further reduce the steps of the above but this way consumes a lot of memory.
 The following JSON code and sketch will execute the custom Web page as the example in the above figure. That is, the sketch of this code and footnote[^2] is equivalent.
 
 **custom_page.json**

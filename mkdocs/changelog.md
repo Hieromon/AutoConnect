@@ -1,18 +1,19 @@
-### [0.9.7] Jan. 1, 2019
+#### [0.9.7] Jan. 25, 2019
 
 - Fixed crash in some environments. Thank you @ageurtse
-- Supports AutoConnect menu extention by user sketch with **AutoConnectAux**.
+- Supports AutoConnect menu extention by user sketch with [**AutoConnectAux**](acintro.md).
 - Supports loading and saving of user-defined parameters with JSON format.
-- Improved the WiFi connection sequence at the first WiFi.begin. Even if [**AutoConnectConfig::autoReconnect**](api.md#autoreconnect) is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
-- Supports the [**AutoConnectConfig::immediateStart**](api.md#immediatestart) option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the [**AutoConnectConfig::autoRise**](api.md#autorise) option.
-- Improved boot uri after reset. [**AutoConnectConfig::bootUri**](api.md#booturi) can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
+- Improved the WiFi connection sequence at the first WiFi.begin. Even if [**AutoConnectConfig::autoReconnect**](apiconfig.md#autoreconnect) is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
+- Supports the [**AutoConnectConfig::immediateStart**](apiconfig.md#immediatestart) option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the [**AutoConnectConfig::autoRise**](apiconfig.md#autorise) option.
+- Improved boot uri after reset. [**AutoConnectConfig::bootUri**](apiconfig.md#booturi) can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
 - Improved source code placement of predefined macros. Defined common macros have been moved to ```AutoConnectDefs.h```.
-- Supports [**AutoConnectConfig::hostName**](api.md#hostname). It activates ```WiFi.hostname()```/```WiFi.setHostName()```.
+- Supports [**AutoConnectConfig::hostName**](apiconfig.md#hostname). It activates ```WiFi.hostname()```/```WiFi.setHostName()```.
+- Supports the captive portal time-out. It can be controlled by [**AutoConnectConfig::portalTimeout**](apiconfig.md#portaltimeout) and [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal).
 
 #### [0.9.6] Sep.27, 2018.
 
 - Improvement of RSSI detection for saved SSIDs.
-- Fixed disconnection SoftAP completely at the first connection phase of the AutoConnect::begin.
+- Fixed disconnection SoftAP completely at the first connection phase of the [**AutoConnect::begin**](api.md#begin).
 
 #### [0.9.5] Aug.27, 2018.
 
@@ -22,7 +23,7 @@
 #### [0.9.4] May 5, 2018.
 
 - Automatically focus passphrase after selecting SSID with Configure New AP.
-- Supports AutoConnectConfig::autoReconnect option, it will scan the WLAN when it can not connect to the default SSID, apply the applicable credentials if it is saved, and try reconnecting.
+- Supports [**AutoConnectConfig::autoReconnect**](apiconfig.md#autoreconnect) option, it will scan the WLAN when it can not connect to the default SSID, apply the applicable credentials if it is saved, and try reconnecting.
 
 #### [0.9.3] March 23, 2018.
 

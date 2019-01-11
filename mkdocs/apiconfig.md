@@ -212,7 +212,7 @@ Sets password for SoftAP. The length should be from 8 to up to 63. The default v
     <dd>String</dd>
 </dl>
 
-### <i class="fa fa-caret-right"></i> retainlPortal
+### <i class="fa fa-caret-right"></i> retainPortal
 
 Specify whether to continue the portal function even if the captive portal timed out. If the true, when a timeout occurs, the [**AutoConnect::begin**](api.md#begin) function is exited with returns false, but the portal facility remains alive. So SoftAP remains alive and you can invoke AutoConnect while continuing sketch execution. The default is false.
 <dl class="apidl">

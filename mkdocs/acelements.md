@@ -92,7 +92,7 @@ Furthermore, to convert an entity that is not an AutoConnectElement to its nativ
 
 ## AutoConnectButton
 
-AutoConnectButton generates an HTML `button type="button"` tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an onclick attribute of HTML button tag. An onclick attribute is generated from an `action` member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.
+AutoConnectButton generates an HTML `<button type="button">` tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an onclick attribute of HTML button tag. An onclick attribute is generated from an `action` member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -130,7 +130,7 @@ ACElement(TextCopy, scCopyText);
 
 ## AutoConnectCheckbox
 
-AutoConnectCheckbox generates an HTML `input type="checkbox"` tag and a `label` tag. It places horizontally on a custom Web page by default.
+AutoConnectCheckbox generates an HTML `<input type="checkbox">` tag and a `<label>` tag. It places horizontally on a custom Web page by default.
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>`AutoConnectCheckbox checkbox("checkbox", "uniqueapid", "Use APID unique", false);`</small>
@@ -149,11 +149,11 @@ It is the `name` of the AutoConnectCheckbox element and matches the name attribu
 
 ### <i class="fa fa-caret-right"></i> value
 
-It becomes a value of the `value` attribute of an HTML input tag.
+It becomes a value of the `value` attribute of an HTML `<input type="checkbox">` tag.
 
 ### <i class="fa fa-caret-right"></i> label
 
-A label is an optional string. A label is always arranged on the right side of the checkbox. Specification of a label will generate an HTML `label` tag with an `id` attribute. The checkbox and the label are connected by the id attribute. 
+A label is an optional string. A label is always arranged on the right side of the checkbox. Specification of a label will generate an HTML `<label>` tag with an `id` attribute. The checkbox and the label are connected by the id attribute. 
 Only <i class="far fa-square"></i> will be displayed if a label is not specified.
 
 ### <i class="fa fa-caret-right"></i> checked
@@ -162,7 +162,7 @@ A checked is a Boolean value and indicates the checked status of the checkbox. T
 
 ## AutoConnectInput
 
-AutoConnectInput genarates an HTML `input type="text"` tag and a `label` tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the sketches.
+AutoConnectInput generates an HTML `<input type="text">` tag and a `<label>` tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the sketches.
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>`AutoConnectInput input("input", "", "Server", "MQTT broker server");`</small>
@@ -181,19 +181,19 @@ It is the `name` of the AutoConnectInput element and matches the name attribute 
 
 ### <i class="fa fa-caret-right"></i> value
 
-It becomes a string value of the `value` attribute of an HTML input tag. The text entered from the custom Web page will be grouped in the query string of the form submission and the string set before accessing the page will be displayed as the initial value.
+It becomes a string value of the `value` attribute of an HTML `<input type="text">` tag. The text entered from the custom Web page will be grouped in the query string of the form submission and the string set before accessing the page will be displayed as the initial value.
 
 ### <i class="fa fa-caret-right"></i> label
 
-A `label` is an optional string. A label is always arranged on the right side of the input box. Specification of a label will generate an HTML label tag with an id attribute. The input box and the label are connected by the id attribute.
+A `label` is an optional string. A label is always arranged on the right side of the input box. Specification of a label will generate an HTML `<label>` tag with an id attribute. The input box and the label are connected by the id attribute.
 
-### <i class="fa fa-caret-right"></i> placeholdr
+### <i class="fa fa-caret-right"></i> placeholder
 
 A placeholder is an option string. Specification of a placeholder will generate a `placeholder` attribute for the input tag.
 
 ## AutoConnectRadio
 
-AutoConnectRadio genarates few HTML `input type="radio"` tags as grouped and the same number of `label` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.
+AutoConnectRadio generates few HTML `<input type="radio">` tags as grouped and the same number of `<label>` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>`AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);`</small>
@@ -212,11 +212,11 @@ It is the `name` of the AutoConnectRadio element and matches the name attribute 
 
 ### <i class="fa fa-caret-right"></i> values
 
-A `values` is an array of String type for the radio button options which as actually [std::vector](https://en.cppreference.com/w/cpp/container/vector). It is an initialization list can be used. The `input type="radio"` tags will be generated from each entry in the values, the amount of which is the same as the number of items in `values`.
+A `values` is an array of String type for the radio button options which as actually [std::vector](https://en.cppreference.com/w/cpp/container/vector). It is an initialization list can be used. The input tags will be generated from each entry in the values, the amount of which is the same as the number of items in `values`.
 
 ### <i class="fa fa-caret-right"></i> label
 
-A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the `order`. Specification of a label will generate an HTML `label` tag with an `id` attribute. The radio buttons and the label are connected by the id attribute.
+A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the `order`. Specification of a label will generate an HTML `<label>` tag with an `id` attribute. The radio buttons and the label are connected by the id attribute.
 
 ### <i class="fa fa-caret-right"></i> order
 
@@ -229,17 +229,89 @@ A label is placed in the left or the top according to `order`.
 
 ### <i class="fa fa-caret-right"></i> checked
 
+A `checked` specifies the index number (1-based) of `values` to be checked.
+
 ## AutoConnectSelect
+
+AutoConnectSelect generates an HTML `<select>` tag and few `<option>` tags.
+
+<i class="fa fa-eye"></i> **Sample**<br>
+
+### <i class="fa fa-edit"></i> Constructor
+
+```cpp
+AutoConnectSelect(const char* name, std::vector<String> const& options, const char* label)
+```
+
+### <i class="fa fa-caret-right"></i> name
+
+### <i class="fa fa-caret-right"></i> options
+
+### <i class="fa fa-caret-right"></i> label
 
 ## AutoConnectSubmit
 
+AutoConnectSubmit generates an HTML `<input type="button">` tag attached `onclick` attribute. The native code of the `onclick` attribute is the submission of the form with the **POST** method.
+
+<i class="fa fa-eye"></i> **Sample**<br>
+<small>`AutoConnectSubmit submit("submit", "Save", "/mqtt_save");`</small>
+
+<small>On the page:</small><br><img src="../images/acsubmit.png">
+
+### <i class="fa fa-edit"></i> Constructor
+
+```cpp
+AutoConnectSubmit(const char* name, const char* value, const char* uri)
+```
+
+### <i class="fa fa-caret-right"></i> name
+
+It is the `name` of the AutoConnectSubmit element and matches the name attribute of the input tag.
+
+### <i class="fa fa-caret-right"></i> value
+
+It becomes a string of the `value` attribute of an HTML `<input type="button">` tag. The `value` is displayed as a label of the button.
+
+### <i class="fa fa-caret-right"></i> uri
+
+A `uri` specifes the URI to send form data when the button declared by AutoConnectSubmit is clicked.
+
+The query string of the form data sent with AutoConnectSubmit contains the URI of the page. Its parameter name is `_acuri`. In Sketch, you can know the called URI by referring to the `_acuri` parameter with the destination page handler. The actual query string is as follows:
+
+\_acuri=**CALLER_URI**
+
 ## AutoConnectText
+
+AutoConnectText generates an HTML `<div>` tag. A `style` attribute will be attached if a [style](#style) parameter is passed.
+
+<i class="fa fa-eye"></i> **Sample**<br>
+<small>`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family :serif;color :#4682b4;");`</small>
+
+<small>On the page:</small><br><img src="../images/actext.png">
+
+### <i class="fa fa-edit"></i> Constructor
+
+```cpp
+AutoConnectText(const char* name, const char* value, const char* style)
+```
+
+### <i class="fa fa-caret-right"></i> name
+
+A `name` does not exist in the generated HTML. It provides only a means of accessing elements with the sketches.
+
+### <i class="fa fa-caret-right"></i> value
+
+It becomes content and also can contain the native HTML code, but remember that your written code is enclosed by the div tag.
+
+### <i class="fa fa-caret-right"></i> style
+
+A `style` specifies the qualification style to give to the content and can use the style attribute format as it is.
 
 ## How to coding for the elements
 
-### <i class="fa fa-edit"></i> Define the elements in Sketches
+### <i class="fa fa-edit"></i> Declaration for the elements in Sketches
 
-Each element can be defined by a macro. By using the macro, you can treat element names that are String types as variables in sketches.[^2]
+Variables of each element can be declared with macros. By using the macros, you can treat element name that is String type as variable in sketches.[^2]
 
 [^2]: The square brackets in the syntax are optional parameters, the stroke is a selection parameter, the bold fonts are literal.
 
@@ -251,13 +323,23 @@ ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</sma
 
 ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> )
 
-ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_Horitontal** | **AC\_Vertical** <small>\]</small> <small>\[</small> , *checked* <small>\]</small> )
+ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_Horizontal** | **AC\_Vertical** <small>\]</small> <small>\[</small> , *checked* <small>\]</small> )
 
 ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</small> , *label* <small>\]</small> )
 
 ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> )
 
 ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> )
+
+!!! hint "A declaration macro usage"
+    For example, *AutoConnectText* can be declared using macros.
+    ```cpp
+    AutoConnectText caption("caption", "hello, world", "color:bule;")
+    ```
+    equals by using *ACText* macro.<br>
+    ```cpp
+    ACText(caption, "hello, world", "color:blue;")
+    ```
 
 ### <i class="fa fa-edit"></i> Variant for AutoConnectElements
 

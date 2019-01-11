@@ -93,7 +93,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [0.9.7] Jan. 10, 2019
+### [0.9.7] Jan. 25, 2019
 - Fixed crash in some environments. Thank you @ageurtse
 - Supports AutoConnect menu extention by user sketch with **AutoConnectAux**.
 - Supports loading and saving of user-defined parameters with JSON format.
