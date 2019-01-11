@@ -18,7 +18,7 @@ nav:
     - 'Custom Web pages with AutoConnect' : acintro.md
     - 'AutoConnectElements' : acelements.md
     - 'Custom Web pages with JSON' : acjson.md
-    - 'Handling custom Web pages' : achandling.md
+    - 'Handling the custom Web pages' : achandling.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
     - 'AutoConnectConfig API': apiconfig.md
@@ -75,6 +75,7 @@ markdown_extensions:
   - admonition
   - attr_list
   - codehilite:
+      guess_lang: false
       linenums: none
       noclasses: true
       use_pygments: true
@@ -87,6 +88,7 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.inlinehilite
   - pymdownx.magiclink
+  - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
   - pymdownx.tasklist
