@@ -102,8 +102,9 @@ const String AutoConnectRadioBasis::toHTML(void) const {
     if (order == AC_Vertical)
       html += String("<br>");
   }
-  for (std::size_t n = 0; n < _values.size(); n++) {
-    String  value = at(n);
+  uint8_t n = 0;
+  for (const String value : _values) {
+    n++;
     String  id = name + "_" + String(n);
     html += String(FPSTR("<input type=\"radio\" name=\"")) + name + String(FPSTR("\" id=\"")) + id + String(FPSTR("\" value=\"")) + value + String("\"");
     if (n == checked - 1)
@@ -142,11 +143,8 @@ const String AutoConnectSelectBasis::toHTML(void) const {
   if (label.length())
     html = String(FPSTR("<label for=\"")) + name + String("\">") + label + String(FPSTR("</label>"));
   html += String(FPSTR("<select name=\"")) + name + String("\" id=\"") + name + String("\">");
-  std::size_t n = _options.size();
-  if (n) {
-    for (std::size_t n = 0; n < _options.size(); n++)
-      html += String(FPSTR("<option value=\"")) + _options[n] + "\">" + _options[n] + String(FPSTR("</option>"));
-  }
+  for (const String option : _options)
+    html += String(FPSTR("<option value=\"")) + option + "\">" + option + String(FPSTR("</option>"));
   html += String(FPSTR("</select>"));
   return html;
 }

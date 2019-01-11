@@ -350,11 +350,9 @@ void AutoConnect::join(AutoConnectAux& aux) {
  *  @param  aux A vector of reference to AutoConnectAux that made up
  *  the auxiliary page to be added.
  */
-void AutoConnect::join(std::vector<std::reference_wrapper<AutoConnectAux>> aux) {
-  for (std::size_t n = 0; n < aux.size(); n++) {
-    AutoConnectAux& addon = aux[n].get();
-    join(addon);
-  }
+void AutoConnect::join(AutoConnectAuxVT auxVector) {
+  for (std::reference_wrapper<AutoConnectAux> aux : auxVector)
+    join(aux.get());
 }
 
 /**
@@ -650,7 +648,7 @@ String AutoConnect::_induceReset(PageArgument& args) {
  */
 String AutoConnect::_induceDisconnect(PageArgument& args) {
   _rfDisconnect = true;
-  return "";
+  return String("");
 }
 
 /**
@@ -691,7 +689,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   _webServer->client().stop();
   _responsePage->cancel();
 
-  return "";
+  return String("");
 }
 
 /**
@@ -705,7 +703,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
   _webServer->client().flush();
   _webServer->client().stop();
   _responsePage->cancel();
-  return "";
+  return String("");
 }
 
 /**
@@ -794,7 +792,7 @@ bool AutoConnect::_isIP(String ipStr) {
  *  @retval MAC address string in XX:XX:XX:XX:XX:XX format.
  */
 String AutoConnect::_toMACAddressString(const uint8_t mac[]) {
-  String  macAddr = "";
+  String  macAddr = String("");
   for (uint8_t i = 0; i < 6; i++) {
     char buf[3];
     sprintf(buf, "%02X", mac[i]);

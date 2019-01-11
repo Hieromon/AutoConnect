@@ -161,6 +161,8 @@ class AutoConnectConfig {
   IPAddress dns2;               /**< Secondary DNS server */
 };
 
+typedef std::vector<std::reference_wrapper<AutoConnectAux>> AutoConnectAuxVT;
+
 class AutoConnect {
  public:
   AutoConnect();
@@ -177,7 +179,7 @@ class AutoConnect {
   void  handleRequest();
   WebServerClass& host();
   void  join(AutoConnectAux& aux);
-  void  join(std::vector<std::reference_wrapper<AutoConnectAux>> aux);
+  void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
 
   /** For AutoConnectAux described in JSON */

@@ -6,6 +6,7 @@
  * @date 2018-11-17
  * @copyright  MIT license.
  */
+#include <algorithm>
 #include "AutoConnect.h"
 #include "AutoConnectAux.h"
 #include "AutoConnectElement.h"
@@ -125,16 +126,11 @@ AutoConnectElement* AutoConnectAux::getElement(const String& name) {
  * @return false The specified AutoConnectElement not found in AutoConnectAux.
  */
 bool AutoConnectAux::release(const String& name) {
-  bool  rc = false;
-  for (std::size_t n = 0; n < _addonElm.size(); n++) {
-    String  elmName = _addonElm[n].get().name;
-    if (name.equalsIgnoreCase(elmName)) {
-      AC_DBG("%s release from %s\n", elmName.c_str(), uri());
-      _addonElm.erase(_addonElm.begin() + n);
-      rc = true;
-    }
-  }
-  return rc;
+  auto itr = std::remove_if(_addonElm.begin(), _addonElm.end(),
+    [&](std::reference_wrapper<AutoConnectElement> const elm) {
+      return elm.get().name.equalsIgnoreCase(name);
+    });
+  return _addonElm.erase(itr, _addonElm.end()) != _addonElm.end();
 }
 
 /**
