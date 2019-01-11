@@ -831,7 +831,7 @@ String AutoConnect::_token_MENU_PRE(PageArgument& args) {
 }
 
 String AutoConnect::_token_MENU_AUX(PageArgument& args) {
-  String  menuItem = "";
+  String  menuItem = String("");
   if (_aux)
     menuItem = _aux->_injectMenu(args);
   return menuItem;
@@ -1019,7 +1019,7 @@ String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
 
 String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  String ssidList = "";
+  String ssidList = String("");
   _hiddenSSIDCount = 0;
   WiFi.scanDelete();
   int8_t nn = WiFi.scanNetworks(false, true);
@@ -1090,7 +1090,7 @@ String AutoConnect::_token_BOOTURI(PageArgument& args) {
   else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
     return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
   else
-    return "";  
+    return String("");
 }
 
 
