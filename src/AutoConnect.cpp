@@ -170,16 +170,21 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         yield();
 
       // Connection unsuccessful, launch the captive portal.
+#if defined(ARDUINO_ARCH_ESP8266)
       if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
-        if (!_config()) {
-          AC_DBG("APConfig failed\n");
-        }
+        _config();
       }
+#endif
       WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
       while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0)) {
         delay(100);
         yield();
       }
+#if defined(ARDUINO_ARCH_ESP32)
+      if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
+        _config();
+      }
+#endif
       _currentHostIP = WiFi.softAPIP();
       AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, _currentHostIP.toString().c_str());
 
@@ -267,7 +272,9 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  by Config method.
  */
 bool AutoConnect::_config() {
-  return WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);
+  bool  rc = WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);
+  AC_DBG("SoftAP configure %s, %s, %s %s\n", _apConfig.apip.toString().c_str(), _apConfig.gateway.toString().c_str(), _apConfig.netmask.toString().c_str(), rc ? "" : "failed");
+  return rc;
 }
 
 /**
