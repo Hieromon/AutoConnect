@@ -345,7 +345,7 @@ ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small
 
 ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> )
 
-!!! hint "Declaration macro usage"
+!!! memo "Declaration macro usage"
     For example, *AutoConnectText* can be declared using macros.
     ```cpp
     AutoConnectText caption("caption", "hello, world", "color:blue;")
