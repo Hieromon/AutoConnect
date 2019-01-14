@@ -5,13 +5,13 @@ AutoConnect can handle custom Web pages prepared by user sketches individually. 
 
 ## How it works
 
-Custom Web pages are dynamically created by AutoConnect. The Classes and APIs necessary for dynamic creation are provided. **AutoConnectAux** is an object dependent on AutoConnect, which provides an easy way to incorporate custom Web pages like the one on the right figure into AutoConnect. The elements that make up a custom web page are provided as an [**AutoConnectElement**](acelements.md) class. Furthermore, an input box, a check box, a submit button, etc. are implemented by classes derived from AutoConnectElement.
+Custom Web pages are dynamically created by AutoConnect. The Classes and APIs necessary for dynamic creation are provided. [**AutoConnectAux**](apiaux.md#autoconnectaux) is an object dependent on AutoConnect, which provides an easy way to incorporate custom Web pages like the one on the right figure into AutoConnect. The elements that make up a custom web page are provided as an [**AutoConnectElement**](acelements.md) class. Furthermore, an input box, a check box, a submit button, etc. are implemented by classes derived from AutoConnectElement.
 <p align="center"><img align="center" width="560px" src="../images/ac_objects.svg"></p>
-AutoConnectAux is a container for AutoConnectElements. To make a custom Web page, create elements that make up the page and put it in the AutoConnectAux object. Joining that AutoConnectAux object to AutoConnect will integrate the custom Web page into the AutoConnect menu.
+AutoConnectAux is a container for AutoConnectElements. To make a custom Web page, create elements that make up the page and put it in the AutoConnectAux object. Joining its AutoConnectAux object to AutoConnect will integrate the custom Web page into the AutoConnect menu.
 
 <img src="../images/ac_declaration.svg">
 
-The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. Declare two text elements named &#39;*header*&#39;, &#39;*caption*&#39; and add those to the AutoConnectAux object *aux*. Bind it to an AutoConnect object called the &#39;*portal*&#39;. It's basic procedure for configuring the custom Web page. Also, further explanation of AutoConnectElements is the [documentation](acelements.md).
+The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named &#39;*header*&#39;and &#39;*caption*&#39;, adds them to the AutoConnectAux object &#39;*aux*&#39;, binds to an AutoConnect object named &#39;*portal*&#39;. It's the basic procedure for configuring the custom Web page. Also, further explanation of AutoConnectElements is the [documentation](acelements.md).
 
 ## Custom Web pages in AutoConnect menu
 
@@ -63,16 +63,21 @@ In the sketch below, it shows the sequence of codes to integrate three custom We
     }
     ```
 
+## Passing parameters with sketches and custom Web pages
+
+A sketch can access variables of [AutoConnectElements](acelements.md) in the custom Web page. The value entered into the AutoConnectElements on the page is stored to the [member variables](acelements.md#form-and-autoconnectelements) of the element by AutoConnect whenever GET / POST transmission occurs. Your sketches can get these values with the GET / POST request handler. If you assign a value to an element before a request to the page occurs, its value will appear as the initial value when the page is displayed. 
+
 ## Basic steps to use custom Web pages
 
-So, the basic procedure is as follows.
+So, the basic procedure for handling of the custom Web pages is as follows:
 
 1. Create or define AutoConnectAux.
 2. Create or define [AutoConnectElement(s)](acelements.md).
 3. Add [AutoConnectElement(s)](acelements.md) to AutoConnectAux.
 4. Create more AutoConnectAux containing [AutoConnectElement(s)](acelements.md), if necessary.
-5. Join prepared AutoConnectAux(s) to [AutoConnect](api.md#join).
-6. Invoke [AutoConnect::begin()](api.md#begin).
+5. Register the request handlers for the custom Web pages
+6. Join prepared AutoConnectAux(s) to [AutoConnect](api.md#join).
+7. Invoke [AutoConnect::begin()](api.md#begin).
 
 ## Write the custom Web page with JSON
 

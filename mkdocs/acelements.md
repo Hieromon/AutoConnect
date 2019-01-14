@@ -234,7 +234,7 @@ A label is placed in the left or the top according to `order`.
 
 ### <i class="fa fa-caret-right"></i> checked
 
-A `checked` specifies the index number (1-based) of `values` to be checked.
+A `checked` specifies the index number (1-based) of `values` to be checked. If this parameter is not specified neither item is checked.
 
 ## AutoConnectSelect
 
