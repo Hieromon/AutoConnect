@@ -88,6 +88,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted/index.html) with the most simple sketch for using AutoConnect.
 - The [Basic usage](https://hieromon.github.io/AutoConnect/basicusage/index.html) guides to using the library correctly.
 - Details are explained in the [Advanced usage](https://hieromon.github.io/AutoConnect/advancedusage/index.html).
+- Usages and details for the custom Web pages describe in [Custom Web pages with AutoConnect](https://hieromon.github.io/AutoConnect/acintro.html).
 - The [API reference](https://hieromon.github.io/AutoConnect/api/index.html) describes the AutoConnect functions specification.
 - [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
 
