@@ -455,7 +455,7 @@ void AutoConnect::handleRequest() {
       _redirectURI = String(AUTOCONNECT_URI_FAIL);
       _rsConnect = WiFi.status();
       _disconnectWiFi(false);
-      while (WiFi.status() != WL_IDLE_STATUS) {
+      while (WiFi.status() != WL_IDLE_STATUS && WiFi.status() != WL_DISCONNECTED) {
         delay(10);
         yield();
       }
