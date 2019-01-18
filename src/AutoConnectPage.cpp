@@ -894,7 +894,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     "CONNECT_FAIL",
     "GOT_IP"
   };
-  switch (_rsConnect) {
+  switch (wifi_station_get_connect_status()) {
   case STATION_IDLE:
     wlStatusSymbol = wlStatusSymbols[0];
     break;
