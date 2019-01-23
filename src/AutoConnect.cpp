@@ -706,7 +706,6 @@ String AutoConnect::_induceConnect(PageArgument& args) {
 
   // Turn on the trigger to start WiFi.begin().
   _rfConnect = true;
-  _menuTitle = String(F(AUTOCONNECT_CONNECTING_TITLE));
 
 // Since v0.9.7, the redirect method changed from a 302 response to the
 // meta tag with refresh attribute.  

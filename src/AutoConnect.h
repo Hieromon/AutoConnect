@@ -336,7 +336,6 @@ class AutoConnect {
   String _token_UPTIME(PageArgument& args);
   String _token_BOOTURI(PageArgument& args);
   String _token_CURRENT_SSID(PageArgument& args);
-  String _token_RESULT_URI(PageArgument& args);
 
 #if defined(ARDUINO_ARCH_ESP8266)
   friend class ESP8266WebServer;

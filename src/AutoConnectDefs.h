@@ -76,11 +76,6 @@
 #define AUTOCONNECT_MENU_TITLE  "AutoConnect"
 #endif // !AUTOCONNECT_MENU_TITLE
 
-// AutoConnect title for during a connection attempting
-#ifndef AUTOCONNECT_CONNECTING_TITLE
-#define AUTOCONNECT_CONNECTING_TITLE  "Connecting"
-#endif // !AUTOCONNECT_CONNECTING_TITLE
-
 // URIs of AutoConnect menu collection
 #define AUTOCONNECT_URI_CONFIG  AUTOCONNECT_URI "/config"
 #define AUTOCONNECT_URI_CONNECT AUTOCONNECT_URI "/connect"
