@@ -14,7 +14,7 @@ AutoConnectAux(const String& uri = String(""), const String& title = String(""),
 
 ## <i class="fa fa-code"></i> Public member functions
 
-### add
+### <i class="fa fa-caret-right"></i> add
 
 ```cpp
 void add(AutoConnectElement& addon)
@@ -24,12 +24,42 @@ void add(AutoConnectElementVT addons)
 ```
 Add an element to the AutoConnectAux. An added element is displayed on the custom Web page invoked from the AutoConnect menu.
 
+### <i class="fa fa-caret-right"></i> getElement
 
-  template<typename T>
-  T&    getElement(const String& name);
-  AutoConnectElement* getElement(const String& name);                   /**< Get registered AutoConnectElement as specified name */
-  void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
-  bool  release(const String& name);                                    /**< Release an AutoConnectElement */
+```cpp
+template<typename T> T& getElement(const String& name)
+```
+```cpp
+AutoConnectElement* getElement(const String& name)
+```
+
+Get registered AutoConnectElement as specified name.
+
+### <i class="fa fa-caret-right"></i> getElements
+
+```cpp
+AutoConnectElementVT& getElements(void)
+```
+
+Get vector of reference of all elements.
+
+### <i class="fa fa-caret-right"></i> menu
+
+```cpp
+void menu(const bool post)
+```
+
+Set or reset the display as menu item for this AutoConnectAux.
+
+### <i class="fa fa-caret-right"></i> release
+
+```cpp
+bool release(const String& name)
+```
+
+Release a specified AutoConnectElement.
+
+
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
   void  setTitle(const String title) { _title = title; }                /**< Set a title of the auxiliary page */

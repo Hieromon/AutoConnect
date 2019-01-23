@@ -115,7 +115,7 @@ It becomes a value of the `value` attribute of an HTML button tag.
 
 ### <i class="fa fa-caret-right"></i> action
 
-**action** is String data type and is an onclick attribute fire on a mouse click on the element. it is mostly used with a JavaScript to activate a script.[^1] For example, the following code defines a custom Web page that copies a content of `Text1` to `Text2` by clicking `Button`.
+**action** is String data type and is an onclick attribute fire on a mouse click on the element. It is mostly used with a JavaScript to activate a script.[^1] For example, the following code defines a custom Web page that copies a content of `Text1` to `Text2` by clicking `Button`.
 
 [^1]:JavaScript can be inserted into a custom Web page using AutoConnectElement.
 
@@ -225,7 +225,7 @@ A label is an optional string. A label will be arranged in the left or top of th
 
 ### <i class="fa fa-caret-right"></i> order
 
-A `order` specifies the orientation of the radio buttons. It is a value of type `ACArrange_t` and accepts one of the following:
+A `order` specifies the direction to arrange the radio buttons. It is a value of type `ACArrange_t` and accepts one of the following:
 
 - **`AC_Horizontal`** : Horizontal arrangement.
 - **`AC_Vertical`** : Vertical arrangement.
@@ -284,7 +284,7 @@ It is the `name` of the AutoConnectSubmit element and matches the name attribute
 
 ### <i class="fa fa-caret-right"></i> value
 
-It becomes a string of the `value` attribute of an HTML `<input type="button">` tag. The `value` is displayed as a label of the button.
+It becomes a string of the `value` attribute of an HTML `<input type="button">` tag. The `value` will be displayed as a label of the button.
 
 ### <i class="fa fa-caret-right"></i> uri
 

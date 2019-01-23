@@ -63,10 +63,6 @@ In the sketch below, it shows the sequence of codes to integrate three custom We
     }
     ```
 
-## Passing parameters with sketches and custom Web pages
-
-A sketch can access variables of [AutoConnectElements](acelements.md) in the custom Web page. The value entered into the AutoConnectElements on the page is stored to the [member variables](acelements.md#form-and-autoconnectelements) of the element by AutoConnect whenever GET / POST transmission occurs. Your sketches can get these values with the GET / POST request handler. If you assign a value to an element before a request to the page occurs, its value will appear as the initial value when the page is displayed. 
-
 ## Basic steps to use custom Web pages
 
 So, the basic procedure for handling of the custom Web pages is as follows:
@@ -163,7 +159,11 @@ void loop() {
 }
 ```
 
-[^3]: Installation of the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) v.5.13.4 library is required.
+[^3]: Installation of the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) as the latest release of version 5 series is required.
+
+## Passing parameters with sketches and custom Web pages
+
+A sketch can access variables of [AutoConnectElements](acelements.md) in the custom Web page. The value entered into the AutoConnectElements on the page is stored to the [member variables](acelements.md#form-and-autoconnectelements) of the element by AutoConnect whenever GET / POST transmission occurs. Your sketches can get these values with the GET / POST request handler. If you assign a value to an element before a request to the page occurs, its value will appear as the initial value when the page is displayed. Details are explained in the [Parameter handling](achandling.md#parameter-handling).
 
 <script>
   window.onload = function() {
