@@ -86,20 +86,25 @@
 #define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
 #define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
 
-// Time-out limitation when AutoConnect::begin
+// Time-out limitation when AutoConnect::begin [ms]
 #ifndef AUTOCONNECT_TIMEOUT
 #define AUTOCONNECT_TIMEOUT     30000
 #endif // !AUTOCONNECT_TIMEOUT
 
-// Captive portal timeout value
+// Captive portal timeout value [ms]
 #ifndef AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT
 #define AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT 0
 #endif // !AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT
 
-// Advance wait time
+// Advance wait time [s]
 #ifndef AUTOCONNECT_STARTUPTIME
 #define AUTOCONNECT_STARTUPTIME (AUTOCONNECT_TIMEOUT/1000)
 #endif // !AUTOCONNECT_STARTUPTIME
+
+// Response wait time until requesting a result of connection attempt [s] as String
+#ifndef AUTOCONNECT_RESPONSEREQUEST_TIMEOUT
+#define AUTOCONNECT_RESPONSEREQUEST_TIMEOUT "7"
+#endif // !AUTOCONNECT_RESPONSEREQUEST_TIMEOUT
 
 // Default HTTP port
 #ifndef AUTOCONNECT_HTTPPORT
@@ -110,6 +115,11 @@
 #ifndef AUTOCONNECT_DNSPORT
 #define AUTOCONNECT_DNSPORT     53
 #endif // !AUTOCONNECT_DNSPORT
+
+// http response transfer method
+#ifndef AUTOCONNECT_HTTP_TRANSFER
+#define AUTOCONNECT_HTTP_TRANSFER PB_ByteStream
+#endif // !AUTOCONNECT_HTTP_TRANSFER
 
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)

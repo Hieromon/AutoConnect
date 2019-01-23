@@ -270,6 +270,45 @@ const char AutoConnect::_CSS_TABLE[] PROGMEM = {
   "}"
 };
 
+/**< SVG animation for spinner */
+const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
+  ".spinner{"
+    "width:40px;"
+    "height:40px;"
+    "position:relative;"
+    "margin:100px auto;"
+  "}"
+  ".double-bounce1, .double-bounce2{"
+    "width:100%;"
+    "height:100%;"
+    "border-radius:50%;"
+    "background-color:#333;"
+    "opacity:0.6;"
+    "position:absolute;"
+    "top:0;"
+    "left:0;"
+    "-webkit-animation:sk-bounce 2.0s infinite ease-in-out;"
+    "animation:sk-bounce 2.0s infinite ease-in-out;"
+  "}"
+  ".double-bounce2{"
+    "-webkit-animation-delay: -1.0s;"
+    "animation-delay: -1.0s;"
+  "}"
+  "@-webkit-keyframes sk-bounce{"
+    "0%, 100% {-webkit-transform:scale(0.0)}"
+    "50% {-webkit-transform:scale(1.0)}"
+  "}"
+  "@keyframes sk-bounce{"
+    "0%, 100% {"
+      "transform:scale(0.0);"
+      "-webkit-transform:scale(0.0);"
+    "} 50% {"
+      "transform:scale(1.0);"
+      "-webkit-transform:scale(1.0);"
+    "}"
+  "}"
+};
+
 /**< Common menu bar. This style quotes LuxBar. */
 /**< balzss/luxbar is licensed under the MIT License https://github.com/balzss/luxbar */
 const char AutoConnect::_CSS_LUXBAR[] PROGMEM = {
@@ -668,6 +707,35 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
   "</html>"
 };
 
+/**< A page that informs during a connection attempting. */
+const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
+  "{{REQ}}"
+  "{{HEAD}}"
+  "<meta http-equiv=\"refresh\" content=\"0;url=http://{{URI_RESULT}}\">"
+  "<title>AutoConnect connecting</title>"
+  "<style type=\"text/css\">"
+  "{{CSS_BASE}}"
+  "{{CSS_SPINNER}}"
+  "{{CSS_LUXBAR}}"
+  "</style>"
+  "<script type=\"text/javascript\">"
+  "setTimeout(\"link()\"," AUTOCONNECT_RESPONSEREQUEST_TIMEOUT " );"
+  "function link(){"
+  "location.href='http://{{URI_RESULT}}';"
+  "</script>"
+  "</head>"
+  "<body style=\"padding-top:58px;\">"
+  "<div class=\"container\">"
+  "{{MENU_PRE}}"
+  "{{MENU_POST}}"
+  "<div class=\"spinner\">"
+  "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#4169e1;\">{{CUR_SSID}}</div>"
+  "<div class=\"double-bounce1\"></div>"
+  "<div class=\"double-bounce2\"></div>"
+  "</body>"
+  "</html>" 
+};
+
 /**< A page announcing that a connection has been established. */
 const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
   "{{HEAD}}"
@@ -802,6 +870,7 @@ String AutoConnect::_token_CSS_ICON_LOCK(PageArgument& args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_ICON_LOCK));
 }
+
 String AutoConnect::_token_CSS_INPUT_BUTTON(PageArgument& args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_INPUT_BUTTON));
@@ -815,6 +884,11 @@ String AutoConnect::_token_CSS_INPUT_TEXT(PageArgument& args) {
 String AutoConnect::_token_CSS_TABLE(PageArgument& args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_TABLE));
+}
+
+String AutoConnect::_token_CSS_SPINNER(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_SPINNER));
 }
 
 String AutoConnect::_token_HEAD(PageArgument& args) {
@@ -1093,6 +1167,15 @@ String AutoConnect::_token_BOOTURI(PageArgument& args) {
     return String("");
 }
 
+String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(reinterpret_cast<char*>(_credential.ssid));
+}
+
+String AutoConnect::_token_RESULT_URI(PageArgument& args) {
+  AC_UNUSED(args);
+  return _webServer->client().localIP().toString() + String(AUTOCONNECT_URI_RESULT);
+}
 
 /**
  *  This function dynamically build up the response pages that conform to
@@ -1156,9 +1239,17 @@ PageElement* AutoConnect::_setupPage(String uri) {
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 
     // Setup /auto/connect
-    elm->setMold("{{REQ}}");
+    elm->setMold(_PAGE_CONNECTING);
     elm->addToken(String(FPSTR("REQ")), std::bind(&AutoConnect::_induceConnect, this, std::placeholders::_1));
-  }
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("URI_RESULT")), std::bind(&AutoConnect::_token_RESULT_URI, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_SPINNER")), std::bind(&AutoConnect::_token_CSS_SPINNER, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CUR_SSID")), std::bind(&AutoConnect::_token_CURRENT_SSID, this, std::placeholders::_1));
+ }
   else if (uri == String(AUTOCONNECT_URI_OPEN)) {
 
     // Setup /auto/open
