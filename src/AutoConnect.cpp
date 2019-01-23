@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    0.9.7
- *  @date   2018-11-17
+ *  @date   2019-01-21
  *  @copyright  MIT license.
  */
 
@@ -51,9 +51,12 @@ void AutoConnect::_initialize() {
   _rfReset = false;
   _responsePage = nullptr;
   _currentPageElement = nullptr;
-  _menuTitle = String(AUTOCONNECT_MENU_TITLE);
+  _menuTitle = String(F(AUTOCONNECT_MENU_TITLE));
   _connectTimeout = AUTOCONNECT_TIMEOUT;
   memset(&_credential, 0x00, sizeof(struct station_config));
+#ifdef ARDUINO_ARCH_ESP32
+  _disconnectEventId = -1;  // The member available for ESP32 only
+#endif
   _aux.release();
 }
 
@@ -81,12 +84,11 @@ bool AutoConnect::begin() {
  *  @param  ssid        SSID to be connected.
  *  @param  passphrase  Password for connection.
  *  @param  timeout     A time out value in milliseconds for waiting connection.
- *  @retval true        Connection established, AutoConnect service started with WIFI_STA mode.
- *  @retval false       Could not connected, Captive portal started with WIFI_AP_STA mode.
+ *  @return true        Connection established, AutoConnect service started with WIFI_STA mode.
+ *  @return false       Could not connected, Captive portal started with WIFI_AP_STA mode.
  */
 bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long timeout) {
   bool  cs;
-  bool  hasTimeout;
 
   // Overwrite for the current timeout value.
   _connectTimeout = timeout;
@@ -166,8 +168,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Activate the AP mode with configured softAP and start the access point.
       WiFi.mode(WIFI_AP_STA);
-      while (WiFi.getMode() != WIFI_AP_STA)
+      while (WiFi.getMode() != WIFI_AP_STA) {
+        delay(1);
         yield();
+      }
 
       // Connection unsuccessful, launch the captive portal.
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -176,15 +180,21 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       }
 #endif
       WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
-      while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0)) {
+      do {
         delay(100);
         yield();
-      }
+      } while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0));
 #if defined(ARDUINO_ARCH_ESP32)
       if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
         _config();
       }
 #endif
+      if (_apConfig.apip != IPAddress(0, 0, 0, 0)) {
+        do {
+          delay(100);
+          yield();
+        } while (WiFi.softAPIP() != _apConfig.apip);
+      }
       _currentHostIP = WiFi.softAPIP();
       AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, _currentHostIP.toString().c_str());
 
@@ -201,15 +211,14 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         _startDNSServer();
 
         // Start the captive portal to make a new connection
-        hasTimeout = false;
+        bool  hasTimeout = false;
         _portalAccessPeriod = millis();
         while (WiFi.status() != WL_CONNECTED && !_rfReset) {
           handleClient();
           // Force execution of queued processes.
           yield();
           // Check timeout
-          if (_hasTimeout(_apConfig.portalTimeout)) {
-            hasTimeout = true;
+          if ((hasTimeout = _hasTimeout(_apConfig.portalTimeout))) {
             AC_DBG("CP timeout exceeded:%ld\n", millis() - _portalAccessPeriod);
             break;
           }
@@ -220,6 +229,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         if (cs) {
           _dnsServer->stop();
           _dnsServer.reset();
+          AC_DBG("DNS server stopped\n");
         }
         // Captive portal staying time exceeds timeout,
         // Close the portal if an option for keeping the portal is false.
@@ -305,8 +315,10 @@ void AutoConnect::end() {
   if (_webServer) {
     switch (_webServerAlloc) {
     case AC_WEBSERVER_HOSTED:
-      if (_dnsServer)
+      if (_dnsServer) {
+        _dnsServer->stop();
         _dnsServer.reset();
+      }
       _webServer.reset();
       break;
     case AC_WEBSERVER_PARASITIC:
@@ -379,7 +391,7 @@ void AutoConnect::_startWebServer() {
   // here, Prepare PageBuilders for captive portal
   if (!_responsePage) {
     _responsePage = new PageBuilder();
-    _responsePage->chunked(PB_ByteStream);
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
     _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->insert(*_webServer);
 
@@ -428,8 +440,8 @@ void AutoConnect::handleRequest() {
   // Handling processing requests to AutoConnect.
   if (_rfConnect) {
     // Leave from the AP currently.
-//    if (WiFi.status() == WL_CONNECTED)
-//      _disconnectWiFi(true);
+    if (WiFi.status() == WL_CONNECTED)
+      _disconnectWiFi(true);
 
     // An attempt to establish a new AP.
     AC_DBG("Request for %s\n", reinterpret_cast<const char*>(_credential.ssid));
@@ -438,7 +450,7 @@ void AutoConnect::handleRequest() {
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
         _currentHostIP = WiFi.localIP();
-        _redirectURI = String(AUTOCONNECT_URI_SUCCESS);
+        _redirectURI = String(F(AUTOCONNECT_URI_SUCCESS));
 
         // Save current credential
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
@@ -446,17 +458,20 @@ void AutoConnect::handleRequest() {
           credit.save(&_credential);
           AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
         }
+
+        // Ensures that keeps a connection with the current AP while the portal behaves. 
+        _setReconnect(AC_RECONNECT_SET);
       }
       else
         AC_DBG("%s has no BSSID, saving is unavailable\n", reinterpret_cast<const char*>(_credential.ssid));
     }
     else {
       _currentHostIP = WiFi.softAPIP();
-      _redirectURI = String(AUTOCONNECT_URI_FAIL);
+      _redirectURI = String(F(AUTOCONNECT_URI_FAIL));
       _rsConnect = WiFi.status();
       _disconnectWiFi(false);
       while (WiFi.status() != WL_IDLE_STATUS && WiFi.status() != WL_DISCONNECTED) {
-        delay(10);
+        delay(1);
         yield();
       }
     }
@@ -474,6 +489,7 @@ void AutoConnect::handleRequest() {
 
   if (_rfDisconnect) {
     // Disconnect from the current AP.
+    _waitForEndTransmission();
     _stopPortal();
     _disconnectWiFi(false);
     while (WiFi.status() == WL_CONNECTED) {
@@ -533,7 +549,7 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
 
 /**
  *  Load stored credentials that match nearby WLANs.
- *  @retval true  A matched credential of BSSID was loaded.
+ *  @return true  A matched credential of BSSID was loaded.
  */
 bool AutoConnect::_loadAvailCredential() {
   AutoConnectCredential credential(_apConfig.boundaryOffset);
@@ -570,8 +586,9 @@ void AutoConnect::_stopPortal() {
     delay(1000);
   }
 
+  _setReconnect(AC_RECONNECT_RESET);
   WiFi.softAPdisconnect(false);
-  AC_DBG("SoftAP stopped\n");
+  AC_DBG("Portal stopped\n");
 }
 
 /**
@@ -581,9 +598,9 @@ void AutoConnect::_stopPortal() {
 bool AutoConnect::_captivePortal() {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString())) {
-    String location = String("http://") + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
-    _webServer->sendHeader("Location", location, true);
-    _webServer->send(302, "text/plain", "");
+    String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
+    _webServer->sendHeader(F("Location"), location, true);
+    _webServer->send(302, F("text/plain"), "");
     _webServer->client().flush();
     _webServer->client().stop();
     return true;
@@ -593,6 +610,10 @@ bool AutoConnect::_captivePortal() {
 
 /**
  *  Check whether the stay-time in the captive portal has a timeout.
+ *  If the station is connected, the time measurement will be reset.
+ *  @param  timeout The time limit for keeping the captive portal.
+ *  @return true    There is no connection from the station even the time limit exceeds.
+ *  @return false   Connectionless duration has not exceeded yet.
  */
 bool AutoConnect::_hasTimeout(unsigned long timeout) {
   uint8_t staNum;
@@ -629,11 +650,11 @@ void AutoConnect::_handleNotFound() {
     else {
       PageElement page404(_PAGE_404, { { "HEAD", std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1) } });
       String html = page404.build();
-      _webServer->sendHeader("Cache-Control", "no-cache, no-store, must-revalidate", true);
-      _webServer->sendHeader("Pragma", "no-cache");
-      _webServer->sendHeader("Expires", "-1");
-      _webServer->sendHeader("Content-Length", String(html.length()));
-      _webServer->send(404, "text/html", html);
+      _webServer->sendHeader(F("Cache-Control"), F("no-cache, no-store, must-revalidate"), true);
+      _webServer->sendHeader(F("Pragma"), F("no-cache"));
+      _webServer->sendHeader(F("Expires"), F("-1"));
+      _webServer->sendHeader(F("Content-Length"), String(html.length()));
+      _webServer->send(404, F("text/html"), html);
     }
   }
 }
@@ -645,7 +666,7 @@ void AutoConnect::_handleNotFound() {
  */
 String AutoConnect::_induceReset(PageArgument& args) {
   _rfReset = true;
-  return String("Reset in progress...");
+  return String(F("Reset in progress..."));
 }
 
 /**
@@ -664,7 +685,7 @@ String AutoConnect::_induceDisconnect(PageArgument& args) {
  *  handling of the current request by PageBuilder triggered by handleClient().
  *  If "Credential" exists in POST parameter, it reads from EEPROM.
  *  @param  args  http request arguments.
- *  @retval A redirect response including "Location:" header.
+ *  @return A redirect response including "Location:" header.
  */
 String AutoConnect::_induceConnect(PageArgument& args) {
   // Retrieve credential from the post method content.
@@ -675,7 +696,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     credential.load(args.arg(AUTOCONNECT_PARAMID_CRED).c_str(), &entry);
     strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));
-    AC_DBG("Credential loaded:%s %s\n", _credential.ssid, _credential.password);
+    AC_DBG("Credential loaded:%s\n", _credential.ssid);
   }
   else {
     // Credential had by the post parameter.
@@ -686,16 +707,32 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   // Turn on the trigger to start WiFi.begin().
   _rfConnect = true;
 
-  // Redirect to waiting URI while executing connection request.
-  //_webServer->sendHeader("Location", String("http://") + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI_RESULT), true);
-  String url = String("http://") + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI_RESULT);
-  _webServer->sendHeader("Location", url, true);
-  //_webServer->sendHeader("Connection", "keep-alive");
-  _webServer->send(302, "text/plain", "");
-  _webServer->client().flush();
-  _webServer->client().stop();
-  _responsePage->cancel();
+// Since v0.9.7, the redirect method changed from a 302 response to the
+// meta tag with refresh attribute.  
+// This approach for ESP32 makes an inefficient choice. The waiting
+// procedure for a connection attempt should be the server side. Also,
+// the proper value of waiting time until refreshing is unknown. But
+// AutoConnect cannot avoid the following error as affairs stand now
+// that occurs at connection establishment.
+// [WiFiClient.cpp:463] connected(): Disconnected: RES: 0, ERR: 128
+// When connecting as a station, TCP reset caused by switching of the
+// radio channel occurs. Although the Espressif's view is true. However,
+// the actual TCP reset occurs not at the time of switching the channel.
+// It occurs at the connection from the ESP32 to the AP is established
+// and it is possible that TCP reset is occurring in other situations.
+// So, it may not be the real cause. Client-origin redirects with HTML
+// refresh depend on the behavior of the arduino-esp32 library. Thus,
+// the implementations for redirects with HTML will continue until
+// the arduino-esp32 core supports reconnection.
 
+  // Redirect to waiting URI while executing connection request.
+  // String url = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI_RESULT);
+  // _webServer->sendHeader(F("Location"), url, true);
+  // _webServer->send(302, F("text/plain"), "");
+  // _webServer->client().stop();
+  // _webServer->client().flush();
+  // _waitForEndTransmission();  // Wait for response transmission complete
+  // _responsePage->cancel();
   return String("");
 }
 
@@ -704,11 +741,25 @@ String AutoConnect::_induceConnect(PageArgument& args) {
  *  A destination as _redirectURI is indicated by loop to establish connection.
  */
 String AutoConnect::_invokeResult(PageArgument& args) {
-  String redirect = String("http://") + _currentHostIP.toString() + _redirectURI;
-  _webServer->sendHeader("Location", redirect, true);
-  _webServer->send(302, "text/plain", "");
-  _webServer->client().flush();
+  String redirect = String(F("http://"));
+  // The host address to which the connection result for ESP32 responds
+  // changed from v0.9.7. This change is a measure according to the
+  // implementation of the arduino-esp32 1.0.1 core.
+#if defined(ARDUINO_ARCH_ESP32)
+  // In ESP32, the station IP address just established could not be reached.
+  redirect += _webServer->client().localIP().toString();
+#elif defined(ARDUINO_ARCH_ESP8266)
+  // In ESP8266, the host address that responds for the connection
+  // successful is the IP address of ESP8266 as a station.
+  // This is the specification as before.
+  redirect += _currentHostIP.toString();
+#endif
+  redirect += _redirectURI;
+  _webServer->sendHeader(F("Location"), redirect, true);
+  _webServer->send(302, F("text/plain"), "");
   _webServer->client().stop();
+  _webServer->client().flush();
+  _waitForEndTransmission();  // Wait for response transmission complete
   _responsePage->cancel();
   return String("");
 }
@@ -724,8 +775,8 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   _portalAccessPeriod = millis();
   AC_DBG("Host:%s, URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
 
-  // When handleClient calls RequestHandler, the parsed http argument remains
-  // the previous request.
+  // When handleClient calls RequestHandler, the parsed http argument
+  // remains the previous request.
   // If the current request argument contains AutoConnectElement, it is
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
@@ -796,7 +847,7 @@ bool AutoConnect::_isIP(String ipStr) {
 /**
  *  Convert MAC address in uint8_t array to Sting XX:XX:XX:XX:XX:XX format.
  *  @param  mac   Array of MAC address 6 bytes.
- *  @retval MAC address string in XX:XX:XX:XX:XX:XX format.
+ *  @return MAC address string in XX:XX:XX:XX:XX:XX format.
  */
 String AutoConnect::_toMACAddressString(const uint8_t mac[]) {
   String  macAddr = String("");
@@ -813,7 +864,7 @@ String AutoConnect::_toMACAddressString(const uint8_t mac[]) {
 /**
  *  Convert dBm to the wifi signal quality.
  *  @param  rssi  dBm.
- *  @retval a signal quality percentage.
+ *  @return A signal quality percentage.
  */
 unsigned int AutoConnect::_toWiFiQuality(int32_t rssi) {
   unsigned int  qu;
@@ -831,7 +882,7 @@ unsigned int AutoConnect::_toWiFiQuality(int32_t rssi) {
 /**
  *  Wait for establishment of the connection until the specified time expires.
  *  @param  timeout Expiration time by millisecond unit.
- *  @retval wl_status_t
+ *  @return wl_status_t
  */
 wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
   wl_status_t wifiStatus;
@@ -851,6 +902,60 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
 }
 
 /**
+ *  Control the automatic reconnection behaves. Reconnection behavior
+ *  to the AP connected during captive portal operation is activated
+ *  by an order as the argument.
+ *  @param  order  AC_RECONNECT_SET or AC_RECONNECT_RESET
+ */
+void AutoConnect::_setReconnect(const AC_STARECONNECT_t order) {
+#if defined(ARDUINO_ARCH_ESP32)
+  if (order == AC_RECONNECT_SET) {
+    _disconnectEventId = WiFi.onEvent([](WiFiEvent_t e, WiFiEventInfo_t info) {
+      AC_DBG("STA lost connection:%d\n", info.disconnected.reason);
+      bool  rst = WiFi.reconnect();
+      AC_DBG("STA connection %s\n", rst ? "restored" : "failed");
+    }, WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED);
+    AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
+  }
+  else if (order == AC_RECONNECT_RESET) {
+    if (_disconnectEventId) {
+      WiFi.removeEvent(_disconnectEventId);
+      AC_DBG("Event<%d> handler released\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
+    }
+  }
+#elif defined(ARDUINO_ARCH_ESP8266)
+  bool  strc = order == AC_RECONNECT_SET ? true : false;
+  WiFi.setAutoReconnect(strc);
+  AC_DBG("STA reconnection:%s\n", strc ? "EN" : "DIS");
+#endif
+}
+
+/**
+ * Wait for the end of transmission of the http response by closed
+ * from the http client. 
+ */
+void AutoConnect::_waitForEndTransmission() {
+#ifdef AC_DEBUG
+  AC_DBG("Leaves:");
+  unsigned long lt = millis();
+#endif
+  while (_webServer->client().connected()) {
+    delay(1);
+    yield();
+  }
+#ifdef AC_DEBUG
+  // Notifies of the time taken to end the session. If the http client 
+  // times out, AC_DEBUG must be enabled and it is necessary to confirm
+  // that the http response is being transmitted correctly.
+  // To trace the correctness the close sequence of TCP connection,
+  // enable the debug log of the Arduino core side. If the normal,
+  // a message of closed the TCP connection will be logged between
+  // "Leaves:" and "the time taken to end the session" of the log.
+  AC_DBG_DUMB("%d[ms]\n", static_cast<int>(millis() - lt));
+#endif
+}
+
+/**
  *  Disconnects the station from an associated access point.
  *  @param  wifiOff The station mode turning switch.
  */
@@ -860,6 +965,8 @@ void AutoConnect::_disconnectWiFi(bool wifiOff) {
 #elif defined(ARDUINO_ARCH_ESP32)
   WiFi.disconnect(wifiOff, true);
 #endif
-  while (WiFi.status() == WL_CONNECTED)
-    delay(100);
+  while (WiFi.status() == WL_CONNECTED) {
+    delay(1);
+    yield();
+  }
 }

@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	0.9.7
- *	@date	2018-11-17
+ *	@date	2019-01-21
  *	@copyright	MIT license.
  */
 
@@ -199,6 +199,10 @@ class AutoConnect {
     AC_WEBSERVER_HOSTED
   };
   typedef enum _webServerAllocateType  AC_WEBSERVER_TYPE;
+  typedef enum {
+    AC_RECONNECT_SET,
+    AC_RECONNECT_RESET
+  } AC_STARECONNECT_t;
   void  _initialize();
   bool  _config();
   void  _startWebServer();
@@ -224,7 +228,9 @@ class AutoConnect {
   bool  _hasTimeout(unsigned long timeout);
   bool  _isIP(String ipStr);
   wl_status_t _waitForConnect(unsigned long timeout);
+  void  _waitForEndTransmission(void);
   void  _disconnectWiFi(bool wifiOff);
+  void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
   static uint32_t      _getChipId();
@@ -262,6 +268,9 @@ class AutoConnect {
   bool  _rfDisconnect;          /**< URI /disc requested */
   bool  _rfReset;               /**< URI /reset requested */
   wl_status_t   _rsConnect;     /**< connection result */
+#ifdef ARDUINO_ARCH_ESP32
+  WiFiEventId_t _disconnectEventId; /**< STA disconnection event handler registered id  */
+#endif
 
   /** HTTP header information of the currently requested page. */
   String        _uri;           /**< Requested URI */
@@ -276,6 +285,7 @@ class AutoConnect {
   static const char _CSS_INPUT_BUTTON[] PROGMEM;
   static const char _CSS_INPUT_TEXT[] PROGMEM;
   static const char _CSS_TABLE[] PROGMEM;
+  static const char _CSS_SPINNER[] PROGMEM;
   static const char _CSS_LUXBAR[] PROGMEM;
   static const char _ELM_HTML_HEAD[] PROGMEM;
   static const char _ELM_MENU_PRE[] PROGMEM;
@@ -283,6 +293,7 @@ class AutoConnect {
   static const char _ELM_MENU_POST[] PROGMEM;
   static const char _PAGE_STAT[] PROGMEM;
   static const char _PAGE_CONFIGNEW[] PROGMEM;
+  static const char _PAGE_CONNECTING[] PROGMEM;
   static const char _PAGE_OPENCREDT[] PROGMEM;
   static const char _PAGE_SUCCESS[] PROGMEM;
   static const char _PAGE_RESETTING[] PROGMEM;
@@ -297,6 +308,7 @@ class AutoConnect {
   String _token_CSS_INPUT_BUTTON(PageArgument& args);
   String _token_CSS_INPUT_TEXT(PageArgument& args);
   String _token_CSS_TABLE(PageArgument& args);
+  String _token_CSS_SPINNER(PageArgument& args);
   String _token_CSS_LUXBAR(PageArgument& args);
   String _token_HEAD(PageArgument& args);
   String _token_MENU_PRE(PageArgument& args);
@@ -323,6 +335,7 @@ class AutoConnect {
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);
   String _token_BOOTURI(PageArgument& args);
+  String _token_CURRENT_SSID(PageArgument& args);
 
 #if defined(ARDUINO_ARCH_ESP8266)
   friend class ESP8266WebServer;
