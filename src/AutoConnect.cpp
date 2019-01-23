@@ -51,7 +51,7 @@ void AutoConnect::_initialize() {
   _rfReset = false;
   _responsePage = nullptr;
   _currentPageElement = nullptr;
-  _menuTitle = String(AUTOCONNECT_MENU_TITLE);
+  _menuTitle = String(F(AUTOCONNECT_MENU_TITLE));
   _connectTimeout = AUTOCONNECT_TIMEOUT;
   memset(&_credential, 0x00, sizeof(struct station_config));
 #ifdef ARDUINO_ARCH_ESP32
@@ -450,7 +450,7 @@ void AutoConnect::handleRequest() {
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
         _currentHostIP = WiFi.localIP();
-        _redirectURI = String(AUTOCONNECT_URI_SUCCESS);
+        _redirectURI = String(F(AUTOCONNECT_URI_SUCCESS));
 
         // Save current credential
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
@@ -467,7 +467,7 @@ void AutoConnect::handleRequest() {
     }
     else {
       _currentHostIP = WiFi.softAPIP();
-      _redirectURI = String(AUTOCONNECT_URI_FAIL);
+      _redirectURI = String(F(AUTOCONNECT_URI_FAIL));
       _rsConnect = WiFi.status();
       _disconnectWiFi(false);
       while (WiFi.status() != WL_IDLE_STATUS && WiFi.status() != WL_DISCONNECTED) {
@@ -598,9 +598,9 @@ void AutoConnect::_stopPortal() {
 bool AutoConnect::_captivePortal() {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString())) {
-    String location = String("http://") + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
-    _webServer->sendHeader("Location", location, true);
-    _webServer->send(302, "text/plain", "");
+    String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
+    _webServer->sendHeader(F("Location"), location, true);
+    _webServer->send(302, F("text/plain"), "");
     _webServer->client().flush();
     _webServer->client().stop();
     return true;
@@ -666,7 +666,7 @@ void AutoConnect::_handleNotFound() {
  */
 String AutoConnect::_induceReset(PageArgument& args) {
   _rfReset = true;
-  return String("Reset in progress...");
+  return String(F("Reset in progress..."));
 }
 
 /**
@@ -706,7 +706,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
 
   // Turn on the trigger to start WiFi.begin().
   _rfConnect = true;
-  _menuTitle = String("Connecting");
+  _menuTitle = String(F(AUTOCONNECT_CONNECTING_TITLE));
 
 // Since v0.9.7, the redirect method changed from a 302 response to the
 // meta tag with refresh attribute.  
