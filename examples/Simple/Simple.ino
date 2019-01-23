@@ -57,9 +57,9 @@ static const char AUX_TIMEZONE[] PROGMEM = R"(
 )";
 
 typedef struct {
-  char* zone;
-  char* ntpServer;
-  int8_t  tzoff;
+  const char* zone;
+  const char* ntpServer;
+  int8_t      tzoff;
 } Timezone_t;
 
 static const Timezone_t TZ[] = {
