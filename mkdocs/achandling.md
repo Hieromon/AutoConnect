@@ -15,7 +15,7 @@ void AutoConnectAux::add(AutoConenctElement& addon)
 void AutoConnectAux::add(AutoConenctElementVT addons)
 ```
 
-The add function adds specified AutoConnectElement to the AutoConnectAux. If speficied the collection of AutoConnectElements as a `std::vector` of the references to each element, these elements added in bulk.
+The add function adds specified AutoConnectElement to the AutoConnectAux. If specified the collection of AutoConnectElements as a `std::vector` of the references to each element, these elements added in bulk.
 
 The AutoConnectElements contained in the AutoConnectAux object are uniquely identified by the name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.[^1] In the following example, an AutoConnectButton as `button` addition is invalid.
 
@@ -102,15 +102,139 @@ AutoConnectElementVT& getElements(void)
 
 *AutoConnectElementVT* is a predefined type for it and can use methods of [std::vector](https://en.cppreference.com/w/cpp/container/vector)<[std::reference_wrapper](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper)>.
 
-## Loading &amp; saving AutoConnectElements
+## Loading &amp; saving AutoConnectElements with JSON
 
-## Saving AutoConnectElements 
+AutoConnect supports that loading the AutoConnectAux as a set of elements, and Loading and saving individual elements. It is not possible to save all AutoConnectElements at once as AutoConnectAux. In both cases the target object is a JSON document.
 
-## Page transition
+<img src="../images/ac_load_save.svg">
+
+### <i class="fa fa-upload"></i> Loading AutoConnectAux &amp; AutoConnectElements with JSON
+
+To load a JSON document as AutoConnectAux use the [**AutoConnect::load**](api.md#load) function and load the JSON document of each AutoConnectElement using the [**AutoConnectAux::loadElement**](apiaux.md#loadelement) function. Although the functions of both are similar, the structure of the target JSON document is different.
+
+The [AutoConnect::load](apiaux.md#load) function loads the entire AutoConnectAux and creates both the AutoConnectAux instance and each AutoConnectElement instance. If the JSON document is described as an array of multiple custom Web pages, all pages contained in the array will be generated. Therefore, it is necessary to supply the JSON document of AutoConnectAux as an input of the load function and must contain the elements described [**here**](acjson.md#json-document-structure-for-autoconnectaux).
+
+The [AutoConnectAux::loadElement](apiaux.md#loadelement) function loads the elements individually into an AutoConnectAux object. The structure of its supplying JSON document is not AutoConnectAux. It must be a [JSON structure for AutoConnectElement](acjson.md#json-object-for-autoconnectelements), but you can specify an array.
+
+```cpp
+// AutoConnectAux as a custom Web page.
+const char page[] PROGMEM = R"raw(
+{
+  "title": "Settings",
+  "uri": "/settings",
+  "menu": true,
+  "element": [
+    {
+      "name": "server",
+      "type": "ACInput",
+      "label": "Server"
+    },
+    {
+      "name": "set",      
+      "type": "ACSubmit",
+      "value": "SET",
+      "uri" : "/set"
+    }
+  ]
+}
+)raw";
+
+// Additional AutoConnectElements.
+const char addons[] PROGMEM = R"raw(
+[
+  {
+    "name": "notes",
+    "type": "ACText",
+    "value": "An update period as the below optionally."
+  },
+  {
+    "name": "period",
+    "type": "ACRadio",
+    "value": [
+      "30 sec.",
+      "60 sec.",
+      "180 sec."
+    ],
+    "arrange": "vertical",
+    "checked": 1
+  }
+]
+)raw";
+
+AutoConnect     portal;
+AutoConnectAux* auxPage;
+
+// Load a custom Web page.
+portal.load(page);
+
+// Get a '/settings' page
+auxPage = portal.aux("/settings");
+
+// Also, load only AutoConnectRadio named the period.
+auxPage->loadElement(addons, "period");
+
+// Retrieve a server name from an AutoConnectText value.
+AutoConnectText& serverName = auxPage->getElement<AutoConnectText>("server");
+Serial.println(serverName.value);
+```
+
+### <i class="fa fa-download"></i> Saving AutoConnectElements with JSON
+
+To save the AutoConnectElement as a JSON document, use the [AutoConnectAux::saveElement](apiaux.md#saveelement) function. It serializes the contents of the object based on the type of the AutoConnectElement. You can persist a serialized AutoConnectElements as a JSON document to a stream.
+
+```cpp
+// Open a parameter file on the SPIFFS.
+SPIFFS.begin();
+FILE param = SPIFFS.open("/param", "w");
+
+// Save elements as the parameters.
+auxPage->saveElement(param, { "server", "period" });
+
+// Close a parameter file.
+param.close();
+SPIFFS.end();
+```
+
+The example above saves `server` and `period` elements from the AutoConnectAux object as mentioned above to the `/param` file on SPIFFS. Its JSON document of AutoConnectElements saved by its code looks like this:
+
+```json
+[
+  {
+    "name": "server",
+    "type": "ACInput",
+    "value": "An inputted server name",
+    "label": "Server",
+    "placeholder": ""
+  },
+  {
+    "name": "period",
+    "type": "ACRadio",
+    "value": [
+      "30 sec.",
+      "60 sec.",
+      "180 sec."
+    ],
+    "arrange": "vertical",
+    "checked": 2
+  }
+]
+```
 
 ## Parameter handling
+
+A sketch can access variables of AutoConnectElements in the custom Web page. The value entered into the AutoConnectElements on the page is stored in the member variable of each element by AutoConnect whenever GET/POST transmission occurs. 
+
+The following diagram shows the flow of the input values of a custom Web page into a sketch and is the basis for actions to manipulate the values of custom Web pages using sketches.
+
+<img src="./images/ac_param_flow.svg">
+
+### <i class="fa fa-desktop"></i> When to pick up the values
+
+### <i class="fa fa-desktop"></i> When setting the initial values
+
+### <i class="fa fa-wrench"></i> How you can reach the valuess
 
 WebServer.args, PageArgument
 Handling in 'on' handler
 
-A sketch can access variables of AutoConnectElements in the custom Web page. The value entered into the AutoConnectElements on the page is stored in the member variable of the element by AutoConnect whenever GET/POST transmission occurs. 
+## Transitions of the custom Web pages
