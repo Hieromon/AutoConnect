@@ -58,6 +58,7 @@ void AutoConnect::_initialize() {
   _disconnectEventId = -1;  // The member available for ESP32 only
 #endif
   _aux.release();
+  _auxUri = String("");
 }
 
 /**
@@ -781,11 +782,11 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
   if (_webServer->hasArg(AUTOCONNECT_AUXURI_PARAM)) {
-    String  auxUri = _webServer->arg(AUTOCONNECT_AUXURI_PARAM);
-    auxUri.replace("&#47;", "/");
+    _auxUri = _webServer->arg(AUTOCONNECT_AUXURI_PARAM);
+    _auxUri.replace("&#47;", "/");
     AutoConnectAux* aux = _aux.get();
     while (aux) {
-      if (aux->_uriStr == auxUri) {
+      if (aux->_uriStr == _auxUri) {
         aux->_storeElements(_webServer.get());
         break;
       }

@@ -181,6 +181,7 @@ class AutoConnect {
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
+  AutoConnectAux* where(void) const { return aux(_auxUri); }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
@@ -255,6 +256,7 @@ class AutoConnect {
 
   /** Extended pages made up with AutoConnectAux */
   std::unique_ptr<AutoConnectAux> _aux;
+  String        _auxUri;        /**< Last accessed AutoConnectAux */
 
   /** Saved configurations */
   AutoConnectConfig     _apConfig;
@@ -273,9 +275,9 @@ class AutoConnect {
 #endif
 
   /** HTTP header information of the currently requested page. */
+  IPAddress     _currentHostIP; /**< host IP address */
   String        _uri;           /**< Requested URI */
   String        _redirectURI;   /**< Redirect destination */
-  IPAddress     _currentHostIP; /**< host IP address */
   String        _menuTitle;     /**< Title string of the page */
 
   /** PegeElements of AutoConnect site. */

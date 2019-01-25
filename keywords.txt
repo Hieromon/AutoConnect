@@ -46,6 +46,7 @@ setTitle	KEYWORD2
 toHTML	KEYWORD2
 typeOf	KEYWORD2
 value	KEYWORD2
+where	KEYWORD2
 
 #######################################
 # Literals (KEYWORD3)
