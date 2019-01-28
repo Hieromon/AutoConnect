@@ -121,6 +121,11 @@
 #define AUTOCONNECT_HTTP_TRANSFER PB_ByteStream
 #endif // !AUTOCONNECT_HTTP_TRANSFER
 
+// Reserved buffer size to build content
+#ifndef AUTOCONNECT_CONTENTBUFFER_SIZE
+#define AUTOCONNECT_CONTENTBUFFER_SIZE  10240
+#endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
+
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
 
