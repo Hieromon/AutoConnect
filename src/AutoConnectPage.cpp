@@ -711,7 +711,7 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
 const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
   "{{REQ}}"
   "{{HEAD}}"
-    "<meta http-equiv=\"refresh\" content=\"0;url=" AUTOCONNECT_URI_RESULT "\">"
+    "<meta http-equiv=\"refresh\" content=\"1;url=" AUTOCONNECT_URI_RESULT "\">"
     "<title>AutoConnect connecting</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
@@ -729,13 +729,13 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
       "{{MENU_PRE}}"
       "{{MENU_POST}}"
       "<div class=\"spinner\">"
-        "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#4169e1;\">{{CUR_SSID}}</div>"
         "<div class=\"double-bounce1\"></div>"
         "<div class=\"double-bounce2\"></div>"
+        "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#4169e1;\">{{CUR_SSID}}</div>"
       "</div>"
     "</div>"
   "</body>"
-  "</html>" 
+  "</html>"
 };
 
 /**< A page announcing that a connection has been established. */
@@ -1025,7 +1025,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     wlStatusSymbol = wlStatusSymbols[7];
 #endif
   }
-  return "(" + String(_rsConnect) + ") " + String(wlStatusSymbol);
+  return String("(") + String(_rsConnect) + String(") ") + String(wlStatusSymbol);
 }
 
 String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
@@ -1090,7 +1090,7 @@ String AutoConnect::_token_CHIP_ID(PageArgument& args) {
 
 String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
   AC_UNUSED(args);
-  return String(ESP.getFreeHeap());
+  return String(_freeHeapSize);
 }
 
 String AutoConnect::_token_LIST_SSID(PageArgument& args) {
@@ -1103,7 +1103,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   for (uint8_t i = 0; i < nn; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
-      ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String(F("\">"));
+      ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String("\">");
       ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;</label>"));
       if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
         ssidList += String(F("<span class=\"img-lock\"></span>"));
@@ -1192,6 +1192,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
   if (uri == String(AUTOCONNECT_URI)) {
 
     // Setup /auto
+    _freeHeapSize = ESP.getFreeHeap();
     elm->setMold(_PAGE_STAT);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));

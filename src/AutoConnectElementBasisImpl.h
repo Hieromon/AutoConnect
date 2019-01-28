@@ -18,7 +18,7 @@
  * @return  An HTML string.
  */
 const String AutoConnectButtonBasis::toHTML(void) const {
-  return String(FPSTR("<button type=\"button\" name=\"")) + name + String(FPSTR("\" value=\"")) + value + String(FPSTR("\" onclick=\"")) + action + String("\">") + value + String(FPSTR("</button>"));
+  return String(F("<button type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"")) + action + String("\">") + value + String(F("</button>"));
 }
 
 /**
@@ -32,34 +32,34 @@ const String AutoConnectButtonBasis::toHTML(void) const {
 const String AutoConnectCheckboxBasis::toHTML(void) const {
   String  html;
 
-  html = String(FPSTR("<input type=\"checkbox\" name=\"")) + name + String(FPSTR("\" value=\"")) + value + String("\"");
+  html = String(F("<input type=\"checkbox\" name=\"")) + name + String(F("\" value=\"")) + value + String("\"");
   if (checked)
-    html += String(FPSTR(" checked"));
+    html += String(F(" checked"));
   if (label.length())
-    html += String(" id=\"") + name + String("\"><label for=\"") + name + String("\">") + label + String(FPSTR("</label"));
-  html += String(FPSTR("><br>"));
+    html += String(F(" id=\"")) + name + String(F("\"><label for=\"")) + name + String("\">") + label + String(F("</label"));
+  html += String(F("><br>"));
   return html;
 }
 
 /**
- *  Generate an HTML <input type=text> element.
- *  If the value member is contained, it is reflected in the placeholder
- *  attribute. The entered value can be obtained using the user callback
- *  function registered by AutoConnectAux::on after the form is sent in
- *  combination with AutoConnectSubmit.
- *  @return String  an HTML string.
+ * Generate an HTML <input type=text> element.
+ * If the value member is contained, it is reflected in the placeholder
+ * attribute. The entered value can be obtained using the user callback
+ * function registered by AutoConnectAux::on after the form is sent in
+ * combination with AutoConnectSubmit.
+ * @return String  an HTML string.
  */
 const String AutoConnectInputBasis::toHTML(void) const {
-  String  html = String();
+  String  html = String("");
 
   if (label.length())
-    html = String(FPSTR("<label for=\"")) + name + String("\">") + label + String(FPSTR("</label>"));
-  html += String(FPSTR("<input type=\"text\" id=\"")) + name + String(FPSTR("\" name=\"")) + name + String("\"");
+    html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
+  html += String(F("<input type=\"text\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
   if (placeholder.length())
-    html += String(FPSTR(" placeholder=\"")) + placeholder + String("\"");
+    html += String(F(" placeholder=\"")) + placeholder + String("\"");
   if (value.length())
-    html += String(FPSTR(" value=\"")) + value + String("\"");
-  html += String(FPSTR("><br>"));
+    html += String(F(" value=\"")) + value + String("\"");
+  html += String(F("><br>"));
 
   return html;
 }
@@ -91,29 +91,37 @@ void AutoConnectRadioBasis::empty(const size_t reserve) {
 }
 
 /**
- *  Generate an HTML <input type=radio> element with an <option> element.
- *  @return String  an HTML string.
+ * Generate an HTML <input type=radio> element with an <option> element.
+ * @return String  an HTML string.
  */
 const String AutoConnectRadioBasis::toHTML(void) const {
-  String  html = "";
+  String  html = String("");
 
   if (label.length()) {
     html = label;
     if (order == AC_Vertical)
-      html += String("<br>");
+      html += String(F("<br>"));
   }
   uint8_t n = 0;
   for (const String value : _values) {
     n++;
     String  id = name + "_" + String(n);
-    html += String(FPSTR("<input type=\"radio\" name=\"")) + name + String(FPSTR("\" id=\"")) + id + String(FPSTR("\" value=\"")) + value + String("\"");
+    html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
     if (n == checked - 1)
-      html += String(FPSTR(" checked"));
-    html += String(FPSTR("><label for=\"")) + id + String("\">") + value + String(FPSTR("</label>"));
+      html += String(F(" checked"));
+    html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
     if (order == AC_Vertical)
-      html += String("<br>");
+      html += String(F("<br>"));
   }
   return html;
+}
+
+/**
+ * Returns current selected value in the radio same group
+ */
+const String& AutoConnectRadioBasis::value() const {
+  static const String _nullString = String();
+  return checked ? _values.at(checked - 1) : _nullString;
 }
 
 /**
@@ -130,42 +138,42 @@ void AutoConnectSelectBasis::empty(const size_t reserve) {
 }
 
 /**
- *  Generate an HTML <select> element with an <option> element.
- *  The attribute value of the <option> element is given to the
- *  AutoConnectSelect class as a string array, which would be stored
- *  in the 'options' member. If a label member is contained, the <label>
- *  element would be generated the preface of <select>.
- *  @return String  an HTML string.
+ * Generate an HTML <select> element with an <option> element.
+ * The attribute value of the <option> element is given to the
+ * AutoConnectSelect class as a string array, which would be stored
+ * in the 'options' member. If a label member is contained, the <label>
+ * element would be generated the preface of <select>.
+ * @return String  an HTML string.
  */
 const String AutoConnectSelectBasis::toHTML(void) const {
-  String  html = "";
+  String  html = String("");
 
   if (label.length())
-    html = String(FPSTR("<label for=\"")) + name + String("\">") + label + String(FPSTR("</label>"));
-  html += String(FPSTR("<select name=\"")) + name + String("\" id=\"") + name + String("\">");
+    html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
+  html += String(F("<select name=\"")) + name + String(F("\" id=\"")) + name + String("\">");
   for (const String option : _options)
-    html += String(FPSTR("<option value=\"")) + option + "\">" + option + String(FPSTR("</option>"));
-  html += String(FPSTR("</select>"));
+    html += String(F("<option value=\"")) + option + "\">" + option + String(F("</option>"));
+  html += String(F("</select>"));
   return html;
 }
 
 /**
- *  Generate an HTML <input type=button> element. This element is used
- *  for form submission. An 'onclick' attribute calls fixed JavaScript
- *  code as 'sa' named and it's included in the template.
- *  @return String  an HTML string.
+ * Generate an HTML <input type=button> element. This element is used
+ * for form submission. An 'onclick' attribute calls fixed JavaScript
+ * code as 'sa' named and it's included in the template.
+ * @return String  an HTML string.
  */
 const String AutoConnectSubmitBasis::toHTML(void) const {
-  return String(FPSTR("<input type=\"button\" name=\"")) + name + String(FPSTR("\" value=\"")) + value + String(FPSTR("\" onclick=\"_sa('")) + uri + String("')\">");
+  return String(F("<input type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"_sa('")) + uri + String("')\">");
 }
 
 /**
- *  Generate an HTML text element from a string of the value member. If a style
- *  exists, it gives a style attribute.
- *  @return String  an HTML string.
+ * Generate an HTML text element from a string of the value member. If a style
+ * exists, it gives a style attribute.
+ * @return String  an HTML string.
  */
 const String AutoConnectTextBasis::toHTML(void) const {
-  return String(FPSTR("<div style=\"")) + style + String("\">") + value + String(FPSTR("</div>"));
+  return String(F("<div style=\"")) + style + String("\">") + value + String(F("</div>"));
 }
 
 #endif // _AUTOCONNECTELEMENTBASISIMPL_H_

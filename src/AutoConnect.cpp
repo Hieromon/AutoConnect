@@ -393,6 +393,7 @@ void AutoConnect::_startWebServer() {
   if (!_responsePage) {
     _responsePage = new PageBuilder();
     _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
+    _responsePage->reserve(AUTOCONNECT_CONTENTBUFFER_SIZE);
     _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->insert(*_webServer);
 
@@ -460,7 +461,7 @@ void AutoConnect::handleRequest() {
           AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
         }
 
-        // Ensures that keeps a connection with the current AP while the portal behaves. 
+        // Ensures that keeps a connection with the current AP while the portal behaves.
         _setReconnect(AC_RECONNECT_SET);
       }
       else
@@ -600,8 +601,8 @@ bool AutoConnect::_captivePortal() {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString())) {
     String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
-    _webServer->sendHeader(F("Location"), location, true);
-    _webServer->send(302, F("text/plain"), "");
+    _webServer->sendHeader(String(F("Location")), location, true);
+    _webServer->send(302, String(F("text/plain")), "");
     _webServer->client().flush();
     _webServer->client().stop();
     return true;
@@ -649,13 +650,13 @@ void AutoConnect::_handleNotFound() {
       _notFoundHandler();
     }
     else {
-      PageElement page404(_PAGE_404, { { "HEAD", std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1) } });
+      PageElement page404(_PAGE_404, { { String(F("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1) } });
       String html = page404.build();
-      _webServer->sendHeader(F("Cache-Control"), F("no-cache, no-store, must-revalidate"), true);
-      _webServer->sendHeader(F("Pragma"), F("no-cache"));
-      _webServer->sendHeader(F("Expires"), F("-1"));
-      _webServer->sendHeader(F("Content-Length"), String(html.length()));
-      _webServer->send(404, F("text/html"), html);
+      _webServer->sendHeader(String(F("Cache-Control")), String(F("no-cache, no-store, must-revalidate")), true);
+      _webServer->sendHeader(String(F("Pragma")), String(F("no-cache")));
+      _webServer->sendHeader(String(F("Expires")), String("-1"));
+      _webServer->sendHeader(String(F("Content-Length")), String(html.length()));
+      _webServer->send(404, String(F("text/html")), html);
     }
   }
 }
@@ -709,7 +710,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   _rfConnect = true;
 
 // Since v0.9.7, the redirect method changed from a 302 response to the
-// meta tag with refresh attribute.  
+// meta tag with refresh attribute.
 // This approach for ESP32 makes an inefficient choice. The waiting
 // procedure for a connection attempt should be the server side. Also,
 // the proper value of waiting time until refreshing is unknown. But
@@ -730,9 +731,8 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   // String url = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI_RESULT);
   // _webServer->sendHeader(F("Location"), url, true);
   // _webServer->send(302, F("text/plain"), "");
-  // _webServer->client().stop();
   // _webServer->client().flush();
-  // _waitForEndTransmission();  // Wait for response transmission complete
+  // _webServer->client().stop();
   // _responsePage->cancel();
   return String("");
 }
@@ -742,10 +742,11 @@ String AutoConnect::_induceConnect(PageArgument& args) {
  *  A destination as _redirectURI is indicated by loop to establish connection.
  */
 String AutoConnect::_invokeResult(PageArgument& args) {
+  AC_DBG("_invokeResult entered\n");
   String redirect = String(F("http://"));
   // The host address to which the connection result for ESP32 responds
   // changed from v0.9.7. This change is a measure according to the
-  // implementation of the arduino-esp32 1.0.1 core.
+  // implementation of the arduino-esp32 1.0.1.
 #if defined(ARDUINO_ARCH_ESP32)
   // In ESP32, the station IP address just established could not be reached.
   redirect += _webServer->client().localIP().toString();
@@ -756,10 +757,10 @@ String AutoConnect::_invokeResult(PageArgument& args) {
   redirect += _currentHostIP.toString();
 #endif
   redirect += _redirectURI;
-  _webServer->sendHeader(F("Location"), redirect, true);
-  _webServer->send(302, F("text/plain"), "");
-  _webServer->client().stop();
+  _webServer->sendHeader(String(F("Location")), redirect, true);
+  _webServer->send(302, String(F("text/plain")), "");
   _webServer->client().flush();
+  _webServer->client().stop();
   _waitForEndTransmission();  // Wait for response transmission complete
   _responsePage->cancel();
   return String("");
