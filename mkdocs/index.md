@@ -83,11 +83,11 @@ Install third-party platform using the *Boards Manager* of Arduino IDE. You can 
 <i class="fa fa-download"></i> <strong>Additional necessary library</strong>
 
 The [PageBuilder](https://github.com/Hieromon/PageBuilder) library to build HTML for ESP8266WebServer is needed.  
-To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required 1.2.3 later.[^1]
+To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required 1.3.0 later.[^1]
 
 <img src="./images/lm.png" width="640"/>
 
-[^1]:Since AutoConnect v0.9.7, PageBuilder v1.2.3 later is required.
+[^1]:Since AutoConnect v0.9.7, PageBuilder v1.3.0 later is required.
 
 <i class="fa fa-download"></i> <strong>Optional required library</strong>
 
