@@ -3,7 +3,7 @@ env:
   global:
     - IDE_VERSION=1.8.6
   matrix:
-    - BOARD="esp8266:esp8266:generic:xtal=80,eesz=1M,FlashMode=qio,FlashFreq=80"
+    - BOARD="esp8266:esp8266:generic:xtal=80,eesz=4M3M,ip=lm2f,exception=disabled,FlashMode=qio,FlashFreq=80"
     - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M"
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
