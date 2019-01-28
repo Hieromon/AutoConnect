@@ -240,6 +240,7 @@ class AutoConnect {
   static unsigned int  _toWiFiQuality(int32_t rssi);
   DetectExit_ft        _onDetectExit;
   WebServerClass::THandlerFunction _notFoundHandler;
+  size_t               _freeHeapSize;
 
   /** Servers which works in concert. */
   std::unique_ptr<WebServerClass> _webServer;
