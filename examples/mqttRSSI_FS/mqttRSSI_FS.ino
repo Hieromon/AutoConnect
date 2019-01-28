@@ -153,8 +153,9 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   hostName = args.arg("hostname");
   hostName.trim();
   
-  // In order to retrieve the elements of /mqtt_setting,
-  // it is necessary to get the AutoConnectAux object of /mqtt_setting.
+  // The entered value is owned by AutoConnectAux of /mqtt_setting.
+  // To retrieve the elements of /mqtt_setting, it is necessary to get
+  // the AutoConnectAux object of /mqtt_setting.
   SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "w");
   portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "period", "uniqueid", "hostname" });

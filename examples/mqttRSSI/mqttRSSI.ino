@@ -16,13 +16,12 @@ https://opensource.org/licenses/MIT
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
-#define GET_CHIPID()	(ESP.getChipId())
+#define GET_CHIPID()  (ESP.getChipId())
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
-#include <WebServer.h>
 #include <SPIFFS.h>
 #include <HTTPClient.h>
-#define GET_CHIPID()	((uint16_t)(ESP.getEfuseMac()>>32))
+#define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
 #include <FS.h>
 #include <PubSubClient.h>
@@ -35,10 +34,9 @@ https://opensource.org/licenses/MIT
 
 // JSON definition of AutoConnectAux.
 // Multiple AutoConnectAux can be defined in the JSON array.
-// In this example, JSON is hard-coded to make it easier to
-// understand the AutoConnectAux API. In practice, it will be
-// an external content which separated from the sketch,
-// as the mqtt_RSSI_FS example shows.
+// In this example, JSON is hard-coded to make it easier to understand
+// the AutoConnectAux API. In practice, it will be an external content
+// which separated from the sketch, as the mqtt_RSSI_FS example shows.
 static const char AUX_mqtt_setting[] PROGMEM = R"raw(
 [
   {
@@ -50,7 +48,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "name": "header",
         "type": "ACText",
         "value": "<h2>MQTT broker settings</h2>",
-        "style": "text-align:center;color:#2f4f4f;"
+        "style": "text-align:center;color:#2f4f4f;padding:10px;"
       },
       {
         "name": "caption",
@@ -212,15 +210,16 @@ bool mqttConnect() {
 
 void mqttPublish(String msg) {
   String path = String("channels/") + channelId + String("/publish/") + apiKey;
-  int    tLen = path.length();
-  char   topic[tLen];
-  path.toCharArray(topic, tLen + 1);
+  // int    tLen = path.length();
+  // char   topic[tLen];
+  // path.toCharArray(topic, tLen + 1);
 
-  int    mLen = msg.length();
-  char   payload[mLen];
-  msg.toCharArray(payload, mLen + 1);
+  // int    mLen = msg.length();
+  // char   payload[mLen];
+  // msg.toCharArray(payload, mLen + 1);
 
-  mqttClient.publish(topic, payload);
+  // mqttClient.publish(topic, payload);
+  mqttClient.publish(path.c_str(), msg.c_str());
 }
 
 int getStrength(uint8_t points) {
@@ -234,8 +233,8 @@ int getStrength(uint8_t points) {
   return points ? static_cast<int>(rssi / points) : 0;
 }
 
-// Load parameters saved with  saveParams from SPIFFS into
-// the elements defined in /mqtt_setting JSON.
+// Load parameters saved with  saveParams from SPIFFS into the
+// elements defined in /mqtt_setting JSON.
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
   SPIFFS.begin();
@@ -252,43 +251,50 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
     Serial.println("If you get error as 'SPIFFS: mount failed, -10025', Please modify with 'SPIFFS.begin(true)'.");
   }
   SPIFFS.end();
-  return "";
+  return String();
 }
 
-// Save the value of each element entered by /mqtt_setting to
-// the parameter file. The saveParams as below is a callback
-// function of /mqtt_save.
-// When this callback is invoked, the input value of each element
-// of /mqtt_setting is already stored in the AutoConnectAux object.
+// Save the value of each element entered by '/mqtt_setting' to the
+// parameter file. The saveParams as below is a callback function of
+// /mqtt_save. When invoking this handler, the input value of each
+// element is already stored in '/mqtt_setting'.
 // In Sketch, you can output to stream its elements specified by name.
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
-  // PageArgument is a copy set of the elements that AutoConnectAux has.
-  serverName = args.arg("mqttserver");
+  // The 'where()' function returns the AutoConnectAux that caused
+  // the transition to this page.
+  AutoConnectAux*   mqtt_setting = portal.where();
+
+  AutoConnectInput& mqttserver = mqtt_setting->getElement<AutoConnectInput>("mqttserver");
+  serverName = mqttserver.value;
   serverName.trim();
 
-  channelId = args.arg("channelid");
+  AutoConnectInput& channelid = mqtt_setting->getElement<AutoConnectInput>("channelid");
+  channelId = channelid.value;
   channelId.trim();
 
-  userKey = args.arg("userkey");
+  AutoConnectInput& userkey = mqtt_setting->getElement<AutoConnectInput>("userkey");
+  userKey = userkey.value;
   userKey.trim();
 
-  apiKey = args.arg("apikey");
+  AutoConnectInput& apikey = mqtt_setting->getElement<AutoConnectInput>("apikey");
+  apiKey = apikey.value;
   apiKey.trim();
 
-  String upd = args.arg("period");
-  updateInterval = upd.substring(0, 2).toInt() * 1000;
+  AutoConnectRadio& period = mqtt_setting->getElement<AutoConnectRadio>("period");
+  updateInterval = period.value().substring(0, 2).toInt() * 1000;
 
-  String uniqueid = args.arg("uniqueid");
+  String uniqueid = mqtt_setting->getElement<AutoConnectInput>("uniqueid").value;
 
-  hostName = args.arg("hostname");
+  AutoConnectInput& hostname = mqtt_setting->getElement<AutoConnectInput>("hostname");
+  hostName = hostname.value;
   hostName.trim();
 
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
-  // In order to retrieve the elements of /mqtt_setting,
-  // it is necessary to get the AutoConnectAux object of /mqtt_setting.
+  // To retrieve the elements of /mqtt_setting, it is necessary to get
+  // the AutoConnectAux object of /mqtt_setting.
   SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "w");
-  portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "hostname" });
+  mqtt_setting->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "hostname" });
   param.close();
   SPIFFS.end();
 
@@ -302,7 +308,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   echo.value += "Use APID unique: " + uniqueid + "<br>";
   echo.value += "ESP host name: " + hostName + "<br>";
 
-  return "";
+  return String();
 }
 
 void handleRoot() {
@@ -339,8 +345,7 @@ void handleClearChannel() {
   else
     Serial.println(" failed");
 
-  // Returns the redirect response. The page is reloaded and its contents
-  // are updated to the state after deletion.
+  // Returns the redirect response.
   WiFiWebServer&  server = portal.host();
   server.sendHeader("Location", String("http://") + server.client().localIP().toString() + String("/"));
   server.send(302, "text/plain", "");
@@ -354,11 +359,9 @@ void setup() {
   Serial.println();
 
   if (portal.load(FPSTR(AUX_mqtt_setting))) {
-    AutoConnectAux* setting = portal.aux(AUX_SETTING_URI);
-    PageArgument  args;
-    loadParams(*setting, args);
-    AutoConnectCheckbox&  uniqueidElm = setting->getElement<AutoConnectCheckbox>("uniqueid");
-    AutoConnectInput&     hostnameElm = setting->getElement<AutoConnectInput>("hostname");
+    AutoConnectAux* mqtt_setting = portal.aux(AUX_SETTING_URI);
+    AutoConnectCheckbox&  uniqueidElm = mqtt_setting->getElement<AutoConnectCheckbox>("uniqueid");
+    AutoConnectInput&     hostnameElm = mqtt_setting->getElement<AutoConnectInput>("hostname");
     if (uniqueidElm.checked) {
       config.apid = String("ESP") + "-" + String(GET_CHIPID(), HEX);
       Serial.println("apid set to " + config.apid);
