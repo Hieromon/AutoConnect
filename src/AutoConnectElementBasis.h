@@ -131,7 +131,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
   const String& at(const std::size_t n) const { return _values.at(n); }
   void  check(const String& value);
   void  empty(const size_t reserve = 0);
-  const String& value(void) { return checked ? _values.at(checked - 1) : String(""); }
+  const String& value(void) const;
 
   String      label;    /**< A label for a subsequent radio buttons */
   ACArrange_t order;    /**< layout order */
