@@ -17,12 +17,6 @@
 #include <time.h>
 #include <AutoConnect.h>
 
-#if defined(ARDUINO_ARCH_ESP8266)
-ESP8266WebServer Server;
-#elif defined(ARDUINO_ARCH_ESP32)
-WebServer Server;
-#endif
-
 static const char AUX_TIMEZONE[] PROGMEM = R"(
 {
   "title": "TimeZone",
@@ -88,6 +82,12 @@ static const Timezone_t TZ[] = {
   { "Pacific/Honolulu", "north-america.pool.ntp.org", -10 },
   { "Pacific/Samoa", "oceania.pool.ntp.org", -11 }
 };
+
+#if defined(ARDUINO_ARCH_ESP8266)
+ESP8266WebServer Server;
+#elif defined(ARDUINO_ARCH_ESP32)
+WebServer Server;
+#endif
 
 AutoConnect       Portal(Server);
 AutoConnectConfig Config;       // Enable autoReconnect supported on v0.9.4
@@ -178,4 +178,3 @@ void setup() {
 void loop() {
   Portal.handleClient();
 }
-
