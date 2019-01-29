@@ -742,7 +742,6 @@ String AutoConnect::_induceConnect(PageArgument& args) {
  *  A destination as _redirectURI is indicated by loop to establish connection.
  */
 String AutoConnect::_invokeResult(PageArgument& args) {
-  AC_DBG("_invokeResult entered\n");
   String redirect = String(F("http://"));
   // The host address to which the connection result for ESP32 responds
   // changed from v0.9.7. This change is a measure according to the
