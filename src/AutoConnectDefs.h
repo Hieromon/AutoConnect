@@ -123,7 +123,7 @@
 
 // Reserved buffer size to build content
 #ifndef AUTOCONNECT_CONTENTBUFFER_SIZE
-#define AUTOCONNECT_CONTENTBUFFER_SIZE  10240
+#define AUTOCONNECT_CONTENTBUFFER_SIZE  0
 #endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
 
 // Explicitly avoiding unused warning with token handler of PageBuilder
