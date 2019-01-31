@@ -283,7 +283,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   AutoConnectRadio& period = mqtt_setting->getElement<AutoConnectRadio>("period");
   updateInterval = period.value().substring(0, 2).toInt() * 1000;
 
-  String uniqueid = mqtt_setting->getElement<AutoConnectInput>("uniqueid").value;
+  bool uniqueid = mqtt_setting->getElement<AutoConnectCheckbox>("uniqueid").checked;
 
   AutoConnectInput& hostname = mqtt_setting->getElement<AutoConnectInput>("hostname");
   hostName = hostname.value;
@@ -305,7 +305,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   echo.value += "User Key: " + userKey + "<br>";
   echo.value += "API Key: " + apiKey + "<br>";
   echo.value += "Update period: " + String(updateInterval / 1000) + " sec.<br>";
-  echo.value += "Use APID unique: " + uniqueid + "<br>";
+  echo.value += "Use APID unique: " + String(uniqueid == true ? "true" : "false") + "<br>";
   echo.value += "ESP host name: " + hostName + "<br>";
 
   return String();
