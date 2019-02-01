@@ -11,7 +11,7 @@ Representative HTML elements for making the custom Web page are provided as Auto
 - [AutoConnectSubmit](#autoconnectsubmit): Submit button
 - [AutoConnectText](#autoconnecttext): Style attributed text
 
-## Layout on custom Web page
+## Layout on a custom Web page
 
 You can specify the direction to arrange the radio buttons as [**AutoConnectRadio**](#autoconnectradio) vertically or horizontally. Other elements are arranged vertically in the order of addition to AutoConnectAux. This basic layout depends on the CSS of the AutoConnect menu so it can not be changed drastically.
 
@@ -325,7 +325,7 @@ A `style` specifies the qualification style to give to the content and can use t
 
 ### <i class="fa fa-edit"></i> Declaration for the elements in Sketches
 
-Variables of each element can be declared with macros. By using the macros, you can treat element name that is String type as variable in sketches.[^2]
+Variables of each AutoConnetElement can be declared with macros. By using the macros, you can treat element name that is String type as variable in sketches.[^2]
 
 [^2]: The square brackets in the syntax are optional parameters, the stroke is a selection parameter, the bold fonts are literal.
 

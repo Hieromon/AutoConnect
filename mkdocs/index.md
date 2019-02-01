@@ -89,12 +89,12 @@ To install the PageBuilder library into your Arduino IDE, you can use the *Libra
 
 [^1]:Since AutoConnect v0.9.7, PageBuilder v1.3.0 later is required.
 
-<i class="fa fa-download"></i> <strong>Optional required library</strong>
+<i class="fa fa-download"></i> <strong>Another library (optional)</strong>
 
-The [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library is necessary to be able to process the *AutoConnectElement* with JSON description. Since AutoConnect v0.9.7, you can insert user owned screens that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT to the AutoConnect menu. These HTML elements can also be added from user sketches using the AutoConnect API, but they can be easily loaded JSON description stored in PROGMEM, SPIFFS or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this function.
+The [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library is necessary to be able to process the [**custom Web Pages**](acintro.md) with JSON description. Since AutoConnect v0.9.7, you can insert user owned screens that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT to the AutoConnect menu. These HTML elements can be added from the user sketch using the AutoConnect API, and you can also easily import the custom Web page declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this feature.
 
-!!! info "ArduinoJson version 6 is still in beta"
-    The Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
+!!! info "AutoConnect supports ArduinoJson version 5 only"
+    And ArduinoJson version 6 is still in beta. The Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
 
 ### Install the AutoConnect
 

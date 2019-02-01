@@ -468,5 +468,7 @@ The transition of the custom Web page follows the URI of the page, but the ESP82
 
     During the connection attempt, the web browser on the client will send a probe for a captive portal. Its request will cause unintended custom Web page transitions.
 
+- Can not place URI of the custom Web pages to [AUTOCONNECT_URI](https://).
+
 !!! hint "302 Redirect Alternatives"
     To transition from a custom Web page to a sketch owned page, execute the link function of JavaScript with the AutoConnectElement element.

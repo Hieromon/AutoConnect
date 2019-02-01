@@ -279,7 +279,6 @@ Register the handler function for undefined URL request detected.
 AutoConenctAux* where(void)
 ```
 Returns a pointer to the AutoConnectAux object of the custom web page that caused the request to that page. This function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/ESP32. In other words, this function only returns the last AutoConnecAux page called.
-
 <dl class="apidl">
     <dt>**Retuen value**</dt>
     <dd>A pointer to the AutoConnectAux that caused the request the page.</dd>
