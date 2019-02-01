@@ -263,6 +263,8 @@ class AutoConnect {
   AutoConnectConfig     _apConfig;
   struct station_config _credential;
   uint8_t       _hiddenSSIDCount;
+  int16_t       _scanCount;
+  uint8_t       _connectCh;
   unsigned long _connectTimeout;
   unsigned long _portalAccessPeriod;
 

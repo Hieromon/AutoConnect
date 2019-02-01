@@ -53,6 +53,7 @@ void AutoConnect::_initialize() {
   _currentPageElement = nullptr;
   _menuTitle = String(F(AUTOCONNECT_MENU_TITLE));
   _connectTimeout = AUTOCONNECT_TIMEOUT;
+  _scanCount = 0;
   memset(&_credential, 0x00, sizeof(struct station_config));
 #ifdef ARDUINO_ARCH_ESP32
   _disconnectEventId = -1;  // The member available for ESP32 only
@@ -95,10 +96,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   _connectTimeout = timeout;
 
   // Start WiFi connection with station mode.
-#if defined(ARDUINO_ARCH_ESP32)
-  WiFi.softAPdisconnect(false);
-#endif
-  WiFi.enableAP(false);
+  WiFi.softAPdisconnect(true);
   WiFi.mode(WIFI_STA);
   delay(100);
 
@@ -446,8 +444,9 @@ void AutoConnect::handleRequest() {
       _disconnectWiFi(true);
 
     // An attempt to establish a new AP.
-    AC_DBG("Request for %s\n", reinterpret_cast<const char*>(_credential.ssid));
-    WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), reinterpret_cast<const char*>(_credential.password), _apConfig.channel);
+    int32_t ch = _connectCh == 0 ? _apConfig.channel : _connectCh;
+    AC_DBG("Request(%d) for %s\n", (int)ch, reinterpret_cast<const char*>(_credential.ssid));
+    WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), reinterpret_cast<const char*>(_credential.password), ch);
     if (_waitForConnect(_connectTimeout) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
@@ -491,7 +490,7 @@ void AutoConnect::handleRequest() {
 
   if (_rfDisconnect) {
     // Disconnect from the current AP.
-    _waitForEndTransmission();
+//    _waitForEndTransmission();
     _stopPortal();
     _disconnectWiFi(false);
     while (WiFi.status() == WL_CONNECTED) {
@@ -704,6 +703,16 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     // Credential had by the post parameter.
     strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(AUTOCONNECT_PARAMID_SSID).c_str(), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), args.arg(AUTOCONNECT_PARAMID_PASS).c_str(), sizeof(_credential.password));
+  }
+
+  // Determine the connection channel based on the scan result.
+  _connectCh = 0;
+  for (uint8_t nn = 0; nn < _scanCount; nn++) {
+    String  ssid = WiFi.SSID(nn);
+    if (!strcmp(ssid.c_str(), reinterpret_cast<const char*>(_credential.ssid))) {
+      _connectCh = WiFi.channel(nn);
+      break;
+    }
   }
 
   // Turn on the trigger to start WiFi.begin().

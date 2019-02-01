@@ -40,8 +40,9 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
   "}"
   ".base-panel>*>label{"
     "display:inline-block;"
-    "width:3.0em;"
-    "text-align:right;"
+    "font-size:0.9em;"
+    "margin-left:10px;"
+    "text-align:left;"
   "}"
   "input{"
     "-moz-appearance:none;"
@@ -119,10 +120,10 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
 const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
   ".img-lock{"
     "display:inline-block;"
-    "width:24px;"
-    "height:24px;"
-    "margin-left:12px;"
-    "vertical-align:middle;"
+    "width:22px;"
+    "height:22px;"
+    "margin-top:14px;"
+    "float:right;"
     "background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAB1ElEQVRIibWVu0scURTGf3d2drBQFAWbbRQVCwuVLIZdi2gnWIiF/4GtKyuJGAJh8mgTcU0T8T8ICC6kiIVu44gvtFEQQWwsbExQJGHXmZtiZsOyzCN3Vz+4cDjfvec7j7l3QAF95onRZ54YKmdE1IbnS0c9mnAyAjkBxDy3LRHrjtRyu7OD52HntTAyvbw/HxP2hkCearrRb2WSCSuTTGi60S+QpzFhbwznDl/VVMHw0sF7hEjFbW2qkB38lfp8nNDipWcATil+uDM3cDWyeNRSijnfkHJnezb5Vkkgvbg3IOXD2e1ts93S+icnkZOAVaalZK3YQMa4L+pC6L1WduhYSeCf0PLBdxzOjZ93Lwvm6APAiLmlF1ubPiHotmaS41ExQjH0ZbfNM1NAFpgD0lVcICIrANqAVaAd+AFIYAy4BqaBG+Wsq5AH3vgk8xpYrzf4KLAZwhe8PYEIvQe4vc6H8Hnc2dQs0AFchvAXQGdEDF8s4A5TZS34BQqqQNaS1WMI3KD4WUbNoBJfce9CO7BSr4BfBe8A21vmUwh0VdjdTyHwscL+UK+AHxoD7FDoAX6/Cnpxn4ay/egCjcCL/w1chkqLakLQ/6ABhT57uAd+Vzv/Ara3iY6fK4WxAAAAAElFTkSuQmCC) no-repeat;"
   "}"
 };
@@ -141,7 +142,7 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
   "input[type=\"button\"]{"
     "background-color:#1b5e20;"
     "border-color:#1b5e20;"
-    "width:16em;"
+    "width:15em;"
   "}"
   ".aux-page input[type=\"button\"]{"
     "font-weight:normal;"
@@ -514,7 +515,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
       "<ul class=\"luxbar-navigation\">"
         "<li class=\"luxbar-header\">"
           "<a href=\"" AUTOCONNECT_URI "\" class=\"luxbar-brand\">MENU_TITLE</a>"
-          "<label class=\"luxbar-hamburger luxbar-hamburger-doublespin\" id=\"luxbar-hamburger\" for=\"luxbar-checkbox\"><span></span></label>"
+          "<label class=\"luxbar-hamburger luxbar-hamburger-doublespin\" id=\"luxbar-hamburger\" for=\"luxbar-checkbox\"></label>"
         "</li>"
         "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">Configure new AP</a></li>"
         "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
@@ -1097,13 +1098,13 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   String ssidList = String("");
   _hiddenSSIDCount = 0;
   WiFi.scanDelete();
-  int8_t nn = WiFi.scanNetworks(false, true);
-  AC_DBG("%d network(s) found\n", (int)nn);
-  for (uint8_t i = 0; i < nn; i++) {
+  _scanCount = WiFi.scanNetworks(false, true);
+  AC_DBG("%d network(s) found\n", (int)_scanCount);
+  for (uint8_t i = 0; i < _scanCount; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
       ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String("\">");
-      ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;</label>"));
+      ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
       if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
         ssidList += String(F("<span class=\"img-lock\"></span>"));
       ssidList += String(F("<br>"));
@@ -1125,12 +1126,11 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   struct station_config entry;
   String ssidList;
   String rssiSym;
-  int16_t wn;
 
   uint8_t creEntries = credit.entries();
   if (creEntries > 0) {
     ssidList = String("");
-    wn = WiFi.scanNetworks(false, true);
+    _scanCount = WiFi.scanNetworks(false, true);
   }
   else
     ssidList = String(F("<p><b>No saved credentials.</b></p>"));
@@ -1140,9 +1140,10 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     AC_DBG("A credential #%d loaded\n", (int)i);
     ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label>"));
     rssiSym = String(F("N/A</label>"));
-    for (int8_t sc = 0; sc < wn; sc++) {
+    for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
       if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config::bssid))) {
-        rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;</label>"));
+        _connectCh = WiFi.channel(sc);
+        rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;&ensp;Ch.")) + String(_connectCh) + String(F("</label>"));
         if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
           rssiSym += String(F("<span class=\"img-lock\"></span>"));
         break;
