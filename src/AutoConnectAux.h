@@ -61,7 +61,7 @@ class AutoConnectAux : public PageBuilder {
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
-  void  setTitle(const String title) { _title = title; }                /**< Set a title of the auxiliary page */
+  void  setTitle(const String& title) { _title = title; }                /**< Set a title of the auxiliary page */
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
 
 #ifdef AUTOCONNECT_USE_JSON
