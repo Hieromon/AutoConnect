@@ -21,8 +21,8 @@ nav:
     - 'Handling the custom Web pages' : achandling.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
-    - 'AutoConnectConfig API': apiconfig.md
     - 'AutoConnectAux API': apiaux.md
+    - 'AutoConnectConfig API': apiconfig.md
     - 'AutoConnectElements API': apielements.md
     - 'Something extra': apiextra.md
   - 'Examples' : examples.md

@@ -1,6 +1,6 @@
 ## AutoConnectButton
 
-## <small><i class="fa fa-code"></i> Constructor</small>
+## <i class="fa fa-code"></i> Constructor
 
 ```cpp
 AutoConnectButton()
@@ -21,9 +21,9 @@ AutoConnectButton(const char* name, const char* value, const String& action)
     <dd><span class="apidef">action</span>Native code of the action script executed when the button is clicked.</dd>
 </dl>
 
-## <small><i class="fa fa-code"></i> Public member variables</small>
+## <i class="fa fa-code"></i> Public member variables
 
-### name
+### <i class="fa fa-caret-right"></i> name
 
 The element name.
 <dl class="apidl">
@@ -31,7 +31,7 @@ The element name.
     <dd><span class="apidef" style="width:230px;">String</span></dd>
 </dl>
 
-### value
+### <i class="fa fa-caret-right"></i> value
 
 Value of the element.
 <dl class="apidl">
@@ -39,7 +39,7 @@ Value of the element.
     <dd><span class="apidef" style="width:230px;">String</span></dd>
 </dl>
 
-### action
+### <i class="fa fa-caret-right"></i> action
 
 Native code of the action script executed when the button is clicked.
 <dl class="apidl">
@@ -49,7 +49,7 @@ Native code of the action script executed when the button is clicked.
 
 ## <small><i class="fa fa-code"></i> Public member functions</small>
 
-### typeOf
+### <i class="fa fa-caret-right"></i> typeOf
 
 ```cpp
 ACElement_t typeOf(void)
@@ -62,13 +62,13 @@ Returns type of AutoConnectElement.
 
 ## AutoConnectElement
 
-## <small><i class="fa fa-code"></i> Constructor</small>
+## <i class="fa fa-code"></i> Constructor
 
 ```cpp
 AutoConnectElement()
 ```
 ```cpp
-AutoConnectElement(const char* name)
+AutoConnectElement(conSst char* name)
 ```
 ```cpp
 AutoConnectElement(const char* name, const char* value)
@@ -81,7 +81,7 @@ AutoConnectElement(const char* name, const char* value)
 
 ## <small><i class="fa fa-code"></i> Public member variables</small>
 
-### name
+### <i class="fa fa-caret-right"></i> name
 
 The element name.
 <dl class="apidl">
@@ -89,7 +89,7 @@ The element name.
     <dd><span class="apidef" style="width:230px;">String</span></dd>
 </dl>
 
-### value
+### <i class="fa fa-caret-right"></i> value
 
 Value of the element.
 <dl class="apidl">
@@ -99,7 +99,7 @@ Value of the element.
 
 ## <small><i class="fa fa-code"></i> Public member functions</small>
 
-### typeOf
+### <i class="fa fa-caret-right"></i> typeOf
 
 ```cpp
 ACElement_t typeOf(void)

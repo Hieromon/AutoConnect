@@ -38,31 +38,15 @@ AutoConnectElement(const char* name, const char* value)
 
 ### <i class="fa fa-caret-right"></i> name
 
-Each element has a name. **Name** is the String data type. To access its element in the sketches you can identify by the name. Its method is useful for loading elements in JSON. In the load function of AutoConnectElement(s) described [**later**](acjson.md), these objects are not created in advance by sketches. Therefore, access to the attribute of that element by the **name** as follows:
-
-```cpp hl_lines="4 10"
-AutoConnectAux customPage("/custom_page", "Custom page");
-const char ELEMENT_TEXT[] PROGMEM = R"(
-{
-    "name": "text1",
-    "type": "ACText",
-    "value": "Hello, world"
-}
-)";
-customPage.loadElement(ELEMENT_TEXT);
-AutoConnectText& text1 = customPage.getElement<AutoConnectText>("text1");
-text1.style = "text-align:center;color:#2f4f4f;"
-```
-
-The above example accesses the *text1* element which loaded from JSON using AutoConnectAux's [**getElement**](apiaux.md#getelement) function by name and sets the [**style**](#style) attribute.
+Each element has a name. The **name** is the String data type. You can identify each element by the name to access it with sketches. 
 
 ### <i class="fa fa-caret-right"></i> value
 
-**Value** is the source of the HTML code generated with the element and its data type is String. Characteristics of Value vary depending on the element. The value of AutoConnectElement is native HTML code. A string of value is output as HTML as it is.<br>
+The **value** is the string which is a source to generate an HTML code. Characteristics of Value vary depending on the element. The value of AutoConnectElement is native HTML code. A string of value is output as HTML as it is.
 
 ### <i class="fa fa-caret-right"></i> type
 
-**Type** indicates the type of the element and represented as the *ACElement_t* enumeration type in the sketch. Since AutoConnectElement also acts as a variant of other elements, it can be applied to handle elements collectively. At that time, the type can be referred to by the [**typeOf()**](apielements.md#typeof) function. The following example changes the font color of all [AutoConnectText](#autoconnecttext) elements of a custom Web page to gray.
+The **type** indicates the type of the element and represented as the *ACElement_t* enumeration type in the sketch. Since AutoConnectElement also acts as a variant of other elements, it can be applied to handle elements collectively. At that time, the type can be referred to by the [**typeOf()**](apielements.md#typeof) function. The following example changes the font color of all [AutoConnectText](#autoconnecttext) elements of a custom Web page to gray.
 
 ```cpp hl_lines="5"
 AutoConnectAux  customPage;
@@ -357,7 +341,7 @@ ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> 
 
 ### <i class="fa fa-edit"></i> Variant for AutoConnectElements
 
-Some AutoConnectAux APIs specify AutoConnectElement as an argument. There are also functions that returns a pointer to AutoConnectElement. In order to make these interfaces single, AutoConnectElement behaves as a variant type of other elements. Use [reinterpret_cast](https://en.cppreference.com/w/cpp/language/reinterpret_cast) to cast from a variant pointer to an Actual type pointer of AutoConnectElements.
+Some AutoConnectAux APIs specify AutoConnectElements as an argument. There are also functions that return a pointer to AutoConnectElements. AutoConnectElement behaves as a variant type of each element class to make these interfaces a single. Use [reinterpret_cast](https://en.cppreference.com/w/cpp/language/reinterpret_cast) to cast from a variant pointer to an Actual type pointer of AutoConnectElements.
 
 ```cpp
 AutoConnectAux aux;

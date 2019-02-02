@@ -444,17 +444,67 @@ POST /feels HTTP/1.1
 Host: ESP8266_IP_ADDRESS
 name1=value1&name2=value2&name3=value3
 </pre>
-ESP8266WebServer class will parse the query string and rebuilds its arguments when the above request arrives. In the sketches as a handler, you can reach it using with the [ESP8266WebServer::arg](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments) function. The `arg`'s argument specifies the name of the AutoConnectElements. Also, you can choose another way to access arguments without going through the ESP8266WebServer class. The [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) object of the custom Web page handler argument is a copy of the arg object of the ESP8266WebServer class. Either of these methods is a simple and easy way to access parameters in custom Web page handlers. However, if you need to access from outside of the handler to the value of AutoConnectElements, you need to accomplish it using with the [AutoConnectAux::getElement](#get-autoconnectelement-from-the-autoconnectaux) function.
+ESP8266WebServer class will parse the query string and rebuilds its arguments when the above request arrives. A custom page handler registered with the [ESP8266WebServer::on](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers) function can access the value of AutoConnectElements with [ESP8266WebServe::arg](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments) function. It reaches the values of AutoConnectElements without the intermediation of AutoConnect. Therefore, its handler will not be AutoConnectAux and can send a response to the client directly. The following example is part of a server sketch which has two web pages. The `/hello` page is a custom Web page of AutoConnectAux which has an input box named "input1". Another `/echo` page is a page handler for ESP8266WebServer, which uses the [ESP8266WebServer::send](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#sending-responses-to-the-client) function to echo back the value of an input1 as an http response.
 
-### <i class="fa fa-desktop"></i> Overtyping ​​with LoadElement function
+```cpp hl_lines="3 8"
+ESP8266WebServer server;
+AutoConnect      portal(server);
+ACInput(input1, "", "INPUT");
+ACSubmit(send, "HELLO", "/echo");
+AutoConnectAux  aux("/hello", { input1, send });
+
+server.on("/echo", []() {
+  String echo = server.arg("input1");
+  Serial.println(echo);
+  server.send(200, "text/plain", echo);
+});
+
+portal.join(aux);
+portal.begin();
+```
+
+Also, you can choose another way to access arguments without going through the ESP8266WebServer class. The [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) object of the custom Web page handler argument is a copy of the arg object of the ESP8266WebServer class. Either of these methods is a simple and easy way to access parameters in custom Web page handlers. However, if you need to access from outside of the handler to the value of AutoConnectElements, you need to accomplish it using with the [AutoConnectAux::getElement](#get-autoconnectelement-from-the-autoconnectaux) function. The following sketch code replaces the above example with JSON and PageArgument, and its behaves is equivalent basically to the above sketch.
+
+```cpp
+const static char auxPage[] PROGMEM = R"raw (
+[
+  { "title":"Hello", "uri":"/hello", "menu":true, "element":[
+    { "name":"input1", "type": "ACInput", "label": "INPUT" },
+    { "name":"send", "type":"ACSubmit", "value":"HELLO", "uri":"/echo" }]
+  },
+  { "title":"Echo", "uri":"/echo", "menu":false, "element":[
+    { "name":"echo", "type":"ACText" }]
+  }
+]
+)raw";
+
+AutoConnect portal;
+
+portal.load(auxPage);
+portal.on("/echo", [](AutoConnectAux& aux, PageArgument& args) {
+  AutoConnectText& ac_echo = aux.getElement<AutoConnectText>("echo");
+  ac_echo.value = args.arg("input1");
+  return String();  
+});
+
+portal.begin();
+```
+
+### <i class="fa fa-desktop"></i> Over typing ​​with LoadElement function
 
 The [AutoConnectAux::loadElement](apiaux.md#loadelement) function overwrites its value when loading an AutoConnectElement. If the loadElement function wields an element with an input value, the previous value will be lost by the loaded value. If you need to preserve input values ​​even during page transition operations, we recommend that you load parameters only once at an early stage in the `setup()` of sketches.
 
 ## Transitions of the custom Web pages
 
+### The URI of the custom Web pages
+
+The transition of the custom Web page follows the URI of the page, but the ESP8266WebServer class does not know the URI of an AutoConnectAux page. (Registering a custom Web page does not use the *ESP8266WebServer::on*/*WebServer::on* function.) Therefore ESP8266WebServer class does not detect its URI access. If you want to detect an http request to AutoConnectAux's custom Web page, you need to register its URI with the [AutoConnectAux::on](apiaux.md#on) function.
+
+In addition to this, there are restrictions in the handler for the custom Web page as shown in the following section.
+
 ### Restrictions
 
-The transition of the custom Web page follows the URI of the page, but the ESP8266WebServer class does not know its URI. (Registering a custom Web page does not use the *ESP8266WebServer::on*/*WebServer::on* function.) Therefore, the custom Web page handler has the following restrictions.
+The custom Web pages handler has the following restrictions.
 
 - Do not send HTTP responses from the handler.
 
@@ -466,9 +516,11 @@ The transition of the custom Web page follows the URI of the page, but the ESP82
 
 - Can not handle the custom Web pages during a connection is not established yet.
 
-    During the connection attempt, the web browser on the client will send a probe for a captive portal. Its request will cause unintended custom Web page transitions.
+    During the connection attempt, the web browser of the client will send a probe for a captive portal. Its request will cause unintended custom Web page transitions.
 
-- Can not place URI of the custom Web pages to [AUTOCONNECT_URI](https://).
+- Can not place URI of the custom Web pages to AUTOCONNECT_URI].
+
+    AutoConnect will not work if you place a custom Web page to [AUTOCONNECT_URI](api.md#defined-macros).
 
 !!! hint "302 Redirect Alternatives"
     To transition from a custom Web page to a sketch owned page, execute the link function of JavaScript with the AutoConnectElement element.
