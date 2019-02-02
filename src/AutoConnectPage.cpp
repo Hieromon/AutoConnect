@@ -40,6 +40,11 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
   "}"
   ".base-panel>*>label{"
     "display:inline-block;"
+    "width:3.0em;"
+    "text-align:right;"
+  "}"
+  ".base-panel>*>label.slist{"
+    "width:auto;"
     "font-size:0.9em;"
     "margin-left:10px;"
     "text-align:left;"
@@ -151,14 +156,14 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
     "width:auto;"
   "}"
   "input#sb[type=\"submit\"]{"
-    "width:16em;"
+    "width:15em;"
   "}"
   "input[type=\"submit\"]{"
     "background-color:#006064;"
     "border-color:#006064;"
   "}"
-  "input[type=\"button\"], input[type=\"submit\"]:focus,"
-  "input[type=\"button\"], input[type=\"submit\"]:active{"
+  "input[type=\"button\"],input[type=\"submit\"]:focus,"
+  "input[type=\"button\"],input[type=\"submit\"]:active{"
     "outline:none;"
     "text-decoration:none;"
   "}"
@@ -166,7 +171,7 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
 
 /**< INPUT text style */
 const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
-  "input[type=\"text\"], input[type=\"password\"], .aux-page select{"
+  "input[type=\"text\"],input[type=\"password\"], .aux-page select{"
     "background-color:#fff;"
     "border:1px solid #ccc;"
     "border-radius:2px;"
@@ -174,7 +179,7 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
     "margin:8px 0 8px 0;"
     "padding:10px;"
   "}"
-  "input[type=\"text\"], input[type=\"password\"]{"
+  "input[type=\"text\"],input[type=\"password\"]{"
     "font-weight:300;"
     "width:calc(100% - 124px);"
     "-webkit-transition:all 0.20s ease-in;"
@@ -515,7 +520,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
       "<ul class=\"luxbar-navigation\">"
         "<li class=\"luxbar-header\">"
           "<a href=\"" AUTOCONNECT_URI "\" class=\"luxbar-brand\">MENU_TITLE</a>"
-          "<label class=\"luxbar-hamburger luxbar-hamburger-doublespin\" id=\"luxbar-hamburger\" for=\"luxbar-checkbox\"></label>"
+          "<label class=\"luxbar-hamburger luxbar-hamburger-doublespin\" id=\"luxbar-hamburger\" for=\"luxbar-checkbox\"><span></span></label>"
         "</li>"
         "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">Configure new AP</a></li>"
         "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
@@ -1104,7 +1109,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
       ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String("\">");
-      ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
+      ssidList += String(F("<label class=\"slist\">")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
       if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
         ssidList += String(F("<span class=\"img-lock\"></span>"));
       ssidList += String(F("<br>"));
@@ -1138,7 +1143,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   for (uint8_t i = 0; i < creEntries; i++) {
     credit.load(i, &entry);
     AC_DBG("A credential #%d loaded\n", (int)i);
-    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label>"));
+    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label class=\"slist\">"));
     rssiSym = String(F("N/A</label>"));
     for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
       if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config::bssid))) {
