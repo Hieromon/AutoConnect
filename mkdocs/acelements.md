@@ -26,7 +26,7 @@ All AutoConnectElements placed on a custom Web page are included in one form. It
 AutoConnectElement is a base class for other element classes and has common attributes for all elements. It can also be used as a [variant](#variant-for-autoconnectelements) of each element. The following items are attributes that AutoConnectElement has and are common to other elements.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectElement element("element", "<hr>");`</small>
+<small>**`AutoConnectElement element("element", "<hr>");`**</small>
 
 <small>On the page:</small><br><img src="../images/acelement.png">
 
@@ -76,10 +76,10 @@ Furthermore, to convert an entity that is not an AutoConnectElement to its nativ
 
 ## AutoConnectButton
 
-AutoConnectButton generates an HTML `<button type="button">` tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an onclick attribute of HTML button tag. An onclick attribute is generated from an `action` member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.
+AutoConnectButton generates an HTML `#!html <button type="button">` tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an onclick attribute of HTML button tag. An onclick attribute is generated from an `action` member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectButton button("button", "OK", "myFunction()");`</small>
+<small>**`AutoConnectButton button("button", "OK", "myFunction()");`**</small>
 
 <small>On the page:</small><br><img src="../images/acbutton.png">
 
@@ -119,10 +119,10 @@ ACElement(TextCopy, scCopyText);
 
 ## AutoConnectCheckbox
 
-AutoConnectCheckbox generates an HTML `<input type="checkbox">` tag and a `<label>` tag. It places horizontally on a custom Web page by default.
+AutoConnectCheckbox generates an HTML `#!html <input type="checkbox">` tag and a `#!html <label>` tag. It places horizontally on a custom Web page by default.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectCheckbox checkbox("checkbox", "uniqueapid", "Use APID unique", false);`</small>
+<small>**`AutoConnectCheckbox checkbox("checkbox", "uniqueapid", "Use APID unique", false);`**</small>
 
 <small>On the page:</small><br><img src="../images/accheckbox.png">
 
@@ -138,7 +138,7 @@ It is the `name` of the AutoConnectCheckbox element and matches the name attribu
 
 ### <i class="fa fa-caret-right"></i> value
 
-It becomes a value of the `value` attribute of an HTML `<input type="checkbox">` tag.
+It becomes a value of the `value` attribute of an HTML `#!html <input type="checkbox">` tag.
 
 ### <i class="fa fa-caret-right"></i> label
 
@@ -151,10 +151,10 @@ A checked is a Boolean value and indicates the checked status of the checkbox. T
 
 ## AutoConnectInput
 
-AutoConnectInput generates an HTML `<input type="text">` tag and a `<label>` tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the sketches.
+AutoConnectInput generates an HTML `#!html <input type="text">` tag and a `#!html <label>` tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the sketches.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectInput input("input", "", "Server", "MQTT broker server");`</small>
+<small>**`AutoConnectInput input("input", "", "Server", "MQTT broker server");`**</small>
 
 <small>On the page:</small><br><img src="../images/acinput.png">
 
@@ -170,11 +170,11 @@ It is the `name` of the AutoConnectInput element and matches the name attribute,
 
 ### <i class="fa fa-caret-right"></i> value
 
-It becomes a string value of the `value` attribute of an HTML `<input type="text">` tag. The text entered from the custom Web page will be grouped in the query string of the form submission and the string set before accessing the page will be displayed as the initial value.
+It becomes a string value of the `value` attribute of an HTML `#!html <input type="text">` tag. The text entered from the custom Web page will be grouped in the query string of the form submission and the string set before accessing the page will be displayed as the initial value.
 
 ### <i class="fa fa-caret-right"></i> label
 
-A `label` is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `<label>` tag with an id attribute. The input box and the label are connected by the id attribute.
+A `label` is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The input box and the label are connected by the id attribute.
 
 ### <i class="fa fa-caret-right"></i> placeholder
 
@@ -182,10 +182,10 @@ A placeholder is an option string. Specification of a placeholder will generate 
 
 ## AutoConnectRadio
 
-AutoConnectRadio generates few HTML `<input type="radio">` tags as grouped and the same number of `<label>` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.
+AutoConnectRadio generates few HTML `#!html <input type="radio">` tags as grouped and the same number of `#!html <label>` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);`</small>
+<small>**`AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);`**</small>
 
 <small>On the page:</small><br><img src="../images/acradio.png">
 
@@ -205,7 +205,7 @@ A `values` is an array of String type for the radio button options which as actu
 
 ### <i class="fa fa-caret-right"></i> label
 
-A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the `order`. Specification of a label will generate an HTML `<label>` tag with an `id` attribute. The radio buttons and the label are connected by the id attribute.
+A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the **order**. Specification of a label will generate an HTML `#!html <label>` tag with an `id` attribute. The radio buttons and the label are connected by the id attribute.
 
 ### <i class="fa fa-caret-right"></i> order
 
@@ -214,18 +214,18 @@ A `order` specifies the direction to arrange the radio buttons. It is a value of
 - **`AC_Horizontal`** : Horizontal arrangement.
 - **`AC_Vertical`** : Vertical arrangement.
 
-A label is placed in the left or the top according to `order`.
+A label will place in the left or the top according to the **order**.
 
 ### <i class="fa fa-caret-right"></i> checked
 
-A `checked` specifies the index number (1-based) of `values` to be checked. If this parameter is not specified neither item is checked.
+A `checked` specifies the index number (1-based) of the **values** to be checked. If this parameter is not specified neither item is checked.
 
 ## AutoConnectSelect
 
-AutoConnectSelect generates an HTML `<select>` tag (drop-down list) and few `<option>` tags.
+AutoConnectSelect generates an HTML `#!html <select>` tag (drop-down list) and few `#!html <option>` tags.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectSelect select("select", { String("Europe/London"), String("Europe/Berlin"), String("Europe/Helsinki"), String("Europe/Moscow"), String("Asia/Dubai") }, "Select TZ name");`</small>
+<small>**`AutoConnectSelect select("select", { String("Europe/London"), String("Europe/Berlin"), String("Europe/Helsinki"), String("Europe/Moscow"), String("Asia/Dubai") }, "Select TZ name");`**</small>
 
 <small>On the page:</small><br><img src="../images/acselect.png">
 
@@ -241,18 +241,18 @@ It is the `name` of the AutoConnectSelect element and matches the name attribute
 
 ### <i class="fa fa-caret-right"></i> options
 
-An `options` is an array of String type for the options which as actually [std::vector](https://en.cppreference.com/w/cpp/container/vector) for an HTML `<option>` tag. It is an initialization list can be used. The option tags will be generated from each entry in the options, the amount of which is the same as the number of items in an `options`.
+An `options` is an array of String type for the options which as actually [std::vector](https://en.cppreference.com/w/cpp/container/vector) for an HTML `#!html <option>` tag. It is an initialization list can be used. The option tags will be generated from each entry in the options, the amount of which is the same as the number of items in an `options`.
 
 ### <i class="fa fa-caret-right"></i> label
 
-A `label` is an optional string. A label is always arranged on the left side of the drop-down list. Specification of a label will generate an HTML `<label>` tag with an id attribute. The select tag and the label are connected by the id attribute.
+A `label` is an optional string. A label is always arranged on the left side of the drop-down list. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The select tag and the label are connected by the id attribute.
 
 ## AutoConnectSubmit
 
-AutoConnectSubmit generates an HTML `<input type="button">` tag attached `onclick` attribute. The native code of the `onclick` attribute is the submission of the form with the **POST** method.
+AutoConnectSubmit generates an HTML `#!html <input type="button">` tag attached `#!html onclick` attribute. The native code of the `#!html onclick` attribute is the submission of the form with the **POST** method.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectSubmit submit("submit", "Save", "/mqtt_save");`</small>
+<small>**`AutoConnectSubmit submit("submit", "Save", "/mqtt_save");`**</small>
 
 <small>On the page:</small><br><img src="../images/acsubmit.png">
 
@@ -268,7 +268,7 @@ It is the `name` of the AutoConnectSubmit element and matches the name attribute
 
 ### <i class="fa fa-caret-right"></i> value
 
-It becomes a string of the `value` attribute of an HTML `<input type="button">` tag. The `value` will be displayed as a label of the button.
+It becomes a string of the `value` attribute of an HTML `#!html <input type="button">` tag. The `value` will be displayed as a label of the button.
 
 ### <i class="fa fa-caret-right"></i> uri
 
@@ -280,10 +280,10 @@ The query string of the form data sent with AutoConnectSubmit contains the URI o
 
 ## AutoConnectText
 
-AutoConnectText generates an HTML `<div>` tag. A `style` attribute will be attached if a [style](#style) parameter is passed.
+AutoConnectText generates an HTML `#!html <div>` tag. A `#!html style` attribute will be attached if a [style](#style) parameter is passed.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");`</small>
+<small>**`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");`**</small>
 
 <small>On the page:</small><br><img src="../images/actext.png">
 

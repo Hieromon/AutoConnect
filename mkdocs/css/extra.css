@@ -1,0 +1,9 @@
+pre { color: white !important; }
+
+.md-clipboard:before {
+    color: rgb(100, 100, 100);
+}
+
+.codehilite:hover .md-clipboard:before,.md-typeset .highlight:hover .md-clipboard:before,pre:hover .md-clipboard:before {
+    color: rgba(255, 255, 255, 0.54) !important
+}

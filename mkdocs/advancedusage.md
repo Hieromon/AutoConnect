@@ -22,6 +22,9 @@ Portal.begin();
 
 An autoReconnect option is available to *AutoConnect::begin* without SSID and pass passphrase.
 
+!!! caution "An autoReconnect will work if SSID detection succeeded"
+    An autoReconnect will not effect if the SSID which stored credential to be connected is a hidden access point.
+
 ### <i class="fa fa-caret-right"></i> Auto save Credential
 
 By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the [**autoSave**](api.md#autosave) parameter specified by [**AutoConnectConfig**](api.md#autoconnectconfig).
