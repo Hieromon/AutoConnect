@@ -184,3 +184,30 @@ It consumes about 2K bytes in the static and about 12K bytes are consumed at the
 ## <i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.
 
 Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.
+
+## <i class="fa fa-question-circle"></i> AutoConnect behavior is not stable with my sketch.
+
+If AutoConnect behavior is not stable with your sketch, you can try the following measures.
+
+### 1. Change WiFi channel
+
+Both ESP8266 and ESP32 can only work on one channel at any given moment, this will cause loss of connection on the channel where your station operates the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of AutoConnect connection attempt remains displayed.
+
+### 2. Change arduino core version
+
+I recommend change installed an arduino core version to the upstream when your sketch is not stable with AutoConnect on each board.
+
+#### with ESP8266 arduino core
+
+To stabilize the behavior, changing the [lwIP](http://lwip.wikia.com/wiki/LwIP_Wiki) variant will contribute. Lower memory option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.
+
+You can select from **Tool** menu of Ardino IDE with `lwIP v2 Lower Memory` option when compiling with esp8266 arduino core 2.5.0 upstream (not `lwIP v2 Lower Memory (no features)`). It is expected to improve response performance and stability.
+
+#### with ESP32 arduino core
+
+
+### 3. Turn on the debug log options
+
+
+### 4. Reports the issue to AutoConnect repository on Github
+
