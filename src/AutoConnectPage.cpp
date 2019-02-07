@@ -288,7 +288,7 @@ const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
     "width:100%;"
     "height:100%;"
     "border-radius:50%;"
-    "background-color:#333;"
+    "background-color:#a2d9cd;"
     "opacity:0.6;"
     "position:absolute;"
     "top:0;"
@@ -1171,7 +1171,7 @@ String AutoConnect::_token_BOOTURI(PageArgument& args) {
   else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
     return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
   else
-    return String("");
+    return _emptyString;
 }
 
 String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {

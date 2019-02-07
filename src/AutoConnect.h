@@ -342,6 +342,9 @@ class AutoConnect {
   String _token_BOOTURI(PageArgument& args);
   String _token_CURRENT_SSID(PageArgument& args);
 
+ private:
+  static const  String  _emptyString; /**< An empty string alloaction  **/
+
 #if defined(ARDUINO_ARCH_ESP8266)
   friend class ESP8266WebServer;
 #elif defined(ARDUINO_ARCH_ESP32)

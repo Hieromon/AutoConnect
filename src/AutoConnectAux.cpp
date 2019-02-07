@@ -691,6 +691,7 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
 
   switch (_asElementType(type)) {
   case AC_Element:
+  case AC_Unknown:
     elm = new AutoConnectElement;
     break;
   case AC_Button: {

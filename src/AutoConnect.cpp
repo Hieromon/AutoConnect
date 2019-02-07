@@ -195,7 +195,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         } while (WiFi.softAPIP() != _apConfig.apip);
       }
       _currentHostIP = WiFi.softAPIP();
-      AC_DBG("SoftAP %s/%s CH(%d) H(%d) IP:%s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden, _currentHostIP.toString().c_str());
+      AC_DBG("SoftAP %s/%s Ch(%d) IP:%s %s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _currentHostIP.toString().c_str(), _apConfig.hidden ? "hidden" : "");
 
       // Fork to the exit routine that starts captive portal.
       cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
@@ -445,7 +445,7 @@ void AutoConnect::handleRequest() {
 
     // An attempt to establish a new AP.
     int32_t ch = _connectCh == 0 ? _apConfig.channel : _connectCh;
-    AC_DBG("Request(%d) for %s\n", (int)ch, reinterpret_cast<const char*>(_credential.ssid));
+    AC_DBG("Attempt:%s Ch(%d)\n", reinterpret_cast<const char*>(_credential.ssid), (int)ch);
     WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), reinterpret_cast<const char*>(_credential.password), ch);
     if (_waitForConnect(_connectTimeout) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
@@ -677,7 +677,7 @@ String AutoConnect::_induceReset(PageArgument& args) {
  */
 String AutoConnect::_induceDisconnect(PageArgument& args) {
   _rfDisconnect = true;
-  return String("");
+  return _emptyString;
 }
 
 /**
@@ -690,19 +690,20 @@ String AutoConnect::_induceDisconnect(PageArgument& args) {
  */
 String AutoConnect::_induceConnect(PageArgument& args) {
   // Retrieve credential from the post method content.
-  if (args.hasArg(AUTOCONNECT_PARAMID_CRED)) {
+  if (args.hasArg(String(F(AUTOCONNECT_PARAMID_CRED)))) {
     // Read from EEPROM
     AutoConnectCredential credential(_apConfig.boundaryOffset);
     struct station_config entry;
-    credential.load(args.arg(AUTOCONNECT_PARAMID_CRED).c_str(), &entry);
+    credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &entry);
     strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));
     AC_DBG("Credential loaded:%s\n", _credential.ssid);
   }
   else {
+    AC_DBG("Queried SSID:%s\n", args.arg(AUTOCONNECT_PARAMID_SSID).c_str());
     // Credential had by the post parameter.
-    strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(AUTOCONNECT_PARAMID_SSID).c_str(), sizeof(_credential.ssid));
-    strncpy(reinterpret_cast<char*>(_credential.password), args.arg(AUTOCONNECT_PARAMID_PASS).c_str(), sizeof(_credential.password));
+    strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(String(F(AUTOCONNECT_PARAMID_SSID))).c_str(), sizeof(_credential.ssid));
+    strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_PASS))).c_str(), sizeof(_credential.password));
   }
 
   // Determine the connection channel based on the scan result.
@@ -743,7 +744,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   // _webServer->client().flush();
   // _webServer->client().stop();
   // _responsePage->cancel();
-  return String("");
+  return _emptyString;
 }
 
 /**
@@ -771,7 +772,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
   _webServer->client().stop();
   _waitForEndTransmission();  // Wait for response transmission complete
   _responsePage->cancel();
-  return String("");
+  return _emptyString;
 }
 
 /**
@@ -790,7 +791,7 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   // If the current request argument contains AutoConnectElement, it is
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
-  if (_webServer->hasArg(AUTOCONNECT_AUXURI_PARAM)) {
+  if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
     _auxUri = _webServer->arg(AUTOCONNECT_AUXURI_PARAM);
     _auxUri.replace("&#47;", "/");
     AutoConnectAux* aux = _aux.get();
@@ -980,3 +981,8 @@ void AutoConnect::_disconnectWiFi(bool wifiOff) {
     yield();
   }
 }
+
+/**
+ *  Initialize an empty string to allow returning const String& with nothing.
+ */
+const String AutoConnect::_emptyString = String("");
