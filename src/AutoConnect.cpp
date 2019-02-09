@@ -601,7 +601,7 @@ bool AutoConnect::_captivePortal() {
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString())) {
     String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
     _webServer->sendHeader(String(F("Location")), location, true);
-    _webServer->send(302, String(F("text/plain")), "");
+    _webServer->send(302, String(F("text/plain")), _emptyString);
     _webServer->client().flush();
     _webServer->client().stop();
     return true;
@@ -767,7 +767,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
 #endif
   redirect += _redirectURI;
   _webServer->sendHeader(String(F("Location")), redirect, true);
-  _webServer->send(302, String(F("text/plain")), "");
+  _webServer->send(302, String(F("text/plain")), _emptyString);
   _webServer->client().flush();
   _webServer->client().stop();
   _waitForEndTransmission();  // Wait for response transmission complete

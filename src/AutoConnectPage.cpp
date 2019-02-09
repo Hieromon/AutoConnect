@@ -288,7 +288,7 @@ const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
     "width:100%;"
     "height:100%;"
     "border-radius:50%;"
-    "background-color:#a2d9cd;"
+    "background-color:#a3cccc;"
     "opacity:0.6;"
     "position:absolute;"
     "top:0;"
@@ -717,17 +717,12 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
 const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
   "{{REQ}}"
   "{{HEAD}}"
-    "<meta http-equiv=\"refresh\" content=\"1;url=" AUTOCONNECT_URI_RESULT "\">"
     "<title>AutoConnect connecting</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_SPINNER}}"
       "{{CSS_LUXBAR}}"
     "</style>"
-    "<script type=\"text/javascript\">"
-      "setTimeout(\"link()\"," AUTOCONNECT_RESPONSEREQUEST_TIMEOUT ");"
-      "function link(){location.href='" AUTOCONNECT_URI_RESULT "';}"
-    "</script>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
@@ -736,9 +731,13 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
       "<div class=\"spinner\">"
         "<div class=\"double-bounce1\"></div>"
         "<div class=\"double-bounce2\"></div>"
-        "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#4169e1;\">{{CUR_SSID}}</div>"
+        "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#0b0b33;\">{{CUR_SSID}}</div>"
       "</div>"
     "</div>"
+    "<script type=\"text/javascript\">"
+      "setTimeout(\"link()\"," AUTOCONNECT_RESPONSE_WAITTIME ");"
+      "function link(){location.href='" AUTOCONNECT_URI_RESULT "';}"
+    "</script>"
   "</body>"
   "</html>"
 };
@@ -1176,7 +1175,8 @@ String AutoConnect::_token_BOOTURI(PageArgument& args) {
 
 String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  return String(reinterpret_cast<char*>(_credential.ssid));
+  String  ssid = reinterpret_cast<char*>(_credential.ssid); 
+  return ssid;
 }
 
 /**

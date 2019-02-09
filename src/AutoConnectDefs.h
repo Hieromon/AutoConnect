@@ -53,7 +53,7 @@
 #define AUTOCONNECT_AP_NM 0x00FFFFFF  //*< 255.255.255.0 */
 #endif // !AUTOCONNECT_AP_NM
 #ifndef AUTOCONNECT_AP_CH
-#define AUTOCONNECT_AP_CH 11
+#define AUTOCONNECT_AP_CH 1
 #endif // !AUTOCONNECT_AP_CH
 
 // AutoConnect menu root path
@@ -101,10 +101,10 @@
 #define AUTOCONNECT_STARTUPTIME (AUTOCONNECT_TIMEOUT/1000)
 #endif // !AUTOCONNECT_STARTUPTIME
 
-// Response wait time until requesting a result of connection attempt [s] as String
-#ifndef AUTOCONNECT_RESPONSEREQUEST_TIMEOUT
-#define AUTOCONNECT_RESPONSEREQUEST_TIMEOUT "7"
-#endif // !AUTOCONNECT_RESPONSEREQUEST_TIMEOUT
+// Response wait time until requesting a result of connection attempt, uint:[s] as String
+#ifndef AUTOCONNECT_RESPONSE_WAITTIME
+#define AUTOCONNECT_RESPONSE_WAITTIME "2"
+#endif // !AUTOCONNECT_RESPONSE_WAITTIME
 
 // Default HTTP port
 #ifndef AUTOCONNECT_HTTPPORT
