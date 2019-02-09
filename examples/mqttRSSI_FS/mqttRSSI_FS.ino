@@ -94,15 +94,7 @@ bool mqttConnect() {
 
 void mqttPublish(String msg) {
   String path = String("channels/") + channelId + String("/publish/") + apiKey;
-  int    tLen = path.length();
-  char   topic[tLen];
-  path.toCharArray(topic, tLen + 1);
-
-  int    mLen = msg.length();
-  char   payload[mLen];
-  msg.toCharArray(payload, mLen + 1);
-
-  mqttClient.publish(topic, payload);
+  mqttClient.publish(path.c_str(), msg.c_str());
 }
 
 int getStrength(uint8_t points) {
@@ -118,18 +110,14 @@ int getStrength(uint8_t points) {
 
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
-  SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "r");
   if (param) {
     aux.loadElement(param);
     param.close();
   }
-  else {
+  else
     Serial.println(PARAM_FILE " open failed");
-    Serial.println("If you get error as 'SPIFFS: mount failed, -10025', Please modify with 'SPIFFS.begin(true)'.");
-  }
-  SPIFFS.end();
-  return "";
+  return String("");
 }
 
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
@@ -156,11 +144,9 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
-  SPIFFS.begin();
   File param = SPIFFS.open(PARAM_FILE, "w");
   portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "period", "uniqueid", "hostname" });
   param.close();
-  SPIFFS.end();
 
   // Echo back saved parameters to AutoConnectAux page.
   AutoConnectText&  echo = aux.getElement<AutoConnectText>("parameters");
@@ -172,7 +158,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   echo.value += "Use APID unique: " + uniqueid + "<br>";
   echo.value += "ESP host name: " + hostName + "<br>";
 
-  return "";
+  return String("");
 }
 
 void handleRoot() {
@@ -194,12 +180,13 @@ void handleRoot() {
 // Clear channel using Thingspeak's API.
 void handleClearChannel() {
   HTTPClient  httpClient;
+  WiFiClient  client;
   String  endpoint = serverName;
   endpoint.replace("mqtt", "api");
   String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userKey;
 
   Serial.print("DELETE " + delUrl);
-  if (httpClient.begin(delUrl)) {
+  if (httpClient.begin(client, delUrl)) {
     Serial.print(":");
     int resCode = httpClient.sendRequest("DELETE");
     String  res = httpClient.getString();
@@ -236,11 +223,10 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-
   SPIFFS.begin();
+
   loadAux(AUX_MQTTSETTING);
   loadAux(AUX_MQTTSAVE);
-  SPIFFS.end();
 
   AutoConnectAux* setting = portal.aux(AUX_MQTTSETTING);
   if (setting) {
