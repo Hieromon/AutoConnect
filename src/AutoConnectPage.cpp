@@ -526,7 +526,6 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
         "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
         "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">Disconnect</a></li>"
         "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">Reset...</a></li>"
-        "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
 };
 
 const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
@@ -534,6 +533,7 @@ const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
 };
 
 const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
+        "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
       "</ul>"
     "</div>"
     "<div class=\"lap\" id=\"rdlg\"><a href=\"#reset\" class=\"overlap\"></a>"
@@ -906,7 +906,7 @@ String AutoConnect::_token_MENU_PRE(PageArgument& args) {
   AC_UNUSED(args);
   String  currentMenu = FPSTR(_ELM_MENU_PRE);
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
-  currentMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
+  // currentMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
   return currentMenu;
 }
 
@@ -919,7 +919,9 @@ String AutoConnect::_token_MENU_AUX(PageArgument& args) {
 
 String AutoConnect::_token_MENU_POST(PageArgument& args) {
   AC_UNUSED(args);
-  return String(FPSTR(_ELM_MENU_POST));
+  String  postMenu = FPSTR(_ELM_MENU_POST);
+  postMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
+  return postMenu;
 }
 
 String AutoConnect::_token_CSS_LUXBAR(PageArgument& args) {
