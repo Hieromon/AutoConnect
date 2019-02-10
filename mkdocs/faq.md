@@ -185,13 +185,13 @@ It consumes about 2K bytes in the static and about 12K bytes are consumed at the
 
 Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.
 
-## <i class="fa fa-question-circle"></i> AutoConnect behavior is not stable with my sketch.
+## <i class="fa fa-question-circle"></i> AutoConnect behaves not stable with my sketch yet.
 
 If AutoConnect behavior is not stable with your sketch, you can try the following measures.
 
 ### 1. Change WiFi channel
 
-Both ESP8266 and ESP32 can only work on one channel at any given moment, this will cause loss of connection on the channel where your station operates the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of AutoConnect connection attempt remains displayed.
+Both ESP8266 and ESP32 can only work on one channel at any given moment, this will cause loss of connection on the channel where your station operates the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case please try the [AutoConnectConfig](apiconfig.md#autoconnectconfig) to match the [channel](apiconfig.md#channel) to the access point.
 
 ### 2. Change arduino core version
 
@@ -199,15 +199,32 @@ I recommend change installed an arduino core version to the upstream when your s
 
 #### with ESP8266 arduino core
 
-To stabilize the behavior, changing the [lwIP](http://lwip.wikia.com/wiki/LwIP_Wiki) variant will contribute. Lower memory option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.
+To stabilize the behavior, You can select the [lwIP](http://lwip.wikia.com/wiki/LwIP_Wiki) variant to contribute. Lower memory option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.
 
-You can select from **Tool** menu of Ardino IDE with `lwIP v2 Lower Memory` option when compiling with esp8266 arduino core 2.5.0 upstream (not `lwIP v2 Lower Memory (no features)`). It is expected to improve response performance and stability.
+You can select the option from Arduino IDE as **Tool** menu, if you are using ESP8266 core 2.5.0. It can be select `lwIP v2 Lower Memory` option. (not `lwIP v2 Lower Memory (no features)`) It is expected to improve response performance and stability.
 
 #### with ESP32 arduino core
 
+The [arduino-esp32](https://github.com/espressif/arduino-esp32) is still under development even if it is a stable release. It is necessary to judge whether the cause of the problem is the core or AutoConnect. Trace the log with the esp32 core and the AutoConnect debug option enabled for problem diagnosis and please you check the [issue of arduino-esp32](https://github.com/espressif/arduino-esp32/issues). The problem that your sketch possesses may already have been solved.
 
 ### 3. Turn on the debug log options
 
+To fully enable for the AutoConnect debug logging options, change the following two files.
+
+- AutoConnectDefs.h
+
+```cpp
+#define AC_DEBUG
+```
+
+- PageBuilder.h [^2]
+
+```cpp
+#define PB_DEBUG
+```
+
+[^2]: `PageBuilder.h` file exists in the `libraries/PageBuilder/src` directory under your sketch folder.
 
 ### 4. Reports the issue to AutoConnect repository on Github
 
+If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information.
