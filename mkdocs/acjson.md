@@ -20,14 +20,14 @@ A JSON document for AutoConnect can also contain declarations of multiple custom
 
 An AutoConnectAux is described by a JSON object. The elements that make up an object are as follows:
 
-<pre>
+```
 {
-  "title" : <i>title</i>,
-  "uri" : <i>uri</i>,
-  "menu" : <b>true</b> | <b>false</b>,
-  "element" : <i>element_array</i>
+  "title" : title,
+  "uri" : uri,
+  "menu" : true | false,
+  "element" : element_array
 }
-</pre>
+```
 
 #### <i class="fa fa-key"></i> **title**
 : A title of the custom Web page. This is string value. String specified *title* will be displayed in the AutoConnection menu.
@@ -101,16 +101,20 @@ You can put declarations of multiple custom Web pages in one JSON document. In t
 
 ### <i class="fa fa-caret-right"></i> JSON object for AutoConnectElements
 
-A JSON object of AutoConnectElements is described by the parameters of [each constructor](acelements.md#constructor).
+AutoConnectElements in JSON description are described as an array in the `element` with arguments of each [constructor](acelements.md#constructor).
 
-<pre>
-{
-    "name" : <i>name</i>,
-    "type" : <i>type</i>,
-    <i>key_according_to_type</i> : <i>the_value</i> | <i>array_of_value</i>
-    <b>[</b> , <i>key_according_to_type</i> : <i>the_value</i> | <i>array_of_value</i> <b>]</b>
-}
-</pre>
+```
+"element" : [
+  {
+    "name" : name,
+    "type" : type,
+    key_according_to_type : the_value | array_of_value , key_according_to_type : the_value | array_of_value
+  },
+  {
+    the_nect_element
+  }
+]
+```
 
 #### <i class="fa fa-key"></i> **name**
 : A string of the name for the element.

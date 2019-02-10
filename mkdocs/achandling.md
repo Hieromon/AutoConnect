@@ -106,7 +106,7 @@ AutoConnectElementVT& getElements(void)
 
 AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectElements. In both cases, the target object is a [JSON document for AutoConnect](acjson.md). However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)
 
-<img src="../images/ac_load_save.svg">
+<img src="./images/ac_load_save.svg">
 
 ### <i class="fa fa-upload"></i> Loading AutoConnectAux &amp; AutoConnectElements with JSON
 
@@ -439,11 +439,11 @@ String append(AutoConnectAux& aux, PageArgument& args) {
 ### <i class="fa fa-wrench"></i> How you can reach the values
 
 AutoConnectSubmit uses the POST method to send HTTP requests. A value of AutoConnectInput sent to the ESP8266 or ESP32 with POST is stored in the request body of the HTTP request:
-<pre>
+```
 POST /feels HTTP/1.1
 Host: ESP8266_IP_ADDRESS
 name1=value1&name2=value2&name3=value3
-</pre>
+```
 ESP8266WebServer class will parse the query string and rebuilds its arguments when the above request arrives. A custom page handler registered with the [ESP8266WebServer::on](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers) function can access the value of AutoConnectElements with [ESP8266WebServe::arg](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments) function. It reaches the values of AutoConnectElements without the intermediation of AutoConnect. Therefore, its handler will not be AutoConnectAux and can send a response to the client directly. The following example is part of a server sketch which has two web pages. The `/hello` page is a custom Web page of AutoConnectAux which has an input box named "input1". Another `/echo` page is a page handler for ESP8266WebServer, which uses the [ESP8266WebServer::send](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#sending-responses-to-the-client) function to echo back the value of an input1 as an http response.
 
 ```cpp hl_lines="3 8"

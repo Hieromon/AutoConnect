@@ -333,7 +333,7 @@ In ordinary, the URL handler will respond the request by sending some HTML. [Pag
 
 An example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for [Github repository](https://github.com/Hieromon/PageBuilder).
 
-<img src="../images/PageBuilder.png" style="width:640px;"/>
+<img src="./images/PageBuilder.png" style="width:640px;"/>
 
 ## Configuration functions
 
@@ -366,7 +366,7 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 
 "**HOME**" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the [*AutoConnect::home*](api.md#home) function.
 
-<img src="../images/menu_home.png" />
+<img src="./images/menu_home.png" />
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 

@@ -28,7 +28,7 @@ AutoConnectElement is a base class for other element classes and has common attr
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectElement element("element", "<hr>");`**</small>
 
-<small>On the page:</small><br><img src="../images/acelement.png">
+<small>On the page:</small><br><img src="./images/acelement.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -81,7 +81,7 @@ AutoConnectButton generates an HTML `#!html <button type="button">` tag and loca
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectButton button("button", "OK", "myFunction()");`**</small>
 
-<small>On the page:</small><br><img src="../images/acbutton.png">
+<small>On the page:</small><br><img src="./images/acbutton.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -124,7 +124,7 @@ AutoConnectCheckbox generates an HTML `#!html <input type="checkbox">` tag and a
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectCheckbox checkbox("checkbox", "uniqueapid", "Use APID unique", false);`**</small>
 
-<small>On the page:</small><br><img src="../images/accheckbox.png">
+<small>On the page:</small><br><img src="./images/accheckbox.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -156,7 +156,7 @@ AutoConnectInput generates an HTML `#!html <input type="text">` tag and a `#!htm
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectInput input("input", "", "Server", "MQTT broker server");`**</small>
 
-<small>On the page:</small><br><img src="../images/acinput.png">
+<small>On the page:</small><br><img src="./images/acinput.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -187,7 +187,7 @@ AutoConnectRadio generates few HTML `#!html <input type="radio">` tags as groupe
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);`**</small>
 
-<small>On the page:</small><br><img src="../images/acradio.png">
+<small>On the page:</small><br><img src="./images/acradio.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -227,7 +227,7 @@ AutoConnectSelect generates an HTML `#!html <select>` tag (drop-down list) and f
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectSelect select("select", { String("Europe/London"), String("Europe/Berlin"), String("Europe/Helsinki"), String("Europe/Moscow"), String("Asia/Dubai") }, "Select TZ name");`**</small>
 
-<small>On the page:</small><br><img src="../images/acselect.png">
+<small>On the page:</small><br><img src="./images/acselect.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -254,7 +254,7 @@ AutoConnectSubmit generates an HTML `#!html <input type="button">` tag attached 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectSubmit submit("submit", "Save", "/mqtt_save");`**</small>
 
-<small>On the page:</small><br><img src="../images/acsubmit.png">
+<small>On the page:</small><br><img src="./images/acsubmit.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 
@@ -285,7 +285,7 @@ AutoConnectText generates an HTML `#!html <div>` tag. A `#!html style` attribute
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");`**</small>
 
-<small>On the page:</small><br><img src="../images/actext.png">
+<small>On the page:</small><br><img src="./images/actext.png">
 
 ### <i class="fa fa-edit"></i> Constructor
 

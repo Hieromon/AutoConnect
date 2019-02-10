@@ -1,22 +1,22 @@
 ## What it is
 
-<span style="margin-left:20px;margin-bottom:10px;float:right;width:280px;height:497px;"><img data-gifffer="../images/aux_ov.gif" data-gifffer-width="280" data-gifffer-height="497" /></span>
+<span style="margin-left:20px;margin-bottom:10px;float:right;width:280px;height:497px;"><img data-gifffer="./images/aux_ov.gif" data-gifffer-width="280" data-gifffer-height="497" /></span>
 AutoConnect can handle custom Web pages prepared by user sketches individually. Custom Web pages are displayed in the [AutoConnect menu](menu.md) and can be used from there. It can also have input-output parameters and handle it with sketches. For example, you can program some sketches that publish messages by entering the URI or unique ID of the MQTT broker on a custom page. You do not need to code the processing to handle the web page, it retrieves the input parameters and passes to the MQTT broker connection API is only.
 
 ## How it works
 
 Custom Web pages are dynamically created by AutoConnect. The Classes and APIs necessary for dynamic creation are provided. [**AutoConnectAux**](apiaux.md#autoconnectaux) is an object dependent on AutoConnect, which provides an easy way to incorporate custom Web pages like the one on the right figure into AutoConnect. The elements that make up a custom web page are provided as an [**AutoConnectElement**](acelements.md) class. Furthermore, an input box, a check box, a submit button, etc. are implemented by classes derived from AutoConnectElement.
-<p align="center"><img align="center" width="560px" src="../images/ac_objects.svg"></p>
+<p align="center"><img align="center" width="560px" src="./images/ac_objects.svg"></p>
 AutoConnectAux is a container for AutoConnectElements. To make a custom Web page, create elements that make up the page and put it in the AutoConnectAux object. Joining its AutoConnectAux object to AutoConnect will integrate the custom Web page into the AutoConnect menu.
 
-<img src="../images/ac_declaration.svg">
+<img src="./images/ac_declaration.svg">
 
 The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named &#39;*header*&#39;and &#39;*caption*&#39;, adds them to the AutoConnectAux object &#39;*aux*&#39;, binds to an AutoConnect object named &#39;*portal*&#39;. It's the basic procedure for configuring the custom Web page. Also, further explanation of AutoConnectElements is the [documentation](acelements.md).
 
 ## Custom Web pages in AutoConnect menu
 
 <ul class="horizontal-list">
-    <li><img style="margin:0 20px 0 -20px;float:left;width:300px;height:343px;" src="../images/ac_auxmenu.png">
+    <li><img style="margin:0 20px 0 -20px;float:left;width:300px;height:343px;" src="./images/ac_auxmenu.png">
     Custom Web pages as AutoConnectAux are integrated into the <a href="menu.html">AutoConnect menu</a>. AutoConnectAux object contains member variables which are URI and the title. It also has an indicator to show on the AutoConnect menu. You give the title and URI of the custom web page to the AutoConnectAux object with Sketch. Then the title of the custom Web page would be displayed at the bottom of the AutoConnect menu as the left figure.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> It is a hyperlink as URI you given to the custom Web page and taps it will display a page composed of AutoConnectElements. Also, a title will display in the upper left corner of the page, which includes a hyperlink to the AutoConnect statistics screen.</li>
 </ul>
 
@@ -27,10 +27,10 @@ The above figure shows a code sequence that declares AutoConnectElements and put
 You can create multiple custom Web pages and specify which pages you can invoke from the menu.<br>
 In the sketch below, it shows the sequence of codes to integrate three custom Web pages into one and embed them into the menu.
 
-<img align="center" width="520px" src="../images/ac_auxjoin_multi.svg">
+<img align="center" width="520px" src="./images/ac_auxjoin_multi.svg">
 
 <ul class="horizontal-list">
-    <li><p style="margin:0 20px 0 -20px"><span style="margin-left:20px;float:right;width:280px;height:497px;"><img data-gifffer="../images/aux_menu.gif" data-gifffer-width="280" data-gifffer-height="497" /></span>In the above code, the third parameter of &#39;<i>aux2</i>&#39; is <b>false</b>. The third parameter of the AutoConnectAux constructor is an indicator of whether it's shown to the AutoConnect menu. Right animation is the execution result of the above code. You will see that the custom Web page&#39;s menu is displayed only in the last two lines. The sketch of this animation is written to transition to &#39;<i>aux2</i>&#39; by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by &#39;<i>aux1</i>&#39;.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>An &#39;<i>aux2</i>&#39; page transitions only from the &#39;<i>aux1</i>&#39;. It is a page that saves the parameters you entered on the previous page as shown in mqttRSSI in the library example. It is to want to hide &#39;<i>aux2</i>&#39; from AutoConnect menu lines. The utility of the third parameter of the AutoConnectAux constructor is that.</p></li>
+    <li><p style="margin:0 20px 0 -20px"><span style="margin-left:20px;float:right;width:280px;height:497px;"><img data-gifffer="./images/aux_menu.gif" data-gifffer-width="280" data-gifffer-height="497" /></span>In the above code, the third parameter of &#39;<i>aux2</i>&#39; is <b>false</b>. The third parameter of the AutoConnectAux constructor is an indicator of whether it's shown to the AutoConnect menu. Right animation is the execution result of the above code. You will see that the custom Web page&#39;s menu is displayed only in the last two lines. The sketch of this animation is written to transition to &#39;<i>aux2</i>&#39; by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by &#39;<i>aux1</i>&#39;.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>An &#39;<i>aux2</i>&#39; page transitions only from the &#39;<i>aux1</i>&#39;. It is a page that saves the parameters you entered on the previous page as shown in mqttRSSI in the library example. It is to want to hide &#39;<i>aux2</i>&#39; from AutoConnect menu lines. The utility of the third parameter of the AutoConnectAux constructor is that.</p></li>
 </ul>
 
 [^2]:

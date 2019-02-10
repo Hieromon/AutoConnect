@@ -4,7 +4,7 @@
 
 How embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps. The below sketch is for ESP8266. For ESP32, replace ```ESP8266WebServer``` with ```WebServer``` and ```ESP8266WiFi.h``` with ```WiFi.h``` respectively.
 
-<img src="../images/BeforeAfter.svg" />
+<img src="./images/BeforeAfter.svg" />
 
 <ul class="ulsty-edit" style="list-style:none;">
   <li>Insert <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span></code> to behind of <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span></code>.</li>
