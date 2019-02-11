@@ -220,6 +220,9 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
   ".aux-page label{"
     "padding:10px 0.5em;"
   "}"
+  ".aux-page input[type=\"text\"]:invalid{"
+    "background:pink;"
+  "}"
 };
 
 /**< TABLE style */
@@ -1193,7 +1196,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
   PageElement *elm = new PageElement();
 
   // Restore menu title
-  _menuTitle = String(AUTOCONNECT_MENU_TITLE);
+  _menuTitle = _apConfig.title;
 
   // Build the elements of current requested page.
   if (uri == String(AUTOCONNECT_URI)) {

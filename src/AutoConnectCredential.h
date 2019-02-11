@@ -40,14 +40,14 @@ class AutoConnectCredential {
   AutoConnectCredential();
   explicit AutoConnectCredential(uint16_t offset);
   ~AutoConnectCredential();
-  uint8_t   entries() { return _entries; }
+  uint8_t   entries(void) { return _entries; }
   bool      del(const char* ssid);
   int8_t    load(const char* ssid, struct station_config* config);
   bool      load(int8_t entry, struct station_config* config);
   bool      save(const struct station_config* config);
 
  private:
-  void      _allocateEntry();   /**< Initialize storage for credentials. */
+  void      _allocateEntry(void);   /**< Initialize storage for credentials. */
   void      _retrieveEntry(char* ssid, char* password, uint8_t* bssid);   /**< Read an available entry. */
 
   uint8_t   _entries;       /**< Count of the available entry */

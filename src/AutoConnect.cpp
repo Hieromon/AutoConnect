@@ -11,13 +11,12 @@
 #ifdef ARDUINO_ARCH_ESP32
 #include <esp_wifi.h>
 #endif
-
 /**
  *  An actual reset function dependent on the architecture
  */
 #if defined(ARDUINO_ARCH_ESP8266)
 #define SOFT_RESET()  ESP.reset()
-#define	SET_HOSTNAME(x)	do { WiFi.hostname(x); } while(0)
+#define SET_HOSTNAME(x) do { WiFi.hostname(x); } while(0)
 #elif defined(ARDUINO_ARCH_ESP32)
 #define SOFT_RESET()  ESP.restart()
 #define	SET_HOSTNAME(x)	do { WiFi.setHostname(x); } while(0)
@@ -46,12 +45,12 @@ AutoConnect::AutoConnect(WebServerClass& webServer) {
   _webServerAlloc = AC_WEBSERVER_PARASITIC;
 }
 
-void AutoConnect::_initialize() {
+void AutoConnect::_initialize(void) {
   _rfConnect = false;
   _rfReset = false;
   _responsePage = nullptr;
   _currentPageElement = nullptr;
-  _menuTitle = String(F(AUTOCONNECT_MENU_TITLE));
+  _menuTitle = _apConfig.title;
   _connectTimeout = AUTOCONNECT_TIMEOUT;
   _scanCount = 0;
   memset(&_credential, 0x00, sizeof(struct station_config));
@@ -73,7 +72,7 @@ AutoConnect::~AutoConnect() {
 /**
  *  Starts establishing WiFi connection without SSID and password.
  */
-bool AutoConnect::begin() {
+bool AutoConnect::begin(void) {
   return begin(nullptr, nullptr);
 }
 
@@ -280,7 +279,7 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  Set up access point with internal AucoConnectConfig parameter corrected
  *  by Config method.
  */
-bool AutoConnect::_config() {
+bool AutoConnect::_config(void) {
   bool  rc = WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);
   AC_DBG("SoftAP configure %s, %s, %s %s\n", _apConfig.apip.toString().c_str(), _apConfig.gateway.toString().c_str(), _apConfig.netmask.toString().c_str(), rc ? "" : "failed");
   return rc;
@@ -292,14 +291,14 @@ bool AutoConnect::_config() {
  *  portal menu.
  *  @param  uri   A URI string of user site's home.
  */
-void AutoConnect::home(String uri) {
+void AutoConnect::home(const String& uri) {
   _apConfig.homeUri = uri;
 }
 
 /**
  *  Stops AutoConnect captive portal service.
  */
-void AutoConnect::end() {
+void AutoConnect::end(void) {
   if (_responsePage != nullptr) {
     _responsePage->~PageBuilder();
     delete _responsePage;
@@ -330,7 +329,7 @@ void AutoConnect::end() {
 /**
  *  Returns the current hosted ESP8266WebServer.
  */
-WebServerClass& AutoConnect::host() {
+WebServerClass& AutoConnect::host(void) {
   return  *_webServer;
 }
 
@@ -376,7 +375,7 @@ void AutoConnect::join(AutoConnectAuxVT auxVector) {
 /**
  *  Starts Web server for AutoConnect service.
  */
-void AutoConnect::_startWebServer() {
+void AutoConnect::_startWebServer(void) {
   // Boot Web server
   if (!_webServer) {
     // Only when hosting WebServer internally
@@ -406,7 +405,7 @@ void AutoConnect::_startWebServer() {
 /**
  *  Starts DNS server for Captive portal.
  */
-void AutoConnect::_startDNSServer() {
+void AutoConnect::_startDNSServer(void) {
   // Boot DNS server, set up for captive portal redirection.
   if (!_dnsServer) {
     _dnsServer.reset(new DNSServer());
@@ -422,7 +421,7 @@ void AutoConnect::_startDNSServer() {
  *  AutoConnect WEB interface.
  *  No effects when the web server is not available.
  */
-void AutoConnect::handleClient() {
+void AutoConnect::handleClient(void) {
   // Is there DNS Server process next request?
   if (_dnsServer)
     _dnsServer->processNextRequest();
@@ -436,7 +435,7 @@ void AutoConnect::handleClient() {
 /**
  *  Handling for the AutoConnect menu request.
  */
-void AutoConnect::handleRequest() {
+void AutoConnect::handleRequest(void) {
   // Handling processing requests to AutoConnect.
   if (_rfConnect) {
     // Leave from the AP currently.
@@ -552,7 +551,7 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
  *  Load stored credentials that match nearby WLANs.
  *  @return true  A matched credential of BSSID was loaded.
  */
-bool AutoConnect::_loadAvailCredential() {
+bool AutoConnect::_loadAvailCredential(void) {
   AutoConnectCredential credential(_apConfig.boundaryOffset);
 
   if (credential.entries() > 0) {
@@ -578,7 +577,7 @@ bool AutoConnect::_loadAvailCredential() {
  *  Disconnect from the AP and stop the AutoConnect portal.
  *  Stops DNS server and flush tcp sending.
  */
-void AutoConnect::_stopPortal() {
+void AutoConnect::_stopPortal(void) {
   if (_dnsServer && _webServerAlloc == AC_WEBSERVER_HOSTED)
     _dnsServer->stop();
 
@@ -596,9 +595,10 @@ void AutoConnect::_stopPortal() {
  *  Redirect to captive portal if we got a request for another domain.
  *  Return true in that case so the page handler do not try to handle the request again.
  */
-bool AutoConnect::_captivePortal() {
+bool AutoConnect::_captivePortal(void) {
   String  hostHeader = _webServer->hostHeader();
-  if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString())) {
+  if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString()) && (!hostHeader.endsWith(F(".local")))) {
+    AC_DBG("Detected appliaction, %s, %s\n", hostHeader.c_str(), WiFi.localIP().toString().c_str());
     String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
     _webServer->sendHeader(String(F("Location")), location, true);
     _webServer->send(302, String(F("text/plain")), _emptyString);
@@ -643,7 +643,7 @@ bool AutoConnect::_hasTimeout(unsigned long timeout) {
  *  A handler that redirects access to the captive portal to the connection
  *  configuration page.
  */
-void AutoConnect::_handleNotFound() {
+void AutoConnect::_handleNotFound(void) {
   if (!_captivePortal()) {
     if (_notFoundHandler) {
       _notFoundHandler();
@@ -832,7 +832,7 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
 /**
  *  Purge allocated pages. 
  */
-void AutoConnect::_purgePages() {
+void AutoConnect::_purgePages(void) {
   _responsePage->clearElement();
   if (_currentPageElement != nullptr) {
     delete _currentPageElement;
@@ -945,7 +945,7 @@ void AutoConnect::_setReconnect(const AC_STARECONNECT_t order) {
  * Wait for the end of transmission of the http response by closed
  * from the http client. 
  */
-void AutoConnect::_waitForEndTransmission() {
+void AutoConnect::_waitForEndTransmission(void) {
 #ifdef AC_DEBUG
   AC_DBG("Leaves:");
   unsigned long lt = millis();

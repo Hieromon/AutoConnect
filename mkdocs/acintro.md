@@ -71,8 +71,8 @@ So, the basic procedure for handling of the custom Web pages is as follows:
 2. Create or define [AutoConnectElement(s)](acelements.md).
 3. Add [AutoConnectElement(s)](acelements.md) to AutoConnectAux.
 4. Create more AutoConnectAux containing [AutoConnectElement(s)](acelements.md), if necessary.
-5. Register the request handlers for the custom Web pages
-6. Join prepared AutoConnectAux(s) to [AutoConnect](api.md#join).
+5. Register the request handlers for the custom Web pages.
+6. [Join](api.md#join) prepared AutoConnectAux(s) to AutoConnect.
 7. Invoke [AutoConnect::begin()](api.md#begin).
 
 ## Write the custom Web page with JSON

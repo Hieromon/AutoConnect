@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.3.0">
     
     
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="assets/javascripts/modernizr.962652e9.js"></script>
     
     
       
@@ -72,6 +72,12 @@
       <link rel="stylesheet" href="css/paragraph.css">
     
       <link rel="stylesheet" href="css/extra.css">
+    
+    
+      
+        <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","None")</script>
+      
     
     
   </head>
@@ -704,6 +710,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#title" title=" title" class="md-nav__link">
+     title
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1011,6 +1024,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#title" title=" title" class="md-nav__link">
+     title
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1243,6 +1263,12 @@ The default value is 0.
     <dt><strong>Type</strong></dt>
     <dd>IPAddress</dd>
 </dl></p>
+<h3 id="title"><i class="fa fa-caret-right"></i> title<a class="headerlink" href="#title" title="Permanent link">&para;</a></h3>
+<p>Set the menu title.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd>String</dd>
+</dl></p>
 <h2 id="autoconnectconfig-example"><i class="fa fa-code"></i> AutoConnectConfig example<a class="headerlink" href="#autoconnectconfig-example" title="Permanent link">&para;</a></h2>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConenct</span>        <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConenctConfig</span>  <span style="color: #a6e22e">Config</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;passpass&quot;</span><span style="color: #f8f8f2">);</span>    <span style="color: #75715e">// SoftAp name is determined at runtime</span>
@@ -1255,7 +1281,8 @@ The default value is 0.
 <span style="color: #f8f8f2">Config.boundaryOffet</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">64</span><span style="color: #f8f8f2">;</span>                    <span style="color: #75715e">// Reserve 64 bytes for the user data in EEPROM.</span>
 <span style="color: #f8f8f2">Config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>                 <span style="color: #75715e">// Sets timeout value for the captive portal</span>
 <span style="color: #f8f8f2">Config.retainPortal</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>                   <span style="color: #75715e">// Retains the portal function after timed-out</span>
-<span style="color: #f8f8f2">Config.homeUri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;/index.html&quot;</span>                <span style="color: #75715e">// Sets home path of the sketch application</span>
+<span style="color: #f8f8f2">Config.homeUri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;/index.html&quot;</span><span style="color: #f8f8f2">;</span>               <span style="color: #75715e">// Sets home path of the sketch application</span>
+<span style="color: #f8f8f2">Config.title</span> <span style="color: #f92672">=</span><span style="color: #e6db74">&quot;My menu&quot;</span><span style="color: #f8f8f2">;</span>                      <span style="color: #75715e">// Customize the menu title</span>
 <span style="color: #f8f8f2">Config.staip</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">IPAddress(</span><span style="color: #ae81ff">192</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">168</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">);</span>      <span style="color: #75715e">// Sets static IP</span>
 <span style="color: #f8f8f2">Config.staGateway</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">IPAddress(</span><span style="color: #ae81ff">192</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">168</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">);</span>  <span style="color: #75715e">// Sets WiFi router address</span>
 <span style="color: #f8f8f2">Config.staNetmask</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">IPAddress(</span><span style="color: #ae81ff">255</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">255</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">255</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span> <span style="color: #75715e">// Sets WLAN scope</span>
@@ -1347,17 +1374,11 @@ The default value is 0.
       
     </div>
     
-      <script src="assets/javascripts/application.b41f3d20.js"></script>
+      <script src="assets/javascripts/application.a353778b.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
         <script src="js/gifffer.min.js"></script>
-      
-    
-    
-      
-        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","None","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
   </body>

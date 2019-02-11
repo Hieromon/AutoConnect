@@ -71,6 +71,7 @@ class AutoConnectConfig {
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
+    title(AUTOCONNECT_MENU_TITLE),
     staip(0U),
     staGateway(0U),
     staNetmask(0U),
@@ -99,6 +100,7 @@ class AutoConnectConfig {
     portalTimeout(portalTimeout),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
+    title(AUTOCONNECT_MENU_TITLE),
     staip(0U),
     staGateway(0U),
     staNetmask(0U),
@@ -127,6 +129,7 @@ class AutoConnectConfig {
     portalTimeout = o.portalTimeout;
     hostName = o.hostName;
     homeUri = o.homeUri;
+    title = o.title;
     staip = o.staip;
     staGateway = o.staGateway;
     staNetmask = o.staNetmask;
@@ -154,6 +157,7 @@ class AutoConnectConfig {
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
+  String    title;              /**< Menu title */
   IPAddress staip;              /**< Station static IP address */
   IPAddress staGateway;         /**< Station gateway address */
   IPAddress staNetmask;         /**< Station subnet mask */
@@ -171,13 +175,13 @@ class AutoConnect {
   AutoConnectAux* aux(const String& uri) const;
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
-  void  home(String uri);
-  bool  begin();
+  void  home(const String& uri);
+  bool  begin(void);
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
-  void  end();
-  void  handleClient();
-  void  handleRequest();
-  WebServerClass& host();
+  void  end(void);
+  void  handleClient(void);
+  void  handleRequest(void);
+  WebServerClass& host(void);
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
@@ -204,13 +208,13 @@ class AutoConnect {
     AC_RECONNECT_SET,
     AC_RECONNECT_RESET
   } AC_STARECONNECT_t;
-  void  _initialize();
-  bool  _config();
-  void  _startWebServer();
-  void  _startDNSServer();
-  void  _handleNotFound();
-  bool  _loadAvailCredential();
-  void  _stopPortal();
+  void  _initialize(void);
+  bool  _config(void);
+  void  _startWebServer(void);
+  void  _startDNSServer(void);
+  void  _handleNotFound(void);
+  bool  _loadAvailCredential(void);
+  void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _purgePages(void);
   PageElement*  _setupPage(String uri);
@@ -225,7 +229,7 @@ class AutoConnect {
   String  _invokeResult(PageArgument& args);
 
   /** For portal control */
-  bool  _captivePortal();
+  bool  _captivePortal(void);
   bool  _hasTimeout(unsigned long timeout);
   bool  _isIP(String ipStr);
   wl_status_t _waitForConnect(unsigned long timeout);
@@ -234,8 +238,8 @@ class AutoConnect {
   void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
-  static uint32_t      _getChipId();
-  static uint32_t      _getFlashChipRealSize();
+  static uint32_t      _getChipId(void);
+  static uint32_t      _getFlashChipRealSize(void);
   static String        _toMACAddressString(const uint8_t mac[]);
   static unsigned int  _toWiFiQuality(int32_t rssi);
   DetectExit_ft        _onDetectExit;

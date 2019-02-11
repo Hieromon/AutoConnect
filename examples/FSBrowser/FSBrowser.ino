@@ -52,9 +52,10 @@ const char* host = "esp32fs";
 WebServer server(80);
 #endif
 //Add a below line for AutoConnect.
-AutoConnect     portal(server);
-AutoConnectAux  FSBedit("/edit", "Edit");
-AutoConnectAux  FSBlist("/list?dir=\"/\"", "List");
+AutoConnect       portal(server);
+AutoConnectConfig config;
+AutoConnectAux    FSBedit("/edit", "Edit");
+AutoConnectAux    FSBlist("/list?dir=\"/\"", "List");
 //holds the current upload
 File fsUploadFile;
 
@@ -320,8 +321,9 @@ void setup(void){
     json = String();
   });
 
-  //Add HOME path
-  portal.home(String("/"));
+  //Set menu title
+  config.title = "FSBrowser";
+  portal.config(config);
   //Register AutoConnect menu
   portal.join({ FSBedit, FSBlist });
   //Replacement as follows to make AutoConnect recognition.

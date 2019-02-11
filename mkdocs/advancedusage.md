@@ -38,7 +38,7 @@ Portal.begin();
 ```
 
 !!! note "In ESP32, the credentials for AutoConnect are not in NVS"
-    The credentials used by AutoConnect are not saved in NVS on ESP32 module. ESP-IDF saves the WiFi connection configuration to NVS, but AutoConnect stores it on the eeprom partition. You can find the partition table for default as [default.csv](https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv)
+    The credentials used by AutoConnect are not saved in NVS on ESP32 module. ESP-IDF saves the WiFi connection configuration to NVS, but AutoConnect stores it on the EEPROM partition. You can find the partition table for default as [default.csv](https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv)
 
 ### <i class="fa fa-caret-right"></i> Captive portal start detection
 
@@ -67,6 +67,7 @@ void loop() {
   Portal.handleClient();
 }
 ```
+
 ### <i class="fa fa-caret-right"></i> Captive portal timeout control
 
 AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of [*AutoConnect::begin*](api.md#begin). Default value is macro defined by [**AUTOCONNECT_TIMEOUT**](api.md#defined-macros) in the `AutoConnectDef.h` file.
@@ -91,7 +92,7 @@ void setup() {
 
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
-    // Some sketck code for the connected scene is here.
+    // Some sketch code for the connected scene is here.
   }
   else {
     // Some sketch code for not connected scene is here.
@@ -115,7 +116,7 @@ void setup() {
 
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
-    // Some sketck code for the connected scene is here.
+    // Some sketch code for the connected scene is here.
   }
   else {
     // Some sketch code for not connected scene is here.
@@ -145,7 +146,7 @@ void setup() {
 
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
-    // Some sketck code for the connected scene is here.
+    // Some sketch code for the connected scene is here.
   }
   else {
     // Some sketch code for not connected scene is here.
@@ -153,6 +154,72 @@ void loop() {
   portal.handleClient();
 }
 ```
+
+### <i class="fa fa-caret-right"></i> Cast items of your sketch own into the AutocCnnect menu
+
+If your sketch is handling your own web page, you can call that page from the [AutoConnect menu](menu.md). Unlike the custom Web pages by [AutoConnectAux](apiaux.md#autoconnectaux), this allows AutoConnect menu to legacy web pages registered by *ESP8266WebServer::on*/*WebServer::on* function.
+
+To implement this with your sketch, use only the [AutoConnectAux](apiaux.md#autoconnectaux) constructed with the URI of that page. [AutoConnectElements](acelements.md) is not required. The basic procedure for this as follows. The FSBrowser menu as the below has **Edit** and **List** item, which are implemented according to this basic procedure.
+
+1. Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.
+2. Sketch legacy page handlers.
+3. Register those handler functions to ESP8266WebServer/WebServer with the **on** function.
+4. Register AutoConnectAux declared with #1 to AutoConnect using [AutoConnect::join](api.md#join) function. It serves as a menu item.
+5. [Begin](api.md#begin) the portal.
+6. Performs [AutoConnect::handleClient](api.md#handleClient) in the **loop** function.
+
+```cpp hl_lines="4 5 22"
+ESP8266WebServer Server;
+AutoConnect      Portal(Server);
+// Declare for menu item for legacy pages
+AutoConnectAux   FSBedit("/edit", "Edit");
+AutoConnectAux   FSBlist("/list?dir=\"/\"", "List");
+
+// /edit page handler
+Void handleEdit() {
+  ...
+}
+
+// /list page handler
+void handleList() {
+  ...
+}
+
+void setup() {
+  // Register legacy page handler to WebServer
+  Server.on("/edit", handleEdit);
+  Server.on("/list", handleList);
+  // Insert the menu items for legacy pages
+  Portal.join({ FSBedit, FSBlist });
+  // Start portal
+  portal.begin();
+}
+
+void loop() {
+  Portal.handleClient();
+}
+```
+
+### <i class="fa fa-caret-right"></i> Change menu title
+
+Although the default menu title is **AutoConnect**, you can change the title by setting [AutoConnectConfig::title](apiconfig.md#title). To set the menu title properly, you must set before calling [AutoConnect::begin](api.md#begin).
+
+```cpp hl_lines="6 7"
+AutoConnect       Portal;
+AutoConnectConfig Config;
+
+void setup() {
+  // Set menu title
+  Config.title = "FSBrowser";
+  Portal.config(Config);
+  Portal.begin();
+}
+```
+
+Executing the above sketch will rewrite the menu title to *FSBrowser* as the below.
+
+<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="./images/fsbmenu.png"></div>
+<img style="margin-left:70px;width:40%;height:470px;" src="./images/fsbmenu_expand.png">
 
 ### <i class="fa fa-caret-right"></i> Combination with mDNS
 
@@ -355,7 +422,7 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - Retains the portal function after time out.
 - Length of start up time after reset.
 - Automatic starting the captive portal.
-- Start the captive portal forcely.
+- Start the captive portal forcefully.
 - Auto reset after connection establishment.
 - Home URL of the user sketch application.
 

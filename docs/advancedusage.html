@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.2.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-3.3.0">
     
     
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.8c900955.js"></script>
+      <script src="assets/javascripts/modernizr.962652e9.js"></script>
     
     
       
@@ -72,6 +72,12 @@
       <link rel="stylesheet" href="css/paragraph.css">
     
       <link rel="stylesheet" href="css/extra.css">
+    
+    
+      
+        <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","None")</script>
+      
     
     
   </head>
@@ -423,6 +429,20 @@
           <li class="md-nav__item">
   <a href="#captive-portal-timeout-control" title=" Captive portal timeout control" class="md-nav__link">
      Captive portal timeout control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cast-items-of-your-sketch-own-into-the-autoccnnect-menu" title=" Cast items of your sketch own into the AutocCnnect menu" class="md-nav__link">
+     Cast items of your sketch own into the AutocCnnect menu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-menu-title" title=" Change menu title" class="md-nav__link">
+     Change menu title
   </a>
   
 </li>
@@ -820,6 +840,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#cast-items-of-your-sketch-own-into-the-autoccnnect-menu" title=" Cast items of your sketch own into the AutocCnnect menu" class="md-nav__link">
+     Cast items of your sketch own into the AutocCnnect menu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-menu-title" title=" Change menu title" class="md-nav__link">
+     Change menu title
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#combination-with-mdns" title=" Combination with mDNS" class="md-nav__link">
      Combination with mDNS
   </a>
@@ -984,7 +1018,7 @@
 
 <div class="admonition note">
 <p class="admonition-title">In ESP32, the credentials for AutoConnect are not in NVS</p>
-<p>The credentials used by AutoConnect are not saved in NVS on ESP32 module. ESP-IDF saves the WiFi connection configuration to NVS, but AutoConnect stores it on the eeprom partition. You can find the partition table for default as <a href="https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv">default.csv</a></p>
+<p>The credentials used by AutoConnect are not saved in NVS on ESP32 module. ESP-IDF saves the WiFi connection configuration to NVS, but AutoConnect stores it on the EEPROM partition. You can find the partition table for default as <a href="https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv">default.csv</a></p>
 </div>
 <h3 id="captive-portal-start-detection"><i class="fa fa-caret-right"></i> Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h3>
 <p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="api.html#ondetect"><em>AutoConnect::onDetect</em></a> function that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
@@ -1030,7 +1064,7 @@
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketck code for the connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
@@ -1052,7 +1086,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketck code for the connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
@@ -1080,7 +1114,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketck code for the connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
@@ -1089,6 +1123,65 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 
+<h3 id="cast-items-of-your-sketch-own-into-the-autoccnnect-menu"><i class="fa fa-caret-right"></i> Cast items of your sketch own into the AutocCnnect menu<a class="headerlink" href="#cast-items-of-your-sketch-own-into-the-autoccnnect-menu" title="Permanent link">&para;</a></h3>
+<p>If your sketch is handling your own web page, you can call that page from the <a href="menu.html">AutoConnect menu</a>. Unlike the custom Web pages by <a href="apiaux.html#autoconnectaux">AutoConnectAux</a>, this allows AutoConnect menu to legacy web pages registered by <em>ESP8266WebServer::on</em>/<em>WebServer::on</em> function.</p>
+<p>To implement this with your sketch, use only the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> constructed with the URI of that page. <a href="acelements.html">AutoConnectElements</a> is not required. The basic procedure for this as follows. The FSBrowser menu as the below has <strong>Edit</strong> and <strong>List</strong> item, which are implemented according to this basic procedure.</p>
+<ol>
+<li>Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.</li>
+<li>Sketch legacy page handlers.</li>
+<li>Register those handler functions to ESP8266WebServer/WebServer with the <strong>on</strong> function.</li>
+<li>Register AutoConnectAux declared with #1 to AutoConnect using <a href="api.html#join">AutoConnect::join</a> function. It serves as a menu item.</li>
+<li><a href="api.html#begin">Begin</a> the portal.</li>
+<li>Performs <a href="api.html#handleClient">AutoConnect::handleClient</a> in the <strong>loop</strong> function.</li>
+</ol>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">Server;</span>
+<span style="color: #f8f8f2">AutoConnect</span>      <span style="color: #a6e22e">Portal</span><span style="color: #f8f8f2">(Server);</span>
+<span style="color: #75715e">// Declare for menu item for legacy pages</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectAux</span>   <span style="color: #a6e22e">FSBedit</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/edit&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Edit&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectAux</span>   <span style="color: #a6e22e">FSBlist</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/list?dir=</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">/</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;List&quot;</span><span style="color: #f8f8f2">);</span>
+</span>
+<span style="color: #75715e">// /edit page handler</span>
+<span style="color: #f8f8f2">Void</span> <span style="color: #a6e22e">handleEdit</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">...</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #75715e">// /list page handler</span>
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">handleList</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">...</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// Register legacy page handler to WebServer</span>
+  <span style="color: #f8f8f2">Server.on(</span><span style="color: #e6db74">&quot;/edit&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">handleEdit);</span>
+  <span style="color: #f8f8f2">Server.on(</span><span style="color: #e6db74">&quot;/list&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">handleList);</span>
+  <span style="color: #75715e">// Insert the menu items for legacy pages</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.join({</span> <span style="color: #f8f8f2">FSBedit,</span> <span style="color: #f8f8f2">FSBlist</span> <span style="color: #f8f8f2">});</span>
+</span>  <span style="color: #75715e">// Start portal</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<h3 id="change-menu-title"><i class="fa fa-caret-right"></i> Change menu title<a class="headerlink" href="#change-menu-title" title="Permanent link">&para;</a></h3>
+<p>Although the default menu title is <strong>AutoConnect</strong>, you can change the title by setting <a href="apiconfig.html#title">AutoConnectConfig::title</a>. To set the menu title properly, you must set before calling <a href="api.html#begin">AutoConnect::begin</a>.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// Set menu title</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.title</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;FSBrowser&quot;</span><span style="color: #f8f8f2">;</span>
+</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.config(Config);</span>
+</span>  <span style="color: #f8f8f2">Portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<p>Executing the above sketch will rewrite the menu title to <em>FSBrowser</em> as the below.</p>
+<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="./images/fsbmenu.png"></div>
+
+<p><img style="margin-left:70px;width:40%;height:470px;" src="./images/fsbmenu_expand.png"></p>
 <h3 id="combination-with-mdns"><i class="fa fa-caret-right"></i> Combination with mDNS<a class="headerlink" href="#combination-with-mdns" title="Permanent link">&para;</a></h3>
 <p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after <a href="api.html#begin"><em>AutoConnect::begin</em></a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
@@ -1259,7 +1352,7 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
 <li>Retains the portal function after time out.</li>
 <li>Length of start up time after reset.</li>
 <li>Automatic starting the captive portal.</li>
-<li>Start the captive portal forcely.</li>
+<li>Start the captive portal forcefully.</li>
 <li>Auto reset after connection establishment.</li>
 <li>Home URL of the user sketch application.</li>
 </ul>
@@ -1392,17 +1485,11 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
       
     </div>
     
-      <script src="assets/javascripts/application.b41f3d20.js"></script>
+      <script src="assets/javascripts/application.a353778b.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
         <script src="js/gifffer.min.js"></script>
-      
-    
-    
-      
-        <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","None","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(a){a.host!=document.location.host&&a.addEventListener("click",function(){var e=a.getAttribute("data-md-action")||"follow";ga("send","event","outbound",e,a.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
   </body>

@@ -250,6 +250,14 @@ Set the subnetmask when using static IP address.
     <dd>IPAddress</dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> title
+
+Set the menu title.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>String</dd>
+</dl>
+
 ## <i class="fa fa-code"></i> AutoConnectConfig example
 
 ```cpp
@@ -264,7 +272,8 @@ Config.autoSave = AC_SAVECREDENTIAL_NEVER;    // No save credential
 Config.boundaryOffet = 64;                    // Reserve 64 bytes for the user data in EEPROM.
 Config.portalTimeout = 60000;                 // Sets timeout value for the captive portal
 Config.retainPortal = true;                   // Retains the portal function after timed-out
-Config.homeUri = "/index.html"				  // Sets home path of the sketch application
+Config.homeUri = "/index.html";				  // Sets home path of the sketch application
+Config.title ="My menu";                      // Customize the menu title
 Config.staip = IPAddress(192,168,10,10);      // Sets static IP
 Config.staGateway = IPAddress(192,168,10,1);  // Sets WiFi router address
 Config.staNetmask = IPAddress(255,255,255,0); // Sets WLAN scope
