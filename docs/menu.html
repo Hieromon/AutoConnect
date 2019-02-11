@@ -422,6 +422,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#extend-autoconnect-menu-with-your-sketches" title=" Extend AutoConnect menu with your sketches" class="md-nav__link">
+     Extend AutoConnect menu with your sketches
+  </a>
+  
+</li>
+      
       
       
       
@@ -735,6 +742,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#extend-autoconnect-menu-with-your-sketches" title=" Extend AutoConnect menu with your sketches" class="md-nav__link">
+     Extend AutoConnect menu with your sketches
+  </a>
+  
+</li>
+      
       
       
       
@@ -800,6 +814,12 @@ Enter SSID and Passphrase and tap "<strong>apply</strong>" to starts WiFi connec
 </pre></div>
 
 <p>You can change the HOME path using the AutoConnect API. The <a href="api.html#home"><strong>AutoConnect::home</strong></a> function sets the URI as a link of the HOME item of the AutoConnect menu.</p>
+<h2 id="extend-autoconnect-menu-with-your-sketches"><i class="fa fa-bars"></i> Extend AutoConnect menu with your sketches<a class="headerlink" href="#extend-autoconnect-menu-with-your-sketches" title="Permanent link">&para;</a></h2>
+<p>The AutoConnect menu can contain custom items of your own sketch. It works for the custom Web pages by <a href="acintro.html">AutoConnectAux</a>, addition to the request handler for ESP8266WebServer class that is registered by the ESP8266WebServer::on function or WebServer::on for ESP32. That is, you can make it as a menu item to invoke a legacy web page. The below screenshot is the result of adding an example sketch for the ESP8266WebServer library known as <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser">FSBrowser</a> to the AutoConnect menu item. It adds Edit and List items with little modification of the legacy sketch code.</p>
+<div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="./images/fsbmenu.png"></div>
+
+<p><img style="margin-left:70px;width:auto;height:420px;" src="./images/fsbmenu_expand.png"></p>
+<p>The procedure to extend the AutoConnect menu is described in the <a href="advancedusage.html#cast-items-of-your-sketch-own-into-the-autoccnnect-menu">Advanced usage section</a>.</p>
                 
                   
                 

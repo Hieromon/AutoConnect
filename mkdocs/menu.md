@@ -63,3 +63,12 @@ A **HOME** item located at the bottom of the menu list is a link to the home pat
 ```
 
 You can change the HOME path using the AutoConnect API. The [**AutoConnect::home**](api.md#home) function sets the URI as a link of the HOME item of the AutoConnect menu.
+
+## <i class="fa fa-bars"></i> Extend AutoConnect menu with your sketches
+
+The AutoConnect menu can contain custom items of your own sketch. It works for the custom Web pages by [AutoConnectAux](acintro.md), addition to the request handler for ESP8266WebServer class that is registered by the ESP8266WebServer::on function or WebServer::on for ESP32. That is, you can make it as a menu item to invoke a legacy web page. The below screenshot is the result of adding an example sketch for the ESP8266WebServer library known as [FSBrowser](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser) to the AutoConnect menu item. It adds Edit and List items with little modification of the legacy sketch code.
+
+<div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="./images/fsbmenu.png"></div>
+<img style="margin-left:70px;width:auto;height:420px;" src="./images/fsbmenu_expand.png">
+
+The procedure to extend the AutoConnect menu is described in the [Advanced usage section](advancedusage.md#cast-items-of-your-sketch-own-into-the-autoccnnect-menu).
