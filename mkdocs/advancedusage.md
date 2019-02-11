@@ -293,13 +293,11 @@ By default, the credentials saving area is occupied from the beginning of EEPROM
 
 > The following diagram illustrates flash layout used in Arduino environment:
 
-<div class="highlight">
-<pre><span></span>
-  <span class="o">|--------------|-------|---------------|--|--|--|--|--|</span>
-  <span class="o">^</span>              <span class="o">^</span>       <span class="o">^</span>               <span class="o">^</span>     <span class="o">^</span>
-  <span class="n">Sketch</span>    <span class="n">OTA</span> <span class="n">update</span>   <span class="n">File</span> <span class="n">system</span>   <span class="n"><span class="highlighted">EEPROM</span></span>  <span class="n">WiFi</span> <span class="n">config</span> <span class="p">(</span><span class="n">SDK</span><span class="p">)</span>
-</pre>
-</div>
+> ```
+> |--------------|-------|---------------|--|--|--|--|--|
+> ^              ^       ^               ^     ^
+> Sketch    OTA update   File system   EEPROM  WiFi config (SDK)
+> ```
 
 and
 

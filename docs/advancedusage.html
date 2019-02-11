@@ -1237,15 +1237,12 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <p>By default, the credentials saving area is occupied from the beginning of EEPROM area. <a href="http://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=eeprom#flash-layout">ESP8266 Arduino core document</a> says that:</p>
 <blockquote>
 <p>The following diagram illustrates flash layout used in Arduino environment:</p>
-</blockquote>
-<div class="highlight">
-<pre><span></span>
-  <span class="o">|--------------|-------|---------------|--|--|--|--|--|</span>
-  <span class="o">^</span>              <span class="o">^</span>       <span class="o">^</span>               <span class="o">^</span>     <span class="o">^</span>
-  <span class="n">Sketch</span>    <span class="n">OTA</span> <span class="n">update</span>   <span class="n">File</span> <span class="n">system</span>   <span class="n"><span class="highlighted">EEPROM</span></span>  <span class="n">WiFi</span> <span class="n">config</span> <span class="p">(</span><span class="n">SDK</span><span class="p">)</span>
-</pre>
-</div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>|--------------|-------|---------------|--|--|--|--|--|
+^              ^       ^               ^     ^
+Sketch    OTA update   File system   EEPROM  WiFi config (SDK)
+</pre></div>
 
+</blockquote>
 <p>and</p>
 <blockquote>
 <p>EEPROM library uses one sector of flash located <a href="http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom">just after the SPIFFS</a>.</p>
