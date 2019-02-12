@@ -220,7 +220,7 @@ The example above saves `server` and `period` elements from the AutoConnectAux o
 ]
 ```
 
-## Parameter handling
+## Custom field data handling
 
 A sketch can access variables of AutoConnectElements in the custom Web page. The value entered into the AutoConnectElements on the page is stored in the member variable of each element by AutoConnect whenever GET/POST transmission occurs. 
 
@@ -490,9 +490,13 @@ portal.on("/echo", [](AutoConnectAux& aux, PageArgument& args) {
 portal.begin();
 ```
 
-### <i class="fa fa-desktop"></i> Over typing ​​with LoadElement function
+### <i class="fa fa-wpforms"></i> Over typing ​​with LoadElement function
 
 The [AutoConnectAux::loadElement](apiaux.md#loadelement) function overwrites its value when loading an AutoConnectElement. If the loadElement function wields an element with an input value, the previous value will be lost by the loaded value. If you need to preserve input values ​​even during page transition operations, we recommend that you load parameters only once at an early stage in the `setup()` of sketches.
+
+### <i class="fa fa-check-square"></i> Check data against on submission
+
+### <i class="fa fa-exchange"></i> Convert data to actually type
 
 ## Transitions of the custom Web pages
 

@@ -185,6 +185,10 @@ It consumes about 2K bytes in the static and about 12K bytes are consumed at the
 
 Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.
 
+## <i class="fa fa-question-circle"></i> I can not see the custom web page.
+
+JSON parse error
+
 ## <i class="fa fa-question-circle"></i> AutoConnect behaves not stable with my sketch yet.
 
 If AutoConnect behavior is not stable with your sketch, you can try the following measures.
