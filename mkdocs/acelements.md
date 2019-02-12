@@ -161,7 +161,7 @@ AutoConnectInput generates an HTML `#!html <input type="text">` tag and a `#!htm
 ### <i class="fa fa-edit"></i> Constructor
 
 ```cpp
-AutoConnectInput(const char* name, const char* value, const char* label, const char* placeholder)
+AutoConnectInput(const char* name, const char* value, const char* label, const char* pattern, const char* placeholder)
 ```
 
 ### <i class="fa fa-caret-right"></i> name
@@ -175,6 +175,21 @@ It becomes a string value of the `value` attribute of an HTML `#!html <input typ
 ### <i class="fa fa-caret-right"></i> label
 
 A `label` is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The input box and the label are connected by the id attribute.
+
+### <i class="fa fa-caret-right"></i> pattern
+
+A `pattern` specifies a [regular expression](https://www.w3schools.com/js/js_regexp.asp) that the AutoConnectInput element's value is checked against on form submission. If it is invalid, the background color will change, but it will be sent even if the data format does not match. 
+
+- The password that must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter:<br>`(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}`
+- Email address as _characters@characters.domain_:<br>`[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$`
+
+- IP address
+
+- Host name of the internet
+
+- Date (MM-DD-YYYY)
+
+- Twitter account:<br>`^@?(\w){1,15}$`
 
 ### <i class="fa fa-caret-right"></i> placeholder
 

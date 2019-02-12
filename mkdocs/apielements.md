@@ -164,13 +164,14 @@ Returns type of AutoConnectElement.
 ### <i class="fa fa-code"></i> Constructor
 
 ```cpp
-AutoConnectInput(const char* name = "", const char* value = "", const char* label = "", const char* placeholder = "")
+AutoConnectInput(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "")
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">name</span>The element name.</dd>
     <dd><span class="apidef">value</span>Value of the element.</dd>
     <dd><span class="apidef">label</span>Label string.</dd>
+    <dd><span class="apidef">pattern</span>Regular expression string for checking data format.</dd>
     <dd><span class="apidef">placeholder</span>A placeholder string.</dd>
 </dl>
 
@@ -195,6 +196,14 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 #### <i class="fa fa-caret-right"></i> label
 
 A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The input box and the label are connected by the id attribute.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef" style="width:230px;">String</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> pattern
+
+A pattern specifies a regular expression that the input-box's value is checked against on form submission.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef" style="width:230px;">String</span></dd>
