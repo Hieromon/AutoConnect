@@ -141,7 +141,7 @@ void AutoConnectCheckboxJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 const size_t AutoConnectInputJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3);
 }
 
 /**
@@ -154,8 +154,9 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACINPUT))) {
     _setMember(json);
-    placeholder = json.get<String>(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER));
     label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    pattern = json.get<String>(F(AUTOCONNECT_JSON_KEY_PATTERN));
+    placeholder = json.get<String>(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER));
     return true;
   }
   return false;
@@ -169,8 +170,9 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
   _serialize(json);
   json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACINPUT));
   json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
-  json.set(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER), placeholder);
   json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+  json.set(F(AUTOCONNECT_JSON_KEY_PATTERN), pattern);
+  json.set(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER), placeholder);
 }
 
 /**

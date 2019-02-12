@@ -55,6 +55,8 @@ const String AutoConnectInputBasis::toHTML(void) const {
   if (label.length())
     html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
   html += String(F("<input type=\"text\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
+  if (pattern.length())
+    html += String(F(" pattern=\"")) + pattern + String("\"");
   if (placeholder.length())
     html += String(F(" placeholder=\"")) + placeholder + String("\"");
   if (value.length())

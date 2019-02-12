@@ -119,6 +119,9 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
     "-moz-appearance:radio;"
     "-webkit-appearance:radio;"
   "}"
+  "ul.noorder>input[type=\"text\"]:invalid{"
+    "background:#fce4d6;"
+  "}"
 };
 
 /**< Image icon for inline expansion, the lock mark. */
@@ -219,9 +222,6 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
   "}"
   ".aux-page label{"
     "padding:10px 0.5em;"
-  "}"
-  ".aux-page input[type=\"text\"]:invalid{"
-    "background:pink;"
   "}"
 };
 

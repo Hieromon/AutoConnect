@@ -60,13 +60,15 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "name": "mqttserver",
         "type": "ACInput",
         "value": "",
-        "placeholder": "MQTT broker server",
-        "label": "Server"
+        "label": "Server",
+        "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$",
+        "placeholder": "MQTT broker server"
       },
       {
         "name": "channelid",
         "type": "ACInput",
-        "label": "Channel ID"
+        "label": "Channel ID",
+        "pattern": "^[0-9]{6}$"
       },
       {
         "name": "userkey",
@@ -93,12 +95,12 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "period",
         "type": "ACRadio",
-        "label": "Update period",
         "value": [
           "30 sec.",
           "60 sec.",
           "180 sec."
         ],
+        "label": "Update period",
         "arrange": "vertical",
         "checked": 1
       },
@@ -110,8 +112,9 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "hostname",
         "type": "ACInput",
+        "value": "",
         "label": "ESP host name",
-        "value": ""
+        "pattern": "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,32}$"
       },
       {
         "name": "save",
