@@ -240,7 +240,7 @@ class AutoConnect {
   bool  _loadAvailCredential();
   void  _stopPortal();
   bool  _classifyHandle(HTTPMethod mothod, String uri);
-  PageElement*  _setupPage(String uri);
+  virtual PageElement*  _setupPage(String uri);
 
   /** Request handlers implemented by Page Builder */
   String  _induceConnect(PageArgument& args);
@@ -268,7 +268,7 @@ class AutoConnect {
 
   PageBuilder*  _responsePage;
   PageElement*  _currentPageElement;
-  
+
    /** configurations */
   AutoConnectConfig     _apConfig;
   struct station_config _credential;
