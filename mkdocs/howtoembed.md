@@ -1,4 +1,4 @@
-## How to embed the AutoConnect
+## Embed the AutoConnect to the sketch
 
 Here holds two case examples. Both examples perform the same function. Only how to incorporate the **AutoConnect** into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the [PageBuilder](https://github.com/Hieromon/PageBuilder) library for HTML assemblies.
 

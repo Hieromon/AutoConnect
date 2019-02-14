@@ -25,7 +25,10 @@ nav:
     - 'AutoConnectConfig API': apiconfig.md
     - 'AutoConnectElements API': apielements.md
     - 'Something extra': apiextra.md
-  - 'Examples' : examples.md
+  - 'Examples' :
+    - 'How to embed': howtoembed.md
+    - 'Tips for data retrieval': datatips.md
+    - 'Constucting menu': menuize.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
   - 'License' : license.md

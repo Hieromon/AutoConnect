@@ -159,7 +159,7 @@ void loop() {
 
 If your sketch is handling your own web page, you can call that page from the [AutoConnect menu](menu.md). Unlike the custom Web pages by [AutoConnectAux](apiaux.md#autoconnectaux), this allows AutoConnect menu to legacy web pages registered by *ESP8266WebServer::on*/*WebServer::on* function.
 
-To implement this with your sketch, use only the [AutoConnectAux](apiaux.md#autoconnectaux) constructed with the URI of that page. [AutoConnectElements](acelements.md) is not required. The basic procedure for this as follows. The FSBrowser menu as the below has **Edit** and **List** item, which are implemented according to this basic procedure.
+To implement this with your sketch, use only the [AutoConnectAux](apiaux.md#autoconnectaux) constructed with the URI of that page. [AutoConnectElements](acelements.md) is not required. The basic procedure for this as follows. 
 
 1. Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.
 2. Sketch legacy page handlers.
@@ -168,37 +168,7 @@ To implement this with your sketch, use only the [AutoConnectAux](apiaux.md#auto
 5. [Begin](api.md#begin) the portal.
 6. Performs [AutoConnect::handleClient](api.md#handleClient) in the **loop** function.
 
-```cpp hl_lines="4 5 22"
-ESP8266WebServer Server;
-AutoConnect      Portal(Server);
-// Declare for menu item for legacy pages
-AutoConnectAux   FSBedit("/edit", "Edit");
-AutoConnectAux   FSBlist("/list?dir=\"/\"", "List");
-
-// /edit page handler
-Void handleEdit() {
-  ...
-}
-
-// /list page handler
-void handleList() {
-  ...
-}
-
-void setup() {
-  // Register legacy page handler to WebServer
-  Server.on("/edit", handleEdit);
-  Server.on("/list", handleList);
-  // Insert the menu items for legacy pages
-  Portal.join({ FSBedit, FSBlist });
-  // Start portal
-  portal.begin();
-}
-
-void loop() {
-  Portal.handleClient();
-}
-```
+For details see the [Constructing menu](menuize.md) section of Examples page.
 
 ### <i class="fa fa-caret-right"></i> Change menu title
 

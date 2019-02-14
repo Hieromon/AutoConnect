@@ -264,6 +264,17 @@
 
       
         
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
       
         
       
@@ -800,6 +811,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pattern" title=" pattern" class="md-nav__link">
+     pattern
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#placeholder" title=" placeholder" class="md-nav__link">
      placeholder
   </a>
@@ -1013,10 +1031,58 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="examples.html" title="Examples" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
       Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
+      Tips for data retrieval
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
+      Constucting menu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -1341,6 +1407,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pattern" title=" pattern" class="md-nav__link">
+     pattern
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#placeholder" title=" placeholder" class="md-nav__link">
      placeholder
   </a>
@@ -1656,13 +1729,14 @@ Returns type of AutoConnectElement.
 </dl></p>
 <h2 id="autoconnectinput">AutoConnectInput<a class="headerlink" href="#autoconnectinput" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_3"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_3" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
 </pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span>The element name.</dd>
     <dd><span class="apidef">value</span>Value of the element.</dd>
     <dd><span class="apidef">label</span>Label string.</dd>
+    <dd><span class="apidef">pattern</span>Regular expression string for checking data format.</dd>
     <dd><span class="apidef">placeholder</span>A placeholder string.</dd>
 </dl></p>
 <h3 id="public-member-variables_3"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_3" title="Permanent link">&para;</a></h3>
@@ -1680,6 +1754,12 @@ Returns type of AutoConnectElement.
 </dl></p>
 <h4 id="label_1"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_1" title="Permanent link">&para;</a></h4>
 <p>A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The input box and the label are connected by the id attribute.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef" style="width:230px;">String</span></dd>
+</dl></p>
+<h4 id="pattern"><i class="fa fa-caret-right"></i> pattern<a class="headerlink" href="#pattern" title="Permanent link">&para;</a></h4>
+<p>A pattern specifies a regular expression that the input-box's value is checked against on form submission.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef" style="width:230px;">String</span></dd>

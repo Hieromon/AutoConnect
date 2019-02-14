@@ -264,6 +264,17 @@
 
       
         
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
       
         
       
@@ -625,6 +636,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#pattern" title=" pattern" class="md-nav__link">
+     pattern
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#placeholder" title=" placeholder" class="md-nav__link">
      placeholder
   </a>
@@ -970,10 +988,58 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="examples.html" title="Examples" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
       Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
+      Tips for data retrieval
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
+      Constucting menu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -1214,6 +1280,13 @@
           <li class="md-nav__item">
   <a href="#label_1" title=" label" class="md-nav__link">
      label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern" title=" pattern" class="md-nav__link">
+     pattern
   </a>
   
 </li>
@@ -1562,7 +1635,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <small><strong><code>AutoConnectInput input("input", "", "Server", "MQTT broker server");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="./images/acinput.png"></p>
 <h3 id="constructor_3"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_3" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder)</span>
 </pre></div>
 
 <h3 id="name_3"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_3" title="Permanent link">&para;</a></h3>
@@ -1571,6 +1644,26 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <p>It becomes a string value of the <code>value</code> attribute of an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag. The text entered from the custom Web page will be grouped in the query string of the form submission and the string set before accessing the page will be displayed as the initial value.</p>
 <h3 id="label_1"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_1" title="Permanent link">&para;</a></h3>
 <p>A <code>label</code> is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The input box and the label are connected by the id attribute.</p>
+<h3 id="pattern"><i class="fa fa-caret-right"></i> pattern<a class="headerlink" href="#pattern" title="Permanent link">&para;</a></h3>
+<p>A <code>pattern</code> specifies a <a href="https://www.w3schools.com/js/js_regexp.asp">regular expression</a> that the AutoConnectInput element's value is checked against on form submission. If it is invalid, the background color will change, but it will be sent even if the data format does not match. </p>
+<ul>
+<li>The password that must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter:<br><code>(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}</code></li>
+<li>
+<p>Email address as <em>characters@characters.domain</em>:<br><code>[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$</code></p>
+</li>
+<li>
+<p>IP address</p>
+</li>
+<li>
+<p>Host name of the internet</p>
+</li>
+<li>
+<p>Date (MM-DD-YYYY)</p>
+</li>
+<li>
+<p>Twitter account:<br><code>^@?(\w){1,15}$</code></p>
+</li>
+</ul>
 <h3 id="placeholder"><i class="fa fa-caret-right"></i> placeholder<a class="headerlink" href="#placeholder" title="Permanent link">&para;</a></h3>
 <p>A placeholder is an option string. Specification of a placeholder will generate a <code>placeholder</code> attribute for the input tag.</p>
 <h2 id="autoconnectradio">AutoConnectRadio<a class="headerlink" href="#autoconnectradio" title="Permanent link">&para;</a></h2>

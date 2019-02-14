@@ -264,6 +264,17 @@
 
       
         
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
       
         
       
@@ -516,8 +527,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameter-handling" title="Parameter handling" class="md-nav__link">
-    Parameter handling
+  <a href="#custom-field-data-handling" title="Custom field data handling" class="md-nav__link">
+    Custom field data handling
   </a>
   
     <nav class="md-nav">
@@ -547,6 +558,20 @@
           <li class="md-nav__item">
   <a href="#over-typing-with-loadelement-function" title=" Over typing ​​with LoadElement function" class="md-nav__link">
      Over typing ​​with LoadElement function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-data-against-on-submission" title=" Check data against on submission" class="md-nav__link">
+     Check data against on submission
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-data-to-actually-type" title=" Convert data to actually type" class="md-nav__link">
+     Convert data to actually type
   </a>
   
 </li>
@@ -688,10 +713,58 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="examples.html" title="Examples" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
       Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
+      Tips for data retrieval
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
+      Constucting menu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -804,8 +877,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameter-handling" title="Parameter handling" class="md-nav__link">
-    Parameter handling
+  <a href="#custom-field-data-handling" title="Custom field data handling" class="md-nav__link">
+    Custom field data handling
   </a>
   
     <nav class="md-nav">
@@ -835,6 +908,20 @@
           <li class="md-nav__item">
   <a href="#over-typing-with-loadelement-function" title=" Over typing ​​with LoadElement function" class="md-nav__link">
      Over typing ​​with LoadElement function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-data-against-on-submission" title=" Check data against on submission" class="md-nav__link">
+     Check data against on submission
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-data-to-actually-type" title=" Convert data to actually type" class="md-nav__link">
+     Convert data to actually type
   </a>
   
 </li>
@@ -1073,7 +1160,7 @@
 <span style="color: #f8f8f2">]</span>
 </pre></div>
 
-<h2 id="parameter-handling">Parameter handling<a class="headerlink" href="#parameter-handling" title="Permanent link">&para;</a></h2>
+<h2 id="custom-field-data-handling">Custom field data handling<a class="headerlink" href="#custom-field-data-handling" title="Permanent link">&para;</a></h2>
 <p>A sketch can access variables of AutoConnectElements in the custom Web page. The value entered into the AutoConnectElements on the page is stored in the member variable of each element by AutoConnect whenever GET/POST transmission occurs. </p>
 <p>The following diagram shows the flow of the input values of a custom Web page into a sketch and is the basis for actions to manipulate the values of custom Web pages using sketches.</p>
 <p><img src="./images/ac_param_flow.svg"></p>
@@ -1327,8 +1414,10 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">portal.begin();</span>
 </pre></div>
 
-<h3 id="over-typing-with-loadelement-function"><i class="fa fa-desktop"></i> Over typing ​​with LoadElement function<a class="headerlink" href="#over-typing-with-loadelement-function" title="Permanent link">&para;</a></h3>
+<h3 id="over-typing-with-loadelement-function"><i class="fa fa-wpforms"></i> Over typing ​​with LoadElement function<a class="headerlink" href="#over-typing-with-loadelement-function" title="Permanent link">&para;</a></h3>
 <p>The <a href="apiaux.html#loadelement">AutoConnectAux::loadElement</a> function overwrites its value when loading an AutoConnectElement. If the loadElement function wields an element with an input value, the previous value will be lost by the loaded value. If you need to preserve input values ​​even during page transition operations, we recommend that you load parameters only once at an early stage in the <code>setup()</code> of sketches.</p>
+<h3 id="check-data-against-on-submission"><i class="fa fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
+<h3 id="convert-data-to-actually-type"><i class="fa fa-exchange"></i> Convert data to actually type<a class="headerlink" href="#convert-data-to-actually-type" title="Permanent link">&para;</a></h3>
 <h2 id="transitions-of-the-custom-web-pages">Transitions of the custom Web pages<a class="headerlink" href="#transitions-of-the-custom-web-pages" title="Permanent link">&para;</a></h2>
 <h3 id="the-uri-of-the-custom-web-pages">The URI of the custom Web pages<a class="headerlink" href="#the-uri-of-the-custom-web-pages" title="Permanent link">&para;</a></h3>
 <p>The transition of the custom Web page follows the URI of the page, but the ESP8266WebServer class does not know the URI of an AutoConnectAux page. (Registering a custom Web page does not use the <em>ESP8266WebServer::on</em>/<em>WebServer::on</em> function.) Therefore ESP8266WebServer class does not detect its URI access. If you want to detect an http request to AutoConnectAux's custom Web page, you need to register its URI with the <a href="apiaux.html#on">AutoConnectAux::on</a> function.</p>

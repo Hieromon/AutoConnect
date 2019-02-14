@@ -13,7 +13,7 @@
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
-        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/apiextra.html">
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/menuize.html">
       
       
         <meta name="author" content="Hieromon Ikasamo">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Something extra - AutoConnect for ESP8266/ESP32</title>
+        <title>Constucting menu - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -115,7 +115,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#icons" tabindex="1" class="md-skip">
+      <a href="#what-menus-can-be-made-using-autoconnect" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -141,7 +141,7 @@
                 AutoConnect for ESP8266/ESP32
               </span>
               <span class="md-header-nav__topic">
-                Something extra
+                Constucting menu
               </span>
             
           
@@ -255,7 +255,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="api.html" title="Library APIs" class="md-tabs__link md-tabs__link--active">
+        <a href="api.html" title="Library APIs" class="md-tabs__link">
           Library APIs
         </a>
       
@@ -268,7 +268,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link md-tabs__link--active">
           Examples
         </a>
       
@@ -463,12 +463,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
     
     <label class="md-nav__link" for="nav-7">
       Library APIs
@@ -532,45 +530,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Something extra
-      </label>
-    
-    <a href="apiextra.html" title="Something extra" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
       Something extra
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#icons" title=" Icons" class="md-nav__link">
-     Icons
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -583,10 +547,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked>
     
     <label class="md-nav__link" for="nav-8">
       Examples
@@ -626,11 +592,59 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Constucting menu
+      </label>
+    
+    <a href="menuize.html" title="Constucting menu" class="md-nav__link md-nav__link--active">
       Constucting menu
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-menus-can-be-made-using-autoconnect" title="What menus can be made using AutoConnect" class="md-nav__link">
+    What menus can be made using AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-mechanism-of-menu-generation" title="Basic mechanism of menu generation" class="md-nav__link">
+    Basic mechanism of menu generation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#place-the-item-for-the-legacy-sketches-on-the-menu" title="Place the item for the legacy sketches on the menu" class="md-nav__link">
+    Place the item for the legacy sketches on the menu
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -694,8 +708,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#icons" title=" Icons" class="md-nav__link">
-     Icons
+  <a href="#what-menus-can-be-made-using-autoconnect" title="What menus can be made using AutoConnect" class="md-nav__link">
+    What menus can be made using AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-mechanism-of-menu-generation" title="Basic mechanism of menu generation" class="md-nav__link">
+    Basic mechanism of menu generation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#place-the-item-for-the-legacy-sketches-on-the-menu" title="Place the item for the legacy sketches on the menu" class="md-nav__link">
+    Place the item for the legacy sketches on the menu
   </a>
   
 </li>
@@ -717,32 +745,41 @@
               
                 
                 
-                  <h1>Something extra</h1>
+                  <h1>Constucting menu</h1>
                 
-                <h2 id="icons"><i class="fa fa-gift"></i> Icons<a class="headerlink" href="#icons" title="Permanent link">&para;</a></h2>
-<p>The library presents two PNG icons which can be used to embed a hyperlink to the AutoConnect menu.</p>
-<ul>
-<li>Bar type <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAApklEQVRYR2NkGGDAOMD2M4w6YDQEkEMgEJggZwCxGI0T5mug+alAvBFkD7IDXtLBcpjfXgEZ4ugOeAETpHEIgIwHeVYC3QH+0CgAS9AQgCwHRcFmdAfQ0E7cRo9mw0EVAqPlAKhwEKVTVsBZDsyiQ2k4Wg6gxPKgyoZ0Sn+o1iCHQBBQaiYQi9DYJTjbAyAJWluOtz0wWg7QOOqxGz+aDUdDYMBDAACA0x4hs/MPrwAAAABJRU5ErkJggg==" title="AutoConnect menu" alt="AutoConnect menu" /></li>
-<li>Cog type <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC2klEQVRIS61VvWsUQRSfmU2pon9BUIkQUaKFaCBKgooSb2d3NSSFKbQR/KrEIiIKBiGF2CgRxEpjQNHs7mwOUcghwUQ7g58IsbGxEBWsb2f8zR177s3t3S2cA8ftzPu993vzvoaSnMu2vRKlaqgKp74Q/tE8qjQPyHGcrUrRjwlWShmDbFMURd/a6TcQwNiYUmpFCPElUebcuQ2vz6aNATMVReHEPwzfSSntDcNwNo2rI+DcvQzhpAbA40VKyV0p1Q9snzBG1qYVcYufXV1sREraDcxpyHdXgkfpRBj6Uwm2RsC5dxxmZ9pdOY9cKTISRcHTCmGiUCh4fYyplTwG2mAUbtMTBMHXOgK9QfyXEZr+TkgQ1oUwDA40hEgfIAfj+HuQRaBzAs9eKyUZ5Htx+T3ZODKG8DzOJMANhmGomJVMXPll+hx9UUAlzZrJJ4QNCDG3VEfguu7mcpmcB/gkBOtShhQhchAlu5jlLUgc9ENgyP5gf9+y6LTv+58p5zySkgwzLNOIGc8sEoT1Lc53NMlbCQQuvMxeCME1NNPVVkmH/i3IzzXDtCSA0qQQwZWOCJDY50jsQRjJmkslEOxvTcDRO6zPxOh5xZglKkYLhWM9jMVnkIsTyMT6NBj7IbOCEjm6HxNVVTo2WXqEWJZ1T8rytB6GxizyDkPhWVpBqfiXUtbo/HywYJSpA9kMamNNPZ71R9Hcm+TMHHZNGw3EuraXEUldbfvw25UdOjqOt+JhMwJd7+jSTpZaEiIcaCDwPK83jtWnTkwnunFMtxeL/ge9r4XItt1RNNaj/0GAcV2bR3U5sG3nEh6M61US+Qrfd9Bs31GGulI2GOS/8dgcQZV1w+ApjIxB7TDwF9GcNzJzoA+rD0/8HvPnXQJCt2qFCwbBTfRI7UyXumWVt+HJ9NO4XI++bdsb0YyrqXmlh+AWOLHaLqS5CLQR5EggR3YlcVS9gKeH2hnX8r8Kmi1CAsl36QAAAABJRU5ErkJggg==" title="AutoConnect menu" alt="AutoConnect menu" /></li>
-</ul>
-<p>To reference the icon, use the <strong>AUTOCONNECT_LINK</strong> macro in the sketch. It expands into the string literal as an HTML <code>&lt;a&gt;&lt;/a&gt;</code> tag with PNG embedded of the AutoConnect menu hyperlinks. Icon type is specified by the parameter of the macro.</p>
-<dl class="apidl">
-    <dd><span class="apidef">BAR_24</span>Bars icon, 24x24.</dd>
-    <dd><span class="apidef">BAR_32</span>Bars icon, 32x32.</dd>
-    <dd><span class="apidef">BAR_48</span>Bars icon, 48x48.</dd>
-    <dd><span class="apidef">COG_24</span>Cog icon, 24x24.</dd>
-    <dd><span class="apidef">COG_32</span>Cog icon, 32x32.</dd>
+                <h2 id="what-menus-can-be-made-using-autoconnect">What menus can be made using AutoConnect<a class="headerlink" href="#what-menus-can-be-made-using-autoconnect" title="Permanent link">&para;</a></h2>
+<p>AutoConnect generates a menu dynamically depending on the instantiated <a href="acintro.html#how-it-works">AutoConnectAux</a> at the sketch executing time. Usually, it is a collection of <a href="acelements.html">AutoConnectElement</a>. In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements. That is, you can easily make the built-in menu with legacy sketches of yours.</p>
+<h2 id="basic-mechanism-of-menu-generation">Basic mechanism of menu generation<a class="headerlink" href="#basic-mechanism-of-menu-generation" title="Permanent link">&para;</a></h2>
+<p>The sketch can display the <a href="menu.html">AutoConnect menu</a> by following three patterns depending on AutoConnect-API usage.</p>
+<dl>
+<dt><i class="fa fa-desktop"></i> Basic menu</dt>
+<dd>It is the most basic menu only for WiFi connection. Sketch can automatically display this menu with only the basic call sequence of the AutoConnect API which invokes <a href="api.html#begin">AutoConnect::begin</a> and <a href="api.html#handleclient">AutoConnect::handleClient</a>.</dd>
+<dt><i class="fa fa-desktop"></i> Extra menu with custom Web pages which is consisted by <a href="acelements.html">AutoConnectElements</a></dt>
+<dd>It is an extended menu that appears when the sketch consists of the custom Web pages with <a href="acintro.html#how-it-works">AutoConnectAux</a> and AutoConnectElements. Refer to <a href="acintro.html#custom-web-pages-in-autoconnect-menu">Custom Web pages section</a>.</dd>
+<dt><i class="fa fa-desktop"></i> Extra menu which contains legacy pages</dt>
+<dd>It is for the legacy sketches using the <strong>on</strong> handler of ESP8266WebServer/WebServer(for ESP32) class natively and looks the same as the extra menu as above.</dd>
 </dl>
+<p>The mechanism to generate the AutoConnect menu is simple. It will insert the item generated from the <a href="apiaux.html#autoconnectaux"><strong>title</strong></a> member variable of the AutoConnectAux object to AutoConnect's built-in HTML menu list which is implemented as the HTML <code>&lt;li&gt;</code> tag. Therefore, the legacy sketches can invoke the web pages from the AutoConnect menu with just declaration the title and URI to AutoConnectAux.</p>
+<h2 id="place-the-item-for-the-legacy-sketches-on-the-menu">Place the item for the legacy sketches on the menu<a class="headerlink" href="#place-the-item-for-the-legacy-sketches-on-the-menu" title="Permanent link">&para;</a></h2>
+<p>To implement this with your sketch, use only the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> constructed with the title and URI of that page. <a href="acelements.html">AutoConnectElements</a> is not required.</p>
+<p>The AutoConnect library package contains an example sketch for ESP8266WebServer known as FSBrowser. Its example is a sample implementation that supports AutoConnect without changing the structure of the original FSBrowser and has the menu item for <strong>Edit</strong> and <strong>List</strong>.</p>
+<div style="display:block;margin-left:auto;margin-right:auto;width:284px;height:491px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_fsbrowser.gif" data-gifffer-width="280" data-gifffer-height="490" /></div>
 
-<div class="admonition note">
-<p class="admonition-title">Usage</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">html</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&lt;html&gt;&quot;</span><span style="color: #f8f8f2">;</span>
-<span style="color: #f8f8f2">html</span> <span style="color: #f92672">+=</span> <span style="color: #f8f8f2">AUTOCONNECT_LINK(BAR_32);</span>
-<span style="color: #f8f8f2">html</span> <span style="color: #f92672">+=</span> <span style="color: #e6db74">&quot;&lt;/html&gt;&quot;</span><span style="color: #f8f8f2">;</span>
-<span style="color: #f8f8f2">server.send(</span><span style="color: #ae81ff">200</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text/html&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">html);</span>
-</pre></div>
+<p>The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows.</p>
+<ol>
+<li>Add AutoConnect declaration.</li>
+<li>Add the AutoConnectAux named "<strong>Edit</strong>" and "<strong>List</strong>" as each page.</li>
+<li>Replace the instance of ESP8266WebServer to AutoConnect.</li>
+<li>Change menu title to FSBrowser using <a href="apiconfig.html#title">AutoConnectConfig::title</a>.</li>
+<li>Join the legacy pages declared at step #2 to AutoConnect using <a href="api.html#join">AutoConnect::join</a>.</li>
+</ol>
+<div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="./images/fsbrowser_ba.svg" /></div>
 
-</div>
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>
                 
                   
                 
@@ -763,7 +800,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="apielements.html" title="AutoConnectElements API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="howtoembed.html" title="How to embed" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -772,19 +809,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                AutoConnectElements API
+                How to embed
               </span>
             </div>
           </a>
         
         
-          <a href="howtoembed.html" title="How to embed" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="faq.html" title="FAQ" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                How to embed
+                FAQ
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
