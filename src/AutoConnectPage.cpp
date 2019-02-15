@@ -969,7 +969,7 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   AC_UNUSED(args);
-  const char* wlStatusSymbol;
+  const char* wlStatusSymbol ="";
   static const char* wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
     "IDLE",
@@ -1030,8 +1030,9 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   case WL_DISCONNECTED:
     wlStatusSymbol = wlStatusSymbols[6];
     break;
-  default:
+  case WL_NO_SHIELD:
     wlStatusSymbol = wlStatusSymbols[7];
+    break;
 #endif
   }
   return String("(") + String(_rsConnect) + String(") ") + String(wlStatusSymbol);
