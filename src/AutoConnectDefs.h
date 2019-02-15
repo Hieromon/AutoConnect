@@ -53,7 +53,7 @@
 #define AUTOCONNECT_AP_NM 0x00FFFFFF  //*< 255.255.255.0 */
 #endif // !AUTOCONNECT_AP_NM
 #ifndef AUTOCONNECT_AP_CH
-#define AUTOCONNECT_AP_CH 11
+#define AUTOCONNECT_AP_CH 1
 #endif // !AUTOCONNECT_AP_CH
 
 // AutoConnect menu root path
