@@ -820,7 +820,7 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   uint8_t     st;
-  const char* wlStatusSymbol;
+  const char* wlStatusSymbol = "";
 
 #if defined(ARDUINO_ARCH_ESP8266)
   static const char *wlStatusSymbols[] = {
