@@ -6,16 +6,16 @@ AutoConnect generates a menu dynamically depending on the instantiated [AutoConn
 
 The sketch can display the [AutoConnect menu](menu.md) by following three patterns depending on AutoConnect-API usage.
 
-<i class="fa fa-desktop"></i> Basic menu
-:    It is the most basic menu only for WiFi connection. Sketch can automatically display this menu with only the basic call sequence of the AutoConnect API which invokes [AutoConnect::begin](api.md#begin) and [AutoConnect::handleClient](api.md#handleclient).
+<i class="fa fa-desktop"></i>&ensp;**Basic menu**
+:    It is the most basic menu for only connecting WiFi. Sketch can automatically display this menu with the basic call sequence of the AutoConnect API which invokes [AutoConnect::begin](api.md#begin) and [AutoConnect::handleClient](api.md#handleclient).
 
-<i class="fa fa-desktop"></i> Extra menu with custom Web pages which is consisted by [AutoConnectElements](acelements.md)
+<i class="fa fa-desktop"></i>&ensp;**Extra menu with custom Web pages which is consisted by [AutoConnectElements](acelements.md)**
 :    It is an extended menu that appears when the sketch consists of the custom Web pages with [AutoConnectAux](acintro.md#how-it-works) and AutoConnectElements. Refer to [Custom Web pages section](acintro.md#custom-web-pages-in-autoconnect-menu).
 
-<i class="fa fa-desktop"></i> Extra menu which contains legacy pages
+<i class="fa fa-desktop"></i>&ensp;**Extra menu which contains legacy pages**
 :    It is for the legacy sketches using the **on** handler of ESP8266WebServer/WebServer(for ESP32) class natively and looks the same as the extra menu as above.
 
-The mechanism to generate the AutoConnect menu is simple. It will insert the item generated from the [**title**](apiaux.md#autoconnectaux) member variable of the AutoConnectAux object to AutoConnect's built-in HTML menu list which is implemented as the HTML `<li>` tag. Therefore, the legacy sketches can invoke the web pages from the AutoConnect menu with just declaration the title and URI to AutoConnectAux.
+The mechanism to generate the AutoConnect menu is simple. It will insert the item as `<li>` tag generated from the [**title**](apiaux.md#autoconnectaux) and [**uri**](apiaux.md#autoconnectaux) member variable of the AutoConnectAux object to the menu list of AutoConnect's built-in HTML. Therefore, the legacy sketches can invoke the web pages from the AutoConnect menu with just declaration the title and URI to AutoConnectAux.
 
 ## Place the item for the legacy sketches on the menu
 
@@ -28,10 +28,13 @@ The AutoConnect library package contains an example sketch for ESP8266WebServer 
 The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows.
 
 1. Add AutoConnect declaration.
-2. Add the AutoConnectAux named "**Edit**" and "**List**" as each page.
+2. Add the menu item named "**Edit**" and "**List**" of AutoConnectAux as each page.
 3. Replace the instance of ESP8266WebServer to AutoConnect.
-4. Change menu title to FSBrowser using [AutoConnectConfig::title](apiconfig.md#title).
-5. Join the legacy pages declared at step #2 to AutoConnect using [AutoConnect::join](api.md#join).
+4. Change the menu title to FSBrowser using [AutoConnectConfig::title](apiconfig.md#title).
+5. Join the legacy pages to AutoConnect declared at step #1 using [AutoConnect::join](api.md#join).<br>Joining multiple at one time with [std::vector](https://ja.cppreference.com/w/cpp/container/vector/vector)'s' [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization).
+6. According to the basic procedure of AutoConnect.<br>Establish a connection with [AutoConnect::begin](api.md#begin) and perform [AutoConnect::handleClient](api.md#handleclient) in **loop()**.
+
+<i class="fa fa-code"></i>&ensp;**Modification for FSBrowser** <small>(part  of sketch code)</small>
 
 <div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="./images/fsbrowser_ba.svg" /></div>
 
