@@ -60,7 +60,8 @@ void AutoConnectElementJson::_serialize(JsonObject& json) {
  */
 void AutoConnectElementJson::_setMember(const JsonObject& json) {
   name = json.get<String>(F(AUTOCONNECT_JSON_KEY_NAME));
-  value = json.get<String>(F(AUTOCONNECT_JSON_KEY_VALUE));
+  if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE)))
+    value = json.get<String>(F(AUTOCONNECT_JSON_KEY_VALUE));
 }
 
 /**
@@ -81,7 +82,8 @@ bool AutoConnectButtonJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACBUTTON))) {
     _setMember(json);
-    action = json.get<String>(F(AUTOCONNECT_JSON_KEY_ACTION));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ACTION)))
+      action = json.get<String>(F(AUTOCONNECT_JSON_KEY_ACTION));
     return true;
   }
   return false;
@@ -116,8 +118,10 @@ bool AutoConnectCheckboxJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACCHECKBOX))) {
     _setMember(json);
-    label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
-    checked = json.get<bool>(F(AUTOCONNECT_JSON_KEY_CHECKED));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
+      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_CHECKED)))
+      checked = json.get<bool>(F(AUTOCONNECT_JSON_KEY_CHECKED));
     return true;
   }
   return false;
@@ -154,9 +158,12 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACINPUT))) {
     _setMember(json);
-    label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
-    pattern = json.get<String>(F(AUTOCONNECT_JSON_KEY_PATTERN));
-    placeholder = json.get<String>(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
+      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PATTERN)))
+      pattern = json.get<String>(F(AUTOCONNECT_JSON_KEY_PATTERN));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)))
+      placeholder = json.get<String>(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER));
     return true;
   }
   return false;
@@ -193,17 +200,23 @@ bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACRADIO))) {
     _setMember(json);
-    label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
-    checked = static_cast<uint8_t>(json.get<int>(F(AUTOCONNECT_JSON_KEY_CHECKED)));
-    String  arrange = json.get<String>(F(AUTOCONNECT_JSON_KEY_ARRANGE));
-    if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_VERTICAL)))
-      order = AC_Vertical;
-    else if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_HORIZONTAL)))
-      order = AC_Horizontal;
-    empty();
-    JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
-    for (auto value : optionArray)
-      add(value.as<String>());
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
+      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_CHECKED)))
+      checked = static_cast<uint8_t>(json.get<int>(F(AUTOCONNECT_JSON_KEY_CHECKED)));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ARRANGE))) {
+      String  arrange = json.get<String>(F(AUTOCONNECT_JSON_KEY_ARRANGE));
+      if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_VERTICAL)))
+        order = AC_Vertical;
+      else if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_HORIZONTAL)))
+        order = AC_Horizontal;
+    }
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE))) {
+      empty();
+      JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
+      for (auto value : optionArray)
+        add(value.as<String>());
+    }
     return true;
   }
   return false;
@@ -249,12 +262,16 @@ bool AutoConnectSelectJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSELECT))) {
     _setMember(json);
-    label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
-    empty();
-    JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
-    for (auto value : optionArray)
-      add(value.as<String>());
-    return true;
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL))) {
+      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    }
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_OPTION))) {
+      empty();
+      JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
+      for (auto value : optionArray)
+        add(value.as<String>());
+      return true;
+    }
   }
   return false;
 }
@@ -290,7 +307,8 @@ bool AutoConnectSubmitJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSUBMIT))) {
     _setMember(json);
-    uri = json.get<String>(F(AUTOCONNECT_JSON_KEY_URI));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_URI)))
+      uri = json.get<String>(F(AUTOCONNECT_JSON_KEY_URI));
     return true;
   }
   return false;
@@ -325,7 +343,8 @@ bool AutoConnectTextJson::loadMember(const JsonObject& json) {
   String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACTEXT))) {
     _setMember(json);
-    style = json.get<String>(F(AUTOCONNECT_JSON_KEY_STYLE));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STYLE)))
+      style = json.get<String>(F(AUTOCONNECT_JSON_KEY_STYLE));
     return true;
   }
   return false;
