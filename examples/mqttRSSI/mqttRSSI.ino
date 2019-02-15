@@ -315,8 +315,8 @@ void handleRoot() {
     "</body>"
     "</html>";
 
-  WiFiWebServer&  server = portal.host();
-  server.send(200, "text/html", content);
+  WiFiWebServer&  webServer = portal.host();
+  webServer.send(200, "text/html", content);
 }
 
 // Clear channel using ThingSpeak's API.
@@ -339,11 +339,11 @@ void handleClearChannel() {
     Serial.println(" failed");
 
   // Returns the redirect response.
-  WiFiWebServer&  server = portal.host();
-  server.sendHeader("Location", String("http://") + server.client().localIP().toString() + String("/"));
-  server.send(302, "text/plain", "");
-  server.client().flush();
-  server.client().stop();
+  WiFiWebServer&  webServer = portal.host();
+  webServer.sendHeader("Location", String("http://") + webServer.client().localIP().toString() + String("/"));
+  webServer.send(302, "text/plain", "");
+  webServer.client().flush();
+  webServer.client().stop();
 }
 
 void setup() {
@@ -387,12 +387,13 @@ void setup() {
     }
   }
 
-  WiFiWebServer&  server = portal.host();
-  server.on("/", handleRoot);
-  server.on(AUX_CLEAR_URI, handleClearChannel);
+  WiFiWebServer&  webServer = portal.host();
+  webServer.on("/", handleRoot);
+  webServer.on(AUX_CLEAR_URI, handleClearChannel);
 }
 
 void loop() {
+  portal.handleClient();
   if (updateInterval > 0) {
     if (millis() - lastPub > updateInterval) {
       if (!mqttClient.connected()) {
@@ -404,5 +405,4 @@ void loop() {
       lastPub = millis();
     }
   }
-  portal.handleClient();
 }

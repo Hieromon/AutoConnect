@@ -173,8 +173,8 @@ void handleRoot() {
     "</body>"
     "</html>";
 
-  WiFiWebServer&  server = portal.host();
-  server.send(200, "text/html", content);
+  WiFiWebServer&  webServer = portal.host();
+  webServer.send(200, "text/html", content);
 }
 
 // Clear channel using Thingspeak's API.
@@ -198,11 +198,11 @@ void handleClearChannel() {
 
   // Returns the redirect response. The page is reloaded and its contents
   // are updated to the state after deletion.
-  WiFiWebServer&  server = portal.host();
-  server.sendHeader("Location", String("http://") + server.client().localIP().toString() + String("/"));
-  server.send(302, "text/plain", "");
-  server.client().flush();
-  server.client().stop();
+  WiFiWebServer&  webServer = portal.host();
+  webServer.sendHeader("Location", String("http://") + webServer.client().localIP().toString() + String("/"));
+  webServer.send(302, "text/plain", "");
+  webServer.client().flush();
+  webServer.client().stop();
 }
 
 // Load AutoConnectAux JSON from SPIFFS.
@@ -264,12 +264,13 @@ void setup() {
     }
   }
 
-  WiFiWebServer&  server = portal.host();
-  server.on("/", handleRoot);
-  server.on(AUX_MQTTCLEAR, handleClearChannel);
+  WiFiWebServer&  webServer = portal.host();
+  webServer.on("/", handleRoot);
+  webServer.on(AUX_MQTTCLEAR, handleClearChannel);
 }
 
 void loop() {
+  portal.handleClient();
   if (updateInterval > 0) {
     if (millis() - lastPub > updateInterval) {
       if (!mqttClient.connected()) {
@@ -281,5 +282,4 @@ void loop() {
       lastPub = millis();
     }
   }
-  portal.handleClient();
 }
