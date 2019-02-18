@@ -496,9 +496,66 @@ The [AutoConnectAux::loadElement](apiaux.md#loadelement) function overwrites its
 
 ### <i class="fa fa-check-square"></i> Check data against on submission
 
+By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.md#autoconenctinput), you can find errors in data styles while typing in custom Web pages. The pattern is specified by [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).[^2] If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.
+
+[^2]: The pattern of AutoConnectInput conforms to javascript specification.
+
+<span style="display:block;margin-left:auto;margin-right:auto;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
+
+```json hl_lines="10"
+{
+  "title" : "Page-1",
+  "uri" : "/page1",
+  "menu" : true,
+  "element" : [
+    {
+      "name" : "Server",
+      "type" : "ACInput",
+      "label": "Server address",
+      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+    }
+  ]
+}
+```
+
 ### <i class="fa fa-exchange"></i> Convert data to actually type
 
 ## Transitions of the custom Web pages
+
+### Scope &amp; Lifetime of AutoConnectAux
+
+The lifetime of AutoConnectAux and AutoConnectElements must remain in the period when the custom Web page can be manipulated. The implementation of the custom Web page inherits from requestHandler driven from ESP8266WebServer (WebServer for ESP32), so the instance of AutoConnectAux and AutoConnectElements must exist for the duration of effect of handleClient. The following example is incorrect for manipulating custom Web pages. Its AutoConnectAux instance will be destructed at the exit of the setup().
+
+```cpp hl_lines="20"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+static const auxPage[] PROGMEM = R"raw(
+{
+  "title": "Page-1",
+  "uri": "/page1",
+  "menu": true,
+  "element": [
+    { "name":"Server", "type":"ACText", "label":"Server address" }
+  ]
+}
+)raw";
+
+AutoConnect  portal;
+
+void setup() {
+  // This declaration is wrong.
+  AutoConnectAux aux;
+  aux.load(auxPage);
+  portal.join(aux);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
 
 ### The URI of the custom Web pages
 
@@ -528,3 +585,9 @@ The custom Web pages handler has the following restrictions.
 
 !!! hint "302 Redirect Alternatives"
     To transition from a custom Web page to a sketch owned page, execute the link function of JavaScript with the AutoConnectElement element.
+
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>

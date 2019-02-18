@@ -27,7 +27,7 @@ nav:
     - 'Something extra': apiextra.md
   - 'Examples' :
     - 'How to embed': howtoembed.md
-    - 'Tips for data retrieval': datatips.md
+    - 'Tips for data conversion': datatips.md
     - 'Constucting menu': menuize.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
