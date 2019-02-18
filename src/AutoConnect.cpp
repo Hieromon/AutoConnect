@@ -666,6 +666,7 @@ void AutoConnect::_handleNotFound(void) {
  *  the request for disconnection. It will be into progress after handleClient.
  */
 String AutoConnect::_induceReset(PageArgument& args) {
+  AC_UNUSED(args);
   _rfReset = true;
   return String(F("Reset in progress..."));
 }
@@ -676,6 +677,7 @@ String AutoConnect::_induceReset(PageArgument& args) {
  *  the request for disconnection. It will be into progress after handleClient.
  */
 String AutoConnect::_induceDisconnect(PageArgument& args) {
+  AC_UNUSED(args);
   _rfDisconnect = true;
   return _emptyString;
 }
@@ -752,6 +754,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
  *  A destination as _redirectURI is indicated by loop to establish connection.
  */
 String AutoConnect::_invokeResult(PageArgument& args) {
+  AC_UNUSED(args);
   String redirect = String(F("http://"));
   // The host address to which the connection result for ESP32 responds
   // changed from v0.9.7. This change is a measure according to the
@@ -783,6 +786,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
  *  a part of the handling of http request originated from handleClient.
  */
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
+  AC_UNUSED(method);
   _portalAccessPeriod = millis();
   AC_DBG("Host:%s, URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
 
