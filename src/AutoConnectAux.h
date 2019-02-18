@@ -90,7 +90,7 @@ class AutoConnectAux : public PageBuilder {
   bool  _loadElement(JsonVariant& in, const String& name);              /**< Load an element as specified name from JSON object */
   AutoConnectElement& _loadElement(JsonObject& in, const String& name); /**< Load an element as specified name from JSON object */
   AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
-  static const ACElement_t  _asElementType(const String& type);         /**< Convert a string of element type to the enumeration value */
+  static ACElement_t  _asElementType(const String& type);         /**< Convert a string of element type to the enumeration value */
 #endif // !AUTOCONNECT_USE_JSON
 
   String  _title;                             /**< A title of the page */

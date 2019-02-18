@@ -43,7 +43,7 @@ class AutoConnectElementBasis {
   }
   virtual ~AutoConnectElementBasis() {}
   virtual const String  toHTML(void) const { return value; }
-  const ACElement_t typeOf(void) const { return _type; }
+  ACElement_t typeOf(void) const { return _type; }
 
   String  name;       /**< Element name */
   String  value;      /**< Element value */

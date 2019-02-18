@@ -881,7 +881,6 @@ AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& element, const Stri
  */
 size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names) {
   size_t  bufferSize = 0;
-  size_t  stores = _addonElm.size();
   size_t  amount = names.size();
   size_t  size_n = 0;
 
@@ -941,7 +940,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
  * @param  type  An element type as String
  * @return A type of ACElement_t
  */
-const ACElement_t AutoConnectAux::_asElementType(const String& type) {
+ACElement_t AutoConnectAux::_asElementType(const String& type) {
   typedef struct {
     const char* tName;
     ACElement_t tEnum;
