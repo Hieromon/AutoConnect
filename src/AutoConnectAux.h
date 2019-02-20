@@ -20,8 +20,6 @@
 #include <PageBuilder.h>
 #include "AutoConnectElement.h"
 
-#define AUTOCONENCT_JSONOBJECTTREE_MAXDEPTH   3
-
 class AutoConnect;  // Reference to avoid circular
 class AutoConnectAux;  // Reference to avoid circular
 
