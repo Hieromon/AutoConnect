@@ -29,6 +29,7 @@ nav:
     - 'How to embed': howtoembed.md
     - 'Tips for data conversion': datatips.md
     - 'Constucting menu': menuize.md
+    - 'Custom Web pages w/o JSON': wojson.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
   - 'License' : license.md
@@ -60,6 +61,7 @@ theme:
 extra_css:
   - 'css/paragraph.css'
   - 'css/extra.css'
+  - 'https://use.fontawesome.com/releases/v5.6.1/css/all.css'
 extra_javascript:
   - 'js/gifffer.min.js'
 extra:

@@ -35,13 +35,19 @@
   color: rgba(102,217,224,1);
 }
 
+.apidl {
+  margin-left: 20px;
+}
+
 .apidef {
-  display: inline-block;
+  display: block;
+  float: left;
   width: 100px;
 }
 
-.apidl {
-  margin-left: 20px;
+.apidesc {
+  display: inline-block;
+  width: calc(100% - 100px);
 }
 
 .ulsty-edit > li:before {

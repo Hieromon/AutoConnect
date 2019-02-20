@@ -36,7 +36,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 <div style="display:block;height:425px;">
 <img style="float:left;width:380px;" src="./images/aux_json.png">
 <img style="float:left;margin-top:200px;margin-left:10px;margin-right:10px;width:32px;" src="./images/arrow_right.png">
-<img style="float:left;width:240px" src="./images/AutoConnectAux.gif">
+<span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
 </div>
 
 ## Installation

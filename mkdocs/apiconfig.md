@@ -16,10 +16,10 @@ AutoConnectConfig(const char* ap, const char* password, const unsigned long time
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The length should be up to 31. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</dd>
-    <dd><span class="apidef">password</span>Password for SodtAP. The length should be from 8 to up to 63. The default value is **12345678**.</dd>
-    <dd><span class="apidef">timeout</span>The timeout value of the captive portal in [ms] units. The default value is 0.</dd>
-    <dd><span class="apidef">channel</span>The channel number of WIFi when SoftAP starts. The default values is 1.</dd>
+    <dd><span class="apidef">ap</span><span class="apidesc">SSID for SoftAP. The length should be up to 31. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</span></dd>
+    <dd><span class="apidef">password</span><span class="apidesc">Password for SodtAP. The length should be from 8 to up to 63. The default value is **12345678**.</span></dd>
+    <dd><span class="apidef">timeout</span><span class="apidesc">The timeout value of the captive portal in [ms] units. The default value is 0.</span></dd>
+    <dd><span class="apidef">channel</span><span class="apidesc">The channel number of WIFi when SoftAP starts. The default values is 1.</span></dd>
 </dl>
 
 ## <i class="fa fa-code"></i> Public member variables
@@ -37,7 +37,7 @@ SoftAP's SSID.
 Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
+    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **192.168.244.1**</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> autoReconnect
@@ -48,8 +48,8 @@ If the connection fails, starts the captive portal in SoftAP + STA mode.
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Reconnect automatically.</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>Starts Captive Portal in SoftAP + STA mode without trying to reconnect. This is the default.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Reconnect automatically.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Starts Captive Portal in SoftAP + STA mode without trying to reconnect. This is the default.</span></dd>
 </dl>
 
 When the autoReconnect option is enabled, an automatic connection will behave if the following conditions are satisfied.
@@ -64,8 +64,8 @@ Reset ESP8266 module automatically after WLAN disconnected.
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Reset after WiFi disconnected automatically.</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>No reset.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Reset after WiFi disconnected automatically.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">No reset.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> autoRise
@@ -75,8 +75,8 @@ Captive portal activation switch. False for disabling the captive portal. It pre
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Enable the captive portal. This is the default.</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>Disable the captive portal.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Enable the captive portal. This is the default.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Disable the captive portal.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> autoSave
@@ -86,8 +86,8 @@ The credential saved automatically at the connection establishment.
     <dt>**Type**</dt>
     <dd>AC_SAVECREDENTIAL_t</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_AUTO</span>The credential saved automatically. This is the default.</dd>
-    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_NEVER</span>The credential no saved.</dd>
+    <dd><span class="apidef">AC_SAVECREDENTIAL_AUTO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">The credential saved automatically. This is the default.</span></dd>
+    <dd><span class="apidef">AC_SAVECREDENTIAL_NEVER</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">The credential no saved.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> bootUri
@@ -97,8 +97,8 @@ Specify the location to be redirected after module reset in the AutoConnect menu
     <dt>**Type**</dt>
     <dd>AC_ONBOOTURI_t</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">AC_ONBOOTURI_ROOT</span>Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in AutoConnectDefs.h.</dd>
-    <dd><span class="apidef" style="width:230px;">AC_ONBOOTURI_HOME</span>It is redirected to the uri specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</dd>
+    <dd><span class="apidef">AC_ONBOOTURI_ROOT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in AutoConnectDefs.h.</span></dd>
+    <dd><span class="apidef">AC_ONBOOTURI_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">It is redirected to the uri specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> boundaryOffset
@@ -147,7 +147,7 @@ Set secondary DNS server address when using static IP address.
 Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
+    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **192.168.244.1**</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> hidden
@@ -157,8 +157,8 @@ Sets SoftAP to hidden SSID.
     <dt>**Type**</dt>
     <dd>uint8_t</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">0</span>SSID will be appeared. This is the default.</dd>
-    <dd><span class="apidef" style="width:230px;">1</span>SSID will be hidden.</dd>
+    <dd><span class="apidef">0</span><span class="aidesc">SSID will be appeared. This is the default.</span></dd>
+    <dd><span class="apidef">1</span><span class="apidesc">SSID will be hidden.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> homeUri
@@ -184,8 +184,8 @@ Disable the first WiFi.begin() and start the captive portal. If this option is e
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Start the captive portal with [**AutoConnect::begin**](api.md#begin).</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>Enable the first WiFi.begin() and it will start captive portal when connection failed. This is default.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Start the captive portal with [**AutoConnect::begin**](api.md#begin).</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Enable the first WiFi.begin() and it will start captive portal when connection failed. This is default.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> netmask
@@ -193,7 +193,7 @@ Disable the first WiFi.begin() and start the captive portal. If this option is e
 Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **255.255.255.0**</dd>
+    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **255.255.255.0**</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> portalTimeout
@@ -201,7 +201,7 @@ Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initi
 Specify the timeout value of the captive portal in [ms] units. It is valid when the station is not connected and does not time out if the station is connected to the ESP module in SoftAP mode (ie Attempting WiFi connection with the portal function). If 0, the captive portal will not be timed-out.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">unsigned long</span>Captive portal timeout value. The default value is 0.</dd>
+    <dd><span class="apidef">unsigned long</span><span class="apidesc">Captive portal timeout value. The default value is 0.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> psk
@@ -219,8 +219,8 @@ Specify whether to continue the portal function even if the captive portal timed
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Continue the portal function even if the captive portal times out. The STA + SoftAP mode of the ESP module continues and accepts the connection request to the AP.</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>When the captive portal times out, STA + SoftAP mode of the ESP module is stopped. This is default.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Continue the portal function even if the captive portal times out. The STA + SoftAP mode of the ESP module continues and accepts the connection request to the AP.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">When the captive portal times out, STA + SoftAP mode of the ESP module is stopped. This is default.</span></dd>
 </dl>
 
 !!! hint "Connection request after timed-out"

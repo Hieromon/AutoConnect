@@ -362,7 +362,7 @@ void loop() {
 }
 ```
 
-The above example handles in the handler for the values of a custom web page. An [AutoConnect::on](api.md#on) function registers a handler for the AutoConnectAux page of the specified uri. The argument of the custom Web page handler is an AutoConnectAux of the page itself and the [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) object.
+The above example handles in the handler for the values of a custom Web page. An [AutoConnect::on](api.md#on) function registers a handler for the AutoConnectAux page of the specified uri. The argument of the custom Web page handler is an AutoConnectAux of the page itself and the [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) object.
 
 To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the [AutoConnect::where](api.md#where) function. The `AutoConnect::where` function returns a pointer to the AutoConnectAux object of the custom Web page that caused the HTTP request.
 
@@ -490,17 +490,51 @@ portal.on("/echo", [](AutoConnectAux& aux, PageArgument& args) {
 portal.begin();
 ```
 
-### <i class="fa fa-wpforms"></i> Over typing ​​with LoadElement function
+### <i class="fa fa-wpforms"></i> Overwrite the AutoConnectElements
 
-The [AutoConnectAux::loadElement](apiaux.md#loadelement) function overwrites its value when loading an AutoConnectElement. If the loadElement function wields an element with an input value, the previous value will be lost by the loaded value. If you need to preserve input values ​​even during page transition operations, we recommend that you load parameters only once at an early stage in the `setup()` of sketches.
+Sketches can update the attributes of AutoConnectElements with two approaches. A one is to assign directly to the attributes of a member variable of its element. The other is to overwrite them with loading the element by [AutoConnectAux::loadElement](apiaux.md#loadelement). 
 
-### <i class="fa fa-check-square"></i> Check data against on submission
+The elements for attributes described in the JSON document for AutoConnectElements overwrites the member variables of the target AutoConnectElements. However, AutoConnectAux::loadElement keeps the member variables unchanged if there is no element in the JSON document. This overwriting behavior is the same for the [AutoConnect::load](api.md#load) function.
+
+For example, the combination of the sketch and JSON document as follows updates only the style while keeping Captiopn (ie. "Hello, world") as AutoConnectText value.
+
+<i class="fa fa-code"></i> The sketch (part of code)
+
+```cpp
+ACText(Caption, "Hello, world");
+AutoConnectAux helloPage("/hello", "Hello", true, { Caption });
+AutoConnect portal;
+
+String onHello(AutoConnectAux& aux, PageArgument& args) {
+  aux.loadElement(JSON);
+  return String();
+}
+
+void setup() {
+  helloPage.on(onHello);
+  portal.join(helloPage);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+<i class="fab fa-js-square"></i> External JSON document for the above sketch to modify the text style
+```json
+{
+  "name" : "Caption",
+  "type" : "ACText",
+  "style": "text-align:center;font-family:'Avenir','Corbel','Osaka';color:Green;"
+}
+```
+
+### <i class="far fa-check-square"></i> Check data against on submission
 
 By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.md#autoconenctinput), you can find errors in data styles while typing in custom Web pages. The pattern is specified by [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).[^2] If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.
 
 [^2]: The pattern of AutoConnectInput conforms to javascript specification.
-
-<span style="display:block;margin-left:auto;margin-right:auto;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
 
 ```json hl_lines="10"
 {
@@ -517,6 +551,11 @@ By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.
   ]
 }
 ```
+
+<div>
+  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="./images/arrow_down.png"></span>
+  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
+</div>
 
 ### <i class="fa fa-exchange"></i> Convert data to actually type
 

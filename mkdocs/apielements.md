@@ -7,9 +7,9 @@ AutoConnectButton(const char* name = "", const char* value = "", const String& a
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">name</span>The element name.</dd>
-    <dd><span class="apidef">value</span>Value of the element.</dd>
-    <dd><span class="apidef">action</span>Native code of the action script executed when the button is clicked.</dd>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
+    <dd><span class="apidef">action</span><span class="apidesc">Native code of the action script executed when the button is clicked.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -19,7 +19,7 @@ AutoConnectButton(const char* name = "", const char* value = "", const String& a
 The element name.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -27,7 +27,7 @@ The element name.
 Value of the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> action
@@ -35,7 +35,7 @@ Value of the element.
 HTML native code of the action script to be executed when the button is clicked. It is mostly used with a JavaScript to activate a script.[^1]
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 [^1]:JavaScript can be inserted into a custom Web page using AutoConnectElement.
@@ -62,10 +62,10 @@ Returns type of AutoConnectElement.
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">name</span>The element name.</dd>
-    <dd><span class="apidef">value</span>Value of the element.</dd>
-    <dd><span class="apidef">label</span>A label string prefixed to the checkbox.</dd>
-    <dd><span class="apidef">check</span>Checked state of the checkbox.</dd>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">A label string prefixed to the checkbox.</span></dd>
+    <dd><span class="apidef">check</span><span class="apidesc">Checked state of the checkbox.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -75,7 +75,7 @@ Returns type of AutoConnectElement.
 The element name. 
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -83,7 +83,7 @@ The element name.
 Value of the element. It becomes a value attribute of an HTML `#!html <input type="checkbox">` tag.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -91,7 +91,7 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 A label is an optional string. A label is always arranged on the right side of the checkbox. Specification of a label will generate an HTML `#!html <label>` tag with an `id` attribute. The checkbox and the label are connected by the id attribute.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> checked
@@ -99,7 +99,7 @@ A label is an optional string. A label is always arranged on the right side of t
 It indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent by submit.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">Boolean</span></dd>
+    <dd><span class="apidef">Boolean</span><span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -124,8 +124,8 @@ AutoConnectElement(const char* name = "", const char* value = "")
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">name</span>The element name.</dd>
-    <dd><span class="apidef">value</span>Value of the element.</dd>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -135,7 +135,7 @@ AutoConnectElement(const char* name = "", const char* value = "")
 The element name.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -143,7 +143,7 @@ The element name.
 Value of the element. It is output as HTML as it is as a source for generating HTML code.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -168,11 +168,11 @@ AutoConnectInput(const char* name = "", const char* value = "", const char* labe
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">name</span>The element name.</dd>
-    <dd><span class="apidef">value</span>Value of the element.</dd>
-    <dd><span class="apidef">label</span>Label string.</dd>
-    <dd><span class="apidef">pattern</span>Regular expression string for checking data format.</dd>
-    <dd><span class="apidef">placeholder</span>A placeholder string.</dd>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">pattern</span><span class="apidesc">Regular expression string for checking data format.</span></dd>
+    <dd><span class="apidef">placeholder</span><span class="apidesc">A placeholder string.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -182,7 +182,7 @@ AutoConnectInput(const char* name = "", const char* value = "", const char* labe
 The element name.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -190,7 +190,7 @@ The element name.
 Value of the element. It becomes a value attribute of an HTML `#!html <input type="text">` tag. An entered text in the custom Web page will be sent with a query string of the form. The value set before accessing the page is displayed as the initial value.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -198,7 +198,7 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The input box and the label are connected by the id attribute.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> pattern
@@ -206,7 +206,7 @@ A label is an optional string. A label is always arranged on the left side of th
 A pattern specifies a regular expression that the input-box's value is checked against on form submission.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> placeholder
@@ -214,7 +214,7 @@ A pattern specifies a regular expression that the input-box's value is checked a
 A placeholder is an option string. Specification of a placeholder will generate a `placeholder` attribute for the input tag.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -239,11 +239,11 @@ AutoConnectRadio(const char* name = "", std::vector<String> const& values = {}, 
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">name</span>The element name.</dd>
-    <dd><span class="apidef">values</span>An array of values of the radio buttons. Specifies an [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</dd>
-    <dd><span class="apidef">label</span>Label string.</dd>
-    <dd><span class="apidef">order</span>The direction to arrange the radio buttons.</dd>
-    <dd><span class="apidef">checked</span>An index to be checked in the radio buttons.</dd>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies an [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">order</span><span class="apidesc">The direction to arrange the radio buttons.</span></dd>
+    <dd><span class="apidef">checked</span><span class="apidesc">An index to be checked in the radio buttons.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -253,7 +253,7 @@ AutoConnectRadio(const char* name = "", std::vector<String> const& values = {}, 
 The element name.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> values
@@ -261,7 +261,7 @@ The element name.
 An array of String type for the radio button options. It is an initialization list can be used. The `#!html <input type="radio">` tags will be generated from each entry in the values.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">std::vector&lt;String&gt;</span></dd>
+    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -269,18 +269,19 @@ An array of String type for the radio button options. It is an initialization li
 A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the [order](#order).
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">String</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> order
 
 Specifies the direction to arrange the radio buttons. A label will place in the left or the top according to the **_order_**. It is a value of **ACArrange_t** type and accepts one of the following:
-
-- **`AC_Horizontal`** : Horizontal arrangement.
-- **`AC_Vertical`** : Vertical arrangement.  
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">ACArrange_t</span></dd>
+    <dd><span class="apidef">ACArrange_t</span><span class="apidesc">
+        
+- **`AC_Horizontal`** : Horizontal arrangement.
+- **`AC_Vertical`** : Vertical arrangement.
+    </span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> checked
@@ -288,7 +289,7 @@ Specifies the direction to arrange the radio buttons. A label will place in the 
 Specifies the index number (1-based) of the **values** to be checked. If this parameter is not specified neither item is checked.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">uint8_t</span></dd>
+    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -312,7 +313,7 @@ void add(const String& value)
 Adds an option for the radio button.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">value</span>An option string to add to the radio button.</dd>
+    <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> check
@@ -323,7 +324,7 @@ void check(const String& value)
 Indicates the check of the specified option for the radio buttons. You can use the **check** function for checking dynamically with arbitrary of the radio button.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">value</span>An option string to be checked.</dd>
+    <dd><span class="apidef">value</span><span class="apidesc">An option string to be checked.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> empty
@@ -334,7 +335,7 @@ void empty(const size_t reserve = 0)
 Clear the array of option strings that AutoConnectRadio has in values. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">reserve</span>Reserved size of a container for option strings.</dd>
+    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for option strings.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;
@@ -345,7 +346,7 @@ const String& operator[] (const std::size_t n)
 Returns the option string of the index specified by **_n_**.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">n</span>Index of values array to return.</dd>
+    <dd><span class="apidef">n</span><span class="apidesc">Index of values array to return.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -360,6 +361,81 @@ Returns current checked option of the radio buttons.
 </dl>
 
 ## AutoConnectSelect
+
+### <i class="fa fa-code"></i> Constructor
+
+```cpp
+AutoConnectSelect(const char* name = "", std::vector<String> const& options = {}, const char* label = "")
+```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies an [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member variables
+
+#### <i class="fa fa-caret-right"></i> name
+
+The element name.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> options
+
+An array of String type for the selection options. It is an initialization list can be used. The `#!html <option value>` tags will be generated from each entry in the options.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> label
+
+A label is an optional string. A label will be arranged in the top of the selection list.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member functions
+
+#### <i class="fa fa-caret-right"></i> typeOf
+
+```cpp
+ACElement_t typeOf(void)
+```
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>AC_Select</dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> add
+
+```cpp
+void add(const String& option)
+```
+
+#### <i class="fa fa-caret-right"></i> empty
+
+```cpp
+void empty(const size_t reserve = 0)
+```
+
+#### <i class="fa fa-caret-right"></i> size
+
+```cpp
+size_t size(void)
+```
+
+#### <i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;
+
+```cpp
+const String& operator[] (const std::size_t n)
+```
 
 ## AutoConnectSubmit
 

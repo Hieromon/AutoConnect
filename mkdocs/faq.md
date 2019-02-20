@@ -185,9 +185,9 @@ It consumes about 2K bytes in the static and about 12K bytes are consumed at the
 
 Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.
 
-## <i class="fa fa-question-circle"></i> I can not see the custom web page.
+## <i class="fa fa-question-circle"></i> I cannot see the custom Web page.
 
-JSON parse error
+If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
 
 ## <i class="fa fa-question-circle"></i> AutoConnect behaves not stable with my sketch yet.
 
@@ -231,4 +231,13 @@ To fully enable for the AutoConnect debug logging options, change the following 
 
 ### 4. Reports the issue to AutoConnect repository on Github
 
-If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information.
+If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information as follows.
+
+- Hardware module
+- Arduino core Version (including the upstream tag ID.)
+- Operating System which you use
+- lwIP variant
+- Problem description
+- If you have a STACK DUMP decoded result with formatted by the code block tag
+- The sketch code with formatted by the code block tag
+- Debug messages output

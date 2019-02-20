@@ -68,31 +68,31 @@ By giving a [**pattern**](achandling.md#check-data-against-on-submission) to [Au
 
 Here, represent examples the typical regular expression for the input validation.
 
-### <i class="fa fa-check-square"></i> URL
+### <i class="far fa-check-square"></i> URL
 
 ```
 ^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
 ```
 
-### <i class="fa fa-check-square"></i> DNS hostname
+### <i class="far fa-check-square"></i> DNS hostname
 
 ```
 ^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$
 ```
 
-### <i class="fa fa-check-square"></i> email address [^1]
+### <i class="far fa-check-square"></i> email address [^1]
 
 ```
 ^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$
 ```
 
-### <i class="fa fa-check-square"></i> IP Address
+### <i class="far fa-check-square"></i> IP Address
 
 ```
 ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 ```
 
-### <i class="fa fa-check-square"></i> Date as MM/DD/YYYY [^2]
+### <i class="far fa-check-square"></i> Date as MM/DD/YYYY [^2]
 
 ```
 ^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$

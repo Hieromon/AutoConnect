@@ -1,4 +1,4 @@
-## Describe custom Web pages with JSON
+
 
 You can embed custom Web pages written in [**JSON**](https://www.json.org/index.html) into AutoConnect without declaring AutoConnectAux &amp; AutoConnectElements in sketches. Custom Web page declaration in JSON can be included in the sketch in advance as the fixed string, or it can be stored in the external file such as SPIFFS for stream loading. You can also load and save AutoConnectElements objects individually.[^1]
 
@@ -9,7 +9,7 @@ By providing the following JSON document to AutoConnect, you can include the cus
 <div style="float:left;width:50%;height:470px;overflow:auto"><img src="./images/ac_json.png"></div>
 <img style="margin-left:30px;width:40%;height:470px;" src="./images/ac_mqtt_setting.png">
 
-A JSON document for AutoConnect can also contain declarations of multiple custom web pages. If you fit those multiple pages in one JSON document, sketch processing for loading AutoConnectAux will degenerate further.
+A JSON document for AutoConnect can also contain declarations of multiple custom Web pages. If you fit those multiple pages in one JSON document, sketch processing for loading AutoConnectAux will degenerate further.
 
 !!! caution "Need ArduinoJson v5"
     To process the AutoConnectAux &amp; AutoConnectElements written in the JSON is you need to install the [ArduinoJson version 5](https://arduinojson.org/v5/doc/installation/) library.
@@ -33,16 +33,16 @@ An AutoConnectAux is described by a JSON object. The elements that make up an ob
 : A title of the custom Web page. This is string value. String specified *title* will be displayed in the AutoConnection menu.
 
 #### <i class="fa fa-key"></i> **uri**
-: String of URI path that specifies where to place the custom web page. It needs to be a location from the root path including '**/**'.
+: String of URI path that specifies where to place the custom Web page. It needs to be a location from the root path including '**/**'.
 
 #### <i class="fa fa-key"></i> **menu**
-: This is a Boolean value indicating whether to include the custom web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.
+: This is a Boolean value indicating whether to include the custom Web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.
 
 #### <i class="fa fa-key"></i> **element**
 : Describe an array of JSON objects as *element_array*. It is a JSON object array of the [AutoConnectElements](#json-object-for-autoconnectelements) that make up the custom Web page.
 
 !!! note "Order of elements on a custom Web page"
-    The order in which AutoConnectElements are placed on a custom web page is the order in the JSON document.
+    The order in which AutoConnectElements are placed on a custom Web page is the order in the JSON document.
 
 ### <i class="fa fa-copy"></i> Multiple custom Web pages declaration in JSON document
 
@@ -104,16 +104,12 @@ You can put declarations of multiple custom Web pages in one JSON document. In t
 AutoConnectElements in JSON description are described as an array in the `element` with arguments of each [constructor](acelements.md#constructor).
 
 ```
-"element" : [
-  {
-    "name" : name,
-    "type" : type,
-    key_according_to_type : the_value | array_of_value , key_according_to_type : the_value | array_of_value
-  },
-  {
-    the_nect_element
-  }
-]
+{
+  "name" : name,
+  "type" : type,
+  key_according_to_type : the_value | array_of_value,
+  [ key_according_to_type : the_value | array_of_value ]
+}
 ```
 
 #### <i class="fa fa-key"></i> **name**
@@ -229,4 +225,4 @@ AutoConnect passes the given JSON document directly to the [**parseObject()**](h
 
 ## Saving JSON document
 
-However, AutoConnect does not support saving AutoConnectAux as a whole custom Web page. If you want to persist an AutoConnectElements object, you need to save it as an AutoConenctElement object unit. AutoConnectAux has a [function](achandling.md#saving-autoconnectelements) to write multiple elements to the stream in a batch.
+The sketch can persist AutoConnectElements as a JSON document and also uses [this function](achandling.md#saving-autoconnectelements-with-json) to save the values ​​entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the [load function](achandling.md#loading-autoconnectaux-autoconnectelements-with-json). 
