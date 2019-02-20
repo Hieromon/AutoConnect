@@ -1,0 +1,5 @@
+{
+  "name" : "Caption",
+  "type" : "ACText",
+  "style": "text-align:center;font-family:'Avenir','Corbel','Osaka';color:Green;"
+}

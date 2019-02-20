@@ -32,5 +32,7 @@ script:
   - buildExampleSketch HandlePortal
   - buildExampleSketch HandlePortalEX
   - buildExampleSketch Simple
+  - buildExampleSketch HelloWorld
   - buildExampleSketch mqttRSSI
   - buildExampleSketch mqttRSSI_FS
+  - buildExampleSketch mqttRSSI_NA
