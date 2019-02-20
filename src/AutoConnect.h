@@ -217,7 +217,7 @@ class AutoConnect {
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _purgePages(void);
-  PageElement*  _setupPage(String uri);
+  virtual PageElement*  _setupPage(String uri);
 #ifdef AUTOCONNECT_USE_JSON
   bool  _load(JsonVariant& aux);
 #endif // !AUTOCONNECT_USE_JSON
