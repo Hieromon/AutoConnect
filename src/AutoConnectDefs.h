@@ -26,6 +26,7 @@
 #endif // !AC_DEBUG
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.
+// Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
 #define AUTOCONNECT_USE_JSON
 
 // Predefined parameters
