@@ -1,6 +1,6 @@
 ## What menus can be made using AutoConnect
 
-AutoConnect generates a menu dynamically depending on the instantiated [AutoConnectAux](acintro.md#how-it-works) at the sketch executing time. Usually, it is a collection of [AutoConnectElement](acelements.md). In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements. That is, you can easily make the built-in menu with legacy sketches of yours.
+AutoConnect generates a menu dynamically depending on the instantiated [AutoConnectAux](acintro.md#how-it-works) at the sketch executing time. Usually, it is a collection of [AutoConnectElement](acelements.md). In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements.<br>In other words, you can easily create a built-in menu featuring the WiFi connection facility embedding the legacy web pages.
 
 ## Basic mechanism of menu generation
 
@@ -25,7 +25,7 @@ The AutoConnect library package contains an example sketch for ESP8266WebServer 
 
 <span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:492px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_fsbrowser.gif" data-gifffer-height="490" data-gifffer-width="280" /></span>
 
-The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows.
+The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows:
 
 1. Add AutoConnect declaration.
 2. Add the menu item named "**Edit**" and "**List**" of AutoConnectAux as each page.

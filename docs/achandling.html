@@ -73,6 +73,8 @@
     
       <link rel="stylesheet" href="css/extra.css">
     
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
     
       
         <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
@@ -556,8 +558,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#over-typing-with-loadelement-function" title=" Over typing ​​with LoadElement function" class="md-nav__link">
-     Over typing ​​with LoadElement function
+  <a href="#overwrite-the-autoconnectelements" title=" Overwrite the AutoConnectElements" class="md-nav__link">
+     Overwrite the AutoConnectElements
   </a>
   
 </li>
@@ -588,6 +590,13 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scope-lifetime-of-autoconnectaux" title="Scope &amp; Lifetime of AutoConnectAux" class="md-nav__link">
+    Scope &amp; Lifetime of AutoConnectAux
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#the-uri-of-the-custom-web-pages" title="The URI of the custom Web pages" class="md-nav__link">
@@ -745,8 +754,8 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
-      Tips for data retrieval
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
     </a>
   </li>
 
@@ -757,8 +766,20 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
-      Constucting menu
+    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
+      Constucting the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
     </a>
   </li>
 
@@ -906,8 +927,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#over-typing-with-loadelement-function" title=" Over typing ​​with LoadElement function" class="md-nav__link">
-     Over typing ​​with LoadElement function
+  <a href="#overwrite-the-autoconnectelements" title=" Overwrite the AutoConnectElements" class="md-nav__link">
+     Overwrite the AutoConnectElements
   </a>
   
 </li>
@@ -938,6 +959,13 @@
   
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scope-lifetime-of-autoconnectaux" title="Scope &amp; Lifetime of AutoConnectAux" class="md-nav__link">
+    Scope &amp; Lifetime of AutoConnectAux
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#the-uri-of-the-custom-web-pages" title="The URI of the custom Web pages" class="md-nav__link">
@@ -1292,7 +1320,7 @@
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 
-<p>The above example handles in the handler for the values of a custom web page. An <a href="api.html#on">AutoConnect::on</a> function registers a handler for the AutoConnectAux page of the specified uri. The argument of the custom Web page handler is an AutoConnectAux of the page itself and the <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> object.</p>
+<p>The above example handles in the handler for the values of a custom Web page. An <a href="api.html#on">AutoConnect::on</a> function registers a handler for the AutoConnectAux page of the specified uri. The argument of the custom Web page handler is an AutoConnectAux of the page itself and the <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> object.</p>
 <p>To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the <a href="api.html#where">AutoConnect::where</a> function. The <code>AutoConnect::where</code> function returns a pointer to the AutoConnectAux object of the custom Web page that caused the HTTP request.</p>
 <div class="admonition note">
 <p class="admonition-title">The where() function is available for only AutoConnectAux.</p>
@@ -1414,11 +1442,94 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">portal.begin();</span>
 </pre></div>
 
-<h3 id="over-typing-with-loadelement-function"><i class="fa fa-wpforms"></i> Over typing ​​with LoadElement function<a class="headerlink" href="#over-typing-with-loadelement-function" title="Permanent link">&para;</a></h3>
-<p>The <a href="apiaux.html#loadelement">AutoConnectAux::loadElement</a> function overwrites its value when loading an AutoConnectElement. If the loadElement function wields an element with an input value, the previous value will be lost by the loaded value. If you need to preserve input values ​​even during page transition operations, we recommend that you load parameters only once at an early stage in the <code>setup()</code> of sketches.</p>
-<h3 id="check-data-against-on-submission"><i class="fa fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
+<h3 id="overwrite-the-autoconnectelements"><i class="fa fa-wpforms"></i> Overwrite the AutoConnectElements<a class="headerlink" href="#overwrite-the-autoconnectelements" title="Permanent link">&para;</a></h3>
+<p>Sketches can update the attributes of AutoConnectElements with two approaches. A one is to assign directly to the attributes of a member variable of its element. The other is to overwrite them with loading the element by <a href="apiaux.html#loadelement">AutoConnectAux::loadElement</a>. </p>
+<p>The elements for attributes described in the JSON document for AutoConnectElements overwrites the member variables of the target AutoConnectElements. However, AutoConnectAux::loadElement keeps the member variables unchanged if there is no element in the JSON document. This overwriting behavior is the same for the <a href="api.html#load">AutoConnect::load</a> function.</p>
+<p>For example, the combination of the sketch and JSON document as follows updates only the style while keeping Captiopn (ie. "Hello, world") as AutoConnectText value.</p>
+<p><i class="fa fa-code"></i> The sketch (part of code)</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACText(Caption,</span> <span style="color: #e6db74">&quot;Hello, world&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">helloPage</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">true,</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">Caption</span> <span style="color: #f8f8f2">});</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+
+<span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">onHello</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">aux.loadElement(JSON);</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">helloPage.on(onHello);</span>
+  <span style="color: #f8f8f2">portal.join(helloPage);</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<p><i class="fab fa-js-square"></i> External JSON document for the above sketch to modify the text style
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;name&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Caption&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;type&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;style&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;text-align:center;font-family:&#39;Avenir&#39;,&#39;Corbel&#39;,&#39;Osaka&#39;;color:Green;&quot;</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div></p>
+<h3 id="check-data-against-on-submission"><i class="far fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
+<p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconenctinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;title&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Page-1&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;uri&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;menu&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;element&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span>
+    <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;name&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Server&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;type&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;label&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Server address&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="background-color: #49483e">      <span style="color: #f92672">&quot;pattern&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$&quot;</span>
+</span>    <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">]</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<div>
+  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="./images/arrow_down.png"></span>
+  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
+</div>
+
 <h3 id="convert-data-to-actually-type"><i class="fa fa-exchange"></i> Convert data to actually type<a class="headerlink" href="#convert-data-to-actually-type" title="Permanent link">&para;</a></h3>
 <h2 id="transitions-of-the-custom-web-pages">Transitions of the custom Web pages<a class="headerlink" href="#transitions-of-the-custom-web-pages" title="Permanent link">&para;</a></h2>
+<h3 id="scope-lifetime-of-autoconnectaux">Scope &amp; Lifetime of AutoConnectAux<a class="headerlink" href="#scope-lifetime-of-autoconnectaux" title="Permanent link">&para;</a></h3>
+<p>The lifetime of AutoConnectAux and AutoConnectElements must remain in the period when the custom Web page can be manipulated. The implementation of the custom Web page inherits from requestHandler driven from ESP8266WebServer (WebServer for ESP32), so the instance of AutoConnectAux and AutoConnectElements must exist for the duration of effect of handleClient. The following example is incorrect for manipulating custom Web pages. Its AutoConnectAux instance will be destructed at the exit of the setup().</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">auxPage[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Page-1&quot;,</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/page1&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;Server&quot;, &quot;type&quot;:&quot;ACText&quot;, &quot;label&quot;:&quot;Server address&quot; }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)raw&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// This declaration is wrong.</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+</span>  <span style="color: #f8f8f2">aux.load(auxPage);</span>
+  <span style="color: #f8f8f2">portal.join(aux);</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
 <h3 id="the-uri-of-the-custom-web-pages">The URI of the custom Web pages<a class="headerlink" href="#the-uri-of-the-custom-web-pages" title="Permanent link">&para;</a></h3>
 <p>The transition of the custom Web page follows the URI of the page, but the ESP8266WebServer class does not know the URI of an AutoConnectAux page. (Registering a custom Web page does not use the <em>ESP8266WebServer::on</em>/<em>WebServer::on</em> function.) Therefore ESP8266WebServer class does not detect its URI access. If you want to detect an http request to AutoConnectAux's custom Web page, you need to register its URI with the <a href="apiaux.html#on">AutoConnectAux::on</a> function.</p>
 <p>In addition to this, there are restrictions in the handler for the custom Web page as shown in the following section.</p>
@@ -1446,11 +1557,20 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p class="admonition-title">302 Redirect Alternatives</p>
 <p>To transition from a custom Web page to a sketch owned page, execute the link function of JavaScript with the AutoConnectElement element.</p>
 </div>
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>
+
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
 <p>The valid scope of the name is within an AutoConnectAux.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>The pattern of AutoConnectInput conforms to javascript specification.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

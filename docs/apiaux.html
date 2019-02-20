@@ -73,6 +73,8 @@
     
       <link rel="stylesheet" href="css/extra.css">
     
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
     
       
         <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
@@ -719,8 +721,8 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
-      Tips for data retrieval
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
     </a>
   </li>
 
@@ -731,8 +733,20 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
-      Constucting menu
+    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
+      Constucting the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
     </a>
   </li>
 
@@ -931,9 +945,10 @@
 </pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">uri</span>URI of this custom Web Page.</dd>
-    <dd><span class="apidef">title</span>Page title of this custom web page. It will appear on the auto connection menu and at the top of that page.</dd>
-    <dd><span class="apidef">addons</span>Reference to AutoConnectElement collection.</dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">URI of this custom Web Page.</span></dd>
+    <dd><span class="apidef">title</span><span class="apidesc">Page title of this custom Web page. It will appear on the auto connection menu and at the top of that page.</span></dd>
+    <dd><span class="apidef">menu</span><span class="apidesc">Specifies whether to display this page on menu.</span></dd>
+    <dd><span class="apidef">addons</span><span class="apidesc">Reference to AutoConnectElement collection.</span></dt>
 </dl></p>
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
 <h3 id="add"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h3>
@@ -941,17 +956,42 @@
 </pre></div>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(AutoConnectElementVT</span> <span style="color: #f8f8f2">addons)</span>
 </pre></div>
-Add an element to the AutoConnectAux. An added element is displayed on the custom Web page invoked from the AutoConnect menu.</p>
+Add an element to the AutoConnectAux. An added element is displayed on the custom Web page invoked from the AutoConnect menu.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">addon</span><span class="apidesc">Reference of AutoConnectElements. Specifies one of the AutoConnectElements classes.</span></dd>
+    <dd><span class="apidef">addons</span><span class="apidesc">An array list of reference of AutoConnectElements. An <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a> of the <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> can be used for the addons parameter cause the actual definition of type <strong>AutoConnectElementVT</strong> is <code>std::vector&lt;std::reference_wrapper&lt;AutoConnectElement&gt;&gt;</code>.</span></dd>
+</dl></p>
 <h3 id="getelement"><i class="fa fa-caret-right"></i> getElement<a class="headerlink" href="#getelement" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">template</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">typename</span> <span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 </pre></div>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
-</pre></div></p>
-<p>Get registered AutoConnectElement as specified name.</p>
+</pre></div>
+Get a registered AutoConnectElement as specified name. If <strong>T</strong> is specified as an actual type of AutoConnectElements, it returns a reference to that instance.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">T</span><span class="apidesc">Actual type name of AutoConnectElements as <a href="apielements.html#autoconnectbutton">AutoConnectButton</a>, <a href="apielements.html#autoconnectcheckbox">AutoConnectCheckbox</a>, <a href="apielements.html#autoconnectelement">AutoConnectElement</a>, <a href="apielements.html#autoconnectinput">AutoConnectInput</a>, <a href="apielements.html#autoconnectradio">AutoConnectRadio</a>, <a href="apielements.html#autoconnectselect">AutoConnectSelect</a>, <a href="apielements.html#autoconnectsubmit">AutoConnectSubmit</a>, <a href="apielements.html#autoconnecttext">AutoConnectText</a>.</span></dd>
+    <dd><span class="apidef">name</span><span class="apidesc">Name of the AutoConnectElements to be retrieved.</span></dd>
+    <dt><strong>Return value</strong></dt><dd>A reference of the AutoConnectElements. If a type is not specified returns a pointer.</dd>
+</dl></p>
 <h3 id="getelements"><i class="fa fa-caret-right"></i> getElements<a class="headerlink" href="#getelements" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </pre></div>
-Get vector of reference of all elements.</p>
+Get vector of reference of all elements.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference to std::vector of reference to AutoConnecctElements.</dd>
+</dl></p>
+<p>The getElements returns a reference to std::vector of reference to AutoConnecctElements. This function is provided to handle AutoConnectElemets owned by AutoConnectAux in bulk, and you can use each method of std::vector for a return value.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">// An example of getting type and name of all AutoConnectElements registered in AutoConnectAux.</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<span style="color: #75715e">// some code here...</span>
+<span style="color: #f8f8f2">AutoConnectElementVt</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElements();</span>
+<span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elm</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">elements)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">Serial.printf(</span><span style="color: #e6db74">&quot;name&lt;%s&gt; as type %d</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">elm.name.c_str(),</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)elm.typeOf());</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
 <h3 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in)</span>
 </pre></div>
@@ -959,7 +999,24 @@ Get vector of reference of all elements.</p>
 </pre></div>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in)</span>
 </pre></div>
-Load whole elements to AutoConnectAux Pages.</p>
+Load all AutoConnectElements elements from JSON document into AutoConnectAux as custom Web pages. The JSON document specified by the load function must be the <a href="acjson.html#json-objects-elements-for-the-custom-web-page">document structure</a> of AutoConnectAux. Its JSON document can describe multiple pages as an array.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">in</span><span class="apidesc">Specifies the JSON document to be load. The load function can input the following objects.</p>
+<ul>
+<li>String : Read-only String</li>
+<li>PROGMEM : Character array contained in the flash</li>
+<li>Stream : An entity that inherits stream class, generally SPIFFS or SD.
+    </span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">JSON document as the custom Web pages successfully loaded.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">JSON document loading failed.</span></dd>
+</dl></li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Load multiple custom Web pages separately</p>
+<p>Multiple custom Web pages can be loaded at once with JSON as an array. But it will consume a lot of memory. By loading a JSON document by page as much as possible, you can reduce memory consumption.</p>
+</div>
 <h3 id="loadelement"><i class="fa fa-caret-right"></i> loadElement<a class="headerlink" href="#loadelement" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
 </pre></div>
@@ -967,11 +1024,46 @@ Load whole elements to AutoConnectAux Pages.</p>
 </pre></div>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
 </pre></div>
-Load specified element.</p>
+Load specified element from JSON document into AutoConnectAux. The JSON document specified by the loadElement function must be the <a href="acjson.html#json-object-for-autoconnectelements">AutoConnectElement document structure</a>. When loading from a JSON document that describes multiple elements, its description must be an array syntax.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">in</span><span class="apidesc">Specifies the JSON document to be load. The load function can input the following objects.</p>
+<ul>
+<li>String : Read-only String</li>
+<li>PROGMEM : Character array contained in the flash</li>
+<li>Stream : An entity that inherits stream class, generally SPIFFS or SD.
+    </span></dd>
+    <dd><span class="apidef">name</span><span class="apidesc">Specifies the name to be load. If the name is not specified, the loadElement function will load all elements contained in the JSON document.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Specified AutoConnectElements successfully loaded.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">JSON document loading failed.</span></dd>
+</dl></li>
+</ul>
+<div class="admonition caution">
+<p class="admonition-title">Maybe it is an array</p>
+<p>Please note that the JSON document that is the input for loadElement is an array syntax of AutoConnectElements when there are multiple elements. For example, the following JSON document has a syntax error:</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Caption&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Hello, world&quot;</span>
+<span style="color: #f8f8f2">}</span><span style="color: #960050; background-color: #1e0010">,</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Server&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;label&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Server address&quot;</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+The outermost <code>[</code>, <code>]</code> is missing.</p>
+</div>
 <h3 id="menu"><i class="fa fa-caret-right"></i> menu<a class="headerlink" href="#menu" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">menu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">post)</span>
 </pre></div>
-Set or reset the display as menu item for this AutoConnectAux.</p>
+Set or reset the display as menu item for this AutoConnectAux. This function programmatically manipulates the menu parameter of the <a href="apiaux.html#autoconnectaux">AutoConenctAux constructor</a>.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Show on the menu.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Hidden on the menu.</span></dd>
+</dl></p>
 <h3 id="on"><i class="fa fa-caret-right"></i> on<a class="headerlink" href="#on" title="Permanent link">&para;</a></h3>
 <dl>
 <dt><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD)</span>
@@ -979,9 +1071,8 @@ Set or reset the display as menu item for this AutoConnectAux.</p>
 <dt>Register the handler function of the AutoConnectAux.</dt>
 <dt><dl class="apidl"></dt>
 <dt><dt><strong>Parameters</strong></dt></dt>
-<dt><dd><span class="apidef">handler</span>A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.</dd></dt>
-<dt><dd><span class="apidef"></span><code>String handler(AutoConnectAux&amp;, PageArgument&amp;)</code></dd></dt>
-<dt><dd><span class="apidef">order</span>Specifies when the handler is called with the following enumeration value.</dd></dt>
+<dt><dd><span class="apidef">handler</span><span class="apidesc">A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.<p class="apidesc"><code>String handler(AutoConnectAux&amp;, PageArgument&amp;)</code></p></span></dd></dt>
+<dt><dd><span class="apidef">order</span><span class="apidesc">Specifies when the handler is called with the following enumeration value.</span></dt>
 <dd>
 <ul>
 <li><strong>AC_EXIT_AHEAD</strong> :
@@ -997,7 +1088,7 @@ Called after AutoConnect generates the HTML of the page. You can append to HTML 
 <dd>
 <ul>
 <li><strong>AC_EXIT_BOTH</strong> :
-Called even before generating HTML and after generated.</li>
+Called even before generating HTML and after generated.</dd></li>
 </ul>
 </dd>
 </dl>
@@ -1006,20 +1097,70 @@ Called even before generating HTML and after generated.</li>
 <h3 id="release"><i class="fa fa-caret-right"></i> release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">release(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 </pre></div>
-Release a specified AutoConnectElement.</p>
+Release a specified AutoConnectElement from AutoConenctAux. The release function is provided to dynamically change the structure of the custom Web pages with the sketch. By combining the release function and the <a href="apiaux.html#add">add</a> function or the <a href="apiaux.html#loadelement">loadElement</a> function, the sketch can change the style of the custom Web page according to its behavior.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of AutoConnectElements to be released.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The AutoConnectElement successfully released.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">The AutoConnectElement can not be released.</span></dd>
+</dl></p>
 <h3 id="saveelement"><i class="fa fa-caret-right"></i> saveElement<a class="headerlink" href="#saveelement" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">saveElement(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">out,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">names</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{})</span>
 </pre></div>
-Write elements of AutoConnectAux to the stream.</p>
+Write elements of AutoConnectAux to the stream. The saveElement function outputs the specified AutoConenctElements as a JSON document using the <a href="https://arduinojson.org/v5/api/jsonobject/prettyprintto/">prettyPrintTo</a> function of the <a href="https://arduinojson.org/">ArduinoJson</a> library.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">out</span><span class="apidesc">Output stream to be output. SPIFFS, SD also Serial can be specified generally.</span></dd>
+    <dd><span class="apidef">names</span><span class="apidesc">The array of the name of AutoConnectElements to be output. If the names parameter is not specified, all AutoConnectElements registered in AutoConnectAux are output.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>The number of bytes written.</dd>
+</dl></p>
+<div class="admonition note">
+<p class="admonition-title">The output format is pretty</p>
+<p>The saveElement function outputs a prettified JSON document.</p>
+</div>
 <h3 id="setelementvalue"><i class="fa fa-caret-right"></i> setElementValue<a class="headerlink" href="#setelementvalue" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">setElementValue(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">value)</span>
 </pre></div>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">setElementValue(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values)</span>
-</pre></div></p>
+</pre></div>
+Sets the value of the specified AutoConnectElement. If values ​​is specified as a <em>std::vector</em> of String, the element that can set the values is the <a href="apielements.html#autoconnectradio">AutoConnectRadio</a> or the <a href="apielements.html#autoconnectselect">AutoConnectSelect</a>. 
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of the AutoConnectElements that you want to set the value.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Specifies the value to be set.</span></dd>
+    <dd><span class="apidef">values</span><span class="apidesc">Specifies a reference of a <em>std::vector</em> of String. It contains the values of the AutoConnectRadio or the AutoConnectSelect.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The value has been set.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">AutoConnectElements with the specified name are not registered. Or the type of the value is not consistent with the specified AutoConnectElements.</span></dd>
+</dl></p>
+<div class="admonition hint">
+<p class="admonition-title">You can directly access the value member variable.</p>
+<p>If you are gripping with the sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
+<span style="color: #f8f8f2">aux.setElementValue(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">);</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
+<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">text.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">;</span>
+</pre></div>
+The difference between the setElementValue and the value access with the <a href="apiaux.html#getelement">getElement</a> is the certainty of the registration state for the element. The <a href="apiaux.html#getelement">getElement</a> returns an empty object if the element is not registered then a sketch assigns the value to it. May occur unexpected results and crashes. You should use the setElementValue if its registration is unsettled.</p>
+</div>
 <h3 id="settitle"><i class="fa fa-caret-right"></i> setTitle<a class="headerlink" href="#settitle" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">setTitle(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title)</span>
 </pre></div>
-Set the title string of the AutoConnectAux page.</p>
+Set the title string of the custom Web page. This title will be displayed as the menu title of the custom Web page.
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">title</span><span class="apidesc">Title string to be display.</span></dd>
+</dl></p>
+<div class="admonition caution">
+<p class="admonition-title">Not the menu title</p>
+<p>The setTitle function is not set for the AutoConnect menu title. The effect of this function is that custom Web page only. To change the AutoConnect menu title use <a href="apiconfig.html#title">AutoConnectConfig::title</a>.</p>
+</div>
                 
                   
                 

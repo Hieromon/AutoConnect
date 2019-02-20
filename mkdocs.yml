@@ -28,7 +28,7 @@ nav:
   - 'Examples' :
     - 'How to embed': howtoembed.md
     - 'Tips for data conversion': datatips.md
-    - 'Constucting menu': menuize.md
+    - 'Constucting the menu': menuize.md
     - 'Custom Web pages w/o JSON': wojson.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md

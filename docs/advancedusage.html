@@ -73,6 +73,8 @@
     
       <link rel="stylesheet" href="css/extra.css">
     
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
     
       
         <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
@@ -445,8 +447,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cast-items-of-your-sketch-own-into-the-autoccnnect-menu" title=" Cast items of your sketch own into the AutocCnnect menu" class="md-nav__link">
-     Cast items of your sketch own into the AutocCnnect menu
+  <a href="#cast-the-legacy-html-pages-as-the-add-on-menu-items" title=" Cast the legacy HTML pages as the add-on menu items" class="md-nav__link">
+     Cast the legacy HTML pages as the add-on menu items
   </a>
   
 </li>
@@ -778,8 +780,8 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
-      Tips for data retrieval
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
     </a>
   </li>
 
@@ -790,8 +792,20 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
-      Constucting menu
+    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
+      Constucting the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
     </a>
   </li>
 
@@ -899,8 +913,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cast-items-of-your-sketch-own-into-the-autoccnnect-menu" title=" Cast items of your sketch own into the AutocCnnect menu" class="md-nav__link">
-     Cast items of your sketch own into the AutocCnnect menu
+  <a href="#cast-the-legacy-html-pages-as-the-add-on-menu-items" title=" Cast the legacy HTML pages as the add-on menu items" class="md-nav__link">
+     Cast the legacy HTML pages as the add-on menu items
   </a>
   
 </li>
@@ -1182,18 +1196,18 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 
-<h3 id="cast-items-of-your-sketch-own-into-the-autoccnnect-menu"><i class="fa fa-caret-right"></i> Cast items of your sketch own into the AutocCnnect menu<a class="headerlink" href="#cast-items-of-your-sketch-own-into-the-autoccnnect-menu" title="Permanent link">&para;</a></h3>
-<p>If your sketch is handling your own web page, you can call that page from the <a href="menu.html">AutoConnect menu</a>. Unlike the custom Web pages by <a href="apiaux.html#autoconnectaux">AutoConnectAux</a>, this allows AutoConnect menu to legacy web pages registered by <em>ESP8266WebServer::on</em>/<em>WebServer::on</em> function.</p>
-<p>To implement this with your sketch, use only the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> constructed with the URI of that page. <a href="acelements.html">AutoConnectElements</a> is not required. The basic procedure for this as follows. </p>
+<h3 id="cast-the-legacy-html-pages-as-the-add-on-menu-items"><i class="fa fa-caret-right"></i> Cast the legacy HTML pages as the add-on menu items<a class="headerlink" href="#cast-the-legacy-html-pages-as-the-add-on-menu-items" title="Permanent link">&para;</a></h3>
+<p>If your sketch handles web pages, you can embed the pages into the AutoConnect menu with keeping the WiFi connection feature. Unlike the custom Web pages by <a href="apiaux.html#autoconnectaux">AutoConnectAux</a>, this allows to legacy web pages registered by <em>ESP8266WebServer::on</em> or <em>WebServer::on</em> function.</p>
+<p>To implement embedding the your sketch web pages, use only the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> constructed with the URI of that page. <a href="acelements.html">AutoConnectElements</a> is not required. The basic procedure for this as follows:</p>
 <ol>
 <li>Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.</li>
-<li>Sketch legacy page handlers.</li>
+<li>Sketch the legacy page handlers.</li>
 <li>Register those handler functions to ESP8266WebServer/WebServer with the <strong>on</strong> function.</li>
 <li>Register AutoConnectAux declared with #1 to AutoConnect using <a href="api.html#join">AutoConnect::join</a> function. It serves as a menu item.</li>
 <li><a href="api.html#begin">Begin</a> the portal.</li>
 <li>Performs <a href="api.html#handleClient">AutoConnect::handleClient</a> in the <strong>loop</strong> function.</li>
 </ol>
-<p>For details see the <a href="menuize.html">Constructing menu</a> section of Examples page.</p>
+<p>For details see the <a href="menuize.html">Constructing the menu</a> section of Examples page.</p>
 <h3 id="change-menu-title"><i class="fa fa-caret-right"></i> Change menu title<a class="headerlink" href="#change-menu-title" title="Permanent link">&para;</a></h3>
 <p>Although the default menu title is <strong>AutoConnect</strong>, you can change the title by setting <a href="apiconfig.html#title">AutoConnectConfig::title</a>. To set the menu title properly, you must set before calling <a href="api.html#begin">AutoConnect::begin</a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>

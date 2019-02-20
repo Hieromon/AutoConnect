@@ -42,7 +42,7 @@
     
     
       
-        <title>Constucting menu - AutoConnect for ESP8266/ESP32</title>
+        <title>Constucting the menu - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -72,6 +72,8 @@
       <link rel="stylesheet" href="css/paragraph.css">
     
       <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     
     
       
@@ -141,7 +143,7 @@
                 AutoConnect for ESP8266/ESP32
               </span>
               <span class="md-header-nav__topic">
-                Constucting menu
+                Constucting the menu
               </span>
             
           
@@ -582,8 +584,8 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
-      Tips for data retrieval
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
     </a>
   </li>
 
@@ -601,11 +603,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Constucting menu
+        Constucting the menu
       </label>
     
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link md-nav__link--active">
-      Constucting menu
+    <a href="menuize.html" title="Constucting the menu" class="md-nav__link md-nav__link--active">
+      Constucting the menu
     </a>
     
       
@@ -645,6 +647,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
   </li>
 
         
@@ -745,10 +759,10 @@
               
                 
                 
-                  <h1>Constucting menu</h1>
+                  <h1>Constucting the menu</h1>
                 
                 <h2 id="what-menus-can-be-made-using-autoconnect">What menus can be made using AutoConnect<a class="headerlink" href="#what-menus-can-be-made-using-autoconnect" title="Permanent link">&para;</a></h2>
-<p>AutoConnect generates a menu dynamically depending on the instantiated <a href="acintro.html#how-it-works">AutoConnectAux</a> at the sketch executing time. Usually, it is a collection of <a href="acelements.html">AutoConnectElement</a>. In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements. That is, you can easily make the built-in menu with legacy sketches of yours.</p>
+<p>AutoConnect generates a menu dynamically depending on the instantiated <a href="acintro.html#how-it-works">AutoConnectAux</a> at the sketch executing time. Usually, it is a collection of <a href="acelements.html">AutoConnectElement</a>. In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements.<br>In other words, you can easily create a built-in menu featuring the WiFi connection facility embedding the legacy web pages.</p>
 <h2 id="basic-mechanism-of-menu-generation">Basic mechanism of menu generation<a class="headerlink" href="#basic-mechanism-of-menu-generation" title="Permanent link">&para;</a></h2>
 <p>The sketch can display the <a href="menu.html">AutoConnect menu</a> by following three patterns depending on AutoConnect-API usage.</p>
 <dl>
@@ -763,9 +777,8 @@
 <h2 id="place-the-item-for-the-legacy-sketches-on-the-menu">Place the item for the legacy sketches on the menu<a class="headerlink" href="#place-the-item-for-the-legacy-sketches-on-the-menu" title="Permanent link">&para;</a></h2>
 <p>To implement this with your sketch, use only the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> constructed with the title and URI of that page. <a href="acelements.html">AutoConnectElements</a> is not required.</p>
 <p>The AutoConnect library package contains an example sketch for ESP8266WebServer known as FSBrowser. Its example is a sample implementation that supports AutoConnect without changing the structure of the original FSBrowser and has the menu item for <strong>Edit</strong> and <strong>List</strong>.</p>
-<div style="display:block;margin-left:auto;margin-right:auto;width:284px;height:491px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_fsbrowser.gif" data-gifffer-width="280" data-gifffer-height="490" /></div>
-
-<p>The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows.</p>
+<p><span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:492px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_fsbrowser.gif" data-gifffer-height="490" data-gifffer-width="280" /></span></p>
+<p>The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows:</p>
 <ol>
 <li>Add AutoConnect declaration.</li>
 <li>Add the menu item named "<strong>Edit</strong>" and "<strong>List</strong>" of AutoConnectAux as each page.</li>
@@ -802,7 +815,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="howtoembed.html" title="How to embed" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="datatips.html" title="Tips for data conversion" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -811,19 +824,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                How to embed
+                Tips for data conversion
               </span>
             </div>
           </a>
         
         
-          <a href="faq.html" title="FAQ" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                FAQ
+                Custom Web pages w/o JSON
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

@@ -73,6 +73,8 @@
     
       <link rel="stylesheet" href="css/extra.css">
     
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
     
       
         <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
@@ -115,7 +117,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#describe-custom-web-pages-with-json" tabindex="1" class="md-skip">
+      <a href="#json-objects-elements-for-the-custom-web-page" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -461,13 +463,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#describe-custom-web-pages-with-json" title="Describe custom Web pages with JSON" class="md-nav__link">
-    Describe custom Web pages with JSON
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#json-objects-elements-for-the-custom-web-page" title="JSON objects &amp; elements for the custom Web page" class="md-nav__link">
     JSON objects &amp; elements for the custom Web page
   </a>
@@ -781,8 +776,8 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
-      Tips for data retrieval
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
     </a>
   </li>
 
@@ -793,8 +788,20 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
-      Constucting menu
+    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
+      Constucting the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
     </a>
   </li>
 
@@ -857,13 +864,6 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#describe-custom-web-pages-with-json" title="Describe custom Web pages with JSON" class="md-nav__link">
-    Describe custom Web pages with JSON
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#json-objects-elements-for-the-custom-web-page" title="JSON objects &amp; elements for the custom Web page" class="md-nav__link">
@@ -1049,13 +1049,12 @@
                 
                   <h1>Custom Web pages with JSON</h1>
                 
-                <h2 id="describe-custom-web-pages-with-json">Describe custom Web pages with JSON<a class="headerlink" href="#describe-custom-web-pages-with-json" title="Permanent link">&para;</a></h2>
-<p>You can embed custom Web pages written in <a href="https://www.json.org/index.html"><strong>JSON</strong></a> into AutoConnect without declaring AutoConnectAux &amp; AutoConnectElements in sketches. Custom Web page declaration in JSON can be included in the sketch in advance as the fixed string, or it can be stored in the external file such as SPIFFS for stream loading. You can also load and save AutoConnectElements objects individually.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+                <p>You can embed custom Web pages written in <a href="https://www.json.org/index.html"><strong>JSON</strong></a> into AutoConnect without declaring AutoConnectAux &amp; AutoConnectElements in sketches. Custom Web page declaration in JSON can be included in the sketch in advance as the fixed string, or it can be stored in the external file such as SPIFFS for stream loading. You can also load and save AutoConnectElements objects individually.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
 <p>By providing the following JSON document to AutoConnect, you can include the custom Web page as the bellow:</p>
 <div style="float:left;width:50%;height:470px;overflow:auto"><img src="./images/ac_json.png"></div>
 
 <p><img style="margin-left:30px;width:40%;height:470px;" src="./images/ac_mqtt_setting.png"></p>
-<p>A JSON document for AutoConnect can also contain declarations of multiple custom web pages. If you fit those multiple pages in one JSON document, sketch processing for loading AutoConnectAux will degenerate further.</p>
+<p>A JSON document for AutoConnect can also contain declarations of multiple custom Web pages. If you fit those multiple pages in one JSON document, sketch processing for loading AutoConnectAux will degenerate further.</p>
 <div class="admonition caution">
 <p class="admonition-title">Need ArduinoJson v5</p>
 <p>To process the AutoConnectAux &amp; AutoConnectElements written in the JSON is you need to install the <a href="https://arduinojson.org/v5/doc/installation/">ArduinoJson version 5</a> library.</p>
@@ -1077,11 +1076,11 @@
 </dl>
 <h4 id="uri"><i class="fa fa-key"></i> <strong>uri</strong><a class="headerlink" href="#uri" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>String of URI path that specifies where to place the custom web page. It needs to be a location from the root path including '<strong>/</strong>'.</dd>
+<dd>String of URI path that specifies where to place the custom Web page. It needs to be a location from the root path including '<strong>/</strong>'.</dd>
 </dl>
 <h4 id="menu"><i class="fa fa-key"></i> <strong>menu</strong><a class="headerlink" href="#menu" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>This is a Boolean value indicating whether to include the custom web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.</dd>
+<dd>This is a Boolean value indicating whether to include the custom Web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.</dd>
 </dl>
 <h4 id="element"><i class="fa fa-key"></i> <strong>element</strong><a class="headerlink" href="#element" title="Permanent link">&para;</a></h4>
 <dl>
@@ -1089,7 +1088,7 @@
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Order of elements on a custom Web page</p>
-<p>The order in which AutoConnectElements are placed on a custom web page is the order in the JSON document.</p>
+<p>The order in which AutoConnectElements are placed on a custom Web page is the order in the JSON document.</p>
 </div>
 <h3 id="multiple-custom-web-pages-declaration-in-json-document"><i class="fa fa-copy"></i> Multiple custom Web pages declaration in JSON document<a class="headerlink" href="#multiple-custom-web-pages-declaration-in-json-document" title="Permanent link">&para;</a></h3>
 <p>You can put declarations of multiple custom Web pages in one JSON document. In that case, declare an array of each custom Web page with JSON. The following JSON document contains three custom Web pages:</p>
@@ -1145,16 +1144,12 @@
 
 <h3 id="json-object-for-autoconnectelements"><i class="fa fa-caret-right"></i> JSON object for AutoConnectElements<a class="headerlink" href="#json-object-for-autoconnectelements" title="Permanent link">&para;</a></h3>
 <p>AutoConnectElements in JSON description are described as an array in the <code>element</code> with arguments of each <a href="acelements.html#constructor">constructor</a>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>&quot;element&quot; : [
-  {
-    &quot;name&quot; : name,
-    &quot;type&quot; : type,
-    key_according_to_type : the_value | array_of_value , key_according_to_type : the_value | array_of_value
-  },
-  {
-    the_nect_element
-  }
-]
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>{
+  &quot;name&quot; : name,
+  &quot;type&quot; : type,
+  key_according_to_type : the_value | array_of_value,
+  [ key_according_to_type : the_value | array_of_value ]
+}
 </pre></div>
 
 <h4 id="name"><i class="fa fa-key"></i> <strong>name</strong><a class="headerlink" href="#name" title="Permanent link">&para;</a></h4>
@@ -1377,7 +1372,7 @@ An example of using each function is as follows.
 </pre></div></p>
 <p>AutoConnect passes the given JSON document directly to the <a href="https://arduinojson.org/v5/api/jsonbuffer/parseobject/"><strong>parseObject()</strong></a> function of the ArduinoJson library for parsing. Therefore, the constraint of the parseObject() function is applied as it is in the parsing of the JSON document for the AutoConnect. That is, if the JSON string is read-only, duplicating the input string occurs and consumes more memory.</p>
 <h2 id="saving-json-document">Saving JSON document<a class="headerlink" href="#saving-json-document" title="Permanent link">&para;</a></h2>
-<p>However, AutoConnect does not support saving AutoConnectAux as a whole custom Web page. If you want to persist an AutoConnectElements object, you need to save it as an AutoConenctElement object unit. AutoConnectAux has a <a href="achandling.html#saving-autoconnectelements">function</a> to write multiple elements to the stream in a batch.</p>
+<p>The sketch can persist AutoConnectElements as a JSON document and also uses <a href="achandling.html#saving-autoconnectelements-with-json">this function</a> to save the values ​​entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the <a href="achandling.html#loading-autoconnectaux-autoconnectelements-with-json">load function</a>. </p>
 <div class="footnote">
 <hr />
 <ol>

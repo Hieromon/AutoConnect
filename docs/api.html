@@ -73,6 +73,8 @@
     
       <link rel="stylesheet" href="css/extra.css">
     
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
     
       
         <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
@@ -767,8 +769,8 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
-      Tips for data retrieval
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
     </a>
   </li>
 
@@ -779,8 +781,20 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
-      Constucting menu
+    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
+      Constucting the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
     </a>
   </li>
 
@@ -1070,7 +1084,7 @@
 <p>The <a href="api.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the <a href="api.html#host"><strong>host</strong></a> function.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">webServer</span>A reference of ESP8266WebServer or WebServer instance.</dd>
+    <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd>
 </dl></p>
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
 <h3 id="aux"><i class="fa fa-caret-right"></i> aux<a class="headerlink" href="#aux" title="Permanent link">&para;</a></h3>
@@ -1079,7 +1093,7 @@
 Returns a pointer to AutoConnectAux with the URI specified by <em>uri</em>. If AutoConnectAux with that URI is not bound, it returns <strong>nullptr</strong>.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">uri</span>A string of the URI.</dd>
+    <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI.</span></dd>
     <dt><strong>Return value</strong></dt>
     <dd>A Pointer of the AutoConnectAux instance.</dd>
 </dl></p>
@@ -1095,12 +1109,12 @@ AutoConnect first invokes <em>WiFi.begin</em>. If the <em>ssid</em> and the <em>
 The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">ssid</span>SSID to be connected.</dd>
-    <dd><span class="apidef">passphrase</span>Password for connection.</dd>
-    <dd><span class="apidef">timeout</span>A time out value in milliseconds for waiting connection.</dd>
+    <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be connected.</span></dd>
+    <dd><span class="apidef">passphrase</span><span class="apidesc">Password for connection.</span></dd>
+    <dd><span class="apidef">timeout</span><span class="apidesc">A time out value in milliseconds for waiting connection.</span></dd>
     <dt><strong>Return value</strong></dt>
-    <dd><span class="apidef">true</span>Connection established, AutoConnect service started with WIFI_STA mode.</dd>
-    <dd><span class="apidef">false</span>Could not connected, Captive portal started with WIFI_AP_STA mode.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Connection established, AutoConnect service started with WIFI_STA mode.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Could not connected, Captive portal started with WIFI_AP_STA mode.</span></dd>
 </dl></p>
 <h3 id="config"><i class="fa fa-caret-right"></i> config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(AutoConnectConfig</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">config)</span>
@@ -1110,12 +1124,12 @@ The captive portal will not be started if the connection has been established wi
 <p>Set SoftAP's WiFi configuration and static IP configuration. 
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">config</span>Reference to <a href="apiconfig.html"><strong>AutoConnectConfig</strong></a> containing SoftAP's parameters and static IP parameters.</dd>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is <strong>esp8266ap</strong> for ESP8266, <strong>esp32ap</strong> for ESP32.</dd>
-    <dd><span class="apidef">password</span>Password for SodtAP. The default value is <strong>12345678</strong>.</dd>
+    <dd><span class="apidef">config</span><span class="apidesc">Reference to <a href="apiconfig.html"><strong>AutoConnectConfig</strong></a> containing SoftAP's parameters and static IP parameters.</span></dd>
+    <dd><span class="apidef">ap</span><span class="apidesc">SSID for SoftAP. The default value is <strong>esp8266ap</strong> for ESP8266, <strong>esp32ap</strong> for ESP32.</span></dd>
+    <dd><span class="apidef">password</span><span class="apidesc">Password for SodtAP. The default value is <strong>12345678</strong>.</span></dd>
     <dt><strong>Return value</strong></dt>
-    <dd><span class="apidef">true</span>Successfully configured.</dd>
-    <dd><span class="apidef">false</span>Configuration parameter is invalid, some values out of range.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Successfully configured.</span></dd>
+    <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd>
 </dl></p>
 <h3 id="end"><i class="fa fa-caret-right"></i> end<a class="headerlink" href="#end" title="Permanent link">&para;</a></h3>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">end()</span>
@@ -1141,13 +1155,13 @@ The captive portal will not be started if the connection has been established wi
 <p>The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266WebServer::handleClient or WebServer::handleClient.</p>
 </div>
 <h3 id="home"><i class="fa fa-caret-right"></i> home<a class="headerlink" href="#home" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">home(String</span> <span style="color: #f8f8f2">uri)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">home(String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
 </pre></div>
 
 <p>Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect menu.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">uri</span> A URI string of user site's home path.</dd>
+    <dd><span class="apidef">uri</span><span class="aidesc">A URI string of user site's home path.</span></dd>
 </dl></p>
 <h3 id="host"><i class="fa fa-caret-right"></i> host<a class="headerlink" href="#host" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1185,7 +1199,7 @@ or<br />
 Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joined one by one, or joined altogether. The AutoConnectAux object joined by the join function can be handled from the AutoConnect menu.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">aux</span>Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a>.</dd>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a>.</span></dd>
 </dl></p>
 <h3 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
@@ -1197,10 +1211,10 @@ Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joi
 Load JSON document of AutoConnectAux which contains AutoConnectElements. If there is a syntax error in the JSON document, false is returned.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">aux</span>The input string to be loaded.</dd>
+    <dd><span class="apidef">aux</span><span class="apidesc">The input string to be loaded.</span></dd>
     <dt><strong>Return value</strong></dt>
-    <dd><span class="apidef">true</span>The JSON document as AutoConnectAux successfully loaded.</dd>
-    <dd><span class="apidef">false</span>Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the <a href="https://arduinojson.org/v5/assistant/">ArduinoJson Assistant</a>.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">The JSON document as AutoConnectAux successfully loaded.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the <a href="https://arduinojson.org/v5/assistant/">ArduinoJson Assistant</a>.</span></dd>
 </dl></p>
 <h3 id="on"><i class="fa fa-caret-right"></i> on<a class="headerlink" href="#on" title="Permanent link">&para;</a></h3>
 <dl>
@@ -1209,10 +1223,9 @@ Load JSON document of AutoConnectAux which contains AutoConnectElements. If ther
 <dt>Register the handler function of the AutoConnectAux.</dt>
 <dt><dl class="apidl"></dt>
 <dt><dt><strong>Parameters</strong></dt></dt>
-<dt><dd><span class="apidef">uri</span>A string of the URI assigned to the AutoConnectAux page.</dd></dt>
-<dt><dd><span class="apidef">handler</span>A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.</dd></dt>
-<dt><dd><span class="apidef"></span><code>String handler(AutoConnectAux&amp;, PageArgument&amp;)</code></dd></dt>
-<dt><dd><span class="apidef">order</span>Specifies when the handler is called with the following enumeration value.</dd></dt>
+<dt><dd><span class="apidef">uri</span><span class="apidesc">A string of the URI assigned to the AutoConnectAux page.</span></dd></dt>
+<dt><dd><span class="apidef">handler</span><span class="apidesc">A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.<p class=""apidesc"><code>String handler(AutoConnectAux&amp;, PageArgument&amp;)</code></p></span></dd></dt>
+<dt><dd><span class="apidef">order</span><span class="apidesc">Specifies when the handler is called with the following enumeration value.</span></dd></dt>
 <dd>
 <ul>
 <li><strong>AC_EXIT_AHEAD</strong> :
@@ -1244,7 +1257,7 @@ Called even before generating HTML and after generated.</li>
 Register the function which will call from AutoConnect at the start of the captive portal.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">fn</span>Function called at the captive portal start.</dd></p>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd></p>
 </dl>
 
 <p>An <em>fn</em> specifies the function called when the captive portal starts. Its prototype declaration is defined as "<em>DetectExit_ft</em>".</p>
@@ -1252,10 +1265,10 @@ Register the function which will call from AutoConnect at the start of the capti
 </pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">softapIP</span>An IP address of SoftAP for the captive portal.</dd>
+    <dd><span class="apidef">softapIP</span><span class="apidesc">An IP address of SoftAP for the captive portal.</span></dd>
     <dt><strong>Retuen value</strong></dt>
-    <dd><span class="apidef">true</span>Continues captive portal handling.</dd>
-    <dd><span class="apidef">false</span>Cancel the captive portal. AutoConnect::begin function will return with a false.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
 </dl></p>
 <h3 id="onnotfound"><i class="fa fa-caret-right"></i> onNotFound<a class="headerlink" href="#onnotfound" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1272,12 +1285,12 @@ Register the function which will call from AutoConnect at the start of the capti
 Register the handler function for undefined URL request detected.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">fn</span>A function of the "not found" handler.</dd>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd>
 </dl></p>
 <h3 id="where"><i class="fa fa-caret-right"></i> where<a class="headerlink" href="#where" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConenctAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">where(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </pre></div>
-Returns a pointer to the AutoConnectAux object of the custom web page that caused the request to that page. This function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/ESP32. In other words, this function only returns the last AutoConnecAux page called.
+Returns a pointer to the AutoConnectAux object of the custom Web page that caused the request to that page. This function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/ESP32. In other words, this function only returns the last AutoConnecAux page called.
 <dl class="apidl">
     <dt><strong>Retuen value</strong></dt>
     <dd>A pointer to the AutoConnectAux that caused the request the page.</dd>

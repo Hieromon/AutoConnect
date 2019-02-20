@@ -73,6 +73,8 @@
     
       <link rel="stylesheet" href="css/extra.css">
     
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
     
       
         <script async src="https://www.googletagmanager.com/gtag/js?id=None"></script>
@@ -668,8 +670,8 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.md" title="Tips for data retrieval" class="md-nav__link">
-      Tips for data retrieval
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
     </a>
   </li>
 
@@ -680,8 +682,20 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting menu" class="md-nav__link">
-      Constucting menu
+    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
+      Constucting the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
     </a>
   </li>
 
@@ -874,11 +888,11 @@ Enter SSID and Passphrase and tap "<strong>apply</strong>" to starts WiFi connec
 
 <p>You can change the HOME path using the AutoConnect API. The <a href="api.html#home"><strong>AutoConnect::home</strong></a> function sets the URI as a link of the HOME item of the AutoConnect menu.</p>
 <h2 id="extend-autoconnect-menu-with-your-sketches"><i class="fa fa-bars"></i> Extend AutoConnect menu with your sketches<a class="headerlink" href="#extend-autoconnect-menu-with-your-sketches" title="Permanent link">&para;</a></h2>
-<p>The AutoConnect menu can contain custom items of your own sketch. It works for the custom Web pages by <a href="acintro.html">AutoConnectAux</a>, addition to the request handler for ESP8266WebServer class that is registered by the ESP8266WebServer::on function or WebServer::on for ESP32. That is, you can make it as a menu item to invoke a legacy web page. The below screenshot is the result of adding an example sketch for the ESP8266WebServer library known as <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser">FSBrowser</a> to the AutoConnect menu item. It adds Edit and List items with little modification of the legacy sketch code.</p>
+<p>The AutoConnect menu can contain HTML pages of your sketch as custom items. It works for HTML pages implemented by <strong>ESP8266WebServer::on</strong> handler or <strong>WebServer::on</strong> handler for ESP32. That is, you can make it as menu items to invoke the legacy web page. The below screenshot is the result of adding an example sketch for the ESP8266WebServer library known as <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser">FSBrowser</a> to the AutoConnect menu item. It adds Edit and List items with little modification of the legacy sketch code.</p>
 <div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="./images/fsbmenu.png"></div>
 
 <p><img style="margin-left:70px;width:auto;height:420px;" src="./images/fsbmenu_expand.png"></p>
-<p>The procedure to extend the AutoConnect menu is described in the <a href="advancedusage.html#cast-items-of-your-sketch-own-into-the-autoccnnect-menu">Advanced usage section</a>.</p>
+<p>You can extend the AutoConnect menu to match legacy sketches and according to the procedure described in the <a href="advancedusage.html#cast-the-legacy-html-pages-as-the-add-on-menu-items">Advanced Usage section</a>.</p>
                 
                   
                 
