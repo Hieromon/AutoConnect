@@ -105,6 +105,7 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
   }
   virtual ~AutoConnectInputBasis() {}
   const String  toHTML(void) const override;
+  bool  isValid(void) const;
 
   String  label;      /**< A label for a subsequent input box */
   String  pattern;    /**< Format pattern to aid validation of input value */

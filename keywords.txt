@@ -30,6 +30,7 @@ handleClient	KEYWORD2
 handleRequest	KEYWORD2
 home	KEYWORD2
 host	KEYWORD2
+isValid	KEYWORD2
 join	KEYWORD2
 load	KEYWORD2
 loadElement	KEYWORD2

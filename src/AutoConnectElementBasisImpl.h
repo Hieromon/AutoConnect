@@ -11,6 +11,7 @@
 #define _AUTOCONNECTELEMENTBASISIMPL_H_
 
 #include "AutoConnectElementBasis.h"
+#include <regex.h>
 
 /**
  * Generate an HTML <button> element. The onclick behavior depends on
@@ -64,6 +65,29 @@ const String AutoConnectInputBasis::toHTML(void) const {
   html += String(F("><br>"));
 
   return html;
+}
+
+/**
+ * Evaluate the pattern as a regexp and return whether value matches.
+ * Always return true if the pattern is undefined.
+ * @return true  The value matches a pattern.
+ * @return false The value does not match a pattern.
+ */
+bool AutoConnectInputBasis::isValid(void) const {
+  regex_t preg;
+  bool  rc = true;
+  if (pattern.length()) {
+    if (regcomp(&preg, pattern.c_str(), REG_EXTENDED) != 0) {
+      AC_DEBUG("%s regex compile failed\n", pattern.c_str());
+      rc = false;
+    }
+    else {
+      regmatch_t  p_match[1];
+      rc = regexec(&preg, value.c_str(), 1, p_match, 0) == 0 ? true : false;
+      regfree(&preg);
+    }
+  }
+  return rc;
 }
 
 /**

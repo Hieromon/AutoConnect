@@ -292,8 +292,9 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
 
   // Echo back saved parameters to AutoConnectAux page.
   AutoConnectText&  echo = aux.getElement<AutoConnectText>("parameters");
-  echo.value = "Server: " + serverName + "<br>";
-  echo.value += "Channel ID: " + channelId + "<br>";
+  echo.value = "Server: " + serverName;
+  echo.value += mqttserver.isValid() ? String(" (OK)") : String(" (ERR)");
+  echo.value += "<br>" + "Channel ID: " + channelId + "<br>";
   echo.value += "User Key: " + userKey + "<br>";
   echo.value += "API Key: " + apiKey + "<br>";
   echo.value += "Update period: " + String(updateInterval / 1000) + " sec.<br>";
