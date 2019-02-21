@@ -178,16 +178,16 @@ A `label` is an optional string. A label is always arranged on the left side of 
 
 ### <i class="fa fa-caret-right"></i> pattern
 
-A `pattern` specifies a [regular expression](https://www.w3schools.com/js/js_regexp.asp) that the AutoConnectInput element's value is checked against on form submission. If it is invalid, the background color will change, but it will be sent even if the data format does not match. 
+A `pattern` specifies a [regular expression](https://www.w3schools.com/js/js_regexp.asp) that the AutoConnectInput element's value is checked against on form submission. If it is invalid, the background color will change, but it will be sent even if the data format does not match. To check whether the entered value matches the pattern, use the [isValid](apielements.md#isvalid) function.
 
 - The password that must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter:<br>`(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}`
-- Email address as _characters@characters.domain_:<br>`[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$`
+- Email address as _characters@characters.domain_:<br>`[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}`
 
-- IP address
+- IP address:<br>`(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])`
 
-- Host name of the internet
+- Host name of the internet:<br>`(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])`
 
-- Date (MM-DD-YYYY)
+- Date (MM/DD/YYYY) as range 1900-2099:<br>`(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d`
 
 - Twitter account:<br>`^@?(\w){1,15}$`
 
@@ -334,7 +334,7 @@ ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small
  
 ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **true** | **false** <small>\]</small> )
 
-ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> )
+ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> )
 
 ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_Horizontal** | **AC\_Vertical** <small>\]</small> <small>\[</small> , *checked* <small>\]</small> )
 

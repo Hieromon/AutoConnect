@@ -61,7 +61,78 @@ input.value = ip.toString();
 
 In order for data to be correctly converted from a string, the input data must be consistent with the format. How to implement strict validation in sketches depends on various perspectives and the power of tiny devices is not enough to implement a complete lexical analysis. But you can reduce the burden for data verification using the **pattern** of AutoConnectInput.
 
-By giving a [**pattern**](achandling.md#check-data-against-on-submission) to [AutoConnectInput](apielements.md#pattern), you can find errors in data styles while typing in custom Web pages. The pattern is specified by [**regular expression**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions). If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. Refer to [Handling the custom Web pages](achandling.md#check-data-against-on-submission) section.
+By giving a [**pattern**](achandling.md#check-data-against-on-submission) to [AutoConnectInput](apielements.md#pattern), you can find errors in data format while typing in custom Web pages. The pattern is specified by [**regular expression**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions). If the value during input of AutoConnectInput does not match the regular expression specified by the pattern, its background color changes to pink. Refer to [Handling the custom Web pages](achandling.md#check-data-against-on-submission) section.
+
+However, input data will be transmitted even if the value does not match the pattern. To check the value with the sketch, using the [**AutoConnectInput::isValid**](apielements.md#isvalid) function. The isValid function validates whether the value member variable matches a pattern and returns true or false.
+
+```cpp hl_lines="16 47"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+static const char input_page[] PROGMEM = R"raw(
+[
+  {
+    "title": "IP Address",
+    "uri": "/",
+    "menu": true,
+    "element": [
+      {
+        "name": "ipaddress",
+        "type": "ACInput",
+        "label": "IP Address",
+        "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+      },
+      {
+        "name": "send",
+        "type": "ACSubmit",
+        "value": "SEND",
+        "uri": "/check"
+      }
+    ]
+  },
+  {
+    "title": "IP Address",
+    "uri": "/check",
+    "menu": false,
+    "element": [
+      {
+        "name": "result",
+        "type": "ACText"
+      }
+    ]
+  }
+]
+)raw";
+
+AutoConnect portal;
+
+String checkIPAddress(AutoConnectAux& aux, PageArgument& args) {
+  AutoConnectAux* input_page = portal.aux("/");
+  AutoConnectInput& ipaddress = input_page->getElement<AutoConnectInput>("ipaddress");
+  AutoConnectText& result = aux.getElement<AutoConnectText>("result");
+
+  if (ipaddress.isValid()) {
+    result.value = "IP Address " + ipaddress.value + " is OK.";
+    result.style = "";
+  }
+  else {
+    result.value = "IP Address " + ipaddress.value + " error.";
+    result.style = "color:red;";
+  }
+  return String("");
+}
+
+void setup() {
+  portal.load(input_page);
+  portal.on("/check", checkIPAddress);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
 
 !!! caution "Regular Expressions for JavaScript"
     Regular expressions specified in the AutoConnectInput pattern conforms to the [JavaScript specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
