@@ -701,29 +701,29 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#include-header" title="Include header" class="md-nav__link">
-    Include header
+  <a href="#include-header" title=" Include header" class="md-nav__link">
+     Include header
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#constructor" title="Constructor" class="md-nav__link">
-    Constructor
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#public-member-functions" title="Public member functions" class="md-nav__link">
-    Public member functions
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#data-structures" title="Data structures" class="md-nav__link">
-    Data structures
+  <a href="#data-structures" title=" Data structures" class="md-nav__link">
+     Data structures
   </a>
   
 </li>
@@ -953,29 +953,29 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#include-header" title="Include header" class="md-nav__link">
-    Include header
+  <a href="#include-header" title=" Include header" class="md-nav__link">
+     Include header
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#constructor" title="Constructor" class="md-nav__link">
-    Constructor
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#public-member-functions" title="Public member functions" class="md-nav__link">
-    Public member functions
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#data-structures" title="Data structures" class="md-nav__link">
-    Data structures
+  <a href="#data-structures" title=" Data structures" class="md-nav__link">
+     Data structures
   </a>
   
 </li>
@@ -1189,11 +1189,11 @@ wdt reset
 <h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
 <p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it.</p>
 <p>A class description of AutoConnectCredential is follows.</p>
-<h3 id="include-header">Include header<a class="headerlink" href="#include-header" title="Permanent link">&para;</a></h3>
+<h3 id="include-header"><i class="fa fa-code"></i> Include header<a class="headerlink" href="#include-header" title="Permanent link">&para;</a></h3>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnectCredential.h&gt;</span>
 </pre></div>
 
-<h3 id="constructor">Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<h3 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectCredential();</span>
 </pre></div>
 
@@ -1202,7 +1202,7 @@ wdt reset
 </pre></div>
 
 <p>Specify offset from the top of the EEPROM for the credential storage area together. The offset value is from 0 to the flash sector size.</p>
-<h3 id="public-member-functions">Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
+<h3 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>uint8_t <strong>entries()</strong><br />
@@ -1225,7 +1225,7 @@ wdt reset
    Delete a credential entry specified <em>ssid</em>. Returns the true as successfully deleted.</p>
 </li>
 </ul>
-<h3 id="data-structures">Data structures<a class="headerlink" href="#data-structures" title="Permanent link">&para;</a></h3>
+<h3 id="data-structures"><i class="fa fa-code"></i> Data structures<a class="headerlink" href="#data-structures" title="Permanent link">&para;</a></h3>
 <ul>
 <li>station_config<br />
   A structure is included in the ESP8266 SDK. You can use it in the sketch like as follows.</li>
@@ -1319,7 +1319,7 @@ wdt reset
 <h2 id="autoconnect-behaves-not-stable-with-my-sketch-yet"><i class="fa fa-question-circle"></i> AutoConnect behaves not stable with my sketch yet.<a class="headerlink" href="#autoconnect-behaves-not-stable-with-my-sketch-yet" title="Permanent link">&para;</a></h2>
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
-<p>Both ESP8266 and ESP32 can only work on one channel at any given moment, this will cause loss of connection on the channel where your station operates the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case please try the <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the <a href="apiconfig.html#channel">channel</a> to the access point.</p>
+<p>Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try the <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the <a href="apiconfig.html#channel">channel</a> to the access point.</p>
 <h3 id="2-change-arduino-core-version">2. Change arduino core version<a class="headerlink" href="#2-change-arduino-core-version" title="Permanent link">&para;</a></h3>
 <p>I recommend change installed an arduino core version to the upstream when your sketch is not stable with AutoConnect on each board.</p>
 <h4 id="with-esp8266-arduino-core">with ESP8266 arduino core<a class="headerlink" href="#with-esp8266-arduino-core" title="Permanent link">&para;</a></h4>
@@ -1329,29 +1329,25 @@ wdt reset
 <p>The <a href="https://github.com/espressif/arduino-esp32">arduino-esp32</a> is still under development even if it is a stable release. It is necessary to judge whether the cause of the problem is the core or AutoConnect. Trace the log with the esp32 core and the AutoConnect debug option enabled for problem diagnosis and please you check the <a href="https://github.com/espressif/arduino-esp32/issues">issue of arduino-esp32</a>. The problem that your sketch possesses may already have been solved.</p>
 <h3 id="3-turn-on-the-debug-log-options">3. Turn on the debug log options<a class="headerlink" href="#3-turn-on-the-debug-log-options" title="Permanent link">&para;</a></h3>
 <p>To fully enable for the AutoConnect debug logging options, change the following two files.</p>
-<ul>
-<li>AutoConnectDefs.h</li>
-</ul>
+<p><i class="fas fa-angle-right"></i> AutoConnectDefs.h</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AC_DEBUG</span>
 </pre></div>
 
-<ul>
-<li>PageBuilder.h <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></li>
-</ul>
+<p><i class="fas fa-angle-right"></i> PageBuilder.h <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define PB_DEBUG</span>
 </pre></div>
 
 <h3 id="4-reports-the-issue-to-autoconnect-repository-on-github">4. Reports the issue to AutoConnect repository on Github<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-repository-on-github" title="Permanent link">&para;</a></h3>
-<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information as follows.</p>
-<ul>
-<li>Hardware module</li>
-<li>Arduino core Version (including the upstream tag ID.)</li>
-<li>Operating System which you use</li>
-<li>lwIP variant</li>
-<li>Problem description</li>
-<li>If you have a STACK DUMP decoded result with formatted by the code block tag</li>
-<li>The sketch code with formatted by the code block tag</li>
-<li>Debug messages output</li>
+<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled checked/> Hardware module</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Arduino core version (Including the upstream tag ID.)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Operating System which you use</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> lwIP variant</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Problem description</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> If you have a STACK DUMP decoded result with formatted by the code block tag</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)</li>
+<li class="task-list-item"><input type="checkbox" disabled checked/> Debug messages output</li>
 </ul>
 <div class="footnote">
 <hr />

@@ -1659,20 +1659,20 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <h3 id="label_1"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_1" title="Permanent link">&para;</a></h3>
 <p>A <code>label</code> is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The input box and the label are connected by the id attribute.</p>
 <h3 id="pattern"><i class="fa fa-caret-right"></i> pattern<a class="headerlink" href="#pattern" title="Permanent link">&para;</a></h3>
-<p>A <code>pattern</code> specifies a <a href="https://www.w3schools.com/js/js_regexp.asp">regular expression</a> that the AutoConnectInput element's value is checked against on form submission. If it is invalid, the background color will change, but it will be sent even if the data format does not match. </p>
+<p>A <code>pattern</code> specifies a <a href="https://www.w3schools.com/js/js_regexp.asp">regular expression</a> that the AutoConnectInput element's value is checked against on form submission. If it is invalid, the background color will change, but it will be sent even if the data format does not match. To check whether the entered value matches the pattern, use the <a href="apielements.html#isvalid">isValid</a> function.</p>
 <ul>
 <li>The password that must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter:<br><code>(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}</code></li>
 <li>
-<p>Email address as <em>characters@characters.domain</em>:<br><code>[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$</code></p>
+<p>Email address as <em>characters@characters.domain</em>:<br><code>[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}</code></p>
 </li>
 <li>
-<p>IP address</p>
+<p>IP address:<br><code>(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])</code></p>
 </li>
 <li>
-<p>Host name of the internet</p>
+<p>Host name of the internet:<br><code>(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])</code></p>
 </li>
 <li>
-<p>Date (MM-DD-YYYY)</p>
+<p>Date (MM/DD/YYYY) as range 1900-2099:<br><code>(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d</code></p>
 </li>
 <li>
 <p>Twitter account:<br><code>^@?(\w){1,15}$</code></p>
@@ -1757,7 +1757,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <p>ACElement ( <em>name</em> <small>[</small> , <em>value</em> <small>]</small> )</p>
 <p>ACButton ( <em>name</em> <small>[</small> , <em>value</em> <small>]</small> <small>[</small> , <em>action</em> <small>]</small> )</p>
 <p>ACCheckbox ( <em>name</em> <small>[</small> , <em>value</em> <small>]</small> <small>[</small> , <em>label</em> <small>]</small> <small>[</small> , <strong>true</strong> | <strong>false</strong> <small>]</small> )</p>
-<p>ACInput ( <em>name</em> <small>[</small> , <em>value</em> <small>]</small> <small>[</small> , <em>label</em> <small>]</small> <small>[</small> , <em>placeholder</em> <small>]</small> )</p>
+<p>ACInput ( <em>name</em> <small>[</small> , <em>value</em> <small>]</small> <small>[</small> , <em>label</em> <small>]</small> <small>[</small> , <em>pattern</em> <small>]</small> <small>[</small> , <em>placeholder</em> <small>]</small> )</p>
 <p>ACRadio ( <em>name</em> <small>[</small> , <em>values</em> <small>]</small> <small>[</small> , <em>label</em> <small>]</small> <small>[</small> , <strong>AC_Horizontal</strong> | <strong>AC_Vertical</strong> <small>]</small> <small>[</small> , <em>checked</em> <small>]</small> )</p>
 <p>ACSelect ( <em>name</em> <small>[</small> , <em>options</em> <small>]</small> <small>[</small> , <em>label</em> <small>]</small> )</p>
 <p>ACSubmit ( <em>name</em> <small>[</small> , <em>value</em> <small>]</small> <small>[</small> , <em>uri</em> <small>]</small> )</p>

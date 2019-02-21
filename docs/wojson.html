@@ -765,7 +765,7 @@
 <p>Custom Web page processing consumes a lot of memory. AutoConnect will take a whole string of the JSON document for the custom Web pages into memory. The required buffer size for the JSON document of example sketch <em>mqttRSSI</em> reaches approximately 3000 bytes. And actually, it needs twice the heap area. Especially this constraint will be a problem with the ESP8266 which has a heap size poor.</p>
 <p>AutoConnect can handle custom Web pages without using JSON. In that case, since the ArduinoJson library will not be bound, the sketch size will also be reduced.</p>
 <h2 id="writing-the-custom-web-pages-without-json">Writing the custom Web pages without JSON<a class="headerlink" href="#writing-the-custom-web-pages-without-json" title="Permanent link">&para;</a></h2>
-<p>To handle a custom Web page without using JSON, follow the steps below.</p>
+<p>To handle the custom Web pages without using JSON, follow the steps below.</p>
 <ol>
 <li>Create or define <a href="apiaux.html">AutoConnectAux</a> for each page.</li>
 <li>Create or define <a href="acelements.html">AutoConnectElement(s)</a>.</li>

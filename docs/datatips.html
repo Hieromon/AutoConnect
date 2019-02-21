@@ -940,7 +940,76 @@
 
 <h2 id="validation-for-the-value">Validation for the value<a class="headerlink" href="#validation-for-the-value" title="Permanent link">&para;</a></h2>
 <p>In order for data to be correctly converted from a string, the input data must be consistent with the format. How to implement strict validation in sketches depends on various perspectives and the power of tiny devices is not enough to implement a complete lexical analysis. But you can reduce the burden for data verification using the <strong>pattern</strong> of AutoConnectInput.</p>
-<p>By giving a <a href="achandling.html#check-data-against-on-submission"><strong>pattern</strong></a> to <a href="apielements.html#pattern">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions"><strong>regular expression</strong></a>. If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. Refer to <a href="achandling.html#check-data-against-on-submission">Handling the custom Web pages</a> section.</p>
+<p>By giving a <a href="achandling.html#check-data-against-on-submission"><strong>pattern</strong></a> to <a href="apielements.html#pattern">AutoConnectInput</a>, you can find errors in data format while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions"><strong>regular expression</strong></a>. If the value during input of AutoConnectInput does not match the regular expression specified by the pattern, its background color changes to pink. Refer to <a href="achandling.html#check-data-against-on-submission">Handling the custom Web pages</a> section.</p>
+<p>However, input data will be transmitted even if the value does not match the pattern. To check the value with the sketch, using the <a href="apielements.html#isvalid"><strong>AutoConnectInput::isValid</strong></a> function. The isValid function validates whether the value member variable matches a pattern and returns true or false.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">input_page[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
+<span style="color: #e6db74">[</span>
+<span style="color: #e6db74">  {</span>
+<span style="color: #e6db74">    &quot;title&quot;: &quot;IP Address&quot;,</span>
+<span style="color: #e6db74">    &quot;uri&quot;: &quot;/&quot;,</span>
+<span style="color: #e6db74">    &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">    &quot;element&quot;: [</span>
+<span style="color: #e6db74">      {</span>
+<span style="color: #e6db74">        &quot;name&quot;: &quot;ipaddress&quot;,</span>
+<span style="color: #e6db74">        &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="color: #e6db74">        &quot;label&quot;: &quot;IP Address&quot;,</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">        &quot;pattern&quot;: &quot;^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$&quot;</span>
+</span><span style="color: #e6db74">      },</span>
+<span style="color: #e6db74">      {</span>
+<span style="color: #e6db74">        &quot;name&quot;: &quot;send&quot;,</span>
+<span style="color: #e6db74">        &quot;type&quot;: &quot;ACSubmit&quot;,</span>
+<span style="color: #e6db74">        &quot;value&quot;: &quot;SEND&quot;,</span>
+<span style="color: #e6db74">        &quot;uri&quot;: &quot;/check&quot;</span>
+<span style="color: #e6db74">      }</span>
+<span style="color: #e6db74">    ]</span>
+<span style="color: #e6db74">  },</span>
+<span style="color: #e6db74">  {</span>
+<span style="color: #e6db74">    &quot;title&quot;: &quot;IP Address&quot;,</span>
+<span style="color: #e6db74">    &quot;uri&quot;: &quot;/check&quot;,</span>
+<span style="color: #e6db74">    &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">    &quot;element&quot;: [</span>
+<span style="color: #e6db74">      {</span>
+<span style="color: #e6db74">        &quot;name&quot;: &quot;result&quot;,</span>
+<span style="color: #e6db74">        &quot;type&quot;: &quot;ACText&quot;</span>
+<span style="color: #e6db74">      }</span>
+<span style="color: #e6db74">    ]</span>
+<span style="color: #e6db74">  }</span>
+<span style="color: #e6db74">]</span>
+<span style="color: #e6db74">)raw&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+
+<span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">checkIPAddress</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">input_page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ipaddress</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input_page</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;ipaddress&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">result</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;result&quot;</span><span style="color: #f8f8f2">);</span>
+
+<span style="background-color: #49483e">  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(ipaddress.isValid())</span> <span style="color: #f8f8f2">{</span>
+</span>    <span style="color: #f8f8f2">result.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;IP Address &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">ipaddress.value</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; is OK.&quot;</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #f8f8f2">result.style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">result.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;IP Address &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">ipaddress.value</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; error.&quot;</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #f8f8f2">result.style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;color:red;&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.load(input_page);</span>
+  <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/check&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">checkIPAddress);</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
 <div class="admonition caution">
 <p class="admonition-title">Regular Expressions for JavaScript</p>
 <p>Regular expressions specified in the AutoConnectInput pattern conforms to the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">JavaScript specification</a>.</p>
