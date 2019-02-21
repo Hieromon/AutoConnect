@@ -230,6 +230,18 @@ Returns type of AutoConnectElement.
     <dd>AC_Input</dd>
 </dl>
 
+#### <i class="fa fa-caret-right"></i> isValid
+
+```cpp
+bool isValid(void)
+```
+Evaluate the pattern as a regexp and return whether value matches. Always return true if the pattern is undefined.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The value matches a pattern.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">The value does not match a pattern.</span></dd>
+</dl>
+
 ## AutoConnectRadio
 
 ### <i class="fa fa-code"></i> Constructor
@@ -332,10 +344,10 @@ Indicates the check of the specified option for the radio buttons. You can use t
 ```cpp
 void empty(const size_t reserve = 0)
 ```
-Clear the array of option strings that AutoConnectRadio has in values. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
+Clear the array of option strings that AutoConnectRadio has in the values. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for option strings.</span></dd>
+    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;
@@ -343,10 +355,23 @@ Clear the array of option strings that AutoConnectRadio has in values. When a **
 ```cpp
 const String& operator[] (const std::size_t n)
 ```
-Returns the option string of the index specified by **_n_**.
+Returns a value string of the index specified by **_n_**.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">n</span><span class="apidesc">Index of values array to return.</span></dd>
+    <dd><span class="apidef">n</span><span class="apidesc">Index of values array to return. Its base number is 0.</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A reference of a value string indexed by the specified the **n**.</dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> size
+
+```cpp
+size_t size(void)
+```
+Returns number of options which contained.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>Number of options which contained.</dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -418,25 +443,150 @@ Returns type of AutoConnectElement.
 ```cpp
 void add(const String& option)
 ```
+Adds a selectable option string for the selection list.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> empty
 
 ```cpp
 void empty(const size_t reserve = 0)
 ```
-
-#### <i class="fa fa-caret-right"></i> size
-
-```cpp
-size_t size(void)
-```
+Clear the array of options list that AutoConnectSelect has in the options. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;
 
 ```cpp
 const String& operator[] (const std::size_t n)
 ```
+Returns an option string of the index specified by **_n_**.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">n</span><span class="apidesc">Index of options array to return. Its base number is 0.</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A reference of a option string indexed by the specified the **n**.</dd>
+    <dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> size
+
+```cpp
+size_t size(void)
+```
+Returns number of options which contained.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>Number of options which contained.</dd>
+</dl>
 
 ## AutoConnectSubmit
 
+### <i class="fa fa-code"></i> Constructor
+
+```cpp
+AutoConnectSubmit(const char* name = "", const char* value ="", char* uri = "")
+```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">The name of the submit button as an HTML `#!html <input type="button">` tag, it will also be the label of the button.</span></dd>
+    <dd><span class="apidef">uri</span><span class="apidesc">Destination URI.</span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member variables
+
+#### <i class="fa fa-caret-right"></i> name
+
+The element name.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+The name of the submit button. It will also be the label of the button.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> uri
+
+Destination URI.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member functions
+
+#### <i class="fa fa-caret-right"></i> typeOf
+
+```cpp
+ACElement_t typeOf(void)
+```
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>AC_Submit</dd>
+</dl>
+
 ## AutoConnectText
+
+### <i class="fa fa-code"></i> Constructor
+
+```cpp
+AutoConnectText(const char* name = "", const char* value = "", const char* style = "")
+```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">String of content for the text element.</span></dd>
+    <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the text.</span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member variables
+
+#### <i class="fa fa-caret-right"></i> name
+
+The element name.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+A content string of the text element.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> style
+
+A style code with CSS format that qualifiers the text.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member functions
+
+#### <i class="fa fa-caret-right"></i> typeOf
+
+```cpp
+ACElement_t typeOf(void)
+```
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>AC_Text</dd>
+</dl>
