@@ -74,12 +74,12 @@ The current upstream at the 1.8 level or later is needed. Please install from th
 
 <i class="fa fa-download"></i> <strong>ESP8266 Arduino core</strong>
 
-AutoConnect targets sketches made on the assumption of [ESP8266 Community's Arduino core](https://github.com/esp8266/Arduino). The [latest release](https://github.com/esp8266/Arduino/releases/latest) is recommended.  
+AutoConnect targets sketches made on the assumption of [ESP8266 Community's Arduino core](https://github.com/esp8266/Arduino). Stable 2.4.0 or higher required and the [latest release](https://github.com/esp8266/Arduino/releases/latest) is recommended.  
 Install third-party platform using the *Boards Manager* of Arduino IDE. Package URL is http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 <i class="fa fa-download"></i> <strong>ESP32 Arduino core</strong>
 
-Also, to apply AutoConnect to ESP32, the [arduino-esp32 core](https://github.com/espressif/arduino-esp32) provided by Espressif is needed. The [latest release](https://github.com/espressif/arduino-esp32/releases/latest) is recommended.  
+Also, to apply AutoConnect to ESP32, the [arduino-esp32 core](https://github.com/espressif/arduino-esp32) provided by Espressif is needed. Stable 1.0.1 or required and the [latest release](https://github.com/espressif/arduino-esp32/releases/latest) is recommended.  
 Install third-party platform using the *Boards Manager* of Arduino IDE. You can add multiple URLs into *Additional Board Manager URLs* field, separating them with commas. Package URL is https://dl.espressif.com/dl/package_esp32_index.json for ESP32.
 
 <i class="fa fa-download"></i> <strong>Additional library (Required)</strong>

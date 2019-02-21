@@ -86,13 +86,13 @@ Make some sketches for erasing the EEPROM area, or some erasing utility is neede
 
 A class description of AutoConnectCredential is follows.
 
-### Include header
+### <i class="fa fa-code"></i> Include header
 
 ```cpp
 #include <AutoConnectCredential.h>
 ```
 
-### Constructor
+### <i class="fa fa-code"></i> Constructor
 
 ```cpp
 AutoConnectCredential();
@@ -106,7 +106,7 @@ AutoConnectCredential(uint16_t offset);
 
 Specify offset from the top of the EEPROM for the credential storage area together. The offset value is from 0 to the flash sector size.
 
-### Public member functions
+### <i class="fa fa-code"></i> Public member functions
 
 - uint8_t **entries()**  
    Returns number of entries as contained credentials.
@@ -123,7 +123,7 @@ Specify offset from the top of the EEPROM for the credential storage area togeth
 - bool **del(const char\* _ssid_)**  
    Delete a credential entry specified *ssid*. Returns the true as successfully deleted.
 
-### Data structures
+### <i class="fa fa-code"></i> Data structures
 
 - station_config  
   A structure is included in the ESP8266 SDK. You can use it in the sketch like as follows.
@@ -195,7 +195,7 @@ If AutoConnect behavior is not stable with your sketch, you can try the followin
 
 ### 1. Change WiFi channel
 
-Both ESP8266 and ESP32 can only work on one channel at any given moment, this will cause loss of connection on the channel where your station operates the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case please try the [AutoConnectConfig](apiconfig.md#autoconnectconfig) to match the [channel](apiconfig.md#channel) to the access point.
+Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try the [AutoConnectConfig](apiconfig.md#autoconnectconfig) to match the [channel](apiconfig.md#channel) to the access point.
 
 ### 2. Change arduino core version
 
@@ -215,13 +215,13 @@ The [arduino-esp32](https://github.com/espressif/arduino-esp32) is still under d
 
 To fully enable for the AutoConnect debug logging options, change the following two files.
 
-- AutoConnectDefs.h
+<i class="fas fa-angle-right"></i> AutoConnectDefs.h
 
 ```cpp
 #define AC_DEBUG
 ```
 
-- PageBuilder.h [^2]
+<i class="fas fa-angle-right"></i> PageBuilder.h [^2]
 
 ```cpp
 #define PB_DEBUG
@@ -231,13 +231,13 @@ To fully enable for the AutoConnect debug logging options, change the following 
 
 ### 4. Reports the issue to AutoConnect repository on Github
 
-If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information as follows.
+If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:
 
-- Hardware module
-- Arduino core Version (including the upstream tag ID.)
-- Operating System which you use
-- lwIP variant
-- Problem description
-- If you have a STACK DUMP decoded result with formatted by the code block tag
-- The sketch code with formatted by the code block tag
-- Debug messages output
+* [x] Hardware module
+* [x] Arduino core version (Including the upstream tag ID.)
+* [x] Operating System which you use
+* [x] lwIP variant
+* [x] Problem description
+* [x] If you have a STACK DUMP decoded result with formatted by the code block tag
+* [x] The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)
+* [x] Debug messages output

@@ -43,7 +43,7 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
 ### <i class="fa fa-caret-right"></i> autoReconnect
 
 Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.  
-If the connection fails, starts the captive portal in SoftAP + STA mode.  
+If the connection fails, starts the captive portal in SoftAP+STA mode.  
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>bool</dd>

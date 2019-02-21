@@ -6,7 +6,7 @@ AutoConnect can handle custom Web pages without using JSON. In that case, since 
 
 ## Writing the custom Web pages without JSON
 
-To handle a custom Web page without using JSON, follow the steps below.
+To handle the custom Web pages without using JSON, follow the steps below.
 
 1. Create or define [AutoConnectAux](apiaux.md) for each page.
 2. Create or define [AutoConnectElement(s)](acelements.md).
