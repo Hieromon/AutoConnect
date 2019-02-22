@@ -819,9 +819,11 @@
                 
                 <h2 id="what-it-is">What it is<a class="headerlink" href="#what-it-is" title="Permanent link">&para;</a></h2>
 <p><span style="margin-left:20px;margin-bottom:10px;float:right;width:280px;height:497px;border:1px solid lightgray;"><img data-gifffer="./images/aux_ov.gif" data-gifffer-width="278" data-gifffer-height="495" /></span>
-AutoConnect can handle custom Web pages prepared by user sketches individually. Custom Web pages are displayed in the <a href="menu.html">AutoConnect menu</a> and can be used from there. It can also have input-output parameters and handle it with sketches. For example, you can program some sketches that publish messages by entering the URI or unique ID of the MQTT broker on a custom page. You do not need to code the processing to handle the web page, it retrieves the input parameters and passes to the MQTT broker connection API is only.</p>
+AutoConnect can handle custom Web pages prepared by user sketches individually. Custom Web pages can be integrated into the AutoConnect menu and executed as menu items and can have input-output parameters and handle them.</p>
+<p>For example, you can program some sketches that publish messages by entering the URI or unique ID of the MQTT broker on a custom page. You do not need to code the processing to handle the web page. It retrieves the input parameters and passes to the MQTT broker connection API is only.</p>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>Custom Web pages are dynamically created by AutoConnect. The Classes and APIs necessary for dynamic creation are provided. <a href="apiaux.html#autoconnectaux"><strong>AutoConnectAux</strong></a> is an object dependent on AutoConnect, which provides an easy way to incorporate custom Web pages like the one on the right figure into AutoConnect. The elements that make up a custom web page are provided as an <a href="acelements.html"><strong>AutoConnectElement</strong></a> class. Furthermore, an input box, a check box, a submit button, etc. are implemented by classes derived from AutoConnectElement.
+<p>AutoConnect creates the custom Web pages dynamically at runtime. Sketch describes the custom Web pages using classes and APIs necessary for dynamic creation which are <a href="apiaux.html#autoconnectaux"><strong>AutoConnectAux</strong></a> and the variant of <a href="acelements.html"><strong>AutoConnectElements</strong></a>. AutoConnectAux is an object dependent on AutoConnect, which provides an easy way to incorporate custom Web pages into AutoConnect like the one on the right figure. The elements make up a custom Web page are provided as an AutoConnectElement class.</p>
+<p>Furthermore, an input box, a check box, a submit button, etc. are implemented by classes derived from AutoConnectElement.
 <p align="center"><img align="center" width="560px" src="./images/ac_objects.svg"></p>
 AutoConnectAux is a container for AutoConnectElements. To make a custom Web page, create elements that make up the page and put it in the AutoConnectAux object. Joining its AutoConnectAux object to AutoConnect will integrate the custom Web page into the AutoConnect menu.</p>
 <p><img src="./images/ac_declaration.svg"></p>
@@ -842,13 +844,14 @@ AutoConnectAux is a container for AutoConnectElements. To make a custom Web page
 <h2 id="basic-steps-to-use-custom-web-pages">Basic steps to use custom Web pages<a class="headerlink" href="#basic-steps-to-use-custom-web-pages" title="Permanent link">&para;</a></h2>
 <p>So, the basic procedure for handling of the custom Web pages is as follows:</p>
 <ol>
-<li>Create or define AutoConnectAux.</li>
+<li>Create or define <a href="apiaux.html#autoconnectaux">AutoConnectAux</a>.</li>
 <li>Create or define <a href="acelements.html">AutoConnectElement(s)</a>.</li>
 <li>Add <a href="acelements.html">AutoConnectElement(s)</a> to AutoConnectAux.</li>
 <li>Create more AutoConnectAux containing <a href="acelements.html">AutoConnectElement(s)</a>, if necessary.</li>
-<li>Register the request handlers for the custom Web pages.</li>
+<li><a href="api.html#on">Register</a> the request handlers for the custom Web pages.</li>
 <li><a href="api.html#join">Join</a> prepared AutoConnectAux(s) to AutoConnect.</li>
 <li>Invoke <a href="api.html#begin">AutoConnect::begin()</a>.</li>
+<li>Perform <a href="api.html#handleclient">AutoConnect::handleClient()</a>.</li>
 </ol>
 <h2 id="write-the-custom-web-page-with-json">Write the custom Web page with JSON<a class="headerlink" href="#write-the-custom-web-page-with-json" title="Permanent link">&para;</a></h2>
 <p>You can write the custom Web page in JSON without using sketch codes.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup> It is possible to describe the entire page in JSON and can be described for each element also. The JSON document can be saved in SPIFFS or SD and read using AutoConnect's <a href="api.html#load"><strong>load</strong></a> function. you can reduce the steps of the basic procedure with this approach, but this way consumes a lot of memory. 
@@ -929,7 +932,7 @@ The following JSON code and sketch will execute the custom Web page as an exampl
 <span style="color: #f8f8f2">}</span>
 </pre></div></p>
 <h2 id="passing-parameters-with-sketches-and-custom-web-pages">Passing parameters with sketches and custom Web pages<a class="headerlink" href="#passing-parameters-with-sketches-and-custom-web-pages" title="Permanent link">&para;</a></h2>
-<p>A sketch can access variables of <a href="acelements.html">AutoConnectElements</a> on the custom Web page. The value entered into the AutoConnectElements is stored to the <a href="acelements.html#form-and-autoconnectelements">member variables</a> of the element by AutoConnect whenever GET / POST transmission occurs. Your sketches can get these values with the request handler which will be registered by <a href="api.html#on">AutoConnect::on</a> function. And if you assign a value to an element before a request to the page occurs, its value will appear as the initial value when the page is displayed. The details are explained in the <a href="achandling.html#custom-field-data-handling">Custom field data handling</a> section.</p>
+<p>A sketch can access variables of <a href="acelements.html">AutoConnectElements</a> on the custom Web page. The value entered into the AutoConnectElements is stored to the <a href="acelements.html#form-and-autoconnectelements">member variables</a> of the element by AutoConnect whenever GET / POST transmission occurs. Your sketches can get these values with the request handler which will be registered by <a href="api.html#on">AutoConnect::on</a> function. And if you assign a value to an element before a request to the page occurs, its value will appear as the initial value when the page is displayed. The details are explained in section <a href="achandling.html#custom-field-data-handling"><em>Custom field data handling</em></a>.</p>
 <script>
   window.onload = function() {
     Gifffer();

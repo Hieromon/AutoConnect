@@ -1554,10 +1554,9 @@
 <li><a href="#autoconnecttext">AutoConnectText</a>: Style attributed text</li>
 </ul>
 <h2 id="layout-on-a-custom-web-page">Layout on a custom Web page<a class="headerlink" href="#layout-on-a-custom-web-page" title="Permanent link">&para;</a></h2>
-<p>You can specify the direction to arrange the radio buttons as <a href="#autoconnectradio"><strong>AutoConnectRadio</strong></a> vertically or horizontally. Other elements are arranged vertically in the order of addition to AutoConnectAux. This basic layout depends on the CSS of the AutoConnect menu so it can not be changed drastically.</p>
+<p>The elements of the page created by AutoConnectElements are aligned vertically exclude the <a href="#autoconnectradio">AutoConnectRadio</a>. You can specify the direction to arrange the radio buttons as AutoConnectRadio vertically or horizontally. This basic layout depends on the CSS of the AutoConnect menu so you can not change drastically.</p>
 <h2 id="form-and-autoconnectelements">Form and AutoConnectElements<a class="headerlink" href="#form-and-autoconnectelements" title="Permanent link">&para;</a></h2>
-<p>All AutoConnectElements placed on a custom Web page are included in one form. Its form is fixed and created by AutoConnect. The form's value (usually the text or checkbox you entered) is sent by <a href="#autoconnectsubmit">AutoConnectSubmit</a> using the POST method.</p>
-<p><strong>name</strong> and <strong>value</strong> of each AutoConnectElement which own form-data are reflected in the query string when the custom Web page was sent. You can retrieve the value in the sketch as the parameter's value of the query string with <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments"><strong>ESP8266WebServer::arg</strong></a> function or <strong>PageArgument</strong> class of <a href="api.html#on"><strong>AutoConnect::on</strong></a> handler when the form is submitted.</p>
+<p>All AutoConnectElements placed on custom web pages will be contained into one form. Its form is fixed and created by AutoConnect. The form value (usually the text or checkbox you entered) is sent by <a href="#autoconnectsubmit">AutoConnectSubmit</a> using the <strong>POST</strong> method with HTTP. The post method sends the actual form data which is a query string whose contents are the <strong>name</strong> and <strong>value</strong> of AutoConnectElements. You can retrieve the value for the parameter with the sketch from the query string with <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments">ESP8266WebServer::arg</a> function or <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> class of the <a href="api.html#on">AutoConnect::on</a> handler when the form is submitted.</p>
 <h2 id="autoconnectelement-a-basic-class-of-elements">AutoConnectElement - <small>A basic class of elements</small><a class="headerlink" href="#autoconnectelement-a-basic-class-of-elements" title="Permanent link">&para;</a></h2>
 <p>AutoConnectElement is a base class for other element classes and has common attributes for all elements. It can also be used as a <a href="#variant-for-autoconnectelements">variant</a> of each element. The following items are attributes that AutoConnectElement has and are common to other elements.</p>
 <p><i class="fa fa-eye"></i> <strong>Sample</strong><br>
@@ -1598,7 +1597,7 @@
 </ul>
 <p>Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must <a href="https://en.cppreference.com/w/cpp/language/reinterpret_cast">re-interpret</a> that type with c++.</p>
 <h2 id="autoconnectbutton">AutoConnectButton<a class="headerlink" href="#autoconnectbutton" title="Permanent link">&para;</a></h2>
-<p>AutoConnectButton generates an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">button</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;button&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an onclick attribute of HTML button tag. An onclick attribute is generated from an <code>action</code> member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.</p>
+<p>AutoConnectButton generates an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">button</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;button&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an <em>onclick</em> attribute of HTML button tag. An <em>onclick</em> attribute is generated from an <code>action</code> member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.</p>
 <p><i class="fa fa-eye"></i> <strong>Sample</strong><br>
 <small><strong><code>AutoConnectButton button("button", "OK", "myFunction()");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="./images/acbutton.png"></p>
@@ -1611,7 +1610,7 @@
 <h3 id="value_1"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_1" title="Permanent link">&para;</a></h3>
 <p>It becomes a value of the <code>value</code> attribute of an HTML button tag.</p>
 <h3 id="action"><i class="fa fa-caret-right"></i> action<a class="headerlink" href="#action" title="Permanent link">&para;</a></h3>
-<p><strong>action</strong> is String data type and is an onclick attribute fire on a mouse click on the element. It is mostly used with a JavaScript to activate a script.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> For example, the following code defines a custom Web page that copies a content of <code>Text1</code> to <code>Text2</code> by clicking <code>Button</code>.</p>
+<p><strong>action</strong> is String data type and is an <em>onclick</em> attribute fire on a mouse click on the element. It is mostly used with a JavaScript to activate a script.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> For example, the following code defines a custom Web page that copies a content of <code>Text1</code> to <code>Text2</code> by clicking <code>Button</code>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">scCopyText</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">&lt;script&gt;</span>
 <span style="background-color: #49483e"><span style="color: #e6db74">function CopyText() {</span>
@@ -1669,7 +1668,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <p>IP address:<br><code>(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])</code></p>
 </li>
 <li>
-<p>Host name of the internet:<br><code>(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])</code></p>
+<p>Host name of Internet:<br><code>(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])</code></p>
 </li>
 <li>
 <p>Date (MM/DD/YYYY) as range 1900-2099:<br><code>(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d</code></p>
