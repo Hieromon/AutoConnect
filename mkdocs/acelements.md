@@ -13,13 +13,11 @@ Representative HTML elements for making the custom Web page are provided as Auto
 
 ## Layout on a custom Web page
 
-You can specify the direction to arrange the radio buttons as [**AutoConnectRadio**](#autoconnectradio) vertically or horizontally. Other elements are arranged vertically in the order of addition to AutoConnectAux. This basic layout depends on the CSS of the AutoConnect menu so it can not be changed drastically.
+The elements of the page created by AutoConnectElements are aligned vertically exclude the [AutoConnectRadio](#autoconnectradio). You can specify the direction to arrange the radio buttons as AutoConnectRadio vertically or horizontally. This basic layout depends on the CSS of the AutoConnect menu so you can not change drastically.
 
 ## Form and AutoConnectElements
 
-All AutoConnectElements placed on a custom Web page are included in one form. Its form is fixed and created by AutoConnect. The form's value (usually the text or checkbox you entered) is sent by [AutoConnectSubmit](#autoconnectsubmit) using the POST method.
-
-**name** and **value** of each AutoConnectElement which own form-data are reflected in the query string when the custom Web page was sent. You can retrieve the value in the sketch as the parameter's value of the query string with [**ESP8266WebServer::arg**](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments) function or **PageArgument** class of [**AutoConnect::on**](api.md#on) handler when the form is submitted.
+All AutoConnectElements placed on custom web pages will be contained into one form. Its form is fixed and created by AutoConnect. The form value (usually the text or checkbox you entered) is sent by [AutoConnectSubmit](#autoconnectsubmit) using the **POST** method with HTTP. The post method sends the actual form data which is a query string whose contents are the **name** and **value** of AutoConnectElements. You can retrieve the value for the parameter with the sketch from the query string with [ESP8266WebServer::arg](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments) function or [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) class of the [AutoConnect::on](api.md#on) handler when the form is submitted.
 
 ## AutoConnectElement - <small>A basic class of elements</small>
 
@@ -76,7 +74,7 @@ Furthermore, to convert an entity that is not an AutoConnectElement to its nativ
 
 ## AutoConnectButton
 
-AutoConnectButton generates an HTML `#!html <button type="button">` tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an onclick attribute of HTML button tag. An onclick attribute is generated from an `action` member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.
+AutoConnectButton generates an HTML `#!html <button type="button">` tag and locates a clickable button to a custom Web page. Currently AutoConnectButton corresponds only to name, value, an *onclick* attribute of HTML button tag. An *onclick* attribute is generated from an `action` member variable of the AutoConnectButton, which is mostly used with a JavaScript to activate a script.
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectButton button("button", "OK", "myFunction()");`**</small>
@@ -99,7 +97,7 @@ It becomes a value of the `value` attribute of an HTML button tag.
 
 ### <i class="fa fa-caret-right"></i> action
 
-**action** is String data type and is an onclick attribute fire on a mouse click on the element. It is mostly used with a JavaScript to activate a script.[^1] For example, the following code defines a custom Web page that copies a content of `Text1` to `Text2` by clicking `Button`.
+**action** is String data type and is an *onclick* attribute fire on a mouse click on the element. It is mostly used with a JavaScript to activate a script.[^1] For example, the following code defines a custom Web page that copies a content of `Text1` to `Text2` by clicking `Button`.
 
 [^1]:JavaScript can be inserted into a custom Web page using AutoConnectElement.
 
@@ -185,7 +183,7 @@ A `pattern` specifies a [regular expression](https://www.w3schools.com/js/js_reg
 
 - IP address:<br>`(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])`
 
-- Host name of the internet:<br>`(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])`
+- Host name of Internet:<br>`(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])`
 
 - Date (MM/DD/YYYY) as range 1900-2099:<br>`(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d`
 

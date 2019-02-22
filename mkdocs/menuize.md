@@ -10,7 +10,7 @@ The sketch can display the [AutoConnect menu](menu.md) by following three patter
 :    It is the most basic menu for only connecting WiFi. Sketch can automatically display this menu with the basic call sequence of the AutoConnect API which invokes [AutoConnect::begin](api.md#begin) and [AutoConnect::handleClient](api.md#handleclient).
 
 <i class="fa fa-desktop"></i>&ensp;**Extra menu with custom Web pages which is consisted by [AutoConnectElements](acelements.md)**
-:    It is an extended menu that appears when the sketch consists of the custom Web pages with [AutoConnectAux](acintro.md#how-it-works) and AutoConnectElements. Refer to [Custom Web pages section](acintro.md#custom-web-pages-in-autoconnect-menu).
+:    It is an extended menu that appears when the sketch consists of the custom Web pages with [AutoConnectAux](acintro.md#how-it-works) and AutoConnectElements. Refer to section [*Custom Web pages section*](acintro.md#custom-web-pages-in-autoconnect-menu).
 
 <i class="fa fa-desktop"></i>&ensp;**Extra menu which contains legacy pages**
 :    It is for the legacy sketches using the **on** handler of ESP8266WebServer/WebServer(for ESP32) class natively and looks the same as the extra menu as above.

@@ -168,7 +168,7 @@ To implement embedding the your sketch web pages, use only the [AutoConnectAux](
 5. [Begin](api.md#begin) the portal.
 6. Performs [AutoConnect::handleClient](api.md#handleClient) in the **loop** function.
 
-For details see the [Constructing the menu](menuize.md) section of Examples page.
+For details see *Example page* of section [*Constructing the menu*](menuize.md).
 
 ### <i class="fa fa-caret-right"></i> Change menu title
 
