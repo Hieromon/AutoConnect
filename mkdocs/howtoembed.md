@@ -8,7 +8,7 @@ Uses the web interface to light the LED connected to the **[NodeMCU](https://git
 
 Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED blinks according to the value of the button that was clicked. This example is a typical sketch of manipulating ESP8266's GPIO via WLAN.
 
-<img data-gifffer="./images/ac2.gif" />
+<img data-gifffer="images/ac2.gif" />
 
 Embed AutoConnect library into this sketch. There are few places to be changed. And you can use AutoConnect's captive portal function to establish a connection freely to other WiFi spots.
 
@@ -18,7 +18,7 @@ Embed AutoConnect library into this sketch. There are few places to be changed. 
 
 Bind to ESP8266WebServer, performs handleClient with handleRequest.
 
-<img src="./images/handleClient.svg" />
+<img src="images/handleClient.svg" />
 
 !!! hint "In what situations should the handleRequest be used."
     It is something needs to be done immediately after the handle client. It is better to call only AutoConnect::handleClient whenever possible.
@@ -27,7 +27,7 @@ Bind to ESP8266WebServer, performs handleClient with handleRequest.
 
 Declare only AutoConnect, performs handleClient.
 
-<img src="./images/handlePortal.svg" />
+<img src="images/handlePortal.svg" />
 
 ## Used with MQTT as a client application
 
@@ -35,7 +35,7 @@ The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It ha
 
 This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the [ThingSpeak](https://thingspeak.com/) for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as [MQTT client](https://github.com/knolleary/pubsubclient). This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.
 
-<img src="./images/ChannelStatus.png" width="70%"/>
+<img src="images/ChannelStatus.png" width="70%"/>
 
 ### Advance procedures
 
@@ -60,7 +60,7 @@ At the **New Channel** screen, enter each field as a below. And click **Save Cha
 - Description: ```ESP8266 RSSI publish```
 - Field1: ```RSSI```
 
-<img src="./images/CreateChannel.png" width="70%"/>
+<img src="images/CreateChannel.png" width="70%"/>
 
 #### Get Channel ID and API Keys
 
@@ -68,15 +68,15 @@ The channel successfully created, you can see the channel status screen as a bel
 
 [^2]:'454951' in the example above, but your channel ID should be different.
 
-<img src="./images/ChannelID.png" width="70%"/>
+<img src="images/ChannelID.png" width="70%"/>
 
 Here, switch the channel status tab to **API Keys**. The API key required to publish the message is the **Write API Key**.
 
-<img src="./images/APIKeys.png" width="70%"/>
+<img src="images/APIKeys.png" width="70%"/>
 
 The last key you need is the **User API Key** and can be confirmed it in the user profile. Pull down **Account** from the top menu, select **My profile**. Then you can see the ThingSpeak settings and the **User API Key** is displayed middle of this screen.
 
-<img src="./images/USERKey.png" width="70%"/>
+<img src="images/USERKey.png" width="70%"/>
 
 ### The sketch, Publishes messages
 
@@ -100,25 +100,25 @@ For the client sketches, the code required to connect to WiFi is the following f
     
     Include ```AutoConnect.h``` header file behind the include of ```ESP8266WiFi.h```.
 
-    <img src="./images/include.png" width="55%"/>
+    <img src="images/include.png" width="55%"/>
 
 2. Declare AutoConnect
     
     The declaration of the [**AutoConnect variable**](api.md#autoconnect) is not accompanied by ESP8266WebServer.
 
-    <img src="./images/declare.png" width="55%"/>
+    <img src="images/declare.png" width="55%"/>
 
 3. Invokes "begin()"
     
     Call [**AutoConnect::begin**](api.md#begin). If you need to assign a static IP address, executes [**AutoConnectConfig**](api.md#autoconnectconfig-api) before that. 
 
-    <img src="./images/begin.png" width="55%"/>
+    <img src="images/begin.png" width="55%"/>
 
 4. Performs "handleClent()" in "loop()"
     
     Invokes [**AutoConnect::handleClient()**](api.md#handleclient) at inside ```loop()``` to enable the AutoConnect menu.
 
-    <img src="./images/handleClient.png" width="55%"/>
+    <img src="images/handleClient.png" width="55%"/>
 
 [^3]:```#include <ESP8266WebServer.h>``` does not necessary for uses only client.
 

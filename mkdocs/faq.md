@@ -40,7 +40,7 @@ void loop() {
 ??? hint "You can interactively check the WiFi state of ESP8266."
     Please try [**ESPShaker**](https://github.com/Hieromon/ESPShaker). It is ESP8266 interactive serial command processor.
 
-    <img src="./images/espshaker.gif" />
+    <img src="images/espshaker.gif" />
 
 ## <i class="fa fa-question-circle"></i> Does not response from /\_ac.
 

@@ -106,7 +106,7 @@ AutoConnectElementVT& getElements(void)
 
 AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectElements. In both cases, the target object is a [JSON document for AutoConnect](acjson.md). However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)
 
-<img src="./images/ac_load_save.svg">
+<img src="images/ac_load_save.svg">
 
 ### <i class="fa fa-upload"></i> Loading AutoConnectAux &amp; AutoConnectElements with JSON
 
@@ -226,7 +226,7 @@ A sketch can access variables of AutoConnectElements in the custom Web page. The
 
 The following diagram shows the flow of the input values of a custom Web page into a sketch and is the basis for actions to manipulate the values of custom Web pages using sketches.
 
-<img src="./images/ac_param_flow.svg">
+<img src="images/ac_param_flow.svg">
 
 ### <i class="fa fa-desktop"></i> Where to pick up the values
 
@@ -530,7 +530,7 @@ void loop() {
 }
 ```
 <i class="fa fa-arrow-down"></i><br>
-<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" src="./images/acow.png"></span>
+<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" src="images/acow.png"></span>
 
 ### <i class="far fa-check-square"></i> Check data against on submission
 
@@ -555,8 +555,8 @@ By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.
 ```
 
 <div>
-  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="./images/arrow_down.png"></span>
-  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
+  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="images/arrow_down.png"></span>
+  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
 </div>
 
 ### <i class="fa fa-exchange"></i> Convert data to actually type

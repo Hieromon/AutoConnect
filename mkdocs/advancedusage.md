@@ -188,8 +188,8 @@ void setup() {
 
 Executing the above sketch will rewrite the menu title for the **FSBrowser** as the below.
 
-<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="./images/fsbmenu.png"></div>
-<img style="margin-left:70px;width:40%;height:470px;" src="./images/fsbmenu_expand.png">
+<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
+<img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png">
 
 ### <i class="fa fa-caret-right"></i> Combination with mDNS
 
@@ -368,7 +368,7 @@ In ordinary, the URL handler will respond the request by sending some HTML. [Pag
 
 An example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for [Github repository](https://github.com/Hieromon/PageBuilder).
 
-<img src="./images/PageBuilder.png" style="width:640px;"/>
+<img src="images/PageBuilder.png" style="width:640px;"/>
 
 ## Configuration functions
 
@@ -403,7 +403,7 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 
 **HOME** for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the [*AutoConnect::home*](api.md#home) function.
 
-<img src="./images/menu_home.png" />
+<img src="images/menu_home.png" />
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 

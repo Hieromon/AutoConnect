@@ -7,7 +7,7 @@ An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web int
 To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class for ESP8266 or *WebServer* class for ESP32.
 Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi connection. With this library to make a sketch easily which connects from ESP8266/ESP32 to the access point at runtime by the web interface without hard-coded SSID and password.
 
-<img style="display:inline-block;width:460px;margin-right:30px;" src="./images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="./images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span>
+<img style="display:inline-block;width:460px;margin-right:30px;" src="images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> No need pre-coded SSID &amp; password
 
@@ -34,9 +34,9 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 <span class="lead">You can easily add your owned web screens that can consist of representative HTML elements and invoke them from the menu. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD.</span>
 
 <div style="display:block;height:425px;">
-<img style="float:left;width:380px;" src="./images/aux_json.png">
-<img style="float:left;margin-top:200px;margin-left:10px;margin-right:10px;width:32px;" src="./images/arrow_right.png">
-<span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
+<img style="float:left;width:380px;" src="images/aux_json.png">
+<img style="float:left;margin-top:200px;margin-left:10px;margin-right:10px;width:32px;" src="images/arrow_right.png">
+<span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
 </div>
 
 ## Installation
@@ -88,7 +88,7 @@ The [PageBuilder](https://github.com/Hieromon/PageBuilder) library to build HTML
 To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required 1.3.2 later.[^1]
 [^1]:Since AutoConnect v0.9.7, PageBuilder v1.3.2 later is required.
 
-<img src="./images/lm.png" width="640"/>
+<img src="images/lm.png" width="640"/>
 
 
 <i class="fa fa-download"></i> <strong>Additional library (Optional)</strong>
@@ -103,11 +103,11 @@ By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, A
 
 Clone or download from the [AutoConnect GitHub repository](https://github.com/Hieromon/AutoConnect).
 
-<img src="./images/gitrepo.png" width="640"/>
+<img src="images/gitrepo.png" width="640"/>
 
 When you select Download, you can import it to Arduino IDE immediately. After downloaded, the AutoConnect-master.zip file will be saved in your download folder. Then in the Arduino IDE, navigate to *"Sketch > Include Library"*. At the top of the drop down list, select the option to *"Add .ZIP Library..."*. Details for [Arduino official page](https://www.arduino.cc/en/Guide/Libraries#toc4).
 
-<img src="./images/ins_lib.png" />
+<img src="images/ins_lib.png" />
 
 !!! info "Supported by Library manager."
     AutoConnect was added to the Arduino IDE library manager. It can be used with the PlatformIO library also.

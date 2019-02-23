@@ -152,7 +152,7 @@ The code excluding JSON processing from the mqttRSSI sketch attached to the libr
   }
 ]
 ```
-<span style="margin-right:6px;margin-top:2px;"><img align="middle" width="32" height="32" src="./images/arrow_down.png"></span><i class="fa fa-code"></i> Exclude the JSON and replace to the AutoConnectElements natively
+<span style="margin-right:6px;margin-top:2px;"><img align="middle" width="32" height="32" src="images/arrow_down.png"></span><i class="fa fa-code"></i> Exclude the JSON and replace to the AutoConnectElements natively
 
 ```cpp
 // In the declaration,

@@ -23,7 +23,7 @@ To implement this with your sketch, use only the [AutoConnectAux](apiaux.md#auto
 
 The AutoConnect library package contains an example sketch for ESP8266WebServer known as FSBrowser. Its example is a sample implementation that supports AutoConnect without changing the structure of the original FSBrowser and has the menu item for **Edit** and **List**.
 
-<span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:492px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_fsbrowser.gif" data-gifffer-height="490" data-gifffer-width="280" /></span>
+<span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:492px;border:1px solid lightgrey;"><img data-gifffer="images/aux_fsbrowser.gif" data-gifffer-height="490" data-gifffer-width="280" /></span>
 
 The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows:
 
@@ -36,7 +36,7 @@ The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as 
 
 <i class="fa fa-code"></i>&ensp;**Modification for FSBrowser** <small>(part  of sketch code)</small>
 
-<div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="./images/fsbrowser_ba.svg" /></div>
+<div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="images/fsbrowser_ba.svg" /></div>
 
 <script>
   window.onload = function() {

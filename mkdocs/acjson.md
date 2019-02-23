@@ -6,8 +6,8 @@ You can embed custom Web pages written in [**JSON**](https://www.json.org/index.
 
 By providing the following JSON document to AutoConnect, you can include the custom Web page like the below:
 
-<div style="float:left;width:50%;height:470px;overflow:auto"><img src="./images/ac_json.png"></div>
-<img style="margin-left:30px;width:40%;height:470px;" src="./images/ac_mqtt_setting.png">
+<div style="float:left;width:50%;height:470px;overflow:auto"><img src="images/ac_json.png"></div>
+<img style="margin-left:30px;width:40%;height:470px;" src="images/ac_mqtt_setting.png">
 
 A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the sketch process by loading multiple pages of JSON document at once.
 

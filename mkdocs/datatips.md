@@ -28,7 +28,7 @@ float value = input.value.toFloat();
 
 The easiest way is to use the [Arduino Time Library](https://www.pjrc.com/teensy/td_libs_Time.html). Sketches must accommodate differences in date and time formats depending on the time zone. You can absorb the difference in DateTime format by using `sscanf` function.[^1]
 
-[^1]:It can not be used with the old Arduino core.
+[^1]:The ssanf library function cannot be used with the old Arduino core.
 
 ```cpp
 #include <TimeLib.h>
@@ -139,31 +139,31 @@ void loop() {
 
 Here, represent examples the typical regular expression for the input validation.
 
-### <img src="./images/regexp.png" align="top"> URL
+### <img src="images/regexp.png" align="top"> URL
 
 ```
 ^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
 ```
 
-### <img src="./images/regexp.png" align="top"> DNS hostname
+### <img src="images/regexp.png" align="top"> DNS hostname
 
 ```
 ^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$
 ```
 
-### <img src="./images/regexp.png" align="top"> email address [^1]
+### <img src="images/regexp.png" align="top"> email address [^2]
 
 ```
 ^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$
 ```
 
-### <img src="./images/regexp.png" align="top"> IP Address
+### <img src="images/regexp.png" align="top"> IP Address
 
 ```
 ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 ```
 
-### <img src="./images/regexp.png" align="top"> Date as MM/DD/YYYY [^2]
+### <img src="images/regexp.png" align="top"> Date as MM/DD/YYYY [^3]
 
 ```
 ^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$
@@ -172,5 +172,5 @@ Here, represent examples the typical regular expression for the input validation
 !!! caution "Contain with backquote"
     If that regular expression contains a backquote it must be escaped by backquote duplication.
 
-[^1]: This regular expression does not fully support the format of the e-mail address requested in [RFC5322](https://tools.ietf.org/html/rfc5322).
-[^2]: This regular expression does not consider semantic constraints. It is not possible to detect errors that do not exist as actual dates.
+[^2]: This regular expression does not fully support the format of the e-mail address requested in [RFC5322](https://tools.ietf.org/html/rfc5322).
+[^3]: This regular expression does not consider semantic constraints. It is not possible to detect errors that do not exist as actual dates.
