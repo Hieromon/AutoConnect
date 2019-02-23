@@ -88,7 +88,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted/index.html) with the most simple sketch for using AutoConnect.
 - The [Basic usage](https://hieromon.github.io/AutoConnect/basicusage/index.html) guides to using the library correctly.
 - Details are explained in the [Advanced usage](https://hieromon.github.io/AutoConnect/advancedusage/index.html).
-- Usages and details for the custom Web pages describe in [Custom Web pages with AutoConnect](https://hieromon.github.io/AutoConnect/acintro.html).
+- Details and usage of custom Web pages are explained in the [Custom Web pages](https://hieromon.github.io/AutoConnect/acintro.html).
 - The [API reference](https://hieromon.github.io/AutoConnect/api/index.html) describes the AutoConnect functions specification.
 - [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
 
@@ -96,7 +96,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ### [0.9.7] Feb. 25, 2019
 - Fixed crash in some environments. Thank you @ageurtse
-- Supports AutoConnect menu extention by user sketch with **AutoConnectAux**.
+- Supports AutoConnect menu extension by user sketch with **AutoConnectAux**.
 - Supports loading and saving of user-defined parameters with JSON format.
 - Improved the WiFi connection sequence at the first WiFi.begin. Even if **AutoConnectConfig::autoReconnect** is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
 - Supports the **AutoConnectConfig::immediateStart** option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the **AutoConnectConfig::autoRise** option.

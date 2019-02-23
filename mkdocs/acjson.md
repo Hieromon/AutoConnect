@@ -1,15 +1,15 @@
 
 
-You can embed custom Web pages written in [**JSON**](https://www.json.org/index.html) into AutoConnect without declaring AutoConnectAux &amp; AutoConnectElements in sketches. Custom Web page declaration in JSON can be included in the sketch in advance as the fixed string, or it can be stored in the external file such as SPIFFS for stream loading. You can also load and save AutoConnectElements objects individually.[^1]
+You can embed custom Web pages written in [**JSON**](https://www.json.org/index.html) into AutoConnect without AutoConnectAux &amp; AutoConnectElements declaration. Custom Web page declaration by JSON can  embed in the sketch as a fixed string or can store in the external file such as SPIFFS for stream loading. Also, you can also load and save AutoConnectElements objects individually.[^1]
 
 [^1]:Loading and saving AutoConnect parameters adopt this method.
 
-By providing the following JSON document to AutoConnect, you can include the custom Web page as the bellow:
+By providing the following JSON document to AutoConnect, you can include the custom Web page like the below:
 
 <div style="float:left;width:50%;height:470px;overflow:auto"><img src="./images/ac_json.png"></div>
 <img style="margin-left:30px;width:40%;height:470px;" src="./images/ac_mqtt_setting.png">
 
-A JSON document for AutoConnect can also contain declarations of multiple custom Web pages. If you fit those multiple pages in one JSON document, sketch processing for loading AutoConnectAux will degenerate further.
+A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the sketch process by loading multiple pages of JSON document at once.
 
 !!! caution "Need ArduinoJson v5"
     To process the AutoConnectAux &amp; AutoConnectElements written in the JSON is you need to install the [ArduinoJson version 5](https://arduinojson.org/v5/doc/installation/) library.
@@ -18,7 +18,7 @@ A JSON document for AutoConnect can also contain declarations of multiple custom
 
 ### <i class="fa fa-caret-right"></i> JSON document structure for AutoConnectAux
 
-An AutoConnectAux is described by a JSON object. The elements that make up an object are as follows:
+AutoConnectAux will configure custom Web pages with JSON objects. The elements that make up the object are as follows:
 
 ```
 {
@@ -101,7 +101,7 @@ You can put declarations of multiple custom Web pages in one JSON document. In t
 
 ### <i class="fa fa-caret-right"></i> JSON object for AutoConnectElements
 
-AutoConnectElements in JSON description are described as an array in the `element` with arguments of each [constructor](acelements.md#constructor).
+JSON description for AutoConnectElements describes as an array in the *element* with arguments of [each constructor](acelements.md#constructor).
 
 ```
 {
@@ -128,7 +128,7 @@ AutoConnectElements in JSON description are described as an array in the `elemen
 
 #### <i class="fa fa-key"></i> **<i>key_according_to_type</i>**
 
-This is different for each AutoConnectElements type, and the key that can be specified by the type is determined.
+This is different for each AutoConnectElements, and the key that can be specified by the type of AutoConnectElements is determined.
 
 #### <i class="fa fa-caret-right"></i> ACButton
 : - **value** : Specifies the button label. This value also applies to the `value` attribute of an HTML `button` tag.

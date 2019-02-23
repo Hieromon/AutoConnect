@@ -112,7 +112,7 @@ AutoConnect supports reading the custom Web page definitions written in JSON and
 
 To load a JSON document as AutoConnectAux use the [**AutoConnect::load**](api.md#load) function and load the JSON document of each AutoConnectElement using the [**AutoConnectAux::loadElement**](apiaux.md#loadelement) function. Although the functions of both are similar, the structure of the target JSON document is different.
 
-The [AutoConnect::load](apiaux.md#load) function loads the entire AutoConnectAux and creates both the AutoConnectAux instance and each AutoConnectElement instance. A single JSON document can contain multiple custom Web pages. If you write JSON of AutoConnectAux as an array, the load function generates all the pages contained in that array. Therefore, it is necessary to supply the JSON document of AutoConnectAux as an input of the load function and must contain the elements described [**here**](acjson.md#json-document-structure-for-autoconnectaux).
+The [AutoConnect::load](apiaux.md#load) function loads the entire AutoConnectAux and creates both the AutoConnectAux instance and each AutoConnectElement instance. A single JSON document can contain multiple custom Web pages. If you write JSON of AutoConnectAux as an array, the load function generates all the pages contained in that array. Therefore, it is necessary to supply the JSON document of AutoConnectAux as an input of the load function and must contain the elements described section [*JSON document structure for AutoConnectAux*](acjson.md#json-document-structure-for-autoconnectaux).
 
 The [AutoConnectAux::loadElement](apiaux.md#loadelement) function loads the elements individually into an AutoConnectAux object. The structure of its supplying JSON document is not AutoConnectAux. It must be a [JSON structure for AutoConnectElement](acjson.md#json-object-for-autoconnectelements), but you can specify an array.
 
@@ -466,7 +466,7 @@ portal.begin();
 Also, you can choose another way to access arguments without going through the ESP8266WebServer class. The [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) object of the custom Web page handler argument is a copy of the arg object of the ESP8266WebServer class. Either of these methods is a simple and easy way to access parameters in custom Web page handlers. However, if you need to access from outside of the handler to the value of AutoConnectElements, you need to accomplish it using with the [AutoConnectAux::getElement](#get-autoconnectelement-from-the-autoconnectaux) function. The following sketch code replaces the above example with JSON and PageArgument, and its behaves is equivalent basically to the above sketch.
 
 ```cpp
-const static char auxPage[] PROGMEM = R"raw (
+const static char auxPage[] PROGMEM = R"raw(
 [
   { "title":"Hello", "uri":"/hello", "menu":true, "element":[
     { "name":"input1", "type": "ACInput", "label": "INPUT" },
@@ -496,11 +496,20 @@ Sketches can update the attributes of AutoConnectElements with two approaches. A
 
 The elements for attributes described in the JSON document for AutoConnectElements overwrites the member variables of the target AutoConnectElements. However, AutoConnectAux::loadElement keeps the member variables unchanged if there is no element in the JSON document. This overwriting behavior is the same for the [AutoConnect::load](api.md#load) function.
 
-For example, the combination of the sketch and JSON document as follows updates only the style while keeping Captiopn (ie. "Hello, world") as AutoConnectText value.
+For example, the combination of the sketch and JSON document as follows updates only the style while keeping Caption (ie. "Hello, world") as AutoConnectText value.
 
-<i class="fa fa-code"></i> The sketch (part of code)
+<i class="fab fa-js-square"></i> External JSON document for the below sketch to modify the text style.
+```json hl_lines="4"
+{
+  "name" : "Caption",
+  "type" : "ACText",
+  "style": "text-align:center;font-family:'Avenir','Helvetica Neue','Helvetica';font-size:24px;color:tomato;"
+}
+```
 
-```cpp
+<i class="fa fa-arrow-down"></i><br>
+<i class="fa fa-code"></i> The sketch (part of code), load above JSON.
+```cpp hl_lines="1"
 ACText(Caption, "Hello, world");
 AutoConnectAux helloPage("/hello", "Hello", true, { Caption });
 AutoConnect portal;
@@ -520,15 +529,8 @@ void loop() {
   portal.handleClient();
 }
 ```
-
-<i class="fab fa-js-square"></i> External JSON document for the above sketch to modify the text style
-```json
-{
-  "name" : "Caption",
-  "type" : "ACText",
-  "style": "text-align:center;font-family:'Avenir','Corbel','Osaka';color:Green;"
-}
-```
+<i class="fa fa-arrow-down"></i><br>
+<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" src="./images/acow.png"></span>
 
 ### <i class="far fa-check-square"></i> Check data against on submission
 
@@ -559,11 +561,13 @@ By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.
 
 ### <i class="fa fa-exchange"></i> Convert data to actually type
 
+The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type. For the typical data type conversion method, refer to section [*Tips for data conversion*](datatips.md#convert-autoconnectelements-value-to-actual-data-type).
+
 ## Transitions of the custom Web pages
 
 ### Scope &amp; Lifetime of AutoConnectAux
 
-The lifetime of AutoConnectAux and AutoConnectElements must remain in the period when the custom Web page can be manipulated. The implementation of the custom Web page inherits from requestHandler driven from ESP8266WebServer (WebServer for ESP32), so the instance of AutoConnectAux and AutoConnectElements must exist for the duration of effect of handleClient. The following example is incorrect for manipulating custom Web pages. Its AutoConnectAux instance will be destructed at the exit of the setup().
+AutoConnectAux and AutoConnectElements must live while the custom Web pages are available. The implementation of the custom Web page inherits from requestHandler driven from ESP8266WebServer (WebServer for ESP32), so the instance of AutoConnectAux and AutoConnectElements must exist for the duration of effect of handleClient. The following example is incorrect for manipulating custom Web pages. Its AutoConnectAux instance will be destructed at the exit of the setup().
 
 ```cpp hl_lines="20"
 #include <ESP8266WiFi.h>

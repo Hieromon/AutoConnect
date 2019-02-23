@@ -1,8 +1,8 @@
 ## Convert AutoConnectElements value to actual data type
 
-The value of the AutoConnectElements field of the custom Web pages consists of String type for all. Sketches will need to convert them to the actual data type. And then if the data type required for processing in the sketch is not a String type, it is necessary to convert to String type when storing to the AutoConenctElements value.
+The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type.
 
-AutoConnect library does not provide the data conversion utility, and its function depends on Arduino language functions or functions of the type class. However, commonly used data conversion methods are generally similar.
+The AutoConnect library does not provide the data conversion utility, and its function depends on Arduino language functions or functions of the type class. However, commonly used data conversion methods are generally similar.
 
 Here, represent examples the typical method for the data type conversion for the AutoConnectElements value of custom Web pages.
 
@@ -59,11 +59,11 @@ input.value = ip.toString();
 
 ## Validation for the value
 
-In order for data to be correctly converted from a string, the input data must be consistent with the format. How to implement strict validation in sketches depends on various perspectives and the power of tiny devices is not enough to implement a complete lexical analysis. But you can reduce the burden for data verification using the **pattern** of AutoConnectInput.
+To convert input data correctly from the string, it must match its format. The validation implementation with sketches depends on various perspectives. Usually, the tiny devices have no enough power for the lexical analysis completely. But you can reduce the burden for data verification using the [**pattern**](achandling.md#check-data-against-on-submission) of AutoConnectInput.
 
-By giving a [**pattern**](achandling.md#check-data-against-on-submission) to [AutoConnectInput](apielements.md#pattern), you can find errors in data format while typing in custom Web pages. The pattern is specified by [**regular expression**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions). If the value during input of AutoConnectInput does not match the regular expression specified by the pattern, its background color changes to pink. Refer to [Handling the custom Web pages](achandling.md#check-data-against-on-submission) section.
+By giving a [pattern](acelements.md#pattern) to [AutoConnectInput](apielements.md#pattern), you can find errors in data format while typing in custom Web pages. Specifying the input data rule as a [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) will validate the type match during input. If there is an error in the format during input, the background color of the field will change to pink. Refer to section [Handling the custom Web pages](achandling.md#check-data-against-on-submission).
 
-However, input data will be transmitted even if the value does not match the pattern. To check the value with the sketch, using the [**AutoConnectInput::isValid**](apielements.md#isvalid) function. The isValid function validates whether the value member variable matches a pattern and returns true or false.
+However, input data will be transmitted even if the value does not match the pattern. Sketches require the validation of the received data. You can use the [AutoConnectInput::isValid](apielements.md#isvalid) function to validate it. The isValid function validates whether the value member variable matches a pattern and returns true or false.
 
 ```cpp hl_lines="16 47"
 #include <ESP8266WiFi.h>
@@ -139,31 +139,31 @@ void loop() {
 
 Here, represent examples the typical regular expression for the input validation.
 
-### <i class="far fa-check-square"></i> URL
+### <img src="./images/regexp.png" align="top"> URL
 
 ```
 ^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
 ```
 
-### <i class="far fa-check-square"></i> DNS hostname
+### <img src="./images/regexp.png" align="top"> DNS hostname
 
 ```
 ^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$
 ```
 
-### <i class="far fa-check-square"></i> email address [^1]
+### <img src="./images/regexp.png" align="top"> email address [^1]
 
 ```
 ^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$
 ```
 
-### <i class="far fa-check-square"></i> IP Address
+### <img src="./images/regexp.png" align="top"> IP Address
 
 ```
 ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 ```
 
-### <i class="far fa-check-square"></i> Date as MM/DD/YYYY [^2]
+### <img src="./images/regexp.png" align="top"> Date as MM/DD/YYYY [^2]
 
 ```
 ^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$
