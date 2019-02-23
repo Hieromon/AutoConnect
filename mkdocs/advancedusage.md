@@ -70,9 +70,9 @@ void loop() {
 
 ### <i class="fa fa-caret-right"></i> Captive portal timeout control
 
-AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of [*AutoConnect::begin*](api.md#begin). Default value is macro defined by [**AUTOCONNECT_TIMEOUT**](api.md#defined-macros) in the `AutoConnectDef.h` file.
+AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of [*AutoConnect::begin*](api.md#begin). The default value is macro defined by [**AUTOCONNECT_TIMEOUT**](api.md#defined-macros) in the **AutoConnectDef.h** file.
 
-The other is timeout control for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the [**immediateStart**](#on-demand-start-the-captive-portal) option to create sketches with high mobility.
+The other timeout control is for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the [**immediateStart**](#on-demand-start-the-captive-portal) option to create sketches with high mobility.
 
 The timeout of the captive portal is specified together with [**AutoConnectConfig::portalTimeout**](apiconfig.md#portaltimeout) as follows.
 
@@ -127,7 +127,7 @@ void loop() {
 }
 ```
 
-There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The [**AutoConnectConfig::retainPortal**](apiconfig.md#retainlportal) option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. The following code is its example. It can enable the captive portal after timed-out without changing sketch skeleton compared to the above code which does not specify an option.
+There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The [**AutoConnectConfig::retainPortal**](apiconfig.md#retainlportal) option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the sketch.
 
 ```cpp hl_lines="10"
 #include <ESP8266WiFi.h>
@@ -155,24 +155,24 @@ void loop() {
 }
 ```
 
-### <i class="fa fa-caret-right"></i> Cast the legacy HTML pages as the add-on menu items
+### <i class="fa fa-caret-right"></i> Casts the HTML pages to be add-on into the menu
 
-If your sketch handles web pages, you can embed the pages into the AutoConnect menu with keeping the WiFi connection feature. Unlike the custom Web pages by [AutoConnectAux](apiaux.md#autoconnectaux), this allows to legacy web pages registered by *ESP8266WebServer::on* or *WebServer::on* function.
+If your sketch handles web pages, you can embed the pages into the AutoConnect menu in continuance enjoying the utility of the WiFi connection feature. Unlike the custom Web pages by [AutoConnectElements](acelements.md), this allows to legacy web pages registered by *ESP8266WebServer::on* or *WebServer::on* function.
 
-To implement embedding the your sketch web pages, use only the [AutoConnectAux](apiaux.md#autoconnectaux) constructed with the URI of that page. [AutoConnectElements](acelements.md) is not required. The basic procedure for this as follows:
+You can use AutoConnectAux only constructed with the URI of the page to be embedding. AutoConnectElements is not required. The basic procedure for this as follows:
 
 1. Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.
 2. Sketch the legacy page handlers.
 3. Register those handler functions to ESP8266WebServer/WebServer with the **on** function.
-4. Register AutoConnectAux declared with #1 to AutoConnect using [AutoConnect::join](api.md#join) function. It serves as a menu item.
+4. Register AutoConnectAux declared with #1 to AutoConnect using [*AutoConnect::join*](api.md#join) function. It serves as a menu item.
 5. [Begin](api.md#begin) the portal.
-6. Performs [AutoConnect::handleClient](api.md#handleClient) in the **loop** function.
+6. Performs [*AutoConnect::handleClient*](api.md#handleClient) in the **loop** function.
 
-For details see the [Constructing the menu](menuize.md) section of Examples page.
+For details, see section [Constructing the menu](menuize.md) of Examples page.
 
 ### <i class="fa fa-caret-right"></i> Change menu title
 
-Although the default menu title is **AutoConnect**, you can change the title by setting [AutoConnectConfig::title](apiconfig.md#title). To set the menu title properly, you must set before calling [AutoConnect::begin](api.md#begin).
+Although the default menu title is **AutoConnect**, you can change the title by setting [AutoConnectConfig::title](apiconfig.md#title). To set the menu title properly, you must set before calling [*AutoConnect::begin*](api.md#begin).
 
 ```cpp hl_lines="6 7"
 AutoConnect       Portal;
@@ -186,7 +186,7 @@ void setup() {
 }
 ```
 
-Executing the above sketch will rewrite the menu title to *FSBrowser* as the below.
+Executing the above sketch will rewrite the menu title for the **FSBrowser** as the below.
 
 <div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="./images/fsbmenu.png"></div>
 <img style="margin-left:70px;width:40%;height:470px;" src="./images/fsbmenu_expand.png">
@@ -279,7 +279,7 @@ The [**boundaryOffset**](api.md#boundaryoffset) in [**AutoConnectConfig**](api.m
 
 ### <i class="fa fa-caret-right"></i> On-demand start the captive portal
 
-If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the [**autoRise**](api.md#autorise) option with the [**immediateStart**](api.md#immediatestart) option to achieve on-demand connection. This behavior is similar to the [WiFiManager's startConfigPortal](https://github.com/tzapu/WiFiManager#on-demand-configuration-portal) function. In order to do this, you usually configure only with AutoConnectConfig in *setup()* and [*AutoConnect::begin()*](api.md#begin) handles in *loop()*.
+If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the [**autoRise**](api.md#autorise) option with the [**immediateStart**](api.md#immediatestart) option to achieve on-demand connection. This behavior is similar to the [WiFiManager's startConfigPortal](https://github.com/tzapu/WiFiManager#on-demand-configuration-portal) function. In order to do this, you usually configure only with AutoConnectConfig in *setup()* and [*AutoConnect::begin*](api.md#begin) handles in *loop()*.
 
 ```cpp hl_lines="5 6"
 AutoConnect       Portal;
@@ -304,7 +304,7 @@ The above example does not connect to WiFi until TRIGGER\_PIN goes LOW. When TRI
 
 ### <i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer/WebServer
 
-Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer/WebServer inside the AutoConnect. This object variable could be referred by [*AutoConnect::host()*](api.md#host) function to access ESP8266WebServer/WebServer instance as like below.
+Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer/WebServer inside the AutoConnect. This object variable could be referred by [*AutoConnect::host*](api.md#host) function to access ESP8266WebServer/WebServer instance as like below.
 
 ```cpp hl_lines="4"
 AutoConnect Portal;
@@ -384,22 +384,24 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - Channel.
 - SoftAP name.
 - Hidden attribute.
+- Station hostname.
 - Auto save credential.
 - Offset address of the credentials storage area in EEPROM.
 - Captive portal time out limit.
-- Retains the portal function after time out.
+- Maintain portal function even after a timeout.
 - Length of start up time after reset.
 - Automatic starting the captive portal.
 - Start the captive portal forcefully.
 - Auto reset after connection establishment.
 - Home URL of the user sketch application.
+- Menu title.
 
 !!! note "AutoConnect::config before AutoConnect::begin"
     *AutoConnect::config* must be executed before *AutoConnect::begin*.
 
 ### <i class="fa fa-caret-right"></i> Assign user sketch's home path
 
-"**HOME**" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the [*AutoConnect::home*](api.md#home) function.
+**HOME** for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the [*AutoConnect::home*](api.md#home) function.
 
 <img src="./images/menu_home.png" />
 
@@ -440,4 +442,8 @@ portal.begin();
 
 ### <i class="fa fa-caret-right"></i> Station host name
 
+[AutoConnectConfig::hostName](apiconfig.md#hostname) assigns the station DHCP hostname which complies with [RFC952](https://tools.ietf.org/html/rfc952). It must satisfy the following constraints.
 
+- Up to 24 characters
+- Only the alphabet (a-z, A-Z), digits (0-9), minus sign (-)
+- No '-' as last character

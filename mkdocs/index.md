@@ -29,7 +29,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 
 <span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it. This effect also applies to ESP32. The corresponding class for ESP32 will be the WebServer.</span>
 
-### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to add the [custom Web screens](acintro.md) <sup><sub>ENHANCED w/v0.9.7</sub></sup>
+### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to add the [custom Web pages](acintro.md) <sup><sub>ENHANCED w/v0.9.7</sub></sup>
 
 <span class="lead">You can easily add your owned web screens that can consist of representative HTML elements and invoke them from the menu. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD.</span>
 

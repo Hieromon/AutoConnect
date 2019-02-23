@@ -71,4 +71,4 @@ The AutoConnect menu can contain HTML pages of your sketch as custom items. It w
 <div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="./images/fsbmenu.png"></div>
 <img style="margin-left:70px;width:auto;height:420px;" src="./images/fsbmenu_expand.png">
 
-You can extend the AutoConnect menu to match legacy sketches and according to the procedure described in the [Advanced Usage section](advancedusage.md#cast-the-legacy-html-pages-as-the-add-on-menu-items).
+You can extend the AutoConnect menu to improve the original sketches and according to the procedure described in section [Advanced Usage section](advancedusage.md#casts-the-html-pages-to-be-add-on-into-the-menu).
