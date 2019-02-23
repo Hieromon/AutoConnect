@@ -1222,9 +1222,9 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 </pre></div>
 
 <p>Executing the above sketch will rewrite the menu title for the <strong>FSBrowser</strong> as the below.</p>
-<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="./images/fsbmenu.png"></div>
+<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
 
-<p><img style="margin-left:70px;width:40%;height:470px;" src="./images/fsbmenu_expand.png"></p>
+<p><img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png"></p>
 <h3 id="combination-with-mdns"><i class="fa fa-caret-right"></i> Combination with mDNS<a class="headerlink" href="#combination-with-mdns" title="Permanent link">&para;</a></h3>
 <p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after <a href="api.html#begin"><em>AutoConnect::begin</em></a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
@@ -1373,7 +1373,7 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
 <h3 id="use-with-the-pagebuilder-library"><i class="fa fa-caret-right"></i> Use with the <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library<a class="headerlink" href="#use-with-the-pagebuilder-library" title="Permanent link">&para;</a></h3>
 <p>In ordinary, the URL handler will respond the request by sending some HTML. <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library is HTML assembly aid. it can handle predefined HTML as like a template and simplify an HTML string assemble logic, and also the generated HTML send automatically.</p>
 <p>An example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for <a href="https://github.com/Hieromon/PageBuilder">Github repository</a>.</p>
-<p><img src="./images/PageBuilder.png" style="width:640px;"/></p>
+<p><img src="images/PageBuilder.png" style="width:640px;"/></p>
 <h2 id="configuration-functions">Configuration functions<a class="headerlink" href="#configuration-functions" title="Permanent link">&para;</a></h2>
 <h3 id="configuration-for-soft-ap-and-captive-portal"><i class="fa fa-caret-right"></i> Configuration for Soft AP and captive portal<a class="headerlink" href="#configuration-for-soft-ap-and-captive-portal" title="Permanent link">&para;</a></h3>
 <p>AutoConnect will activate SoftAP at failed the first <em>WiFi.begin</em>. It SoftAP settings are stored in <a href="api.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> as the following parameters. The sketch could be configured SoftAP using these parameters, refer the <a href="api.html#autoconnectconfig-api">AutoConnectConfig API</a> for details.</p>
@@ -1404,7 +1404,7 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
 </div>
 <h3 id="assign-user-sketchs-home-path"><i class="fa fa-caret-right"></i> Assign user sketch's home path<a class="headerlink" href="#assign-user-sketchs-home-path" title="Permanent link">&para;</a></h3>
 <p><strong>HOME</strong> for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the <a href="api.html#home"><em>AutoConnect::home</em></a> function.</p>
-<p><img src="./images/menu_home.png" /></p>
+<p><img src="images/menu_home.png" /></p>
 <h3 id="relocate-the-autoconnect-home-path"><i class="fa fa-caret-right"></i> Relocate the AutoConnect home path<a class="headerlink" href="#relocate-the-autoconnect-home-path" title="Permanent link">&para;</a></h3>
 <p>A home path of AutoConnect is <strong>/_ac</strong> by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58"><strong>AUTOCONNECT_URI</strong></a> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>

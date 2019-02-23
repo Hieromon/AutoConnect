@@ -777,7 +777,7 @@
 <h2 id="place-the-item-for-the-legacy-sketches-on-the-menu">Place the item for the legacy sketches on the menu<a class="headerlink" href="#place-the-item-for-the-legacy-sketches-on-the-menu" title="Permanent link">&para;</a></h2>
 <p>To implement this with your sketch, use only the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> constructed with the title and URI of that page. <a href="acelements.html">AutoConnectElements</a> is not required.</p>
 <p>The AutoConnect library package contains an example sketch for ESP8266WebServer known as FSBrowser. Its example is a sample implementation that supports AutoConnect without changing the structure of the original FSBrowser and has the menu item for <strong>Edit</strong> and <strong>List</strong>.</p>
-<p><span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:492px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_fsbrowser.gif" data-gifffer-height="490" data-gifffer-width="280" /></span></p>
+<p><span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:492px;border:1px solid lightgrey;"><img data-gifffer="images/aux_fsbrowser.gif" data-gifffer-height="490" data-gifffer-width="280" /></span></p>
 <p>The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as follows:</p>
 <ol>
 <li>Add AutoConnect declaration.</li>
@@ -788,7 +788,7 @@
 <li>According to the basic procedure of AutoConnect.<br>Establish a connection with <a href="api.html#begin">AutoConnect::begin</a> and perform <a href="api.html#handleclient">AutoConnect::handleClient</a> in <strong>loop()</strong>.</li>
 </ol>
 <p><i class="fa fa-code"></i>&ensp;<strong>Modification for FSBrowser</strong> <small>(part  of sketch code)</small></p>
-<div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="./images/fsbrowser_ba.svg" /></div>
+<div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="images/fsbrowser_ba.svg" /></div>
 
 <script>
   window.onload = function() {

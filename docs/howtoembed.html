@@ -928,23 +928,23 @@
 <h2 id="what-does-this-example-do">What does this example do?<a class="headerlink" href="#what-does-this-example-do" title="Permanent link">&para;</a></h2>
 <p>Uses the web interface to light the LED connected to the <strong><a href="https://github.com/nodemcu/nodemcu-devkit-v1.0">NodeMCU</a></strong> module D0 port (which could be referred to as <em>BUILTIN_LED</em>), the following animation is it.</p>
 <p>Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED blinks according to the value of the button that was clicked. This example is a typical sketch of manipulating ESP8266's GPIO via WLAN.</p>
-<p><img data-gifffer="./images/ac2.gif" /></p>
+<p><img data-gifffer="images/ac2.gif" /></p>
 <p>Embed AutoConnect library into this sketch. There are few places to be changed. And you can use AutoConnect's captive portal function to establish a connection freely to other WiFi spots.</p>
 <h2 id="embed-autoconnect">Embed AutoConnect<a class="headerlink" href="#embed-autoconnect" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-a"><i class="fa fa-code" aria-hidden="true"></i> Pattern A.<a class="headerlink" href="#pattern-a" title="Permanent link">&para;</a></h3>
 <p>Bind to ESP8266WebServer, performs handleClient with handleRequest.</p>
-<p><img src="./images/handleClient.svg" /></p>
+<p><img src="images/handleClient.svg" /></p>
 <div class="admonition hint">
 <p class="admonition-title">In what situations should the handleRequest be used.</p>
 <p>It is something needs to be done immediately after the handle client. It is better to call only AutoConnect::handleClient whenever possible.</p>
 </div>
 <h3 id="pattern-b"><i class="fa fa-code" aria-hidden="true"></i> Pattern B.<a class="headerlink" href="#pattern-b" title="Permanent link">&para;</a></h3>
 <p>Declare only AutoConnect, performs handleClient.</p>
-<p><img src="./images/handlePortal.svg" /></p>
+<p><img src="images/handlePortal.svg" /></p>
 <h2 id="used-with-mqtt-as-a-client-application">Used with MQTT as a client application<a class="headerlink" href="#used-with-mqtt-as-a-client-application" title="Permanent link">&para;</a></h2>
 <p>The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also effective for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.</p>
 <p>This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the <a href="https://thingspeak.com/">ThingSpeak</a> for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as <a href="https://github.com/knolleary/pubsubclient">MQTT client</a>. This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.</p>
-<p><img src="./images/ChannelStatus.png" width="70%"/></p>
+<p><img src="images/ChannelStatus.png" width="70%"/></p>
 <h3 id="advance-procedures">Advance procedures<a class="headerlink" href="#advance-procedures" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Arduino Client for MQTT - It's the <a href="https://github.com/knolleary/pubsubclient">PubSubClient</a>, install it to Arduino IDE. If you have the latest version already, this step does not need.</li>
@@ -964,14 +964,14 @@
 <li>Description: <code>ESP8266 RSSI publish</code></li>
 <li>Field1: <code>RSSI</code></li>
 </ul>
-<p><img src="./images/CreateChannel.png" width="70%"/></p>
+<p><img src="images/CreateChannel.png" width="70%"/></p>
 <h4 id="get-channel-id-and-api-keys">Get Channel ID and API Keys<a class="headerlink" href="#get-channel-id-and-api-keys" title="Permanent link">&para;</a></h4>
 <p>The channel successfully created, you can see the channel status screen as a below. <strong>Channel ID</strong> is displayed there.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
-<p><img src="./images/ChannelID.png" width="70%"/></p>
+<p><img src="images/ChannelID.png" width="70%"/></p>
 <p>Here, switch the channel status tab to <strong>API Keys</strong>. The API key required to publish the message is the <strong>Write API Key</strong>.</p>
-<p><img src="./images/APIKeys.png" width="70%"/></p>
+<p><img src="images/APIKeys.png" width="70%"/></p>
 <p>The last key you need is the <strong>User API Key</strong> and can be confirmed it in the user profile. Pull down <strong>Account</strong> from the top menu, select <strong>My profile</strong>. Then you can see the ThingSpeak settings and the <strong>User API Key</strong> is displayed middle of this screen.</p>
-<p><img src="./images/USERKey.png" width="70%"/></p>
+<p><img src="images/USERKey.png" width="70%"/></p>
 <h3 id="the-sketch-publishes-messages">The sketch, Publishes messages<a class="headerlink" href="#the-sketch-publishes-messages" title="Permanent link">&para;</a></h3>
 <p>The complete code of the sketch is <a href="https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino">mqttRSSI.ino</a> in the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect repository</a>. Replace the following #define in a sketch with <strong>User API Key</strong>, <strong>Write API Key</strong> and <strong>Channel ID</strong>. After Keys updated, compile the sketch and upload it.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define MQTT_USER_KEY        &quot;****************&quot;  // Replace to User API Key.</span>
@@ -987,22 +987,22 @@
 <li>
 <p>#include directive<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
 <p>Include <code>AutoConnect.h</code> header file behind the include of <code>ESP8266WiFi.h</code>.</p>
-<p><img src="./images/include.png" width="55%"/></p>
+<p><img src="images/include.png" width="55%"/></p>
 </li>
 <li>
 <p>Declare AutoConnect</p>
 <p>The declaration of the <a href="api.html#autoconnect"><strong>AutoConnect variable</strong></a> is not accompanied by ESP8266WebServer.</p>
-<p><img src="./images/declare.png" width="55%"/></p>
+<p><img src="images/declare.png" width="55%"/></p>
 </li>
 <li>
 <p>Invokes "begin()"</p>
 <p>Call <a href="api.html#begin"><strong>AutoConnect::begin</strong></a>. If you need to assign a static IP address, executes <a href="api.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> before that. </p>
-<p><img src="./images/begin.png" width="55%"/></p>
+<p><img src="images/begin.png" width="55%"/></p>
 </li>
 <li>
 <p>Performs "handleClent()" in "loop()"</p>
 <p>Invokes <a href="api.html#handleclient"><strong>AutoConnect::handleClient()</strong></a> at inside <code>loop()</code> to enable the AutoConnect menu.</p>
-<p><img src="./images/handleClient.png" width="55%"/></p>
+<p><img src="images/handleClient.png" width="55%"/></p>
 </li>
 </ol>
 <script>

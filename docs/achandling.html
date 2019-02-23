@@ -1085,7 +1085,7 @@
 <p><em>AutoConnectElementVT</em> is a predefined type for it and can use methods of <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a>&lt;<a href="https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a>&gt;.</p>
 <h2 id="loading-saving-autoconnectelements-with-json">Loading &amp; saving AutoConnectElements with JSON<a class="headerlink" href="#loading-saving-autoconnectelements-with-json" title="Permanent link">&para;</a></h2>
 <p>AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectElements. In both cases, the target object is a <a href="acjson.html">JSON document for AutoConnect</a>. However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)</p>
-<p><img src="./images/ac_load_save.svg"></p>
+<p><img src="images/ac_load_save.svg"></p>
 <h3 id="loading-autoconnectaux-autoconnectelements-with-json"><i class="fa fa-upload"></i> Loading AutoConnectAux &amp; AutoConnectElements with JSON<a class="headerlink" href="#loading-autoconnectaux-autoconnectelements-with-json" title="Permanent link">&para;</a></h3>
 <p>To load a JSON document as AutoConnectAux use the <a href="api.html#load"><strong>AutoConnect::load</strong></a> function and load the JSON document of each AutoConnectElement using the <a href="apiaux.html#loadelement"><strong>AutoConnectAux::loadElement</strong></a> function. Although the functions of both are similar, the structure of the target JSON document is different.</p>
 <p>The <a href="apiaux.html#load">AutoConnect::load</a> function loads the entire AutoConnectAux and creates both the AutoConnectAux instance and each AutoConnectElement instance. A single JSON document can contain multiple custom Web pages. If you write JSON of AutoConnectAux as an array, the load function generates all the pages contained in that array. Therefore, it is necessary to supply the JSON document of AutoConnectAux as an input of the load function and must contain the elements described section <a href="acjson.html#json-document-structure-for-autoconnectaux"><em>JSON document structure for AutoConnectAux</em></a>.</p>
@@ -1191,7 +1191,7 @@
 <h2 id="custom-field-data-handling">Custom field data handling<a class="headerlink" href="#custom-field-data-handling" title="Permanent link">&para;</a></h2>
 <p>A sketch can access variables of AutoConnectElements in the custom Web page. The value entered into the AutoConnectElements on the page is stored in the member variable of each element by AutoConnect whenever GET/POST transmission occurs. </p>
 <p>The following diagram shows the flow of the input values of a custom Web page into a sketch and is the basis for actions to manipulate the values of custom Web pages using sketches.</p>
-<p><img src="./images/ac_param_flow.svg"></p>
+<p><img src="images/ac_param_flow.svg"></p>
 <h3 id="where-to-pick-up-the-values"><i class="fa fa-desktop"></i> Where to pick up the values<a class="headerlink" href="#where-to-pick-up-the-values" title="Permanent link">&para;</a></h3>
 <p>A sketch composed of handlers can receive the value of AutoConnectElements entered in a custom Web page after sending, but that handler is different from the page where the value was entered. It is necessary to be aware that can accept the entered values by the next page handler after the transition.</p>
 <p>Usually, two ways to retrieve entered values we have. One is to use the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments">ESP8266WebServer::arg</a> (or WebServer::arg for ESP32) function in the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers"><code>on handler</code></a> attached by ESP8266WebServer (WebServer w/ESP32 also).</p>
@@ -1475,7 +1475,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 <i class="fa fa-arrow-down"></i><br>
-<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" src="./images/acow.png"></span></p>
+<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" src="images/acow.png"></span></p>
 <h3 id="check-data-against-on-submission"><i class="far fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
 <p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconenctinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
@@ -1494,8 +1494,8 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 </pre></div>
 
 <div>
-  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="./images/arrow_down.png"></span>
-  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="./images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
+  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="images/arrow_down.png"></span>
+  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
 </div>
 
 <h3 id="convert-data-to-actually-type"><i class="fa fa-exchange"></i> Convert data to actually type<a class="headerlink" href="#convert-data-to-actually-type" title="Permanent link">&para;</a></h3>
