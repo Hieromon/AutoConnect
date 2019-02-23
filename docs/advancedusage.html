@@ -447,8 +447,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cast-the-legacy-html-pages-as-the-add-on-menu-items" title=" Cast the legacy HTML pages as the add-on menu items" class="md-nav__link">
-     Cast the legacy HTML pages as the add-on menu items
+  <a href="#casts-the-html-pages-to-be-add-on-into-the-menu" title=" Casts the HTML pages to be add-on into the menu" class="md-nav__link">
+     Casts the HTML pages to be add-on into the menu
   </a>
   
 </li>
@@ -913,8 +913,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cast-the-legacy-html-pages-as-the-add-on-menu-items" title=" Cast the legacy HTML pages as the add-on menu items" class="md-nav__link">
-     Cast the legacy HTML pages as the add-on menu items
+  <a href="#casts-the-html-pages-to-be-add-on-into-the-menu" title=" Casts the HTML pages to be add-on into the menu" class="md-nav__link">
+     Casts the HTML pages to be add-on into the menu
   </a>
   
 </li>
@@ -1119,8 +1119,8 @@
 </pre></div>
 
 <h3 id="captive-portal-timeout-control"><i class="fa fa-caret-right"></i> Captive portal timeout control<a class="headerlink" href="#captive-portal-timeout-control" title="Permanent link">&para;</a></h3>
-<p>AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of <a href="api.html#begin"><em>AutoConnect::begin</em></a>. Default value is macro defined by <a href="api.html#defined-macros"><strong>AUTOCONNECT_TIMEOUT</strong></a> in the <code>AutoConnectDef.h</code> file.</p>
-<p>The other is timeout control for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the <a href="#on-demand-start-the-captive-portal"><strong>immediateStart</strong></a> option to create sketches with high mobility.</p>
+<p>AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of <a href="api.html#begin"><em>AutoConnect::begin</em></a>. The default value is macro defined by <a href="api.html#defined-macros"><strong>AUTOCONNECT_TIMEOUT</strong></a> in the <strong>AutoConnectDef.h</strong> file.</p>
+<p>The other timeout control is for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the <a href="#on-demand-start-the-captive-portal"><strong>immediateStart</strong></a> option to create sketches with high mobility.</p>
 <p>The timeout of the captive portal is specified together with <a href="apiconfig.html#portaltimeout"><strong>AutoConnectConfig::portalTimeout</strong></a> as follows.</p>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
@@ -1170,7 +1170,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 
-<p>There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The <a href="apiconfig.html#retainlportal"><strong>AutoConnectConfig::retainPortal</strong></a> option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. The following code is its example. It can enable the captive portal after timed-out without changing sketch skeleton compared to the above code which does not specify an option.</p>
+<p>There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The <a href="apiconfig.html#retainlportal"><strong>AutoConnectConfig::retainPortal</strong></a> option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the sketch.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
@@ -1196,20 +1196,20 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 
-<h3 id="cast-the-legacy-html-pages-as-the-add-on-menu-items"><i class="fa fa-caret-right"></i> Cast the legacy HTML pages as the add-on menu items<a class="headerlink" href="#cast-the-legacy-html-pages-as-the-add-on-menu-items" title="Permanent link">&para;</a></h3>
-<p>If your sketch handles web pages, you can embed the pages into the AutoConnect menu with keeping the WiFi connection feature. Unlike the custom Web pages by <a href="apiaux.html#autoconnectaux">AutoConnectAux</a>, this allows to legacy web pages registered by <em>ESP8266WebServer::on</em> or <em>WebServer::on</em> function.</p>
-<p>To implement embedding the your sketch web pages, use only the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> constructed with the URI of that page. <a href="acelements.html">AutoConnectElements</a> is not required. The basic procedure for this as follows:</p>
+<h3 id="casts-the-html-pages-to-be-add-on-into-the-menu"><i class="fa fa-caret-right"></i> Casts the HTML pages to be add-on into the menu<a class="headerlink" href="#casts-the-html-pages-to-be-add-on-into-the-menu" title="Permanent link">&para;</a></h3>
+<p>If your sketch handles web pages, you can embed the pages into the AutoConnect menu in continuance enjoying the utility of the WiFi connection feature. Unlike the custom Web pages by <a href="acelements.html">AutoConnectElements</a>, this allows to legacy web pages registered by <em>ESP8266WebServer::on</em> or <em>WebServer::on</em> function.</p>
+<p>You can use AutoConnectAux only constructed with the URI of the page to be embedding. AutoConnectElements is not required. The basic procedure for this as follows:</p>
 <ol>
 <li>Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.</li>
 <li>Sketch the legacy page handlers.</li>
 <li>Register those handler functions to ESP8266WebServer/WebServer with the <strong>on</strong> function.</li>
-<li>Register AutoConnectAux declared with #1 to AutoConnect using <a href="api.html#join">AutoConnect::join</a> function. It serves as a menu item.</li>
+<li>Register AutoConnectAux declared with #1 to AutoConnect using <a href="api.html#join"><em>AutoConnect::join</em></a> function. It serves as a menu item.</li>
 <li><a href="api.html#begin">Begin</a> the portal.</li>
-<li>Performs <a href="api.html#handleClient">AutoConnect::handleClient</a> in the <strong>loop</strong> function.</li>
+<li>Performs <a href="api.html#handleClient"><em>AutoConnect::handleClient</em></a> in the <strong>loop</strong> function.</li>
 </ol>
-<p>For details see <em>Example page</em> of section <a href="menuize.html"><em>Constructing the menu</em></a>.</p>
+<p>For details, see section <a href="menuize.html">Constructing the menu</a> of Examples page.</p>
 <h3 id="change-menu-title"><i class="fa fa-caret-right"></i> Change menu title<a class="headerlink" href="#change-menu-title" title="Permanent link">&para;</a></h3>
-<p>Although the default menu title is <strong>AutoConnect</strong>, you can change the title by setting <a href="apiconfig.html#title">AutoConnectConfig::title</a>. To set the menu title properly, you must set before calling <a href="api.html#begin">AutoConnect::begin</a>.</p>
+<p>Although the default menu title is <strong>AutoConnect</strong>, you can change the title by setting <a href="apiconfig.html#title">AutoConnectConfig::title</a>. To set the menu title properly, you must set before calling <a href="api.html#begin"><em>AutoConnect::begin</em></a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
@@ -1221,7 +1221,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 
-<p>Executing the above sketch will rewrite the menu title to <em>FSBrowser</em> as the below.</p>
+<p>Executing the above sketch will rewrite the menu title for the <strong>FSBrowser</strong> as the below.</p>
 <div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="./images/fsbmenu.png"></div>
 
 <p><img style="margin-left:70px;width:40%;height:470px;" src="./images/fsbmenu_expand.png"></p>
@@ -1293,7 +1293,7 @@ Sketch    OTA update   File system   EEPROM  WiFi config (SDK)
 <p>Also, the placement of the EEPROM area of ESP32 is described in the <a href="https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv">partition table</a>. So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.</p>
 <p>The <a href="api.html#boundaryoffset"><strong>boundaryOffset</strong></a> in <a href="api.html#autoconnectconfig-api"><strong>AutoConnectConfig</strong></a> specifies the start offset of the credentials storage area. The default value is 0.</p>
 <h3 id="on-demand-start-the-captive-portal"><i class="fa fa-caret-right"></i> On-demand start the captive portal<a class="headerlink" href="#on-demand-start-the-captive-portal" title="Permanent link">&para;</a></h3>
-<p>If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the <a href="api.html#autorise"><strong>autoRise</strong></a> option with the <a href="api.html#immediatestart"><strong>immediateStart</strong></a> option to achieve on-demand connection. This behavior is similar to the <a href="https://github.com/tzapu/WiFiManager#on-demand-configuration-portal">WiFiManager's startConfigPortal</a> function. In order to do this, you usually configure only with AutoConnectConfig in <em>setup()</em> and <a href="api.html#begin"><em>AutoConnect::begin()</em></a> handles in <em>loop()</em>.</p>
+<p>If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the <a href="api.html#autorise"><strong>autoRise</strong></a> option with the <a href="api.html#immediatestart"><strong>immediateStart</strong></a> option to achieve on-demand connection. This behavior is similar to the <a href="https://github.com/tzapu/WiFiManager#on-demand-configuration-portal">WiFiManager's startConfigPortal</a> function. In order to do this, you usually configure only with AutoConnectConfig in <em>setup()</em> and <a href="api.html#begin"><em>AutoConnect::begin</em></a> handles in <em>loop()</em>.</p>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
@@ -1314,7 +1314,7 @@ Sketch    OTA update   File system   EEPROM  WiFi config (SDK)
 </pre></div>
 The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIGGER_PIN goes LOW, the captive portal starts and you can connect to WiFi. Even if you reset the module, it will not automatically reconnect.</p>
 <h3 id="refers-the-hosted-esp8266webserverwebserver"><i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer/WebServer<a class="headerlink" href="#refers-the-hosted-esp8266webserverwebserver" title="Permanent link">&para;</a></h3>
-<p>Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer/WebServer inside the AutoConnect. This object variable could be referred by <a href="api.html#host"><em>AutoConnect::host()</em></a> function to access ESP8266WebServer/WebServer instance as like below.</p>
+<p>Constructing an AutoConnect object variable without parameters then creates and starts an ESP8266WebServer/WebServer inside the AutoConnect. This object variable could be referred by <a href="api.html#host"><em>AutoConnect::host</em></a> function to access ESP8266WebServer/WebServer instance as like below.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 
 <span style="color: #f8f8f2">Portal.begin();</span>
@@ -1386,22 +1386,24 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
 <li>Channel.</li>
 <li>SoftAP name.</li>
 <li>Hidden attribute.</li>
+<li>Station hostname.</li>
 <li>Auto save credential.</li>
 <li>Offset address of the credentials storage area in EEPROM.</li>
 <li>Captive portal time out limit.</li>
-<li>Retains the portal function after time out.</li>
+<li>Maintain portal function even after a timeout.</li>
 <li>Length of start up time after reset.</li>
 <li>Automatic starting the captive portal.</li>
 <li>Start the captive portal forcefully.</li>
 <li>Auto reset after connection establishment.</li>
 <li>Home URL of the user sketch application.</li>
+<li>Menu title.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">AutoConnect::config before AutoConnect::begin</p>
 <p><em>AutoConnect::config</em> must be executed before <em>AutoConnect::begin</em>.</p>
 </div>
 <h3 id="assign-user-sketchs-home-path"><i class="fa fa-caret-right"></i> Assign user sketch's home path<a class="headerlink" href="#assign-user-sketchs-home-path" title="Permanent link">&para;</a></h3>
-<p>"<strong>HOME</strong>" for returning to the user's sketch homepage is displayed at the bottom of the AutoConnect menu. It could be set using the <a href="api.html#home"><em>AutoConnect::home</em></a> function.</p>
+<p><strong>HOME</strong> for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the <a href="api.html#home"><em>AutoConnect::home</em></a> function.</p>
 <p><img src="./images/menu_home.png" /></p>
 <h3 id="relocate-the-autoconnect-home-path"><i class="fa fa-caret-right"></i> Relocate the AutoConnect home path<a class="headerlink" href="#relocate-the-autoconnect-home-path" title="Permanent link">&para;</a></h3>
 <p>A home path of AutoConnect is <strong>/_ac</strong> by default. You can access from the browser with http://IPADDRESS/_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h#L58"><strong>AUTOCONNECT_URI</strong></a> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnect.h">AutoConnect.h</a>.</p>
@@ -1430,6 +1432,12 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
 </pre></div>
 
 <h3 id="station-host-name"><i class="fa fa-caret-right"></i> Station host name<a class="headerlink" href="#station-host-name" title="Permanent link">&para;</a></h3>
+<p><a href="apiconfig.html#hostname">AutoConnectConfig::hostName</a> assigns the station DHCP hostname which complies with <a href="https://tools.ietf.org/html/rfc952">RFC952</a>. It must satisfy the following constraints.</p>
+<ul>
+<li>Up to 24 characters</li>
+<li>Only the alphabet (a-z, A-Z), digits (0-9), minus sign (-)</li>
+<li>No '-' as last character</li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>
