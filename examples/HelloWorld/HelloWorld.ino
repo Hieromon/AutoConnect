@@ -28,10 +28,16 @@ typedef WebServer WEBServer;
 #define HELLO_URI   "/hello"
 #define PARAM_STYLE "/style.json"
 
-// Declare AutoConnectElements and AutoConnectAux for the custom Web page.
+// Declare AutoConnectText with only a value.
+// Qualify the Caption by reading style attributes from the SPIFFS style.json file.
 ACText(Caption, "Hello, world");
+
+//AutoConnectAux for the custom Web page.
 AutoConnectAux helloPage(HELLO_URI, "Hello", true, { Caption });
 AutoConnect portal;
+
+// JSON document loading buffer
+String ElementJson;
 
 // Redirects from root to the hello page.
 void onRoot() {
@@ -44,17 +50,26 @@ void onRoot() {
 
 // Load the attribute of the element to modify at runtime from external.
 String onHello(AutoConnectAux& aux, PageArgument& args) {
-  File param = SPIFFS.open(PARAM_STYLE, "r");
-  aux.loadElement(param);
-  param.close();
+  aux.loadElement(ElementJson);
   return String();
+}
+
+// Load the element from specified file in SPIFFS.
+void loadParam(const char* fileName) {
+  SPIFFS.begin();
+  File param = SPIFFS.open(fileName, "r");
+  if (param) {
+    ElementJson = param.readString();
+    param.close();
+  }
+  SPIFFS.end();
 }
 
 void setup() {
   delay(1000);
   Serial.begin(115200);
-  SPIFFS.begin();             // Prepare SPIFFS
 
+  loadParam(PARAM_STYLE);     // Pre-load the element from JSON.
   helloPage.on(onHello);      // Register the attribute overwrite handler.
   portal.join(helloPage);     // Join the hello page.
   portal.begin();
