@@ -42,7 +42,7 @@
     
     
       
-        <title>Constucting the menu - AutoConnect for ESP8266/ESP32</title>
+        <title>Attach the menu - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -143,7 +143,7 @@
                 AutoConnect for ESP8266/ESP32
               </span>
               <span class="md-header-nav__topic">
-                Constucting the menu
+                Attach the menu
               </span>
             
           
@@ -603,11 +603,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Constucting the menu
+        Attach the menu
       </label>
     
-    <a href="menuize.html" title="Constucting the menu" class="md-nav__link md-nav__link--active">
-      Constucting the menu
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link md-nav__link--active">
+      Attach the menu
     </a>
     
       
@@ -759,7 +759,7 @@
               
                 
                 
-                  <h1>Constucting the menu</h1>
+                  <h1>Attach the menu</h1>
                 
                 <h2 id="what-menus-can-be-made-using-autoconnect">What menus can be made using AutoConnect<a class="headerlink" href="#what-menus-can-be-made-using-autoconnect" title="Permanent link">&para;</a></h2>
 <p>AutoConnect generates a menu dynamically depending on the instantiated <a href="acintro.html#how-it-works">AutoConnectAux</a> at the sketch executing time. Usually, it is a collection of <a href="acelements.html">AutoConnectElement</a>. In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements.<br>In other words, you can easily create a built-in menu featuring the WiFi connection facility embedding the legacy web pages.</p>
@@ -784,11 +784,17 @@
 <li>Add the menu item named "<strong>Edit</strong>" and "<strong>List</strong>" of AutoConnectAux as each page.</li>
 <li>Replace the instance of ESP8266WebServer to AutoConnect.</li>
 <li>Change the menu title to FSBrowser using <a href="apiconfig.html#title">AutoConnectConfig::title</a>.</li>
-<li>Join the legacy pages to AutoConnect declared at step #1 using <a href="api.html#join">AutoConnect::join</a>.<br>Joining multiple at one time with <a href="https://ja.cppreference.com/w/cpp/container/vector/vector">std::vector</a>'s' <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a>.</li>
+<li>Join the legacy pages to AutoConnect declared at step #1 using <a href="api.html#join">AutoConnect::join</a>.<br>Joining multiple at one time with the <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a> for <a href="https://ja.cppreference.com/w/cpp/container/vector/vector">std::vector</a>.</li>
 <li>According to the basic procedure of AutoConnect.<br>Establish a connection with <a href="api.html#begin">AutoConnect::begin</a> and perform <a href="api.html#handleclient">AutoConnect::handleClient</a> in <strong>loop()</strong>.</li>
 </ol>
-<p><i class="fa fa-code"></i>&ensp;<strong>Modification for FSBrowser</strong> <small>(part  of sketch code)</small></p>
+<p><i class="fa fa-code"></i>&ensp;<strong>Modification for FSBrowser</strong> <small>(a part  of sketch code)</small></p>
 <div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="images/fsbrowser_ba.svg" /></div>
+
+<p>... and embeds a hyperlink with an <a href="apiextra.html#icons">icon</a> in the bottom of the body section of <em>index.htm</em> contained in the data folder to jump to the AutoConnect menu.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">p</span> <span style="color: #a6e22e">style</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;padding-top:15px;text-align:center&quot;</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">a</span> <span style="color: #a6e22e">href</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;/_ac&quot;</span><span style="color: #f8f8f2">&gt;&lt;</span><span style="color: #f92672">img</span> <span style="color: #a6e22e">src</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC2klEQVRIS61VvWsUQRSfmU2pon9BUIkQUaKFaCBKgooSb2d3NSSFKbQR/KrEIiIKBiGF2CgRxEpjQNHs7mwOUcghwUQ7g58IsbGxEBWsb2f8zR177s3t3S2cA8ftzPu993vzvoaSnMu2vRKlaqgKp74Q/tE8qjQPyHGcrUrRjwlWShmDbFMURd/a6TcQwNiYUmpFCPElUebcuQ2vz6aNATMVReHEPwzfSSntDcNwNo2rI+DcvQzhpAbA40VKyV0p1Q9snzBG1qYVcYufXV1sREraDcxpyHdXgkfpRBj6Uwm2RsC5dxxmZ9pdOY9cKTISRcHTCmGiUCh4fYyplTwG2mAUbtMTBMHXOgK9QfyXEZr+TkgQ1oUwDA40hEgfIAfj+HuQRaBzAs9eKyUZ5Htx+T3ZODKG8DzOJMANhmGomJVMXPll+hx9UUAlzZrJJ4QNCDG3VEfguu7mcpmcB/gkBOtShhQhchAlu5jlLUgc9ENgyP5gf9+y6LTv+58p5zySkgwzLNOIGc8sEoT1Lc53NMlbCQQuvMxeCME1NNPVVkmH/i3IzzXDtCSA0qQQwZWOCJDY50jsQRjJmkslEOxvTcDRO6zPxOh5xZglKkYLhWM9jMVnkIsTyMT6NBj7IbOCEjm6HxNVVTo2WXqEWJZ1T8rytB6GxizyDkPhWVpBqfiXUtbo/HywYJSpA9kMamNNPZ71R9Hcm+TMHHZNGw3EuraXEUldbfvw25UdOjqOt+JhMwJd7+jSTpZaEiIcaCDwPK83jtWnTkwnunFMtxeL/ge9r4XItt1RNNaj/0GAcV2bR3U5sG3nEh6M61US+Qrfd9Bs31GGulI2GOS/8dgcQZV1w+ApjIxB7TDwF9GcNzJzoA+rD0/8HvPnXQJCt2qFCwbBTfRI7UyXumWVt+HJ9NO4XI++bdsb0YyrqXmlh+AWOLHaLqS5CLQR5EggR3YlcVS9gKeH2hnX8r8Kmi1CAsl36QAAAABJRU5ErkJggg==&quot;</span> <span style="color: #a6e22e">border</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;0&quot;</span> <span style="color: #a6e22e">title</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;AutoConnect menu&quot;</span> <span style="color: #a6e22e">alt</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;AutoConnect menu&quot;</span><span style="color: #f8f8f2">/&gt;&lt;/</span><span style="color: #f92672">a</span><span style="color: #f8f8f2">&gt;</span>
+<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">p</span><span style="color: #f8f8f2">&gt;</span>
+</pre></div>
 
 <script>
   window.onload = function() {

@@ -592,8 +592,8 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
-      Constucting the menu
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
     </a>
   </li>
 
@@ -653,6 +653,13 @@
         <li class="md-nav__item">
   <a href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title=" An esp8266ap as SoftAP was connected but Captive portal does not start." class="md-nav__link">
      An esp8266ap as SoftAP was connected but Captive portal does not start.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-refused-with-the-captive-portal-after-established" title=" Connection refused with the captive portal after established." class="md-nav__link">
+     Connection refused with the captive portal after established.
   </a>
   
 </li>
@@ -910,6 +917,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#connection-refused-with-the-captive-portal-after-established" title=" Connection refused with the captive portal after established." class="md-nav__link">
+     Connection refused with the captive portal after established.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#does-not-appear-esp8266ap-in-smartphone" title=" Does not appear esp8266ap in smartphone." class="md-nav__link">
      Does not appear esp8266ap in smartphone.
   </a>
@@ -1119,6 +1133,15 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 <p>See also the explanation <a href="basicusage.html#esp8266webserver-hosted-or-parasitic">here</a>.</p>
 <h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
+<h2 id="connection-refused-with-the-captive-portal-after-established"><i class="fa fa-question-circle"></i> Connection refused with the captive portal after established.<a class="headerlink" href="#connection-refused-with-the-captive-portal-after-established" title="Permanent link">&para;</a></h2>
+<p>This is a known issue with ESP32 and may occur when the following conditions are satisfied at the same time:</p>
+<ul>
+<li>SoftAP channel on ESP32 and the connecting AP channel you specified are different.</li>
+<li>Never connected to the AP in the past, or NVS had erased by erase_flash causes the connection data lost.</li>
+<li>There are receivable multiple WiFi signals which are the same SSID with different channels using the WiFi repeater etc. (This condition is loose, it may occur even if there is no WiFi repeater.)</li>
+</ul>
+<p>To avoid this problem, try <a href="#1-change-wifi-channel">changing the channel</a>.</p>
+<p>ESP32 hardware equips only one channel for WiFi signal to carry. At the AP_STA mode, if ESP32 as an AP will connect to another AP on another channel while maintaining the connection with the station, the channel switching will occur and the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. Unfortunately, I have not found a solution yet. However, I am continuing trial and error to solve this problem and will resolve in due course.</p>
 <h2 id="does-not-appear-esp8266ap-in-smartphone"><i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.<a class="headerlink" href="#does-not-appear-esp8266ap-in-smartphone" title="Permanent link">&para;</a></h2>
 <p>Maybe it is successfully connected at the <strong>first WiFi.begin</strong>. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first <em>WiFi.begin()</em> fails.</p>
 <p>The saved SSID would be cleared by  <em>WiFi.disconnect()</em> with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.</p>
