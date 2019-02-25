@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
 [![GitHub release](https://img.shields.io/github/release/Hieromon/AutoConnect.svg)](https://github.com/Hieromon/AutoConnect/releases)
+[![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg)](https://www.ardu-badge.com/AutoConnect)
 
 An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface. 
 
