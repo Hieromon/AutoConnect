@@ -66,7 +66,7 @@ bool mqttConnect() {
                                  "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
   char    clientId[9];
 
-  uint8_t retry = 10;
+  uint8_t retry = 3;
   while (!mqttClient.connected()) {
     if (serverName.length() <= 0)
       break;
@@ -86,8 +86,8 @@ bool mqttConnect() {
       Serial.println("Connection failed:" + String(mqttClient.state()));
       if (!--retry)
         break;
+      delay(3000);
     }
-    delay(3000);
   }
   return false;
 }
