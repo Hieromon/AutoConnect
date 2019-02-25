@@ -64,11 +64,11 @@ A **HOME** item located at the bottom of the menu list is a link to the home pat
 
 You can change the HOME path using the AutoConnect API. The [**AutoConnect::home**](api.md#home) function sets the URI as a link of the HOME item of the AutoConnect menu.
 
-## <i class="fa fa-bars"></i> Extend AutoConnect menu with your sketches
+## <i class="fa fa-bars"></i> by attaching AutoConnect menu
 
-The AutoConnect menu can contain HTML pages of your sketch as custom items. It works for HTML pages implemented by **ESP8266WebServer::on** handler or **WebServer::on** handler for ESP32. That is, you can make it as menu items to invoke the legacy web page. The below screenshot is the result of adding an example sketch for the ESP8266WebServer library known as [FSBrowser](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser) to the AutoConnect menu item. It adds Edit and List items with little modification of the legacy sketch code.
+The AutoConnect menu can contain HTML pages of your owns sketch as custom items. It works for HTML pages implemented by **ESP8266WebServer::on** handler or **WebServer::on** handler for ESP32. That is, you can make it as menu items to invoke the legacy web page. The below screenshot is the result of adding an example sketch for the ESP8266WebServer library known as [FSBrowser](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser) to the AutoConnect menu item. It adds Edit and List items with little modification to the legacy sketch code.
 
 <div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="images/fsbmenu.png"></div>
 <img style="margin-left:70px;width:auto;height:420px;" src="images/fsbmenu_expand.png">
 
-You can extend the AutoConnect menu to improve the original sketches and according to the procedure described in section [Advanced Usage section](advancedusage.md#casts-the-html-pages-to-be-add-on-into-the-menu).
+You can extend the AutoConnect menu to improve the original sketches and according to the procedure described in section [*Advanced Usage*](advancedusage.md#casts-the-html-pages-to-be-add-on-into-the-menu).
