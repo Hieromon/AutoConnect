@@ -61,7 +61,7 @@ input.value = ip.toString();
 
 To convert input data correctly from the string, it must match its format. The validation implementation with sketches depends on various perspectives. Usually, the tiny devices have no enough power for the lexical analysis completely. But you can reduce the burden for data verification using the [**pattern**](achandling.md#check-data-against-on-submission) of AutoConnectInput.
 
-By giving a [pattern](acelements.md#pattern) to [AutoConnectInput](apielements.md#pattern), you can find errors in data format while typing in custom Web pages. Specifying the input data rule as a [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) will validate the type match during input. If there is an error in the format during input, the background color of the field will change to pink. Refer to section [Handling the custom Web pages](achandling.md#check-data-against-on-submission).
+By giving a [pattern](acelements.md#pattern) to [AutoConnectInput](apielements.md#pattern), you can find errors in data format while typing in custom Web pages. Specifying the input data rule as a [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions) will validate the type match during input. If there is an error in the format during input, the background color of the field will change to pink. Refer to section [*Handling the custom Web pages*](achandling.md#check-data-against-on-submission).
 
 However, input data will be transmitted even if the value does not match the pattern. Sketches require the validation of the received data. You can use the [AutoConnectInput::isValid](apielements.md#isvalid) function to validate it. The isValid function validates whether the value member variable matches a pattern and returns true or false.
 
@@ -172,5 +172,5 @@ Here, represent examples the typical regular expression for the input validation
 !!! caution "Contain with backquote"
     If that regular expression contains a backquote it must be escaped by backquote duplication.
 
-[^2]: This regular expression does not fully support the format of the e-mail address requested in [RFC5322](https://tools.ietf.org/html/rfc5322).
+[^2]: This regular expressiondoes not fully support the format of the e-mail address requested in [RFC5322](https://tools.ietf.org/html/rfc5322).
 [^3]: This regular expression does not consider semantic constraints. It is not possible to detect errors that do not exist as actual dates.
