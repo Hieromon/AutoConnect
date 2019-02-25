@@ -42,7 +42,7 @@ You can easily add your own web screen that can consist of representative HTML e
 These HTML elements that make up the user-owned screen can be easily loaded from the JSON description stored in PROGMEM, SPIFFS or SD.
 
 <img width="40%" src="mkdocs/images/aux_json.png">&emsp;
-<img width="32px" src="mkdocs/images/arrow_right.png">&emsp;
+<img width="32px" src="mkdocs/images/arrow_right.png" align="top">&emsp;
 <img width="30%" height="400px" src="mkdocs/images/AutoConnectAux.gif">
 
 ## Supported hardware
