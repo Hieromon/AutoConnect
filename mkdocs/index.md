@@ -31,7 +31,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to add the [custom Web pages](acintro.md) <sup><sub>ENHANCED w/v0.9.7</sub></sup>
 
-<span class="lead">You can easily add your owned web screens that can consist of representative HTML elements and invoke them from the menu. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD.</span>
+<span class="lead">You can easily add your owned web pages that can consist of representative HTML elements and invoke them from the menu. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD.</span>
 
 <div style="display:block;height:425px;">
 <img style="float:left;width:380px;" src="images/aux_json.png">
@@ -85,7 +85,7 @@ Install third-party platform using the *Boards Manager* of Arduino IDE. You can 
 <i class="fa fa-download"></i> <strong>Additional library (Required)</strong>
 
 The [PageBuilder](https://github.com/Hieromon/PageBuilder) library to build HTML for ESP8266WebServer is needed.  
-To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required 1.3.2 later.[^1]
+To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required **1.3.2** **later**.[^1]
 [^1]:Since AutoConnect v0.9.7, PageBuilder v1.3.2 later is required.
 
 <img src="images/lm.png" width="640"/>
@@ -93,11 +93,11 @@ To install the PageBuilder library into your Arduino IDE, you can use the *Libra
 
 <i class="fa fa-download"></i> <strong>Additional library (Optional)</strong>
 
-By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, AutoConnect will be able to handle the [**custom Web pages**](acintro.md) described with JSON. With AutoConnect v0.9.7 you can insert user-owned screens that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this feature.[^2]
+By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, AutoConnect will be able to handle the [**custom Web pages**](acintro.md) described with JSON. With AutoConnect v0.9.7 you can insert user-owned web pages that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this feature.[^2]
 [^2]:Using the AutoConnect API natively allows you to sketch custom Web pages without JSON.
 
 !!! info "AutoConnect supports ArduinoJson version 5 only"
-    And ArduinoJson version 6 is still in beta. The Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
+    ArduinoJson version 6 is still in beta, but Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
 
 ### Install the AutoConnect
 
