@@ -1,6 +1,10 @@
-## Handing AutoConnectElements with the sketches
+## Page, Container, Component
 
-AutoConnectElements (i.e. they are the elements displayed on the custom Web page) must be contained in AutoConnectAux object. AutoConnectElements declared in sketch must be programmed to add to AutoConnectAux one after another. Elements are automatically included in AutoConnectAux by AutoConnect if you load it from the JSON description. In either method, it is common to use the function of AutoConnectAux to access an element with a sketch.
+AutoConnectAux is the container for a custom Web page, AutoConnectElement is the component of a page. AutoConnectElements must be contained in AutoConnectAux object. (ie. they are the elements displayed on the custom Web page.) Then AutoConnect makes an AutoConnectAux to a page.
+
+AutoConnectElements declared in sketch must be programmed to add to AutoConnectAux one after another. Elements are automatically included in AutoConnectAux by AutoConnect if you load it from the JSON document. In either method, it is common to use the function of AutoConnectAux to access an element with a sketch.
+
+## Handing AutoConnectElements with the sketches
 
 The AutoConnectAux class has several functions to manipulate AutoConnectElements. The functions can add, delete, retrieve elements, and get and set values.
 
@@ -15,9 +19,12 @@ void AutoConnectAux::add(AutoConenctElement& addon)
 void AutoConnectAux::add(AutoConenctElementVT addons)
 ```
 
-The add function adds specified AutoConnectElement to the AutoConnectAux. If specified the collection of AutoConnectElements as a `std::vector` of the references to each element, these elements added in bulk.
+The add function adds the specified AutoConnectElement to AutoConnectAux. The AutoConnectElementVT type is the [*std::vector*](https://en.cppreference.com/w/cpp/container/vector) of the [*reference wrapper*](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper) to AutoConnectElements, and you can add these elements in bulk by using the [*list initialization*](https://en.cppreference.com/w/cpp/language/list_initialization) with the sketch.
 
-The AutoConnectElements contained in the AutoConnectAux object are uniquely identified by the name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.[^1] In the following example, an AutoConnectButton as `button` addition is invalid.
+```cpp
+typedef std::vector<std::reference_wrapper<AutoConnectElement>> AutoConnectElementVT;
+```
+AutoConnectElements contained in AutoConnectAux object are uniquely identified by name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.[^1] In the following example, AutoConnectButton `button` addition will invalid because `hello` with the same name already exists as AutoConnectText.
 
 [^1]: The valid scope of the name is within an AutoConnectAux.
 
@@ -59,15 +66,15 @@ Similarly this, the uniqueness of the name is also necessary within the JSON doc
 To retrieve an element from AutoConnectAux, use the getElement or getElements function. Normally, the getElement is needed when accessing the value of AutoConnectElement in the sketch.
 
 ```cpp
-AutoConnectElement* AutoConnectAux::getElement(const String& name);
+AutoConnectElement* AutoConnectAux::getElement(const String& name)
 ```
 
 ```cpp
-template<typename T> T& AutoConnectAux::getElement(const String& name);
+T& AutoConenctAux::getElement<T>(const String& name)
 ```
 
 ```cpp
-AutoConnectElementVT* AutoConnectAux::getElements(void);
+AutoConnectElementVT* AutoConnectAux::getElements(void)
 ```
 
 The [**getElement**](apiaux.md#getelement) function returns an AutoConnectElement with the specified name as a key. When you use this function, you need to know the type of AutoConnectElement in advance. To retrieve an AutoConnectElement by specifying its type, use the following method.
@@ -94,13 +101,11 @@ AutoConenctText& text = aux->getElement<AutoConnectText>("caption");  // Cast to
 Serial.println(text.value);
 ```
 
-To get all the AutoConnectElements of an AutoConnectAux object use the [**getElements**](apiaux.md#getelements) function. This function returns the vector of the reference wrapper as *AutoConnectElementVT* to all AutoConnectElements registered in the AutoConnectAux.
+To get all the AutoConnectElements in an AutoConnectAux object use the [**getElements**](apiaux.md#getelements) function. This function returns the vector of the reference wrapper as **AutoConnectElementVT** to all AutoConnectElements registered in the AutoConnectAux.
 
 ```cpp
-AutoConnectElementVT& getElements(void)
+AutoConnectElementVT& AutoConnectAux::getElements(void)
 ```
-
-*AutoConnectElementVT* is a predefined type for it and can use methods of [std::vector](https://en.cppreference.com/w/cpp/container/vector)<[std::reference_wrapper](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper)>.
 
 ## Loading &amp; saving AutoConnectElements with JSON
 
@@ -503,12 +508,12 @@ For example, the combination of the sketch and JSON document as follows updates 
 {
   "name" : "Caption",
   "type" : "ACText",
-  "style": "text-align:center;font-family:'Avenir','Helvetica Neue','Helvetica';font-size:24px;color:tomato;"
+  "style": "text-align:center;font-size:24px;font-family:'Impact','Futura',sans-serif;color:tomato;"
 }
 ```
 
 <i class="fa fa-arrow-down"></i><br>
-<i class="fa fa-code"></i> The sketch (part of code), load above JSON.
+<i class="fa fa-code"></i> The sketch (a part of code), load above JSON.
 ```cpp hl_lines="1"
 ACText(Caption, "Hello, world");
 AutoConnectAux helloPage("/hello", "Hello", true, { Caption });
@@ -530,7 +535,7 @@ void loop() {
 }
 ```
 <i class="fa fa-arrow-down"></i><br>
-<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" src="images/acow.png"></span>
+<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" height="116" src="images/acow.png"></span>
 
 ### <i class="far fa-check-square"></i> Check data against on submission
 

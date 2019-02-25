@@ -1,12 +1,12 @@
 ## Embed the AutoConnect to the sketch
 
-Here holds two case examples. Both examples perform the same function. Only how to incorporate the **AutoConnect** into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the [PageBuilder](https://github.com/Hieromon/PageBuilder) library for HTML assemblies.
+Here hold two case examples. Both examples perform the same function. Only how to incorporate the **AutoConnect** into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the [PageBuilder](https://github.com/Hieromon/PageBuilder) library for HTML assemblies.
 
 ## What does this example do?
 
-Uses the web interface to light the LED connected to the **[NodeMCU](https://github.com/nodemcu/nodemcu-devkit-v1.0)** module D0 port (which could be referred to as *BUILTIN_LED*), the following animation is it.
+Uses the web interface to light the LED connected to the D0 (sometimes called *BUILTIN_LED*) port of the **[NodeMCU](https://github.com/nodemcu/nodemcu-devkit-v1.0)** module like the following animation.
 
-Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED blinks according to the value of the button that was clicked. This example is a typical sketch of manipulating ESP8266's GPIO via WLAN.
+Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED will blink according to the value with clicked by the button. This example is a typical sketch of manipulating ESP8266's GPIO via WLAN.
 
 <img data-gifffer="images/ac2.gif" />
 
@@ -31,7 +31,7 @@ Declare only AutoConnect, performs handleClient.
 
 ## Used with MQTT as a client application
 
-The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also effective for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.
+The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also convenient for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.
 
 This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the [ThingSpeak](https://thingspeak.com/) for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as [MQTT client](https://github.com/knolleary/pubsubclient). This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.
 

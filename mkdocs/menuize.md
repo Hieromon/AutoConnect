@@ -31,10 +31,10 @@ The changes I made to adapt the FSBrowser to the AutoConnect menu are slight as 
 2. Add the menu item named "**Edit**" and "**List**" of AutoConnectAux as each page.
 3. Replace the instance of ESP8266WebServer to AutoConnect.
 4. Change the menu title to FSBrowser using [AutoConnectConfig::title](apiconfig.md#title).
-5. Join the legacy pages to AutoConnect declared at step #1 using [AutoConnect::join](api.md#join).<br>Joining multiple at one time with [std::vector](https://ja.cppreference.com/w/cpp/container/vector/vector)'s' [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization).
+5. Join the legacy pages to AutoConnect declared at step #1 using [AutoConnect::join](api.md#join).<br>Joining multiple at one time with the [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) for [std::vector](https://ja.cppreference.com/w/cpp/container/vector/vector).
 6. According to the basic procedure of AutoConnect.<br>Establish a connection with [AutoConnect::begin](api.md#begin) and perform [AutoConnect::handleClient](api.md#handleclient) in **loop()**.
 
-<i class="fa fa-code"></i>&ensp;**Modification for FSBrowser** <small>(part  of sketch code)</small>
+<i class="fa fa-code"></i>&ensp;**Modification for FSBrowser** <small>(a part  of sketch code)</small>
 
 <div style="overflow:auto"><img style="width:auto;max-width:none;height:840px" src="images/fsbrowser_ba.svg" /></div>
 
