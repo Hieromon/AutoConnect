@@ -9,6 +9,18 @@ See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasit
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
+## <i class="fa fa-question-circle"></i> Connection refused with the captive portal after established.
+
+This is a known issue with ESP32 and may occur when the following conditions are satisfied at the same time:
+
+- SoftAP channel on ESP32 and the connecting AP channel you specified are different.
+- Never connected to the AP in the past, or NVS had erased by erase_flash causes the connection data lost.
+- There are receivable multiple WiFi signals which are the same SSID with different channels using the WiFi repeater etc. (This condition is loose, it may occur even if there is no WiFi repeater.)
+
+To avoid this problem, try [changing the channel](#1-change-wifi-channel).
+
+ESP32 hardware equips only one channel for WiFi signal to carry. At the AP_STA mode, if ESP32 as an AP will connect to another AP on another channel while maintaining the connection with the station, the channel switching will occur and the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. Unfortunately, I have not found a solution yet. However, I am continuing trial and error to solve this problem and will resolve in due course.
+
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
 Maybe it is successfully connected at the **first WiFi.begin**. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
