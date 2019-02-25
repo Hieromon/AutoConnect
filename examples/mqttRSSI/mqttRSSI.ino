@@ -114,7 +114,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "type": "ACInput",
         "value": "",
         "label": "ESP host name",
-        "pattern": "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,32}$"
+        "pattern": "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,24}$"
       },
       {
         "name": "save",
@@ -184,7 +184,7 @@ bool mqttConnect() {
     "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
   char    clientId[9];
 
-  uint8_t retry = 10;
+  uint8_t retry = 3;
   while (!mqttClient.connected()) {
     if (serverName.length() <= 0)
       break;
@@ -205,8 +205,8 @@ bool mqttConnect() {
       Serial.println("Connection failed:" + String(mqttClient.state()));
       if (!--retry)
         break;
+      delay(3000);
     }
-    delay(3000);
   }
   return false;
 }
