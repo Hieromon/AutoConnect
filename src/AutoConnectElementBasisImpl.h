@@ -11,7 +11,11 @@
 #define _AUTOCONNECTELEMENTBASISIMPL_H_
 
 #include "AutoConnectElementBasis.h"
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <regex.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <regex>
+#endif
 
 /**
  * Generate an HTML <button> element. The onclick behavior depends on
@@ -74,9 +78,10 @@ const String AutoConnectInputBasis::toHTML(void) const {
  * @return false The value does not match a pattern.
  */
 bool AutoConnectInputBasis::isValid(void) const {
-  regex_t preg;
   bool  rc = true;
   if (pattern.length()) {
+#if defined(ARDUINO_ARCH_ESP8266)
+    regex_t preg;
     if (regcomp(&preg, pattern.c_str(), REG_EXTENDED) != 0) {
       AC_DEBUG("%s regex compile failed\n", pattern.c_str());
       rc = false;
@@ -86,6 +91,10 @@ bool AutoConnectInputBasis::isValid(void) const {
       rc = regexec(&preg, value.c_str(), 1, p_match, 0) == 0 ? true : false;
       regfree(&preg);
     }
+#elif defined(ARDUINO_ARCH_ESP32)
+    const std::regex  re(pattern.c_str());
+    rc = std::regex_match(value.c_str(), re);
+#endif
   }
   return rc;
 }
