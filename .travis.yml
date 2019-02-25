@@ -1,3 +1,6 @@
+banches:
+  only:
+    - master
 language: generic
 env:
   global:
@@ -21,7 +24,7 @@ before_install:
       arduino --install-boards esp32:esp32;
     fi
   - arduino --install-library PubSubClient,PageBuilder:1.2.3
-  - buildExampleSketch() { arduino --verbose-build --verify --board $BOARD $PWD/examples/$1/$1.ino; }
+  - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
   - mkdir -p ~/Arduino/libraries
   - ln -s $PWD ~/Arduino/libraries/.
