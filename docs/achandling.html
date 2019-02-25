@@ -117,7 +117,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#handing-autoconnectelements-with-the-sketches" tabindex="1" class="md-skip">
+      <a href="#page-container-component" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -475,6 +475,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#page-container-component" title="Page, Container, Component" class="md-nav__link">
+    Page, Container, Component
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#handing-autoconnectelements-with-the-sketches" title="Handing AutoConnectElements with the sketches" class="md-nav__link">
     Handing AutoConnectElements with the sketches
   </a>
@@ -766,8 +773,8 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
-      Constucting the menu
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
     </a>
   </li>
 
@@ -842,6 +849,13 @@
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#page-container-component" title="Page, Container, Component" class="md-nav__link">
+    Page, Container, Component
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#handing-autoconnectelements-with-the-sketches" title="Handing AutoConnectElements with the sketches" class="md-nav__link">
@@ -1005,8 +1019,10 @@
                 
                   <h1>Handling the custom Web pages</h1>
                 
-                <h2 id="handing-autoconnectelements-with-the-sketches">Handing AutoConnectElements with the sketches<a class="headerlink" href="#handing-autoconnectelements-with-the-sketches" title="Permanent link">&para;</a></h2>
-<p>AutoConnectElements (i.e. they are the elements displayed on the custom Web page) must be contained in AutoConnectAux object. AutoConnectElements declared in sketch must be programmed to add to AutoConnectAux one after another. Elements are automatically included in AutoConnectAux by AutoConnect if you load it from the JSON description. In either method, it is common to use the function of AutoConnectAux to access an element with a sketch.</p>
+                <h2 id="page-container-component">Page, Container, Component<a class="headerlink" href="#page-container-component" title="Permanent link">&para;</a></h2>
+<p>AutoConnectAux is the container for a custom Web page, AutoConnectElement is the component of a page. AutoConnectElements must be contained in AutoConnectAux object. (ie. they are the elements displayed on the custom Web page.) Then AutoConnect makes an AutoConnectAux to a page.</p>
+<p>AutoConnectElements declared in sketch must be programmed to add to AutoConnectAux one after another. Elements are automatically included in AutoConnectAux by AutoConnect if you load it from the JSON document. In either method, it is common to use the function of AutoConnectAux to access an element with a sketch.</p>
+<h2 id="handing-autoconnectelements-with-the-sketches">Handing AutoConnectElements with the sketches<a class="headerlink" href="#handing-autoconnectelements-with-the-sketches" title="Permanent link">&para;</a></h2>
 <p>The AutoConnectAux class has several functions to manipulate AutoConnectElements. The functions can add, delete, retrieve elements, and get and set values.</p>
 <h3 id="add-autoconnectelements-to-the-autoconnectaux-object"><i class="fa fa-edit"></i> Add AutoConnectElements to the AutoConnectAux object<a class="headerlink" href="#add-autoconnectelements-to-the-autoconnectaux-object" title="Permanent link">&para;</a></h3>
 <p>To add AutoConnectElment(s) to an AutoConnectAux object, use the add function.</p>
@@ -1014,8 +1030,10 @@
 </pre></div>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">add(AutoConenctElementVT</span> <span style="color: #f8f8f2">addons)</span>
 </pre></div></p>
-<p>The add function adds specified AutoConnectElement to the AutoConnectAux. If specified the collection of AutoConnectElements as a <code>std::vector</code> of the references to each element, these elements added in bulk.</p>
-<p>The AutoConnectElements contained in the AutoConnectAux object are uniquely identified by the name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> In the following example, an AutoConnectButton as <code>button</code> addition is invalid.</p>
+<p>The add function adds the specified AutoConnectElement to AutoConnectAux. The AutoConnectElementVT type is the <a href="https://en.cppreference.com/w/cpp/container/vector"><em>std::vector</em></a> of the <a href="https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper"><em>reference wrapper</em></a> to AutoConnectElements, and you can add these elements in bulk by using the <a href="https://en.cppreference.com/w/cpp/language/list_initialization"><em>list initialization</em></a> with the sketch.</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">reference_wrapper</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">AutoConnectElementVT;</span>
+</pre></div>
+AutoConnectElements contained in AutoConnectAux object are uniquely identified by name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> In the following example, AutoConnectButton <code>button</code> addition will invalid because <code>hello</code> with the same name already exists as AutoConnectText.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
 <span style="color: #f8f8f2">AutoConnectText</span> <span style="color: #a6e22e">text</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectButton</span> <span style="color: #a6e22e">button</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;alert(&#39;Hello world!&#39;)&quot;)</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// This is invalid.</span>
@@ -1049,13 +1067,13 @@
 </div>
 <h3 id="get-autoconnectelement-from-the-autoconnectaux"><i class="fa fa-edit"></i> Get AutoConnectElement from the AutoConnectAux<a class="headerlink" href="#get-autoconnectelement-from-the-autoconnectaux" title="Permanent link">&para;</a></h3>
 <p>To retrieve an element from AutoConnectAux, use the getElement or getElements function. Normally, the getElement is needed when accessing the value of AutoConnectElement in the sketch.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name);</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 </pre></div>
 
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">template</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">typename</span> <span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name);</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConenctAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 </pre></div>
 
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">);</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </pre></div>
 
 <p>The <a href="apiaux.html#getelement"><strong>getElement</strong></a> function returns an AutoConnectElement with the specified name as a key. When you use this function, you need to know the type of AutoConnectElement in advance. To retrieve an AutoConnectElement by specifying its type, use the following method.</p>
@@ -1078,11 +1096,10 @@
 <span style="color: #f8f8f2">Serial.println(text.value);</span>
 </pre></div>
 
-<p>To get all the AutoConnectElements of an AutoConnectAux object use the <a href="apiaux.html#getelements"><strong>getElements</strong></a> function. This function returns the vector of the reference wrapper as <em>AutoConnectElementVT</em> to all AutoConnectElements registered in the AutoConnectAux.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<p>To get all the AutoConnectElements in an AutoConnectAux object use the <a href="apiaux.html#getelements"><strong>getElements</strong></a> function. This function returns the vector of the reference wrapper as <strong>AutoConnectElementVT</strong> to all AutoConnectElements registered in the AutoConnectAux.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </pre></div>
 
-<p><em>AutoConnectElementVT</em> is a predefined type for it and can use methods of <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a>&lt;<a href="https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a>&gt;.</p>
 <h2 id="loading-saving-autoconnectelements-with-json">Loading &amp; saving AutoConnectElements with JSON<a class="headerlink" href="#loading-saving-autoconnectelements-with-json" title="Permanent link">&para;</a></h2>
 <p>AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectElements. In both cases, the target object is a <a href="acjson.html">JSON document for AutoConnect</a>. However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)</p>
 <p><img src="images/ac_load_save.svg"></p>
@@ -1450,11 +1467,11 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Caption&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;type&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
-<span style="background-color: #49483e">  <span style="color: #f92672">&quot;style&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;text-align:center;font-family:&#39;Avenir&#39;,&#39;Helvetica Neue&#39;,&#39;Helvetica&#39;;font-size:24px;color:tomato;&quot;</span>
+<span style="background-color: #49483e">  <span style="color: #f92672">&quot;style&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;text-align:center;font-size:24px;font-family:&#39;Impact&#39;,&#39;Futura&#39;,sans-serif;color:tomato;&quot;</span>
 </span><span style="color: #f8f8f2">}</span>
 </pre></div></p>
 <p><i class="fa fa-arrow-down"></i><br>
-<i class="fa fa-code"></i> The sketch (part of code), load above JSON.
+<i class="fa fa-code"></i> The sketch (a part of code), load above JSON.
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="background-color: #49483e"><span style="color: #f8f8f2">ACText(Caption,</span> <span style="color: #e6db74">&quot;Hello, world&quot;</span><span style="color: #f8f8f2">);</span>
 </span><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">helloPage</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">true,</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">Caption</span> <span style="color: #f8f8f2">});</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
@@ -1475,7 +1492,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 <i class="fa fa-arrow-down"></i><br>
-<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" src="images/acow.png"></span></p>
+<i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" height="116" src="images/acow.png"></span></p>
 <h3 id="check-data-against-on-submission"><i class="far fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
 <p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconenctinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>

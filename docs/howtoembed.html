@@ -725,8 +725,8 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Constucting the menu" class="md-nav__link">
-      Constucting the menu
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
     </a>
   </li>
 
@@ -924,10 +924,10 @@
                   <h1>How to embed</h1>
                 
                 <h2 id="embed-the-autoconnect-to-the-sketch">Embed the AutoConnect to the sketch<a class="headerlink" href="#embed-the-autoconnect-to-the-sketch" title="Permanent link">&para;</a></h2>
-<p>Here holds two case examples. Both examples perform the same function. Only how to incorporate the <strong>AutoConnect</strong> into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library for HTML assemblies.</p>
+<p>Here hold two case examples. Both examples perform the same function. Only how to incorporate the <strong>AutoConnect</strong> into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library for HTML assemblies.</p>
 <h2 id="what-does-this-example-do">What does this example do?<a class="headerlink" href="#what-does-this-example-do" title="Permanent link">&para;</a></h2>
-<p>Uses the web interface to light the LED connected to the <strong><a href="https://github.com/nodemcu/nodemcu-devkit-v1.0">NodeMCU</a></strong> module D0 port (which could be referred to as <em>BUILTIN_LED</em>), the following animation is it.</p>
-<p>Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED blinks according to the value of the button that was clicked. This example is a typical sketch of manipulating ESP8266's GPIO via WLAN.</p>
+<p>Uses the web interface to light the LED connected to the D0 (sometimes called <em>BUILTIN_LED</em>) port of the <strong><a href="https://github.com/nodemcu/nodemcu-devkit-v1.0">NodeMCU</a></strong> module like the following animation.</p>
+<p>Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED will blink according to the value with clicked by the button. This example is a typical sketch of manipulating ESP8266's GPIO via WLAN.</p>
 <p><img data-gifffer="images/ac2.gif" /></p>
 <p>Embed AutoConnect library into this sketch. There are few places to be changed. And you can use AutoConnect's captive portal function to establish a connection freely to other WiFi spots.</p>
 <h2 id="embed-autoconnect">Embed AutoConnect<a class="headerlink" href="#embed-autoconnect" title="Permanent link">&para;</a></h2>
@@ -942,7 +942,7 @@
 <p>Declare only AutoConnect, performs handleClient.</p>
 <p><img src="images/handlePortal.svg" /></p>
 <h2 id="used-with-mqtt-as-a-client-application">Used with MQTT as a client application<a class="headerlink" href="#used-with-mqtt-as-a-client-application" title="Permanent link">&para;</a></h2>
-<p>The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also effective for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.</p>
+<p>The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also convenient for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.</p>
 <p>This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the <a href="https://thingspeak.com/">ThingSpeak</a> for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as <a href="https://github.com/knolleary/pubsubclient">MQTT client</a>. This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.</p>
 <p><img src="images/ChannelStatus.png" width="70%"/></p>
 <h3 id="advance-procedures">Advance procedures<a class="headerlink" href="#advance-procedures" title="Permanent link">&para;</a></h3>
