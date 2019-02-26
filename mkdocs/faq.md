@@ -9,17 +9,21 @@ See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasit
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
-## <i class="fa fa-question-circle"></i> Connection refused with the captive portal after established.
+## <i class="fa fa-question-circle"></i> Lost connection with the captive portal after AP established.
 
-This is a known issue with ESP32 and may occur when the following conditions are satisfied at the same time:
+A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur if the following conditions are satisfied at the same time.
 
-- SoftAP channel on ESP32 and the connecting AP channel you specified are different.
-- Never connected to the AP in the past, or NVS had erased by erase_flash causes the connection data lost.
+- SoftAP channel on ESP32 and the connecting AP channel you specified are different. (The default channel of SoftAP is 1.)
+- NVS had erased by erase_flash causes the connection data lost. The NVS partition has been moved. Never connected to the AP in the past.
 - There are receivable multiple WiFi signals which are the same SSID with different channels using the WiFi repeater etc. (This condition is loose, it may occur even if there is no WiFi repeater.)
+- Or the using channel of the AP which established a connection is congested with the radio signal of the same band. (If the channel crowd, connections to known APs may also fail.)
+
+!!! info "Other possibilities"
+    The above conditions are not absolute. It results from my investigation, and other conditions may exist.
 
 To avoid this problem, try [changing the channel](#1-change-wifi-channel).
 
-ESP32 hardware equips only one channel for WiFi signal to carry. At the AP_STA mode, if ESP32 as an AP will connect to another AP on another channel while maintaining the connection with the station, the channel switching will occur and the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. Unfortunately, I have not found a solution yet. However, I am continuing trial and error to solve this problem and will resolve in due course.
+ESP32 hardware equips only one RF circuitry for WiFi signal. At the AP_STA mode, ESP32 as an AP attempts connect to another AP on another channel while keeping the connection with the station then the channel switching will occur causes the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. This problem will persist until a specific solution.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
@@ -207,7 +211,19 @@ If AutoConnect behavior is not stable with your sketch, you can try the followin
 
 ### 1. Change WiFi channel
 
-Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try the [AutoConnectConfig](apiconfig.md#autoconnectconfig) to match the [channel](apiconfig.md#channel) to the access point.
+Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try to configure the [channel](apiconfig.md#channel) with [AutoConnectConfig](apiconfig.md#autoconnectconfig) to match the access point.
+
+```cpp
+AutoConnect portal;
+AutoConnectConfig config;
+
+config.channel = 3;     // Specifies a channel number that matches the AP
+portal.config(config);  // Apply channel configurration
+portal.begin();         // Start the portal
+```
+
+!!! info "Channel selection guide"
+    Espressif Systems has released a [channel selection guide](https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf).
 
 ### 2. Change arduino core version
 
@@ -239,17 +255,21 @@ To fully enable for the AutoConnect debug logging options, change the following 
 #define PB_DEBUG
 ```
 
-[^2]: `PageBuilder.h` file exists in the `libraries/PageBuilder/src` directory under your sketch folder.
+[^2]: `PageBuilder.h` exists in the `libraries/PageBuilder/src` directory under your sketch folder.
 
 ### 4. Reports the issue to AutoConnect repository on Github
 
-If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:
+If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:[^3]
 
-* [x] Hardware module
-* [x] Arduino core version (Including the upstream tag ID.)
-* [x] Operating System which you use
-* [x] lwIP variant
-* [x] Problem description
-* [x] If you have a STACK DUMP decoded result with formatted by the code block tag
-* [x] The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)
-* [x] Debug messages output
+* [ ] Hardware module
+* [ ] Arduino core version Including the upstream commit ID (It is necessary)
+* [ ] Operating System which you use
+* [ ] Your smartphone OS and version if necessary (Especially Android)
+* [ ] Your AP information (IP, channel) if related
+* [ ] lwIP variant
+* [ ] Problem description
+* [ ] If you have a STACK DUMP decoded result with formatted by the code block tag
+* [ ] The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)
+* [ ] Debug messages output (Including arduino core)
+
+[^3]:Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.
