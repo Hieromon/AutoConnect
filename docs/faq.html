@@ -658,8 +658,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connection-refused-with-the-captive-portal-after-established" title=" Connection refused with the captive portal after established." class="md-nav__link">
-     Connection refused with the captive portal after established.
+  <a href="#lost-connection-with-the-captive-portal-after-ap-established" title=" Lost connection with the captive portal after AP established." class="md-nav__link">
+     Lost connection with the captive portal after AP established.
   </a>
   
 </li>
@@ -917,8 +917,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connection-refused-with-the-captive-portal-after-established" title=" Connection refused with the captive portal after established." class="md-nav__link">
-     Connection refused with the captive portal after established.
+  <a href="#lost-connection-with-the-captive-portal-after-ap-established" title=" Lost connection with the captive portal after AP established." class="md-nav__link">
+     Lost connection with the captive portal after AP established.
   </a>
   
 </li>
@@ -1133,15 +1133,20 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 <p>See also the explanation <a href="basicusage.html#esp8266webserver-hosted-or-parasitic">here</a>.</p>
 <h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
-<h2 id="connection-refused-with-the-captive-portal-after-established"><i class="fa fa-question-circle"></i> Connection refused with the captive portal after established.<a class="headerlink" href="#connection-refused-with-the-captive-portal-after-established" title="Permanent link">&para;</a></h2>
-<p>This is a known issue with ESP32 and may occur when the following conditions are satisfied at the same time:</p>
+<h2 id="lost-connection-with-the-captive-portal-after-ap-established"><i class="fa fa-question-circle"></i> Lost connection with the captive portal after AP established.<a class="headerlink" href="#lost-connection-with-the-captive-portal-after-ap-established" title="Permanent link">&para;</a></h2>
+<p>A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur if the following conditions are satisfied at the same time.</p>
 <ul>
-<li>SoftAP channel on ESP32 and the connecting AP channel you specified are different.</li>
-<li>Never connected to the AP in the past, or NVS had erased by erase_flash causes the connection data lost.</li>
+<li>SoftAP channel on ESP32 and the connecting AP channel you specified are different. (The default channel of SoftAP is 1.)</li>
+<li>NVS had erased by erase_flash causes the connection data lost. The NVS partition has been moved. Never connected to the AP in the past.</li>
 <li>There are receivable multiple WiFi signals which are the same SSID with different channels using the WiFi repeater etc. (This condition is loose, it may occur even if there is no WiFi repeater.)</li>
+<li>Or the using channel of the AP which established a connection is congested with the radio signal of the same band. (If the channel crowd, connections to known APs may also fail.)</li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">Other possibilities</p>
+<p>The above conditions are not absolute. It results from my investigation, and other conditions may exist.</p>
+</div>
 <p>To avoid this problem, try <a href="#1-change-wifi-channel">changing the channel</a>.</p>
-<p>ESP32 hardware equips only one channel for WiFi signal to carry. At the AP_STA mode, if ESP32 as an AP will connect to another AP on another channel while maintaining the connection with the station, the channel switching will occur and the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. Unfortunately, I have not found a solution yet. However, I am continuing trial and error to solve this problem and will resolve in due course.</p>
+<p>ESP32 hardware equips only one RF circuitry for WiFi signal. At the AP_STA mode, ESP32 as an AP attempts connect to another AP on another channel while keeping the connection with the station then the channel switching will occur causes the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. This problem will persist until a specific solution.</p>
 <h2 id="does-not-appear-esp8266ap-in-smartphone"><i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.<a class="headerlink" href="#does-not-appear-esp8266ap-in-smartphone" title="Permanent link">&para;</a></h2>
 <p>Maybe it is successfully connected at the <strong>first WiFi.begin</strong>. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first <em>WiFi.begin()</em> fails.</p>
 <p>The saved SSID would be cleared by  <em>WiFi.disconnect()</em> with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.</p>
@@ -1342,7 +1347,19 @@ wdt reset
 <h2 id="autoconnect-behaves-not-stable-with-my-sketch-yet"><i class="fa fa-question-circle"></i> AutoConnect behaves not stable with my sketch yet.<a class="headerlink" href="#autoconnect-behaves-not-stable-with-my-sketch-yet" title="Permanent link">&para;</a></h2>
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
-<p>Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try the <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the <a href="apiconfig.html#channel">channel</a> to the access point.</p>
+<p>Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try to configure the <a href="apiconfig.html#channel">channel</a> with <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the access point.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
+
+<span style="color: #f8f8f2">config.channel</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">3</span><span style="color: #f8f8f2">;</span>     <span style="color: #75715e">// Specifies a channel number that matches the AP</span>
+<span style="color: #f8f8f2">portal.config(config);</span>  <span style="color: #75715e">// Apply channel configurration</span>
+<span style="color: #f8f8f2">portal.begin();</span>         <span style="color: #75715e">// Start the portal</span>
+</pre></div>
+
+<div class="admonition info">
+<p class="admonition-title">Channel selection guide</p>
+<p>Espressif Systems has released a <a href="https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf">channel selection guide</a>.</p>
+</div>
 <h3 id="2-change-arduino-core-version">2. Change arduino core version<a class="headerlink" href="#2-change-arduino-core-version" title="Permanent link">&para;</a></h3>
 <p>I recommend change installed an arduino core version to the upstream when your sketch is not stable with AutoConnect on each board.</p>
 <h4 id="with-esp8266-arduino-core">with ESP8266 arduino core<a class="headerlink" href="#with-esp8266-arduino-core" title="Permanent link">&para;</a></h4>
@@ -1361,16 +1378,18 @@ wdt reset
 </pre></div>
 
 <h3 id="4-reports-the-issue-to-autoconnect-repository-on-github">4. Reports the issue to AutoConnect repository on Github<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-repository-on-github" title="Permanent link">&para;</a></h3>
-<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:</p>
+<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled checked/> Hardware module</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Arduino core version (Including the upstream tag ID.)</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Operating System which you use</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> lwIP variant</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Problem description</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> If you have a STACK DUMP decoded result with formatted by the code block tag</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Debug messages output</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Hardware module</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Arduino core version Including the upstream commit ID (It is necessary)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Operating System which you use</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Your smartphone OS and version if necessary (Especially Android)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Your AP information (IP, channel) if related</li>
+<li class="task-list-item"><input type="checkbox" disabled/> lwIP variant</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Problem description</li>
+<li class="task-list-item"><input type="checkbox" disabled/> If you have a STACK DUMP decoded result with formatted by the code block tag</li>
+<li class="task-list-item"><input type="checkbox" disabled/> The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Debug messages output (Including arduino core)</li>
 </ul>
 <div class="footnote">
 <hr />
@@ -1379,7 +1398,10 @@ wdt reset
 <p>There may be 0xff as an invalid data in the credential saving area. The 0xff area would be reused.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
-<p><code>PageBuilder.h</code> file exists in the <code>libraries/PageBuilder/src</code> directory under your sketch folder.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p><code>PageBuilder.h</code> exists in the <code>libraries/PageBuilder/src</code> directory under your sketch folder.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
