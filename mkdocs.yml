@@ -30,6 +30,7 @@ nav:
     - 'Tips for data conversion': datatips.md
     - 'Attach the menu': menuize.md
     - 'Custom Web pages w/o JSON': wojson.md
+  - 'Appendix': lsbegin.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
   - 'License' : license.md
