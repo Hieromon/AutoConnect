@@ -90,7 +90,6 @@ To install the PageBuilder library into your Arduino IDE, you can use the *Libra
 
 <img src="images/lm.png" width="640"/>
 
-
 <i class="fa fa-download"></i> <strong>Additional library (Optional)</strong>
 
 By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, AutoConnect will be able to handle the [**custom Web pages**](acintro.md) described with JSON. With AutoConnect v0.9.7 you can insert user-owned web pages that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this feature.[^2]
