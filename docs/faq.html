@@ -84,7 +84,7 @@
   }
   ga.l = +new Date
   /* Setup integration and send page view */
-  ga("create", "None", "auto")
+  ga("create", "UA-116150854-1", "auto")
   ga("set", "anonymizeIp", true)
   ga("send", "pageview")
   /* Register handler to log search on blur */
@@ -686,8 +686,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lost-connection-with-the-captive-portal-after-ap-established" title=" Lost connection with the captive portal after AP established." class="md-nav__link">
-     Lost connection with the captive portal after AP established.
+  <a href="#connection-lost-immediately-after-establishment-with-ap" title=" Connection lost immediately after establishment with AP" class="md-nav__link">
+     Connection lost immediately after establishment with AP
   </a>
   
 </li>
@@ -817,8 +817,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#autoconnect-behaves-not-stable-with-my-sketch-yet" title=" AutoConnect behaves not stable with my sketch yet." class="md-nav__link">
-     AutoConnect behaves not stable with my sketch yet.
+  <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
+     Still, not stable with my sketch.
   </a>
   
     <nav class="md-nav">
@@ -832,8 +832,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-change-arduino-core-version" title="2. Change arduino core version" class="md-nav__link">
-    2. Change arduino core version
+  <a href="#2-change-the-arduino-core-version" title="2. Change the arduino core version" class="md-nav__link">
+    2. Change the arduino core version
   </a>
   
     <nav class="md-nav">
@@ -866,8 +866,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-reports-the-issue-to-autoconnect-repository-on-github" title="4. Reports the issue to AutoConnect repository on Github" class="md-nav__link">
-    4. Reports the issue to AutoConnect repository on Github
+  <a href="#4-reports-the-issue-to-autoconnect-github-repository" title="4. Reports the issue to AutoConnect Github repository" class="md-nav__link">
+    4. Reports the issue to AutoConnect Github repository
   </a>
   
 </li>
@@ -945,8 +945,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#lost-connection-with-the-captive-portal-after-ap-established" title=" Lost connection with the captive portal after AP established." class="md-nav__link">
-     Lost connection with the captive portal after AP established.
+  <a href="#connection-lost-immediately-after-establishment-with-ap" title=" Connection lost immediately after establishment with AP" class="md-nav__link">
+     Connection lost immediately after establishment with AP
   </a>
   
 </li>
@@ -1076,8 +1076,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#autoconnect-behaves-not-stable-with-my-sketch-yet" title=" AutoConnect behaves not stable with my sketch yet." class="md-nav__link">
-     AutoConnect behaves not stable with my sketch yet.
+  <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
+     Still, not stable with my sketch.
   </a>
   
     <nav class="md-nav">
@@ -1091,8 +1091,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-change-arduino-core-version" title="2. Change arduino core version" class="md-nav__link">
-    2. Change arduino core version
+  <a href="#2-change-the-arduino-core-version" title="2. Change the arduino core version" class="md-nav__link">
+    2. Change the arduino core version
   </a>
   
     <nav class="md-nav">
@@ -1125,8 +1125,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-reports-the-issue-to-autoconnect-repository-on-github" title="4. Reports the issue to AutoConnect repository on Github" class="md-nav__link">
-    4. Reports the issue to AutoConnect repository on Github
+  <a href="#4-reports-the-issue-to-autoconnect-github-repository" title="4. Reports the issue to AutoConnect Github repository" class="md-nav__link">
+    4. Reports the issue to AutoConnect Github repository
   </a>
   
 </li>
@@ -1161,13 +1161,13 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 <p>See also the explanation <a href="basicusage.html#esp8266webserver-hosted-or-parasitic">here</a>.</p>
 <h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
-<h2 id="lost-connection-with-the-captive-portal-after-ap-established"><i class="fa fa-question-circle"></i> Lost connection with the captive portal after AP established.<a class="headerlink" href="#lost-connection-with-the-captive-portal-after-ap-established" title="Permanent link">&para;</a></h2>
-<p>A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur if the following conditions are satisfied at the same time.</p>
+<h2 id="connection-lost-immediately-after-establishment-with-ap"><i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP<a class="headerlink" href="#connection-lost-immediately-after-establishment-with-ap" title="Permanent link">&para;</a></h2>
+<p>A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur when the following conditions are satisfied at the same time.</p>
 <ul>
 <li>SoftAP channel on ESP32 and the connecting AP channel you specified are different. (The default channel of SoftAP is 1.)</li>
 <li>NVS had erased by erase_flash causes the connection data lost. The NVS partition has been moved. Never connected to the AP in the past.</li>
 <li>There are receivable multiple WiFi signals which are the same SSID with different channels using the WiFi repeater etc. (This condition is loose, it may occur even if there is no WiFi repeater.)</li>
-<li>Or the using channel of the AP which established a connection is congested with the radio signal of the same band. (If the channel crowd, connections to known APs may also fail.)</li>
+<li>Or the using channel of the AP which established a connection is congested with the radio signal on the same band. (If the channel crowd, connections to known APs may also fail.)</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">Other possibilities</p>
@@ -1372,7 +1372,7 @@ wdt reset
 <p>Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.</p>
 <h2 id="i-cannot-see-the-custom-web-page"><i class="fa fa-question-circle"></i> I cannot see the custom Web page.<a class="headerlink" href="#i-cannot-see-the-custom-web-page" title="Permanent link">&para;</a></h2>
 <p>If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the <a href="faq.html#3-turn-on-the-debug-log-options">AC_DEBUG</a> and rerun. If you take the message of JSON syntax error, the <a href="https://arduinojson.org/v5/assistant/">Json Assistant</a> helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. </p>
-<h2 id="autoconnect-behaves-not-stable-with-my-sketch-yet"><i class="fa fa-question-circle"></i> AutoConnect behaves not stable with my sketch yet.<a class="headerlink" href="#autoconnect-behaves-not-stable-with-my-sketch-yet" title="Permanent link">&para;</a></h2>
+<h2 id="still-not-stable-with-my-sketch"><i class="fa fa-question-circle"></i> Still, not stable with my sketch.<a class="headerlink" href="#still-not-stable-with-my-sketch" title="Permanent link">&para;</a></h2>
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
 <p>Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try to configure the <a href="apiconfig.html#channel">channel</a> with <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the access point.</p>
@@ -1388,13 +1388,13 @@ wdt reset
 <p class="admonition-title">Channel selection guide</p>
 <p>Espressif Systems has released a <a href="https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf">channel selection guide</a>.</p>
 </div>
-<h3 id="2-change-arduino-core-version">2. Change arduino core version<a class="headerlink" href="#2-change-arduino-core-version" title="Permanent link">&para;</a></h3>
+<h3 id="2-change-the-arduino-core-version">2. Change the arduino core version<a class="headerlink" href="#2-change-the-arduino-core-version" title="Permanent link">&para;</a></h3>
 <p>I recommend change installed an arduino core version to the upstream when your sketch is not stable with AutoConnect on each board.</p>
 <h4 id="with-esp8266-arduino-core">with ESP8266 arduino core<a class="headerlink" href="#with-esp8266-arduino-core" title="Permanent link">&para;</a></h4>
-<p>To stabilize the behavior, You can select the <a href="http://lwip.wikia.com/wiki/LwIP_Wiki">lwIP</a> variant to contribute. Lower memory option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.</p>
+<p>You can select the <a href="http://lwip.wikia.com/wiki/LwIP_Wiki">lwIP</a> variant to contribute for the stable behavior. The <strong>lwIP v2 Lower memory</strong> option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.</p>
 <p>You can select the option from Arduino IDE as <strong>Tool</strong> menu, if you are using ESP8266 core 2.5.0. It can be select <code>lwIP v2 Lower Memory</code> option. (not <code>lwIP v2 Lower Memory (no features)</code>) It is expected to improve response performance and stability.</p>
 <h4 id="with-esp32-arduino-core">with ESP32 arduino core<a class="headerlink" href="#with-esp32-arduino-core" title="Permanent link">&para;</a></h4>
-<p>The <a href="https://github.com/espressif/arduino-esp32">arduino-esp32</a> is still under development even if it is a stable release. It is necessary to judge whether the cause of the problem is the core or AutoConnect. Trace the log with the esp32 core and the AutoConnect debug option enabled for problem diagnosis and please you check the <a href="https://github.com/espressif/arduino-esp32/issues">issue of arduino-esp32</a>. The problem that your sketch possesses may already have been solved.</p>
+<p>The <a href="https://github.com/espressif/arduino-esp32">arduino-esp32</a> is still under development. It is necessary to judge whether the problem cause of the core or AutoConnect. Trace the log with the esp32 core and the AutoConnect debug option enabled for problem diagnosis and please you check the <a href="https://github.com/espressif/arduino-esp32/issues">issue of arduino-esp32</a>. The problem that your sketch possesses may already have been solved.</p>
 <h3 id="3-turn-on-the-debug-log-options">3. Turn on the debug log options<a class="headerlink" href="#3-turn-on-the-debug-log-options" title="Permanent link">&para;</a></h3>
 <p>To fully enable for the AutoConnect debug logging options, change the following two files.</p>
 <p><i class="fas fa-angle-right"></i> AutoConnectDefs.h</p>
@@ -1405,13 +1405,13 @@ wdt reset
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define PB_DEBUG</span>
 </pre></div>
 
-<h3 id="4-reports-the-issue-to-autoconnect-repository-on-github">4. Reports the issue to AutoConnect repository on Github<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-repository-on-github" title="Permanent link">&para;</a></h3>
+<h3 id="4-reports-the-issue-to-autoconnect-github-repository">4. Reports the issue to AutoConnect Github repository<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-github-repository" title="Permanent link">&para;</a></h3>
 <p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" disabled/> Hardware module</li>
-<li class="task-list-item"><input type="checkbox" disabled/> Arduino core version Including the upstream commit ID (It is necessary)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Arduino core version Including the upstream commit ID if necessary</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Operating System which you use</li>
-<li class="task-list-item"><input type="checkbox" disabled/> Your smartphone OS and version if necessary (Especially Android)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Your smartphone OS and version (Especially for Android)</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Your AP information (IP, channel) if related</li>
 <li class="task-list-item"><input type="checkbox" disabled/> lwIP variant</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Problem description</li>
@@ -1419,6 +1419,8 @@ wdt reset
 <li class="task-list-item"><input type="checkbox" disabled/> The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Debug messages output (Including arduino core)</li>
 </ul>
+<p>I will make efforts to solve as quickly as possible. But I would like you to know that it is not always possible.</p>
+<p>Thank you.</p>
 <div class="footnote">
 <hr />
 <ol>

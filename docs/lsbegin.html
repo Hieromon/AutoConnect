@@ -84,7 +84,7 @@
   }
   ga.l = +new Date
   /* Setup integration and send page view */
-  ga("create", "None", "auto")
+  ga("create", "UA-116150854-1", "auto")
   ga("set", "anonymizeIp", true)
   ga("send", "pageview")
   /* Register handler to log search on blur */
@@ -765,11 +765,11 @@
 <li><a href="apiconfig.html#portaltimeout">portalTimeout</a> : Time out limit for the portal.</li>
 <li><a href="apiconfig.html#retainportal">retainPortal</a> : Keep DNS server functioning for the captive portal.</li>
 </ul>
-<p>You can use these parameters in combination with your sketch requirements. To make your sketch work as you intended, you need to understand the behavior caused by the parameter correctly. The chart below shows those parameters which are embedded in the AutoConnect::begin logic sequence.</p>
+<p>You can use these parameters in combination with sketch requirements and need to understand correctly the behavior caused by the parameters. The following chart shows the AutoConnect::begin logic sequence including the effect of these parameters.</p>
+<p><img align="center" src="images/process_begin.svg"></p>
 <p>For example, AutoConnect::begin will not exits without the portalTimeout while the connection not establishes, but WebServer will start to work. So, your sketch may work seemingly, but it will close with inside a loop of the AutoConnect::begin function. Especially when invoking AutoConnect::begin in the <strong>setup()</strong>, execution control does not pass to the <strong>loop()</strong>.</p>
 <p>As different scenes, you may use the immediateStart effectively. Equipped the external switch to activate the captive portal with the ESP module, combined with the portalTime and the retainPortal it will become WiFi active connection feature. You can start AutoConnect::begin at any point in the <strong>loop()</strong>, which allows your sketch can behave both the offline mode and the online mode.</p>
 <p>Please consider these kinds of influence when you make sketches.</p>
-<p><img align="center" src="images/process_begin.svg"></p>
 <div class="footnote">
 <hr />
 <ol>
