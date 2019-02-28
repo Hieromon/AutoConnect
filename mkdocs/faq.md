@@ -9,14 +9,14 @@ See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasit
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
-## <i class="fa fa-question-circle"></i> Lost connection with the captive portal after AP established.
+## <i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP
 
-A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur if the following conditions are satisfied at the same time.
+A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur when the following conditions are satisfied at the same time.
 
 - SoftAP channel on ESP32 and the connecting AP channel you specified are different. (The default channel of SoftAP is 1.)
 - NVS had erased by erase_flash causes the connection data lost. The NVS partition has been moved. Never connected to the AP in the past.
 - There are receivable multiple WiFi signals which are the same SSID with different channels using the WiFi repeater etc. (This condition is loose, it may occur even if there is no WiFi repeater.)
-- Or the using channel of the AP which established a connection is congested with the radio signal of the same band. (If the channel crowd, connections to known APs may also fail.)
+- Or the using channel of the AP which established a connection is congested with the radio signal on the same band. (If the channel crowd, connections to known APs may also fail.)
 
 !!! info "Other possibilities"
     The above conditions are not absolute. It results from my investigation, and other conditions may exist.
@@ -205,7 +205,7 @@ Because AutoConnect does not send a login success response to the captive portal
 
 If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
 
-## <i class="fa fa-question-circle"></i> AutoConnect behaves not stable with my sketch yet.
+## <i class="fa fa-question-circle"></i> Still, not stable with my sketch.
 
 If AutoConnect behavior is not stable with your sketch, you can try the following measures.
 
@@ -225,19 +225,19 @@ portal.begin();         // Start the portal
 !!! info "Channel selection guide"
     Espressif Systems has released a [channel selection guide](https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf).
 
-### 2. Change arduino core version
+### 2. Change the arduino core version
 
 I recommend change installed an arduino core version to the upstream when your sketch is not stable with AutoConnect on each board.
 
 #### with ESP8266 arduino core
 
-To stabilize the behavior, You can select the [lwIP](http://lwip.wikia.com/wiki/LwIP_Wiki) variant to contribute. Lower memory option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.
+You can select the [lwIP](http://lwip.wikia.com/wiki/LwIP_Wiki) variant to contribute for the stable behavior. The **lwIP v2 Lower memory** option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.
 
 You can select the option from Arduino IDE as **Tool** menu, if you are using ESP8266 core 2.5.0. It can be select `lwIP v2 Lower Memory` option. (not `lwIP v2 Lower Memory (no features)`) It is expected to improve response performance and stability.
 
 #### with ESP32 arduino core
 
-The [arduino-esp32](https://github.com/espressif/arduino-esp32) is still under development even if it is a stable release. It is necessary to judge whether the cause of the problem is the core or AutoConnect. Trace the log with the esp32 core and the AutoConnect debug option enabled for problem diagnosis and please you check the [issue of arduino-esp32](https://github.com/espressif/arduino-esp32/issues). The problem that your sketch possesses may already have been solved.
+The [arduino-esp32](https://github.com/espressif/arduino-esp32) is still under development. It is necessary to judge whether the problem cause of the core or AutoConnect. Trace the log with the esp32 core and the AutoConnect debug option enabled for problem diagnosis and please you check the [issue of arduino-esp32](https://github.com/espressif/arduino-esp32/issues). The problem that your sketch possesses may already have been solved.
 
 ### 3. Turn on the debug log options
 
@@ -257,19 +257,23 @@ To fully enable for the AutoConnect debug logging options, change the following 
 
 [^2]: `PageBuilder.h` exists in the `libraries/PageBuilder/src` directory under your sketch folder.
 
-### 4. Reports the issue to AutoConnect repository on Github
+### 4. Reports the issue to AutoConnect Github repository
 
 If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:[^3]
 
 * [ ] Hardware module
-* [ ] Arduino core version Including the upstream commit ID (It is necessary)
+* [ ] Arduino core version Including the upstream commit ID if necessary
 * [ ] Operating System which you use
-* [ ] Your smartphone OS and version if necessary (Especially Android)
+* [ ] Your smartphone OS and version (Especially for Android)
 * [ ] Your AP information (IP, channel) if related
 * [ ] lwIP variant
 * [ ] Problem description
 * [ ] If you have a STACK DUMP decoded result with formatted by the code block tag
 * [ ] The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)
 * [ ] Debug messages output (Including arduino core)
+
+I will make efforts to solve as quickly as possible. But I would like you to know that it is not always possible.
+
+Thank you.
 
 [^3]:Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.
