@@ -270,7 +270,7 @@ typedef std::function<bool(IPAddress softapIP)>  DetectExit_ft
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">softapIP</span><span class="apidesc">An IP address of SoftAP for the captive portal.</span></dd>
-    <dt>**Retuen value**</dt>
+    <dt>**Return value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
 </dl>
@@ -298,8 +298,12 @@ Register the handler function for undefined URL request detected.
 ```cpp
 AutoConenctAux* where(void)
 ```
-Returns a pointer to the AutoConnectAux object of the custom Web page that caused the request to that page. This function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/ESP32. In other words, this function only returns the last AutoConnecAux page called.
+Returns a pointer to the AutoConnectAux object of the custom Web page that caused the request to the page.<br>
+AutoConnect identifies the URI (ie. the referrer URI) that caused the request each time from the client occurs and will save the URI If the request source is a custom Web page of AutoConnectAux. The **where** function returns a pointer of AutoConnectAux which is a URI of a least recent request from the custom Web page.<br>
+This function is provided to access the fields (ie. the AutoConnectElements) with a custom Web page handler of a page and is available only for request source that is the custom Web pages. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/WebServer for ESP32. In other words, this function only returns the AutoConnecAux page which is a least recently displayed.
 <dl class="apidl">
-    <dt>**Retuen value**</dt>
+    <dt>**Return value**</dt>
     <dd>A pointer to the AutoConnectAux that caused the request the page.</dd>
 </dl>
+
+The **where** function usage is described in the section [*Where to pick up the values*](achandling.md#where-to-pick-up-the-values).

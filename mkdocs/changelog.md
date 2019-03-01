@@ -10,7 +10,7 @@
 - Supports [**AutoConnectConfig::hostName**](apiconfig.md#hostname). It activates ```WiFi.hostname()```/```WiFi.setHostName()```.
 - Supports the captive portal time-out. It can be controlled by [**AutoConnectConfig::portalTimeout**](apiconfig.md#portaltimeout) and [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal).
 
-#### [0.9.6] Sep.27, 2018.
+#### [0.9.6] Sept.27, 2018.
 
 - Improvement of RSSI detection for saved SSIDs.
 - Fixed disconnection SoftAP completely at the first connection phase of the [**AutoConnect::begin**](api.md#begin).

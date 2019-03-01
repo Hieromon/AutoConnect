@@ -372,7 +372,7 @@ The above example handles in the handler for the values of a custom Web page. An
 To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the [AutoConnect::where](api.md#where) function. The `AutoConnect::where` function returns a pointer to the AutoConnectAux object of the custom Web page that caused the HTTP request.
 
 !!! note "The where() function is available for only AutoConnectAux."
-    The `AutoConnect::where` function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/ESP32. In other words, the `AutoConnect::where` function only returns the last AutoConnecAux page called.
+    The `AutoConnect::where` function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/WebServer for ESP32. In other words, the `AutoConnect::where` function only returns the last AutoConnecAux page called.
 
 ### <i class="fa fa-desktop"></i> When setting the initial values
 
@@ -541,7 +541,7 @@ void loop() {
 
 By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.md#autoconenctinput), you can find errors in data styles while typing in custom Web pages. The pattern is specified by [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).[^2] If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.
 
-[^2]: The pattern of AutoConnectInput conforms to javascript specification.
+[^2]:Regular expression specification as a pattern of AutoConnectInput is [JavaScript compliant](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
 
 ```json hl_lines="10"
 {

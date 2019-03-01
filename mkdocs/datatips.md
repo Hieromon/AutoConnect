@@ -46,7 +46,7 @@ tm.Minute = Minute;
 tm.Second = Second;
 ```
 
-### <i class="fa fa-exchange"></i> IP adderss
+### <i class="fa fa-exchange"></i> IP address
 
 To convert a String to an IP address, use **IPAddress::fromString**. To stringize an instance of an IP address, use **IPAddress::toString**.
 
@@ -172,5 +172,5 @@ Here, represent examples the typical regular expression for the input validation
 !!! caution "Contain with backquote"
     If that regular expression contains a backquote it must be escaped by backquote duplication.
 
-[^2]: This regular expressiondoes not fully support the format of the e-mail address requested in [RFC5322](https://tools.ietf.org/html/rfc5322).
+[^2]: This regular expression does not fully support the format of the e-mail address requested in [RFC5322](https://tools.ietf.org/html/rfc5322).
 [^3]: This regular expression does not consider semantic constraints. It is not possible to detect errors that do not exist as actual dates.

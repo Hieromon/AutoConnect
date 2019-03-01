@@ -15,7 +15,7 @@ AutoConnectAux is a container for AutoConnectElements. To make a custom Web page
 
 <img src="images/ac_declaration.svg">
 
-The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named *header* and *caption*, adds them to the AutoConnectAux object as *aux*, binds to an AutoConnect object named *portal*. This sequence is the basic procedure for creating custom Web pages with the sketch. Also, further explanation of AutoConnectElements is the [documentation](acelements.md).
+The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named *header* and *caption*, adds them to the AutoConnectAux object as *aux*, binds to an AutoConnect object named *portal*. This sequence is the basic procedure for creating custom Web pages with the sketch. The further explanation is available in section [AutoConnectElements](acelements.md) also.
 
 ## Custom Web pages in AutoConnect menu
 
