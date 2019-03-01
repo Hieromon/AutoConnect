@@ -1,0 +1,1100 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/acintro.html">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+    
+    
+      
+        <title>Custom Web pages with AutoConnect - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#what-it-is" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+          
+            <img src="images/arduino-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              Custom Web pages with AutoConnect
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="index.html" title="Overview" class="md-tabs__link">
+        Overview
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link md-tabs__link--active">
+          Custom Web pages
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="api.html" title="Library APIs" class="md-tabs__link">
+          Library APIs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+      
+        <img src="images/arduino-logo.svg" width="48" height="48">
+      
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+      AutoConnect menu
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+      Basic usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Custom Web pages with AutoConnect
+      </label>
+    
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link md-nav__link--active">
+      Custom Web pages with AutoConnect
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is" title="What it is" class="md-nav__link">
+    What it is
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" title="How it works" class="md-nav__link">
+    How it works
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-web-pages-in-autoconnect-menu" title="Custom Web pages in AutoConnect menu" class="md-nav__link">
+    Custom Web pages in AutoConnect menu
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-custom-web-pages" title="Multiple custom Web pages" class="md-nav__link">
+    Multiple custom Web pages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-steps-to-use-custom-web-pages" title="Basic steps to use custom Web pages" class="md-nav__link">
+    Basic steps to use custom Web pages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-the-custom-web-page-with-json" title="Write the custom Web page with JSON" class="md-nav__link">
+    Write the custom Web page with JSON
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passing-parameters-with-sketches-and-custom-web-pages" title="Passing parameters with sketches and custom Web pages" class="md-nav__link">
+    Passing parameters with sketches and custom Web pages
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+      AutoConnectAux API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+      AutoConnectElements API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+      Appendix
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
+      Change log
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license.html" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is" title="What it is" class="md-nav__link">
+    What it is
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" title="How it works" class="md-nav__link">
+    How it works
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-web-pages-in-autoconnect-menu" title="Custom Web pages in AutoConnect menu" class="md-nav__link">
+    Custom Web pages in AutoConnect menu
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-custom-web-pages" title="Multiple custom Web pages" class="md-nav__link">
+    Multiple custom Web pages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-steps-to-use-custom-web-pages" title="Basic steps to use custom Web pages" class="md-nav__link">
+    Basic steps to use custom Web pages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#write-the-custom-web-page-with-json" title="Write the custom Web page with JSON" class="md-nav__link">
+    Write the custom Web page with JSON
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passing-parameters-with-sketches-and-custom-web-pages" title="Passing parameters with sketches and custom Web pages" class="md-nav__link">
+    Passing parameters with sketches and custom Web pages
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Custom Web pages with AutoConnect</h1>
+                
+                <h2 id="what-it-is">What it is<a class="headerlink" href="#what-it-is" title="Permanent link">&para;</a></h2>
+<p><span style="margin-left:20px;margin-bottom:10px;float:right;width:280px;height:497px;border:1px solid lightgray;"><img data-gifffer="images/aux_ov.gif" data-gifffer-width="278" data-gifffer-height="495" /></span>
+AutoConnect can handle custom Web pages prepared by user sketches individually. Custom Web pages can be integrated into the AutoConnect menu and executed as menu items and can have input-output parameters and handle them.</p>
+<p>For example, you can program some sketches that publish messages by entering the URI or unique ID of the MQTT broker on a custom page. You do not need to code the processing to handle the web page. It retrieves the input parameters and passes to the MQTT broker connection API is only.</p>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>AutoConnect creates the custom Web pages dynamically at runtime. Sketch describes the custom Web pages using classes and APIs necessary for dynamic creation which are <a href="apiaux.html#autoconnectaux"><strong>AutoConnectAux</strong></a> and the variant of <a href="acelements.html"><strong>AutoConnectElements</strong></a>. AutoConnectAux is an object dependent on AutoConnect, which provides an easy way to incorporate custom Web pages into AutoConnect like the one on the right figure. The elements make up a custom Web page are provided as an AutoConnectElement class.</p>
+<p>Furthermore, an input box, a check box, a submit button, etc. are implemented by classes derived from AutoConnectElement.
+<p align="center"><img align="center" width="560px" src="images/ac_objects.svg"></p>
+AutoConnectAux is a container for AutoConnectElements. To make a custom Web page, create elements that make up the page and put it in the AutoConnectAux object. Joining its AutoConnectAux object to AutoConnect will integrate the custom Web page into the AutoConnect menu.</p>
+<p><img src="images/ac_declaration.svg"></p>
+<p>The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named <em>header</em> and <em>caption</em>, adds them to the AutoConnectAux object as <em>aux</em>, binds to an AutoConnect object named <em>portal</em>. This sequence is the basic procedure for creating custom Web pages with the sketch. The further explanation is available in section <a href="acelements.html">AutoConnectElements</a> also.</p>
+<h2 id="custom-web-pages-in-autoconnect-menu">Custom Web pages in AutoConnect menu<a class="headerlink" href="#custom-web-pages-in-autoconnect-menu" title="Permanent link">&para;</a></h2>
+<ul class="horizontal-list">
+    <li><img style="margin:0 20px 0 -20px;float:left;width:300px;" src="images/ac_auxmenu.png">
+    AutoConnect integrates custom Web page objects into menus as AutoConnectAux. The AutoConnectAux object contains URI and title as member variables and has an indicator to display in the AutoConnect menu.<br>You give the title and URI of the custom Web page to the AutoConnectAux object with Sketch. Then the title of the custom Web page would be displayed in the AutoConnect menu as the left figure.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> It is a hyperlink to a custom Web page which will be displayed tapped it.</li>
+</ul>
+
+<h2 id="multiple-custom-web-pages">Multiple custom Web pages<a class="headerlink" href="#multiple-custom-web-pages" title="Permanent link">&para;</a></h2>
+<p>You can create multiple custom Web pages and specify pages that can be called from the menu. The following sketch shows a code sequence for integrating three custom Web pages into one and embedding them in a menu.</p>
+<p><img align="center" width="520px" src="images/ac_auxjoin_multi.svg"></p>
+<ul class="horizontal-list">
+    <li><p style="margin:0 20px 0 -20px"><span style="margin-left:20px;float:right;width:280px;height:497px;border:1px solid lightgrey;"><img data-gifffer="images/aux_menu.gif" data-gifffer-width="278" data-gifffer-height="495" /></span>In the above code, the third parameter of <i>aux2</i> is <b>false</b>. The third parameter of the AutoConnectAux constructor is an indicator for whether it's shown to the AutoConnect menu. Right animation is an execution result of the above code. You will see that the menu applies only two items for three custom Web pages. The sketch of this animation is written to transition to <i>aux2</i> by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by <i>aux1</i>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>The <i>aux2</i> page transitions only from the <i>aux1</i> page. As shown in mqttRSSI in the library example, its page replies the saving result for the parameters entered on the previous page. It can not be invoked directly from the menu and want to hide them with AutoConnect menu items. The utility of the third parameter of the AutoConnectAux constructor is that.</p></li>
+</ul>
+
+<h2 id="basic-steps-to-use-custom-web-pages">Basic steps to use custom Web pages<a class="headerlink" href="#basic-steps-to-use-custom-web-pages" title="Permanent link">&para;</a></h2>
+<p>So, the basic procedure for handling of the custom Web pages is as follows:</p>
+<ol>
+<li>Create or define <a href="apiaux.html#autoconnectaux">AutoConnectAux</a>.</li>
+<li>Create or define <a href="acelements.html">AutoConnectElement(s)</a>.</li>
+<li>Add <a href="acelements.html">AutoConnectElement(s)</a> to AutoConnectAux.</li>
+<li>Create more AutoConnectAux containing <a href="acelements.html">AutoConnectElement(s)</a>, if necessary.</li>
+<li><a href="api.html#on">Register</a> the request handlers for the custom Web pages.</li>
+<li><a href="api.html#join">Join</a> prepared AutoConnectAux(s) to AutoConnect.</li>
+<li>Invoke <a href="api.html#begin">AutoConnect::begin()</a>.</li>
+<li>Perform <a href="api.html#handleclient">AutoConnect::handleClient()</a>.</li>
+</ol>
+<h2 id="write-the-custom-web-page-with-json">Write the custom Web page with JSON<a class="headerlink" href="#write-the-custom-web-page-with-json" title="Permanent link">&para;</a></h2>
+<p>You can write the custom Web page in JSON without using sketch codes.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup> It is possible to describe the entire page in JSON and can be described for each element also. The JSON document can be saved in SPIFFS or SD and read using AutoConnect's <a href="api.html#load"><strong>load</strong></a> function. you can reduce the steps of the basic procedure with this approach, but this way consumes a lot of memory. 
+The following JSON code and sketch will execute the custom Web page as an example in the above figure. That is, the sketch of this code and footnote<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> is equivalent.</p>
+<p><strong>custom_page.json</strong>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">[</span>
+  <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;MQTT Setting&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/mqtt_setting&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;element&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;header&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;MQTT broker settings&quot;</span>
+      <span style="color: #f8f8f2">},</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;caption1&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Publishing the WiFi...&quot;</span>
+      <span style="color: #f8f8f2">},</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;save&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACSubmit&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;SAVE&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/mqtt_save&quot;</span>
+      <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">]</span>
+  <span style="color: #f8f8f2">},</span>
+  <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;MQTT Setting&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/mqtt_save&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;element&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;caption2&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Save parameters&quot;</span>
+      <span style="color: #f8f8f2">},</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;start&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACSubmit&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;START&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/mqtt_start&quot;</span>
+      <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">]</span>
+  <span style="color: #f8f8f2">},</span>
+  <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;MQTT Start&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/mqtt_start&quot;</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;element&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[]</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">]</span>
+</pre></div></p>
+<p><strong>The sketch</strong>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;FS.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">SPIFFS.begin();</span>
+
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/custom_page.json&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">portal.load(page);</span>
+</span>
+  <span style="color: #f8f8f2">page.close();</span>
+  <span style="color: #f8f8f2">SPIFFS.end();</span>
+
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div></p>
+<h2 id="passing-parameters-with-sketches-and-custom-web-pages">Passing parameters with sketches and custom Web pages<a class="headerlink" href="#passing-parameters-with-sketches-and-custom-web-pages" title="Permanent link">&para;</a></h2>
+<p>A sketch can access variables of <a href="acelements.html">AutoConnectElements</a> on the custom Web page. The value entered into the AutoConnectElements is stored to the <a href="acelements.html#form-and-autoconnectelements">member variables</a> of the element by AutoConnect whenever GET / POST transmission occurs. Your sketches can get these values with the request handler which will be registered by <a href="api.html#on">AutoConnect::on</a> function. And if you assign a value to an element before a request to the page occurs, its value will appear as the initial value when the page is displayed. The details are explained in section <a href="achandling.html#custom-field-data-handling"><em>Custom field data handling</em></a>.</p>
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>There is no overlay in the actual menu.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>The sketch is actually this:
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span>     <span style="color: #f8f8f2">portal;</span>
+
+<span style="color: #f8f8f2">ACText(header,</span> <span style="color: #e6db74">&quot;MQTT broker settings&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">ACText(caption1,</span> <span style="color: #e6db74">&quot;Publishing the WiFi...&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">ACSubmit(save,</span> <span style="color: #e6db74">&quot;SAVE&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;/mqtt_save&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #a6e22e">aux1</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/mqtt_setting&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;MQTT Setting&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">header,</span> <span style="color: #f8f8f2">caption1,</span> <span style="color: #f8f8f2">save</span> <span style="color: #f8f8f2">});</span>
+
+<span style="color: #f8f8f2">ACText(caption2,</span> <span style="color: #e6db74">&quot;Save parameters&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">ACSubmit(start,</span> <span style="color: #e6db74">&quot;START&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;/mqtt_start&quot;</span><span style="color: #f8f8f2">);</span> 
+<span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #a6e22e">aux2</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/mqtt_save&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;MQTT Setting&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">false,</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">caption2,</span> <span style="color: #f8f8f2">start</span> <span style="color: #f8f8f2">});</span>
+
+<span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #a6e22e">aux3</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/mqtt_start&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;MQTT Start&quot;</span><span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">aux1,</span> <span style="color: #f8f8f2">aux2,</span> <span style="color: #f8f8f2">aux3</span> <span style="color: #f8f8f2">});</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Installation of the <a href="https://github.com/bblanchon/ArduinoJson">ArduinoJson</a> as the latest release of version 5 series is required.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="advancedusage.html" title="Advanced usage" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Advanced usage
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="acelements.html" title="AutoConnectElements" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                AutoConnectElements
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.b806dc00.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

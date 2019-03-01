@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    0.9.6
- *  @date   2018-09-27
+ *  @version    0.9.7
+ *  @date   2019-01-23
  *  @copyright  MIT license.
  */
 
@@ -24,229 +24,297 @@ extern "C" {
 /**< Basic CSS common to all pages */
 const char AutoConnect::_CSS_BASE[] PROGMEM = {
   "html{"
-  "font-family:Helvetica,Arial,sans-serif;"
-  "font-size:16px;"
-  "-ms-text-size-adjust:100%;"
-  "-webkit-text-size-adjust:100%;"
-  "-moz-osx-font-smoothing:grayscale;"
-  "-webkit-font-smoothing:antialiased;"
+    "font-family:Helvetica,Arial,sans-serif;"
+    "font-size:16px;"
+    "-ms-text-size-adjust:100%;"
+    "-webkit-text-size-adjust:100%;"
+    "-moz-osx-font-smoothing:grayscale;"
+    "-webkit-font-smoothing:antialiased;"
   "}"
   "body{"
-  "margin:0;"
-  "padding:0;"
+    "margin:0;"
+    "padding:0;"
   "}"
   ".base-panel{"
-  "margin:0 22px 0 22px;"
+    "margin:0 22px 0 22px;"
   "}"
   ".base-panel>*>label{"
-  "display:inline-block;"
-  "width:3.0em;"
-  "text-align:right;"
+    "display:inline-block;"
+    "width:3.0em;"
+    "text-align:right;"
+  "}"
+  ".base-panel>*>label.slist{"
+    "width:auto;"
+    "font-size:0.9em;"
+    "margin-left:10px;"
+    "text-align:left;"
   "}"
   "input{"
-  "-moz-appearance:none;"
-  "-webkit-appearance:none;"
-  "font-size:0.9em;"
-  "margin:8px 0 auto;"
+    "-moz-appearance:none;"
+    "-webkit-appearance:none;"
+    "font-size:0.9em;"
+    "margin:8px 0 auto;"
   "}"
   ".lap{"
-  "visibility:collapse;"
+    "visibility:collapse;"
   "}"
   ".lap:target{"
-  "visibility:visible;"
+    "visibility:visible;"
   "}"
   ".lap:target .overlap{"
-  "opacity:0.7;"
-  "transition:0.3s;"
+    "opacity:0.7;"
+    "transition:0.3s;"
   "}"
   ".lap:target .modal_button{"
-  "opacity:1;"
-  "transition:0.3s;"
+    "opacity:1;"
+    "transition:0.3s;"
   "}"
   ".overlap{"
-  "top:0;"
-  "left:0;"
-  "width:100%;"
-  "height:100%;"
-  "position:fixed;"
-  "opacity:0;"
-  "background:#000;"
-  "z-index:1000;"
+    "top:0;"
+    "left:0;"
+    "width:100%;"
+    "height:100%;"
+    "position:fixed;"
+    "opacity:0;"
+    "background:#000;"
+    "z-index:1000;"
   "}"
   ".modal_button{"
-  "border-radius:13px;"
-  "background:#660033;"
-  "color:#ffffcc;"
-  "padding:20px 30px;"
-  "text-align:center;"
-  "text-decoration:none;"
-  "letter-spacing:1px;"
-  "font-weight:bold;"
-  "display:inline-block;"
-  "top:40%;"
-  "left:40%;"
-  "width:20%;"
-  "position:fixed;"
-  "opacity:0;"
-  "z-index:1001;"
+    "border-radius:13px;"
+    "background:#660033;"
+    "color:#ffffcc;"
+    "padding:20px 30px;"
+    "text-align:center;"
+    "text-decoration:none;"
+    "letter-spacing:1px;"
+    "font-weight:bold;"
+    "display:inline-block;"
+    "top:40%;"
+    "left:40%;"
+    "width:20%;"
+    "position:fixed;"
+    "opacity:0;"
+    "z-index:1001;"
   "}"
 };
 
 /**< non-marked list for UL */
 const char AutoConnect::_CSS_UL[] PROGMEM = {
   "ul.noorder{"
-  "padding:0;"
-  "list-style:none;"
+    "padding:0;"
+    "list-style:none;"
   "}"
   "ul.noorder>*>label{"
-  "display:inline-block;"
-  "width:86px;"
-  "margin-right:10px;"
-  "text-align:right;"
+    "display:inline-block;"
+    "width:86px;"
+    "margin-right:10px;"
+    "text-align:right;"
+  "}"
+  "ul.noorder>input[type=\"checkbox\"]{"
+    "-moz-appearance:checkbox;"
+    "-webkit-appearance:checkbox;"
+  "}"
+  "ul.noorder>input[type=\"radio\"]{"
+    "margin-right:0.5em;"
+    "-moz-appearance:radio;"
+    "-webkit-appearance:radio;"
+  "}"
+  "ul.noorder>input[type=\"text\"]:invalid{"
+    "background:#fce4d6;"
   "}"
 };
 
 /**< Image icon for inline expansion, the lock mark. */
 const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
   ".img-lock{"
-  "display:inline-block;"
-  "width:24px;"
-  "height:24px;"
-  "margin-left:12px;"
-  "vertical-align:middle;"
-  "background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAB1ElEQVRIibWVu0scURTGf3d2drBQFAWbbRQVCwuVLIZdi2gnWIiF/4GtKyuJGAJh8mgTcU0T8T8ICC6kiIVu44gvtFEQQWwsbExQJGHXmZtiZsOyzCN3Vz+4cDjfvec7j7l3QAF95onRZ54YKmdE1IbnS0c9mnAyAjkBxDy3LRHrjtRyu7OD52HntTAyvbw/HxP2hkCearrRb2WSCSuTTGi60S+QpzFhbwznDl/VVMHw0sF7hEjFbW2qkB38lfp8nNDipWcATil+uDM3cDWyeNRSijnfkHJnezb5Vkkgvbg3IOXD2e1ts93S+icnkZOAVaalZK3YQMa4L+pC6L1WduhYSeCf0PLBdxzOjZ93Lwvm6APAiLmlF1ubPiHotmaS41ExQjH0ZbfNM1NAFpgD0lVcICIrANqAVaAd+AFIYAy4BqaBG+Wsq5AH3vgk8xpYrzf4KLAZwhe8PYEIvQe4vc6H8Hnc2dQs0AFchvAXQGdEDF8s4A5TZS34BQqqQNaS1WMI3KD4WUbNoBJfce9CO7BSr4BfBe8A21vmUwh0VdjdTyHwscL+UK+AHxoD7FDoAX6/Cnpxn4ay/egCjcCL/w1chkqLakLQ/6ABhT57uAd+Vzv/Ara3iY6fK4WxAAAAAElFTkSuQmCC) no-repeat;"
+    "display:inline-block;"
+    "width:22px;"
+    "height:22px;"
+    "margin-top:14px;"
+    "float:right;"
+    "background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAB1ElEQVRIibWVu0scURTGf3d2drBQFAWbbRQVCwuVLIZdi2gnWIiF/4GtKyuJGAJh8mgTcU0T8T8ICC6kiIVu44gvtFEQQWwsbExQJGHXmZtiZsOyzCN3Vz+4cDjfvec7j7l3QAF95onRZ54YKmdE1IbnS0c9mnAyAjkBxDy3LRHrjtRyu7OD52HntTAyvbw/HxP2hkCearrRb2WSCSuTTGi60S+QpzFhbwznDl/VVMHw0sF7hEjFbW2qkB38lfp8nNDipWcATil+uDM3cDWyeNRSijnfkHJnezb5Vkkgvbg3IOXD2e1ts93S+icnkZOAVaalZK3YQMa4L+pC6L1WduhYSeCf0PLBdxzOjZ93Lwvm6APAiLmlF1ubPiHotmaS41ExQjH0ZbfNM1NAFpgD0lVcICIrANqAVaAd+AFIYAy4BqaBG+Wsq5AH3vgk8xpYrzf4KLAZwhe8PYEIvQe4vc6H8Hnc2dQs0AFchvAXQGdEDF8s4A5TZS34BQqqQNaS1WMI3KD4WUbNoBJfce9CO7BSr4BfBe8A21vmUwh0VdjdTyHwscL+UK+AHxoD7FDoAX6/Cnpxn4ay/egCjcCL/w1chkqLakLQ/6ABhT57uAd+Vzv/Ara3iY6fK4WxAAAAAElFTkSuQmCC) no-repeat;"
   "}"
 };
 
 /**< INPUT button and submit style */
 const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
   "input[type=\"button\"],input[type=\"submit\"]{"
-  "padding:8px 30px;"
-  "font-weight:bold;"
-  "letter-spacing:0.8px;"
-  "color:#fff;"
-  "border:1px solid;"
-  "border-radius:2px;"
-  "margin-top:12px;"
+    "padding:8px 30px;"
+    "font-weight:bold;"
+    "letter-spacing:0.8px;"
+    "color:#fff;"
+    "border:1px solid;"
+    "border-radius:2px;"
+    "margin-top:12px;"
   "}"
   "input[type=\"button\"]{"
-  "background-color:#1b5e20;"
-  "border-color:#1b5e20;"
-  "width:16em;"
+    "background-color:#1b5e20;"
+    "border-color:#1b5e20;"
+    "width:15em;"
+  "}"
+  ".aux-page input[type=\"button\"]{"
+    "font-weight:normal;"
+    "padding:8px 14px;"
+    "margin:12px;"
+    "width:auto;"
   "}"
   "input#sb[type=\"submit\"]{"
-  "width:16em;"
+    "width:15em;"
   "}"
   "input[type=\"submit\"]{"
-  "background-color:#006064;"
-  "border-color:#006064;"
+    "background-color:#006064;"
+    "border-color:#006064;"
   "}"
-  "input[type=\"button\"], input[type=\"submit\"]:focus,"
-  "input[type=\"button\"], input[type=\"submit\"]:active {"
-  "outline:none;"
-  "text-decoration:none;"
+  "input[type=\"button\"],input[type=\"submit\"]:focus,"
+  "input[type=\"button\"],input[type=\"submit\"]:active{"
+    "outline:none;"
+    "text-decoration:none;"
   "}"
 };
 
 /**< INPUT text style */
 const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
-  "input[type=\"text\"], input[type=\"password\"]{"
-  "background-color:#fff;"
-  "padding:10px;"
-  "border:1px solid #ccc;"
-  "margin:8px 0 8px 0;"
-  "width:calc(100% - 124px);"
-  "border-radius:2px;"
-  "font-weight:300;"
-  "color:#444;"
-  "-webkit-transition:all 0.20s ease-in;"
-  "-moz-transition:all 0.20s ease-in;"
-  "-o-transition:all 0.20s ease-in;"
-  "-ms-transition:all 0.20s ease-in;"
-  "transition:all 0.20s ease-in;"
+  "input[type=\"text\"],input[type=\"password\"], .aux-page select{"
+    "background-color:#fff;"
+    "border:1px solid #ccc;"
+    "border-radius:2px;"
+    "color:#444;"
+    "margin:8px 0 8px 0;"
+    "padding:10px;"
+  "}"
+  "input[type=\"text\"],input[type=\"password\"]{"
+    "font-weight:300;"
+    "width:calc(100% - 124px);"
+    "-webkit-transition:all 0.20s ease-in;"
+    "-moz-transition:all 0.20s ease-in;"
+    "-o-transition:all 0.20s ease-in;"
+    "-ms-transition:all 0.20s ease-in;"
+    "transition:all 0.20s ease-in;"
   "}"
   "input[type=\"text\"]:focus,input[type=\"password\"]:focus{"
-  "outline:none;"
-  "border-color:#5C9DED;"
-  "box-shadow:0 0 3px #4B8CDC;"
+    "outline:none;"
+    "border-color:#5C9DED;"
+    "box-shadow:0 0 3px #4B8CDC;"
   "}"
   "input.error, input.error:focus{"
-  "border-color:#ED5564;"
-  "color:#D9434E;"
-  "box-shadow:0 0 3px #D9434E;"
+    "border-color:#ED5564;"
+    "color:#D9434E;"
+    "box-shadow:0 0 3px #D9434E;"
   "}"
   "input:disabled{"
-  "opacity:0.6;"
-  "background-color:#f7f7f7;"
+    "opacity:0.6;"
+    "background-color:#f7f7f7;"
   "}"
   "input:disabled:hover{"
-  "cursor:not-allowed;"
+    "cursor:not-allowed;"
   "}"
-  "input.error::-webkit-input-placeholder{"
-  "color:#D9434E;"
+    "input.error::-webkit-input-placeholder{"
+    "color:#D9434E;"
   "}"
   "input.error:-moz-placeholder{"
-  "color:#D9434E;"
+    "color:#D9434E;"
   "}"
   "input.error::-moz-placeholder{"
-  "color:#D9434E;"
+    "color:#D9434E;"
   "}"
   "input.error:-ms-input-placeholder{"
-  "color:#D9434E;"
+    "color:#D9434E;"
+  "}"
+  ".aux-page label{"
+    "padding:10px 0.5em;"
   "}"
 };
 
 /**< TABLE style */
 const char AutoConnect::_CSS_TABLE[] PROGMEM = {
   "table{"
-  "border-collapse:collapse;"
-  "border-spacing:0;"
-  "border:1px solid #ddd;"
-  "color:#444;"
-  "background-color:#fff;"
-  "margin-bottom:20px;"
+    "border-collapse:collapse;"
+    "border-spacing:0;"
+    "border:1px solid #ddd;"
+    "color:#444;"
+    "background-color:#fff;"
+    "margin-bottom:20px;"
   "}"
   "table.info,"
   "table.info>tfoot,"
   "table.info>thead{"
-  "width:100%;"
-  "border-color:#5C9DED;"
+    "width:100%;"
+    "border-color:#5C9DED;"
   "}"
   "table.info>thead{"
-  "background-color:#5C9DED;"
+    "background-color:#5C9DED;"
   "}"
   "table.info>thead>tr>th{"
-  "color:#fff;"
+    "color:#fff;"
   "}"
   "td,"
   "th{"
-  "padding:10px 22px;"
+    "padding:10px 22px;"
   "}"
   "thead{"
-  "background-color:#f3f3f3;"
-  "border-bottom:1px solid #ddd;"
+    "background-color:#f3f3f3;"
+    "border-bottom:1px solid #ddd;"
   "}"
   "thead>tr>th{"
-  "font-weight:400;"
-  "text-align:left;"
+    "font-weight:400;"
+    "text-align:left;"
   "}"
   "tfoot{"
-  "border-top:1px solid #ddd;"
+    "border-top:1px solid #ddd;"
   "}"
   "tbody,"
   "tbody>tr:nth-child(odd){"
-  "background-color:#fff;"
+    "background-color:#fff;"
   "}"
   "tbody>tr>td,"
   "tfoot>tr>td{"
-  "font-weight:300;"
-  "font-size:.88em;"
+    "font-weight:300;"
+    "font-size:.88em;"
   "}"
   "tbody>tr:nth-child(even){"
-  "background-color:#f7f7f7;"
+    "background-color:#f7f7f7;"
   "}"
-  "table.info tbody>tr:nth-child(even){"
-  "background-color:#EFF5FD;"
+    "table.info tbody>tr:nth-child(even){"
+    "background-color:#EFF5FD;"
+  "}"
+};
+
+/**< SVG animation for spinner */
+const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
+  ".spinner{"
+    "width:40px;"
+    "height:40px;"
+    "position:relative;"
+    "margin:100px auto;"
+  "}"
+  ".double-bounce1, .double-bounce2{"
+    "width:100%;"
+    "height:100%;"
+    "border-radius:50%;"
+    "background-color:#a3cccc;"
+    "opacity:0.6;"
+    "position:absolute;"
+    "top:0;"
+    "left:0;"
+    "-webkit-animation:sk-bounce 2.0s infinite ease-in-out;"
+    "animation:sk-bounce 2.0s infinite ease-in-out;"
+  "}"
+  ".double-bounce2{"
+    "-webkit-animation-delay:-1.0s;"
+    "animation-delay:-1.0s;"
+  "}"
+  "@-webkit-keyframes sk-bounce{"
+    "0%, 100%{-webkit-transform:scale(0.0)}"
+    "50%{-webkit-transform:scale(1.0)}"
+  "}"
+  "@keyframes sk-bounce{"
+    "0%,100%{"
+      "transform:scale(0.0);"
+      "-webkit-transform:scale(0.0);"
+    "}50%{"
+      "transform:scale(1.0);"
+      "-webkit-transform:scale(1.0);"
+    "}"
   "}"
 };
 
@@ -444,39 +512,46 @@ const char AutoConnect::_ELM_HTML_HEAD[] PROGMEM = {
   "<!DOCTYPE html>"
   "<html>"
   "<head>"
-  "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+  "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
 };
 
 /**< LuxBar menu element. */
-const char  AutoConnect::_ELM_MENU[]  PROGMEM = {
+const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
   "<header id=\"luxbar\" class=\"luxbar-fixed\">"
-  "<input type=\"checkbox\" class=\"luxbar-checkbox\" id=\"luxbar-checkbox\"/>"
-  "<div class=\"luxbar-menu luxbar-menu-right luxbar-menu-material-bluegrey\">"
-  "<ul class=\"luxbar-navigation\">"
-  "<li class=\"luxbar-header\">"
-  "<a href=\"" AUTOCONNECT_URI "\" class=\"luxbar-brand\">MENU_TITLE</a>"
-  "<label class=\"luxbar-hamburger luxbar-hamburger-doublespin\" id=\"luxbar-hamburger\" for=\"luxbar-checkbox\"><span></span></label>"
-  "</li>"
-  "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">Configure new AP</a></li>"
-  "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
-  "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">Disconnect</a></li>"
-  "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">Reset...</a></li>"
-  "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
-  "</ul>"
-  "</div>"
-  "<div class=\"lap\" id=\"rdlg\"><a href=\"#reset\" class=\"overlap\"></a>"
-  "<div class=\"modal_button\"><h2><a href=\"" AUTOCONNECT_URI_RESET "\" class=\"modal_button\">RESET</a></h2></div>"
-  "</div>"
+    "<input type=\"checkbox\" class=\"luxbar-checkbox\" id=\"luxbar-checkbox\"/>"
+    "<div class=\"luxbar-menu luxbar-menu-right luxbar-menu-material-bluegrey\">"
+      "<ul class=\"luxbar-navigation\">"
+        "<li class=\"luxbar-header\">"
+          "<a href=\"" AUTOCONNECT_URI "\" class=\"luxbar-brand\">MENU_TITLE</a>"
+          "<label class=\"luxbar-hamburger luxbar-hamburger-doublespin\" id=\"luxbar-hamburger\" for=\"luxbar-checkbox\"><span></span></label>"
+        "</li>"
+        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">Configure new AP</a></li>"
+        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
+        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">Disconnect</a></li>"
+        "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">Reset...</a></li>"
+};
+
+const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
+        "{{AUX_MENU}}"
+};
+
+const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
+        "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
+      "</ul>"
+    "</div>"
+    "<div class=\"lap\" id=\"rdlg\"><a href=\"#reset\" class=\"overlap\"></a>"
+      "<div class=\"modal_button\"><h2><a href=\"" AUTOCONNECT_URI_RESET "\" class=\"modal_button\">RESET</a></h2></div>"
+    "</div>"
   "</header>"
 };
 
 /**< The 404 page content. */
 const char  AutoConnect::_PAGE_404[] PROGMEM = {
   "{{HEAD}}"
-  "<title>Page not found</title>"
+    "<title>Page not found</title>"
   "</head>"
   "<body>"
-  "404 Not found"
+    "404 Not found"
   "</body>"
   "</html>"
 };
@@ -484,11 +559,11 @@ const char  AutoConnect::_PAGE_404[] PROGMEM = {
 /**< The page that started the reset. */
 const char  AutoConnect::_PAGE_RESETTING[] PROGMEM = {
   "{{HEAD}}"
-  "<meta http-equiv=\"refresh\" content=\"{{UPTIME}};URL=" AUTOCONNECT_URI "\">"
-  "<title>AutoConnect resetting</title>"
+    "<meta http-equiv=\"refresh\" content=\"{{UPTIME}};url={{BOOTURI}}\">"
+    "<title>AutoConnect resetting</title>"
   "</head>"
   "<body>"
-  "<h2>{{RESET}}</h2>"
+    "<h2>{{RESET}}</h2>"
   "</body>"
   "</html>"
 };
@@ -496,79 +571,81 @@ const char  AutoConnect::_PAGE_RESETTING[] PROGMEM = {
 /**< AutoConnect portal page. */
 const char  AutoConnect::_PAGE_STAT[] PROGMEM = {
   "{{HEAD}}"
-  "<title>AutoConnect statistics</title>"
-  "<style type=\"text/css\">"
-  "{{CSS_BASE}}"
-  "{{CSS_TABLE}}"
-  "{{CSS_LUXBAR}}"
-  "</style>"
+    "<title>AutoConnect statistics</title>"
+    "<style type=\"text/css\">"
+      "{{CSS_BASE}}"
+      "{{CSS_TABLE}}"
+      "{{CSS_LUXBAR}}"
+    "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
-  "<div class=\"container\">"
-  "{{MENU}}"
-  "<div>"
-  "<table class=\"info\" style=\"border:none;\">"
-  "<tbody>"
-  "<tr>"
-  "<td>Established connection</td>"
-  "<td>{{ESTAB_SSID}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Mode</td>"
-  "<td>{{WIFI_MODE}}({{WIFI_STATUS}})</td>"
-  "</tr>"
-  "<tr>"
-  "<td>IP</td>"
-  "<td>{{LOCAL_IP}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>GW</td>"
-  "<td>{{GATEWAY}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Subnet mask</td>"
-  "<td>{{NETMASK}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>SoftAP IP</td>"
-  "<td>{{SOFTAP_IP}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>AP MAC</td>"
-  "<td>{{AP_MAC}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>STA MAC</td>"
-  "<td>{{STA_MAC}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Channel</td>"
-  "<td>{{CHANNEL}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>dBm</td>"
-  "<td>{{DBM}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Chip ID</td>"
-  "<td>{{CHIP_ID}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>CPU Freq.</td>"
-  "<td>{{CPU_FREQ}}MHz</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Flash size</td>"
-  "<td>{{FLASH_SIZE}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Free memory</td>"
-  "<td>{{FREE_HEAP}}</td>"
-  "</tr>"
-  "</tbody>"
-  "</table>"
-  "</div>"
-  "</div>"
+    "<div class=\"container\">"
+      "{{MENU_PRE}}"
+      "{{MENU_AUX}}"
+      "{{MENU_POST}}"
+      "<div>"
+        "<table class=\"info\" style=\"border:none;\">"
+          "<tbody>"
+          "<tr>"
+            "<td>Established connection</td>"
+            "<td>{{ESTAB_SSID}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Mode</td>"
+            "<td>{{WIFI_MODE}}({{WIFI_STATUS}})</td>"
+          "</tr>"
+          "<tr>"
+            "<td>IP</td>"
+            "<td>{{LOCAL_IP}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>GW</td>"
+            "<td>{{GATEWAY}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Subnet mask</td>"
+            "<td>{{NETMASK}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>SoftAP IP</td>"
+            "<td>{{SOFTAP_IP}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>AP MAC</td>"
+            "<td>{{AP_MAC}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>STA MAC</td>"
+            "<td>{{STA_MAC}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Channel</td>"
+            "<td>{{CHANNEL}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>dBm</td>"
+            "<td>{{DBM}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Chip ID</td>"
+            "<td>{{CHIP_ID}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>CPU Freq.</td>"
+            "<td>{{CPU_FREQ}}MHz</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Flash size</td>"
+            "<td>{{FLASH_SIZE}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Free memory</td>"
+            "<td>{{FREE_HEAP}}</td>"
+          "</tr>"
+          "</tbody>"
+        "</table>"
+      "</div>"
+    "</div>"
   "</body>"
   "</html>"
 };
@@ -576,37 +653,39 @@ const char  AutoConnect::_PAGE_STAT[] PROGMEM = {
 /**< A page that specifies the new configuration. */
 const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
   "{{HEAD}}"
-  "<title>AutoConnect config</title>"
-  "<style type=\"text/css\">"
-  "{{CSS_BASE}}"
-  "{{CSS_ICON_LOCK}}"
-  "{{CSS_UL}}"
-  "{{CSS_INPUT_BUTTON}}"
-  "{{CSS_INPUT_TEXT}}"
-  "{{CSS_LUXBAR}}"
-  "</style>"
+    "<title>AutoConnect config</title>"
+    "<style type=\"text/css\">"
+      "{{CSS_BASE}}"
+      "{{CSS_ICON_LOCK}}"
+      "{{CSS_UL}}"
+      "{{CSS_INPUT_BUTTON}}"
+      "{{CSS_INPUT_TEXT}}"
+      "{{CSS_LUXBAR}}"
+    "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
-  "<div class=\"container\">"
-  "{{MENU}}"
-  "<div class=\"base-panel\">"
-  "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
-  "{{LIST_SSID}}"
-  "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">Hidden:{{HIDDEN_COUNT}}</div>"
-  "<ul class=\"noorder\">"
-  "<li>"
-  "<label for=\"ssid\">SSID</label>"
-  "<input id=\"ssid\" type=\"text\" name=\"" AUTOCONNECT_PARAMID_SSID "\" placeholder=\"SSID\">"
-  "</li>"
-  "<li>"
-  "<label for=\"passphrase\">Passphrase</label>"
-  "<input id=\"passphrase\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_PASS "\" placeholder=\"Passphrase\">"
-  "</li>"
-  "<br><li><input type=\"submit\" value=\"apply\"></li>"
-  "</ul>"
-  "</form>"
-  "</div>"
-  "</div>"
+    "<div class=\"container\">"
+      "{{MENU_PRE}}"
+      "{{MENU_AUX}}"
+      "{{MENU_POST}}"
+      "<div class=\"base-panel\">"
+        "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
+          "{{LIST_SSID}}"
+          "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">Hidden:{{HIDDEN_COUNT}}</div>"
+          "<ul class=\"noorder\">"
+            "<li>"
+              "<label for=\"ssid\">SSID</label>"
+              "<input id=\"ssid\" type=\"text\" name=\"" AUTOCONNECT_PARAMID_SSID "\" placeholder=\"SSID\">"
+            "</li>"
+            "<li>"
+              "<label for=\"passphrase\">Passphrase</label>"
+              "<input id=\"passphrase\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_PASS "\" placeholder=\"Passphrase\">"
+            "</li>"
+            "<br><li><input type=\"submit\" value=\"apply\"></li>"
+          "</ul>"
+        "</form>"
+      "</div>"
+    "</div>"
   "</body>"
   "</html>"
 };
@@ -614,23 +693,54 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
 /**< A page that reads stored authentication information and starts connection. */
 const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
   "{{HEAD}}"
-  "<title>AutoConnect credentials</title>"
-  "<style type=\"text/css\">"
-  "{{CSS_BASE}}"
-  "{{CSS_ICON_LOCK}}"
-  "{{CSS_INPUT_BUTTON}}"
-  "{{CSS_LUXBAR}}"
-  "</style>"
+    "<title>AutoConnect credentials</title>"
+    "<style type=\"text/css\">"
+      "{{CSS_BASE}}"
+      "{{CSS_ICON_LOCK}}"
+      "{{CSS_INPUT_BUTTON}}"
+      "{{CSS_LUXBAR}}"
+    "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
-  "<div class=\"container\">"
-  "{{MENU}}"
-  "<div class=\"base-panel\">"
-  "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
-  "{{OPEN_SSID}}"
-  "</form>"
-  "</div>"
-  "</div>"
+    "<div class=\"container\">"
+      "{{MENU_PRE}}"
+      "{{MENU_AUX}}"
+      "{{MENU_POST}}"
+      "<div class=\"base-panel\">"
+        "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
+          "{{OPEN_SSID}}"
+        "</form>"
+      "</div>"
+    "</div>"
+  "</body>"
+  "</html>"
+};
+
+/**< A page that informs during a connection attempting. */
+const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
+  "{{REQ}}"
+  "{{HEAD}}"
+    "<title>AutoConnect connecting</title>"
+    "<style type=\"text/css\">"
+      "{{CSS_BASE}}"
+      "{{CSS_SPINNER}}"
+      "{{CSS_LUXBAR}}"
+    "</style>"
+  "</head>"
+  "<body style=\"padding-top:58px;\">"
+    "<div class=\"container\">"
+      "{{MENU_PRE}}"
+      "{{MENU_POST}}"
+      "<div class=\"spinner\">"
+        "<div class=\"double-bounce1\"></div>"
+        "<div class=\"double-bounce2\"></div>"
+        "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#0b0b33;\">{{CUR_SSID}}</div>"
+      "</div>"
+    "</div>"
+    "<script type=\"text/javascript\">"
+      "setTimeout(\"link()\"," AUTOCONNECT_RESPONSE_WAITTIME ");"
+      "function link(){location.href='" AUTOCONNECT_URI_RESULT "';}"
+    "</script>"
   "</body>"
   "</html>"
 };
@@ -638,77 +748,82 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
 /**< A page announcing that a connection has been established. */
 const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
   "{{HEAD}}"
-  "<title>AutoConnect statistics</title>"
-  "<style type=\"text/css\">"
-  "{{CSS_BASE}}"
-  "{{CSS_TABLE}}"
-  "{{CSS_LUXBAR}}"
-  "</style>"
+    "<title>AutoConnect statistics</title>"
+    "<style type=\"text/css\">"
+      "{{CSS_BASE}}"
+      "{{CSS_TABLE}}"
+      "{{CSS_LUXBAR}}"
+    "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
-  "<div class=\"container\">"
-  "{{MENU}}"
-  "<div>"
-  "<table class=\"info\" style=\"border:none;\">"
-  "<tbody>"
-  "<tr>"
-  "<td>Established connection</td>"
-  "<td>{{ESTAB_SSID}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Mode</td>"
-  "<td>{{WIFI_MODE}}({{WIFI_STATUS}})</td>"
-  "</tr>"
-  "<tr>"
-  "<td>IP</td>"
-  "<td>{{LOCAL_IP}}</td>"
-  "</tr>"
-  "<td>GW</td>"
-  "<td>{{GATEWAY}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Subnet mask</td>"
-  "<td>{{NETMASK}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>Channel</td>"
-  "<td>{{CHANNEL}}</td>"
-  "</tr>"
-  "<tr>"
-  "<td>dBm</td>"
-  "<td>{{DBM}}</td>"
-  "</tr>"
-  "</tbody>"
-  "</table>"
-  "</div>"
-  "</div>"
+    "<div class=\"container\">"
+      "{{MENU_PRE}}"
+      "{{MENU_AUX}}"
+      "{{MENU_POST}}"
+      "<div>"
+        "<table class=\"info\" style=\"border:none;\">"
+          "<tbody>"
+          "<tr>"
+            "<td>Established connection</td>"
+            "<td>{{ESTAB_SSID}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Mode</td>"
+            "<td>{{WIFI_MODE}}({{WIFI_STATUS}})</td>"
+          "</tr>"
+          "<tr>"
+            "<td>IP</td>"
+            "<td>{{LOCAL_IP}}</td>"
+          "</tr>"
+            "<td>GW</td>"
+            "<td>{{GATEWAY}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Subnet mask</td>"
+            "<td>{{NETMASK}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>Channel</td>"
+            "<td>{{CHANNEL}}</td>"
+          "</tr>"
+          "<tr>"
+            "<td>dBm</td>"
+            "<td>{{DBM}}</td>"
+          "</tr>"
+          "</tbody>"
+        "</table>"
+      "</div>"
+    "</div>"
   "</body>"
   "</html>"
 };
- /**< A response page for connection failed. */
+
+/**< A response page for connection failed. */
 const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
   "{{HEAD}}"
-  "<title>AutoConnect statistics</title>"
-  "<style type=\"text/css\">"
-  "{{CSS_BASE}}"
-  "{{CSS_TABLE}}"
-  "{{CSS_LUXBAR}}"
-  "</style>"
+    "<title>AutoConnect statistics</title>"
+    "<style type=\"text/css\">"
+      "{{CSS_BASE}}"
+      "{{CSS_TABLE}}"
+      "{{CSS_LUXBAR}}"
+    "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
-  "<div class=\"container\">"
-  "{{MENU}}"
-  "<div>"
-  "<table class=\"info\" style=\"border:none;\">"
-  "<tbody>"
-  "<tr>"
-  "<td>Connection Failed</td>"
-  "<td>{{STATION_STATUS}}</td>"
-  "</tr>"
-  "</tbody>"
-  "</table>"
-  "</div>"
-  "</div>"
+    "<div class=\"container\">"
+      "{{MENU_PRE}}"
+      "{{MENU_AUX}}"
+      "{{MENU_POST}}"
+      "<div>"
+        "<table class=\"info\" style=\"border:none;\">"
+          "<tbody>"
+          "<tr>"
+            "<td>Connection Failed</td>"
+            "<td>{{STATION_STATUS}}</td>"
+          "</tr>"
+          "</tbody>"
+        "</table>"
+      "</div>"
+    "</div>"
   "</body>"
   "</html>"
 };
@@ -717,15 +832,17 @@ const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
 const char  AutoConnect::_PAGE_DISCONN[] PROGMEM = {
   "{{DISCONNECT}}"
   "{{HEAD}}"
-  "<title>AutoConnect disconnected</title>"
-  "<style type=\"text/css\">"
-  "{{CSS_BASE}}"
-  "{{CSS_LUXBAR}}"
-  "</style>"
+    "<title>AutoConnect disconnected</title>"
+    "<style type=\"text/css\">"
+      "{{CSS_BASE}}"
+      "{{CSS_LUXBAR}}"
+    "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
-  "<div class=\"container\">"
-  "{{MENU}}"
+    "<div class=\"container\">"
+      "{{MENU_PRE}}"
+      "{{MENU_POST}}"
+    "</div>"
   "</body>"
   "</html>"
 };
@@ -749,48 +866,79 @@ uint32_t AutoConnect::_getFlashChipRealSize() {
 }
 
 String AutoConnect::_token_CSS_BASE(PageArgument& args) {
-  return String(_CSS_BASE);
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_BASE));
 }
 
 String AutoConnect::_token_CSS_UL(PageArgument& args) {
-  return String(_CSS_UL);
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_UL));
 }
 
 String AutoConnect::_token_CSS_ICON_LOCK(PageArgument& args) {
-  return String(_CSS_ICON_LOCK);
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_ICON_LOCK));
 }
+
 String AutoConnect::_token_CSS_INPUT_BUTTON(PageArgument& args) {
-  return String(_CSS_INPUT_BUTTON);
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_INPUT_BUTTON));
 }
 
 String AutoConnect::_token_CSS_INPUT_TEXT(PageArgument& args) {
-  return String(_CSS_INPUT_TEXT);
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_INPUT_TEXT));
 }
 
 String AutoConnect::_token_CSS_TABLE(PageArgument& args) {
-  return String(_CSS_TABLE);
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_TABLE));
+}
+
+String AutoConnect::_token_CSS_SPINNER(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_SPINNER));
 }
 
 String AutoConnect::_token_HEAD(PageArgument& args) {
-  return String(_ELM_HTML_HEAD);
+  AC_UNUSED(args);
+  return String(FPSTR(_ELM_HTML_HEAD));
 }
 
-String AutoConnect::_token_MENU(PageArgument& args) {
-  String  currentMenu = String(_ELM_MENU);
-  currentMenu.replace(String("MENU_TITLE"), _menuTitle);
-  currentMenu.replace(String("HOME_URI"), _apConfig.homeUri);
+String AutoConnect::_token_MENU_PRE(PageArgument& args) {
+  AC_UNUSED(args);
+  String  currentMenu = FPSTR(_ELM_MENU_PRE);
+  currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
+  // currentMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
   return currentMenu;
 }
 
+String AutoConnect::_token_MENU_AUX(PageArgument& args) {
+  String  menuItem = String("");
+  if (_aux)
+    menuItem = _aux->_injectMenu(args);
+  return menuItem;
+}
+
+String AutoConnect::_token_MENU_POST(PageArgument& args) {
+  AC_UNUSED(args);
+  String  postMenu = FPSTR(_ELM_MENU_POST);
+  postMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
+  return postMenu;
+}
+
 String AutoConnect::_token_CSS_LUXBAR(PageArgument& args) {
-  return String(_CSS_LUXBAR);
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_LUXBAR));
 }
 
 String AutoConnect::_token_ESTAB_SSID(PageArgument& args) {
-  return (WiFi.status() == WL_CONNECTED ? WiFi.SSID() : String("N/A"));
+  AC_UNUSED(args);
+  return (WiFi.status() == WL_CONNECTED ? WiFi.SSID() : String(F("N/A")));
 }
 
 String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
+  AC_UNUSED(args);
   const char* wifiMode = "";
   switch (WiFi.getMode()) {
   case WIFI_OFF:
@@ -815,15 +963,15 @@ String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
 }
 
 String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
+  AC_UNUSED(args);
   return String(WiFi.status());
 }
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
-  uint8_t     st;
-  const char* wlStatusSymbol = "";
-
+  AC_UNUSED(args);
+  const char* wlStatusSymbol ="";
+  static const char* wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
-  static const char *wlStatusSymbols[] = {
     "IDLE",
     "CONNECTING",
     "WRONG_PASSWORD",
@@ -831,8 +979,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     "CONNECT_FAIL",
     "GOT_IP"
   };
-  st = wifi_station_get_connect_status();
-  switch (st) {
+  switch (wifi_station_get_connect_status()) {
   case STATION_IDLE:
     wlStatusSymbol = wlStatusSymbols[0];
     break;
@@ -851,20 +998,17 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   case STATION_GOT_IP:
     wlStatusSymbol = wlStatusSymbols[5];
     break;
-  }
-
 #elif defined(ARDUINO_ARCH_ESP32)
-  static const char *wlStatusSymbols[] = {
     "IDLE",
     "NO_SSID_AVAIL",
     "SCAN_COMPLETED",
     "CONNECTED",
     "CONNECT_FAILED",
     "CONNECTION_LOST",
-    "DISCONNECTED"
+    "DISCONNECTED",
+    "NO_SHIELD"
   };
-  st = WiFi.status();
-  switch (st) {
+  switch (_rsConnect) {
   case WL_IDLE_STATUS:
     wlStatusSymbol = wlStatusSymbols[0];
     break;
@@ -886,74 +1030,91 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   case WL_DISCONNECTED:
     wlStatusSymbol = wlStatusSymbols[6];
     break;
-  }
+  case WL_NO_SHIELD:
+    wlStatusSymbol = wlStatusSymbols[7];
+    break;
 #endif
-
-  return "(" + String(st) + ") " + String(wlStatusSymbol);
+  }
+  return String("(") + String(_rsConnect) + String(") ") + String(wlStatusSymbol);
 }
 
 String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.localIP().toString();
 }
 
 String AutoConnect::_token_SOFTAP_IP(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.softAPIP().toString();
 }
 
 String AutoConnect::_token_GATEWAY(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.gatewayIP().toString();
 }
 
 String AutoConnect::_token_NETMASK(PageArgument& args) {
+  AC_UNUSED(args);
   return WiFi.subnetMask().toString();
 }
 
 String AutoConnect::_token_AP_MAC(PageArgument& args) {
+  AC_UNUSED(args);
   uint8_t macAddress[6];
   WiFi.softAPmacAddress(macAddress);
   return AutoConnect::_toMACAddressString(macAddress);
 }
 
 String AutoConnect::_token_STA_MAC(PageArgument& args) {
+  AC_UNUSED(args);
   uint8_t macAddress[6];
   WiFi.macAddress(macAddress);
   return AutoConnect::_toMACAddressString(macAddress);
 }
 
 String AutoConnect::_token_CHANNEL(PageArgument& args) {
+  AC_UNUSED(args);
   return String(WiFi.channel());
 }
 
 String AutoConnect::_token_DBM(PageArgument& args) {
+  AC_UNUSED(args);
   int32_t dBm = WiFi.RSSI();
-  return (dBm == 31 ? String("N/A") : String(dBm));
+  return (dBm == 31 ? String(F("N/A")) : String(dBm));
 }
 
 String AutoConnect::_token_CPU_FREQ(PageArgument& args) {
+  AC_UNUSED(args);
   return String(ESP.getCpuFreqMHz());
 }
 
 String AutoConnect::_token_FLASH_SIZE(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_getFlashChipRealSize());
 }
 
 String AutoConnect::_token_CHIP_ID(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_getChipId());
 }
 
 String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
-  return String(ESP.getFreeHeap());
+  AC_UNUSED(args);
+  return String(_freeHeapSize);
 }
 
 String AutoConnect::_token_LIST_SSID(PageArgument& args) {
-  String ssidList = "";
+  AC_UNUSED(args);
+  String ssidList = String("");
   _hiddenSSIDCount = 0;
-  int8_t nn = WiFi.scanNetworks(false, true);
-  for (uint8_t i = 0; i < nn; i++) {
+  WiFi.scanDelete();
+  _scanCount = WiFi.scanNetworks(false, true);
+  AC_DBG("%d network(s) found\n", (int)_scanCount);
+  for (uint8_t i = 0; i < _scanCount; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
-      ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String(F("\">"));
-      ssidList += String(F("<label>")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;</label>"));
+      ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String("\">");
+      ssidList += String(F("<label class=\"slist\">")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
       if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
         ssidList += String(F("<span class=\"img-lock\"></span>"));
       ssidList += String(F("<br>"));
@@ -965,20 +1126,21 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
 }
 
 String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_hiddenSSIDCount);
 }
 
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
+  AC_UNUSED(args);
   AutoConnectCredential credit(_apConfig.boundaryOffset);
   struct station_config entry;
   String ssidList;
   String rssiSym;
-  int16_t wn;
 
   uint8_t creEntries = credit.entries();
   if (creEntries > 0) {
     ssidList = String("");
-    wn = WiFi.scanNetworks(false, true);
+    _scanCount = WiFi.scanNetworks(false, true);
   }
   else
     ssidList = String(F("<p><b>No saved credentials.</b></p>"));
@@ -986,11 +1148,12 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   for (uint8_t i = 0; i < creEntries; i++) {
     credit.load(i, &entry);
     AC_DBG("A credential #%d loaded\n", (int)i);
-    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label>"));
+    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label class=\"slist\">"));
     rssiSym = String(F("N/A</label>"));
-    for (int8_t sc = 0; sc < wn; sc++) {
+    for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
       if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config::bssid))) {
-        rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;</label>"));
+        _connectCh = WiFi.channel(sc);
+        rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;&ensp;Ch.")) + String(_connectCh) + String(F("</label>"));
         if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
           rssiSym += String(F("<span class=\"img-lock\"></span>"));
         break;
@@ -1002,7 +1165,24 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
 }
 
 String AutoConnect::_token_UPTIME(PageArgument& args) {
+  AC_UNUSED(args);
   return String(_apConfig.uptime);
+}
+
+String AutoConnect::_token_BOOTURI(PageArgument& args) {
+  AC_UNUSED(args);
+  if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
+    return String(AUTOCONNECT_URI);
+  else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
+    return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
+  else
+    return _emptyString;
+}
+
+String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
+  AC_UNUSED(args);
+  String  ssid = reinterpret_cast<char*>(_credential.ssid); 
+  return ssid;
 }
 
 /**
@@ -1016,118 +1196,143 @@ String AutoConnect::_token_UPTIME(PageArgument& args) {
 PageElement* AutoConnect::_setupPage(String uri) {
   PageElement *elm = new PageElement();
 
+  // Restore menu title
+  _menuTitle = _apConfig.title;
+
   // Build the elements of current requested page.
   if (uri == String(AUTOCONNECT_URI)) {
 
     // Setup /auto
+    _freeHeapSize = ESP.getFreeHeap();
     elm->setMold(_PAGE_STAT);
-    elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_TABLE"), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
-    elm->addToken(PSTR("ESTAB_SSID"), std::bind(&AutoConnect::_token_ESTAB_SSID, this, std::placeholders::_1));
-    elm->addToken(PSTR("WIFI_MODE"), std::bind(&AutoConnect::_token_WIFI_MODE, this, std::placeholders::_1));
-    elm->addToken(PSTR("WIFI_STATUS"), std::bind(&AutoConnect::_token_WIFI_STATUS, this, std::placeholders::_1));
-    elm->addToken(PSTR("LOCAL_IP"), std::bind(&AutoConnect::_token_LOCAL_IP, this, std::placeholders::_1));
-    elm->addToken(PSTR("SOFTAP_IP"), std::bind(&AutoConnect::_token_SOFTAP_IP, this, std::placeholders::_1));
-    elm->addToken(PSTR("GATEWAY"), std::bind(&AutoConnect::_token_GATEWAY, this, std::placeholders::_1));
-    elm->addToken(PSTR("NETMASK"), std::bind(&AutoConnect::_token_NETMASK, this, std::placeholders::_1));
-    elm->addToken(PSTR("AP_MAC"), std::bind(&AutoConnect::_token_AP_MAC, this, std::placeholders::_1));
-    elm->addToken(PSTR("STA_MAC"), std::bind(&AutoConnect::_token_STA_MAC, this, std::placeholders::_1));
-    elm->addToken(PSTR("CHANNEL"), std::bind(&AutoConnect::_token_CHANNEL, this, std::placeholders::_1));
-    elm->addToken(PSTR("DBM"), std::bind(&AutoConnect::_token_DBM, this, std::placeholders::_1));
-    elm->addToken(PSTR("CPU_FREQ"), std::bind(&AutoConnect::_token_CPU_FREQ, this, std::placeholders::_1));
-    elm->addToken(PSTR("FLASH_SIZE"), std::bind(&AutoConnect::_token_FLASH_SIZE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CHIP_ID"), std::bind(&AutoConnect::_token_CHIP_ID, this, std::placeholders::_1));
-    elm->addToken(PSTR("FREE_HEAP"), std::bind(&AutoConnect::_token_FREE_HEAP, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_TABLE")), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("ESTAB_SSID")), std::bind(&AutoConnect::_token_ESTAB_SSID, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("WIFI_MODE")), std::bind(&AutoConnect::_token_WIFI_MODE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("WIFI_STATUS")), std::bind(&AutoConnect::_token_WIFI_STATUS, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("LOCAL_IP")), std::bind(&AutoConnect::_token_LOCAL_IP, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("SOFTAP_IP")), std::bind(&AutoConnect::_token_SOFTAP_IP, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("GATEWAY")), std::bind(&AutoConnect::_token_GATEWAY, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("NETMASK")), std::bind(&AutoConnect::_token_NETMASK, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("AP_MAC")), std::bind(&AutoConnect::_token_AP_MAC, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("STA_MAC")), std::bind(&AutoConnect::_token_STA_MAC, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CHANNEL")), std::bind(&AutoConnect::_token_CHANNEL, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("DBM")), std::bind(&AutoConnect::_token_DBM, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CPU_FREQ")), std::bind(&AutoConnect::_token_CPU_FREQ, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("FLASH_SIZE")), std::bind(&AutoConnect::_token_FLASH_SIZE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CHIP_ID")), std::bind(&AutoConnect::_token_CHIP_ID, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("FREE_HEAP")), std::bind(&AutoConnect::_token_FREE_HEAP, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONFIG)) {
 
     // Setup /auto/config
     elm->setMold(_PAGE_CONFIGNEW);
-    elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_UL"), std::bind(&AutoConnect::_token_CSS_UL, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_ICON_LOCK"), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
-    elm->addToken(PSTR("LIST_SSID"), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
-    elm->addToken(PSTR("HIDDEN_COUNT"), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_UL")), std::bind(&AutoConnect::_token_CSS_UL, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_ICON_LOCK")), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_INPUT_BUTTON")), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_INPUT_TEXT")), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("LIST_SSID")), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 
     // Setup /auto/connect
-    elm->setMold("{{REQ}}");
-    elm->addToken(PSTR("REQ"), std::bind(&AutoConnect::_induceConnect, this, std::placeholders::_1));
-  }
+    _menuTitle = FPSTR("Connecting");
+    elm->setMold(_PAGE_CONNECTING);
+    elm->addToken(String(FPSTR("REQ")), std::bind(&AutoConnect::_induceConnect, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_SPINNER")), std::bind(&AutoConnect::_token_CSS_SPINNER, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CUR_SSID")), std::bind(&AutoConnect::_token_CURRENT_SSID, this, std::placeholders::_1));
+ }
   else if (uri == String(AUTOCONNECT_URI_OPEN)) {
 
     // Setup /auto/open
     elm->setMold(_PAGE_OPENCREDT);
-    elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_ICON_LOCK"), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
-    elm->addToken(PSTR("OPEN_SSID"), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_ICON_LOCK")), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_INPUT_BUTTON")), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("OPEN_SSID")), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_DISCON)) {
 
     // Setup /auto/disc
+    _menuTitle = FPSTR("Disconnect");
     elm->setMold(_PAGE_DISCONN);
-    elm->addToken(PSTR("DISCONNECT"), std::bind(&AutoConnect::_induceDisconnect, this, std::placeholders::_1));
-    elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("DISCONNECT")), std::bind(&AutoConnect::_induceDisconnect, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_RESET)) {
 
     // Setup /auto/reset
     elm->setMold(_PAGE_RESETTING);
-    elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
-    elm->addToken(PSTR("UPTIME"), std::bind(&AutoConnect::_token_UPTIME, this, std::placeholders::_1));
-    elm->addToken(PSTR("RESET"), std::bind(&AutoConnect::_induceReset, this, std::placeholders::_1));
-
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("BOOTURI")), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("UPTIME")), std::bind(&AutoConnect::_token_UPTIME, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("RESET")), std::bind(&AutoConnect::_induceReset, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_RESULT)) {
 
     // Setup /auto/result
     elm->setMold("{{RESULT}}");
-    elm->addToken(PSTR("RESULT"), std::bind(&AutoConnect::_invokeResult, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("RESULT")), std::bind(&AutoConnect::_invokeResult, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_SUCCESS)) {
 
     // Setup /auto/success
     elm->setMold(_PAGE_SUCCESS);
-    elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_TABLE"), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
-    elm->addToken(PSTR("ESTAB_SSID"), std::bind(&AutoConnect::_token_ESTAB_SSID, this, std::placeholders::_1));
-    elm->addToken(PSTR("WIFI_MODE"), std::bind(&AutoConnect::_token_WIFI_MODE, this, std::placeholders::_1));
-    elm->addToken(PSTR("WIFI_STATUS"), std::bind(&AutoConnect::_token_WIFI_STATUS, this, std::placeholders::_1));
-    elm->addToken(PSTR("LOCAL_IP"), std::bind(&AutoConnect::_token_LOCAL_IP, this, std::placeholders::_1));
-    elm->addToken(PSTR("GATEWAY"), std::bind(&AutoConnect::_token_GATEWAY, this, std::placeholders::_1));
-    elm->addToken(PSTR("NETMASK"), std::bind(&AutoConnect::_token_NETMASK, this, std::placeholders::_1));
-    elm->addToken(PSTR("CHANNEL"), std::bind(&AutoConnect::_token_CHANNEL, this, std::placeholders::_1));
-    elm->addToken(PSTR("DBM"), std::bind(&AutoConnect::_token_DBM, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_TABLE")), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("ESTAB_SSID")), std::bind(&AutoConnect::_token_ESTAB_SSID, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("WIFI_MODE")), std::bind(&AutoConnect::_token_WIFI_MODE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("WIFI_STATUS")), std::bind(&AutoConnect::_token_WIFI_STATUS, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("LOCAL_IP")), std::bind(&AutoConnect::_token_LOCAL_IP, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("GATEWAY")), std::bind(&AutoConnect::_token_GATEWAY, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("NETMASK")), std::bind(&AutoConnect::_token_NETMASK, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CHANNEL")), std::bind(&AutoConnect::_token_CHANNEL, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("DBM")), std::bind(&AutoConnect::_token_DBM, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_FAIL)) {
 
     // Setup /auto/fail
+    _menuTitle = FPSTR("Failed");
     elm->setMold(_PAGE_FAIL);
-    elm->addToken(PSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_TABLE"), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
-    elm->addToken(PSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
-    elm->addToken(PSTR("MENU"), std::bind(&AutoConnect::_token_MENU, this, std::placeholders::_1));
-    elm->addToken(PSTR("STATION_STATUS"), std::bind(&AutoConnect::_token_STATION_STATUS, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_TABLE")), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("STATION_STATUS")), std::bind(&AutoConnect::_token_STATION_STATUS, this, std::placeholders::_1));
   }
   else {
     delete elm;

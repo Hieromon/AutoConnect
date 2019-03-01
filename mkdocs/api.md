@@ -1,12 +1,14 @@
-## Include headers
+## <i class="fa fa-code"></i> Include headers
 
-### <i class="fa fa-code"></i> AutoConnect.h
+### AutoConnect.h
 
 ```cpp
 #include <AutoConnect.h>
 ```
 
-#### Defined macros
+## <i class="fa fa-code"></i> Defined macros
+
+They contain in ```AutoConnectDefs.h```.
 
 ```cpp
 #define AC_DEBUG                                // Monitor message output activation
@@ -20,13 +22,16 @@
 #define AUTOCONNECT_STARTUPTIME 10              // Default waiting time[s] for after reset
 #define AUTOCONNECT_URI         "/_ac"          // Default AutoConnect root path
 #define AUTOCONNECT_TIMEOUT     30000           // Default connection timeout[ms]
+#define AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT  0    // Captive portal timeout value
+#define AUTOCONNECT_USE_JSON                    // Allow AutoConnect elements to be handled by JSON format
 ```
 
-## AutoConnect API
+!!! note "Macros placement moved"
+    Source code placement of the above macros provided for user sketch changed from v0.9.7. The new code is in ```AutoConnectDefs.h```.
 
-### <i class="fa fa-code"></i> Constructors
+## <i class="fa fa-code"></i> Constructors
 
-#### AutoConnect
+### AutoConnect
 
 ```cpp
 AutoConnect()
@@ -50,15 +55,28 @@ AutoConnect(WebServer& webServer)
 
 Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.
 
-The [**handleClient**](api.md#handleclient) function of AutoConnect can include the response of the URI handler added by the user using the "*on*" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the [**host**](api.me#host) function.
+The [**handleClient**](api.md#handleclient) function of AutoConnect can include the response of the URI handler added by the user using the "*on*" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the [**host**](api.md#host) function.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">webServer</span>A reference of ESP8266WebServer or WebServer instance.</dd>
+    <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd>
 </dl>
 
-### <i class="fa fa-code"></i> Public member functions
+## <i class="fa fa-code"></i> Public member functions
 
-#### begin
+### <i class="fa fa-caret-right"></i> aux
+
+```cpp
+AutoConnectAux* aux(const String& uri) const
+```
+Returns a pointer to AutoConnectAux with the URI specified by *uri*. If AutoConnectAux with that URI is not bound, it returns **nullptr**.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI.</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A Pointer of the AutoConnectAux instance.</dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> begin
 
 ```cpp
 bool begin()
@@ -75,15 +93,15 @@ AutoConnect first invokes *WiFi.begin*. If the *ssid* and the *passphrase* are m
 The captive portal will not be started if the connection has been established with first *WiFi.begin*. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">ssid</span>SSID to be connected.</dd>
-    <dd><span class="apidef">passphrase</span>Password for connection.</dd>
-    <dd><span class="apidef">timeout</span>A time out value in milliseconds for waiting connection.</dd>
+    <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be connected.</span></dd>
+    <dd><span class="apidef">passphrase</span><span class="apidesc">Password for connection.</span></dd>
+    <dd><span class="apidef">timeout</span><span class="apidesc">A time out value in milliseconds for waiting connection.</span></dd>
     <dt>**Return value**</dt>
-    <dd><span class="apidef">true</span>Connection established, AutoConnect service started with WIFI_STA mode.</dd>
-    <dd><span class="apidef">false</span>Could not connected, Captive portal started with WIFI_AP_STA mode.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Connection established, AutoConnect service started with WIFI_STA mode.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Could not connected, Captive portal started with WIFI_AP_STA mode.</span></dd>
 </dl>
 
-#### config
+### <i class="fa fa-caret-right"></i> config
 
 ```cpp
 bool config(AutoConnectConfig& config)
@@ -95,15 +113,15 @@ bool config(const char* ap, const char* password = nullptr)
 Set SoftAP's WiFi configuration and static IP configuration. 
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">config</span>Reference to [**AutoConnectConfig**](api.md#autoconnectconfig) containing SoftAP's parameters and static IP parameters.</dd>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</dd>
-    <dd><span class="apidef">password</span>Password for SodtAP. The default value is **12345678**.</dd>
+    <dd><span class="apidef">config</span><span class="apidesc">Reference to [**AutoConnectConfig**](apiconfig.md) containing SoftAP's parameters and static IP parameters.</span></dd>
+    <dd><span class="apidef">ap</span><span class="apidesc">SSID for SoftAP. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</span></dd>
+    <dd><span class="apidef">password</span><span class="apidesc">Password for SodtAP. The default value is **12345678**.</span></dd>
     <dt>**Return value**</dt>
-    <dd><span class="apidef">true</span>Successfully configured.</dd>
-    <dd><span class="apidef">false</span>Configuration parameter is invalid, some values out of range.</dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Successfully configured.</span></dd>
+    <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd>
 </dl>
 
-#### end
+### <i class="fa fa-caret-right"></i> end
 
 ```cpp
 void end()
@@ -114,7 +132,7 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
 !!! warning "Attention to end"
     The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
 
-#### handleClient
+### <i class="fa fa-caret-right"></i> handleClient
 
 ```cpp
 void handleClient()
@@ -122,7 +140,7 @@ void handleClient()
 
 Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect, and the client request handlers contained in the user sketch are also handled.
 
-#### handleRequest
+### <i class="fa fa-caret-right"></i> handleRequest
 
 ```cpp
 void handleRequest()
@@ -133,21 +151,19 @@ Handling for the AutoConnect menu request.
 !!! warning "About used in combination with handleClient"
     The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266WebServer::handleClient or WebServer::handleClient.
 
-#### home
+### <i class="fa fa-caret-right"></i> home
 
 ```cpp
-void home(String uri)
+void home(String& uri)
 ```
 
 Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect menu.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">uri</span> A URI string of user site's home path.</dd>
+    <dd><span class="apidef">uri</span><span class="aidesc">A URI string of user site's home path.</span></dd>
 </dl>
 
-#### host
-
-Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.
+### <i class="fa fa-caret-right"></i> host
 
 - For ESP8266
 
@@ -160,6 +176,8 @@ ESP8266WebServer& host()
 ```cpp
 WebServer& host()
 ```
+
+Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.
 <dl class="apidl">
     <dt>**Return value**</dt>
     <dd>A reference of the ESP8266WebServer/WebServer.</dd>
@@ -176,7 +194,63 @@ WebServer& host()
     portal.host().handleClient();
     ```
 
-#### onDetect
+### <i class="fa fa-caret-right"></i> join
+
+```cpp
+void join(AutoConnectAux& aux)
+```
+```cpp
+void join(std::vector<std::reference_wrapper<AutoConnectAux>> aux)
+```
+Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joined one by one, or joined altogether. The AutoConnectAux object joined by the join function can be handled from the AutoConnect menu.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization).</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> load
+
+```cpp
+bool load(const String& aux)
+```
+```cpp
+bool load(const __FlashStringHelper* aux)
+```
+```cpp
+bool load(Stream& aux)
+```
+Load JSON document of AutoConnectAux which contains AutoConnectElements. If there is a syntax error in the JSON document, false is returned.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">aux</span><span class="apidesc">The input string to be loaded.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The JSON document as AutoConnectAux successfully loaded.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the [ArduinoJson Assistant](https://arduinojson.org/v5/assistant/).</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> on
+
+```cpp
+bool on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD)
+```
+Register the handler function of the AutoConnectAux.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI assigned to the AutoConnectAux page.</span></dd>
+    <dd><span class="apidef">handler</span><span class="apidesc">A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.<p class=""apidesc">`String handler(AutoConnectAux&, PageArgument&)`</p></span></dd>
+    <dd><span class="apidef">order</span><span class="apidesc">Specifies when the handler is called with the following enumeration value.</span></dd>
+: - **AC_EXIT_AHEAD** :
+    Called before AutoConnect generates the HTML of the page. You set the value of AutoConnectElements in the handler then its value will be displayed on the page.
+: - **AC_EXIT_LATER** :
+    Called after AutoConnect generates the HTML of the page. You can append to HTML generated by AutoConnect.
+: - **AC_EXIT_BOTH** :
+    Called even before generating HTML and after generated.
+</dl>
+
+!!! caution "It is not ESP8266WebServer::on, not WebServer::on for ESP32."
+    This function effects to AutoConnectAux only. However, it coexists with that of ESP8266WebServer::on or WebServer::on of ESP32. 
+
+### <i class="fa fa-caret-right"></i> onDetect
 
 ```cpp
 void onDetect(DetectExit_ft fn)
@@ -184,7 +258,7 @@ void onDetect(DetectExit_ft fn)
 Register the function which will call from AutoConnect at the start of the captive portal.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">fn</span>Function called at the captive portal start.</dd>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd>
 
 </dl>
 
@@ -195,13 +269,13 @@ typedef std::function<bool(IPAddress softapIP)>  DetectExit_ft
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">softapIP</span>An IP address of SoftAP for the captive portal.</dd>
-    <dt>**Retuen value**</dt>
-    <dd><span class="apidef">true</span>Continues captive portal handling.</dd>
-    <dd><span class="apidef">false</span>Cancel the captive portal. AutoConnect::begin function will return with a false.</dd>
+    <dd><span class="apidef">softapIP</span><span class="apidesc">An IP address of SoftAP for the captive portal.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
 </dl>
 
-#### onNotFound
+### <i class="fa fa-caret-right"></i> onNotFound
 
 - For ESP8266
 
@@ -217,245 +291,19 @@ void onNotFound(WebServer::THandlerFunction fn)
 Register the handler function for undefined URL request detected.
 <dl class="apidl">
     <dt>**Parameters**</dt>
-    <dd><span class="apidef">fn</span>A function of the "not found" handler.</dd>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd>
 </dl>
 
-## AutoConnectConfig API
-
-### <i class="fa fa-code"></i> Constructor
-
-#### AutoConnectConfig
-
+### <i class="fa fa-caret-right"></i> where
 ```cpp
-AutoConnectConfig();
-```  
-```cpp
-AutoConnectConfig(const char* ap, const char* password);
+AutoConenctAux* where(void)
 ```
+Returns a pointer to the AutoConnectAux object of the custom Web page that caused the request to the page.<br>
+AutoConnect identifies the URI (ie. the referrer URI) that caused the request each time from the client occurs and will save the URI If the request source is a custom Web page of AutoConnectAux. The **where** function returns a pointer of AutoConnectAux which is a URI of a least recent request from the custom Web page.<br>
+This function is provided to access the fields (ie. the AutoConnectElements) with a custom Web page handler of a page and is available only for request source that is the custom Web pages. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/WebServer for ESP32. In other words, this function only returns the AutoConnecAux page which is a least recently displayed.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
-    <dd><span class="apidef">ap</span>SSID for SoftAP. The length should be up to 31. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</dd>
-    <dd><span class="apidef">password</span>Password for SodtAP. The length should be from 8 to up to 63. The default value is **12345678**.</dd>
+    <dt>**Return value**</dt>
+    <dd>A pointer to the AutoConnectAux that caused the request the page.</dd>
 </dl>
 
-### <i class="fa fa-code"></i> Public member variables
-
-#### apid
-SoftAP's SSID.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>String</dd>
-</dl>
-
-#### apip
-
-Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
-</dl>
-
-#### autoReconnect
-
-Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.  
-If the connection fails, starts the captive portal in SoftAP + STA mode.  
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>bool</dd>
-    <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Reconnect automatically.</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>Starts Captive Portal in SoftAP + STA mode without trying to reconnect. This is the default.</dd>
-</dl>
-
-When the autoReconnect option is enabled, an automatic connection will behave if the following conditions are satisfied.
-
-- Invokes *AutoConnect::begin* without user name and password parameter as ```begin()```.
-- If one of the saved BSSIDs (not the SSID) of the credentials matches the BSSID detected by the network scan.
-
-#### autoReset
-
-Reset ESP8266 module automatically after WLAN disconnected.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>bool</dd>
-    <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Reset after WiFi disconnected automatically.</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>No reset.</dd>
-</dl>
-
-#### autoRise
-
-Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the first *WiFi.begin* fails.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>bool</dd>
-    <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">true</span>Enable the captive portal. This is the default.</dd>
-    <dd><span class="apidef" style="width:230px;">false</span>Disable the captive portal.</dd>
-</dl>
-
-#### autoSave
-
-The credential saved automatically at the connection establishment.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>AC_SAVECREDENTIAL_t</dd>
-    <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_AUTO</span>The credential saved automatically. This is the default.</dd>
-    <dd><span class="apidef" style="width:230px;">AC_SAVECREDENTIAL_NEVER</span>The credential no saved.</dd>
-</dl>
-
-#### boundaryOffset
-
-Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)  
-The default value is 0.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>uint16_t</dd>
-</dl>
-
-!!! warning "It will conflict with user data."
-    If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.
-
-#### channel
-
-The channel number of WIFi when SoftAP starts.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>uint8_t</dd>
-    <dt>**Value**</dt>
-    <dd>1 ~ 14. The default value is 1.</dd>
-</dl>
-
-!!! info "How do I choose Channel"
-    Espressif Systems had announced the [application note](https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf) about Wi-Fi channel selection.
-
-#### dns1
-
-Set primary DNS server address when using static IP address.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>IPAddress</dd>
-</dl>
-
-#### dns2
-
-Set secondary DNS server address when using static IP address.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>IPAddress</dd>
-</dl>
-
-#### gateway
-
-Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **192.168.244.1**</dd>
-</dl>
-
-#### hidden
-
-Sets SoftAP to hidden SSID.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>uint8_t</dd>
-    <dt>**Value**</dt>
-    <dd><span class="apidef" style="width:230px;">0</span>SSID will be appeared. This is the default.</dd>
-    <dd><span class="apidef" style="width:230px;">1</span>SSID will be hidden.</dd>
-</dl>
-
-#### homeUri
-
-Sets the home path of user sketch. This path would be linked from 'HOME' in the AutoConnect menu.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>String</dd>
-</dl>
-
-#### netmask
-
-Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef" style="width:230px;">IPAddress</span>The default value is **255.255.255.0**</dd>
-</dl>
-
-#### psk
-
-Sets password for SoftAP. The length should be from 8 to up to 63. The default value is **12345678**.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>String</dd>
-</dl>
-
-#### staip
-
-Set a static IP address. The IP will behave with STA mode.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>IPAddress</dd>
-</dl>
-
-#### staGateway
-
-Set the gateway address when using static IP address.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>IPAddress</dd>
-</dl>
-
-#### staNetmask
-
-Set the subnetmask when using static IP address.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd>IPAddress</dd>
-</dl>
-
-### <i class="fa fa-code"></i> AutoConnectConfig example
-
-```arduino
-AutoConenct        Portal;
-AutoConenctConfig  Config("", "passpass");    // SoftAp name is determined at runtime
-Config.apid = ESP.hostname();                 // Retrieve host name to SotAp identification
-Config.apip = IPAddress(192,168,10,101);      // Sets SoftAP IP address
-Config.gateway = IPAddress(192,168,10,1);     // Sets WLAN router IP address
-Config.netmask = IPAddress(255,255,255,0);    // Sets WLAN scope
-Config.autoReconnect = true;                  // Enable auto-reconnect
-Config.autoSave = AC_SAVECREDENTIAL_NEVER;    // No save credential
-COnfig.boundaryOffet = 64;                    // Reserve 64 bytes for the user data in EEPROM. 
-Config.homeUri = "/index.html"				  // Sets home path of the sketch application
-Config.staip = IPAddress(192,168,10,10);      // Sets static IP
-Config.staGateway = IPAddress(192,168,10,1);  // Sets WiFi router address
-Config.staNetmask = IPAddress(255,255,255,0); // Sets WLAN scope
-Config.dns1 = IPAddress(192,168,10,1);        // Sets primary DNS address
-Portal.config(Config);                        // Configure AutoConnect
-Portal.begin();                               // Starts and behaves captive portal
-```
-
-## <i class="fa fa-gift"></i> Something extra
-
-The library presents two PNG icons which can be used to embed a hyperlink to the AutoConnect menu.
-
-- Bar type <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAApklEQVRYR2NkGGDAOMD2M4w6YDQEkEMgEJggZwCxGI0T5mug+alAvBFkD7IDXtLBcpjfXgEZ4ugOeAETpHEIgIwHeVYC3QH+0CgAS9AQgCwHRcFmdAfQ0E7cRo9mw0EVAqPlAKhwEKVTVsBZDsyiQ2k4Wg6gxPKgyoZ0Sn+o1iCHQBBQaiYQi9DYJTjbAyAJWluOtz0wWg7QOOqxGz+aDUdDYMBDAACA0x4hs/MPrwAAAABJRU5ErkJggg==" title="AutoConnect menu" alt="AutoConnect menu" />
-- Cog type <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC2klEQVRIS61VvWsUQRSfmU2pon9BUIkQUaKFaCBKgooSb2d3NSSFKbQR/KrEIiIKBiGF2CgRxEpjQNHs7mwOUcghwUQ7g58IsbGxEBWsb2f8zR177s3t3S2cA8ftzPu993vzvoaSnMu2vRKlaqgKp74Q/tE8qjQPyHGcrUrRjwlWShmDbFMURd/a6TcQwNiYUmpFCPElUebcuQ2vz6aNATMVReHEPwzfSSntDcNwNo2rI+DcvQzhpAbA40VKyV0p1Q9snzBG1qYVcYufXV1sREraDcxpyHdXgkfpRBj6Uwm2RsC5dxxmZ9pdOY9cKTISRcHTCmGiUCh4fYyplTwG2mAUbtMTBMHXOgK9QfyXEZr+TkgQ1oUwDA40hEgfIAfj+HuQRaBzAs9eKyUZ5Htx+T3ZODKG8DzOJMANhmGomJVMXPll+hx9UUAlzZrJJ4QNCDG3VEfguu7mcpmcB/gkBOtShhQhchAlu5jlLUgc9ENgyP5gf9+y6LTv+58p5zySkgwzLNOIGc8sEoT1Lc53NMlbCQQuvMxeCME1NNPVVkmH/i3IzzXDtCSA0qQQwZWOCJDY50jsQRjJmkslEOxvTcDRO6zPxOh5xZglKkYLhWM9jMVnkIsTyMT6NBj7IbOCEjm6HxNVVTo2WXqEWJZ1T8rytB6GxizyDkPhWVpBqfiXUtbo/HywYJSpA9kMamNNPZ71R9Hcm+TMHHZNGw3EuraXEUldbfvw25UdOjqOt+JhMwJd7+jSTpZaEiIcaCDwPK83jtWnTkwnunFMtxeL/ge9r4XItt1RNNaj/0GAcV2bR3U5sG3nEh6M61US+Qrfd9Bs31GGulI2GOS/8dgcQZV1w+ApjIxB7TDwF9GcNzJzoA+rD0/8HvPnXQJCt2qFCwbBTfRI7UyXumWVt+HJ9NO4XI++bdsb0YyrqXmlh+AWOLHaLqS5CLQR5EggR3YlcVS9gKeH2hnX8r8Kmi1CAsl36QAAAABJRU5ErkJggg==" title="AutoConnect menu" alt="AutoConnect menu" />
-
-To reference the icon, use the **AUTOCONNECT_LINK** macro in the sketch. It expands into the string literal as an HTML ```<a></a>``` tag with PNG embedded of the AutoConnect menu hyperlinks. Icon type is specified by the parameter of the macro.
-
-<dl class="apidl">
-    <dd><span class="apidef">BAR_24</span>Bars icon, 24x24.</dd>
-    <dd><span class="apidef">BAR_32</span>Bars icon, 32x32.</dd>
-    <dd><span class="apidef">BAR_48</span>Bars icon, 48x48.</dd>
-    <dd><span class="apidef">COG_24</span>Cog icon, 24x24.</dd>
-    <dd><span class="apidef">COG_32</span>Cog icon, 32x32.</dd>
-</dl>
-
-!!! note "Usage"
-    ```arduino
-    String html = "<html>";
-    html += AUTOCONNECT_LINK(BAR_32);
-    html += "</html>";
-    server.send(200, "text/html", html);
-    ```
-
+The **where** function usage is described in the section [*Where to pick up the values*](achandling.md#where-to-pick-up-the-values).

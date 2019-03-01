@@ -1,0 +1,23 @@
+{
+  "title": "MQTT Setting",
+  "uri": "/mqtt_save",
+  "menu": false,
+  "element": [
+    {
+      "name": "caption",
+      "type": "ACText",
+      "value": "<h4>Parameters saved as:</h4>",
+      "style": "text-align:center;color:#2f4f4f;padding:10px;"
+    },
+    {
+      "name": "parameters",
+      "type": "ACText"
+    },
+    {
+      "name": "clear",
+      "type": "ACSubmit",
+      "value": "Clear channel",
+      "uri": "/mqtt_clear"
+    }
+  ]
+}

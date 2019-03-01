@@ -1,0 +1,1528 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/faq.html">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+    
+    
+      
+        <title>FAQ - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#after-connected-autoconnect-menu-performs-but-no-happens" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+          
+            <img src="images/arduino-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              FAQ
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="index.html" title="Overview" class="md-tabs__link md-tabs__link--active">
+        Overview
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
+          Custom Web pages
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="api.html" title="Library APIs" class="md-tabs__link">
+          Library APIs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+      
+        <img src="images/arduino-logo.svg" width="48" height="48">
+      
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+      AutoConnect menu
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+      Basic usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+      Custom Web pages with AutoConnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+      AutoConnectAux API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+      AutoConnectElements API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+      Appendix
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        FAQ
+      </label>
+    
+    <a href="faq.html" title="FAQ" class="md-nav__link md-nav__link--active">
+      FAQ
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#after-connected-autoconnect-menu-performs-but-no-happens" title=" After connected, AutoConnect menu performs but no happens." class="md-nav__link">
+     After connected, AutoConnect menu performs but no happens.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title=" An esp8266ap as SoftAP was connected but Captive portal does not start." class="md-nav__link">
+     An esp8266ap as SoftAP was connected but Captive portal does not start.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-lost-immediately-after-establishment-with-ap" title=" Connection lost immediately after establishment with AP" class="md-nav__link">
+     Connection lost immediately after establishment with AP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-not-appear-esp8266ap-in-smartphone" title=" Does not appear esp8266ap in smartphone." class="md-nav__link">
+     Does not appear esp8266ap in smartphone.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-not-response-from-95ac" title=" Does not response from /_ac." class="md-nav__link">
+     Does not response from /_ac.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title=" How change esp8266ap for SSID name in Captive portal?" class="md-nav__link">
+     How change esp8266ap for SSID name in Captive portal?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-change-http-port" title=" How change HTTP port?" class="md-nav__link">
+     How change HTTP port?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hang-up-after-reset" title=" Hang up after Reset?" class="md-nav__link">
+     Hang up after Reset?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-erase-the-credentials-saved-in-eeprom" title=" How erase the credentials saved in EEPROM?" class="md-nav__link">
+     How erase the credentials saved in EEPROM?
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#include-header" title=" Include header" class="md-nav__link">
+     Include header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" title=" Data structures" class="md-nav__link">
+     Data structures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-locate-the-link-button-to-the-autoconnect-menu" title=" How locate the link button to the  AutoConnect menu?" class="md-nav__link">
+     How locate the link button to the  AutoConnect menu?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-much-memory-does-autoconnect-consume" title=" How much memory does AutoConnect consume?" class="md-nav__link">
+     How much memory does AutoConnect consume?
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sketch-size" title="Sketch size" class="md-nav__link">
+    Sketch size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-size" title="Heap size" class="md-nav__link">
+    Heap size
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-cannot-complete-to-wi-fi-login-from-smartphone" title=" I cannot complete to Wi-Fi login from smartphone." class="md-nav__link">
+     I cannot complete to Wi-Fi login from smartphone.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-cannot-see-the-custom-web-page" title=" I cannot see the custom Web page." class="md-nav__link">
+     I cannot see the custom Web page.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
+     Still, not stable with my sketch.
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-change-wifi-channel" title="1. Change WiFi channel" class="md-nav__link">
+    1. Change WiFi channel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-change-the-arduino-core-version" title="2. Change the arduino core version" class="md-nav__link">
+    2. Change the arduino core version
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-esp8266-arduino-core" title="with ESP8266 arduino core" class="md-nav__link">
+    with ESP8266 arduino core
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-esp32-arduino-core" title="with ESP32 arduino core" class="md-nav__link">
+    with ESP32 arduino core
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-turn-on-the-debug-log-options" title="3. Turn on the debug log options" class="md-nav__link">
+    3. Turn on the debug log options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-reports-the-issue-to-autoconnect-github-repository" title="4. Reports the issue to AutoConnect Github repository" class="md-nav__link">
+    4. Reports the issue to AutoConnect Github repository
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
+      Change log
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license.html" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#after-connected-autoconnect-menu-performs-but-no-happens" title=" After connected, AutoConnect menu performs but no happens." class="md-nav__link">
+     After connected, AutoConnect menu performs but no happens.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title=" An esp8266ap as SoftAP was connected but Captive portal does not start." class="md-nav__link">
+     An esp8266ap as SoftAP was connected but Captive portal does not start.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-lost-immediately-after-establishment-with-ap" title=" Connection lost immediately after establishment with AP" class="md-nav__link">
+     Connection lost immediately after establishment with AP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-not-appear-esp8266ap-in-smartphone" title=" Does not appear esp8266ap in smartphone." class="md-nav__link">
+     Does not appear esp8266ap in smartphone.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-not-response-from-95ac" title=" Does not response from /_ac." class="md-nav__link">
+     Does not response from /_ac.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title=" How change esp8266ap for SSID name in Captive portal?" class="md-nav__link">
+     How change esp8266ap for SSID name in Captive portal?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-change-http-port" title=" How change HTTP port?" class="md-nav__link">
+     How change HTTP port?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hang-up-after-reset" title=" Hang up after Reset?" class="md-nav__link">
+     Hang up after Reset?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-erase-the-credentials-saved-in-eeprom" title=" How erase the credentials saved in EEPROM?" class="md-nav__link">
+     How erase the credentials saved in EEPROM?
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#include-header" title=" Include header" class="md-nav__link">
+     Include header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" title=" Data structures" class="md-nav__link">
+     Data structures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-locate-the-link-button-to-the-autoconnect-menu" title=" How locate the link button to the  AutoConnect menu?" class="md-nav__link">
+     How locate the link button to the  AutoConnect menu?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-much-memory-does-autoconnect-consume" title=" How much memory does AutoConnect consume?" class="md-nav__link">
+     How much memory does AutoConnect consume?
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sketch-size" title="Sketch size" class="md-nav__link">
+    Sketch size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heap-size" title="Heap size" class="md-nav__link">
+    Heap size
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-cannot-complete-to-wi-fi-login-from-smartphone" title=" I cannot complete to Wi-Fi login from smartphone." class="md-nav__link">
+     I cannot complete to Wi-Fi login from smartphone.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-cannot-see-the-custom-web-page" title=" I cannot see the custom Web page." class="md-nav__link">
+     I cannot see the custom Web page.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
+     Still, not stable with my sketch.
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-change-wifi-channel" title="1. Change WiFi channel" class="md-nav__link">
+    1. Change WiFi channel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-change-the-arduino-core-version" title="2. Change the arduino core version" class="md-nav__link">
+    2. Change the arduino core version
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-esp8266-arduino-core" title="with ESP8266 arduino core" class="md-nav__link">
+    with ESP8266 arduino core
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-esp32-arduino-core" title="with ESP32 arduino core" class="md-nav__link">
+    with ESP32 arduino core
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-turn-on-the-debug-log-options" title="3. Turn on the debug log options" class="md-nav__link">
+    3. Turn on the debug log options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-reports-the-issue-to-autoconnect-github-repository" title="4. Reports the issue to AutoConnect Github repository" class="md-nav__link">
+    4. Reports the issue to AutoConnect Github repository
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>FAQ</h1>
+                
+                <h2 id="after-connected-autoconnect-menu-performs-but-no-happens"><i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.<a class="headerlink" href="#after-connected-autoconnect-menu-performs-but-no-happens" title="Permanent link">&para;</a></h2>
+<p>If you can access the <strong>AutoConnect root path</strong> as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses <em>ESP8266WebServer::handleClient()</em> without <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.<br />
+For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a> after <em>ESP8266WebServer::handleClient()</em> invoked, or use <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a>. <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a> is equivalent <em>ESP8266WebServer::handleClient</em> combined <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.</p>
+<p>See also the explanation <a href="basicusage.html#esp8266webserver-hosted-or-parasitic">here</a>.</p>
+<h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
+<p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
+<h2 id="connection-lost-immediately-after-establishment-with-ap"><i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP<a class="headerlink" href="#connection-lost-immediately-after-establishment-with-ap" title="Permanent link">&para;</a></h2>
+<p>A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur when the following conditions are satisfied at the same time.</p>
+<ul>
+<li>SoftAP channel on ESP32 and the connecting AP channel you specified are different. (The default channel of SoftAP is 1.)</li>
+<li>NVS had erased by erase_flash causes the connection data lost. The NVS partition has been moved. Never connected to the AP in the past.</li>
+<li>There are receivable multiple WiFi signals which are the same SSID with different channels using the WiFi repeater etc. (This condition is loose, it may occur even if there is no WiFi repeater.)</li>
+<li>Or the using channel of the AP which established a connection is congested with the radio signal on the same band. (If the channel crowd, connections to known APs may also fail.)</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Other possibilities</p>
+<p>The above conditions are not absolute. It results from my investigation, and other conditions may exist.</p>
+</div>
+<p>To avoid this problem, try <a href="#1-change-wifi-channel">changing the channel</a>.</p>
+<p>ESP32 hardware equips only one RF circuitry for WiFi signal. At the AP_STA mode, ESP32 as an AP attempts connect to another AP on another channel while keeping the connection with the station then the channel switching will occur causes the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. This problem will persist until a specific solution.</p>
+<h2 id="does-not-appear-esp8266ap-in-smartphone"><i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.<a class="headerlink" href="#does-not-appear-esp8266ap-in-smartphone" title="Permanent link">&para;</a></h2>
+<p>Maybe it is successfully connected at the <strong>first WiFi.begin</strong>. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first <em>WiFi.begin()</em> fails.</p>
+<p>The saved SSID would be cleared by  <em>WiFi.disconnect()</em> with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">WiFi.mode(WIFI_STA);</span>
+  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">WiFi.begin();</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.waitForConnectResult()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">WiFi.disconnect();</span>
+    <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span>
+      <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;WiFi disconnected.&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<details class="hint"><summary>You can interactively check the WiFi state of ESP8266.</summary><p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p>
+<p><img src="images/espshaker.gif" /></p>
+</details>
+<h2 id="does-not-response-from-95ac"><i class="fa fa-question-circle"></i> Does not response from /_ac.<a class="headerlink" href="#does-not-response-from-95ac" title="Permanent link">&para;</a></h2>
+<p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="advancedusage.html#debug-print">debug printing</a> will help you to track down the cause.</p>
+<h2 id="how-change-esp8266ap-for-ssid-name-in-captive-portal"><i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?<a class="headerlink" href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title="Permanent link">&para;</a></h2>
+<p>An <strong>esp8266ap</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong>. You can change both by using <a href="api.html#autoconnectconfig-api">AutoConnectConfig</a>.</p>
+<h2 id="how-change-http-port"><i class="fa fa-question-circle"></i> How change HTTP port?<a class="headerlink" href="#how-change-http-port" title="Permanent link">&para;</a></h2>
+<p>HTTP port number is defined as a macro in <a href="https://github.com/Hieromon/AutoConnect/blob/77d5cb5dc6d50651fd15f74b47859105c71fc317/src/AutoConnect.h#L89">AutoConnect.h</a> header file. You can change it directly with several editors and must re-compile.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_HTTPPORT    80</span>
+</pre></div>
+
+<h2 id="hang-up-after-reset"><i class="fa fa-question-circle"></i> Hang up after Reset?<a class="headerlink" href="#hang-up-after-reset" title="Permanent link">&para;</a></h2>
+<p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a></p>
+<p>If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>ets Jan  8 2013,rst cause:2, boot mode:(1,6) or (1,7)
+ets Jan  8 2013,rst cause:4, boot mode:(1,6) or (1,7)
+wdt reset
+</pre></div>
+
+<p>The correct boot mode for starting the sketch is <strong>(3, x)</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">ESP8266 Boot Messages</p>
+<p>It is described by <a href="view-source:https://www.espressif.com/en/products/hardware/esp8266ex/resources">ESP8266 Non-OS SDK API Reference</a>, section A.5.</p>
+<table>
+<thead>
+<tr>
+<th>Messages</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rst cause</td>
+<td>1: power on<br>2: external reset<br>4: hardware watchdog reset</td>
+</tr>
+<tr>
+<td>boot mode<br>(the first parameter)</td>
+<td>1: ESP8266 is in UART-down mode (and downloads firmware into flash).<br>3: ESP8266 is in Flash-boot mode (and boots up from flash).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
+<p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it.</p>
+<p>A class description of AutoConnectCredential is follows.</p>
+<h3 id="include-header"><i class="fa fa-code"></i> Include header<a class="headerlink" href="#include-header" title="Permanent link">&para;</a></h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnectCredential.h&gt;</span>
+</pre></div>
+
+<h3 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectCredential();</span>
+</pre></div>
+
+<p>AutoConnectCredential default constructor. The default offset value is 0. If the offset value is 0, the credential storage area starts from the top of the EEPROM. AutoConnect sometimes overwrites data when using this area with user sketch.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectCredential(</span><span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">offset);</span>
+</pre></div>
+
+<p>Specify offset from the top of the EEPROM for the credential storage area together. The offset value is from 0 to the flash sector size.</p>
+<h3 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>uint8_t <strong>entries()</strong><br />
+   Returns number of entries as contained credentials.</p>
+</li>
+<li>
+<p>int8_t <strong>load(const char* <em>ssid</em>, struct station_config* <em>config</em>)</strong><br />
+   Load a credential entry specified <em>ssid</em> to <em>config</em>. Returns -1 as unsuccessfully loaded.</p>
+</li>
+<li>
+<p>bool <strong>load(int8_t <em>entry</em>, struct station_config* <em>config</em>)</strong><br />
+   Load a credential entry to <em>config</em>. The <em>entry</em> parameter specify to index of the entry.</p>
+</li>
+<li>
+<p>bool <strong>save(const struct station_config* <em>config</em>)</strong><br />
+   Save a credential entry stored in <em>config</em> to EEPROM. Returns the true as succeeded.</p>
+</li>
+<li>
+<p>bool <strong>del(const char* <em>ssid</em>)</strong><br />
+   Delete a credential entry specified <em>ssid</em>. Returns the true as successfully deleted.</p>
+</li>
+</ul>
+<h3 id="data-structures"><i class="fa fa-code"></i> Data structures<a class="headerlink" href="#data-structures" title="Permanent link">&para;</a></h3>
+<ul>
+<li>station_config<br />
+  A structure is included in the ESP8266 SDK. You can use it in the sketch like as follows.</li>
+</ul>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">extern</span> <span style="color: #e6db74">&quot;C&quot;</span> <span style="color: #f8f8f2">{</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;user_interface.h&gt;</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">station_config</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">ssid[</span><span style="color: #ae81ff">32</span><span style="color: #f8f8f2">];</span>
+    <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">password[</span><span style="color: #ae81ff">64</span><span style="color: #f8f8f2">];</span>
+    <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">bssid_set;</span>
+    <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">bssid[</span><span style="color: #ae81ff">6</span><span style="color: #f8f8f2">];</span>
+<span style="color: #f8f8f2">};</span>
+</pre></div>
+
+<ul>
+<li>EEPROM data structure<br />
+  A data structure of the credential saving area in EEPROM as the below. <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Byte offset</th>
+<th>Length</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>8</td>
+<td>AC_CREDT</td>
+</tr>
+<tr>
+<td>8</td>
+<td>1</td>
+<td>Number of contained entries (uint8_t)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2</td>
+<td>Container size, excluding size of AC_CREDT and size of the number of entries(width for uint16_t type).</td>
+</tr>
+<tr>
+<td>11</td>
+<td>variable</td>
+<td>SSID terminated by 0x00. Max length is 32 bytes.</td>
+</tr>
+<tr>
+<td>variable</td>
+<td>variable</td>
+<td>Password plain text terminated by 0x00. Max length is 64 bytes.</td>
+</tr>
+<tr>
+<td>variable</td>
+<td>6</td>
+<td>BSSID</td>
+</tr>
+<tr>
+<td>variable</td>
+<td></td>
+<td>Contained the next entries. (Continuation SSID+Password+BSSID)</td>
+</tr>
+<tr>
+<td>variable</td>
+<td>1</td>
+<td>0x00. End of container.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>With the <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>, you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.</p>
+</div>
+<h2 id="how-locate-the-link-button-to-the-autoconnect-menu"><i class="fa fa-question-circle"></i> How locate the link button to the  AutoConnect menu?<a class="headerlink" href="#how-locate-the-link-button-to-the-autoconnect-menu" title="Permanent link">&para;</a></h2>
+<p>Link button to AutoConnect menu can be embedded into Sketch's web page. The root path of the menu is <strong>/_ac</strong> by default and embed the following <code>&lt;a&gt;&lt;/a&gt;</code> tag in the generating HTML.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">a</span> <span style="color: #a6e22e">style</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;background-color:SteelBlue; display:inline-block; padding:7px 13px; text-decoration:none;&quot;</span> <span style="color: #a6e22e">href</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;/_ac&quot;</span><span style="color: #f8f8f2">&gt;</span>MENU<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">a</span><span style="color: #f8f8f2">&gt;</span>
+</pre></div>
+
+<h2 id="how-much-memory-does-autoconnect-consume"><i class="fa fa-question-circle"></i> How much memory does AutoConnect consume?<a class="headerlink" href="#how-much-memory-does-autoconnect-consume" title="Permanent link">&para;</a></h2>
+<h3 id="sketch-size">Sketch size<a class="headerlink" href="#sketch-size" title="Permanent link">&para;</a></h3>
+<p>It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)</p>
+<h3 id="heap-size">Heap size<a class="headerlink" href="#heap-size" title="Permanent link">&para;</a></h3>
+<p>It consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.</p>
+<h2 id="i-cannot-complete-to-wi-fi-login-from-smartphone"><i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.<a class="headerlink" href="#i-cannot-complete-to-wi-fi-login-from-smartphone" title="Permanent link">&para;</a></h2>
+<p>Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.</p>
+<h2 id="i-cannot-see-the-custom-web-page"><i class="fa fa-question-circle"></i> I cannot see the custom Web page.<a class="headerlink" href="#i-cannot-see-the-custom-web-page" title="Permanent link">&para;</a></h2>
+<p>If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the <a href="faq.html#3-turn-on-the-debug-log-options">AC_DEBUG</a> and rerun. If you take the message of JSON syntax error, the <a href="https://arduinojson.org/v5/assistant/">Json Assistant</a> helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. </p>
+<h2 id="still-not-stable-with-my-sketch"><i class="fa fa-question-circle"></i> Still, not stable with my sketch.<a class="headerlink" href="#still-not-stable-with-my-sketch" title="Permanent link">&para;</a></h2>
+<p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
+<h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
+<p>Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try to configure the <a href="apiconfig.html#channel">channel</a> with <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the access point.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
+
+<span style="color: #f8f8f2">config.channel</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">3</span><span style="color: #f8f8f2">;</span>     <span style="color: #75715e">// Specifies a channel number that matches the AP</span>
+<span style="color: #f8f8f2">portal.config(config);</span>  <span style="color: #75715e">// Apply channel configurration</span>
+<span style="color: #f8f8f2">portal.begin();</span>         <span style="color: #75715e">// Start the portal</span>
+</pre></div>
+
+<div class="admonition info">
+<p class="admonition-title">Channel selection guide</p>
+<p>Espressif Systems has released a <a href="https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf">channel selection guide</a>.</p>
+</div>
+<h3 id="2-change-the-arduino-core-version">2. Change the arduino core version<a class="headerlink" href="#2-change-the-arduino-core-version" title="Permanent link">&para;</a></h3>
+<p>I recommend change installed an arduino core version to the upstream when your sketch is not stable with AutoConnect on each board.</p>
+<h4 id="with-esp8266-arduino-core">with ESP8266 arduino core<a class="headerlink" href="#with-esp8266-arduino-core" title="Permanent link">&para;</a></h4>
+<p>You can select the <a href="http://lwip.wikia.com/wiki/LwIP_Wiki">lwIP</a> variant to contribute for the stable behavior. The <strong>lwIP v2 Lower memory</strong> option of Arduino IDE for core version 2.4.2 is based on the lwIP-v2. On the other hand, the core version 2.5.0 upstream is based on the lwIP-2.1.2 stable release.</p>
+<p>You can select the option from Arduino IDE as <strong>Tool</strong> menu, if you are using ESP8266 core 2.5.0. It can be select <code>lwIP v2 Lower Memory</code> option. (not <code>lwIP v2 Lower Memory (no features)</code>) It is expected to improve response performance and stability.</p>
+<h4 id="with-esp32-arduino-core">with ESP32 arduino core<a class="headerlink" href="#with-esp32-arduino-core" title="Permanent link">&para;</a></h4>
+<p>The <a href="https://github.com/espressif/arduino-esp32">arduino-esp32</a> is still under development. It is necessary to judge whether the problem cause of the core or AutoConnect. Trace the log with the esp32 core and the AutoConnect debug option enabled for problem diagnosis and please you check the <a href="https://github.com/espressif/arduino-esp32/issues">issue of arduino-esp32</a>. The problem that your sketch possesses may already have been solved.</p>
+<h3 id="3-turn-on-the-debug-log-options">3. Turn on the debug log options<a class="headerlink" href="#3-turn-on-the-debug-log-options" title="Permanent link">&para;</a></h3>
+<p>To fully enable for the AutoConnect debug logging options, change the following two files.</p>
+<p><i class="fas fa-angle-right"></i> AutoConnectDefs.h</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AC_DEBUG</span>
+</pre></div>
+
+<p><i class="fas fa-angle-right"></i> PageBuilder.h <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define PB_DEBUG</span>
+</pre></div>
+
+<h3 id="4-reports-the-issue-to-autoconnect-github-repository">4. Reports the issue to AutoConnect Github repository<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-github-repository" title="Permanent link">&para;</a></h3>
+<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" disabled/> Hardware module</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Arduino core version Including the upstream commit ID if necessary</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Operating System which you use</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Your smartphone OS and version (Especially for Android)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Your AP information (IP, channel) if related</li>
+<li class="task-list-item"><input type="checkbox" disabled/> lwIP variant</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Problem description</li>
+<li class="task-list-item"><input type="checkbox" disabled/> If you have a STACK DUMP decoded result with formatted by the code block tag</li>
+<li class="task-list-item"><input type="checkbox" disabled/> The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> Debug messages output (Including arduino core)</li>
+</ul>
+<p>I will make efforts to solve as quickly as possible. But I would like you to know that it is not always possible.</p>
+<p>Thank you.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>There may be 0xff as an invalid data in the credential saving area. The 0xff area would be reused.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><code>PageBuilder.h</code> exists in the <code>libraries/PageBuilder/src</code> directory under your sketch folder.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="lsbegin.html" title="Appendix" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Appendix
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="changelog.html" title="Change log" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Change log
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.b806dc00.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

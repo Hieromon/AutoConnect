@@ -2,11 +2,11 @@
 .vs/
 __vm/
 debug/
+Release/
 img/
 *.tmp
 *.TMP
 *.sln
 *.vcxproj
 *.vcxproj.filters
-.pioenvs
-.piolibdeps
+*.vcxitems

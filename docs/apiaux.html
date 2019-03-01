@@ -1,0 +1,1282 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/apiaux.html">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+    
+    
+      
+        <title>AutoConnectAux API - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#constructor" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+          
+            <img src="images/arduino-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              AutoConnectAux API
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="index.html" title="Overview" class="md-tabs__link">
+        Overview
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
+          Custom Web pages
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="api.html" title="Library APIs" class="md-tabs__link md-tabs__link--active">
+          Library APIs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+      
+        <img src="images/arduino-logo.svg" width="48" height="48">
+      
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+      AutoConnect menu
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+      Basic usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+      Custom Web pages with AutoConnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        AutoConnectAux API
+      </label>
+    
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link md-nav__link--active">
+      AutoConnectAux API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoconnectaux" title="AutoConnectAux" class="md-nav__link">
+    AutoConnectAux
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add" title=" add" class="md-nav__link">
+     add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getelement" title=" getElement" class="md-nav__link">
+     getElement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getelements" title=" getElements" class="md-nav__link">
+     getElements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load" title=" load" class="md-nav__link">
+     load
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadelement" title=" loadElement" class="md-nav__link">
+     loadElement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu" title=" menu" class="md-nav__link">
+     menu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on" title=" on" class="md-nav__link">
+     on
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release" title=" release" class="md-nav__link">
+     release
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveelement" title=" saveElement" class="md-nav__link">
+     saveElement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setelementvalue" title=" setElementValue" class="md-nav__link">
+     setElementValue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settitle" title=" setTitle" class="md-nav__link">
+     setTitle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+      AutoConnectElements API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+      Appendix
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
+      Change log
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license.html" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoconnectaux" title="AutoConnectAux" class="md-nav__link">
+    AutoConnectAux
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add" title=" add" class="md-nav__link">
+     add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getelement" title=" getElement" class="md-nav__link">
+     getElement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getelements" title=" getElements" class="md-nav__link">
+     getElements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load" title=" load" class="md-nav__link">
+     load
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadelement" title=" loadElement" class="md-nav__link">
+     loadElement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menu" title=" menu" class="md-nav__link">
+     menu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on" title=" on" class="md-nav__link">
+     on
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release" title=" release" class="md-nav__link">
+     release
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saveelement" title=" saveElement" class="md-nav__link">
+     saveElement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setelementvalue" title=" setElementValue" class="md-nav__link">
+     setElementValue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settitle" title=" setTitle" class="md-nav__link">
+     setTitle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>AutoConnectAux API</h1>
+                
+                <h2 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
+<h3 id="autoconnectaux">AutoConnectAux<a class="headerlink" href="#autoconnectaux" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectAux(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">),</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">),</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">menu</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AutoConnectElementVT</span> <span style="color: #f8f8f2">addons</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AutoConnectElementVT())</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">URI of this custom Web Page.</span></dd>
+    <dd><span class="apidef">title</span><span class="apidesc">Page title of this custom Web page. It will appear on the auto connection menu and at the top of that page.</span></dd>
+    <dd><span class="apidef">menu</span><span class="apidesc">Specifies whether to display this page on menu.</span></dd>
+    <dd><span class="apidef">addons</span><span class="apidesc">Reference to AutoConnectElement collection.</span></dt>
+</dl></p>
+<h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
+<h3 id="add"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">addon)</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(AutoConnectElementVT</span> <span style="color: #f8f8f2">addons)</span>
+</pre></div>
+Add an element to the AutoConnectAux. An added element is displayed on the custom Web page invoked from the AutoConnect menu.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">addon</span><span class="apidesc">Reference of AutoConnectElements. Specifies one of the AutoConnectElements classes.</span></dd>
+    <dd><span class="apidef">addons</span><span class="apidesc">An array list of reference of AutoConnectElements. An <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a> of the <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> can be used for the addons parameter cause the actual definition of type <strong>AutoConnectElementVT</strong> is <code>std::vector&lt;std::reference_wrapper&lt;AutoConnectElement&gt;&gt;</code>.</span></dd>
+</dl></p>
+<h3 id="getelement"><i class="fa fa-caret-right"></i> getElement<a class="headerlink" href="#getelement" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+</pre></div>
+Get a registered AutoConnectElement as specified name. If <strong>T</strong> is specified as an actual type of AutoConnectElements, it returns a reference to that instance.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">T</span><span class="apidesc">Actual type name of AutoConnectElements as <a href="apielements.html#autoconnectbutton">AutoConnectButton</a>, <a href="apielements.html#autoconnectcheckbox">AutoConnectCheckbox</a>, <a href="apielements.html#autoconnectelement">AutoConnectElement</a>, <a href="apielements.html#autoconnectinput">AutoConnectInput</a>, <a href="apielements.html#autoconnectradio">AutoConnectRadio</a>, <a href="apielements.html#autoconnectselect">AutoConnectSelect</a>, <a href="apielements.html#autoconnectsubmit">AutoConnectSubmit</a>, <a href="apielements.html#autoconnecttext">AutoConnectText</a>.</span></dd>
+    <dd><span class="apidef">name</span><span class="apidesc">Name of the AutoConnectElements to be retrieved.</span></dd>
+    <dt><strong>Return value</strong></dt><dd>A reference of the AutoConnectElements. If a type is not specified returns a pointer.</dd>
+</dl></p>
+<h3 id="getelements"><i class="fa fa-caret-right"></i> getElements<a class="headerlink" href="#getelements" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Get vector of reference of all elements.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference to std::vector of reference to AutoConnecctElements.</dd>
+</dl></p>
+<p>The getElements returns a reference to std::vector of reference to AutoConnecctElements. This function is provided to handle AutoConnectElemets owned by AutoConnectAux in bulk, and you can use each method of std::vector for a return value.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">// An example of getting type and name of all AutoConnectElements registered in AutoConnectAux.</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<span style="color: #75715e">// some code here...</span>
+<span style="color: #f8f8f2">AutoConnectElementVt</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElements();</span>
+<span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elm</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">elements)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">Serial.printf(</span><span style="color: #e6db74">&quot;name&lt;%s&gt; as type %d</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">elm.name.c_str(),</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)elm.typeOf());</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<h3 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in)</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">in)</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in)</span>
+</pre></div>
+Load all AutoConnectElements elements from JSON document into AutoConnectAux as custom Web pages. The JSON document specified by the load function must be the <a href="acjson.html#json-objects-elements-for-the-custom-web-page">document structure</a> of AutoConnectAux. Its JSON document can describe multiple pages as an array.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">in</span><span class="apidesc">Specifies the JSON document to be load. The load function can input the following objects.</p>
+<ul>
+<li>String : Read-only String</li>
+<li>PROGMEM : Character array contained in the flash</li>
+<li>Stream : An entity that inherits stream class, generally SPIFFS or SD.
+    </span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">JSON document as the custom Web pages successfully loaded.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">JSON document loading failed.</span></dd>
+</dl></li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Load multiple custom Web pages separately</p>
+<p>Multiple custom Web pages can be loaded at once with JSON as an array. But it will consume a lot of memory. By loading a JSON document by page as much as possible, you can reduce memory consumption.</p>
+</div>
+<h3 id="loadelement"><i class="fa fa-caret-right"></i> loadElement<a class="headerlink" href="#loadelement" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
+</pre></div>
+Load specified element from JSON document into AutoConnectAux. The JSON document specified by the loadElement function must be the <a href="acjson.html#json-object-for-autoconnectelements">AutoConnectElement document structure</a>. When loading from a JSON document that describes multiple elements, its description must be an array syntax.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">in</span><span class="apidesc">Specifies the JSON document to be load. The load function can input the following objects.</p>
+<ul>
+<li>String : Read-only String</li>
+<li>PROGMEM : Character array contained in the flash</li>
+<li>Stream : An entity that inherits stream class, generally SPIFFS or SD.
+    </span></dd>
+    <dd><span class="apidef">name</span><span class="apidesc">Specifies the name to be load. If the name is not specified, the loadElement function will load all elements contained in the JSON document.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Specified AutoConnectElements successfully loaded.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">JSON document loading failed.</span></dd>
+</dl></li>
+</ul>
+<div class="admonition caution">
+<p class="admonition-title">Maybe it is an array</p>
+<p>Please note that the JSON document that is the input for loadElement is an array syntax of AutoConnectElements when there are multiple elements. For example, the following JSON document has a syntax error:</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Caption&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Hello, world&quot;</span>
+<span style="color: #f8f8f2">}</span><span style="color: #960050; background-color: #1e0010">,</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Server&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;label&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Server address&quot;</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+The outermost <code>[</code>, <code>]</code> is missing.</p>
+</div>
+<h3 id="menu"><i class="fa fa-caret-right"></i> menu<a class="headerlink" href="#menu" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">menu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">post)</span>
+</pre></div>
+Set or reset the display as menu item for this AutoConnectAux. This function programmatically manipulates the menu parameter of the <a href="apiaux.html#autoconnectaux">AutoConenctAux constructor</a>.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Show on the menu.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Hidden on the menu.</span></dd>
+</dl></p>
+<h3 id="on"><i class="fa fa-caret-right"></i> on<a class="headerlink" href="#on" title="Permanent link">&para;</a></h3>
+<dl>
+<dt><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD)</span>
+</pre></div></dt>
+<dt>Register the handler function of the AutoConnectAux.</dt>
+<dt><dl class="apidl"></dt>
+<dt><dt><strong>Parameters</strong></dt></dt>
+<dt><dd><span class="apidef">handler</span><span class="apidesc">A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.<p class="apidesc"><code>String handler(AutoConnectAux&amp;, PageArgument&amp;)</code></p></span></dd></dt>
+<dt><dd><span class="apidef">order</span><span class="apidesc">Specifies when the handler is called with the following enumeration value.</span></dt>
+<dd>
+<ul>
+<li><strong>AC_EXIT_AHEAD</strong> :
+Called before AutoConnect generates the HTML of the page. You set the value of AutoConnectElements in the handler then its value will be displayed on the page.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_EXIT_LATER</strong> :
+Called after AutoConnect generates the HTML of the page. You can append to HTML generated by AutoConnect.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_EXIT_BOTH</strong> :
+Called even before generating HTML and after generated.</dd></li>
+</ul>
+</dd>
+</dl>
+</dl>
+
+<h3 id="release"><i class="fa fa-caret-right"></i> release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">release(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+</pre></div>
+Release a specified AutoConnectElement from AutoConenctAux. The release function is provided to dynamically change the structure of the custom Web pages with the sketch. By combining the release function and the <a href="apiaux.html#add">add</a> function or the <a href="apiaux.html#loadelement">loadElement</a> function, the sketch can change the style of the custom Web page according to its behavior.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of AutoConnectElements to be released.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The AutoConnectElement successfully released.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">The AutoConnectElement can not be released.</span></dd>
+</dl></p>
+<h3 id="saveelement"><i class="fa fa-caret-right"></i> saveElement<a class="headerlink" href="#saveelement" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">saveElement(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">out,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">names</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{})</span>
+</pre></div>
+Write elements of AutoConnectAux to the stream. The saveElement function outputs the specified AutoConenctElements as a JSON document using the <a href="https://arduinojson.org/v5/api/jsonobject/prettyprintto/">prettyPrintTo</a> function of the <a href="https://arduinojson.org/">ArduinoJson</a> library.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">out</span><span class="apidesc">Output stream to be output. SPIFFS, SD also Serial can be specified generally.</span></dd>
+    <dd><span class="apidef">names</span><span class="apidesc">The array of the name of AutoConnectElements to be output. If the names parameter is not specified, all AutoConnectElements registered in AutoConnectAux are output.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>The number of bytes written.</dd>
+</dl></p>
+<div class="admonition note">
+<p class="admonition-title">The output format is pretty</p>
+<p>The saveElement function outputs a prettified JSON document.</p>
+</div>
+<h3 id="setelementvalue"><i class="fa fa-caret-right"></i> setElementValue<a class="headerlink" href="#setelementvalue" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">setElementValue(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">value)</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">setElementValue(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values)</span>
+</pre></div>
+Sets the value of the specified AutoConnectElement. If values ​​is specified as a <em>std::vector</em> of String, the element that can set the values is the <a href="apielements.html#autoconnectradio">AutoConnectRadio</a> or the <a href="apielements.html#autoconnectselect">AutoConnectSelect</a>. 
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of the AutoConnectElements that you want to set the value.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Specifies the value to be set.</span></dd>
+    <dd><span class="apidef">values</span><span class="apidesc">Specifies a reference of a <em>std::vector</em> of String. It contains the values of the AutoConnectRadio or the AutoConnectSelect.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The value has been set.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">AutoConnectElements with the specified name are not registered. Or the type of the value is not consistent with the specified AutoConnectElements.</span></dd>
+</dl></p>
+<div class="admonition hint">
+<p class="admonition-title">You can directly access the value member variable.</p>
+<p>If you are gripping with the sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
+<span style="color: #f8f8f2">aux.setElementValue(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">);</span>
+</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
+<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">text.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">;</span>
+</pre></div>
+The difference between the setElementValue and the value access with the <a href="apiaux.html#getelement">getElement</a> is the certainty of the registration state for the element. The <a href="apiaux.html#getelement">getElement</a> returns an empty object if the element is not registered then a sketch assigns the value to it. May occur unexpected results and crashes. You should use the setElementValue if its registration is unsettled.</p>
+</div>
+<h3 id="settitle"><i class="fa fa-caret-right"></i> setTitle<a class="headerlink" href="#settitle" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">setTitle(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title)</span>
+</pre></div>
+Set the title string of the custom Web page. This title will be displayed as the menu title of the custom Web page.
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">title</span><span class="apidesc">Title string to be display.</span></dd>
+</dl></p>
+<div class="admonition caution">
+<p class="admonition-title">Not the menu title</p>
+<p>The setTitle function is not set for the AutoConnect menu title. The effect of this function is that custom Web page only. To change the AutoConnect menu title use <a href="apiconfig.html#title">AutoConnectConfig::title</a>.</p>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="api.html" title="AutoConnect API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                AutoConnect API
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="apiconfig.html" title="AutoConnectConfig API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                AutoConnectConfig API
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.b806dc00.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

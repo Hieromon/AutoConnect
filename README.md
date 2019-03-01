@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
 [![GitHub release](https://img.shields.io/github/release/Hieromon/AutoConnect.svg)](https://github.com/Hieromon/AutoConnect/releases)
+[![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg)](https://www.ardu-badge.com/AutoConnect)
 
 An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface. 
 
@@ -31,6 +32,18 @@ AutoConnect can be embedded easily into your sketch, just "**begin**" and "**han
 ###  Lives with the your sketches
 
 The sketches which provide the web page using ESP8266WebServer/WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object(ESP8266) or WebServer object(ESP32), or itself can assign it.
+
+### Easily add user-owned web screen and  parameters <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
+
+You can easily add your own web screen that can consist of representative HTML elements as the styled TEXT, INPUT, BUTTON, CHECKBOX, RADIO, SELECT, SUBMIT into the menu. It can be invoked from the AutoConnect menu and parameters can be passed.
+
+### Just loading the JSON description <sup><sub>ENHANCED w/ v0.9.7</sub></sup>
+
+These HTML elements that make up the user-owned screen can be easily loaded from the JSON description stored in PROGMEM, SPIFFS or SD.
+
+<img width="40%" src="mkdocs/images/aux_json.png">&emsp;
+<img width="32px" src="mkdocs/images/arrow_right.png" align="top">&emsp;
+<img width="30%" height="400px" src="mkdocs/images/AutoConnectAux.gif">
 
 ## Supported hardware
 
@@ -76,12 +89,24 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted/index.html) with the most simple sketch for using AutoConnect.
 - The [Basic usage](https://hieromon.github.io/AutoConnect/basicusage/index.html) guides to using the library correctly.
 - Details are explained in the [Advanced usage](https://hieromon.github.io/AutoConnect/advancedusage/index.html).
+- Details and usage of custom Web pages are explained in the [Custom Web pages](https://hieromon.github.io/AutoConnect/acintro.html).
 - The [API reference](https://hieromon.github.io/AutoConnect/api/index.html) describes the AutoConnect functions specification.
 - [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
 
 ## Change log
 
-### [0.9.6] Sep. 27, 2018
+### [0.9.7] Feb. 25, 2019
+- Fixed crash in some environments. Thank you @ageurtse
+- Supports AutoConnect menu extension by user sketch with **AutoConnectAux**.
+- Supports loading and saving of user-defined parameters with JSON format.
+- Improved the WiFi connection sequence at the first WiFi.begin. Even if **AutoConnectConfig::autoReconnect** is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
+- Supports the **AutoConnectConfig::immediateStart** option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the **AutoConnectConfig::autoRise** option.
+- Improved boot uri after reset. **AutoConnectConfig::bootUri** can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
+- Improved source code placement of predefined macros. Defined common macros have been moved to ```AutoConnectDefs.h```.
+- Supports **AutoConnectConfig::hostName**. It activates ```WiFi.hostname()```.
+- Supports the captive portal time-out. It can be controlled by **AutoConnectConfig::portalTimeout** and **AutoConnectConfig::retainPortal**.
+
+### [0.9.6] Sept. 27, 2018
 - Improvement of RSSI detection for saved SSIDs.
 - Fixed disconnection SoftAP completely at the first connection phase of the AutoConnect::begin.
 

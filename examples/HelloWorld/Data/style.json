@@ -1,0 +1,5 @@
+{
+  "name" : "Caption",
+  "type" : "ACText",
+  "style": "text-align:center;font-size:24px;font-family:'Impact','Futura',sans-serif;color:tomato;"
+}

@@ -7,7 +7,7 @@ An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web int
 To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with *ESP8266WebServer* class for ESP8266 or *WebServer* class for ESP32.
 Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi connection. With this library to make a sketch easily which connects from ESP8266/ESP32 to the access point at runtime by the web interface without hard-coded SSID and password.
 
-<img style="display:inline-block;width:460px;margin-right:30px;" src="./images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="./images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span>
+<img style="display:inline-block;width:460px;margin-right:30px;" src="images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> No need pre-coded SSID &amp; password
 
@@ -25,9 +25,19 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 
 <span class="lead">AutoConnect can be placed easily in your sketch. It's "**begin**" and "**handleClient**" only.</span>
 
-### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with the your sketches
+### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with your sketches
 
-<span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.<br>This efficacy can also be applied to ESP32. The corresponding class for ESP32 will be the WebServer.</span>
+<span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it. This effect also applies to ESP32. The corresponding class for ESP32 will be the WebServer.</span>
+
+### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to add the [custom Web pages](acintro.md) <sup><sub>ENHANCED w/v0.9.7</sub></sup>
+
+<span class="lead">You can easily add your owned web pages that can consist of representative HTML elements and invoke them from the menu. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD.</span>
+
+<div style="display:block;height:425px;">
+<img style="float:left;width:380px;" src="images/aux_json.png">
+<img style="float:left;margin-top:200px;margin-left:10px;margin-right:10px;width:32px;" src="images/arrow_right.png">
+<span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
+</div>
 
 ## Installation
 
@@ -64,30 +74,39 @@ The current upstream at the 1.8 level or later is needed. Please install from th
 
 <i class="fa fa-download"></i> <strong>ESP8266 Arduino core</strong>
 
-AutoConnect targets sketches made on the assumption of [ESP8266 Community's Arduino core](https://github.com/esp8266/Arduino). The [latest release](https://github.com/esp8266/Arduino/releases/latest) is recommended.  
+AutoConnect targets sketches made on the assumption of [ESP8266 Community's Arduino core](https://github.com/esp8266/Arduino). Stable 2.4.0 or higher required and the [latest release](https://github.com/esp8266/Arduino/releases/latest) is recommended.  
 Install third-party platform using the *Boards Manager* of Arduino IDE. Package URL is http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
 <i class="fa fa-download"></i> <strong>ESP32 Arduino core</strong>
 
-Also, to apply AutoConnect to ESP32, the [arduino-esp32 core](https://github.com/espressif/arduino-esp32) provided by Espressif is needed. The [latest release](https://github.com/espressif/arduino-esp32/releases/latest) is recommended.  
-Install third-party platform using the *Boards Manager* of Arduino IDE. You can add multiple URLs into *Additional Board Manager URLs* field, separating them with commas. Package URL is https://dl.espressif.com/dl/package_esp32_index.json
+Also, to apply AutoConnect to ESP32, the [arduino-esp32 core](https://github.com/espressif/arduino-esp32) provided by Espressif is needed. Stable 1.0.1 or required and the [latest release](https://github.com/espressif/arduino-esp32/releases/latest) is recommended.  
+Install third-party platform using the *Boards Manager* of Arduino IDE. You can add multiple URLs into *Additional Board Manager URLs* field, separating them with commas. Package URL is https://dl.espressif.com/dl/package_esp32_index.json for ESP32.
 
-<i class="fa fa-download"></i> <strong>Additional necessary library</strong>
+<i class="fa fa-download"></i> <strong>Additional library (Required)</strong>
 
 The [PageBuilder](https://github.com/Hieromon/PageBuilder) library to build HTML for ESP8266WebServer is needed.  
-To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required 1.1.0 later for ESP32.
+To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required **1.3.2** **later**.[^1]
+[^1]:Since AutoConnect v0.9.7, PageBuilder v1.3.2 later is required.
 
-<img src="./images/lm.png" width="640"/>
+<img src="images/lm.png" width="640"/>
+
+<i class="fa fa-download"></i> <strong>Additional library (Optional)</strong>
+
+By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, AutoConnect will be able to handle the [**custom Web pages**](acintro.md) described with JSON. With AutoConnect v0.9.7 you can insert user-owned web pages that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this feature.[^2]
+[^2]:Using the AutoConnect API natively allows you to sketch custom Web pages without JSON.
+
+!!! info "AutoConnect supports ArduinoJson version 5 only"
+    ArduinoJson version 6 is still in beta, but Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
 
 ### Install the AutoConnect
 
 Clone or download from the [AutoConnect GitHub repository](https://github.com/Hieromon/AutoConnect).
 
-<img src="./images/gitrepo.png" width="640"/>
+<img src="images/gitrepo.png" width="640"/>
 
 When you select Download, you can import it to Arduino IDE immediately. After downloaded, the AutoConnect-master.zip file will be saved in your download folder. Then in the Arduino IDE, navigate to *"Sketch > Include Library"*. At the top of the drop down list, select the option to *"Add .ZIP Library..."*. Details for [Arduino official page](https://www.arduino.cc/en/Guide/Libraries#toc4).
 
-<img src="./images/ins_lib.png" />
+<img src="images/ins_lib.png" />
 
 !!! info "Supported by Library manager."
     AutoConnect was added to the Arduino IDE library manager. It can be used with the PlatformIO library also.
@@ -95,5 +114,5 @@ When you select Download, you can import it to Arduino IDE immediately. After do
 <script>
   window.onload = function() {
     Gifffer();
-  }
+  };
 </script>

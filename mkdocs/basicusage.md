@@ -4,7 +4,7 @@
 
 How embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps. The below sketch is for ESP8266. For ESP32, replace ```ESP8266WebServer``` with ```WebServer``` and ```ESP8266WiFi.h``` with ```WiFi.h``` respectively.
 
-<img src="../images/BeforeAfter.svg" />
+<img src="images/BeforeAfter.svg" />
 
 <ul class="ulsty-edit" style="list-style:none;">
   <li>Insert <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span></code> to behind of <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span></code>.</li>
@@ -47,13 +47,13 @@ Replacement the **handleClient** method is not indispensable. AutoConnect can st
 
 [Two options](#esp8266webserver-hosted-or-parasitic) are available for [AutoConnect constructor](api.md#constructors).
 
-```arduino
+```cpp
 AutoConnect VARIABLE(&ESP8266WebServer);  // For ESP8266
 AutoConnect VARIABLE(&WebServer);         // For ESP32
 ```
 or
 
-```arduino
+```cpp
 AutoConnect VARIABLE;
 ```
 
@@ -74,7 +74,7 @@ AutoConnect internally performs *WiFi.begin* to establish a WiFi connection. The
 
 #### 5. AutoConnect::begin with SSID and Password
 
-SSID and Password can also specify by [*AutoConnect::begin*](api.me#begin). ESP8266/ESP32 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.
+SSID and Password can also specify by [*AutoConnect::begin*](api.md#begin). ESP8266/ESP32 uses provided SSID and Password explicitly. If the connection false with specified SSID with Password then a captive portal is activated. SSID and Password are not present, ESP8266 SDK will attempt to connect using the still effectual SSID and password. Usually, it succeeds.
 
 #### 6. Use ESP8266WebServer::on and WebServer::on to handle URL
 

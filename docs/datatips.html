@@ -1,0 +1,1174 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/datatips.html">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+    
+    
+      
+        <title>Tips for data conversion - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#convert-autoconnectelements-value-to-actual-data-type" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+          
+            <img src="images/arduino-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              Tips for data conversion
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="index.html" title="Overview" class="md-tabs__link">
+        Overview
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
+          Custom Web pages
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="api.html" title="Library APIs" class="md-tabs__link">
+          Library APIs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link md-tabs__link--active">
+          Examples
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+      
+        <img src="images/arduino-logo.svg" width="48" height="48">
+      
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+      AutoConnect menu
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+      Basic usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+      Custom Web pages with AutoConnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+      AutoConnectAux API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+      AutoConnectElements API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked>
+    
+    <label class="md-nav__link" for="nav-8">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Tips for data conversion
+      </label>
+    
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link md-nav__link--active">
+      Tips for data conversion
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#convert-autoconnectelements-value-to-actual-data-type" title="Convert AutoConnectElements value to actual data type" class="md-nav__link">
+    Convert AutoConnectElements value to actual data type
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integer" title=" Integer" class="md-nav__link">
+     Integer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#float" title=" Float" class="md-nav__link">
+     Float
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-time" title=" Date &amp; Time" class="md-nav__link">
+     Date &amp; Time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-address" title=" IP address" class="md-nav__link">
+     IP address
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-for-the-value" title="Validation for the value" class="md-nav__link">
+    Validation for the value
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#url" title=" URL" class="md-nav__link">
+     URL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-hostname" title=" DNS hostname" class="md-nav__link">
+     DNS hostname
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-address-2" title=" email address 2" class="md-nav__link">
+     email address 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-address_1" title=" IP Address" class="md-nav__link">
+     IP Address
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-as-mmddyyyy-3" title=" Date as MM/DD/YYYY 3" class="md-nav__link">
+     Date as MM/DD/YYYY 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+      Appendix
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
+      Change log
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license.html" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#convert-autoconnectelements-value-to-actual-data-type" title="Convert AutoConnectElements value to actual data type" class="md-nav__link">
+    Convert AutoConnectElements value to actual data type
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integer" title=" Integer" class="md-nav__link">
+     Integer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#float" title=" Float" class="md-nav__link">
+     Float
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-time" title=" Date &amp; Time" class="md-nav__link">
+     Date &amp; Time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-address" title=" IP address" class="md-nav__link">
+     IP address
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-for-the-value" title="Validation for the value" class="md-nav__link">
+    Validation for the value
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#url" title=" URL" class="md-nav__link">
+     URL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-hostname" title=" DNS hostname" class="md-nav__link">
+     DNS hostname
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-address-2" title=" email address 2" class="md-nav__link">
+     email address 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip-address_1" title=" IP Address" class="md-nav__link">
+     IP Address
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-as-mmddyyyy-3" title=" Date as MM/DD/YYYY 3" class="md-nav__link">
+     Date as MM/DD/YYYY 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Tips for data conversion</h1>
+                
+                <h2 id="convert-autoconnectelements-value-to-actual-data-type">Convert AutoConnectElements value to actual data type<a class="headerlink" href="#convert-autoconnectelements-value-to-actual-data-type" title="Permanent link">&para;</a></h2>
+<p>The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type.</p>
+<p>The AutoConnect library does not provide the data conversion utility, and its function depends on Arduino language functions or functions of the type class. However, commonly used data conversion methods are generally similar.</p>
+<p>Here, represent examples the typical method for the data type conversion for the AutoConnectElements value of custom Web pages.</p>
+<h3 id="integer"><i class="fa fa-exchange"></i> Integer<a class="headerlink" href="#integer" title="Permanent link">&para;</a></h3>
+<p>Use <a href="https://www.arduino.cc/reference/en/language/variables/conversion/intcast/">int()</a> or <a href="https://www.arduino.cc/reference/en/language/variables/data-types/string/functions/toint/">toInt() of String</a>.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input.value.toInt();</span>
+</pre></div>
+
+<h3 id="float"><i class="fa fa-exchange"></i> Float<a class="headerlink" href="#float" title="Permanent link">&para;</a></h3>
+<p>Use <a href="https://www.arduino.cc/reference/en/language/variables/conversion/floatcast/">float()</a> or <a href="https://www.arduino.cc/reference/en/language/variables/data-types/string/functions/tofloat/">toFloat() of String</a>.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input.value.toFloat();</span>
+</pre></div>
+
+<h3 id="date-time"><i class="fa fa-exchange"></i> Date &amp; Time<a class="headerlink" href="#date-time" title="Permanent link">&para;</a></h3>
+<p>The easiest way is to use the <a href="https://www.pjrc.com/teensy/td_libs_Time.html">Arduino Time Library</a>. Sketches must accommodate differences in date and time formats depending on the time zone. You can absorb the difference in DateTime format by using <code>sscanf</code> function.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;TimeLib.h&gt;</span>
+
+<span style="color: #66d9ef">time_t</span> <span style="color: #f8f8f2">tm;</span>
+<span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">Year,</span> <span style="color: #f8f8f2">Month,</span> <span style="color: #f8f8f2">Day,</span> <span style="color: #f8f8f2">Hour,</span> <span style="color: #f8f8f2">Minute,</span> <span style="color: #f8f8f2">Second;</span>
+
+<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">sscanf(input.value.c_str(),</span> <span style="color: #e6db74">&quot;%d-%d-%d %d:%d:%d&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Year,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Month,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Day,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Hour,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Minute,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Second);</span>
+<span style="color: #f8f8f2">tm.Year</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">CalendarYrToTm(Year);</span>
+<span style="color: #f8f8f2">tm.Month</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Month;</span>
+<span style="color: #f8f8f2">tm.Day</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Day;</span>
+<span style="color: #f8f8f2">tm.Hour</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Hour;</span>
+<span style="color: #f8f8f2">tm.Minute</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Minute;</span>
+<span style="color: #f8f8f2">tm.Second</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Second;</span>
+</pre></div>
+
+<h3 id="ip-address"><i class="fa fa-exchange"></i> IP address<a class="headerlink" href="#ip-address" title="Permanent link">&para;</a></h3>
+<p>To convert a String to an IP address, use <strong>IPAddress::fromString</strong>. To stringize an instance of an IP address, use <strong>IPAddress::toString</strong>.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">IPAddress</span> <span style="color: #f8f8f2">ip;</span>
+<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">ip.fromString(input.value);</span>
+<span style="color: #f8f8f2">input.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">ip.toString();</span>
+</pre></div>
+
+<h2 id="validation-for-the-value">Validation for the value<a class="headerlink" href="#validation-for-the-value" title="Permanent link">&para;</a></h2>
+<p>To convert input data correctly from the string, it must match its format. The validation implementation with sketches depends on various perspectives. Usually, the tiny devices have no enough power for the lexical analysis completely. But you can reduce the burden for data verification using the <a href="achandling.html#check-data-against-on-submission"><strong>pattern</strong></a> of AutoConnectInput.</p>
+<p>By giving a <a href="acelements.html#pattern">pattern</a> to <a href="apielements.html#pattern">AutoConnectInput</a>, you can find errors in data format while typing in custom Web pages. Specifying the input data rule as a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a> will validate the type match during input. If there is an error in the format during input, the background color of the field will change to pink. Refer to section <a href="achandling.html#check-data-against-on-submission"><em>Handling the custom Web pages</em></a>.</p>
+<p>However, input data will be transmitted even if the value does not match the pattern. Sketches require the validation of the received data. You can use the <a href="apielements.html#isvalid">AutoConnectInput::isValid</a> function to validate it. The isValid function validates whether the value member variable matches a pattern and returns true or false.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">input_page[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
+<span style="color: #e6db74">[</span>
+<span style="color: #e6db74">  {</span>
+<span style="color: #e6db74">    &quot;title&quot;: &quot;IP Address&quot;,</span>
+<span style="color: #e6db74">    &quot;uri&quot;: &quot;/&quot;,</span>
+<span style="color: #e6db74">    &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">    &quot;element&quot;: [</span>
+<span style="color: #e6db74">      {</span>
+<span style="color: #e6db74">        &quot;name&quot;: &quot;ipaddress&quot;,</span>
+<span style="color: #e6db74">        &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="color: #e6db74">        &quot;label&quot;: &quot;IP Address&quot;,</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">        &quot;pattern&quot;: &quot;^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$&quot;</span>
+</span><span style="color: #e6db74">      },</span>
+<span style="color: #e6db74">      {</span>
+<span style="color: #e6db74">        &quot;name&quot;: &quot;send&quot;,</span>
+<span style="color: #e6db74">        &quot;type&quot;: &quot;ACSubmit&quot;,</span>
+<span style="color: #e6db74">        &quot;value&quot;: &quot;SEND&quot;,</span>
+<span style="color: #e6db74">        &quot;uri&quot;: &quot;/check&quot;</span>
+<span style="color: #e6db74">      }</span>
+<span style="color: #e6db74">    ]</span>
+<span style="color: #e6db74">  },</span>
+<span style="color: #e6db74">  {</span>
+<span style="color: #e6db74">    &quot;title&quot;: &quot;IP Address&quot;,</span>
+<span style="color: #e6db74">    &quot;uri&quot;: &quot;/check&quot;,</span>
+<span style="color: #e6db74">    &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">    &quot;element&quot;: [</span>
+<span style="color: #e6db74">      {</span>
+<span style="color: #e6db74">        &quot;name&quot;: &quot;result&quot;,</span>
+<span style="color: #e6db74">        &quot;type&quot;: &quot;ACText&quot;</span>
+<span style="color: #e6db74">      }</span>
+<span style="color: #e6db74">    ]</span>
+<span style="color: #e6db74">  }</span>
+<span style="color: #e6db74">]</span>
+<span style="color: #e6db74">)raw&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+
+<span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">checkIPAddress</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">input_page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ipaddress</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input_page</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;ipaddress&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">result</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;result&quot;</span><span style="color: #f8f8f2">);</span>
+
+<span style="background-color: #49483e">  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(ipaddress.isValid())</span> <span style="color: #f8f8f2">{</span>
+</span>    <span style="color: #f8f8f2">result.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;IP Address &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">ipaddress.value</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; is OK.&quot;</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #f8f8f2">result.style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">result.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;IP Address &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">ipaddress.value</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; error.&quot;</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #f8f8f2">result.style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;color:red;&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.load(input_page);</span>
+  <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/check&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">checkIPAddress);</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<div class="admonition caution">
+<p class="admonition-title">Regular Expressions for JavaScript</p>
+<p>Regular expressions specified in the AutoConnectInput pattern conforms to the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">JavaScript specification</a>.</p>
+</div>
+<p>Here, represent examples the typical regular expression for the input validation.</p>
+<h3 id="url"><img src="images/regexp.png" align="top"> URL<a class="headerlink" href="#url" title="Permanent link">&para;</a></h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
+</pre></div>
+
+<h3 id="dns-hostname"><img src="images/regexp.png" align="top"> DNS hostname<a class="headerlink" href="#dns-hostname" title="Permanent link">&para;</a></h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$
+</pre></div>
+
+<h3 id="email-address-2"><img src="images/regexp.png" align="top"> email address <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><a class="headerlink" href="#email-address-2" title="Permanent link">&para;</a></h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>^[a-zA-Z0-9.!#$%&amp;&#39;*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$
+</pre></div>
+
+<h3 id="ip-address_1"><img src="images/regexp.png" align="top"> IP Address<a class="headerlink" href="#ip-address_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
+</pre></div>
+
+<h3 id="date-as-mmddyyyy-3"><img src="images/regexp.png" align="top"> Date as MM/DD/YYYY <sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup><a class="headerlink" href="#date-as-mmddyyyy-3" title="Permanent link">&para;</a></h3>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$
+</pre></div>
+
+<div class="admonition caution">
+<p class="admonition-title">Contain with backquote</p>
+<p>If that regular expression contains a backquote it must be escaped by backquote duplication.</p>
+</div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>The ssanf library function cannot be used with the old Arduino core.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>This regular expression does not fully support the format of the e-mail address requested in <a href="https://tools.ietf.org/html/rfc5322">RFC5322</a>.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>This regular expression does not consider semantic constraints. It is not possible to detect errors that do not exist as actual dates.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="howtoembed.html" title="How to embed" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                How to embed
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="menuize.html" title="Attach the menu" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Attach the menu
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.b806dc00.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

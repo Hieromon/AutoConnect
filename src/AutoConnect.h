@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	0.9.5
- *	@date	2018-08-27
+ *	@version	0.9.7
+ *	@date	2019-01-21
  *	@copyright	MIT license.
  */
 
@@ -28,87 +28,21 @@ using WebServerClass = WebServer;
 #endif
 #include <EEPROM.h>
 #include <PageBuilder.h>
+#include "AutoConnectDefs.h"
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
-
-// Uncomment the following AC_DEBUG to enable debug output.
-#define AC_DEBUG
-
-// Debug output destination can be defined externally with AC_DEBUG_PORT
-#ifndef AC_DEBUG_PORT
-#define AC_DEBUG_PORT Serial
-#endif
-#ifdef AC_DEBUG
-#define AC_DBG(...) do {AC_DEBUG_PORT.print("[AC] "); AC_DEBUG_PORT.printf( __VA_ARGS__ );} while (0)
-#else
-#define AC_DBG(...)
-#endif
-
-#ifndef AUTOCONNECT_APID
-#if defined(ARDUINO_ARCH_ESP8266)
-#define AUTOCONNECT_APID  "esp8266ap"
-#elif defined(ARDUINO_ARCH_ESP32)
-#define AUTOCONNECT_APID  "esp32ap"
-#endif
-#endif
-
-#ifndef AUTOCONNECT_PSK
-#define AUTOCONNECT_PSK   "12345678"
-#endif
-
-#ifndef AUTOCONNECT_AP_IP
-#define AUTOCONNECT_AP_IP 0x01F4A8C0  //*< 192.168.244.1 */
-#endif // !AUTOCONNECT_AP_IP
-#ifndef AUTOCONNECT_AP_GW
-#define AUTOCONNECT_AP_GW 0x01F4A8C0  //*< 192.168.244.1 */
-#endif // !AUTOCONNECT_AP_GW
-#ifndef AUTOCONNECT_AP_NM
-#define AUTOCONNECT_AP_NM 0x00FFFFFF  //*< 255.255.255.0 */
-#endif // !AUTOCONNECT_AP_NM
-
-#ifndef AUTOCONNECT_URI
-#define AUTOCONNECT_URI         "/_ac"
-#endif
-
-#ifndef AUTOCONNECT_HOMEURI
-#define AUTOCONNECT_HOMEURI     "/"
-#endif
-
-#ifndef AUTOCONNECT_MENU_TITLE
-#define AUTOCONNECT_MENU_TITLE  "AutoConnect"
-#endif
-#define AUTOCONNECT_MENU_TITLE_CONNETED  "Connected"
-
-#define AUTOCONNECT_URI_CONFIG  AUTOCONNECT_URI "/config"
-#define AUTOCONNECT_URI_CONNECT AUTOCONNECT_URI "/connect"
-#define AUTOCONNECT_URI_RESULT  AUTOCONNECT_URI "/result"
-#define AUTOCONNECT_URI_OPEN    AUTOCONNECT_URI "/open"
-#define AUTOCONNECT_URI_DISCON  AUTOCONNECT_URI "/disc"
-#define AUTOCONNECT_URI_RESET   AUTOCONNECT_URI "/reset"
-#define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
-#define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
-
-#ifndef AUTOCONNECT_TIMEOUT
-#define AUTOCONNECT_TIMEOUT     30000
-#endif
-
-#ifndef AUTOCONNECT_STARTUPTIME
-#define AUTOCONNECT_STARTUPTIME 10
-#endif
-
-#ifndef AUTOCONNECT_HTTPPORT
-#define AUTOCONNECT_HTTPPORT    80
-#endif
-
-#ifndef AUTOCONNECT_DNSPORT
-#define AUTOCONNECT_DNSPORT     53
-#endif
+#include "AutoConnectAux.h"
 
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_NEVER,
   AC_SAVECREDENTIAL_AUTO
 } AC_SAVECREDENTIAL_t;
+
+typedef enum AC_ONBOOTURI {
+  AC_ONBOOTURI_ROOT,
+  AC_ONBOOTURI_HOME
+} AC_ONBOOTURI_t;
 
 class AutoConnectConfig {
  public:
@@ -123,15 +57,21 @@ class AutoConnectConfig {
     netmask(AUTOCONNECT_AP_NM),
     apid(String(AUTOCONNECT_APID)),
     psk(String(AUTOCONNECT_PSK)),
-    channel(1),
+    channel(AUTOCONNECT_AP_CH),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
+    bootUri(AC_ONBOOTURI_ROOT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
     autoReconnect(false),
+    immediateStart(false),
+    retainPortal(false),
+    portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
+    hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
+    title(AUTOCONNECT_MENU_TITLE),
     staip(0U),
     staGateway(0U),
     staNetmask(0U),
@@ -140,21 +80,27 @@ class AutoConnectConfig {
   /**
    *  Configure by SSID for the captive portal access point and password.
    */
-  AutoConnectConfig(const char* ap, const char* password) :
+  AutoConnectConfig(const char* ap, const char* password, const unsigned long portalTimeout = 0, const uint8_t channel = AUTOCONNECT_AP_CH) :
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
     apid(String(ap)),
     psk(String(password)),
-    channel(1),
+    channel(channel),
     hidden(0),
     autoSave(AC_SAVECREDENTIAL_AUTO),
+    bootUri(AC_ONBOOTURI_ROOT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
     autoReset(true),
     autoReconnect(false),
+    immediateStart(false),
+    retainPortal(false),
+    portalTimeout(portalTimeout),
+    hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
+    title(AUTOCONNECT_MENU_TITLE),
     staip(0U),
     staGateway(0U),
     staNetmask(0U),
@@ -172,12 +118,18 @@ class AutoConnectConfig {
     channel = o.channel;
     hidden = o.hidden;
     autoSave = o.autoSave;
+    bootUri = o.bootUri;
     boundaryOffset = o.boundaryOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
     autoReset = o.autoReset;
     autoReconnect = o.autoReconnect;
+    immediateStart = o.immediateStart;
+    retainPortal = o.retainPortal;
+    portalTimeout = o.portalTimeout;
+    hostName = o.hostName;
     homeUri = o.homeUri;
+    title = o.title;
     staip = o.staip;
     staGateway = o.staGateway;
     staNetmask = o.staNetmask;
@@ -186,41 +138,61 @@ class AutoConnectConfig {
     return *this;
   }
 
-  IPAddress apip;       /**< SoftAP IP address */
-  IPAddress gateway;    /**< SoftAP gateway address */
-  IPAddress netmask;    /**< SoftAP subnet mask */
-  String    apid;       /**< SoftAP SSID */
-  String    psk;        /**< SoftAP password */
-  uint8_t   channel;    /**< SoftAP used wifi channel */
-  uint8_t   hidden;     /**< SoftAP SSID hidden */
+  IPAddress apip;               /**< SoftAP IP address */
+  IPAddress gateway;            /**< SoftAP gateway address */
+  IPAddress netmask;            /**< SoftAP subnet mask */
+  String    apid;               /**< SoftAP SSID */
+  String    psk;                /**< SoftAP password */
+  uint8_t   channel;            /**< SoftAP used wifi channel */
+  uint8_t   hidden;             /**< SoftAP SSID hidden */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
-  uint16_t  boundaryOffset; /**< The save storage offset of EEPROM */
-  int       uptime;     /**< Length of start up time */
-  bool      autoRise;   /**< Automatic starting the captive portal */
-  bool      autoReset;  /**< Reset ESP8266 module automatically when WLAN disconnected. */
-  bool      autoReconnect;  /**< Automatic reconnect with past SSID */
-  String    homeUri;    /**< A URI of user site */
-  IPAddress staip;      /**< Station static IP address */
-  IPAddress staGateway; /**< Station gateway address */
-  IPAddress staNetmask; /**< Station subnet mask */
-  IPAddress dns1;       /**< Primary DNS server */
-  IPAddress dns2;       /**< Secondary DNS server */
+  AC_ONBOOTURI_t  bootUri;      /**< An uri invoking after reset */
+  uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
+  int       uptime;             /**< Length of start up time */
+  bool      autoRise;           /**< Automatic starting the captive portal */
+  bool      autoReset;          /**< Reset ESP8266 module automatically when WLAN disconnected. */
+  bool      autoReconnect;      /**< Automatic reconnect with past SSID */
+  bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
+  bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
+  unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
+  String    hostName;           /**< host name */
+  String    homeUri;            /**< A URI of user site */
+  String    title;              /**< Menu title */
+  IPAddress staip;              /**< Station static IP address */
+  IPAddress staGateway;         /**< Station gateway address */
+  IPAddress staNetmask;         /**< Station subnet mask */
+  IPAddress dns1;               /**< Primary DNS server */
+  IPAddress dns2;               /**< Secondary DNS server */
 };
+
+typedef std::vector<std::reference_wrapper<AutoConnectAux>> AutoConnectAuxVT;
 
 class AutoConnect {
  public:
   AutoConnect();
   AutoConnect(WebServerClass& webServer);
   ~AutoConnect();
+  AutoConnectAux* aux(const String& uri) const;
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
-  void  home(String uri);
-  bool  begin();
+  void  home(const String& uri);
+  bool  begin(void);
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
-  void  end();
-  void  handleClient();
-  void  handleRequest();
-  WebServerClass& host();
+  void  end(void);
+  void  handleClient(void);
+  void  handleRequest(void);
+  WebServerClass& host(void);
+  void  join(AutoConnectAux& aux);
+  void  join(AutoConnectAuxVT auxVector);
+  bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
+  AutoConnectAux* where(void) const { return aux(_auxUri); }
+
+  /** For AutoConnectAux described in JSON */
+#ifdef AUTOCONNECT_USE_JSON
+  bool  load(const String& aux);
+  bool  load(const __FlashStringHelper* aux);
+  bool  load(Stream& aux);
+#endif // !AUTOCONNECT_USE_JSON
 
   typedef std::function<bool(IPAddress)>  DetectExit_ft;
   void  onDetect(DetectExit_ft fn);
@@ -232,15 +204,23 @@ class AutoConnect {
     AC_WEBSERVER_HOSTED
   };
   typedef enum _webServerAllocateType  AC_WEBSERVER_TYPE;
-  void  _initialize();
-  bool  _config();
-  void  _startWebServer();
-  void  _startDNSServer();
-  void  _handleNotFound();
-  bool  _loadAvailCredential();
-  void  _stopPortal();
+  typedef enum {
+    AC_RECONNECT_SET,
+    AC_RECONNECT_RESET
+  } AC_STARECONNECT_t;
+  void  _initialize(void);
+  bool  _config(void);
+  void  _startWebServer(void);
+  void  _startDNSServer(void);
+  void  _handleNotFound(void);
+  bool  _loadAvailCredential(void);
+  void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
-  PageElement*  _setupPage(String uri);
+  void  _purgePages(void);
+  virtual PageElement*  _setupPage(String uri);
+#ifdef AUTOCONNECT_USE_JSON
+  bool  _load(JsonVariant& aux);
+#endif // !AUTOCONNECT_USE_JSON
 
   /** Request handlers implemented by Page Builder */
   String  _induceConnect(PageArgument& args);
@@ -249,41 +229,63 @@ class AutoConnect {
   String  _invokeResult(PageArgument& args);
 
   /** For portal control */
-  bool  _captivePortal();
+  bool  _captivePortal(void);
+  bool  _hasTimeout(unsigned long timeout);
   bool  _isIP(String ipStr);
   wl_status_t _waitForConnect(unsigned long timeout);
+  void  _waitForEndTransmission(void);
   void  _disconnectWiFi(bool wifiOff);
+  void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
-  static uint32_t      _getChipId();
-  static uint32_t      _getFlashChipRealSize();
+  static uint32_t      _getChipId(void);
+  static uint32_t      _getFlashChipRealSize(void);
   static String        _toMACAddressString(const uint8_t mac[]);
   static unsigned int  _toWiFiQuality(int32_t rssi);
   DetectExit_ft        _onDetectExit;
   WebServerClass::THandlerFunction _notFoundHandler;
+  size_t               _freeHeapSize;
 
+  /** Servers which works in concert. */
   std::unique_ptr<WebServerClass> _webServer;
-  std::unique_ptr<DNSServer>        _dnsServer;
-  AC_WEBSERVER_TYPE                 _webServerAlloc;
+  std::unique_ptr<DNSServer>      _dnsServer;
+  AC_WEBSERVER_TYPE               _webServerAlloc;
 
+  /**
+   *  Dynamically hold one page of AutoConnect menu.
+   *  Every time a GET/POST HTTP request occurs, an AutoConnect
+   *  menu page corresponding to the URI is generated.
+   */
   PageBuilder*  _responsePage;
   PageElement*  _currentPageElement;
-  
-   /** configurations */
+
+  /** Extended pages made up with AutoConnectAux */
+  std::unique_ptr<AutoConnectAux> _aux;
+  String        _auxUri;        /**< Last accessed AutoConnectAux */
+
+  /** Saved configurations */
   AutoConnectConfig     _apConfig;
   struct station_config _credential;
   uint8_t       _hiddenSSIDCount;
-  unsigned long _portalTimeout;
+  int16_t       _scanCount;
+  uint8_t       _connectCh;
+  unsigned long _connectTimeout;
+  unsigned long _portalAccessPeriod;
 
   /** The control indicators */
-  bool  _rfConnect;       /**< URI /connect requested */
-  bool  _rfDisconnect;    /**< URI /disc requested */
-  bool  _rfReset;         /**< URI /reset requested */
+  bool  _rfConnect;             /**< URI /connect requested */
+  bool  _rfDisconnect;          /**< URI /disc requested */
+  bool  _rfReset;               /**< URI /reset requested */
+  wl_status_t   _rsConnect;     /**< connection result */
+#ifdef ARDUINO_ARCH_ESP32
+  WiFiEventId_t _disconnectEventId; /**< STA disconnection event handler registered id  */
+#endif
 
-  String        _uri;
-  String        _redirectURI;
-  IPAddress     _currentHostIP;
-  String        _menuTitle;
+  /** HTTP header information of the currently requested page. */
+  IPAddress     _currentHostIP; /**< host IP address */
+  String        _uri;           /**< Requested URI */
+  String        _redirectURI;   /**< Redirect destination */
+  String        _menuTitle;     /**< Title string of the page */
 
   /** PegeElements of AutoConnect site. */
   static const char _CSS_BASE[] PROGMEM;
@@ -292,11 +294,15 @@ class AutoConnect {
   static const char _CSS_INPUT_BUTTON[] PROGMEM;
   static const char _CSS_INPUT_TEXT[] PROGMEM;
   static const char _CSS_TABLE[] PROGMEM;
+  static const char _CSS_SPINNER[] PROGMEM;
   static const char _CSS_LUXBAR[] PROGMEM;
   static const char _ELM_HTML_HEAD[] PROGMEM;
-  static const char _ELM_MENU[] PROGMEM;
+  static const char _ELM_MENU_PRE[] PROGMEM;
+  static const char _ELM_MENU_AUX[] PROGMEM;
+  static const char _ELM_MENU_POST[] PROGMEM;
   static const char _PAGE_STAT[] PROGMEM;
   static const char _PAGE_CONFIGNEW[] PROGMEM;
+  static const char _PAGE_CONNECTING[] PROGMEM;
   static const char _PAGE_OPENCREDT[] PROGMEM;
   static const char _PAGE_SUCCESS[] PROGMEM;
   static const char _PAGE_RESETTING[] PROGMEM;
@@ -311,9 +317,12 @@ class AutoConnect {
   String _token_CSS_INPUT_BUTTON(PageArgument& args);
   String _token_CSS_INPUT_TEXT(PageArgument& args);
   String _token_CSS_TABLE(PageArgument& args);
+  String _token_CSS_SPINNER(PageArgument& args);
   String _token_CSS_LUXBAR(PageArgument& args);
   String _token_HEAD(PageArgument& args);
-  String _token_MENU(PageArgument& args);
+  String _token_MENU_PRE(PageArgument& args);
+  String _token_MENU_AUX(PageArgument& args);
+  String _token_MENU_POST(PageArgument& args);
   String _token_ESTAB_SSID(PageArgument& args);
   String _token_WIFI_MODE(PageArgument& args);
   String _token_WIFI_STATUS(PageArgument& args);
@@ -334,12 +343,19 @@ class AutoConnect {
   String _token_HIDDEN_COUNT(PageArgument& args);
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);
+  String _token_BOOTURI(PageArgument& args);
+  String _token_CURRENT_SSID(PageArgument& args);
+
+ private:
+  static const  String  _emptyString; /**< An empty string alloaction  **/
 
 #if defined(ARDUINO_ARCH_ESP8266)
   friend class ESP8266WebServer;
 #elif defined(ARDUINO_ARCH_ESP32)
   friend class WebServer;
 #endif
+
+  friend class AutoConnectAux;
 };
 
 #endif  // _AUTOCONNECT_H_

@@ -1,0 +1,2673 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/apielements.html">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+    
+    
+      
+        <title>AutoConnectElements API - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#autoconnectbutton" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+          
+            <img src="images/arduino-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              AutoConnectElements API
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="index.html" title="Overview" class="md-tabs__link">
+        Overview
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
+          Custom Web pages
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="api.html" title="Library APIs" class="md-tabs__link md-tabs__link--active">
+          Library APIs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+      
+        <img src="images/arduino-logo.svg" width="48" height="48">
+      
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+      AutoConnect menu
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+      Basic usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+      Custom Web pages with AutoConnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    
+    <label class="md-nav__link" for="nav-7">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+      AutoConnectAux API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        AutoConnectElements API
+      </label>
+    
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link md-nav__link--active">
+      AutoConnectElements API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectbutton" title="AutoConnectButton" class="md-nav__link">
+    AutoConnectButton
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#action" title=" action" class="md-nav__link">
+     action
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectcheckbox" title="AutoConnectCheckbox" class="md-nav__link">
+    AutoConnectCheckbox
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_1" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_1" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_1" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked" title=" checked" class="md-nav__link">
+     checked
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_1" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_1" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectelement" title="AutoConnectElement" class="md-nav__link">
+    AutoConnectElement
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_2" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_2" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_2" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_2" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_2" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_2" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectinput" title="AutoConnectInput" class="md-nav__link">
+    AutoConnectInput
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_3" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_3" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_3" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_3" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_1" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern" title=" pattern" class="md-nav__link">
+     pattern
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placeholder" title=" placeholder" class="md-nav__link">
+     placeholder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_3" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_3" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isvalid" title=" isValid" class="md-nav__link">
+     isValid
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectradio" title="AutoConnectRadio" class="md-nav__link">
+    AutoConnectRadio
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_4" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_4" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_4" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values" title=" values" class="md-nav__link">
+     values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_2" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order" title=" order" class="md-nav__link">
+     order
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked_1" title=" checked" class="md-nav__link">
+     checked
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_4" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_4" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add" title=" add" class="md-nav__link">
+     add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check" title=" check" class="md-nav__link">
+     check
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empty" title=" empty" class="md-nav__link">
+     empty
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator" title=" operator &#91;&nbsp;&#93;" class="md-nav__link">
+     operator &#91;&nbsp;&#93;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size" title=" size" class="md-nav__link">
+     size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_4" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectselect" title="AutoConnectSelect" class="md-nav__link">
+    AutoConnectSelect
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_5" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_5" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_5" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options" title=" options" class="md-nav__link">
+     options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_3" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_5" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_5" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_1" title=" add" class="md-nav__link">
+     add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empty_1" title=" empty" class="md-nav__link">
+     empty
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator_1" title=" operator &#91;&nbsp;&#93;" class="md-nav__link">
+     operator &#91;&nbsp;&#93;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size_1" title=" size" class="md-nav__link">
+     size
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectsubmit" title="AutoConnectSubmit" class="md-nav__link">
+    AutoConnectSubmit
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_6" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_6" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_6" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_5" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uri" title=" uri" class="md-nav__link">
+     uri
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_6" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_6" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnecttext" title="AutoConnectText" class="md-nav__link">
+    AutoConnectText
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_7" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_7" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_7" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_6" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style" title=" style" class="md-nav__link">
+     style
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_7" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_7" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+      Appendix
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
+      Change log
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license.html" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectbutton" title="AutoConnectButton" class="md-nav__link">
+    AutoConnectButton
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#action" title=" action" class="md-nav__link">
+     action
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectcheckbox" title="AutoConnectCheckbox" class="md-nav__link">
+    AutoConnectCheckbox
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_1" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_1" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_1" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked" title=" checked" class="md-nav__link">
+     checked
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_1" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_1" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectelement" title="AutoConnectElement" class="md-nav__link">
+    AutoConnectElement
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_2" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_2" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_2" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_2" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_2" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_2" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectinput" title="AutoConnectInput" class="md-nav__link">
+    AutoConnectInput
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_3" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_3" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_3" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_3" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_1" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern" title=" pattern" class="md-nav__link">
+     pattern
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placeholder" title=" placeholder" class="md-nav__link">
+     placeholder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_3" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_3" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isvalid" title=" isValid" class="md-nav__link">
+     isValid
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectradio" title="AutoConnectRadio" class="md-nav__link">
+    AutoConnectRadio
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_4" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_4" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_4" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values" title=" values" class="md-nav__link">
+     values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_2" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order" title=" order" class="md-nav__link">
+     order
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checked_1" title=" checked" class="md-nav__link">
+     checked
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_4" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_4" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add" title=" add" class="md-nav__link">
+     add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check" title=" check" class="md-nav__link">
+     check
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empty" title=" empty" class="md-nav__link">
+     empty
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator" title=" operator &#91;&nbsp;&#93;" class="md-nav__link">
+     operator &#91;&nbsp;&#93;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size" title=" size" class="md-nav__link">
+     size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_4" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectselect" title="AutoConnectSelect" class="md-nav__link">
+    AutoConnectSelect
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_5" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_5" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_5" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options" title=" options" class="md-nav__link">
+     options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_3" title=" label" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_5" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_5" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_1" title=" add" class="md-nav__link">
+     add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empty_1" title=" empty" class="md-nav__link">
+     empty
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator_1" title=" operator &#91;&nbsp;&#93;" class="md-nav__link">
+     operator &#91;&nbsp;&#93;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size_1" title=" size" class="md-nav__link">
+     size
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectsubmit" title="AutoConnectSubmit" class="md-nav__link">
+    AutoConnectSubmit
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_6" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_6" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_6" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_5" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uri" title=" uri" class="md-nav__link">
+     uri
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_6" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_6" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnecttext" title="AutoConnectText" class="md-nav__link">
+    AutoConnectText
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_7" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_7" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#name_7" title=" name" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_6" title=" value" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style" title=" style" class="md-nav__link">
+     style
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_7" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_7" title=" typeOf" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>AutoConnectElements API</h1>
+                
+                <h2 id="autoconnectbutton">AutoConnectButton<a class="headerlink" href="#autoconnectbutton" title="Permanent link">&para;</a></h2>
+<h3 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectButton(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">action</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String())</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
+    <dd><span class="apidef">action</span><span class="apidesc">Native code of the action script executed when the button is clicked.</span></dd>
+</dl></p>
+<h3 id="public-member-variables"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables" title="Permanent link">&para;</a></h3>
+<h4 id="name"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name" title="Permanent link">&para;</a></h4>
+<p>The element name.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="value"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value" title="Permanent link">&para;</a></h4>
+<p>Value of the element.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="action"><i class="fa fa-caret-right"></i> action<a class="headerlink" href="#action" title="Permanent link">&para;</a></h4>
+<p>HTML native code of the action script to be executed when the button is clicked. It is mostly used with a JavaScript to activate a script.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
+<h4 id="typeof"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Button</dd>
+</dl></p>
+<h2 id="autoconnectcheckbox">AutoConnectCheckbox<a class="headerlink" href="#autoconnectcheckbox" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_1"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>  <span style="color: #66d9ef">explicit</span> <span style="color: #f8f8f2">AutoConnectCheckboxBasis(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">A label string prefixed to the checkbox.</span></dd>
+    <dd><span class="apidef">check</span><span class="apidesc">Checked state of the checkbox.</span></dd>
+</dl></p>
+<h3 id="public-member-variables_1"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_1" title="Permanent link">&para;</a></h3>
+<h4 id="name_1"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_1" title="Permanent link">&para;</a></h4>
+<p>The element name. 
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="value_1"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_1" title="Permanent link">&para;</a></h4>
+<p>Value of the element. It becomes a value attribute of an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;checkbox&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="label"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label" title="Permanent link">&para;</a></h4>
+<p>A label is an optional string. A label is always arranged on the right side of the checkbox. Specification of a label will generate an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an <code>id</code> attribute. The checkbox and the label are connected by the id attribute.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="checked"><i class="fa fa-caret-right"></i> checked<a class="headerlink" href="#checked" title="Permanent link">&para;</a></h4>
+<p>It indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent by submit.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">Boolean</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions_1"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_1" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_1"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_1" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Checkbox</dd>
+</dl></p>
+<h2 id="autoconnectelement">AutoConnectElement<a class="headerlink" href="#autoconnectelement" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_2"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_2" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
+</dl></p>
+<h3 id="public-member-variables_2"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_2" title="Permanent link">&para;</a></h3>
+<h4 id="name_2"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_2" title="Permanent link">&para;</a></h4>
+<p>The element name.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="value_2"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_2" title="Permanent link">&para;</a></h4>
+<p>Value of the element. It is output as HTML as it is as a source for generating HTML code.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions_2"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_2" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_2"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_2" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Element</dd>
+</dl></p>
+<h2 id="autoconnectinput">AutoConnectInput<a class="headerlink" href="#autoconnectinput" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_3"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_3" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">pattern</span><span class="apidesc">Regular expression string for checking data format.</span></dd>
+    <dd><span class="apidef">placeholder</span><span class="apidesc">A placeholder string.</span></dd>
+</dl></p>
+<h3 id="public-member-variables_3"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_3" title="Permanent link">&para;</a></h3>
+<h4 id="name_3"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_3" title="Permanent link">&para;</a></h4>
+<p>The element name.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="value_3"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_3" title="Permanent link">&para;</a></h4>
+<p>Value of the element. It becomes a value attribute of an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag. An entered text in the custom Web page will be sent with a query string of the form. The value set before accessing the page is displayed as the initial value.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="label_1"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_1" title="Permanent link">&para;</a></h4>
+<p>A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The input box and the label are connected by the id attribute.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="pattern"><i class="fa fa-caret-right"></i> pattern<a class="headerlink" href="#pattern" title="Permanent link">&para;</a></h4>
+<p>A pattern specifies a regular expression that the input-box's value is checked against on form submission.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="placeholder"><i class="fa fa-caret-right"></i> placeholder<a class="headerlink" href="#placeholder" title="Permanent link">&para;</a></h4>
+<p>A placeholder is an option string. Specification of a placeholder will generate a <code>placeholder</code> attribute for the input tag.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions_3"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_3" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_3"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_3" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Input</dd>
+</dl></p>
+<h4 id="isvalid"><i class="fa fa-caret-right"></i> isValid<a class="headerlink" href="#isvalid" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Evaluate the pattern as a regexp and return whether value matches. Always return true if the pattern is undefined.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The value matches a pattern.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">The value does not match a pattern.</span></dd>
+</dl></p>
+<h2 id="autoconnectradio">AutoConnectRadio<a class="headerlink" href="#autoconnectradio" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_4"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_4" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACArrange_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Vertical,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies an <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">order</span><span class="apidesc">The direction to arrange the radio buttons.</span></dd>
+    <dd><span class="apidef">checked</span><span class="apidesc">An index to be checked in the radio buttons.</span></dd>
+</dl></p>
+<h3 id="public-member-variables_4"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_4" title="Permanent link">&para;</a></h3>
+<h4 id="name_4"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_4" title="Permanent link">&para;</a></h4>
+<p>The element name.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="values"><i class="fa fa-caret-right"></i> values<a class="headerlink" href="#values" title="Permanent link">&para;</a></h4>
+<p>An array of String type for the radio button options. It is an initialization list can be used. The <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the values.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="label_2"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_2" title="Permanent link">&para;</a></h4>
+<p>A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the <a href="#order">order</a>.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="order"><i class="fa fa-caret-right"></i> order<a class="headerlink" href="#order" title="Permanent link">&para;</a></h4>
+<p>Specifies the direction to arrange the radio buttons. A label will place in the left or the top according to the <strong><em>order</em></strong>. It is a value of <strong>ACArrange_t</strong> type and accepts one of the following:
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACArrange_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Horizontal</code></strong> : Horizontal arrangement.</li>
+<li><strong><code>AC_Vertical</code></strong> : Vertical arrangement.
+    </span></dd>
+</dl></li>
+</ul>
+<h4 id="checked_1"><i class="fa fa-caret-right"></i> checked<a class="headerlink" href="#checked_1" title="Permanent link">&para;</a></h4>
+<p>Specifies the index number (1-based) of the <strong>values</strong> to be checked. If this parameter is not specified neither item is checked.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions_4"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_4" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_4"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_4" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Radio</dd>
+</dl></p>
+<h4 id="add"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
+</pre></div>
+Adds an option for the radio button.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd>
+</dl></p>
+<h4 id="check"><i class="fa fa-caret-right"></i> check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">check(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
+</pre></div>
+Indicates the check of the specified option for the radio buttons. You can use the <strong>check</strong> function for checking dynamically with arbitrary of the radio button.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">value</span><span class="apidesc">An option string to be checked.</span></dd>
+</dl></p>
+<h4 id="empty"><i class="fa fa-caret-right"></i> empty<a class="headerlink" href="#empty" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Clear the array of option strings that AutoConnectRadio has in the values. When a <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd>
+</dl></p>
+<h4 id="operator"><i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;<a class="headerlink" href="#operator" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
+</pre></div>
+Returns a value string of the index specified by <strong><em>n</em></strong>.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">n</span><span class="apidesc">Index of values array to return. Its base number is 0.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference of a value string indexed by the specified the <strong>n</strong>.</dd>
+</dl></p>
+<h4 id="size"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns number of options which contained.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>Number of options which contained.</dd>
+</dl></p>
+<h4 id="value_4"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_4" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>  <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span>
+</pre></div>
+Returns current checked option of the radio buttons.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A String of an option current checked. If there is no checked option, a null string returned.</dd>
+</dl></p>
+<h2 id="autoconnectselect">AutoConnectSelect<a class="headerlink" href="#autoconnectselect" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_5"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_5" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies an <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+</dl></p>
+<h3 id="public-member-variables_5"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_5" title="Permanent link">&para;</a></h3>
+<h4 id="name_5"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_5" title="Permanent link">&para;</a></h4>
+<p>The element name.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="options"><i class="fa fa-caret-right"></i> options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h4>
+<p>An array of String type for the selection options. It is an initialization list can be used. The <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">option</span> <span style="color: #a6e22e">value</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the options.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="label_3"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_3" title="Permanent link">&para;</a></h4>
+<p>A label is an optional string. A label will be arranged in the top of the selection list.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions_5"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_5" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_5"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_5" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Select</dd>
+</dl></p>
+<h4 id="add_1"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add_1" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">option)</span>
+</pre></div>
+Adds a selectable option string for the selection list.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd>
+</dl></p>
+<h4 id="empty_1"><i class="fa fa-caret-right"></i> empty<a class="headerlink" href="#empty_1" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Clear the array of options list that AutoConnectSelect has in the options. When a <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd>
+</dl></p>
+<h4 id="operator_1"><i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;<a class="headerlink" href="#operator_1" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
+</pre></div>
+Returns an option string of the index specified by <strong><em>n</em></strong>.
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">n</span><span class="apidesc">Index of options array to return. Its base number is 0.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference of a option string indexed by the specified the <strong>n</strong>.</dd>
+    <dd>
+</dl></p>
+<h4 id="size_1"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size_1" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns number of options which contained.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>Number of options which contained.</dd>
+</dl></p>
+<h2 id="autoconnectsubmit">AutoConnectSubmit<a class="headerlink" href="#autoconnectsubmit" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_6"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_6" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectSubmit(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">uri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">The name of the submit button as an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;button&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag, it will also be the label of the button.</span></dd>
+    <dd><span class="apidef">uri</span><span class="apidesc">Destination URI.</span></dd>
+</dl></p>
+<h3 id="public-member-variables_6"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_6" title="Permanent link">&para;</a></h3>
+<h4 id="name_6"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_6" title="Permanent link">&para;</a></h4>
+<p>The element name.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="value_5"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_5" title="Permanent link">&para;</a></h4>
+<p>The name of the submit button. It will also be the label of the button.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="uri"><i class="fa fa-caret-right"></i> uri<a class="headerlink" href="#uri" title="Permanent link">&para;</a></h4>
+<p>Destination URI.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions_6"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_6" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_6"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_6" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Submit</dd>
+</dl></p>
+<h2 id="autoconnecttext">AutoConnectText<a class="headerlink" href="#autoconnecttext" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_7"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_7" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectText(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">String of content for the text element.</span></dd>
+    <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the text.</span></dd>
+</dl></p>
+<h3 id="public-member-variables_7"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_7" title="Permanent link">&para;</a></h3>
+<h4 id="name_7"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_7" title="Permanent link">&para;</a></h4>
+<p>The element name.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="value_6"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_6" title="Permanent link">&para;</a></h4>
+<p>A content string of the text element.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="style"><i class="fa fa-caret-right"></i> style<a class="headerlink" href="#style" title="Permanent link">&para;</a></h4>
+<p>A style code with CSS format that qualifiers the text.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="public-member-functions_7"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_7" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_7"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_7" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Text</dd>
+</dl></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>JavaScript can be inserted into a custom Web page using AutoConnectElement.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="apiconfig.html" title="AutoConnectConfig API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                AutoConnectConfig API
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="apiextra.html" title="Something extra" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Something extra
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.b806dc00.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

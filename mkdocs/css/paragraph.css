@@ -19,26 +19,49 @@
 }
 
 .md-typeset .codehilitetable .linenodiv {
-  background-color: #364549 !important;
+  background-color: #222 !important;
 }
 
 .md-typeset .codehilitetable .linenodiv pre {
-  background-color: #364549 !important;
+  background-color: #222 !important;
   color: #aaa;
   margin: 0;
 }
 
-.apidef {
-  display: inline-block;
-  width: 100px;
+.md-typeset .codehilitetable .md-clipboard:before {
+  color: rgba(240,240,240,.8);
+}
+.md-typeset .codehilitetable .md-clipboard:hover:before {
+  color: rgba(102,217,224,1);
 }
 
 .apidl {
   margin-left: 20px;
 }
 
+.apidef {
+  display: block;
+  float: left;
+  width: 100px;
+}
+
+.apidesc {
+  display: inline-block;
+  width: calc(100% - 100px);
+}
+
 .ulsty-edit > li:before {
   font-family: 'FontAwesome';
   content: '\f044';
   margin:0 0.8em 0 -1.8em;
+}
+
+.horizontal-list {
+  list-style-type: none;
+  overflow: hidden;
+}
+
+.horizontal-list > li {
+  float: left;
+  display: block;
 }

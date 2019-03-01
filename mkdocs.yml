@@ -8,14 +8,29 @@ site_url: 'https://Hieromon.github.io/AutoConnect/'
 docs_dir: 'mkdocs'
 
 # Pages
-pages:
+nav:
   - 'Overview' : index.md
   - 'Getting started' : gettingstarted.md
   - 'AutoConnect menu' : menu.md
   - 'Basic usage' : basicusage.md
   - 'Advanced usage' : advancedusage.md
-  - 'Library APIs' : api.md
-  - 'Examples' : examples.md
+  - 'Custom Web pages' :
+    - 'Custom Web pages with AutoConnect' : acintro.md
+    - 'AutoConnectElements' : acelements.md
+    - 'Custom Web pages with JSON' : acjson.md
+    - 'Handling the custom Web pages' : achandling.md
+  - 'Library APIs' :
+    - 'AutoConnect API': api.md
+    - 'AutoConnectAux API': apiaux.md
+    - 'AutoConnectConfig API': apiconfig.md
+    - 'AutoConnectElements API': apielements.md
+    - 'Something extra': apiextra.md
+  - 'Examples' :
+    - 'How to embed': howtoembed.md
+    - 'Tips for data conversion': datatips.md
+    - 'Attach the menu': menuize.md
+    - 'Custom Web pages w/o JSON': wojson.md
+  - 'Appendix': lsbegin.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
   - 'License' : license.md
@@ -26,7 +41,7 @@ repo_url: 'https://github.com/Hieromon/AutoConnect'
 edit_uri: ""
 
 # Copyright
-copyright: 'Copyright &copy; 2018 Hieromon Ikasamo'
+copyright: 'Copyright &copy; 2018-2019 Hieromon Ikasamo'
 
 # Configuration
 use_directory_urls: false
@@ -46,6 +61,8 @@ theme:
 # Customization
 extra_css:
   - 'css/paragraph.css'
+  - 'css/extra.css'
+  - 'https://use.fontawesome.com/releases/v5.6.1/css/all.css'
 extra_javascript:
   - 'js/gifffer.min.js'
 extra:
@@ -63,18 +80,25 @@ google_analytics:
 # Extensions
 markdown_extensions:
   - admonition
+  - attr_list
+  - def_list
+  - codehilite:
+      guess_lang: false
+      linenums: none
+      noclasses: true
+      use_pygments: true
+      pygments_style: monokai
   - footnotes
   - pymdownx.betterem:
       smart_enable: all
+  - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.inlinehilite
   - pymdownx.magiclink
+  - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
   - pymdownx.tasklist
-  - codehilite:
-      linenums: none
-      use_pygments: true
   - toc:
       permalink: true

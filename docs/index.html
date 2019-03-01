@@ -2,7 +2,7 @@
 
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="no-js">
   <head>
     
@@ -37,8 +37,8 @@
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
-      <link rel="shortcut icon" href="./assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.0">
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
     
     
       
@@ -46,24 +46,62 @@
       
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application.78aab2dc.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
       
-        <link rel="stylesheet" href="./assets/stylesheets/application-palette.6079476c.css">
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
       
     
     
-      <script src="./assets/javascripts/modernizr.1aa3b519.js"></script>
+      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
     
     
-      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
       
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
     
     
-      <link rel="stylesheet" href="./css/paragraph.css">
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
     
     
   </head>
@@ -77,7 +115,7 @@
         
         
           <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
-    viewBox="0 0 416 448" id="github">
+    viewBox="0 0 416 448" id="__github">
   <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
         8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
         18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
@@ -97,9 +135,9 @@
         
       </defs>
     </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
-    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
       <a href="#autoconnect-for-esp8266esp32" tabindex="1" class="md-skip">
         Skip to content
@@ -112,38 +150,35 @@
       <div class="md-flex__cell md-flex__cell--shrink">
         <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
           
-            <img src="./images/arduino-logo.svg" width="24" height="24">
+            <img src="images/arduino-logo.svg" width="24" height="24">
           
         </a>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
       </div>
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           
-            
-              <span class="md-header-nav__topic">
-                AutoConnect for ESP8266/ESP32
-              </span>
-              <span class="md-header-nav__topic">
-                Overview
-              </span>
-            
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              Overview
+            </span>
           
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
           
-            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
-            
 <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="search"></label>
+  <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="search"></label>
+      <label class="md-icon md-search__icon" for="__search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
         &#xE5CD;
       </button>
@@ -160,7 +195,6 @@
     </div>
   </div>
 </div>
-          
         
       </div>
       
@@ -171,20 +205,18 @@
 
   
 
-
-  <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      Hieromon/AutoConnect
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
           </div>
         </div>
       
@@ -222,6 +254,43 @@
         
       
         
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
+          Custom Web pages
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="api.html" title="Library APIs" class="md-tabs__link">
+          Library APIs
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
+          Examples
+        </a>
+      
+    </li>
+  
+
       
         
       
@@ -243,12 +312,12 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="drawer">
-    <span class="md-nav__button md-logo">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
       
-        <img src="./images/arduino-logo.svg" width="48" height="48">
+        <img src="images/arduino-logo.svg" width="48" height="48">
       
-    </span>
+    </a>
     AutoConnect for ESP8266/ESP32
   </label>
   
@@ -258,20 +327,18 @@
 
   
 
-
-  <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      Hieromon/AutoConnect
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
     </div>
-  </a>
-
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
     </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -285,12 +352,12 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="toc">
+      <label class="md-nav__link md-nav__link--active" for="__toc">
         Overview
       </label>
     
@@ -305,7 +372,7 @@
     
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -345,8 +412,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lives-with-the-your-sketches" title=" Lives with the your sketches" class="md-nav__link">
-     Lives with the your sketches
+  <a href="#lives-with-your-sketches" title=" Lives with your sketches" class="md-nav__link">
+     Lives with your sketches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easy-to-add-the-custom-web-pages-enhanced-wv097" title=" Easy to add the custom Web pages ENHANCED w/v0.9.7" class="md-nav__link">
+     Easy to add the custom Web pages ENHANCED w/v0.9.7
   </a>
   
 </li>
@@ -420,7 +494,7 @@
 
 
   <li class="md-nav__item">
-    <a href="gettingstarted/index.html" title="Getting started" class="md-nav__link">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -432,7 +506,7 @@
 
 
   <li class="md-nav__item">
-    <a href="menu/index.html" title="AutoConnect menu" class="md-nav__link">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
       AutoConnect menu
     </a>
   </li>
@@ -444,7 +518,7 @@
 
 
   <li class="md-nav__item">
-    <a href="basicusage/index.html" title="Basic usage" class="md-nav__link">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
       Basic usage
     </a>
   </li>
@@ -456,7 +530,7 @@
 
 
   <li class="md-nav__item">
-    <a href="advancedusage/index.html" title="Advanced usage" class="md-nav__link">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
       Advanced usage
     </a>
   </li>
@@ -467,10 +541,154 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
-    <a href="api/index.html" title="Library APIs" class="md-nav__link">
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+      Custom Web pages with AutoConnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
       Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+      AutoConnectAux API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+      AutoConnectElements API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -479,9 +697,81 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="examples/index.html" title="Examples" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
       Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+      Appendix
     </a>
   </li>
 
@@ -492,7 +782,7 @@
 
 
   <li class="md-nav__item">
-    <a href="faq/index.html" title="FAQ" class="md-nav__link">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -504,7 +794,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelog/index.html" title="Change log" class="md-nav__link">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
       Change log
     </a>
   </li>
@@ -516,7 +806,7 @@
 
 
   <li class="md-nav__item">
-    <a href="license/index.html" title="License" class="md-nav__link">
+    <a href="license.html" title="License" class="md-nav__link">
       License
     </a>
   </li>
@@ -539,7 +829,7 @@
     
   
   
-    <label class="md-nav__title" for="toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -579,8 +869,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lives-with-the-your-sketches" title=" Lives with the your sketches" class="md-nav__link">
-     Lives with the your sketches
+  <a href="#lives-with-your-sketches" title=" Lives with your sketches" class="md-nav__link">
+     Lives with your sketches
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easy-to-add-the-custom-web-pages-enhanced-wv097" title=" Easy to add the custom Web pages ENHANCED w/v0.9.7" class="md-nav__link">
+     Easy to add the custom Web pages ENHANCED w/v0.9.7
   </a>
   
 </li>
@@ -659,17 +956,25 @@
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with <em>ESP8266WebServer</em> class for ESP8266 or <em>WebServer</em> class for ESP32.
 Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi connection. With this library to make a sketch easily which connects from ESP8266/ESP32 to the access point at runtime by the web interface without hard-coded SSID and password.</p>
-<p><img style="display:inline-block;width:460px;margin-right:30px;" src="./images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="./images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span></p>
+<p><img style="display:inline-block;width:460px;margin-right:30px;" src="images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span></p>
 <h3 id="no-need-pre-coded-ssid-password"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> No need pre-coded SSID &amp; password<a class="headerlink" href="#no-need-pre-coded-ssid-password" title="Permanent link">&para;</a></h3>
 <p><span class="lead">It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266/ESP32 and WLAN. You can input SSID &amp; Password from a smartphone via the web interface at runtime.</span></p>
 <h3 id="simple-usage"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Simple usage<a class="headerlink" href="#simple-usage" title="Permanent link">&para;</a></h3>
-<p><span class="lead">AutoConnect control screen will be displayed automatically for establishing new connections. It aids by the <a href="https://en.wikipedia.org/wiki/Captive_portal">captive portal</a> when vested the connection cannot be detected.<br>By using the <a href="menu/index.html">AutoConnect menu</a>, to manage the connections convenient.</span></p>
+<p><span class="lead">AutoConnect control screen will be displayed automatically for establishing new connections. It aids by the <a href="https://en.wikipedia.org/wiki/Captive_portal">captive portal</a> when vested the connection cannot be detected.<br>By using the <a href="menu.html">AutoConnect menu</a>, to manage the connections convenient.</span></p>
 <h3 id="store-the-established-connection"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Store the established connection<a class="headerlink" href="#store-the-established-connection" title="Permanent link">&para;</a></h3>
-<p><span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the <a href="menu/index.html">AutoConnect menu</a>.</span></p>
+<p><span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the <a href="menu.html">AutoConnect menu</a>.</span></p>
 <h3 id="easy-to-embed-in"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in<a class="headerlink" href="#easy-to-embed-in" title="Permanent link">&para;</a></h3>
 <p><span class="lead">AutoConnect can be placed easily in your sketch. It's "<strong>begin</strong>" and "<strong>handleClient</strong>" only.</span></p>
-<h3 id="lives-with-the-your-sketches"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with the your sketches<a class="headerlink" href="#lives-with-the-your-sketches" title="Permanent link">&para;</a></h3>
-<p><span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it.<br>This efficacy can also be applied to ESP32. The corresponding class for ESP32 will be the WebServer.</span></p>
+<h3 id="lives-with-your-sketches"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with your sketches<a class="headerlink" href="#lives-with-your-sketches" title="Permanent link">&para;</a></h3>
+<p><span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it. This effect also applies to ESP32. The corresponding class for ESP32 will be the WebServer.</span></p>
+<h3 id="easy-to-add-the-custom-web-pages-enhanced-wv097"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to add the <a href="acintro.html">custom Web pages</a> <sup><sub>ENHANCED w/v0.9.7</sub></sup><a class="headerlink" href="#easy-to-add-the-custom-web-pages-enhanced-wv097" title="Permanent link">&para;</a></h3>
+<p><span class="lead">You can easily add your owned web pages that can consist of representative HTML elements and invoke them from the menu. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD.</span></p>
+<div style="display:block;height:425px;">
+<img style="float:left;width:380px;" src="images/aux_json.png">
+<img style="float:left;margin-top:200px;margin-left:10px;margin-right:10px;width:32px;" src="images/arrow_right.png">
+<span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
+</div>
+
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <h4 id="supported-hardware">Supported hardware<a class="headerlink" href="#supported-hardware" title="Permanent link">&para;</a></h4>
@@ -699,20 +1004,26 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 <p><i class="fa fa-download"></i> <strong>Arduino IDE</strong></p>
 <p>The current upstream at the 1.8 level or later is needed. Please install from the <a href="https://www.arduino.cc/en/Main/Software">official Arduino IDE download page</a>. This step is not required if you already have a modern version.</p>
 <p><i class="fa fa-download"></i> <strong>ESP8266 Arduino core</strong></p>
-<p>AutoConnect targets sketches made on the assumption of <a href="https://github.com/esp8266/Arduino">ESP8266 Community's Arduino core</a>. The <a href="https://github.com/esp8266/Arduino/releases/latest">latest release</a> is recommended.<br />
+<p>AutoConnect targets sketches made on the assumption of <a href="https://github.com/esp8266/Arduino">ESP8266 Community's Arduino core</a>. Stable 2.4.0 or higher required and the <a href="https://github.com/esp8266/Arduino/releases/latest">latest release</a> is recommended.<br />
 Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. Package URL is <a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a></p>
 <p><i class="fa fa-download"></i> <strong>ESP32 Arduino core</strong></p>
-<p>Also, to apply AutoConnect to ESP32, the <a href="https://github.com/espressif/arduino-esp32">arduino-esp32 core</a> provided by Espressif is needed. The <a href="https://github.com/espressif/arduino-esp32/releases/latest">latest release</a> is recommended.<br />
-Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. You can add multiple URLs into <em>Additional Board Manager URLs</em> field, separating them with commas. Package URL is <a href="https://dl.espressif.com/dl/package_esp32_index.json">https://dl.espressif.com/dl/package_esp32_index.json</a></p>
-<p><i class="fa fa-download"></i> <strong>Additional necessary library</strong></p>
+<p>Also, to apply AutoConnect to ESP32, the <a href="https://github.com/espressif/arduino-esp32">arduino-esp32 core</a> provided by Espressif is needed. Stable 1.0.1 or required and the <a href="https://github.com/espressif/arduino-esp32/releases/latest">latest release</a> is recommended.<br />
+Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. You can add multiple URLs into <em>Additional Board Manager URLs</em> field, separating them with commas. Package URL is <a href="https://dl.espressif.com/dl/package_esp32_index.json">https://dl.espressif.com/dl/package_esp32_index.json</a> for ESP32.</p>
+<p><i class="fa fa-download"></i> <strong>Additional library (Required)</strong></p>
 <p>The <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library to build HTML for ESP8266WebServer is needed.<br />
-To install the PageBuilder library into your Arduino IDE, you can use the <em>Library Manager</em>. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '<strong>PageBuilder</strong>' with the topic '<strong>Communication</strong>', then you can see the <em>PageBuilder</em>. The latest version is required 1.1.0 later for ESP32.</p>
-<p><img src="./images/lm.png" width="640"/></p>
+To install the PageBuilder library into your Arduino IDE, you can use the <em>Library Manager</em>. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '<strong>PageBuilder</strong>' with the topic '<strong>Communication</strong>', then you can see the <em>PageBuilder</em>. The latest version is required <strong>1.3.2</strong> <strong>later</strong>.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+<p><img src="images/lm.png" width="640"/></p>
+<p><i class="fa fa-download"></i> <strong>Additional library (Optional)</strong></p>
+<p>By adding the <a href="https://github.com/bblanchon/ArduinoJson">ArduinoJson</a> library, AutoConnect will be able to handle the <a href="acintro.html"><strong>custom Web pages</strong></a> described with JSON. With AutoConnect v0.9.7 you can insert user-owned web pages that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. <a href="https://arduinojson.org/v5/doc/">ArduinoJson version 5</a> is required to use this feature.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
+<div class="admonition info">
+<p class="admonition-title">AutoConnect supports ArduinoJson version 5 only</p>
+<p>ArduinoJson version 6 is still in beta, but Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.</p>
+</div>
 <h3 id="install-the-autoconnect">Install the AutoConnect<a class="headerlink" href="#install-the-autoconnect" title="Permanent link">&para;</a></h3>
 <p>Clone or download from the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect GitHub repository</a>.</p>
-<p><img src="./images/gitrepo.png" width="640"/></p>
+<p><img src="images/gitrepo.png" width="640"/></p>
 <p>When you select Download, you can import it to Arduino IDE immediately. After downloaded, the AutoConnect-master.zip file will be saved in your download folder. Then in the Arduino IDE, navigate to <em>"Sketch &gt; Include Library"</em>. At the top of the drop down list, select the option to <em>"Add .ZIP Library..."</em>. Details for <a href="https://www.arduino.cc/en/Guide/Libraries#toc4">Arduino official page</a>.</p>
-<p><img src="./images/ins_lib.png" /></p>
+<p><img src="images/ins_lib.png" /></p>
 <div class="admonition info">
 <p class="admonition-title">Supported by Library manager.</p>
 <p>AutoConnect was added to the Arduino IDE library manager. It can be used with the PlatformIO library also.</p>
@@ -720,14 +1031,28 @@ To install the PageBuilder library into your Arduino IDE, you can use the <em>Li
 <script>
   window.onload = function() {
     Gifffer();
-  }
+  };
 </script>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Since AutoConnect v0.9.7, PageBuilder v1.3.2 later is required.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Using the AutoConnect API natively allows you to sketch custom Web pages without JSON.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 
               
               
                 
+
+
               
             </article>
           </div>
@@ -741,7 +1066,7 @@ To install the PageBuilder library into your Arduino IDE, you can use the <em>Li
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="gettingstarted/index.html" title="Getting started" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="gettingstarted.html" title="Getting started" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
@@ -763,20 +1088,18 @@ To install the PageBuilder library into your Arduino IDE, you can use the <em>Li
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018 Hieromon Ikasamo
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
           </div>
         
         powered by
-        <a href="http://www.mkdocs.org">MkDocs</a>
+        <a href="https://www.mkdocs.org">MkDocs</a>
         and
         <a href="https://squidfunk.github.io/mkdocs-material/">
           Material for MkDocs</a>
       </div>
       
-        
   <div class="md-footer-social">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
     
       <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
     
@@ -784,23 +1107,17 @@ To install the PageBuilder library into your Arduino IDE, you can use the <em>Li
     
   </div>
 
-      
     </div>
   </div>
 </footer>
       
     </div>
     
-      <script src="./assets/javascripts/application.8eb9be28.js"></script>
+      <script src="assets/javascripts/application.b806dc00.js"></script>
       
-      <script>app.initialize({version:"0.17.3",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
-        <script src="./js/gifffer.min.js"></script>
-      
-    
-    
-      
-        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-116150854-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+        <script src="js/gifffer.min.js"></script>
       
     
   </body>

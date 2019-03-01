@@ -43,7 +43,7 @@ AutoConnectCredential::AutoConnectCredential(uint16_t offset) {
   _allocateEntry();
 }
 
-void AutoConnectCredential::_allocateEntry() {
+void AutoConnectCredential::_allocateEntry(void) {
   char    id_c[sizeof(AC_IDENTIFIER) - 1];
   uint8_t c;
 

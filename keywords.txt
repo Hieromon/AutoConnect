@@ -4,23 +4,50 @@
 AutoConnect	KEYWORD1
 AutoConnectConfig	KEYWORD1
 AutoConnectCredential	KEYWORD1
+AutoConnectAux	KEYWORD1
+AutoConnectButton	KEYWORD1
+AutoConnectCheckbox	KEYWORD1
+AutoConnectElement	KEYWORD1
+AutoConnectInput	KEYWORD1
+AutoConnectRadio	KEYWORD1
+AutoConnectSelect	KEYWORD1
+AutoConnectSubmit	KEYWORD1
+AutoConnectText	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
+add	KEYWORD2
+aux	KEYWORD2
 config	KEYWORD2
 begin	KEYWORD2
 del	KEYWORD2
 end	KEYWORD2
 entries	KEYWORD2
+getElement	KEYWORD2
+getElements	KEYWORD2
 handleClient	KEYWORD2
 handleRequest	KEYWORD2
 home	KEYWORD2
 host	KEYWORD2
+isValid	KEYWORD2
+join	KEYWORD2
 load	KEYWORD2
+loadElement	KEYWORD2
+menu	KEYWORD2
+name	KEYWORD2
+on	KEYWORD2
 onDetect	KEYWORD2
 onNotFound	KEYWORD2
+release	KEYWORD2
 save	KEYWORD2
+saveElement	KEYWORD2
+setElementValue	KEYWORD2
+setTitle	KEYWORD2
+toHTML	KEYWORD2
+typeOf	KEYWORD2
+value	KEYWORD2
+where	KEYWORD2
 
 #######################################
 # Literals (KEYWORD3)
@@ -29,3 +56,28 @@ AC_WEBSERVER_PARASITIC	LITERAL1
 AC_WEBSERVER_HOSTED	LITERAL1
 AC_SAVECREDENTIAL_NEVER	LITERAL1
 AC_SAVECREDENTIAL_AUTO	LITERAL1
+AC_URIONBOOT_ROOT	LITERAL1
+AC_URIONBOOT_HOME	LITERAL1
+AC_EXIT_AHEAD	LITERAL1
+AC_EXIT_LATER	LITERAL1
+AC_EXIT_BOTH	LITERAL1
+AC_Button	LITERAL1
+AC_Checkbox	LITERAL1
+AC_Element	LITERAL1
+AC_Input	LITERAL1
+AC_Radio	LITERAL1
+AC_Select	LITERAL1
+AC_Submit	LITERAL1
+AC_Text	LITERAL1
+
+#######################################
+# PREPROCESSOR (KEYWORD3)
+#######################################
+ACButton	PREPROCESSOR
+ACCheckbox	PREPROCESSOR
+ACElement	PREPROCESSOR
+ACInput	PREPROCESSOR
+ACRadio PREPROCESSOR
+ACSelect	PREPROCESSOR
+ACSubmit	PREPROCESSOR
+ACText	PREPROCESSOR
