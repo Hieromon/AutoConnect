@@ -611,9 +611,9 @@ The transition of the custom Web page follows the URI of the page, but the ESP82
 
 In addition to this, there are restrictions in the handler for the custom Web page as shown in the following section.
 
-### Restrictions
+### Limitations
 
-The custom Web pages handler has the following restrictions.
+The custom Web pages handler has the following limitations.
 
 - Do not send HTTP responses from the handler.
 
@@ -627,12 +627,12 @@ The custom Web pages handler has the following restrictions.
 
     During the connection attempt, the web browser of the client will send a probe for a captive portal. Its request will cause unintended custom Web page transitions.
 
-- Can not place URI of the custom Web pages to AUTOCONNECT_URI].
+- Can not place URI of the custom Web pages to AUTOCONNECT_URI.
 
     AutoConnect will not work if you place a custom Web page to [AUTOCONNECT_URI](api.md#defined-macros).
 
-!!! hint "302 Redirect Alternatives"
-    To transition from a custom Web page to a sketch owned page, execute the link function of JavaScript with the AutoConnectElement element.
+!!! caution "Do not handle for the same page"
+    Do not duplicate AutoConnect::on with ESP8266WebServer::on (also WebServer::on) for the same custom web page.
 
 <script>
   window.onload = function() {
