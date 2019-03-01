@@ -629,8 +629,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#restrictions" title="Restrictions" class="md-nav__link">
-    Restrictions
+  <a href="#limitations" title="Limitations" class="md-nav__link">
+    Limitations
   </a>
   
 </li>
@@ -1017,8 +1017,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#restrictions" title="Restrictions" class="md-nav__link">
-    Restrictions
+  <a href="#limitations" title="Limitations" class="md-nav__link">
+    Limitations
   </a>
   
 </li>
@@ -1369,7 +1369,7 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <p>To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the <a href="api.html#where">AutoConnect::where</a> function. The <code>AutoConnect::where</code> function returns a pointer to the AutoConnectAux object of the custom Web page that caused the HTTP request.</p>
 <div class="admonition note">
 <p class="admonition-title">The where() function is available for only AutoConnectAux.</p>
-<p>The <code>AutoConnect::where</code> function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/ESP32. In other words, the <code>AutoConnect::where</code> function only returns the last AutoConnecAux page called.</p>
+<p>The <code>AutoConnect::where</code> function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/WebServer for ESP32. In other words, the <code>AutoConnect::where</code> function only returns the last AutoConnecAux page called.</p>
 </div>
 <h3 id="when-setting-the-initial-values"><i class="fa fa-desktop"></i> When setting the initial values<a class="headerlink" href="#when-setting-the-initial-values" title="Permanent link">&para;</a></h3>
 <p>An AutoConnectAux page is dynamically created by AutoConnect when its uri is requested. The initial value of AutoConnectElements can be set before its page request. It is also possible during <code>loop()</code>. To set the initial value when the page is accessed it needs by the handler of its page.</p>
@@ -1581,8 +1581,8 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <h3 id="the-uri-of-the-custom-web-pages">The URI of the custom Web pages<a class="headerlink" href="#the-uri-of-the-custom-web-pages" title="Permanent link">&para;</a></h3>
 <p>The transition of the custom Web page follows the URI of the page, but the ESP8266WebServer class does not know the URI of an AutoConnectAux page. (Registering a custom Web page does not use the <em>ESP8266WebServer::on</em>/<em>WebServer::on</em> function.) Therefore ESP8266WebServer class does not detect its URI access. If you want to detect an http request to AutoConnectAux's custom Web page, you need to register its URI with the <a href="apiaux.html#on">AutoConnectAux::on</a> function.</p>
 <p>In addition to this, there are restrictions in the handler for the custom Web page as shown in the following section.</p>
-<h3 id="restrictions">Restrictions<a class="headerlink" href="#restrictions" title="Permanent link">&para;</a></h3>
-<p>The custom Web pages handler has the following restrictions.</p>
+<h3 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h3>
+<p>The custom Web pages handler has the following limitations.</p>
 <ul>
 <li>
 <p>Do not send HTTP responses from the handler.</p>
@@ -1597,13 +1597,13 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p>During the connection attempt, the web browser of the client will send a probe for a captive portal. Its request will cause unintended custom Web page transitions.</p>
 </li>
 <li>
-<p>Can not place URI of the custom Web pages to AUTOCONNECT_URI].</p>
+<p>Can not place URI of the custom Web pages to AUTOCONNECT_URI.</p>
 <p>AutoConnect will not work if you place a custom Web page to <a href="api.html#defined-macros">AUTOCONNECT_URI</a>.</p>
 </li>
 </ul>
-<div class="admonition hint">
-<p class="admonition-title">302 Redirect Alternatives</p>
-<p>To transition from a custom Web page to a sketch owned page, execute the link function of JavaScript with the AutoConnectElement element.</p>
+<div class="admonition caution">
+<p class="admonition-title">Do not handle for the same page</p>
+<p>Do not duplicate AutoConnect::on with ESP8266WebServer::on (also WebServer::on) for the same custom web page.</p>
 </div>
 <script>
   window.onload = function() {
@@ -1618,7 +1618,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p>The valid scope of the name is within an AutoConnectAux.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
-<p>The pattern of AutoConnectInput conforms to javascript specification.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Regular expression specification as a pattern of AutoConnectInput is <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">JavaScript compliant</a>.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

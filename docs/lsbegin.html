@@ -139,7 +139,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#autocoonnectbegin-logic-sequence" tabindex="1" class="md-skip">
+      <a href="#autoconnectbegin-logic-sequence" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -660,8 +660,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#autocoonnectbegin-logic-sequence" title="AutoCoonnect::begin logic sequence" class="md-nav__link">
-    AutoCoonnect::begin logic sequence
+  <a href="#autoconnectbegin-logic-sequence" title="AutoConnect::begin logic sequence" class="md-nav__link">
+    AutoConnect::begin logic sequence
   </a>
   
 </li>
@@ -732,8 +732,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#autocoonnectbegin-logic-sequence" title="AutoCoonnect::begin logic sequence" class="md-nav__link">
-    AutoCoonnect::begin logic sequence
+  <a href="#autoconnectbegin-logic-sequence" title="AutoConnect::begin logic sequence" class="md-nav__link">
+    AutoConnect::begin logic sequence
   </a>
   
 </li>
@@ -757,8 +757,8 @@
                 
                   <h1>Appendix</h1>
                 
-                <h2 id="autocoonnectbegin-logic-sequence">AutoCoonnect::begin logic sequence<a class="headerlink" href="#autocoonnectbegin-logic-sequence" title="Permanent link">&para;</a></h2>
-<p>Several parameters of <a href="apiconfig.html">AutoConnectConfig</a> affect the behavior of <a href="api.html#begin">AutoConnect::begin</a> function. Each parameter affects the behaves in complicated order and apply the followings with the priority in the logic sequence of AutoConnect::begin.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+                <h2 id="autoconnectbegin-logic-sequence">AutoConnect::begin logic sequence<a class="headerlink" href="#autoconnectbegin-logic-sequence" title="Permanent link">&para;</a></h2>
+<p>Several parameters as follows of <a href="apiconfig.html">AutoConnectConfig</a> affect the behavior of <a href="api.html#begin">AutoConnect::begin</a> function. Each parameter affects the behaves in interacted order with the priority and apply to the logic sequence of AutoConnect::begin.</p>
 <ul>
 <li><a href="apiconfig.html#immediatestart">immediateStart</a> : The captive portal start immediately, without first WiFi.begin.</li>
 <li><a href="apiconfig.html#autoreconnect">autoReconenct</a> : Attempt re-connect with past SSID by saved credential.</li>
@@ -767,16 +767,12 @@
 </ul>
 <p>You can use these parameters in combination with sketch requirements and need to understand correctly the behavior caused by the parameters. The following chart shows the AutoConnect::begin logic sequence including the effect of these parameters.</p>
 <p><img align="center" src="images/process_begin.svg"></p>
-<p>For example, AutoConnect::begin will not exits without the portalTimeout while the connection not establishes, but WebServer will start to work. So, your sketch may work seemingly, but it will close with inside a loop of the AutoConnect::begin function. Especially when invoking AutoConnect::begin in the <strong>setup()</strong>, execution control does not pass to the <strong>loop()</strong>.</p>
-<p>As different scenes, you may use the immediateStart effectively. Equipped the external switch to activate the captive portal with the ESP module, combined with the portalTime and the retainPortal it will become WiFi active connection feature. You can start AutoConnect::begin at any point in the <strong>loop()</strong>, which allows your sketch can behave both the offline mode and the online mode.</p>
+<p>For example, AutoConnect::begin will not exits without the <strong>portalTimeout</strong> while the connection not establishes, but WebServer will start to work. So, your sketch may work seemingly, but it will close with inside a loop of the AutoConnect::begin function. Especially when invoking AutoConnect::begin in the <strong>setup()</strong>, execution control does not pass to the <strong>loop()</strong>.</p>
+<p>As different scenes, you may use the <strong>immediateStart</strong> effectively. Equipped the external switch to activate the captive portal with the ESP module, combined with the <strong>portalTime</strong> and the <strong>retainPortal</strong> it will become WiFi active connection feature. You can start AutoConnect::begin at any point in the <strong>loop()</strong>, which allows your sketch can behave both the offline mode and the online mode.</p>
 <p>Please consider these kinds of influence when you make sketches.</p>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>Another parameter as the <a href="api.html#begin">3<sup>rd</sup> parameter</a> of AutoConnect::begin related to timeout constrains the connection wait time after WiFi.begin. It is the <strong>CONNECTED</strong> judgment of the above chart that it has an effect.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
+<div class="admonition info">
+<p class="admonition-title">The AutoConnect::begin 3<sup>rd</sup> parameter</p>
+<p>Another parameter as the <a href="api.html#begin">3<sup>rd</sup> parameter</a> of AutoConnect::begin related to timeout constrains the connection wait time after WiFi.begin. It is the <strong>CONNECTED</strong> judgment of the above chart that it has an effect.</p>
 </div>
                 
                   
