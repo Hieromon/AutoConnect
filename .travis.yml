@@ -1,3 +1,6 @@
+banches:
+  only:
+    - master
 language: generic
 env:
   global:
