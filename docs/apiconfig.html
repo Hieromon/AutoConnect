@@ -1346,6 +1346,10 @@ The default value is 0.
 <p class="admonition-title">Connection request after timed-out</p>
 <p>With the <strong>retainPortal</strong>, even if AutoConnect::begin in the setup() is timed out, you can execute the sketch and the portal function as a WiFi connection attempt by calling AutoConnect::handleClient in the loop().</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">All unresolved addresses redirects to /_ac</p>
+<p>If you enable the <strong>retainPortal</strong> option, <strong>all unresolved URIs will be redirected to <code>SoftAPIP/_ac</code></strong>. It happens frequently as client devices repeat captive portal probes in particular. To avoid this, you need to exit from the WiFi connection Apps on your device once.</p>
+</div>
 <h3 id="staip"><i class="fa fa-caret-right"></i> staip<a class="headerlink" href="#staip" title="Permanent link">&para;</a></h3>
 <p>Set a static IP address. The IP will behave with STA mode.
 <dl class="apidl">
