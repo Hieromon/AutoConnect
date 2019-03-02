@@ -226,6 +226,9 @@ Specify whether to continue the portal function even if the captive portal timed
 !!! hint "Connection request after timed-out"
     With the **retainPortal**, even if AutoConnect::begin in the setup() is timed out, you can execute the sketch and the portal function as a WiFi connection attempt by calling AutoConnect::handleClient in the loop().
 
+!!! info "All unresolved addresses redirects to /_ac"
+    If you enable the **retainPortal** option, **all unresolved URIs will be redirected to `SoftAPIP/_ac`**. It happens frequently as client devices repeat captive portal probes in particular. To avoid this, you need to exit from the WiFi connection Apps on your device once.
+
 ### <i class="fa fa-caret-right"></i> staip
 
 Set a static IP address. The IP will behave with STA mode.
