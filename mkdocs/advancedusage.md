@@ -127,7 +127,7 @@ void loop() {
 }
 ```
 
-There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The [**AutoConnectConfig::retainPortal**](apiconfig.md#retainlportal) option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the sketch.
+There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal) option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the sketch.
 
 ```cpp hl_lines="10"
 #include <ESP8266WiFi.h>
