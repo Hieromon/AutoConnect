@@ -26,10 +26,10 @@ AutoConnectConfig(const char* ap, const char* password, const unsigned long time
 
 ### <i class="fa fa-caret-right"></i> apid
 
-SoftAP's SSID.
+SoftAP's SSID. 
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd>String</dd>
+    <dd><span class="apidef">String</span><span class="apidesc"> The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> apip

@@ -110,7 +110,7 @@ For the client sketches, the code required to connect to WiFi is the following f
 
 3. Invokes "begin()"
     
-    Call [**AutoConnect::begin**](api.md#begin). If you need to assign a static IP address, executes [**AutoConnectConfig**](api.md#autoconnectconfig-api) before that. 
+    Call [**AutoConnect::begin**](api.md#begin). If you need to assign a static IP address, executes [AutoConnectConfig](apiconfig.md) before that. 
 
     <img src="images/begin.png" width="55%"/>
 

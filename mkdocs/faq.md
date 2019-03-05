@@ -64,11 +64,11 @@ Probably **WiFi.begin** failed with the specified SSID. Activating the [debug pr
 
 ## <i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?
 
-An **esp8266ap** is default SSID name for SoftAP of captive portal and password is **12345678**. You can change both by using [AutoConnectConfig](api.md#autoconnectconfig-api).
+You can change both by using [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk). Refer to section [Change SSID and Password for SoftAP](advancedusage.md#change-ssid-and-password-for-softap) in [Advanced usage](advancedusage.md).
 
 ## <i class="fa fa-question-circle"></i> How change HTTP port?
 
-HTTP port number is defined as a macro in [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/77d5cb5dc6d50651fd15f74b47859105c71fc317/src/AutoConnect.h#L89) header file. You can change it directly with several editors and must re-compile.
+HTTP port number is defined as a macro in [AutoConnect.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112) header file. You can change it directly with several editors and must re-compile.
 
 ```cpp
 #define AUTOCONNECT_HTTPPORT    80

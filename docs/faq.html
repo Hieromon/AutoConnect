@@ -1205,9 +1205,9 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 <h2 id="does-not-response-from-95ac"><i class="fa fa-question-circle"></i> Does not response from /_ac.<a class="headerlink" href="#does-not-response-from-95ac" title="Permanent link">&para;</a></h2>
 <p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="advancedusage.html#debug-print">debug printing</a> will help you to track down the cause.</p>
 <h2 id="how-change-esp8266ap-for-ssid-name-in-captive-portal"><i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?<a class="headerlink" href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title="Permanent link">&para;</a></h2>
-<p>An <strong>esp8266ap</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong>. You can change both by using <a href="api.html#autoconnectconfig-api">AutoConnectConfig</a>.</p>
+<p>You can change both by using <a href="apiconfig.html#apid">AutoConnectConfig::apid</a> and <a href="apiconfig.html#psk">AutoConnectConfig::psk</a>. Refer to section <a href="advancedusage.html#change-ssid-and-password-for-softap">Change SSID and Password for SoftAP</a> in <a href="advancedusage.html">Advanced usage</a>.</p>
 <h2 id="how-change-http-port"><i class="fa fa-question-circle"></i> How change HTTP port?<a class="headerlink" href="#how-change-http-port" title="Permanent link">&para;</a></h2>
-<p>HTTP port number is defined as a macro in <a href="https://github.com/Hieromon/AutoConnect/blob/77d5cb5dc6d50651fd15f74b47859105c71fc317/src/AutoConnect.h#L89">AutoConnect.h</a> header file. You can change it directly with several editors and must re-compile.</p>
+<p>HTTP port number is defined as a macro in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112">AutoConnect.h</a> header file. You can change it directly with several editors and must re-compile.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_HTTPPORT    80</span>
 </pre></div>
 
