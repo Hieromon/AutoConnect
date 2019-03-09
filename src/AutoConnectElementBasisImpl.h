@@ -83,7 +83,7 @@ bool AutoConnectInputBasis::isValid(void) const {
 #if defined(ARDUINO_ARCH_ESP8266)
     regex_t preg;
     if (regcomp(&preg, pattern.c_str(), REG_EXTENDED) != 0) {
-      AC_DEBUG("%s regex compile failed\n", pattern.c_str());
+      AC_DBG("%s regex compile failed\n", pattern.c_str());
       rc = false;
     }
     else {
