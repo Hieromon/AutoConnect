@@ -595,6 +595,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#validate-input-data" title=" Validate input data" class="md-nav__link">
+     Validate input data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#convert-data-to-actually-type" title=" Convert data to actually type" class="md-nav__link">
      Convert data to actually type
   </a>
@@ -978,6 +985,13 @@
           <li class="md-nav__item">
   <a href="#check-data-against-on-submission" title=" Check data against on submission" class="md-nav__link">
      Check data against on submission
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-input-data" title=" Validate input data" class="md-nav__link">
+     Validate input data
   </a>
   
 </li>
@@ -1522,7 +1536,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <i class="fa fa-arrow-down"></i><br>
 <i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" height="116" src="images/acow.png"></span></p>
 <h3 id="check-data-against-on-submission"><i class="far fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
-<p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconenctinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
+<p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconnectinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;title&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Page-1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;uri&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1543,6 +1557,10 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
   <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
 </div>
 
+<p>If you are not familiar with regular expressions, you may feel that description very strange. And matter of fact, it is a strange description for those unfamiliar with formal languages. If your regular expression can not interpret the intended syntax and semantics, you can use an online tester. The <a href="https://regex101.com/">regex101</a> is an exceptional online site for testing and debugging regular expressions.</p>
+<h3 id="validate-input-data"><img src="images/regexp.png" align="top"> Validate input data<a class="headerlink" href="#validate-input-data" title="Permanent link">&para;</a></h3>
+<p>The <a href="apielements.html#pattern">pattern</a> attribute of <a href="apielements.html#autoconnectinput">AutoConnectInput</a> only determines the data consistency on the web browser based on the given regular expression. In order to guarantee the validity of input data, it is necessary to verify it before actually using it.</p>
+<p>You can validate input data from <a href="apielements.html#autoconnectinput">AutoConnectInput</a> using the <a href="apielements.html#isvalid">isValid</a> function before actually processing it.  The <a href="apielements.html#isvalid">isValid</a> function determines whether the <a href="apielements.html#value_3">value</a> currently stored in <a href="apielements.html#autoconnectinput">AutoConnectInput</a> matches the <a href="apielements.html#pattern">pattern</a>. </p>
 <h3 id="convert-data-to-actually-type"><i class="fa fa-exchange"></i> Convert data to actually type<a class="headerlink" href="#convert-data-to-actually-type" title="Permanent link">&para;</a></h3>
 <p>The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type. For the typical data type conversion method, refer to section <a href="datatips.html#convert-autoconnectelements-value-to-actual-data-type"><em>Tips for data conversion</em></a>.</p>
 <h2 id="transitions-of-the-custom-web-pages">Transitions of the custom Web pages<a class="headerlink" href="#transitions-of-the-custom-web-pages" title="Permanent link">&para;</a></h2>

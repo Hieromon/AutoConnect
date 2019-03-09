@@ -414,7 +414,7 @@ AutoConnect portal;
 AutoConnectConfig config;
 
 void setup() {
-  config.apid = "ap_portal"
+  config.apid = "ap_portal";
   config.psk  = "new_password";
   portal.config(config);
   portal.begin();
