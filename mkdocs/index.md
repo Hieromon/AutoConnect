@@ -96,7 +96,7 @@ By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, A
 [^2]:Using the AutoConnect API natively allows you to sketch custom Web pages without JSON.
 
 !!! info "AutoConnect supports ArduinoJson version 5 only"
-    ArduinoJson version 6 is still in beta, but Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
+    ArduinoJson version 6 is just released, Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
 
 ### Install the AutoConnect
 
