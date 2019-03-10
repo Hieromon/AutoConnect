@@ -19,11 +19,11 @@ It is no needed hard-coding in advance the SSID and Password into the sketch to 
 
 ### Simple usage
 
-AutoConnect control screen will be displayed automatically for establishing new connections. It aids by the <a href="https://en.wikipedia.org/wiki/Captive_portal">captive portal</a> when vested the connection cannot be detected.<br>By using the [AutoConnect menu](https://hieromon.github.io/AutoConnect/menu/index.html), to manage the connections convenient.
+AutoConnect control screen will be displayed automatically for establishing new connections. It aids by the <a href="https://en.wikipedia.org/wiki/Captive_portal">captive portal</a> when vested the connection cannot be detected.<br>By using the [AutoConnect menu](https://hieromon.github.io/AutoConnect/menu.html), to manage the connections convenient.
 
 ### Store the established connection
 
-The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](https://hieromon.github.io/AutoConnect/menu/index.html).
+The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](https://hieromon.github.io/AutoConnect/menu.html).
 
 ### Easy to embed in
 
@@ -86,12 +86,13 @@ Most simple approach to applying AutoConnect for the existing sketches, follow t
 Full documentation is available on https://Hieromon.github.io/AutoConnect, some quick links at the list:
 
 - The [Installation](https://hieromon.github.io/AutoConnect/index.html#installation) is the installation procedure and requirements for the library.
-- [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted/index.html) with the most simple sketch for using AutoConnect.
-- The [Basic usage](https://hieromon.github.io/AutoConnect/basicusage/index.html) guides to using the library correctly.
-- Details are explained in the [Advanced usage](https://hieromon.github.io/AutoConnect/advancedusage/index.html).
+- [Getting started](https://hieromon.github.io/AutoConnect/gettingstarted.html) with the most simple sketch for using AutoConnect.
+- The [Basic usage](https://hieromon.github.io/AutoConnect/basicusage.html) guides to using the library correctly.
+- Details are explained in the [Advanced usage](https://hieromon.github.io/AutoConnect/advancedusage.html).
 - Details and usage of custom Web pages are explained in the [Custom Web pages](https://hieromon.github.io/AutoConnect/acintro.html).
-- The [API reference](https://hieromon.github.io/AutoConnect/api/index.html) describes the AutoConnect functions specification.
-- [FAQ](https://hieromon.github.io/AutoConnect/faq/index.html).
+- The [API reference](https://hieromon.github.io/AutoConnect/api.html) describes the AutoConnect functions specification.
+- There are hints in [Examples](https://hieromon.github.io/AutoConnect/howtoembed.html) for making sketches with AutoConnect.
+- [FAQ](https://hieromon.github.io/AutoConnect/faq.html).
 
 ## Change log
 
