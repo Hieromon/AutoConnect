@@ -525,10 +525,10 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
           "<a href=\"" AUTOCONNECT_URI "\" class=\"luxbar-brand\">MENU_TITLE</a>"
           "<label class=\"luxbar-hamburger luxbar-hamburger-doublespin\" id=\"luxbar-hamburger\" for=\"luxbar-checkbox\"><span></span></label>"
         "</li>"
-        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">Configure new AP</a></li>"
-        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">Open SSIDs</a></li>"
-        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">Disconnect</a></li>"
-        "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">Reset...</a></li>"
+        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW "</a></li>"
+        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS "</a></li>"
+        "<li class=\"luxbar-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">" AUTOCONNECT_MENULABEL_DISCONNECT "</a></li>"
+        "<li class=\"luxbar-item\" id=\"reset\"><a href=\"#rdlg\">" AUTOCONNECT_MENULABEL_RESET "</a></li>"
 };
 
 const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
@@ -536,11 +536,11 @@ const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
 };
 
 const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
-        "<li class=\"luxbar-item\"><a href=\"HOME_URI\">HOME</a></li>"
+        "<li class=\"luxbar-item\"><a href=\"HOME_URI\">" AUTOCONNECT_MENULABEL_HOME "</a></li>"
       "</ul>"
     "</div>"
     "<div class=\"lap\" id=\"rdlg\"><a href=\"#reset\" class=\"overlap\"></a>"
-      "<div class=\"modal_button\"><h2><a href=\"" AUTOCONNECT_URI_RESET "\" class=\"modal_button\">RESET</a></h2></div>"
+      "<div class=\"modal_button\"><h2><a href=\"" AUTOCONNECT_URI_RESET "\" class=\"modal_button\">" AUTOCONNECT_BUTTONLABEL_RESET "</a></h2></div>"
     "</div>"
   "</header>"
 };
@@ -906,10 +906,9 @@ String AutoConnect::_token_HEAD(PageArgument& args) {
 }
 
 String AutoConnect::_token_MENU_PRE(PageArgument& args) {
-  AC_UNUSED(args);
   String  currentMenu = FPSTR(_ELM_MENU_PRE);
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
-  // currentMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
+  currentMenu.replace(String(F("{{CUR_SSID}}")), _token_ESTAB_SSID(args));
   return currentMenu;
 }
 

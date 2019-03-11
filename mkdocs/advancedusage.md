@@ -191,6 +191,19 @@ Executing the above sketch will rewrite the menu title for the **FSBrowser** as 
 <div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
 <img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png">
 
+### <i class="fa fa-caret-right"></i> Change the menu labels
+
+You can change the label of the AutoConnect menu item by rewriting the default label letter in [AutoConnectLabels.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h) macros. However, changing menu items letter influences all the sketch's build scenes.
+
+```cpp
+#define AUTOCONNECT_MENULABEL_CONFIGNEW   "Configure new AP"
+#define AUTOCONNECT_MENULABEL_OPENSSIDS   "Open SSIDs"
+#define AUTOCONNECT_MENULABEL_DISCONNECT  "Disconnect"
+#define AUTOCONNECT_MENULABEL_RESET       "Reset..."
+#define AUTOCONNECT_MENULABEL_HOME        "HOME"
+#define AUTOCONNECT_BUTTONLABEL_RESET     "RESET"
+```
+
 ### <i class="fa fa-caret-right"></i> Combination with mDNS
 
 With [mDNS library](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS), you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after [*AutoConnect::begin*](api.md#begin).

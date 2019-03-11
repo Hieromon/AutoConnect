@@ -668,7 +668,7 @@ void AutoConnect::_handleNotFound(void) {
 String AutoConnect::_induceReset(PageArgument& args) {
   AC_UNUSED(args);
   _rfReset = true;
-  return String(F("Reset in progress..."));
+  return String(F(AUTOCONNECT_BUTTONLABEL_RESET " in progress..."));
 }
 
 /**
