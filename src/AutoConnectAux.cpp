@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAuxBasisImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-11-17
+ * @version  0.9.8
+ * @date 2019-03-11
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -364,6 +364,20 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
 #ifndef AUTOCONNECT_USE_JSON
 
 /**
+ * Get AutoConnectElementBasis element.
+ * @param  name  an element name.
+ * @return A reference of AutoConnectElement class.
+ */
+template<>
+AutoConnectElementBasis& AutoConnectAux::getElement(const String& name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    return *(reinterpret_cast<AutoConnectElementBasis*>(elm));
+  }
+  return reinterpret_cast<AutoConnectElementBasis&>(_nullElement());
+}
+
+/**
  * Get AutoConnectButtonBasis element.
  * @param  name  An element name.
  * @return A reference of AutoConnectButton class.
@@ -483,6 +497,20 @@ AutoConnectTextBasis& AutoConnectAux::getElement(const String& name) {
 }
 
 #else
+
+/**
+ * Get AutoConnectElementJson element.
+ * @param  name  an element name.
+ * @return A reference of AutoConnectElement class.
+ */
+template<>
+AutoConnectElementJson& AutoConnectAux::getElement(const String& name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    return *(reinterpret_cast<AutoConnectElementJson*>(elm));
+  }
+  return reinterpret_cast<AutoConnectElementJson&>(_nullElement());
+}
 
 /**
  * Get AutoConnectButtonJson element.
