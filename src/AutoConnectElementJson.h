@@ -33,6 +33,7 @@
 #define AUTOCONNECT_JSON_TYPE_ACBUTTON   "ACButton"
 #define AUTOCONNECT_JSON_TYPE_ACCHECKBOX "ACCheckBox"
 #define AUTOCONNECT_JSON_TYPE_ACELEMENT  "ACElement"
+#define AUTOCONNECT_JSON_TYPE_ACFILE     "ACFile"
 #define AUTOCONNECT_JSON_TYPE_ACINPUT    "ACInput"
 #define AUTOCONNECT_JSON_TYPE_ACRADIO    "ACRadio"
 #define AUTOCONNECT_JSON_TYPE_ACSELECT   "ACSelect"
@@ -100,6 +101,27 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
     AutoConnectCheckboxBasis::checked = checked;
   }
   ~AutoConnectCheckboxJson() {}
+  size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
+};
+
+/**
+ * File-select input arrangement class, a part of AutoConnectAux element.
+ * Place a optionally labeled file-select input box that can be added by user sketch.
+ * @param  name     File-select input box name string.
+ * @param  value    A string value entered by the selected file name.
+ * @param  label    A label string that follows file-select box, optionally.
+ * The label is placed in front of file-select box.
+ */
+class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFileBasis {
+ public:
+  explicit AutoConnectFileJson(const char* name = "", const char* value= "", const char* label = "") {
+    AutoConnectFileBasis::name = String(name);
+    AutoConnectFileBasis::value = String(value);
+    AutoConnectFileBasis::label = String(label);
+  }
+  ~AutoConnectFileJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;

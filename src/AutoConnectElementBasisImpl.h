@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-12-29
+ * @version  0.9.8
+ * @date 2019-03-11
  * @copyright  MIT license.
  */
 
@@ -43,6 +43,22 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
   if (label.length())
     html += String(F(" id=\"")) + name + String(F("\"><label for=\"")) + name + String("\">") + label + String(F("</label"));
   html += String(F("><br>"));
+  return html;
+}
+
+/**
+ * Generate an HTML <input type=file> element.
+ * The entered value can be obtained using the user callback function
+ * registered by AutoConnectAux::on after the form is sent in
+ * combination with AutoConnectSubmit.
+ * @return String  an HTML string.
+ */
+const String AutoConnectFileBasis::toHTML(void) const {
+  String  html = String("");
+
+  if (label.length())
+    html = String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
+  html += String(F("<input type=\"file\" id=\"")) + name + String(F("\" name=\"")) + name + String(F("\"><br>"));
   return html;
 }
 
@@ -208,7 +224,12 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
  * @return String  an HTML string.
  */
 const String AutoConnectTextBasis::toHTML(void) const {
-  return String(F("<div style=\"")) + style + String("\">") + value + String(F("</div>"));
+  String  html = String("<div");
+
+  if (style.length())
+    html += String(F(" style=\"")) + style + String("\"");
+  html += String(">") + value + String(F("</div>"));
+  return html;
 }
 
 #endif // _AUTOCONNECTELEMENTBASISIMPL_H_
