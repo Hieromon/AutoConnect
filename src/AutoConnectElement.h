@@ -2,8 +2,8 @@
  * Alias declarations for an accessible the AutoConnectElement class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-11-17
+ * @version  0.9.8
+ * @date 2018-03-11
  * @copyright  MIT license.
  */
 
@@ -17,6 +17,7 @@
 using AutoConnectElement  = AutoConnectElementJson;
 using AutoConnectButton   = AutoConnectButtonJson;
 using AutoConnectCheckbox = AutoConnectCheckboxJson;
+using AutoConnectFile     = AutoConnectFileJson;
 using AutoConnectInput    = AutoConnectInputJson;
 using AutoConnectRadio    = AutoConnectRadioJson;
 using AutoConnectSelect   = AutoConnectSelectJson;
@@ -27,6 +28,7 @@ using AutoConnectText     = AutoConnectTextJson;
 using AutoConnectElement  = AutoConnectElementBasis;
 using AutoConnectButton   = AutoConnectButtonBasis;
 using AutoConnectCheckbox = AutoConnectCheckboxBasis;
+using AutoConnectFile     = AutoConnectFileBasis;
 using AutoConnectInput    = AutoConnectInputBasis;
 using AutoConnectRadio    = AutoConnectRadioBasis;
 using AutoConnectSelect   = AutoConnectSelectBasis;
@@ -42,6 +44,7 @@ using AutoConnectText     = AutoConnectTextBasis;
 #define ACElement(n, v)    AutoConnectElement n(#n, v)
 #define ACButton(n, ...)   AutoConnectButton n(#n, ##__VA_ARGS__)
 #define ACCheckbox(n, ...) AutoConnectCheckbox n(#n, ##__VA_ARGS__)
+#define ACFile(n, ...)     AutoConnectFile n(#n, ##__VA_ARGS__)
 #define ACInput(n, ...)    AutoConnectInput n(#n, ##__VA_ARGS__)
 #define ACRadio(n, ...)    AutoConnectRadio n(#n, ##__VA_ARGS__)
 #define ACSelect(n, ...)   AutoConnectSelect n(#n, ##__VA_ARGS__)

@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-12-29
+ * @version  0.9.8
+ * @date 2019-03-11
  * @copyright  MIT license.
  */
 
@@ -17,12 +17,13 @@ typedef enum {
   AC_Button,
   AC_Checkbox,
   AC_Element,
+  AC_File,
   AC_Input,
   AC_Radio,
   AC_Select,
   AC_Submit,
   AC_Text,
-  AC_Unknown
+  AC_Unknown = -1
 } ACElement_t;      /**< AutoConnectElement class type */
 
 typedef enum {
@@ -88,6 +89,25 @@ class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
 
   String  label;      /**< A label for a subsequent input box */
   bool    checked;    /**< The element should be pre-selected */
+};
+
+/**
+ * File-select input arrangement class, a part of AutoConnectAux element.
+ * Place a optionally labeled file-select input box that can be added by user sketch.
+ * @param  name     File-select input box name string.
+ * @param  value    A string value entered by the selected file name.
+ * @param  label    A label string that follows file-select box, optionally.
+ * The label is placed in front of file-select box.
+ */
+class AutoConnectFileBasis : virtual public AutoConnectElementBasis {
+ public:
+  explicit AutoConnectFileBasis(const char* name = "", const char* value= "", const char* label = "") : AutoConnectElementBasis(name, value), label(String(label)) {
+    _type = AC_File;
+  }
+  virtual ~AutoConnectFileBasis() {}
+  const String  toHTML(void) const override;
+
+  String  label;      /**< A label for a subsequent input box */
 };
 
 /**

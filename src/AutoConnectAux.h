@@ -80,6 +80,7 @@ class AutoConnectAux : public PageBuilder {
   const String  _injectTitle(PageArgument& args) const { (void)(args); return _title; } /**< Returns title of this page to PageBuilder */
   const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
   const String  _indicateUri(PageArgument& args);                       /**< Inject the uri that caused the request */
+  const String  _indicateEncType(PageArgument& args);                   /**< Inject the ENCTYPE attribute */
   void  _storeElements(WebServerClass* webServer);                      /**< Store element values from contained in request arguments */
   static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
 

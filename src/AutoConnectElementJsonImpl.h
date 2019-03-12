@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementJson classes.
  * @file AutoConnectElementImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-11-17
+ * @version  0.9.8
+ * @date 2019-03-11
  * @copyright  MIT license.
  */
 
@@ -138,6 +138,42 @@ void AutoConnectCheckboxJson::serialize(JsonObject& json) {
   json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
   json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
   json.set(F(AUTOCONNECT_JSON_KEY_CHECKED), checked);
+}
+
+/**
+ * Returns JSON object size.
+ * @return  An object size for JsonBuffer.
+ */
+size_t AutoConnectFileJson::getObjectSize() const {
+  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(1);
+}
+
+/**
+ * Load a file-select element attribute member from the JSON object.
+ * @param  json  JSON object with the definition of AutoConnectElement.
+ * @return true  AutoConnectElement loaded
+ * @return false Type of AutoConnectElement is mismatched.
+ */
+bool AutoConnectFileJson::loadMember(const JsonObject& json) {
+  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACFILE))) {
+    _setMember(json);
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
+      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Serialize AutoConnectFile to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectFileJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACFILE));
+  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
 }
 
 /**
