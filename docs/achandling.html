@@ -1618,6 +1618,10 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p>Can not place URI of the custom Web pages to AUTOCONNECT_URI.</p>
 <p>AutoConnect will not work if you place a custom Web page to <a href="api.html#defined-macros">AUTOCONNECT_URI</a>.</p>
 </li>
+<li>
+<p>Can not use the element named <strong>SUBMIT</strong>.</p>
+<p>You can not use 'SUBMIT' as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element. (Case sensitive ignored) AutoConnect does not rely on the <code>input type=submit</code> element for the form submission and uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit">HTML form element submit</a> function instead. So, the submit function will fail if there is an element named 'submit' in the form.</p>
+</li>
 </ul>
 <div class="admonition caution">
 <p class="admonition-title">Do not handle for the same page</p>

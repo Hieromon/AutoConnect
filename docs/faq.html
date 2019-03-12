@@ -817,6 +817,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#submit-element-in-a-custom-web-page-does-not-react" title=" Submit element in a custom Web page does not react." class="md-nav__link">
+     Submit element in a custom Web page does not react.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
      Still, not stable with my sketch.
   </a>
@@ -1076,6 +1083,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#submit-element-in-a-custom-web-page-does-not-react" title=" Submit element in a custom Web page does not react." class="md-nav__link">
+     Submit element in a custom Web page does not react.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
      Still, not stable with my sketch.
   </a>
@@ -1207,7 +1221,7 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 <h2 id="how-change-esp8266ap-for-ssid-name-in-captive-portal"><i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?<a class="headerlink" href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title="Permanent link">&para;</a></h2>
 <p>You can change both by using <a href="apiconfig.html#apid">AutoConnectConfig::apid</a> and <a href="apiconfig.html#psk">AutoConnectConfig::psk</a>. Refer to section <a href="advancedusage.html#change-ssid-and-password-for-softap">Change SSID and Password for SoftAP</a> in <a href="advancedusage.html">Advanced usage</a>.</p>
 <h2 id="how-change-http-port"><i class="fa fa-question-circle"></i> How change HTTP port?<a class="headerlink" href="#how-change-http-port" title="Permanent link">&para;</a></h2>
-<p>HTTP port number is defined as a macro in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112">AutoConnect.h</a> header file. You can change it directly with several editors and must re-compile.</p>
+<p>HTTP port number is defined as a macro in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112">AutoConnectDefs.h</a> header file. You can change it directly with several editors and must re-compile.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_HTTPPORT    80</span>
 </pre></div>
 
@@ -1372,6 +1386,8 @@ wdt reset
 <p>Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.</p>
 <h2 id="i-cannot-see-the-custom-web-page"><i class="fa fa-question-circle"></i> I cannot see the custom Web page.<a class="headerlink" href="#i-cannot-see-the-custom-web-page" title="Permanent link">&para;</a></h2>
 <p>If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the <a href="faq.html#3-turn-on-the-debug-log-options">AC_DEBUG</a> and rerun. If you take the message of JSON syntax error, the <a href="https://arduinojson.org/v5/assistant/">Json Assistant</a> helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. </p>
+<h2 id="submit-element-in-a-custom-web-page-does-not-react"><i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.<a class="headerlink" href="#submit-element-in-a-custom-web-page-does-not-react" title="Permanent link">&para;</a></h2>
+<p>Is there the AutoConnectElements element named <strong>SUBMIT</strong> in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the <code>input type=submit</code> element for the form submission and uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit">HTML form element submit</a> function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use <strong>SUBMIT</strong> as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.</p>
 <h2 id="still-not-stable-with-my-sketch"><i class="fa fa-question-circle"></i> Still, not stable with my sketch.<a class="headerlink" href="#still-not-stable-with-my-sketch" title="Permanent link">&para;</a></h2>
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
