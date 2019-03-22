@@ -23,7 +23,7 @@ before_install:
   - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then
       arduino --install-boards esp32:esp32;
     fi
-  - arduino --install-library PubSubClient,ArduinoJson:5.13.4,PageBuilder:1.3.2
+  - arduino --install-library PubSubClient,ArduinoJson:5.13.4,PageBuilder:1.3.3
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
   - mkdir -p ~/Arduino/libraries
@@ -39,3 +39,4 @@ script:
   - buildExampleSketch mqttRSSI
   - buildExampleSketch mqttRSSI_FS
   - buildExampleSketch mqttRSSI_NA
+  - buildExampleSketch FileUpload

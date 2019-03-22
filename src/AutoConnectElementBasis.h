@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <memory>
+#include "AutoConnectUpload.h"
 
 typedef enum {
   AC_Button,
@@ -30,6 +31,12 @@ typedef enum {
   AC_Horizontal,
   AC_Vertical
 } ACArrange_t;      /**< The element arrange order */
+
+typedef enum {
+  AC_File_FS = 0,
+  AC_File_SD,
+  AC_File_Ext
+} ACFile_t;         /**< AutoConnectFile media type */
 
 /**
  * AutoConnectAux element base.
@@ -101,13 +108,23 @@ class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectFileBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectFileBasis(const char* name = "", const char* value= "", const char* label = "") : AutoConnectElementBasis(name, value), label(String(label)) {
+  explicit AutoConnectFileBasis(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS) : AutoConnectElementBasis(name, value), label(String(label)), store(store) {
     _type = AC_File;
+    _upload.reset();
   }
   virtual ~AutoConnectFileBasis() {}
   const String  toHTML(void) const override;
+  bool  attach(const ACFile_t store);
+  void  detach(void) { _upload.reset(); }
+  AutoConnectUploadHandler*  upload(void) const { return _upload.get(); }
 
-  String  label;      /**< A label for a subsequent input box */
+  String   label;     /**< A label for a subsequent input box */
+  ACFile_t store;     /**< Type of file store */
+  String   mimeType;  /**< Uploading file mime type string */
+  size_t   size;      /**< Total uploaded bytes */
+
+ protected:
+  std::unique_ptr<AutoConnectUploadHandler> _upload;
 };
 
 /**

@@ -9,6 +9,7 @@
 #include <algorithm>
 #include "AutoConnect.h"
 #include "AutoConnectAux.h"
+#include "AutoConnectUploadImpl.h"
 #include "AutoConnectElement.h"
 #include "AutoConnectElementBasisImpl.h"
 #ifdef AUTOCONNECT_USE_JSON
@@ -205,6 +206,84 @@ bool AutoConnectAux::setElementValue(const String& name, std::vector<String> con
 }
 
 /**
+ * The upload function that overrides the RequestHandler class
+ * attached with ESP8266WebServer.
+ * This function invokes the upload handler registered by the onUpload
+ * function which will be implemented by the user sketch.
+ */
+void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) {
+  if (upload.status == UPLOAD_FILE_START) {
+    AC_DBG("%s requests upload to %s\n", requestUri.c_str(), _uriStr.c_str());
+    // Selects a valid upload handler before uploading starts.
+    // Identify AutoConnectFile with the current upload request and
+    // save the value and mimeType attributes.
+    AC_DBG("ACFile %s ", upload.name.c_str());
+    String  logContext = "missing";
+
+    AutoConnectElementVT  addons;
+    AutoConnectAux* aux = _ac->_aux.get();
+    while (aux) {
+      if (aux->_uriStr == requestUri) {
+        addons = aux->_addonElm;
+        break;
+      }
+      aux = aux->_next.get();
+    }
+
+    _currentUpload = nullptr;
+    for (AutoConnectElement& elm : addons) {
+      if (elm.typeOf() == AC_File) {
+        _currentUpload = reinterpret_cast<AutoConnectFile*>(&elm);
+        // Reset previous value
+        _currentUpload->value = String("");
+        _currentUpload->mimeType = String("");
+        _currentUpload->size = 0;
+        // Overwrite with current upload request
+        if (upload.name.equalsIgnoreCase(_currentUpload->name)) {
+          _currentUpload->value = upload.filename;
+          _currentUpload->mimeType = upload.type;
+          logContext = "accepted " + _currentUpload->value;
+          break;
+        }
+      }
+    }
+    AC_DBG_DUMB("%s, handler ", logContext.c_str());
+
+    // If the current upload request is AutoConnectFile without default
+    // AutoConnectUpload (i.e. the store attribute is AC_File_Ex),
+    // enable the user-owned upload handler activated by the onUpload.
+    _upload = nullptr;
+    if (_currentUpload)
+      if (_currentUpload->attach(_currentUpload->store)) {
+        _upload = std::bind(&AutoConnectUploadHandler::upload, _currentUpload->upload(), std::placeholders::_1, std::placeholders::_2);
+        AC_DBG_DUMB("attached(%d)\n", (int)_currentUpload->store);
+      }
+
+    if (!_upload) {
+      if (_uploadHandler) {
+        _upload = _uploadHandler;
+        AC_DBG_DUMB("enabled\n");
+      }
+      else
+        AC_DBG_DUMB("missing\n");
+    }
+  }
+
+  // Invokes upload handler
+  if (_upload) {
+    _upload(requestUri, upload);
+    if (_currentUpload)
+      _currentUpload->size = upload.totalSize;
+    // Upload ended, purge handler
+    if (upload.status == UPLOAD_FILE_END || upload.status == UPLOAD_FILE_ABORTED) {
+      if (_currentUpload)
+        _currentUpload->detach();
+      AC_DBG("%ld bytes uploaded\n", upload.totalSize);
+    }
+  }
+}
+
+/**
  * Concatenates subsequent AutoConnectAux pages starting from oneself 
  * to the chain list. 
  * AutoConnectAux is collected in the chain list and each object is 
@@ -359,9 +438,17 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
  * @param webServer A pointer to the class object of WebServerClass
  */
 void AutoConnectAux::_storeElements(WebServerClass* webServer) {
+  // Retrieve each element value, Overwrites the value of all cataloged
+  // AutoConnectElements with arguments inherited from last http request.
   for (AutoConnectElement& elm : _addonElm) {
-    // Overwrite the value of all cataloged AutoConnectElements with
-    // arguments inherited from the last http request.
+
+    // The POST body does not contain the value of the AutoConnectFile,
+    // so it can not be obtained with the WebServerClass::arg function.
+    // The AutoConnectFile value will be restored from least recent
+    // upload request.
+    if (elm.typeOf() == AC_File)
+      continue;
+
     // Relies on AutoConnectRadio, it restores to false at the being
     // because the checkbox argument will not pass if it is not checked.
     if (elm.typeOf() == AC_Checkbox)
@@ -438,7 +525,7 @@ template<>
 AutoConnectFileBasis& AutoConnectAux::getElement(const String& name) {
   AutoConnectElement* elm = getElement(name);
   if (elm) {
-    if (elm->typeOf() == AC_Input)
+    if (elm->typeOf() == AC_File)
       return *(reinterpret_cast<AutoConnectFileBasis*>(elm));
     else
       AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());

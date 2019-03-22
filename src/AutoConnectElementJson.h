@@ -13,32 +13,36 @@
 #include "AutoConnectElementBasis.h"
 #include <ArduinoJson.h>
 
-#define AUTOCONNECT_JSON_KEY_ACTION      "action"
-#define AUTOCONNECT_JSON_KEY_ARRANGE     "arrange"
-#define AUTOCONNECT_JSON_KEY_CHECKED     "checked"
-#define AUTOCONNECT_JSON_KEY_ELEMENT     "element"
-#define AUTOCONNECT_JSON_KEY_HORIZONTAL  "horizontal"
-#define AUTOCONNECT_JSON_KEY_LABEL       "label"
-#define AUTOCONNECT_JSON_KEY_MENU        "menu"
-#define AUTOCONNECT_JSON_KEY_NAME        "name"
-#define AUTOCONNECT_JSON_KEY_OPTION      "option"
-#define AUTOCONNECT_JSON_KEY_PATTERN     "pattern"
-#define AUTOCONNECT_JSON_KEY_PLACEHOLDER "placeholder"
-#define AUTOCONNECT_JSON_KEY_STYLE       "style"
-#define AUTOCONNECT_JSON_KEY_TITLE       "title"
-#define AUTOCONNECT_JSON_KEY_TYPE        "type"
-#define AUTOCONNECT_JSON_KEY_URI         "uri"
-#define AUTOCONNECT_JSON_KEY_VALUE       "value"
-#define AUTOCONNECT_JSON_KEY_VERTICAL    "vertical"
-#define AUTOCONNECT_JSON_TYPE_ACBUTTON   "ACButton"
-#define AUTOCONNECT_JSON_TYPE_ACCHECKBOX "ACCheckBox"
-#define AUTOCONNECT_JSON_TYPE_ACELEMENT  "ACElement"
-#define AUTOCONNECT_JSON_TYPE_ACFILE     "ACFile"
-#define AUTOCONNECT_JSON_TYPE_ACINPUT    "ACInput"
-#define AUTOCONNECT_JSON_TYPE_ACRADIO    "ACRadio"
-#define AUTOCONNECT_JSON_TYPE_ACSELECT   "ACSelect"
-#define AUTOCONNECT_JSON_TYPE_ACSUBMIT   "ACSubmit"
-#define AUTOCONNECT_JSON_TYPE_ACTEXT     "ACText"
+#define AUTOCONNECT_JSON_KEY_ACTION       "action"
+#define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
+#define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
+#define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
+#define AUTOCONNECT_JSON_KEY_LABEL        "label"
+#define AUTOCONNECT_JSON_KEY_MENU         "menu"
+#define AUTOCONNECT_JSON_KEY_NAME         "name"
+#define AUTOCONNECT_JSON_KEY_OPTION       "option"
+#define AUTOCONNECT_JSON_KEY_PATTERN      "pattern"
+#define AUTOCONNECT_JSON_KEY_PLACEHOLDER  "placeholder"
+#define AUTOCONNECT_JSON_KEY_STORE        "store"
+#define AUTOCONNECT_JSON_KEY_STYLE        "style"
+#define AUTOCONNECT_JSON_KEY_TITLE        "title"
+#define AUTOCONNECT_JSON_KEY_TYPE         "type"
+#define AUTOCONNECT_JSON_KEY_URI          "uri"
+#define AUTOCONNECT_JSON_KEY_VALUE        "value"
+#define AUTOCONNECT_JSON_TYPE_ACBUTTON    "ACButton"
+#define AUTOCONNECT_JSON_TYPE_ACCHECKBOX  "ACCheckBox"
+#define AUTOCONNECT_JSON_TYPE_ACELEMENT   "ACElement"
+#define AUTOCONNECT_JSON_TYPE_ACFILE      "ACFile"
+#define AUTOCONNECT_JSON_TYPE_ACINPUT     "ACInput"
+#define AUTOCONNECT_JSON_TYPE_ACRADIO     "ACRadio"
+#define AUTOCONNECT_JSON_TYPE_ACSELECT    "ACSelect"
+#define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
+#define AUTOCONNECT_JSON_TYPE_ACTEXT      "ACText"
+#define AUTOCONNECT_JSON_VALUE_EXTERNAL   "external"
+#define AUTOCONNECT_JSON_VALUE_FS         "fs"
+#define AUTOCONNECT_JSON_VALUE_HORIZONTAL "horizontal"
+#define AUTOCONNECT_JSON_VALUE_SD         "sd"
+#define AUTOCONNECT_JSON_VALUE_VERTICAL   "vertical"
 
 /**
  * AutoConnectAux element base with handling with JSON object.
@@ -113,13 +117,15 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
  * @param  value    A string value entered by the selected file name.
  * @param  label    A label string that follows file-select box, optionally.
  * The label is placed in front of file-select box.
+ * @param  store    An enumuration value of store type.
  */
 class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFileBasis {
  public:
-  explicit AutoConnectFileJson(const char* name = "", const char* value= "", const char* label = "") {
+  explicit AutoConnectFileJson(const char* name = "", const char* value= "", const char* label = "", const ACFile_t store = AC_File_FS) {
     AutoConnectFileBasis::name = String(name);
     AutoConnectFileBasis::value = String(value);
     AutoConnectFileBasis::label = String(label);
+    AutoConnectFileBasis::store = store;
   }
   ~AutoConnectFileJson() {}
   size_t  getObjectSize(void) const override;

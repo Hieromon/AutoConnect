@@ -216,6 +216,7 @@ class AutoConnect {
   bool  _loadAvailCredential(void);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
+  void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
   void  _purgePages(void);
   virtual PageElement*  _setupPage(String uri);
 #ifdef AUTOCONNECT_USE_JSON
@@ -262,6 +263,7 @@ class AutoConnect {
   /** Extended pages made up with AutoConnectAux */
   std::unique_ptr<AutoConnectAux> _aux;
   String        _auxUri;        /**< Last accessed AutoConnectAux */
+  String        _prevUri;       /**< Previous generated page uri */
 
   /** Saved configurations */
   AutoConnectConfig     _apConfig;

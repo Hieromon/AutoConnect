@@ -145,7 +145,7 @@ void AutoConnectCheckboxJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectFileJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(1);
+  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
 }
 
 /**
@@ -160,6 +160,19 @@ bool AutoConnectFileJson::loadMember(const JsonObject& json) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
       label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STORE))) {
+      String  media = json.get<String>(F(AUTOCONNECT_JSON_KEY_STORE));
+      if (media.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_FS)))
+        store = AC_File_FS;
+      else if (media.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_SD)))
+        store = AC_File_SD;
+      else if (media.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_EXTERNAL)))
+        store = AC_File_Ext;
+      else {
+        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), media.c_str());
+        return false;
+      }
+    }
     return true;
   }
   return false;
@@ -174,6 +187,17 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
   json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACFILE));
   json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
   json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+  switch (store) {
+  case AC_File_FS:
+    json.set(F(AUTOCONNECT_JSON_KEY_STORE), AUTOCONNECT_JSON_VALUE_FS);
+    break;
+  case AC_File_SD:
+    json.set(F(AUTOCONNECT_JSON_KEY_STORE), AUTOCONNECT_JSON_VALUE_SD);
+    break;
+  case AC_File_Ext:
+    json.set(F(AUTOCONNECT_JSON_KEY_STORE), AUTOCONNECT_JSON_VALUE_EXTERNAL);
+    break;
+  }
 }
 
 /**
@@ -242,10 +266,14 @@ bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
       checked = static_cast<uint8_t>(json.get<int>(F(AUTOCONNECT_JSON_KEY_CHECKED)));
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ARRANGE))) {
       String  arrange = json.get<String>(F(AUTOCONNECT_JSON_KEY_ARRANGE));
-      if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_VERTICAL)))
+      if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_VERTICAL)))
         order = AC_Vertical;
-      else if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_KEY_HORIZONTAL)))
+      else if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_HORIZONTAL)))
         order = AC_Horizontal;
+      else {
+        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), arrange.c_str());
+        return false;
+      }
     }
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE))) {
       empty();
@@ -271,10 +299,10 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
     values.add(v);
   switch (order) {
   case AC_Horizontal:
-    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_KEY_HORIZONTAL);
+    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_VALUE_HORIZONTAL);
     break;
   case AC_Vertical:
-    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_KEY_VERTICAL);
+    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_VALUE_VERTICAL);
     break;
   }
   json.set(F(AUTOCONNECT_JSON_KEY_CHECKED), checked);

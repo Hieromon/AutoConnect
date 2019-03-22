@@ -63,6 +63,32 @@ const String AutoConnectFileBasis::toHTML(void) const {
 }
 
 /**
+ * Instantiate the upload handler with the specified store type.
+ * @param store An enumuration value of ACFile_t
+ */
+bool AutoConnectFileBasis::attach(const ACFile_t store) {
+  AutoConnectUploadFS*  handlerFS;
+  AutoConnectUploadSD*  handlerSD;
+
+  // Release previous handler
+  detach();
+  // Classify a handler type and create the corresponding handler
+  switch (store) {
+  case AC_File_FS:
+    handlerFS = new AutoConnectUploadFS(SPIFFS);
+    _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerFS));
+    break;
+  case AC_File_SD:
+    handlerSD = new AutoConnectUploadSD(SD);
+    _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerSD));
+    break;
+  case AC_File_Ext:
+    break;
+  }
+  return _upload != false;
+}
+
+/**
  * Generate an HTML <input type=text> element.
  * If the value member is contained, it is reflected in the placeholder
  * attribute. The entered value can be obtained using the user callback

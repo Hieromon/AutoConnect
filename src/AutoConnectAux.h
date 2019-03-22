@@ -47,7 +47,7 @@ typedef enum {
 class AutoConnectAux : public PageBuilder {
  public:
   explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT()) :
-    _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons) { _uri = _uriStr.c_str(); _next.release(); _ac.release(); }
+    _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons), _handler(nullptr), _order(AC_EXIT_AHEAD), _uploadHandler(nullptr) { _uri = _uriStr.c_str(); _next.release(); _ac.release(); }
   ~AutoConnectAux();
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page */
@@ -61,6 +61,7 @@ class AutoConnectAux : public PageBuilder {
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
   void  setTitle(const String& title) { _title = title; }                /**< Set a title of the auxiliary page */
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
+  void  onUpload(PageBuilder::UploadFuncT uploadFunc) override { _uploadHandler = uploadFunc; }
 
 #ifdef AUTOCONNECT_USE_JSON
   bool load(const String& in);                                          /**< Load whole elements to AutoConnectAux Page */
@@ -73,6 +74,7 @@ class AutoConnectAux : public PageBuilder {
 #endif // !AUTOCONNECT_USE_JSON
 
  protected:
+  void  upload(const String& requestUri, const HTTPUpload& upload);     /**< Uploader wrapper */
   void  _concat(AutoConnectAux& aux);                                   /**< Make up chain of AutoConnectAux */
   void  _join(AutoConnect& ac);                                         /**< Make a link to AutoConnect */
   PageElement*  _setupPage(const String& uri);                          /**< AutoConnectAux page builder */
@@ -100,7 +102,8 @@ class AutoConnectAux : public PageBuilder {
   std::unique_ptr<AutoConnect>    _ac;        /**< Hosted AutoConnect instance */
   AuxHandlerFunctionT   _handler;             /**< User sketch callback function when AutoConnectAux page requested. */
   AutoConnectExitOrder_t  _order;             /**< The order in which callback functions are called. */
-
+  PageBuilder::UploadFuncT    _uploadHandler; /**< The AutoConnectFile corresponding to current upload */
+  AutoConnectFile*      _currentUpload;       /**< AutoConnectFile handling the current upload */
   static const char _PAGE_AUX[] PROGMEM;      /**< Auxiliary page template */
 
   // Protected members can be used from AutoConnect which handles AutoConnectAux pages.
