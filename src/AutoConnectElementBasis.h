@@ -233,18 +233,20 @@ class AutoConnectSubmitBasis : virtual public AutoConnectElementBasis {
  * @param  name     Text name string.
  * @param  value    Text value string.
  * @param  style    A string of style-code for decoration, optionally.
+ * @param  format   C string that contains the value to be formatted.
  * An arrangement text would be placed with <div> contains. A string
  * of style-codes are given for '<div style=>'.
  */
 class AutoConnectTextBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectTextBasis(const char* name = "", const char* value = "", const char* style = "") : AutoConnectElementBasis(name, value), style(String(style)) {
+  explicit AutoConnectTextBasis(const char* name = "", const char* value = "", const char* style = "", const char* format = "") : AutoConnectElementBasis(name, value), style(String(style)), format(String(format)) {
     _type = AC_Text;
   }
   virtual ~AutoConnectTextBasis() {}
   const String  toHTML(void) const override;
 
   String  style;      /**< CSS style modifier native code */
+  String  format;     /**< C string that contains the text to be written */
 };
 
 #endif // _AUTOCONNECTELEMENTBASIS_H_

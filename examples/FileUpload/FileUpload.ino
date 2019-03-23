@@ -73,12 +73,13 @@ static const char PAGE_BROWSE[] PROGMEM = R"(
     },
     {
       "name": "size",
-      "type": "ACText"
+      "type": "ACText",
+      "format": "%s bytes uploaded"
     },
     {
       "name": "content_type",
       "type": "ACText",
-      "value": "Content: "
+      "format": "Content: %s"
     }
   ]
 }
@@ -108,7 +109,7 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
   String  content;
   String  filename = auxUpload.getElement<AutoConnectFile>("filename").value;
   aux.getElement<AutoConnectText>("filename").value = filename;
-  aux.getElement<AutoConnectText>("size").value = String(auxUpload.getElement<AutoConnectFile>("filename").size) + String("bytes uploaded");
+  aux.getElement<AutoConnectText>("size").value = String(auxUpload.getElement<AutoConnectFile>("filename").size);
   String contentType = auxUpload.getElement<AutoConnectFile>("filename").mimeType;
   aux.getElement<AutoConnectText>("content_type").value = contentType;
   if (contentType.indexOf("text/") >= 0) {

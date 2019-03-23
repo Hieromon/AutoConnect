@@ -17,6 +17,7 @@
 #define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
 #define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
 #define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
+#define AUTOCONNECT_JSON_KEY_FORMAT       "format"
 #define AUTOCONNECT_JSON_KEY_LABEL        "label"
 #define AUTOCONNECT_JSON_KEY_MENU         "menu"
 #define AUTOCONNECT_JSON_KEY_NAME         "name"
@@ -234,10 +235,11 @@ class AutoConnectSubmitJson : public AutoConnectElementJson, public AutoConnectS
  */
 class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTextBasis {
  public:
-  explicit AutoConnectTextJson(const char* name = "", const char* value = "", const char* style = "") {
+  explicit AutoConnectTextJson(const char* name = "", const char* value = "", const char* style = "", const char* format = "") {
     AutoConnectTextBasis::name = String(name);
     AutoConnectTextBasis::value = String(value);
     AutoConnectTextBasis::style = String(style);
+    AutoConnectTextBasis::format = String(format);
   }
   ~AutoConnectTextJson() {}
   size_t  getObjectSize(void) const override;

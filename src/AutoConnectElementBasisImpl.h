@@ -10,12 +10,14 @@
 #ifndef _AUTOCONNECTELEMENTBASISIMPL_H_
 #define _AUTOCONNECTELEMENTBASISIMPL_H_
 
-#include "AutoConnectElementBasis.h"
+#include <stdlib.h>
+#include <stdio.h>
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <regex.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <regex>
 #endif
+#include "AutoConnectElementBasis.h"
 
 /**
  * Generate an HTML <button> element. The onclick behavior depends on
@@ -251,10 +253,21 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
  */
 const String AutoConnectTextBasis::toHTML(void) const {
   String  html = String("<div");
+  String  value_f = value;
 
   if (style.length())
     html += String(F(" style=\"")) + style + String("\"");
-  html += String(">") + value + String(F("</div>"));
+  html += String(">");
+  if (format.length()) {
+    int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
+    char* buffer;
+    if ((buffer = (char*)malloc(buflen))) {
+      snprintf(buffer, buflen, format.c_str(), value.c_str());
+      value_f = String(buffer);
+      free(buffer);
+    }
+  }
+  html += value_f + String(F("</div>"));
   return html;
 }
 

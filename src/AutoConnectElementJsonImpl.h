@@ -394,7 +394,7 @@ void AutoConnectSubmitJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectTextJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(1);
+  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
 }
 
 /**
@@ -409,6 +409,8 @@ bool AutoConnectTextJson::loadMember(const JsonObject& json) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STYLE)))
       style = json.get<String>(F(AUTOCONNECT_JSON_KEY_STYLE));
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_FORMAT)))
+      format = json.get<String>(F(AUTOCONNECT_JSON_KEY_FORMAT));
     return true;
   }
   return false;
@@ -423,6 +425,7 @@ void AutoConnectTextJson::serialize(JsonObject& json) {
   json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACTEXT));
   json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
   json.set(F(AUTOCONNECT_JSON_KEY_STYLE), style);
+  json.set(F(AUTOCONNECT_JSON_KEY_FORMAT), format);
 }
 
 #endif // _AUTOCONNECTELEMENTJSONIMPL_H_
