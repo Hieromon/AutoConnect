@@ -846,7 +846,6 @@ void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& uplo
   while (aux) {
     if (aux->_uriStr == requestUri) {
       aux->upload(_prevUri, upload);
-    //  aux->upload(requestUri, upload);
       break;
     }
     aux = aux->_next.get();
