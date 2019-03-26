@@ -138,7 +138,7 @@ const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
 
 /**< INPUT button and submit style */
 const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
-  "input[type=\"button\"],input[type=\"submit\"]{"
+  "input[type=\"button\"],input[type=\"submit\"],button[type=\"submit\"]{"
     "padding:8px 30px;"
     "font-weight:bold;"
     "letter-spacing:0.8px;"
@@ -161,12 +161,12 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
   "input#sb[type=\"submit\"]{"
     "width:15em;"
   "}"
-  "input[type=\"submit\"]{"
+  "input[type=\"submit\"],button[type=\"submit\"]{"
     "background-color:#006064;"
     "border-color:#006064;"
   "}"
-  "input[type=\"button\"],input[type=\"submit\"]:focus,"
-  "input[type=\"button\"],input[type=\"submit\"]:active{"
+  "input[type=\"button\"],input[type=\"submit\"],button[type=\"submit\"]:focus,"
+  "input[type=\"button\"],input[type=\"submit\"],button[type=\"submit\"]:active{"
     "outline:none;"
     "text-decoration:none;"
   "}"
@@ -671,7 +671,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
       "<div class=\"base-panel\">"
         "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
           "{{LIST_SSID}}"
-          "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">Hidden:{{HIDDEN_COUNT}}</div>"
+          "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">Total:{{SSID_COUNT}} Hidden:{{HIDDEN_COUNT}}</div>"
           "<ul class=\"noorder\">"
             "<li>"
               "<label for=\"ssid\">SSID</label>"
@@ -1103,25 +1103,58 @@ String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
 }
 
 String AutoConnect::_token_LIST_SSID(PageArgument& args) {
-  AC_UNUSED(args);
-  String ssidList = String("");
+  // Obtain the page number to display.
+  // When the display request is the first page, it will be obtained
+  // from the scan results of the WiFiScan class if it has already been
+  // scanned.
+  uint8_t page = 0;
+  if (args.hasArg(String(F("page"))))
+    page = args.arg("page").toInt();
+  else {
+    // Scan at a first time
+    WiFi.scanDelete();
+    _scanCount = WiFi.scanNetworks(false, true);
+    AC_DBG("%d network(s) found\n", (int)_scanCount);
+  }
+  // Locate to the page and build SSD list content.
+  String  ssidList = String("");
   _hiddenSSIDCount = 0;
-  WiFi.scanDelete();
-  _scanCount = WiFi.scanNetworks(false, true);
-  AC_DBG("%d network(s) found\n", (int)_scanCount);
+  uint8_t validCount = 0;
+  uint8_t dispCount = 0;
   for (uint8_t i = 0; i < _scanCount; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
-      ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String("\">");
-      ssidList += String(F("<label class=\"slist\">")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
-      if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
-        ssidList += String(F("<span class=\"img-lock\"></span>"));
-      ssidList += String(F("<br>"));
+      // An available SSID may be listed.
+      // AUTOCONNECT_SSIDPAGEUNIT_LINES determines the number of lines
+      // per page in the available SSID list.
+      if (validCount >= page * AUTOCONNECT_SSIDPAGEUNIT_LINES && validCount <= (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES - 1) {
+        if (++dispCount <= AUTOCONNECT_SSIDPAGEUNIT_LINES) {
+          ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String("\">");
+          ssidList += String(F("<label class=\"slist\">")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
+          if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
+            ssidList += String(F("<span class=\"img-lock\"></span>"));
+          ssidList += String(F("<br>"));
+        }
+      }
+      // The validCount counts the found SSIDs that is not the Hidden
+      // attribute to determines the next button should be displayed.
+      validCount++;
     }
     else
       _hiddenSSIDCount++;
   }
+  // Prepare perv. button
+  if (page >= 1)
+    ssidList += String(F("<button type=\"submit\" name=\"page\" value=\"")) + String(page - 1) + String(F("\" formaction=\"")) + String(F(AUTOCONNECT_URI_CONFIG)) + String(F("\">Prev.</button>&emsp;"));
+  // Prepare next button
+  if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES)
+    ssidList += String(F("<button type=\"submit\" name=\"page\" value=\"")) + String(page + 1) + String(F("\" formaction=\"")) + String(F(AUTOCONNECT_URI_CONFIG)) + String(F("\">Next</button>&emsp;"));
   return ssidList;
+}
+
+String AutoConnect::_token_SSID_COUNT(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(_scanCount);
 }
 
 String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
@@ -1242,6 +1275,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("LIST_SSID")), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("SSID_COUNT")), std::bind(&AutoConnect::_token_SSID_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {

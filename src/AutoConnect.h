@@ -342,6 +342,7 @@ class AutoConnect {
   String _token_CHIP_ID(PageArgument& args);
   String _token_FREE_HEAP(PageArgument& args);
   String _token_LIST_SSID(PageArgument& args);
+  String _token_SSID_COUNT(PageArgument& args);
   String _token_HIDDEN_COUNT(PageArgument& args);
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);

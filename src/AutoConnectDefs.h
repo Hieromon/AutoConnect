@@ -127,6 +127,11 @@
 #define AUTOCONNECT_CONTENTBUFFER_SIZE  0
 #endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
 
+// Number of unit lines in the page that lists available SSIDs
+#ifndef AUTOCONNECT_SSIDPAGEUNIT_LINES
+#define AUTOCONNECT_SSIDPAGEUNIT_LINES  5
+#endif // !AUTOCONNECT_SSIDPAGEUNIT_LINES
+
 // SD pin assignment for AutoConnectFile
 #ifndef AUTOCONNECT_SD_CS
 #if defined(ARDUINO_ARCH_ESP8266)
