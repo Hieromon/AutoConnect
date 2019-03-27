@@ -12,7 +12,11 @@
   [
     {
       "name": "PageBuilder",
-      "version": ">=1.3.3"
+      "version": ">=1.3.2"
+    },
+    {
+      "name": "ArduinoJson",
+      "version": ">=5.13.3,<6.0.0"
     }
   ],
   "frameworks": "arduino",
