@@ -1259,6 +1259,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("FLASH_SIZE")), std::bind(&AutoConnect::_token_FLASH_SIZE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CHIP_ID")), std::bind(&AutoConnect::_token_CHIP_ID, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("FREE_HEAP")), std::bind(&AutoConnect::_token_FREE_HEAP, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_CONFIG)) {
 
@@ -1277,6 +1278,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("LIST_SSID")), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("SSID_COUNT")), std::bind(&AutoConnect::_token_SSID_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
+    _responsePage->chunked(PB_Chunk);
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 
@@ -1291,6 +1293,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CUR_SSID")), std::bind(&AutoConnect::_token_CURRENT_SSID, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
  }
   else if (uri == String(AUTOCONNECT_URI_OPEN)) {
 
@@ -1305,6 +1308,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("OPEN_SSID")), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_DISCON)) {
 
@@ -1317,6 +1321,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_RESET)) {
 
@@ -1326,12 +1331,14 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("BOOTURI")), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("UPTIME")), std::bind(&AutoConnect::_token_UPTIME, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("RESET")), std::bind(&AutoConnect::_induceReset, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_RESULT)) {
 
     // Setup /auto/result
     elm->setMold("{{RESULT}}");
     elm->addToken(String(FPSTR("RESULT")), std::bind(&AutoConnect::_invokeResult, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_SUCCESS)) {
 
@@ -1352,6 +1359,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("NETMASK")), std::bind(&AutoConnect::_token_NETMASK, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CHANNEL")), std::bind(&AutoConnect::_token_CHANNEL, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("DBM")), std::bind(&AutoConnect::_token_DBM, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_FAIL)) {
 
@@ -1366,6 +1374,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("STATION_STATUS")), std::bind(&AutoConnect::_token_STATION_STATUS, this, std::placeholders::_1));
+    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else {
     delete elm;
