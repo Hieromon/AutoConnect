@@ -29,6 +29,7 @@
 #include <FS.h>
 #include <AutoConnect.h>
 
+// Upload request custom Web page
 static const char PAGE_UPLOAD[] PROGMEM = R"(
 {
   "uri": "/",
@@ -56,6 +57,7 @@ static const char PAGE_UPLOAD[] PROGMEM = R"(
 }
 )";
 
+// Upload result display
 static const char PAGE_BROWSE[] PROGMEM = R"(
 {
   "uri": "/upload",
@@ -86,13 +88,17 @@ static const char PAGE_BROWSE[] PROGMEM = R"(
 )";
 
 #if defined(ARDUINO_ARCH_ESP8266)
+#define FILE_MODE_R "r"
 typedef ESP8266WebServer  WiFiWebServer;
 #elif defined(ARDUINO_ARCH_ESP32)
+#define FILE_MODE_R FILE_READ
 typedef WebServer WiFiWebServer;
 #endif
 
 WiFiWebServer server;
 AutoConnect portal(server);
+// Declare AutoConnectAux separately as a custom web page to access
+// easily for each page in the post-upload handler.
 AutoConnectAux auxUpload;
 AutoConnectAux auxBrowse;
 
@@ -107,14 +113,21 @@ AutoConnectAux auxBrowse;
  */
 String postUpload(AutoConnectAux& aux, PageArgument& args) {
   String  content;
-  String  filename = auxUpload.getElement<AutoConnectFile>("filename").value;
-  aux.getElement<AutoConnectText>("filename").value = filename;
-  aux.getElement<AutoConnectText>("size").value = String(auxUpload.getElement<AutoConnectFile>("filename").size);
-  String contentType = auxUpload.getElement<AutoConnectFile>("filename").mimeType;
-  aux.getElement<AutoConnectText>("content_type").value = contentType;
-  if (contentType.indexOf("text/") >= 0) {
+  // Explicitly cast to the desired element to correctly extract
+  // the element using the operator [].
+  AutoConnectFile&  filename = (AutoConnectFile&)auxUpload["filename"];
+  AutoConnectText&  aux_filename = (AutoConnectText&)aux["filename"];
+  AutoConnectText&  aux_size = (AutoConnectText&)aux["size"];
+  AutoConnectText&  aux_contentType = (AutoConnectText&)aux["content_type"];
+  // Assignment operator can be used for the element attribute.
+  aux_filename.value = filename.value;
+  aux_size.value = String(filename.size);
+  aux_contentType.value = filename.mimeType;
+  // The file saved by the AutoConnect upload handler is read from
+  // the EEPROM and echoed to a custom web page.
+  if (filename.mimeType.indexOf("text/") >= 0) {
     SPIFFS.begin();
-    File uploadFile = SPIFFS.open(String("/" + filename).c_str(), "r");
+    File uploadFile = SPIFFS.open(String("/" + filename.value).c_str(), FILE_MODE_R);
     if (uploadFile) {
       while (uploadFile.available()) {
         char c = uploadFile.read();
