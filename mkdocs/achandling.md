@@ -101,6 +101,14 @@ AutoConenctText& text = aux->getElement<AutoConnectText>("caption");  // Cast to
 Serial.println(text.value);
 ```
 
+You can also use the operator **`[]`** as another way to get the desired element. An operator **`[]`** is a shortcut for [getElement](apiaux.me#getelement) function with the reference casting and makes simplify the code. Its argument is the name of the element to be acquired similarly to getElement function. For example, the following sketch code returns the same as reference of AutoConnectText element as `caption`.
+
+```cpp
+AutoConnectAux& aux = *portal.aux("/page1");
+AutoConnectText& text1 = aux.getElement<AutoConnectElement>("caption");
+AutoConnectText& text2 = (AutoConnectText&)aux["caption"];
+```
+
 To get all the AutoConnectElements in an AutoConnectAux object use the [**getElements**](apiaux.md#getelements) function. This function returns the vector of the reference wrapper as **AutoConnectElementVT** to all AutoConnectElements registered in the AutoConnectAux.
 
 ```cpp

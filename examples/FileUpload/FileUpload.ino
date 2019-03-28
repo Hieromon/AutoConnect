@@ -115,7 +115,8 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
   String  content;
   // Explicitly cast to the desired element to correctly extract
   // the element using the operator [].
-  AutoConnectFile&  filename = (AutoConnectFile&)auxUpload["filename"];
+//  AutoConnectAux& root_page = *portal.aux("/");
+  AutoConnectFile&  filename = static_cast<AutoConnectFile&>(auxUpload["filename"]);
   AutoConnectText&  aux_filename = (AutoConnectText&)aux["filename"];
   AutoConnectText&  aux_size = (AutoConnectText&)aux["size"];
   AutoConnectText&  aux_contentType = (AutoConnectText&)aux["content_type"];

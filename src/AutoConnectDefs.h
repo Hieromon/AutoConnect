@@ -119,8 +119,7 @@
 
 // http response transfer method
 #ifndef AUTOCONNECT_HTTP_TRANSFER
-//#define AUTOCONNECT_HTTP_TRANSFER PB_ByteStream     // Change for Issue #51
-#define AUTOCONNECT_HTTP_TRANSFER PB_Chunk
+#define AUTOCONNECT_HTTP_TRANSFER PB_ByteStream
 #endif // !AUTOCONNECT_HTTP_TRANSFER
 
 // Reserved buffer size to build content

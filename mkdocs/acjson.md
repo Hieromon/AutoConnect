@@ -169,7 +169,7 @@ This is different for each AutoConnectElements, and the key that can be specifie
 : - **style** : Specifies the qualification style to give to the content and can use the style attribute format as it is.
 
 !!! caution "AutoConnect's JSON parsing process is not perfect"
-    It is based on ArduinoJson, but the process is simplified to save memory. As a result, even if there is an unnecessary key, it will not be an error. It is ignored.
+    It is based on analysis by ArduinoJson, but the semantic analysis is simplified to save memory. Consequently, it is not an error that a custom Web page JSON document to have unnecessary keys. It will be ignored.
 
 ## Loading JSON document
 
