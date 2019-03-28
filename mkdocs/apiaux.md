@@ -15,6 +15,18 @@ AutoConnectAux(const String& uri = String(""), const String& title = String(""),
 
 ## <i class="fa fa-code"></i> Public member functions
 
+### <i class="fa fa-caret-right"></i> operator [ ]
+
+```cpp
+AutoConnectElement& operator[](const String& name)
+```
+Returns a reference to the element specified by **name**. An operator `[]` is a shortcut for [getElement](apiaux.md#getelement) function with the reference casting. Unlike getElement, which returns a pointer to that element, an operator `[]` returns a reference to that element. You also need to cast the return value to the actual type, just like the getElement function.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">name</span><span class="apidesc">Name of the AutoConnectElements to be retrieved.</span></dd>
+    <dt>**Return value**</dt><dd>A reference to AutoConnectElement. It is different from the actual element type.</dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> add
 
 ```cpp
