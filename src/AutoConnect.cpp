@@ -859,8 +859,8 @@ void AutoConnect::_purgePages(void) {
   if (_currentPageElement != nullptr) {
     delete _currentPageElement;
     _currentPageElement = nullptr;
+    _uri = String("");
   }
-  _uri = String("");
 }
 
 /**
