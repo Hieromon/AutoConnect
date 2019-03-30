@@ -312,6 +312,12 @@ class AutoConnect {
   static const char _PAGE_FAIL[] PROGMEM;
   static const char _PAGE_404[] PROGMEM;
 
+  static const struct PageTranserModeST {
+    const char*              uri;
+    const TransferEncoding_t transMode;
+    const size_t             rSize;
+  } _pageBuildMode[];
+
   /** Token handlers for PageBuilder */
   String _token_CSS_BASE(PageArgument& args);
   String _token_CSS_UL(PageArgument& args);

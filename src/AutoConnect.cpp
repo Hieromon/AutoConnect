@@ -389,7 +389,6 @@ void AutoConnect::_startWebServer(void) {
   // here, Prepare PageBuilders for captive portal
   if (!_responsePage) {
     _responsePage = new PageBuilder();
-    _responsePage->reserve(AUTOCONNECT_CONTENTBUFFER_SIZE);
     _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->onUpload(std::bind(&AutoConnect::_handleUpload, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->insert(*_webServer);

@@ -139,7 +139,7 @@ const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
 /**< INPUT button and submit style */
 const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
   "input[type=\"button\"],input[type=\"submit\"],button[type=\"submit\"]{"
-    "padding:8px 30px;"
+    "padding:8px 0.5em;"
     "font-weight:bold;"
     "letter-spacing:0.8px;"
     "color:#fff;"
@@ -162,6 +162,7 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
     "width:15em;"
   "}"
   "input[type=\"submit\"],button[type=\"submit\"]{"
+    "padding:8px 30px;"
     "background-color:#006064;"
     "border-color:#006064;"
   "}"
@@ -687,6 +688,12 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
       "</div>"
     "</div>"
   "</body>"
+  "<script type=\"text/javascript\">"
+    "function onFocus(value){"
+      "document.getElementById('ssid').value=value;"
+      "document.getElementById('passphrase').focus();"
+    "}"
+  "</script>"
   "</html>"
 };
 
@@ -845,6 +852,25 @@ const char  AutoConnect::_PAGE_DISCONN[] PROGMEM = {
     "</div>"
   "</body>"
   "</html>"
+};
+
+// Each page of AutoConnect is http transferred by the content transfer
+// mode of Page Builder. The default transfer mode is
+// AUTOCONNECT_HTTP_TRANSFER defined in AutoConnectDefs.h. The page to
+// which default transfer mode is not applied, specifies the enumeration
+// value of PageBuilder::TransferEncoding_t. The content construction
+// buffer can be reserved with the chunked transfer, and its size is
+// macro defined by AUTOCONNECT_CONTENTBUFFER_SIZE.
+const AutoConnect::PageTranserModeST AutoConnect::_pageBuildMode[] = {
+  { AUTOCONNECT_URI,         AUTOCONNECT_HTTP_TRANSFER, 0 },
+  { AUTOCONNECT_URI_CONFIG,  PB_Chunk, AUTOCONNECT_CONTENTBUFFER_SIZE },
+  { AUTOCONNECT_URI_CONNECT, AUTOCONNECT_HTTP_TRANSFER, 0 },
+  { AUTOCONNECT_URI_RESULT,  AUTOCONNECT_HTTP_TRANSFER, 0 },
+  { AUTOCONNECT_URI_OPEN,    AUTOCONNECT_HTTP_TRANSFER, 0 },
+  { AUTOCONNECT_URI_DISCON,  AUTOCONNECT_HTTP_TRANSFER, 0 },
+  { AUTOCONNECT_URI_RESET,   AUTOCONNECT_HTTP_TRANSFER, 0 },
+  { AUTOCONNECT_URI_SUCCESS, AUTOCONNECT_HTTP_TRANSFER, 0 },
+  { AUTOCONNECT_URI_FAIL,    AUTOCONNECT_HTTP_TRANSFER, 0 }
 };
 
 uint32_t AutoConnect::_getChipId() {
@@ -1129,7 +1155,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
       // per page in the available SSID list.
       if (validCount >= page * AUTOCONNECT_SSIDPAGEUNIT_LINES && validCount <= (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES - 1) {
         if (++dispCount <= AUTOCONNECT_SSIDPAGEUNIT_LINES) {
-          ssidList += String(F("<input type=\"button\" onClick=\"document.getElementById('ssid').value=this.getAttribute('value');document.getElementById('passphrase').focus()\" value=\"")) + ssid + String("\">");
+          ssidList += String(F("<input type=\"button\" onClick=\"onFocus(this.getAttribute('value'))\" value=\"")) + ssid + String("\">");
           ssidList += String(F("<label class=\"slist\">")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
           if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
             ssidList += String(F("<span class=\"img-lock\"></span>"));
@@ -1259,7 +1285,6 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("FLASH_SIZE")), std::bind(&AutoConnect::_token_FLASH_SIZE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CHIP_ID")), std::bind(&AutoConnect::_token_CHIP_ID, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("FREE_HEAP")), std::bind(&AutoConnect::_token_FREE_HEAP, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_CONFIG)) {
 
@@ -1278,7 +1303,6 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("LIST_SSID")), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("SSID_COUNT")), std::bind(&AutoConnect::_token_SSID_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
-    _responsePage->chunked(PB_Chunk);
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 
@@ -1293,7 +1317,6 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CUR_SSID")), std::bind(&AutoConnect::_token_CURRENT_SSID, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
  }
   else if (uri == String(AUTOCONNECT_URI_OPEN)) {
 
@@ -1308,7 +1331,6 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("OPEN_SSID")), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_DISCON)) {
 
@@ -1321,7 +1343,6 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_RESET)) {
 
@@ -1331,14 +1352,12 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("BOOTURI")), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("UPTIME")), std::bind(&AutoConnect::_token_UPTIME, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("RESET")), std::bind(&AutoConnect::_induceReset, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_RESULT)) {
 
     // Setup /auto/result
     elm->setMold("{{RESULT}}");
     elm->addToken(String(FPSTR("RESULT")), std::bind(&AutoConnect::_invokeResult, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_SUCCESS)) {
 
@@ -1359,7 +1378,6 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("NETMASK")), std::bind(&AutoConnect::_token_NETMASK, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CHANNEL")), std::bind(&AutoConnect::_token_CHANNEL, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("DBM")), std::bind(&AutoConnect::_token_DBM, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else if (uri == String(AUTOCONNECT_URI_FAIL)) {
 
@@ -1374,11 +1392,22 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("STATION_STATUS")), std::bind(&AutoConnect::_token_STATION_STATUS, this, std::placeholders::_1));
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
   }
   else {
     delete elm;
     elm = nullptr;
+  }
+
+  // Restore the page transfer mode and the content build buffer
+  // reserved size corresponding to each URI defined in structure
+  // _pageBuildMode.
+  if (elm) {
+    for (uint8_t n = 0; n < sizeof(_pageBuildMode) / sizeof(PageTranserModeST); n++)
+      if (!strcmp(_pageBuildMode[n].uri, uri.c_str())) {
+        _responsePage->reserve(_pageBuildMode[n].rSize);
+        _responsePage->chunked(_pageBuildMode[n].transMode);
+        break;
+      }
   }
 
   return elm;

@@ -124,7 +124,7 @@
 
 // Reserved buffer size to build content
 #ifndef AUTOCONNECT_CONTENTBUFFER_SIZE
-#define AUTOCONNECT_CONTENTBUFFER_SIZE  0
+#define AUTOCONNECT_CONTENTBUFFER_SIZE  (13 * 1024)
 #endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
 
 // Number of unit lines in the page that lists available SSIDs
