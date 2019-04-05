@@ -20,6 +20,66 @@
 #include "AutoConnectElementBasis.h"
 
 /**
+ * Casts only a class derived from the AutoConnectElement class to the
+ * actual element class.
+ */
+// template<>
+// inline AutoConnectButtonBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_Button)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectButtonBasis&>(*this);
+// }
+
+// template<>
+// inline AutoConnectCheckboxBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_Checkbox)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectCheckboxBasis&>(*this);
+// }
+
+// template<>
+// inline AutoConnectFileBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_File)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectFileBasis&>(*this);
+// }
+
+// template<>
+// inline AutoConnectInputBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_Input)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectInputBasis&>(*this);
+// }
+
+// template<>
+// inline AutoConnectRadioBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_Radio)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectRadioBasis&>(*this);
+// }
+
+// template<>
+// inline AutoConnectSelectBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_Select)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectSelectBasis&>(*this);
+// }
+
+// template<>
+// inline AutoConnectSubmitBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_Submit)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectSubmitBasis&>(*this);
+// }
+
+// template<>
+// inline AutoConnectTextBasis& AutoConnectElementBasis::as(void) {
+//   if (typeOf() != AC_Text)
+//     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+//   return reinterpret_cast<AutoConnectTextBasis&>(*this);
+// }
+
+/**
  * Generate an HTML <button> element. The onclick behavior depends on
  * the code held in factionf member.
  * @return  An HTML string.

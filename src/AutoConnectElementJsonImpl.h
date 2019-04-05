@@ -27,7 +27,7 @@ size_t AutoConnectElementJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectElementJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACELEMENT))) {
     _setMember(json);
     return true;
@@ -41,8 +41,8 @@ bool AutoConnectElementJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectElementJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACELEMENT));
-  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACELEMENT));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
 }
 
 /**
@@ -51,7 +51,7 @@ void AutoConnectElementJson::serialize(JsonObject& json) {
  * @param  json  JSON object to be serialized.
  */
 void AutoConnectElementJson::_serialize(JsonObject& json) {
-  json.set(F(AUTOCONNECT_JSON_KEY_NAME), name);
+  json[F(AUTOCONNECT_JSON_KEY_NAME)] = name;
 }
 
 /**
@@ -59,9 +59,9 @@ void AutoConnectElementJson::_serialize(JsonObject& json) {
  * @param  json  JSON object with the definition of AutoConnectElement.
  */
 void AutoConnectElementJson::_setMember(const JsonObject& json) {
-  name = json.get<String>(F(AUTOCONNECT_JSON_KEY_NAME));
+  name = json[F(AUTOCONNECT_JSON_KEY_NAME)].as<String>();
   if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE)))
-    value = json.get<String>(F(AUTOCONNECT_JSON_KEY_VALUE));
+    value = json[F(AUTOCONNECT_JSON_KEY_VALUE)].as<String>();
 }
 
 /**
@@ -79,11 +79,11 @@ size_t AutoConnectButtonJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectButtonJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACBUTTON))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ACTION)))
-      action = json.get<String>(F(AUTOCONNECT_JSON_KEY_ACTION));
+      action = json[F(AUTOCONNECT_JSON_KEY_ACTION)].as<String>();
     return true;
   }
   return false;
@@ -95,9 +95,9 @@ bool AutoConnectButtonJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectButtonJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACBUTTON));
-  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
-  json.set(F(AUTOCONNECT_JSON_KEY_ACTION), action);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACBUTTON));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_ACTION)] = action;
 }
 
 /**
@@ -115,13 +115,13 @@ size_t AutoConnectCheckboxJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectCheckboxJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACCHECKBOX))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
-      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+      label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_CHECKED)))
-      checked = json.get<bool>(F(AUTOCONNECT_JSON_KEY_CHECKED));
+      checked = json[F(AUTOCONNECT_JSON_KEY_CHECKED)].as<bool>();
     return true;
   }
   return false;
@@ -133,11 +133,11 @@ bool AutoConnectCheckboxJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectCheckboxJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACCHECKBOX));
-  json.set(F(AUTOCONNECT_JSON_KEY_NAME), name);
-  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
-  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
-  json.set(F(AUTOCONNECT_JSON_KEY_CHECKED), checked);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACCHECKBOX));
+  json[F(AUTOCONNECT_JSON_KEY_NAME)] = name;
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
+  json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
 }
 
 /**
@@ -155,13 +155,13 @@ size_t AutoConnectFileJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectFileJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACFILE))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
-      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+      label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STORE))) {
-      String  media = json.get<String>(F(AUTOCONNECT_JSON_KEY_STORE));
+      String  media = json[F(AUTOCONNECT_JSON_KEY_STORE)].as<String>();
       if (media.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_FS)))
         store = AC_File_FS;
       else if (media.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_SD)))
@@ -184,18 +184,18 @@ bool AutoConnectFileJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectFileJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACFILE));
-  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
-  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACFILE));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   switch (store) {
   case AC_File_FS:
-    json.set(F(AUTOCONNECT_JSON_KEY_STORE), AUTOCONNECT_JSON_VALUE_FS);
+    json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_FS;
     break;
   case AC_File_SD:
-    json.set(F(AUTOCONNECT_JSON_KEY_STORE), AUTOCONNECT_JSON_VALUE_SD);
+    json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_SD;
     break;
   case AC_File_Ext:
-    json.set(F(AUTOCONNECT_JSON_KEY_STORE), AUTOCONNECT_JSON_VALUE_EXTERNAL);
+    json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_EXTERNAL;
     break;
   }
 }
@@ -215,15 +215,15 @@ size_t AutoConnectInputJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectInputJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACINPUT))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
-      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+      label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PATTERN)))
-      pattern = json.get<String>(F(AUTOCONNECT_JSON_KEY_PATTERN));
+      pattern = json[F(AUTOCONNECT_JSON_KEY_PATTERN)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)))
-      placeholder = json.get<String>(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER));
+      placeholder = json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)].as<String>();
     return true;
   }
   return false;
@@ -235,11 +235,11 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectInputJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACINPUT));
-  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
-  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
-  json.set(F(AUTOCONNECT_JSON_KEY_PATTERN), pattern);
-  json.set(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER), placeholder);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACINPUT));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
+  json[F(AUTOCONNECT_JSON_KEY_PATTERN)] = pattern;
+  json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)] = placeholder;
 }
 
 /**
@@ -257,15 +257,15 @@ size_t AutoConnectRadioJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACRADIO))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
-      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+      label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_CHECKED)))
-      checked = static_cast<uint8_t>(json.get<int>(F(AUTOCONNECT_JSON_KEY_CHECKED)));
+      checked = static_cast<uint8_t>(json[F(AUTOCONNECT_JSON_KEY_CHECKED)].as<int>());
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ARRANGE))) {
-      String  arrange = json.get<String>(F(AUTOCONNECT_JSON_KEY_ARRANGE));
+      String  arrange = json[F(AUTOCONNECT_JSON_KEY_ARRANGE)].as<String>();
       if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_VERTICAL)))
         order = AC_Vertical;
       else if (arrange.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_HORIZONTAL)))
@@ -277,7 +277,8 @@ bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
     }
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE))) {
       empty();
-      JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
+      // JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
+      ArduinoJsonArray optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
       for (auto value : optionArray)
         add(value.as<String>());
     }
@@ -292,20 +293,20 @@ bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectRadioJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACRADIO));
-  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
-  JsonArray&  values = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_VALUE));
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACRADIO));
+  json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
+  ArduinoJsonArray  values = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_VALUE));
   for (String v : _values)
     values.add(v);
   switch (order) {
   case AC_Horizontal:
-    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_VALUE_HORIZONTAL);
+    json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = String(F(AUTOCONNECT_JSON_VALUE_HORIZONTAL));
     break;
   case AC_Vertical:
-    json.set(F(AUTOCONNECT_JSON_KEY_ARRANGE), AUTOCONNECT_JSON_VALUE_VERTICAL);
+    json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = String(F(AUTOCONNECT_JSON_VALUE_VERTICAL));
     break;
   }
-  json.set(F(AUTOCONNECT_JSON_KEY_CHECKED), checked);
+  json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
 }
 
 /**
@@ -323,15 +324,15 @@ size_t AutoConnectSelectJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectSelectJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSELECT))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL))) {
-      label = json.get<String>(F(AUTOCONNECT_JSON_KEY_LABEL));
+      label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     }
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_OPTION))) {
       empty();
-      JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
+      ArduinoJsonArray optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
       for (auto value : optionArray)
         add(value.as<String>());
       return true;
@@ -346,11 +347,11 @@ bool AutoConnectSelectJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectSelectJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACSELECT));
-  JsonArray&  options = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_OPTION));
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACSELECT));
+  ArduinoJsonArray options = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_OPTION));
   for (String o : _options)
     options.add(o);
-  json.set(F(AUTOCONNECT_JSON_KEY_LABEL), label);
+  json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
 }
 
 /**
@@ -368,11 +369,11 @@ size_t AutoConnectSubmitJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectSubmitJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSUBMIT))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_URI)))
-      uri = json.get<String>(F(AUTOCONNECT_JSON_KEY_URI));
+      uri = json[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
     return true;
   }
   return false;
@@ -384,9 +385,9 @@ bool AutoConnectSubmitJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectSubmitJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACSUBMIT));
-  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
-  json.set(F(AUTOCONNECT_JSON_KEY_URI), uri);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACSUBMIT));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_URI)] = uri;
 }
 
 /**
@@ -404,13 +405,13 @@ size_t AutoConnectTextJson::getObjectSize() const {
  * @return false Type of AutoConnectElement is mismatched.
  */
 bool AutoConnectTextJson::loadMember(const JsonObject& json) {
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACTEXT))) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STYLE)))
-      style = json.get<String>(F(AUTOCONNECT_JSON_KEY_STYLE));
+      style = json[F(AUTOCONNECT_JSON_KEY_STYLE)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_FORMAT)))
-      format = json.get<String>(F(AUTOCONNECT_JSON_KEY_FORMAT));
+      format = json[F(AUTOCONNECT_JSON_KEY_FORMAT)].as<String>();
     return true;
   }
   return false;
@@ -422,10 +423,10 @@ bool AutoConnectTextJson::loadMember(const JsonObject& json) {
  */
 void AutoConnectTextJson::serialize(JsonObject& json) {
   _serialize(json);
-  json.set(F(AUTOCONNECT_JSON_KEY_TYPE), F(AUTOCONNECT_JSON_TYPE_ACTEXT));
-  json.set(F(AUTOCONNECT_JSON_KEY_VALUE), value);
-  json.set(F(AUTOCONNECT_JSON_KEY_STYLE), style);
-  json.set(F(AUTOCONNECT_JSON_KEY_FORMAT), format);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACTEXT));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_STYLE)] = style;
+  json[F(AUTOCONNECT_JSON_KEY_FORMAT)] = format;
 }
 
 #endif // _AUTOCONNECTELEMENTJSONIMPL_H_

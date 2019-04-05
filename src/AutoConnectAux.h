@@ -88,8 +88,12 @@ class AutoConnectAux : public PageBuilder {
   static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
 
 #ifdef AUTOCONNECT_USE_JSON
+  template<typename T>
+  bool  _parseJson(T in);
   bool  _load(JsonObject& in);                                          /**< Load all elements from JSON object */
   bool  _loadElement(JsonVariant& in, const String& name);              /**< Load an element as specified name from JSON object */
+  template<typename T>
+  bool  _parseElement(T in, const String& name);
   AutoConnectElement& _loadElement(JsonObject& in, const String& name); /**< Load an element as specified name from JSON object */
   AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
   static ACElement_t  _asElementType(const String& type);         /**< Convert a string of element type to the enumeration value */

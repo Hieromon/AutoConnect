@@ -149,6 +149,18 @@
 #define AUTOCONNECT_SD_SPEED    4000000
 #endif
 #endif // !AUTOCONNECT_SD_SPEED
+
+// ArduinoJson buffer size
+#ifndef AUTOCONNECT_JSONBUFFER_SIZE
+#define AUTOCONNECT_JSONBUFFER_SIZE     256
+#endif // !AUTOCONNECT_JSONBUFFER_SIZE
+#ifndef AUTOCONNECT_JSONDOCUMENT_SIZE
+#define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)
+#endif // !AUTOCONNECT_JSONDOCUMENT_SIZE
+#ifndef AUTOCONNECT_JSONPSRAM_SIZE
+#define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
+#endif // !AUTOCONNECT_JSONPSRAM_SIZE
+
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
 

@@ -115,10 +115,10 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
   String  content;
   // Explicitly cast to the desired element to correctly extract
   // the element using the operator [].
-  AutoConnectFile&  filename = (AutoConnectFile&)auxUpload["filename"];
-  AutoConnectText&  aux_filename = (AutoConnectText&)aux["filename"];
-  AutoConnectText&  aux_size = (AutoConnectText&)aux["size"];
-  AutoConnectText&  aux_contentType = (AutoConnectText&)aux["content_type"];
+  AutoConnectFile&  filename = auxUpload["filename"].as<AutoConnectFile>();
+  AutoConnectText&  aux_filename = aux["filename"].as<AutoConnectText>();
+  AutoConnectText&  aux_size = aux["size"].as<AutoConnectText>();
+  AutoConnectText&  aux_contentType = aux["content_type"].as<AutoConnectText>();
   // Assignment operator can be used for the element attribute.
   aux_filename.value = filename.value;
   aux_size.value = String(filename.size);

@@ -158,7 +158,7 @@ void setup() {
   Timezone.load(AUX_TIMEZONE);
   // Retrieve the select element that holds the time zone code and
   // register the zone mnemonic in advance.
-  AutoConnectSelect&  tz = Timezone.getElement<AutoConnectSelect>("timezone");
+  AutoConnectSelect&  tz = Timezone["timezone"].as<AutoConnectSelect>();
   for (uint8_t n = 0; n < sizeof(TZ) / sizeof(Timezone_t); n++) {
     tz.add(String(TZ[n].zone));
   }

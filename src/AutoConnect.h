@@ -185,7 +185,7 @@ class AutoConnect {
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
-  AutoConnectAux* where(void) const { return aux(_auxUri); }
+  AutoConnectAux& where(void) const { return *aux(_auxUri); }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
@@ -220,6 +220,8 @@ class AutoConnect {
   void  _purgePages(void);
   virtual PageElement*  _setupPage(String uri);
 #ifdef AUTOCONNECT_USE_JSON
+  template<typename T>
+  bool  _parseJson(T in);
   bool  _load(JsonVariant& aux);
 #endif // !AUTOCONNECT_USE_JSON
 

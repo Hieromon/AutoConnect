@@ -52,6 +52,10 @@ class AutoConnectElementBasis {
   virtual ~AutoConnectElementBasis() {}
   virtual const String  toHTML(void) const { return value; }
   ACElement_t typeOf(void) const { return _type; }
+#ifndef AUTOCONNECT_USE_JSON
+  template<typename T>
+  T&  as(void);
+#endif
 
   String  name;       /**< Element name */
   String  value;      /**< Element value */
@@ -248,5 +252,67 @@ class AutoConnectTextBasis : virtual public AutoConnectElementBasis {
   String  style;      /**< CSS style modifier native code */
   String  format;     /**< C string that contains the text to be written */
 };
+
+#ifndef AUTOCONNECT_USE_JSON
+/**
+ * Casts only a class derived from the AutoConnectElement class to the
+ * actual element class.
+ */
+template<>
+inline AutoConnectButtonBasis& AutoConnectElementBasis::as<AutoConnectButtonBasis>(void) {
+  if (typeOf() != AC_Button)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectButtonBasis*>(this));
+}
+
+template<>
+inline AutoConnectCheckboxBasis& AutoConnectElementBasis::as<AutoConnectCheckboxBasis>(void) {
+  if (typeOf() != AC_Checkbox)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectCheckboxBasis*>(this));
+}
+
+template<>
+inline AutoConnectFileBasis& AutoConnectElementBasis::as<AutoConnectFileBasis>(void) {
+  if (typeOf() != AC_File)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectFileBasis*>(this));
+}
+
+template<>
+inline AutoConnectInputBasis& AutoConnectElementBasis::as<AutoConnectInputBasis>(void) {
+  if (typeOf() != AC_Input)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectInputBasis*>(this));
+}
+
+template<>
+inline AutoConnectRadioBasis& AutoConnectElementBasis::as<AutoConnectRadioBasis>(void) {
+  if (typeOf() != AC_Radio)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectRadioBasis*>(this));
+}
+
+template<>
+inline AutoConnectSelectBasis& AutoConnectElementBasis::as<AutoConnectSelectBasis>(void) {
+  if (typeOf() != AC_Select)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectSelectBasis*>(this));
+}
+
+template<>
+inline AutoConnectSubmitBasis& AutoConnectElementBasis::as<AutoConnectSubmitBasis>(void) {
+  if (typeOf() != AC_Submit)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectSubmitBasis*>(this));
+}
+
+template<>
+inline AutoConnectTextBasis& AutoConnectElementBasis::as<AutoConnectTextBasis>(void) {
+  if (typeOf() != AC_Text)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectTextBasis*>(this));
+}
+#endif
 
 #endif // _AUTOCONNECTELEMENTBASIS_H_

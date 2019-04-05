@@ -9,8 +9,8 @@
 #include <algorithm>
 #include "AutoConnect.h"
 #include "AutoConnectAux.h"
+#include "AutoConnectAuxImpl.h"
 #include "AutoConnectUploadImpl.h"
-#include "AutoConnectElement.h"
 #include "AutoConnectElementBasisImpl.h"
 #ifdef AUTOCONNECT_USE_JSON
 #include "AutoConnectElementJsonImpl.h"
@@ -466,309 +466,7 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
   }
 }
 
-#ifndef AUTOCONNECT_USE_JSON
-
-/**
- * Get AutoConnectElementBasis element.
- * @param  name  an element name.
- * @return A reference of AutoConnectElement class.
- */
-template<>
-AutoConnectElementBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    return *(reinterpret_cast<AutoConnectElementBasis*>(elm));
-  }
-  return reinterpret_cast<AutoConnectElementBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectButtonBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectButton class.
- */
-template<>
-AutoConnectButtonBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Button)
-      return *(reinterpret_cast<AutoConnectButtonBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectButtonBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectCheckboxBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectCheckbox class.
- */
-template<>
-AutoConnectCheckboxBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Checkbox)
-      return *(reinterpret_cast<AutoConnectCheckboxBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectCheckboxBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectFileBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectFile class.
- */
-template<>
-AutoConnectFileBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_File)
-      return *(reinterpret_cast<AutoConnectFileBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectFileBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectInputBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectInput class.
- */
-template<>
-AutoConnectInputBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Input)
-      return *(reinterpret_cast<AutoConnectInputBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectInputBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectRadioBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectRadio class.
- */
-template<>
-AutoConnectRadioBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Radio)
-      return *(reinterpret_cast<AutoConnectRadioBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectRadioBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectSelectBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectSelect class.
- */
-template<>
-AutoConnectSelectBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Select)
-      return *(reinterpret_cast<AutoConnectSelectBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectSelectBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectSubmitBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectSubmit class.
- */
-template<>
-AutoConnectSubmitBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Submit)
-      return *(reinterpret_cast<AutoConnectSubmitBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectSubmitBasis&>(_nullElement());
-}
-
-/**
- * Get AutoConnectTextBasis element.
- * @param  name  An element name.
- * @return A reference of AutoConnectText class.
- */
-template<>
-AutoConnectTextBasis& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Text)
-      return *(reinterpret_cast<AutoConnectTextBasis*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectTextBasis&>(_nullElement());
-}
-
-#else
-
-/**
- * Get AutoConnectElementJson element.
- * @param  name  an element name.
- * @return A reference of AutoConnectElement class.
- */
-template<>
-AutoConnectElementJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    return *(reinterpret_cast<AutoConnectElementJson*>(elm));
-  }
-  return reinterpret_cast<AutoConnectElementJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectButtonJson element.
- * @param  name  An element name.
- * @return A reference of AutoConnectButton class.
- */
-template<>
-AutoConnectButtonJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Button)
-      return *(reinterpret_cast<AutoConnectButtonJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectButtonJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectCheckboxJson element.
- * @param  name  An element name.
- * @return A reference of AutoConnectCheckbox class.
- */
-template<>
-AutoConnectCheckboxJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Checkbox)
-      return *(reinterpret_cast<AutoConnectCheckboxJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectCheckboxJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectFile element.
- * @param  name  An element name.
- * @return A reference of AutoConnectFile class.
- */
-template<>
-AutoConnectFileJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_File)
-      return *(reinterpret_cast<AutoConnectFileJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectFileJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectInputJson element.
- * @param  name  An element name.
- * @return A reference of AutoConnectInput class.
- */
-template<>
-AutoConnectInputJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Input)
-      return *(reinterpret_cast<AutoConnectInputJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectInputJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectRadioJson element.
- * @param  name  An element name.
- * @return A reference of AutoConnectRadio class.
- */
-template<>
-AutoConnectRadioJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Radio)
-      return *(reinterpret_cast<AutoConnectRadioJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectRadioJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectSelectJson element.
- * @param  name  An element name.
- * @return A reference of AutoConnectSelect class.
- */
-template<>
-AutoConnectSelectJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Select)
-      return *(reinterpret_cast<AutoConnectSelectJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectSelectJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectSubmitJson element.
- * @param  name  An element name.
- * @return A reference of AutoConnectSubmit class.
- */
-template<>
-AutoConnectSubmitJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Submit)
-      return *(reinterpret_cast<AutoConnectSubmitJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectSubmitJson&>(_nullElement());
-}
-
-/**
- * Get AutoConnectTextJson element.
- * @param  name  An element name.
- * @return A reference of AutoConnectText class.
- */
-template<>
-AutoConnectTextJson& AutoConnectAux::getElement(const String& name) {
-  AutoConnectElement* elm = getElement(name);
-  if (elm) {
-    if (elm->typeOf() == AC_Text)
-      return *(reinterpret_cast<AutoConnectTextJson*>(elm));
-    else
-      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
-  }
-  return reinterpret_cast<AutoConnectTextJson&>(_nullElement());
-}
+#ifdef AUTOCONNECT_USE_JSON
 
 /**
  * Load AutoConnectAux page from JSON description stored in the sketch.
@@ -778,35 +476,29 @@ AutoConnectTextJson& AutoConnectAux::getElement(const String& name) {
  * @return true Successfully loaded.
  */
 bool AutoConnect::load(const String& aux) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonVariant jv = jsonBuffer.parse(aux);
-  return _load(jv);
+  return _parseJson<const String&>(aux);
 }
 
 /**
-* Load AutoConnectAux page from JSON description stored in PROGMEM.
-* This function can load AutoConnectAux for multiple AUX pages written
-* in JSON and is registered in AutoConnect.
-* @param  aux  JSON description to be load.
-* @return true Successfully loaded.
-*/
+ * Load AutoConnectAux page from JSON description stored in PROGMEM.
+ * This function can load AutoConnectAux for multiple AUX pages written
+ * in JSON and is registered in AutoConnect.
+ * @param  aux  JSON description to be load.
+ * @return true Successfully loaded.
+ */
 bool AutoConnect::load(const __FlashStringHelper* aux) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonVariant jv = jsonBuffer.parse(aux);
-  return _load(jv);
+  return _parseJson<const __FlashStringHelper*>(aux);
 }
 
 /**
-* Load AutoConnectAux page from JSON description from the stream.
-* This function can load AutoConnectAux for multiple AUX pages written
-* in JSON and is registered in AutoConnect.
-* @param  aux  Stream for read AutoConnectAux elements.
-* @return true Successfully loaded.
-*/
+ * Load AutoConnectAux page from JSON description from the stream.
+ * This function can load AutoConnectAux for multiple AUX pages written
+ * in JSON and is registered in AutoConnect.
+ * @param  aux  Stream for read AutoConnectAux elements.
+ * @return true Successfully loaded.
+ */
 bool AutoConnect::load(Stream& aux) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonVariant jv = jsonBuffer.parse(aux);
-  return _load(jv);
+  return _parseJson<Stream&>(aux);
 }
 
 /**
@@ -815,34 +507,29 @@ bool AutoConnect::load(Stream& aux) {
  * @return true Successfully loaded.
  */
 bool AutoConnect::_load(JsonVariant& auxJson) {
-  bool  rc = auxJson.success();
-  if (rc) {
-    if (auxJson.is<JsonArray>()) {
-      JsonArray& jb = auxJson.as<JsonArray>();
-      for (JsonObject& auxJson : jb) {
-        AutoConnectAux* newAux = new AutoConnectAux;
-        if (newAux->_load(auxJson))
-          join(*newAux);
-        else {
-          delete newAux;
-          rc = false;
-          break;
-        }
-      }
-    }
-    else {
-      JsonObject& jb = auxJson.as<JsonObject>();
+  bool  rc = true;
+  if (auxJson.is<JsonArray>()) {
+    ArduinoJsonArray  jb = auxJson.as<JsonArray>();
+    for (ArduinoJsonObject  auxJson : jb) {
       AutoConnectAux* newAux = new AutoConnectAux;
-      if (newAux->_load(jb))
+      if (newAux->_load(auxJson))
         join(*newAux);
       else {
         delete newAux;
         rc = false;
+        break;
       }
     }
   }
   else {
-    AC_DBG("JSON parse error\n");
+    ArduinoJsonObject jb = auxJson.as<JsonObject>();
+    AutoConnectAux* newAux = new AutoConnectAux;
+    if (newAux->_load(jb))
+      join(*newAux);
+    else {
+      delete newAux;
+      rc = false;
+    }
   }
   return rc;
 }
@@ -854,7 +541,7 @@ bool AutoConnect::_load(JsonVariant& auxJson) {
  */
 AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
   AutoConnectElement* elm = nullptr;
-  String  type = json.get<String>(F(AUTOCONNECT_JSON_KEY_TYPE));
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
 
   switch (_asElementType(type)) {
   case AC_Element:
@@ -906,9 +593,7 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
  * @return false Invalid JSON data occurred. 
  */
 bool AutoConnectAux::load(const String& in) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonObject& jb = jsonBuffer.parseObject(in);
-  return _load(jb);
+  return _parseJson<const String&>(in);
 }
 
 /**
@@ -920,9 +605,7 @@ bool AutoConnectAux::load(const String& in) {
  * @return false Invalid JSON data occurred. 
  */
 bool AutoConnectAux::load(const __FlashStringHelper* in) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonObject& jb = jsonBuffer.parseObject(in);
-  return _load(jb);
+  return _parseJson<const __FlashStringHelper*>(in);
 }
 
 /**
@@ -934,9 +617,7 @@ bool AutoConnectAux::load(const __FlashStringHelper* in) {
  * @return false Invalid JSON data occurred. 
  */
 bool AutoConnectAux::load(Stream& in) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonObject& jb = jsonBuffer.parseObject(in);
-  return _load(jb);
+  return _parseJson<Stream&>(in);
 }
 
 /**
@@ -946,15 +627,10 @@ bool AutoConnectAux::load(Stream& in) {
  * @return false loading unsuccessful, JSON parsing error occurred.
  */
 bool AutoConnectAux::_load(JsonObject& jb) {
-  if (!jb.success()) {
-    AC_DBG("json parse error\n");
-    return false;
-  }
-
-  _title = jb.get<String>(F(AUTOCONNECT_JSON_KEY_TITLE));
-  _uriStr = jb.get<String>(F(AUTOCONNECT_JSON_KEY_URI));
+  _title = jb[F(AUTOCONNECT_JSON_KEY_TITLE)].as<String>();
+  _uriStr = jb[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
   _uri = _uriStr.c_str();
-  _menu = jb.get<bool>(F(AUTOCONNECT_JSON_KEY_MENU));
+  _menu = jb[F(AUTOCONNECT_JSON_KEY_MENU)].as<bool>();
   JsonVariant elements = jb[F(AUTOCONNECT_JSON_KEY_ELEMENT)];
   (void)_loadElement(elements, "");
   return true;
@@ -971,49 +647,41 @@ bool AutoConnectAux::_load(JsonObject& jb) {
  * @return A reference of loaded AutoConnectElement instance.
  */
 bool AutoConnectAux::loadElement(const String& in, const String& name) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonVariant jb = jsonBuffer.parse(in);
-  return _loadElement(jb, name);
+  return _parseElement<const String&>(in, name);
 }
 
 bool AutoConnectAux::loadElement(const __FlashStringHelper* in, const String& name) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonVariant jb = jsonBuffer.parse(in);
-  return _loadElement(jb, name);
+  return _parseElement<const __FlashStringHelper*>(in, name);
 }
 
 bool AutoConnectAux::loadElement(Stream& in, const String& name) {
-  DynamicJsonBuffer jsonBuffer(AUTOCONNECT_JSON_BUFFER_SIZE);
-  JsonVariant jb = jsonBuffer.parse(in);
-  return _loadElement(jb, name);
+  return _parseElement<Stream&>(in, name);
 }
 
 bool AutoConnectAux::_loadElement(JsonVariant& jb, const String& name) {
-  bool  rc = jb.success();
-  if (rc) {
-    if (jb.is<JsonArray>()) {
-      JsonArray&  elements = jb.as<JsonArray>();
-      for (JsonObject& element : elements) {
-        AutoConnectElement& elm = _loadElement(element, name);
-        if (!elm.name.length()) {
-          rc = false;
-          break;
-        }
+  bool  rc = true;
+  if (jb.is<JsonArray>()) {
+    ArduinoJsonArray  elements = jb.as<JsonArray>();
+    for (ArduinoJsonObject  element : elements) {
+      AutoConnectElement& elm = _loadElement(element, name);
+      if (!elm.name.length()) {
+        rc = false;
+        break;
       }
     }
-    else {
-      JsonObject& element = jb.as<JsonObject>();
-      AutoConnectElement& elm = _loadElement(element, name);
-      if (!elm.name.length())
-        rc = false;
-    }
+  }
+  else {
+    ArduinoJsonObject element = jb.as<JsonObject>();
+    AutoConnectElement& elm = _loadElement(element, name);
+    if (!elm.name.length())
+      rc = false;
   }
   return rc;
 }
 
 AutoConnectElement& AutoConnectAux::_loadElement(JsonObject& element, const String& name) {
   AutoConnectElement* auxElm = nullptr;
-  String  elmName = element.get<String>(F(AUTOCONNECT_JSON_KEY_NAME));
+  String  elmName = element[F(AUTOCONNECT_JSON_KEY_NAME)].as<String>();
   if (!name.length() || name.equalsIgnoreCase(elmName)) {
     // The specified element is defined in the JSON stream.
     // Loads from JSON object.
@@ -1067,40 +735,43 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
         bufferSize += elm.getObjectSize();
         break;
       }
+  // Round up to 16 boundary
+  bufferSize = bufferSize > 0 ? ((bufferSize + 16) & (~0xf)) : bufferSize;
 
+  // Serialization
   if (bufferSize > 0) {
-    DynamicJsonBuffer jb(bufferSize);
+    ArduinoJsonBuffer jb(bufferSize);
     if (amount == 1) {
-      JsonObject& element = jb.createObject();
+      ArduinoJsonObject element = ARDUINOJSON_CREATEOBJECT(jb);
       for (AutoConnectElement& elm : _addonElm)
         if (elm.name.equalsIgnoreCase(names[0])) {
           elm.serialize(element);
           break;
         }
-      size_n = element.printTo(out);
+      size_n = ARDUINOJSON_PRINT(element, out);
     }
     else if (amount == 0) {
-      JsonObject& json = jb.createObject();
+      ArduinoJsonObject json = ARDUINOJSON_CREATEOBJECT(jb);
       json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
       json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
       json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
-      JsonArray&  elements = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_ELEMENT));
+      ArduinoJsonArray  elements = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_ELEMENT));
       for (AutoConnectElement& elm : _addonElm) {
-        JsonObject& element = elements.createNestedObject();
+        ArduinoJsonObject element = elements.createNestedObject();
         elm.serialize(element);
       }
-      size_n = json.prettyPrintTo(out);
+      size_n = ARDUINOJSON_PRETTYPRINT(json, out);
     }
     else if (amount >= 2) {
-      JsonArray& elements = jb.createArray();
+      ArduinoJsonArray  elements = ARDUINOJSON_CREATEARRAY(jb);
       for (String name : names)
         for (AutoConnectElement& elm : _addonElm)
           if (elm.name.equalsIgnoreCase(name)) {
-            JsonObject& element = elements.createNestedObject();
+            ArduinoJsonObject element = elements.createNestedObject();
             elm.serialize(element);
             break;
           }
-      size_n = elements.prettyPrintTo(out);
+      size_n = ARDUINOJSON_PRETTYPRINT(elements, out);
     }
   }
   return size_n;
@@ -1136,4 +807,4 @@ ACElement_t AutoConnectAux::_asElementType(const String& type) {
   return t;
 }
 
-#endif // AUTOCONNECT_USE_JSON
+#endif // !AUTOCONNECT_USE_JSON
