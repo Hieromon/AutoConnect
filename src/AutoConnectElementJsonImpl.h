@@ -17,7 +17,9 @@
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectElementJson::getObjectSize() const {
-  return JSON_OBJECT_SIZE(3);
+  size_t  size = JSON_OBJECT_SIZE(3) + sizeof(AUTOCONNECT_JSON_KEY_TYPE) + sizeof(AUTOCONNECT_JSON_KEY_NAME) + sizeof(AUTOCONNECT_JSON_KEY_VALUE) + 10;
+  size += name.length() + value.length();
+  return size;
 }
 
 /**
@@ -69,7 +71,9 @@ void AutoConnectElementJson::_setMember(const JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectButtonJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(1);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(1);
+  size += sizeof(AUTOCONNECT_JSON_KEY_ACTION) + action.length();
+  return size;
 }
 
 /**
@@ -105,7 +109,9 @@ void AutoConnectButtonJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectCheckboxJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof(AUTOCONNECT_JSON_KEY_CHECKED);
+  return size;
 }
 
 /**
@@ -145,7 +151,9 @@ void AutoConnectCheckboxJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectFileJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof(AUTOCONNECT_JSON_KEY_STORE) + sizeof(AUTOCONNECT_JSON_VALUE_FS);
+  return size; 
 }
 
 /**
@@ -205,7 +213,9 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectInputJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length();
+  return size;
 }
 
 /**
@@ -247,7 +257,11 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectRadioJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3) + _values.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
+  size_t  size =AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3) + _values.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof(AUTOCONNECT_JSON_KEY_ARRANGE) + sizeof(AUTOCONNECT_JSON_VALUE_HORIZONTAL) + sizeof(AUTOCONNECT_JSON_KEY_CHECKED);
+  for (String _value : _values)
+    size += _value.length();
+  return size;
 }
 
 /**
@@ -314,7 +328,11 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectSelectJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3) + _options.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3) + _options.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length();
+  for (String _option : _options)
+    size += _option.length();
+  return size;
 }
 
 /**
@@ -359,7 +377,9 @@ void AutoConnectSelectJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectSubmitJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(1);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(1);
+  size += sizeof(AUTOCONNECT_JSON_KEY_URI) + uri.length();
+  return size;
 }
 
 /**
@@ -395,7 +415,9 @@ void AutoConnectSubmitJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectTextJson::getObjectSize() const {
-  return AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  size += sizeof(AUTOCONNECT_JSON_KEY_STYLE) + style.length() + sizeof(AUTOCONNECT_JSON_KEY_FORMAT) + format.length();
+  return size;
 }
 
 /**
