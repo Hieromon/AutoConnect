@@ -16,7 +16,7 @@ The ThingSpeak is the open IoT platform. It is capable of sending data privately
 - Create a channel on ThingSpeak.
 - Get the Channel API Keys from ThingSpeak, put its keys to the sketch.
 
-You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/users/sign_up). (You are entrusted with the final judgment of account creation for ThingSpeak. Create an account at your own risk.) And you can learn about other steps from the [explanation page](https://hieromon.github.io/AutoConnect/examples/index.html#advance-procedures) of this example.
+You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/users/sign_up). (You are entrusted with the final judgment of account creation for ThingSpeak. Create an account at your own risk.) And you can learn about other steps from the [explanation page](https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application) of this example.
 
 ### Obtaining the keys you need
 
