@@ -60,17 +60,17 @@ class AutoConnectAux : public PageBuilder {
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
-  void  setTitle(const String& title) { _title = title; }                /**< Set a title of the auxiliary page */
+  void  setTitle(const String& title) { _title = title; }               /**< Set a title of the auxiliary page */
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
   void  onUpload(PageBuilder::UploadFuncT uploadFunc) override { _uploadHandler = uploadFunc; }
 
 #ifdef AUTOCONNECT_USE_JSON
-  bool load(const String& in);                                          /**< Load whole elements to AutoConnectAux Page */
-  bool load(const __FlashStringHelper* in);                             /**< Load whole elements to AutoConnectAux Page */
-  bool load(Stream& in);                                                /**< Load whole elements to AutoConnectAux Page */
-  bool loadElement(const String& in, const String& name = String(""));              /**< Load specified element */
-  bool loadElement(const __FlashStringHelper* in, const String& name = String("")); /**< Load specified element */
-  bool loadElement(Stream& in, const String& name = String(""));       /**< Load specified element */
+  bool  load(const String& in);                                         /**< Load whole elements to AutoConnectAux Page */
+  bool  load(const __FlashStringHelper* in);                            /**< Load whole elements to AutoConnectAux Page */
+  bool  load(Stream& in);                                               /**< Load whole elements to AutoConnectAux Page */
+  bool  loadElement(const String& in, const String& name = String("")); /**< Load specified element */
+  bool  loadElement(const __FlashStringHelper* in, const String& name = String("")); /**< Load specified element */
+  bool  loadElement(Stream& in, const String& name = String(""));       /**< Load specified element */
   size_t  saveElement(Stream& out, std::vector<String> const& names = {});    /**< Write elements of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
 
@@ -96,7 +96,7 @@ class AutoConnectAux : public PageBuilder {
   bool  _parseElement(T in, const String& name);
   AutoConnectElement& _loadElement(JsonObject& in, const String& name); /**< Load an element as specified name from JSON object */
   AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
-  static ACElement_t  _asElementType(const String& type);         /**< Convert a string of element type to the enumeration value */
+  static ACElement_t  _asElementType(const String& type);               /**< Convert a string of element type to the enumeration value */
 #endif // !AUTOCONNECT_USE_JSON
 
   String  _title;                             /**< A title of the page */

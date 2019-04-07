@@ -256,7 +256,7 @@ bool AutoConnectAux::_parseElement(T in, const String& name) {
     AC_DBG("Deserialize:%s\n", err.c_str());
     return false;
   }
-  jb = jsonBuffer.as<JsonObject>();
+  jb = jsonBuffer.as<JsonVariant>();
 #endif
   return _loadElement(jb, name);
 }
