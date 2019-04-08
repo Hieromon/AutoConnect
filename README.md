@@ -96,6 +96,16 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [0.9.8] Apr. 25, 2019
+- Supports ArduinoJson 6.9.1 or later.
+- Supports allocating JsonDocument buffer to PSRAM on ESP32 with ArduinoJson 6.10.0 or later.
+- Supports **operator`[]`** as a shortcut for AutoConnectAux::getElement function.
+- Supports **AutoConnectElement::as<T\>** function to easily coding for conversion from an AutoConnectElement to an actual type.
+- Supports new element type **AutoConnectFile** and built-in file uploader.
+- Supports a **format attribute** with the AutoConnectText element.
+- Fixed blank page responds with Configure new.
+- Changed menu labels placement in source files structure.
+
 ### [0.9.7] Feb. 25, 2019
 - Fixed crash in some environments. Thank you @ageurtse
 - Supports AutoConnect menu extension by user sketch with **AutoConnectAux**.
