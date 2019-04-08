@@ -159,6 +159,103 @@ Returns type of AutoConnectElement.
     <dd>AC_Element</dd>
 </dl>
 
+#### <i class="fa fa-caret-right"></i> as<T\>
+
+```cpp
+AutoConnectElement& as<T>(void)
+```
+Casts the reference to the AutoConnectElement the specified type.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">T</span><span class="apidesc">The element type. AutoConnectElements type such as [AutoConnectButton](apielements.md#autoconnectbutton), [AutoConnectCheckbox](apielements.md#autoconnectcheckbox), [AutoConnectFile](apielements.md#autoconnectfile), [AutoConnectInput](apielements.md#autoconnectinput), [AutoConnectRadio](apielements.md#autoconnectradio), [AutoConnectSelect](apielements.md#autoconnectselect), [AutoConnectSubmit](apielements.md#autoconnectsubmit), [AutoConnectText](apielements.md#autoconnecttext).</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A reference to the AutoConnectElement with actual type.</dd>
+</dl>
+
+## AutoConnectFile
+
+### <i class="fa fa-code"></i> Constructor
+
+```cpp
+AutoConnectFile(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS)
+```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">File name to be upload.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">store</span><span class="apidesc">The **ACFile_t** enumerator that represents the media to save the uploaded file.</span></dd>
+
+</dl>
+
+### <i class="fa fa-code"></i> Public member variables
+
+#### <i class="fa fa-caret-right"></i> name
+
+The element name.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+File name to be upload. This attribute is read only.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> label
+
+A label is an optional string. A label is always arranged on the left side of the file input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The file input box and the label are connected by the id attribute.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> store
+
+Specifies the save destination of the uploaded file. You can use the built-in uploader to save uploaded file to the flash of the ESP8266/ESP32 module or external SD media without writing a dedicated sketch code. It also supports saving to any destination using a custom uploader that inherits from the AutoConnectUploadHandler class.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">ACFile_t</span><span class="apidesc">
+        
+- **`AC_File_FS`** : Save the uploaded file to SPIFFS in the flash.
+- **`AC_File_SD`** : Save the uploaded file to SD.
+- **`AC_File_Ext`** : Save the file using your own upload handler.
+    </span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> mimeType
+
+The mime type of the upload file which included as Media type in the http post request. Set by the client (usually the browser) that requested the upload. It is determined by the file type as `application/octet-stream`, `text` etc. which is described in [IANA Media Type](https://www.iana.org/assignments/media-types/media-types.xhtml).
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> size
+
+Size of the uploading file.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">size_t</span><span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member functions
+
+#### <i class="fa fa-caret-right"></i> typeOf
+
+```cpp
+ACElement_t typeOf(void)
+```
+Returns type of AutoConnectFile.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>AC_File</dd>
+</dl>
+
 ## AutoConnectInput
 
 ### <i class="fa fa-code"></i> Constructor

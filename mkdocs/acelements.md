@@ -5,6 +5,7 @@ Representative HTML elements for making the custom Web page are provided as Auto
 - [AutoConnectButton](#autoconnectbutton): Labeled action button
 - [AutoConnectCheckbox](#autoconnectcheckbox): Labeled checkbox
 - [AutoConnectElement](#autoconnectelement-a-basic-class-of-elements): General tag
+- [AutoConnectFile](#autoconnectfile): File uploader
 - [AutoConnectInput](#autoconnectinput): Labeled text input box
 - [AutoConnectRadio](#autoconnectradio): Labeled radio button
 - [AutoConnectSelect](#autoconnectselect): Selection list
@@ -63,6 +64,7 @@ The enumerators for *ACElement_t* are as follows:
 -  AutoConnectButton: **AC_Button**
 -  AutoConnectCheckbox: **AC_Checkbox** 
 -  AutoConnectElement: **AC_Element**
+-  AutoConnectFile: **AC_File**
 -  AutoConnectInput: **AC_Input**
 -  AutoConnectRadio: **AC_Radio**
 -  AutoConnectSelect: **AC_Select**
@@ -146,6 +148,29 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 ### <i class="fa fa-caret-right"></i> checked
 
 A checked is a Boolean value and indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent.
+
+## AutoConnectFile
+
+AutoConnectFile generates asn HTML `#!html <input type="file">` tag and a `#!html <label>` tag.
+
+<i class="fa fa-eye"></i> **Sample**<br>
+<small>**`AutoConnectFile file("file", "", "Upload", AC_File_FS)`**</small>
+
+<small>On the page:</small><br><img src="images/acfile.png">
+
+### <i class="fa fa-edit"></i> Constructor
+
+```cpp
+AutoConnectFile(const char* name, const char* value, const char* label, const ACFile_t store)
+```
+
+### <i class="fa fa-caret-right"></i> name
+
+### <i class="fa fa-caret-right"></i> value
+
+### <i class="fa fa-caret-right"></i> label
+
+### <i class="fa fa-caret-right"></i> store
 
 ## AutoConnectInput
 
@@ -303,7 +328,7 @@ AutoConnectText generates an HTML `#!html <div>` tag. A `#!html style` attribute
 ### <i class="fa fa-edit"></i> Constructor
 
 ```cpp
-AutoConnectText(const char* name, const char* value, const char* style)
+AutoConnectText(const char* name, const char* value, const char* style, const char* format)
 ```
 
 ### <i class="fa fa-caret-right"></i> name
@@ -317,6 +342,10 @@ It becomes content and also can contain the native HTML code, but remember that 
 ### <i class="fa fa-caret-right"></i> style
 
 A `style` specifies the qualification style to give to the content and can use the style attribute format as it is.
+
+### <i class="fa fa-caret-right"></i> format
+
+A `format` is a pointer to a null-terminated multibyte string specifying how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to C-style printf library functions, but depends on the espressif sdk implementation. The conversion specification is valid only in **%s** format. (Left and Right justification, width are also valid.)
 
 ## How to coding for the elements
 
@@ -332,6 +361,8 @@ ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small
  
 ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **true** | **false** <small>\]</small> )
 
+ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_File\_FS** | **AC\_File\_SD** | **AC\_File\_Ext** <small>\]</small> )
+
 ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> )
 
 ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_Horizontal** | **AC\_Vertical** <small>\]</small> <small>\[</small> , *checked* <small>\]</small> )
@@ -340,7 +371,7 @@ ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</sma
 
 ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> )
 
-ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> )
+ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> <small>\[</small> , *format* <small>\]</small> )
 
 !!! memo "Declaration macro usage"
     For example, *AutoConnectText* can be declared using macros.

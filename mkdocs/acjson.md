@@ -120,6 +120,7 @@ JSON description for AutoConnectElements describes as an array in the *element* 
 : -  AutoConnectButton: [**ACButton**](#acbutton)
 : -  AutoConnectCheckbox: [**ACCheckbox** ](#accheckbox)
 : -  AutoConnectElement: [**ACElement**](#acelement)
+: -  AutoConnectFile: [**ACFile**](#acfile)
 : -  AutoConnectInput: [**ACInput**](#acinput)
 : -  AutoConnectRadio: [**ACRadio**](#acradio)
 : -  AutoConnectSelect: [**ACSelect**](#acselect)
@@ -141,6 +142,8 @@ This is different for each AutoConnectElements, and the key that can be specifie
 
 #### <i class="fa fa-caret-right"></i> ACElement
 : - **value** : Specifies the source code of generating HTML. The value is native HTML code and is output as HTML as it is.
+
+#### <i class="fa fa-caret-right"></i> ACFile
 
 #### <i class="fa fa-caret-right"></i> ACInput
 : - **value** : Specifies the initial text string of the input box. If this value is omitted, placeholder is displayed as the initial string.
