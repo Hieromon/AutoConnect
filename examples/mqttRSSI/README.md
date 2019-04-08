@@ -2,7 +2,7 @@
 
 ### Publish ESP8266/ESP32 WiFi signal strength to MQTT broker
 
-This example is based on the description of the MQTT client application in the [AutoConnect documentation](https://hieromon.github.io/AutoConnect/examples/index.html#used-with-mqtt-as-a-client-application). To experience this example, you need to prepare the [ThingSpeak](https://thingspeak.com/) account and the channel for MQTT message exchange in advance. 
+This example is based on the description of the MQTT client application in the [AutoConnect documentation](https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application). To experience this example, you need to prepare the [ThingSpeak](https://thingspeak.com/) account and the channel for MQTT message exchange in advance. 
 
 <img src="https://hieromon.github.io/AutoConnect/images/ac_mqtt_setting.png" width="40%"/>
 &nbsp;&nbsp;
