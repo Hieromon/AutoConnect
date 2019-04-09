@@ -149,7 +149,7 @@ This is different for each AutoConnectElements, and the key that can be specifie
 : - **store** : Specifies the destination to save the uploaded file. Its value accepts one of the following:<p>
 <b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module.<br>
 <b>sd</b>&nbsp;: Save to an external SD device connected to ESP8266/ESP32 module.<br>
-<b>ext</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit **AutoConnectUploadHandler** class and implements *_open*, *_write* and *_close* function.</p>
+<b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit **AutoConnectUploadHandler** class and implements *_open*, *_write* and *_close* function.</p>
 
 #### <i class="fa fa-caret-right"></i> ACInput
 : - **value** : Specifies the initial text string of the input box. If this value is omitted, placeholder is displayed as the initial string.
