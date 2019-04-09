@@ -200,7 +200,7 @@ The element name.
 
 #### <i class="fa fa-caret-right"></i> value
 
-File name to be upload. This attribute is read only.
+File name to be upload. The value contains the value entered by the client browser to the `#!html <input type="file">` tag and is read-only.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
@@ -640,13 +640,14 @@ Returns type of AutoConnectElement.
 ### <i class="fa fa-code"></i> Constructor
 
 ```cpp
-AutoConnectText(const char* name = "", const char* value = "", const char* style = "")
+AutoConnectText(const char* name = "", const char* value = "", const char* style = "", const char* format = "")
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">String of content for the text element.</span></dd>
     <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the text.</span></dd>
+    <dd><span class="apidef">format</span><span class="apidesc">A pointer to a null-terminated multibyte string specifying how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to C-style printf library functions</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -670,6 +671,14 @@ A content string of the text element.
 #### <i class="fa fa-caret-right"></i> style
 
 A style code with CSS format that qualifiers the text.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> format
+
+The conversion format when outputting values. The format string conforms to C-style printf library functions.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>

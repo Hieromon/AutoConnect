@@ -144,6 +144,12 @@ This is different for each AutoConnectElements, and the key that can be specifie
 : - **value** : Specifies the source code of generating HTML. The value is native HTML code and is output as HTML as it is.
 
 #### <i class="fa fa-caret-right"></i> ACFile
+: - **value** : The file name of the upload file will be stored. The `value` is read-only and will be ignored if specified.
+: - **label** : Specifies a label of the file selection box. Its placement is always to the left of the file selection box.
+: - **store** : Specifies the destination to save the uploaded file. Its value accepts one of the following:<p>
+<b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module.<br>
+<b>sd</b>&nbsp;: Save to an external SD device connected to ESP8266/ESP32 module.<br>
+<b>ext</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit **AutoConnectUploadHandler** class and implements *_open*, *_write* and *_close* function.</p>
 
 #### <i class="fa fa-caret-right"></i> ACInput
 : - **value** : Specifies the initial text string of the input box. If this value is omitted, placeholder is displayed as the initial string.
@@ -170,11 +176,14 @@ This is different for each AutoConnectElements, and the key that can be specifie
 #### <i class="fa fa-caret-right"></i> ACText
 : - **value** : Specifies a content and also can contain the native HTML code, but remember that your written code is enclosed by the div tag.
 : - **style** : Specifies the qualification style to give to the content and can use the style attribute format as it is.
+: - **format** : Specifies how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to the C-style printf library functions, but depends on the espressif sdk implementation. The conversion specification is valid only for **%s** format. (Left and Right justification, width are also valid.)
 
 !!! caution "AutoConnect's JSON parsing process is not perfect"
     It is based on analysis by ArduinoJson, but the semantic analysis is simplified to save memory. Consequently, it is not an error that a custom Web page JSON document to have unnecessary keys. It will be ignored.
 
 ## Loading JSON document
+
+### <i class="fa fa-caret-right"></i> Loading from the streamed file
 
 AutoConnect supports loading of JSON document from the following instances:
 
@@ -225,6 +234,30 @@ aux.close();
 ```
 
 AutoConnect passes the given JSON document directly to the [**parseObject()**](https://arduinojson.org/v5/api/jsonbuffer/parseobject/) function of the ArduinoJson library for parsing. Therefore, the constraint of the parseObject() function is applied as it is in the parsing of the JSON document for the AutoConnect. That is, if the JSON string is read-only, duplicating the input string occurs and consumes more memory.
+
+### <i class="fa fa-caret-right"></i> Adjust the JSON document buffer size
+
+AutoConnect uses ArduinoJson library's dynamic buffer to parse JSON documents. Its dynamic buffer allocation scheme depends on the version 5 or version 6 of ArduinoJson library. Either version must have enough buffer to parse the custom web page's JSON document successfully. AutoConnect has the following three constants internally to complete the parsing as much as possible in both ArduinoJson version. These constants are macro defined in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h).
+
+If memory insufficiency occurs during JSON document parsing, you can adjust these constants to avoid insufficiency by using the [JsonAssistant](https://arduinojson.org/v6/assistant/) with deriving the required buffer size in advance.
+
+```cpp
+#define AUTOCONNECT_JSONBUFFER_SIZE     256
+#define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)
+#define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
+```
+
+#### AUTOCONNECT_JSONBUFFER_SIZE
+
+This is a unit size constant of [DynamicJsonBuffer](https://arduinojson.org/v5/faq/what-are-the-differences-between-staticjsonbuffer-and-dynamicjsonbuffer/) and works when the library used is ArduinoJson version 5. A buffer size of the JSON document increases with this unit. This value relates to the impact of the fragmented heap area. If it is too large, may occur run-out of memory.
+
+#### AUTOCONNECT_JSONDOCUMENT_SIZE
+
+This is a size of [DynamicJsonDocument](https://arduinojson.org/v6/api/dynamicjsondocument/) for ArduinoJson version 6. This buffer is not automatically expanding, and the size determines the limit.
+
+#### AUTOCONNECT_JSONPSRAM_SIZE
+
+For ESP32 module equips with PSRAM, you can allocate the JSON document buffer to PSRAM. Buffer allocation to PSRAM will enable when **PSRAM:Enabled** option selected in the Arduino IDE's Board Manager menu. It is available since ArduinoJson 6.10.0.
 
 ## Saving JSON document
 

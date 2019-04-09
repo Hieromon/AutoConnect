@@ -72,7 +72,21 @@ The enumerators for *ACElement_t* are as follows:
 -  AutoConnectText: **AC_Text**
 -  Uninitialized element: **AC_Unknown**
 
-Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must [re-interpret](https://en.cppreference.com/w/cpp/language/reinterpret_cast) that type with c++.
+Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must [re-interpret](https://en.cppreference.com/w/cpp/language/reinterpret_cast) that type with c++. Or, you can be coding the sketch more easily with using the [**as<T\>**](apielements.md#ast62) function.
+
+```cpp hl_lines="6"
+AutoConnectAux  customPage;
+
+AutoConnectElementVT& elements = customPage.getElements();
+for (AutoConnectElement& elm : elements) {
+  if (elm.type() == AC_Text) {
+    AutoConnectText& text = customPage[elm.name].as<AutoConnectText>();
+    text.style = "color:gray;";
+    // Or, it is also possible to write the code further reduced as follows.
+    // customPage[elm.name].as<AutoConnectText>().style = "color:gray;";
+  }
+}
+```
 
 ## AutoConnectButton
 
@@ -151,10 +165,10 @@ A checked is a Boolean value and indicates the checked status of the checkbox. T
 
 ## AutoConnectFile
 
-AutoConnectFile generates asn HTML `#!html <input type="file">` tag and a `#!html <label>` tag.
+AutoConnectFile generates asn HTML `#!html <input type="file">` tag and a `#!html <label>` tag. AutoConnectFile enables file upload from the client through the web browser to ESP8266/ESP32 module. You can select the flash in the module, external SD device or any output destination as the storage of the uploaded file.
 
 <i class="fa fa-eye"></i> **Sample**<br>
-<small>**`AutoConnectFile file("file", "", "Upload", AC_File_FS)`**</small>
+<small>**`AutoConnectFile file("file", "", "Upload:", AC_File_FS)`**</small>
 
 <small>On the page:</small><br><img src="images/acfile.png">
 
@@ -166,11 +180,26 @@ AutoConnectFile(const char* name, const char* value, const char* label, const AC
 
 ### <i class="fa fa-caret-right"></i> name
 
+It is the `name` of the AutoConnectFile element and matches the name attribute of the input tag. It also becomes the parameter name of the query string when submitted.
+
 ### <i class="fa fa-caret-right"></i> value
+
+File name to be upload. The value contains the value entered by the client browser to the `#!html <input type="file">` tag and is read-only. Even If you give a value to the constructor, it does not affect as an initial value like a default file name.
 
 ### <i class="fa fa-caret-right"></i> label
 
+A `label` is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The input box and the label are connected by the id attribute.
+
 ### <i class="fa fa-caret-right"></i> store
+
+Specifies the destination to save the uploaded file. The destination can be specified the following values ​​in the *ACFile_t* enumeration type.
+
+- AC_File_FS: Save as the SPIFFS file in flash of ESP8266/ESP32 module.
+- AC_File_SD: Save to an external SD device connected to ESP8266/ESP32 module.
+- AC_File_Ext: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit **AutoConnectUploadHandler** class and implements *_open*, *_write* and *_close* function.
+
+!!! note "Built-in uploader is ready."
+    AutoConnect already equips the built-in uploader for saving to the SPIFFS as AC_File_FS and the external SD as AC_File_SD. It is already implemented inside AutoConnect and will store uploaded file automatically.
 
 ## AutoConnectInput
 
