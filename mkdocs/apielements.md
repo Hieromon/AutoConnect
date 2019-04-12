@@ -223,7 +223,7 @@ Specifies the save destination of the uploaded file. You can use the built-in up
         
 - **`AC_File_FS`** : Save the uploaded file to SPIFFS in the flash.
 - **`AC_File_SD`** : Save the uploaded file to SD.
-- **`AC_File_Ext`** : Save the file using your own upload handler.
+- **`AC_File_Extern`** : Save the file using your own upload handler.
     </span></dd>
 </dl>
 

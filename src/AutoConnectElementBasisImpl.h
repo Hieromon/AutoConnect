@@ -84,7 +84,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
     handlerSD = new AutoConnectUploadSD(SD);
     _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerSD));
     break;
-  case AC_File_Ext:
+  case AC_File_Extern:
     break;
   }
   return _upload != false;

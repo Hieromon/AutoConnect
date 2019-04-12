@@ -175,7 +175,7 @@ bool AutoConnectFileJson::loadMember(const JsonObject& json) {
       else if (media.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_SD)))
         store = AC_File_SD;
       else if (media.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_EXTERNAL)))
-        store = AC_File_Ext;
+        store = AC_File_Extern;
       else {
         AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), media.c_str());
         return false;
@@ -202,7 +202,7 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
   case AC_File_SD:
     json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_SD;
     break;
-  case AC_File_Ext:
+  case AC_File_Extern:
     json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_EXTERNAL;
     break;
   }

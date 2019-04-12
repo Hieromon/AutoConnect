@@ -35,7 +35,7 @@ typedef enum {
 typedef enum {
   AC_File_FS = 0,
   AC_File_SD,
-  AC_File_Ext
+  AC_File_Extern
 } ACFile_t;         /**< AutoConnectFile media type */
 
 /**

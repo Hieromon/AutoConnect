@@ -196,7 +196,7 @@ Specifies the destination to save the uploaded file. The destination can be spec
 
 - AC_File_FS: Save as the SPIFFS file in flash of ESP8266/ESP32 module.
 - AC_File_SD: Save to an external SD device connected to ESP8266/ESP32 module.
-- AC_File_Ext: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit **AutoConnectUploadHandler** class and implements *_open*, *_write* and *_close* function.
+- AC_File_Extern: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.
 
 !!! note "Built-in uploader is ready."
     AutoConnect already equips the built-in uploader for saving to the SPIFFS as AC_File_FS and the external SD as AC_File_SD. It is already implemented inside AutoConnect and will store uploaded file automatically.
@@ -390,7 +390,7 @@ ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small
  
 ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **true** | **false** <small>\]</small> )
 
-ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_File\_FS** | **AC\_File\_SD** | **AC\_File\_Ext** <small>\]</small> )
+ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_File\_FS** | **AC\_File\_SD** | **AC\_File\_Extern** <small>\]</small> )
 
 ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> )
 
