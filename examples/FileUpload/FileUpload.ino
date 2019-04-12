@@ -42,7 +42,7 @@ static const char PAGE_UPLOAD[] PROGMEM = R"(
       "value": "<h2>File uploading platform<h2>"
     },
     {
-      "name": "filename",
+      "name": "upload_file",
       "type": "ACFile",
       "label": "Select file: ",
       "store": "fs"
@@ -115,19 +115,19 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
   String  content;
   // Explicitly cast to the desired element to correctly extract
   // the element using the operator [].
-  AutoConnectFile&  filename = auxUpload["filename"].as<AutoConnectFile>();
+  AutoConnectFile&  upload = auxUpload["upload_file"].as<AutoConnectFile>();
   AutoConnectText&  aux_filename = aux["filename"].as<AutoConnectText>();
   AutoConnectText&  aux_size = aux["size"].as<AutoConnectText>();
   AutoConnectText&  aux_contentType = aux["content_type"].as<AutoConnectText>();
   // Assignment operator can be used for the element attribute.
-  aux_filename.value = filename.value;
-  aux_size.value = String(filename.size);
-  aux_contentType.value = filename.mimeType;
+  aux_filename.value = upload.value;
+  aux_size.value = String(upload.size);
+  aux_contentType.value = upload.mimeType;
   // The file saved by the AutoConnect upload handler is read from
   // the EEPROM and echoed to a custom web page.
-  if (filename.mimeType.indexOf("text/") >= 0) {
+  if (upload.mimeType.indexOf("text/") >= 0) {
     SPIFFS.begin();
-    File uploadFile = SPIFFS.open(String("/" + filename.value).c_str(), FILE_MODE_R);
+    File uploadFile = SPIFFS.open(String("/" + upload.value).c_str(), FILE_MODE_R);
     if (uploadFile) {
       while (uploadFile.available()) {
         char c = uploadFile.read();
