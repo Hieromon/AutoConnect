@@ -279,7 +279,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
 
 ### <i class="fa fa-code"></i> Register custom upload handler
 
-In order to upload a file by the custom uploader, it is necessary to register it to the custom Web page beforehand. To register a custom uploader, specify the custom uploader class for the template argument and use the [AutoConnectAux::onUpload](apiaux.md#onupload) function.
+In order to upload a file by the custom uploader, it is necessary to register it to the custom Web page beforehand. To register a custom uploader, specify the custom uploader class name in the template argument of the  [AutoConnectAux::onUpload](apiaux.md#onupload) function and invokes it.
 
 The rough structure of the sketches that completed these implementations will be as follows:
 

@@ -22,7 +22,7 @@ AutoConnectElement& operator[](const String& name)
 ```
 Returns a reference to the element specified by **name**. An operator `[]` is a shortcut for [getElement](apiaux.md#getelement) function with the reference casting. Unlike getElement, which returns a pointer to that element, an operator `[]` returns a reference to that element. You also need to cast the return value to the actual type, just like the getElement function.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">Name of the AutoConnectElements to be retrieved.</span></dd>
     <dt>**Return value**</dt><dd>A reference to AutoConnectElement. It is different from the actual element type.</dd>
 </dl>
@@ -94,7 +94,7 @@ bool load(Stream& in)
 ```
 Load all AutoConnectElements elements from JSON document into AutoConnectAux as custom Web pages. The JSON document specified by the load function must be the [document structure](acjson.md#json-objects-elements-for-the-custom-web-page) of AutoConnectAux. Its JSON document can describe multiple pages as an array.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">in</span><span class="apidesc">Specifies the JSON document to be load. The load function can input the following objects.
 
 - String : Read-only String
@@ -159,7 +159,7 @@ void menu(const bool post)
 ```
 Set or reset the display as menu item for this AutoConnectAux. This function programmatically manipulates the menu parameter of the [AutoConenctAux constructor](apiaux.md#autoconnectaux).
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Show on the menu.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Hidden on the menu.</span></dd>
 </dl>
@@ -218,7 +218,7 @@ bool release(const String& name)
 ```
 Release a specified AutoConnectElement from AutoConenctAux. The release function is provided to dynamically change the structure of the custom Web pages with the sketch. By combining the release function and the [add](apiaux.md#add) function or the [loadElement](apiaux.md#loadelement) function, the sketch can change the style of the custom Web page according to its behavior.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of AutoConnectElements to be released.</span></dd>
     <dt>**Return value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">The AutoConnectElement successfully released.</span></dd>

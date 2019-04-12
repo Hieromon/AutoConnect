@@ -166,7 +166,7 @@ AutoConnectElement& as<T>(void)
 ```
 Casts the reference to the AutoConnectElement the specified type.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">T</span><span class="apidesc">The element type. AutoConnectElements type such as [AutoConnectButton](apielements.md#autoconnectbutton), [AutoConnectCheckbox](apielements.md#autoconnectcheckbox), [AutoConnectFile](apielements.md#autoconnectfile), [AutoConnectInput](apielements.md#autoconnectinput), [AutoConnectRadio](apielements.md#autoconnectradio), [AutoConnectSelect](apielements.md#autoconnectselect), [AutoConnectSubmit](apielements.md#autoconnectsubmit), [AutoConnectText](apielements.md#autoconnecttext).</span></dd>
     <dt>**Return value**</dt>
     <dd>A reference to the AutoConnectElement with actual type.</dd>
@@ -421,7 +421,7 @@ void add(const String& value)
 ```
 Adds an option for the radio button.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd>
 </dl>
 
@@ -432,7 +432,7 @@ void check(const String& value)
 ```
 Indicates the check of the specified option for the radio buttons. You can use the **check** function for checking dynamically with arbitrary of the radio button.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">value</span><span class="apidesc">An option string to be checked.</span></dd>
 </dl>
 
@@ -443,7 +443,7 @@ void empty(const size_t reserve = 0)
 ```
 Clear the array of option strings that AutoConnectRadio has in the values. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd>
 </dl>
 
@@ -454,7 +454,7 @@ const String& operator[] (const std::size_t n)
 ```
 Returns a value string of the index specified by **_n_**.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">n</span><span class="apidesc">Index of values array to return. Its base number is 0.</span></dd>
     <dt>**Return value**</dt>
     <dd>A reference of a value string indexed by the specified the **n**.</dd>
@@ -542,7 +542,7 @@ void add(const String& option)
 ```
 Adds a selectable option string for the selection list.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd>
 </dl>
 
@@ -553,7 +553,7 @@ void empty(const size_t reserve = 0)
 ```
 Clear the array of options list that AutoConnectSelect has in the options. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd>
 </dl>
 
@@ -564,7 +564,7 @@ const String& operator[] (const std::size_t n)
 ```
 Returns an option string of the index specified by **_n_**.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">n</span><span class="apidesc">Index of options array to return. Its base number is 0.</span></dd>
     <dt>**Return value**</dt>
     <dd>A reference of a option string indexed by the specified the **n**.</dd>
