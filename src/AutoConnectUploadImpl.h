@@ -55,7 +55,7 @@ void AutoConnectUploadHandler::upload(const String& requestUri, const HTTPUpload
     break;
   }
   case UPLOAD_FILE_WRITE:
-    (void)_write(upload.buf, upload.currentSize);
+    (void)_write(upload.buf, (const size_t)upload.currentSize);
     break;
   case UPLOAD_FILE_ABORTED:
   case UPLOAD_FILE_END:
@@ -83,7 +83,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
     return false;
   }
 
-  size_t  _write(const uint8_t* buf, size_t size) override {
+  size_t  _write(const uint8_t* buf, const size_t size) override {
     if (_file)
       return _file.write(buf, size);
     else
@@ -96,6 +96,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
     _media->end();
   }
 
+ private:
   SPIFFST*  _media;
   SPIFileT  _file; 
 };
@@ -121,7 +122,7 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
     return false;
   }
 
-  size_t  _write(const uint8_t* buf, size_t size) override {
+  size_t  _write(const uint8_t* buf, const size_t size) override {
     if (_file)
       return _file.write(buf, size);
     else
@@ -134,6 +135,7 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
     _media->end();
   }
 
+ private:
   SDClassT* _media;
   SDFileT   _file;
   uint8_t   _cs;

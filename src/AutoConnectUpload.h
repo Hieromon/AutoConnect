@@ -31,7 +31,7 @@ class AutoConnectUploadHandler {
 
 protected:
   virtual bool   _open(const char* filename, const char* mode) = 0;
-  virtual size_t _write(const uint8_t *buf, size_t size) = 0;
+  virtual size_t _write(const uint8_t *buf, const size_t size) = 0;
   virtual void   _close(void) = 0;
 };
 

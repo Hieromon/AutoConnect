@@ -194,9 +194,9 @@ A `label` is an optional string. A label is always arranged on the left side of 
 
 Specifies the destination to save the uploaded file. The destination can be specified the following values ​​in the *ACFile_t* enumeration type.
 
-- AC_File_FS: Save as the SPIFFS file in flash of ESP8266/ESP32 module.
-- AC_File_SD: Save to an external SD device connected to ESP8266/ESP32 module.
-- AC_File_Extern: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.
+- **`AC_File_FS`** : Save as the SPIFFS file in flash of ESP8266/ESP32 module.
+- **`AC_File_SD`** : Save to an external SD device connected to ESP8266/ESP32 module.
+- **`AC_File_Extern`** : Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.
 
 !!! note "Built-in uploader is ready."
     AutoConnect already equips the built-in uploader for saving to the SPIFFS as AC_File_FS and the external SD as AC_File_SD. It is already implemented inside AutoConnect and will store uploaded file automatically.

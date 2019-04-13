@@ -149,19 +149,21 @@ Also, the substance of AC_File_SD (sd) is a FAT file of Arduino SD library porte
 
 ## When it will be uploaded
 
-The below diagram shows the file uploading sequence. Upload handler will be launched by ESP8266WebServer/WebServer(ESP32) library which is triggered by receiving an HTTP stream of POST BODY including file content. Its launching occurs before invoking the page handler.
+Upload handler will be launched by ESP8266WebServer/WebServer(ESP32) library which is triggered by receiving an HTTP stream of POST BODY including file content. Its launching occurs before invoking the page handler.
 
-At the time of the page handler behaves, the uploaded file already saved to the device, and the [member variables](acelements.md#name_3) of AutoConnectFile reflects the file name and transfer size.
+The following diagram illustrates the file uploading sequence:
 
 <img src="images/ac_upload_flow.svg">
+
+At the time of the page handler behaves, the uploaded file already saved to the device, and the [member variables](acelements.md#name_3) of AutoConnectFile reflects the file name and transfer size.
 
 ## The file name for the uploaded file
 
 AutoConnetFile saves the uploaded file with the file name you selected by `<input type="file">` tag on the browser. The file name used for uploading is stored in the AutoConnetFile's value member, which you can access after uploading. (i.e. In the handler of the destination page by the AutoConnectSubmit element.) You can not save it with a different name. It can be renamed after upload if you need to change the name.
 
-## To upload to a device other than Flash or SD
+## Upload to a device other than Flash or SD
 
-You can output the file to any device using a custom uploader by specifying [**extern**](acjson.md#acfile) with the [store](acjson.md#acfile) attribute of AutoConnectFile (or specifying [**AC_File_Extern**](acelements.md#store) for the store member variable) and can customize the uploader according to the need to upload files to other than Flash or SD. Implements your own uploader with inheriting the [**AutoConnectUploadHandler**](#upload-handler-base-class) class which is the base class of the upload handler.
+You can output the file to any device using a custom uploader by specifying [**extern**](acjson.md#acfile) with the [store](acjson.md#acfile) attribute of [AutoConnectFile (or specifying [**AC_File_Extern**](acelements.md#store) for the store member variable) and can customize the uploader according to the need to upload files to other than Flash or SD. Implements your own uploader with inheriting the [**AutoConnectUploadHandler**](#upload-handler-base-class) class which is the base class of the upload handler.
 
 !!! note "It's not so difficult"
     Implementing the custom uploader requires a little knowledge of the c++ language. If you are less attuned to programming c++, you may find it difficult. But don't worry. You can make it in various situations by just modifying the sketch skeleton that appears at the end of this page.
@@ -205,17 +207,17 @@ typedef struct {
     </span></dd>
 </dl>
 
-The upload handler needs to implement processing based on the enumeration value of HTTPUpload.status HTTPUploadStatus enum type. HTTPUploadStatus enumeration is as follows:
+The upload handler needs to implement processing based on the enumeration value of HTTPUpload.status as **HTTPUploadStatus** enum type. HTTPUploadStatus enumeration is as follows:
 
-- UPLOAD_FILE_START: Invokes to the \_open.
-- UPLOAD_FILE_WRITE: Invokes to the \_write.
-- UPLOAD_FILE_END: Invokes to the \_close.
-- UPLOAD_FILE_ABORTED: Invokes to the \_close.
+- **`UPLOAD_FILE_START`** : Invokes to the \_open.
+- **`UPLOAD_FILE_WRITE`** : Invokes to the \_write.
+- **`UPLOAD_FILE_END`** : Invokes to the \_close.
+- **`UPLOAD_FILE_ABORTED`** : Invokes to the \_close.
 
 ```cpp
 protected virtual bool _open(const char* filename, const char* mode) = 0
 ```
-The \_open function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_START**. Usually, the implementation of an inherited class will usually open the file.
+The \_open function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_START**. Usually, the implementation of an inherited class will open the file.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">filename</span><span class="apidesc">Uploading file name.</span></dd>
@@ -226,7 +228,7 @@ The \_open function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_START
 </dl>
 
 ```cpp
-protected virtual size_t _write(const uint8_t *buf, size_t size))= 0
+protected virtual size_t _write(const uint8_t *buf, const size_t size))= 0
 ```
 The \_write function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_WRITE**. The content of the upload file is divided and the \_write will be invoked in multiple times. Usually, the implementation of an inherited class will write data.
 <dl class="apidl">
@@ -242,7 +244,7 @@ protected virtual void _close(void) = 0
 ```
 The \_close function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_END** or **UPLOAD_FILE_ABORTED**. Usually, the implementation of an inherited class will close the file.
 
-For reference, the following AutoConnectUploadFS class is AutoConnect built-in uploader. This class implementation also inherits from AutoConnectUploadHandler.
+For reference, the following AutoConnectUploadFS class is an implementation of AutoConnect built-in uploader and inherits from AutoConnectUploadHandler.
 
 ```cpp
 class AutoConnectUploadFS : public AutoConnectUploadHandler {
@@ -259,7 +261,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
     return false;
   }
 
-  size_t _write(const uint8_t* buf, size_t size) override {
+  size_t _write(const uint8_t* buf, const size_t size) override {
     if (_file)
       return _file.write(buf, size);
     else
@@ -272,6 +274,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
     _media->end();
   }
 
+ private:
   SPIFFST*  _media;
   SPIFileT  _file; 
 };
@@ -280,6 +283,15 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
 ### <i class="fa fa-code"></i> Register custom upload handler
 
 In order to upload a file by the custom uploader, it is necessary to register it to the custom Web page beforehand. To register a custom uploader, specify the custom uploader class name in the template argument of the  [AutoConnectAux::onUpload](apiaux.md#onupload) function and invokes it.
+
+```cpp
+void AutoConnectAux::onUpload<T>(T& uploadClass)
+```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">T</span><span class="apidesc">Specifies a class name of the custom uploader. This class name is a class that you implemented by inheriting AutoConnectUploadHandler for custom upload.</span></dd>
+    <dd><span class="apidef">uploadClass</span><span class="apidesc">Specifies the custom upload class instance.</span></dd>
+</dl>
 
 The rough structure of the sketches that completed these implementations will be as follows:
 
@@ -320,17 +332,17 @@ public:
 
 protected:
   bool   _open(const char* filename, const char* mode) override;
-  size_t _write(const uint8_t *buf, size_t size) override;
+  size_t _write(const uint8_t *buf, const size_t size) override;
   void   _close(void) override;
 };
 
 // _open for custom open
 bool CustomUploader::_open(const char* filename, const char* mode) {
   // Here, an implementation for the open file.
-})
+}
 
 // _open for custom write
-size_t CustomUploader::_write(const uint8_t *buf, size_t size) {
+size_t CustomUploader::_write(const uint8_t *buf, const size_t size) {
   // Here, an implementation for the writing the file data.
 }
 
