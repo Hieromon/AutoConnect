@@ -1,6 +1,8 @@
 ## Saved credential in EEPROM
 
-AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's [**AutoConnectCredential**](#autoconnectcredential) class which provides the access method to the saved credentials in EEPROM.
+AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's [**AutoConnectCredential**](#autoconnectcredential) class which provides the access method to the saved credentials in EEPROM.[^1]
+
+[^1]:An example using AutoConnectCredential is provided as [an example](https://github.com/Hieromon/AutoConnect/blob/master/examples/Credential/Credential.ino) of a library sketch to delete saved credentials.
 
 ## AutoConnectCredential
 
@@ -123,9 +125,9 @@ struct station_config {
 
 ### <i class="fa fa-code"></i>  The credential entry
 
-A data structure of the credential saving area in EEPROM as the below. [^1]
+A data structure of the credential saving area in EEPROM as the below. [^2]
 
-[^1]:
+[^2]:
 There may be 0xff as an invalid data in the credential saving area. The 0xff area would be reused.
 
 | Byte offset | Length   | Value                                                               |

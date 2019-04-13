@@ -4,6 +4,10 @@
 
 Registering the "not found" handler is a different way than ESP8266WebServer/WebServer. The *onNotFound* of ESP8266WebServer/WebServer does not work with AutoConnect. AutoConnect overrides *ESP8266WebServer::onNotFound*/*WebServer::onNotFound* to handle a captive portal. To register "not found" handler, use [*AutoConnect::onNotFound*](api.md#onnotfound).
 
+### <i class="fa fa-caret-right"></i> Access to saved credentials
+
+AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's [AutoConnectCredential](credit.md#autoconnectcredential) class which provides the access method to the saved credentials in EEPROM. Refer to section [Saved credentail access](credit.md) for details.
+
 ### <i class="fa fa-caret-right"></i> Automatic reconnect
 
 When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost but then the reconnect behavior of ESP32 is somewhat different from this.
