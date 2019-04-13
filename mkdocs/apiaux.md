@@ -193,6 +193,7 @@ void onUpload(PageBuilder::UploadFuncT uploadFunc)
 Register the upload handler of the AutoConnectAux.
 <dl class="apidl">
     <dt>**Parameters**</dt>
+    <dd><span class="apidef">T</span><span class="apidesc">Specifies a class name of the custom uploader inherited from [AutoConnectUploadHandler](acupload.md#upload-handler-base-class) class. Refer to the [appendix](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) for details.</span></dd>
     <dd><span class="apidef">handler</span><span class="apidesc">Specifies the custom uploader inherited from [AutoConnectUploadHandler](acupload.md#upload-handler-base-class) class. Refer to the [appendix](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) for details.</span></dd>
     <dd><span class="apidef">uploadFunc</span><span class="apidesc">A function that behaves when request to upload with the AutoConnectAux page. UploadFuncT type is defined by the following declaration.<p class="apidesc">`void(const String&, const HTTPUpload&)`</p><p>A data structure of the upload file as HTTPUpload. It is defined in the ESP8266WebServer (the WebServer for ESP32) library as follows:
 
