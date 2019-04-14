@@ -677,6 +677,10 @@ The custom Web pages handler has the following limitations.
 
     AutoConnect will not work if you place a custom Web page to [AUTOCONNECT_URI](api.md#defined-macros).
 
+- Can not use the element named **SUBMIT**.
+
+    You can not use 'SUBMIT' as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element. (Case sensitive ignored) AutoConnect does not rely on the `input type=submit` element for the form submission and uses [HTML form element submit](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit) function instead. So, the submit function will fail if there is an element named 'submit' in the form.
+
 !!! caution "Do not handle for the same page"
     Do not duplicate AutoConnect::on with ESP8266WebServer::on (also WebServer::on) for the same custom web page.
 

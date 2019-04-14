@@ -129,6 +129,10 @@ Because AutoConnect does not send a login success response to the captive portal
 
 If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
 
+## <i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.
+
+Is there the AutoConnectElements element named **SUBMIT** in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the `input type=submit` element for the form submission and uses [HTML form element submit](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit) function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use **SUBMIT** as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.
+
 ## <i class="fa fa-question-circle"></i> Still, not stable with my sketch.
 
 If AutoConnect behavior is not stable with your sketch, you can try the following measures.

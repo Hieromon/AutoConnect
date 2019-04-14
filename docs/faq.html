@@ -756,6 +756,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#submit-element-in-a-custom-web-page-does-not-react" title=" Submit element in a custom Web page does not react." class="md-nav__link">
+     Submit element in a custom Web page does not react.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
      Still, not stable with my sketch.
   </a>
@@ -981,6 +988,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#submit-element-in-a-custom-web-page-does-not-react" title=" Submit element in a custom Web page does not react." class="md-nav__link">
+     Submit element in a custom Web page does not react.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#still-not-stable-with-my-sketch" title=" Still, not stable with my sketch." class="md-nav__link">
      Still, not stable with my sketch.
   </a>
@@ -1167,6 +1181,8 @@ wdt reset
 <p>Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.</p>
 <h2 id="i-cannot-see-the-custom-web-page"><i class="fa fa-question-circle"></i> I cannot see the custom Web page.<a class="headerlink" href="#i-cannot-see-the-custom-web-page" title="Permanent link">&para;</a></h2>
 <p>If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the <a href="faq.html#3-turn-on-the-debug-log-options">AC_DEBUG</a> and rerun. If you take the message of JSON syntax error, the <a href="https://arduinojson.org/v5/assistant/">Json Assistant</a> helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. </p>
+<h2 id="submit-element-in-a-custom-web-page-does-not-react"><i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.<a class="headerlink" href="#submit-element-in-a-custom-web-page-does-not-react" title="Permanent link">&para;</a></h2>
+<p>Is there the AutoConnectElements element named <strong>SUBMIT</strong> in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the <code>input type=submit</code> element for the form submission and uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit">HTML form element submit</a> function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use <strong>SUBMIT</strong> as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.</p>
 <h2 id="still-not-stable-with-my-sketch"><i class="fa fa-question-circle"></i> Still, not stable with my sketch.<a class="headerlink" href="#still-not-stable-with-my-sketch" title="Permanent link">&para;</a></h2>
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
