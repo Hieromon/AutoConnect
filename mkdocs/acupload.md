@@ -149,7 +149,7 @@ Also, the substance of AC_File_SD (sd) is a FAT file of Arduino SD library porte
 
 ## When it will be uploaded
 
-Upload handler will be launched by ESP8266WebServer/WebServer(ESP32) library which is triggered by receiving an HTTP stream of POST BODY including file content. Its launching occurs before invoking the page handler.
+Upload handler will be launched by ESP8266WebServer/WebServer(as ESP32) library which is triggered by receiving an HTTP stream of POST BODY including file content. Its launching occurs before invoking the page handler.
 
 The following diagram illustrates the file uploading sequence:
 
@@ -180,9 +180,11 @@ AutoConnectUploadHandler()
 
 #### <i class="fa fa-caret-right"></i> Member functions
 
-The **upload** public function is an entry point which will be invoked from the ESP8266WebServer (the WebServer for ESP32) library for each file content divided into chunks.
+The **upload** public function is an entry point, the ESP8266WebServer (WebServer as ESP32) library will invoke the upload with each time of uploading content divided into chunks. 
 
 Also, the **\_open**, **\_write** and **\_close** protected functions are actually responsible for saving files and are declared as pure virtual functions. A custom uploader class that inherits from the AutoConnectUploadHandler class need to implement these functions.
+
+The actual upload process is handled by the three private functions above, and then upload only invokes three functions according to the upload situation. In usually, there is no need to override the upload function in an inherited class.
 
 ```cpp
 public virtual void upload(const String& requestUri, const HTTPUpload& upload)
@@ -190,7 +192,7 @@ public virtual void upload(const String& requestUri, const HTTPUpload& upload)
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">requestUri</span><span class="apidesc">URI of upload request source.</span></dd>
-    <dd><span class="apidef">upload</span><span class="apidesc">A data structure of the upload file as <b>HTTPUpload</b>. It is defined in the ESP8266WebServer (the WebServer for ESP32) library as follows:
+    <dd><span class="apidef">upload</span><span class="apidesc">A data structure of the upload file as <b>HTTPUpload</b>. It is defined in the ESP8266WebServer (WebServer as ESP32) library as follows:
 
 ```cpp
 typedef struct {
@@ -214,10 +216,11 @@ The upload handler needs to implement processing based on the enumeration value 
 - **`UPLOAD_FILE_END`** : Invokes to the \_close.
 - **`UPLOAD_FILE_ABORTED`** : Invokes to the \_close.
 
+The \_open function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_START**. Usually, the implementation of an inherited class will open the file.
+
 ```cpp
 protected virtual bool _open(const char* filename, const char* mode) = 0
 ```
-The \_open function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_START**. Usually, the implementation of an inherited class will open the file.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">filename</span><span class="apidesc">Uploading file name.</span></dd>
@@ -227,10 +230,11 @@ The \_open function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_START
     <dd><span class="apidef">false</span><span class="apidesc">Failed to open.</span></dd>
 </dl>
 
+The \_write function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_WRITE**. The content of the upload file is divided and the \_write will be invoked in multiple times. Usually, the implementation of an inherited class will write data.
+
 ```cpp
 protected virtual size_t _write(const uint8_t *buf, const size_t size))= 0
 ```
-The \_write function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_WRITE**. The content of the upload file is divided and the \_write will be invoked in multiple times. Usually, the implementation of an inherited class will write data.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">buf</span><span class="apidesc">File content block.</span></dd>
@@ -239,10 +243,11 @@ The \_write function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_WRIT
     <dd>Size written.</dd>
 </dl>
 
+The \_close function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_END** or **UPLOAD_FILE_ABORTED**. Usually, the implementation of an inherited class will close the file.
+
 ```cpp
 protected virtual void _close(void) = 0
 ```
-The \_close function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_END** or **UPLOAD_FILE_ABORTED**. Usually, the implementation of an inherited class will close the file.
 
 For reference, the following AutoConnectUploadFS class is an implementation of AutoConnect built-in uploader and inherits from AutoConnectUploadHandler.
 
