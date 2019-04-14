@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.3020aac5.css">
       
         <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+      <script src="assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -229,81 +229,6 @@
         
       
       
-        
-
-<nav class="md-tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href="index.html" title="Overview" class="md-tabs__link md-tabs__link--active">
-        Overview
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
-          Custom Web pages
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="api.html" title="Library APIs" class="md-tabs__link">
-          Library APIs
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
-          Examples
-        </a>
-      
-    </li>
-  
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </ul>
-  </div>
-</nav>
-      
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
           
@@ -435,6 +360,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#access-to-saved-credentials" title=" Access to saved credentials" class="md-nav__link">
+     Access to saved credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#automatic-reconnect" title=" Automatic reconnect" class="md-nav__link">
      Automatic reconnect
   </a>
@@ -472,6 +404,13 @@
           <li class="md-nav__item">
   <a href="#change-menu-title" title=" Change menu title" class="md-nav__link">
      Change menu title
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-the-menu-labels" title=" Change the menu labels" class="md-nav__link">
+     Change the menu labels
   </a>
   
 </li>
@@ -843,10 +782,58 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
       Appendix
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Appendix
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+      Inside AutoConnect::begin
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
+      Saved credentail access
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+      File upload handler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -920,6 +907,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#access-to-saved-credentials" title=" Access to saved credentials" class="md-nav__link">
+     Access to saved credentials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#automatic-reconnect" title=" Automatic reconnect" class="md-nav__link">
      Automatic reconnect
   </a>
@@ -957,6 +951,13 @@
           <li class="md-nav__item">
   <a href="#change-menu-title" title=" Change menu title" class="md-nav__link">
      Change menu title
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-the-menu-labels" title=" Change the menu labels" class="md-nav__link">
+     Change the menu labels
   </a>
   
 </li>
@@ -1105,7 +1106,9 @@
                 
                 <h2 id="advanced-usage">Advanced usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
 <h3 id="404-handler"><i class="fa fa-caret-right"></i> 404 handler<a class="headerlink" href="#404-handler" title="Permanent link">&para;</a></h3>
-<p>Registering the "not found" handler is a different way than ESP8266WebServer/WebServer. The <em>onNotFound</em> of ESP8266WebServer/WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em>/<em>WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="api.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
+<p>Registering the "not found" handler is a different way than ESP8266WebServer (WebServer as ESP32). The <em>onNotFound</em> of ESP8266WebServer/WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em>/<em>WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="api.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
+<h3 id="access-to-saved-credentials"><i class="fa fa-caret-right"></i> Access to saved credentials<a class="headerlink" href="#access-to-saved-credentials" title="Permanent link">&para;</a></h3>
+<p>AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's <a href="credit.html#autoconnectcredential">AutoConnectCredential</a> class which provides the access method to the saved credentials in EEPROM. Refer to section <a href="credit.html">Saved credentail access</a> for details.</p>
 <h3 id="automatic-reconnect"><i class="fa fa-caret-right"></i> Automatic reconnect<a class="headerlink" href="#automatic-reconnect" title="Permanent link">&para;</a></h3>
 <p>When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost but then the reconnect behavior of ESP32 is somewhat different from this.</p>
 <p>The <a href="https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46"><em>WiFiSTAClass::disconnect</em></a> function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the <a href="https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296">ESP8266WiFiSTAClass</a> has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.</p>
@@ -1267,6 +1270,16 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
 
 <p><img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png"></p>
+<h3 id="change-the-menu-labels"><i class="fa fa-caret-right"></i> Change the menu labels<a class="headerlink" href="#change-the-menu-labels" title="Permanent link">&para;</a></h3>
+<p>You can change the label of the AutoConnect menu item by rewriting the default label letter in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h">AutoConnectLabels.h</a> macros. However, changing menu items letter influences all the sketch's build scenes.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;Configure new AP&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_OPENSSIDS   &quot;Open SSIDs&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_DISCONNECT  &quot;Disconnect&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_RESET       &quot;Reset...&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_HOME        &quot;HOME&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_BUTTONLABEL_RESET     &quot;RESET&quot;</span>
+</pre></div>
+
 <h3 id="combination-with-mdns"><i class="fa fa-caret-right"></i> Combination with mDNS<a class="headerlink" href="#combination-with-mdns" title="Permanent link">&para;</a></h3>
 <p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after <a href="api.html#begin"><em>AutoConnect::begin</em></a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
@@ -1596,7 +1609,7 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
       
     </div>
     
-      <script src="assets/javascripts/application.b806dc00.js"></script>
+      <script src="assets/javascripts/application.dc02f8ce.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       

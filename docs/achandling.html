@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.3020aac5.css">
       
         <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+      <script src="assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -228,83 +228,6 @@
       
         
       
-      
-        
-
-  
-
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href="index.html" title="Overview" class="md-tabs__link">
-        Overview
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link md-tabs__link--active">
-          Custom Web pages
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="api.html" title="Library APIs" class="md-tabs__link">
-          Library APIs
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
-          Examples
-        </a>
-      
-    </li>
-  
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </ul>
-  </div>
-</nav>
       
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
@@ -824,10 +747,58 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
       Appendix
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Appendix
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+      Inside AutoConnect::begin
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
+      Saved credentail access
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+      File upload handler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -1118,7 +1089,19 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </pre></div>
 
-<p>The <a href="apiaux.html#getelement"><strong>getElement</strong></a> function returns an AutoConnectElement with the specified name as a key. When you use this function, you need to know the type of AutoConnectElement in advance. To retrieve an AutoConnectElement by specifying its type, use the following method.</p>
+<p>The <a href="apiaux.html#getelement"><strong>getElement</strong></a> function returns an AutoConnectElement with the specified name as a key. When you use this function, you need to know the type of AutoConnectElement in advance and specify its type &lt;T> to an argument of the getElement. A type of &lt;T> can be specified as follows.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectRadio</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectRadio</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectSelect</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectSelect</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+</pre></div>
+
+<p>To retrieve an AutoConnectElement by specifying its type, use the following method.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
 <span style="color: #f8f8f2">aux.load(</span><span style="color: #e6db74">&quot;SOME_JSON_DOCUMENT&quot;</span><span style="color: #f8f8f2">);</span>
 
@@ -1138,6 +1121,28 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <span style="color: #f8f8f2">Serial.println(text.value);</span>
 </pre></div>
 
+<p>You can also use the <a href="apiaux.html#operator">operator <strong><code>[]</code></strong> of AutoConnectAux</a> as another way to get the desired element. An operator <strong><code>[]</code></strong> is a shortcut for <a href="apiaux.html#getelement">getElement</a> function with the reference casting and makes simplify the sketch code and treats like an array with the elements placed on a custom Web page. Its argument is the name of the element to be acquired similarly to getElement function. In the sketch, by combining the <a href="apielements.html#ast62"><strong>AutoConnectElement::as&lt;T></strong></a> function with the operator <code>[]</code>, you can access the  AutoConnectElements reference according to its actual type. For example, the following sketch code returns the same as a reference of AutoConnectText element as the <code>caption</code>.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">portal.load(auxJson);</span>
+<span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text1</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text2</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+</span></pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Need cast to convert to the actual type</p>
+<p>An operator <code>[]</code> returns a referene of an AutoConnectElement. It is necessary to convert the type according to the actual element type with <a href="apielements.html#ast62">AutoConnectElement::as&lt;T></a> functon.
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectRadio</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectRadio</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectSelect</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectSelect</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+</pre></div></p>
+</div>
 <p>To get all the AutoConnectElements in an AutoConnectAux object use the <a href="apiaux.html#getelements"><strong>getElements</strong></a> function. This function returns the vector of the reference wrapper as <strong>AutoConnectElementVT</strong> to all AutoConnectElements registered in the AutoConnectAux.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </pre></div>
@@ -1722,7 +1727,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
       
     </div>
     
-      <script src="assets/javascripts/application.b806dc00.js"></script>
+      <script src="assets/javascripts/application.dc02f8ce.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
