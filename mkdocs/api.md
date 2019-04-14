@@ -296,7 +296,7 @@ Register the handler function for undefined URL request detected.
 
 ### <i class="fa fa-caret-right"></i> where
 ```cpp
-AutoConenctAux* where(void)
+AutoConenctAux& where(void)
 ```
 Returns a pointer to the AutoConnectAux object of the custom Web page that caused the request to the page.<br>
 AutoConnect identifies the URI (ie. the referrer URI) that caused the request each time from the client occurs and will save the URI If the request source is a custom Web page of AutoConnectAux. The **where** function returns a pointer of AutoConnectAux which is a URI of a least recent request from the custom Web page.<br>

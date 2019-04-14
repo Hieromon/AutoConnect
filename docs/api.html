@@ -1287,7 +1287,7 @@ Register the handler function for undefined URL request detected.
     <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd>
 </dl></p>
 <h3 id="where"><i class="fa fa-caret-right"></i> where<a class="headerlink" href="#where" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConenctAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">where(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConenctAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">where(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </pre></div>
 Returns a pointer to the AutoConnectAux object of the custom Web page that caused the request to the page.<br>
 AutoConnect identifies the URI (ie. the referrer URI) that caused the request each time from the client occurs and will save the URI If the request source is a custom Web page of AutoConnectAux. The <strong>where</strong> function returns a pointer of AutoConnectAux which is a URI of a least recent request from the custom Web page.<br>
