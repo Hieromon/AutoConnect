@@ -85,18 +85,15 @@ Install third-party platform using the *Boards Manager* of Arduino IDE. You can 
 <i class="fa fa-download"></i> <strong>Additional library (Required)</strong>
 
 The [PageBuilder](https://github.com/Hieromon/PageBuilder) library to build HTML for ESP8266WebServer is needed.  
-To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required **1.3.2** **later**.[^1]
-[^1]:Since AutoConnect v0.9.7, PageBuilder v1.3.2 later is required.
+To install the PageBuilder library into your Arduino IDE, you can use the *Library Manager*. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '**PageBuilder**' with the topic '**Communication**', then you can see the *PageBuilder*. The latest version is required **1.3.3** **later**.[^1]
+[^1]:Since AutoConnect v0.9.8, PageBuilder v1.3.3 later is required.
 
 <img src="images/lm.png" width="640"/>
 
 <i class="fa fa-download"></i> <strong>Additional library (Optional)</strong>
 
-By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, AutoConnect will be able to handle the [**custom Web pages**](acintro.md) described with JSON. With AutoConnect v0.9.7 you can insert user-owned web pages that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. [ArduinoJson version 5](https://arduinojson.org/v5/doc/) is required to use this feature.[^2]
+By adding the [ArduinoJson](https://github.com/bblanchon/ArduinoJson) library, AutoConnect will be able to handle the [**custom Web pages**](acintro.md) described with JSON. Since AutoConnect v0.9.7 you can insert user-owned web pages that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. [ArduinoJson](https://arduinojson.org/) is required to use this feature.[^2] AutoConnect can work with ArduinoJson both [version 5](https://arduinojson.org/v5/doc/) and [version 6](https://arduinojson.org/v6/doc/).
 [^2]:Using the AutoConnect API natively allows you to sketch custom Web pages without JSON.
-
-!!! info "AutoConnect supports ArduinoJson version 5 only"
-    ArduinoJson version 6 is just released, Arduino Library Manager installs the ArduinoJson version 6 by default. Open the Arduino Library Manager and make sure that ArduinoJson version 5 is installed.
 
 ### Install the AutoConnect
 

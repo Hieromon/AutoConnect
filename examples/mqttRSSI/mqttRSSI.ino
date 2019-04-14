@@ -173,6 +173,7 @@ String  userKey;
 String  apiKey;
 String  apid;
 String  hostName;
+bool  uniqueid;
 unsigned int  updateInterval = 0;
 unsigned long lastPub = 0;
 
@@ -227,14 +228,32 @@ int getStrength(uint8_t points) {
   return points ? static_cast<int>(rssi / points) : 0;
 }
 
+void getParams(AutoConnectAux& aux) {
+  serverName = aux["mqttserver"].value;
+  serverName.trim();
+  channelId = aux["channelid"].value;
+  channelId.trim();
+  userKey = aux["userkey"].value;
+  userKey.trim();
+  apiKey = aux["apikey"].value;
+  apiKey.trim();
+  AutoConnectRadio& period = aux["period"].as<AutoConnectRadio>();
+  updateInterval = period.value().substring(0, 2).toInt() * 1000;
+  uniqueid = aux["uniqueid"].as<AutoConnectCheckbox>().checked;
+  hostName = aux["hostname"].value;
+  hostName.trim();
+}
+
 // Load parameters saved with  saveParams from SPIFFS into the
 // elements defined in /mqtt_setting JSON.
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
   File param = SPIFFS.open(PARAM_FILE, "r");
   if (param) {
-    if (aux.loadElement(param))
+    if (aux.loadElement(param)) {
+      getParams(aux);
       Serial.println(PARAM_FILE " loaded");
+    }
     else
       Serial.println(PARAM_FILE " failed to load");
     param.close();
@@ -256,42 +275,19 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The 'where()' function returns the AutoConnectAux that caused
   // the transition to this page.
-  AutoConnectAux*   mqtt_setting = portal.where();
-
-  AutoConnectInput& mqttserver = mqtt_setting->getElement<AutoConnectInput>("mqttserver");
-  serverName = mqttserver.value;
-  serverName.trim();
-
-  AutoConnectInput& channelid = mqtt_setting->getElement<AutoConnectInput>("channelid");
-  channelId = channelid.value;
-  channelId.trim();
-
-  AutoConnectInput& userkey = mqtt_setting->getElement<AutoConnectInput>("userkey");
-  userKey = userkey.value;
-  userKey.trim();
-
-  AutoConnectInput& apikey = mqtt_setting->getElement<AutoConnectInput>("apikey");
-  apiKey = apikey.value;
-  apiKey.trim();
-
-  AutoConnectRadio& period = mqtt_setting->getElement<AutoConnectRadio>("period");
-  updateInterval = period.value().substring(0, 2).toInt() * 1000;
-
-  bool uniqueid = mqtt_setting->getElement<AutoConnectCheckbox>("uniqueid").checked;
-
-  AutoConnectInput& hostname = mqtt_setting->getElement<AutoConnectInput>("hostname");
-  hostName = hostname.value;
-  hostName.trim();
+  AutoConnectAux&   mqtt_setting = portal.where();
+  getParams(mqtt_setting);
+  AutoConnectInput& mqttserver = mqtt_setting["mqttserver"].as<AutoConnectInput>();
 
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
   File param = SPIFFS.open(PARAM_FILE, "w");
-  mqtt_setting->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "hostname" });
+  mqtt_setting.saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "period", "hostname" });
   param.close();
 
   // Echo back saved parameters to AutoConnectAux page.
-  AutoConnectText&  echo = aux.getElement<AutoConnectText>("parameters");
+  AutoConnectText&  echo = aux["parameters"].as<AutoConnectText>();
   echo.value = "Server: " + serverName;
   echo.value += mqttserver.isValid() ? String(" (OK)") : String(" (ERR)");
   echo.value += "<br>Channel ID: " + channelId + "<br>";
@@ -354,15 +350,15 @@ void setup() {
   SPIFFS.begin();
 
   if (portal.load(FPSTR(AUX_mqtt_setting))) {
-    AutoConnectAux* mqtt_setting = portal.aux(AUX_SETTING_URI);
-    AutoConnectCheckbox&  uniqueidElm = mqtt_setting->getElement<AutoConnectCheckbox>("uniqueid");
-    AutoConnectInput&     hostnameElm = mqtt_setting->getElement<AutoConnectInput>("hostname");
-    if (uniqueidElm.checked) {
+    AutoConnectAux& mqtt_setting = *portal.aux(AUX_SETTING_URI);
+    PageArgument  args;
+    loadParams(mqtt_setting, args);
+    if (uniqueid) {
       config.apid = String("ESP") + "-" + String(GET_CHIPID(), HEX);
       Serial.println("apid set to " + config.apid);
     }
-    if (hostnameElm.value.length()) {
-      config.hostName = hostnameElm.value;
+    if (hostName.length()) {
+      config.hostName = hostName;
       Serial.println("hostname set to " + config.hostName);
     }
     config.bootUri = AC_ONBOOTURI_HOME;
@@ -382,10 +378,7 @@ void setup() {
   }
   else {
     Serial.println("connection failed:" + String(WiFi.status()));
-    while (1) {
-      delay(100);
-      yield();
-    }
+    Serial.println("Needs WiFi connection to start publishing messages");
   }
 
   WiFiWebServer&  webServer = portal.host();
@@ -394,16 +387,19 @@ void setup() {
 }
 
 void loop() {
-  portal.handleClient();
-  if (updateInterval > 0) {
-    if (millis() - lastPub > updateInterval) {
-      if (!mqttClient.connected()) {
-        mqttConnect();
+  if (WiFi.status() == WL_CONNECTED) {
+    // MQTT publish control
+    if (updateInterval > 0) {
+      if (millis() - lastPub > updateInterval) {
+        if (!mqttClient.connected()) {
+          mqttConnect();
+        }
+        String item = String("field1=") + String(getStrength(7));
+        mqttPublish(item);
+        mqttClient.loop();
+        lastPub = millis();
       }
-      String item = String("field1=") + String(getStrength(7));
-      mqttPublish(item);
-      mqttClient.loop();
-      lastPub = millis();
     }
   }
+  portal.handleClient();
 }

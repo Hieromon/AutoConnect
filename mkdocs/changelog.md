@@ -1,3 +1,13 @@
+#### [0.9.8] Apr. 25, 2019
+- Supports ArduinoJson 6.9.1 or later.
+- Supports allocating JsonDocument buffer to PSRAM on ESP32 with ArduinoJson 6.10.0 or later.
+- Supports [**operator`[]`**](apiaux.md#operator) as a shortcut for AutoConnectAux::getElement function.
+- Supports [**AutoConnectElement::as<T\>**](apielements.md#ast62) function to easily coding for conversion from an AutoConnectElement to an actual type.
+- Supports new element type [**AutoConnectFile**](acelements.md#autoconnectfile) and built-in file uploader.
+- Supports a [**format attribute**](acelements.md#format) with the AutoConnectText element.
+- Fixed blank page responds with Configure new.
+- Changed menu labels placement in source files structure.
+
 #### [0.9.7] Jan. 25, 2019
 
 - Fixed crash in some environments. Thank you @ageurtse

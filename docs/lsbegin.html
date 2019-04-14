@@ -38,15 +38,15 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
-        <title>Appendix - AutoConnect for ESP8266/ESP32</title>
+        <title>Inside AutoConnect::begin - AutoConnect for ESP8266/ESP32</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.3020aac5.css">
       
         <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+      <script src="assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -164,7 +164,7 @@
               AutoConnect for ESP8266/ESP32
             </span>
             <span class="md-header-nav__topic">
-              Appendix
+              Inside AutoConnect::begin
             </span>
           
         </div>
@@ -228,81 +228,6 @@
       
         
       
-      
-        
-
-<nav class="md-tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href="index.html" title="Overview" class="md-tabs__link md-tabs__link--active">
-        Overview
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
-          Custom Web pages
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="api.html" title="Library APIs" class="md-tabs__link">
-          Library APIs
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="howtoembed.html" title="Examples" class="md-tabs__link">
-          Examples
-        </a>
-      
-    </li>
-  
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </ul>
-  </div>
-</nav>
       
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
@@ -638,17 +563,38 @@
   
 
 
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Appendix
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Appendix
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
   <li class="md-nav__item md-nav__item--active">
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Appendix
+        Inside AutoConnect::begin
       </label>
     
-    <a href="lsbegin.html" title="Appendix" class="md-nav__link md-nav__link--active">
-      Appendix
+    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link md-nav__link--active">
+      Inside AutoConnect::begin
     </a>
     
       
@@ -674,6 +620,35 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
+      Saved credentail access
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+      File upload handler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -755,10 +730,10 @@
               
                 
                 
-                  <h1>Appendix</h1>
+                  <h1>Inside AutoConnect::begin</h1>
                 
                 <h2 id="autoconnectbegin-logic-sequence">AutoConnect::begin logic sequence<a class="headerlink" href="#autoconnectbegin-logic-sequence" title="Permanent link">&para;</a></h2>
-<p>Several parameters as follows of <a href="apiconfig.html">AutoConnectConfig</a> affect the behavior of <a href="api.html#begin">AutoConnect::begin</a> function. Each parameter affects the behaves in interacted order with the priority and apply to the logic sequence of AutoConnect::begin.</p>
+<p>Several parameters as follows of <a href="apiconfig.html">AutoConnectConfig</a> affect the behavior of <a href="api.html#begin">AutoConnect::begin</a> function. Each parameter affects the behaves in interacted order with the priority and apply to the logic sequence of <a href="api.html#begin">AutoConnect::begin</a>.</p>
 <ul>
 <li><a href="apiconfig.html#immediatestart">immediateStart</a> : The captive portal start immediately, without first WiFi.begin.</li>
 <li><a href="apiconfig.html#autoreconnect">autoReconenct</a> : Attempt re-connect with past SSID by saved credential.</li>
@@ -767,9 +742,9 @@
 </ul>
 <p>You can use these parameters in combination with sketch requirements and need to understand correctly the behavior caused by the parameters. The following chart shows the AutoConnect::begin logic sequence including the effect of these parameters.</p>
 <p><img align="center" src="images/process_begin.svg"></p>
-<p>For example, AutoConnect::begin will not exits without the <strong>portalTimeout</strong> while the connection not establishes, but WebServer will start to work. A DNS server that detects the probe of the captive portal is also effective. So, your sketch may work seemingly, but it will close with inside a loop of the AutoConnect::begin function. Especially when invoking AutoConnect::begin in the <strong>setup()</strong>, execution control does not pass to the <strong>loop()</strong>.</p>
-<p>As different scenes, you may use the <strong>immediateStart</strong> effectively. Equipped the external switch to activate the captive portal with the ESP module, combined with the <strong>portalTime</strong> and the <strong>retainPortal</strong> it will become WiFi active connection feature. You can start AutoConnect::begin at any point in the <strong>loop()</strong>, which allows your sketch can behave both the offline mode and the online mode.</p>
-<p>The <strong>retainPortal</strong> option allows the DNS server to continue operation after exiting from AutoConnect::begin. AutoConnect traps captive portal detection from the client and redirects it to the AutoConnect menu. That trap will answer all unresolved addresses with SoftAP's IP address. If the URI handler for the source request is undefined, it returns a 302 response with <code>SoftAPIP/_ac</code> to the client. This is the mechanism of AutoConnect's captive portal. Captive portal probes will frequently occur while you are attempting on the client device's WiFi connection Apps and these implementations are varied each OS, so it not realistic to identify all probing URIs. Therefore, while retainPortal is enabled, it is not preferable to executing the sketch under the WiFi connection Apps on the client device. (Probably not work correctly) You need to exit from the WiFi connection Apps once.</p>
+<p>For example, <a href="api.html#begin">AutoConnect::begin</a> will not exits without the <a href="apiconfig.html#portaltimeout"><strong>portalTimeout</strong></a> while the connection not establishes, but WebServer will start to work. A DNS server that detects the probe of the captive portal is also effective. So, your sketch may work seemingly, but it will close with inside a loop of the <a href="api.html#begin">AutoConnect::begin</a> function. Especially when invoking <a href="api.html#begin">AutoConnect::begin</a> in the <strong>setup()</strong>, execution control does not pass to the <strong>loop()</strong>.</p>
+<p>As different scenes, you may use the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> effectively. Equipped the external switch to activate the captive portal with the ESP module, combined with the <a href="apiconfig.html#portaltimeout"><strong>portalTime</strong></a> and the <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> it will become WiFi active connection feature. You can start <a href="api.html#begin">AutoConnect::begin</a> at any point in the <strong>loop()</strong>, which allows your sketch can behave both the offline mode and the online mode.</p>
+<p>The <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> option allows the DNS server to continue operation after exiting from <a href="api.html#begin">AutoConnect::begin</a>. AutoConnect traps captive portal detection from the client and redirects it to the AutoConnect menu. That trap will answer all unresolved addresses with SoftAP's IP address. If the URI handler for the source request is undefined, it returns a 302 response with <code>SoftAPIP/_ac</code> to the client. This is the mechanism of AutoConnect's captive portal. Captive portal probes will frequently occur while you are attempting on the client device's WiFi connection Apps and these implementations are varied each OS, so it not realistic to identify all probing URIs. Therefore, while retainPortal is enabled, it is not preferable to executing the sketch under the WiFi connection Apps on the client device. (Probably not work correctly) You need to exit from the WiFi connection Apps once.</p>
 <p>Please consider these kinds of influence when you make sketches.</p>
 <div class="admonition info">
 <p class="admonition-title">The AutoConnect::begin 3<sup>rd</sup> parameter</p>
@@ -810,13 +785,13 @@
           </a>
         
         
-          <a href="faq.html" title="FAQ" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="credit.html" title="Saved credentail access" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                FAQ
+                Saved credentail access
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -857,7 +832,7 @@
       
     </div>
     
-      <script src="assets/javascripts/application.b806dc00.js"></script>
+      <script src="assets/javascripts/application.dc02f8ce.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       

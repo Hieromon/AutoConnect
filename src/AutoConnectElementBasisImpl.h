@@ -2,20 +2,22 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-12-29
+ * @version  0.9.8
+ * @date 2019-03-11
  * @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTELEMENTBASISIMPL_H_
 #define _AUTOCONNECTELEMENTBASISIMPL_H_
 
-#include "AutoConnectElementBasis.h"
+#include <stdlib.h>
+#include <stdio.h>
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <regex.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <regex>
 #endif
+#include "AutoConnectElementBasis.h"
 
 /**
  * Generate an HTML <button> element. The onclick behavior depends on
@@ -44,6 +46,48 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
     html += String(F(" id=\"")) + name + String(F("\"><label for=\"")) + name + String("\">") + label + String(F("</label"));
   html += String(F("><br>"));
   return html;
+}
+
+/**
+ * Generate an HTML <input type=file> element.
+ * The entered value can be obtained using the user callback function
+ * registered by AutoConnectAux::on after the form is sent in
+ * combination with AutoConnectSubmit.
+ * @return String  an HTML string.
+ */
+const String AutoConnectFileBasis::toHTML(void) const {
+  String  html = String("");
+
+  if (label.length())
+    html = String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
+  html += String(F("<input type=\"file\" id=\"")) + name + String(F("\" name=\"")) + name + String(F("\"><br>"));
+  return html;
+}
+
+/**
+ * Instantiate the upload handler with the specified store type.
+ * @param store An enumuration value of ACFile_t
+ */
+bool AutoConnectFileBasis::attach(const ACFile_t store) {
+  AutoConnectUploadFS*  handlerFS;
+  AutoConnectUploadSD*  handlerSD;
+
+  // Release previous handler
+  detach();
+  // Classify a handler type and create the corresponding handler
+  switch (store) {
+  case AC_File_FS:
+    handlerFS = new AutoConnectUploadFS(SPIFFS);
+    _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerFS));
+    break;
+  case AC_File_SD:
+    handlerSD = new AutoConnectUploadSD(SD);
+    _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerSD));
+    break;
+  case AC_File_Extern:
+    break;
+  }
+  return _upload != false;
 }
 
 /**
@@ -208,7 +252,23 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
  * @return String  an HTML string.
  */
 const String AutoConnectTextBasis::toHTML(void) const {
-  return String(F("<div style=\"")) + style + String("\">") + value + String(F("</div>"));
+  String  html = String("<div");
+  String  value_f = value;
+
+  if (style.length())
+    html += String(F(" style=\"")) + style + String("\"");
+  html += String(">");
+  if (format.length()) {
+    int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
+    char* buffer;
+    if ((buffer = (char*)malloc(buflen))) {
+      snprintf(buffer, buflen, format.c_str(), value.c_str());
+      value_f = String(buffer);
+      free(buffer);
+    }
+  }
+  html += value_f + String(F("</div>"));
+  return html;
 }
 
 #endif // _AUTOCONNECTELEMENTBASISIMPL_H_

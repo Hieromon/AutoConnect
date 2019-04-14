@@ -1,8 +1,8 @@
 # AutoConnect for ESP8266/ESP32
 
-[![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
-[![GitHub release](https://img.shields.io/github/release/Hieromon/AutoConnect.svg)](https://github.com/Hieromon/AutoConnect/releases)
 [![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg)](https://www.ardu-badge.com/AutoConnect)
+[![GitHub release](https://img.shields.io/github/release/Hieromon/AutoConnect.svg)](https://github.com/Hieromon/AutoConnect/releases)
+[![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
 
 An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface. 
 
@@ -95,6 +95,16 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [FAQ](https://hieromon.github.io/AutoConnect/faq.html).
 
 ## Change log
+
+### [0.9.8] Apr. 25, 2019
+- Supports ArduinoJson 6.9.1 or later.
+- Supports allocating JsonDocument buffer to PSRAM on ESP32 with ArduinoJson 6.10.0 or later.
+- Supports **operator`[]`** as a shortcut for AutoConnectAux::getElement function.
+- Supports **AutoConnectElement::as<T\>** function to easily coding for conversion from an AutoConnectElement to an actual type.
+- Supports new element type **AutoConnectFile** and built-in file uploader.
+- Supports a **format attribute** with the AutoConnectText element.
+- Fixed blank page responds with Configure new.
+- Changed menu labels placement in source files structure.
 
 ### [0.9.7] Feb. 25, 2019
 - Fixed crash in some environments. Thank you @ageurtse

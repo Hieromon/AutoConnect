@@ -159,6 +159,103 @@ Returns type of AutoConnectElement.
     <dd>AC_Element</dd>
 </dl>
 
+#### <i class="fa fa-caret-right"></i> as<T\>
+
+```cpp
+AutoConnectElement& as<T>(void)
+```
+Casts the reference to the AutoConnectElement the specified type.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">T</span><span class="apidesc">The element type. AutoConnectElements type such as [AutoConnectButton](apielements.md#autoconnectbutton), [AutoConnectCheckbox](apielements.md#autoconnectcheckbox), [AutoConnectFile](apielements.md#autoconnectfile), [AutoConnectInput](apielements.md#autoconnectinput), [AutoConnectRadio](apielements.md#autoconnectradio), [AutoConnectSelect](apielements.md#autoconnectselect), [AutoConnectSubmit](apielements.md#autoconnectsubmit), [AutoConnectText](apielements.md#autoconnecttext).</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A reference to the AutoConnectElement with actual type.</dd>
+</dl>
+
+## AutoConnectFile
+
+### <i class="fa fa-code"></i> Constructor
+
+```cpp
+AutoConnectFile(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS)
+```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">File name to be upload.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">store</span><span class="apidesc">The **ACFile_t** enumerator that represents the media to save the uploaded file.</span></dd>
+
+</dl>
+
+### <i class="fa fa-code"></i> Public member variables
+
+#### <i class="fa fa-caret-right"></i> name
+
+The element name.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+File name to be upload. The value contains the value entered by the client browser to the `#!html <input type="file">` tag and is read-only.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> label
+
+A label is an optional string. A label is always arranged on the left side of the file input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The file input box and the label are connected by the id attribute.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> store
+
+Specifies the save destination of the uploaded file. You can use the built-in uploader to save uploaded file to the flash of the ESP8266/ESP32 module or external SD media without writing a dedicated sketch code. It also supports saving to any destination using a custom uploader that inherits from the AutoConnectUploadHandler class.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">ACFile_t</span><span class="apidesc">
+        
+- **`AC_File_FS`** : Save the uploaded file to SPIFFS in the flash.
+- **`AC_File_SD`** : Save the uploaded file to SD.
+- **`AC_File_Extern`** : Save the file using your own upload handler.
+    </span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> mimeType
+
+The mime type of the upload file which included as Media type in the http post request. Set by the client (usually the browser) that requested the upload. It is determined by the file type as `application/octet-stream`, `text` etc. which is described in [IANA Media Type](https://www.iana.org/assignments/media-types/media-types.xhtml).
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> size
+
+Size of the uploading file.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">size_t</span><span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member functions
+
+#### <i class="fa fa-caret-right"></i> typeOf
+
+```cpp
+ACElement_t typeOf(void)
+```
+Returns type of AutoConnectFile.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>AC_File</dd>
+</dl>
+
 ## AutoConnectInput
 
 ### <i class="fa fa-code"></i> Constructor
@@ -324,7 +421,7 @@ void add(const String& value)
 ```
 Adds an option for the radio button.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd>
 </dl>
 
@@ -335,7 +432,7 @@ void check(const String& value)
 ```
 Indicates the check of the specified option for the radio buttons. You can use the **check** function for checking dynamically with arbitrary of the radio button.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">value</span><span class="apidesc">An option string to be checked.</span></dd>
 </dl>
 
@@ -346,7 +443,7 @@ void empty(const size_t reserve = 0)
 ```
 Clear the array of option strings that AutoConnectRadio has in the values. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd>
 </dl>
 
@@ -357,7 +454,7 @@ const String& operator[] (const std::size_t n)
 ```
 Returns a value string of the index specified by **_n_**.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">n</span><span class="apidesc">Index of values array to return. Its base number is 0.</span></dd>
     <dt>**Return value**</dt>
     <dd>A reference of a value string indexed by the specified the **n**.</dd>
@@ -445,7 +542,7 @@ void add(const String& option)
 ```
 Adds a selectable option string for the selection list.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd>
 </dl>
 
@@ -456,7 +553,7 @@ void empty(const size_t reserve = 0)
 ```
 Clear the array of options list that AutoConnectSelect has in the options. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd>
 </dl>
 
@@ -467,7 +564,7 @@ const String& operator[] (const std::size_t n)
 ```
 Returns an option string of the index specified by **_n_**.
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt>**Parameter**</dt>
     <dd><span class="apidef">n</span><span class="apidesc">Index of options array to return. Its base number is 0.</span></dd>
     <dt>**Return value**</dt>
     <dd>A reference of a option string indexed by the specified the **n**.</dd>
@@ -543,13 +640,14 @@ Returns type of AutoConnectElement.
 ### <i class="fa fa-code"></i> Constructor
 
 ```cpp
-AutoConnectText(const char* name = "", const char* value = "", const char* style = "")
+AutoConnectText(const char* name = "", const char* value = "", const char* style = "", const char* format = "")
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">String of content for the text element.</span></dd>
     <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the text.</span></dd>
+    <dd><span class="apidef">format</span><span class="apidesc">A pointer to a null-terminated multibyte string specifying how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to C-style printf library functions</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -573,6 +671,14 @@ A content string of the text element.
 #### <i class="fa fa-caret-right"></i> style
 
 A style code with CSS format that qualifiers the text.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> format
+
+The conversion format when outputting values. The format string conforms to C-style printf library functions.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>

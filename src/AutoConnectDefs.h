@@ -124,8 +124,42 @@
 
 // Reserved buffer size to build content
 #ifndef AUTOCONNECT_CONTENTBUFFER_SIZE
-#define AUTOCONNECT_CONTENTBUFFER_SIZE  0
+#define AUTOCONNECT_CONTENTBUFFER_SIZE  (13 * 1024)
 #endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
+
+// Number of unit lines in the page that lists available SSIDs
+#ifndef AUTOCONNECT_SSIDPAGEUNIT_LINES
+#define AUTOCONNECT_SSIDPAGEUNIT_LINES  5
+#endif // !AUTOCONNECT_SSIDPAGEUNIT_LINES
+
+// SD pin assignment for AutoConnectFile
+#ifndef AUTOCONNECT_SD_CS
+#if defined(ARDUINO_ARCH_ESP8266)
+#define AUTOCONNECT_SD_CS       SD_CHIP_SELECT_PIN
+#elif defined(ARDUINO_ARCH_ESP32)
+#define AUTOCONNECT_SD_CS       SS
+#endif
+#endif // !AUTOCONNECT_SD_CS
+
+// SPI transfer speed for SD
+#ifndef AUTOCONNECT_SD_SPEED
+#if defined(ARDUINO_ARCH_ESP8266)
+#define AUTOCONNECT_SD_SPEED    SPI_HALF_SPEED
+#elif defined(ARDUINO_ARCH_ESP32)
+#define AUTOCONNECT_SD_SPEED    4000000
+#endif
+#endif // !AUTOCONNECT_SD_SPEED
+
+// ArduinoJson buffer size
+#ifndef AUTOCONNECT_JSONBUFFER_SIZE
+#define AUTOCONNECT_JSONBUFFER_SIZE     256
+#endif // !AUTOCONNECT_JSONBUFFER_SIZE
+#ifndef AUTOCONNECT_JSONDOCUMENT_SIZE
+#define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)
+#endif // !AUTOCONNECT_JSONDOCUMENT_SIZE
+#ifndef AUTOCONNECT_JSONPSRAM_SIZE
+#define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
+#endif // !AUTOCONNECT_JSONPSRAM_SIZE
 
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)

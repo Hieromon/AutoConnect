@@ -30,7 +30,10 @@ nav:
     - 'Tips for data conversion': datatips.md
     - 'Attach the menu': menuize.md
     - 'Custom Web pages w/o JSON': wojson.md
-  - 'Appendix': lsbegin.md
+  - 'Appendix':
+    - 'Inside AutoConnect::begin': lsbegin.md
+    - 'Saved credentail access': credit.md
+    - 'File upload handler': acupload.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
   - 'License' : license.md
@@ -48,7 +51,7 @@ use_directory_urls: false
 theme:
   name: 'material'
   feature:
-    tabs: true
+    tabs: false
   language: 'en'
   logo: 'images/arduino-logo.svg'
   palette:

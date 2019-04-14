@@ -77,7 +77,21 @@ T& AutoConenctAux::getElement<T>(const String& name)
 AutoConnectElementVT* AutoConnectAux::getElements(void)
 ```
 
-The [**getElement**](apiaux.md#getelement) function returns an AutoConnectElement with the specified name as a key. When you use this function, you need to know the type of AutoConnectElement in advance. To retrieve an AutoConnectElement by specifying its type, use the following method.
+The [**getElement**](apiaux.md#getelement) function returns an AutoConnectElement with the specified name as a key. When you use this function, you need to know the type of AutoConnectElement in advance and specify its type <T\> to an argument of the getElement. A type of <T\> can be specified as follows.
+
+```cpp
+AutoConnectButton& AutoConnectAux::getElement<AutoConnectButton>(const String& name)
+AutoConnectCheckbox& AutoConnectAux::getElement<AutoConnectCheckbox>(const String& name)
+AutoConnectElement& AutoConnectAux::getElement<AutoConnectElement>(const String& name)
+AutoConnectFile& AutoConnectAux::getElement<AutoConnectFile>(const String& name)
+AutoConnectInput& AutoConnectAux::getElement<AutoConnectInput>(const String& name)
+AutoConnectRadio& AutoConnectAux::getElement<AutoConnectRadio>(const String& name)
+AutoConnectSelect& AutoConnectAux::getElement<AutoConnectSelect>(const String& name)
+AutoConnectSubmit& AutoConnectAux::getElement<AutoConnectSubmit>(const String& name)
+AutoConnectText& AutoConnectAux::getElement<AutoConnectText>(const String& name)
+```
+
+To retrieve an AutoConnectElement by specifying its type, use the following method.
 
 ```cpp
 AutoConnectAux  aux;
@@ -100,6 +114,30 @@ AutoConnectAux* aux = portal.aux("/page1");  // Identify the AutoConnectAux inst
 AutoConenctText& text = aux->getElement<AutoConnectText>("caption");  // Cast to real type and access members
 Serial.println(text.value);
 ```
+
+You can also use the [operator **`[]`** of AutoConnectAux](apiaux.md#operator) as another way to get the desired element. An operator **`[]`** is a shortcut for [getElement](apiaux.md#getelement) function with the reference casting and makes simplify the sketch code and treats like an array with the elements placed on a custom Web page. Its argument is the name of the element to be acquired similarly to getElement function. In the sketch, by combining the [**AutoConnectElement::as<T\>**](apielements.md#ast62) function with the operator `[]`, you can access the  AutoConnectElements reference according to its actual type. For example, the following sketch code returns the same as a reference of AutoConnectText element as the `caption`.
+
+```cpp hl_lines="4 5"
+AutoConnect portal;
+portal.load(auxJson);
+AutoConnectAux&  aux = *portal.aux("/page1");
+AutoConnectText& text1 = aux.getElement<AutoConnectElement>("caption");
+AutoConnectText& text2 = aux["caption"].as<AutoConnectText>();
+```
+
+!!! note "Need cast to convert to the actual type"
+    An operator `[]` returns a referene of an AutoConnectElement. It is necessary to convert the type according to the actual element type with [AutoConnectElement::as<T\>](apielements.md#ast62) functon.
+    ```cpp
+    AutoConnectButton& AutoConnectElement::as<AutoConnectButton>()
+    AutoConnectCheckbox& AutoConnectElement::as<AutoConnectCheckbox>()
+    AutoConnectElement& AutoConnectElement::as<AutoConnectElement>()
+    AutoConnectFile& AutoConnectElement::as<AutoConnectFile>()
+    AutoConnectInput& AutoConnectElement::as<AutoConnectInput>()
+    AutoConnectRadio& AutoConnectElement::as<AutoConnectRadio>()
+    AutoConnectSelect& AutoConnectElement::as<AutoConnectSelect>()
+    AutoConnectSubmit& AutoConnectElement::as<AutoConnectSubmit>()
+    AutoConnectText& AutoConnectElement::as<AutoConnectText>()
+    ```
 
 To get all the AutoConnectElements in an AutoConnectAux object use the [**getElements**](apiaux.md#getelements) function. This function returns the vector of the reference wrapper as **AutoConnectElementVT** to all AutoConnectElements registered in the AutoConnectAux.
 

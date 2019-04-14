@@ -1,0 +1,1322 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/acupload.html">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>File upload handler - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.3020aac5.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#uploading-file-from-web-browser" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+          
+            <img src="images/arduino-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              File upload handler
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+      
+        <img src="images/arduino-logo.svg" width="48" height="48">
+      
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+      AutoConnect menu
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+      Basic usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+      Custom Web pages with AutoConnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+      AutoConnectAux API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+      AutoConnectElements API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" checked>
+    
+    <label class="md-nav__link" for="nav-9">
+      Appendix
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Appendix
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+      Inside AutoConnect::begin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
+      Saved credentail access
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        File upload handler
+      </label>
+    
+    <a href="acupload.html" title="File upload handler" class="md-nav__link md-nav__link--active">
+      File upload handler
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-file-from-web-browser" title="Uploading file from Web Browser" class="md-nav__link">
+    Uploading file from Web Browser
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-steps-of-the-file-upload-sketch" title="Basic steps of the file upload sketch" class="md-nav__link">
+    Basic steps of the file upload sketch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-will-the-file-upload" title="Where will the file upload" class="md-nav__link">
+    Where will the file upload
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-it-will-be-uploaded" title="When it will be uploaded" class="md-nav__link">
+    When it will be uploaded
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-file-name-for-the-uploaded-file" title="The file name for the uploaded file" class="md-nav__link">
+    The file name for the uploaded file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-to-a-device-other-than-flash-or-sd" title="Upload to a device other than Flash or SD" class="md-nav__link">
+    Upload to a device other than Flash or SD
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upload-handler-base-class" title=" Upload handler base class" class="md-nav__link">
+     Upload handler base class
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#member-functions" title=" Member functions" class="md-nav__link">
+     Member functions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-custom-upload-handler" title=" Register custom upload handler" class="md-nav__link">
+     Register custom upload handler
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
+      Change log
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license.html" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-file-from-web-browser" title="Uploading file from Web Browser" class="md-nav__link">
+    Uploading file from Web Browser
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-steps-of-the-file-upload-sketch" title="Basic steps of the file upload sketch" class="md-nav__link">
+    Basic steps of the file upload sketch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-will-the-file-upload" title="Where will the file upload" class="md-nav__link">
+    Where will the file upload
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-it-will-be-uploaded" title="When it will be uploaded" class="md-nav__link">
+    When it will be uploaded
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-file-name-for-the-uploaded-file" title="The file name for the uploaded file" class="md-nav__link">
+    The file name for the uploaded file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-to-a-device-other-than-flash-or-sd" title="Upload to a device other than Flash or SD" class="md-nav__link">
+    Upload to a device other than Flash or SD
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#upload-handler-base-class" title=" Upload handler base class" class="md-nav__link">
+     Upload handler base class
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#member-functions" title=" Member functions" class="md-nav__link">
+     Member functions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-custom-upload-handler" title=" Register custom upload handler" class="md-nav__link">
+     Register custom upload handler
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>File upload handler</h1>
+                
+                <h2 id="uploading-file-from-web-browser">Uploading file from Web Browser<a class="headerlink" href="#uploading-file-from-web-browser" title="Permanent link">&para;</a></h2>
+<p>If you have to write some data individually to the ESP8266/ESP32 module for the sketch behavior, the <a href="acelements.html#autoconnectfile">AutoConnectFile</a> element will assist with your wants implementation. The AutoConnectFile element produces an HTML <code>&lt;input type="file"&gt;</code> tag and can save uploaded file to the flash or external SD of the ESP8266/ESP32 module. The handler for saving is built into AutoConnect. You can use it to inject any sketch data such as the initial values for the custom Web page into the ESP module via OTA without using the sketch data upload tool of Arduino-IDE.
+<p style="display:block;margin-left:auto;margin-right:auto;width:603px;height:368px;border:1px solid lightgray;"><img data-gifffer="images/upload.gif" data-gifffer-width="601" data-gifffer-height="366""/></p></p>
+<h2 id="basic-steps-of-the-file-upload-sketch">Basic steps of the file upload sketch<a class="headerlink" href="#basic-steps-of-the-file-upload-sketch" title="Permanent link">&para;</a></h2>
+<p>Here is the basic procedure of the sketch which can upload files from the client browser using AutoConnectFile:<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+<ol>
+<li>Place AutoConnectFile on a custom Web page by writing JSON or constructor code directly with the sketch.</li>
+<li>Place other AutoConnectElements as needed.</li>
+<li>Place AutoConnectSubmit on the same custom Web page.</li>
+<li>Perform the following process in the on-handler of submitting destination:<ul>
+<li>Retrieve the <a href="apielements.html#autoconnectfile">AutoConnectFile instance</a> from the custom Web page where you placed the AutoConnectFile element using the <a href="apiaux.html#getelement">AutoConnectAux::getElement</a> function or the <a href="apiaux.html#operator">operator []</a>.</li>
+<li>Start access to the device specified as the upload destination. In usually, it depends on the file system's begin function. For example, if you specified Flash's SPIFFS as the upload destination, invokes <em>SPIFFS.begin()</em>.</li>
+<li>The <a href="acelements.html#value_3">value member</a> of AutoConnectFile contains the file name of the upload file. Use its file name to access the uploaded file on the device.</li>
+<li>Invokes the end function associated with the begin to close the device. It is the <em>SPIFFS.end()*</em> if the flash on the ESP module has been begun for SPIFFS.</li>
+</ul>
+</li>
+</ol>
+<p>The following sketch is an example that implements the above basic steps. The <em>postUpload</em> function is the on-handler and retrieves the AutoConnectFile as named <code>upload_file</code>. You should note that this handler is <strong>not</strong> for a custom Web page placed with its AutoConnectFile element. The uploaded file should be processed by the handler for the transition destination page from the AutoConnectFile element placed page. AutoConnect built-in upload handler will save the uploaded file to the specified device before invoking the <em>postUpload</em> function.</p>
+<p>However, If you use uploaded files in different situations, it may be more appropriate to place the actual handling process outside the handler. It applies for the parameter file, etc. The important thing is that you do not have to sketch file reception and storing logic by using the AutoConnectFile element and the upload handler built into the AutoConnect.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;FS.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #75715e">// Upload request custom Web page</span>
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_UPLOAD[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Upload&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;caption&quot;, &quot;type&quot;:&quot;ACText&quot;, &quot;value&quot;:&quot;&lt;h2&gt;File uploading platform&lt;h2&gt;&quot; },</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">    { &quot;name&quot;:&quot;upload_file&quot;, &quot;type&quot;:&quot;ACFile&quot;, &quot;label&quot;:&quot;Select file: &quot;, &quot;store&quot;:&quot;fs&quot; },</span>
+</span><span style="color: #e6db74">    { &quot;name&quot;:&quot;upload&quot;, &quot;type&quot;:&quot;ACSubmit&quot;, &quot;value&quot;:&quot;UPLOAD&quot;, &quot;uri&quot;:&quot;/upload&quot; }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #75715e">// Upload result display</span>
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_BROWSE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/upload&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Upload&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;caption&quot;, &quot;type&quot;:&quot;ACText&quot;, &quot;value&quot;:&quot;&lt;h2&gt;Uploading ended&lt;h2&gt;&quot; },</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;filename&quot;, &quot;type&quot;:&quot;ACText&quot; },</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;size&quot;, &quot;type&quot;:&quot;ACText&quot;, &quot;format&quot;:&quot;%s bytes uploaded&quot; },</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;content_type&quot;, &quot;type&quot;:&quot;ACText&quot;, &quot;format&quot;:&quot;Content: %s&quot; }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>
+<span style="color: #75715e">// Declare AutoConnectAux separately as a custom web page to access</span>
+<span style="color: #75715e">// easily for each page in the post-upload handler.</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">auxUpload;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">auxBrowse;</span>
+
+<span style="color: #75715e">/**</span>
+<span style="color: #75715e"> * Post uploading, AutoConnectFile&#39;s built-in upload handler reads the</span>
+<span style="color: #75715e"> * file saved in SPIFFS and displays the file contents on /upload custom</span>
+<span style="color: #75715e"> * web page. However, only files with mime type uploaded as text are</span>
+<span style="color: #75715e"> * displayed. A custom web page handler is called after upload.</span>
+<span style="color: #75715e"> * @param  aux  AutoConnectAux(/upload)</span>
+<span style="color: #75715e"> * @param  args PageArgument</span>
+<span style="color: #75715e"> * @return Uploaded text content</span>
+<span style="color: #75715e"> */</span>
+<span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">postUpload</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">content;</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">upload</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">auxUpload[</span><span style="color: #e6db74">&quot;upload_file&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+</span>  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux_filename</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;filename&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux_size</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;size&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux_contentType</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;content_type&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+  <span style="color: #75715e">// Assignment operator can be used for the element attribute.</span>
+  <span style="color: #f8f8f2">aux_filename.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">upload.value;</span>
+  <span style="color: #f8f8f2">aux_size.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(upload.size);</span>
+  <span style="color: #f8f8f2">aux_contentType.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">upload.mimeType;</span>
+  <span style="color: #75715e">// The file saved by the AutoConnect upload handler is read from</span>
+  <span style="color: #75715e">// the EEPROM and echoed to a custom web page.</span>
+  <span style="color: #f8f8f2">SPIFFS.begin();</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">uploadFile</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(String(</span><span style="color: #e6db74">&quot;/&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">upload.value).c_str(),</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
+</span>  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(uploadFile)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(uploadFile.available())</span> <span style="color: #f8f8f2">{</span>
+<span style="background-color: #49483e">      <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">c</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">uploadFile.read();</span>
+</span>      <span style="color: #f8f8f2">Serial.print(c);</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="background-color: #49483e">    <span style="color: #f8f8f2">uploadFile.close();</span>
+</span>  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span>
+    <span style="color: #f8f8f2">content</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;Not saved&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">SPIFFS.end();</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">Serial.println();</span>
+
+  <span style="color: #f8f8f2">auxUpload.load(PAGE_UPLOAD);</span>
+  <span style="color: #f8f8f2">auxBrowse.load(PAGE_BROWSE);</span>
+  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">auxUpload,</span> <span style="color: #f8f8f2">auxBrowse</span> <span style="color: #f8f8f2">});</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">auxBrowse.on(postUpload);</span>
+</span>  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<h2 id="where-will-the-file-upload">Where will the file upload<a class="headerlink" href="#where-will-the-file-upload" title="Permanent link">&para;</a></h2>
+<p>The AutoConnect built-in upload handler can save the upload file to three locations:</p>
+<ol>
+<li>Flash memory embedded in the ESP8266/ESP32 module</li>
+<li>SD device externally connected to the ESP8266/ESP32 module</li>
+<li>Other character devices</li>
+</ol>
+<p>You can specify the device type to save with the <a href="acelements.html#store"><strong>store</strong></a> attribute of AutoConenctFile, and it accepts the following values:</p>
+<ul>
+<li>Flash : <code>AC_File_FS</code> for the API parameter or <code>fs</code> for the JSON document</li>
+<li>SD : <code>AC_File_SD</code> for the API parameter or <code>sd</code> for the JSON document</li>
+<li>Other : <code>AC_File_Extern</code> for the API parameter or <code>extern</code> for the JSON document</li>
+</ul>
+<p>The substance of AC_File_FS (fs) is a SPIFFS file system implemented by the ESP8266/ESP32 core, and then AutoConnect uses the Global Instance <strong>SPIFFS</strong> to access SPIFFS.</p>
+<p>Also, the substance of AC_File_SD (sd) is a FAT file of Arduino SD library ported to the ESP8266/ESP32 core, and then AutoConnect uses the Global Instance <strong>SD</strong> to access SD. When saving to an external SD device, there are additional required parameters for the connection interface and is defined as the macro in AutoConnectDefs.h.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_SD_CS       SS</span>
+<span style="color: #75715e">#define AUTOCONNECT_SD_SPEED    4000000</span>
+</pre></div>
+
+<p><code>AUTOCONNECT_SD_CS</code> defines which GPIO for the CS (Chip Select, or SS as Slave Select) pin. This definition is derived from pins_arduino.h, which is included in the Arduino core distribution. If you want to assign the CS pin to another GPIO, you need to change the macro definition of AutoConnectDefs.h.</p>
+<p><code>AUTOCONNECT_SD_SPEED</code> defines SPI clock speed depending on the connected device.</p>
+<div class="admonition info">
+<p class="admonition-title">Involves both the begin() and the end()</p>
+<p>The built-in uploader executes the begin and end functions regardless of the sketch whence the file system of the device will terminate with the uploader termination. Therefore, to use the device in the sketch after uploading, you need to <strong>restart it with the begin</strong> function.</p>
+</div>
+<h2 id="when-it-will-be-uploaded">When it will be uploaded<a class="headerlink" href="#when-it-will-be-uploaded" title="Permanent link">&para;</a></h2>
+<p>Upload handler will be launched by ESP8266WebServer/WebServer(as ESP32) library which is triggered by receiving an HTTP stream of POST BODY including file content. Its launching occurs before invoking the page handler.</p>
+<p>The following diagram illustrates the file uploading sequence:</p>
+<p><img src="images/ac_upload_flow.svg"></p>
+<p>At the time of the page handler behaves, the uploaded file already saved to the device, and the <a href="acelements.html#name_3">member variables</a> of AutoConnectFile reflects the file name and transfer size.</p>
+<h2 id="the-file-name-for-the-uploaded-file">The file name for the uploaded file<a class="headerlink" href="#the-file-name-for-the-uploaded-file" title="Permanent link">&para;</a></h2>
+<p>AutoConnetFile saves the uploaded file with the file name you selected by <code>&lt;input type="file"&gt;</code> tag on the browser. The file name used for uploading is stored in the AutoConnetFile's value member, which you can access after uploading. (i.e. In the handler of the destination page by the AutoConnectSubmit element.) You can not save it with a different name. It can be renamed after upload if you need to change the name.</p>
+<h2 id="upload-to-a-device-other-than-flash-or-sd">Upload to a device other than Flash or SD<a class="headerlink" href="#upload-to-a-device-other-than-flash-or-sd" title="Permanent link">&para;</a></h2>
+<p>You can output the file to any device using a custom uploader by specifying <a href="acjson.html#acfile"><strong>extern</strong></a> with the <a href="acjson.html#acfile">store</a> attribute of [AutoConnectFile (or specifying <a href="acelements.html#store"><strong>AC_File_Extern</strong></a> for the store member variable) and can customize the uploader according to the need to upload files to other than Flash or SD. Implements your own uploader with inheriting the <a href="#upload-handler-base-class"><strong>AutoConnectUploadHandler</strong></a> class which is the base class of the upload handler.</p>
+<div class="admonition note">
+<p class="admonition-title">It's not so difficult</p>
+<p>Implementing the custom uploader requires a little knowledge of the c++ language. If you are less attuned to programming c++, you may find it difficult. But don't worry. You can make it in various situations by just modifying the sketch skeleton that appears at the end of this page.</p>
+</div>
+<h3 id="upload-handler-base-class"><i class="fa fa-code"></i> Upload handler base class<a class="headerlink" href="#upload-handler-base-class" title="Permanent link">&para;</a></h3>
+<p>AutoConnectUploadHandler is a base class of upload handler and It has one public member function and three protected functions. </p>
+<h4 id="constructor"><i class="fa fa-caret-right"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h4>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectUploadHandler()</span>
+</pre></div>
+
+<h4 id="member-functions"><i class="fa fa-caret-right"></i> Member functions<a class="headerlink" href="#member-functions" title="Permanent link">&para;</a></h4>
+<p>The <strong>upload</strong> public function is an entry point, the ESP8266WebServer (WebServer as ESP32) library will invoke the upload with each time of uploading content divided into chunks. </p>
+<p>Also, the <strong>_open</strong>, <strong>_write</strong> and <strong>_close</strong> protected functions are actually responsible for saving files and are declared as pure virtual functions. A custom uploader class that inherits from the AutoConnectUploadHandler class need to implement these functions.</p>
+<p>The actual upload process is handled by the three private functions above, and then upload only invokes three functions according to the upload situation. In usually, there is no need to override the upload function in an inherited class.</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">upload(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">requestUri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">HTTPUpload</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">upload)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">requestUri</span><span class="apidesc">URI of upload request source.</span></dd>
+    <dd><span class="apidef">upload</span><span class="apidesc">A data structure of the upload file as <b>HTTPUpload</b>. It is defined in the ESP8266WebServer (WebServer as ESP32) library as follows:</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">typedef</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">HTTPUploadStatus</span> <span style="color: #f8f8f2">status;</span>
+  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">filename;</span>
+  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">name;</span>
+  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">type;</span>
+  <span style="color: #66d9ef">size_t</span>  <span style="color: #f8f8f2">totalSize;</span>
+  <span style="color: #66d9ef">size_t</span>  <span style="color: #f8f8f2">currentSize;</span>
+  <span style="color: #66d9ef">size_t</span>  <span style="color: #f8f8f2">contentLength;</span>
+  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">buf[HTTP_UPLOAD_BUFLEN];</span>
+<span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">HTTPUpload;</span>
+</pre></div>
+    </span></dd>
+</dl></p>
+<p>The upload handler needs to implement processing based on the enumeration value of HTTPUpload.status as <strong>HTTPUploadStatus</strong> enum type. HTTPUploadStatus enumeration is as follows:</p>
+<ul>
+<li><strong><code>UPLOAD_FILE_START</code></strong> : Invokes to the _open.</li>
+<li><strong><code>UPLOAD_FILE_WRITE</code></strong> : Invokes to the _write.</li>
+<li><strong><code>UPLOAD_FILE_END</code></strong> : Invokes to the _close.</li>
+<li><strong><code>UPLOAD_FILE_ABORTED</code></strong> : Invokes to the _close.</li>
+</ul>
+<p>The _open function will be invoked when HTTPUploadStatus is <strong>UPLOAD_FILE_START</strong>. Usually, the implementation of an inherited class will open the file.</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">protected</span> <span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">_open(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">filename,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">mode)</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">filename</span><span class="apidesc">Uploading file name.</span></dd>
+    <dd><span class="apidef">mode</span><span class="apidesc">An indicator for the file access mode, a "w" for writing.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">File open successful.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to open.</span></dd>
+</dl></p>
+<p>The _write function will be invoked when HTTPUploadStatus is <strong>UPLOAD_FILE_WRITE</strong>. The content of the upload file is divided and the _write will be invoked in multiple times. Usually, the implementation of an inherited class will write data.</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">protected</span> <span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">_write(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">buf,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size))</span><span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">buf</span><span class="apidesc">File content block.</span></dd>
+    <dd><span class="apidef">size</span><span class="apidesc">File block size to write.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>Size written.</dd>
+</dl></p>
+<p>The _close function will be invoked when HTTPUploadStatus is <strong>UPLOAD_FILE_END</strong> or <strong>UPLOAD_FILE_ABORTED</strong>. Usually, the implementation of an inherited class will close the file.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">protected</span> <span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">_close(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span>
+</pre></div>
+
+<p>For reference, the following AutoConnectUploadFS class is an implementation of AutoConnect built-in uploader and inherits from AutoConnectUploadHandler.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">class</span> <span style="color: #a6e22e">AutoConnectUploadFS</span> <span style="color: #f92672">:</span> <span style="color: #66d9ef">public</span> <span style="color: #f8f8f2">AutoConnectUploadHandler</span> <span style="color: #f8f8f2">{</span>
+ <span style="color: #66d9ef">public</span><span style="color: #f92672">:</span>
+  <span style="color: #66d9ef">explicit</span> <span style="color: #f8f8f2">AutoConnectUploadFS(SPIFFST</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">media)</span> <span style="color: #f92672">:</span> <span style="color: #f8f8f2">_media(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">media)</span> <span style="color: #f8f8f2">{}</span>
+  <span style="color: #f92672">~</span><span style="color: #f8f8f2">AutoConnectUploadFS()</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">_close();</span> <span style="color: #f8f8f2">}</span>
+
+ <span style="color: #66d9ef">protected</span><span style="color: #f92672">:</span>
+  <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">_open(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">filename,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">mode)</span> <span style="color: #66d9ef">override</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(_media</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">begin())</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">_file</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">_media</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">open(filename,</span> <span style="color: #f8f8f2">mode);</span>
+      <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">_file</span> <span style="color: #f92672">!=</span> <span style="color: #f8f8f2">false;</span>      
+    <span style="color: #f8f8f2">}</span>
+    <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">false;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">_write(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">buf,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size)</span> <span style="color: #66d9ef">override</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(_file)</span>
+      <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">_file.write(buf,</span> <span style="color: #f8f8f2">size);</span>
+    <span style="color: #66d9ef">else</span>
+      <span style="color: #66d9ef">return</span> <span style="color: #f92672">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">_close(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">override</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(_file)</span>
+      <span style="color: #f8f8f2">_file.close();</span>
+    <span style="color: #f8f8f2">_media</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">end();</span>
+  <span style="color: #f8f8f2">}</span>
+
+ <span style="color: #66d9ef">private</span><span style="color: #f92672">:</span>
+  <span style="color: #f8f8f2">SPIFFST</span><span style="color: #f92672">*</span>  <span style="color: #f8f8f2">_media;</span>
+  <span style="color: #f8f8f2">SPIFileT</span>  <span style="color: #f8f8f2">_file;</span> 
+<span style="color: #f8f8f2">};</span>
+</pre></div>
+
+<h3 id="register-custom-upload-handler"><i class="fa fa-code"></i> Register custom upload handler<a class="headerlink" href="#register-custom-upload-handler" title="Permanent link">&para;</a></h3>
+<p>In order to upload a file by the custom uploader, it is necessary to register it to the custom Web page beforehand. To register a custom uploader, specify the custom uploader class name in the template argument of the  <a href="apiaux.html#onupload">AutoConnectAux::onUpload</a> function and invokes it.</p>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">onUpload</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uploadClass)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">T</span><span class="apidesc">Specifies a class name of the custom uploader. This class name is a class that you implemented by inheriting AutoConnectUploadHandler for custom upload.</span></dd>
+    <dd><span class="apidef">uploadClass</span><span class="apidesc">Specifies the custom upload class instance.</span></dd>
+</dl></p>
+<p>The rough structure of the sketches that completed these implementations will be as follows:</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_UPLOAD[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Upload&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;caption&quot;, &quot;type&quot;:&quot;ACText&quot;, &quot;value&quot;:&quot;&lt;h2&gt;File uploading platform&lt;h2&gt;&quot; },</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;upload_file&quot;, &quot;type&quot;:&quot;ACFile&quot;, &quot;label&quot;:&quot;Select file: &quot;, &quot;store&quot;:&quot;extern&quot; },</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;upload&quot;, &quot;type&quot;:&quot;ACSubmit&quot;, &quot;value&quot;:&quot;UPLOAD&quot;, &quot;uri&quot;:&quot;/upload&quot; }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_RECEIVED[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/upload&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Upload ended&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    { &quot;name&quot;:&quot;caption&quot;, &quot;type&quot;:&quot;ACText&quot;, &quot;value&quot;:&quot;&lt;h2&gt;File uploading ended&lt;h2&gt;&quot; }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #75715e">// Custom upload handler class</span>
+<span style="color: #66d9ef">class</span> <span style="color: #a6e22e">CustomUploader</span> <span style="color: #f92672">:</span> <span style="color: #66d9ef">public</span> <span style="color: #f8f8f2">AutoConnectUploadHandler</span> <span style="color: #f8f8f2">{</span>
+<span style="color: #66d9ef">public</span><span style="color: #f92672">:</span>
+  <span style="color: #f8f8f2">CustomUploader()</span> <span style="color: #f8f8f2">{}</span>
+  <span style="color: #f92672">~</span><span style="color: #f8f8f2">CustomUploader()</span> <span style="color: #f8f8f2">{}</span>
+
+<span style="color: #66d9ef">protected</span><span style="color: #f92672">:</span>
+  <span style="color: #66d9ef">bool</span>   <span style="color: #f8f8f2">_open(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">filename,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">mode)</span> <span style="color: #66d9ef">override</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">size_t</span> <span style="color: #a6e22e">_write</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">buf,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size)</span> <span style="color: #66d9ef">override</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">void</span>   <span style="color: #a6e22e">_close</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">override</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">};</span>
+
+<span style="color: #75715e">// _open for custom open</span>
+<span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">_open(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">filename,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">mode)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// Here, an implementation for the open file.</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #75715e">// _open for custom write</span>
+<span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">_write(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">buf,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// Here, an implementation for the writing the file data.</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #75715e">// _open for custom close</span>
+<span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">_close(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// Here, an implementation for the close file.</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">AutoConnect</span>     <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">uploadPage;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">receivePage;</span>
+<span style="color: #f8f8f2">CustomUploader</span>  <span style="color: #f8f8f2">uploader;</span>   <span style="color: #75715e">// Declare the custom uploader</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">uploadPage.load(PAGE_UPLOAD);</span>
+  <span style="color: #f8f8f2">receivePage.load(PAGE_RECEIVED);</span>
+  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">uploadPage,</span> <span style="color: #f8f8f2">receivePage</span> <span style="color: #f8f8f2">});</span>
+  <span style="color: #f8f8f2">receivePage.onUpload</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(uploader);</span>  <span style="color: #75715e">// Register the custom uploader</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Don't forget to specify the store</p>
+<p>When using a custom uploader, remember to specify the <strong>extern</strong> for the store attribute of AutoConnectFile.</p>
+</div>
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>The AutoConnectFile element can be used with other AutoConnectElements on the same page.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="credit.html" title="Saved credentail access" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Saved credentail access
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="faq.html" title="FAQ" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                FAQ
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

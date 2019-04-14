@@ -5,6 +5,7 @@ Representative HTML elements for making the custom Web page are provided as Auto
 - [AutoConnectButton](#autoconnectbutton): Labeled action button
 - [AutoConnectCheckbox](#autoconnectcheckbox): Labeled checkbox
 - [AutoConnectElement](#autoconnectelement-a-basic-class-of-elements): General tag
+- [AutoConnectFile](#autoconnectfile): File uploader
 - [AutoConnectInput](#autoconnectinput): Labeled text input box
 - [AutoConnectRadio](#autoconnectradio): Labeled radio button
 - [AutoConnectSelect](#autoconnectselect): Selection list
@@ -63,6 +64,7 @@ The enumerators for *ACElement_t* are as follows:
 -  AutoConnectButton: **AC_Button**
 -  AutoConnectCheckbox: **AC_Checkbox** 
 -  AutoConnectElement: **AC_Element**
+-  AutoConnectFile: **AC_File**
 -  AutoConnectInput: **AC_Input**
 -  AutoConnectRadio: **AC_Radio**
 -  AutoConnectSelect: **AC_Select**
@@ -70,7 +72,21 @@ The enumerators for *ACElement_t* are as follows:
 -  AutoConnectText: **AC_Text**
 -  Uninitialized element: **AC_Unknown**
 
-Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must [re-interpret](https://en.cppreference.com/w/cpp/language/reinterpret_cast) that type with c++.
+Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must [re-interpret](https://en.cppreference.com/w/cpp/language/reinterpret_cast) that type with c++. Or, you can be coding the sketch more easily with using the [**as<T\>**](apielements.md#ast62) function.
+
+```cpp hl_lines="6"
+AutoConnectAux  customPage;
+
+AutoConnectElementVT& elements = customPage.getElements();
+for (AutoConnectElement& elm : elements) {
+  if (elm.type() == AC_Text) {
+    AutoConnectText& text = customPage[elm.name].as<AutoConnectText>();
+    text.style = "color:gray;";
+    // Or, it is also possible to write the code further reduced as follows.
+    // customPage[elm.name].as<AutoConnectText>().style = "color:gray;";
+  }
+}
+```
 
 ## AutoConnectButton
 
@@ -146,6 +162,44 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 ### <i class="fa fa-caret-right"></i> checked
 
 A checked is a Boolean value and indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent.
+
+## AutoConnectFile
+
+AutoConnectFile generates asn HTML `#!html <input type="file">` tag and a `#!html <label>` tag. AutoConnectFile enables file upload from the client through the web browser to ESP8266/ESP32 module. You can select the flash in the module, external SD device or any output destination as the storage of the uploaded file.
+
+<i class="fa fa-eye"></i> **Sample**<br>
+<small>**`AutoConnectFile file("file", "", "Upload:", AC_File_FS)`**</small>
+
+<small>On the page:</small><br><img src="images/acfile.png">
+
+### <i class="fa fa-edit"></i> Constructor
+
+```cpp
+AutoConnectFile(const char* name, const char* value, const char* label, const ACFile_t store)
+```
+
+### <i class="fa fa-caret-right"></i> name
+
+It is the `name` of the AutoConnectFile element and matches the name attribute of the input tag. It also becomes the parameter name of the query string when submitted.
+
+### <i class="fa fa-caret-right"></i> value
+
+File name to be upload. The value contains the value entered by the client browser to the `#!html <input type="file">` tag and is read-only. Even If you give a value to the constructor, it does not affect as an initial value like a default file name.
+
+### <i class="fa fa-caret-right"></i> label
+
+A `label` is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The input box and the label are connected by the id attribute.
+
+### <i class="fa fa-caret-right"></i> store
+
+Specifies the destination to save the uploaded file. The destination can be specified the following values ​​in the *ACFile_t* enumeration type.
+
+- **`AC_File_FS`** : Save as the SPIFFS file in flash of ESP8266/ESP32 module.
+- **`AC_File_SD`** : Save to an external SD device connected to ESP8266/ESP32 module.
+- **`AC_File_Extern`** : Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.
+
+!!! note "Built-in uploader is ready."
+    AutoConnect already equips the built-in uploader for saving to the SPIFFS as AC_File_FS and the external SD as AC_File_SD. It is already implemented inside AutoConnect and will store uploaded file automatically.
 
 ## AutoConnectInput
 
@@ -303,7 +357,7 @@ AutoConnectText generates an HTML `#!html <div>` tag. A `#!html style` attribute
 ### <i class="fa fa-edit"></i> Constructor
 
 ```cpp
-AutoConnectText(const char* name, const char* value, const char* style)
+AutoConnectText(const char* name, const char* value, const char* style, const char* format)
 ```
 
 ### <i class="fa fa-caret-right"></i> name
@@ -317,6 +371,10 @@ It becomes content and also can contain the native HTML code, but remember that 
 ### <i class="fa fa-caret-right"></i> style
 
 A `style` specifies the qualification style to give to the content and can use the style attribute format as it is.
+
+### <i class="fa fa-caret-right"></i> format
+
+A `format` is a pointer to a null-terminated multibyte string specifying how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to C-style printf library functions, but depends on the espressif sdk implementation. The conversion specification is valid only in **%s** format. (Left and Right justification, width are also valid.)
 
 ## How to coding for the elements
 
@@ -332,6 +390,8 @@ ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small
  
 ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **true** | **false** <small>\]</small> )
 
+ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_File\_FS** | **AC\_File\_SD** | **AC\_File\_Extern** <small>\]</small> )
+
 ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> )
 
 ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , **AC\_Horizontal** | **AC\_Vertical** <small>\]</small> <small>\[</small> , *checked* <small>\]</small> )
@@ -340,7 +400,7 @@ ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</sma
 
 ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> )
 
-ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> )
+ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> <small>\[</small> , *format* <small>\]</small> )
 
 !!! memo "Declaration macro usage"
     For example, *AutoConnectText* can be declared using macros.

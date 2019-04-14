@@ -14,6 +14,10 @@ Use [int()](https://www.arduino.cc/reference/en/language/variables/conversion/in
 AutoConnectInput& input = aux.getElement<AutoConnectInput>("INPUT");
 int value = input.value.toInt();
 ```
+You can shorten it and write as like:
+```cpp
+int value = aux["INPUT"].value.toInt();
+```
 
 ### <i class="fa fa-exchange"></i> Float
 
@@ -22,6 +26,10 @@ Use [float()](https://www.arduino.cc/reference/en/language/variables/conversion/
 ```cpp
 AutoConnectInput& input = aux.getElement<AutoConnectInput>("INPUT");
 float value = input.value.toFloat();
+```
+You can shorten it and write as like:
+```cpp
+float value = aux["INPUT"].value.toFloat();
 ```
 
 ### <i class="fa fa-exchange"></i> Date &amp; Time
@@ -36,7 +44,7 @@ The easiest way is to use the [Arduino Time Library](https://www.pjrc.com/teensy
 time_t tm;
 int Year, Month, Day, Hour, Minute, Second;
 
-AutoConnectInput& input = aux.getElement<AutoConnectInput>("INPUT");
+AutoConnectInput& input = aux.["INPUT"].as<AutoConnectInput>();
 sscanf(input.value.c_str(), "%d-%d-%d %d:%d:%d", &Year, &Month, &Day, &Hour, &Minute, &Second);
 tm.Year = CalendarYrToTm(Year);
 tm.Month = Month;
@@ -52,7 +60,7 @@ To convert a String to an IP address, use **IPAddress::fromString**. To stringiz
 
 ```cpp
 IPAddress ip;
-AutoConnectInput& input aux.getElement<AutoConnectInput>("INPUT");
+AutoConnectInput& input aux["INPUT"].as<AutoConnectInput>();
 ip.fromString(input.value);
 input.value = ip.toString();
 ```
@@ -108,9 +116,9 @@ static const char input_page[] PROGMEM = R"raw(
 AutoConnect portal;
 
 String checkIPAddress(AutoConnectAux& aux, PageArgument& args) {
-  AutoConnectAux* input_page = portal.aux("/");
-  AutoConnectInput& ipaddress = input_page->getElement<AutoConnectInput>("ipaddress");
-  AutoConnectText& result = aux.getElement<AutoConnectText>("result");
+  AutoConnectAux&   input_page = *portal.aux("/");
+  AutoConnectInput& ipaddress = input_page["ipaddress"].as<AutoConnectInput>();
+  AutoConnectText&  result = aux["result"].as<AutoConnectText>();
 
   if (ipaddress.isValid()) {
     result.value = "IP Address " + ipaddress.value + " is OK.";

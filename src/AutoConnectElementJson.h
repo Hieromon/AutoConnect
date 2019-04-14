@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-11-17
+ * @version  0.9.8
+ * @date 2019-03-11
  * @copyright  MIT license.
  */
 
@@ -13,31 +13,81 @@
 #include "AutoConnectElementBasis.h"
 #include <ArduinoJson.h>
 
-#define AUTOCONNECT_JSON_KEY_ACTION      "action"
-#define AUTOCONNECT_JSON_KEY_ARRANGE     "arrange"
-#define AUTOCONNECT_JSON_KEY_CHECKED     "checked"
-#define AUTOCONNECT_JSON_KEY_ELEMENT     "element"
-#define AUTOCONNECT_JSON_KEY_HORIZONTAL  "horizontal"
-#define AUTOCONNECT_JSON_KEY_LABEL       "label"
-#define AUTOCONNECT_JSON_KEY_MENU        "menu"
-#define AUTOCONNECT_JSON_KEY_NAME        "name"
-#define AUTOCONNECT_JSON_KEY_OPTION      "option"
-#define AUTOCONNECT_JSON_KEY_PATTERN     "pattern"
-#define AUTOCONNECT_JSON_KEY_PLACEHOLDER "placeholder"
-#define AUTOCONNECT_JSON_KEY_STYLE       "style"
-#define AUTOCONNECT_JSON_KEY_TITLE       "title"
-#define AUTOCONNECT_JSON_KEY_TYPE        "type"
-#define AUTOCONNECT_JSON_KEY_URI         "uri"
-#define AUTOCONNECT_JSON_KEY_VALUE       "value"
-#define AUTOCONNECT_JSON_KEY_VERTICAL    "vertical"
-#define AUTOCONNECT_JSON_TYPE_ACBUTTON   "ACButton"
-#define AUTOCONNECT_JSON_TYPE_ACCHECKBOX "ACCheckBox"
-#define AUTOCONNECT_JSON_TYPE_ACELEMENT  "ACElement"
-#define AUTOCONNECT_JSON_TYPE_ACINPUT    "ACInput"
-#define AUTOCONNECT_JSON_TYPE_ACRADIO    "ACRadio"
-#define AUTOCONNECT_JSON_TYPE_ACSELECT   "ACSelect"
-#define AUTOCONNECT_JSON_TYPE_ACSUBMIT   "ACSubmit"
-#define AUTOCONNECT_JSON_TYPE_ACTEXT     "ACText"
+#define AUTOCONNECT_JSON_KEY_ACTION       "action"
+#define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
+#define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
+#define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
+#define AUTOCONNECT_JSON_KEY_FORMAT       "format"
+#define AUTOCONNECT_JSON_KEY_LABEL        "label"
+#define AUTOCONNECT_JSON_KEY_MENU         "menu"
+#define AUTOCONNECT_JSON_KEY_NAME         "name"
+#define AUTOCONNECT_JSON_KEY_OPTION       "option"
+#define AUTOCONNECT_JSON_KEY_PATTERN      "pattern"
+#define AUTOCONNECT_JSON_KEY_PLACEHOLDER  "placeholder"
+#define AUTOCONNECT_JSON_KEY_STORE        "store"
+#define AUTOCONNECT_JSON_KEY_STYLE        "style"
+#define AUTOCONNECT_JSON_KEY_TITLE        "title"
+#define AUTOCONNECT_JSON_KEY_TYPE         "type"
+#define AUTOCONNECT_JSON_KEY_URI          "uri"
+#define AUTOCONNECT_JSON_KEY_VALUE        "value"
+#define AUTOCONNECT_JSON_TYPE_ACBUTTON    "ACButton"
+#define AUTOCONNECT_JSON_TYPE_ACCHECKBOX  "ACCheckBox"
+#define AUTOCONNECT_JSON_TYPE_ACELEMENT   "ACElement"
+#define AUTOCONNECT_JSON_TYPE_ACFILE      "ACFile"
+#define AUTOCONNECT_JSON_TYPE_ACINPUT     "ACInput"
+#define AUTOCONNECT_JSON_TYPE_ACRADIO     "ACRadio"
+#define AUTOCONNECT_JSON_TYPE_ACSELECT    "ACSelect"
+#define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
+#define AUTOCONNECT_JSON_TYPE_ACTEXT      "ACText"
+#define AUTOCONNECT_JSON_VALUE_EXTERNAL   "extern"
+#define AUTOCONNECT_JSON_VALUE_FS         "fs"
+#define AUTOCONNECT_JSON_VALUE_HORIZONTAL "horizontal"
+#define AUTOCONNECT_JSON_VALUE_SD         "sd"
+#define AUTOCONNECT_JSON_VALUE_VERTICAL   "vertical"
+
+/**
+ * Make the Json types and functions consistent with the ArduinoJson
+ * version. These declarations share the following type definitions:
+ * - Difference between reference and proxy of JsonObject and JsonArray.
+ * - Difference of check whether the parsing succeeded or not.
+ * - The print function name difference.
+ * - The buffer class difference.
+ * - When PSRAM present, enables the buffer allocation it with ESP32 and
+ *   supported version.
+ */
+#if ARDUINOJSON_VERSION_MAJOR<=5
+#define ARDUINOJSON_CREATEOBJECT(doc)     doc.createObject()
+#define ARDUINOJSON_CREATEARRAY(doc)      doc.createArray()
+#define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = doc.prettyPrintTo(out); s; })
+#define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = doc.printTo(out); s; })
+using ArduinoJsonObject = JsonObject&;
+using ArduinoJsonArray = JsonArray&;
+using ArduinoJsonBuffer = DynamicJsonBuffer;
+#define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONBUFFER_SIZE
+#else
+#define ARDUINOJSON_CREATEOBJECT(doc)     doc.to<JsonObject>()
+#define ARDUINOJSON_CREATEARRAY(doc)      doc.to<JsonArray>()
+#define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = serializeJsonPretty(doc, out); s; })
+#define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = serializeJson(doc, out); s; })
+using ArduinoJsonObject = JsonObject;
+using ArduinoJsonArray = JsonArray;
+#if defined(BOARD_HAS_PSRAM) && ((ARDUINOJSON_VERSION_MAJOR==6 && ARDUINOJSON_VERSION_MINOR>=10) || ARDUINOJSON_VERSION_MAJOR>6)
+// JsonDocument is assigned to PSRAM by ArduinoJson's custom allocator.
+struct SpiRamAllocatorST {
+  void* allocate(size_t size) {
+    return heap_caps_malloc(size, MALLOC_CAP_SPIRAM);
+  }
+  void  deallocate(void* pointer) {
+    heap_caps_free(pointer);
+  }
+};
+#define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONPSRAM_SIZE
+using ArduinoJsonBuffer = BasicJsonDocument<SpiRamAllocatorST>;
+#else
+#define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONDOCUMENT_SIZE
+using ArduinoJsonBuffer = DynamicJsonDocument;
+#endif
+#endif
 
 /**
  * AutoConnectAux element base with handling with JSON object.
@@ -55,6 +105,8 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
   virtual size_t  getObjectSize(void) const;
   virtual bool  loadMember(const JsonObject& json);
   virtual void  serialize(JsonObject& json);
+  template<typename T>
+  T&  as(void);
 
  protected:
   void  _setMember(const JsonObject& json);
@@ -100,6 +152,29 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
     AutoConnectCheckboxBasis::checked = checked;
   }
   ~AutoConnectCheckboxJson() {}
+  size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
+};
+
+/**
+ * File-select input arrangement class, a part of AutoConnectAux element.
+ * Place a optionally labeled file-select input box that can be added by user sketch.
+ * @param  name     File-select input box name string.
+ * @param  value    A string value entered by the selected file name.
+ * @param  label    A label string that follows file-select box, optionally.
+ * The label is placed in front of file-select box.
+ * @param  store    An enumuration value of store type.
+ */
+class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFileBasis {
+ public:
+  explicit AutoConnectFileJson(const char* name = "", const char* value= "", const char* label = "", const ACFile_t store = AC_File_FS) {
+    AutoConnectFileBasis::name = String(name);
+    AutoConnectFileBasis::value = String(value);
+    AutoConnectFileBasis::label = String(label);
+    AutoConnectFileBasis::store = store;
+  }
+  ~AutoConnectFileJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
@@ -206,15 +281,76 @@ class AutoConnectSubmitJson : public AutoConnectElementJson, public AutoConnectS
  */
 class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTextBasis {
  public:
-  explicit AutoConnectTextJson(const char* name = "", const char* value = "", const char* style = "") {
+  explicit AutoConnectTextJson(const char* name = "", const char* value = "", const char* style = "", const char* format = "") {
     AutoConnectTextBasis::name = String(name);
     AutoConnectTextBasis::value = String(value);
     AutoConnectTextBasis::style = String(style);
+    AutoConnectTextBasis::format = String(format);
   }
   ~AutoConnectTextJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(JsonObject& json) override;
 };
+
+/**
+ * Casts only a class derived from the AutoConnectElement class to the
+ * actual element class.
+ */
+template<>
+inline AutoConnectButtonJson& AutoConnectElementJson::as<AutoConnectButtonJson>(void) {
+  if (typeOf() != AC_Button)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectButtonJson*>(this));
+}
+
+template<>
+inline AutoConnectCheckboxJson& AutoConnectElementJson::as<AutoConnectCheckboxJson>(void) {
+  if (typeOf() != AC_Checkbox)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectCheckboxJson*>(this));
+}
+
+template<>
+inline AutoConnectFileJson& AutoConnectElementJson::as<AutoConnectFileJson>(void) {
+  if (typeOf() != AC_File)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectFileJson*>(this));
+}
+
+template<>
+inline AutoConnectInputJson& AutoConnectElementJson::as<AutoConnectInputJson>(void) {
+  if (typeOf() != AC_Input)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectInputJson*>(this));
+}
+
+template<>
+inline AutoConnectRadioJson& AutoConnectElementJson::as<AutoConnectRadioJson>(void) {
+  if (typeOf() != AC_Radio)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectRadioJson*>(this));
+}
+
+template<>
+inline AutoConnectSelectJson& AutoConnectElementJson::as<AutoConnectSelectJson>(void) {
+  if (typeOf() != AC_Select)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectSelectJson*>(this));
+}
+
+template<>
+inline AutoConnectSubmitJson& AutoConnectElementJson::as<AutoConnectSubmitJson>(void) {
+  if (typeOf() != AC_Submit)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectSubmitJson*>(this));
+}
+
+template<>
+inline AutoConnectTextJson& AutoConnectElementJson::as<AutoConnectTextJson>(void) {
+  if (typeOf() != AC_Text)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectTextJson*>(this));
+}
 
 #endif // _AUTOCONNECTELEMENTJSON_H_

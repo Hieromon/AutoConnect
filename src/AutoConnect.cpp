@@ -389,9 +389,8 @@ void AutoConnect::_startWebServer(void) {
   // here, Prepare PageBuilders for captive portal
   if (!_responsePage) {
     _responsePage = new PageBuilder();
-    _responsePage->chunked(AUTOCONNECT_HTTP_TRANSFER);
-    _responsePage->reserve(AUTOCONNECT_CONTENTBUFFER_SIZE);
     _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
+    _responsePage->onUpload(std::bind(&AutoConnect::_handleUpload, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->insert(*_webServer);
 
     _webServer->begin();
@@ -598,7 +597,7 @@ void AutoConnect::_stopPortal(void) {
 bool AutoConnect::_captivePortal(void) {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString()) && (!hostHeader.endsWith(F(".local")))) {
-    AC_DBG("Detected appliaction, %s, %s\n", hostHeader.c_str(), WiFi.localIP().toString().c_str());
+    AC_DBG("Detected application, %s, %s\n", hostHeader.c_str(), WiFi.localIP().toString().c_str());
     String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
     _webServer->sendHeader(String(F("Location")), location, true);
     _webServer->send(302, String(F("text/plain")), _emptyString);
@@ -668,7 +667,7 @@ void AutoConnect::_handleNotFound(void) {
 String AutoConnect::_induceReset(PageArgument& args) {
   AC_UNUSED(args);
   _rfReset = true;
-  return String(F("Reset in progress..."));
+  return String(F(AUTOCONNECT_BUTTONLABEL_RESET " in progress..."));
 }
 
 /**
@@ -788,7 +787,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   AC_UNUSED(method);
   _portalAccessPeriod = millis();
-  AC_DBG("Host:%s, URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
+  AC_DBG("Host:%s,URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
 
   // When handleClient calls RequestHandler, the parsed http argument
   // remains the previous request.
@@ -801,6 +800,8 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
     AutoConnectAux* aux = _aux.get();
     while (aux) {
       if (aux->_uriStr == _auxUri) {
+        // Save the value owned by each element contained in the POST body
+        // of a current HTTP request to AutoConnectElements.
         aux->_storeElements(_webServer.get());
         break;
       }
@@ -810,11 +811,12 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
 
   // Here, classify requested uri
   if (uri == _uri) {
-    AC_DBG_DUMB(", already allocated\n");
+    AC_DBG_DUMB(",already allocated\n");
     return true;  // The response page already exists.
   }
 
   // Dispose decrepit page
+  _prevUri = _uri;   // Save current uri for the upload request
   _purgePages();
 
   // Create the page dynamically
@@ -824,13 +826,28 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
       _currentPageElement = _aux->_setupPage(uri);
     }
   if (_currentPageElement != nullptr) {
-    AC_DBG_DUMB(", generated:%s", uri.c_str());
+    AC_DBG_DUMB(",generated:%s", uri.c_str());
     _uri = uri;
     _responsePage->addElement(*_currentPageElement);
     _responsePage->setUri(_uri.c_str());
   }
-  AC_DBG_DUMB(", %s\n", _currentPageElement != nullptr ? "allocated" : "ignored");
+  AC_DBG_DUMB(",%s\n", _currentPageElement != nullptr ? " allocated" : "ignored");
   return _currentPageElement != nullptr ? true : false;
+}
+
+/**
+ *  A wrapper of the upload function for the WebServerClass. Invokes the
+ *  upload function of the AutoConnectAux which has a destination URI.
+ */
+void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& upload) {
+  AutoConnectAux* aux = _aux.get();
+  while (aux) {
+    if (aux->_uriStr == requestUri) {
+      aux->upload(_prevUri, upload);
+      break;
+    }
+    aux = aux->_next.get();
+  }
 }
 
 /**
@@ -841,8 +858,8 @@ void AutoConnect::_purgePages(void) {
   if (_currentPageElement != nullptr) {
     delete _currentPageElement;
     _currentPageElement = nullptr;
+    _uri = String("");
   }
-  _uri = String("");
 }
 
 /**

@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.1">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.982221ab.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.3020aac5.css">
       
         <link rel="stylesheet" href="assets/stylesheets/application-palette.224b79ff.css">
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.1f0bcf2b.js"></script>
+      <script src="assets/javascripts/modernizr.01ccdecf.js"></script>
     
     
       
@@ -228,83 +228,6 @@
       
         
       
-      
-        
-
-  
-
-<nav class="md-tabs md-tabs--active" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
-    <ul class="md-tabs__list">
-      
-        
-  <li class="md-tabs__item">
-    
-      <a href="index.html" title="Overview" class="md-tabs__link">
-        Overview
-      </a>
-    
-  </li>
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="acintro.html" title="Custom Web pages" class="md-tabs__link">
-          Custom Web pages
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="api.html" title="Library APIs" class="md-tabs__link">
-          Library APIs
-        </a>
-      
-    </li>
-  
-
-      
-        
-  
-  
-    <li class="md-tabs__item">
-      
-        <a href="howtoembed.html" title="Examples" class="md-tabs__link md-tabs__link--active">
-          Examples
-        </a>
-      
-    </li>
-  
-
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </ul>
-  </div>
-</nav>
       
       <main class="md-main">
         <div class="md-main__inner md-grid" data-md-component="container">
@@ -756,10 +679,58 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="lsbegin.html" title="Appendix" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
       Appendix
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Appendix
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+      Inside AutoConnect::begin
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
+      Saved credentail access
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+      File upload handler
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -931,16 +902,20 @@
 <p>Here, represent examples the typical method for the data type conversion for the AutoConnectElements value of custom Web pages.</p>
 <h3 id="integer"><i class="fa fa-exchange"></i> Integer<a class="headerlink" href="#integer" title="Permanent link">&para;</a></h3>
 <p>Use <a href="https://www.arduino.cc/reference/en/language/variables/conversion/intcast/">int()</a> or <a href="https://www.arduino.cc/reference/en/language/variables/data-types/string/functions/toint/">toInt() of String</a>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input.value.toInt();</span>
 </pre></div>
-
+You can shorten it and write as like:
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">].value.toInt();</span>
+</pre></div></p>
 <h3 id="float"><i class="fa fa-exchange"></i> Float<a class="headerlink" href="#float" title="Permanent link">&para;</a></h3>
 <p>Use <a href="https://www.arduino.cc/reference/en/language/variables/conversion/floatcast/">float()</a> or <a href="https://www.arduino.cc/reference/en/language/variables/data-types/string/functions/tofloat/">toFloat() of String</a>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input.value.toFloat();</span>
 </pre></div>
-
+You can shorten it and write as like:
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">].value.toFloat();</span>
+</pre></div></p>
 <h3 id="date-time"><i class="fa fa-exchange"></i> Date &amp; Time<a class="headerlink" href="#date-time" title="Permanent link">&para;</a></h3>
 <p>The easiest way is to use the <a href="https://www.pjrc.com/teensy/td_libs_Time.html">Arduino Time Library</a>. Sketches must accommodate differences in date and time formats depending on the time zone. You can absorb the difference in DateTime format by using <code>sscanf</code> function.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;TimeLib.h&gt;</span>
@@ -948,7 +923,7 @@
 <span style="color: #66d9ef">time_t</span> <span style="color: #f8f8f2">tm;</span>
 <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">Year,</span> <span style="color: #f8f8f2">Month,</span> <span style="color: #f8f8f2">Day,</span> <span style="color: #f8f8f2">Hour,</span> <span style="color: #f8f8f2">Minute,</span> <span style="color: #f8f8f2">Second;</span>
 
-<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.[</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
 <span style="color: #f8f8f2">sscanf(input.value.c_str(),</span> <span style="color: #e6db74">&quot;%d-%d-%d %d:%d:%d&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Year,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Month,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Day,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Hour,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Minute,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">Second);</span>
 <span style="color: #f8f8f2">tm.Year</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">CalendarYrToTm(Year);</span>
 <span style="color: #f8f8f2">tm.Month</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Month;</span>
@@ -961,7 +936,7 @@
 <h3 id="ip-address"><i class="fa fa-exchange"></i> IP address<a class="headerlink" href="#ip-address" title="Permanent link">&para;</a></h3>
 <p>To convert a String to an IP address, use <strong>IPAddress::fromString</strong>. To stringize an instance of an IP address, use <strong>IPAddress::toString</strong>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">IPAddress</span> <span style="color: #f8f8f2">ip;</span>
-<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
 <span style="color: #f8f8f2">ip.fromString(input.value);</span>
 <span style="color: #f8f8f2">input.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">ip.toString();</span>
 </pre></div>
@@ -1012,9 +987,9 @@
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">checkIPAddress</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">input_page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ipaddress</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input_page</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;ipaddress&quot;</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">result</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;result&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&amp;</span>   <span style="color: #f8f8f2">input_page</span> <span style="color: #f92672">=</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ipaddress</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">input_page[</span><span style="color: #e6db74">&quot;ipaddress&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">result</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;result&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
 
 <span style="background-color: #49483e">  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(ipaddress.isValid())</span> <span style="color: #f8f8f2">{</span>
 </span>    <span style="color: #f8f8f2">result.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;IP Address &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">ipaddress.value</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; is OK.&quot;</span><span style="color: #f8f8f2">;</span>
@@ -1163,7 +1138,7 @@
       
     </div>
     
-      <script src="assets/javascripts/application.b806dc00.js"></script>
+      <script src="assets/javascripts/application.dc02f8ce.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       

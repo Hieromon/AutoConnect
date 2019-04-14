@@ -185,7 +185,7 @@ class AutoConnect {
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
-  AutoConnectAux* where(void) const { return aux(_auxUri); }
+  AutoConnectAux& where(void) const { return *aux(_auxUri); }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
@@ -216,9 +216,12 @@ class AutoConnect {
   bool  _loadAvailCredential(void);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
+  void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
   void  _purgePages(void);
   virtual PageElement*  _setupPage(String uri);
 #ifdef AUTOCONNECT_USE_JSON
+  template<typename T>
+  bool  _parseJson(T in);
   bool  _load(JsonVariant& aux);
 #endif // !AUTOCONNECT_USE_JSON
 
@@ -262,6 +265,7 @@ class AutoConnect {
   /** Extended pages made up with AutoConnectAux */
   std::unique_ptr<AutoConnectAux> _aux;
   String        _auxUri;        /**< Last accessed AutoConnectAux */
+  String        _prevUri;       /**< Previous generated page uri */
 
   /** Saved configurations */
   AutoConnectConfig     _apConfig;
@@ -310,6 +314,12 @@ class AutoConnect {
   static const char _PAGE_FAIL[] PROGMEM;
   static const char _PAGE_404[] PROGMEM;
 
+  static const struct PageTranserModeST {
+    const char*              uri;
+    const TransferEncoding_t transMode;
+    const size_t             rSize;
+  } _pageBuildMode[];
+
   /** Token handlers for PageBuilder */
   String _token_CSS_BASE(PageArgument& args);
   String _token_CSS_UL(PageArgument& args);
@@ -340,6 +350,7 @@ class AutoConnect {
   String _token_CHIP_ID(PageArgument& args);
   String _token_FREE_HEAP(PageArgument& args);
   String _token_LIST_SSID(PageArgument& args);
+  String _token_SSID_COUNT(PageArgument& args);
   String _token_HIDDEN_COUNT(PageArgument& args);
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);
