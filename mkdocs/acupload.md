@@ -163,7 +163,7 @@ AutoConnetFile saves the uploaded file with the file name you selected by `<inpu
 
 ## Upload to a device other than Flash or SD
 
-You can output the file to any device using a custom uploader by specifying [**extern**](acjson.md#acfile) with the [store](acjson.md#acfile) attribute of [AutoConnectFile (or specifying [**AC_File_Extern**](acelements.md#store) for the store member variable) and can customize the uploader according to the need to upload files to other than Flash or SD. Implements your own uploader with inheriting the [**AutoConnectUploadHandler**](#upload-handler-base-class) class which is the base class of the upload handler.
+You can output the file to any device using a custom uploader by specifying [**extern**](acjson.md#acfile) with the [**store**](acjson.md#acfile) attribute of [AutoConnectFile](acjson.md#acfile) (or specifying [**AC_File_Extern**](acelements.md#store) for the [**store**](apielements.md#store) member variable) and can customize the uploader according to the need to upload files to other than Flash or SD. Implements your own uploader with inheriting the [**AutoConnectUploadHandler**](#upload-handler-base-class) class which is the base class of the upload handler.
 
 !!! note "It's not so difficult"
     Implementing the custom uploader requires a little knowledge of the c++ language. If you are less attuned to programming c++, you may find it difficult. But don't worry. You can make it in various situations by just modifying the sketch skeleton that appears at the end of this page.
