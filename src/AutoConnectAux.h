@@ -64,8 +64,9 @@ class AutoConnectAux : public PageBuilder {
   void  setTitle(const String& title) { _title = title; }               /**< Set a title of the auxiliary page */
   void  on(const AuxHandlerFunctionT handler, const AutoConnectExitOrder_t order = AC_EXIT_AHEAD) { _handler = handler; _order = order; }   /**< Set user handler */
   void  onUpload(PageBuilder::UploadFuncT uploadFunc) override { _uploadHandler = uploadFunc; }
-  template<typename T, typename = typename std::enable_if<std::is_base_of<AutoConnectUploadHandler, T>::value>::type>
+  template<typename T>
   void  onUpload(T& uploadClass) {
+    static_assert(std::is_base_of<AutoConnectUploadHandler, T>::value, "onUpload type must be inherited AutoConnectUploadHandler");
     _uploadHandler = std::bind(&T::upload, &uploadClass, std::placeholders::_1, std::placeholders::_2);
   }
 
