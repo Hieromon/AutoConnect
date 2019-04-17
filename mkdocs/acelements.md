@@ -420,6 +420,6 @@ Some AutoConnectAux APIs specify AutoConnectElements as an argument. There are a
 AutoConnectAux aux;
 ACText(Text1, "hello, world");
 aux.add(Text1);
-AutoConnectText* text_p = reinterpret_cast<AutoConnectText>(aux.getElement("Text1"));
+AutoConnectText* text_p = reinterpret_cast<AutoConnectText*>(aux.getElement("Text1"));
 AutoConnectText& text = aux.getElement<AutoConnectText>("Text1");
 ```
