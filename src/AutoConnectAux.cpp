@@ -278,7 +278,7 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
     if (upload.status == UPLOAD_FILE_END || upload.status == UPLOAD_FILE_ABORTED) {
       if (_currentUpload)
         _currentUpload->detach();
-      AC_DBG("%ld bytes uploaded\n", upload.totalSize);
+      AC_DBG("%d bytes uploaded\n", upload.totalSize);
     }
   }
 }
