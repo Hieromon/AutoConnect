@@ -25,7 +25,7 @@
  * @return  An HTML string.
  */
 const String AutoConnectButtonBasis::toHTML(void) const {
-  return String(F("<button type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"")) + action + String("\">") + value + String(F("</button>"));
+  return enable ? String(F("<button type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"")) + action + String("\">") + value + String(F("</button>")) : String("");
 }
 
 /**
@@ -37,14 +37,16 @@ const String AutoConnectButtonBasis::toHTML(void) const {
  * @return  An HTML string.
  */
 const String AutoConnectCheckboxBasis::toHTML(void) const {
-  String  html;
+  String  html = String("");
 
-  html = String(F("<input type=\"checkbox\" name=\"")) + name + String(F("\" value=\"")) + value + String("\"");
-  if (checked)
-    html += String(F(" checked"));
-  if (label.length())
-    html += String(F(" id=\"")) + name + String(F("\"><label for=\"")) + name + String("\">") + label + String(F("</label"));
-  html += String(F("><br>"));
+  if (enable) {
+    html = String(F("<input type=\"checkbox\" name=\"")) + name + String(F("\" value=\"")) + value + String("\"");
+    if (checked)
+      html += String(F(" checked"));
+    if (label.length())
+      html += String(F(" id=\"")) + name + String(F("\"><label for=\"")) + name + String("\">") + label + String(F("</label"));
+    html += String(F("><br>"));
+  }
   return html;
 }
 
@@ -58,9 +60,11 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
 const String AutoConnectFileBasis::toHTML(void) const {
   String  html = String("");
 
-  if (label.length())
-    html = String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
-  html += String(F("<input type=\"file\" id=\"")) + name + String(F("\" name=\"")) + name + String(F("\"><br>"));
+  if (enable) {
+    if (label.length())
+      html = String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
+    html += String(F("<input type=\"file\" id=\"")) + name + String(F("\" name=\"")) + name + String(F("\"><br>"));
+  }
   return html;
 }
 
@@ -101,17 +105,18 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
 const String AutoConnectInputBasis::toHTML(void) const {
   String  html = String("");
 
-  if (label.length())
-    html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
-  html += String(F("<input type=\"text\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
-  if (pattern.length())
-    html += String(F(" pattern=\"")) + pattern + String("\"");
-  if (placeholder.length())
-    html += String(F(" placeholder=\"")) + placeholder + String("\"");
-  if (value.length())
-    html += String(F(" value=\"")) + value + String("\"");
-  html += String(F("><br>"));
-
+  if (enable) {
+    if (label.length())
+      html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
+    html += String(F("<input type=\"text\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
+    if (pattern.length())
+      html += String(F(" pattern=\"")) + pattern + String("\"");
+    if (placeholder.length())
+      html += String(F(" placeholder=\"")) + placeholder + String("\"");
+    if (value.length())
+      html += String(F(" value=\"")) + value + String("\"");
+    html += String(F("><br>"));
+  }
   return html;
 }
 
@@ -176,21 +181,23 @@ void AutoConnectRadioBasis::empty(const size_t reserve) {
 const String AutoConnectRadioBasis::toHTML(void) const {
   String  html = String("");
 
-  if (label.length()) {
-    html = label;
-    if (order == AC_Vertical)
-      html += String(F("<br>"));
-  }
-  uint8_t n = 0;
-  for (const String value : _values) {
-    n++;
-    String  id = name + "_" + String(n);
-    html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
-    if (n == checked - 1)
-      html += String(F(" checked"));
-    html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
-    if (order == AC_Vertical)
-      html += String(F("<br>"));
+  if (enable) {
+    if (label.length()) {
+      html = label;
+      if (order == AC_Vertical)
+        html += String(F("<br>"));
+    }
+    uint8_t n = 0;
+    for (const String value : _values) {
+      n++;
+      String  id = name + "_" + String(n);
+      html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
+      if (n == checked - 1)
+        html += String(F(" checked"));
+      html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
+      if (order == AC_Vertical)
+        html += String(F("<br>"));
+    }
   }
   return html;
 }
@@ -227,12 +234,14 @@ void AutoConnectSelectBasis::empty(const size_t reserve) {
 const String AutoConnectSelectBasis::toHTML(void) const {
   String  html = String("");
 
-  if (label.length())
-    html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
-  html += String(F("<select name=\"")) + name + String(F("\" id=\"")) + name + String("\">");
-  for (const String option : _options)
-    html += String(F("<option value=\"")) + option + "\">" + option + String(F("</option>"));
-  html += String(F("</select>"));
+  if (enable) {
+    if (label.length())
+      html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
+    html += String(F("<select name=\"")) + name + String(F("\" id=\"")) + name + String("\">");
+    for (const String option : _options)
+      html += String(F("<option value=\"")) + option + "\">" + option + String(F("</option>"));
+    html += String(F("</select>"));
+  }
   return html;
 }
 
@@ -243,7 +252,7 @@ const String AutoConnectSelectBasis::toHTML(void) const {
  * @return String  an HTML string.
  */
 const String AutoConnectSubmitBasis::toHTML(void) const {
-  return String(F("<input type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"_sa('")) + uri + String("')\">");
+  return enable ? String(F("<input type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"_sa('")) + uri + String("')\">") : String("");
 }
 
 /**
@@ -252,22 +261,26 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
  * @return String  an HTML string.
  */
 const String AutoConnectTextBasis::toHTML(void) const {
-  String  html = String("<div");
-  String  value_f = value;
+  String  html = String("");
 
-  if (style.length())
-    html += String(F(" style=\"")) + style + String("\"");
-  html += String(">");
-  if (format.length()) {
-    int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
-    char* buffer;
-    if ((buffer = (char*)malloc(buflen))) {
-      snprintf(buffer, buflen, format.c_str(), value.c_str());
-      value_f = String(buffer);
-      free(buffer);
+  if (enable) {
+    html = String("<div");
+    String  value_f = value;
+
+    if (style.length())
+      html += String(F(" style=\"")) + style + String("\"");
+    html += String(">");
+    if (format.length()) {
+      int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
+      char* buffer;
+      if ((buffer = (char*)malloc(buflen))) {
+        snprintf(buffer, buflen, format.c_str(), value.c_str());
+        value_f = String(buffer);
+        free(buffer);
+      }
     }
+    html += value_f + String(F("</div>"));
   }
-  html += value_f + String(F("</div>"));
   return html;
 }
 

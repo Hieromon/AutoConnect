@@ -46,11 +46,11 @@ typedef enum {
  */
 class AutoConnectElementBasis {
  public:
-  explicit AutoConnectElementBasis(const char* name = "", const char* value = "") : name(String(name)), value(String(value)) {
+  explicit AutoConnectElementBasis(const char* name = "", const char* value = "") : name(String(name)), value(String(value)), enable(true) {
     _type = AC_Element;
   }
   virtual ~AutoConnectElementBasis() {}
-  virtual const String  toHTML(void) const { return value; }
+  virtual const String  toHTML(void) const { return enable ? value : String(""); }
   ACElement_t typeOf(void) const { return _type; }
 #ifndef AUTOCONNECT_USE_JSON
   template<typename T>
@@ -59,6 +59,7 @@ class AutoConnectElementBasis {
 
   String  name;       /**< Element name */
   String  value;      /**< Element value */
+  bool    enable;     /**< Enabling the element */
 
  protected:
   ACElement_t _type;  /**< Element type identifier */
