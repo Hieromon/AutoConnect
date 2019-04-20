@@ -5,7 +5,7 @@
   In order to execute this example, the ThingSpeak account is needed. Sing up
   for New User Account and create a New Channel via My Channels.
   For details, please refer to the project page.
-  https://hieromon.github.io/AutoConnect/examples/index.html#used-with-mqtt-as-a-client-application
+  https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application
 
   Also, this example uses AutoConnectAux menu customization which stored in SPIFFS.
   To evaluate this example, you upload the contents as mqtt_setting.json of
