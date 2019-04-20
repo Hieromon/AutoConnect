@@ -5,7 +5,7 @@ This example is for explaining how to use the AutoConnect library.
 In order to execute this example, the ThingSpeak account is needed. Sing up
 for New User Account and create a New Channel via My Channels.
 For details, please refer to the project page.
-https://hieromon.github.io/AutoConnect/examples/index.html#used-with-mqtt-as-a-client-application
+https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application
 
 This example is based on the environment as of March 20, 2018.
 Copyright (c) 2018 Hieromon Ikasamo.
