@@ -11,6 +11,7 @@
 #define _AUTOCONNECTUPLOADIMPL_H_
 
 #if defined(ARDUINO_ARCH_ESP8266)
+#include <core_version.h>
 #include <ESP8266WiFi.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
@@ -132,7 +133,9 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
   void  _close(void) override {
     if (_file)
       _file.close();
+#if defined(ARDUINO_ARCH_ESP32) || (defined(ARDUINO_ARCH_ESP8266) && (!defined(ARDUINO_ESP8266_RELEASE_2_4_0) && !defined(ARDUINO_ESP8266_RELEASE_2_4_1) && !defined(ARDUINO_ESP8266_RELEASE_2_4_2)))
     _media->end();
+#endif
   }
 
  private:
