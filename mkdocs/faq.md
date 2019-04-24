@@ -27,7 +27,7 @@ ESP32 hardware equips only one RF circuitry for WiFi signal. At the AP_STA mode,
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
-Maybe it is successfully connected at the **first WiFi.begin**. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
+Maybe it is successfully connected at the [**first WiFi.begin**](lsbegin.md#autoconnectbegin-logic-sequence). ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
 
 The saved SSID would be cleared by  *WiFi.disconnect()* with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.
 
