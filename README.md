@@ -1,6 +1,6 @@
 # AutoConnect for ESP8266/ESP32
 
-[![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg)](https://www.ardu-badge.com/AutoConnect)
+[![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg?)](https://www.ardu-badge.com/AutoConnect)
 [![GitHub release](https://img.shields.io/github/release/Hieromon/AutoConnect.svg)](https://github.com/Hieromon/AutoConnect/releases)
 [![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
 
