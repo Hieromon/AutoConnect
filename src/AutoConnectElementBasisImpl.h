@@ -186,7 +186,7 @@ const String AutoConnectRadioBasis::toHTML(void) const {
     n++;
     String  id = name + "_" + String(n);
     html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
-    if (n == checked - 1)
+    if (n == checked)
       html += String(F(" checked"));
     html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
     if (order == AC_Vertical)
