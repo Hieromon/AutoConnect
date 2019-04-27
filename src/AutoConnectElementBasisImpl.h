@@ -198,7 +198,7 @@ const String AutoConnectRadioBasis::toHTML(void) const {
 /**
  * Returns current selected value in the radio same group
  */
-const String& AutoConnectRadioBasis::value() const {
+const String& AutoConnectRadioBasis::value(void) const {
   static const String _nullString = String();
   return checked ? _values.at(checked - 1) : _nullString;
 }
@@ -217,6 +217,19 @@ void AutoConnectSelectBasis::empty(const size_t reserve) {
 }
 
 /**
+* Indicate an entry with the specified value in the value's collection.
+* @param value     The value to indicates in the collection.
+*/
+void AutoConnectSelectBasis::select(const String& value) {
+  for (std::size_t n = 0; n < _options.size(); n++) {
+    if (at(n).equalsIgnoreCase(value)) {
+      selected = n + 1;
+      break;
+    }
+  }
+}
+
+/**
  * Generate an HTML <select> element with an <option> element.
  * The attribute value of the <option> element is given to the
  * AutoConnectSelect class as a string array, which would be stored
@@ -230,10 +243,23 @@ const String AutoConnectSelectBasis::toHTML(void) const {
   if (label.length())
     html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
   html += String(F("<select name=\"")) + name + String(F("\" id=\"")) + name + String("\">");
-  for (const String option : _options)
-    html += String(F("<option value=\"")) + option + "\">" + option + String(F("</option>"));
+  uint8_t n = 1;
+  for (const String option : _options) {
+    html += String(F("<option value=\"")) + option + "\"";
+    if (n++ == selected)
+      html += String(F(" selected"));
+    html += ">" + option + String(F("</option>"));
+  }
   html += String(F("</select>"));
   return html;
+}
+
+/**
+ * Returns current selected value in the radio same group
+ */
+const String& AutoConnectSelectBasis::value(void) const {
+  static const String _nullString = String();
+  return selected ? _options.at(selected - 1) : _nullString;
 }
 
 /**

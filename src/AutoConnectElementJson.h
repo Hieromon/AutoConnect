@@ -24,6 +24,7 @@
 #define AUTOCONNECT_JSON_KEY_OPTION       "option"
 #define AUTOCONNECT_JSON_KEY_PATTERN      "pattern"
 #define AUTOCONNECT_JSON_KEY_PLACEHOLDER  "placeholder"
+#define AUTOCONNECT_JSON_KEY_SELECTED     "selected"
 #define AUTOCONNECT_JSON_KEY_STORE        "store"
 #define AUTOCONNECT_JSON_KEY_STYLE        "style"
 #define AUTOCONNECT_JSON_KEY_TITLE        "title"
@@ -237,10 +238,11 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
  */
 class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectSelectBasis {
  public:
-  explicit AutoConnectSelectJson(const char* name = "", std::vector<String> const& options = {}, const char* label = "") {
+  explicit AutoConnectSelectJson(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0) {
     AutoConnectSelectBasis::name = String(name);
     AutoConnectSelectBasis::_options = options;
     AutoConnectSelectBasis::label = String(label);
+    AutoConnectSelectBasis::selected = selected;
   }
   ~AutoConnectSelectJson() {}
   size_t  getObjectSize(void) const override;
