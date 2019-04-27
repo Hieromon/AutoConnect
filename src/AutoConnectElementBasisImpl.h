@@ -181,21 +181,23 @@ void AutoConnectRadioBasis::empty(const size_t reserve) {
 const String AutoConnectRadioBasis::toHTML(void) const {
   String  html = String("");
 
-  if (label.length()) {
-    html = label;
-    if (order == AC_Vertical)
-      html += String(F("<br>"));
-  }
-  uint8_t n = 0;
-  for (const String value : _values) {
-    n++;
-    String  id = name + "_" + String(n);
-    html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
-    if (n == checked)
-      html += String(F(" checked"));
-    html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
-    if (order == AC_Vertical)
-      html += String(F("<br>"));
+  if (enable) {
+    if (label.length()) {
+      html = label;
+      if (order == AC_Vertical)
+        html += String(F("<br>"));
+    }
+    uint8_t n = 0;
+    for (const String value : _values) {
+      n++;
+      String  id = name + "_" + String(n);
+      html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
+      if (n == checked)
+        html += String(F(" checked"));
+      html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
+      if (order == AC_Vertical)
+        html += String(F("<br>"));
+    }
   }
   return html;
 }
@@ -245,17 +247,19 @@ void AutoConnectSelectBasis::select(const String& value) {
 const String AutoConnectSelectBasis::toHTML(void) const {
   String  html = String("");
 
-  if (label.length())
-    html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
-  html += String(F("<select name=\"")) + name + String(F("\" id=\"")) + name + String("\">");
-  uint8_t n = 1;
-  for (const String option : _options) {
-    html += String(F("<option value=\"")) + option + "\"";
-    if (n++ == selected)
-      html += String(F(" selected"));
-    html += ">" + option + String(F("</option>"));
+  if (enable) {
+    if (label.length())
+      html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
+    html += String(F("<select name=\"")) + name + String(F("\" id=\"")) + name + String("\">");
+    uint8_t n = 1;
+    for (const String option : _options) {
+      html += String(F("<option value=\"")) + option + "\"";
+      if (n++ == selected)
+        html += String(F(" selected"));
+      html += ">" + option + String(F("</option>"));
+    }
+    html += String(F("</select>"));
   }
-  html += String(F("</select>"));
   return html;
 }
 

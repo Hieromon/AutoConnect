@@ -103,6 +103,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Supports **AutoConnectElement::as<T\>** function to easily coding for conversion from an AutoConnectElement to an actual type.
 - Supports new element type **AutoConnectFile** and built-in file uploader.
 - Supports a **format attribute** with the AutoConnectText element.
+- Supports a **AutoConnectSelect::selected** attribute.
 - Fixed blank page responds with Configure new.
 - Changed menu labels placement in source files structure.
 
