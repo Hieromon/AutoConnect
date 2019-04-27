@@ -195,7 +195,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "") : AutoConnectElementBasis(name, ""), label(String(label)), _options(options) {
+  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0) : AutoConnectElementBasis(name, ""), label(String(label)), selected(selected), _options(options) {
     _type = AC_Select;
   }
   virtual ~AutoConnectSelectBasis() {}
@@ -204,9 +204,12 @@ class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
   void  add(const String& option) { _options.push_back(String(option)); }
   size_t  size(void) const { return _options.size(); }
   const String& at(const std::size_t n) const { return _options.at(n); }
+  void  select(const String& value);
   void  empty(const size_t reserve = 0);
+  const String& value(void) const;
 
   String  label;                /**< A label for a subsequent input box */
+  uint8_t selected;             /**< Index of checked value (1-based) */
 
  protected:
   std::vector<String> _options; /**< List options array */

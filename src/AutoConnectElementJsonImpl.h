@@ -320,7 +320,8 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
     json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = String(F(AUTOCONNECT_JSON_VALUE_VERTICAL));
     break;
   }
-  json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
+  if (checked > 0)
+    json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
 }
 
 /**
@@ -328,7 +329,7 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectSelectJson::getObjectSize() const {
-  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3) + _options.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(4) + _options.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
   size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length();
   for (String _option : _options)
     size += _option.length();
@@ -345,14 +346,15 @@ bool AutoConnectSelectJson::loadMember(const JsonObject& json) {
   String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSELECT))) {
     _setMember(json);
-    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL))) {
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
       label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
-    }
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_OPTION))) {
       empty();
       ArduinoJsonArray optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
       for (auto value : optionArray)
         add(value.as<String>());
+      if (json.containsKey(F(AUTOCONNECT_JSON_KEY_SELECTED)))
+        selected = static_cast<uint8_t>(json[F(AUTOCONNECT_JSON_KEY_SELECTED)].as<int>());
       return true;
     }
   }
@@ -370,6 +372,8 @@ void AutoConnectSelectJson::serialize(JsonObject& json) {
   for (String o : _options)
     options.add(o);
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
+  if (selected > 0)
+    json[F(AUTOCONNECT_JSON_KEY_SELECTED)] = selected;
 }
 
 /**

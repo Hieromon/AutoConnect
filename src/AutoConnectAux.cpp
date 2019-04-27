@@ -145,7 +145,11 @@ bool AutoConnectAux::release(const String& name) {
 bool AutoConnectAux::setElementValue(const String& name, const String value) {
   AutoConnectElement* elm = getElement(name);
   if (elm) {
-    if (elm->typeOf() != AC_Select) {
+    if (elm->typeOf() == AC_Select) {
+      AutoConnectSelect* elmSelect = reinterpret_cast<AutoConnectSelect*>(elm);
+      elmSelect->select(value);
+    }
+    else {
       if (elm->typeOf() == AC_Checkbox) {
         if (value == "checked") {
           AutoConnectCheckbox* elmCheckbox = reinterpret_cast<AutoConnectCheckbox*>(elm);
@@ -160,8 +164,6 @@ bool AutoConnectAux::setElementValue(const String& name, const String value) {
         elm->value = value;
       return true;
     }
-    else
-      AC_DBG("Element<%s> value type mismatch\n", name.c_str());
   }
   return false;
 }
