@@ -346,18 +346,17 @@ bool AutoConnectSelectJson::loadMember(const JsonObject& json) {
   String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
   if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSELECT))) {
     _setMember(json);
-    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL))) {
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
       label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
-    }
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_OPTION))) {
       empty();
       ArduinoJsonArray optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
       for (auto value : optionArray)
         add(value.as<String>());
+      if (json.containsKey(F(AUTOCONNECT_JSON_KEY_SELECTED)))
+        selected = static_cast<uint8_t>(json[F(AUTOCONNECT_JSON_KEY_SELECTED)].as<int>());
       return true;
     }
-    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_SELECTED)))
-      selected = static_cast<uint8_t>(json[F(AUTOCONNECT_JSON_KEY_SELECTED)].as<int>());
   }
   return false;
 }
