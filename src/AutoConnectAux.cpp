@@ -370,6 +370,28 @@ const String AutoConnectAux::_indicateEncType(PageArgument& args) {
 const String AutoConnectAux::_insertElement(PageArgument& args) {
   String  body = String("");
 
+  // When WebServerClass::handleClient calls RequestHandler, the parsed
+  //  http argument has been prepared.
+  // If the current request argument contains AutoConnectElement, it is
+  // the form data of the AutoConnectAux page and with this timing save
+  // the value of each element.
+  WebServerClass*  _webServer = _ac->_webServer.get();
+  if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
+    _ac->_auxUri = _webServer->arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
+    _ac->_auxUri.replace("&#47;", "/");
+    AutoConnectAux* aux = _ac->_aux.get();
+    while (aux) {
+      if (aux->_uriStr == _ac->_auxUri) {
+        // Save the value owned by each element contained in the POST body
+        // of a current HTTP request to AutoConnectElements.
+        aux->_storeElements(_webServer);
+        break;
+      }
+      aux = aux->_next.get();
+    }
+  }
+
+  // Call user handler before HTML generation.
   if (_handler) {
     if (_order & AC_EXIT_AHEAD) {
       AC_DBG("CB in AHEAD %s\n", uri());
@@ -377,9 +399,11 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
     }
   }
 
+  // Generate HTML for all AutoConnectElements contained in the page.
   for (AutoConnectElement& addon : _addonElm)
     body += addon.toHTML();
 
+  // Call user handler after HTML generation.
   if (_handler) {
     if (_order & AC_EXIT_LATER) {
       AC_DBG("CB in LATER %s\n", uri());

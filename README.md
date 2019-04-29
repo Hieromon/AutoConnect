@@ -104,6 +104,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Supports new element type **AutoConnectFile** and built-in file uploader.
 - Supports a **format attribute** with the AutoConnectText element.
 - Fixed blank page responds with Configure new.
+- Fixed the value of AutoConnectElements not reflected.
 - Changed menu labels placement in source files structure.
 
 ### [0.9.7] Feb. 25, 2019
