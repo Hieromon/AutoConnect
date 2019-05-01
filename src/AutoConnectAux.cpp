@@ -774,19 +774,26 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
   size_t  size_n = 0;
 
   // Calculate JSON buffer size
-  if (amount == 0)
+  if (amount == 0) {
     bufferSize += JSON_OBJECT_SIZE(4);
+    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof("false") + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT);
+  }
   if (amount != 1)
     bufferSize += JSON_ARRAY_SIZE(amount);
 
-  for (String name : names)
-    for (AutoConnectElement& elm : _addonElm)
-      if (elm.name.equalsIgnoreCase(name)) {
-        bufferSize += elm.getObjectSize();
-        break;
-      }
+  for (AutoConnectElement& elmEach : _addonElm) {
+    AutoConnectElement* elm = &elmEach;
+    if (amount > 0) {
+      String& elmName = elm->name;
+      auto aim = std::find_if(names.begin(), names.end(), [&](const String& n) { return n.equalsIgnoreCase(elmName); });
+      if (aim == names.end())
+        continue;
+    }
+    bufferSize += elm->getObjectSize();
+  }
   // Round up to 16 boundary
-  bufferSize = bufferSize > 0 ? ((bufferSize + 16) & (~0xf)) : bufferSize;
+  bufferSize = bufferSize > 0 ? ((bufferSize + 128) & (~0xf)) : bufferSize;
+  AC_DBG("JSON buffer size:%d\n", bufferSize);
 
   // Serialization
   if (bufferSize > 0) {
