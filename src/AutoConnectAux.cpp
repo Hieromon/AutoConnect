@@ -673,34 +673,58 @@ bool AutoConnectAux::_load(JsonObject& jb) {
  * @return A reference of loaded AutoConnectElement instance.
  */
 bool AutoConnectAux::loadElement(const String& in, const String& name) {
-  return _parseElement<const String&>(in, name);
+  return _parseElement<const String&, const String&>(in, name);
 }
 
 bool AutoConnectAux::loadElement(const __FlashStringHelper* in, const String& name) {
-  return _parseElement<const __FlashStringHelper*>(in, name);
+  return _parseElement<const __FlashStringHelper*, const String&>(in, name);
 }
 
 bool AutoConnectAux::loadElement(Stream& in, const String& name) {
-  return _parseElement<Stream&>(in, name);
+  return _parseElement<Stream&, const String&>(in, name);
+}
+
+bool AutoConnectAux::loadElement(const String& in, std::vector<String> const& names) {
+  return _parseElement<const String&, std::vector<String> const&>(in, names);
+}
+
+bool AutoConnectAux::loadElement(const __FlashStringHelper* in, std::vector<String> const& names) {
+  return _parseElement<const __FlashStringHelper*, std::vector<String> const&>(in, names);
+}
+
+bool AutoConnectAux::loadElement(Stream& in, std::vector<String> const& names) {
+  return _parseElement<Stream&, std::vector<String> const&>(in, names);
+}
+
+bool AutoConnectAux::_loadElement(JsonVariant& jb, std::vector<String> const& names) {
+  bool  rc = true;
+  for (const String& name : names)
+    rc &= _loadElement(jb, name);
+  return rc;
 }
 
 bool AutoConnectAux::_loadElement(JsonVariant& jb, const String& name) {
-  bool  rc = true;
+  bool  rc = false;
   if (jb.is<JsonArray>()) {
     ArduinoJsonArray  elements = jb.as<JsonArray>();
     for (ArduinoJsonObject  element : elements) {
-      AutoConnectElement& elm = _loadElement(element, name);
-      if (!elm.name.length()) {
-        rc = false;
-        break;
+      if (name.length()) {
+        //Finds an element with the specified name in the JSON array and loads it.
+        if (!name.equalsIgnoreCase(element[F(AUTOCONNECT_JSON_KEY_NAME)].as<String>()))
+          continue;
       }
+      AutoConnectElement& elm = _loadElement(element, name);
+      if (elm.name.length())
+        rc = true;
+      if (name.length())
+        break;
     }
   }
   else {
     ArduinoJsonObject element = jb.as<JsonObject>();
     AutoConnectElement& elm = _loadElement(element, name);
-    if (!elm.name.length())
-      rc = false;
+    if (elm.name.length())
+      rc = true;
   }
   return rc;
 }

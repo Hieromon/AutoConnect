@@ -231,37 +231,6 @@ bool AutoConnectAux::_parseJson(T in) {
 }
 
 /**
- * Parse and load a JSON document which declares one of the AutoConnectElement.
- * The compiler instantiates this template according to the stored data
- * type that contains the JSON document.
- * This template also generates different parsing function calls
- * depending on the ArduinoJson version.
- * @param  T  An object type of the JSON document which must be a
- * passable object to ArduinoJson.
- * @param  in An instance of a source JSON document to load.
- */
-template<typename T>
-bool AutoConnectAux::_parseElement(T in, const String& name) {
-  ArduinoJsonBuffer jsonBuffer(AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE);
-  JsonVariant jb;
-#if ARDUINOJSON_VERSION_MAJOR<=5
-  jb = jsonBuffer.parse(in);
-  if (!jb.success()) {
-    AC_DBG("JSON parse error\n");
-    return false;
-  }
-#else
-  DeserializationError  err = deserializeJson(jsonBuffer, in);
-  if (err) {
-    AC_DBG("Deserialize:%s\n", err.c_str());
-    return false;
-  }
-  jb = jsonBuffer.as<JsonVariant>();
-#endif
-  return _loadElement(jb, name);
-}
-
-/**
  * Get AutoConnectElementJson element.
  * @param  name  an element name.
  * @return A reference of AutoConnectElement class.

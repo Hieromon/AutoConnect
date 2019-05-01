@@ -75,8 +75,11 @@ class AutoConnectAux : public PageBuilder {
   bool  load(const __FlashStringHelper* in);                            /**< Load whole elements to AutoConnectAux Page */
   bool  load(Stream& in);                                               /**< Load whole elements to AutoConnectAux Page */
   bool  loadElement(const String& in, const String& name = String("")); /**< Load specified element */
-  bool  loadElement(const __FlashStringHelper* in, const String& name = String("")); /**< Load specified element */
+  bool  loadElement(const String& in, std::vector<String> const& names = {});               /**< Load any specified elements */
+  bool  loadElement(const __FlashStringHelper* in, const String& name = String(""));        /**< Load specified element */
+  bool  loadElement(const __FlashStringHelper* in, std::vector<String> const& names = {});  /**< Load any specified elements */
   bool  loadElement(Stream& in, const String& name = String(""));       /**< Load specified element */
+  bool  loadElement(Stream& in, std::vector<String> const& names = {}); /**< Load any specified elements */
   size_t  saveElement(Stream& out, std::vector<String> const& names = {});    /**< Write elements of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
 
@@ -98,11 +101,38 @@ class AutoConnectAux : public PageBuilder {
   bool  _parseJson(T in);
   bool  _load(JsonObject& in);                                          /**< Load all elements from JSON object */
   bool  _loadElement(JsonVariant& in, const String& name);              /**< Load an element as specified name from JSON object */
-  template<typename T>
-  bool  _parseElement(T in, const String& name);
+  bool  _loadElement(JsonVariant& in, std::vector<String> const& names);  /**< Load any elements as specified name from JSON object */
   AutoConnectElement& _loadElement(JsonObject& in, const String& name); /**< Load an element as specified name from JSON object */
   AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
   static ACElement_t  _asElementType(const String& type);               /**< Convert a string of element type to the enumeration value */
+  /**
+   * Parse and load a JSON document which declares one of the AutoConnectElement.
+   * The compiler instantiates this template according to the stored data type that contains the JSON document.
+   * This template also generates different parsing function calls depending on the ArduinoJson version.
+   * @param  T  An object type of the JSON document which must be a passable object to ArduinoJson.
+   * @param  U  An instance of a souce name to load.
+   */
+  template<typename T, typename U,
+  typename std::enable_if<std::is_same<U, const String&>::value || std::is_same<U, std::vector<String> const&>::value>::type* = nullptr>
+  bool _parseElement(T in, U name) {
+    ArduinoJsonBuffer jsonBuffer(AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE);
+    JsonVariant jb;
+  #if ARDUINOJSON_VERSION_MAJOR<=5
+    jb = jsonBuffer.parse(in);
+    if (!jb.success()) {
+      AC_DBG("JSON parse error\n");
+      return false;
+    }
+  #else
+    DeserializationError  err = deserializeJson(jsonBuffer, in);
+    if (err) {
+      AC_DBG("Deserialize:%s\n", err.c_str());
+      return false;
+    }
+    jb = jsonBuffer.as<JsonVariant>();
+  #endif
+    return _loadElement(jb, name);
+  }
 #endif // !AUTOCONNECT_USE_JSON
 
   String  _title;                             /**< A title of the page */
