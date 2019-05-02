@@ -147,7 +147,7 @@ AutoConnectElementVT& AutoConnectAux::getElements(void)
 
 ## Loading &amp; saving AutoConnectElements with JSON
 
-AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectElements. In both cases, the target object is a [JSON document for AutoConnect](acjson.md). However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)
+AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectAux or AutoConnectElements. In both cases, the target object is a [JSON document for AutoConnect](acjson.md). However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)
 
 <img src="images/ac_load_save.svg">
 
@@ -223,7 +223,7 @@ Serial.println(serverName.value);
 
 ### <i class="fa fa-download"></i> Saving AutoConnectElements with JSON
 
-To save the AutoConnectElement as a JSON document, use the [AutoConnectAux::saveElement](apiaux.md#saveelement) function. It serializes the contents of the object based on the type of the AutoConnectElement. You can persist a serialized AutoConnectElements as a JSON document to a stream.
+To save the AutoConnectAux or the AutoConnectElement as a JSON document, use the [AutoConnectAux::saveElement](apiaux.md#saveelement) function. It serializes the contents of the object based on the type of the AutoConnectElement. You can persist a serialized AutoConnectElements as a JSON document to a stream.
 
 ```cpp
 // Open a parameter file on the SPIFFS.
@@ -262,6 +262,8 @@ The example above saves `server` and `period` elements from the AutoConnectAux o
   }
 ]
 ```
+
+Above JSON document can be loaded as it is into a custom Web page using the loadElement function. The loadElement function also loads the value of the element, so the saved value can be restored on the custom Web page.
 
 ## Custom field data handling
 
@@ -382,8 +384,9 @@ AutoConnect portal;
 String feelsOn(AutoConnectAux& aux, PageArgument& args) {
 
   // Get the AutoConnectInput named "feels".
-  // The where() function returns the AutoConnectAux of the page that triggered this handler.
-  AutoConnectInput& feels = portal.where()->getElement<AutoConnectInput>("feels");
+  // The where() function returns an uri string of the AutoConnectAux that triggered this handler.
+  AutoConnectAux* hello = portal.aux(portal.where());
+  AutoConnectInput& feels = hello->getElement<AutoConnectInput>("feels");
   
   // Get the AutoConnectText named "echo".
   AutoConnectText&  echo = aux.getElement<AutoConnectText>("echo");
@@ -407,7 +410,7 @@ void loop() {
 
 The above example handles in the handler for the values of a custom Web page. An [AutoConnect::on](api.md#on) function registers a handler for the AutoConnectAux page of the specified uri. The argument of the custom Web page handler is an AutoConnectAux of the page itself and the [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) object.
 
-To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the [AutoConnect::where](api.md#where) function. The `AutoConnect::where` function returns a pointer to the AutoConnectAux object of the custom Web page that caused the HTTP request.
+To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the [AutoConnect::where](api.md#where) function. The `AutoConnect::where` function returns an uri string of the AutoConnectAux object of the custom Web page that caused the HTTP request.
 
 !!! note "The where() function is available for only AutoConnectAux."
     The `AutoConnect::where` function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/WebServer for ESP32. In other words, the `AutoConnect::where` function only returns the last AutoConnecAux page called.
