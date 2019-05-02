@@ -147,8 +147,6 @@ int getStrength(uint8_t points) {
 
 // Retreive the value of each element entered by '/mqtt_setting'.
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
-  // The 'where()' function returns the AutoConnectAux that caused
-  // the transition to this page.
   mqttserver.value.trim();
   channelid.value.trim();
   userkey.value.trim();

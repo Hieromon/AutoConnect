@@ -296,14 +296,14 @@ Register the handler function for undefined URL request detected.
 
 ### <i class="fa fa-caret-right"></i> where
 ```cpp
-AutoConenctAux& where(void)
+String where(void)
 ```
-Returns a pointer to the AutoConnectAux object of the custom Web page that caused the request to the page.<br>
+Returns an uri string of the AutoConnectAux uri object of the custom Web page that caused the request to the page.<br>
 AutoConnect identifies the URI (ie. the referrer URI) that caused the request each time from the client occurs and will save the URI If the request source is a custom Web page of AutoConnectAux. The **where** function returns a pointer of AutoConnectAux which is a URI of a least recent request from the custom Web page.<br>
 This function is provided to access the fields (ie. the AutoConnectElements) with a custom Web page handler of a page and is available only for request source that is the custom Web pages. It is invalid for HTTP requests from individual pages registered with the **on** handler of ESP8266WebServer/WebServer for ESP32. In other words, this function only returns the AutoConnecAux page which is a least recently displayed.
 <dl class="apidl">
     <dt>**Return value**</dt>
-    <dd>A pointer to the AutoConnectAux that caused the request the page.</dd>
+    <dd>An uri string of the AutoConnectAux that caused the request the page.</dd>
 </dl>
 
 The **where** function usage is described in the section [*Where to pick up the values*](achandling.md#where-to-pick-up-the-values).
