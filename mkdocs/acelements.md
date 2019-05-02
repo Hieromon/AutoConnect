@@ -299,7 +299,7 @@ AutoConnectSelect generates an HTML `#!html <select>` tag (drop-down list) and f
 ### <i class="fa fa-edit"></i> Constructor
 
 ```cpp
-AutoConnectSelect(const char* name, std::vector<String> const& options, const char* label)
+AutoConnectSelect(const char* name, std::vector<String> const& options, const char* label, const uint8_t selected)
 ```
 
 ### <i class="fa fa-caret-right"></i> name
@@ -313,6 +313,10 @@ An `options` is an array of String type for the options which as actually [std::
 ### <i class="fa fa-caret-right"></i> label
 
 A `label` is an optional string. A label is always arranged on the left side of the drop-down list. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The select tag and the label are connected by the id attribute.
+
+### <i class="fa fa-caret-right"></i> selected
+
+A `selected` is an optional value. Specifies that an option should be pre-selected when the page loads.
 
 ## AutoConnectSubmit
 

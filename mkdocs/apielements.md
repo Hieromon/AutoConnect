@@ -349,7 +349,7 @@ AutoConnectRadio(const char* name = "", std::vector<String> const& values = {}, 
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies an [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
+    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies a [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
     <dd><span class="apidef">order</span><span class="apidesc">The direction to arrange the radio buttons.</span></dd>
     <dd><span class="apidef">checked</span><span class="apidesc">An index to be checked in the radio buttons.</span></dd>
@@ -487,13 +487,14 @@ Returns current checked option of the radio buttons.
 ### <i class="fa fa-code"></i> Constructor
 
 ```cpp
-AutoConnectSelect(const char* name = "", std::vector<String> const& options = {}, const char* label = "")
+AutoConnectSelect(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0)
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies an [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
+    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies a [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">selected</span><span class="apidesc">An option should be pre-selected when the page loads.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -520,6 +521,14 @@ A label is an optional string. A label will be arranged in the top of the select
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> selected
+
+A `selected` is an optional value. Specifies 1-based index value of an options array that an option should be pre-selected when the page loads.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -568,7 +577,17 @@ Returns an option string of the index specified by **_n_**.
     <dd><span class="apidef">n</span><span class="apidesc">Index of options array to return. Its base number is 0.</span></dd>
     <dt>**Return value**</dt>
     <dd>A reference of a option string indexed by the specified the **n**.</dd>
-    <dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> select
+
+```cpp
+void  select(const String& value);
+```
+Selects an option with the value.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">value</span><span class="apidesc">String value that option should be selected in an option array.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> size
@@ -580,6 +599,17 @@ Returns number of options which contained.
 <dl class="apidl">
     <dt>**Return value**</dt>
     <dd>Number of options which contained.</dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+```cpp
+const String& value(void) const;
+```
+Returns current selected option of the select list.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>A String of an option current selected. If there is no select option, a null string returned.</dd>
 </dl>
 
 ## AutoConnectSubmit

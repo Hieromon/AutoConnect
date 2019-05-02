@@ -1078,6 +1078,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#selected" title=" selected" class="md-nav__link">
+     selected
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1120,8 +1127,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#select" title=" select" class="md-nav__link">
+     select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#size_2" title=" size" class="md-nav__link">
      size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_6" title=" value" class="md-nav__link">
+     value
   </a>
   
 </li>
@@ -1167,7 +1188,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#value_6" title=" value" class="md-nav__link">
+  <a href="#value_7" title=" value" class="md-nav__link">
      value
   </a>
   
@@ -1241,7 +1262,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#value_7" title=" value" class="md-nav__link">
+  <a href="#value_8" title=" value" class="md-nav__link">
      value
   </a>
   
@@ -2098,6 +2119,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#selected" title=" selected" class="md-nav__link">
+     selected
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2140,8 +2168,22 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#select" title=" select" class="md-nav__link">
+     select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#size_2" title=" size" class="md-nav__link">
      size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_6" title=" value" class="md-nav__link">
+     value
   </a>
   
 </li>
@@ -2187,7 +2229,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#value_6" title=" value" class="md-nav__link">
+  <a href="#value_7" title=" value" class="md-nav__link">
      value
   </a>
   
@@ -2261,7 +2303,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#value_7" title=" value" class="md-nav__link">
+  <a href="#value_8" title=" value" class="md-nav__link">
      value
   </a>
   
@@ -2586,7 +2628,7 @@ Evaluate the pattern as a regexp and return whether value matches. Always return
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies an <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
+    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies a <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
     <dd><span class="apidef">order</span><span class="apidesc">The direction to arrange the radio buttons.</span></dd>
     <dd><span class="apidef">checked</span><span class="apidesc">An index to be checked in the radio buttons.</span></dd>
@@ -2688,13 +2730,14 @@ Returns current checked option of the radio buttons.
 </dl></p>
 <h2 id="autoconnectselect">AutoConnectSelect<a class="headerlink" href="#autoconnectselect" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_6"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_6" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">selected</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 </pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies an <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
+    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies a <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">selected</span><span class="apidesc">An option should be pre-selected when the page loads.</span></dd>
 </dl></p>
 <h3 id="public-member-variables_6"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_6" title="Permanent link">&para;</a></h3>
 <h4 id="name_6"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_6" title="Permanent link">&para;</a></h4>
@@ -2714,6 +2757,12 @@ Returns current checked option of the radio buttons.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl></p>
+<h4 id="selected"><i class="fa fa-caret-right"></i> selected<a class="headerlink" href="#selected" title="Permanent link">&para;</a></h4>
+<p>A <code>selected</code> is an optional value. Specifies 1-based index value of an options array that an option should be pre-selected when the page loads.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd>
 </dl></p>
 <h3 id="public-member-functions_6"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_6" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_6"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_6" title="Permanent link">&para;</a></h4>
@@ -2749,7 +2798,14 @@ Returns an option string of the index specified by <strong><em>n</em></strong>.
     <dd><span class="apidef">n</span><span class="apidesc">Index of options array to return. Its base number is 0.</span></dd>
     <dt><strong>Return value</strong></dt>
     <dd>A reference of a option string indexed by the specified the <strong>n</strong>.</dd>
-    <dd>
+</dl></p>
+<h4 id="select"><i class="fa fa-caret-right"></i> select<a class="headerlink" href="#select" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span>  <span style="color: #a6e22e">select</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value);</span>
+</pre></div>
+Selects an option with the value.
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">value</span><span class="apidesc">String value that option should be selected in an option array.</span></dd>
 </dl></p>
 <h4 id="size_2"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size_2" title="Permanent link">&para;</a></h4>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
@@ -2758,6 +2814,14 @@ Returns number of options which contained.
 <dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>Number of options which contained.</dd>
+</dl></p>
+<h4 id="value_6"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_6" title="Permanent link">&para;</a></h4>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span><span style="color: #f8f8f2">;</span>
+</pre></div>
+Returns current selected option of the select list.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A String of an option current selected. If there is no select option, a null string returned.</dd>
 </dl></p>
 <h2 id="autoconnectsubmit">AutoConnectSubmit<a class="headerlink" href="#autoconnectsubmit" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_7"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_7" title="Permanent link">&para;</a></h3>
@@ -2776,7 +2840,7 @@ Returns number of options which contained.
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl></p>
-<h4 id="value_6"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_6" title="Permanent link">&para;</a></h4>
+<h4 id="value_7"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_7" title="Permanent link">&para;</a></h4>
 <p>The name of the submit button. It will also be the label of the button.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
@@ -2815,7 +2879,7 @@ Returns type of AutoConnectElement.
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl></p>
-<h4 id="value_7"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_7" title="Permanent link">&para;</a></h4>
+<h4 id="value_8"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_8" title="Permanent link">&para;</a></h4>
 <p>A content string of the text element.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>

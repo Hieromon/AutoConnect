@@ -33,7 +33,8 @@ static const char AUX_TIMEZONE[] PROGMEM = R"(
       "name": "timezone",
       "type": "ACSelect",
       "label": "Select TZ name",
-      "option": []
+      "option": [],
+      "selected": 10
     },
     {
       "name": "newline",
