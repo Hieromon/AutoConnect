@@ -257,9 +257,9 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectRadioJson::getObjectSize() const {
-  size_t  size =AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3) + _values.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof(AUTOCONNECT_JSON_KEY_ARRANGE) + sizeof(AUTOCONNECT_JSON_VALUE_HORIZONTAL) + sizeof(AUTOCONNECT_JSON_KEY_CHECKED);
-  for (String _value : _values)
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2) +  JSON_ARRAY_SIZE(_values.size());
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof(AUTOCONNECT_JSON_KEY_ARRANGE) + sizeof(AUTOCONNECT_JSON_VALUE_HORIZONTAL) + sizeof(AUTOCONNECT_JSON_KEY_CHECKED) + 2;
+  for (const String& _value : _values)
     size += _value.length();
   return size;
 }
@@ -310,7 +310,7 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACRADIO));
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   ArduinoJsonArray  values = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_VALUE));
-  for (String v : _values)
+  for (const String& v : _values)
     values.add(v);
   switch (order) {
   case AC_Horizontal:
@@ -329,9 +329,9 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
  * @return  An object size for JsonBuffer.
  */
 size_t AutoConnectSelectJson::getObjectSize() const {
-  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(4) + _options.size() * JSON_OBJECT_SIZE(1) + JSON_ARRAY_SIZE(1);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length();
-  for (String _option : _options)
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3) + JSON_ARRAY_SIZE(_options.size());
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof(AUTOCONNECT_JSON_KEY_SELECTED) + 2;
+  for (const String& _option : _options)
     size += _option.length();
   return size;
 }

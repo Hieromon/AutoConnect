@@ -734,6 +734,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#selected" title=" selected" class="md-nav__link">
+     selected
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1510,6 +1517,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#selected" title=" selected" class="md-nav__link">
+     selected
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1859,7 +1873,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <small><strong><code>AutoConnectSelect select("select", { String("Europe/London"), String("Europe/Berlin"), String("Europe/Helsinki"), String("Europe/Moscow"), String("Asia/Dubai") }, "Select TZ name");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acselect.png"></p>
 <h3 id="constructor_6"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_6" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">selected)</span>
 </pre></div>
 
 <h3 id="name_6"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_6" title="Permanent link">&para;</a></h3>
@@ -1868,6 +1882,8 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <p>An <code>options</code> is an array of String type for the options which as actually <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> for an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">option</span><span style="color: #f8f8f2">&gt;</span></code> tag. It is an initialization list can be used. The option tags will be generated from each entry in the options, the amount of which is the same as the number of items in an <code>options</code>.</p>
 <h3 id="label_4"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_4" title="Permanent link">&para;</a></h3>
 <p>A <code>label</code> is an optional string. A label is always arranged on the left side of the drop-down list. Specification of a label will generate an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The select tag and the label are connected by the id attribute.</p>
+<h3 id="selected"><i class="fa fa-caret-right"></i> selected<a class="headerlink" href="#selected" title="Permanent link">&para;</a></h3>
+<p>A <code>selected</code> is an optional value. Specifies that an option should be pre-selected when the page loads.</p>
 <h2 id="autoconnectsubmit">AutoConnectSubmit<a class="headerlink" href="#autoconnectsubmit" title="Permanent link">&para;</a></h2>
 <p>AutoConnectSubmit generates an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;button&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag attached <code class="codehilite">onclick</code> attribute. The native code of the <code class="codehilite">onclick</code> attribute is the submission of the form with the <strong>POST</strong> method.</p>
 <p><i class="fa fa-eye"></i> <strong>Sample</strong><br>

@@ -185,7 +185,7 @@ class AutoConnect {
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
-  AutoConnectAux& where(void) const { return *aux(_auxUri); }
+  String where(void) const { return _auxUri; }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON

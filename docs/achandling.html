@@ -1148,7 +1148,7 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 </pre></div>
 
 <h2 id="loading-saving-autoconnectelements-with-json">Loading &amp; saving AutoConnectElements with JSON<a class="headerlink" href="#loading-saving-autoconnectelements-with-json" title="Permanent link">&para;</a></h2>
-<p>AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectElements. In both cases, the target object is a <a href="acjson.html">JSON document for AutoConnect</a>. However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)</p>
+<p>AutoConnect supports reading the custom Web page definitions written in JSON and also supports loading and saving of AutoConnectAux or AutoConnectElements. In both cases, the target object is a <a href="acjson.html">JSON document for AutoConnect</a>. However, it can not save all AutoConnectElements contained in the page as a custom Web page. (ie. AutoConnectAux)</p>
 <p><img src="images/ac_load_save.svg"></p>
 <h3 id="loading-autoconnectaux-autoconnectelements-with-json"><i class="fa fa-upload"></i> Loading AutoConnectAux &amp; AutoConnectElements with JSON<a class="headerlink" href="#loading-autoconnectaux-autoconnectelements-with-json" title="Permanent link">&para;</a></h3>
 <p>To load a JSON document as AutoConnectAux use the <a href="api.html#load"><strong>AutoConnect::load</strong></a> function and load the JSON document of each AutoConnectElement using the <a href="apiaux.html#loadelement"><strong>AutoConnectAux::loadElement</strong></a> function. Although the functions of both are similar, the structure of the target JSON document is different.</p>
@@ -1216,7 +1216,7 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 </pre></div>
 
 <h3 id="saving-autoconnectelements-with-json"><i class="fa fa-download"></i> Saving AutoConnectElements with JSON<a class="headerlink" href="#saving-autoconnectelements-with-json" title="Permanent link">&para;</a></h3>
-<p>To save the AutoConnectElement as a JSON document, use the <a href="apiaux.html#saveelement">AutoConnectAux::saveElement</a> function. It serializes the contents of the object based on the type of the AutoConnectElement. You can persist a serialized AutoConnectElements as a JSON document to a stream.</p>
+<p>To save the AutoConnectAux or the AutoConnectElement as a JSON document, use the <a href="apiaux.html#saveelement">AutoConnectAux::saveElement</a> function. It serializes the contents of the object based on the type of the AutoConnectElement. You can persist a serialized AutoConnectElements as a JSON document to a stream.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">// Open a parameter file on the SPIFFS.</span>
 <span style="color: #f8f8f2">SPIFFS.begin();</span>
 <span style="color: #66d9ef">FILE</span> <span style="color: #f8f8f2">param</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/param&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;w&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1252,6 +1252,7 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <span style="color: #f8f8f2">]</span>
 </pre></div>
 
+<p>Above JSON document can be loaded as it is into a custom Web page using the loadElement function. The loadElement function also loads the value of the element, so the saved value can be restored on the custom Web page.</p>
 <h2 id="custom-field-data-handling">Custom field data handling<a class="headerlink" href="#custom-field-data-handling" title="Permanent link">&para;</a></h2>
 <p>A sketch can access variables of AutoConnectElements in the custom Web page. The value entered into the AutoConnectElements on the page is stored in the member variable of each element by AutoConnect whenever GET/POST transmission occurs. </p>
 <p>The following diagram shows the flow of the input values of a custom Web page into a sketch and is the basis for actions to manipulate the values of custom Web pages using sketches.</p>
@@ -1361,12 +1362,13 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">feelsOn</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
 
   <span style="color: #75715e">// Get the AutoConnectInput named &quot;feels&quot;.</span>
-  <span style="color: #75715e">// The where() function returns the AutoConnectAux of the page that triggered this handler.</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">feels</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.where()</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;feels&quot;</span><span style="color: #f8f8f2">);</span>
-</span>
-  <span style="color: #75715e">// Get the AutoConnectText named &quot;echo&quot;.</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">echo</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;echo&quot;</span><span style="color: #f8f8f2">);</span>
-</span>
+  <span style="color: #75715e">// The where() function returns an uri string of the AutoConnectAux that triggered this handler.</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">hello</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(portal.where());</span>
+</span>  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">feels</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">hello</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;feels&quot;</span><span style="color: #f8f8f2">);</span>
+
+<span style="background-color: #49483e">  <span style="color: #75715e">// Get the AutoConnectText named &quot;echo&quot;.</span>
+</span>  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">echo</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;echo&quot;</span><span style="color: #f8f8f2">);</span>
+
   <span style="color: #75715e">// Echo back from input-box to /feels page.</span>
   <span style="color: #f8f8f2">echo.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">feels.value</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot; and a bold world!&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1385,7 +1387,7 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 </pre></div>
 
 <p>The above example handles in the handler for the values of a custom Web page. An <a href="api.html#on">AutoConnect::on</a> function registers a handler for the AutoConnectAux page of the specified uri. The argument of the custom Web page handler is an AutoConnectAux of the page itself and the <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> object.</p>
-<p>To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the <a href="api.html#where">AutoConnect::where</a> function. The <code>AutoConnect::where</code> function returns a pointer to the AutoConnectAux object of the custom Web page that caused the HTTP request.</p>
+<p>To retrieve the values entered in a custom Web page you need to access the AutoConnectElement of the page that caused the request to this page and to do this, you use the <a href="api.html#where">AutoConnect::where</a> function. The <code>AutoConnect::where</code> function returns an uri string of the AutoConnectAux object of the custom Web page that caused the HTTP request.</p>
 <div class="admonition note">
 <p class="admonition-title">The where() function is available for only AutoConnectAux.</p>
 <p>The <code>AutoConnect::where</code> function is available only for the AutoConnectAux object. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/WebServer for ESP32. In other words, the <code>AutoConnect::where</code> function only returns the last AutoConnecAux page called.</p>

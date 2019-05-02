@@ -39,7 +39,7 @@ Add an element to the AutoConnectAux. An added element is displayed on the custo
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">addon</span><span class="apidesc">Reference of AutoConnectElements. Specifies one of the AutoConnectElements classes.</span></dd>
-    <dd><span class="apidef">addons</span><span class="apidesc">An array list of reference of AutoConnectElements. An [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) of the [std::vector](https://en.cppreference.com/w/cpp/container/vector) can be used for the addons parameter cause the actual definition of type **AutoConnectElementVT** is `std::vector<std::reference_wrapper<AutoConnectElement>>`.</span></dd>
+    <dd><span class="apidef">addons</span><span class="apidesc">An array list of reference of AutoConnectElements. The [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with braced-init-list of the [std::vector](https://en.cppreference.com/w/cpp/container/vector) can be used for the addons parameter cause the actual definition of type **AutoConnectElementVT** is `std::vector<std::reference_wrapper<AutoConnectElement>>`.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> getElement
@@ -115,10 +115,19 @@ Load all AutoConnectElements elements from JSON document into AutoConnectAux as 
 bool loadElement(const String& in, const String& name = String(""))
 ```
 ```cpp
+bool loadElement(const String& in, std::vector<String> const& names)
+```
+```cpp
 bool loadElement(const __FlashStringHelper* in, const String& name = String(""))
 ```
 ```cpp
+bool loadElement(const __FlashStringHelper* in, std::vector<String> const& names)
+```
+```cpp
 bool loadElement(Stream& in, const String& name = String(""))
+```
+```cpp
+bool loadElement(Stream& in, std::vector<String> const& names)
 ```
 Load specified element from JSON document into AutoConnectAux. The JSON document specified by the loadElement function must be the [AutoConnectElement document structure](acjson.md#json-object-for-autoconnectelements). When loading from a JSON document that describes multiple elements, its description must be an array syntax.
 <dl class="apidl">
@@ -130,6 +139,7 @@ Load specified element from JSON document into AutoConnectAux. The JSON document
 - Stream : An entity that inherits stream class, generally SPIFFS or SD.
     </span></dd>
     <dd><span class="apidef">name</span><span class="apidesc">Specifies the name to be load. If the name is not specified, the loadElement function will load all elements contained in the JSON document.</span></dd>
+    <dd><span class="apidef">names</span><span class="apidesc"> Spefifies an array list of String indicating the name of the element to be loaded. The [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with braced-init-list of the [std::vector](https://en.cppreference.com/w/cpp/container/vector) can be used.</span></dd>
     <dt>**Return value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Specified AutoConnectElements successfully loaded.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">JSON document loading failed.</span></dd>
@@ -242,6 +252,9 @@ Write elements of AutoConnectAux to the stream. The saveElement function outputs
 
 !!! note "The output format is pretty"
     The saveElement function outputs a prettified JSON document.
+
+!!! Info "It is not complementary with loadElement"
+    The saveElement function which missing the names parameter without name list to be saved that saves an entire AutoConnectAux element, not just AutoConnectElements. Its saved JSON document is not a complementary input to the loadElement function. The JSON document describing AutoConnectAux saved without the names parameter must be loaded by the [AutoConnectAux::load](apiaux.md#load) function or [AutoConnect::load](api.md#load) function.
 
 ### <i class="fa fa-caret-right"></i> setElementValue
 

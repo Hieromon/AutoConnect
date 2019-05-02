@@ -275,7 +275,7 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The 'where()' function returns the AutoConnectAux that caused
   // the transition to this page.
-  AutoConnectAux&   mqtt_setting = portal.where();
+  AutoConnectAux&   mqtt_setting = *portal.aux(portal.where());
   getParams(mqtt_setting);
   AutoConnectInput& mqttserver = mqtt_setting["mqttserver"].as<AutoConnectInput>();
 
