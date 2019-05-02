@@ -139,7 +139,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#098-apr-25-2019" tabindex="1" class="md-skip">
+      <a href="#098-may-3-2019" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -657,8 +657,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#098-apr-25-2019" title="[0.9.8] Apr. 25, 2019" class="md-nav__link">
-    [0.9.8] Apr. 25, 2019
+  <a href="#098-may-3-2019" title="[0.9.8] May 3, 2019" class="md-nav__link">
+    [0.9.8] May 3, 2019
   </a>
   
 </li>
@@ -754,8 +754,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#098-apr-25-2019" title="[0.9.8] Apr. 25, 2019" class="md-nav__link">
-    [0.9.8] Apr. 25, 2019
+  <a href="#098-may-3-2019" title="[0.9.8] May 3, 2019" class="md-nav__link">
+    [0.9.8] May 3, 2019
   </a>
   
 </li>
@@ -828,16 +828,22 @@
                 
                   <h1>Change log</h1>
                 
-                <h4 id="098-apr-25-2019">[0.9.8] Apr. 25, 2019<a class="headerlink" href="#098-apr-25-2019" title="Permanent link">&para;</a></h4>
+                <h4 id="098-may-3-2019">[0.9.8] May 3, 2019<a class="headerlink" href="#098-may-3-2019" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Supports ArduinoJson 6.9.1 or later.</li>
 <li>Supports allocating JsonDocument buffer to PSRAM on ESP32 with ArduinoJson 6.10.0 or later.</li>
 <li>Supports <a href="apiaux.html#operator"><strong>operator<code>[]</code></strong></a> as a shortcut for AutoConnectAux::getElement function.</li>
 <li>Supports <a href="apielements.html#ast62"><strong>AutoConnectElement::as&lt;T></strong></a> function to easily coding for conversion from an AutoConnectElement to an actual type.</li>
 <li>Supports new element type <a href="acelements.html#autoconnectfile"><strong>AutoConnectFile</strong></a> and built-in file uploader.</li>
-<li>Supports a <a href="acelements.html#format"><strong>format attribute</strong></a> with the AutoConnectText element.</li>
-<li>Fixed blank page responds with Configure new.</li>
+<li>Supports a <a href="acelements.html#format"><strong>format</strong></a> attribute with the AutoConnectText element.</li>
+<li>Supports a <a href="acelements.html#selected"><strong>selected</strong></a> attribute with the AutoConnectSelect element.</li>
+<li>Supports multiple element loading with <a href="apiaux.html#loadelement">AutoConnectAux::loadElement</a>.</li>
 <li>Changed menu labels placement in source files structure.</li>
+<li>Changed API interface of <a href="api.html#where">**AutoConnect::where</a> function.</li>
+<li>Fixed blank page responds with Configure new.</li>
+<li>Fixed loading elements value missing.</li>
+<li>Fixed losing elements in saveElement with ArduinoJson V6.</li>
+<li>Fixed compile error with older than ESP8266 core 2.5.0.</li>
 </ul>
 <h4 id="097-jan-25-2019">[0.9.7] Jan. 25, 2019<a class="headerlink" href="#097-jan-25-2019" title="Permanent link">&para;</a></h4>
 <ul>
