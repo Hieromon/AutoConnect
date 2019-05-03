@@ -776,9 +776,10 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
   // Calculate JSON buffer size
   if (amount == 0) {
     bufferSize += JSON_OBJECT_SIZE(4);
-    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof("false") + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT);
+    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT);
+    bufferSize += JSON_ARRAY_SIZE(_addonElm.size());
   }
-  if (amount != 1)
+  else
     bufferSize += JSON_ARRAY_SIZE(amount);
 
   for (AutoConnectElement& elmEach : _addonElm) {
@@ -792,7 +793,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
     bufferSize += elm->getObjectSize();
   }
   // Round up to 16 boundary
-  bufferSize = bufferSize > 0 ? ((bufferSize + 128) & (~0xf)) : bufferSize;
+  bufferSize = bufferSize > 0 ? ((bufferSize + 16) & (~0xf)) : bufferSize;
   AC_DBG("JSON buffer size:%d\n", bufferSize);
 
   // Serialization
