@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.7
- *  @date   2019-01-21
+ *  @version    0.9.9
+ *  @date   2019-05-04
  *  @copyright  MIT license.
  */
 
@@ -59,6 +59,11 @@ void AutoConnect::_initialize(void) {
 #endif
   _aux.release();
   _auxUri = String("");
+
+  // Prepare to attach the updater.
+  // If an updater is attached, handleClient includes an update process
+  // in the handleClient behavior.
+  _update.reset(nullptr);
 }
 
 /**
@@ -154,9 +159,14 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   }
   _currentHostIP = WiFi.localIP();
 
-  // Rushing into the portal.
-  if (!cs) {
-
+  // End first begin process, the captive portal specific process starts here.
+  if (cs) {
+    // Activate AutoConnectUpdate if it is attached and incorporate it into the AutoConnect menu.
+    if (_update)
+      _update->enable();
+  }
+ // Rushing into the portal.
+  else {
     // The captive portal is effective at the autoRise is valid only.
     if (_apConfig.autoRise) {
 
@@ -324,6 +334,9 @@ void AutoConnect::end(void) {
       break;
     }
   }
+
+  // Release the updater
+  _update.reset(nullptr);
 }
 
 /**
@@ -463,6 +476,11 @@ void AutoConnect::handleRequest(void) {
       }
       else
         AC_DBG("%s has no BSSID, saving is unavailable\n", reinterpret_cast<const char*>(_credential.ssid));
+
+      // Activate AutoConnectUpdate if it is attached and incorporate
+      // it into the AutoConnect menu.
+      if (_update)
+        _update->enable();
     }
     else {
       _currentHostIP = WiFi.softAPIP();
@@ -488,7 +506,6 @@ void AutoConnect::handleRequest(void) {
 
   if (_rfDisconnect) {
     // Disconnect from the current AP.
-//    _waitForEndTransmission();
     _stopPortal();
     _disconnectWiFi(false);
     while (WiFi.status() == WL_CONNECTED) {
@@ -505,6 +522,10 @@ void AutoConnect::handleRequest(void) {
       delay(1000);
     }
   }
+
+  // Handle the update behaviors for attached AutoConnectUpdate.
+  if (_update)
+    _update->handleUpdate();
 }
 
 /**

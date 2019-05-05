@@ -11,7 +11,7 @@
 #define _AUTOCONNECTELEMENTJSON_H_
 
 #include "AutoConnectElementBasis.h"
-#include <ArduinoJson.h>
+#include "AutoConnectJsonDefs.h"
 
 #define AUTOCONNECT_JSON_KEY_ACTION       "action"
 #define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
@@ -45,50 +45,6 @@
 #define AUTOCONNECT_JSON_VALUE_HORIZONTAL "horizontal"
 #define AUTOCONNECT_JSON_VALUE_SD         "sd"
 #define AUTOCONNECT_JSON_VALUE_VERTICAL   "vertical"
-
-/**
- * Make the Json types and functions consistent with the ArduinoJson
- * version. These declarations share the following type definitions:
- * - Difference between reference and proxy of JsonObject and JsonArray.
- * - Difference of check whether the parsing succeeded or not.
- * - The print function name difference.
- * - The buffer class difference.
- * - When PSRAM present, enables the buffer allocation it with ESP32 and
- *   supported version.
- */
-#if ARDUINOJSON_VERSION_MAJOR<=5
-#define ARDUINOJSON_CREATEOBJECT(doc)     doc.createObject()
-#define ARDUINOJSON_CREATEARRAY(doc)      doc.createArray()
-#define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = doc.prettyPrintTo(out); s; })
-#define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = doc.printTo(out); s; })
-using ArduinoJsonObject = JsonObject&;
-using ArduinoJsonArray = JsonArray&;
-using ArduinoJsonBuffer = DynamicJsonBuffer;
-#define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONBUFFER_SIZE
-#else
-#define ARDUINOJSON_CREATEOBJECT(doc)     doc.to<JsonObject>()
-#define ARDUINOJSON_CREATEARRAY(doc)      doc.to<JsonArray>()
-#define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = serializeJsonPretty(doc, out); s; })
-#define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = serializeJson(doc, out); s; })
-using ArduinoJsonObject = JsonObject;
-using ArduinoJsonArray = JsonArray;
-#if defined(BOARD_HAS_PSRAM) && ((ARDUINOJSON_VERSION_MAJOR==6 && ARDUINOJSON_VERSION_MINOR>=10) || ARDUINOJSON_VERSION_MAJOR>6)
-// JsonDocument is assigned to PSRAM by ArduinoJson's custom allocator.
-struct SpiRamAllocatorST {
-  void* allocate(size_t size) {
-    return heap_caps_malloc(size, MALLOC_CAP_SPIRAM);
-  }
-  void  deallocate(void* pointer) {
-    heap_caps_free(pointer);
-  }
-};
-#define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONPSRAM_SIZE
-using ArduinoJsonBuffer = BasicJsonDocument<SpiRamAllocatorST>;
-#else
-#define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONDOCUMENT_SIZE
-using ArduinoJsonBuffer = DynamicJsonDocument;
-#endif
-#endif
 
 /**
  * AutoConnectAux element base with handling with JSON object.

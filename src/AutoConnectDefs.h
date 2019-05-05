@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-11-17
+ * @version  0.9.9
+ * @date 2019-04-30
  * @copyright  MIT license.
  */
 
@@ -28,6 +28,9 @@
 // Indicator to specify that AutoConnectAux handles elements with JSON.
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
 #define AUTOCONNECT_USE_JSON
+
+// Indicator of whether to use the AutoConnectUpdate feature.
+#define AUTOCONNECT_USE_UPDATE
 
 // Predefined parameters
 // SSID that Captive portal started.
@@ -86,6 +89,9 @@
 #define AUTOCONNECT_URI_RESET   AUTOCONNECT_URI "/reset"
 #define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
 #define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
+#define AUTOCONNECT_URI_UPDATE  AUTOCONNECT_URI "/update"
+#define AUTOCONNECT_URI_UPDATE_ACT    AUTOCONNECT_URI "/update_act"
+#define AUTOCONNECT_URI_UPDATE_RESULT AUTOCONNECT_URI "/update_result"
 
 // Time-out limitation when AutoConnect::begin [ms]
 #ifndef AUTOCONNECT_TIMEOUT
@@ -160,6 +166,31 @@
 #ifndef AUTOCONNECT_JSONPSRAM_SIZE
 #define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
 #endif // !AUTOCONNECT_JSONPSRAM_SIZE
+
+// Available HTTP port number for the update
+#ifndef AUTOCONNECT_UPDATE_PORT
+#define AUTOCONNECT_UPDATE_PORT       8000
+#endif // !AUTOCONNECT_UPDATE_PORT
+
+// HTTP client timeout limitation for the update
+#ifndef AUTOCONNECT_UPDATE_TIMEOUT
+#define AUTOCONNECT_UPDATE_TIMEOUT    8000
+#endif // !AUTOCONNECT_UPDATE_TIMEOUT
+
+#ifndef AUTOCONNECT_UPDATE_DURATION
+#define AUTOCONNECT_UPDATE_DURATION   180000
+#endif // !AUTOCONNECT_UPDATE_DURATION
+
+// URIs of the behaviors owned by the update server
+#ifndef AUTOCONNECT_UPDATE_CATALOG
+#define AUTOCONNECT_UPDATE_CATALOG    "/_catalog"
+#endif // !AUTOCONNECT_UPDATE_CATALOG
+#ifndef AUTOCONNECT_UPDATE_DOWNLOAD
+#define AUTOCONNECT_UPDATE_DOWNLOAD   "/"
+#endif // !AUTOCONNECT_UPDATE_DOWNLOAD
+#ifndef AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
+#define AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE  2048
+#endif // !AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
 
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
