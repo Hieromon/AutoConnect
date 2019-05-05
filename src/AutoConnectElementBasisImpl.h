@@ -172,6 +172,7 @@ void AutoConnectRadioBasis::empty(const size_t reserve) {
   std::vector<String>().swap(_values);
   if (reserve)
     _values.reserve(reserve);
+  checked = 0;
 }
 
 /**
@@ -221,6 +222,7 @@ void AutoConnectSelectBasis::empty(const size_t reserve) {
   std::vector<String>().swap(_options);
   if (reserve)
     _options.reserve(reserve);
+  selected = 0;
 }
 
 /**
