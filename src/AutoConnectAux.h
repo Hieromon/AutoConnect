@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAuxBasis.h
  * @author hieromon@gmail.com
- * @version  0.9.7
- * @date 2018-12-17
+ * @version  0.9.9
+ * @date 2019-05-04
  * @copyright  MIT license.
  */
 
@@ -58,6 +58,7 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement*   getElement(const String& name);                 /**< Get registered AutoConnectElement as specified name */
   AutoConnectElementVT& getElements(void) { return _addonElm; }         /**< Get vector of all elements */
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
+  bool  isMenu(void) { return _menu; }                                  /**< Return whether embedded in the menu or not */
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */

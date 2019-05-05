@@ -81,6 +81,18 @@ for (AutoConnectElement& elm : elements) {
 }
 ```
 
+### <i class="fa fa-caret-right"></i> isMenu
+
+```cpp
+bool isMenu(void)
+```
+Returns whether embedded in the menu or not. The isMenu is a function that complements the [menu](apiaux.md#menu) function.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The custom Web page has been incorporated into the AutoConnect menu as a menu item.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">This custom Web page is not currently a menu item.</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> load
 
 ```cpp
