@@ -441,7 +441,9 @@ Indicates the check of the specified option for the radio buttons. You can use t
 ```cpp
 void empty(const size_t reserve = 0)
 ```
-Clear the array of option strings that AutoConnectRadio has in the values. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
+Clear the array of option strings that AutoConnectRadio has in the values. When the **_reserve_** parameter is specified, a vector container of that size is reserved.
+
+The empty function resets the checked value to zero. When the empty function is executed, any button will be turned off.
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd>
@@ -560,7 +562,9 @@ Adds a selectable option string for the selection list.
 ```cpp
 void empty(const size_t reserve = 0)
 ```
-Clear the array of options list that AutoConnectSelect has in the options. When a **_reserve_** parameter is specified, a vector container of that size is reserved.
+Clear the array of options list that AutoConnectSelect has in the options. When the **_reserve_** parameter is specified, a vector container of that size is reserved.
+
+The empty function resets the selected value to zero. When the empty function is executed, there are no selected options and the first item is placed at the beginning.
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd>

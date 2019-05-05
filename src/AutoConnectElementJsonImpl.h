@@ -277,6 +277,12 @@ bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
     _setMember(json);
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
       label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE))) {
+      ArduinoJsonArray optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
+      empty(optionArray.size());
+      for (auto value : optionArray)
+        add(value.as<String>());
+    }
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_CHECKED)))
       checked = static_cast<uint8_t>(json[F(AUTOCONNECT_JSON_KEY_CHECKED)].as<int>());
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ARRANGE))) {
@@ -289,13 +295,6 @@ bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
         AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), arrange.c_str());
         return false;
       }
-    }
-    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE))) {
-      empty();
-      // JsonArray& optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
-      ArduinoJsonArray optionArray = json[AUTOCONNECT_JSON_KEY_VALUE];
-      for (auto value : optionArray)
-        add(value.as<String>());
     }
     return true;
   }
@@ -350,14 +349,14 @@ bool AutoConnectSelectJson::loadMember(const JsonObject& json) {
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
       label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_OPTION))) {
-      empty();
       ArduinoJsonArray optionArray = json[AUTOCONNECT_JSON_KEY_OPTION];
+      empty(optionArray.size());
       for (auto value : optionArray)
         add(value.as<String>());
-      if (json.containsKey(F(AUTOCONNECT_JSON_KEY_SELECTED)))
-        selected = static_cast<uint8_t>(json[F(AUTOCONNECT_JSON_KEY_SELECTED)].as<int>());
-      return true;
     }
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_SELECTED)))
+      selected = static_cast<uint8_t>(json[F(AUTOCONNECT_JSON_KEY_SELECTED)].as<int>());
+    return true;
   }
   return false;
 }
