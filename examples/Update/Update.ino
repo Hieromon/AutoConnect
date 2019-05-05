@@ -35,8 +35,19 @@ void setup() {
 
   // Responder of root page handled directly from WebServer class.
   server.on("/", []() {
-    String content = "Place the root page with the sketch application.&ensp;";
-    content += AUTOCONNECT_LINK(COG_24);
+    String content = R"(
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+Place the root page with the sketch application.&ensp;
+__AC_LINK__
+</body>
+</html>
+    )";
+    content.replace("__AC_LINK__", String(AUTOCONNECT_LINK(COG_24)));
     server.send(200, "text/html", content);
   });
 

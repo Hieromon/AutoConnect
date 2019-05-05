@@ -115,10 +115,20 @@ class AutoConnectUpdate : public HTTPUpdateClass {
   String  _onUpdate(AutoConnectAux& update, PageArgument& args);
   String  _onResult(AutoConnectAux& result, PageArgument& args);
   size_t  _insertCatalog(AutoConnectRadio& radio, JsonVariant & responseBody);
+#ifdef ARDUINO_ARCH_ESP32
+  void    _inProgress(size_t amount, size_t size) {
+    _amount = amount;
+    _binSize = size;
+    AC_DBG_DUMB(".");
+  }
+#endif
 
   std::unique_ptr<AutoConnectAux> _catalog;   /**< A catalog page for internally generated update binaries */
   std::unique_ptr<AutoConnectAux> _progress;  /**< An update in-progress page */  
   std::unique_ptr<AutoConnectAux> _result;    /**< A update result page  */
+
+  size_t  _amount;                            /**< Received amound bytes */
+  size_t  _binSize;                           /**< Updater binary size */
 
  private:
   AC_UPDATESTATUS_t _status;

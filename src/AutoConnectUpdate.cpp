@@ -7,6 +7,7 @@
  * @copyright  MIT license.
  */
 
+#include <functional>
 #include "AutoConnectUpdate.h"
 #include "AutoConnectUpdatePage.h"
 #include "AutoConnectJsonDefs.h"
@@ -105,6 +106,10 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
   portal.join(*_result.get());
 
   _status = UPDATE_IDLE;
+
+#ifdef ARDUINO_ARCH_ESP32
+  Update.onProgress(std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
+#endif
 
   // Attach this to the AutoConnectUpdate
   portal._update.reset(this);
@@ -389,7 +394,7 @@ String AutoConnectUpdate::_onResult(AutoConnectAux& result, PageArgument& args) 
     resColor = String(F("red"));
     break;
   default:
-    resForm = String(F("No available update."));
+    resForm = String(F("<br>No available update."));
     resColor = String(F("red"));
     break;
   }
