@@ -142,7 +142,7 @@ const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
 
 /**< INPUT button and submit style */
 const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
-  "input[type=\"button\"],input[type=\"submit\"],button[type=\"submit\"]{"
+  "input[type=\"button\"],input[type=\"submit\"],button[type=\"submit\"],button[type=\"button\"]{"
     "padding:8px 0.5em;"
     "font-weight:bold;"
     "letter-spacing:0.8px;"
@@ -151,12 +151,12 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
     "border-radius:2px;"
     "margin-top:12px;"
   "}"
-  "input[type=\"button\"]{"
+  "input[type=\"button\"],button[type=\"button\"]{"
     "background-color:#1b5e20;"
     "border-color:#1b5e20;"
     "width:15em;"
   "}"
-  ".aux-page input[type=\"button\"]{"
+  ".aux-page input[type=\"button\"],button[type=\"button\"]{"
     "font-weight:normal;"
     "padding:8px 14px;"
     "margin:12px;"
