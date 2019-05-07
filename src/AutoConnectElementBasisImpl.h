@@ -292,7 +292,7 @@ const String AutoConnectTextBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    html = String("<div");
+    html = String(F("<div id=\"")) + name + String('"');
     String  value_f = value;
 
     if (style.length())
