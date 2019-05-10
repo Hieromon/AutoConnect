@@ -67,4 +67,28 @@
 //#define AUTOCONNECT_BUTTONLABEL_RESET     "Reboot"
 #endif // !AUTOCONNECT_BUTTONLABEL_RESET
 
+// Menu colors
+// The following three color code items determine the color scheme of
+// the menu. In addition to hexadecimal color values, you can specify
+// 140 standard color names that apply to CSS.
+// To be no sense of discomfort, select the same series of values for
+// the background and the active item.
+
+// Menu text foreground color
+#ifndef AUTOCONNECT_MENUCOLOR_TEXT
+#define AUTOCONNECT_MENUCOLOR_TEXT        "#fff"
+//#define AUTOCONNECT_MENUCOLOR_TEXT        "#fffacd"
+#endif // !AUTOCONNECT_MENUCOLOR_TEXT
+
+// Menu background color
+#ifndef AUTOCONNECT_MENUCOLOR_BACKGROUND
+#define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#263238"
+// #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#696969"
+#endif // !AUTOCONNECT_MENUCOLOR_BACKGROUND
+
+// Background color with active menu items and mouse hover
+#ifndef AUTOCONNECT_MENUCOLOR_ACTIVE
+#define AUTOCONNECT_MENUCOLOR_ACTIVE      "#37474f"
+// #define AUTOCONNECT_MENUCOLOR_ACTIVE      "#808080"
+#endif
 #endif
