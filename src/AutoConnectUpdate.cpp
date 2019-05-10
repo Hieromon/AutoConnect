@@ -74,6 +74,7 @@ AutoConnectUpdate::~AutoConnectUpdate() {
   _progress.reset(nullptr);
   _result.reset(nullptr);
   _WiFiClient.reset(nullptr);
+  _ws.reset(nullptr);
 }
 
 /**
@@ -98,8 +99,8 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
   _buildAux(updatePage, &_auxResult, lengthOf(_elmResult));
   _result.reset(updatePage);
   _catalog->on(std::bind(&AutoConnectUpdate::_onCatalog, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
-  _result->on(std::bind(&AutoConnectUpdate::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
   _progress->on(std::bind(&AutoConnectUpdate::_onUpdate, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
+  _result->on(std::bind(&AutoConnectUpdate::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
 
   portal.join(*_catalog.get());
   portal.join(*_progress.get());
@@ -180,6 +181,11 @@ void AutoConnectUpdate::handleUpdate(void) {
  * @return  AC_UPDATESTATUS_t
  */
 AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
+  // Crawl queued requests.
+  if (_ws)
+    _ws->loop();
+
+  // Start update
   String  uriBin = uri + '/' + _binName;
   if (_binName.length()) {
     AC_DBG("%s:%d/%s update in progress...", host.c_str(), port, uriBin.c_str());
@@ -203,6 +209,12 @@ AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
       break;
     }
     _WiFiClient.reset(nullptr);
+    // Request the client to close the WebSocket.
+    if (_ws) {
+      String  cmdClose = String("#e");
+      _ws->sendTXT(_wsClient, cmdClose);
+      _ws->loop();
+    }
   }
   else {
     AC_DBG("An update has not specified");
@@ -362,9 +374,27 @@ String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args
  */
 String AutoConnectUpdate::_onUpdate(AutoConnectAux& progress, PageArgument& args) {
   AC_UNUSED(args);
-  AutoConnectText&  flash = progress.getElement<AutoConnectText>(String(F("flash")));
+  // launch the WebSocket server
+  WebSocketsServer* ws = new WebSocketsServer(AUTOCONNECT_WEBSOCKETPORT);
+  if (ws) {
+    ws->begin();
+    ws->onEvent(std::bind(&AutoConnectUpdate::_wsEvent, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+  }
+  else {
+    AC_DBG("WebSocketsServer allocation failed\n");
+  }
+  _ws.reset(ws);
+
+  // Constructs the dialog page.
+  AutoConnectText&  binName = progress.getElement<AutoConnectText>(String(F("binname")));
   _binName = _catalog->getElement<AutoConnectRadio>(String(F("firmwares"))).value();
-  flash.value = _binName;
+  binName.value = _binName;
+  AutoConnectText& url = progress.getElement<AutoConnectText>(String("url"));
+  url.value = host + ':' + port;
+  AutoConnectElement& inprogress = progress.getElement<AutoConnectElement>(String(F("inprogress")));
+  String js = inprogress.value;
+  js.replace(String(F("#wsserver#")), WiFi.localIP().toString() + ':' + AUTOCONNECT_WEBSOCKETPORT);
+  inprogress.value = js;
   _status = UPDATE_START;
   return String("");
 }
@@ -405,4 +435,24 @@ String AutoConnectUpdate::_onResult(AutoConnectAux& result, PageArgument& args) 
   if (restart)
     _status = UPDATE_RESET;
   return String("");
+}
+
+void AutoConnectUpdate::_inProgress(size_t amount, size_t size) {
+  if (_ws) {
+    _amount = amount;
+    _binSize = size;
+    String  payload = "#p," + String(_amount) + ':' + String(_binSize); 
+    _ws->sendTXT(_wsClient, payload);
+    _ws->loop();
+  }
+}
+
+void AutoConnectUpdate::_wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length) {
+  AC_DBG("WS event(%d)\n", event);
+  if (event == WStype_CONNECTED)
+    _wsClient = client;
+  else if (event == WStype_DISCONNECTED) {
+    if (client == _wsClient)
+      _ws.reset(nullptr);
+  }
 }

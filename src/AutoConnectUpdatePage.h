@@ -25,10 +25,12 @@ const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxCatalog PROGMEM = {
 // Define the AUTOCONNECT_URI_UPDATE_ACT page to display during the
 // update process.
 const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmProgress[] PROGMEM = {
-  { AC_Element, "spinner", "<style>.loader {border:2px solid #f3f3f3;border-radius:50%;border-top:2px solid #555;width:12px;height:12px;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}</style>", nullptr },
-  { AC_Text, "caption", "Update start...", "<div style=\"font-size:120%%;font-weight:bold\">%s</div>" },
-  { AC_Text, "flash", nullptr, "<div style=\"margin-top:18px\">%s<span style=\"display:inline-block;vertical-align:middle;margin-left:7px\"><div class=\"loader\"></div></span></div>" },
-  { AC_Element, "inprogress", "<script type=\"text/javascript\">setTimeout(\"location.href='" AUTOCONNECT_URI_UPDATE_RESULT "'\",1000*15);</script>", nullptr }
+  { AC_Element, "caption", "<div style=\"display:inline-block\"", nullptr },
+  { AC_Text, "binname", nullptr, "%s&ensp;from&ensp;" },
+  { AC_Text, "url", nullptr, "%s</div>" },
+  { AC_Element, "progress", "<div id=\"progress\">Updating...&ensp;<meter min=\"0\"></meter></div>", nullptr },
+  { AC_Text, "status", nullptr, nullptr },
+  { AC_Element, "inprogress", "<script type='text/javascript'>var ws;window.onload=function(){ws=new WebSocket('ws://'+'#wsserver#');ws.onopen=function(e){ws.onmessage=function(e){var pl=e.data.split(',');if(pl[0]=='#p'){var iv=pl[1].split(':');var pb=document.getElementById('progress').getElementsByTagName('meter');pb[0].setAttribute('value',iv[0]);pb[0].setAttribute('max',iv[1]);}else if(pl[0]=='#e'){location.href='" AUTOCONNECT_URI_UPDATE_RESULT "';}};ws.onclose=function(e){console.log('WS close('+e.code+') '+e.reason);};};ws.onerror=function(e){console.log(e);document.getElementById('status').textContent='Connection failed.';};};window.onbeforeunload=function(){ws.close();};</script>", nullptr }
 };
 const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxProgress PROGMEM = {
   AUTOCONNECT_URI_UPDATE_ACT, "Update", false, AutoConnectUpdate::_elmProgress

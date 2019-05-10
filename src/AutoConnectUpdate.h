@@ -40,6 +40,7 @@ using HTTPUpdateClass = ESP8266HTTPUpdate;
 #include <HTTPUpdate.h>
 using HTTPUpdateClass = HTTPUpdate;
 #endif
+#include <WebSocketsServer.h>
 #include "AutoConnectDefs.h"
 #if defined(AUTOCONNECT_USE_UPDATE)
 #ifndef AUTOCONNECT_USE_JSON
@@ -115,25 +116,22 @@ class AutoConnectUpdate : public HTTPUpdateClass {
   String  _onUpdate(AutoConnectAux& update, PageArgument& args);
   String  _onResult(AutoConnectAux& result, PageArgument& args);
   size_t  _insertCatalog(AutoConnectRadio& radio, JsonVariant & responseBody);
-#ifdef ARDUINO_ARCH_ESP32
-  void    _inProgress(size_t amount, size_t size) {
-    _amount = amount;
-    _binSize = size;
-    AC_DBG_DUMB(".");
-  }
-#endif
+  void    _wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length);
+  void    _inProgress(size_t amount, size_t size);
 
   std::unique_ptr<AutoConnectAux> _catalog;   /**< A catalog page for internally generated update binaries */
   std::unique_ptr<AutoConnectAux> _progress;  /**< An update in-progress page */  
   std::unique_ptr<AutoConnectAux> _result;    /**< A update result page  */
 
+  std::unique_ptr<WebSocketsServer> _ws;      /**< Reports the update progress measure */
+  uint8_t _wsClient;                          /**< WebSocket client id */
   size_t  _amount;                            /**< Received amound bytes */
   size_t  _binSize;                           /**< Updater binary size */
 
  private:
   AC_UPDATESTATUS_t _status;
   String            _binName;                 /**< .bin name to update */
-  unsigned long     _period;                  /**< Duration of WiFiClient holding */
+  unsigned long     _period;                  /**< Duration of WiFiClient holding for the connection with the update server */
   std::unique_ptr<WiFiClient> _WiFiClient;    /**< Provide to HTTPUpdate class */
 
   static const ACPage_t         _auxCatalog   PROGMEM;

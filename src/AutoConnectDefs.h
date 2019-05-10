@@ -192,6 +192,11 @@
 #define AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE  2048
 #endif // !AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
 
+// Default WebSocket port for the update progress measur
+#ifndef AUTOCONNECT_WEBSOCKETPORT
+#define AUTOCONNECT_WEBSOCKETPORT     81
+#endif // !AUTOCONNECT_WEBSOCKETPORT
+
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
 
