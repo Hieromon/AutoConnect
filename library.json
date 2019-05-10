@@ -17,6 +17,10 @@
     {
       "name": "ArduinoJson",
       "version": ">=5.13.3"
+    },
+    {
+      "name": "WebSockets",
+      "version": ">=2.1.1"
     }
   ],
   "frameworks": "arduino",

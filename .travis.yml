@@ -25,6 +25,7 @@ before_install:
     fi
   - arduino --install-library PubSubClient,PageBuilder:1.3.3
   - arduino --install-library ArduinoJson:5.13.5
+  - arduino --install-library WebSockets:2.1.1
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
   - arduino --install-library ArduinoJson:6.10.0
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
