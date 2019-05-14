@@ -3,11 +3,12 @@
  * @file   AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
  * @version    0.9.9
- * @date   2019-05-03
+ * @date   2019-05-14
  * @copyright  MIT license.
  */
 
 #include <functional>
+#include <type_traits>
 #include "AutoConnectUpdate.h"
 #include "AutoConnectUpdatePage.h"
 #include "AutoConnectJsonDefs.h"
@@ -66,6 +67,40 @@
  */
 
 /**
+ * The following two templates absorb callbacks that are enabled/disabled
+ * by the Update library version in the core.
+ * The old UpdateClass of the ESP8266/ESP32 arduino core does not have
+ * the onProgress function for registering callbacks. These templates
+ * avoid the onProgress calls on older library versions.
+ * In versions where the update function callback is disabled, the
+ * dialog on the client browser does not show the progress of the update.
+ */
+#if defined(ARDUINO_ARCH_ESP8266)
+using UpdateVariedClass = UpdaterClass;
+#elif defined(ARDUINO_ARCH_ESP32)
+using UpdateVariedClass = UpdateClass;
+#endif
+
+namespace AutoConnectUtil {
+AC_HAS_FUNC(onProgress);
+
+template<typename T>
+typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(const T& updater, std::function<void(size_t, size_t)> fn) {
+  updater.onProgress(fn);
+  AC_DBG("Callback enabled\n");
+  return AutoConnectUpdate::UPDATEDIALOG_METER;
+}
+
+template<typename T>
+typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(const T& updater, std::function<void(size_t, size_t)> fn) {
+  (void)(updater);
+  (void)(fn);
+  AC_DBG("Callback disabled\n");
+  return AutoConnectUpdate::UPDATEDIALOG_LOADER;
+}
+}
+
+/**
  * A destructor. Release the update processing dialogue page generated
  * as AutoConnectAux.
  */
@@ -108,9 +143,29 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
 
   _status = UPDATE_IDLE;
 
-#ifdef ARDUINO_ARCH_ESP32
-  Update.onProgress(std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
-#endif
+  // Register the callback to inform the update progress 
+  _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
+  // Update.onProgress(std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
+  // _dialog = UPDATEDIALOG_METER;
+
+  // Adjust the client dialog pattern according to the callback validity
+  // of the UpdateClass.
+  AutoConnectElement* loader = _progress->getElement(String(F("loader")));
+  AutoConnectElement* progress_meter = _progress->getElement(String(F("progress_meter")));
+  AutoConnectElement* inprogress_meter = _progress->getElement(String(F("inprogress_meter")));
+  AutoConnectElement* progress_loader = _progress->getElement(String(F("progress_loader")));
+  AutoConnectElement* inprogress_loader = _progress->getElement(String(F("inprogress_loader")));
+  switch (_dialog) {
+  case UPDATEDIALOG_LOADER:
+    progress_meter->enable =false;
+    inprogress_meter->enable = false;
+    break;
+  case UPDATEDIALOG_METER:
+    loader->enable = false;
+    progress_loader->enable =false;
+    inprogress_loader->enable = false;
+    break;
+  }
 
   // Attach this to the AutoConnectUpdate
   portal._update.reset(this);
@@ -161,8 +216,22 @@ void AutoConnectUpdate::handleUpdate(void) {
       // Evaluate the processing status of AutoConnectUpdate and
       // execute it accordingly. It is only this process point that
       // requests update processing.
-      if (_status == UPDATE_START)
-        update();
+      if (_status == UPDATE_START) {
+        _ws->loop();  // Crawl the connection request.
+        unsigned long tm = millis();
+        while (_ws->connectedClients() <= 0) {
+          if (millis() - tm > AUTOCONNECT_UPDATE_TIMEOUT) {
+            AC_DBG("WebSocket client connection timeout, update ignored\n");
+            break;
+          }
+          _ws->loop();  // Crawl the connection request.
+        }
+        // Launch the update
+        if (_ws->connectedClients())
+          update();
+        else
+          _status = UPDATE_IDLE;
+      }
       else if (_status == UPDATE_RESET) {
         AC_DBG("Restart on %s updated...\n", _binName.c_str());
         ESP.restart();
@@ -181,10 +250,6 @@ void AutoConnectUpdate::handleUpdate(void) {
  * @return  AC_UPDATESTATUS_t
  */
 AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
-  // Crawl queued requests.
-  if (_ws)
-    _ws->loop();
-
   // Start update
   String  uriBin = uri + '/' + _binName;
   if (_binName.length()) {
@@ -198,6 +263,7 @@ AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
     case HTTP_UPDATE_FAILED:
       _status = UPDATE_FAIL;
       AC_DBG_DUMB(" %s\n", getLastErrorString().c_str());
+      AC_DBG("update returns HTTP_UPDATE_FAILED\n");
       break;
     case HTTP_UPDATE_NO_UPDATES:
       _status = UPDATE_IDLE;
@@ -210,11 +276,7 @@ AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
     }
     _WiFiClient.reset(nullptr);
     // Request the client to close the WebSocket.
-    if (_ws) {
-      String  cmdClose = String("#e");
-      _ws->sendTXT(_wsClient, cmdClose);
-      _ws->loop();
-    }
+    _ws->sendTXT(_wsClient, "#e", 2);
   }
   else {
     AC_DBG("An update has not specified");
@@ -375,26 +437,23 @@ String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args
 String AutoConnectUpdate::_onUpdate(AutoConnectAux& progress, PageArgument& args) {
   AC_UNUSED(args);
   // launch the WebSocket server
-  WebSocketsServer* ws = new WebSocketsServer(AUTOCONNECT_WEBSOCKETPORT);
-  if (ws) {
-    ws->begin();
-    ws->onEvent(std::bind(&AutoConnectUpdate::_wsEvent, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+  _ws.reset(new WebSocketsServer(AUTOCONNECT_WEBSOCKETPORT));
+  if (_ws) {
+    _ws->begin();
+    _ws->onEvent(std::bind(&AutoConnectUpdate::_wsEvent, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
   }
-  else {
+  else
     AC_DBG("WebSocketsServer allocation failed\n");
-  }
-  _ws.reset(ws);
 
   // Constructs the dialog page.
-  AutoConnectText&  binName = progress.getElement<AutoConnectText>(String(F("binname")));
+  AutoConnectElement* binName = progress.getElement(String(F("binname")));
   _binName = _catalog->getElement<AutoConnectRadio>(String(F("firmwares"))).value();
-  binName.value = _binName;
-  AutoConnectText& url = progress.getElement<AutoConnectText>(String("url"));
-  url.value = host + ':' + port;
-  AutoConnectElement& inprogress = progress.getElement<AutoConnectElement>(String(F("inprogress")));
-  String js = inprogress.value;
-  js.replace(String(F("#wsserver#")), WiFi.localIP().toString() + ':' + AUTOCONNECT_WEBSOCKETPORT);
-  inprogress.value = js;
+  binName->value = _binName;
+  AutoConnectElement* url = progress.getElement(String("url"));
+  url->value = host + ':' + port;
+  AutoConnectElement* wsurl = progress.getElement(String(F("wsurl")));
+  wsurl->value = "ws://" + WiFi.localIP().toString() + ':' + AUTOCONNECT_WEBSOCKETPORT;
+  AC_DBG("Cast WS %s\n", wsurl->value.c_str());
   _status = UPDATE_START;
   return String("");
 }
@@ -411,6 +470,11 @@ String AutoConnectUpdate::_onResult(AutoConnectAux& result, PageArgument& args) 
   String  resForm;
   String  resColor;
   bool    restart = false;
+
+  if (_ws) {
+    _ws->close();
+    _ws.reset(nullptr);
+  }
 
   switch (_status) {
   case UPDATE_SUCCESS:
@@ -443,16 +507,11 @@ void AutoConnectUpdate::_inProgress(size_t amount, size_t size) {
     _binSize = size;
     String  payload = "#p," + String(_amount) + ':' + String(_binSize); 
     _ws->sendTXT(_wsClient, payload);
-    _ws->loop();
   }
 }
 
 void AutoConnectUpdate::_wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length) {
-  AC_DBG("WS event(%d)\n", event);
+  AC_DBG("WS client:%d event(%d)\n", client, event);
   if (event == WStype_CONNECTED)
     _wsClient = client;
-  else if (event == WStype_DISCONNECTED) {
-    if (client == _wsClient)
-      _ws.reset(nullptr);
-  }
 }

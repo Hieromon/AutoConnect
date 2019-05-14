@@ -3,7 +3,7 @@
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
  * @version  0.9.9
- * @date 2019-04-30
+ * @date 2019-05-14
  * @copyright  MIT license.
  */
 
@@ -199,5 +199,19 @@
 
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
+
+// Generates a template that determines whether the class owns the
+// specified member function.
+// The purpose of this macro is to avoid the use of invalid member
+// functions due to differences in the version of the library which
+// AutoConnect depends on.
+#define AC_HAS_FUNC(func) \
+template<typename T> \
+struct has_func_##func { \
+  static auto check(...) -> decltype(std::false_type()); \
+  template<typename U> \
+  static auto check(U&) -> decltype(static_cast<decltype(U::func)*>(&U::func), std::true_type()); \
+  enum : bool { value = decltype(check(std::declval<T&>()))::value }; \
+}
 
 #endif // _AUTOCONNECTDEFS_H_

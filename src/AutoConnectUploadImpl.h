@@ -2,8 +2,8 @@
  * The default upload handler implementation.
  * @file AutoConnectUploadImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.8
- * @date 2019-03-19
+ * @version  0.9.9
+ * @date 2019-05-14
  * @copyright  MIT license.
  */
 
@@ -38,6 +38,20 @@ typedef SDFile        SDFileT;
 
 #include "AutoConnectDefs.h"
 #include "AutoConnectUpload.h"
+
+namespace AutoConnectUtil {
+AC_HAS_FUNC(end);
+
+template<typename T>
+typename std::enable_if<AutoConnectUtil::has_func_end<T>::value, void>::type end(const T* media) {
+  media->end();
+}
+
+template<typename T>
+typename std::enable_if<!AutoConnectUtil::has_func_end<T>::value, void>::type end(const T* media) {
+  (void)(media);
+}
+}
 
 /**
  * Handles the default upload process depending on the upload status.
@@ -133,9 +147,7 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
   void  _close(void) override {
     if (_file)
       _file.close();
-#if defined(ARDUINO_ARCH_ESP32) || (defined(ARDUINO_ARCH_ESP8266) && (!defined(ARDUINO_ESP8266_RELEASE_2_4_0) && !defined(ARDUINO_ESP8266_RELEASE_2_4_1) && !defined(ARDUINO_ESP8266_RELEASE_2_4_2)))
-    _media->end();
-#endif
+    AutoConnectUtil::end<SDClassT>(_media);
   }
 
  private:

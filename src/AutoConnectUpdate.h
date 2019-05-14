@@ -22,7 +22,7 @@
  * @file AutoConnectUpdate.h
  * @author hieromon@gmail.com
  * @version  0.9.9
- * @date 2019-05-03
+ * @date 2019-05-14
  * @copyright  MIT license.
  */
 
@@ -92,6 +92,12 @@ class AutoConnectUpdate : public HTTPUpdateClass {
   uint16_t  port;           /**< Port number of the update server */
   String    uri;            /**< The path on the update server that contains the sketch binary to be updated */
 
+  //
+  typedef enum {
+    UPDATEDIALOG_LOADER,
+    UPDATEDIALOG_METER
+  } AC_UPDATEDIALOG_t;
+
  protected:
   // Attribute definition of the element to be placed on the update page.
   typedef struct {
@@ -129,7 +135,8 @@ class AutoConnectUpdate : public HTTPUpdateClass {
   size_t  _binSize;                           /**< Updater binary size */
 
  private:
-  AC_UPDATESTATUS_t _status;
+  AC_UPDATEDIALOG_t _dialog;                  /**< The type of updating dialog displayed on the client */
+  AC_UPDATESTATUS_t _status;                  /**< Status of update processing during the cycle of receiving a request */
   String            _binName;                 /**< .bin name to update */
   unsigned long     _period;                  /**< Duration of WiFiClient holding for the connection with the update server */
   std::unique_ptr<WiFiClient> _WiFiClient;    /**< Provide to HTTPUpdate class */
