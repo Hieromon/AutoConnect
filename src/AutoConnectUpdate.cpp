@@ -85,17 +85,16 @@ namespace AutoConnectUtil {
 AC_HAS_FUNC(onProgress);
 
 template<typename T>
-typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(const T& updater, std::function<void(size_t, size_t)> fn) {
+typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
   updater.onProgress(fn);
-  AC_DBG("Callback enabled\n");
+  AC_DBG("An updater keeps callback\n");
   return AutoConnectUpdate::UPDATEDIALOG_METER;
 }
 
 template<typename T>
-typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(const T& updater, std::function<void(size_t, size_t)> fn) {
+typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
   (void)(updater);
   (void)(fn);
-  AC_DBG("Callback disabled\n");
   return AutoConnectUpdate::UPDATEDIALOG_LOADER;
 }
 }
@@ -143,11 +142,6 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
 
   _status = UPDATE_IDLE;
 
-  // Register the callback to inform the update progress 
-  _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
-  // Update.onProgress(std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
-  // _dialog = UPDATEDIALOG_METER;
-
   // Adjust the client dialog pattern according to the callback validity
   // of the UpdateClass.
   AutoConnectElement* loader = _progress->getElement(String(F("loader")));
@@ -172,6 +166,9 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
   AC_DBG("AutoConnectUpdate attached\n");
   if (WiFi.status() == WL_CONNECTED)
     enable();
+
+  // Register the callback to inform the update progress
+  _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 /**
@@ -217,17 +214,16 @@ void AutoConnectUpdate::handleUpdate(void) {
       // execute it accordingly. It is only this process point that
       // requests update processing.
       if (_status == UPDATE_START) {
-        _ws->loop();  // Crawl the connection request.
         unsigned long tm = millis();
-        while (_ws->connectedClients() <= 0) {
-          if (millis() - tm > AUTOCONNECT_UPDATE_TIMEOUT) {
+        while (!_wsConnected) {
+          if (millis() - tm > 30 * 1000) {
             AC_DBG("WebSocket client connection timeout, update ignored\n");
             break;
           }
           _ws->loop();  // Crawl the connection request.
         }
         // Launch the update
-        if (_ws->connectedClients())
+        if (_wsConnected)
           update();
         else
           _status = UPDATE_IDLE;
@@ -276,7 +272,7 @@ AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
     }
     _WiFiClient.reset(nullptr);
     // Request the client to close the WebSocket.
-    _ws->sendTXT(_wsClient, "#e", 2);
+    _ws->sendTXT(_wsClient, "#e");
   }
   else {
     AC_DBG("An update has not specified");
@@ -454,6 +450,7 @@ String AutoConnectUpdate::_onUpdate(AutoConnectAux& progress, PageArgument& args
   AutoConnectElement* wsurl = progress.getElement(String(F("wsurl")));
   wsurl->value = "ws://" + WiFi.localIP().toString() + ':' + AUTOCONNECT_WEBSOCKETPORT;
   AC_DBG("Cast WS %s\n", wsurl->value.c_str());
+  _wsConnected = false;
   _status = UPDATE_START;
   return String("");
 }
@@ -473,6 +470,8 @@ String AutoConnectUpdate::_onResult(AutoConnectAux& result, PageArgument& args) 
 
   if (_ws) {
     _ws->close();
+    while (_wsConnected)
+      _ws->loop();
     _ws.reset(nullptr);
   }
 
@@ -512,6 +511,10 @@ void AutoConnectUpdate::_inProgress(size_t amount, size_t size) {
 
 void AutoConnectUpdate::_wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length) {
   AC_DBG("WS client:%d event(%d)\n", client, event);
-  if (event == WStype_CONNECTED)
+  if (event == WStype_CONNECTED) {
+    _wsConnected = true;
     _wsClient = client;
+  }
+  else if (event == WStype_DISCONNECTED)
+    _wsConnected = false;
 }

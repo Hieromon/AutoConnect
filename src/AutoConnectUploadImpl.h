@@ -43,12 +43,12 @@ namespace AutoConnectUtil {
 AC_HAS_FUNC(end);
 
 template<typename T>
-typename std::enable_if<AutoConnectUtil::has_func_end<T>::value, void>::type end(const T* media) {
+typename std::enable_if<AutoConnectUtil::has_func_end<T>::value, void>::type end(T* media) {
   media->end();
 }
 
 template<typename T>
-typename std::enable_if<!AutoConnectUtil::has_func_end<T>::value, void>::type end(const T* media) {
+typename std::enable_if<!AutoConnectUtil::has_func_end<T>::value, void>::type end(T* media) {
   (void)(media);
 }
 }

@@ -131,6 +131,7 @@ class AutoConnectUpdate : public HTTPUpdateClass {
 
   std::unique_ptr<WebSocketsServer> _ws;      /**< Reports the update progress measure */
   uint8_t _wsClient;                          /**< WebSocket client id */
+  bool    _wsConnected;                       /**< WebSocket connection status */
   size_t  _amount;                            /**< Received amound bytes */
   size_t  _binSize;                           /**< Updater binary size */
 
