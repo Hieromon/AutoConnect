@@ -49,7 +49,7 @@ const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxProgress PROGMEM = {
 // Definition of the AUTOCONNECT_URI_UPDATE_RESULT page to notify update results
 const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmResult[] PROGMEM = {
   { AC_Text, "status", nullptr, nullptr },
-  { AC_Element, "restart", "<script type=\"text/javascript\">setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\",1000*5);</script>", nullptr }
+  { AC_Element, "restart", "<script type=\"text/javascript\">setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\",1000*10);</script>", nullptr }
 };
 const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxResult PROGMEM = {
   AUTOCONNECT_URI_UPDATE_RESULT, "Update", false, AutoConnectUpdate::_elmResult
