@@ -254,7 +254,6 @@ AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
       _WiFiClient.reset(new WiFiClient);
       _period = millis();
     }
-    _ws->loop();
     t_httpUpdate_return ret = HTTPUpdateClass::update(*_WiFiClient, host, port, uriBin);
     switch (ret) {
     case HTTP_UPDATE_FAILED:
@@ -515,6 +514,7 @@ void AutoConnectUpdate::_wsEvent(uint8_t client, WStype_t event, uint8_t* payloa
   if (event == WStype_CONNECTED) {
     _wsConnected = true;
     _wsClient = client;
+    _ws->sendTXT(_wsClient, "#s");
   }
   else if (event == WStype_DISCONNECTED)
     _wsConnected = false;
