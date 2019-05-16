@@ -205,16 +205,16 @@
 // The purpose of this macro is to avoid the use of invalid member
 // functions due to differences in the version of the library which
 // AutoConnect depends on.
-#define AC_HAS_FUNC(func)                                 \
-template<typename T>                                      \
-struct has_func_##func {                                  \
- private:                                                 \
-  typedef char  one;                                      \
-  typedef long  two;                                      \
-  template<typename U> static one test(typeof(&U::func)); \
-  template<typename U> static two test(...);              \
- public:                                                  \
-  enum { value = sizeof(test<T>(0)) == sizeof(char) };    \
+#define AC_HAS_FUNC(func)                                   \
+template<typename T>                                        \
+struct has_func_##func {                                    \
+ private:                                                   \
+  typedef char  one;                                        \
+  typedef long  two;                                        \
+  template<typename U> static one test(decltype(&U::func)); \
+  template<typename U> static two test(...);                \
+ public:                                                    \
+  enum { value = sizeof(test<T>(0)) == sizeof(char) };      \
 }
 
 #endif // _AUTOCONNECTDEFS_H_
