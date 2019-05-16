@@ -189,7 +189,7 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
   "}"
   "input[type=\"text\"],input[type=\"password\"]{"
     "font-weight:300;"
-    "width:calc(100% - 124px);"
+    "width:auto;"
     "-webkit-transition:all 0.20s ease-in;"
     "-moz-transition:all 0.20s ease-in;"
     "-o-transition:all 0.20s ease-in;"
