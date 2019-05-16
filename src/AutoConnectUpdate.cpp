@@ -371,7 +371,7 @@ String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args
   _binName = String("");
 
   String  qs = String(F(AUTOCONNECT_UPDATE_CATALOG)) + '?' + String(F("op=list&path=")) + uri;
-  AC_DBG("Update query %s:%d%s\n", host.c_str(), port, qs.c_str());
+  AC_DBG("Query %s:%d%s\n", host.c_str(), port, qs.c_str());
 
   // Throw a query to the update server and parse the response JSON
   // document. After that, display the bin type file name contained in
@@ -398,7 +398,7 @@ String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args
         jb = json.as<JsonVariant>();
 #endif
       if (parse) {
-        caption.value = String(F("<h3>Available firmwares</h3>"));
+        caption.value = String(F("<h4>Available firmwares</h4>"));
         JsonVariant firmwareList = json.as<JsonVariant>();
         if (_insertCatalog(firmwares, firmwareList) > 0)
           submit.enable = true;
