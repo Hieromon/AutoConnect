@@ -200,6 +200,10 @@
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
 
+// Numeric to string deployment
+#define AUTOCONNECT_STRING_DEPLOY(n)  _AUTOCONNECT_STRING_DEPLOY(n)
+#define _AUTOCONNECT_STRING_DEPLOY(s) #s
+
 // Generates a template that determines whether the class owns the
 // specified member function.
 // The purpose of this macro is to avoid the use of invalid member
