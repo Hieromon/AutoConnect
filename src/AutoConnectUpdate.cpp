@@ -216,7 +216,7 @@ void AutoConnectUpdate::handleUpdate(void) {
       if (_status == UPDATE_START) {
         unsigned long tm = millis();
         while (!_wsConnected) {
-          if (millis() - tm > 30 * 1000) {
+          if (millis() - tm > AUTOCONNECT_TIMEOUT) {
             AC_DBG("WebSocket client connection timeout, update ignored\n");
             break;
           }
@@ -254,6 +254,7 @@ AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
       _WiFiClient.reset(new WiFiClient);
       _period = millis();
     }
+    _ws->loop();
     t_httpUpdate_return ret = HTTPUpdateClass::update(*_WiFiClient, host, port, uriBin);
     switch (ret) {
     case HTTP_UPDATE_FAILED:
