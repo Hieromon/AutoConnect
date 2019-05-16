@@ -17,6 +17,19 @@
 #define AUTOCONNECT_PARAMID_CRED  "Credential"
 
 // AutoConnect menu hyper-link as image
+#define AUTOCONNECT_GLYPH_COG_16  "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA" \
+                                  "CXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wUQCDEa8dG0EwAAAfdJREFUOMuVUkFrE2EQ" \
+                                  "ffPtwhLqiqdCbhXDbuxasxD/QaEaMLtrwIMHvQjtQUT0ouBdxItYj3qTRtGDu98m9Eeo2NYS" \
+                                  "s6m5F4QiVLyk+42HJN24yaHObR5vZt7MPMKM8DwPAF0EaHuIKCtN0712uz3F1QAgCAJUq662" \
+                                  "sFAq9XrdgyRJYNvnXwJwhjQ602rFHwHA972lYvHKT9ctotvtggBgZWVNGMb+DhE5ALaY+T0R" \
+                                  "PZmcpBQ/EoJujpp+M024Gxuh0gGgUNhfZKbRNLhE5OalCkFPJ9Klw0M+C6AvACCKol1m7OLk" \
+                                  "8VnKqA8Aola7Phb5dpLBzGtShiRlSMx85991VBMAGo0GNMexyrZdXieie1mxWo1j+Wqc93rJ" \
+                                  "J9suHwCoAQARXbYse5E5TcjzAs7rkzKkPLa8fFXMzenp1G3yADPPXNo0/9AsXABwmPndGCAi" \
+                                  "1OvB7TxRqdMTd2AAeAMoS2gadeI4usHMj7MmeO15/mrmTP8ugBeZStyXMryVpukeZaRgC0Dl" \
+                                  "hG/cljJ0AQyd6PvXLGZO/sMHYFZOHMuOAABd//UjMxLvKJU+nFHzAMCXEeerYfS/H39hMDBV" \
+                                  "ofC7wswXpIwqrVb8DOBmVktNKcPnUoaXlFLn5udPVQeDEh+vkI96vQ4hdJuZu2O5R0dGZ3Pz" \
+                                  "wxT3LwiEzg76GcotAAAAAElFTkSuQmCC"
+
 #define AUTOCONNECT_GLYPH_COG_24  "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAC2klEQVRIS61VvWsUQRSfmU2p" \
                                   "on9BUIkQUaKFaCBKgooSb2d3NSSFKbQR/KrEIiIKBiGF2CgRxEpjQNHs7mwOUcghwUQ7g58I" \
                                   "sbGxEBWsb2f8zR177s3t3S2cA8ftzPu993vzvoaSnMu2vRKlaqgKp74Q/tE8qjQPyHGcrUrR" \
@@ -32,6 +45,7 @@
                                   "sG3nEh6M61US+Qrfd9Bs31GGulI2GOS/8dgcQZV1w+ApjIxB7TDwF9GcNzJzoA+rD0/8HvPn" \
                                   "XQJCt2qFCwbBTfRI7UyXumWVt+HJ9NO4XI++bdsb0YyrqXmlh+AWOLHaLqS5CLQR5EggR3Yl" \
                                   "cVS9gKeH2hnX8r8Kmi1CAsl36QAAAABJRU5ErkJggg=="
+
 #define AUTOCONNECT_GLYPH_COG_32  "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAETElEQVRYR61XX0hbVxg/5yYx" \
                                   "QlEnzM46HYw+7KVuq826Vba1UIRmevNHltHCZEKn7g9lLzJwD8W+dAXZy6i2jaV92BRcMZpc" \
                                   "g7Q+zLaTPXQb7E9toaCUwVbWOZlBk5jcc/Y7WCW5uffuXNvAJSH3933f73zn933nO5Rs4xMI" \
@@ -54,16 +68,19 @@
                                   "ipcbZzrt1HXlfDI58VuhAU5P0Q1Pm2UBAfowcZ0pfIcB53no6jhIjxmDC5zjqxkcPo17w+8w" \
                                   "LTeQyOJS0jA9feWhEw05JiCc4/5wGfeHzuJA7GvsbYeT4NvKgDDamP1Y0RWLMdo8NTUhRjFH" \
                                   "n/8AoRLGHM6hJDMAAAAASUVORK5CYII="
+
 #define AUTOCONNECT_GLYPH_BAR_24  "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAALVBMVEUAAAAAAAAAAAAAAAAA" \
                                   "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD////BHg4sAAAADXRSTlMACA8YREhJg5mn" \
                                   "u8rdcKICYgAAAAFiS0dEDm+9ME8AAABFSURBVBjTY2AgDjBWdEBBuwADy104cGBgQ3ASGJj3" \
                                   "nIGC0wZEmszANGsVFKxUYGBFmBaAykFRRiRAcQ6KQ1G8gOI54gAAQlFeCYGJCTQAAAAASUVO" \
                                   "RK5CYII="
+
 #define AUTOCONNECT_GLYPH_BAR_32  "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAApklEQVRYR2NkGGDAOMD2M4w6" \
                                   "YDQEkEMgEJggZwCxGI0T5mug+alAvBFkD7IDXtLBcpjfXgEZ4ugOeAETpHEIgIwHeVYC3QH+" \
                                   "0CgAS9AQgCwHRcFmdAfQ0E7cRo9mw0EVAqPlAKhwEKVTVsBZDsyiQ2k4Wg6gxPKgyoZ0Sn+o" \
                                   "1iCHQBBQaiYQi9DYJTjbAyAJWluOtz0wWg7QOOqxGz+aDUdDYMBDAACA0x4hs/MPrwAAAABJ" \
                                   "RU5ErkJggg=="
+
 #define AUTOCONNECT_GLYPH_BAR_48  "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABIUlEQVRoQ+1YywrCQBCzF72J" \
                                   "fqD6AYKKIPgLKiKKd/1DH0dPpgdBilvtTMp2JcJcLMnsJNtu2qyV+C9LfP0tDRDbQTkgB5wK" \
                                   "aAs5BXTDiw50wLhGDVE9NzuX4A66M2qBeryoiwPscWHC7UtnO4BxGhrg0kDliwpc8Uf/bwfY" \
