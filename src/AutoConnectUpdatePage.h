@@ -35,12 +35,16 @@ const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmProgress[] PROGM
   { AC_Element, "progress_loader", "<div id=\"ld\" />", nullptr },
   { AC_Element, "c4", "</span></div></div>", nullptr },
   { AC_Text, "status", nullptr, nullptr },
-  { AC_Element, "c5", "<script type=\"text/javascript\">var ws;function rd(){location.href=\"" AUTOCONNECT_URI_UPDATE_RESULT "\"}window.onload=function(){(ws=new WebSocket(\"", nullptr },
+  { AC_Element, "c5", "<script type=\"text/javascript\">function rd(){location.href=\"" AUTOCONNECT_URI_UPDATE_RESULT "\"}var ws;window.onload=function(){(ws=new WebSocket(\"", nullptr },
   { AC_Element, "wsurl", nullptr, nullptr },
-  { AC_Element, "c6", "\")).onopen=function(){ws.onmessage=function(e){var o=e.data.split(\",\");if(\"#s\"==o[0]){window.setTimeout(rd," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_DURATION) ");var n=document.getElementById(\"ld\");n&&(n.className=\"loader\")}else\"#e\"==o[0]?ws.close():\"#p\"==o[0]&&incr(o[1])}},ws.onerror=function(e){console.log(\"WS err(\"+e.code+\") \"+e.reason),1==ws.readyState&&(document.getElementById(\"status\").textContent=\"WebSocket \"+e.type)},ws.onclose=function(e){rd()}};", nullptr },
+  { AC_Element, "c6", "\")).onopen=function(){ws.onmessage=function(e){var o=e.data.split(\",\");\"#s\"==o[0]?", nullptr },
+  { AC_Element, "enable_loader", "(document.getElementById(\"ld\").className=\"loader\",", nullptr },
+  { AC_Element, "c7", "window.setTimeout(rd()," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_DURATION) ")", nullptr },
+  { AC_Element, "enable_loader_post", ")", nullptr },
+  { AC_Element, "c8", ":\"#e\"==o[0]?ws.close():\"#p\"==o[0]&&incr(o[1])}},ws.onclose=function(e){rd()},ws.onerror=function(e){console.log(\"WS err(\"+e.code+\")\"+e.reason),1==ws.readyState&&(document.getElementById(\"status\").textContent=\"WebSocket \"+e.type)}};", nullptr },
   { AC_Element, "inprogress_meter", "function incr(e){var t=e.split(\":\"),r=document.getElementById(\"progress\").getElementsByTagName(\"meter\");r[0].setAttribute(\"value\",t[0]),r[0].setAttribute(\"max\",t[1])}", nullptr },
   { AC_Element, "inprogress_loader", "function incr(pv){}", nullptr },
-  { AC_Element, "c7", "</script>", nullptr },
+  { AC_Element, "c9", "</script>", nullptr }
 };
 const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxProgress PROGMEM = {
   AUTOCONNECT_URI_UPDATE_ACT, "Update", false, AutoConnectUpdate::_elmProgress

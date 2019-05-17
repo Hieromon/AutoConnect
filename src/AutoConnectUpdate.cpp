@@ -145,6 +145,8 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
   // Adjust the client dialog pattern according to the callback validity
   // of the UpdateClass.
   AutoConnectElement* loader = _progress->getElement(String(F("loader")));
+  AutoConnectElement* enable_loader = _progress->getElement(String(F("enable_loader")));
+  AutoConnectElement* enable_loader_post = _progress->getElement(String(F("enable_loader_post")));
   AutoConnectElement* progress_meter = _progress->getElement(String(F("progress_meter")));
   AutoConnectElement* inprogress_meter = _progress->getElement(String(F("inprogress_meter")));
   AutoConnectElement* progress_loader = _progress->getElement(String(F("progress_loader")));
@@ -156,6 +158,8 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
     break;
   case UPDATEDIALOG_METER:
     loader->enable = false;
+    enable_loader->enable =false;
+    enable_loader_post->enable =false;
     progress_loader->enable =false;
     inprogress_loader->enable = false;
     break;
