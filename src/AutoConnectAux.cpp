@@ -328,7 +328,7 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
   String  menuItem;
 
   if (_menu)
-    menuItem = String(FPSTR("<li class=\"luxbar-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
+    menuItem = String(FPSTR("<li class=\"lb-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
   if (_next)
     menuItem += _next->_injectMenu(args);
   return menuItem;
