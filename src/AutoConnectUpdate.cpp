@@ -87,7 +87,7 @@ AC_HAS_FUNC(onProgress);
 template<typename T>
 typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
   updater.onProgress(fn);
-  AC_DBG("An updater keeps callback\n");
+  AC_DBG("Updater keeps callback\n");
   return AutoConnectUpdate::UPDATEDIALOG_METER;
 }
 
@@ -142,6 +142,14 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
 
   _status = UPDATE_IDLE;
 
+  // Attach this to the AutoConnectUpdate
+  portal._update.reset(this);
+  AC_DBG("AutoConnectUpdate attached\n");
+  if (WiFi.status() == WL_CONNECTED)
+    enable();
+
+  // Register the callback to inform the update progress
+  _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
   // Adjust the client dialog pattern according to the callback validity
   // of the UpdateClass.
   AutoConnectElement* loader = _progress->getElement(String(F("loader")));
@@ -164,15 +172,6 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
     inprogress_loader->enable = false;
     break;
   }
-
-  // Attach this to the AutoConnectUpdate
-  portal._update.reset(this);
-  AC_DBG("AutoConnectUpdate attached\n");
-  if (WiFi.status() == WL_CONNECTED)
-    enable();
-
-  // Register the callback to inform the update progress
-  _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 /**
