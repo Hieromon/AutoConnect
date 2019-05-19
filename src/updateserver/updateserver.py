@@ -10,8 +10,8 @@ import json
 import logging
 import os
 import re
+import time
 import urllib.parse
-
 
 class UpdateHttpServer:
     def __init__(self, port, bind, catalog_dir):
@@ -120,8 +120,9 @@ def dir_json(path):
         else:
             e['type'] = "file"
             if os.path.splitext(entry)[1] == '.bin':
+                fn = os.path.join(path, entry)
                 try:
-                    f = open(os.path.join(path, entry), 'rb')
+                    f = open(fn, 'rb')
                     c = f.read(1)
                     f.close()
                 except Exception as e:
@@ -129,6 +130,10 @@ def dir_json(path):
                     c = b'\x00'
                 if c == b'\xe9':
                     e['type'] = "bin"
+                    mtime = os.path.getmtime(fn);
+                    e['date'] = time.strftime('%x', time.localtime(mtime))
+                    e['time'] = time.strftime('%X', time.localtime(mtime))
+                    e['size'] = os.path.getsize(fn)
         d.append(e)
     return d
 
