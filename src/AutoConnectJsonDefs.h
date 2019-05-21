@@ -23,6 +23,7 @@
  *   supported version.
  */
 #if ARDUINOJSON_VERSION_MAJOR<=5
+#define ArduinoJsonStaticBuffer           StaticJsonBuffer
 #define ARDUINOJSON_CREATEOBJECT(doc)     doc.createObject()
 #define ARDUINOJSON_CREATEARRAY(doc)      doc.createArray()
 #define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = doc.prettyPrintTo(out); s; })
@@ -32,6 +33,7 @@ using ArduinoJsonArray = JsonArray&;
 using ArduinoJsonBuffer = DynamicJsonBuffer;
 #define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONBUFFER_SIZE
 #else
+#define ArduinoJsonStaticBuffer           StaticJsonDocument
 #define ARDUINOJSON_CREATEOBJECT(doc)     doc.to<JsonObject>()
 #define ARDUINOJSON_CREATEARRAY(doc)      doc.to<JsonArray>()
 #define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = serializeJsonPretty(doc, out); s; })
