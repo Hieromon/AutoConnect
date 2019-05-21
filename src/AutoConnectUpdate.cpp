@@ -132,6 +132,7 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
   updatePage = new AutoConnectAux(String(FPSTR(_auxResult.uri)), String(FPSTR(_auxResult.title)), _auxResult.menu);
   _buildAux(updatePage, &_auxResult, lengthOf(_elmResult));
   _result.reset(updatePage);
+  _result->chunk = PB_ByteStream;
   _catalog->on(std::bind(&AutoConnectUpdate::_onCatalog, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
   _progress->on(std::bind(&AutoConnectUpdate::_onUpdate, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
   _result->on(std::bind(&AutoConnectUpdate::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
@@ -331,22 +332,6 @@ void AutoConnectUpdate::_buildAux(AutoConnectAux* aux, const AutoConnectUpdate::
 }
 
 /**
- * Register only bin type file name as available sketch binary to
- * AutoConnectRadio value based on the response from the update server.
- * @param  radio        A reference to AutoConnectRadio
- * @param  responseBody JSON variant of a JSON document responded from the Update server
- * @return              Number of available sketch binaries
- */
-size_t AutoConnectUpdate::_insertCatalog(AutoConnectRadio& radio, JsonVariant& responseBody) {
-  ArduinoJsonArray  firmwares = responseBody.as<JsonArray>();
-  radio.empty(firmwares.size());
-  for (ArduinoJsonObject entry : firmwares)
-    if (entry[F("type")] == "bin")
-      radio.add(entry[F("name")].as<String>());
-  return firmwares.size();
-}
-
-/**
  * AUTOCONNECT_URI_UPDATE page handler.
  * It queries the update server for cataloged sketch binary and
  * displays the result on the page as an available updater list.
@@ -370,6 +355,7 @@ String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args
   AutoConnectRadio& firmwares = catalog.getElement<AutoConnectRadio>(String(F("firmwares")));
   AutoConnectSubmit&  submit = catalog.getElement<AutoConnectSubmit>(String(F("update")));
   firmwares.empty();
+  firmwares.tags.clear();
   submit.enable = false;
   _binName = String("");
 
@@ -383,45 +369,74 @@ String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args
     int responseCode = httpClient.GET();
     if (responseCode == HTTP_CODE_OK) {
 
-      // The size of the JSON buffer is a fixed. It can be a problem
-      // when parsing with ArduinoJson V6. If memory insufficient has
-      // occurred during the parsing, increase this buffer size.
-      ArduinoJsonBuffer json(AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE);
-
       JsonVariant jb;
-      bool parse;
+      bool  parse;
+      char  beginOfList[] = "[";
+      char  endOfEntry[] = ",";
+      char  endOfList[] = "]";
       Stream& responseBody = httpClient.getStream();
+
+      // Read partially and repeatedly the responded http stream that is
+      // including the JSON array to reduce the buffer size for parsing
+      // of the firmware catalog list.
+      AC_DBG("Update server responded:");
+      responseBody.find(beginOfList);
+      do {
+        // The size of the JSON buffer is a fixed. It can be a problem
+        // when parsing with ArduinoJson V6. If memory insufficient has
+        // occurred during the parsing, increase this buffer size.
+        ArduinoJsonStaticBuffer<AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE> jb;
+
 #if ARDUINOJSON_VERSION_MAJOR<=5
-      jb = json.parse(responseBody);
-      parse = jb.success();
+        ArduinoJsonObject json = jb.parseObject(responseBody);
+        parse = jb.success();
 #else
-      DeserializationError err = deserializeJson(json, responseBody);
-      parse = !(err == true);
-      if (parse)
-        jb = json.as<JsonVariant>();
+        DeserializationError err = deserializeJson(jb, responseBody);
+        ArduinoJsonObject json = jb.as<JsonObject>();
+        parse = (err == DeserializationError::Ok);
 #endif
-      if (parse) {
-        caption.value = String(F("<h4>Available firmwares</h4>"));
-        JsonVariant firmwareList = json.as<JsonVariant>();
-        if (_insertCatalog(firmwares, firmwareList) > 0)
-          submit.enable = true;
-      }
-      else
-        caption.value = String(F("Invalid catalog list:")) + String(err.c_str());
-#if defined(AC_DEBUG)
-      AC_DBG("Update server responds catalog list\n");
-      ARDUINOJSON_PRINT(jb, AC_DEBUG_PORT);
+        if (parse) {
+#ifdef AC_DEBUG
+          AC_DBG_DUMB("\n");
+          ARDUINOJSON_PRINT(jb, AC_DEBUG_PORT);
+#endif
+          // Register only bin type file name as available sketch binary to
+          // AutoConnectRadio value based on the response from the update server.
+          firmwares.order = AC_Horizontal;
+          if (json["type"].as<String>().equalsIgnoreCase("bin")) {
+            firmwares.add(json[F("name")].as<String>());
+            String  attr = String(F("<span>")) + json[F("date")].as<String>() + String(F("</span><span>")) + json[F("time")].as<String>().substring(0, 5) + String(F("</span><span>")) + String(json[F("size")].as<int>()) + String(F("</span>"));
+            firmwares.tags.push_back(attr);
+          }
+        }
+        else {
+          caption.value = String(F("Invalid catalog list:")) + String(err.c_str());
+          AC_DBG("JSON:%s\n", err.c_str());
+          break;
+        }
+      } while (responseBody.findUntil(endOfEntry, endOfList));
+
       AC_DBG_DUMB("\n");
-#endif
+      if (parse) {
+        if (firmwares.size()) {
+          caption.value = String(F("<h4>Available firmwares</h4>"));
+          submit.enable = true;
+        }
+        else
+          caption.value = String(F("<h4>No available firmwares</h4>"));
+      }
     }
     else {
       caption.value = String(F("Update server responds (")) + String(responseCode) + String("):");
       caption.value += HTTPClient::errorToString(responseCode);
+      AC_DBG("%s\n", caption.value.c_str());
     }
     httpClient.end();
   }
-  else
+  else {
     caption.value = String(F("http failed connect to ")) + host + String(':') + String(port);
+    AC_DBG("%s\n", caption.value.c_str());
+  }
 
   return String("");
 }

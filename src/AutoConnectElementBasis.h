@@ -180,6 +180,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
   String      label;    /**< A label for a subsequent radio buttons */
   ACArrange_t order;    /**< layout order */
   uint8_t     checked;  /**< Index of check marked item */
+  std::vector<String> tags; /**< For private API: Tag of each value */
 
  protected:
   std::vector<String> _values; /**< Items in a group */

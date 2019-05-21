@@ -121,7 +121,6 @@ class AutoConnectUpdate : public HTTPUpdateClass {
   String  _onCatalog(AutoConnectAux& catalog, PageArgument& args);
   String  _onUpdate(AutoConnectAux& update, PageArgument& args);
   String  _onResult(AutoConnectAux& result, PageArgument& args);
-  size_t  _insertCatalog(AutoConnectRadio& radio, JsonVariant & responseBody);
   void    _wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length);
   void    _inProgress(size_t amount, size_t size);
 
