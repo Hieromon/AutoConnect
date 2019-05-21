@@ -27,7 +27,7 @@ before_install:
   - arduino --install-library ArduinoJson:5.13.5
   - arduino --install-library WebSockets:2.1.1
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
-  - arduino --install-library ArduinoJson:6.10.0
+  - arduino --install-library ArduinoJson:6.10.1
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
   - mkdir -p ~/Arduino/libraries
