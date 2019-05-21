@@ -452,6 +452,8 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       elm->addToken(String(FPSTR("AUX_URI")), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
       elm->addToken(String(FPSTR("ENC_TYPE")), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
       elm->addToken(String(FPSTR("AUX_ELEMENT")), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
+      // Restore transfer mode by each page
+      mother->_responsePage->chunked(chunk);
     }
   }
   return elm;
