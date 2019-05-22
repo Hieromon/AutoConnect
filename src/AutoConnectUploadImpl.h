@@ -116,6 +116,15 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
   SPIFileT  _file; 
 };
 
+// Fix to be compatibility with backward for ESP8266 core 2.5.1 or later
+#ifdef ARDUINO_ARCH_ESP8266
+#if defined(SD_SCK_HZ)
+#define AC_SD_SPEED(s)  SD_SCK_HZ(s)
+#else
+#define AC_SD_SPPED(s)  s
+#endif
+#endif
+
 // Default handler for uploading to the standard SD class embedded in the core.
 class AutoConnectUploadSD : public AutoConnectUploadHandler {
  public:
@@ -125,7 +134,7 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
  protected:
   bool  _open(const char* filename, const char* mode) override {
 #if defined(ARDUINO_ARCH_ESP8266)
-    if (_media->begin(_cs, _speed)) {
+    if (_media->begin(_cs, AC_SD_SPEED(_speed))) {
       uint8_t oflag = *mode == 'w' ? FILE_WRITE : FILE_READ;
 #elif defined(ARDUINO_ARCH_ESP32)
     if (_media->begin(_cs, SPI, _speed)) {
