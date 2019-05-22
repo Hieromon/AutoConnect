@@ -135,6 +135,9 @@
 // SD pin assignment for AutoConnectFile
 #ifndef AUTOCONNECT_SD_CS
 #if defined(ARDUINO_ARCH_ESP8266)
+#ifndef SD_CHIP_SELECT_PIN
+#define SD_CHIP_SELECT_PIN      SS
+#endif
 #define AUTOCONNECT_SD_CS       SD_CHIP_SELECT_PIN
 #elif defined(ARDUINO_ARCH_ESP32)
 #define AUTOCONNECT_SD_CS       SS
@@ -143,11 +146,7 @@
 
 // SPI transfer speed for SD
 #ifndef AUTOCONNECT_SD_SPEED
-#if defined(ARDUINO_ARCH_ESP8266)
-#define AUTOCONNECT_SD_SPEED    SPI_HALF_SPEED
-#elif defined(ARDUINO_ARCH_ESP32)
 #define AUTOCONNECT_SD_SPEED    4000000
-#endif
 #endif // !AUTOCONNECT_SD_SPEED
 
 // ArduinoJson buffer size
