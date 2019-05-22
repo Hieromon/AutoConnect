@@ -96,6 +96,15 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [0.9.9] May 25, 2019
+- Supports ESP8266 Arduino core 2.5.2.
+- Menu text/background color can be statically customized.
+- Adds **AutoConnectAux::isMenu** function.
+- Added the id attribute to AutoConnectText.
+- Fixed the input box layout collapsed.
+- Fixed that the decoration of AutoConnectButton was disabled.
+- Fixed that the value remains even after clearing the option with AutoConnectSelect.
+
 ### [0.9.8] May 3, 2019
 - Supports ArduinoJson 6.9.1 or later.
 - Supports allocating JsonDocument buffer to PSRAM on ESP32 with ArduinoJson 6.10.0 or later.
