@@ -76,7 +76,13 @@ using ArduinoJsonArray = JsonArray;
 // JsonDocument is assigned to PSRAM by ArduinoJson's custom allocator.
 struct SpiRamAllocatorST {
   void* allocate(size_t size) {
-    return heap_caps_malloc(size, MALLOC_CAP_SPIRAM);
+    uint32_t  caps;
+    if (psramFound())
+      caps = MALLOC_CAP_SPIRAM;
+    else {
+      caps = MALLOC_CAP_8BIT;
+      AC_DBG("PSRAM not found, JSON buffer allocates to the heap.\n");
+    } 
   }
   void  deallocate(void* pointer) {
     heap_caps_free(pointer);
