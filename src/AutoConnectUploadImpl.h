@@ -81,6 +81,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
       _file = _media->open(filename, mode);
       return _file != false;      
     }
+    AC_DBG("SPIFFS mount failed\n");
     return false;
   }
 
@@ -119,16 +120,52 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
 
  protected:
   bool  _open(const char* filename, const char* mode) override {
+    const char* sdVerify;
 #if defined(ARDUINO_ARCH_ESP8266)
     if (_media->begin(_cs, AC_SD_SPEED(_speed))) {
       uint8_t oflag = *mode == 'w' ? FILE_WRITE : FILE_READ;
+      uint8_t sdType = _media->type();      
+      switch (sdType) {
+      case SD_CARD_TYPE_SD1:
+        sdVerify = (const char*)"MMC";
+        break;
+      case SD_CARD_TYPE_SD2:
+        sdVerify = (const char*)"SDSC";
+        break;
+      case SD_CARD_TYPE_SDHC:
+        sdVerify = (const char*)"SDHC";
+        break;
+      default:
+        sdVerify = (const char*)"UNKNOWN";
+        break;
+      }
 #elif defined(ARDUINO_ARCH_ESP32)
     if (_media->begin(_cs, SPI, _speed)) {
       const char* oflag = mode;
+      uint8_t sdType = _media->cardType();
+      switch (sdType) {
+      case CARD_NONE:
+        sdVerify = (const char*)"No card";
+        break;
+      case CARD_MMC:
+        sdVerify = (const char*)"MMC";
+        break;
+      case CARD_SD:
+        sdVerify = (const char*)"SDSC";
+        break;
+      case CARD_SDHC:
+        sdVerify = (const char*)"SDHC";
+        break;
+      default:
+        sdVerify = (const char*)"UNKNOWN";
+        break;
+      }
 #endif
+      AC_DBG("%s mounted\n", sdVerify);
       _file = _media->open(filename, oflag);
       return _file != false;
     }
+    AC_DBG("SD mount failed\n");
     return false;
   }
 
@@ -151,7 +188,7 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
   SDClassT* _media;
   SDFileT   _file;
   uint8_t   _cs;
-  uint8_t   _speed;
+  uint32_t  _speed;
 };
 
 #endif // !_AUTOCONNECTUPLOADIMPL_H_
