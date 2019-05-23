@@ -71,13 +71,16 @@ class AutoConnectAux : public PageBuilder {
   }
 
 #ifdef AUTOCONNECT_USE_JSON
-  bool  load(const String& in);                                         /**< Load whole elements to AutoConnectAux Page */
+  bool  load(PGM_P in);                                                 /**< Load whole elements to AutoConnectAux Page */
   bool  load(const __FlashStringHelper* in);                            /**< Load whole elements to AutoConnectAux Page */
+  bool  load(const String& in);                                         /**< Load whole elements to AutoConnectAux Page */
   bool  load(Stream& in);                                               /**< Load whole elements to AutoConnectAux Page */
-  bool  loadElement(const String& in, const String& name = String("")); /**< Load specified element */
-  bool  loadElement(const String& in, std::vector<String> const& names);/**< Load any specified elements */
+  bool  loadElement(PGM_P in, const String& name = String(""));         /**< Load specified element */
+  bool  loadElement(PGM_P in, std::vector<String> const& names);        /**< Load any specified elements */
   bool  loadElement(const __FlashStringHelper* in, const String& name = String(""));  /**< Load specified element */
   bool  loadElement(const __FlashStringHelper* in, std::vector<String> const& names); /**< Load any specified elements */
+  bool  loadElement(const String& in, const String& name = String("")); /**< Load specified element */
+  bool  loadElement(const String& in, std::vector<String> const& names);/**< Load any specified elements */
   bool  loadElement(Stream& in, const String& name = String(""));       /**< Load specified element */
   bool  loadElement(Stream& in, std::vector<String> const& names);      /**< Load any specified elements */
   size_t  saveElement(Stream& out, std::vector<String> const& names = {});  /**< Write elements of AutoConnectAux to the stream */

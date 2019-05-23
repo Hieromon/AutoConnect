@@ -189,8 +189,9 @@ class AutoConnect {
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
-  bool  load(const String& aux);
+  bool  load(PGM_P aux);
   bool  load(const __FlashStringHelper* aux);
+  bool  load(const String& aux);
   bool  load(Stream& aux);
 #endif // !AUTOCONNECT_USE_JSON
 
