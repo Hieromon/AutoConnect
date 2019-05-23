@@ -87,6 +87,9 @@ for (AutoConnectElement& elm : elements) {
 bool load(const String& in)
 ```
 ```cpp
+bool load(PGM_P in)
+```
+```cpp
 bool load(const __FlashStringHelper* in)
 ```
 ```cpp
@@ -116,6 +119,12 @@ bool loadElement(const String& in, const String& name = String(""))
 ```
 ```cpp
 bool loadElement(const String& in, std::vector<String> const& names)
+```
+```cpp
+bool loadElement(PGM_P in, const String& name = String(""))
+```
+```cpp
+bool loadElement(PGM_P in, std::vector<String> const& names)
 ```
 ```cpp
 bool loadElement(const __FlashStringHelper* in, const String& name = String(""))
