@@ -104,6 +104,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Fixed the input box layout collapsed.
 - Fixed that the decoration of AutoConnectButton was disabled.
 - Fixed that the value remains even after clearing the option with AutoConnectSelect.
+- Fixed that an alignment violation exception occurred when loading AutoConnectAux described by JSON with PROGMEM attribute.
 
 ### [0.9.8] May 3, 2019
 - Supports ArduinoJson 6.9.1 or later.
