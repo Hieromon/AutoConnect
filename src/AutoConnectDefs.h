@@ -138,18 +138,6 @@
 #define AUTOCONNECT_SSIDPAGEUNIT_LINES  5
 #endif // !AUTOCONNECT_SSIDPAGEUNIT_LINES
 
-// SD pin assignment for AutoConnectFile
-#ifndef AUTOCONNECT_SD_CS
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifndef SD_CHIP_SELECT_PIN
-#define SD_CHIP_SELECT_PIN      SS
-#endif
-#define AUTOCONNECT_SD_CS       SD_CHIP_SELECT_PIN
-#elif defined(ARDUINO_ARCH_ESP32)
-#define AUTOCONNECT_SD_CS       SS
-#endif
-#endif // !AUTOCONNECT_SD_CS
-
 // SPI transfer speed for SD
 #ifndef AUTOCONNECT_SD_SPEED
 #define AUTOCONNECT_SD_SPEED    4000000
