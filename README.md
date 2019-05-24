@@ -99,8 +99,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 ### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
 - Menu text/background color can be statically customized.
-- Adds **AutoConnectAux::isMenu** function.
-- Added the id attribute to AutoConnectText.
+- Added ID attribute to HTML tag generated from AutoConnectText.
 - Fixed the input box layout collapsed.
 - Fixed that the decoration of AutoConnectButton was disabled.
 - Fixed that the value remains even after clearing the option with AutoConnectSelect.
