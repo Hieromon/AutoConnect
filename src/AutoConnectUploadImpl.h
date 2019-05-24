@@ -140,13 +140,13 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
       uint8_t oflag = *mode == 'w' ? FILE_WRITE : FILE_READ;
       uint8_t sdType = _media->type();      
       switch (sdType) {
-      case SD_CARD_TYPE_SD1:
+      case sdfat::SD_CARD_TYPE_SD1:
         sdVerify = (const char*)"MMC";
         break;
-      case SD_CARD_TYPE_SD2:
+      case sdfat::SD_CARD_TYPE_SD2:
         sdVerify = (const char*)"SDSC";
         break;
-      case SD_CARD_TYPE_SDHC:
+      case sdfat::SD_CARD_TYPE_SDHC:
         sdVerify = (const char*)"SDHC";
         break;
       default:
