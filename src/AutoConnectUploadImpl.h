@@ -104,11 +104,23 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
 };
 
 // Fix to be compatibility with backward for ESP8266 core 2.5.1 or later
+// SD pin assignment for AutoConnectFile
+#ifndef AUTOCONNECT_SD_CS
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifndef SD_CHIP_SELECT_PIN
+#define SD_CHIP_SELECT_PIN      SS
+#endif
+#define AUTOCONNECT_SD_CS       SD_CHIP_SELECT_PIN
+#elif defined(ARDUINO_ARCH_ESP32)
+#define AUTOCONNECT_SD_CS       SS
+#endif
+#endif // !AUTOCONNECT_SD_CS
+// Derivation of SCK frequency and ensuring SD.begin compatibility
 #ifdef ARDUINO_ARCH_ESP8266
 #if defined(SD_SCK_HZ)
 #define AC_SD_SPEED(s)  SD_SCK_HZ(s)
 #else
-#define AC_SD_SPPED(s)  s
+#define AC_SD_SPEED(s)  s
 #endif
 #endif
 
@@ -126,13 +138,13 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
       uint8_t oflag = *mode == 'w' ? FILE_WRITE : FILE_READ;
       uint8_t sdType = _media->type();      
       switch (sdType) {
-      case sdfat::SD_CARD_TYPE_SD1:
+      case 1: // SD_CARD_TYPE_SD1
         sdVerify = (const char*)"MMC";
         break;
-      case sdfat::SD_CARD_TYPE_SD2:
+      case 2: // SD_CARD_TYPE_SD2
         sdVerify = (const char*)"SDSC";
         break;
-      case sdfat::SD_CARD_TYPE_SDHC:
+      case 3: // SD_CARD_TYPE_SDHC
         sdVerify = (const char*)"SDHC";
         break;
       default:
