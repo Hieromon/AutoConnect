@@ -817,7 +817,8 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   }
 
   // Dispose decrepit page
-  _prevUri = _uri;   // Save current uri for the upload request
+  if (_uri.length())
+    _prevUri = _uri;   // Save current uri for the upload request
   _purgePages();
 
   // Create the page dynamically
