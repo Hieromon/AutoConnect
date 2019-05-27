@@ -189,7 +189,7 @@ void setup() {
       param.close();
     }
     else {
-      aux["echo"].value = "<styleSPIFFS failed to open.";
+      aux["echo"].value = "SPIFFS failed to open.";
     }
     SPIFFS.end();
     return String();
