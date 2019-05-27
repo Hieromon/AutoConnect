@@ -47,6 +47,7 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
     {
       "name": "input",
       "type": "ACInput",
+      "lavel": "Text input",
       "placeholder": "This area accepts hostname patterns",
       "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
     },
@@ -89,6 +90,11 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       "type": "ACSubmit",
       "value": "Save",
       "uri": "/save"
+    },
+    {
+      "name": "adjust_width",
+      "type": "ACElement",
+      "value": "<script type=\"text/javascript\">window.onload=function(){var t=document.querySelectorAll(\"input[type='text']\");for(i=0;i<t.length;i++){var e=t[i].getAttribute(\"placeholder\");e&&t[i].setAttribute(\"size\",e.length*.8)}};</script>"
     }
   ]
 }
