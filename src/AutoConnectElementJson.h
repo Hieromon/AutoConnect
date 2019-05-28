@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  0.9.8
- * @date 2019-03-11
+ * @version  0.9.9
+ * @date 2019-05-23
  * @copyright  MIT license.
  */
 

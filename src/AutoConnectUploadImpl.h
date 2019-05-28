@@ -2,8 +2,8 @@
  * The default upload handler implementation.
  * @file AutoConnectUploadImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.8
- * @date 2019-03-19
+ * @version  0.9.9
+ * @date 2019-05-25
  * @copyright  MIT license.
  */
 
