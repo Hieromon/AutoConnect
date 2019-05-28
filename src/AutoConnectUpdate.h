@@ -21,7 +21,7 @@
  *   pages are incorporated into the AutoConnect menu.
  * @file AutoConnectUpdate.h
  * @author hieromon@gmail.com
- * @version  0.9.9
+ * @version  0.9.10
  * @date 2019-05-14
  * @copyright  MIT license.
  */

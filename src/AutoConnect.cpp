@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.9
- *  @date   2019-05-25
+ *  @version    0.9.10
+ *  @date   2019-05-28
  *  @copyright  MIT license.
  */
 
