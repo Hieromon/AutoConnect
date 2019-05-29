@@ -19,9 +19,11 @@ Defines the menu background color.
 - \#define <b>AUTOCONNECT_MENUCOLOR_ACTIVE</b>  
 Defines the active menu item background color.
 
+## Typical color schemes
+
 Here are some color schemes picked up.
 
-### Indigo
+### <i class="fas fa-palette"></i> Indigo
 
 ```cpp
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#ffa500"
@@ -31,7 +33,7 @@ Here are some color schemes picked up.
 
 <img src="images/ACMenu_indigo.png">
 
-### Dim-gray
+### <i class="fas fa-palette"></i> Dim-gray
 
 ```cpp
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#fffacd"
@@ -41,7 +43,7 @@ Here are some color schemes picked up.
 
 <img src="images/ACMenu_dimgray.png">
 
-### Brown
+### <i class="fas fa-palette"></i> Brown
 
 ```cpp
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#e6e6fa"
