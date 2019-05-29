@@ -1,7 +1,7 @@
 #### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
 - Menu text/background color can be statically customized.
-- Added the [enable](achandling.html#enable-autoconnectelements-during-the-sketch-execution)  attribute to the AutoConnectElements. This attribute gives dynamically change to the element activation during the sketch executing.
+- Added the [enable](achandling.md#enable-autoconnectelements-during-the-sketch-execution)  attribute to the AutoConnectElements. This attribute gives dynamically change to the element activation during the sketch executing.
 - Added ID attribute to HTML tag generated from AutoConnectText.
 - Fixed the input box layout collapsed.
 - Fixed that the decoration of AutoConnectButton was disabled.
