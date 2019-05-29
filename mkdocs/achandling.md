@@ -126,7 +126,7 @@ AutoConnectText& text2 = aux["caption"].as<AutoConnectText>();
 ```
 
 !!! note "Need cast to convert to the actual type"
-    An operator `[]` returns a referene of an AutoConnectElement. It is necessary to convert the type according to the actual element type with [AutoConnectElement::as<T\>](apielements.md#ast62) functon.
+    An operator `[]` returns a reference of an AutoConnectElement. It is necessary to convert the type according to the actual element type with [AutoConnectElement::as<T\>](apielements.md#ast62) function.
     ```cpp
     AutoConnectButton& AutoConnectElement::as<AutoConnectButton>()
     AutoConnectCheckbox& AutoConnectElement::as<AutoConnectCheckbox>()
@@ -144,6 +144,64 @@ To get all the AutoConnectElements in an AutoConnectAux object use the [**getEle
 ```cpp
 AutoConnectElementVT& AutoConnectAux::getElements(void)
 ```
+
+### <i class="fa fa-edit"></i> Enable AutoConnectElements during the sketch execution
+
+AutoConnectElemets have an enable attribute to activate its own HTML generation. Sketches can change the HTMLization of their elements dynamically by setting or resetting the enable value. An element whose the enable attribute is true will generate itself HTML and place on the custom Web page.  And conversely, it will not generate the HTML when the value is false.
+
+For example, to enable the submit button only when the ESP module is connected to the access point in STA mode, you can sketch the following:
+
+```cpp hl_lines="30 31 32 33"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+static const char AUX[] PROGMEM = R("
+{
+  "name" : "aux",
+  "uri" : "/aux",
+  "menu" : true,
+  "element" : [
+    {
+      "name": "input",
+      "type": "ACInput",
+      "label": "Input"
+    },
+    {
+      "name": "send",
+      "type": "ACSubmit",
+      "uri": "/send"
+    }
+  ]
+}
+");
+
+AutoConnect    portal;
+AutoConnectAux page;
+
+String onPage(AutoConectAux& aux, PageArgument& args) {
+  AutoConnectSubmit& send = aux["send"].as<AutoConnectSubmit>();
+  if (WiFi.isConnected())
+    send.enable = (WiFi.getMode() == WIFI_STA);
+  else
+    send.enable = false;
+  return String();
+}
+
+void setup() {
+  page.load(AUX);
+  page.on(onPage);
+  portal.join(page);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+!!! hint "Desirable to set or reset the enable attribute in the page handler"
+    The enable attribute can be set at any time during the sketch execution. The page handler with the [AC_EXIT_AHEAD](apiaux.md#on) option is sure to handle it.
 
 ## Loading &amp; saving AutoConnectElements with JSON
 
