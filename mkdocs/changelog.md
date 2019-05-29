@@ -1,6 +1,7 @@
-### [0.9.9] May 25, 2019
+#### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
 - Menu text/background color can be statically customized.
+- Added the [enable](achandling.html#enable-autoconnectelements-during-the-sketch-execution)  attribute to the AutoConnectElements. This attribute gives dynamically change to the element activation during the sketch executing.
 - Added ID attribute to HTML tag generated from AutoConnectText.
 - Fixed the input box layout collapsed.
 - Fixed that the decoration of AutoConnectButton was disabled.
@@ -26,7 +27,7 @@
 #### [0.9.7] Jan. 25, 2019
 
 - Fixed crash in some environments. Thank you @ageurtse
-- Supports AutoConnect menu extention by user sketch with [**AutoConnectAux**](acintro.md).
+- Supports AutoConnect menu extension by user sketch with [**AutoConnectAux**](acintro.md).
 - Supports loading and saving of user-defined parameters with JSON format.
 - Improved the WiFi connection sequence at the first WiFi.begin. Even if [**AutoConnectConfig::autoReconnect**](apiconfig.md#autoreconnect) is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
 - Supports the [**AutoConnectConfig::immediateStart**](apiconfig.md#immediatestart) option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the [**AutoConnectConfig::autoRise**](apiconfig.md#autorise) option.
