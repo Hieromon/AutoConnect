@@ -96,6 +96,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [0.9.10] June 1, 2019
+- Supports updating the sketch binary from update server with AutoConnectUpdate.
+- Improved HTTP transfer size of AutoConnect CSS.
+
 ### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
 - Menu text/background color can be statically customized.
