@@ -32,9 +32,13 @@ using WebServerClass = WebServer;
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
 #include "AutoConnectAux.h"
-#include "AutoConnectUpdate.h"
 
+// The realization of AutoConnectUpdate is effective only by the explicit
+// definition of AUTOCONNECT_USE_UPDATE
+#ifdef AUTOCONNECT_USE_UPDATE
+#include "AutoConnectUpdate.h"
 class AutoConnectUpdate;  // Reference to avoid circular
+#endif
 
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
@@ -271,8 +275,10 @@ class AutoConnect {
   String        _auxUri;        /**< Last accessed AutoConnectAux */
   String        _prevUri;       /**< Previous generated page uri */
 
+#ifdef AUTOCONNECT_USE_UPDATE
   /** Available updater, only reset by AutoConnectUpdate::attach is valid */
   std::unique_ptr<AutoConnectUpdate>  _update;
+#endif
 
   /** Saved configurations */
   AutoConnectConfig     _apConfig;
@@ -374,7 +380,9 @@ class AutoConnect {
 #endif
 
   friend class AutoConnectAux;
+#ifdef AUTOCONNECT_USE_UPDATE
   friend class AutoConnectUpdate;
+#endif
 };
 
 #endif  // _AUTOCONNECT_H_
