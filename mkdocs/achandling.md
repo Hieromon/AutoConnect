@@ -156,10 +156,10 @@ For example, to enable the submit button only when the ESP module is connected t
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>
 
-static const char AUX[] PROGMEM = R("
+static const char AUX[] PROGMEM = R"(
 {
-  "name" : "aux",
   "uri" : "/aux",
+  "title" : "Aux.",
   "menu" : true,
   "element" : [
     {
@@ -170,16 +170,17 @@ static const char AUX[] PROGMEM = R("
     {
       "name": "send",
       "type": "ACSubmit",
+      "value": "SEND",
       "uri": "/send"
     }
   ]
 }
-");
+)";
 
 AutoConnect    portal;
 AutoConnectAux page;
 
-String onPage(AutoConectAux& aux, PageArgument& args) {
+String onPage(AutoConnectAux& aux, PageArgument& args) {
   AutoConnectSubmit& send = aux["send"].as<AutoConnectSubmit>();
   if (WiFi.isConnected())
     send.enable = (WiFi.getMode() == WIFI_STA);
