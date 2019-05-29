@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  0.9.8
- * @date 2019-03-11
+ * @version  0.9.9
+ * @date 2019-05-23
  * @copyright  MIT license.
  */
 
@@ -76,7 +76,13 @@ using ArduinoJsonArray = JsonArray;
 // JsonDocument is assigned to PSRAM by ArduinoJson's custom allocator.
 struct SpiRamAllocatorST {
   void* allocate(size_t size) {
-    return heap_caps_malloc(size, MALLOC_CAP_SPIRAM);
+    uint32_t  caps;
+    if (psramFound())
+      caps = MALLOC_CAP_SPIRAM;
+    else {
+      caps = MALLOC_CAP_8BIT;
+      AC_DBG("PSRAM not found, JSON buffer allocates to the heap.\n");
+    } 
   }
   void  deallocate(void* pointer) {
     heap_caps_free(pointer);

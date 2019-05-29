@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	0.9.7
- *	@date	2019-01-21
+ *	@version	0.9.9
+ *	@date	2019-05-25
  *	@copyright	MIT license.
  */
 
@@ -189,8 +189,9 @@ class AutoConnect {
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
-  bool  load(const String& aux);
+  bool  load(PGM_P aux);
   bool  load(const __FlashStringHelper* aux);
+  bool  load(const String& aux);
   bool  load(Stream& aux);
 #endif // !AUTOCONNECT_USE_JSON
 

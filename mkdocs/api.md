@@ -214,6 +214,9 @@ Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joi
 bool load(const String& aux)
 ```
 ```cpp
+bool load(PGM_P aux)
+```
+```cpp
 bool load(const __FlashStringHelper* aux)
 ```
 ```cpp

@@ -17,7 +17,7 @@
   
   upload the contents of the data folder with MkSPIFFS Tool ("ESP8266 Sketch Data Upload" in Tools menu in Arduino IDE)
   or you can upload the contents of a folder if you CD in that folder and run the following command:
-  for file in `ls -A1`; do curl -F "file=@$PWD/$file" esp8266fs.local/edit; done
+  for file in `\ls -A1`; do curl -F "file=@$PWD/$file" esp8266fs.local/edit; done
   
   access the sample web page at http://esp8266fs.local
   edit the page by going to http://esp8266fs.local/edit
@@ -61,14 +61,14 @@ File fsUploadFile;
 
 //format bytes
 String formatBytes(size_t bytes){
-  if (bytes < 1024){
-    return String(bytes)+"B";
-  } else if(bytes < (1024 * 1024)){
-    return String(bytes/1024.0)+"KB";
-  } else if(bytes < (1024 * 1024 * 1024)){
-    return String(bytes/1024.0/1024.0)+"MB";
+  if (bytes < 1024) {
+    return String(bytes) + "B";
+  } else if (bytes < (1024 * 1024)) {
+    return String(bytes / 1024.0) + "KB";
+  } else if (bytes < (1024 * 1024 * 1024)) {
+    return String(bytes / 1024.0 / 1024.0) + "MB";
   } else {
-    return String(bytes/1024.0/1024.0/1024.0)+"GB";
+    return String(bytes / 1024.0 / 1024.0 / 1024.0) + "GB";
   }
 }
 
@@ -337,10 +337,15 @@ void setup(void){
   DBG_OUTPUT_PORT.println(WiFi.localIP());
 
   //Relocation as follows to make AutoConnect recognition.
-  MDNS.begin(host);
-  DBG_OUTPUT_PORT.print("Open http://");
-  DBG_OUTPUT_PORT.print(host);
-  DBG_OUTPUT_PORT.println(".local/edit to see the file browser");
+  if (MDNS.begin(host)) {
+    MDNS.addService("http", "tcp", 80);
+    DBG_OUTPUT_PORT.print("Open http://");
+    DBG_OUTPUT_PORT.print(host);
+    DBG_OUTPUT_PORT.println(".local/edit to see the file browser");
+  }
+  else {
+    DBG_OUTPUT_PORT.print("mDNS start failed");
+  }
 }
  
 void loop(void){

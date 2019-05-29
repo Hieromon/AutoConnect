@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.7
- *  @date   2019-01-21
+ *  @version    0.9.9
+ *  @date   2019-05-25
  *  @copyright  MIT license.
  */
 
@@ -789,26 +789,6 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   _portalAccessPeriod = millis();
   AC_DBG("Host:%s,URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
 
-  // When handleClient calls RequestHandler, the parsed http argument
-  // remains the previous request.
-  // If the current request argument contains AutoConnectElement, it is
-  // the form data of the AutoConnectAux page and with this timing save
-  // the value of each element.
-  // if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
-  //   _auxUri = _webServer->arg(AUTOCONNECT_AUXURI_PARAM);
-  //   _auxUri.replace("&#47;", "/");
-  //   AutoConnectAux* aux = _aux.get();
-  //   while (aux) {
-  //     if (aux->_uriStr == _auxUri) {
-  //       // Save the value owned by each element contained in the POST body
-  //       // of a current HTTP request to AutoConnectElements.
-  //       aux->_storeElements(_webServer.get());
-  //       break;
-  //     }
-  //     aux = aux->_next.get();
-  //   }
-  // }
-
   // Here, classify requested uri
   if (uri == _uri) {
     AC_DBG_DUMB(",already allocated\n");
@@ -816,7 +796,8 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   }
 
   // Dispose decrepit page
-  _prevUri = _uri;   // Save current uri for the upload request
+  if (_uri.length())
+    _prevUri = _uri;   // Save current uri for the upload request
   _purgePages();
 
   // Create the page dynamically

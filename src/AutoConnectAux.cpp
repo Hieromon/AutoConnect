@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAuxBasisImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.8
- * @date 2019-03-11
+ * @version  0.9.9
+ * @date 2019-05-25
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -495,14 +495,14 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
 #ifdef AUTOCONNECT_USE_JSON
 
 /**
- * Load AutoConnectAux page from JSON description stored in the sketch.
+ * Load AutoConnectAux page from JSON description stored in PROGMEM.
  * This function can load AutoConnectAux for multiple AUX pages written
  * in JSON and is registered in AutoConnect.
  * @param  aux  JSON description to be load.
  * @return true Successfully loaded.
  */
-bool AutoConnect::load(const String& aux) {
-  return _parseJson<const String&>(aux);
+bool AutoConnect::load(PGM_P aux) {
+  return _parseJson<const __FlashStringHelper*>(reinterpret_cast<const __FlashStringHelper*>(aux));
 }
 
 /**
@@ -514,6 +514,17 @@ bool AutoConnect::load(const String& aux) {
  */
 bool AutoConnect::load(const __FlashStringHelper* aux) {
   return _parseJson<const __FlashStringHelper*>(aux);
+}
+
+/**
+ * Load AutoConnectAux page from JSON description stored in the sketch.
+ * This function can load AutoConnectAux for multiple AUX pages written
+ * in JSON and is registered in AutoConnect.
+ * @param  aux  JSON description to be load.
+ * @return true Successfully loaded.
+ */
+bool AutoConnect::load(const String& aux) {
+  return _parseJson<const String&>(aux);
 }
 
 /**
@@ -624,6 +635,18 @@ bool AutoConnectAux::load(const String& in) {
 
 /**
  * Constructs an AutoConnectAux instance by reading all the
+ * AutoConnectElements of the specified URI from the elements passing
+ * pointer to JSON stored in pgm_data array.
+ * @param  in    AutoConnectAux element data which is described by JSON.
+ * @return true  The element collection successfully loaded.
+ * @return false Invalid JSON data occurred. 
+ */
+bool AutoConnectAux::load(PGM_P in) {
+  return _parseJson<const __FlashStringHelper*>(reinterpret_cast<const __FlashStringHelper*>(in));
+}
+
+/**
+ * Constructs an AutoConnectAux instance by reading all the
  * AutoConnectElements of the specified URI from the elements defined
  * JSON stored in pgm_data array.
  * @param  in    AutoConnectAux element data which is described by JSON.
@@ -672,24 +695,31 @@ bool AutoConnectAux::_load(JsonObject& jb) {
  * elements are to be loaded.
  * @return A reference of loaded AutoConnectElement instance.
  */
-bool AutoConnectAux::loadElement(const String& in, const String& name) {
-  return _parseElement<const String&, const String&>(in, name);
+bool AutoConnectAux::loadElement(PGM_P in, const String& name) {
+  return _parseElement<const __FlashStringHelper*, const String&>(reinterpret_cast<const __FlashStringHelper*>(in), name);
 }
 
 bool AutoConnectAux::loadElement(const __FlashStringHelper* in, const String& name) {
   return _parseElement<const __FlashStringHelper*, const String&>(in, name);
 }
 
+bool AutoConnectAux::loadElement(const String& in, const String& name) {
+  return _parseElement<const String&, const String&>(in, name);
+}
 bool AutoConnectAux::loadElement(Stream& in, const String& name) {
   return _parseElement<Stream&, const String&>(in, name);
 }
 
-bool AutoConnectAux::loadElement(const String& in, std::vector<String> const& names) {
-  return _parseElement<const String&, std::vector<String> const&>(in, names);
+bool AutoConnectAux::loadElement(PGM_P in, std::vector<String> const& names) {
+  return _parseElement<const __FlashStringHelper*, std::vector<String> const&>(reinterpret_cast<const __FlashStringHelper*>(in), names);
 }
 
 bool AutoConnectAux::loadElement(const __FlashStringHelper* in, std::vector<String> const& names) {
   return _parseElement<const __FlashStringHelper*, std::vector<String> const&>(in, names);
+}
+
+bool AutoConnectAux::loadElement(const String& in, std::vector<String> const& names) {
+  return _parseElement<const String&, std::vector<String> const&>(in, names);
 }
 
 bool AutoConnectAux::loadElement(Stream& in, std::vector<String> const& names) {
@@ -776,9 +806,10 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
   // Calculate JSON buffer size
   if (amount == 0) {
     bufferSize += JSON_OBJECT_SIZE(4);
-    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof("false") + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT);
+    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT);
+    bufferSize += JSON_ARRAY_SIZE(_addonElm.size());
   }
-  if (amount != 1)
+  else
     bufferSize += JSON_ARRAY_SIZE(amount);
 
   for (AutoConnectElement& elmEach : _addonElm) {
@@ -792,7 +823,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
     bufferSize += elm->getObjectSize();
   }
   // Round up to 16 boundary
-  bufferSize = bufferSize > 0 ? ((bufferSize + 128) & (~0xf)) : bufferSize;
+  bufferSize = bufferSize > 0 ? ((bufferSize + 16) & (~0xf)) : bufferSize;
   AC_DBG("JSON buffer size:%d\n", bufferSize);
 
   // Serialization
