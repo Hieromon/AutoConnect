@@ -47,7 +47,7 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
     {
       "name": "input",
       "type": "ACInput",
-      "lavel": "Text input",
+      "label": "Text input",
       "placeholder": "This area accepts hostname patterns",
       "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
     },
