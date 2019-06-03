@@ -7,6 +7,10 @@
  * @copyright  MIT license.
  */
 
+#include "AutoConnectDefs.h"
+
+#ifdef AUTOCONNECT_USE_UPDATE
+
 #include <functional>
 #include <type_traits>
 #include "AutoConnectUpdate.h"
@@ -14,16 +18,16 @@
 #include "AutoConnectJsonDefs.h"
 
 /**
- * The AutoConnectUpdate class inherits from the HTTPupdate class. The
+ * The AutoConnectUpdateAct class inherits from the HTTPupdate class. The
  * update server corresponding to this class needs a simple script
  * based on an HTTP server. It is somewhat different from the advanced
  * updater script offered by Arduino core of ESP8266.
  * The equipment required for the update server for the
- * AutoConnectUpdate class is as follows:
+ * AutoConnectUpdateAct class is as follows:
  *
  * The catalog script:
  *   The update server URI /catalog is a script process that responds to
- *   queries from the AutoConnectUpdate class. The catalog script accepts
+ *   queries from the AutoConnectUpdateAct class. The catalog script accepts
  *   the queries such as '/catalog?op=list&path='.
  *   - op:
  *     An op parameter speicies the query operation. In the current
@@ -54,7 +58,7 @@
  *     - type:
  *       The type of the file. It defines either directory, file or bin.
  *       The bin means that the file is a sketch binary, and the
- *       AutoConnectUpdate class recognizes only files type bin as
+ *       AutoConnectUpdateAct class recognizes only files type bin as
  *       available update files.
  *   - path:
  *     A path parameter specifies the path on the server storing
@@ -85,17 +89,17 @@ namespace AutoConnectUtil {
 AC_HAS_FUNC(onProgress);
 
 template<typename T>
-typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
+typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdateAct::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
   updater.onProgress(fn);
   AC_DBG("Updater keeps callback\n");
-  return AutoConnectUpdate::UPDATEDIALOG_METER;
+  return AutoConnectUpdateAct::UPDATEDIALOG_METER;
 }
 
 template<typename T>
-typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdate::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
+typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdateAct::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
   (void)(updater);
   (void)(fn);
-  return AutoConnectUpdate::UPDATEDIALOG_LOADER;
+  return AutoConnectUpdateAct::UPDATEDIALOG_LOADER;
 }
 }
 
@@ -103,7 +107,7 @@ typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoCon
  * A destructor. Release the update processing dialogue page generated
  * as AutoConnectAux.
  */
-AutoConnectUpdate::~AutoConnectUpdate() {
+AutoConnectUpdateAct::~AutoConnectUpdateAct() {
   _catalog.reset(nullptr);
   _progress.reset(nullptr);
   _result.reset(nullptr);
@@ -112,13 +116,13 @@ AutoConnectUpdate::~AutoConnectUpdate() {
 }
 
 /**
- * Attach the AutoConnectUpdate to the AutoConnect which constitutes
+ * Attach the AutoConnectUpdateAct to the AutoConnect which constitutes
  * the bedrock of the update process. This function creates dialog pages
  * for update operation as an instance of AutoConnectAux and joins to
  * the AutoConnect which is the bedrock of the process.
  * @param  portal   A reference of AutoConnect
  */
-void AutoConnectUpdate::attach(AutoConnect& portal) {
+void AutoConnectUpdateAct::attach(AutoConnect& portal) {
   AutoConnectAux* updatePage;
 
   updatePage = new AutoConnectAux(String(FPSTR(_auxCatalog.uri)), String(FPSTR(_auxCatalog.title)), _auxCatalog.menu);
@@ -133,9 +137,9 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
   _buildAux(updatePage, &_auxResult, lengthOf(_elmResult));
   _result.reset(updatePage);
   _result->chunk = PB_ByteStream;
-  _catalog->on(std::bind(&AutoConnectUpdate::_onCatalog, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
-  _progress->on(std::bind(&AutoConnectUpdate::_onUpdate, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
-  _result->on(std::bind(&AutoConnectUpdate::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
+  _catalog->on(std::bind(&AutoConnectUpdateAct::_onCatalog, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
+  _progress->on(std::bind(&AutoConnectUpdateAct::_onUpdate, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
+  _result->on(std::bind(&AutoConnectUpdateAct::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
 
   portal.join(*_catalog.get());
   portal.join(*_progress.get());
@@ -143,14 +147,14 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
 
   _status = UPDATE_IDLE;
 
-  // Attach this to the AutoConnectUpdate
+  // Attach this to the AutoConnectUpdateAct
   portal._update.reset(this);
   AC_DBG("AutoConnectUpdate attached\n");
   if (WiFi.status() == WL_CONNECTED)
     enable();
 
   // Register the callback to inform the update progress
-  _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdate::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
+  _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdateAct::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
   // Adjust the client dialog pattern according to the callback validity
   // of the UpdateClass.
   AutoConnectElement* loader = _progress->getElement(String(F("loader")));
@@ -177,9 +181,9 @@ void AutoConnectUpdate::attach(AutoConnect& portal) {
 
 /**
  * Detach the update item from the current AutoConnect menu.
- * AutoConnectUpdate still active.
+ * AutoConnectUpdateAct still active.
  */
-void AutoConnectUpdate::disable(void) {
+void AutoConnectUpdateAct::disable(void) {
   if (_catalog) {
     _catalog->menu(false);
     if (_WiFiClient)
@@ -189,10 +193,10 @@ void AutoConnectUpdate::disable(void) {
 }
 
 /**
- * Make AutoConnectUpdate class available by incorporating the update
+ * Make AutoConnectUpdateAct class available by incorporating the update
  * function into the menu.
  */
-void AutoConnectUpdate::enable(void) {
+void AutoConnectUpdateAct::enable(void) {
   if (_catalog) {
     _catalog->menu(true);
     _status = UPDATE_IDLE;
@@ -201,7 +205,7 @@ void AutoConnectUpdate::enable(void) {
   }
 }
 
-void AutoConnectUpdate::handleUpdate(void) {
+void AutoConnectUpdateAct::handleUpdate(void) {
   // Purge WiFiClient instances that have exceeded their retention
   // period to avoid running out of memory.
   if (_WiFiClient) {
@@ -214,7 +218,7 @@ void AutoConnectUpdate::handleUpdate(void) {
 
   if (isEnable()) {
     if (WiFi.status() == WL_CONNECTED) {
-      // Evaluate the processing status of AutoConnectUpdate and
+      // Evaluate the processing status of AutoConnectUpdateAct and
       // execute it accordingly. It is only this process point that
       // requests update processing.
       if (_status == UPDATE_START) {
@@ -238,7 +242,7 @@ void AutoConnectUpdate::handleUpdate(void) {
       }
     }
     // If WiFi is not connected, disables the update menu.
-    // However, the AutoConnectUpdate class stills active.
+    // However, the AutoConnectUpdateAct class stills active.
     else
       disable();
   }
@@ -249,7 +253,7 @@ void AutoConnectUpdate::handleUpdate(void) {
  * fetch the result.
  * @return  AC_UPDATESTATUS_t
  */
-AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
+AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
   // Start update
   String  uriBin = uri + '/' + _binName;
   if (_binName.length()) {
@@ -296,7 +300,7 @@ AC_UPDATESTATUS_t AutoConnectUpdate::update(void) {
  * @param  page       Pre-defined ACPage_t
  * @param  elementNum Number of AutoConnectElements to configure.  
  */
-void AutoConnectUpdate::_buildAux(AutoConnectAux* aux, const AutoConnectUpdate::ACPage_t* page, const size_t elementNum) {
+void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectUpdateAct::ACPage_t* page, const size_t elementNum) {
   for (size_t n = 0; n < elementNum; n++) {
     if (page->element[n].type == AC_Element) {
       AutoConnectElement* element = new AutoConnectElement;
@@ -341,7 +345,7 @@ void AutoConnectUpdate::_buildAux(AutoConnectAux* aux, const AutoConnectUpdate::
  * @param  args    A reference of the PageArgument of the PageBuilder
  * @return         Additional string to the page but it always null.
  */
-String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args) {
+String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& args) {
   AC_UNUSED(args);
   HTTPClient httpClient;
 
@@ -448,13 +452,13 @@ String AutoConnectUpdate::_onCatalog(AutoConnectAux& catalog, PageArgument& args
  * @param  args     A reference of the PageArgument of the PageBuilder
  * @return          Additional string to the page but it always null.
  */
-String AutoConnectUpdate::_onUpdate(AutoConnectAux& progress, PageArgument& args) {
+String AutoConnectUpdateAct::_onUpdate(AutoConnectAux& progress, PageArgument& args) {
   AC_UNUSED(args);
   // launch the WebSocket server
   _ws.reset(new WebSocketsServer(AUTOCONNECT_WEBSOCKETPORT));
   if (_ws) {
     _ws->begin();
-    _ws->onEvent(std::bind(&AutoConnectUpdate::_wsEvent, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+    _ws->onEvent(std::bind(&AutoConnectUpdateAct::_wsEvent, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
   }
   else
     AC_DBG("WebSocketsServer allocation failed\n");
@@ -480,7 +484,7 @@ String AutoConnectUpdate::_onUpdate(AutoConnectAux& progress, PageArgument& args
  * @param  args   A reference of the PageArgument of the PageBuilder
  * @return        Additional string to the page but it always null.
  */
-String AutoConnectUpdate::_onResult(AutoConnectAux& result, PageArgument& args) {
+String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& args) {
   AC_UNUSED(args);
   String  resForm;
   String  resColor;
@@ -518,7 +522,7 @@ String AutoConnectUpdate::_onResult(AutoConnectAux& result, PageArgument& args) 
   return String("");
 }
 
-void AutoConnectUpdate::_inProgress(size_t amount, size_t size) {
+void AutoConnectUpdateAct::_inProgress(size_t amount, size_t size) {
   if (_ws) {
     _amount = amount;
     _binSize = size;
@@ -527,7 +531,7 @@ void AutoConnectUpdate::_inProgress(size_t amount, size_t size) {
   }
 }
 
-void AutoConnectUpdate::_wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length) {
+void AutoConnectUpdateAct::_wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length) {
   AC_DBG("WS client:%d event(%d)\n", client, event);
   if (event == WStype_CONNECTED) {
     _wsConnected = true;
@@ -537,3 +541,5 @@ void AutoConnectUpdate::_wsEvent(uint8_t client, WStype_t event, uint8_t* payloa
   else if (event == WStype_DISCONNECTED)
     _wsConnected = false;
 }
+
+#endif // !AUTOCONNECT_USE_UPDATE

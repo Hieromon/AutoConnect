@@ -13,7 +13,7 @@
 
 // Define the AUTOCONNECT_URI_UPDATE page to select the sketch binary
 // for update and order update execution.
-const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmCatalog[] PROGMEM = {
+const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] PROGMEM = {
   { AC_Element, "binSty", "<style type\"text/css\">.bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,span{margin:0 .5em 0 .5em;padding:0;text-align:left}</style>", nullptr },
   { AC_Text, "caption", nullptr, nullptr },
   { AC_Element, "c1", "<div class=\"bins\">", nullptr },
@@ -21,13 +21,13 @@ const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmCatalog[] PROGME
   { AC_Element, "c1", "</div>", nullptr },
   { AC_Submit, "update", "UPDATE", AUTOCONNECT_URI_UPDATE_ACT }
 };
-const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxCatalog PROGMEM = {
-  AUTOCONNECT_URI_UPDATE, "Update", false, AutoConnectUpdate::_elmCatalog
+const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxCatalog PROGMEM = {
+  AUTOCONNECT_URI_UPDATE, "Update", false, AutoConnectUpdateAct::_elmCatalog
 };
 
 // Define the AUTOCONNECT_URI_UPDATE_ACT page to display during the
 // update process.
-const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmProgress[] PROGMEM = {
+const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmProgress[] PROGMEM = {
   { AC_Element, "loader", "<style>.loader{border:2px solid #f3f3f3;border-radius:50%;border-top:2px solid #555;width:12px;height:12px;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}</style>", nullptr },
   { AC_Element, "c1", "<div style=\"display:inline-block\">", nullptr },
   { AC_Element, "binname", nullptr, nullptr },
@@ -49,17 +49,17 @@ const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmProgress[] PROGM
   { AC_Element, "inprogress_loader", "function incr(pv){}", nullptr },
   { AC_Element, "c9", "</script>", nullptr }
 };
-const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxProgress PROGMEM = {
-  AUTOCONNECT_URI_UPDATE_ACT, "Update", false, AutoConnectUpdate::_elmProgress
+const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxProgress PROGMEM = {
+  AUTOCONNECT_URI_UPDATE_ACT, "Update", false, AutoConnectUpdateAct::_elmProgress
 };
 
 // Definition of the AUTOCONNECT_URI_UPDATE_RESULT page to notify update results
-const AutoConnectUpdate::ACElementProp_t AutoConnectUpdate::_elmResult[] PROGMEM = {
+const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmResult[] PROGMEM = {
   { AC_Text, "status", nullptr, nullptr },
   { AC_Element, "restart", "<script type=\"text/javascript\">setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\",1000*10);</script>", nullptr }
 };
-const AutoConnectUpdate::ACPage_t AutoConnectUpdate::_auxResult PROGMEM = {
-  AUTOCONNECT_URI_UPDATE_RESULT, "Update", false, AutoConnectUpdate::_elmResult
+const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxResult PROGMEM = {
+  AUTOCONNECT_URI_UPDATE_RESULT, "Update", false, AutoConnectUpdateAct::_elmResult
 };
 
 #endif // _AUTOCONNECTUPDATEPAGE_H

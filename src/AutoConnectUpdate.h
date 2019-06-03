@@ -29,6 +29,11 @@
 #ifndef _AUTOCONNECTUPDATE_H_
 #define _AUTOCONNECTUPDATE_H_
 
+#include "AutoConnectDefs.h"
+#ifdef AUTOCONNECT_USE_UPDATE
+#ifndef AUTOCONNECT_USE_JSON
+#define AUTOCONNECT_USE_JSON
+#endif
 #include <memory>
 #define NO_GLOBAL_HTTPUPDATE
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -41,11 +46,10 @@ using HTTPUpdateClass = ESP8266HTTPUpdate;
 using HTTPUpdateClass = HTTPUpdate;
 #endif
 #include <WebSocketsServer.h>
-#include "AutoConnectDefs.h"
-#if defined(AUTOCONNECT_USE_UPDATE)
-#ifndef AUTOCONNECT_USE_JSON
-#define AUTOCONNECT_USE_JSON
-#endif
+// Quote the true AutoConnectUpdate class according to AUTOCONNECT_USE_UPDATE.
+#define AutoConnectUpdate  AutoConnectUpdateAct
+#else // !AUTOCONNECT_USE_UPDATE!
+#define AutoConnectUpdate  AutoConnectUpdateVoid
 #endif
 #include "AutoConnect.h"
 
@@ -66,27 +70,54 @@ typedef enum AC_UPDATESTATUS {
   UPDATE_FAIL               /**< Update fails */
 } AC_UPDATESTATUS_t;
 
-class AutoConnectUpdate : public HTTPUpdateClass {
+class AutoConnectUpdateVoid {
  public:
-  explicit AutoConnectUpdate(const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT)
+  explicit AutoConnectUpdateVoid(const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT) {
+    AC_UNUSED(host);
+    AC_UNUSED(port);
+    AC_UNUSED(uri);
+    AC_UNUSED(timeout);
+  }
+  AutoConnectUpdateVoid(AutoConnect& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT) {
+    AC_UNUSED(portal);
+    AC_UNUSED(host);
+    AC_UNUSED(port);
+    AC_UNUSED(uri);
+    AC_UNUSED(timeout);
+  }
+  virtual ~AutoConnectUpdateVoid() {}
+  virtual void  attach(AutoConnect& portal) { AC_UNUSED(portal); }
+  virtual void  enable(void) {}
+  virtual void  disable(void) {}
+  virtual void  handleUpdate(void) {}
+  virtual bool  isEnable(void) { return false; }
+  virtual AC_UPDATESTATUS_t  status(void) { return UPDATE_IDLE; }
+  virtual AC_UPDATESTATUS_t  update(void) { return UPDATE_IDLE; }
+};
+
+#ifdef AUTOCONNECT_USE_UPDATE
+
+class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClass {
+ public:
+  explicit AutoConnectUpdateAct(const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT)
     : HTTPUpdateClass(timeout), host(host), port(port), uri(uri), _status(UPDATE_IDLE), _binName(String()), _period(0) {
     UPDATE_SETLED(LOW);     /**< LED blinking during the update that is the default. */
     rebootOnUpdate(false);  /**< Default reboot mode */
   }
-  AutoConnectUpdate(AutoConnect& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT)
+  AutoConnectUpdateAct(AutoConnect& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT)
     : HTTPUpdateClass(timeout), host(host), port(port), uri(uri), _status(UPDATE_IDLE), _binName(String()), _period(0) {
     UPDATE_SETLED(LOW);
     rebootOnUpdate(false);
     attach(portal);
   }
-  ~AutoConnectUpdate();
-  void  attach(AutoConnect& portal);  /**< Attach the update class to AutoConnect */
-  void  enable(void);       /**< Enable the AutoConnectUpdate */
-  void  disable(void);      /**< Disable the AutoConnectUpdate */
-  void  handleUpdate(void); /**< Behaves the update process */
-  bool  isEnable(void) { return _catalog ? _catalog->isMenu() : false; } /**< Returns current updater effectiveness */
-  AC_UPDATESTATUS_t  status(void) { return _status; }   /**< reports the current update behavior status */
-  AC_UPDATESTATUS_t  update(void);    /**< behaves update */
+  ~AutoConnectUpdateAct();
+  void  attach(AutoConnect& portal) override;  /**< Attach the update class to AutoConnect */
+  void  enable(void) override;       /**< Enable the AutoConnectUpdateAct */
+  void  disable(void) override;      /**< Disable the AutoConnectUpdateAct */
+  void  handleUpdate(void) override; /**< Behaves the update process */
+  bool  isEnable(void) override { return _catalog ? _catalog->isMenu() : false; } /**< Returns current updater effectiveness */
+  AC_UPDATESTATUS_t  status(void) override { return _status; }   /**< reports the current update behavior status */
+  AC_UPDATESTATUS_t  update(void) override;    /**< behaves update */
 
   String    host;           /**< Available URL of Update Server */
   uint16_t  port;           /**< Port number of the update server */
@@ -117,7 +148,7 @@ class AutoConnectUpdate : public HTTPUpdateClass {
 
   template<typename T, size_t N> constexpr
   size_t  lengthOf(T(&)[N]) noexcept { return N; }
-  void    _buildAux(AutoConnectAux* aux, const AutoConnectUpdate::ACPage_t* page, const size_t elementNum);
+  void    _buildAux(AutoConnectAux* aux, const AutoConnectUpdateAct::ACPage_t* page, const size_t elementNum);
   String  _onCatalog(AutoConnectAux& catalog, PageArgument& args);
   String  _onUpdate(AutoConnectAux& update, PageArgument& args);
   String  _onResult(AutoConnectAux& result, PageArgument& args);
@@ -151,4 +182,5 @@ class AutoConnectUpdate : public HTTPUpdateClass {
   static const ACElementProp_t  _elmResult[] PROGMEM;
 };
 
+#endif // !AUTOCONNECT_USE_UPDATE 
 #endif // _AUTOCONNECTUPDATE_H_
