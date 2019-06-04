@@ -23,7 +23,7 @@ class UpdateHttpServer:
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
-            logger.debug('Shutting down...')
+            logger.info('Shutting down...')
             httpd.socket.close()
 
 
