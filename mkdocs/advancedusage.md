@@ -296,7 +296,7 @@ The [**boundaryOffset**](apiconfig.md#boundaryoffset) in [AutoConnectConfig](api
 
 ### <i class="fa fa-caret-right"></i> On-demand start the captive portal
 
-If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the [**autoRise**](api.md#autorise) option with the [**immediateStart**](api.md#immediatestart) option to achieve on-demand connection. This behavior is similar to the [WiFiManager's startConfigPortal](https://github.com/tzapu/WiFiManager#on-demand-configuration-portal) function. In order to do this, you usually configure only with AutoConnectConfig in *setup()* and [*AutoConnect::begin*](api.md#begin) handles in *loop()*.
+If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the [**autoRise**](apiconfig.md#autorise) option with the [**immediateStart**](apiconfig.md#immediatestart) option to achieve on-demand connection. This behavior is similar to the [WiFiManager's startConfigPortal](https://github.com/tzapu/WiFiManager#on-demand-configuration-portal) function. In order to do this, you usually configure only with AutoConnectConfig in *setup()* and [*AutoConnect::begin*](api.md#begin) handles in *loop()*.
 
 ```cpp hl_lines="5 6"
 AutoConnect       Portal;
