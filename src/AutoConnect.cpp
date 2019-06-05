@@ -130,7 +130,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   if (_apConfig.immediateStart) {
     cs = false;
     _apConfig.autoReconnect = false;
-    _apConfig.autoRise = true;
     AC_DBG("Start the portal immediately\n");
   }
   else {
