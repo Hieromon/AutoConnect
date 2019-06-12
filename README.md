@@ -96,6 +96,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [0.9.10] June 12, 2019
+- Fixed the unable to get AutoConnectElemets values ​​in the sketch with ESP8266 arduino core 2.5.2. (issue #90)
+
 ### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
 - Menu text/background color can be statically customized. refer to the [Custom colorized](https://hieromon.github.io/AutoConnect/colorized.html) for the detailed specification for the menu colorizing.
