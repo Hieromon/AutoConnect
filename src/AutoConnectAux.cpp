@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAuxBasisImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.9
- * @date 2019-05-25
+ * @version  0.9.10
+ * @date 2019-06-12
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -340,7 +340,16 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
 const String AutoConnectAux::_indicateUri(PageArgument& args) {
   AC_UNUSED(args);
   String  lastUri = _uriStr;
-  lastUri.replace("/", "&#47;");
+  // The following code contains adding and trimming a blank that is
+  // wasteful for this function. It exists for avoiding the bug of
+  // WString::replace of ESP8266 arduino core 2.5.2.
+  // https://github.com/esp8266/Arduino/issues/6192
+  String  reps = "/";
+  String  replacement = "&#47;";
+  if (lastUri.length() == reps.length() + replacement.length())
+    lastUri += " ";
+  lastUri.replace(reps, replacement);
+  lastUri.trim();
   return lastUri;
 }
 
