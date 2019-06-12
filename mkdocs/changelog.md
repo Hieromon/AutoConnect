@@ -1,3 +1,6 @@
+#### [0.9.10] June 12, 2019
+- Fixed the unable to get AutoConnectElemets values ​​in the sketch with ESP8266 arduino core 2.5.2.
+
 #### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
 - Menu text/background color can be statically customized.
