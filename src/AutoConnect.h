@@ -68,6 +68,7 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
+    contuineOnDisconnect(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
@@ -97,6 +98,7 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
+    contuineOnDisconnect(false),
     portalTimeout(portalTimeout),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
@@ -126,6 +128,7 @@ class AutoConnectConfig {
     autoReconnect = o.autoReconnect;
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
+    contuineOnDisconnect = o.contuineOnDisconnect;
     portalTimeout = o.portalTimeout;
     hostName = o.hostName;
     homeUri = o.homeUri;
@@ -154,6 +157,7 @@ class AutoConnectConfig {
   bool      autoReconnect;      /**< Automatic reconnect with past SSID */
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
+  bool      contuineOnDisconnect; /**< Dont stop setup method on when WIFI is Disconnected. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
