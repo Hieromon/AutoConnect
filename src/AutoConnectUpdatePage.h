@@ -14,7 +14,7 @@
 // Define the AUTOCONNECT_URI_UPDATE page to select the sketch binary
 // for update and order update execution.
 const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] PROGMEM = {
-  { AC_Element, "binSty", "<style type\"text/css\">.bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,span{margin:0 .5em 0 .5em;padding:0;text-align:left}</style>", nullptr },
+  { AC_Element, "binSty", "<style type=\"text/css\">.bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,span{margin:0 .5em 0 .5em;padding:0;text-align:left}</style>", nullptr },
   { AC_Text, "caption", nullptr, nullptr },
   { AC_Element, "c1", "<div class=\"bins\">", nullptr },
   { AC_Radio, "firmwares", nullptr, nullptr },
@@ -38,16 +38,14 @@ const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmProgress[]
   { AC_Element, "progress_loader", "<div id=\"ld\" />", nullptr },
   { AC_Element, "c4", "</span></div></div>", nullptr },
   { AC_Text, "status", nullptr, nullptr },
-  { AC_Element, "c5", "<script type=\"text/javascript\">function rd(){location.href=\"" AUTOCONNECT_URI_UPDATE_RESULT "\"}var ws;window.onload=function(){(ws=new WebSocket(\"", nullptr },
+  { AC_Element, "c5", "<script type=\"text/javascript\">var ws,conn=!1;function rd(){location.href=\"" AUTOCONNECT_URI_UPDATE_RESULT "\"}function bar(){(ws=new WebSocket(\"", nullptr },
   { AC_Element, "wsurl", nullptr, nullptr },
-  { AC_Element, "c6", "\")).onopen=function(){ws.onmessage=function(e){var o=e.data.split(\",\");\"#s\"==o[0]?", nullptr },
-  { AC_Element, "enable_loader", "(document.getElementById(\"ld\").className=\"loader\",", nullptr },
-  { AC_Element, "c7", "window.setTimeout(rd()," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_DURATION) ")", nullptr },
-  { AC_Element, "enable_loader_post", ")", nullptr },
-  { AC_Element, "c8", ":\"#e\"==o[0]?ws.close():\"#p\"==o[0]&&incr(o[1])}},ws.onclose=function(e){rd()},ws.onerror=function(e){console.log(\"WS err(\"+e.code+\")\"+e.reason),1==ws.readyState&&(document.getElementById(\"status\").textContent=\"WebSocket \"+e.type)}};", nullptr },
-  { AC_Element, "inprogress_meter", "function incr(e){var t=e.split(\":\"),r=document.getElementById(\"progress\").getElementsByTagName(\"meter\");r[0].setAttribute(\"value\",t[0]),r[0].setAttribute(\"max\",t[1])}", nullptr },
+  { AC_Element, "c6", "\")).onopen=function(){ws.onmessage=function(e){var t=e.data.split(\",\");\"#s\"==t[0]?(", nullptr },
+  { AC_Element, "enable_loader", "document.getElementById(\"ld\").className=\"loader\",", nullptr },
+  { AC_Element, "c7", "window.setTimeout(rd()," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_DURATION) "),conn=!0):\"#e\"==t[0]?(ws.close(),conn=!1):\"#p\"==t[0]&&incr(t[1])}},ws.onclose=function(e){conn?setTimeout(function(){bar()},2e3):rd()},ws.onerror=function(e){console.log(\"WS err(\"+e.code+\")\"+e.reason),1==ws.readyState&&(document.getElementById(\"status\").textContent=\"WebSocket \"+e.type)}}", nullptr },
+  { AC_Element, "inprogress_meter", "function incr(e){var t=e.split(\":\"),n=document.getElementById(\"progress\").getElementsByTagName(\"meter\");n[0].setAttribute(\"value\",t[0]),n[0].setAttribute(\"max\",t[1])}", nullptr },
   { AC_Element, "inprogress_loader", "function incr(pv){}", nullptr },
-  { AC_Element, "c9", "</script>", nullptr }
+  { AC_Element, "c8", "window.onload=bar;</script>", nullptr }
 };
 const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxProgress PROGMEM = {
   AUTOCONNECT_URI_UPDATE_ACT, "Update", false, AutoConnectUpdateAct::_elmProgress
@@ -56,7 +54,7 @@ const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxProgress PROGMEM 
 // Definition of the AUTOCONNECT_URI_UPDATE_RESULT page to notify update results
 const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmResult[] PROGMEM = {
   { AC_Text, "status", nullptr, nullptr },
-  { AC_Element, "restart", "<script type=\"text/javascript\">setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\",1000*10);</script>", nullptr }
+  { AC_Element, "restart", "<script type=\"text/javascript\">setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\",1e4);</script>", nullptr }
 };
 const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxResult PROGMEM = {
   AUTOCONNECT_URI_UPDATE_RESULT, "Update", false, AutoConnectUpdateAct::_elmResult

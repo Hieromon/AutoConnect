@@ -89,14 +89,20 @@ namespace AutoConnectUtil {
 AC_HAS_FUNC(onProgress);
 
 template<typename T>
-typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdateAct::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
+typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdateAct::AC_UPDATEDIALOG_t>::type onProgress(T& updater, UpdateVariedClass::THandlerFunction_Progress fn) {
+#if defined(ARDUINO_ARCH_ESP32) || (defined(ARDUINO_ARCH_ESP8266) && (WEBSOCKETS_NETWORK_TYPE == NETWORK_ESP8266_ASYNC))
   updater.onProgress(fn);
   AC_DBG("Updater keeps callback\n");
   return AutoConnectUpdateAct::UPDATEDIALOG_METER;
+#else
+  (void)(updater);
+  (void)(fn);
+  return AutoConnectUpdateAct::UPDATEDIALOG_LOADER;
+#endif
 }
 
 template<typename T>
-typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdateAct::AC_UPDATEDIALOG_t>::type onProgress(T& updater, std::function<void(size_t, size_t)> fn) {
+typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdateAct::AC_UPDATEDIALOG_t>::type onProgress(T& updater, UpdateVariedClass::THandlerFunction_Progress fn) {
   (void)(updater);
   (void)(fn);
   return AutoConnectUpdateAct::UPDATEDIALOG_LOADER;
@@ -111,7 +117,6 @@ AutoConnectUpdateAct::~AutoConnectUpdateAct() {
   _catalog.reset(nullptr);
   _progress.reset(nullptr);
   _result.reset(nullptr);
-  _WiFiClient.reset(nullptr);
   _ws.reset(nullptr);
 }
 
@@ -136,7 +141,7 @@ void AutoConnectUpdateAct::attach(AutoConnect& portal) {
   updatePage = new AutoConnectAux(String(FPSTR(_auxResult.uri)), String(FPSTR(_auxResult.title)), _auxResult.menu);
   _buildAux(updatePage, &_auxResult, lengthOf(_elmResult));
   _result.reset(updatePage);
-  _result->chunk = PB_ByteStream;
+
   _catalog->on(std::bind(&AutoConnectUpdateAct::_onCatalog, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
   _progress->on(std::bind(&AutoConnectUpdateAct::_onUpdate, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
   _result->on(std::bind(&AutoConnectUpdateAct::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
@@ -159,7 +164,6 @@ void AutoConnectUpdateAct::attach(AutoConnect& portal) {
   // of the UpdateClass.
   AutoConnectElement* loader = _progress->getElement(String(F("loader")));
   AutoConnectElement* enable_loader = _progress->getElement(String(F("enable_loader")));
-  AutoConnectElement* enable_loader_post = _progress->getElement(String(F("enable_loader_post")));
   AutoConnectElement* progress_meter = _progress->getElement(String(F("progress_meter")));
   AutoConnectElement* inprogress_meter = _progress->getElement(String(F("inprogress_meter")));
   AutoConnectElement* progress_loader = _progress->getElement(String(F("progress_loader")));
@@ -172,7 +176,6 @@ void AutoConnectUpdateAct::attach(AutoConnect& portal) {
   case UPDATEDIALOG_METER:
     loader->enable = false;
     enable_loader->enable =false;
-    enable_loader_post->enable =false;
     progress_loader->enable =false;
     inprogress_loader->enable = false;
     break;
@@ -183,11 +186,10 @@ void AutoConnectUpdateAct::attach(AutoConnect& portal) {
  * Detach the update item from the current AutoConnect menu.
  * AutoConnectUpdateAct still active.
  */
-void AutoConnectUpdateAct::disable(void) {
+void AutoConnectUpdateAct::disable(const bool activate) {
+  _enable = activate;
   if (_catalog) {
     _catalog->menu(false);
-    if (_WiFiClient)
-      _WiFiClient.reset(nullptr);
     AC_DBG("AutoConnectUpdate disabled\n");
   }
 }
@@ -197,23 +199,19 @@ void AutoConnectUpdateAct::disable(void) {
  * function into the menu.
  */
 void AutoConnectUpdateAct::enable(void) {
+  _enable = true;
+  _status = UPDATE_IDLE;
   if (_catalog) {
-    _catalog->menu(true);
-    _status = UPDATE_IDLE;
-    _period = 0;
+    _catalog->menu(WiFi.status() == WL_CONNECTED);
     AC_DBG("AutoConnectUpdate enabled\n");
   }
 }
 
 void AutoConnectUpdateAct::handleUpdate(void) {
-  // Purge WiFiClient instances that have exceeded their retention
-  // period to avoid running out of memory.
-  if (_WiFiClient) {
-    if (millis() - _period > AUTOCONNECT_UPDATE_DURATION)
-      if (_status != UPDATE_START) {
-        _WiFiClient.reset(nullptr);
-        AC_DBG("Purged WifiClient due to duration expired.\n");
-      }
+  // Activate the update menu conditional with WiFi connected.
+  if (!isEnable() && _enable) {
+    if (WiFi.status() == WL_CONNECTED)
+      enable();
   }
 
   if (isEnable()) {
@@ -222,6 +220,7 @@ void AutoConnectUpdateAct::handleUpdate(void) {
       // execute it accordingly. It is only this process point that
       // requests update processing.
       if (_status == UPDATE_START) {
+        AC_DBG("Waiting for WS connection\n");
         unsigned long tm = millis();
         while (!_wsConnected) {
           if (millis() - tm > AUTOCONNECT_TIMEOUT) {
@@ -229,6 +228,7 @@ void AutoConnectUpdateAct::handleUpdate(void) {
             break;
           }
           _ws->loop();  // Crawl the connection request.
+          yield();
         }
         // Launch the update
         if (_wsConnected)
@@ -244,7 +244,7 @@ void AutoConnectUpdateAct::handleUpdate(void) {
     // If WiFi is not connected, disables the update menu.
     // However, the AutoConnectUpdateAct class stills active.
     else
-      disable();
+      disable(_enable);
   }
 }
 
@@ -258,11 +258,12 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
   String  uriBin = uri + '/' + _binName;
   if (_binName.length()) {
     AC_DBG("%s:%d/%s update in progress...", host.c_str(), port, uriBin.c_str());
-    if (!_WiFiClient) {
-      _WiFiClient.reset(new WiFiClient);
-      _period = millis();
-    }
-    t_httpUpdate_return ret = HTTPUpdateClass::update(*_WiFiClient, host, port, uriBin);
+#if defined(ARDUINO_ARCH_ESP8266)
+    t_httpUpdate_return ret = HTTPUpdateClass::update(host, port, uriBin);
+#elif defined(ARDUINO_ARCH_ESP32)
+    WiFiClient  wifiClient;
+    t_httpUpdate_return ret = HTTPUpdateClass::update(wifiClient, host, port, uriBin);
+#endif
     switch (ret) {
     case HTTP_UPDATE_FAILED:
       _status = UPDATE_FAIL;
@@ -278,7 +279,6 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
       AC_DBG_DUMB(" completed\n");
       break;
     }
-    _WiFiClient.reset(nullptr);
     // Request the client to close the WebSocket.
     _ws->sendTXT(_wsClient, "#e");
   }
@@ -349,19 +349,14 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
   AC_UNUSED(args);
   HTTPClient httpClient;
 
-  // Reallocate WiFiClient if it is not existence.
-  if (!_WiFiClient) {
-    _WiFiClient.reset(new WiFiClient);
-    _period = millis();
-  }
-
+  // Reallocate available firmwares list.
+  _binName = String("");
   AutoConnectText&  caption = catalog.getElement<AutoConnectText>(String(F("caption")));
   AutoConnectRadio& firmwares = catalog.getElement<AutoConnectRadio>(String(F("firmwares")));
   AutoConnectSubmit&  submit = catalog.getElement<AutoConnectSubmit>(String(F("update")));
   firmwares.empty();
   firmwares.tags.clear();
   submit.enable = false;
-  _binName = String("");
 
   String  qs = String(F(AUTOCONNECT_UPDATE_CATALOG)) + '?' + String(F("op=list&path=")) + uri;
   AC_DBG("Query %s:%d%s\n", host.c_str(), port, qs.c_str());
@@ -369,7 +364,7 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
   // Throw a query to the update server and parse the response JSON
   // document. After that, display the bin type file name contained in
   // its JSON document as available updaters to the page.
-  if (httpClient.begin(*_WiFiClient.get(), host, port, qs, false)) {
+  if (httpClient.begin(host, port, qs)) {
     int responseCode = httpClient.GET();
     if (responseCode == HTTP_CODE_OK) {
 
@@ -378,7 +373,7 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
       char  beginOfList[] = "[";
       char  endOfEntry[] = ",";
       char  endOfList[] = "]";
-      Stream& responseBody = httpClient.getStream();
+      WiFiClient& responseBody = httpClient.getStream();
 
       // Read partially and repeatedly the responded http stream that is
       // including the JSON array to reduce the buffer size for parsing
@@ -491,9 +486,15 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
   bool    restart = false;
 
   if (_ws) {
-    _ws->close();
-    while (_wsConnected)
-      _ws->loop();
+    _ws->loop();
+    while (_wsConnected) {
+      IPAddress ipAny;
+      if (_ws->remoteIP(_wsClient) == ipAny)
+        _wsConnected = false;
+      else
+        _ws->close();
+      yield();
+    }
     _ws.reset(nullptr);
   }
 
@@ -519,9 +520,18 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
   result.getElement<AutoConnectElement>(String(F("restart"))).enable = restart;
   if (restart)
     _status = UPDATE_RESET;
+
   return String("");
 }
 
+/**
+ * An update callback function in HTTPUpdate::update.
+ * This callback handler acts as an HTTPUpdate::update callback and
+ * sends the updated amount over the web socket to advance the progress
+ * of the progress meter displayed in the browser.
+ * @param  amount Already transferred size.
+ * @param  size   Total size of the binary to update.
+ */
 void AutoConnectUpdateAct::_inProgress(size_t amount, size_t size) {
   if (_ws) {
     _amount = amount;
@@ -531,6 +541,16 @@ void AutoConnectUpdateAct::_inProgress(size_t amount, size_t size) {
   }
 }
 
+/**
+ * An event handler of WebSocket which should be opened to monitor
+ * update progress. AutoConnectUpdate will send #s to start the update
+ * progress notification to the client when the WebSocket client
+ * connected. This has the meaning of ACK.
+ * @param  client  WS client number of WebSocketsServer
+ * @param  event   Event id
+ * @param  payload Payload content
+ * @param  length  payload length
+ */
 void AutoConnectUpdateAct::_wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length) {
   AC_DBG("WS client:%d event(%d)\n", client, event);
   if (event == WStype_CONNECTED) {
