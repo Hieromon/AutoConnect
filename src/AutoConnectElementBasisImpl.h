@@ -261,6 +261,7 @@ const String AutoConnectSelectBasis::toHTML(void) const {
       html += ">" + option + String(F("</option>"));
     }
     html += String(F("</select>"));
+    html += String(F("<br>"));
   }
   return html;
 }
