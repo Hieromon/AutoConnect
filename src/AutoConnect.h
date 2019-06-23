@@ -76,7 +76,8 @@ class AutoConnectConfig {
     staGateway(0U),
     staNetmask(0U),
     dns1(0U),
-    dns2(0U) {}
+    dns2(0U),
+    cssExtra("") {}
   /**
    *  Configure by SSID for the captive portal access point and password.
    */
@@ -105,7 +106,8 @@ class AutoConnectConfig {
     staGateway(0U),
     staNetmask(0U),
     dns1(0U),
-    dns2(0U) {}
+    dns2(0U),
+    cssExtra("") {}
 
   ~AutoConnectConfig() {}
 
@@ -135,6 +137,7 @@ class AutoConnectConfig {
     staNetmask = o.staNetmask;
     dns1 = o.dns1;
     dns2 = o.dns2;
+    cssExtra = o.cssExtra;
     return *this;
   }
 
@@ -163,6 +166,7 @@ class AutoConnectConfig {
   IPAddress staNetmask;         /**< Station subnet mask */
   IPAddress dns1;               /**< Primary DNS server */
   IPAddress dns2;               /**< Secondary DNS server */
+  String cssExtra;              /**< Extra CSS to be injected at start of every page */
 };
 
 typedef std::vector<std::reference_wrapper<AutoConnectAux>> AutoConnectAuxVT;
@@ -292,7 +296,7 @@ class AutoConnect {
   String        _redirectURI;   /**< Redirect destination */
   String        _menuTitle;     /**< Title string of the page */
 
-  /** PegeElements of AutoConnect site. */
+  /** PageElements of AutoConnect site. */
   static const char _CSS_BASE[] PROGMEM;
   static const char _CSS_UL[] PROGMEM;
   static const char _CSS_ICON_LOCK[] PROGMEM;
@@ -330,6 +334,7 @@ class AutoConnect {
   String _token_CSS_TABLE(PageArgument& args);
   String _token_CSS_SPINNER(PageArgument& args);
   String _token_CSS_LUXBAR(PageArgument& args);
+  String _token_CSS_EXTRA(PageArgument& args);
   String _token_HEAD(PageArgument& args);
   String _token_MENU_PRE(PageArgument& args);
   String _token_MENU_AUX(PageArgument& args);

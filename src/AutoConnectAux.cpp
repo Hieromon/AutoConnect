@@ -36,6 +36,7 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "{{CSS_INPUT_BUTTON}}"
   "{{CSS_INPUT_TEXT}}"
   "{{CSS_LUXBAR}}"
+  "{{CSS_EXTRA}}"
   "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -455,6 +456,7 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       elm->addToken(String(FPSTR("CSS_INPUT_BUTTON")), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("CSS_INPUT_TEXT")), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, mother, std::placeholders::_1));
+      elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, mother, std::placeholders::_1));

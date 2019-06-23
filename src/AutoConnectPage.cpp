@@ -585,6 +585,7 @@ const char  AutoConnect::_PAGE_STAT[] PROGMEM = {
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
       "{{CSS_LUXBAR}}"
+      "{{CSS_EXTRA}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -670,6 +671,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
       "{{CSS_INPUT_BUTTON}}"
       "{{CSS_INPUT_TEXT}}"
       "{{CSS_LUXBAR}}"
+      "{{CSS_EXTRA}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -714,6 +716,7 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
       "{{CSS_ICON_LOCK}}"
       "{{CSS_INPUT_BUTTON}}"
       "{{CSS_LUXBAR}}"
+      "{{CSS_EXTRA}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -740,6 +743,7 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
       "{{CSS_BASE}}"
       "{{CSS_SPINNER}}"
       "{{CSS_LUXBAR}}"
+      "{{CSS_EXTRA}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -768,6 +772,7 @@ const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
       "{{CSS_LUXBAR}}"
+      "{{CSS_EXTRA}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -821,6 +826,7 @@ const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
       "{{CSS_LUXBAR}}"
+      "{{CSS_EXTRA}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -851,6 +857,7 @@ const char  AutoConnect::_PAGE_DISCONN[] PROGMEM = {
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_LUXBAR}}"
+      "{{CSS_EXTRA}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -963,6 +970,11 @@ String AutoConnect::_token_MENU_POST(PageArgument& args) {
 String AutoConnect::_token_CSS_LUXBAR(PageArgument& args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_LUXBAR));
+}
+
+String AutoConnect::_token_CSS_EXTRA(PageArgument& args) {
+  AC_UNUSED(args);
+  return _apConfig.cssExtra;
 }
 
 String AutoConnect::_token_ESTAB_SSID(PageArgument& args) {
@@ -1275,6 +1287,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_TABLE")), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
@@ -1305,6 +1318,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_INPUT_BUTTON")), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_INPUT_TEXT")), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
@@ -1322,6 +1336,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_SPINNER")), std::bind(&AutoConnect::_token_CSS_SPINNER, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CUR_SSID")), std::bind(&AutoConnect::_token_CURRENT_SSID, this, std::placeholders::_1));
@@ -1335,6 +1350,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_ICON_LOCK")), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_INPUT_BUTTON")), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
@@ -1349,6 +1365,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
   }
@@ -1375,6 +1392,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_TABLE")), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
@@ -1396,6 +1414,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_TABLE")), std::bind(&AutoConnect::_token_CSS_TABLE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CSS_EXTRA")), std::bind(&AutoConnect::_token_CSS_EXTRA, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
