@@ -90,8 +90,9 @@
 #define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
 #define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
 #define AUTOCONNECT_URI_UPDATE  AUTOCONNECT_URI "/update"
-#define AUTOCONNECT_URI_UPDATE_ACT    AUTOCONNECT_URI "/update_act"
-#define AUTOCONNECT_URI_UPDATE_RESULT AUTOCONNECT_URI "/update_result"
+#define AUTOCONNECT_URI_UPDATE_ACT      AUTOCONNECT_URI "/update_act"
+#define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
+#define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
 
 // Time-out limitation when AutoConnect::begin [ms]
 #ifndef AUTOCONNECT_TIMEOUT
@@ -138,7 +139,7 @@
 #define AUTOCONNECT_SSIDPAGEUNIT_LINES  5
 #endif // !AUTOCONNECT_SSIDPAGEUNIT_LINES
 
-// SPI transfer speed for SD
+// SPI transfer speed for SD [Hz]
 #ifndef AUTOCONNECT_SD_SPEED
 #define AUTOCONNECT_SD_SPEED    4000000
 #endif // !AUTOCONNECT_SD_SPEED
@@ -154,19 +155,38 @@
 #define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
 #endif // !AUTOCONNECT_JSONPSRAM_SIZE
 
-// Available HTTP port number for the update
+// Available HTTP port number for the update [ms]
 #ifndef AUTOCONNECT_UPDATE_PORT
 #define AUTOCONNECT_UPDATE_PORT       8000
 #endif // !AUTOCONNECT_UPDATE_PORT
 
-// HTTP client timeout limitation for the update
+// HTTP client timeout limitation for the update [ms]
 #ifndef AUTOCONNECT_UPDATE_TIMEOUT
 #define AUTOCONNECT_UPDATE_TIMEOUT    8000
 #endif // !AUTOCONNECT_UPDATE_TIMEOUT
 
+// Maximum wait time until transitioning  AutoConnectUpdate dialog page [ms]
 #ifndef AUTOCONNECT_UPDATE_DURATION
 #define AUTOCONNECT_UPDATE_DURATION   180000
 #endif // !AUTOCONNECT_UPDATE_DURATION
+
+// Interval time of progress status periodical inquiry [ms]
+#ifndef AUTOCONNECT_UPDATE_INTERVAL
+#define AUTOCONNECT_UPDATE_INTERVAL   400
+#endif // !AUTOCONNECT_UPDATE_INTERVAL
+
+// Wait timer for rebooting after updated
+#ifndef AUTOCONNECT_UPDATE_WAITFORREBOOT
+#define AUTOCONNECT_UPDATE_WAITFORREBOOT  9000
+#endif // !AUTOCONNECT_UPDATE_WAITFORREBOOT
+
+// A signal value that the board dependent LED turns on.
+// As a typical example, the ON signal of built-in LED such as the
+// NodeMCU is LOW and the HIGH for the NodeMCU-32S as another example.
+#ifndef AUTOCONNECT_UPDATE_LEDON
+// #define AUTOCONNECT_UPDATE_LEDON  HIGH
+#define AUTOCONNECT_UPDATE_LEDON  LOW
+#endif // !AUTOCONNECT_UPDATE_LEDON
 
 // URIs of the behaviors owned by the update server
 #ifndef AUTOCONNECT_UPDATE_CATALOG
@@ -178,11 +198,6 @@
 #ifndef AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
 #define AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE  256
 #endif // !AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
-
-// Default WebSocket port for the update progress measur
-#ifndef AUTOCONNECT_WEBSOCKETPORT
-#define AUTOCONNECT_WEBSOCKETPORT     81
-#endif // !AUTOCONNECT_WEBSOCKETPORT
 
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)

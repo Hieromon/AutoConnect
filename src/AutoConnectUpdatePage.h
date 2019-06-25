@@ -21,7 +21,7 @@ const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] 
   { AC_Element, "c1", "</div>", nullptr },
   { AC_Submit, "update", "UPDATE", AUTOCONNECT_URI_UPDATE_ACT }
 };
-const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxCatalog PROGMEM = {
+const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageCatalog PROGMEM = {
   AUTOCONNECT_URI_UPDATE, "Update", false, AutoConnectUpdateAct::_elmCatalog
 };
 
@@ -36,27 +36,24 @@ const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmProgress[]
   { AC_Element, "c3", "<div id=\"progress\">Updating...<span style=\"display:inline-block;vertical-align:middle;margin-left:7px\">", nullptr },
   { AC_Element, "progress_meter", "<meter min=\"0\" />", nullptr },
   { AC_Element, "progress_loader", "<div id=\"ld\" />", nullptr },
-  { AC_Element, "c4", "</span></div></div>", nullptr },
+  { AC_Element, "c4", "</span></div>", nullptr },
   { AC_Text, "status", nullptr, nullptr },
-  { AC_Element, "c5", "<script type=\"text/javascript\">var ws,conn=!1;function rd(){location.href=\"" AUTOCONNECT_URI_UPDATE_RESULT "\"}function bar(){(ws=new WebSocket(\"", nullptr },
-  { AC_Element, "wsurl", nullptr, nullptr },
-  { AC_Element, "c6", "\")).onopen=function(){ws.onmessage=function(e){var t=e.data.split(\",\");\"#s\"==t[0]?(", nullptr },
-  { AC_Element, "enable_loader", "document.getElementById(\"ld\").className=\"loader\",", nullptr },
-  { AC_Element, "c7", "window.setTimeout(rd()," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_DURATION) "),conn=!0):\"#e\"==t[0]?(ws.close(),conn=!1):\"#p\"==t[0]&&incr(t[1])}},ws.onclose=function(e){conn?setTimeout(function(){bar()},2e3):rd()},ws.onerror=function(e){console.log(\"WS err(\"+e.code+\")\"+e.reason),1==ws.readyState&&(document.getElementById(\"status\").textContent=\"WebSocket \"+e.type)}}", nullptr },
-  { AC_Element, "inprogress_meter", "function incr(e){var t=e.split(\":\"),n=document.getElementById(\"progress\").getElementsByTagName(\"meter\");n[0].setAttribute(\"value\",t[0]),n[0].setAttribute(\"max\",t[1])}", nullptr },
-  { AC_Element, "inprogress_loader", "function incr(pv){}", nullptr },
-  { AC_Element, "c8", "window.onload=bar;</script>", nullptr }
+  { AC_Element, "c5", "<script type=\"text/javascript\">var lap,cls;function rd(){clearInterval(lap),location.href=\"" AUTOCONNECT_URI_UPDATE_RESULT "\"}function bar(){var t=new FormData;t.append(\"op\",\"#s\");var e=new XMLHttpRequest;e.timeout=" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_TIMEOUT) ",e.open(\"POST\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),e.onreadystatechange=function(){4==e.readyState&&(200==e.status?(cls=!1,lap=setInterval(upd," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_INTERVAL) ")):document.getElementById(\"status\").textContent=\"Could not start (\"+e.status+\"): \"+e.responseText)},e.send(t)}function upd(){if(!cls){var t=new XMLHttpRequest;t.onload=function(){var t=this.responseText.split(\",\");\"#s\"==t[0]?(window.setTimeout(rd()," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_DURATION) ")", nullptr },
+  { AC_Element, "enable_loader", ",document.getElementById(\"ld\").className=\"loader\"", nullptr },
+  { AC_Element, "c6", "):\"#e\"==t[0]?(cls=!0,rd()):\"#p\"==t[0]&&incr(t[1])},t.onerror=function(){console.log(\"http err:%d %s\",t.status,t.responseText)},t.open(\"GET\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),t.send()}}function incr(t){", nullptr },
+  { AC_Element, "inprogress_meter", "var e=t.split(\":\"),n=document.getElementById(\"progress\").getElementsByTagName(\"meter\");n[0].setAttribute(\"value\",e[0]),n[0].setAttribute(\"max\",e[1])", nullptr },
+  { AC_Element, "c7", "}window.onload=bar;</script>", nullptr }
 };
-const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxProgress PROGMEM = {
+const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageProgress PROGMEM = {
   AUTOCONNECT_URI_UPDATE_ACT, "Update", false, AutoConnectUpdateAct::_elmProgress
 };
 
 // Definition of the AUTOCONNECT_URI_UPDATE_RESULT page to notify update results
 const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmResult[] PROGMEM = {
   { AC_Text, "status", nullptr, nullptr },
-  { AC_Element, "restart", "<script type=\"text/javascript\">setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\",1e4);</script>", nullptr }
+  { AC_Element, "restart", "<script type=\"text/javascript\">window.onload=function(){var e=new FormData;e.append(\"op\",\"#r\");var o=new XMLHttpRequest;o.timeout=" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_TIMEOUT) ",o.onloadend=function(){setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\"," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_WAITFORREBOOT) ")},o.open(\"POST\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),o.send(e)};</script>", nullptr }
 };
-const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_auxResult PROGMEM = {
+const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageResult PROGMEM = {
   AUTOCONNECT_URI_UPDATE_RESULT, "Update", false, AutoConnectUpdateAct::_elmResult
 };
 

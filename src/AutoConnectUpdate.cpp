@@ -30,7 +30,7 @@
  *   queries from the AutoConnectUpdateAct class. The catalog script accepts
  *   the queries such as '/catalog?op=list&path='.
  *   - op:
- *     An op parameter speicies the query operation. In the current
+ *     An op parameter specifies the query operation. In the current
  *     version, available query operation is a list only.
  *   - list:
  *     The query operation list responds with a list of available sketch
@@ -90,15 +90,9 @@ AC_HAS_FUNC(onProgress);
 
 template<typename T>
 typename std::enable_if<AutoConnectUtil::has_func_onProgress<T>::value, AutoConnectUpdateAct::AC_UPDATEDIALOG_t>::type onProgress(T& updater, UpdateVariedClass::THandlerFunction_Progress fn) {
-#if defined(ARDUINO_ARCH_ESP32) || (defined(ARDUINO_ARCH_ESP8266) && (WEBSOCKETS_NETWORK_TYPE == NETWORK_ESP8266_ASYNC))
   updater.onProgress(fn);
   AC_DBG("Updater keeps callback\n");
   return AutoConnectUpdateAct::UPDATEDIALOG_METER;
-#else
-  (void)(updater);
-  (void)(fn);
-  return AutoConnectUpdateAct::UPDATEDIALOG_LOADER;
-#endif
 }
 
 template<typename T>
@@ -110,14 +104,22 @@ typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoCon
 }
 
 /**
+ * Definitions of notification commands to synchronize update processing
+ * with the Web client.
+ */
+#define UPDATE_NOTIFY_START     "#s"
+#define UPDATE_NOTIFY_PROGRESS  "#p"
+#define UPDATE_NOTIFY_END       "#e"
+#define UPDATE_NOTIFY_REBOOT    "#r"
+
+/**
  * A destructor. Release the update processing dialogue page generated
  * as AutoConnectAux.
  */
 AutoConnectUpdateAct::~AutoConnectUpdateAct() {
-  _catalog.reset(nullptr);
-  _progress.reset(nullptr);
-  _result.reset(nullptr);
-  _ws.reset(nullptr);
+  _auxCatalog.reset(nullptr);
+  _auxProgress.reset(nullptr);
+  _auxResult.reset(nullptr);
 }
 
 /**
@@ -130,44 +132,35 @@ AutoConnectUpdateAct::~AutoConnectUpdateAct() {
 void AutoConnectUpdateAct::attach(AutoConnect& portal) {
   AutoConnectAux* updatePage;
 
-  updatePage = new AutoConnectAux(String(FPSTR(_auxCatalog.uri)), String(FPSTR(_auxCatalog.title)), _auxCatalog.menu);
-  _buildAux(updatePage, &_auxCatalog, lengthOf(_elmCatalog));
-  _catalog.reset(updatePage);
+  updatePage = new AutoConnectAux(String(FPSTR(_pageCatalog.uri)), String(FPSTR(_pageCatalog.title)), _pageCatalog.menu);
+  _buildAux(updatePage, &_pageCatalog, lengthOf(_elmCatalog));
+  _auxCatalog.reset(updatePage);
 
-  updatePage = new AutoConnectAux(String(FPSTR(_auxProgress.uri)), String(FPSTR(_auxProgress.title)), _auxProgress.menu);
-  _buildAux(updatePage, &_auxProgress, lengthOf(_elmProgress));
-  _progress.reset(updatePage);
+  updatePage = new AutoConnectAux(String(FPSTR(_pageProgress.uri)), String(FPSTR(_pageProgress.title)), _pageProgress.menu);
+  _buildAux(updatePage, &_pageProgress, lengthOf(_elmProgress));
+  _auxProgress.reset(updatePage);
 
-  updatePage = new AutoConnectAux(String(FPSTR(_auxResult.uri)), String(FPSTR(_auxResult.title)), _auxResult.menu);
-  _buildAux(updatePage, &_auxResult, lengthOf(_elmResult));
-  _result.reset(updatePage);
+  updatePage = new AutoConnectAux(String(FPSTR(_pageResult.uri)), String(FPSTR(_pageResult.title)), _pageResult.menu);
+  _buildAux(updatePage, &_pageResult, lengthOf(_elmResult));
+  _auxResult.reset(updatePage);
 
-  _catalog->on(std::bind(&AutoConnectUpdateAct::_onCatalog, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
-  _progress->on(std::bind(&AutoConnectUpdateAct::_onUpdate, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
-  _result->on(std::bind(&AutoConnectUpdateAct::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
+  _auxCatalog->on(std::bind(&AutoConnectUpdateAct::_onCatalog, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
+  _auxProgress->on(std::bind(&AutoConnectUpdateAct::_onUpdate, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
+  _auxResult->on(std::bind(&AutoConnectUpdateAct::_onResult, this, std::placeholders::_1, std::placeholders::_2), AC_EXIT_AHEAD);
 
-  portal.join(*_catalog.get());
-  portal.join(*_progress.get());
-  portal.join(*_result.get());
-
-  _status = UPDATE_IDLE;
-
-  // Attach this to the AutoConnectUpdateAct
-  portal._update.reset(this);
-  AC_DBG("AutoConnectUpdate attached\n");
-  if (WiFi.status() == WL_CONNECTED)
-    enable();
+  portal.join(*_auxCatalog.get());
+  portal.join(*_auxProgress.get());
+  portal.join(*_auxResult.get());
 
   // Register the callback to inform the update progress
   _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdateAct::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
   // Adjust the client dialog pattern according to the callback validity
   // of the UpdateClass.
-  AutoConnectElement* loader = _progress->getElement(String(F("loader")));
-  AutoConnectElement* enable_loader = _progress->getElement(String(F("enable_loader")));
-  AutoConnectElement* progress_meter = _progress->getElement(String(F("progress_meter")));
-  AutoConnectElement* inprogress_meter = _progress->getElement(String(F("inprogress_meter")));
-  AutoConnectElement* progress_loader = _progress->getElement(String(F("progress_loader")));
-  AutoConnectElement* inprogress_loader = _progress->getElement(String(F("inprogress_loader")));
+  AutoConnectElement* loader = _auxProgress->getElement(String(F("loader")));
+  AutoConnectElement* progress_meter = _auxProgress->getElement(String(F("progress_meter")));
+  AutoConnectElement* progress_loader = _auxProgress->getElement(String(F("progress_loader")));
+  AutoConnectElement* enable_loader = _auxProgress->getElement(String(F("enable_loader")));
+  AutoConnectElement* inprogress_meter = _auxProgress->getElement(String(F("inprogress_meter")));
   switch (_dialog) {
   case UPDATEDIALOG_LOADER:
     progress_meter->enable =false;
@@ -175,11 +168,23 @@ void AutoConnectUpdateAct::attach(AutoConnect& portal) {
     break;
   case UPDATEDIALOG_METER:
     loader->enable = false;
-    enable_loader->enable =false;
     progress_loader->enable =false;
-    inprogress_loader->enable = false;
+    enable_loader->enable =false;
     break;
   }
+
+  // Attach this to the AutoConnectUpdateAct
+  portal._update.reset(this);
+  AC_DBG("AutoConnectUpdate attached\n");
+  if (WiFi.status() == WL_CONNECTED)
+    enable();
+
+  // Attach the update progress monitoring handler
+  _webServer = &(portal.host());
+  _webServer->on(String(F(AUTOCONNECT_URI_UPDATE_PROGRESS)), HTTP_ANY, std::bind(&AutoConnectUpdateAct::_progress, this));
+
+  // Reset the update progress status
+  _status = UPDATE_IDLE;
 }
 
 /**
@@ -188,8 +193,8 @@ void AutoConnectUpdateAct::attach(AutoConnect& portal) {
  */
 void AutoConnectUpdateAct::disable(const bool activate) {
   _enable = activate;
-  if (_catalog) {
-    _catalog->menu(false);
+  if (_auxCatalog) {
+    _auxCatalog->menu(false);
     AC_DBG("AutoConnectUpdate disabled\n");
   }
 }
@@ -201,12 +206,19 @@ void AutoConnectUpdateAct::disable(const bool activate) {
 void AutoConnectUpdateAct::enable(void) {
   _enable = true;
   _status = UPDATE_IDLE;
-  if (_catalog) {
-    _catalog->menu(WiFi.status() == WL_CONNECTED);
+  if (_auxCatalog) {
+    _auxCatalog->menu(WiFi.status() == WL_CONNECTED);
     AC_DBG("AutoConnectUpdate enabled\n");
   }
 }
 
+/**
+ * An entry point of the process loop as AutoConnect::handleClient.
+ * The handleClient function of the AutoConnect that later accompanied
+ * the AutoConnectUpdate class will invoke this entry.
+ * This entry point will be called from the process loop of handleClient
+ * function only if the class is associated with the AutoConnect class.
+ */
 void AutoConnectUpdateAct::handleUpdate(void) {
   // Activate the update menu conditional with WiFi connected.
   if (!isEnable() && _enable) {
@@ -220,21 +232,8 @@ void AutoConnectUpdateAct::handleUpdate(void) {
       // execute it accordingly. It is only this process point that
       // requests update processing.
       if (_status == UPDATE_START) {
-        AC_DBG("Waiting for WS connection\n");
-        unsigned long tm = millis();
-        while (!_wsConnected) {
-          if (millis() - tm > AUTOCONNECT_TIMEOUT) {
-            AC_DBG("WebSocket client connection timeout, update ignored\n");
-            break;
-          }
-          _ws->loop();  // Crawl the connection request.
-          yield();
-        }
-        // Launch the update
-        if (_wsConnected)
-          update();
-        else
-          _status = UPDATE_IDLE;
+        _status = UPDATE_PROGRESS;
+        update();
       }
       else if (_status == UPDATE_RESET) {
         AC_DBG("Restart on %s updated...\n", _binName.c_str());
@@ -257,13 +256,9 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
   // Start update
   String  uriBin = uri + '/' + _binName;
   if (_binName.length()) {
-    AC_DBG("%s:%d/%s update in progress...", host.c_str(), port, uriBin.c_str());
-#if defined(ARDUINO_ARCH_ESP8266)
-    t_httpUpdate_return ret = HTTPUpdateClass::update(host, port, uriBin);
-#elif defined(ARDUINO_ARCH_ESP32)
     WiFiClient  wifiClient;
+    AC_DBG("%s:%d/%s update in progress...", host.c_str(), port, uriBin.c_str());
     t_httpUpdate_return ret = HTTPUpdateClass::update(wifiClient, host, port, uriBin);
-#endif
     switch (ret) {
     case HTTP_UPDATE_FAILED:
       _status = UPDATE_FAIL;
@@ -279,8 +274,6 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
       AC_DBG_DUMB(" completed\n");
       break;
     }
-    // Request the client to close the WebSocket.
-    _ws->sendTXT(_wsClient, "#e");
   }
   else {
     AC_DBG("An update has not specified");
@@ -336,6 +329,20 @@ void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectUpdat
 }
 
 /**
+ * An update callback function in HTTPUpdate::update.
+ * This callback handler acts as an HTTPUpdate::update callback and
+ * sends the updated amount over the web socket to advance the progress
+ * of the progress meter displayed in the browser.
+ * @param  amount Already transferred size.
+ * @param  size   Total size of the binary to update.
+ */
+void AutoConnectUpdateAct::_inProgress(size_t amount, size_t size) {
+  _amount = amount;
+  _binSize = size;
+  _webServer->handleClient();
+}
+
+/**
  * AUTOCONNECT_URI_UPDATE page handler.
  * It queries the update server for cataloged sketch binary and
  * displays the result on the page as an available updater list.
@@ -347,7 +354,8 @@ void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectUpdat
  */
 String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& args) {
   AC_UNUSED(args);
-  HTTPClient httpClient;
+  WiFiClient  wifiClient;
+  HTTPClient  httpClient;
 
   // Reallocate available firmwares list.
   _binName = String("");
@@ -364,11 +372,11 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
   // Throw a query to the update server and parse the response JSON
   // document. After that, display the bin type file name contained in
   // its JSON document as available updaters to the page.
-  if (httpClient.begin(host, port, qs)) {
+  if (httpClient.begin(wifiClient, host, port, qs)) {
     int responseCode = httpClient.GET();
     if (responseCode == HTTP_CODE_OK) {
 
-      JsonVariant jb;
+      // JsonVariant jb;
       bool  parse;
       char  beginOfList[] = "[";
       char  endOfEntry[] = ",";
@@ -437,6 +445,7 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
     AC_DBG("%s\n", caption.value.c_str());
   }
 
+  _status = UPDATE_IDLE;
   return String("");
 }
 
@@ -449,26 +458,13 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
  */
 String AutoConnectUpdateAct::_onUpdate(AutoConnectAux& progress, PageArgument& args) {
   AC_UNUSED(args);
-  // launch the WebSocket server
-  _ws.reset(new WebSocketsServer(AUTOCONNECT_WEBSOCKETPORT));
-  if (_ws) {
-    _ws->begin();
-    _ws->onEvent(std::bind(&AutoConnectUpdateAct::_wsEvent, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-  }
-  else
-    AC_DBG("WebSocketsServer allocation failed\n");
 
   // Constructs the dialog page.
   AutoConnectElement* binName = progress.getElement(String(F("binname")));
-  _binName = _catalog->getElement<AutoConnectRadio>(String(F("firmwares"))).value();
+  _binName = _auxCatalog->getElement<AutoConnectRadio>(String(F("firmwares"))).value();
   binName->value = _binName;
   AutoConnectElement* url = progress.getElement(String("url"));
   url->value = host + ':' + port;
-  AutoConnectElement* wsurl = progress.getElement(String(F("wsurl")));
-  wsurl->value = "ws://" + WiFi.localIP().toString() + ':' + AUTOCONNECT_WEBSOCKETPORT;
-  AC_DBG("Cast WS %s\n", wsurl->value.c_str());
-  _wsConnected = false;
-  _status = UPDATE_START;
   return String("");
 }
 
@@ -484,19 +480,6 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
   String  resForm;
   String  resColor;
   bool    restart = false;
-
-  if (_ws) {
-    _ws->loop();
-    while (_wsConnected) {
-      IPAddress ipAny;
-      if (_ws->remoteIP(_wsClient) == ipAny)
-        _wsConnected = false;
-      else
-        _ws->close();
-      yield();
-    }
-    _ws.reset(nullptr);
-  }
 
   switch (_status) {
   case UPDATE_SUCCESS:
@@ -518,48 +501,84 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
   resultElm.value = _binName + resForm;
   resultElm.style = String(F("font-size:120%;color:")) + resColor;
   result.getElement<AutoConnectElement>(String(F("restart"))).enable = restart;
-  if (restart)
-    _status = UPDATE_RESET;
 
   return String("");
 }
 
 /**
- * An update callback function in HTTPUpdate::update.
- * This callback handler acts as an HTTPUpdate::update callback and
- * sends the updated amount over the web socket to advance the progress
- * of the progress meter displayed in the browser.
- * @param  amount Already transferred size.
- * @param  size   Total size of the binary to update.
+ * A handler for notifying the client of the progress of update processing.
+ * This handler specifies the URI behavior defined as THndlerFunc of
+ * ESP8266 WebServer (WebServer for ESP32).
+ * Usually, that URI is /_ac/update_progress and will return the
+ * processed amount of update processing to the client.
  */
-void AutoConnectUpdateAct::_inProgress(size_t amount, size_t size) {
-  if (_ws) {
-    _amount = amount;
-    _binSize = size;
-    String  payload = "#p," + String(_amount) + ':' + String(_binSize); 
-    _ws->sendTXT(_wsClient, payload);
-  }
-}
+void AutoConnectUpdateAct::_progress(void) {
+  String  reqOperation = "op";
+  String  reqOperand;
+  String  payload = String("");
+  int     httpCode;
+  static const char reply_msg_op[] PROGMEM = "invalid operation";
+  static const char reply_msg_seq[] PROGMEM = "invalid sequence";
+  static const char reply_msg_inv[] PROGMEM = "invalid request";
+  static const char* content_type = "text/plain";
 
-/**
- * An event handler of WebSocket which should be opened to monitor
- * update progress. AutoConnectUpdate will send #s to start the update
- * progress notification to the client when the WebSocket client
- * connected. This has the meaning of ACK.
- * @param  client  WS client number of WebSocketsServer
- * @param  event   Event id
- * @param  payload Payload content
- * @param  length  payload length
- */
-void AutoConnectUpdateAct::_wsEvent(uint8_t client, WStype_t event, uint8_t* payload, size_t length) {
-  AC_DBG("WS client:%d event(%d)\n", client, event);
-  if (event == WStype_CONNECTED) {
-    _wsConnected = true;
-    _wsClient = client;
-    _ws->sendTXT(_wsClient, "#s");
+  switch (_webServer->method()) {
+
+  case HTTP_POST:
+    if (_webServer->hasArg(reqOperation)) {
+      reqOperand = _webServer->arg(reqOperation);
+      if (reqOperand == String(UPDATE_NOTIFY_START)) {
+        if (_status == UPDATE_IDLE) {
+          httpCode = 200;
+          _status = UPDATE_START;
+        }
+        else {
+          payload = String(FPSTR(reply_msg_seq));
+          httpCode = 500;
+        }
+      }
+      else if (reqOperand == String(UPDATE_NOTIFY_REBOOT)) {
+        if (_status == UPDATE_SUCCESS) {
+          _status = UPDATE_RESET;
+          httpCode = 200;
+        }
+        else {
+          payload = String(FPSTR(reply_msg_seq));
+          httpCode = 500;
+        }
+      }
+    }
+    else {
+      payload = String(FPSTR(reply_msg_op));
+      httpCode = 500;
+    }
+    break;
+
+  case HTTP_GET:
+    switch (_status) {
+    case UPDATE_PROGRESS:
+      payload = String(UPDATE_NOTIFY_PROGRESS) + ',' + String(_amount) + ':' + String(_binSize); 
+      httpCode = 200;
+      break;
+    case UPDATE_IDLE:
+    case UPDATE_SUCCESS:
+    case UPDATE_NOAVAIL:
+    case UPDATE_FAIL:
+      payload = String(UPDATE_NOTIFY_END);
+      httpCode = 200;
+      break;
+    default:
+      payload = String(FPSTR(reply_msg_seq));
+      httpCode = 500;
+    }
+    break;
+
+  default:
+    httpCode = 500;
+    payload = String(FPSTR(reply_msg_inv));
   }
-  else if (event == WStype_DISCONNECTED)
-    _wsConnected = false;
+
+  _webServer->send(httpCode, content_type, payload);
 }
 
 #endif // !AUTOCONNECT_USE_UPDATE
