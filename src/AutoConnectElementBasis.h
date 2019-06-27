@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  0.9.8
- * @date 2019-03-11
+ * @version  0.9.11
+ * @date 2019-06-25
  * @copyright  MIT license.
  */
 
@@ -38,6 +38,12 @@ typedef enum {
   AC_File_Extern
 } ACFile_t;         /**< AutoConnectFile media type */
 
+typedef enum {
+  AC_Tag_None = 0,
+  AC_Tag_BR = 1,
+  AC_Tag_P = 2
+} ACPosterior_t;    /**< Tag to be generated following element */
+
 /**
  * AutoConnectAux element base.
  * Placed a raw text that can be added by user sketch.
@@ -46,12 +52,13 @@ typedef enum {
  */
 class AutoConnectElementBasis {
  public:
-  explicit AutoConnectElementBasis(const char* name = "", const char* value = "") : name(String(name)), value(String(value)), enable(true) {
+  explicit AutoConnectElementBasis(const char* name = "", const char* value = "", const ACPosterior_t post = AC_Tag_None) : name(String(name)), value(String(value)), post(post), enable(true) {
     _type = AC_Element;
   }
   virtual ~AutoConnectElementBasis() {}
   virtual const String  toHTML(void) const { return enable ? value : String(""); }
   ACElement_t typeOf(void) const { return _type; }
+  const String  posterior(const String& s) const;
 #ifndef AUTOCONNECT_USE_JSON
   template<typename T>
   T&  as(void);
@@ -59,6 +66,7 @@ class AutoConnectElementBasis {
 
   String  name;       /**< Element name */
   String  value;      /**< Element value */
+  ACPosterior_t post; /**< Tag to be generated with posterior */
   bool    enable;     /**< Enabling the element */
 
  protected:
@@ -74,7 +82,7 @@ class AutoConnectElementBasis {
  */
 class AutoConnectButtonBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String("")) : AutoConnectElementBasis(name, value), action(String(action)) {
+  explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String(""), const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), action(String(action)) {
     _type = AC_Button;
   }
   ~AutoConnectButtonBasis() {}
@@ -93,7 +101,7 @@ class AutoConnectButtonBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false) : AutoConnectElementBasis(name, value), label(String(label)), checked(checked) {
+  explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), checked(checked) {
     _type = AC_Checkbox;
   }
   virtual ~AutoConnectCheckboxBasis() {}
@@ -113,7 +121,7 @@ class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectFileBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectFileBasis(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS) : AutoConnectElementBasis(name, value), label(String(label)), store(store) {
+  explicit AutoConnectFileBasis(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), store(store), size(0) {
     _type = AC_File;
     _upload.reset();
   }
@@ -142,7 +150,7 @@ class AutoConnectFileBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "") : AutoConnectElementBasis(name, value), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder))  {
+  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder))  {
     _type = AC_Input;
   }
   virtual ~AutoConnectInputBasis() {}
@@ -164,7 +172,7 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0) : AutoConnectElementBasis(name, ""), label(label), order(order), checked(checked), _values(values) {
+  explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, "", post), label(label), order(order), checked(checked), _values(values) {
     _type = AC_Radio;
   }
   virtual ~AutoConnectRadioBasis() {}
@@ -195,7 +203,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0) : AutoConnectElementBasis(name, ""), label(String(label)), selected(selected), _options(options) {
+  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, "", post), label(String(label)), selected(selected), _options(options) {
     _type = AC_Select;
   }
   virtual ~AutoConnectSelectBasis() {}
@@ -226,7 +234,7 @@ class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectSubmitBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectSubmitBasis(const char* name = "", const char* value = "", const char* uri = "") : AutoConnectElementBasis(name, value), uri(String(uri)) {
+  explicit AutoConnectSubmitBasis(const char* name = "", const char* value = "", const char* uri = "", const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), uri(String(uri)) {
     _type = AC_Submit;
   }
   virtual ~AutoConnectSubmitBasis() {}
@@ -247,7 +255,7 @@ class AutoConnectSubmitBasis : virtual public AutoConnectElementBasis {
  */
 class AutoConnectTextBasis : virtual public AutoConnectElementBasis {
  public:
-  explicit AutoConnectTextBasis(const char* name = "", const char* value = "", const char* style = "", const char* format = "") : AutoConnectElementBasis(name, value), style(String(style)), format(String(format)) {
+  explicit AutoConnectTextBasis(const char* name = "", const char* value = "", const char* style = "", const char* format = "", const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), style(String(style)), format(String(format)) {
     _type = AC_Text;
   }
   virtual ~AutoConnectTextBasis() {}

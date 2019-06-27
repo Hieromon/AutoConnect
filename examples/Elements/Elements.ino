@@ -75,11 +75,6 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       "selected": 2
     },
     {
-      "name": "element",
-      "type": "ACElement",
-      "value": "<br>"
-    },
-    {
       "name": "load",
       "type": "ACSubmit",
       "value": "Load",
