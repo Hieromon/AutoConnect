@@ -109,6 +109,7 @@ class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
 
   String  label;      /**< A label for a subsequent input box */
   bool    checked;    /**< The element should be pre-selected */
+  bool    labelFirst; /**< Output label before the checkbox */
 };
 
 /**

@@ -24,6 +24,7 @@
 #define AUTOCONNECT_JSON_KEY_OPTION       "option"
 #define AUTOCONNECT_JSON_KEY_PATTERN      "pattern"
 #define AUTOCONNECT_JSON_KEY_PLACEHOLDER  "placeholder"
+#define AUTOCONNECT_JSON_KEY_LABELFIRST   "labelfirst"
 #define AUTOCONNECT_JSON_KEY_POSTERIOR    "posterior"
 #define AUTOCONNECT_JSON_KEY_SELECTED     "selected"
 #define AUTOCONNECT_JSON_KEY_STORE        "store"
@@ -162,11 +163,12 @@ class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectB
  */
 class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnectCheckboxBasis {
  public:
-  explicit AutoConnectCheckboxJson(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosterior_t post = AC_Tag_BR) {
+  explicit AutoConnectCheckboxJson(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const bool labelFirst = false, const ACPosterior_t post = AC_Tag_BR) {
     AutoConnectCheckboxBasis::name = String(name);
     AutoConnectCheckboxBasis::value = String(value);
     AutoConnectCheckboxBasis::label = String(label);
     AutoConnectCheckboxBasis::checked = checked;
+    AutoConnectCheckboxBasis::labelFirst = String(labelFirst);
     AutoConnectCheckboxBasis::post = post;
     _defaultPost = AC_Tag_BR;
   }

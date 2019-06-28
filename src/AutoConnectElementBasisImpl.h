@@ -62,12 +62,14 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    html = String(F("<input type=\"checkbox\" name=\"")) + name + String(F("\" value=\"")) + value + String("\"");
+    if (labelFirst && label.length())
+    html += String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
+    html += String(F("<input type=\"checkbox\" name=\"")) + name + String(F("\" value=\"")) + value + String("\"");
     if (checked)
       html += String(F(" checked"));
-    if (label.length())
-      html += String(F(" id=\"")) + name + String(F("\"><label for=\"")) + name + String("\">") + label + String(F("</label"));
-    html += String(">");
+    html += String(F(" id=\"")) + name + String(F("\">"));
+    if (!labelFirst && label.length())
+      html+=String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
     html = AutoConnectElementBasis::posterior(html);
   }
   return html;

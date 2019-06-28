@@ -139,7 +139,7 @@ void AutoConnectButtonJson::serialize(JsonObject& json) {
  */
 size_t AutoConnectCheckboxJson::getObjectSize(void) const {
   size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_CHECKED);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_CHECKED) + sizeof(AUTOCONNECT_JSON_KEY_LABELFIRST);
   return size;
 }
 
@@ -157,6 +157,8 @@ bool AutoConnectCheckboxJson::loadMember(const JsonObject& json) {
       label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_CHECKED)))
       checked = json[F(AUTOCONNECT_JSON_KEY_CHECKED)].as<bool>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABELFIRST)))
+      labelFirst = json[F(AUTOCONNECT_JSON_KEY_LABELFIRST)].as<bool>();
     return true;
   }
   return false;
@@ -173,6 +175,7 @@ void AutoConnectCheckboxJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
+  json[F(AUTOCONNECT_JSON_KEY_LABELFIRST)] = labelFirst;
 }
 
 /**
