@@ -139,7 +139,7 @@ void AutoConnectButtonJson::serialize(JsonObject& json) {
  */
 size_t AutoConnectCheckboxJson::getObjectSize(void) const {
   size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_CHECKED);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_CHECKED) + sizeof(AUTOCONNECT_JSON_KEY_LABELPOSITION) + sizeof(AUTOCONNECT_JSON_VALUE_INFRONT);
   return size;
 }
 
@@ -157,6 +157,17 @@ bool AutoConnectCheckboxJson::loadMember(const JsonObject& json) {
       label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_CHECKED)))
       checked = json[F(AUTOCONNECT_JSON_KEY_CHECKED)].as<bool>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABELPOSITION))) {
+      String  position = json[F(AUTOCONNECT_JSON_KEY_LABELPOSITION)].as<String>();
+      if (position.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_BEHIND)))
+        labelPosition = AC_Behind;
+      else if (position.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_INFRONT)))
+        labelPosition = AC_Infront;
+      else {
+        AC_DBG("Failed to load %s element, unknown label position:%s\n", name.c_str(), position.c_str());
+        return false;
+      }
+    }
     return true;
   }
   return false;
@@ -173,6 +184,8 @@ void AutoConnectCheckboxJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
+  if (labelPosition == AC_Infront)
+    json[F(AUTOCONNECT_JSON_KEY_LABELPOSITION)] = AUTOCONNECT_JSON_VALUE_INFRONT;
 }
 
 /**

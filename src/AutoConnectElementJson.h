@@ -19,6 +19,7 @@
 #define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
 #define AUTOCONNECT_JSON_KEY_FORMAT       "format"
 #define AUTOCONNECT_JSON_KEY_LABEL        "label"
+#define AUTOCONNECT_JSON_KEY_LABELPOSITION "labelposition"
 #define AUTOCONNECT_JSON_KEY_MENU         "menu"
 #define AUTOCONNECT_JSON_KEY_NAME         "name"
 #define AUTOCONNECT_JSON_KEY_OPTION       "option"
@@ -42,10 +43,12 @@
 #define AUTOCONNECT_JSON_TYPE_ACSTYLE     "ACStyle"
 #define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
 #define AUTOCONNECT_JSON_TYPE_ACTEXT      "ACText"
+#define AUTOCONNECT_JSON_VALUE_BEHIND     "behind"
 #define AUTOCONNECT_JSON_VALUE_BR         "br"
 #define AUTOCONNECT_JSON_VALUE_EXTERNAL   "extern"
 #define AUTOCONNECT_JSON_VALUE_FS         "fs"
 #define AUTOCONNECT_JSON_VALUE_HORIZONTAL "horizontal"
+#define AUTOCONNECT_JSON_VALUE_INFRONT    "infront"
 #define AUTOCONNECT_JSON_VALUE_NONE       "none"
 #define AUTOCONNECT_JSON_VALUE_PAR        "par"
 #define AUTOCONNECT_JSON_VALUE_SD         "sd"
@@ -113,11 +116,12 @@ class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectB
  */
 class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnectCheckboxBasis {
  public:
-  explicit AutoConnectCheckboxJson(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosterior_t post = AC_Tag_BR) {
+  explicit AutoConnectCheckboxJson(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosition_t labelPosition = AC_Behind, const ACPosterior_t post = AC_Tag_BR) {
     AutoConnectCheckboxBasis::name = String(name);
     AutoConnectCheckboxBasis::value = String(value);
     AutoConnectCheckboxBasis::label = String(label);
     AutoConnectCheckboxBasis::checked = checked;
+    AutoConnectCheckboxBasis::labelPosition = labelPosition;
     AutoConnectCheckboxBasis::post = post;
     _defaultPost = AC_Tag_BR;
   }
