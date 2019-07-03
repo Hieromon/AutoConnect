@@ -58,6 +58,11 @@ typedef enum {
   AC_Tag_P = 2
 } ACPosterior_t;    /**< Tag to be generated following element */
 
+typedef enum {
+  AC_Infront,
+  AC_Behind
+} ACPosition_t;     /**< Position of label subordinate to element */
+
 /**
  * AutoConnectAux element base.
  * Placed a raw text that can be added by user sketch.
@@ -115,7 +120,7 @@ class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
  */
 class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), checked(checked) {
+  explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosition_t labelPosition = AC_Behind, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), checked(checked), labelPosition(labelPosition) {
     _type = AC_Checkbox;
   }
   virtual ~AutoConnectCheckboxBasis() {}
@@ -123,6 +128,7 @@ class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoCon
 
   String  label;      /**< A label for a subsequent input box */
   bool    checked;    /**< The element should be pre-selected */
+  ACPosition_t  labelPosition;  /**< Output label according to ACPosition_t */
 };
 
 /**

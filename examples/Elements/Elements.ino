@@ -42,6 +42,7 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       "type": "ACCheckbox",
       "value": "check",
       "label": "Check",
+      "labelposition": "infront",
       "checked": true
     },
     {
