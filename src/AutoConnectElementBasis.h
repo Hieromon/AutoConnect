@@ -14,6 +14,19 @@
 #include <memory>
 #include "AutoConnectUpload.h"
 
+// AC_AUTOCONNECTELEMENT_ON_VIRTUAL macro absorbs the difference of
+// inheritance attribute of AutoConnectElement depending on the use of JSON.
+// In a configuration using JSON, the base class of each
+// AutoConnectElement is a virtual inheritance.
+#ifdef AUTOCONNECT_USE_JSON
+#define AC_AUTOCONNECTELEMENT_ON_VIRTUAL virtual
+#else
+#define AC_AUTOCONNECTELEMENT_ON_VIRTUAL
+#endif
+
+// A set of enumerators of types and attributes subordinate to
+// AutoConnectElements
+
 typedef enum {
   AC_Button,
   AC_Checkbox,
@@ -80,7 +93,7 @@ class AutoConnectElementBasis {
  * @param  value    Value string with the placed button.
  * @param  action   Script code to execute with the button pushed.
  */
-class AutoConnectButtonBasis : virtual public AutoConnectElementBasis {
+class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String(""), const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), action(String(action)) {
     _type = AC_Button;
@@ -99,7 +112,7 @@ class AutoConnectButtonBasis : virtual public AutoConnectElementBasis {
  * @param  label    A label string that follows checkbox, optionally.
  * The label is placed on the right side of the checkbox.
  */
-class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
+class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), checked(checked) {
     _type = AC_Checkbox;
@@ -119,7 +132,7 @@ class AutoConnectCheckboxBasis : virtual public AutoConnectElementBasis {
  * @param  label    A label string that follows file-select box, optionally.
  * The label is placed in front of file-select box.
  */
-class AutoConnectFileBasis : virtual public AutoConnectElementBasis {
+class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectFileBasis(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), store(store), size(0) {
     _type = AC_File;
@@ -148,7 +161,7 @@ class AutoConnectFileBasis : virtual public AutoConnectElementBasis {
  * @param  label    A label string that follows Input-box, optionally.
  * The label is placed in front of Input-box.
  */
-class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
+class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder))  {
     _type = AC_Input;
@@ -170,7 +183,7 @@ class AutoConnectInputBasis : virtual public AutoConnectElementBasis {
  * @param  label    A label string that follows radio-buttons group.
  * @param  checked  Index of check marked item.
  */
-class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
+class AutoConnectRadioBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, "", post), label(label), order(order), checked(checked), _values(values) {
     _type = AC_Radio;
@@ -202,7 +215,7 @@ class AutoConnectRadioBasis : virtual public AutoConnectElementBasis {
  * @param  label    A label string that follows Input-box, optionally.
  * The label is placed in front of Input-box.
  */
-class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
+class AutoConnectSelectBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, "", post), label(String(label)), selected(selected), _options(options) {
     _type = AC_Select;
@@ -233,7 +246,7 @@ class AutoConnectSelectBasis : virtual public AutoConnectElementBasis {
  * @param  value Sending value string.
  * @param  uri   Sending uri string.
  */
-class AutoConnectSubmitBasis : virtual public AutoConnectElementBasis {
+class AutoConnectSubmitBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectSubmitBasis(const char* name = "", const char* value = "", const char* uri = "", const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), uri(String(uri)) {
     _type = AC_Submit;
@@ -254,7 +267,7 @@ class AutoConnectSubmitBasis : virtual public AutoConnectElementBasis {
  * An arrangement text would be placed with <div> contains. A string
  * of style-codes are given for '<div style=>'.
  */
-class AutoConnectTextBasis : virtual public AutoConnectElementBasis {
+class AutoConnectTextBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
   explicit AutoConnectTextBasis(const char* name = "", const char* value = "", const char* style = "", const char* format = "", const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), style(String(style)), format(String(format)) {
     _type = AC_Text;
