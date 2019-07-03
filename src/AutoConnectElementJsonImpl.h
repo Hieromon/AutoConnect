@@ -405,6 +405,31 @@ void AutoConnectSelectJson::serialize(JsonObject& json) {
 }
 
 /**
+ * Load an element member value from the JSON object.
+ * @param  json  JSON object with the definition of AutoConnectStyle.
+ * @return true  AutoConnectStyle loaded
+ * @return false Type of AutoConnectStyle is mismatched.
+ */
+bool AutoConnectStyleJson::loadMember(const JsonObject& json) {
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
+  if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACSTYLE))) {
+    _setMember(json);
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Serialize AutoConnectStyle to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectStyleJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACSTYLE));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+}
+
+/**
  * Returns JSON object size.
  * @return  An object size for JsonBuffer.
  */

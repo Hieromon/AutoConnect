@@ -92,6 +92,7 @@ class AutoConnectAux : public PageBuilder {
   void  _join(AutoConnect& ac);                                         /**< Make a link to AutoConnect */
   PageElement*  _setupPage(const String& uri);                          /**< AutoConnectAux page builder */
   const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
+  const String  _insertStyle(PageArgument& args);                       /**< Insert CSS style */
   const String  _injectTitle(PageArgument& args) const { (void)(args); return _title; } /**< Returns title of this page to PageBuilder */
   const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
   const String  _indicateUri(PageArgument& args);                       /**< Inject the uri that caused the request */

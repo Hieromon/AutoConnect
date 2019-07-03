@@ -39,6 +39,7 @@
 #define AUTOCONNECT_JSON_TYPE_ACINPUT     "ACInput"
 #define AUTOCONNECT_JSON_TYPE_ACRADIO     "ACRadio"
 #define AUTOCONNECT_JSON_TYPE_ACSELECT    "ACSelect"
+#define AUTOCONNECT_JSON_TYPE_ACSTYLE     "ACStyle"
 #define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
 #define AUTOCONNECT_JSON_TYPE_ACTEXT      "ACText"
 #define AUTOCONNECT_JSON_VALUE_BR         "br"
@@ -277,6 +278,28 @@ class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectS
 };
 
 /**
+ * CSS style arrangement class, a part of AutoConnectAux element.
+ * This element assumes CSS that came into effect as a style code will
+ * assign. Therefore, it does not check whether the CSS error exists in
+ * the value set in AutoConnectStyle. Also, because AutoConnect inserts
+ * its style code at the end of the style block on the AutoConnectAux
+ * page, it may affect the AutoConnect web page elements.
+ * @param  name  A style name string.
+ * @param  value CSS style code.
+ */
+class AutoConnectStyleJson : public AutoConnectElementJson, public AutoConnectStyleBasis {
+ public:
+  explicit AutoConnectStyleJson(const char* name = "", const char* value = "") {
+    AutoConnectStyleBasis::name = String(name);
+    AutoConnectStyleBasis::value = String(value);
+    AutoConnectStyleBasis::post = AC_Tag_None;
+  }
+  ~AutoConnectStyleJson() {}
+  bool  loadMember(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
+};
+
+/**
  * Submit button arrangement class, a part of AutoConnectAux element.
  * Place a submit button with a label that can be added by user sketch.
  * With the button behavior, the values of the elements contained in
@@ -369,6 +392,13 @@ inline AutoConnectSelectJson& AutoConnectElementJson::as<AutoConnectSelectJson>(
   if (typeOf() != AC_Select)
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
   return *(reinterpret_cast<AutoConnectSelectJson*>(this));
+}
+
+template<>
+inline AutoConnectStyleJson& AutoConnectElementJson::as<AutoConnectStyleJson>(void) {
+  if (typeOf() != AC_Style)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectStyleJson*>(this));
 }
 
 template<>
