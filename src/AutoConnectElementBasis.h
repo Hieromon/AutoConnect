@@ -35,6 +35,7 @@ typedef enum {
   AC_Input,
   AC_Radio,
   AC_Select,
+  AC_Style,
   AC_Submit,
   AC_Text,
   AC_Unknown = -1
@@ -238,6 +239,19 @@ class AutoConnectSelectBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
 };
 
 /**
+ * An element class for inserting CSS in AutoConnectAux page.
+ * @param  name  Style name string.
+ * @param  value CSS Native code.
+ */
+class AutoConnectStyleBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+ public:
+  explicit AutoConnectStyleBasis(const char* name = "", const char* value = "") : AutoConnectElementBasis(name, value, AC_Tag_None) {
+    _type = AC_Style;
+  }
+  virtual ~AutoConnectStyleBasis() {}
+};
+
+/**
  * Submit button arrangement class, a part of AutoConnectAux element.
  * Place a submit button with a label that can be added by user sketch.
  * With the button behavior, the values of the elements contained in
@@ -324,6 +338,13 @@ inline AutoConnectSelectBasis& AutoConnectElementBasis::as<AutoConnectSelectBasi
   if (typeOf() != AC_Select)
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
   return *(reinterpret_cast<AutoConnectSelectBasis*>(this));
+}
+
+template<>
+inline AutoConnectStyleBasis& AutoConnectElementBasis::as<AutoConnectStyleBasis>(void) {
+  if (typeOf() != AC_Style)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectStyleBasis*>(this));
 }
 
 template<>

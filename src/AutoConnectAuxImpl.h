@@ -134,6 +134,23 @@ AutoConnectSelectBasis& AutoConnectAux::getElement(const String& name) {
 }
 
 /**
+ * Get AutoConnectStyleBasis element.
+ * @param  name  An element name.
+ * @return A reference of AutoConnectStyle class.
+ */
+template<>
+AutoConnectStyleBasis& AutoConnectAux::getElement(const String& name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (elm->typeOf() == AC_Style)
+      return *(reinterpret_cast<AutoConnectStyleBasis*>(elm));
+    else
+      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
+  }
+  return reinterpret_cast<AutoConnectStyleBasis&>(_nullElement());
+}
+
+/**
  * Get AutoConnectSubmitBasis element.
  * @param  name  An element name.
  * @return A reference of AutoConnectSubmit class.

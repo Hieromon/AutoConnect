@@ -45,6 +45,11 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
     "menu": true,
     "element": [
       {
+        "name": "style",
+        "type": "ACStyle",
+        "value": "label+input,label+select{position:sticky;left:120px;width:230px!important;box-sizing:border-box;}"
+      },
+      {
         "name": "header",
         "type": "ACText",
         "value": "<h2>MQTT broker settings</h2>",
