@@ -90,7 +90,8 @@ struct SpiRamAllocatorST {
     else {
       caps = MALLOC_CAP_8BIT;
       AC_DBG("PSRAM not found, JSON buffer allocates to the heap.\n");
-    } 
+    }
+   return heap_caps_malloc(size,caps);
   }
   void  deallocate(void* pointer) {
     heap_caps_free(pointer);
