@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	0.9.9
- *	@date	2019-05-25
+ *	@version	0.9.11
+ *	@date	2019-07-08
  *	@copyright	MIT license.
  */
 
@@ -32,6 +32,7 @@ using WebServerClass = WebServer;
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
 #include "AutoConnectAux.h"
+#include "AutoConnectTicker.h"
 
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
@@ -69,6 +70,9 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
+    ticker(false),
+    tickerPort(AUTOCONNECT_TICKER_PORT),
+    tickerOn(LOW),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -98,6 +102,9 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(portalTimeout),
+    ticker(false),
+    tickerPort(AUTOCONNECT_TICKER_PORT),
+    tickerOn(LOW),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -127,6 +134,9 @@ class AutoConnectConfig {
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
     portalTimeout = o.portalTimeout;
+    ticker = o.ticker;
+    tickerPort = o.tickerPort;
+    tickerOn = o.tickerOn;
     hostName = o.hostName;
     homeUri = o.homeUri;
     title = o.title;
@@ -155,6 +165,9 @@ class AutoConnectConfig {
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
+  bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
+  uint8_t   tickerPort;         /**< GPIO for flicker */
+  uint8_t   tickerOn;           /**< A signal for flicker turn on */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   String    title;              /**< Menu title */
@@ -285,6 +298,7 @@ class AutoConnect {
 #ifdef ARDUINO_ARCH_ESP32
   WiFiEventId_t _disconnectEventId; /**< STA disconnection event handler registered id  */
 #endif
+  std::unique_ptr<AutoConnectTicker>  _ticker;  /**< */
 
   /** HTTP header information of the currently requested page. */
   IPAddress     _currentHostIP; /**< host IP address */
