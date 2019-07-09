@@ -3,7 +3,7 @@
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
  * @version  0.9.11
- * @date 2019-05-28
+ * @date 2019-07-08
  * @copyright  MIT license.
  */
 
@@ -143,6 +143,24 @@
 #ifndef AUTOCONNECT_SD_SPEED
 #define AUTOCONNECT_SD_SPEED    4000000
 #endif // !AUTOCONNECT_SD_SPEED
+
+// Factors related to a flickering signal indicating WiFi connection status
+#ifndef AUTOCONNECT_FLICKER_PERIOD  // Flicker cycle [ms]
+#define AUTOCONNECT_FLICKER_PERIOD  2000
+#endif // !AUTOCONNECT_FLICKER_PERIOD
+#ifndef AUTOCONNECT_FLICKER_WIDTHAP // Flicking pulse width in APSTA
+#define AUTOCONNECT_FLICKER_WIDTHAP 128
+#endif // !AUTOCONNECT_FLICKER_WIDTHAPSTA
+#ifndef AUTOCONNECT_FLICKER_WIDTHDC // Flicking pulse width in disconnected
+#define AUTOCONNECT_FLICKER_WIDTHDC 25
+#endif // !AUTOCONNECT_FLICKER_WIDTHDISCON
+#ifndef AUTOCONNECT_TICKER_PORT
+#if defined(BUILDIN_LED) || defined(LED_BUILTIN)
+#define AUTOCONNECT_TICKER_PORT     LED_BUILTIN
+#else  // Native pin number
+#define AUTOCONNECT_TICKER_PORT     2
+#endif
+#endif
 
 // ArduinoJson buffer size
 #ifndef AUTOCONNECT_JSONBUFFER_SIZE
