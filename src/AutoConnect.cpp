@@ -108,7 +108,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   if (_apConfig.ticker) {
     _ticker.reset(new AutoConnectTicker(_apConfig.tickerPort, _apConfig.tickerOn));
     if (WiFi.status() != WL_CONNECTED)
-      _ticker->start(AUTOCONNECT_FLICKER_PERIOD, (uint8_t)AUTOCONNECT_FLICKER_WIDTHDC);
+      _ticker->start(AUTOCONNECT_FLICKER_PERIODDC, (uint8_t)AUTOCONNECT_FLICKER_WIDTHDC);
   }
 
   // Advance configuration for STA mode.
@@ -205,7 +205,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Start ticker with AP_STA
       if (_ticker)
-        _ticker->start(AUTOCONNECT_FLICKER_PERIOD, (uint8_t)AUTOCONNECT_FLICKER_WIDTHAP);
+        _ticker->start(AUTOCONNECT_FLICKER_PERIODAP, (uint8_t)AUTOCONNECT_FLICKER_WIDTHAP);
 
       // Fork to the exit routine that starts captive portal.
       cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;

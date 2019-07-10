@@ -492,3 +492,40 @@ portal.begin();
 - Up to 24 characters
 - Only the alphabet (a-z, A-Z), digits (0-9), minus sign (-)
 - No '-' as last character
+
+### <i class="fa fa-caret-right"></i> Ticker for WiFi status
+
+Flicker signal can be output from the ESP8266/ESP32 module according to WiFi connection status. If you connect the LED to the signal output pin, you can know the WiFi connection status during behavior inside AutoConnect::begin through the LED blink.
+
+[AutoConnectConfig::ticker](apiconfig.md#ticker) option specifies flicker signal output. The following sketch is an example of flashing the active-high LED connected to pin #16 according to WiFi connection during the AutoConnect::begin.
+
+```cpp
+AutoConnect        portal;
+AutoConnectConfig  Config;
+Config.ticker = true;
+config.tickerPort = 16;
+Config.tickerOn = HIGH;
+portal.config(Config);
+portal.begin();
+```
+
+The AutoConnect ticker indicates the WiFi connection status in the following three flicker patterns:
+
+- Short blink: The ESP module stays in APSTA mode.
+- Short-on and long-off: No STA connection state. (i.e. WiFi.status != WL_CONNECTED)
+- No blink: WiFi connection with access point established and data link enabled. (i.e. WiFi.status = WL_CONNECTED)
+
+The flicker cycle length is defined by some macros in `AutoConnectDefs.h` header file.
+
+```cpp
+#define AUTOCONNECT_FLICKER_PERIODAP  1000 // [ms]
+#define AUTOCONNECT_FLICKER_PERIODDC  (AUTOCONNECT_FLICKER_PERIODAP << 1) // [ms]
+#define AUTOCONNECT_FLICKER_WIDTHAP   96  // (8 bit resolution)
+#define AUTOCONNECT_FLICKER_WIDTHDC   16  // (8 bit resolution)
+```
+
+`AUTOCONNECTT_FLICKER_PERIODAP` assigns a flicker period when the ESP module stays in APSTA mode. `AUTOCONNECT_FLICKER_PERIODDC` assigns a flicker period when WiFi is disconnected. `AUTOCONNECT_FLICKER_WIDTHAP` and `AUTOCONNECT_FLICKER_WIDTHDC` specify the duty rate for each period[ms] in 8-bit resolution.
+
+[AutoConnectConfig::tickerPort](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED.
+
+[AutoConnectConfig::tickerOn](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**.
