@@ -253,6 +253,35 @@ Set the subnetmask when using static IP address.
     <dd>IPAddress</dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> ticker
+
+Set flicker signal output according to WiFi connection status during AutoConnect::begin behavior.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>bool</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while [AutoConnect::begin](api.md#begin) operation. The **AUTOCONNECT_TICKER_PORT** macro in the `AutoConnectDefs.h` header file assigns pins for signal output. The default pin is arduino valiant's LED_BUILTIN. For boards without the LED_BUILTIN pin, assume pin #2.</span></dd>
+    <dd><span class="apidef">false</span>No flicker signal output.<span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> tickerPort
+
+Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **AUTOCONNECT_TICKER_PORT** in `AutoConnectDefs.h`.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>uint8_t</dd>
+    <dd><span class="apidef">LOW</span>A flicker signal is an active-high.<span class="apidesc"></span></dd>
+    <dd><span class="apidef">HIGH</span>A flicker signal is an active-low.<span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> tickerOn
+
+Specifies the active logic level of the flicker signal.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>uint8_t</dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> title
 
 Set the menu title.

@@ -144,21 +144,29 @@
 #define AUTOCONNECT_SD_SPEED    4000000
 #endif // !AUTOCONNECT_SD_SPEED
 
-// Factors related to a flickering signal indicating WiFi connection status
-#ifndef AUTOCONNECT_FLICKER_PERIOD  // Flicker cycle [ms]
-#define AUTOCONNECT_FLICKER_PERIOD  2000
-#endif // !AUTOCONNECT_FLICKER_PERIOD
-#ifndef AUTOCONNECT_FLICKER_WIDTHAP // Flicking pulse width in APSTA
-#define AUTOCONNECT_FLICKER_WIDTHAP 128
+// Flicker signal related factors
+// Flicker cycle during AP operation [ms]
+#ifndef AUTOCONNECT_FLICKER_PERIODAP
+#define AUTOCONNECT_FLICKER_PERIODAP  1000
+#endif // !AUTOCONNECT_FLICKER_PERIODAP
+// Flicker cycle while WiFi is not connected [ms]
+#ifndef AUTOCONNECT_FLICKER_PERIODDC
+#define AUTOCONNECT_FLICKER_PERIODDC  (AUTOCONNECT_FLICKER_PERIODAP << 1)
+#endif // !AUTOCONNECT_FLICKER_PERIODDC
+// Flicker pulse width during AP operation (8bit resolution)
+#ifndef AUTOCONNECT_FLICKER_WIDTHAP
+#define AUTOCONNECT_FLICKER_WIDTHAP   96
 #endif // !AUTOCONNECT_FLICKER_WIDTHAPSTA
-#ifndef AUTOCONNECT_FLICKER_WIDTHDC // Flicking pulse width in disconnected
-#define AUTOCONNECT_FLICKER_WIDTHDC 25
+// Flicker pulse width while WiFi is not connected (8bit resolution)
+#ifndef AUTOCONNECT_FLICKER_WIDTHDC 
+#define AUTOCONNECT_FLICKER_WIDTHDC   16
 #endif // !AUTOCONNECT_FLICKER_WIDTHDISCON
+// Ticker port
 #ifndef AUTOCONNECT_TICKER_PORT
 #if defined(BUILDIN_LED) || defined(LED_BUILTIN)
-#define AUTOCONNECT_TICKER_PORT     LED_BUILTIN
-#else  // Native pin number
-#define AUTOCONNECT_TICKER_PORT     2
+#define AUTOCONNECT_TICKER_PORT       LED_BUILTIN
+#else  // Native pin for the arduino
+#define AUTOCONNECT_TICKER_PORT       2
 #endif
 #endif
 
