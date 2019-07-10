@@ -96,8 +96,16 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [0.9.11] July 13, 2019
+- Supports new element as AutoConnectSytle that can insert the custom CSS into AutoConnectAux page. (PR#96)
+- Supports that `<br>` tags can now be added to each element. (PR #95)
+- Supports that able to place the checkbox label forward or backward. (PR #99)
+- Supports flicker signal output according to the status of WiFi_mode. (issue #98)
+- Fixed bug in AutoConnectCredential when offset is >256. (PR #103)
+ 
 ### [0.9.10] June 12, 2019
 - Fixed the unable to get AutoConnectElemets values ​​in the sketch with ESP8266 arduino core 2.5.2. (issue #90)
+- Fixed missing psram allocator. (issue #102)
 
 ### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
