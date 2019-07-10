@@ -210,10 +210,10 @@ bool AutoConnectCredential::save(const struct station_config* config) {
   }
 
   // Seek insertion point, evaluate capacity to insert the new entry.
-  uint8_t eSize = strlen((const char*)config->ssid) + strlen((const char*)config->password) + sizeof(station_config::bssid) + 2;
+  uint16_t eSize = strlen((const char*)config->ssid) + strlen((const char*)config->password) + sizeof(station_config::bssid) + 2;
   for (_dp = AC_HEADERSIZE; _dp < _containSize + AC_HEADERSIZE; _dp++) {
     if (EEPROM.read(_dp) == 0xff) {
-      uint8_t fp = _dp;
+      uint16_t fp = _dp;
       while (EEPROM.read(++_dp) == 0xff) {}
       if (_dp - fp >= eSize) {
         _dp = fp;
