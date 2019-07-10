@@ -130,6 +130,7 @@ static const char PAGE_SAVE[] PROGMEM = R"(
 
 WebServerClass  server;
 AutoConnect portal(server);
+AutoConnectConfig config;
 AutoConnectAux  elementsAux;
 AutoConnectAux  saveAux;
 
@@ -198,6 +199,8 @@ void setup() {
   });
 
   portal.join({ elementsAux, saveAux });
+  config.ticker = true;
+  portal.config(config);
   portal.begin();
 }
 
