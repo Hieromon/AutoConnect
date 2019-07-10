@@ -98,7 +98,7 @@ Specify the location to be redirected after module reset in the AutoConnect menu
     <dd>AC_ONBOOTURI_t</dd>
     <dt>**Value**</dt>
     <dd><span class="apidef">AC_ONBOOTURI_ROOT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in AutoConnectDefs.h.</span></dd>
-    <dd><span class="apidef">AC_ONBOOTURI_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">It is redirected to the uri specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</span></dd>
+    <dd><span class="apidef">AC_ONBOOTURI_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">It is redirected to the URI specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> boundaryOffset
@@ -198,7 +198,7 @@ Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initi
 
 ### <i class="fa fa-caret-right"></i> portalTimeout
 
-Specify the timeout value of the captive portal in [ms] units. It is valid when the station is not connected and does not time out if the station is connected to the ESP module in SoftAP mode (ie Attempting WiFi connection with the portal function). If 0, the captive portal will not be timed-out.
+Specify the timeout value of the captive portal in [ms] units. It is valid when the station is not connected and does not time out if the station is connected to the ESP module in SoftAP mode (i.e. Attempting WiFi connection with the portal function). If 0, the captive portal will not be timed-out.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">unsigned long</span><span class="apidesc">Captive portal timeout value. The default value is 0.</span></dd>
@@ -260,13 +260,13 @@ Set flicker signal output according to WiFi connection status during AutoConnect
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while [AutoConnect::begin](api.md#begin) operation. The **AUTOCONNECT_TICKER_PORT** macro in the `AutoConnectDefs.h` header file assigns pins for signal output. The default pin is arduino valiant's LED_BUILTIN. For boards without the LED_BUILTIN pin, assume pin #2.</span></dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while [AutoConnect::begin](api.md#begin) operation. The **AUTOCONNECT_TICKER_PORT** macro in the `AutoConnectDefs.h` header file assigns pins for signal output. The default pin is arduino valiant's LED_BUILTIN. For boards without the LED\_BUILTIN pin, assume pin #2.</span></dd>
     <dd><span class="apidef">false</span>No flicker signal output.<span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> tickerPort
 
-Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **AUTOCONNECT_TICKER_PORT** in `AutoConnectDefs.h`.
+Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition **LED\_BUILTIN** macro redefined by **AUTOCONNECT\_TICKER\_PORT** in `AutoConnectDefs.h`.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint8_t</dd>

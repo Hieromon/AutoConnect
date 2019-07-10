@@ -532,17 +532,19 @@ The flicker cycle length is defined by some macros in `AutoConnectDefs.h` header
 - `AUTOCONNECT_FLICKER_WIDTHAP` and `AUTOCONNECT_FLICKER_WIDTHDC`:  
   Specify the duty rate for each period[ms] in 8-bit resolution.
 
-[AutoConnectConfig::tickerPort](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED.
+[AutoConnectConfig::tickerPort](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^3]
+
+[^3]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
 
 [AutoConnectConfig::tickerOn](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**. The logic level of LED_BUILTIN for popular modules are as follows:
 
-module | Logic level
-----|----
-NodeMCU V1.0 | Active-low
-NodeMCU 32s | Active-high
-WEMOS D1 mini | Active-low
-LOLIN32 Pro | Active-low
-SparkFun ESP8266 Thing | Active-high
-SparkFun ESP32 Thing | Active-high
-Adafruit Feather HUZZAH ESP8266 | Active-low
-Adafruit Feather HUZZAH32 | Active-high        
+module | Logic level | LED_BUILTIN Pin | Arduino alias
+----|----|:---:|----
+NodeMCU V1.0 | Active-low | 16 | D0
+WEMOS D1 mini | Active-low | 2 | D4
+SparkFun ESP8266 Thing | Active-high | 5 |
+Adafruit Feather HUZZAH ESP8266 | Active-low | 0 |
+NodeMCU 32s | Active-high | 2 | T2
+LOLIN32 Pro | Active-low | 5 | SS
+SparkFun ESP32 Thing | Active-high | 5
+Adafruit Feather HUZZAH32 | Active-high | 13 | A12
