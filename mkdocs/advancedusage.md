@@ -412,6 +412,7 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - Auto reset after connection establishment.
 - Home URL of the user sketch application.
 - Menu title.
+- Ticker signal output.
 
 !!! note "AutoConnect::config before AutoConnect::begin"
     *AutoConnect::config* must be executed before *AutoConnect::begin*.
@@ -524,8 +525,24 @@ The flicker cycle length is defined by some macros in `AutoConnectDefs.h` header
 #define AUTOCONNECT_FLICKER_WIDTHDC   16  // (8 bit resolution)
 ```
 
-`AUTOCONNECTT_FLICKER_PERIODAP` assigns a flicker period when the ESP module stays in APSTA mode. `AUTOCONNECT_FLICKER_PERIODDC` assigns a flicker period when WiFi is disconnected. `AUTOCONNECT_FLICKER_WIDTHAP` and `AUTOCONNECT_FLICKER_WIDTHDC` specify the duty rate for each period[ms] in 8-bit resolution.
+- `AUTOCONNECTT_FLICKER_PERIODAP`:  
+  Assigns a flicker period when the ESP module stays in APSTA mode.
+- `AUTOCONNECT_FLICKER_PERIODDC`:  
+  Assigns a flicker period when WiFi is disconnected.
+- `AUTOCONNECT_FLICKER_WIDTHAP` and `AUTOCONNECT_FLICKER_WIDTHDC`:  
+  Specify the duty rate for each period[ms] in 8-bit resolution.
 
 [AutoConnectConfig::tickerPort](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED.
 
-[AutoConnectConfig::tickerOn](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**.
+[AutoConnectConfig::tickerOn](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**. The logic level of LED_BUILTIN for popular modules are as follows:
+
+module | Logic level
+----|----
+NodeMCU V1.0 | Active-low
+NodeMCU 32s | Active-high
+WEMOS D1 mini | Active-low
+LOLIN32 Pro | Active-low
+SparkFun ESP8266 Thing | Active-high
+SparkFun ESP32 Thing | Active-high
+Adafruit Feather HUZZAH ESP8266 | Active-low
+Adafruit Feather HUZZAH32 | Active-high        
