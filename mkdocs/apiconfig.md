@@ -270,16 +270,17 @@ Specifies the GPIO port number to output the flicker signal of the ticker. The d
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint8_t</dd>
-    <dd><span class="apidef">LOW</span>A flicker signal is an active-high.<span class="apidesc"></span></dd>
-    <dd><span class="apidef">HIGH</span>A flicker signal is an active-low.<span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> tickerOn
 
-Specifies the active logic level of the flicker signal.
+Specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint8_t</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">LOW</span>A flicker signal is an active-high.<span class="apidesc"></span></dd>
+    <dd><span class="apidef">HIGH</span>A flicker signal is an active-low.<span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> title
