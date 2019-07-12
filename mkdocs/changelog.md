@@ -1,3 +1,10 @@
+#### [0.9.11] July 13, 2019
+- Supports new element as AutoConnectSytle that can insert the custom CSS into AutoConnectAux page.
+- Supports that `<br>` tags can now be added to each element.
+- Supports that able to place the checkbox label forward or backward.
+- Supports flicker signal output according to the status of WiFi_mode.
+- Fixed bug in AutoConnectCredential when offset is >256.
+
 #### [0.9.10] June 12, 2019
 - Fixed the unable to get AutoConnectElemets values ​​in the sketch with ESP8266 arduino core 2.5.2.
 
