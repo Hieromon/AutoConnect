@@ -374,7 +374,7 @@ The above example does not connect to WiFi until TRIGGER_PIN goes LOW. When TRIG
 <p><strong>HOME</strong> for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the <a href="api.html#home"><em>AutoConnect::home</em></a> function.</p>
 <p><img src="images/menu_home.png" /></p>
 <h3 id="change-ssid-and-password-for-softap"><i class="fa fa-caret-right"></i> Change SSID and Password for SoftAP<a class="headerlink" href="#change-ssid-and-password-for-softap" title="Permanent link">&para;</a></h3>
-<p>An <strong>esp8266ap</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong> for ESP8266. Similarly, <strong>esp32ap</strong> and <strong>12345678</strong> for ESP32. You can change both by setting <a href="apiconfig.html#apid">apid</a> and <a href="apiconfig.html#psk">psk</a>.</p>
+<p>An <strong>esp8266ap</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong> for ESP8266. Similarly, <strong>esp32ap</strong> and <strong>12345678</strong> for ESP32. You can change both by setting <a href="apiconfig.html#apid">apid</a> and <a href="apiconfig.html#psk">psk</a>. Setting a psk of "" will create an open AP with no password.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
 
