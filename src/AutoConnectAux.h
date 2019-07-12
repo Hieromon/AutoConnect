@@ -53,6 +53,7 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement& operator[](const String& name) { return *getElement(name); }
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page */
+  void  fetchElement(void);                                             /**< Fetch AutoConnectElements values from http query parameters */
   template<typename T>
   T&    getElement(const String& name);
   AutoConnectElement*   getElement(const String& name);                 /**< Get registered AutoConnectElement as specified name */

@@ -107,6 +107,29 @@ void AutoConnectAux::add(AutoConnectElementVT addons) {
 }
 
 /**
+ * Parses the query parameters contained in the http request and fetches
+ * the value of AutoConnectElements carried by AutoConnectAux.
+ */
+void AutoConnectAux::fetchElement(void) {
+  WebServerClass*  _webServer = _ac->_webServer.get();
+  if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
+    _ac->_auxUri = _webServer->arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
+    _ac->_auxUri.replace("&#47;", "/");
+    AC_DBG("fetch %s", _ac->_auxUri.c_str());
+    AutoConnectAux* aux = _ac->_aux.get();
+    while (aux) {
+      if (aux->_uriStr == _ac->_auxUri) {
+        // Save the value owned by each element contained in the POST body
+        // of a current HTTP request to AutoConnectElements.
+        aux->_storeElements(_webServer);
+        break;
+      }
+      aux = aux->_next.get();
+    }
+  }
+}
+
+/**
  * Get already registered AutoConnectElement.
  * @param  name  Element name
  * @return A pointer to the registered AutoConnectElement.
@@ -385,21 +408,7 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   // If the current request argument contains AutoConnectElement, it is
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
-  WebServerClass*  _webServer = _ac->_webServer.get();
-  if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
-    _ac->_auxUri = _webServer->arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
-    _ac->_auxUri.replace("&#47;", "/");
-    AutoConnectAux* aux = _ac->_aux.get();
-    while (aux) {
-      if (aux->_uriStr == _ac->_auxUri) {
-        // Save the value owned by each element contained in the POST body
-        // of a current HTTP request to AutoConnectElements.
-        aux->_storeElements(_webServer);
-        break;
-      }
-      aux = aux->_next.get();
-    }
-  }
+  fetchElement();
 
   // Call user handler before HTML generation.
   if (_handler) {
@@ -524,6 +533,7 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
       }
     }
   }
+  AC_DBG_DUMB(",elements stored\n");
 }
 
 #ifdef AUTOCONNECT_USE_JSON
