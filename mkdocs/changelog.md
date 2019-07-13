@@ -3,6 +3,7 @@
 - Supports that `<br>` tags can now be added to each element.
 - Supports that able to place the checkbox label forward or backward.
 - Supports flicker signal output according to the status of WiFi_mode.
+- Supports [**AutoConnectAux::fetchElement**](apiaux.md#fetchelement) function to retrieve inputted element values via a custom Web page.
 - Fixed bug in AutoConnectCredential when offset is >256.
 
 #### [0.9.10] June 12, 2019
