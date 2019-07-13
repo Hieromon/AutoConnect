@@ -101,6 +101,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Supports that `<br>` tags can now be added to each element. (PR #95)
 - Supports that able to place the checkbox label forward or backward. (PR #99)
 - Supports flicker signal output according to the status of WiFi_mode. (issue #98)
+- Supports AutoConnectAux::fetchElement function to retrieve inputted element values via a custom Web page.
 - Fixed bug in AutoConnectCredential when offset is >256. (PR #103)
  
 ### [0.9.10] June 12, 2019
