@@ -451,6 +451,9 @@ void setup() {
 }
 ```
 
+You can also assign no password to SoftAP launched as a captive portal. Assigning a null string as `String("")` to [AutoConnectConfig::psk](apiconfig.md#psk) does not require a password when connecting to SoftAP.  
+But this method is not recommended. The broadcast radio of SSID emitted from SoftAP will leak and reach several tens of meters.
+
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 
 A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L62) macro in the include header file as [AutoConnectDef.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDef.h).
