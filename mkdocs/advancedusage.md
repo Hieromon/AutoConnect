@@ -515,7 +515,7 @@ portal.begin();
 
 The AutoConnect ticker indicates the WiFi connection status in the following three flicker patterns:
 
-- Short blink: The ESP module stays in APSTA mode.
+- Short blink: The ESP8266/ESP32 module stays in APSTA mode.
 - Short-on and long-off: No STA connection state. (i.e. WiFi.status != WL_CONNECTED)
 - No blink: WiFi connection with access point established and data link enabled. (i.e. WiFi.status = WL_CONNECTED)
 
@@ -529,13 +529,13 @@ The flicker cycle length is defined by some macros in `AutoConnectDefs.h` header
 ```
 
 - `AUTOCONNECTT_FLICKER_PERIODAP`:  
-  Assigns a flicker period when the ESP module stays in APSTA mode.
+  Assigns a flicker period when the ESP8266/ESP32 module stays in APSTA mode.
 - `AUTOCONNECT_FLICKER_PERIODDC`:  
   Assigns a flicker period when WiFi is disconnected.
 - `AUTOCONNECT_FLICKER_WIDTHAP` and `AUTOCONNECT_FLICKER_WIDTHDC`:  
   Specify the duty rate for each period[ms] in 8-bit resolution.
 
-[AutoConnectConfig::tickerPort](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^3]
+[AutoConnectConfig::tickerPort](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP8266/ESP32 module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^3]
 
 [^3]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
 

@@ -260,7 +260,7 @@ Set flicker signal output according to WiFi connection status during AutoConnect
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while [AutoConnect::begin](api.md#begin) operation. The **AUTOCONNECT_TICKER_PORT** macro in the `AutoConnectDefs.h` header file assigns pins for signal output. The default pin is arduino valiant's LED_BUILTIN. For boards without the LED\_BUILTIN pin, assume pin #2.</span></dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while [AutoConnect::begin](api.md#begin) operation. The **AUTOCONNECT_TICKER_PORT** macro defined in the `AutoConnectDefs.h` header file assigns pins for signal output. The default pin is arduino variants LED_BUILTIN. For boards without the LED\_BUILTIN pin, assume pin #2.</span></dd>
     <dd><span class="apidef">false</span>No flicker signal output.<span class="apidesc"></span></dd>
 </dl>
 

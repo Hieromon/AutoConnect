@@ -80,7 +80,7 @@ Returns type of AutoConnectElement.
 ### <i class="fa fa-code"></i> Constructor
 
 ```cpp
-  explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosterior_t post = AC_Tag_BR)
+AutoConnectCheckbox(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosition_t labelPosition = AC_Behind, const ACPosterior_t post = AC_Tag_BR)
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
@@ -88,6 +88,7 @@ Returns type of AutoConnectElement.
     <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">A label string prefixed to the checkbox.</span></dd>
     <dd><span class="apidef">check</span><span class="apidesc">Checked state of the checkbox.</span></dd>
+    <dd><span class="apidef">labelPosition</span><span class="apidesc">Specifies the position of the label to generate.</span></dd>
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
 </dl>
 
@@ -115,6 +116,18 @@ A label is an optional string. A label is always arranged on the right side of t
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> labelPosition
+
+Specifies the position of the label to generate with ACPostion_t enumeration value.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">ACPosition_t</span><span class="apidesc">
+        
+- **`AC_Infront`** : Place a label in front of the check box.
+- **`AC_Behind`** : Place a label behind the check box.
+</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> name
