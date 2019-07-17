@@ -595,6 +595,61 @@ portal.on("/echo", [](AutoConnectAux& aux, PageArgument& args) {
 portal.begin();
 ```
 
+### <i class="fa fa-wrench"></i> Retrieve the values with WebServer::on handler
+
+ESP8266WebServer class and the WebServer (for ESP32) class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on (or WebServer::on for ESP32) function.
+
+When the page transitions from the custom Web page created by AutoConnectAux to the handler registered by ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the [uri](acelements.md#uri) attribute of [AutoConnectSubmit](acelements.md#autoconnectsubmit)) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler by the sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the [**AutoConnectAux::fetchElement**](apiaux.md#fetchelement) function for value processing with the on-page handler.
+
+The following sketch is an example of extracting values inputted on a custom web page with an on-page handler and then processing it.
+
+```cpp hl_lines="13 20 27 38"
+ESP8266WebServer server;
+AutoConnect portal(server);
+AutoConnectAux Input;
+
+const static char InputPage[] PROGMEM = R"r(
+{
+  "title": "Input", "uri": "/input", "menu": true, "element": [
+    { "name": "input", "type": "ACInput", "label": "INPUT" },
+    {
+      "name": "save",
+      "type": "ACSubmit",
+      "value": "SAVE",
+      "uri": "/"
+    }
+  ]
+}
+)r";
+
+// An on-page handler for '/' access
+void onRoot() {
+  String  content =
+  "<html>"
+  "<head><meta name='viewport' content='width=device-width, initial-scale=1'></head>"
+  "<body><div>INPUT: {{value}}</div></body>"
+  "</html>";
+
+  Input.fetchElement();    // Preliminary acquisition
+
+  // For this steps to work, need to call fetchElement function beforehand.
+  String value = Input["input"].value;
+  content.replace("{{value}}", value);
+  server.send(200, "text/html", content);
+}
+
+void setup() {
+  Input.load(InputPage);
+  portal.join(Input);
+  server.on("/", onRoot);  // Register the on-page handler
+  portal.begin();  
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
 ### <i class="fa fa-wpforms"></i> Overwrite the AutoConnectElements
 
 Sketches can update the attributes of AutoConnectElements with two approaches. A one is to assign directly to the attributes of a member variable of its element. The other is to overwrite them with loading the element by [AutoConnectAux::loadElement](apiaux.md#loadelement). 

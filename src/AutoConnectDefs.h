@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  0.9.9
- * @date 2019-05-25
+ * @version  0.9.11
+ * @date 2019-07-08
  * @copyright  MIT license.
  */
 
@@ -136,6 +136,32 @@
 #ifndef AUTOCONNECT_SD_SPEED
 #define AUTOCONNECT_SD_SPEED    4000000
 #endif // !AUTOCONNECT_SD_SPEED
+
+// Flicker signal related factors
+// Flicker cycle during AP operation [ms]
+#ifndef AUTOCONNECT_FLICKER_PERIODAP
+#define AUTOCONNECT_FLICKER_PERIODAP  1000
+#endif // !AUTOCONNECT_FLICKER_PERIODAP
+// Flicker cycle while WiFi is not connected [ms]
+#ifndef AUTOCONNECT_FLICKER_PERIODDC
+#define AUTOCONNECT_FLICKER_PERIODDC  (AUTOCONNECT_FLICKER_PERIODAP << 1)
+#endif // !AUTOCONNECT_FLICKER_PERIODDC
+// Flicker pulse width during AP operation (8bit resolution)
+#ifndef AUTOCONNECT_FLICKER_WIDTHAP
+#define AUTOCONNECT_FLICKER_WIDTHAP   96
+#endif // !AUTOCONNECT_FLICKER_WIDTHAPSTA
+// Flicker pulse width while WiFi is not connected (8bit resolution)
+#ifndef AUTOCONNECT_FLICKER_WIDTHDC 
+#define AUTOCONNECT_FLICKER_WIDTHDC   16
+#endif // !AUTOCONNECT_FLICKER_WIDTHDISCON
+// Ticker port
+#ifndef AUTOCONNECT_TICKER_PORT
+#if defined(BUILDIN_LED) || defined(LED_BUILTIN)
+#define AUTOCONNECT_TICKER_PORT       LED_BUILTIN
+#else  // Native pin for the arduino
+#define AUTOCONNECT_TICKER_PORT       2
+#endif
+#endif
 
 // ArduinoJson buffer size
 #ifndef AUTOCONNECT_JSONBUFFER_SIZE

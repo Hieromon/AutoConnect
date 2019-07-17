@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.9
- *  @date   2019-05-25
+ *  @version    0.9.11
+ *  @date   2019-07-09
  *  @copyright  MIT license.
  */
 
@@ -59,6 +59,7 @@ void AutoConnect::_initialize(void) {
 #endif
   _aux.release();
   _auxUri = String("");
+  _ticker.reset();
 }
 
 /**
@@ -102,6 +103,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // Set host name
   if (_apConfig.hostName.length())
     SET_HOSTNAME(_apConfig.hostName.c_str());
+
+  // Start Ticker according to the WiFi condition with Ticker is available.
+  if (_apConfig.ticker) {
+    _ticker.reset(new AutoConnectTicker(_apConfig.tickerPort, _apConfig.tickerOn));
+    if (WiFi.status() != WL_CONNECTED)
+      _ticker->start(AUTOCONNECT_FLICKER_PERIODDC, (uint8_t)AUTOCONNECT_FLICKER_WIDTHDC);
+  }
 
   // Advance configuration for STA mode.
 #ifdef AC_DEBUG
@@ -195,6 +203,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       _currentHostIP = WiFi.softAPIP();
       AC_DBG("SoftAP %s/%s Ch(%d) IP:%s %s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _currentHostIP.toString().c_str(), _apConfig.hidden ? "hidden" : "");
 
+      // Start ticker with AP_STA
+      if (_ticker)
+        _ticker->start(AUTOCONNECT_FLICKER_PERIODAP, (uint8_t)AUTOCONNECT_FLICKER_WIDTHAP);
+
       // Fork to the exit routine that starts captive portal.
       cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
 
@@ -249,6 +261,11 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // It doesn't matter the connection status for launching the Web server.
   if (!_responsePage)
     _startWebServer();
+
+  // Stop ticker
+  if (cs)
+    if (_ticker)
+      _ticker->stop();
 
   return cs;
 }
@@ -323,6 +340,8 @@ void AutoConnect::end(void) {
       break;
     }
   }
+
+  _ticker.reset();
 }
 
 /**

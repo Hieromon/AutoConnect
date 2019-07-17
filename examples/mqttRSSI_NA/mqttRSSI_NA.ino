@@ -46,6 +46,7 @@ typedef WebServer WiFiWebServer;
 // facility.
 
 // Declare AutoConnectElements for the page asf /mqtt_setting
+ACStyle(style, "label+input,label+select{position:sticky;left:120px;width:230px!important;box-sizing:border-box;}");
 ACText(header, "<h2>MQTT broker settings</h2>", "text-align:center;color:#2f4f4f;padding:10px;");
 ACText(caption, "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");
 ACInput(mqttserver, "", "Server", "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$", "MQTT broker server");
@@ -60,6 +61,7 @@ ACSubmit(discard, "Discard", "/");
 
 // Declare the custom Web page as /mqtt_setting and contains the AutoConnectElements
 AutoConnectAux mqtt_setting(AUX_SETTING_URI, "MQTT Setting", true, {
+  style,
   header,
   caption,
   mqttserver,

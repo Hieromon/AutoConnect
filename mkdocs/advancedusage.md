@@ -412,6 +412,7 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - Auto reset after connection establishment.
 - Home URL of the user sketch application.
 - Menu title.
+- Ticker signal output.
 
 !!! note "AutoConnect::config before AutoConnect::begin"
     *AutoConnect::config* must be executed before *AutoConnect::begin*.
@@ -449,6 +450,9 @@ void setup() {
   portal.begin();
 }
 ```
+
+You can also assign no password to SoftAP launched as a captive portal. Assigning a null string as `String("")` to [AutoConnectConfig::psk](apiconfig.md#psk) does not require a password when connecting to SoftAP.  
+But this method is not recommended. The broadcast radio of SSID emitted from SoftAP will leak and reach several tens of meters.
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 
@@ -492,3 +496,58 @@ portal.begin();
 - Up to 24 characters
 - Only the alphabet (a-z, A-Z), digits (0-9), minus sign (-)
 - No '-' as last character
+
+### <i class="fa fa-caret-right"></i> Ticker for WiFi status
+
+Flicker signal can be output from the ESP8266/ESP32 module according to WiFi connection status. If you connect the LED to the signal output pin, you can know the WiFi connection status during behavior inside AutoConnect::begin through the LED blink.
+
+[AutoConnectConfig::ticker](apiconfig.md#ticker) option specifies flicker signal output. The following sketch is an example of flashing the active-high LED connected to pin #16 according to WiFi connection during the AutoConnect::begin.
+
+```cpp
+AutoConnect        portal;
+AutoConnectConfig  Config;
+Config.ticker = true;
+config.tickerPort = 16;
+Config.tickerOn = HIGH;
+portal.config(Config);
+portal.begin();
+```
+
+The AutoConnect ticker indicates the WiFi connection status in the following three flicker patterns:
+
+- Short blink: The ESP8266/ESP32 module stays in APSTA mode.
+- Short-on and long-off: No STA connection state. (i.e. WiFi.status != WL_CONNECTED)
+- No blink: WiFi connection with access point established and data link enabled. (i.e. WiFi.status = WL_CONNECTED)
+
+The flicker cycle length is defined by some macros in `AutoConnectDefs.h` header file.
+
+```cpp
+#define AUTOCONNECT_FLICKER_PERIODAP  1000 // [ms]
+#define AUTOCONNECT_FLICKER_PERIODDC  (AUTOCONNECT_FLICKER_PERIODAP << 1) // [ms]
+#define AUTOCONNECT_FLICKER_WIDTHAP   96  // (8 bit resolution)
+#define AUTOCONNECT_FLICKER_WIDTHDC   16  // (8 bit resolution)
+```
+
+- `AUTOCONNECTT_FLICKER_PERIODAP`:  
+  Assigns a flicker period when the ESP8266/ESP32 module stays in APSTA mode.
+- `AUTOCONNECT_FLICKER_PERIODDC`:  
+  Assigns a flicker period when WiFi is disconnected.
+- `AUTOCONNECT_FLICKER_WIDTHAP` and `AUTOCONNECT_FLICKER_WIDTHDC`:  
+  Specify the duty rate for each period[ms] in 8-bit resolution.
+
+[AutoConnectConfig::tickerPort](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP8266/ESP32 module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^3]
+
+[^3]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
+
+[AutoConnectConfig::tickerOn](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**. The logic level of LED_BUILTIN for popular modules are as follows:
+
+module | Logic level | LED_BUILTIN Pin | Arduino alias
+----|----|:---:|----
+NodeMCU V1.0 | Active-low | 16 | D0
+WEMOS D1 mini | Active-low | 2 | D4
+SparkFun ESP8266 Thing | Active-high | 5 |
+Adafruit Feather HUZZAH ESP8266 | Active-low | 0 |
+NodeMCU 32s | Active-high | 2 | T2
+LOLIN32 Pro | Active-low | 5 | SS
+SparkFun ESP32 Thing | Active-high | 5
+Adafruit Feather HUZZAH32 | Active-high | 13 | A12

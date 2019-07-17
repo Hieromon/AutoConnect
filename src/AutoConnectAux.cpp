@@ -36,6 +36,7 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "{{CSS_INPUT_BUTTON}}"
   "{{CSS_INPUT_TEXT}}"
   "{{CSS_LUXBAR}}"
+  "{{AUX_CSS}}"
   "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
@@ -103,6 +104,29 @@ void AutoConnectAux::add(AutoConnectElement& addon) {
 void AutoConnectAux::add(AutoConnectElementVT addons) {
   for (AutoConnectElement& element : addons)
     add(element);
+}
+
+/**
+ * Parses the query parameters contained in the http request and fetches
+ * the value of AutoConnectElements carried by AutoConnectAux.
+ */
+void AutoConnectAux::fetchElement(void) {
+  WebServerClass*  _webServer = _ac->_webServer.get();
+  if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
+    _ac->_auxUri = _webServer->arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
+    _ac->_auxUri.replace("&#47;", "/");
+    AC_DBG("fetch %s", _ac->_auxUri.c_str());
+    AutoConnectAux* aux = _ac->_aux.get();
+    while (aux) {
+      if (aux->_uriStr == _ac->_auxUri) {
+        // Save the value owned by each element contained in the POST body
+        // of a current HTTP request to AutoConnectElements.
+        aux->_storeElements(_webServer);
+        break;
+      }
+      aux = aux->_next.get();
+    }
+  }
 }
 
 /**
@@ -384,21 +408,7 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   // If the current request argument contains AutoConnectElement, it is
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
-  WebServerClass*  _webServer = _ac->_webServer.get();
-  if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
-    _ac->_auxUri = _webServer->arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
-    _ac->_auxUri.replace("&#47;", "/");
-    AutoConnectAux* aux = _ac->_aux.get();
-    while (aux) {
-      if (aux->_uriStr == _ac->_auxUri) {
-        // Save the value owned by each element contained in the POST body
-        // of a current HTTP request to AutoConnectElements.
-        aux->_storeElements(_webServer);
-        break;
-      }
-      aux = aux->_next.get();
-    }
-  }
+  fetchElement();
 
   // Call user handler before HTML generation.
   if (_handler) {
@@ -409,8 +419,14 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   }
 
   // Generate HTML for all AutoConnectElements contained in the page.
-  for (AutoConnectElement& addon : _addonElm)
-    body += addon.toHTML();
+  for (AutoConnectElement& addon : _addonElm) {
+    // Since the style sheet has already drained at the time of the
+    // _insertElement function call, it skips the call to the HTML
+    // generator by each element.
+    if (addon.typeOf() != AC_Style)
+      // Invoke an HTML generator by each element
+      body += addon.toHTML();
+  }
 
   // Call user handler after HTML generation.
   if (_handler) {
@@ -420,6 +436,21 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
     }
   }
   return body;
+}
+
+/**
+ * Insert user defined CSS code to AutoConnectAux page.
+ * @param  args  A reference of PageArgument but unused.
+ * @return HTML string that should be inserted.
+ */
+const String AutoConnectAux::_insertStyle(PageArgument& args) {
+  String  css = String("");
+
+  for (AutoConnectElement& elm : _addonElm) {
+    if (elm.typeOf() == AC_Style)
+      css += elm.toHTML();
+  }
+  return css;
 }
 
 /**
@@ -455,6 +486,7 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       elm->addToken(String(FPSTR("CSS_INPUT_BUTTON")), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("CSS_INPUT_TEXT")), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, mother, std::placeholders::_1));
+      elm->addToken(String(FPSTR("AUX_CSS")), std::bind(&AutoConnectAux::_insertStyle, this, std::placeholders::_1));
       elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, mother, std::placeholders::_1));
       elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, mother, std::placeholders::_1));
@@ -499,6 +531,7 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
       }
     }
   }
+  AC_DBG_DUMB(",elements stored\n");
 }
 
 #ifdef AUTOCONNECT_USE_JSON
@@ -616,6 +649,10 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
   }
   case AC_Select: {
     AutoConnectSelect*  cert_elm = new AutoConnectSelect;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
+  case AC_Style: {
+    AutoConnectStyle*  cert_elm = new AutoConnectStyle;
     return reinterpret_cast<AutoConnectElement*>(cert_elm);
   }
   case AC_Submit: {
@@ -892,6 +929,7 @@ ACElement_t AutoConnectAux::_asElementType(const String& type) {
     { AUTOCONNECT_JSON_TYPE_ACINPUT, AC_Input },
     { AUTOCONNECT_JSON_TYPE_ACRADIO, AC_Radio },
     { AUTOCONNECT_JSON_TYPE_ACSELECT, AC_Select },
+    { AUTOCONNECT_JSON_TYPE_ACSTYLE, AC_Style },
     { AUTOCONNECT_JSON_TYPE_ACSUBMIT, AC_Submit },
     { AUTOCONNECT_JSON_TYPE_ACTEXT, AC_Text }
   };

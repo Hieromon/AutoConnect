@@ -42,6 +42,7 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       "type": "ACCheckbox",
       "value": "check",
       "label": "Check",
+      "labelposition": "infront",
       "checked": true
     },
     {
@@ -73,11 +74,6 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       ],
       "label": "Select",
       "selected": 2
-    },
-    {
-      "name": "element",
-      "type": "ACElement",
-      "value": "<br>"
     },
     {
       "name": "load",
@@ -134,6 +130,7 @@ static const char PAGE_SAVE[] PROGMEM = R"(
 
 WebServerClass  server;
 AutoConnect portal(server);
+AutoConnectConfig config;
 AutoConnectAux  elementsAux;
 AutoConnectAux  saveAux;
 
@@ -202,6 +199,8 @@ void setup() {
   });
 
   portal.join({ elementsAux, saveAux });
+  config.ticker = true;
+  portal.config(config);
   portal.begin();
 }
 

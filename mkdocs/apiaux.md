@@ -42,6 +42,13 @@ Add an element to the AutoConnectAux. An added element is displayed on the custo
     <dd><span class="apidef">addons</span><span class="apidesc">An array list of reference of AutoConnectElements. The [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with braced-init-list of the [std::vector](https://en.cppreference.com/w/cpp/container/vector) can be used for the addons parameter cause the actual definition of type **AutoConnectElementVT** is `std::vector<std::reference_wrapper<AutoConnectElement>>`.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> fetchElement
+
+```cpp
+void fetchElement(void)
+```
+Retrieve the values of the AutoConnectElements on the custom Web page. Refer to [how to use the fetchElement](achandling.md#retrieve-the-values-with-webserveron-handler).
+
 ### <i class="fa fa-caret-right"></i> getElement
 
 ```cpp
