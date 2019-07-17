@@ -1,10 +1,18 @@
+#### [0.9.11] July 13, 2019
+- Supports new element as AutoConnectSytle that can insert the custom CSS into AutoConnectAux page.
+- Supports that `<br>` tags can now be added to each element.
+- Supports that able to place the checkbox label forward or backward.
+- Supports flicker signal output according to the status of WiFi_mode.
+- Supports [**AutoConnectAux::fetchElement**](apiaux.md#fetchelement) function to retrieve inputted element values via a custom Web page.
+- Fixed bug in AutoConnectCredential when offset is >256.
+
 #### [0.9.10] June 12, 2019
 - Fixed the unable to get AutoConnectElemets values ​​in the sketch with ESP8266 arduino core 2.5.2.
 
 #### [0.9.9] May 25, 2019
 - Supports ESP8266 Arduino core 2.5.2.
 - Menu text/background color can be statically customized.
-- Added the [enable](achandling.html#enable-autoconnectelements-during-the-sketch-execution)  attribute to the AutoConnectElements. This attribute gives dynamically change to the element activation during the sketch executing.
+- Added the [enable](achandling.md#enable-autoconnectelements-during-the-sketch-execution)  attribute to the AutoConnectElements. This attribute gives dynamically change to the element activation during the sketch executing.
 - Added ID attribute to HTML tag generated from AutoConnectText.
 - Fixed the input box layout collapsed.
 - Fixed that the decoration of AutoConnectButton was disabled.
