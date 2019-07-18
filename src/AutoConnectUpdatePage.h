@@ -3,8 +3,8 @@
  * AutoConnectUpdate class.
  * @file   AutoConnectUpdatePage.h
  * @author hieromon@gmail.com
- * @version    0.9.11
- * @date   2019-05-14
+ * @version    1.0.0
+ * @date   2019-08-15
  * @copyright  MIT license.
  */
 
