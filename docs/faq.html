@@ -677,6 +677,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-can-i-detect-the-captive-portal-starting" title=" How can I detect the captive portal starting?" class="md-nav__link">
+     How can I detect the captive portal starting?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title=" How change esp8266ap for SSID name in Captive portal?" class="md-nav__link">
      How change esp8266ap for SSID name in Captive portal?
   </a>
@@ -909,6 +916,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-can-i-detect-the-captive-portal-starting" title=" How can I detect the captive portal starting?" class="md-nav__link">
+     How can I detect the captive portal starting?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title=" How change esp8266ap for SSID name in Captive portal?" class="md-nav__link">
      How change esp8266ap for SSID name in Captive portal?
   </a>
@@ -1120,6 +1134,8 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 </details>
 <h2 id="does-not-response-from-95ac"><i class="fa fa-question-circle"></i> Does not response from /_ac.<a class="headerlink" href="#does-not-response-from-95ac" title="Permanent link">&para;</a></h2>
 <p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="advancedusage.html#debug-print">debug printing</a> will help you to track down the cause.</p>
+<h2 id="how-can-i-detect-the-captive-portal-starting"><i class="fa fa-question-circle"></i> How can I detect the captive portal starting?<a class="headerlink" href="#how-can-i-detect-the-captive-portal-starting" title="Permanent link">&para;</a></h2>
+<p>You can use the <a href="api.html#ondetect">AutoConnect::onDetect</a> exit routine. For more details and an implementation example of the onDetect exit routine, refer to the chapter "<a href="advancedusage.html#captive-portal-start-detection">Captive portal start detection</a>".</p>
 <h2 id="how-change-esp8266ap-for-ssid-name-in-captive-portal"><i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?<a class="headerlink" href="#how-change-esp8266ap-for-ssid-name-in-captive-portal" title="Permanent link">&para;</a></h2>
 <p>You can change both by using <a href="apiconfig.html#apid">AutoConnectConfig::apid</a> and <a href="apiconfig.html#psk">AutoConnectConfig::psk</a>. Refer to section <a href="advancedusage.html#change-ssid-and-password-for-softap">Change SSID and Password for SoftAP</a> in <a href="advancedusage.html">Advanced usage</a>.</p>
 <h2 id="how-change-http-port"><i class="fa fa-question-circle"></i> How change HTTP port?<a class="headerlink" href="#how-change-http-port" title="Permanent link">&para;</a></h2>
@@ -1128,7 +1144,7 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 </pre></div>
 
 <h2 id="hang-up-after-reset"><i class="fa fa-question-circle"></i> Hang up after Reset?<a class="headerlink" href="#hang-up-after-reset" title="Permanent link">&para;</a></h2>
-<p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a></p>
+<p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
 <p>If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>ets Jan  8 2013,rst cause:2, boot mode:(1,6) or (1,7)
 ets Jan  8 2013,rst cause:4, boot mode:(1,6) or (1,7)
@@ -1209,12 +1225,12 @@ wdt reset
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AC_DEBUG</span>
 </pre></div>
 
-<p><i class="fas fa-angle-right"></i> PageBuilder.h <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">1</a></sup></p>
+<p><i class="fas fa-angle-right"></i> PageBuilder.h <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define PB_DEBUG</span>
 </pre></div>
 
 <h3 id="4-reports-the-issue-to-autoconnect-github-repository">4. Reports the issue to AutoConnect Github repository<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-github-repository" title="Permanent link">&para;</a></h3>
-<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">2</a></sup></p>
+<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" disabled/> Hardware module</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Arduino core version Including the upstream commit ID if necessary</li>
@@ -1232,11 +1248,14 @@ wdt reset
 <div class="footnote">
 <hr />
 <ol>
+<li id="fn:1">
+<p>This issue has been resolved in ESP8266 core 2.5.0 and later.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
 <li id="fn:2">
-<p><code>PageBuilder.h</code> exists in the <code>libraries/PageBuilder/src</code> directory under your sketch folder.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p><code>PageBuilder.h</code> exists in the <code>libraries/PageBuilder/src</code> directory under your sketch folder.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:3">
-<p>Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
