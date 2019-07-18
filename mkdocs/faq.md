@@ -62,6 +62,10 @@ void loop() {
 
 Probably **WiFi.begin** failed with the specified SSID. Activating the [debug printing](advancedusage.md#debug-print) will help you to track down the cause.
 
+## <i class="fa fa-question-circle"></i> How can I detect the captive portal starting?
+
+You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more details and an implementation example of the onDetect exit routine, refer to the chapter "[Captive portal start detection](advancedusage.md#captive-portal-start-detection)".
+
 ## <i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?
 
 You can change both by using [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk). Refer to section [Change SSID and Password for SoftAP](advancedusage.md#change-ssid-and-password-for-softap) in [Advanced usage](advancedusage.md).
@@ -76,7 +80,9 @@ HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com
 
 ## <i class="fa fa-question-circle"></i> Hang up after Reset?
 
-If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017
+If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017 [^1]
+
+[^1]: This issue has been resolved in ESP8266 core 2.5.0 and later.    
 
 If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.
 
