@@ -11,8 +11,8 @@ By providing the following JSON document to AutoConnect, you can include the cus
 
 A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the sketch process by loading multiple pages of JSON document at once.
 
-!!! caution "Need ArduinoJson v5"
-    To process the AutoConnectAux &amp; AutoConnectElements written in the JSON is you need to install the [ArduinoJson version 5](https://arduinojson.org/v5/doc/installation/) library.
+!!! caution "Adopt ArduinoJson v5 or v6"
+    To handle AutoConnectAux and AutoConnectElements written in JSON, you need to install the ArduinoJson library. You can adopt either [version 5](https://arduinojson.org/v5/doc/installation/) or [version 6](https://arduinojson.org/v6/doc/installation/) for the ArduinoJson. AutoConnect supports both versions.
 
 ## JSON objects &amp; elements for the custom Web page
 
