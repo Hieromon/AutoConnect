@@ -45,6 +45,10 @@ These HTML elements that make up the user-owned screen can be easily loaded from
 <img width="32px" src="mkdocs/images/arrow_right.png" align="top">&emsp;
 <img width="30%" height="400px" src="mkdocs/images/AutoConnectAux.gif">
 
+### Quick and easy to equip the OTA update feature <sup><sub>ENHANCED w/ v1.0.0</sub></sup>
+
+You can quickly and easily equip the OTA update feature to your sketch and also you can operate the firmware update process via OTA from AutoConnect menu.
+
 ## Supported hardware
 
 Apply the [Arduino core](https://github.com/esp8266/Arduino) of the ESP8266 Community.
@@ -95,6 +99,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [FAQ](https://hieromon.github.io/AutoConnect/faq.html).
 
 ## Change log
+
+### [1.0.0] Aug. 13, 2019
+- Supports AutoConnectUpdate for the OTA update.
 
 ### [0.9.11] July 13, 2019
 - Supports new element as AutoConnectSytle that can insert the custom CSS into AutoConnectAux page. (PR#96)

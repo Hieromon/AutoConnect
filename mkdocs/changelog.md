@@ -1,3 +1,6 @@
+#### [1.0.0] Aug. 13, 2019
+- Supports AutoConnectUpdate for the [OTA update](otaupdate.md).
+
 #### [0.9.11] July 13, 2019
 - Supports new element as AutoConnectSytle that can insert the custom CSS into AutoConnectAux page.
 - Supports that `<br>` tags can now be added to each element.

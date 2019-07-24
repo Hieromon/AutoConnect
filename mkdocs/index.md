@@ -39,6 +39,12 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 <span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
 </div>
 
+### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Quick and easy to equip the [OTA update feature](otaupdate.md) <sup><sub>ENHANCED w/v1.0.0</sub></sup>
+
+<span class="lead">You can quickly and easily equip the OTA update feature to your sketch and also you can operate the firmware update process via OTA from AutoConnect menu.</span>
+
+<span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span>
+
 ## Installation
 
 ### Requirements
