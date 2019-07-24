@@ -383,7 +383,7 @@ class AutoConnect {
   static const  String  _emptyString; /**< An empty string alloaction  **/
 
 #if defined(ARDUINO_ARCH_ESP8266)
-  friend class ESP8266WebServer;
+  friend ESP8266WebServer;
 #elif defined(ARDUINO_ARCH_ESP32)
   friend class WebServer;
 #endif
