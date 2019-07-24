@@ -20,7 +20,7 @@ A JSON document for AutoConnect can contain the custom Web page multiple. You ca
 
 AutoConnectAux will configure custom Web pages with JSON objects. The elements that make up the object are as follows:
 
-```
+```js
 {
   "title" : title,
   "uri" : uri,
@@ -103,7 +103,7 @@ You can put declarations of multiple custom Web pages in one JSON document. In t
 
 JSON description for AutoConnectElements describes as an array in the *element* with arguments of [each constructor](acelements.md#constructor).
 
-```
+```js
 {
   "name" : name,
   "type" : type,
@@ -124,6 +124,7 @@ JSON description for AutoConnectElements describes as an array in the *element* 
 : -  AutoConnectInput: [**ACInput**](#acinput)
 : -  AutoConnectRadio: [**ACRadio**](#acradio)
 : -  AutoConnectSelect: [**ACSelect**](#acselect)
+: -  AutoConnectStyle: [**ACStyle**](#acstyle)
 : -  AutoConnectSubmit: [**ACSubmit**](#acsubmit)
 : -  AutoConnectText: [**ACText**](#actext)
 
@@ -168,6 +169,9 @@ This is different for each AutoConnectElements, and the key that can be specifie
 #### <i class="fa fa-caret-right"></i> ACSelect
 : - **label** : Specifies a label of the drop-down list. Its placement is always to the left of the drop-down list.
 : - **option** : Specifies the initial value collection of the drop-down list as an array element.
+
+#### <i class="fa fa-caret-right"></i> ACStyle
+: - **value** : Specifies the cuscom CSS code.
 
 #### <i class="fa fa-caret-right"></i> ACSubmit
 : - **value** : Specifies a label of the submit button.
