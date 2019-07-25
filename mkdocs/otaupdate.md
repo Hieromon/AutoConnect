@@ -4,14 +4,14 @@ AutoConnect provides **two types of the platform** for updating the binary sketc
 
 [**The update behavior when using a web browser**](#updates-with-the-web-browser) as an update client keeps with the scenario assumed by the ESP8266 arduino core. Therefore, the user sketch must meet the requirements described in the ESP8266 Arduino Core documentation, but it is not difficult to incorporate an implementation for that into a sketch using AutoConnect.
 
-<img src="images/webupdate.png" width="480" />
+<img src="images/webupdatemodel.png" width="420" />
 
 !!! caution "It is for the only the same network"
     This method can apply only if the client browser and the ESP module belong to the same network segment. It cannot work correctly across networks.
 
 [**Another update method using an update server**](#updates-with-the-update-server) can be applied more broadly than using a web browser. This method can also update the ESP module over the Internet if you can secure the correct transparency between the ESP module and the update server.
 
-<img src="images/updateserver.png" width="380" />
+<img src="images/updatemodel.png" width="540" />
 
 !!! info "Security Disclaimer"
     The security of the OTA update platform provided by AutoConnect is a very weak level. No guarantees as to the level of security provided for your application by the AutoConnect OTA Update is implied.
@@ -21,6 +21,11 @@ AutoConnect provides **two types of the platform** for updating the binary sketc
 You can implement the user sketch as described in the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#implementation-overview) to realize using the web browser as an update client. By incorporating the ESP8266HTTPUpdateServer class into AutoConnect, you can operate the page for selecting the update owned by ESP8266HTTPUpdateServer from the AutoConnect menu. Updates with a web browser are implemented using ESP8266HTTPUpdateServer class together with ESP8266WebServer and ESP8266mDNS classes. However, **ESP32 Arduino core does not provide a class implementaion equivalent to ESP8266HTTPUpdateServer**. Therefore, it is necessary to implement HTTPUpdateServer class for ESP32 to realize the update with a Web browser using the ESP32. **The AutoConnect library includes an implementation of the HTTPUpdateServer class for ESP32 to make it easy for you to experience**. [^1]
 
 [^1]: You can find the implementation of the HTTPUpdateServer class in the **WebUpdate** folder included in the **AutoConnect library examples folder**.
+
+<img src="images/webupdate.png" width="480" />
+
+!!! warning "Client device equipped with Android OS"
+    Depending on the state of Android OS configuration, Bonjour service may not be incorporated. This method does not work with some Android devices as the client.
 
 ### <i class="fa fa-edit"></i> How to embed ESP8266HTTPUpdateServer class with AutoConnect
 
@@ -82,7 +87,11 @@ void loop() {
 ```
 
 !!! hint "For ESP32"
-    This method is equally applicable to ESP32. Just change ESP8266HTTPUpdaetServer to HTTPUpdateServer using an implementation provided from AutoConnect library example code.
+    This procedure is equally applicable to ESP32. If the target module is ESP32, change the following items:
+
+    - Change the include directive appropriately for the ESP32 environment.
+    - Change ESP8266HTTPUpdaetServer to HTTPUpdateServer using an implementation provided from AutoConnect library example code.
+    - Remove `MDNS.update` line from the sketch code.
 
 !!! example "Share an ESP8266WebServer"
     AutoConnect shares the ESP8266WebServer instance with the ESP8266HTTPUpdateServer class. You can give the same instance as ESP8266WebServer instance given to AutoConnect to ESP8266HTTPUpdateServer class.
@@ -116,9 +125,15 @@ When the compilation is complete, a binary sketch will save with the extension `
 
 Since the v1.0.0 release, AutoConnect provides new feature for updating sketch firmware of ESP8266 or ESP32 modules via OTA using the [AutoConnectUpdate](apiupdate.md#autoconnectupdate) class that is an implementation of the sketch binary update by the HTTP server mentioned in the [OTA update](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#http-server) of the ESP8266 Arduino Core documentation, which inherits from the ESP8266HTTPUpdate class (as HTTPUpdate class in the case of ESP32). It acts as a client agent for a series of update operations.
 
+This method allows you to remotely update the ESP module's firmware across network segments from the update server, as long as you can ensure proper routing and forwarding.
+
+<img src="images/updateserver.png" width="380" />
+
 If you choose this update method, you must prepare the server process that provides the binary sketch files for the update client agent as a variant of the HTTP server. This server requires to be able to handle the HTTP headers extended for updating the firmware generated by ESP8266HTTPUpdate class as described in the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#server-request-handling), and the AutoConnectUpdate class generates those headers for it.
 
 There are various implementations of update servers that provide binary sketch files. The ESP8266 Arduino Core documentation publishes a php script for the [Advanced updater](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#id5) which is a process that works fully well with client agents using the ESP8266HTTPUpdate class, as suggested in the implementation. That is, the update server for AutoConnect must work with the client agent, and its implementation should make the handshake well with the AutoConnectUpdate class.
+
+### <i class="fa fa-edit"></i> How to embed AutoConnectUpdate class to your sketch
 
 ### <i class="far fa-handshake"></i> HTTP contents and the sequence for the AutoConnectUpdate class
 
