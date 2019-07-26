@@ -294,8 +294,8 @@ Set the menu title.
 ## <i class="fa fa-code"></i> AutoConnectConfig example
 
 ```cpp
-AutoConenct        Portal;
-AutoConenctConfig  Config("", "passpass");    // SoftAp name is determined at runtime
+AutoConnect        Portal;
+AutoConnectConfig  Config("", "passpass");    // SoftAp name is determined at runtime
 Config.apid = ESP.hostname();                 // Retrieve host name to SotAp identification
 Config.apip = IPAddress(192,168,10,101);      // Sets SoftAP IP address
 Config.gateway = IPAddress(192,168,10,1);     // Sets WLAN router IP address
