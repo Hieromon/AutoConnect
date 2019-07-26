@@ -25,6 +25,18 @@ To avoid this problem, try [changing the channel](#1-change-wifi-channel).
 
 ESP32 hardware equips only one RF circuitry for WiFi signal. At the AP_STA mode, ESP32 as an AP attempts connect to another AP on another channel while keeping the connection with the station then the channel switching will occur causes the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. This problem will persist until a specific solution.
 
+## <i class="fa fa-question-circle"></i> Data saved to EEPROM is different from my sketch wrote.
+
+By default, AutoConnect saves the credentials of the established connection into EEPROM. The credential area of EEPROM used by AutoConnect will conflict with data owned by the user sketch if without measures taken. It will destroy the user sketch data and the data stored in EEPROM by AutoConnect with each other.  
+You have the following two options to avoid this conflict:
+
+- Move the credential saving area of EEPROM.  
+  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [**AutoConnectConfig::boundaryOffset**](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Advanced usage](advancedusage.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
+
+- Suppresses the automatic save operation of credentials by AutoConnect.  
+  You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](advancedusage.md#automatic-reconnect) will be lost.  
+  If you want to stop the automatic saving of the credentials, uses [**AutoConnectConfig::autoSave**](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.html#auto-save-credential) for details.
+
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
 Maybe it is successfully connected at the [**first WiFi.begin**](lsbegin.md#autoconnectbegin-logic-sequence). ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
