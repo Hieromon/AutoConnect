@@ -663,6 +663,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#data-saved-to-eeprom-is-different-from-my-sketch-wrote" title=" Data saved to EEPROM is different from my sketch wrote." class="md-nav__link">
+     Data saved to EEPROM is different from my sketch wrote.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#does-not-appear-esp8266ap-in-smartphone" title=" Does not appear esp8266ap in smartphone." class="md-nav__link">
      Does not appear esp8266ap in smartphone.
   </a>
@@ -902,6 +909,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#data-saved-to-eeprom-is-different-from-my-sketch-wrote" title=" Data saved to EEPROM is different from my sketch wrote." class="md-nav__link">
+     Data saved to EEPROM is different from my sketch wrote.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#does-not-appear-esp8266ap-in-smartphone" title=" Does not appear esp8266ap in smartphone." class="md-nav__link">
      Does not appear esp8266ap in smartphone.
   </a>
@@ -1105,6 +1119,20 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 </div>
 <p>To avoid this problem, try <a href="#1-change-wifi-channel">changing the channel</a>.</p>
 <p>ESP32 hardware equips only one RF circuitry for WiFi signal. At the AP_STA mode, ESP32 as an AP attempts connect to another AP on another channel while keeping the connection with the station then the channel switching will occur causes the station may be disconnected. But it may not be just a matter of channel switching causes ESP8266 has the same constraints too. It may be a problem with AutoConnect or the arduino core or SDK issue. This problem will persist until a specific solution.</p>
+<h2 id="data-saved-to-eeprom-is-different-from-my-sketch-wrote"><i class="fa fa-question-circle"></i> Data saved to EEPROM is different from my sketch wrote.<a class="headerlink" href="#data-saved-to-eeprom-is-different-from-my-sketch-wrote" title="Permanent link">&para;</a></h2>
+<p>By default, AutoConnect saves the credentials of the established connection into EEPROM. The credential area of EEPROM used by AutoConnect will conflict with data owned by the user sketch if without measures taken. It will destroy the user sketch data and the data stored in EEPROM by AutoConnect with each other.<br />
+You have the following two options to avoid this conflict:</p>
+<ul>
+<li>
+<p>Move the credential saving area of EEPROM.<br />
+  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses <a href="apiconfig.html#boundaryoffset"><strong>AutoConnectConfig::boundaryOffset</strong></a> option. Refer to the chapter on <a href="advancedusage.html#move-the-saving-area-of-eeprom-for-the-credentials">Advanced usage</a> for details.</p>
+</li>
+<li>
+<p>Suppresses the automatic save operation of credentials by AutoConnect.<br />
+  You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the <a href="advancedusage.html#automatic-reconnect">automatic reconnection feature</a> will be lost.<br />
+  If you want to stop the automatic saving of the credentials, uses <a href="apiconfig.html#autosave"><strong>AutoConnectConfig::autoSave</strong></a> option specifying <strong>AC_SAVECREDENTIAL_NEVER</strong>. Refer to the chapter on <a href="advancedusage.html#auto-save-credential">Advanced usage</a> for details.</p>
+</li>
+</ul>
 <h2 id="does-not-appear-esp8266ap-in-smartphone"><i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.<a class="headerlink" href="#does-not-appear-esp8266ap-in-smartphone" title="Permanent link">&para;</a></h2>
 <p>Maybe it is successfully connected at the <a href="lsbegin.html#autoconnectbegin-logic-sequence"><strong>first WiFi.begin</strong></a>. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first <em>WiFi.begin()</em> fails.</p>
 <p>The saved SSID would be cleared by  <em>WiFi.disconnect()</em> with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.</p>
