@@ -35,7 +35,7 @@ You have the following two options to avoid this conflict:
 
 - Suppresses the automatic save operation of credentials by AutoConnect.  
   You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](advancedusage.md#automatic-reconnect) will be lost.  
-  If you want to stop the automatic saving of the credentials, uses [**AutoConnectConfig::autoSave**](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.html#auto-save-credential) for details.
+  If you want to stop the automatic saving of the credentials, uses [**AutoConnectConfig::autoSave**](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#auto-save-credential) for details.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
