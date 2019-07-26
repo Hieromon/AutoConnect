@@ -32,7 +32,7 @@ nav:
     - 'Custom Web pages w/o JSON': wojson.md
   - 'Appendix':
     - 'Inside AutoConnect::begin': lsbegin.md
-    - 'Saved credentail access': credit.md
+    - 'Saved credentials access': credit.md
     - 'File upload handler': acupload.md
     - 'Custom colorized': colorized.md
   - 'FAQ' : faq.md
