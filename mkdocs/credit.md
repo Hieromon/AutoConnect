@@ -1,4 +1,4 @@
-## Saved credential in EEPROM
+## Saved credentials in EEPROM
 
 AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's [**AutoConnectCredential**](#autoconnectcredential) class which provides the access method to the saved credentials in EEPROM.[^1]
 
@@ -78,7 +78,7 @@ Load a credential entry and store to **config**.
 bool save(const struct station_config* config)
 ```
 
-Save a credentail entry.
+Save a credential entry.
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">config</span><span class="apidesc">station_config to be saved.</span></dd>

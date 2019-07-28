@@ -31,11 +31,11 @@ By default, AutoConnect saves the credentials of the established connection into
 You have the following two options to avoid this conflict:
 
 - Move the credential saving area of EEPROM.  
-  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [**AutoConnectConfig::boundaryOffset**](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Advanced usage](advancedusage.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
+  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [AutoConnectConfig::boundaryOffset](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Advanced usage](advancedusage.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
 
 - Suppresses the automatic save operation of credentials by AutoConnect.  
   You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](advancedusage.md#automatic-reconnect) will be lost.  
-  If you want to stop the automatic saving of the credentials, uses [**AutoConnectConfig::autoSave**](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#auto-save-credential) for details.
+  If you want to stop the automatic saving of the credentials, uses [AutoConnectConfig::autoSave](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#auto-save-credential) for details.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 

@@ -19,7 +19,10 @@ nav:
     - 'AutoConnectElements' : acelements.md
     - 'Custom Web pages with JSON' : acjson.md
     - 'Handling the custom Web pages' : achandling.md
-  - 'OTA Updates' : otaupdate.md
+  - 'OTA Updates' : 
+    - 'OTA Updates' : otaupdate.md
+    - 'Using Web Browser' : otabrowser.md
+    - 'Using Update Server' : otaserver.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
     - 'AutoConnectAux API': apiaux.md
@@ -34,7 +37,7 @@ nav:
     - 'Custom Web pages w/o JSON': wojson.md
   - 'Appendix':
     - 'Inside AutoConnect::begin': lsbegin.md
-    - 'Saved credentials access': credit.md
+    - 'Saved credentail access': credit.md
     - 'File upload handler': acupload.md
     - 'Custom colorized': colorized.md
   - 'FAQ' : faq.md
