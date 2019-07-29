@@ -183,7 +183,7 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   static const ACElementProp_t  _elmResult[] PROGMEM;
 
 #if defined(ARDUINO_ARCH_ESP8266)
-  friend class ESP8266WebServer;
+  friend ESP8266WebServer;
 #elif defined(ARDUINO_ARCH_ESP32)
   friend class WebServer;
 #endif
