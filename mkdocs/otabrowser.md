@@ -25,11 +25,11 @@ To embed the ESP8266HTTPUpdateServer class with  AutoConnect into your sketch, b
     1. Invokes `ESP8288HTTPUpdateServer::setup` function, specifies the **USERNAME** and the **PASSWORD** as needed.
     2. Load the AutoConnectAux pages declared in step #8 for your application. (Except the update operation page)
     3. Join these pages to AutoConnect along with the update operation page declared in step #5.
-    4. Invokes `AutoConnect::begin` function.
+    4. Invokes [AutoConnect::begin](api.md#begin) function.
     5. Call the `MDNS.begin` and `MDNS.addServer` functions to start the multicast DNS service.
 10. Perform the following procedure steps in the `loop()` function:
     1. Call the `MDNS.update` function to parse requests for mDNS. (No needed as ESP32)
-    2. Invoke `AutoConnect::handleClient` function.
+    2. Invokes [AutoConnect::handleClient](api.md#handleclient) function.
 
 ```cpp
 #include <ESP8266WiFi.h>

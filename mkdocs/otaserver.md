@@ -12,12 +12,58 @@ There are various implementations of update servers that provide binary sketch f
 
 ### <i class="fa fa-edit"></i> How to embed AutoConnectUpdate to your sketch
 
+To embed the AutoConnectUpdate class into your sketch, basically follow these steps:
+
+1. Declare an ESP8266WebServer object. (In ESP32, as WebServer)
+2. Declare an AutoConnect object with an ESP8266WebServer object.
+3. Declare an [AutoConnectUpdate](apiupdate.md) object.
+4. Invokes [AutoConnect::begin](api.md#begin) function.
+5. Attach the AutoConnectUpdate object to AutoConnect using [AutoConnectUpdate::attach](apiupdate.md#attach) function.
+6. Invokes [AutoConnect::handleClient](api.md#handleclient) function in the `loop()`.
+
+```cpp
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+ESP8266WebServer server;                          // Step #1
+AutoConnect portal;                               // Step #2
+AutoConnectUpdate update("192.168.0.100", 8000);  // Step #3
+
+void setup() {
+  if (portal.begin()) {     // Step #4
+    update.attach(portal);  // Step #5
+  }
+}
+
+void loop() {
+  portal.handleClient();    // Step #6
+}
+```
+
+<span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/serverupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span>
+
+### <i class="fas fa-desktop"></i> Behavior of the AutoConnectUpdate class
+
+A sketch incorporating the AutoConnectUpdate class has an extended menu item as **UPDATE** in the AutoConnect menu. **UPDATE** as menu item will be attached by the AutoConnectUpdate automatically. The UPDATE menu first requests the [update server](#update-server-for-the-autoconnectupdate-class) from the ESP module for a [**catalog list**](otaserver.md#2-the-catalog-list-content) of updatable binary sketch files. The update server sends back the catalog list of stored binary sketch files to the ESP module as a client. The AutoConnectUpdate class displays this list as a custom Web page[^1] on the browser.
+
+[^1]: You can scroll horizontally on the browser to see the timestamp and file size that the catalog list contains.
+
+<img align="top" src="images/updatemenu.png" width="240" />
+<img style="margin-left:30px;" src="images/updatelist.png" width="240" />
+
+The substance of the available firmware list is a custom Web page by AutoConnectAux, and you can select the target binary sketch file with the radio button (AutoConnectRadio). A progress bar is displayed indicating the update status when the update starts, and the ESP module will automatically reset and the new firmware will launch when updating finished. 
+
+<img src="images/updating.png" width="240" />
+<img style="margin-left:30px;" src="images/updated.png" width="240" />
+
+The AutoConnectUpdate class performs the above series of operations in conjunction with the update server. All you need to do is attach the AutoConnectUpdate class to AutoConnect and execute the [AutoConnect::handleClient](api.md#handleclient) function.
 
 ### <i class="fas fa-server"></i> Update server for the AutoConnectUpdate class
 
-AutoConnect provides the update server scripts implemented in Python. This server script is implemented to fit with the AutoConnectUpdate class as a client agent for updating and separated for Python2 or Python3 environments.[^1]
+You need an update server to update the binary sketch in the ESP module using the AutoConnectUpdate class. AutoConnect provides the update server scripts implemented in Python. This server script is implemented to fit with the AutoConnectUpdate class as a client agent for updating and separated for Python2 or Python3 environments.[^2]
 
-[^1]: The folders containing the script:  
+[^2]: The folders containing the script:  
 For Python2: *AUTOCONNECT\_LIBRARY\_PATH*/src/updateserver/python2  
 For Python3: *AUTOCONNECT\_LIBRARY\_PATH*/src/updateserver/python3
 
@@ -34,23 +80,31 @@ updateserver.py [-h] [--port PORT] [--bind IP_ADDRESS] [--catalog CATALOG] [--lo
 </dl>
 
 !!! example "updateserver.py usage"
-    python 
-
+    1. Python  
+    First, prepare a Python environment. It is also possible with a tiny single-board computer like the [raspberry pi](https://www.raspberrypi.org/). Popular distributions such as Ubuntu for Linux include Python. You can easily set up a Python 2 or 3 environment. If you are using a Mac, you already have the Python 2 environment. macOS is equipped with Python 2.7 by default. In the case of Windows OS, it is necessary to install the Python environment intentionally. Please refer to the [Python official page](https://wiki.python.org/moin/BeginnersGuide/Download) to install Python in your environment.
+    2. command line example  
+    For example, to start the update server on the host with IP address 172.16.1.10 using 8080 port[^3], execute the following command:
     ```bash
     python updateserver.py --port 8080 --bind 172.16.1.10 --catalog bin --log debug
-    ```
+    ```  
+    In this example assumes that the binary sketch files are deployed under the path `bin` from the current directory.
+
+[^3]: The port of the update server and the port used by the AutoConnectUpdate class must be the same.
+
+!!! note "Limitations of the updateserver.py"
+    The updateserver.py script equips only the minimum facility because it assumes a private small OTA platform without identifying individual modules and version restrictions etc. To operate a larger OTA platform, it is necessary to identify the individual ESP module and to consider version control and security.
 
 ### <i class="far fa-handshake"></i> HTTP contents and the sequence for the AutoConnectUpdate class
 
 The handshake with the AutoConnectUpdate class has two requirements:
 
-- The update server notifies the catalog list of updatable binary files which stored in the update server to the client agent. [^2]
-- Send an updating binary file and MD5 hash to a client in response to URI request (HTTP GET). [^3]
+- The update server notifies the catalog list of updatable binary files which stored in the update server to the client agent. [^4]
+- Send an updating binary file and MD5 hash to a client in response to URI request (HTTP GET). [^5]
 
-[^2]: The **client agent** is an instance of the AutoConnectUpdate class.
-[^3]: The client agent will send its URI request to the update server.
+[^4]: The **client agent** is an instance of the AutoConnectUpdate class.
+[^5]: The client agent will send its URI request to the update server.
 
-Above requirements will be implemented on along the HTTP protocol. The AutoConenctUpdate class requests an update server to notify the client for a catalog list of binary sketch files using an HTTP URL query string. The specifications of the HTTP query and the contents of the catalog list to be returned are as follows:
+Above requirements will be implemented on along the HTTP protocol. The AutoConnectUpdate class requests an update server to notify the client for a catalog list of binary sketch files using an HTTP URL query string. The specifications of the HTTP query and the contents of the catalog list to be returned are as follows:
 
 #### 1. HTTP URL query for the catalog list of the updatable
 
@@ -93,7 +147,9 @@ The above JSON object is one entry. The actual catalog list is an array of this 
 
 #### 3. The binary sketch file used for updating
 
-### <i class="fas fa-microchip"></i> Behavior of the AutoConnectUpdate class
 
-
-
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>
