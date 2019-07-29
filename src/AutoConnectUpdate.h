@@ -136,7 +136,7 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   // Attribute definition of the element to be placed on the update page.
   typedef struct {
     const ACElement_t type;
-    const char*  name;      /**< Name to assign to AutoConenctElement */
+    const char*  name;      /**< Name to assign to AutoConnectElement */
     const char*  value;     /**< Value owned by an element */
     const char*  peculiar;  /**< Specific ornamentation for the element */
   } ACElementProp_t;

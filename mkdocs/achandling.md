@@ -13,10 +13,10 @@ The AutoConnectAux class has several functions to manipulate AutoConnectElements
 To add AutoConnectElment(s) to an AutoConnectAux object, use the add function.
 
 ```cpp
-void AutoConnectAux::add(AutoConenctElement& addon)
+void AutoConnectAux::add(AutoConnectElement& addon)
 ```
 ```cpp
-void AutoConnectAux::add(AutoConenctElementVT addons)
+void AutoConnectAux::add(AutoConnectElementVT addons)
 ```
 
 The add function adds the specified AutoConnectElement to AutoConnectAux. The AutoConnectElementVT type is the [*std::vector*](https://en.cppreference.com/w/cpp/container/vector) of the [*reference wrapper*](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper) to AutoConnectElements, and you can add these elements in bulk by using the [*list initialization*](https://en.cppreference.com/w/cpp/language/list_initialization) with the sketch.
@@ -70,7 +70,7 @@ AutoConnectElement* AutoConnectAux::getElement(const String& name)
 ```
 
 ```cpp
-T& AutoConenctAux::getElement<T>(const String& name)
+T& AutoConnectAux::getElement<T>(const String& name)
 ```
 
 ```cpp
@@ -108,10 +108,10 @@ The AutoConnectElement type behaves as a variant of other element types. Therefo
 
 ```cpp
 const String auxJson = String("{\"title\":\"Page 1 title\",\"uri\":\"/page1\",\"menu\":true,\"element\":[{\"name\":\"caption\",\"type\":\"ACText\",\"value\":\"hello, world\"}]}");
-AutoConenct portal;
+AutoConnect portal;
 portal.load(auxJson);
 AutoConnectAux* aux = portal.aux("/page1");  // Identify the AutoConnectAux instance with uri
-AutoConenctText& text = aux->getElement<AutoConnectText>("caption");  // Cast to real type and access members
+AutoConnectText& text = aux->getElement<AutoConnectText>("caption");  // Cast to real type and access members
 Serial.println(text.value);
 ```
 

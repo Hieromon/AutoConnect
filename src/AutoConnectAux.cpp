@@ -327,7 +327,7 @@ void AutoConnectAux::_concat(AutoConnectAux& aux) {
 
 /**
  * Register the AutoConnect that owns itself.
- * AutoConenctAux needs to access the AutoConnect member. Also 
+ * AutoConnectAux needs to access the AutoConnect member. Also 
  * AutoConnectAux is cataloged by chain list. The _join function 
  * registers AutoConnect in the following AutoConnectAux chain list.
  * @param  ac    A reference of AutoConnect.

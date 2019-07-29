@@ -8,7 +8,7 @@
  */
 
 #ifndef _AUTOCONNECTELEMENT_H_
-#define _AUTOCONENCTELEMENT_H_
+#define _AUTOCONNECTELEMENT_H_
 
 #include "AutoConnectElementBasis.h"
 #ifdef AUTOCONNECT_USE_JSON
