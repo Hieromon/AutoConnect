@@ -57,7 +57,7 @@ The substance of the available firmware list is a custom Web page by AutoConnect
 <img src="images/updating.png" width="240" />
 <img style="margin-left:30px;" src="images/updated.png" width="240" />
 
-The AutoConnectUpdate class performs the above series of operations in conjunction with the update server. All you need to do is attach the AutoConnectUpdate class to AutoConnect and execute the [AutoConnect::handleClient](api.md#handleclient) function.
+The AutoConnectUpdate class performs the above series of operations in conjunction with the update server. All you need to do is attach the AutoConnectUpdate class to AutoConnect and perform the [AutoConnect::handleClient](api.md#handleclient) function.
 
 ### <i class="fas fa-server"></i> Update server for the AutoConnectUpdate class
 
@@ -74,35 +74,40 @@ updateserver.py [-h] [--port PORT] [--bind IP_ADDRESS] [--catalog CATALOG] [--lo
   <dt></dt>
   <dd><span class="apidef">**--help | -h**</span><span class="apidesc">Show help message and exit.</span>
   <dd><span class="apidef">**--port | -p**</span><span class="apidesc">Specifies **PORT** number (Default: 8000)</span>
-  <dd><span class="apidef">**--bind | -b**</span><span class="apidesc">Specifies the IP address to which the update server binds. Usually, it is the host address of the update server. When multiple NICs configured, specify one of the IP addresses. (Default: 127.0.0.0)</span>
+  <dd><span class="apidef">**--bind | -b**</span><span class="apidesc">Specifies the IP address to which the update server binds. Usually, it is the host address of the update server. When multiple NICs configured, specify one of the IP addresses. (Default: HOST IP or 127.0.0.0)</span>
   <dd><span class="apidef">**--catalog | -d**</span><span class="apidesc">Specifies the directory path on the update server that contains the binary sketch files. (Default: The current directory)</span>
   <dd><span class="apidef">**--log | -l**</span><span class="apidesc">Specifies the level of logging output. It accepts the [Logging Levels](https://docs.python.org/3/library/logging.html?highlight=logging#logging-levels) specified in the Python logging module.</span>
 </dl>
 
 !!! example "updateserver.py usage"
     1. Python  
-    First, prepare a Python environment. It is also possible with a tiny single-board computer like the [raspberry pi](https://www.raspberrypi.org/). Popular distributions such as Ubuntu for Linux include Python. You can easily set up a Python 2 or 3 environment. If you are using a Mac, you already have the Python 2 environment. macOS is equipped with Python 2.7 by default. In the case of Windows OS, it is necessary to install the Python environment intentionally. Please refer to the [Python official page](https://wiki.python.org/moin/BeginnersGuide/Download) to install Python in your environment.
-    2. command line example  
-    For example, to start the update server on the host with IP address 172.16.1.10 using 8080 port[^3], execute the following command:
-    ```bash
-    python updateserver.py --port 8080 --bind 172.16.1.10 --catalog bin --log debug
-    ```  
-    In this example assumes that the binary sketch files are deployed under the path `bin` from the current directory.
+       First, prepare a Python environment. It is also possible with a tiny single-board computer like the [raspberry pi](https://www.raspberrypi.org/). Popular distributions such as Ubuntu for Linux include Python. You can easily set up a Python 2 or 3 environment. If you are using a Mac, you already have the Python 2 environment. macOS is equipped with Python 2.7 by default. In the case of Windows OS, it is necessary to install the Python environment intentionally. Please refer to the [Python official page](https://wiki.python.org/moin/BeginnersGuide/Download) to install Python in your environment.
 
-[^3]: The port of the update server and the port used by the AutoConnectUpdate class must be the same.
+    2. Deploy the binary sketch files  
+       Use the Arduino IDE to output a binary file of sketches and deploy it[^3] under the update server. The path which specifies for the **--catalog** option of updateServer.py is the path of the binary sketch files you deployed.
+
+    3. Start updateserver.py  
+       For example, to start the update server on the host with IP address 172.16.1.10 using 8080 port[^4], execute the following command:
+      ```bash
+      python updateserver.py --port 8080 --bind 172.16.1.10 --catalog bin --log debug
+      ```  
+      In this example assumes that the binary sketch files are deployed under the path `bin` from the current directory.
+
+[^3]: Deploying the binary sketch file output by Arduino IDE is usually just copying to the folder for deployment. However, its folder must be accessible from the updateserver.py script.
+[^4]: The port of the update server and the port used by the AutoConnectUpdate class must be the same.
 
 !!! note "Limitations of the updateserver.py"
     The updateserver.py script equips only the minimum facility because it assumes a private small OTA platform without identifying individual modules and version restrictions etc. To operate a larger OTA platform, it is necessary to identify the individual ESP module and to consider version control and security.
 
 ### <i class="far fa-handshake"></i> HTTP contents and the sequence for the AutoConnectUpdate class
 
-The handshake with the AutoConnectUpdate class has two requirements:
+The update server worked together the AutoConnectUpdate class can be prepared individually by yourself. If you want to improve the update server that can operate more broadly by equipping the extensions such as version control and authentications, it must implement the handshake requirements for AutoConnectUpdate class. The handshake with the AutoConnectUpdate class has two requirements:
 
-- The update server notifies the catalog list of updatable binary files which stored in the update server to the client agent. [^4]
-- Send an updating binary file and MD5 hash to a client in response to URI request (HTTP GET). [^5]
+- The update server notifies the catalog list of updatable binary files which stored in the update server to the client agent. [^5]
+- Send an updating binary file and MD5 hash to a client in response to URI request (HTTP GET). [^6]
 
-[^4]: The **client agent** is an instance of the AutoConnectUpdate class.
-[^5]: The client agent will send its URI request to the update server.
+[^5]: The **client agent** is an instance of the AutoConnectUpdate class.
+[^6]: The client agent will send its URI request to the update server.
 
 Above requirements will be implemented on along the HTTP protocol. The AutoConnectUpdate class requests an update server to notify the client for a catalog list of binary sketch files using an HTTP URL query string. The specifications of the HTTP query and the contents of the catalog list to be returned are as follows:
 
@@ -141,12 +146,22 @@ The response (that is, the catalog list) to the above query from the server is t
   <dd><span class="apidef">**size**</span><span class="apidesc">File byte count (Numeric)</span>
 </dl>
 
-The above JSON object is one entry. The actual catalog list is an array of this entry since it  assumes that an update server will provide multiple update binary files in production. The update server should respond with the MIME type specified as `application/json` for the catalog list.[^4]
+The above JSON object is one entry. The actual catalog list is an array of this entry since it  assumes that an update server will provide multiple update binary files in production. The update server should respond with the MIME type specified as `application/json` for the catalog list.[^7]
 
-[^4]: It should be represented as `Content-Type: application/json` in the HTTP response header.
+[^7]: It should be represented as `Content-Type: application/json` in the HTTP response header.
 
 #### 3. The binary sketch file used for updating
 
+The AutoConnectUpdate class issues a HTTP GET request with the specified host address and URI. The update server responds by sending back a binary sketch file with the following header:
+
+```
+Content-Type: application/octet-stream
+Content-Disposition: attachment; filename="BINARY_SKETCH_FILE_NAME"
+Content-Length: LENGTH_OF_CONTENT
+x-MD5: HEXDIGEST
+```
+
+The header **x-MD5** is a 128-bit hash value (digest in hexadecimal) that represents the checksum of the binary sketch file for updates required for the ESP8266HTTPUpdate class.
 
 <script>
   window.onload = function() {

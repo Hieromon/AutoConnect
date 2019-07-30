@@ -10,6 +10,7 @@ import json
 import logging
 import os
 import re
+import socket
 import time
 import urllib.parse
 
@@ -159,8 +160,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', '-p', action='store', default=8000, type=int,
                         help='Port number [default:8000]')
-    parser.add_argument('--bind', '-b', action='store', default='127.0.0.1',
-                        help='Specifies address to which it should bind. [default:127.0.0.1]')
+    parser.add_argument('--bind', '-b', action='store', default=socket.gethostbyname(socket.gethostname()),
+                        help='Specifies address to which it should bind. [default:HOST IP or 127.0.0.1]')
     parser.add_argument('--catalog', '-d', action='store', default=os.getcwd(),
                         help='Catalog directory')
     parser.add_argument('--log', '-l', action='store', default='INFO',
