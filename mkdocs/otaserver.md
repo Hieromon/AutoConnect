@@ -16,7 +16,7 @@ To embed the AutoConnectUpdate class into your sketch, basically follow these st
 
 1. Declare an ESP8266WebServer object. (In ESP32, as WebServer)
 2. Declare an AutoConnect object with an ESP8266WebServer object.
-3. Declare an [AutoConnectUpdate](apiupdate.md) object.
+3. Declare an [AutoConnectUpdate](apiupdate.md) object with the update server address and the HTTP port as parameters.
 4. Invokes [AutoConnect::begin](api.md#begin) function.
 5. Attach the AutoConnectUpdate object to AutoConnect using [AutoConnectUpdate::attach](apiupdate.md#attach) function.
 6. Invokes [AutoConnect::handleClient](api.md#handleclient) function in the `loop()`.
@@ -45,23 +45,25 @@ void loop() {
 
 ### <i class="fas fa-desktop"></i> Behavior of the AutoConnectUpdate class
 
-A sketch incorporating the AutoConnectUpdate class has an extended menu item as **UPDATE** in the AutoConnect menu. **UPDATE** as menu item will be attached by the AutoConnectUpdate automatically. The UPDATE menu first requests the [update server](#update-server-for-the-autoconnectupdate-class) from the ESP module for a [**catalog list**](otaserver.md#2-the-catalog-list-content) of updatable binary sketch files. The update server sends back the catalog list of stored binary sketch files to the ESP module as a client. The AutoConnectUpdate class displays this list as a custom Web page[^1] on the browser.
+A sketch incorporating the AutoConnectUpdate class has an extended menu item as **UPDATE** in the AutoConnect menu. **UPDATE** as menu item will be attached by the AutoConnectUpdate automatically.
+
+When an UPDATE item started, its first action is requesting a [catalog list](#2-the-catalog-list-content) of updatable binary sketch files to the [update server](#update-server-for-the-autoconnectupdate-class). Then the update server sends back the catalog list of stored binary sketch files to a client which is the ESP module. The AutoConnectUpdate class will display responded list to a custom Web page[^1] on the browser.
 
 [^1]: You can scroll horizontally on the browser to see the timestamp and file size that the catalog list contains.
 
 <img align="top" src="images/updatemenu.png" width="240" />
 <img style="margin-left:30px;" src="images/updatelist.png" width="240" />
 
-The substance of the available firmware list is a custom Web page by AutoConnectAux, and you can select the target binary sketch file with the radio button (AutoConnectRadio). A progress bar is displayed indicating the update status when the update starts, and the ESP module will automatically reset and the new firmware will launch when updating finished. 
+The substance of Available firmware list is a custom Web page by AutoConnectAux, and you can select the target binary sketch file with the radio button (AutoConnectRadio). A progress bar will appear to notify the updating status once the update has begun. When the update finished, the ESP module will reset automatically to launch a new firmware.
 
 <img src="images/updating.png" width="240" />
 <img style="margin-left:30px;" src="images/updated.png" width="240" />
 
-The AutoConnectUpdate class performs the above series of operations in conjunction with the update server. All you need to do is attach the AutoConnectUpdate class to AutoConnect and perform the [AutoConnect::handleClient](api.md#handleclient) function.
+The AutoConnectUpdate class performs the above series of operations in conjunction with the update server. All you need to do is attach the AutoConnectUpdate class to AutoConnect and execute the [AutoConnect::handleClient](api.md#handleclient) function in the `loop()`.
 
 ### <i class="fas fa-server"></i> Update server for the AutoConnectUpdate class
 
-You need an update server to update the binary sketch in the ESP module using the AutoConnectUpdate class. AutoConnect provides the update server scripts implemented in Python. This server script is implemented to fit with the AutoConnectUpdate class as a client agent for updating and separated for Python2 or Python3 environments.[^2]
+The above series of actions by the AutoConnectUpdate class requires a cooperated update server. You need to place the update server in a reachable location on the network. AutoConnect provides the update server scripts implemented in Python. This server script is implemented to fit with the AutoConnectUpdate class as a client agent for updating. Also, it exists for each corresponding version of Python 2 or 3.[^2]
 
 [^2]: The folders containing the script:  
 For Python2: *AUTOCONNECT\_LIBRARY\_PATH*/src/updateserver/python2  
