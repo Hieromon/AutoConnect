@@ -13,7 +13,7 @@
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
-        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/index.html">
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/otabrowser.html">
       
       
         <meta name="author" content="Hieromon Ikasamo">
@@ -42,7 +42,7 @@
     
     
       
-        <title>AutoConnect for ESP8266/ESP32</title>
+        <title>Using Web Browser - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -122,7 +122,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#autoconnect-for-esp8266esp32" tabindex="1" class="md-skip">
+      <a href="#updates-with-the-web-browser" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -148,7 +148,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Overview
+                Using Web Browser
               
             </span>
           
@@ -257,151 +257,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Overview
-      </label>
-    
-    <a href="index.html" title="Overview" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
       Overview
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" title="Overview" class="md-nav__link">
-    Overview
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#no-need-pre-coded-ssid-password" title=" No need pre-coded SSID &amp; password" class="md-nav__link">
-     No need pre-coded SSID &amp; password
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#simple-usage" title=" Simple usage" class="md-nav__link">
-     Simple usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#store-the-established-connection" title=" Store the established connection" class="md-nav__link">
-     Store the established connection
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#easy-to-embed-in" title=" Easy to embed in" class="md-nav__link">
-     Easy to embed in
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lives-with-your-sketches" title=" Lives with your sketches" class="md-nav__link">
-     Lives with your sketches
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#easy-to-add-the-custom-web-pages-enhanced-wv097" title=" Easy to add the custom Web pages ENHANCED w/v0.9.7" class="md-nav__link">
-     Easy to add the custom Web pages ENHANCED w/v0.9.7
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-and-easy-to-equip-the-ota-update-feature-enhanced-wv100" title=" Quick and easy to equip the OTA update feature ENHANCED w/v1.0.0" class="md-nav__link">
-     Quick and easy to equip the OTA update feature ENHANCED w/v1.0.0
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" title="Installation" class="md-nav__link">
-    Installation
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#requirements" title="Requirements" class="md-nav__link">
-    Requirements
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#supported-hardware" title="Supported hardware" class="md-nav__link">
-    Supported hardware
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#required-libraries" title="Required libraries" class="md-nav__link">
-    Required libraries
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-the-autoconnect" title="Install the AutoConnect" class="md-nav__link">
-    Install the AutoConnect
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -529,10 +389,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
     
     <label class="md-nav__link" for="nav-7">
       OTA Updates
@@ -560,11 +422,65 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Using Web Browser
+      </label>
+    
+    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link md-nav__link--active">
       Using Web Browser
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#updates-with-the-web-browser" title="Updates with the Web Browser" class="md-nav__link">
+    Updates with the Web Browser
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-embed-esp8266httpupdateserver-with-autoconnect" title=" How to embed ESP8266HTTPUpdateServer with AutoConnect" class="md-nav__link">
+     How to embed ESP8266HTTPUpdateServer with AutoConnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-make-the-binary-sketch" title=" How to make the binary sketch" class="md-nav__link">
+     How to make the binary sketch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -875,112 +791,28 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" title="Overview" class="md-nav__link">
-    Overview
+  <a href="#updates-with-the-web-browser" title="Updates with the Web Browser" class="md-nav__link">
+    Updates with the Web Browser
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#no-need-pre-coded-ssid-password" title=" No need pre-coded SSID &amp; password" class="md-nav__link">
-     No need pre-coded SSID &amp; password
+  <a href="#how-to-embed-esp8266httpupdateserver-with-autoconnect" title=" How to embed ESP8266HTTPUpdateServer with AutoConnect" class="md-nav__link">
+     How to embed ESP8266HTTPUpdateServer with AutoConnect
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#simple-usage" title=" Simple usage" class="md-nav__link">
-     Simple usage
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#store-the-established-connection" title=" Store the established connection" class="md-nav__link">
-     Store the established connection
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#easy-to-embed-in" title=" Easy to embed in" class="md-nav__link">
-     Easy to embed in
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lives-with-your-sketches" title=" Lives with your sketches" class="md-nav__link">
-     Lives with your sketches
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#easy-to-add-the-custom-web-pages-enhanced-wv097" title=" Easy to add the custom Web pages ENHANCED w/v0.9.7" class="md-nav__link">
-     Easy to add the custom Web pages ENHANCED w/v0.9.7
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-and-easy-to-equip-the-ota-update-feature-enhanced-wv100" title=" Quick and easy to equip the OTA update feature ENHANCED w/v1.0.0" class="md-nav__link">
-     Quick and easy to equip the OTA update feature ENHANCED w/v1.0.0
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" title="Installation" class="md-nav__link">
-    Installation
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#requirements" title="Requirements" class="md-nav__link">
-    Requirements
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#supported-hardware" title="Supported hardware" class="md-nav__link">
-    Supported hardware
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#required-libraries" title="Required libraries" class="md-nav__link">
-    Required libraries
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#install-the-autoconnect" title="Install the AutoConnect" class="md-nav__link">
-    Install the AutoConnect
+  <a href="#how-to-make-the-binary-sketch" title=" How to make the binary sketch" class="md-nav__link">
+     How to make the binary sketch
   </a>
   
 </li>
@@ -1007,82 +839,106 @@
               
                 
                 
-                <h1 id="autoconnect-for-esp8266esp32">AutoConnect <small>for ESP8266/ESP32</small><a class="headerlink" href="#autoconnect-for-esp8266esp32" title="Permanent link">&para;</a></h1>
-<p>An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>To the dynamic configuration for joining to WLAN with SSID and PSK accordingly. It an Arduino library united with <em>ESP8266WebServer</em> class for ESP8266 or <em>WebServer</em> class for ESP32.
-Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi connection. With this library to make a sketch easily which connects from ESP8266/ESP32 to the access point at runtime by the web interface without hard-coded SSID and password.</p>
-<p><img style="display:inline-block;width:460px;margin-right:30px;" src="images/ov.png" /><span style="display:inline-block;width:182px;height:322px;border:solid 1px lightgrey;"><img data-gifffer="images/ov.gif" data-gifffer-width="180" style="width:180px;" /></span></p>
-<h3 id="no-need-pre-coded-ssid-password"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> No need pre-coded SSID &amp; password<a class="headerlink" href="#no-need-pre-coded-ssid-password" title="Permanent link">&para;</a></h3>
-<p><span class="lead">It is no needed hard-coding in advance the SSID and Password into the sketch to connect between ESP8266/ESP32 and WLAN. You can input SSID &amp; Password from a smartphone via the web interface at runtime.</span></p>
-<h3 id="simple-usage"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Simple usage<a class="headerlink" href="#simple-usage" title="Permanent link">&para;</a></h3>
-<p><span class="lead">AutoConnect control screen will be displayed automatically for establishing new connections. It aids by the <a href="https://en.wikipedia.org/wiki/Captive_portal">captive portal</a> when vested the connection cannot be detected.<br>By using the <a href="menu.html">AutoConnect menu</a>, to manage the connections convenient.</span></p>
-<h3 id="store-the-established-connection"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Store the established connection<a class="headerlink" href="#store-the-established-connection" title="Permanent link">&para;</a></h3>
-<p><span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the <a href="menu.html">AutoConnect menu</a>.</span></p>
-<h3 id="easy-to-embed-in"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in<a class="headerlink" href="#easy-to-embed-in" title="Permanent link">&para;</a></h3>
-<p><span class="lead">AutoConnect can be placed easily in your sketch. It's "<strong>begin</strong>" and "<strong>handleClient</strong>" only.</span></p>
-<h3 id="lives-with-your-sketches"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with your sketches<a class="headerlink" href="#lives-with-your-sketches" title="Permanent link">&para;</a></h3>
-<p><span class="lead">The sketches which provide the web page using ESP8266WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object, or itself can assign it. This effect also applies to ESP32. The corresponding class for ESP32 will be the WebServer.</span></p>
-<h3 id="easy-to-add-the-custom-web-pages-enhanced-wv097"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to add the <a href="acintro.html">custom Web pages</a> <sup><sub>ENHANCED w/v0.9.7</sub></sup><a class="headerlink" href="#easy-to-add-the-custom-web-pages-enhanced-wv097" title="Permanent link">&para;</a></h3>
-<p><span class="lead">You can easily add your owned web pages that can consist of representative HTML elements and invoke them from the menu. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD.</span></p>
-<div style="display:block;height:425px;">
-<img style="float:left;width:380px;" src="images/aux_json.png">
-<img style="float:left;margin-top:200px;margin-left:10px;margin-right:10px;width:32px;" src="images/arrow_right.png">
-<span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
+                  <h1>Using Web Browser</h1>
+                
+                <h2 id="updates-with-the-web-browser">Updates with the Web Browser<a class="headerlink" href="#updates-with-the-web-browser" title="Permanent link">&para;</a></h2>
+<p>You can implement the user sketch as described in the <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#implementation-overview">ESP8266 Arduino Core documentation</a> to realize using the web browser as an update client. By incorporating the ESP8266HTTPUpdateServer class into AutoConnect, you can operate the page for selecting the update owned by ESP8266HTTPUpdateServer from the AutoConnect menu. Updates with a web browser are implemented using ESP8266HTTPUpdateServer class together with ESP8266WebServer and ESP8266mDNS classes. However, <strong>ESP32 Arduino core does not provide a class implementaion equivalent to ESP8266HTTPUpdateServer</strong>. Therefore, it is necessary to implement HTTPUpdateServer class for ESP32 to realize the update with a Web browser using the ESP32. <strong>The AutoConnect library includes an implementation of the HTTPUpdateServer class for ESP32 to make it easy for you to experience</strong>. <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+<p><img src="images/webupdate.png" width="480" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Client device equipped with Android OS</p>
+<p>Depending on the state of Android OS configuration, Bonjour service may not be incorporated. This method does not work with some Android devices as the client.</p>
 </div>
+<h3 id="how-to-embed-esp8266httpupdateserver-with-autoconnect"><i class="fa fa-edit"></i> How to embed ESP8266HTTPUpdateServer with AutoConnect<a class="headerlink" href="#how-to-embed-esp8266httpupdateserver-with-autoconnect" title="Permanent link">&para;</a></h3>
+<p>To embed the ESP8266HTTPUpdateServer class with  AutoConnect into your sketch, basically follow these steps:</p>
+<ol>
+<li>Include <code>ESP8266mDNS.h</code> and <code>ESP8266HTTPUpdateServer.h</code> and <code>WiFiClient.h</code> additionally, except the usual include directives as ESP8266WebServer and AutoConnect.</li>
+<li>Declare an ESP8266WebServer object. (In ESP32, as WebServer)</li>
+<li>Declare an ESP8266HTTPUpdateServer object.</li>
+<li>Declare an AutoConnect object with an ESP8266WebServer object.</li>
+<li>Declare an AutoConnectAux object for the update operation page.</li>
+<li>Assign <code>/update</code> to the URI of the update operation page.</li>
+<li>Assign an arbitrary title as the AutoConnect menu for the update operation page.</li>
+<li>Declare additional AutoConnectAux pages for your application intention as needed.</li>
+<li>Perform the following procedure steps in the <code>setup()</code> function:<ol>
+<li>Invokes <code>ESP8288HTTPUpdateServer::setup</code> function, specifies the <strong>USERNAME</strong> and the <strong>PASSWORD</strong> as needed.</li>
+<li>Load the AutoConnectAux pages declared in step #8 for your application. (Except the update operation page)</li>
+<li>Join these pages to AutoConnect along with the update operation page declared in step #5.</li>
+<li>Invokes <a href="api.html#begin">AutoConnect::begin</a> function.</li>
+<li>Call the <code>MDNS.begin</code> and <code>MDNS.addServer</code> functions to start the multicast DNS service.</li>
+</ol>
+</li>
+<li>Perform the following procedure steps in the <code>loop()</code> function:<ol>
+<li>Call the <code>MDNS.update</code> function to parse requests for mDNS. (No needed as ESP32)</li>
+<li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function.</li>
+</ol>
+</li>
+</ol>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266HTTPUpdateServer.h&gt;    // Step #1</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266mDNS.h&gt;                // Step #1</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;WiFiClient.h&gt;                 // Step #1</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<h3 id="quick-and-easy-to-equip-the-ota-update-feature-enhanced-wv100"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Quick and easy to equip the <a href="otaupdate.html">OTA update feature</a> <sup><sub>ENHANCED w/v1.0.0</sub></sup><a class="headerlink" href="#quick-and-easy-to-equip-the-ota-update-feature-enhanced-wv100" title="Permanent link">&para;</a></h3>
-<p><span class="lead">You can quickly and easily equip the OTA update feature to your sketch and also you can operate the firmware update process via OTA from AutoConnect menu.</span></p>
-<p><span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span></p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
-<h4 id="supported-hardware">Supported hardware<a class="headerlink" href="#supported-hardware" title="Permanent link">&para;</a></h4>
-<ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled checked/> Generic ESP8266 modules (applying the ESP8266 Community's Arduino core)</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Adafruit HUZZAH ESP8266 (ESP-12)</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> ESP-WROOM-02</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Heltec WiFi Kit 8</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> NodeMCU 0.9 (ESP-12) / NodeMCU 1.0 (ESP-12E)</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Olimex MOD-WIFI-ESP8266</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> SparkFun Thing</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> SweetPea ESP-210</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> ESP32Dev Board (applying the Espressif's arduino-esp32 core)</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> SparkFun ESP32 Thing</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> WEMOS LOLIN D32</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Ai-Thinker NodeMCU-32S</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> Heltec WiFi Kit 32</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> M5Stack</li>
-<li class="task-list-item"><input type="checkbox" disabled checked/> And other ESP8266/ESP32 modules supported by the Additional Board Manager URLs of the Arduino-IDE.</li>
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">HELLO_PAGE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{ &quot;title&quot;: &quot;Hello world&quot;, &quot;uri&quot;: &quot;/&quot;, &quot;menu&quot;: true, &quot;element&quot;: [</span>
+<span style="color: #e6db74">    { &quot;name&quot;: &quot;caption&quot;, &quot;type&quot;: &quot;ACText&quot;, &quot;value&quot;: &quot;&lt;h2&gt;Hello, world&lt;/h2&gt;&quot;,  &quot;style&quot;: &quot;text-align:center;color:#2f4f4f;padding:10px;&quot; },</span>
+<span style="color: #e6db74">    { &quot;name&quot;: &quot;content&quot;, &quot;type&quot;: &quot;ACText&quot;, &quot;value&quot;: &quot;In this page, place the custom web page handled by the sketch application.&quot; } ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">httpServer;</span>                <span style="color: #75715e">// Step #2</span>
+<span style="color: #f8f8f2">ESP8266HTTPUpdateServer</span> <span style="color: #f8f8f2">httpUpdate;</span>         <span style="color: #75715e">// Step #3</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(httpServer);</span>             <span style="color: #75715e">// Step #4</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">update</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/update&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;UPDATE&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #75715e">// Step #5, #6, #7</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">hello;</span>                       <span style="color: #75715e">// Step #8</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">httpUpdate.setup(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">httpServer,</span> <span style="color: #e6db74">&quot;USERNAME&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;PASSWORD&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #75715e">// Step #9.a</span>
+  <span style="color: #f8f8f2">hello.load(HELLO_PAGE);</span>                                <span style="color: #75715e">// Step #9.b</span>
+  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">hello,</span> <span style="color: #f8f8f2">update</span> <span style="color: #f8f8f2">});</span>                        <span style="color: #75715e">// Step #9.c</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(portal.begin())</span> <span style="color: #f8f8f2">{</span>                                  <span style="color: #75715e">// Step #9.d</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(MDNS.begin(</span><span style="color: #e6db74">&quot;esp-webupdate&quot;</span><span style="color: #f8f8f2">))</span>                     <span style="color: #75715e">// Step #9.e</span>
+        <span style="color: #f8f8f2">MDNS.addService(</span><span style="color: #e6db74">&quot;http&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;tcp&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">80</span><span style="color: #f8f8f2">);</span>              <span style="color: #75715e">// Step #9.e</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">MDNS.update();</span>            <span style="color: #75715e">// Step #10.a</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>    <span style="color: #75715e">// Step #10.b</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<div class="admonition hint">
+<p class="admonition-title">For ESP32</p>
+<p>This procedure is equally applicable to ESP32. If the target module is ESP32, change the following items:</p>
+<ul>
+<li>Change the include directive appropriately for the ESP32 environment.</li>
+<li>Change ESP8266HTTPUpdaetServer to HTTPUpdateServer using an implementation provided from AutoConnect library example code.</li>
+<li>Remove <code>MDNS.update</code> line from the sketch code.</li>
 </ul>
-<div class="admonition info">
-<p class="admonition-title">About flash size on the module</p>
-<p>The AutoConnect sketch size is relatively large. Large flash capacity is necessary. 512Kbyte (4Mbits) flash inclusion module such as ESP-01 is not recommended.</p>
 </div>
-<h4 id="required-libraries">Required libraries<a class="headerlink" href="#required-libraries" title="Permanent link">&para;</a></h4>
-<p>AutoConnect requires the following environment and libraries.</p>
-<p><i class="fa fa-download"></i> <strong>Arduino IDE</strong></p>
-<p>The current upstream at the 1.8 level or later is needed. Please install from the <a href="https://www.arduino.cc/en/Main/Software">official Arduino IDE download page</a>. This step is not required if you already have a modern version.</p>
-<p><i class="fa fa-download"></i> <strong>ESP8266 Arduino core</strong></p>
-<p>AutoConnect targets sketches made on the assumption of <a href="https://github.com/esp8266/Arduino">ESP8266 Community's Arduino core</a>. Stable 2.4.0 or higher required and the <a href="https://github.com/esp8266/Arduino/releases/latest">latest release</a> is recommended.<br />
-Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. Package URL is <a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a></p>
-<p><i class="fa fa-download"></i> <strong>ESP32 Arduino core</strong></p>
-<p>Also, to apply AutoConnect to ESP32, the <a href="https://github.com/espressif/arduino-esp32">arduino-esp32 core</a> provided by Espressif is needed. Stable 1.0.1 or required and the <a href="https://github.com/espressif/arduino-esp32/releases/latest">latest release</a> is recommended.<br />
-Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. You can add multiple URLs into <em>Additional Board Manager URLs</em> field, separating them with commas. Package URL is <a href="https://dl.espressif.com/dl/package_esp32_index.json">https://dl.espressif.com/dl/package_esp32_index.json</a> for ESP32.</p>
-<p><i class="fa fa-download"></i> <strong>Additional library (Required)</strong></p>
-<p>The <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library to build HTML for ESP8266WebServer is needed.<br />
-To install the PageBuilder library into your Arduino IDE, you can use the <em>Library Manager</em>. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '<strong>PageBuilder</strong>' with the topic '<strong>Communication</strong>', then you can see the <em>PageBuilder</em>. The latest version is required <strong>1.3.3</strong> <strong>later</strong>.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
-<p><img src="images/lm.png" width="640"/></p>
-<p><i class="fa fa-download"></i> <strong>Additional library (Optional)</strong></p>
-<p>By adding the <a href="https://github.com/bblanchon/ArduinoJson">ArduinoJson</a> library, AutoConnect will be able to handle the <a href="acintro.html"><strong>custom Web pages</strong></a> described with JSON. Since AutoConnect v0.9.7 you can insert user-owned web pages that can consist of representative HTML elements as styled TEXT, INPUT, BUTTON, CHECKBOX, SELECT, SUBMIT and invoke them from the AutoConnect menu. These HTML elements can be added by sketches using the AutoConnect API. Further it possible importing the custom Web pages declarations described with JSON which stored in PROGMEM, SPIFFS, or SD. <a href="https://arduinojson.org/">ArduinoJson</a> is required to use this feature.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> AutoConnect can work with ArduinoJson both <a href="https://arduinojson.org/v5/doc/">version 5</a> and <a href="https://arduinojson.org/v6/doc/">version 6</a>.</p>
-<h3 id="install-the-autoconnect">Install the AutoConnect<a class="headerlink" href="#install-the-autoconnect" title="Permanent link">&para;</a></h3>
-<p>Clone or download from the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect GitHub repository</a>.</p>
-<p><img src="images/gitrepo.png" width="640"/></p>
-<p>When you select Download, you can import it to Arduino IDE immediately. After downloaded, the AutoConnect-master.zip file will be saved in your download folder. Then in the Arduino IDE, navigate to <em>"Sketch &gt; Include Library"</em>. At the top of the drop down list, select the option to <em>"Add .ZIP Library..."</em>. Details for <a href="https://www.arduino.cc/en/Guide/Libraries#toc4">Arduino official page</a>.</p>
-<p><img src="images/ins_lib.png" /></p>
-<div class="admonition info">
-<p class="admonition-title">Supported by Library manager.</p>
-<p>AutoConnect was added to the Arduino IDE library manager. It can be used with the PlatformIO library also.</p>
+<div class="admonition example">
+<p class="admonition-title">Share an ESP8266WebServer</p>
+<p>AutoConnect shares the ESP8266WebServer instance with the ESP8266HTTPUpdateServer class. You can give the same instance as ESP8266WebServer instance given to AutoConnect to ESP8266HTTPUpdateServer class.
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">httpServer;</span>
+<span style="color: #f8f8f2">ESP8266HTTPUpdateServer</span> <span style="color: #f8f8f2">updateServer;</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(httpServer);</span>
+
+<span style="color: #f8f8f2">updateServer(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">httpServer);</span>
+</pre></div>
+This sharing specification is the same for ESP32.</p>
 </div>
+<p>The execution result of the above sketch should be as follows. <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
+<p><span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span></p>
+<div class="admonition faq">
+<p class="admonition-title">How LED ticking during an update</p>
+<p>You <strong>cannot</strong> get the ticker with LED during an update by using this way. It is since the current implementation of the <strong>ESP8266HTTPUpdateServer class provided Arduino core library does not supply</strong> an LED pin to the ESP8266HTTPUpdate class.</p>
+</div>
+<h3 id="how-to-make-the-binary-sketch"><i class="fa fa-wrench"></i> How to make the binary sketch<a class="headerlink" href="#how-to-make-the-binary-sketch" title="Permanent link">&para;</a></h3>
+<p>Binary sketch files for updating can be retrieved using the Arduino IDE. Open the <strong>Sketch</strong> menu and select the <strong>Export compiled Binary</strong>, then starts compilation.</p>
+<p><img src="images/export_binary.png" width="450" /></p>
+<p>When the compilation is complete, a binary sketch will save with the extension <code>.bin</code> in the same folder as the sketch.</p>
 <script>
   window.onload = function() {
     Gifffer();
@@ -1093,10 +949,10 @@ To install the PageBuilder library into your Arduino IDE, you can use the <em>Li
 <hr />
 <ol>
 <li id="fn:1">
-<p>Since AutoConnect v0.9.8, PageBuilder v1.3.3 later is required.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>You can find the implementation of the <strong>HTTPUpdateServer</strong> class in the <strong>WebUpdate</strong> folder included in the <strong>AutoConnect library examples folder</strong>.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
-<p>Using the AutoConnect API natively allows you to sketch custom Web pages without JSON.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>The authentication dialog is displayed first.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -1120,14 +976,28 @@ To install the PageBuilder library into your Arduino IDE, you can use the <em>Li
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
+          <a href="otaupdate.html" title="OTA Updates" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                OTA Updates
+              </span>
+            </div>
+          </a>
         
-          <a href="gettingstarted.html" title="Getting started" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="otaserver.html" title="Using Update Server" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Getting started
+                Using Update Server
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

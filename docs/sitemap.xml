@@ -2,227 +2,147 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/index.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/gettingstarted.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/menu.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/basicusage.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/advancedusage.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/acintro.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/acelements.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/acjson.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/achandling.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://Hieromon.github.io/AutoConnect/otaupdate.html</loc>
+     <lastmod>2019-07-31</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://Hieromon.github.io/AutoConnect/otabrowser.html</loc>
+     <lastmod>2019-07-31</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://Hieromon.github.io/AutoConnect/otaserver.html</loc>
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/api.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/apiaux.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/apiconfig.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/apielements.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://Hieromon.github.io/AutoConnect/apiupdate.html</loc>
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/apiextra.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/howtoembed.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/datatips.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/menuize.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/wojson.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/lsbegin.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/credit.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/acupload.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/colorized.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/faq.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/changelog.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://Hieromon.github.io/AutoConnect/license.html</loc>
-<<<<<<< HEAD
-     <lastmod>2019-05-25</lastmod>
-=======
-     <lastmod>2019-06-12</lastmod>
->>>>>>> 68d854a... Release for v0.9.10
+     <lastmod>2019-07-31</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
