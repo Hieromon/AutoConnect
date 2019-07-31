@@ -55,7 +55,7 @@ using HTTPUpdateClass = HTTPUpdate;
 
 // Support LED flashing only the board with built-in LED.
 #if defined(BUILTIN_LED) || defined(LED_BUILTIN)
-#define AC_SETLED(s)    do {setLedPin(LED_BUILTIN, s);} while(0)
+#define AC_SETLED(s)    do {setLedPin(AUTOCONNECT_TICKER_PORT, s);} while(0)
 #else
 #define AC_SETLED(s)    do {} while(0)
 #endif
@@ -93,7 +93,7 @@ class AutoConnectUpdateVoid {
   virtual void  enable(void) {}
   virtual void  disable(const bool activate = false) { AC_UNUSED(activate); }
   virtual void  handleUpdate(void) {}
-  virtual bool  isEnable(void) { return false; }
+  virtual bool  isEnabled(void) { return false; }
   virtual AC_UPDATESTATUS_t  status(void) { return UPDATE_IDLE; }
   virtual AC_UPDATESTATUS_t  update(void) { return UPDATE_IDLE; }
 };
@@ -118,7 +118,7 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   void  enable(void) override;       /**< Enable the AutoConnectUpdateAct */
   void  disable(const bool activte = false) override;      /**< Disable the AutoConnectUpdateAct */
   void  handleUpdate(void) override; /**< Behaves the update process */
-  bool  isEnable(void) override { return _auxCatalog ? _auxCatalog->isMenu() : false; } /**< Returns current updater effectiveness */
+  bool  isEnabled(void) override { return _auxCatalog ? _auxCatalog->isMenu() : false; } /**< Returns current updater effectiveness */
   AC_UPDATESTATUS_t  status(void) override { return _status; }   /**< reports the current update behavior status */
   AC_UPDATESTATUS_t  update(void) override;    /**< behaves update */
 

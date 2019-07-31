@@ -221,12 +221,12 @@ void AutoConnectUpdateAct::enable(void) {
  */
 void AutoConnectUpdateAct::handleUpdate(void) {
   // Activate the update menu conditional with WiFi connected.
-  if (!isEnable() && _enable) {
+  if (!isEnabled() && _enable) {
     if (WiFi.status() == WL_CONNECTED)
       enable();
   }
 
-  if (isEnable()) {
+  if (isEnabled()) {
     if (WiFi.status() == WL_CONNECTED) {
       // Evaluate the processing status of AutoConnectUpdateAct and
       // execute it accordingly. It is only this process point that
