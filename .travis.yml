@@ -34,13 +34,16 @@ install:
   - ln -s $PWD ~/Arduino/libraries/.
 script:
   - buildExampleSketch Credential
+  - buildExampleSketch Elements
+  - buildExampleSketch FileUpload
   - buildExampleSketch FSBrowser
   - buildExampleSketch HandleClient
   - buildExampleSketch HandlePortal
   - buildExampleSketch HandlePortalEX
-  - buildExampleSketch Simple
   - buildExampleSketch HelloWorld
   - buildExampleSketch mqttRSSI
   - buildExampleSketch mqttRSSI_FS
   - buildExampleSketch mqttRSSI_NA
-  - buildExampleSketch FileUpload
+  - buildExampleSketch Simple
+  - buildExampleSketch Update
+  - buildExampleSketch WebUpdate
