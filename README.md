@@ -70,6 +70,7 @@ Alter the platform applying the [arduino-esp32](https://github.com/espressif/ard
 - Ai-Thinker NodeMCU-32S
 - Heltec WiFi Kit 32
 - M5Stack
+- Unexpected Maker TinyPICO
 - And other ESP32 modules supported by the Additional Board Manager URLs of the Arduino-IDE.
 
 ## Simple usage

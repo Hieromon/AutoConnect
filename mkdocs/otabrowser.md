@@ -1,6 +1,8 @@
 ## Updates with the Web Browser
 
-You can implement the user sketch as described in the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#implementation-overview) to realize using the web browser as an update client. By incorporating the ESP8266HTTPUpdateServer class into AutoConnect, you can operate the page for selecting the update owned by ESP8266HTTPUpdateServer from the AutoConnect menu. Updates with a web browser are implemented using ESP8266HTTPUpdateServer class together with ESP8266WebServer and ESP8266mDNS classes. However, **ESP32 Arduino core does not provide a class implementaion equivalent to ESP8266HTTPUpdateServer**. Therefore, it is necessary to implement HTTPUpdateServer class for ESP32 to realize the update with a Web browser using the ESP32. **The AutoConnect library includes an implementation of the HTTPUpdateServer class for ESP32 to make it easy for you to experience**. [^1]
+You can implement the user sketch as described in the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#implementation-overview) to realize using the web browser as an update client. By incorporating the ESP8266HTTPUpdateServer class into AutoConnect, you can operate the dialog page for selecting the updating binary sketch file owned by ESP8266HTTPUpdateServer from the AutoConnect menu. 
+
+Update feature with a web browser is implemented using ESP8266HTTPUpdateServer class and ESP8266mDNS class. However, **ESP32 Arduino core does not provide a class implementation equivalent to ESP8266HTTPUpdateServer**. Therefore, it is necessary to implement HTTPUpdateServer class for ESP32 to realize the update using a Web browser. **The AutoConnect library includes an implementation of the HTTPUpdateServer class for ESP32 to make it easy for you to experience**. [^1]
 
 [^1]: You can find the implementation of the **HTTPUpdateServer** class in the **WebUpdate** folder included in the **AutoConnect library examples folder**.
 
@@ -13,20 +15,20 @@ You can implement the user sketch as described in the [ESP8266 Arduino Core docu
 
 To embed the ESP8266HTTPUpdateServer class with  AutoConnect into your sketch, basically follow these steps:
 
-1. Include `ESP8266mDNS.h` and `ESP8266HTTPUpdateServer.h` and `WiFiClient.h` additionally, except the usual include directives as ESP8266WebServer and AutoConnect.
+1. Include `ESP8266mDNS.h` and `ESP8266HTTPUpdateServer.h`, also `WiFiClient.h`, in addition to the usual directives as `ESP8266WebServer.h` and `AutoConnect.h`.
 2. Declare an ESP8266WebServer object. (In ESP32, as WebServer)
 3. Declare an ESP8266HTTPUpdateServer object.
-4. Declare an AutoConnect object with an ESP8266WebServer object.
+4. Declare an AutoConnect object with an ESP8266WebServer object as an argument.
 5. Declare an AutoConnectAux object for the update operation page.
-6. Assign `/update` to the URI of the update operation page.
-7. Assign an arbitrary title as the AutoConnect menu for the update operation page.
-8. Declare additional AutoConnectAux pages for your application intention as needed.
+6. Assign `/update` to the URI of the update dialog page.
+7. Assign any title as the AutoConnect menu for the update dialog page.
+8. Declare additional AutoConnectAux pages for your application intention if needed.
 9. Perform the following procedure steps in the `setup()` function:
     1. Invokes `ESP8288HTTPUpdateServer::setup` function, specifies the **USERNAME** and the **PASSWORD** as needed.
-    2. Load the AutoConnectAux pages declared in step #8 for your application. (Except the update operation page)
-    3. Join these pages to AutoConnect along with the update operation page declared in step #5.
+    2. Load the AutoConnectAux pages declared in step #8 for your application. (Except the update dialog page)
+    3. Join these pages to AutoConnect along with the update dialog page declared in step #5.
     4. Invokes [AutoConnect::begin](api.md#begin) function.
-    5. Call the `MDNS.begin` and `MDNS.addServer` functions to start the multicast DNS service.
+    5. Call the `MDNS.begin` and `MDNS.addServer` functions to start the multi cast DNS service.
 10. Perform the following procedure steps in the `loop()` function:
     1. Call the `MDNS.update` function to parse requests for mDNS. (No needed as ESP32)
     2. Invokes [AutoConnect::handleClient](api.md#handleclient) function.
@@ -71,7 +73,7 @@ void loop() {
 !!! hint "For ESP32"
     This procedure is equally applicable to ESP32. If the target module is ESP32, change the following items:
 
-    - Change the include directive appropriately for the ESP32 environment.
+    - Change the include directives appropriately for the ESP32 environment.
     - Change ESP8266HTTPUpdaetServer to HTTPUpdateServer using an implementation provided from AutoConnect library example code.
     - Remove `MDNS.update` line from the sketch code.
 
@@ -81,19 +83,18 @@ void loop() {
     ESP8266WebServer httpServer;
     ESP8266HTTPUpdateServer updateServer;
     AutoConnect portal(httpServer);
-
     updateServer(&httpServer);
     ```
     This sharing specification is the same for ESP32.
 
-The execution result of the above sketch should be as follows. [^2]
+The result of the above sketch should be as follows. [^2]
 
 [^2]: The authentication dialog is displayed first.
 
 <span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span>
 
-!!! faq "How LED ticking during an update"
-    You **cannot** get the ticker with LED during an update by using this way. It is since the current implementation of the **ESP8266HTTPUpdateServer class provided Arduino core library does not supply** an LED pin to the ESP8266HTTPUpdate class.
+!!! faq "How LED ticking during updates"
+    You **cannot** get the ticker with LED during updates by using this way. It is since the current implementation of the ESP8266HTTPUpdateServer class of the Arduino core **library does not assign an LED PIN** to the ESP8266HTTPUpdate class.
 
 ### <i class="fa fa-wrench"></i> How to make the binary sketch
 
