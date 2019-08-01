@@ -525,30 +525,29 @@ void AutoConnectUpdateAct::_progress(void) {
   switch (_webServer->method()) {
 
   case HTTP_POST:
-    if (_webServer->hasArg(reqOperation)) {
-      reqOperand = _webServer->arg(reqOperation);
+    reqOperand = _webServer->arg(reqOperation);
+    switch (_status) {
+    case UPDATE_IDLE:
       if (reqOperand == String(UPDATE_NOTIFY_START)) {
-        if (_status == UPDATE_IDLE) {
-          httpCode = 200;
-          _status = UPDATE_START;
-        }
-        else {
-          payload = String(FPSTR(reply_msg_seq));
-          httpCode = 500;
-        }
+        httpCode = 200;
+        _status = UPDATE_START;
       }
-      else if (reqOperand == String(UPDATE_NOTIFY_REBOOT)) {
-        if (_status == UPDATE_SUCCESS) {
-          _status = UPDATE_RESET;
-          httpCode = 200;
-        }
-        else {
-          payload = String(FPSTR(reply_msg_seq));
-          httpCode = 500;
-        }
+      else {
+        payload = String(FPSTR(reply_msg_seq));
+        httpCode = 500;
       }
-    }
-    else {
+      break;
+    case UPDATE_SUCCESS:
+      if (reqOperand == String(UPDATE_NOTIFY_REBOOT)) {
+        _status = UPDATE_RESET;
+        httpCode = 200;
+      }
+      else {
+        payload = String(FPSTR(reply_msg_seq));
+        httpCode = 500;
+      }
+      break;
+    default:
       payload = String(FPSTR(reply_msg_op));
       httpCode = 500;
     }
