@@ -485,8 +485,10 @@ void AutoConnect::handleRequest(void) {
         // Save current credential
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
           AutoConnectCredential credit(_apConfig.boundaryOffset);
-          credit.save(&_credential);
-          AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
+          if (credit.save(&_credential))
+            AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
+          else
+            AC_DBG("credential %s save failed\n", reinterpret_cast<const char*>(_credential.ssid));
         }
 
         // Ensures that keeps a connection with the current AP while the portal behaves.

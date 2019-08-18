@@ -10,6 +10,7 @@
 #ifndef _AUTOCONNECTCREDENTIAL_H_
 #define _AUTOCONNECTCREDENTIAL_H_
 
+#include <memory>
 #include <Arduino.h>
 #if defined(ARDUINO_ARCH_ESP8266)
 extern "C" {
@@ -24,6 +25,8 @@ struct station_config {
     uint8_t  bssid[6];
     wifi_fast_scan_threshold_t threshold;
 };
+#define NO_GLOBAL_EEPROM
+#include <EEPROM.h>
 #endif
 
 /** Credential storage area offset specifier in EEPROM.
@@ -55,6 +58,7 @@ class AutoConnectCredential {
   int       _dp;            /**< The current address in EEPROM */
   int       _ep;            /**< The current entry address in EEPROM */
   uint16_t  _offset;        /**< The offset for the saved area of credentials in EEPROM. */
+  std::unique_ptr<EEPROMClass>  _eeprom;  /**< shared EEPROM class */
 };
 
 #endif  // _AUTOCONNECTCREDENTIAL_H_

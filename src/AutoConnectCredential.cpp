@@ -7,7 +7,7 @@
  *	@copyright	MIT license.
  */
 
-#include <EEPROM.h>
+// #include <EEPROM.h>
 #include "AutoConnectCredential.h"
 
 #define AC_IDENTIFIER "AC_CREDT"
@@ -47,33 +47,43 @@ void AutoConnectCredential::_allocateEntry(void) {
   char    id_c[sizeof(AC_IDENTIFIER) - 1];
   uint8_t c;
 
-  EEPROM.begin(AC_HEADERSIZE);
+  _eeprom.reset(new EEPROMClass);
+
+  // EEPROM.begin(AC_HEADERSIZE);
+  _eeprom->begin(AC_HEADERSIZE + sizeof(struct station_config));
 
   // Validate the save area of the EEPROM.
   // If it is a valid area, retrieve the stored number of entries,
   // if the identifier is not saved, initialize the EEPROM area.
   _dp = _offset;
   for (c = 0; c < sizeof(id_c); c++) {
-    id_c[c] = static_cast<char>(EEPROM.read(_dp++));
+    // id_c[c] = static_cast<char>(EEPROM.read(_dp++));
+    id_c[c] = static_cast<char>(_eeprom->read(_dp++));
   }
   if (!strncmp(id_c, AC_IDENTIFIER, sizeof(id_c))) {
-    _entries = EEPROM.read(static_cast<int>(_dp++));
-    _containSize = EEPROM.read(static_cast<int>(_dp++));
-    _containSize += EEPROM.read(static_cast<int>(_dp)) << 8;
+  //   _entries = EEPROM.read(static_cast<int>(_dp++));
+  //   _containSize = EEPROM.read(static_cast<int>(_dp++));
+  //   _containSize += EEPROM.read(static_cast<int>(_dp)) << 8;
+    _entries = _eeprom->read(static_cast<int>(_dp++));
+    _containSize = _eeprom->read(static_cast<int>(_dp++));
+    _containSize += _eeprom->read(static_cast<int>(_dp)) << 8;
   }
   else {
     _entries = 0;
     _containSize = 0;
   }
 
-  EEPROM.end();
+  // EEPROM.end();
+  _eeprom->end();
 }
 
 /**
  *  The destructor ends EEPROM access.
  */
 AutoConnectCredential::~AutoConnectCredential() {
-  EEPROM.end();
+  // EEPROM.end();
+  _eeprom->end();
+  _eeprom.reset();
 }
 
 /**
@@ -88,31 +98,42 @@ bool AutoConnectCredential::del(const char* ssid) {
 
   if (load(ssid, &entry) >= 0) {
     // Saved credential detected, _ep has the entry location.
-    EEPROM.begin(AC_HEADERSIZE + _containSize);
+    // EEPROM.begin(AC_HEADERSIZE + _containSize);
+    _eeprom->begin(AC_HEADERSIZE + _containSize);
     _dp = _ep;
 
     // Erase SSID
-    while (EEPROM.read(_dp) != 0x00)
-      EEPROM.write(_dp++, 0xff);
+    // while (EEPROM.read(_dp) != 0x00)
+    //   EEPROM.write(_dp++, 0xff);
+    while (_eeprom->read(_dp) != 0x00)
+      _eeprom->write(_dp++, 0xff);
 
     // Erase Password
-    EEPROM.write(_dp++, 0xff);
-    while (EEPROM.read(_dp) != 0x00)
-      EEPROM.write(_dp++, 0xff);
+    // EEPROM.write(_dp++, 0xff);
+    _eeprom->write(_dp++, 0xff);
+    // while (EEPROM.read(_dp) != 0x00)
+    //   EEPROM.write(_dp++, 0xff);
+    while (_eeprom->read(_dp) != 0x00)
+      _eeprom->write(_dp++, 0xff);
 
     // Erase BSSID
-    EEPROM.write(_dp++, 0xff);
+    // EEPROM.write(_dp++, 0xff);
+    _eeprom->write(_dp++, 0xff);
     for (uint8_t i = 0; i < sizeof(station_config::bssid); i++)
-      EEPROM.write(_dp++, 0xff);
+      // EEPROM.write(_dp++, 0xff);
+      _eeprom->write(_dp++, 0xff);
 
     // End 0xff writing, update headers.
     _entries--;
-    EEPROM.write(_offset + static_cast<int>(sizeof(AC_IDENTIFIER)) - 1, _entries);
+    // EEPROM.write(_offset + static_cast<int>(sizeof(AC_IDENTIFIER)) - 1, _entries);
+    _eeprom->write(_offset + static_cast<int>(sizeof(AC_IDENTIFIER)) - 1, _entries);
 
     // commit it.
-    rc = EEPROM.commit();
+    // rc = EEPROM.commit();
+    rc = _eeprom->commit();
     delay(10);
-    EEPROM.end();
+    // EEPROM.end();
+    _eeprom->end();
   }
   return rc;
 }
@@ -131,7 +152,9 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
 
   _dp = AC_HEADERSIZE;
   if (_entries) {
-    EEPROM.begin(AC_HEADERSIZE + _containSize);
+    Serial.printf("load: length series, AC_HEADERSIZE(%d), _containSize(%d)\n", AC_HEADERSIZE, _containSize);
+    // EEPROM.begin(AC_HEADERSIZE + _containSize);
+    _eeprom->begin(AC_HEADERSIZE + _containSize);
     for (uint8_t i = 0; i < _entries; i++) {
       _retrieveEntry(reinterpret_cast<char*>(config->ssid), reinterpret_cast<char*>(config->password), config->bssid);
       if (!strcmp(ssid, (const char*)config->ssid)) {
@@ -139,7 +162,8 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
         break;
       }
     }
-    EEPROM.end();
+    // EEPROM.end();
+    _eeprom->end();
   }
   return entry;
 }
@@ -156,10 +180,13 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
 bool AutoConnectCredential::load(int8_t entry, struct station_config* config) {
   _dp = AC_HEADERSIZE;
   if (_entries && entry < _entries) {
-    EEPROM.begin(AC_HEADERSIZE + _containSize);
+    Serial.printf("load: length series, AC_HEADERSIZE(%d), _containSize(%d)\n", AC_HEADERSIZE, _containSize);
+    // EEPROM.begin(AC_HEADERSIZE + _containSize);
+    _eeprom->begin(AC_HEADERSIZE + _containSize);
     while (entry-- >= 0)
       _retrieveEntry(reinterpret_cast<char*>(config->ssid), reinterpret_cast<char*>(config->password), config->bssid);
-    EEPROM.end();
+    // EEPROM.end();
+    _eeprom->end();
     return true;
   }
   else {
@@ -181,48 +208,78 @@ bool AutoConnectCredential::save(const struct station_config* config) {
   struct station_config  stage;
   int8_t  entry;
   bool    rep = false;
+  bool    rc;
 
   // Detect same entry for replacement.
   entry = load((const char*)(config->ssid), &stage);
 
   // Saving start.
-  EEPROM.begin(AC_HEADERSIZE + _containSize + sizeof(struct station_config));
+  // EEPROM.begin(AC_HEADERSIZE + _containSize + sizeof(struct station_config));
+  _eeprom->begin(AC_HEADERSIZE + _containSize + sizeof(struct station_config));
+  Serial.printf("save: length series: AC_HEADERSIZE(%d), _containSize(%d), sizeof(struct station_config)(%d)\n", AC_HEADERSIZE, _containSize, sizeof(struct station_config));
 
   // Determine insertion or replacement.
   if (entry >= 0) {
     // An entry with the same SSID was found, release the area for replacement.
     _dp = _ep;
     for (uint8_t dm = 2; dm; _dp++) {
-      if (EEPROM.read(_dp) == '\0')
+      // uint8_t c = EEPROM.read(_dp);
+      uint8_t c = _eeprom->read(_dp);
+      Serial.printf("(RD)<- %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : c);
+//      if (EEPROM.read(_dp) == '\0')
+      if (c == '\0')
         dm--;
-      EEPROM.write(_dp, 0xff);    // Clear SSID, Passphrase
+      Serial.printf("(WR)-> %04x 0xff .\n", _dp);
+      // EEPROM.write(_dp, 0xff);    // Clear SSID, Passphrase
+      _eeprom->write(_dp, 0xff);    // Clear SSID, Passphrase
     }
-    for (uint8_t i = 0; i < sizeof(station_config::bssid); i++)
-      EEPROM.write(_dp++, 0xff);  // Clear BSSID
+    for (uint8_t i = 0; i < sizeof(station_config::bssid); i++) {
+      Serial.printf("(WR)-> %04x 0xff .\n", _dp);
+      // EEPROM.write(_dp++, 0xff);  // Clear BSSID
+      _eeprom->write(_dp++, 0xff);  // Clear BSSID
+    }
   }
   else {
     // Same entry not found. increase the entry.
     _entries++;
     int i;
-    for (i = 0; i < static_cast<int>(sizeof(_id)) - 1; i++)
-      EEPROM.write(i + _offset, (uint8_t)_id[i]);
-    EEPROM.write(i + _offset, _entries);
+    for (i = 0; i < static_cast<int>(sizeof(_id)) - 1; i++) {
+      Serial.printf("(WR)-> %04x %02x %c\n", i + _offset, (uint8_t)_id[i], (uint8_t)_id[i] < 0x20 ? '.' : (char)_id[i]);
+      // EEPROM.write(i + _offset, (uint8_t)_id[i]);
+      _eeprom->write(i + _offset, (uint8_t)_id[i]);
+    }
+    Serial.printf("(WR)-> %04x %02x %c\n", i + _offset, _entries, _entries < 0x20 ? '.' : (char)_entries);
+    // EEPROM.write(i + _offset, _entries);
+    _eeprom->write(i + _offset, _entries);
   }
+
+  rc = _eeprom->commit();
+  delay(10);
+  if (!rc) Serial.printf("commit error\n");
 
   // Seek insertion point, evaluate capacity to insert the new entry.
   uint16_t eSize = strlen((const char*)config->ssid) + strlen((const char*)config->password) + sizeof(station_config::bssid) + 2;
+  Serial.printf("new entry size:%d\n", eSize);
   for (_dp = AC_HEADERSIZE; _dp < _containSize + AC_HEADERSIZE; _dp++) {
-    if (EEPROM.read(_dp) == 0xff) {
+    // uint8_t c = EEPROM.read(_dp);
+    uint8_t c = _eeprom->read(_dp);
+    Serial.printf("(RD)<- %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : c);
+    if (c == 0xff) {
       uint16_t fp = _dp;
-      while (EEPROM.read(++_dp) == 0xff) {}
+      Serial.printf("skip from %04x\n", _dp);
+      // while (EEPROM.read(++_dp) == 0xff) {}
+      while (_eeprom->read(++_dp) == 0xff) {}
+      Serial.printf("skip to %04x\n", _dp);
       if (_dp - fp >= eSize) {
         _dp = fp;
         rep = true;
+        Serial.printf("rep position:%02x\n", _dp);
         break;
       }
       _dp--;
     }
   }
+  Serial.printf("insertion position:%02x\n", _dp);
 
   // Save new entry
   uint8_t         c;
@@ -230,29 +287,46 @@ bool AutoConnectCredential::save(const struct station_config* config) {
   dt = config->ssid;
   do {  // Write SSID
     c = *dt++;
-    EEPROM.write(_dp++, c);
+    Serial.printf("(WR)-> %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : (char)c);
+    // EEPROM.write(_dp++, c);
+    _eeprom->write(_dp++, c);
   } while (c != '\0');
   dt = config->password;
   do {  // Write password
     c = *dt++;
-    EEPROM.write(_dp++, c);
+    Serial.printf("(WR)-> %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : (char)c);
+    // EEPROM.write(_dp++, c);
+    _eeprom->write(_dp++, c);
   } while (c != '\0');
-  for (uint8_t i = 0; i < sizeof(station_config::bssid); i++)
-    EEPROM.write(_dp++, config->bssid[i]);  // write BSSID
+  for (uint8_t i = 0; i < sizeof(station_config::bssid); i++) {
+    Serial.printf("(WR)-> %04x %02x %c\n", _dp, config->bssid[i], config->bssid[i] < 0x20 ? '.' : (char)config->bssid[i]);
+    // EEPROM.write(_dp++, config->bssid[i]);  // write BSSID
+    _eeprom->write(_dp++, config->bssid[i]);  // write BSSID
+  }
   // Terminate container, mark to the end of credential area.
   // When the entry is replaced, not mark a terminator.
   if (!rep) {
-    EEPROM.write(_dp, '\0');
+    Serial.printf("!rep\n");
+    Serial.printf("(WR)-> %04x 00 .\n", _dp);
+    // EEPROM.write(_dp, '\0');
+    _eeprom->write(_dp, '\0');
 
     // Update container size
     _containSize = _dp - AC_HEADERSIZE;
-    EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize);
-    EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8));
+    // EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize);
+    _eeprom->write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize);
+    Serial.printf("(WR)-> %04x %02x %c\n", _offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize, (uint8_t)_containSize < 0x20 ? '.' : (uint8_t)_containSize);
+    // EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8));
+    _eeprom->write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8));
+    Serial.printf("(WR)-> %04x %02x %c\n", _offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8), (uint8_t)(_containSize >> 8) < 0x20 ? '.' : (uint8_t)(_containSize >> 8));
   }
 
-  bool rc = EEPROM.commit();
+  // bool rc = EEPROM.commit();
+  rc &= _eeprom->commit();
   delay(10);
-  EEPROM.end();
+  if (!rc) Serial.printf("commit error\n");
+  // EEPROM.end();
+  _eeprom->end();
 
   return rc;
 }
@@ -266,23 +340,34 @@ bool AutoConnectCredential::save(const struct station_config* config) {
 void AutoConnectCredential::_retrieveEntry(char* ssid, char* password, uint8_t* bssid) {
   uint8_t ec;
 
+  Serial.println("_retrieveEntry:<-");
   // Skip unavailable entry.
-  while ((ec = EEPROM.read(_dp++)) == 0xff) {}
+  Serial.printf("skip from %04x\n", _dp);
+  // while ((ec = EEPROM.read(_dp++)) == 0xff) {}
+  while ((ec = _eeprom->read(_dp++)) == 0xff) {}
+  Serial.printf("skip to %04x\n", _dp);
 
   // Retrieve SSID
   _ep = _dp - 1;
   *ssid++ = ec;
   do {
-    ec = EEPROM.read(_dp++);
+    // ec = EEPROM.read(_dp++);
+    ec = _eeprom->read(_dp++);
+    Serial.printf("(RD)<- %04x %02x %c\n", _dp - 1, ec, ec < 0x20 ? '.' : ec);
     *ssid++ = ec;
   } while (ec != '\0');
   // Retrieve Password
   do {
-    ec = EEPROM.read(_dp++);
+    // ec = EEPROM.read(_dp++);
+    ec = _eeprom->read(_dp++);
+    Serial.printf("(RD)<- %04x %02x %c\n", _dp - 1, ec, ec < 0x20 ? '.' : ec);
     *password++ = ec;
   } while (ec != '\0');
   // Retrieve BSSID
   for (uint8_t i = 0; i < sizeof(station_config::bssid); i++) {
-    bssid[i] = EEPROM.read(_dp++);
+    // bssid[i] = EEPROM.read(_dp++);
+    bssid[i] = _eeprom->read(_dp++);
+    Serial.printf("(RD)<- %04x %02x %c\n", _dp - 1, bssid[i], bssid[i] < 0x20 ? '.' : bssid[i]);
   }
+  Serial.println("_retrieveEntry:->");
 }

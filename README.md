@@ -104,6 +104,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 ### [1.0.0] Aug. 13, 2019
 - Supports AutoConnectUpdate for the OTA update.
 
+### [0.9.12] Aug. 18, 2019
+- Fixed missing captive portal notifications on the newer mobile OS client. As a result of this fix, the SoftAP default IP address and gateway have been changed to **172.217.28.1**. (issue #85) 
+
 ### [0.9.11] July 13, 2019
 - Supports new element as AutoConnectSytle that can insert the custom CSS into AutoConnectAux page. (PR#96)
 - Supports that `<br>` tags can now be added to each element. (PR #95)
