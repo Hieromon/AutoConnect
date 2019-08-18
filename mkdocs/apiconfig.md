@@ -37,7 +37,7 @@ SoftAP's SSID.
 Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **192.168.244.1**</span></dd>
+    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **172.217.28.1**</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> autoReconnect
@@ -147,7 +147,7 @@ Set secondary DNS server address when using static IP address.
 Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **192.168.244.1**</span></dd>
+    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **172.217.28.1**</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> hidden

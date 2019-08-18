@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  0.9.11
- * @date 2019-07-08
+ * @version  0.9.12
+ * @date 2019-08-18
  * @copyright  MIT license.
  */
 
@@ -45,10 +45,12 @@
 #endif // !AUTOCONNECT_PSK
 
 #ifndef AUTOCONNECT_AP_IP
-#define AUTOCONNECT_AP_IP 0x01F4A8C0  //*< 192.168.244.1 */
+// #define AUTOCONNECT_AP_IP 0x01F4A8C0  //*< 192.168.244.1 */
+#define AUTOCONNECT_AP_IP 0x011CD9AC  //*< 172.217.28.1 */
 #endif // !AUTOCONNECT_AP_IP
 #ifndef AUTOCONNECT_AP_GW
-#define AUTOCONNECT_AP_GW 0x01F4A8C0  //*< 192.168.244.1 */
+// #define AUTOCONNECT_AP_GW 0x01F4A8C0  //*< 192.168.244.1 */
+#define AUTOCONNECT_AP_GW 0x011CD9AC  //*< 172.217.28.1 */
 #endif // !AUTOCONNECT_AP_GW
 #ifndef AUTOCONNECT_AP_NM
 #define AUTOCONNECT_AP_NM 0x00FFFFFF  //*< 255.255.255.0 */

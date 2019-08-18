@@ -3,7 +3,7 @@
 
 ## <i class="fa fa-external-link"></i> Where the from
 
-The AutoConnect menu appears when you access the **AutoConnect root path**. It is assigned "**/_ac**" located on the *local IP address* of ESP8266/ESP32 module by default. This location can be changed in the sketch. The following screen will appear at access to `http://{localIP}/_ac` as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here, to invoke it tap <i class="fa fa-bars"></i> at right on top. (e.g. `http://192.168.244.1/_ac` for SoftAP mode.)
+The AutoConnect menu appears when you access the **AutoConnect root path**. It is assigned "**/_ac**" located on the *local IP address* of ESP8266/ESP32 module by default. This location can be changed in the sketch. The following screen will appear at access to `http://{localIP}/_ac` as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here, to invoke it tap <i class="fa fa-bars"></i> at right on top. (e.g. `http://172.217.28.1/_ac` for SoftAP mode.)
 
 <img src="images/ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
