@@ -2,31 +2,33 @@
  *  Declaration of AutoConnectCredential class.
  *  @file AutoConnectCredential.h
  *  @author hieromon@gmail.com
- *  @version  0.9.6
- *  @date 2018-09-27
+ *  @version  1.0.0
+ *  @date 2019-08-15
  *  @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTCREDENTIAL_H_
 #define _AUTOCONNECTCREDENTIAL_H_
 
-#include <memory>
 #include <Arduino.h>
+#include <memory>
 #if defined(ARDUINO_ARCH_ESP8266)
 extern "C" {
 #include <user_interface.h>
 }
-#elif defined(ARDUINO_ARCH_ESP32)
-#include <esp_wifi.h>
-struct station_config {
-    uint8_t  ssid[32];
-    uint8_t  password[64];
-    uint8_t  bssid_set;
-    uint8_t  bssid[6];
-    wifi_fast_scan_threshold_t threshold;
-};
 #define NO_GLOBAL_EEPROM
 #include <EEPROM.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <map>
+#include <esp_wifi.h>
+#include <Preferences.h>
+struct station_config {
+  uint8_t  ssid[32];
+  uint8_t  password[64];
+  uint8_t  bssid_set;
+  uint8_t  bssid[6];
+  wifi_fast_scan_threshold_t threshold;
+};
 #endif
 
 /** Credential storage area offset specifier in EEPROM.
@@ -37,28 +39,83 @@ struct station_config {
 #define AC_IDENTIFIER_OFFSET  0
 #endif
 
-/** AutoConnectCredential class. */
-class AutoConnectCredential {
+/**
+ *
+ */
+#ifndef AC_IDENTIFIER
+#define AC_IDENTIFIER "AC_CREDT"
+#endif
+
+class AutoConnectCredentialBase {
+ public:
+  explicit AutoConnectCredentialBase() {}
+  virtual ~AutoConnectCredentialBase() {}
+  virtual uint8_t entries(void) { return _entries; }
+  virtual bool    del(const char* ssid) = 0;
+  virtual int8_t  load(const char* ssid, struct station_config* config) = 0;
+  virtual bool    load(int8_t entry, struct station_config* config) = 0;
+  virtual bool    save(const struct station_config* config) = 0;
+
+ protected:
+  uint8_t   _entries;       /**< Count of the available entry */
+  uint16_t  _containSize;   /**< Container size */
+};
+
+#if defined(ARDUINO_ARCH_ESP8266)
+
+/** AutoConnectCredential class using EEPROM for ESP8266 */
+class AutoConnectCredential : public AutoConnectCredentialBase {
  public:
   AutoConnectCredential();
   explicit AutoConnectCredential(uint16_t offset);
   ~AutoConnectCredential();
-  uint8_t   entries(void) { return _entries; }
-  bool      del(const char* ssid);
-  int8_t    load(const char* ssid, struct station_config* config);
-  bool      load(int8_t entry, struct station_config* config);
-  bool      save(const struct station_config* config);
+  bool      del(const char* ssid) override;
+  int8_t    load(const char* ssid, struct station_config* config) override;
+  bool      load(int8_t entry, struct station_config* config) override;
+  bool      save(const struct station_config* config) override;
 
  private:
   void      _allocateEntry(void);   /**< Initialize storage for credentials. */
   void      _retrieveEntry(char* ssid, char* password, uint8_t* bssid);   /**< Read an available entry. */
 
-  uint8_t   _entries;       /**< Count of the available entry */
-  uint16_t  _containSize;   /**< Container size */
   int       _dp;            /**< The current address in EEPROM */
   int       _ep;            /**< The current entry address in EEPROM */
   uint16_t  _offset;        /**< The offset for the saved area of credentials in EEPROM. */
   std::unique_ptr<EEPROMClass>  _eeprom;  /**< shared EEPROM class */
 };
+
+#elif defined(ARDUINO_ARCH_ESP32)
+
+#define AC_CREDENTIAL_NVSNAME  AC_IDENTIFIER
+#define AC_CREDENTIAL_NVSKEY   AC_CREDENTIAL_NVSNAME
+
+/** AutoConnectCredential class using Preferences for ESP32 */
+class AutoConnectCredential : public AutoConnectCredentialBase {
+ public:
+  AutoConnectCredential();
+  explicit AutoConnectCredential(uint16_t offset);
+  ~AutoConnectCredential();
+  bool      del(const char* ssid) override;
+  int8_t    load(const char* ssid, struct station_config* config) override;
+  bool      load(int8_t entry, struct station_config* config) override;
+  bool      save(const struct station_config* config) override;
+
+ private:
+  typedef station_config  station_config_t;
+  typedef struct {
+    String  password;
+    uint8_t bssid[6];
+  } AC_CREDTBODY_t;
+
+  bool    _add(const station_config_t* config);
+  size_t  _commit(void);
+  uint8_t _import(void);
+  void    _obtain(std::map<String, AC_CREDTBODY_t>::iterator const& it, station_config_t* config);
+
+  std::unique_ptr<Preferences>      _pref;
+  std::map<String, AC_CREDTBODY_t>  _credit;
+};
+
+#endif
 
 #endif  // _AUTOCONNECTCREDENTIAL_H_

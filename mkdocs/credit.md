@@ -102,6 +102,22 @@ Delete a credential the specified SSID.
     <dd><span class="apidef">false</span><span class="apidesc">Failed to delete.</span></dd>
 </dl>
 
+!!! example "Clear saved credentials"
+    There is no particular API for batch clearing of all credential data stored by AutoConnect. It is necessary to prepare a sketch function that combines several AutoConnectCredential APIs  to erase all saved credentials.
+    The following function is an implementation example, and you can use it to achieve batch clearing.
+    ```cpp
+    void deleteAllCredentials(void) {
+      AutoConnectCredential credential;
+      struct station_config config;
+      uint8_t ent = credential.entries();
+
+      while (ent--) {
+        credential.load((int8_t)0, &config);
+        credential.del((const char*)&config.ssid[0]);
+      }
+    }
+    ```
+
 ## The data structures
 
 ### <i class="fa fa-code"></i>  station_config

@@ -1,18 +1,17 @@
 /**
- *	AutoConnectCredential class implementation.
+ *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	0.9.5
- *	@date	2018-02-17
+ *	@version	1.0.0
+ *	@date	2019-08-15
  *	@copyright	MIT license.
  */
 
-// #include <EEPROM.h>
 #include "AutoConnectCredential.h"
 
-#define AC_IDENTIFIER "AC_CREDT"
-#define AC_HEADERSIZE ((int)(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t)))
+#if defined(ARDUINO_ARCH_ESP8266)
 
+#define AC_HEADERSIZE ((int)(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t)))
 /**
  *  AutoConnectCredential constructor takes the available count of saved
  *  entries.
@@ -45,25 +44,17 @@ AutoConnectCredential::AutoConnectCredential(uint16_t offset) {
 
 void AutoConnectCredential::_allocateEntry(void) {
   char    id_c[sizeof(AC_IDENTIFIER) - 1];
-  uint8_t c;
 
   _eeprom.reset(new EEPROMClass);
-
-  // EEPROM.begin(AC_HEADERSIZE);
-  _eeprom->begin(AC_HEADERSIZE + sizeof(struct station_config));
+  _eeprom->begin(AC_HEADERSIZE);
 
   // Validate the save area of the EEPROM.
   // If it is a valid area, retrieve the stored number of entries,
   // if the identifier is not saved, initialize the EEPROM area.
   _dp = _offset;
-  for (c = 0; c < sizeof(id_c); c++) {
-    // id_c[c] = static_cast<char>(EEPROM.read(_dp++));
+  for (uint8_t c = 0; c < sizeof(id_c); c++)
     id_c[c] = static_cast<char>(_eeprom->read(_dp++));
-  }
   if (!strncmp(id_c, AC_IDENTIFIER, sizeof(id_c))) {
-  //   _entries = EEPROM.read(static_cast<int>(_dp++));
-  //   _containSize = EEPROM.read(static_cast<int>(_dp++));
-  //   _containSize += EEPROM.read(static_cast<int>(_dp)) << 8;
     _entries = _eeprom->read(static_cast<int>(_dp++));
     _containSize = _eeprom->read(static_cast<int>(_dp++));
     _containSize += _eeprom->read(static_cast<int>(_dp)) << 8;
@@ -72,8 +63,6 @@ void AutoConnectCredential::_allocateEntry(void) {
     _entries = 0;
     _containSize = 0;
   }
-
-  // EEPROM.end();
   _eeprom->end();
 }
 
@@ -81,7 +70,6 @@ void AutoConnectCredential::_allocateEntry(void) {
  *  The destructor ends EEPROM access.
  */
 AutoConnectCredential::~AutoConnectCredential() {
-  // EEPROM.end();
   _eeprom->end();
   _eeprom.reset();
 }
@@ -98,41 +86,30 @@ bool AutoConnectCredential::del(const char* ssid) {
 
   if (load(ssid, &entry) >= 0) {
     // Saved credential detected, _ep has the entry location.
-    // EEPROM.begin(AC_HEADERSIZE + _containSize);
     _eeprom->begin(AC_HEADERSIZE + _containSize);
     _dp = _ep;
 
     // Erase SSID
-    // while (EEPROM.read(_dp) != 0x00)
-    //   EEPROM.write(_dp++, 0xff);
     while (_eeprom->read(_dp) != 0x00)
       _eeprom->write(_dp++, 0xff);
 
     // Erase Password
-    // EEPROM.write(_dp++, 0xff);
     _eeprom->write(_dp++, 0xff);
-    // while (EEPROM.read(_dp) != 0x00)
-    //   EEPROM.write(_dp++, 0xff);
     while (_eeprom->read(_dp) != 0x00)
       _eeprom->write(_dp++, 0xff);
 
     // Erase BSSID
-    // EEPROM.write(_dp++, 0xff);
     _eeprom->write(_dp++, 0xff);
     for (uint8_t i = 0; i < sizeof(station_config::bssid); i++)
-      // EEPROM.write(_dp++, 0xff);
       _eeprom->write(_dp++, 0xff);
 
     // End 0xff writing, update headers.
     _entries--;
-    // EEPROM.write(_offset + static_cast<int>(sizeof(AC_IDENTIFIER)) - 1, _entries);
     _eeprom->write(_offset + static_cast<int>(sizeof(AC_IDENTIFIER)) - 1, _entries);
 
     // commit it.
-    // rc = EEPROM.commit();
     rc = _eeprom->commit();
     delay(10);
-    // EEPROM.end();
     _eeprom->end();
   }
   return rc;
@@ -153,7 +130,6 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
   _dp = AC_HEADERSIZE;
   if (_entries) {
     Serial.printf("load: length series, AC_HEADERSIZE(%d), _containSize(%d)\n", AC_HEADERSIZE, _containSize);
-    // EEPROM.begin(AC_HEADERSIZE + _containSize);
     _eeprom->begin(AC_HEADERSIZE + _containSize);
     for (uint8_t i = 0; i < _entries; i++) {
       _retrieveEntry(reinterpret_cast<char*>(config->ssid), reinterpret_cast<char*>(config->password), config->bssid);
@@ -162,7 +138,6 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
         break;
       }
     }
-    // EEPROM.end();
     _eeprom->end();
   }
   return entry;
@@ -180,12 +155,9 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
 bool AutoConnectCredential::load(int8_t entry, struct station_config* config) {
   _dp = AC_HEADERSIZE;
   if (_entries && entry < _entries) {
-    Serial.printf("load: length series, AC_HEADERSIZE(%d), _containSize(%d)\n", AC_HEADERSIZE, _containSize);
-    // EEPROM.begin(AC_HEADERSIZE + _containSize);
     _eeprom->begin(AC_HEADERSIZE + _containSize);
     while (entry-- >= 0)
       _retrieveEntry(reinterpret_cast<char*>(config->ssid), reinterpret_cast<char*>(config->password), config->bssid);
-    // EEPROM.end();
     _eeprom->end();
     return true;
   }
@@ -214,28 +186,18 @@ bool AutoConnectCredential::save(const struct station_config* config) {
   entry = load((const char*)(config->ssid), &stage);
 
   // Saving start.
-  // EEPROM.begin(AC_HEADERSIZE + _containSize + sizeof(struct station_config));
   _eeprom->begin(AC_HEADERSIZE + _containSize + sizeof(struct station_config));
-  Serial.printf("save: length series: AC_HEADERSIZE(%d), _containSize(%d), sizeof(struct station_config)(%d)\n", AC_HEADERSIZE, _containSize, sizeof(struct station_config));
 
   // Determine insertion or replacement.
   if (entry >= 0) {
     // An entry with the same SSID was found, release the area for replacement.
     _dp = _ep;
     for (uint8_t dm = 2; dm; _dp++) {
-      // uint8_t c = EEPROM.read(_dp);
-      uint8_t c = _eeprom->read(_dp);
-      Serial.printf("(RD)<- %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : c);
-//      if (EEPROM.read(_dp) == '\0')
-      if (c == '\0')
+      if (_eeprom->read(_dp) == '\0')
         dm--;
-      Serial.printf("(WR)-> %04x 0xff .\n", _dp);
-      // EEPROM.write(_dp, 0xff);    // Clear SSID, Passphrase
       _eeprom->write(_dp, 0xff);    // Clear SSID, Passphrase
     }
     for (uint8_t i = 0; i < sizeof(station_config::bssid); i++) {
-      Serial.printf("(WR)-> %04x 0xff .\n", _dp);
-      // EEPROM.write(_dp++, 0xff);  // Clear BSSID
       _eeprom->write(_dp++, 0xff);  // Clear BSSID
     }
   }
@@ -243,43 +205,29 @@ bool AutoConnectCredential::save(const struct station_config* config) {
     // Same entry not found. increase the entry.
     _entries++;
     int i;
-    for (i = 0; i < static_cast<int>(sizeof(_id)) - 1; i++) {
-      Serial.printf("(WR)-> %04x %02x %c\n", i + _offset, (uint8_t)_id[i], (uint8_t)_id[i] < 0x20 ? '.' : (char)_id[i]);
-      // EEPROM.write(i + _offset, (uint8_t)_id[i]);
+    for (i = 0; i < static_cast<int>(sizeof(_id)) - 1; i++)
       _eeprom->write(i + _offset, (uint8_t)_id[i]);
-    }
-    Serial.printf("(WR)-> %04x %02x %c\n", i + _offset, _entries, _entries < 0x20 ? '.' : (char)_entries);
-    // EEPROM.write(i + _offset, _entries);
     _eeprom->write(i + _offset, _entries);
   }
 
   rc = _eeprom->commit();
   delay(10);
-  if (!rc) Serial.printf("commit error\n");
 
   // Seek insertion point, evaluate capacity to insert the new entry.
   uint16_t eSize = strlen((const char*)config->ssid) + strlen((const char*)config->password) + sizeof(station_config::bssid) + 2;
-  Serial.printf("new entry size:%d\n", eSize);
   for (_dp = AC_HEADERSIZE; _dp < _containSize + AC_HEADERSIZE; _dp++) {
-    // uint8_t c = EEPROM.read(_dp);
     uint8_t c = _eeprom->read(_dp);
-    Serial.printf("(RD)<- %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : c);
     if (c == 0xff) {
       uint16_t fp = _dp;
-      Serial.printf("skip from %04x\n", _dp);
-      // while (EEPROM.read(++_dp) == 0xff) {}
       while (_eeprom->read(++_dp) == 0xff) {}
-      Serial.printf("skip to %04x\n", _dp);
       if (_dp - fp >= eSize) {
         _dp = fp;
         rep = true;
-        Serial.printf("rep position:%02x\n", _dp);
         break;
       }
       _dp--;
     }
   }
-  Serial.printf("insertion position:%02x\n", _dp);
 
   // Save new entry
   uint8_t         c;
@@ -287,45 +235,29 @@ bool AutoConnectCredential::save(const struct station_config* config) {
   dt = config->ssid;
   do {  // Write SSID
     c = *dt++;
-    Serial.printf("(WR)-> %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : (char)c);
-    // EEPROM.write(_dp++, c);
     _eeprom->write(_dp++, c);
   } while (c != '\0');
   dt = config->password;
   do {  // Write password
     c = *dt++;
-    Serial.printf("(WR)-> %04x %02x %c\n", _dp, c, c < 0x20 ? '.' : (char)c);
-    // EEPROM.write(_dp++, c);
     _eeprom->write(_dp++, c);
   } while (c != '\0');
   for (uint8_t i = 0; i < sizeof(station_config::bssid); i++) {
-    Serial.printf("(WR)-> %04x %02x %c\n", _dp, config->bssid[i], config->bssid[i] < 0x20 ? '.' : (char)config->bssid[i]);
-    // EEPROM.write(_dp++, config->bssid[i]);  // write BSSID
     _eeprom->write(_dp++, config->bssid[i]);  // write BSSID
   }
   // Terminate container, mark to the end of credential area.
   // When the entry is replaced, not mark a terminator.
   if (!rep) {
-    Serial.printf("!rep\n");
-    Serial.printf("(WR)-> %04x 00 .\n", _dp);
-    // EEPROM.write(_dp, '\0');
     _eeprom->write(_dp, '\0');
 
     // Update container size
     _containSize = _dp - AC_HEADERSIZE;
-    // EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize);
     _eeprom->write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize);
-    Serial.printf("(WR)-> %04x %02x %c\n", _offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t), (uint8_t)_containSize, (uint8_t)_containSize < 0x20 ? '.' : (uint8_t)_containSize);
-    // EEPROM.write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8));
     _eeprom->write(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8));
-    Serial.printf("(WR)-> %04x %02x %c\n", _offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + 1, (uint8_t)(_containSize >> 8), (uint8_t)(_containSize >> 8) < 0x20 ? '.' : (uint8_t)(_containSize >> 8));
   }
 
-  // bool rc = EEPROM.commit();
   rc &= _eeprom->commit();
   delay(10);
-  if (!rc) Serial.printf("commit error\n");
-  // EEPROM.end();
   _eeprom->end();
 
   return rc;
@@ -340,34 +272,259 @@ bool AutoConnectCredential::save(const struct station_config* config) {
 void AutoConnectCredential::_retrieveEntry(char* ssid, char* password, uint8_t* bssid) {
   uint8_t ec;
 
-  Serial.println("_retrieveEntry:<-");
   // Skip unavailable entry.
-  Serial.printf("skip from %04x\n", _dp);
-  // while ((ec = EEPROM.read(_dp++)) == 0xff) {}
   while ((ec = _eeprom->read(_dp++)) == 0xff) {}
-  Serial.printf("skip to %04x\n", _dp);
 
   // Retrieve SSID
   _ep = _dp - 1;
   *ssid++ = ec;
   do {
-    // ec = EEPROM.read(_dp++);
     ec = _eeprom->read(_dp++);
-    Serial.printf("(RD)<- %04x %02x %c\n", _dp - 1, ec, ec < 0x20 ? '.' : ec);
     *ssid++ = ec;
   } while (ec != '\0');
   // Retrieve Password
   do {
-    // ec = EEPROM.read(_dp++);
     ec = _eeprom->read(_dp++);
-    Serial.printf("(RD)<- %04x %02x %c\n", _dp - 1, ec, ec < 0x20 ? '.' : ec);
     *password++ = ec;
   } while (ec != '\0');
   // Retrieve BSSID
-  for (uint8_t i = 0; i < sizeof(station_config::bssid); i++) {
-    // bssid[i] = EEPROM.read(_dp++);
+  for (uint8_t i = 0; i < sizeof(station_config::bssid); i++)
     bssid[i] = _eeprom->read(_dp++);
-    Serial.printf("(RD)<- %04x %02x %c\n", _dp - 1, bssid[i], bssid[i] < 0x20 ? '.' : bssid[i]);
-  }
-  Serial.println("_retrieveEntry:->");
 }
+
+#elif defined(ARDUINO_ARCH_ESP32)
+
+/**
+ *  AutoConnectCredential constructor takes the available count of saved
+ *  entries.
+ *  The credential area in the flash used by AutoConnect was moved from
+ *  EEPROM to NVS with v.1.0.0. A stored credential data structure of
+ *  Preferences is as follows. It has no identifier as AC_CREDT.
+ *   0 12 3                                  (t)
+ *  +-+--+-----------------+-----------------+--+
+ *  |e|ss|ssid\0pass\0bssid|ssid\0pass\0bssid|\0|
+ *  +-+--+-----------------+-----------------+--+
+ *  e  : Number of contained entries(uint8_t).
+ *  ss : Container size, excluding ID and number of entries(uint16_t).
+ *  ssid: SSID string with null termination.
+ *  password : Password string with null termination.
+ *  bssid : BSSID 6 bytes.
+ *  t  : The end of the container is a continuous '\0'.
+ *  The AC_CREDT identifier is at the beginning of the area.
+ *  SSID and PASSWORD are terminated by '\ 0'.
+ *  Free area are filled with FF, which is reused as an area for insertion.
+ */
+AutoConnectCredential::AutoConnectCredential() {
+  _pref.reset(new Preferences);
+  _entries = _import();
+}
+
+AutoConnectCredential::~AutoConnectCredential() {
+  _credit.clear();
+  _pref.reset();
+}
+
+/**
+ *  Delete the credential entry for the specified SSID in the EEPROM.
+ *  @param  ssid    A SSID character string to be deleted.
+ *  @retval true    The entry successfully delete.
+ *          false   Could not deleted.
+ */
+bool AutoConnectCredential::del(const char* ssid) {
+  decltype(_credit)::iterator it = _credit.find(String(ssid));
+  if (it != _credit.end()) {
+    _credit.erase(it);
+    _entries = _credit.size();
+    Serial.printf("%s deleted.\n", ssid);
+    return true;
+  }
+  Serial.printf("%s could not deleted, not found.\n", ssid);
+  return false;
+}
+
+/**
+ *  Load the credential entry for the specified SSID from the internal
+ *  dictionary. The credentials are stored to the station_config
+ *  structure which specified by *config as the SSID and password.
+ *  @param  ssid    A SSID character string to be loaded.
+ *  @param  config  A station_config structure pointer.
+ *  @retval The entry number of the SSID. If the number less than 0,
+ *  the specified SSID was not found.
+ */
+int8_t AutoConnectCredential::load(const char* ssid, struct station_config* config) {
+  decltype(_credit)::iterator it = _credit.find(String(ssid));
+  if (it != _credit.end()) {
+    _obtain(it, config);
+
+    // Detemine the number in entries
+    int8_t  en = 0;
+    for (decltype(_credit)::iterator se = _credit.begin(), e = _credit.end(); se != e; ++se) {
+      if (it == se)
+        break;
+      en++;
+    }
+    return en;
+  }
+  return -1;
+}
+
+/**
+ *  Load the credential entry for the specified number from the internal
+ *  dictionary. The credentials are stored to the station_config
+ *  structure which specified *config as the SSID and password.
+ *  @param  entry   A number of entry to be loaded.
+ *  @param  config  A station_config structure pointer.
+ *  @retval true    The entry number of the SSID.
+ *          false   The number is not available.
+ */
+bool AutoConnectCredential::load(int8_t entry, struct station_config* config) {
+  for (decltype(_credit)::iterator it = _credit.begin(), e = _credit.end(); it != e; ++it) {
+    if (!entry--) {
+      _obtain(it, config);
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ *  Save SSID and password to Preferences.
+ *  When the same SSID already exists, it will be replaced. If the current
+ *  entry size insufficient for the new entry, the entry will be appended
+ *  and increase whole size. Its previous areas are freed with FF and reused.
+ *  @param  config  A pointer to the station_config structure storing SSID and password.
+ *  @retval true    Successfully saved.
+ *  @retval false   Preferences commit failed.
+ */
+bool AutoConnectCredential::save(const struct station_config* config) {
+  if (_add(config)) {
+    Serial.printf("%s added.\n", config->ssid);
+    return _commit() > 0 ? true : false;
+  }
+  return false;
+}
+
+/**
+ *  Add an entry to internal dictionary that is std::map structure.
+ *  It adds an entry by the insert after will delete the same entry
+ *  caused std:: map does not accept duplicate keys.
+ *  @param  config  A pointer to the station_config structure storing SSID and password.
+ *  @retval true    Successfully saved.
+ *  @retval false   Preferences commit failed.
+ */
+bool AutoConnectCredential::_add(const station_config_t* config) {
+  const String  ssid = String(reinterpret_cast<const char*>(config->ssid));
+  if (ssid.length() > 0) {
+
+    // Remove a same entry to insert a new one.
+    decltype(_credit)::iterator it = _credit.find(ssid);
+    if (it != _credit.end())
+      _credit.erase(it);
+
+    // Insert
+    AC_CREDTBODY_t  credtBody;
+    credtBody.password = String(reinterpret_cast<const char*>(config->password));
+    memcpy(credtBody.bssid, config->bssid, sizeof(((AC_CREDTBODY_t*)0)->bssid));
+    std::pair<std::map<String, AC_CREDTBODY_t>::iterator, bool> rc = _credit.insert(std::make_pair(ssid, credtBody));
+    _entries = _credit.size();
+    return rc.second;
+  }
+  return false;
+}
+
+/**
+ *  Serialize the AutoConnectCredential instance and write it back to NVS.
+ */
+size_t AutoConnectCredential::_commit(void) {
+  AC_CREDTBODY_t credtBody;
+  String  ssid;
+  size_t  sz = 0;
+  size_t  psz = 0;
+
+  // Calculate the container size for saving to NVS.
+  // Calculate the serialization size for each entry and add the size
+  // of 'e' with the size of 'ss' to it.
+  for (const auto& credt : _credit) {
+    ssid = credt.first;
+    credtBody = credt.second;
+    sz += ssid.length() + sizeof('\0') + credtBody.password.length() + sizeof('\0') + sizeof(((AC_CREDTBODY_t*)0)->bssid);
+  }
+  _entries = _credit.size();
+  // When the entry is not empty, the size of container terminator as
+  // '\0' must be added.
+  _containSize = sz + (_entries ? sizeof('\0') : 0);
+  // Add size of 'e' and 'ss' field.
+  psz = _containSize + sizeof(uint8_t) + sizeof(uint16_t);
+
+  // Dump container to serialization pool and write it back to NVS.
+  uint8_t* credtPool = (uint8_t*)malloc(psz);
+  if (credtPool) {
+    credtPool[0] = _entries;
+    credtPool[1] = (uint8_t)((uint16_t)psz & 0x00ff);
+    credtPool[2] = (uint8_t)((uint16_t)psz >> 8);
+    uint16_t dp = 3;
+    for (const auto& credt : _credit) {
+      ssid = credt.first;
+      credtBody = credt.second;
+      size_t  itemLen = ssid.length() + sizeof('\0');
+      ssid.toCharArray(reinterpret_cast<char*>(&credtPool[dp]), itemLen);
+      dp += itemLen;
+      itemLen = credtBody.password.length() + sizeof('\0');
+      credtBody.password.toCharArray(reinterpret_cast<char*>(&credtPool[dp]), itemLen);
+      dp += itemLen;
+      memcpy(&credtPool[dp], credtBody.bssid, sizeof(((station_config_t*)0)->bssid));
+      dp += sizeof(((station_config_t*)0)->bssid);
+    }
+    credtPool[dp] = '\0';
+    if (_pref->begin(AC_CREDENTIAL_NVSNAME)) {
+      sz = _pref->putBytes(AC_CREDENTIAL_NVSKEY, credtPool, psz);
+      _pref->end();
+    }
+    free(credtPool);
+  }
+  return sz;
+}
+
+/**
+ *  Import the credentials bulk data as Preferences from NVS.
+ *  In ESP32, AutoConnect stores credentials in NVS from v1.0.0.
+ */
+uint8_t AutoConnectCredential::_import(void) {
+  uint8_t cn = 0;
+  if (_pref->begin(AC_CREDENTIAL_NVSNAME)) {
+    size_t  psz = _pref->getBytesLength(AC_CREDENTIAL_NVSKEY);
+    if (psz) {
+      uint8_t* credtPool = (uint8_t*)malloc(psz);
+      if (credtPool) {
+        _pref->getBytes(AC_CREDENTIAL_NVSKEY, static_cast<void*>(credtPool), psz);
+        _credit.clear();
+        cn = credtPool[0];
+        _containSize = credtPool[1] + (uint16_t)(credtPool[2] << 8);
+        uint16_t  dp = sizeof(uint8_t) + sizeof(uint16_t);
+        while (dp < psz - sizeof('\0')) {
+          AC_CREDTBODY_t  credtBody;
+          String  ssid = String(reinterpret_cast<const char*>(&credtPool[dp]));
+          dp += ssid.length() + sizeof('\0');
+          credtBody.password = String(reinterpret_cast<const char*>(&credtPool[dp]));
+          dp += credtBody.password.length() + sizeof('\0');
+          for (uint8_t ep = 0; ep < sizeof(((AC_CREDTBODY_t*)0)->bssid); ep++)
+            credtBody.bssid[ep] = credtPool[dp++];
+          _credit.insert(std::make_pair(ssid, credtBody));
+        }
+        free(credtPool);
+      }
+    }
+    _pref->end();
+  }
+  return cn;
+}
+
+void AutoConnectCredential::_obtain(std::map<String, AC_CREDTBODY_t>::iterator const& it, station_config_t* config) {
+  String  ssid = it->first;
+  AC_CREDTBODY_t&  credtBody = it->second;
+  ssid.toCharArray(reinterpret_cast<char*>(config->ssid), sizeof(((station_config_t*)0)->ssid));
+  credtBody.password.toCharArray(reinterpret_cast<char*>(config->password), sizeof(((station_config_t*)0)->password));
+  memcpy(config->bssid, credtBody.bssid, sizeof(((station_config_t*)0)->bssid));
+}
+
+#endif
