@@ -1,4 +1,4 @@
-#### [1.0.0] Aug. 13, 2019
+#### [1.0.0] Aug. 19, 2019
 - Supports AutoConnectUpdate for the [OTA update](otaupdate.md).
 
 #### [0.9.12] Aug. 18, 2019
