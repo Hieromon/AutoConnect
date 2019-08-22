@@ -129,7 +129,6 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
 
   _dp = AC_HEADERSIZE;
   if (_entries) {
-    Serial.printf("load: length series, AC_HEADERSIZE(%d), _containSize(%d)\n", AC_HEADERSIZE, _containSize);
     _eeprom->begin(AC_HEADERSIZE + _containSize);
     for (uint8_t i = 0; i < _entries; i++) {
       _retrieveEntry(reinterpret_cast<char*>(config->ssid), reinterpret_cast<char*>(config->password), config->bssid);
@@ -315,12 +314,24 @@ void AutoConnectCredential::_retrieveEntry(char* ssid, char* password, uint8_t* 
  *  Free area are filled with FF, which is reused as an area for insertion.
  */
 AutoConnectCredential::AutoConnectCredential() {
+  _allocateEntry();
+}
+
+AutoConnectCredential::AutoConnectCredential(uint16_t offset) {
+  // In ESP32, always use from the beginning of the Preferences area.
+  // The offset parameter is invalid but preserved for backward compatibility.
+  (void)(offset);
+  _allocateEntry();
+}
+
+void AutoConnectCredential::_allocateEntry(void) {
   _pref.reset(new Preferences);
   _entries = _import();
 }
 
 AutoConnectCredential::~AutoConnectCredential() {
   _credit.clear();
+  _pref->end();
   _pref.reset();
 }
 
@@ -335,10 +346,8 @@ bool AutoConnectCredential::del(const char* ssid) {
   if (it != _credit.end()) {
     _credit.erase(it);
     _entries = _credit.size();
-    Serial.printf("%s deleted.\n", ssid);
     return true;
   }
-  Serial.printf("%s could not deleted, not found.\n", ssid);
   return false;
 }
 
@@ -356,7 +365,7 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
   if (it != _credit.end()) {
     _obtain(it, config);
 
-    // Detemine the number in entries
+    // Determine the number in entries
     int8_t  en = 0;
     for (decltype(_credit)::iterator se = _credit.begin(), e = _credit.end(); se != e; ++se) {
       if (it == se)
@@ -398,7 +407,6 @@ bool AutoConnectCredential::load(int8_t entry, struct station_config* config) {
  */
 bool AutoConnectCredential::save(const struct station_config* config) {
   if (_add(config)) {
-    Serial.printf("%s added.\n", config->ssid);
     return _commit() > 0 ? true : false;
   }
   return false;
@@ -424,8 +432,8 @@ bool AutoConnectCredential::_add(const station_config_t* config) {
     // Insert
     AC_CREDTBODY_t  credtBody;
     credtBody.password = String(reinterpret_cast<const char*>(config->password));
-    memcpy(credtBody.bssid, config->bssid, sizeof(((AC_CREDTBODY_t*)0)->bssid));
-    std::pair<std::map<String, AC_CREDTBODY_t>::iterator, bool> rc = _credit.insert(std::make_pair(ssid, credtBody));
+    memcpy(credtBody.bssid, config->bssid, sizeof(AC_CREDTBODY_t::bssid));
+    std::pair<AC_CREDT_t::iterator, bool> rc = _credit.insert(std::make_pair(ssid, credtBody));
     _entries = _credit.size();
     return rc.second;
   }
@@ -442,16 +450,14 @@ size_t AutoConnectCredential::_commit(void) {
   size_t  psz = 0;
 
   // Calculate the container size for saving to NVS.
-  // Calculate the serialization size for each entry and add the size
-  // of 'e' with the size of 'ss' to it.
+  // Calculate the serialization size for each entry and add the size of 'e' with the size of 'ss' to it.
   for (const auto& credt : _credit) {
     ssid = credt.first;
     credtBody = credt.second;
-    sz += ssid.length() + sizeof('\0') + credtBody.password.length() + sizeof('\0') + sizeof(((AC_CREDTBODY_t*)0)->bssid);
+    sz += ssid.length() + sizeof('\0') + credtBody.password.length() + sizeof('\0') + sizeof(AC_CREDTBODY_t::bssid);
   }
   _entries = _credit.size();
-  // When the entry is not empty, the size of container terminator as
-  // '\0' must be added.
+  // When the entry is not empty, the size of container terminator as '\0' must be added.
   _containSize = sz + (_entries ? sizeof('\0') : 0);
   // Add size of 'e' and 'ss' field.
   psz = _containSize + sizeof(uint8_t) + sizeof(uint16_t);
@@ -459,29 +465,42 @@ size_t AutoConnectCredential::_commit(void) {
   // Dump container to serialization pool and write it back to NVS.
   uint8_t* credtPool = (uint8_t*)malloc(psz);
   if (credtPool) {
-    credtPool[0] = _entries;
-    credtPool[1] = (uint8_t)((uint16_t)psz & 0x00ff);
-    credtPool[2] = (uint8_t)((uint16_t)psz >> 8);
+    credtPool[0] = _entries;  // 'e'
+    credtPool[1] = (uint8_t)((uint16_t)psz & 0x00ff); // 'ss' low byte
+    credtPool[2] = (uint8_t)((uint16_t)psz >> 8);     // 'ss' high byte
+    // Starts dump of credential entries
     uint16_t dp = 3;
     for (const auto& credt : _credit) {
-      ssid = credt.first;
-      credtBody = credt.second;
+      ssid = credt.first;       // Retrieve SSID
+      credtBody = credt.second; // Retrieve an entry
+      // SSID
       size_t  itemLen = ssid.length() + sizeof('\0');
       ssid.toCharArray(reinterpret_cast<char*>(&credtPool[dp]), itemLen);
+      // Password
       dp += itemLen;
       itemLen = credtBody.password.length() + sizeof('\0');
       credtBody.password.toCharArray(reinterpret_cast<char*>(&credtPool[dp]), itemLen);
+      // BSSID
       dp += itemLen;
-      memcpy(&credtPool[dp], credtBody.bssid, sizeof(((station_config_t*)0)->bssid));
-      dp += sizeof(((station_config_t*)0)->bssid);
+      memcpy(&credtPool[dp], credtBody.bssid, sizeof(station_config_t::bssid));
+      dp += sizeof(station_config_t::bssid);
     }
-    credtPool[dp] = '\0';
-    if (_pref->begin(AC_CREDENTIAL_NVSNAME)) {
+    credtPool[dp] = '\0'; // Terminates a container
+    // Write back to the nvs
+    if (_pref->begin(AC_CREDENTIAL_NVSNAME, false)) {
       sz = _pref->putBytes(AC_CREDENTIAL_NVSKEY, credtPool, psz);
       _pref->end();
     }
+    #ifdef AC_DBG
+    else
+      AC_DBG("Preferences begin failed to save " AC_CREDENTIAL_NVSKEY "\n");
+    #endif
     free(credtPool);
   }
+  #ifdef AC_DBG
+  else
+    AC_DBG("Preferences pool %d(B) allocation failed\n", psz);
+  #endif
   return sz;
 }
 
@@ -491,40 +510,60 @@ size_t AutoConnectCredential::_commit(void) {
  */
 uint8_t AutoConnectCredential::_import(void) {
   uint8_t cn = 0;
-  if (_pref->begin(AC_CREDENTIAL_NVSNAME)) {
+  if (_pref->begin(AC_CREDENTIAL_NVSNAME, true)) {
     size_t  psz = _pref->getBytesLength(AC_CREDENTIAL_NVSKEY);
     if (psz) {
       uint8_t* credtPool = (uint8_t*)malloc(psz);
       if (credtPool) {
         _pref->getBytes(AC_CREDENTIAL_NVSKEY, static_cast<void*>(credtPool), psz);
         _credit.clear();
-        cn = credtPool[0];
-        _containSize = credtPool[1] + (uint16_t)(credtPool[2] << 8);
+        cn = credtPool[0];  // Retrieve 'e'
+        _containSize = credtPool[1] + (uint16_t)(credtPool[2] << 8);  // Retrieve 'ss'
         uint16_t  dp = sizeof(uint8_t) + sizeof(uint16_t);
+        // Starts import
         while (dp < psz - sizeof('\0')) {
           AC_CREDTBODY_t  credtBody;
+          // SSID
           String  ssid = String(reinterpret_cast<const char*>(&credtPool[dp]));
+          // Password
           dp += ssid.length() + sizeof('\0');
           credtBody.password = String(reinterpret_cast<const char*>(&credtPool[dp]));
+          // BSSID
           dp += credtBody.password.length() + sizeof('\0');
-          for (uint8_t ep = 0; ep < sizeof(((AC_CREDTBODY_t*)0)->bssid); ep++)
+          for (uint8_t ep = 0; ep < sizeof(AC_CREDTBODY_t::bssid); ep++)
             credtBody.bssid[ep] = credtPool[dp++];
+          // Make an entry
           _credit.insert(std::make_pair(ssid, credtBody));
         }
         free(credtPool);
       }
+      #ifdef AC_DBG
+      else
+        AC_DBG("Preferences pool %d(B) allocation failed\n", psz);
+      #endif
     }
     _pref->end();
   }
+  #ifdef AC_DBG
+  else
+    AC_DBG("Preferences begin failed to import " AC_CREDENTIAL_NVSKEY "\n");
+  #endif
   return cn;
 }
 
-void AutoConnectCredential::_obtain(std::map<String, AC_CREDTBODY_t>::iterator const& it, station_config_t* config) {
+/**
+ *  Obtains an entry pointed to by the specified iterator from the
+ *  dictionary as the std::map that maintains the credentials into the
+ *  station_config structure.
+ *  @param  it  An  iterator to an entry
+ *  @param  config  the station_config structure storing SSID and password.
+ */
+void AutoConnectCredential::_obtain(AC_CREDT_t::iterator const& it, station_config_t* config) {
   String  ssid = it->first;
   AC_CREDTBODY_t&  credtBody = it->second;
-  ssid.toCharArray(reinterpret_cast<char*>(config->ssid), sizeof(((station_config_t*)0)->ssid));
-  credtBody.password.toCharArray(reinterpret_cast<char*>(config->password), sizeof(((station_config_t*)0)->password));
-  memcpy(config->bssid, credtBody.bssid, sizeof(((station_config_t*)0)->bssid));
+  ssid.toCharArray(reinterpret_cast<char*>(config->ssid), sizeof(station_config_t::ssid));
+  credtBody.password.toCharArray(reinterpret_cast<char*>(config->password), sizeof(station_config_t::password));
+  memcpy(config->bssid, credtBody.bssid, sizeof(station_config_t::bssid));
 }
 
 #endif
