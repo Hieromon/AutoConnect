@@ -9,7 +9,7 @@
 
 #include "AutoConnectCredential.h"
 
-#if defined(ARDUINO_ARCH_ESP8266)
+#if AC_CREDENTIAL_PREFERENCES == 0
 
 #define AC_HEADERSIZE ((int)(_offset + sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t)))
 /**
@@ -291,7 +291,7 @@ void AutoConnectCredential::_retrieveEntry(char* ssid, char* password, uint8_t* 
     bssid[i] = _eeprom->read(_dp++);
 }
 
-#elif defined(ARDUINO_ARCH_ESP32)
+#else
 
 /**
  *  AutoConnectCredential constructor takes the available count of saved
@@ -361,18 +361,15 @@ bool AutoConnectCredential::del(const char* ssid) {
  *  the specified SSID was not found.
  */
 int8_t AutoConnectCredential::load(const char* ssid, struct station_config* config) {
-  decltype(_credit)::iterator it = _credit.find(String(ssid));
-  if (it != _credit.end()) {
-    _obtain(it, config);
-
-    // Determine the number in entries
-    int8_t  en = 0;
-    for (decltype(_credit)::iterator se = _credit.begin(), e = _credit.end(); se != e; ++se) {
-      if (it == se)
-        break;
-      en++;
+  // Determine the number in entries
+  int8_t  en = 0;
+  for (decltype(_credit)::iterator it = _credit.begin(), e = _credit.end(); it != e; ++it) {
+    String  key = it->first;
+    if (!strcmp(ssid, key.c_str())) {
+      _obtain(it, config);
+      return en;
     }
-    return en;
+    en++;
   }
   return -1;
 }
@@ -435,6 +432,10 @@ bool AutoConnectCredential::_add(const station_config_t* config) {
     memcpy(credtBody.bssid, config->bssid, sizeof(AC_CREDTBODY_t::bssid));
     std::pair<AC_CREDT_t::iterator, bool> rc = _credit.insert(std::make_pair(ssid, credtBody));
     _entries = _credit.size();
+    #ifdef AC_DBG
+    if (!rc.second)
+      AC_DBG("Failed to save a credential %s\n", config->ssid);
+    #endif
     return rc.second;
   }
   return false;
@@ -446,30 +447,27 @@ bool AutoConnectCredential::_add(const station_config_t* config) {
 size_t AutoConnectCredential::_commit(void) {
   AC_CREDTBODY_t credtBody;
   String  ssid;
-  size_t  sz = 0;
-  size_t  psz = 0;
 
-  // Calculate the container size for saving to NVS.
   // Calculate the serialization size for each entry and add the size of 'e' with the size of 'ss' to it.
+  size_t  sz = 0;
   for (const auto& credt : _credit) {
     ssid = credt.first;
     credtBody = credt.second;
     sz += ssid.length() + sizeof('\0') + credtBody.password.length() + sizeof('\0') + sizeof(AC_CREDTBODY_t::bssid);
   }
-  _entries = _credit.size();
   // When the entry is not empty, the size of container terminator as '\0' must be added.
   _containSize = sz + (_entries ? sizeof('\0') : 0);
-  // Add size of 'e' and 'ss' field.
-  psz = _containSize + sizeof(uint8_t) + sizeof(uint16_t);
+  // Calculate the nvs pool size for saving to NVS. Add size of 'e' and 'ss' field.
+  size_t  psz = _containSize + sizeof(uint8_t) + sizeof(uint16_t);
 
   // Dump container to serialization pool and write it back to NVS.
   uint8_t* credtPool = (uint8_t*)malloc(psz);
   if (credtPool) {
-    credtPool[0] = _entries;  // 'e'
-    credtPool[1] = (uint8_t)((uint16_t)psz & 0x00ff); // 'ss' low byte
-    credtPool[2] = (uint8_t)((uint16_t)psz >> 8);     // 'ss' high byte
+    uint16_t dp = 0;
+    credtPool[dp++] = _entries;  // 'e'
+    credtPool[dp++] = (uint8_t)(psz & 0x00ff); // 'ss' low byte
+    credtPool[dp++] = (uint8_t)(psz >> 8);     // 'ss' high byte
     // Starts dump of credential entries
-    uint16_t dp = 3;
     for (const auto& credt : _credit) {
       ssid = credt.first;       // Retrieve SSID
       credtBody = credt.second; // Retrieve an entry
@@ -517,9 +515,9 @@ uint8_t AutoConnectCredential::_import(void) {
       if (credtPool) {
         _pref->getBytes(AC_CREDENTIAL_NVSKEY, static_cast<void*>(credtPool), psz);
         _credit.clear();
-        cn = credtPool[0];  // Retrieve 'e'
-        _containSize = credtPool[1] + (uint16_t)(credtPool[2] << 8);  // Retrieve 'ss'
-        uint16_t  dp = sizeof(uint8_t) + sizeof(uint16_t);
+        uint16_t  dp = 0;
+        cn = credtPool[dp++];  // Retrieve 'e'
+        _containSize = (uint16_t)credtPool[dp++] + (uint16_t)credtPool[dp++] << 8; // Retrieve size of 'ss'
         // Starts import
         while (dp < psz - sizeof('\0')) {
           AC_CREDTBODY_t  credtBody;
@@ -530,10 +528,10 @@ uint8_t AutoConnectCredential::_import(void) {
           credtBody.password = String(reinterpret_cast<const char*>(&credtPool[dp]));
           // BSSID
           dp += credtBody.password.length() + sizeof('\0');
-          for (uint8_t ep = 0; ep < sizeof(AC_CREDTBODY_t::bssid); ep++)
-            credtBody.bssid[ep] = credtPool[dp++];
+          memcpy(credtBody.bssid, &credtPool[dp], sizeof(AC_CREDTBODY_t::bssid));
           // Make an entry
           _credit.insert(std::make_pair(ssid, credtBody));
+          dp += sizeof(AC_CREDTBODY_t::bssid);
         }
         free(credtPool);
       }

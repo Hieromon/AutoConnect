@@ -10,18 +10,41 @@
 #ifndef _AUTOCONNECTCREDENTIAL_H_
 #define _AUTOCONNECTCREDENTIAL_H_
 
+// The AUTOCONNECT_USE_PREFERENCES macro indicates which classes apply
+// to the credentials storage structure either EEPROM or Preferences.
+// It is a valid indicator only for ESP32.
+// Undefine this macro, it maintains backward compatibility by applying
+// EEPROM to the credentials storage class in the arduino-esp32 core
+// v1.0.2 and earlier.
+#define AUTOCONNECT_USE_PREFERENCES
+
 #include <Arduino.h>
 #include <memory>
 #if defined(ARDUINO_ARCH_ESP8266)
 extern "C" {
 #include <user_interface.h>
 }
+#define AC_CREDENTIAL_PREFERENCES 0
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <esp_wifi.h>
+struct station_config {
+  uint8_t  ssid[32];
+  uint8_t  password[64];
+  uint8_t  bssid_set;
+  uint8_t  bssid[6];
+  wifi_fast_scan_threshold_t threshold;
+};
+#ifdef AUTOCONNECT_USE_PREFERENCES
+#define AC_CREDENTIAL_PREFERENCES 1
+#include <map>
+#include <Preferences.h>
+#else
+#define AC_CREDENTIAL_PREFERENCES 0
+#endif
+#if AC_CREDENTIAL_PREFERENCES == 0
 #define NO_GLOBAL_EEPROM
 #include <EEPROM.h>
-#elif defined(ARDUINO_ARCH_ESP32)
-#include <map>
-#include <esp_wifi.h>
-#include <Preferences.h>
+#endif
 #endif
 
 /**
@@ -58,7 +81,8 @@ class AutoConnectCredentialBase {
   uint16_t  _containSize;   /**< Container size */
 };
 
-#if defined(ARDUINO_ARCH_ESP8266)
+#if AC_CREDENTIAL_PREFERENCES == 0
+// #pragma message "AutoConnectCredential applies the EEPROM"
 
 /** AutoConnectCredential class using EEPROM for ESP8266 */
 class AutoConnectCredential : public AutoConnectCredentialBase {
@@ -83,18 +107,11 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   std::unique_ptr<EEPROMClass>  _eeprom;  /**< shared EEPROM class */
 };
 
-#elif defined(ARDUINO_ARCH_ESP32)
+#else
+// #pragma message "AutoConnectCredential applies the Preferences"
 
 #define AC_CREDENTIAL_NVSNAME  AC_IDENTIFIER
 #define AC_CREDENTIAL_NVSKEY   AC_CREDENTIAL_NVSNAME
-
-struct station_config {
-  uint8_t  ssid[32];
-  uint8_t  password[64];
-  uint8_t  bssid_set;
-  uint8_t  bssid[6];
-  wifi_fast_scan_threshold_t threshold;
-};
 
 /** AutoConnectCredential class using Preferences for ESP32 */
 class AutoConnectCredential : public AutoConnectCredentialBase {
