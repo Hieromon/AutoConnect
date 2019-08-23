@@ -331,7 +331,6 @@ void AutoConnectCredential::_allocateEntry(void) {
 
 AutoConnectCredential::~AutoConnectCredential() {
   _credit.clear();
-  _pref->end();
   _pref.reset();
 }
 
