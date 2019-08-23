@@ -180,7 +180,11 @@ void setup() {
     // formatted text using the format attribute.
     aux["caption"].value = PARAM_FILE;
 
+#if defined(ARDUINO_ARCH_ESP8266)
     SPIFFS.begin();
+#elif defined(ARDUINO_ARCH_ESP32)
+    SPIFFS.begin(true);
+#endif
     File param = SPIFFS.open(PARAM_FILE, "w");
     if (param) {
       // Save as a loadable set for parameters.
