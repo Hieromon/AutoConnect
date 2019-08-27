@@ -516,7 +516,8 @@ uint8_t AutoConnectCredential::_import(void) {
         _credit.clear();
         uint16_t  dp = 0;
         cn = credtPool[dp++];  // Retrieve 'e'
-        _containSize = (uint16_t)credtPool[dp++] + (uint16_t)credtPool[dp++] << 8; // Retrieve size of 'ss'
+        _containSize = (uint16_t)credtPool[dp++];
+        _containSize += (uint16_t)(credtPool[dp++] << 8); // Retrieve size of 'ss'
         // Starts import
         while (dp < psz - sizeof('\0')) {
           AC_CREDTBODY_t  credtBody;
