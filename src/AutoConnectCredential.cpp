@@ -340,14 +340,8 @@ AutoConnectCredential::~AutoConnectCredential() {
  *  @retval true    The entry successfully delete.
  *          false   Could not deleted.
  */
-bool AutoConnectCredential::del(const char* ssid) {
-  decltype(_credit)::iterator it = _credit.find(String(ssid));
-  if (it != _credit.end()) {
-    _credit.erase(it);
-    _entries = _credit.size();
-    return true;
-  }
-  return false;
+inline bool AutoConnectCredential::del(const char* ssid) {
+  return _del(ssid, true);
 }
 
 /**
@@ -421,9 +415,7 @@ bool AutoConnectCredential::_add(const station_config_t* config) {
   if (ssid.length() > 0) {
 
     // Remove a same entry to insert a new one.
-    decltype(_credit)::iterator it = _credit.find(ssid);
-    if (it != _credit.end())
-      _credit.erase(it);
+    _del(ssid.c_str(), false);
 
     // Insert
     AC_CREDTBODY_t  credtBody;
@@ -482,7 +474,8 @@ size_t AutoConnectCredential::_commit(void) {
       memcpy(&credtPool[dp], credtBody.bssid, sizeof(station_config_t::bssid));
       dp += sizeof(station_config_t::bssid);
     }
-    credtPool[dp] = '\0'; // Terminates a container
+    if (_credit.size() > 0)
+      credtPool[dp] = '\0'; // Terminates a container
     // Write back to the nvs
     if (_pref->begin(AC_CREDENTIAL_NVSNAME, false)) {
       sz = _pref->putBytes(AC_CREDENTIAL_NVSKEY, credtPool, psz);
@@ -499,6 +492,25 @@ size_t AutoConnectCredential::_commit(void) {
     AC_DBG("Preferences pool %d(B) allocation failed\n", psz);
   #endif
   return sz;
+}
+
+/**
+ *  Actualy delete the credential entry for the specified SSID from Preferences.
+ *  @param  ssid    A SSID character string to be deleted.
+ *  @param  commit  If false, delete only a credential entry without updating Preferences.
+ *  @retval true    The entry successfully delete.
+ *          false   Could not deleted.
+ */
+bool AutoConnectCredential::_del(const char* ssid, const bool commit) {
+  decltype(_credit)::iterator it = _credit.find(String(ssid));
+  if (it != _credit.end()) {
+    _credit.erase(it);
+    _entries = _credit.size();
+    if (commit)
+      _commit();
+    return true;
+  }
+  return false;
 }
 
 /**

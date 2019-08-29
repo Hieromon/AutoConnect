@@ -137,6 +137,7 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
 
   bool    _add(const station_config_t* config); /**< Add an entry */
   size_t  _commit(void);    /**< Write back to the nvs */
+  bool    _del(const char* ssid, const bool commit);  /**< Deletes an entry */
   uint8_t _import(void);    /**< Import from the nvs */
   void    _obtain(AC_CREDT_t::iterator const& it, station_config_t* config);  /**< Obtain an entry from iterator */
 
