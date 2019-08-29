@@ -21,30 +21,24 @@
 #include <Arduino.h>
 #include <memory>
 #if defined(ARDUINO_ARCH_ESP8266)
+#define AC_CREDENTIAL_PREFERENCES 0
 extern "C" {
 #include <user_interface.h>
 }
-#define AC_CREDENTIAL_PREFERENCES 0
 #elif defined(ARDUINO_ARCH_ESP32)
-#include <esp_wifi.h>
-struct station_config {
-  uint8_t  ssid[32];
-  uint8_t  password[64];
-  uint8_t  bssid_set;
-  uint8_t  bssid[6];
-  wifi_fast_scan_threshold_t threshold;
-};
 #ifdef AUTOCONNECT_USE_PREFERENCES
 #define AC_CREDENTIAL_PREFERENCES 1
-#include <map>
-#include <Preferences.h>
 #else
 #define AC_CREDENTIAL_PREFERENCES 0
 #endif
-#if AC_CREDENTIAL_PREFERENCES == 0
-#define NO_GLOBAL_EEPROM
-#include <EEPROM.h>
-#endif
+#include <esp_wifi.h>
+struct station_config {
+uint8_t  ssid[32];
+uint8_t  password[64];
+uint8_t  bssid_set;
+uint8_t  bssid[6];
+wifi_fast_scan_threshold_t threshold;
+};
 #endif
 
 /**
@@ -83,6 +77,8 @@ class AutoConnectCredentialBase {
 
 #if AC_CREDENTIAL_PREFERENCES == 0
 // #pragma message "AutoConnectCredential applies the EEPROM"
+#define NO_GLOBAL_EEPROM
+#include <EEPROM.h>
 
 /** AutoConnectCredential class using EEPROM for ESP8266 */
 class AutoConnectCredential : public AutoConnectCredentialBase {
@@ -109,6 +105,8 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
 
 #else
 // #pragma message "AutoConnectCredential applies the Preferences"
+#include <map>
+#include <Preferences.h>
 
 #define AC_CREDENTIAL_NVSNAME  AC_IDENTIFIER
 #define AC_CREDENTIAL_NVSKEY   AC_CREDENTIAL_NVSNAME
