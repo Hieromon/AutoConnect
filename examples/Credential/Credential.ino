@@ -123,13 +123,15 @@ String delCredential(PageArgument& args) {
   AutoConnectCredential  ac(CREDENTIAL_OFFSET);
   if (args.hasArg("num")) {
     int8_t  e = args.arg("num").toInt();
+    Serial.printf("Request deletion #%d\n", e);
     if (e > 0) {
       struct  station_config entry;
 
       // If the input number is valid, delete that entry.
       int8_t  de = ac.load(e - 1, &entry);  // A base of entry num is 0.
       if (de > 0) {
-        ac.del((char *)entry.ssid);
+        Serial.printf("Delete for %s ", (char *)entry.ssid);
+        Serial.printf("%s\n", ac.del((char *)entry.ssid) ? "completed" : "failed");
 
         // Returns the redirect response. The page is reloaded and its contents
         // are updated to the state after deletion. It returns 302 response
