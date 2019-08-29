@@ -1,8 +1,42 @@
-## Saved credentials in EEPROM
+## Saved credentials in the flash
 
-AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's [**AutoConnectCredential**](#autoconnectcredential) class which provides the access method to the saved credentials in EEPROM.[^1]
+AutoConnect stores the established WiFi connection in the flash memory of the ESP8266/ESP32 module and equips the class to access the credentials from the sketch. You can read, write or erase the credentials using this class individually. It's [**AutoConnectCredential**](#autoconnectcredential) class which provides the access method to the saved credentials in the flash.[^1]
 
 [^1]:An example using AutoConnectCredential is provided as [an example](https://github.com/Hieromon/AutoConnect/blob/master/examples/Credential/Credential.ino) of a library sketch to delete saved credentials.
+
+## Credentials storage location
+
+The location where AutoConnect saves credentials depends on the module type and the AutoConnect library version, also arduino-esp32 core version. In either case, the location is flash memory, but EEPROM and Preferences (in the nvs[^2]) are used depending on the library versions.
+
+<table>
+  <tr>
+    <th rowspan="2" style="vertical-align:bottom">AutoConnect</th>
+    <th rowspan="2" style="vertical-align:bottom">Arduino core<br>for ESP8266</th>
+    <th colspan="2" style="text-align:center;vertical-align:bottom">Arduino core for ESP32</th>
+  </tr>
+  <tr>
+    <th style="text-align:center;vertical-align:bottom">1.0.2 earlier</td>
+    <th style="text-align:center;vertical-align:bottom">1.0.3 later</td>
+  </tr>
+  <tr>
+    <td>v0.9.12 earlier</td>
+    <td rowspan="2" style="text-align:center;vertical-align:middle">EEPROM</td>
+    <td>EEPROM (partition)</td>
+    <td>Not supported</td>
+  </tr>
+  <tr>
+    <td>v1.0.0 later</td>
+    <td>Preferences (nvs)<p>(Can be used EEPROM with turning off AUTOCONNECT_USE_PREFERENCES macro)</p></td>
+    <td>Preferences (nvs)</td>
+  </tr>
+</table>
+
+However, sketches do not need to know where to store credentials using the commonly accessible [AutoConnectCredential](#AutoConnectCredential) API.
+
+If you are using an Arduino core for ESP32 1.0.2 earlier and need to use credentials in EEPROM for backward compatibility, turns off the **AUTOCONNECT_USE_PREFERENCES**[^3] macro definition in `AutoConnectCredentials.h` file. AutoConnect behaves assuming that credentials are stored in EEPROM if `AUTOCONNECT_USE_PREFERENCES` is not defined.
+
+[^2]:The namespace for Preferences used by AutoConnect is **AC_CREDT**.
+[^3]:Available only for AutoConnect v1.0.0 and later.
 
 ## AutoConnectCredential
 
@@ -18,14 +52,14 @@ AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/
 AutoConnectCredential();
 ```
 
-AutoConnectCredential default constructor. The default offset value is 0. If the offset value is 0, the credential area starts from the top of the EEPROM. AutoConnect sometimes overwrites data when using this area with user sketch.
+AutoConnectCredential default constructor. The default offset value is 0. In ESP8266 or ESP32 with arduino core 1.0.2 earlier, if the offset value is 0, the credential area starts from the top of the EEPROM. If you use this area in a user sketch, AutoConnect may overwrite that data.
 
 ```cpp
 AutoConnectCredential(uint16_t offset);
 ```
 <dl class="apidl">
     <dt>**Parameter**</dt>
-    <dd><span class="apidef">offset</span><span class="apidesc">Species offset from the top of the EEPROM for the credential area together. The offset value is from 0 to the flash sector size.</span></dd>
+    <dd><span class="apidef">offset</span><span class="apidesc">Species offset from the top of the EEPROM for the credential area together. The offset value is from 0 to the flash sector size. This parameter is ignored for AutoConnect v1.0.0 or later with arduino-esp32 core 1.0.3 or later.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -112,7 +146,7 @@ Delete a credential the specified SSID.
       uint8_t ent = credential.entries();
 
       while (ent--) {
-        credential.load((int8_t)0, &config);
+        credential.load(0, &config);
         credential.del((const char*)&config.ssid[0]);
       }
     }
@@ -141,9 +175,9 @@ struct station_config {
 
 ### <i class="fa fa-code"></i>  The credential entry
 
-A data structure of the credential saving area in EEPROM as the below. [^2]
+A data structure of the credential saving area in EEPROM as the below. [^4]
 
-[^2]:
+[^4]:
 There may be 0xff as an invalid data in the credential saving area. The 0xff area would be reused.
 
 | Byte offset | Length   | Value                                                               |

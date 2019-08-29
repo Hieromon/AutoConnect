@@ -19,7 +19,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Store the established connection
 
-<span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](menu.md).</span>
+<span class="lead">The connection authentication data as credentials are saved automatically in the flash of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](menu.md).</span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in
 
@@ -87,6 +87,9 @@ Install third-party platform using the *Boards Manager* of Arduino IDE. Package 
 
 Also, to apply AutoConnect to ESP32, the [arduino-esp32 core](https://github.com/espressif/arduino-esp32) provided by Espressif is needed. Stable 1.0.1 or required and the [latest release](https://github.com/espressif/arduino-esp32/releases/latest) is recommended.  
 Install third-party platform using the *Boards Manager* of Arduino IDE. You can add multiple URLs into *Additional Board Manager URLs* field, separating them with commas. Package URL is https://dl.espressif.com/dl/package_esp32_index.json for ESP32.
+
+!!! info "Arduino core for ESP32 1.0.3 or later"
+    For ESP32, AutoConnect v1.0.0 later is required for arduino-esp32 1.0.3 or later.
 
 <i class="fa fa-download"></i> <strong>Additional library (Required)</strong>
 

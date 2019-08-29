@@ -6,7 +6,11 @@ Registering the "not found" handler is a different way than ESP8266WebServer (We
 
 ### <i class="fa fa-caret-right"></i> Access to saved credentials
 
-AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's [AutoConnectCredential](credit.md#autoconnectcredential) class which provides the access method to the saved credentials in EEPROM. Refer to section [Saved credentail access](credit.md) for details.
+AutoConnect stores the established WiFi connection in the flash of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's [AutoConnectCredential](credit.md#autoconnectcredential) class which provides the access method to the saved credentials in the flash. Refer to section [Saved credentials access](credit.md) for details.
+
+!!! note "Where to store credentials in ESP32 with AutoConnect v1.0.0 or later"
+    Since v1.0.0, credentials are stored in nvs of ESP32. AutoConnect v1.0.0 or later accesses the credentials area using the **Preferences** class with the arduino esp-32 core. So in ESP32, the credentials are not in the EEPROM, it is in the namespace **AC_CREDT** of the nvs. See [Saved credentials access](credit.md) for details.  
+    In ESP8266, it is saved in EEPROM as is conventionally done.
 
 ### <i class="fa fa-caret-right"></i> Automatic reconnect
 
@@ -14,7 +18,7 @@ When the captive portal is started, SoftAP starts and the STA is disconnected. T
 
 The [*WiFiSTAClass::disconnect*](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.
 
-If the [**autoReconnect**](apiconfig.md#autoreconnect) option of the [AutoConnectConfig](apiconfig.md) class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in EEPROM as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.
+If the [**autoReconnect**](apiconfig.md#autoreconnect) option of the [AutoConnectConfig](apiconfig.md) class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in the flash as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.
 
 ```cpp hl_lines="3"
 AutoConnect       Portal;
@@ -24,14 +28,15 @@ Portal.config(Config);
 Portal.begin();
 ```
 
-An autoReconnect option is available to *AutoConnect::begin* without SSID and pass passphrase.
+An autoReconnect option is available to *AutoConnect::begin* without SSID and pass Passphrase.
 
 !!! caution "An autoReconnect will work if SSID detection succeeded"
     An autoReconnect will not effect if the SSID which stored credential to be connected is a hidden access point.
 
 ### <i class="fa fa-caret-right"></i> Auto save Credential
 
-By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the [**autoSave**](apiconfig.md#autosave) parameter specified by [AutoConnectConfig](apiconfig.md).
+By default, AutoConnect saves the credentials of the established connection to the flash. You can disable it with the [**autoSave**](apiconfig.md#autosave) parameter specified by [AutoConnectConfig](apiconfig.md).  
+See the [Saved credentials access](credit.md) chapter for details on accessing stored credentials.
 
 ```cpp hl_lines="3"
 AutoConnect       Portal;
@@ -41,8 +46,30 @@ Portal.config(Config);
 Portal.begin();
 ```
 
-!!! note "In ESP32, the credentials for AutoConnect are not in NVS"
-    The credentials used by AutoConnect are not saved in NVS on ESP32 module. ESP-IDF saves the WiFi connection configuration to NVS, but AutoConnect stores it on the EEPROM partition. You can find the partition table for default as [default.csv](https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv)
+!!! note "Credentials storage location"
+    The location where AutoConnect saves credentials depends on the module type and the AutoConnect library version, also arduino-esp32 core version.
+    <table>
+      <tr>
+        <th rowspan="2" style="vertical-align:bottom">AutoConnect</th>
+        <th rowspan="2" style="vertical-align:bottom">Arduino core<br>for ESP8266</th>
+        <th colspan="2" style="text-align:center;vertical-align:bottom">Arduino core for ESP32</th>
+      </tr>
+      <tr>
+        <th style="text-align:center;vertical-align:bottom">1.0.2 earlier</td>
+        <th style="text-align:center;vertical-align:bottom">1.0.3 later</td>
+      </tr>
+      <tr>
+        <td>v0.9.12 earlier</td>
+        <td rowspan="2" style="text-align:center;vertical-align:middle">EEPROM</td>
+        <td>EEPROM (partition)</td>
+        <td>Not supported</td>
+      </tr>
+      <tr>
+        <td>v1.0.0 later</td>
+        <td>Preferences (nvs)<p>(Can be used EEPROM with turning off AUTOCONNECT_USE_PREFERENCES macro)</p></td>
+        <td>Preferences (nvs)</td>
+      </tr>
+    </table>
 
 ### <i class="fa fa-caret-right"></i> Captive portal start detection
 
@@ -290,9 +317,12 @@ and
 
 > EEPROM library uses one sector of flash located [just after the SPIFFS](http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom).
 
-Also, the placement of the EEPROM area of ESP32 is described in the [partition table](https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv). So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.
+Also, in ESP32 arduino core 1.0.2 earlier, the placement of the EEPROM area of ESP32 is described in the [partition table](https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv). So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.
 
 The [**boundaryOffset**](apiconfig.md#boundaryoffset) in [AutoConnectConfig](apiconfig.md) specifies the start offset of the credentials storage area. The default value is 0.
+
+!!! info "The boundaryOffset ignored with AutoConnect v1.0.0 later on ESP32 arduino core 1.0.3 later"
+    For ESP32 arduino core 1.0.3 and later, AutoConnect will store credentials to Preferences in the nvs. Since it is defined as the namespace dedicated to AutoConnect and separated from the area used for user sketches. Therefore, the boundaryOffet is ignored with the combination of AutoConnect v1.0.0 or later and the arduino-esp32 1.0.3 or later.
 
 ### <i class="fa fa-caret-right"></i> On-demand start the captive portal
 

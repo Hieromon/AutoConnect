@@ -1,5 +1,6 @@
-#### [1.0.0] Aug. 19, 2019
+#### [1.0.0] Aug. 29, 2019
 - Supports AutoConnectUpdate for the [OTA update](otaupdate.md).
+- Supports Preferences for saving credentials with ESP32 core 1.0.3 and later.
 
 #### [0.9.12] Aug. 18, 2019
 - Fixed missing captive portal notifications on the newer mobile OS client. As a result of this fix, the SoftAP default IP address and gateway have been changed to **172.217.28.1**.

@@ -47,7 +47,7 @@ These HTML elements that make up the user-owned screen can be easily loaded from
 
 ### Quick and easy to equip the OTA update feature <sup><sub>ENHANCED w/ v1.0.0</sub></sup>
 
-You can quickly and easily equip the OTA update feature to your sketch and also you can operate the firmware update process via OTA from AutoConnect menu.
+You can quickly and easily equip the [OTA update feature](https://hieromon.github.io/AutoConnect/otaupdate.html) to your sketch and also you can operate the firmware update process via OTA from AutoConnect menu.
 
 ## Supported hardware
 
@@ -101,8 +101,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [1.0.0] Aug. 13, 2019
+### [1.0.0] Aug. 29, 2019
 - Supports AutoConnectUpdate for the OTA update.
+- Supports Preferences for saving credentials with ESP32 core 1.0.3 and later. **In ESP32, the credentials stored past in EEPROM will lose**.
 
 ### [0.9.12] Aug. 18, 2019
 - Fixed missing captive portal notifications on the newer mobile OS client. As a result of this fix, the SoftAP default IP address and gateway have been changed to **172.217.28.1**. (issue #85) 

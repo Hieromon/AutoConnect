@@ -42,7 +42,7 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
 
 ### <i class="fa fa-caret-right"></i> autoReconnect
 
-Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.  
+Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the flash, even if the connection failed by current SSID.  
 If the connection fails, starts the captive portal in SoftAP+STA mode.  
 <dl class="apidl">
     <dt>**Type**</dt>
@@ -104,7 +104,8 @@ Specify the location to be redirected after module reset in the AutoConnect menu
 ### <i class="fa fa-caret-right"></i> boundaryOffset
 
 Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)  
-The default value is 0.
+The default value is 0.  
+This option is valid only for ESP8266 or ESP32 arduino core 1.0.2 earlier.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint16_t</dd>
