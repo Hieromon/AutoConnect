@@ -33,6 +33,7 @@ install:
   - mkdir -p ~/Arduino/libraries
   - ln -s $PWD ~/Arduino/libraries/.
 script:
+  - buildExampleSketch ConfigIP
   - buildExampleSketch Credential
   - buildExampleSketch Elements
   - buildExampleSketch FileUpload
