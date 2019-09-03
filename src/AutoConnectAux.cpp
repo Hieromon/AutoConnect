@@ -143,6 +143,21 @@ AutoConnectElement* AutoConnectAux::getElement(const String& name) {
 }
 
 /**
+ * Validate all AutoConnectInputs value.
+ * @return true  Validation successfull
+ * @return false Some elements failed validation.
+ */
+bool AutoConnectAux::isValid(void) const {
+  bool  rc = true;
+  for (AutoConnectElement& elm : _addonElm)
+    if (elm.typeOf() == AC_Input) {
+      AutoConnectInput& elmInput = reinterpret_cast<AutoConnectInput&>(elm);
+      rc &= elmInput.isValid();
+    }
+  return rc;
+}
+
+/**
  * Releases the AutoConnectElements with the specified name from 
  * the AutoConnectAux page. Releases all AutoConnectElements with 
  * the same name in AutoConnectAux.
@@ -530,6 +545,16 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
         if (elm.typeOf() == AC_Checkbox)
           elmValue = "checked";
         setElementValue(elm.name, elmValue);
+
+        // Copy a value to other elements declared as global.
+        if (elm.global) {
+          AutoConnectAux* aux = _ac->_aux.get();
+          while (aux) {
+            if (aux != this)
+              aux->setElementValue(elm.name, elmValue);
+            aux = aux->_next.get();
+          }
+        }
       }
     }
   }

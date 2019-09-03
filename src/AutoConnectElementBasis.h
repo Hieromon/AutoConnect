@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  0.9.11
- * @date 2019-06-25
+ * @version  1.0.0
+ * @date 2019-09-03
  * @copyright  MIT license.
  */
 
@@ -71,7 +71,7 @@ typedef enum {
  */
 class AutoConnectElementBasis {
  public:
-  explicit AutoConnectElementBasis(const char* name = "", const char* value = "", const ACPosterior_t post = AC_Tag_None) : name(String(name)), value(String(value)), post(post), enable(true) {
+  explicit AutoConnectElementBasis(const char* name = "", const char* value = "", const ACPosterior_t post = AC_Tag_None) : name(String(name)), value(String(value)), post(post), enable(true), global(false) {
     _type = AC_Element;
   }
   virtual ~AutoConnectElementBasis() {}
@@ -87,6 +87,7 @@ class AutoConnectElementBasis {
   String  value;      /**< Element value */
   ACPosterior_t post; /**< Tag to be generated with posterior */
   bool    enable;     /**< Enabling the element */
+  bool    global;     /**< The value available in global scope */
 
  protected:
   ACElement_t _type;  /**< Element type identifier */
