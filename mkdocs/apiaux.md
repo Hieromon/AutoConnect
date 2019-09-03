@@ -100,6 +100,18 @@ Returns whether embedded in the menu or not. The isMenu is a function that compl
     <dd><span class="apidef">false</span><span class="apidesc">This custom Web page is not currently a menu item.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> isValid
+
+```cpp
+bool isValid(void)
+```
+Performs [validation](apielements.md#isvalid) of all [AutoConnectInput](apielements.md#autoconnectinput) elements owned by AutoConnectAux and returns the result. The isValid function will return the true even if the AutoConnectAux does not own AutoConnectInputs.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Validation is successful. A value of all AutoConnectInputs match with each pattern.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Some elements failed validation.</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> load
 
 ```cpp
