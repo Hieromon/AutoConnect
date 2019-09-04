@@ -720,11 +720,55 @@ By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.
 
 If you are not familiar with regular expressions, you may feel that description very strange. Matter of fact, it's a strange description for those who are unfamiliar with the formal languages. If your regular expression can not interpret the intended syntax and semantics, you can use an online tester. The [regex101](https://regex101.com/) is an exceptional online tool for testing and debugging regular expressions.
 
-### <img src="images/regexp.png" align="top"> Validate input data
+### <img src="images/regexp.png" align="top"> Input data validation
 
 The [pattern](apielements.md#pattern) attribute of [AutoConnectInput](apielements.md#autoconnectinput) only determines the data consistency on the web browser based on the given regular expression. In order to guarantee the validity of input data, it is necessary to verify it before actually using it.
 
-You can validate input data from [AutoConnectInput](apielements.md#autoconnectinput) using the [isValid](apielements.md#isvalid) function before actually processing it.  The [isValid](apielements.md#isvalid) function determines whether the [value](apielements.md#value_3) currently stored in [AutoConnectInput](apielements.md#autoconnectinput) matches the [pattern](apielements.md#pattern). 
+You can validate input data from [AutoConnectInput](apielements.md#autoconnectinput) using the [isValid](apielements.md#isvalid) function before actually processing it.  The [isValid](apielements.md#isvalid) function determines whether the [value](apielements.md#value_3) currently stored in [AutoConnectInput](apielements.md#autoconnectinput) matches the [pattern](apielements.md#pattern).
+
+You can also use the [AutoConnectAux::isValid](apiaux.md#isvalid) function to verify the data input to all [AutoConnectInput](apielements.md#autoconnectinput) elements on the custom Web page at once. The two sketches below show the difference between using [AutoConnectInput::isValid](apielements.md#isvalid) and using [AutoConnectAux::isValid](apiaux.md#isvalid). In both cases, it verifies the input data of the same AutoConnectInput, but in the case of using AutoConnectAux::isValid, the amount of sketch coding is small.
+
+**A common declaration**
+
+```cpp
+const char PAGE[] PROGMEM = R"(
+{
+  "title": "Custom page",
+  "uri": "/page",
+  "menu": true,
+  "element": [
+    {
+      "name": "input1",
+      "type": "ACInput",
+      "pattern": "^[0-9]{4}$"
+    },
+    {
+      "name": "input2",
+      "type": "ACInput",
+      "pattern": "^[a-zA-Z]{4}$"
+    }
+  ]
+}
+)";
+AutoConnectAux page;
+page.load(PAGE);
+```
+
+**Using AutoConnectInput::isValid**
+
+```cpp
+AutoConnectInput& input1 = page["input1"].as<AutoConnectInput>();
+AutoConnectInput& input2 = page["input2"].as<AutoConnectInput>();
+if (!input1.isValid() || !input2.isValid())
+  Serial.println("Validation error");
+```
+
+**Using AutoConnectAux::isValid**
+
+```cpp
+if (!page.isValid())
+  Serial.println("Validation error");
+```
 
 ### <i class="fa fa-exchange"></i> Convert data to actually type
 
