@@ -27,10 +27,18 @@ HTML native code of the action script to be executed when the button is clicked.
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> name
@@ -98,15 +106,23 @@ Returns type of AutoConnectElement.
 It indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent by submit.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">Boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -177,10 +193,18 @@ AutoConnectElement(const char* name = "", const char* value = "", const ACPoster
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> name
@@ -258,10 +282,18 @@ AutoConnectFile(const char* name = "", const char* value = "", const char* label
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -364,10 +396,18 @@ AutoConnectInput(const char* name = "", const char* value = "", const char* labe
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -477,10 +517,18 @@ Specifies the index number (1-based) of the **values** to be checked. If this pa
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -635,10 +683,18 @@ AutoConnectSelect(const char* name = "", std::vector<String> const& options = {}
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> name
@@ -786,10 +842,10 @@ AutoConnectStyle(const char* name = "", const char* value = "")
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> name
@@ -840,10 +896,18 @@ AutoConnectSubmit(const char* name = "", const char* value ="", char* uri = "", 
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> name
@@ -916,10 +980,10 @@ AutoConnectText(const char* name = "", const char* value = "", const char* style
 
 #### <i class="fa fa-caret-right"></i> enable
 
-Enable HTML tag generation for the element. AutoConnect will generate the element into HTML only if the enable attribute is true.
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">boolean</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> format

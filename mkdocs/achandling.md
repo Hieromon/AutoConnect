@@ -594,6 +594,76 @@ portal.on("/echo", [](AutoConnectAux& aux, PageArgument& args) {
 portal.begin();
 ```
 
+### <i class="fa fa-wrench"></i> Transfer of input values ​​across pages
+
+Since v1.0.0, AutoConnect supports a new attribute with each element that allows automatic transfer of input values across pages without sketching. AutoConnect will copy the input value of the elements with the [global](apielements.md#global_2) attribute to the same-named elements on a different custom web pages at the page transition timing.
+
+The **global** attribute will be useful for echoing input values back to another custom Web pages. The copy operation will be performed if the name matches and is global even if the copy source element and the destination have different types. Conversely, the value will not be copied unless the destination element is global.
+
+The following example reflects the input value of PAGE1 to the AutoConnectText field of PAGE2 without sketch code.
+
+```cpp hl_lines="8 10 28 30"
+static const char PAGE1[] PROGMEM = R"(
+{
+  "title": "PAGE1",
+  "uri": "/page1",
+  "menu": true,
+  "element": [
+    {
+      "name": "input1",
+      "type": "ACInput",
+      "global": true
+    },
+    {
+      "name": "send",
+      "type": "ACSubmit",
+      "value": "OK",
+      "uri": "/page2"
+    }
+  ]
+}
+)";
+static const char PAGE2[] PROGMEM = R"(
+{
+  "title": "PAGE2",
+  "uri": "/page2",
+  "menu": false,
+  "element": [
+    {
+      "name": "input1",
+      "type": "ACText",
+      "global": true
+    }
+  ]
+}
+)";
+
+AutoConnect portal;
+AutoConnectAux page1;
+AutoConnectAux page2;
+
+void setup() {
+  page1.load(PAGE1);
+  page2.load(PAGE2);
+  portal.join( { page1, page2 });
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+<i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> It's shown as like:<br>
+<span style="width:300px;height:159px"><img align="top" width="300" height="159" src="images/global1.png"></span>
+<span style="margin-left:7px;"><img width="20" src="images/arrow_right.png"></span>
+<span style="margin-left:7px;width:300px;height:159px"><img width="300" height="159" src="images/global2.png"></span>
+
+The value entered in **input1 declared in PAGE1** is reflected in **input1 of PAGE2** as AutoConnectText value even if there is no sketch code to transfer it to PAGE2.
+
+!!! note "Copy only for same-named and the global"
+    Copied only if the global attribute of the destination element is true. Even if the name of the destination element is the same, the copy is not performed if the global attribute is false.
+
 ### <i class="fa fa-wrench"></i> Retrieve the values with WebServer::on handler
 
 ESP8266WebServer class and the WebServer class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on function.
@@ -713,10 +783,8 @@ By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.
 }
 ```
 
-<div>
-  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="images/arrow_down.png"></span>
-  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
-</div>
+<i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> It's shown as like:<br>
+<span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
 
 If you are not familiar with regular expressions, you may feel that description very strange. Matter of fact, it's a strange description for those who are unfamiliar with the formal languages. If your regular expression can not interpret the intended syntax and semantics, you can use an online tester. The [regex101](https://regex101.com/) is an exceptional online tool for testing and debugging regular expressions.
 
