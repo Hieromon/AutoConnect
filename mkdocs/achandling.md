@@ -596,11 +596,9 @@ portal.begin();
 
 ### <i class="fa fa-wrench"></i> Transfer of input values ​​across pages
 
-Since v1.0.0, AutoConnect supports a new attribute with each element that allows automatic transfer of input values across pages without sketching. AutoConnect will copy the input value of the elements with the [global](apielements.md#global_2) attribute to the same-named elements on a different custom web pages at the page transition timing.
+Since v1.0.0, AutoConnect supports a new attribute with each element that allows automatic transfer of input values across pages without sketching. AutoConnect will copy the input value of the elements declared as [global](apielements.md#global_2) to the same-named global elements on a different custom Web pages at the page transition timing.
 
-The **global** attribute will be useful for echoing input values back to another custom Web pages. The copy operation will be performed if the name matches and is global even if the copy source element and the destination have different types. Conversely, the value will not be copied unless the destination element is global.
-
-The following example reflects the input value of PAGE1 to the AutoConnectText field of PAGE2 without sketch code.
+The **global** attribute will be useful for echoing input values back to another custom Web pages. This copy operation can be performed between different types. (eg., copy value from AutoConnectInput to AutoConnectText) The following example reflects the input value of PAGE1 to the AutoConnectText field of PAGE2 without sketch code.
 
 ```cpp hl_lines="8 10 28 30"
 static const char PAGE1[] PROGMEM = R"(
@@ -654,15 +652,13 @@ void loop() {
 }
 ```
 
-<i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> It's shown as like:<br>
+<i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> The value entered in **input1 declared in PAGE1** is reflected in **input1 of PAGE2** as an AutoConnectText value even if there is no sketch code to transfer it to PAGE2. It's shown as like:<br>
 <span style="width:300px;height:159px"><img align="top" width="300" height="159" src="images/global1.png"></span>
 <span style="margin-left:7px;"><img width="20" src="images/arrow_right.png"></span>
 <span style="margin-left:7px;width:300px;height:159px"><img width="300" height="159" src="images/global2.png"></span>
 
-The value entered in **input1 declared in PAGE1** is reflected in **input1 of PAGE2** as AutoConnectText value even if there is no sketch code to transfer it to PAGE2.
-
 !!! note "Copy only for same-named and the global"
-    Copied only if the global attribute of the destination element is true. Even if the name of the destination element is the same, the copy is not performed if the global attribute is false.
+    The input value will be copied only if the global attribute of the destination element is true. If an element with the same name is declared non-global, the value is not copied.
 
 ### <i class="fa fa-wrench"></i> Retrieve the values with WebServer::on handler
 
