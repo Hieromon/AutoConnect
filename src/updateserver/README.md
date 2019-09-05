@@ -1,17 +1,17 @@
 ## OTA Updates with AutoConnect using an updateserver.py
 
-AutoConnect since v1.0.0 release provides a new function for updating the sketch firmware of ESP8266 or ESP32 module via OTA as AutoConnectUpdate class. The [AutoConnectUpdate](https://hieromon.github.io/AutoConnect/apiupdate.html) class is an implementation of the binary sketch update using the HTTP server mentioned in the OTA Updates of the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#ota-updates), which inherits from the ESP8266 HTTPUpdate class (HTTPUpdate class in the case of ESP32). It acts as a client agent for a series of update operations.
+Since AutoConnect v1.0.0 release provides a new function for updating the sketch firmware of ESP8266 or ESP32 module via OTA assisted with AutoConnectUpdate class. The [AutoConnectUpdate](https://hieromon.github.io/AutoConnect/apiupdate.html) class is an implementation of the binary sketch updater using the HTTP server mentioned in the OTA Updates of the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#ota-updates), which inherits from the ESP8266 HTTPUpdate class (HTTPUpdate class in the case of ESP32). It acts as a client agent for a series of update operations.
 
 <img src="../../mkdocs/images/updatemodel.png" width="540" />
 
 ## A simple update server for the AutoConnectUpdate class
 
-The [updateserver.py](https://hieromon.github.io/AutoConnect/update-server-for-the-autoconnectupdate-class) script is a simple server for OTA updates effected by the AutoConnectUpdate class implemented in Python and can serve in Python 2 or 3 environment.
+The [updateserver.py](https://hieromon.github.io/AutoConnect/otaserver.html#update-server-for-the-autoconnectupdate-class) script is a simple server implemented in Python for OTA updates communicated with the AutoConnectUpdate class and can serve in Python 2 or 3 environment.
 
 ### Supported Python environment
 
-* Python 2.7 for [python2/updateserver.py](../python2/updateserver.py)
-* Python 3.6 or higher for [python3/updateserver.py](../python3/updateserver.py)
+* Python 2.7 for [python2/updateserver.py](./python2/updateserver.py)
+* Python 3.6 or higher for [python3/updateserver.py](./python3/updateserver.py)
 
 ### updateserver.py command line options
 
