@@ -61,29 +61,29 @@ static const char AUX_CONFIGIP[] PROGMEM = R"(
       "name": "staip",
       "type": "ACInput",
       "label": "IP",
-      "global": true,
-      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+      "global": true
     },
     {
       "name": "gateway",
       "type": "ACInput",
       "label": "Gateway",
-      "global": true,
-      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+      "global": true
     },
     {
       "name": "netmask",
       "type": "ACInput",
       "label": "Netmask",
-      "global": true,
-      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+      "global": true
     },
     {
       "name": "dns1",
       "type": "ACInput",
       "label": "DNS",
-      "global": true,
-      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+      "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+      "global": true
     },
     {
       "name": "ok",
@@ -116,26 +116,26 @@ static const char AUX_RESTART[] PROGMEM = R"(
     {
       "name": "staip",
       "type": "ACText",
-      "global": true,
-      "format": "IP: %s"
+      "format": "IP: %s",
+      "global": true
     },
     {
       "name": "gateway",
       "type": "ACText",
-      "global": true,
-      "format": "Gateway: %s"
+      "format": "Gateway: %s",
+      "global": true
     },
     {
       "name": "netmask",
       "type": "ACText",
-      "global": true,
-      "format": "Netmask: %s"
+      "format": "Netmask: %s",
+      "global": true
     },
     {
       "name": "dns1",
       "type": "ACText",
-      "global": true,
-      "format": "DNS1: %s"
+      "format": "DNS1: %s",
+      "global": true
     },
     {
       "name": "result",
@@ -195,7 +195,11 @@ void loadConfig(IPCONFIG* ipconfig) {
 
 // Save current IP configuration to EEPROM
 void saveConfig(const IPCONFIG* ipconfig) {
+  // EEPROM.begin will truncate the area to the size given by the argument.
+  // The part overflowing from the specified size is filled with 0xff,
+  // so if the argument value is too small, the credentials may be lost.
   EEPROM.begin(128);
+
   int dp = 0;
   for (uint8_t i = 0; i < 4; i++) {
     for (uint8_t d = 0; d < sizeof(uint32_t); d++)
