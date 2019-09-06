@@ -20,7 +20,7 @@
      | | 1K ~ 10K
      +-+
       |
-      +--> D2
+      +--> D2 (for ESP8266, ex: GPIO16 in case of ESP32)
       |
     | O
   --+
@@ -33,9 +33,11 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#define EXTERNAL_SWITCH_PIN D2
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
+#define EXTERNAL_SWITCH_PIN 16
 #endif
 #include <AutoConnect.h>
 #include <EEPROM.h>
@@ -152,7 +154,7 @@ AutoConnectAux    auxIPConfig;
 AutoConnectAux    auxRestart;
 
 // Pin assignment for an external configuration switch
-uint8_t ConfigPin = D2;
+uint8_t ConfigPin = EXTERNAL_SWITCH_PIN;
 uint8_t ActiveLevel = LOW;
 
 // EEPROM saving structure
@@ -220,7 +222,7 @@ String getConfig(AutoConnectAux& aux, PageArgument& args) {
   WiFi.macAddress(mac);
   for (uint8_t i = 0; i < 6; i++) {
     char buf[3];
-    sprintf(buf, "%02x", mac[i]);
+    sprintf(buf, "%02X", mac[i]);
     macAddress += buf;
     if (i < 5)
       macAddress += ':';
@@ -243,11 +245,11 @@ String getConfig(AutoConnectAux& aux, PageArgument& args) {
 }
 
 // Convert IP address from AutoConnectInput string value
-void getIPAddress(AutoConnectInput& input, uint32_t* ip) {
+void getIPAddress(String ipString, uint32_t* ip) {
   IPAddress ipAddress;
 
-  if (input.length())
-    ipAddress.fromString(input);
+  if (ipString.length())
+    ipAddress.fromString(ipString);
   *ip = (uint32_t)ipAddress;
 }
 
@@ -276,8 +278,12 @@ bool senseSW(const uint8_t pin, const uint8_t activeLevel) {
   bool  sw = digitalRead(pin) == activeLevel;
   if (sw) {
     // Cut-off the chattering noise
-    while (digitalRead(pin) == activeLevel)
-      delay(10);
+    unsigned long tm = millis();
+    while (digitalRead(pin) == activeLevel) {
+      if (millis() - tm > 1000)
+        break;
+      delay(1);
+    }
   }
   return sw;
 }
