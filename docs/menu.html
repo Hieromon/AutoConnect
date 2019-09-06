@@ -740,8 +740,8 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
-      Saved credentail access
+    <a href="credit.html" title="Saved credentails access" class="md-nav__link">
+      Saved credentails access
     </a>
   </li>
 
@@ -916,7 +916,7 @@
 <p>The AutoConnect menu is developed using the <a href="https://github.com/balzss/luxbar">LuxBar</a> which is licensed under the MIT License. See the <a href="license.html">License</a>.</p>
 </div>
 <h2 id="where-the-from"><i class="fa fa-external-link"></i> Where the from<a class="headerlink" href="#where-the-from" title="Permanent link">&para;</a></h2>
-<p>The AutoConnect menu appears when you access the <strong>AutoConnect root path</strong>. It is assigned "<strong>/_ac</strong>" located on the <em>local IP address</em> of ESP8266/ESP32 module by default. This location can be changed in the sketch. The following screen will appear at access to <code>http://{localIP}/_ac</code> as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here, to invoke it tap <i class="fa fa-bars"></i> at right on top. (e.g. <code>http://192.168.244.1/_ac</code> for SoftAP mode.)</p>
+<p>The AutoConnect menu appears when you access the <strong>AutoConnect root path</strong>. It is assigned "<strong>/_ac</strong>" located on the <em>local IP address</em> of ESP8266/ESP32 module by default. This location can be changed in the sketch. The following screen will appear at access to <code>http://{localIP}/_ac</code> as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here, to invoke it tap <i class="fa fa-bars"></i> at right on top. (e.g. <code>http://172.217.28.1/_ac</code> for SoftAP mode.)</p>
 <p><img src="images/ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <div class="admonition note">
 <p class="admonition-title">What's the local IP?</p>
@@ -926,7 +926,7 @@
 <p>Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to the home path of its sketch.</p>
 <ul>
 <li><strong>Configure new AP</strong>: Configure SSID and Password for new access point.</li>
-<li><strong>Open SSIDs</strong>: Opens the past SSID which has been established connection from EEPROM.</li>
+<li><strong>Open SSIDs</strong>: Opens the past SSID which has been established connection from the flash.</li>
 <li><strong>Disconnect</strong>: Disconnects current connection.</li>
 <li><strong>Reset...</strong>: Rest the ESP8266/ESP32 module.</li>
 <li><strong>HOME</strong>: Return to user home page.</li>
@@ -937,7 +937,7 @@
 Enter SSID and Passphrase and tap "<strong>apply</strong>" to starts WiFi connection. </p>
 <p><img src="images/newap.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <h2 id="open-ssids"><i class="fa fa-bars"></i> Open SSIDs<a class="headerlink" href="#open-ssids" title="Permanent link">&para;</a></h2>
-<p>Once it was established WiFi connection, its SSID and password will be saved in EEPROM of ESP8266/ESP32 automatically. The <strong>Open SSIDs</strong> menu reads the saved SSID credentials from the EEPROM. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.</p>
+<p>Once it was established WiFi connection, its SSID and password will be saved in the flash of ESP8266/ESP32 automatically. The <strong>Open SSIDs</strong> menu reads the saved SSID credentials from the flash. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.</p>
 <p><img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <h2 id="disconnect"><i class="fa fa-bars"></i> Disconnect<a class="headerlink" href="#disconnect" title="Permanent link">&para;</a></h2>
 <p>Disconnect ESP8266/ESP32 from the current connection. It can also reset the ESP8266/ESP32 automatically after disconnection by instructing with using <a href="api.html#autoreset">API</a> in the sketch.</p>

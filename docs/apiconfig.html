@@ -908,8 +908,8 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
-      Saved credentail access
+    <a href="credit.html" title="Saved credentails access" class="md-nav__link">
+      Saved credentails access
     </a>
   </li>
 
@@ -1273,10 +1273,10 @@
 <p>Sets IP address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is <strong>192.168.244.1</strong></span></dd>
+    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is <strong>172.217.28.1</strong></span></dd>
 </dl></p>
 <h3 id="autoreconnect"><i class="fa fa-caret-right"></i> autoReconnect<a class="headerlink" href="#autoreconnect" title="Permanent link">&para;</a></h3>
-<p>Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, <em>AutoConnect::begin()</em> function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.<br />
+<p>Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, <em>AutoConnect::begin()</em> function will attempt to reconnect to a known access point using credentials stored in the flash, even if the connection failed by current SSID.<br />
 If the connection fails, starts the captive portal in SoftAP+STA mode.<br />
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
@@ -1328,7 +1328,8 @@ If the connection fails, starts the captive portal in SoftAP+STA mode.<br />
 </dl></p>
 <h3 id="boundaryoffset"><i class="fa fa-caret-right"></i> boundaryOffset<a class="headerlink" href="#boundaryoffset" title="Permanent link">&para;</a></h3>
 <p>Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)<br />
-The default value is 0.
+The default value is 0.<br />
+This option is valid only for ESP8266 or ESP32 arduino core 1.0.2 earlier.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>uint16_t</dd>
@@ -1365,7 +1366,7 @@ The default value is 0.
 <p>Sets gateway address for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is <strong>192.168.244.1</strong></span></dd>
+    <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is <strong>172.217.28.1</strong></span></dd>
 </dl></p>
 <h3 id="hidden"><i class="fa fa-caret-right"></i> hidden<a class="headerlink" href="#hidden" title="Permanent link">&para;</a></h3>
 <p>Sets SoftAP to hidden SSID.

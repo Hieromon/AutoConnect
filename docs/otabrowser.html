@@ -455,8 +455,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-to-embed-esp8266httpupdateserver-with-autoconnect" title=" How to embed ESP8266HTTPUpdateServer with AutoConnect" class="md-nav__link">
-     How to embed ESP8266HTTPUpdateServer with AutoConnect
+  <a href="#how-to-embed-esp8266httpupdateserver-in-autoconnect" title=" How to embed ESP8266HTTPUpdateServer in AutoConnect" class="md-nav__link">
+     How to embed ESP8266HTTPUpdateServer in AutoConnect
   </a>
   
 </li>
@@ -706,8 +706,8 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
-      Saved credentail access
+    <a href="credit.html" title="Saved credentails access" class="md-nav__link">
+      Saved credentails access
     </a>
   </li>
 
@@ -804,8 +804,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#how-to-embed-esp8266httpupdateserver-with-autoconnect" title=" How to embed ESP8266HTTPUpdateServer with AutoConnect" class="md-nav__link">
-     How to embed ESP8266HTTPUpdateServer with AutoConnect
+  <a href="#how-to-embed-esp8266httpupdateserver-in-autoconnect" title=" How to embed ESP8266HTTPUpdateServer in AutoConnect" class="md-nav__link">
+     How to embed ESP8266HTTPUpdateServer in AutoConnect
   </a>
   
 </li>
@@ -842,29 +842,30 @@
                   <h1>Using Web Browser</h1>
                 
                 <h2 id="updates-with-the-web-browser">Updates with the Web Browser<a class="headerlink" href="#updates-with-the-web-browser" title="Permanent link">&para;</a></h2>
-<p>You can implement the user sketch as described in the <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#implementation-overview">ESP8266 Arduino Core documentation</a> to realize using the web browser as an update client. By incorporating the ESP8266HTTPUpdateServer class into AutoConnect, you can operate the page for selecting the update owned by ESP8266HTTPUpdateServer from the AutoConnect menu. Updates with a web browser are implemented using ESP8266HTTPUpdateServer class together with ESP8266WebServer and ESP8266mDNS classes. However, <strong>ESP32 Arduino core does not provide a class implementaion equivalent to ESP8266HTTPUpdateServer</strong>. Therefore, it is necessary to implement HTTPUpdateServer class for ESP32 to realize the update with a Web browser using the ESP32. <strong>The AutoConnect library includes an implementation of the HTTPUpdateServer class for ESP32 to make it easy for you to experience</strong>. <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
+<p>You can implement the user sketch as described in the <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#implementation-overview">ESP8266 Arduino Core documentation</a> to realize using the web browser as an update client. By incorporating the ESP8266HTTPUpdateServer class into AutoConnect, you can operate the dialog page for selecting the updating binary sketch file owned by ESP8266HTTPUpdateServer from the AutoConnect menu. </p>
+<p>Update feature with a web browser is implemented using ESP8266HTTPUpdateServer class and ESP8266mDNS class. However, <strong>ESP32 Arduino core does not provide a class implementation equivalent to ESP8266HTTPUpdateServer</strong>. Therefore, it is necessary to implement an HTTPUpdateServer class for ESP32 to realize the update using a Web browser. <strong>The AutoConnect library includes an implementation of the HTTPUpdateServer class for ESP32 to make it easy for you to experience</strong>. <sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>
 <p><img src="images/webupdate.png" width="480" /></p>
 <div class="admonition warning">
-<p class="admonition-title">Client device equipped with Android OS</p>
+<p class="admonition-title">For the client devices equipped with Android OS</p>
 <p>Depending on the state of Android OS configuration, Bonjour service may not be incorporated. This method does not work with some Android devices as the client.</p>
 </div>
-<h3 id="how-to-embed-esp8266httpupdateserver-with-autoconnect"><i class="fa fa-edit"></i> How to embed ESP8266HTTPUpdateServer with AutoConnect<a class="headerlink" href="#how-to-embed-esp8266httpupdateserver-with-autoconnect" title="Permanent link">&para;</a></h3>
-<p>To embed the ESP8266HTTPUpdateServer class with  AutoConnect into your sketch, basically follow these steps:</p>
+<h3 id="how-to-embed-esp8266httpupdateserver-in-autoconnect"><i class="fa fa-edit"></i> How to embed ESP8266HTTPUpdateServer in AutoConnect<a class="headerlink" href="#how-to-embed-esp8266httpupdateserver-in-autoconnect" title="Permanent link">&para;</a></h3>
+<p>To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, basically follow these steps:</p>
 <ol>
-<li>Include <code>ESP8266mDNS.h</code> and <code>ESP8266HTTPUpdateServer.h</code> and <code>WiFiClient.h</code> additionally, except the usual include directives as ESP8266WebServer and AutoConnect.</li>
+<li>Include <code>ESP8266mDNS.h</code> and <code>ESP8266HTTPUpdateServer.h</code>, also <code>WiFiClient.h</code>, in addition to the usual directives as <code>ESP8266WebServer.h</code> and <code>AutoConnect.h</code>.</li>
 <li>Declare an ESP8266WebServer object. (In ESP32, as WebServer)</li>
 <li>Declare an ESP8266HTTPUpdateServer object.</li>
-<li>Declare an AutoConnect object with an ESP8266WebServer object.</li>
+<li>Declare an AutoConnect object with an ESP8266WebServer object as an argument.</li>
 <li>Declare an AutoConnectAux object for the update operation page.</li>
-<li>Assign <code>/update</code> to the URI of the update operation page.</li>
-<li>Assign an arbitrary title as the AutoConnect menu for the update operation page.</li>
-<li>Declare additional AutoConnectAux pages for your application intention as needed.</li>
+<li>Assign <code>/update</code> to the URI of the update dialog page.</li>
+<li>Assign any title as the AutoConnect menu for the update dialog page.</li>
+<li>Declare additional AutoConnectAux pages for your application intention if needed.</li>
 <li>Perform the following procedure steps in the <code>setup()</code> function:<ol>
 <li>Invokes <code>ESP8288HTTPUpdateServer::setup</code> function, specifies the <strong>USERNAME</strong> and the <strong>PASSWORD</strong> as needed.</li>
-<li>Load the AutoConnectAux pages declared in step #8 for your application. (Except the update operation page)</li>
-<li>Join these pages to AutoConnect along with the update operation page declared in step #5.</li>
+<li>Load the AutoConnectAux pages declared in step #8 for your application. (Except the update dialog page)</li>
+<li>Join these pages to AutoConnect along with the update dialog page declared in step #5.</li>
 <li>Invokes <a href="api.html#begin">AutoConnect::begin</a> function.</li>
-<li>Call the <code>MDNS.begin</code> and <code>MDNS.addServer</code> functions to start the multicast DNS service.</li>
+<li>Call the <code>MDNS.begin</code> and <code>MDNS.addServer</code> functions to start the multi cast DNS service.</li>
 </ol>
 </li>
 <li>Perform the following procedure steps in the <code>loop()</code> function:<ol>
@@ -913,7 +914,7 @@
 <p class="admonition-title">For ESP32</p>
 <p>This procedure is equally applicable to ESP32. If the target module is ESP32, change the following items:</p>
 <ul>
-<li>Change the include directive appropriately for the ESP32 environment.</li>
+<li>Change the include directives appropriately for the ESP32 environment.</li>
 <li>Change ESP8266HTTPUpdaetServer to HTTPUpdateServer using an implementation provided from AutoConnect library example code.</li>
 <li>Remove <code>MDNS.update</code> line from the sketch code.</li>
 </ul>
@@ -924,16 +925,15 @@
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">httpServer;</span>
 <span style="color: #f8f8f2">ESP8266HTTPUpdateServer</span> <span style="color: #f8f8f2">updateServer;</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(httpServer);</span>
-
 <span style="color: #f8f8f2">updateServer(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">httpServer);</span>
 </pre></div>
 This sharing specification is the same for ESP32.</p>
 </div>
-<p>The execution result of the above sketch should be as follows. <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
+<p>The result of the above sketch should be as follows. <sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
 <p><span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span></p>
 <div class="admonition faq">
-<p class="admonition-title">How LED ticking during an update</p>
-<p>You <strong>cannot</strong> get the ticker with LED during an update by using this way. It is since the current implementation of the <strong>ESP8266HTTPUpdateServer class provided Arduino core library does not supply</strong> an LED pin to the ESP8266HTTPUpdate class.</p>
+<p class="admonition-title">How LED ticking during updates</p>
+<p>You <strong>cannot</strong> get the ticker with LED during updates by using this way. It is since the current implementation of the ESP8266HTTPUpdateServer class of the Arduino core <strong>library does not assign an LED PIN</strong> to the ESP8266HTTPUpdate class.</p>
 </div>
 <h3 id="how-to-make-the-binary-sketch"><i class="fa fa-wrench"></i> How to make the binary sketch<a class="headerlink" href="#how-to-make-the-binary-sketch" title="Permanent link">&para;</a></h3>
 <p>Binary sketch files for updating can be retrieved using the Arduino IDE. Open the <strong>Sketch</strong> menu and select the <strong>Export compiled Binary</strong>, then starts compilation.</p>

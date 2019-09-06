@@ -790,8 +790,8 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
-      Saved credentail access
+    <a href="credit.html" title="Saved credentails access" class="md-nav__link">
+      Saved credentails access
     </a>
   </li>
 
@@ -1018,7 +1018,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 <h3 id="simple-usage"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Simple usage<a class="headerlink" href="#simple-usage" title="Permanent link">&para;</a></h3>
 <p><span class="lead">AutoConnect control screen will be displayed automatically for establishing new connections. It aids by the <a href="https://en.wikipedia.org/wiki/Captive_portal">captive portal</a> when vested the connection cannot be detected.<br>By using the <a href="menu.html">AutoConnect menu</a>, to manage the connections convenient.</span></p>
 <h3 id="store-the-established-connection"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Store the established connection<a class="headerlink" href="#store-the-established-connection" title="Permanent link">&para;</a></h3>
-<p><span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the <a href="menu.html">AutoConnect menu</a>.</span></p>
+<p><span class="lead">The connection authentication data as credentials are saved automatically in the flash of ESP8266/ESP32 and You can select the past SSID from the <a href="menu.html">AutoConnect menu</a>.</span></p>
 <h3 id="easy-to-embed-in"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in<a class="headerlink" href="#easy-to-embed-in" title="Permanent link">&para;</a></h3>
 <p><span class="lead">AutoConnect can be placed easily in your sketch. It's "<strong>begin</strong>" and "<strong>handleClient</strong>" only.</span></p>
 <h3 id="lives-with-your-sketches"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Lives with your sketches<a class="headerlink" href="#lives-with-your-sketches" title="Permanent link">&para;</a></h3>
@@ -1068,6 +1068,10 @@ Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. P
 <p><i class="fa fa-download"></i> <strong>ESP32 Arduino core</strong></p>
 <p>Also, to apply AutoConnect to ESP32, the <a href="https://github.com/espressif/arduino-esp32">arduino-esp32 core</a> provided by Espressif is needed. Stable 1.0.1 or required and the <a href="https://github.com/espressif/arduino-esp32/releases/latest">latest release</a> is recommended.<br />
 Install third-party platform using the <em>Boards Manager</em> of Arduino IDE. You can add multiple URLs into <em>Additional Board Manager URLs</em> field, separating them with commas. Package URL is <a href="https://dl.espressif.com/dl/package_esp32_index.json">https://dl.espressif.com/dl/package_esp32_index.json</a> for ESP32.</p>
+<div class="admonition info">
+<p class="admonition-title">Arduino core for ESP32 1.0.3 or later</p>
+<p>For ESP32, AutoConnect v1.0.0 later is required for arduino-esp32 1.0.3 or later.</p>
+</div>
 <p><i class="fa fa-download"></i> <strong>Additional library (Required)</strong></p>
 <p>The <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library to build HTML for ESP8266WebServer is needed.<br />
 To install the PageBuilder library into your Arduino IDE, you can use the <em>Library Manager</em>. Select the board of ESP8266 series in the Arduino IDE, open the library manager and search keyword '<strong>PageBuilder</strong>' with the topic '<strong>Communication</strong>', then you can see the <em>PageBuilder</em>. The latest version is required <strong>1.3.3</strong> <strong>later</strong>.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></p>

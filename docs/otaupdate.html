@@ -686,8 +686,8 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
-      Saved credentail access
+    <a href="credit.html" title="Saved credentails access" class="md-nav__link">
+      Saved credentails access
     </a>
   </li>
 
@@ -802,8 +802,8 @@
                   <h1>OTA Updates</h1>
                 
                 <h2 id="ota-updates-with-autoconnect">OTA Updates with AutoConnect<a class="headerlink" href="#ota-updates-with-autoconnect" title="Permanent link">&para;</a></h2>
-<p>AutoConnect provides <strong>two types of the platform</strong> for updating the binary sketch stored in the ESP8266 or ESP32 module via OTA. They correspond to the <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#web-browser">Web Browser Update</a> and <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#http-server">HTTP Server Update</a> mentioned in the <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#ota-updates">ESP8266 Arduino Core documentation</a>.</p>
-<p><a href="otabrowser.html"><strong>The update behavior when using a web browser</strong></a> as an update client keeps with the scenario assumed by the ESP8266 arduino core. Therefore, the user sketch must meet the requirements described in the ESP8266 Arduino Core documentation, but it is not difficult to incorporate an implementation for that into a sketch using AutoConnect. All you need to do is bind the <strong>ESP8266HTTPUpdateServer library class</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> of the ESP8266 Arduino core as an <a href="acintro.html">AutoConnectAux</a> to the <a href="menu.html">AutoConnect menu</a>.</p>
+<p>AutoConnect provides <strong>two type platforms</strong> for updating the binary sketch in the ESP8266 or ESP32 module via OTA. They correspond to the <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#web-browser">Web Browser Update</a> and <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#http-server">HTTP Server Update</a> whiches mentioned in the <a href="https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#ota-updates">ESP8266 Arduino Core documentation</a>.</p>
+<p><a href="otabrowser.html"><strong>The update behavior using a web browser</strong></a> as the client that supplies the binary sketch file for update follows the scenario assumed by the ESP8266 Arduino core. Therefore, the user sketch must meet the requirements described in the ESP8266 Arduino Core documentation, but you can easily embed the update feature that able to handle with the web browser by AutoConnect. All you need to do is that <a href="api.html#join">join</a> the <a href="apiaux.html">AutoConnectAux</a> with embedded <strong>ESP8266HTTPUpdateServer</strong><sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> of the core library to AutoConnect.</p>
 <p><img src="images/webupdatemodel.png" width="420" /></p>
 <div class="admonition caution">
 <p class="admonition-title">It is for the only the same network</p>
@@ -813,7 +813,7 @@
 <p><img src="images/updatemodel.png" width="540" /></p>
 <div class="admonition info">
 <p class="admonition-title">Security Disclaimer</p>
-<p>The security of the OTA update platform provided by AutoConnect is a very weak level. No guarantees as to the level of security provided for your application by the AutoConnect OTA Update is implied.</p>
+<p>The security level of the OTA update platform provided by AutoConnect is very weak. No guarantees as to the level of security for your application by the AutoConnect OTA Update is implied.</p>
 </div>
 <div class="footnote">
 <hr />

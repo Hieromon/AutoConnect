@@ -577,6 +577,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#isvalid" title=" isValid" class="md-nav__link">
+     isValid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#load" title=" load" class="md-nav__link">
      load
   </a>
@@ -817,8 +824,8 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
-      Saved credentail access
+    <a href="credit.html" title="Saved credentails access" class="md-nav__link">
+      Saved credentails access
     </a>
   </li>
 
@@ -972,6 +979,13 @@
           <li class="md-nav__item">
   <a href="#ismenu" title=" isMenu" class="md-nav__link">
      isMenu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isvalid" title=" isValid" class="md-nav__link">
+     isValid
   </a>
   
 </li>
@@ -1137,6 +1151,15 @@ Returns whether embedded in the menu or not. The isMenu is a function that compl
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">The custom Web page has been incorporated into the AutoConnect menu as a menu item.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">This custom Web page is not currently a menu item.</span></dd>
+</dl></p>
+<h3 id="isvalid"><i class="fa fa-caret-right"></i> isValid<a class="headerlink" href="#isvalid" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Performs <a href="apielements.html#isvalid">validation</a> of all <a href="apielements.html#autoconnectinput">AutoConnectInput</a> elements owned by AutoConnectAux and returns the result. The isValid function will return the true even if the AutoConnectAux does not own AutoConnectInputs.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Validation is successful. A value of all AutoConnectInputs match with each pattern.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Some elements failed validation.</span></dd>
 </dl></p>
 <h3 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in)</span>

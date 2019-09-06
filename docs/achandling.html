@@ -496,6 +496,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#transfer-of-input-values-across-pages" title=" Transfer of input values ​​across pages" class="md-nav__link">
+     Transfer of input values ​​across pages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#retrieve-the-values-with-webserveron-handler" title=" Retrieve the values with WebServer::on handler" class="md-nav__link">
      Retrieve the values with WebServer::on handler
   </a>
@@ -517,8 +524,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#validate-input-data" title=" Validate input data" class="md-nav__link">
-     Validate input data
+  <a href="#input-data-validation" title=" Input data validation" class="md-nav__link">
+     Input data validation
   </a>
   
 </li>
@@ -850,8 +857,8 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentail access" class="md-nav__link">
-      Saved credentail access
+    <a href="credit.html" title="Saved credentails access" class="md-nav__link">
+      Saved credentails access
     </a>
   </li>
 
@@ -1037,6 +1044,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#transfer-of-input-values-across-pages" title=" Transfer of input values ​​across pages" class="md-nav__link">
+     Transfer of input values ​​across pages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#retrieve-the-values-with-webserveron-handler" title=" Retrieve the values with WebServer::on handler" class="md-nav__link">
      Retrieve the values with WebServer::on handler
   </a>
@@ -1058,8 +1072,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#validate-input-data" title=" Validate input data" class="md-nav__link">
-     Validate input data
+  <a href="#input-data-validation" title=" Input data validation" class="md-nav__link">
+     Input data validation
   </a>
   
 </li>
@@ -1515,12 +1529,12 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 
   <span style="color: #75715e">// Get the AutoConnectInput named &quot;feels&quot;.</span>
   <span style="color: #75715e">// The where() function returns an uri string of the AutoConnectAux that triggered this handler.</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">hello</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(portal.where());</span>
-</span>  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">feels</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">hello</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;feels&quot;</span><span style="color: #f8f8f2">);</span>
-
-<span style="background-color: #49483e">  <span style="color: #75715e">// Get the AutoConnectText named &quot;echo&quot;.</span>
-</span>  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">echo</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;echo&quot;</span><span style="color: #f8f8f2">);</span>
-
+  <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">hello</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(portal.where());</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">feels</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">hello</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;feels&quot;</span><span style="color: #f8f8f2">);</span>
+</span>
+  <span style="color: #75715e">// Get the AutoConnectText named &quot;echo&quot;.</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">echo</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;echo&quot;</span><span style="color: #f8f8f2">);</span>
+</span>
   <span style="color: #75715e">// Echo back from input-box to /feels page.</span>
   <span style="color: #f8f8f2">echo.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">feels.value</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot; and a bold world!&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1660,9 +1674,72 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">portal.begin();</span>
 </pre></div>
 
+<h3 id="transfer-of-input-values-across-pages"><i class="fa fa-wrench"></i> Transfer of input values ​​across pages<a class="headerlink" href="#transfer-of-input-values-across-pages" title="Permanent link">&para;</a></h3>
+<p>Since v1.0.0, AutoConnect supports a new attribute with each element that allows automatic transfer of input values across pages without sketching. AutoConnect will copy the input value of the elements declared as <a href="apielements.html#global_2">global</a> to the same-named global elements on a different custom Web pages at the page transition timing.</p>
+<p><img src="images/global.svg"> </p>
+<p>The <strong>global</strong> attribute will be useful for echoing input values back to another custom Web pages. This copy operation can be performed between different types. (eg., copy value from AutoConnectInput to AutoConnectText) The following example reflects the input value of PAGE1 to the AutoConnectText field of PAGE2 without sketch code.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE1[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;PAGE1&quot;,</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/page1&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;name&quot;: &quot;input1&quot;,</span>
+</span><span style="color: #e6db74">      &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;global&quot;: true</span>
+</span><span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;send&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACSubmit&quot;,</span>
+<span style="color: #e6db74">      &quot;value&quot;: &quot;OK&quot;,</span>
+<span style="color: #e6db74">      &quot;uri&quot;: &quot;/page2&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE2[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;PAGE2&quot;,</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/page2&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;name&quot;: &quot;input1&quot;,</span>
+</span><span style="color: #e6db74">      &quot;type&quot;: &quot;ACText&quot;,</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;global&quot;: true</span>
+</span><span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page1;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page2;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">page1.load(PAGE1);</span>
+  <span style="color: #f8f8f2">page2.load(PAGE2);</span>
+  <span style="color: #f8f8f2">portal.join(</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">page1,</span> <span style="color: #f8f8f2">page2</span> <span style="color: #f8f8f2">});</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<p><i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> The value entered in <strong>input1 declared in PAGE1</strong> is reflected in <strong>input1 of PAGE2</strong> as an AutoConnectText value even if there is no sketch code to transfer it to PAGE2. It's shown as like:<br>
+<span style="width:300px;height:159px"><img align="top" width="300" height="159" src="images/global1.png"></span>
+<span style="margin-left:7px;"><img width="20" src="images/arrow_right.png"></span>
+<span style="margin-left:7px;width:300px;height:159px"><img width="300" height="159" src="images/global2.png"></span></p>
+<div class="admonition note">
+<p class="admonition-title">Copy only for same-named and the global</p>
+<p>The input value will be copied only if the global attribute of the destination element is true. If an element with the same name is declared non-global, the value is not copied.</p>
+</div>
 <h3 id="retrieve-the-values-with-webserveron-handler"><i class="fa fa-wrench"></i> Retrieve the values with WebServer::on handler<a class="headerlink" href="#retrieve-the-values-with-webserveron-handler" title="Permanent link">&para;</a></h3>
 <p>ESP8266WebServer class and the WebServer class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on function.</p>
-<p>When the page transitions from the custom Web page created by AutoConnectAux to the handler registered by ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the <a href="acelements.html#uri">uri</a> attribute of <a href="acelements.html#autoconnectsubmit">AutoConnectSubmit</a>) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler by the sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the <a href="apiaux.html#fetchelement">AutoConnectAux::fetchElement</a> function for value processing with the on-page handler.</p>
+<p>When a page transition from a custom Web page created by AutoConnectAux to a handler registered with ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the <a href="acelements.html#uri">uri</a> attribute of <a href="acelements.html#autoconnectsubmit">AutoConnectSubmit</a>) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler coded with the sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the <a href="apiaux.html#fetchelement">AutoConnectAux::fetchElement</a> function for value processing with the on-page handler.</p>
 <p>The following sketch is an example of extracting values inputted on a custom web page with an on-page handler and then processing it.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>
@@ -1745,7 +1822,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <i class="fa fa-arrow-down"></i><br>
 <i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" height="116" src="images/acow.png"></span></p>
 <h3 id="check-data-against-on-submission"><i class="far fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
-<p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconnectinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
+<p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconnectinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;title&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Page-1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;uri&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1761,15 +1838,49 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">}</span>
 </pre></div>
 
-<div>
-  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="images/arrow_down.png"></span>
-  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
-</div>
-
-<p>If you are not familiar with regular expressions, you may feel that description very strange. And matter of fact, it is a strange description for those unfamiliar with formal languages. If your regular expression can not interpret the intended syntax and semantics, you can use an online tester. The <a href="https://regex101.com/">regex101</a> is an exceptional online site for testing and debugging regular expressions.</p>
-<h3 id="validate-input-data"><img src="images/regexp.png" align="top"> Validate input data<a class="headerlink" href="#validate-input-data" title="Permanent link">&para;</a></h3>
+<p><i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> It's shown as like:<br>
+<span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span></p>
+<p>If you are not familiar with regular expressions, you may feel that description very strange. Matter of fact, it's a strange description for those who are unfamiliar with the formal languages. If your regular expression can not interpret the intended syntax and semantics, you can use an online tester. The <a href="https://regex101.com/">regex101</a> is an exceptional online tool for testing and debugging regular expressions.</p>
+<h3 id="input-data-validation"><img src="images/regexp.png" align="top"> Input data validation<a class="headerlink" href="#input-data-validation" title="Permanent link">&para;</a></h3>
 <p>The <a href="apielements.html#pattern">pattern</a> attribute of <a href="apielements.html#autoconnectinput">AutoConnectInput</a> only determines the data consistency on the web browser based on the given regular expression. In order to guarantee the validity of input data, it is necessary to verify it before actually using it.</p>
-<p>You can validate input data from <a href="apielements.html#autoconnectinput">AutoConnectInput</a> using the <a href="apielements.html#isvalid">isValid</a> function before actually processing it.  The <a href="apielements.html#isvalid">isValid</a> function determines whether the <a href="apielements.html#value_3">value</a> currently stored in <a href="apielements.html#autoconnectinput">AutoConnectInput</a> matches the <a href="apielements.html#pattern">pattern</a>. </p>
+<p>You can validate input data from <a href="apielements.html#autoconnectinput">AutoConnectInput</a> using the <a href="apielements.html#isvalid">isValid</a> function before actually processing it.  The <a href="apielements.html#isvalid">isValid</a> function determines whether the <a href="apielements.html#value_3">value</a> currently stored in <a href="apielements.html#autoconnectinput">AutoConnectInput</a> matches the <a href="apielements.html#pattern">pattern</a>.</p>
+<p>You can also use the <a href="apiaux.html#isvalid">AutoConnectAux::isValid</a> function to verify the data input to all <a href="apielements.html#autoconnectinput">AutoConnectInput</a> elements on the custom Web page at once. The two sketches below show the difference between using <a href="apielements.html#isvalid">AutoConnectInput::isValid</a> and using <a href="apiaux.html#isvalid">AutoConnectAux::isValid</a>. In both cases, it verifies the input data of the same AutoConnectInput, but in the case of using AutoConnectAux::isValid, the amount of sketch coding is small.</p>
+<p><strong>A common declaration</strong></p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Custom page&quot;,</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/page&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;input1&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="color: #e6db74">      &quot;pattern&quot;: &quot;^[0-9]{4}$&quot;</span>
+<span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;input2&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="color: #e6db74">      &quot;pattern&quot;: &quot;^[a-zA-Z]{4}$&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page;</span>
+<span style="color: #f8f8f2">page.load(PAGE);</span>
+</pre></div>
+
+<p><strong>Using AutoConnectInput::isValid</strong></p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input1</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">page[</span><span style="color: #e6db74">&quot;input1&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input2</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">page[</span><span style="color: #e6db74">&quot;input2&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+<span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">input1.isValid()</span> <span style="color: #f92672">||</span> <span style="color: #f92672">!</span><span style="color: #f8f8f2">input2.isValid())</span>
+  <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;Validation error&quot;</span><span style="color: #f8f8f2">);</span>
+</pre></div>
+
+<p><strong>Using AutoConnectAux::isValid</strong></p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">page.isValid())</span>
+  <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;Validation error&quot;</span><span style="color: #f8f8f2">);</span>
+</pre></div>
+
 <h3 id="convert-data-to-actually-type"><i class="fa fa-exchange"></i> Convert data to actually type<a class="headerlink" href="#convert-data-to-actually-type" title="Permanent link">&para;</a></h3>
 <p>The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type. For the typical data type conversion method, refer to section <a href="datatips.html#convert-autoconnectelements-value-to-actual-data-type"><em>Tips for data conversion</em></a>.</p>
 <h2 id="transitions-of-the-custom-web-pages">Transitions of the custom Web pages<a class="headerlink" href="#transitions-of-the-custom-web-pages" title="Permanent link">&para;</a></h2>
