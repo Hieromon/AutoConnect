@@ -62,7 +62,9 @@ The AutoConnectUpdate class performs the above series of operations in conjuncti
 
 ### <i class="fas fa-server"></i> Update server for the AutoConnectUpdate class
 
-The above series of actions by the AutoConnectUpdate class requires a cooperated update server. You need to place the update server in a reachable location on the network. AutoConnect provides the update server scripts implemented in Python. This server script is implemented to fit with the AutoConnectUpdate class as a client agent for updating. Also, it exists for each corresponding version of Python 2 or 3.[^2]
+The above series of operations using AutoConnectUpdate class requires an update server that can work with it. AutoConnect provides an update server script implemented in Python. This server script conforms to a sketch that uses the AutoConnectUpdate class as an update client agent.[^2]
+
+In the OTA platform, you can place the update server operated by the script in a location that is reachable from the ESP module on the network.
 
 [^2]: The folders containing the script:  
 For Python2: *AUTOCONNECT\_LIBRARY\_PATH*/src/updateserver/python2  
@@ -102,7 +104,9 @@ updateserver.py [-h] [--port PORT] [--bind IP_ADDRESS] [--catalog CATALOG] [--lo
 
 ### <i class="far fa-handshake"></i> HTTP contents and the sequence for the AutoConnectUpdate class
 
-The update server worked together the AutoConnectUpdate class can be prepared individually by yourself. If you want to improve the update server that can operate more broadly by equipping the extensions such as version control and authentications, it must implement the handshake requirements for AutoConnectUpdate class. The handshake with the AutoConnectUpdate class has two requirements:
+You can also equip an update server that works with the AutoConnectUpdate class. It can be improved more widely applicable by adding extensions such as version control and authentication to the updateserver.py script. It is necessary to understand the specifications related to HTTP data streams and sequences to enhance the update server that the AutoConnectUpdate class assumes.
+
+This section describes the contents of the HTTP data stream required by the communication with AutoConnectUpdate class. To work correctly with the AutoConnectUpdate class, the update server must meet two requirements:
 
 - The update server notifies the catalog list of updatable binary files which stored in the update server to the client agent. [^5]
 - Send an updating binary file and MD5 hash to a client in response to URI request (HTTP GET). [^6]
