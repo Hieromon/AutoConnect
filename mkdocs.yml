@@ -19,11 +19,16 @@ nav:
     - 'AutoConnectElements' : acelements.md
     - 'Custom Web pages with JSON' : acjson.md
     - 'Handling the custom Web pages' : achandling.md
+  - 'OTA Updates' : 
+    - 'OTA Updates' : otaupdate.md
+    - 'Using Web Browser' : otabrowser.md
+    - 'Using Update Server' : otaserver.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
     - 'AutoConnectAux API': apiaux.md
     - 'AutoConnectConfig API': apiconfig.md
     - 'AutoConnectElements API': apielements.md
+    - 'AutoConnectUpdate API' : apiupdate.md
     - 'Something extra': apiextra.md
   - 'Examples' :
     - 'How to embed': howtoembed.md

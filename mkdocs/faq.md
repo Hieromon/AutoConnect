@@ -31,11 +31,11 @@ By default, AutoConnect saves the credentials of the established connection into
 You have the following two options to avoid this conflict:
 
 - Move the credential saving area of EEPROM.  
-  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [**AutoConnectConfig::boundaryOffset**](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Advanced usage](advancedusage.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
+  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [AutoConnectConfig::boundaryOffset](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Advanced usage](advancedusage.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
 
 - Suppresses the automatic save operation of credentials by AutoConnect.  
   You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](advancedusage.md#automatic-reconnect) will be lost.  
-  If you want to stop the automatic saving of the credentials, uses [**AutoConnectConfig::autoSave**](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#auto-save-credential) for details.
+  If you want to stop the automatic saving of the credentials, uses [AutoConnectConfig::autoSave](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#auto-save-credential) for details.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
@@ -74,21 +74,6 @@ void loop() {
 
 Probably **WiFi.begin** failed with the specified SSID. Activating the [debug printing](advancedusage.md#debug-print) will help you to track down the cause.
 
-## <i class="fa fa-question-circle"></i> How can I detect the captive portal starting?
-
-You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more details and an implementation example of the onDetect exit routine, refer to the chapter "[Captive portal start detection](advancedusage.md#captive-portal-start-detection)".
-
-## <i class="fa fa-question-circle"></i> How change esp8266ap for SSID name in Captive portal?
-
-You can change both by using [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk). Refer to section [Change SSID and Password for SoftAP](advancedusage.md#change-ssid-and-password-for-softap) in [Advanced usage](advancedusage.md).
-
-## <i class="fa fa-question-circle"></i> How change HTTP port?
-
-HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112) header file. You can change it directly with several editors and must re-compile.
-
-```cpp
-#define AUTOCONNECT_HTTPPORT    80
-```
 
 ## <i class="fa fa-question-circle"></i> Hang up after Reset?
 
@@ -113,6 +98,22 @@ The correct boot mode for starting the sketch is **(3, x)**.
     |----------|-------------|
     | rst cause | 1: power on<br>2: external reset<br>4: hardware watchdog reset |
     | boot mode<br>(the first parameter) | 1: ESP8266 is in UART-down mode (and downloads firmware into flash).<br>3: ESP8266 is in Flash-boot mode (and boots up from flash). |
+
+## <i class="fa fa-question-circle"></i> How can I detect the captive portal starting?
+
+You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more details and an implementation example of the onDetect exit routine, refer to the chapter "[Captive portal start detection](advancedusage.md#captive-portal-start-detection)".
+
+## <i class="fa fa-question-circle"></i> How change HTTP port?
+
+HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112) header file. You can change it directly with several editors and must re-compile.
+
+```cpp
+#define AUTOCONNECT_HTTPPORT    80
+```
+
+## <i class="fa fa-question-circle"></i> How change SSID or Password in Captive portal?
+
+You can change both by using [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk). Refer to section [Change SSID and Password for SoftAP](advancedusage.md#change-ssid-and-password-for-softap) in [Advanced usage](advancedusage.md).
 
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 

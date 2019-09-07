@@ -2,8 +2,8 @@
  *  AutoConnect proper menu label constant definition.
  *  @file   AutoConnectLabels.h
  *  @author hieromon@gmail.com
- *  @version    0.9.8
- *  @date   2019-03-11
+ *  @version    1.0.0
+ *  @date   2019-08-15
  *  @copyright  MIT license.
  */
 
@@ -55,6 +55,11 @@
 #define AUTOCONNECT_MENULABEL_HOME        "HOME"
 //#define AUTOCONNECT_MENULABEL_HOME        "Main"
 #endif // !AUTOCONNECT_MENULABEL_HOME
+
+// Menu item: Update
+#ifndef AUTOCONNECT_MENULABEL_UPDATE
+#define AUTOCONNECT_MENULABEL_UPDATE      "Update"
+#endif // !AUTOCONNECT_MENULABEL_UPDATE
 
 // Button label: RESET
 #ifndef AUTOCONNECT_BUTTONLABEL_RESET

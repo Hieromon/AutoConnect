@@ -3,12 +3,12 @@
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
  * @version  0.9.8
- * @date 2018-03-11
+ * @date 2019-03-11
  * @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTELEMENT_H_
-#define _AUTOCONENCTELEMENT_H_
+#define _AUTOCONNECTELEMENT_H_
 
 #include "AutoConnectElementBasis.h"
 #ifdef AUTOCONNECT_USE_JSON

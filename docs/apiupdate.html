@@ -1,0 +1,1224 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/apiupdate.html">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>AutoConnectUpdate API - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-116150854-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#constructor" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+          
+            <img src="images/arduino-logo.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              AutoConnect for ESP8266/ESP32
+            </span>
+            <span class="md-header-nav__topic">
+              
+                AutoConnectUpdate API
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+      
+        <img src="images/arduino-logo.svg" width="48" height="48">
+      
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+      Getting started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+      AutoConnect menu
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+      Basic usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Custom Web pages
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Custom Web pages
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+      Custom Web pages with AutoConnect
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+      AutoConnectElements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+      Custom Web pages with JSON
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+      Handling the custom Web pages
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      OTA Updates
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        OTA Updates
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaupdate.html" title="OTA Updates" class="md-nav__link">
+      OTA Updates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+      Using Web Browser
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaserver.html" title="Using Update Server" class="md-nav__link">
+      Using Update Server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked>
+    
+    <label class="md-nav__link" for="nav-8">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Library APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+      AutoConnect API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+      AutoConnectAux API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+      AutoConnectConfig API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+      AutoConnectElements API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        AutoConnectUpdate API
+      </label>
+    
+    <a href="apiupdate.html" title="AutoConnectUpdate API" class="md-nav__link md-nav__link--active">
+      AutoConnectUpdate API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoconnectupdate" title="AutoConnectUpdate" class="md-nav__link">
+    AutoConnectUpdate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach" title=" attach" class="md-nav__link">
+     attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable" title=" disable" class="md-nav__link">
+     disable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable" title=" enable" class="md-nav__link">
+     enable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handleupdate" title=" handleUpdate" class="md-nav__link">
+     handleUpdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isenabled" title=" isEnabled" class="md-nav__link">
+     isEnabled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rebootonupdate" title=" rebootOnUpdate" class="md-nav__link">
+     rebootOnUpdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setledpin" title=" setLedPin" class="md-nav__link">
+     setLedPin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status" title=" status" class="md-nav__link">
+     status
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-member-variables" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host" title=" host" class="md-nav__link">
+     host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port" title=" port" class="md-nav__link">
+     port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uri" title=" uri" class="md-nav__link">
+     uri
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+      Something extra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+      How to embed
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+      Tips for data conversion
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
+      Attach the menu
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+      Custom Web pages w/o JSON
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Appendix
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Appendix
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+      Inside AutoConnect::begin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="credit.html" title="Saved credentials access" class="md-nav__link">
+      Saved credentials access
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+      File upload handler
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="colorized.html" title="Custom colorized" class="md-nav__link">
+      Custom colorized
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="faq.html" title="FAQ" class="md-nav__link">
+      FAQ
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="changelog.html" title="Change log" class="md-nav__link">
+      Change log
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="license.html" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" title=" Constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoconnectupdate" title="AutoConnectUpdate" class="md-nav__link">
+    AutoConnectUpdate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-member-functions" title=" Public member functions" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#attach" title=" attach" class="md-nav__link">
+     attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable" title=" disable" class="md-nav__link">
+     disable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable" title=" enable" class="md-nav__link">
+     enable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handleupdate" title=" handleUpdate" class="md-nav__link">
+     handleUpdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isenabled" title=" isEnabled" class="md-nav__link">
+     isEnabled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rebootonupdate" title=" rebootOnUpdate" class="md-nav__link">
+     rebootOnUpdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setledpin" title=" setLedPin" class="md-nav__link">
+     setLedPin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status" title=" status" class="md-nav__link">
+     status
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-member-variables" title=" Public member variables" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host" title=" host" class="md-nav__link">
+     host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port" title=" port" class="md-nav__link">
+     port
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uri" title=" uri" class="md-nav__link">
+     uri
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>AutoConnectUpdate API</h1>
+                
+                <h2 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
+<h3 id="autoconnectupdate">AutoConnectUpdate<a class="headerlink" href="#autoconnectupdate" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnectUpdate(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">port,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">timeout,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
+</pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">host</span><span class="apidesc">Update server address. Specifies IP address or FQDN.</span></dd>
+    <dd><span class="apidef">port</span><span class="apidesc">Specifies HTTP port for the updating process. The default is defined as the  <strong>AUTOCONNECT_UPDATE_PORT</strong> macro in the <code>AutoConnectDefs.h</code> header file.</span></dd>
+    <dd><span class="apidef">uri</span><span class="apidesc">Specifies a URI on the update server that has deployed available binary sketch files.</span></dd>
+    <dd><span class="apidef">timeout</span><span class="apidesc">Specifies the maximum response time for the update server. The default is defined as the <strong>AUTOCONNECT_UPDATE_TIMEOUT</strong> macro in the <code>AutoConnectDefs.h</code> header file.</span></dt>
+    <dd><span class="apidef">ledOn</span><span class="apidesc">Active signal to light the LED ticker during the update. Specifies <strong>HIGH</strong> or <strong>LOW</strong></span></dt>
+</dl></p>
+<p>The AutoConnectUpdate class inherits from the <strong>ESP8266HTTPUpdate</strong> (<strong>HTTPUpdate</strong> for ESP32) class.</p>
+<h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
+<h3 id="attach"><i class="fa fa-caret-right"></i> attach<a class="headerlink" href="#attach" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">attach(AutoConnect</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">portal)</span>
+</pre></div>
+Attaches the <a href="apiupdate.html">AutoConnectUpdate</a> to the AutoConnect which constitutes the bedrock of the update process. This function creates a <a href="otaserver.html#behavior-of-the-autoconnectupdate-class">dialog page</a> for the update operation as an instance of <a href="apiaux.html">AutoConnectAux</a> and participates in the <a href="menu.html">AutoConnect menu</a>.
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">portal</span><span class="apidesc">Specifies a reference to the AutoConnect instance to attach.</span></dd>
+</dl></p>
+<h3 id="disable"><i class="fa fa-caret-right"></i> disable<a class="headerlink" href="#disable" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">disable(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">activate)</span>
+</pre></div>
+Disable the Update item in <a href="menu.html">AutoConnect menu</a>. The <a href="#disable">AutoConnect::disable</a> function only hides the Update item from the menu, and the <a href="apiupdate.html">AutoConnectUpdate</a> class is still active with the parameter condition. You can use the <a href="#enable">AutoConnectUpdate::enable</a> function to appear it again in the menu.
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">activate</span><span class="apidesc">If specified the <strong>true</strong> then the Update item will be displayed on the <a href="menu.html">AutoConnect menu</a> and OTA update will be available during the WiFi status is WL_CONNECTED. For the <strong>false</strong>, the OTA update feature is disabled.</span></dd>
+</dl></p>
+<h3 id="enable"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">enable(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Makes <a href="apiupdate.html">AutoConnectUpdate</a> class available by incorporating the OTA update function into the <a href="menu.html">AutoConnect menu</a>. In ordinarily, the <a href="apiupdate.html">AutoConnectUpdate</a> class becomes available by just calling the <a href="#attach">AutoConnectUpdate::attach</a> function.</p>
+<h3 id="handleupdate"><i class="fa fa-caret-right"></i> handleUpdate<a class="headerlink" href="#handleupdate" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">handleUpdate(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Performs the update process. This function is called by <a href="api.html#handleClient">AutoConnect::handleClient</a> when AutoConnectUpdate is enabled. In many cases, sketches do not need to call this function on purpose.</p>
+<h3 id="isenabled"><i class="fa fa-caret-right"></i> isEnabled<a class="headerlink" href="#isenabled" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">isEnabled(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns whether AutoConnectUpdate is enabled.</p>
+<h3 id="rebootonupdate"><i class="fa fa-caret-right"></i> rebootOnUpdate<a class="headerlink" href="#rebootonupdate" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">rebootOnUpdate(</span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">reboot)</span>
+</pre></div>
+Specifies whether or not to automatically restart the module as a result of the successful completion of the update process.
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">reboot</span><span class="apidesc">If specified the <strong>true</strong> then the ESP module will reboot after the updating successfully completed. For the <strong>false</strong>, The module does not reboot automatically. The updated firmware remains stored in the flash update firmware area equipped on the ESP module. The boot process during the next start turn of the module by reset will copy the updated firmware to the actual program area and a new sketch program will start. The default value is the true.</span></dd>
+</dl></p>
+<p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
+<h3 id="setledpin"><i class="fa fa-caret-right"></i> setLedPin<a class="headerlink" href="#setledpin" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">setLedPin(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">ledPin,</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
+</pre></div>
+Sets the port and the ON signal level of the externally connected LED that should act as a ticker during the update process.
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">ledPin</span><span class="apidesc">Specifies the PIN connected external LED for the ticker. The default is defined as the  <strong>AUTOCONNECT_TICKER_PORT</strong> macro in the <code>AutoConnectDefs.h</code> header file and it is derived from the board-specific <strong>LED_BUILTIN</strong>. By default, the AutoConnectUpdate class does not use the ticker for boards without the LED_BUILTIN definition. If you connect the ticker LED externally, you need to specify the PIN using the <a href="#setledpin">setLedPin</a> function.</span></dd>
+    <dd><span class="apidef">ledOn</span><span class="apidesc">Specifies the the ON signal level of the LED PIN port. It is <strong>HIGH</strong> or <strong>LOW</strong>.</span></dd>
+</dl></p>
+<p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
+<h3 id="status"><i class="fa fa-caret-right"></i> status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AC_UPDATESTATUS_t</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">status(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</pre></div>
+Returns the update process status transition indicator as an enumerated value of the <strong>AC_UPDATESTATUS_t</strong> type that indicates the process status of the AutoConnectUpdate class.
+<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>One of the enumerated values ​​indicating the status of the Update class as follows:</dd>
+    <dd><span class="apidef"></span><span class="apidesc"></p>
+<ul>
+<li>UPDATE_RESET : Update process ended, need to reset.</li>
+<li>UPDATE_IDLE : Update process has not started.</li>
+<li>UPDATE_START : Update process has been started.</li>
+<li>UPDATE_PROGRESS : Update process has been started.</li>
+<li>UPDATE_SUCCESS : Update successfully completed.</li>
+<li>UPDATE_NOAVAIL : No available update.</li>
+<li>UPDATE_FAIL : Update failed.</span></dd>
+</dl></li>
+</ul>
+<h2 id="public-member-variables"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables" title="Permanent link">&para;</a></h2>
+<h3 id="host"><i class="fa fa-caret-right"></i> host<a class="headerlink" href="#host" title="Permanent link">&para;</a></h3>
+<p>Update server address. Specifies IP address or FQDN.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span></dd><dd><span class="apidesc"></span></dd>
+</dl></p>
+<h3 id="port"><i class="fa fa-caret-right"></i> port<a class="headerlink" href="#port" title="Permanent link">&para;</a></h3>
+<p>HTTP port for the updating process.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc">The default is defined as the  <strong>AUTOCONNECT_UPDATE_PORT</strong> macro in the <code>AutoConnectDefs.h</code> header file.</span></dd>
+</dl></p>
+<h3 id="uri"><i class="fa fa-caret-right"></i> uri<a class="headerlink" href="#uri" title="Permanent link">&para;</a></h3>
+<p>URI on the update server that has deployed available binary sketch files.
+<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span></dd><dd><span class="apidesc"></span></dd>
+</dl></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="apielements.html" title="AutoConnectElements API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                AutoConnectElements API
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="apiextra.html" title="Something extra" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Something extra
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2019 Hieromon Ikasamo
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

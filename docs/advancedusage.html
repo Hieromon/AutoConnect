@@ -623,10 +623,70 @@
       <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
     
     <label class="md-nav__link" for="nav-7">
-      Library APIs
+      OTA Updates
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-7">
+        OTA Updates
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaupdate.html" title="OTA Updates" class="md-nav__link">
+      OTA Updates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+      Using Web Browser
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaserver.html" title="Using Update Server" class="md-nav__link">
+      Using Update Server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
         Library APIs
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -686,6 +746,18 @@
 
 
   <li class="md-nav__item">
+    <a href="apiupdate.html" title="AutoConnectUpdate API" class="md-nav__link">
+      AutoConnectUpdate API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="apiextra.html" title="Something extra" class="md-nav__link">
       Something extra
     </a>
@@ -704,13 +776,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
     
-    <label class="md-nav__link" for="nav-8">
+    <label class="md-nav__link" for="nav-9">
       Examples
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-8">
+      <label class="md-nav__title" for="nav-9">
         Examples
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -776,13 +848,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
     
-    <label class="md-nav__link" for="nav-9">
+    <label class="md-nav__link" for="nav-10">
       Appendix
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
+      <label class="md-nav__title" for="nav-10">
         Appendix
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1119,11 +1191,16 @@
 <h3 id="404-handler"><i class="fa fa-caret-right"></i> 404 handler<a class="headerlink" href="#404-handler" title="Permanent link">&para;</a></h3>
 <p>Registering the "not found" handler is a different way than ESP8266WebServer (WebServer as ESP32). The <em>onNotFound</em> of ESP8266WebServer/WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em>/<em>WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="api.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
 <h3 id="access-to-saved-credentials"><i class="fa fa-caret-right"></i> Access to saved credentials<a class="headerlink" href="#access-to-saved-credentials" title="Permanent link">&para;</a></h3>
-<p>AutoConnect stores the established WiFi connection in the EEPROM of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's <a href="credit.html#autoconnectcredential">AutoConnectCredential</a> class which provides the access method to the saved credentials in EEPROM. Refer to section <a href="credit.html">Saved credentail access</a> for details.</p>
+<p>AutoConnect stores the established WiFi connection in the flash of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's <a href="credit.html#autoconnectcredential">AutoConnectCredential</a> class which provides the access method to the saved credentials in the flash. Refer to section <a href="credit.html">Saved credentials access</a> for details.</p>
+<div class="admonition note">
+<p class="admonition-title">Where to store credentials in ESP32 with AutoConnect v1.0.0 or later</p>
+<p>Since v1.0.0, credentials are stored in nvs of ESP32. AutoConnect v1.0.0 or later accesses the credentials area using the <strong>Preferences</strong> class with the arduino esp-32 core. So in ESP32, the credentials are not in the EEPROM, it is in the namespace <strong>AC_CREDT</strong> of the nvs. See <a href="credit.html">Saved credentials access</a> for details.<br />
+In ESP8266, it is saved in EEPROM as is conventionally done.</p>
+</div>
 <h3 id="automatic-reconnect"><i class="fa fa-caret-right"></i> Automatic reconnect<a class="headerlink" href="#automatic-reconnect" title="Permanent link">&para;</a></h3>
 <p>When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost but then the reconnect behavior of ESP32 is somewhat different from this.</p>
 <p>The <a href="https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46"><em>WiFiSTAClass::disconnect</em></a> function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the <a href="https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296">ESP8266WiFiSTAClass</a> has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.</p>
-<p>If the <a href="apiconfig.html#autoreconnect"><strong>autoReconnect</strong></a> option of the <a href="apiconfig.html">AutoConnectConfig</a> class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in EEPROM as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.</p>
+<p>If the <a href="apiconfig.html#autoreconnect"><strong>autoReconnect</strong></a> option of the <a href="apiconfig.html">AutoConnectConfig</a> class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in the flash as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">Config.autoReconnect</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
@@ -1131,13 +1208,14 @@
 <span style="color: #f8f8f2">Portal.begin();</span>
 </pre></div>
 
-<p>An autoReconnect option is available to <em>AutoConnect::begin</em> without SSID and pass passphrase.</p>
+<p>An autoReconnect option is available to <em>AutoConnect::begin</em> without SSID and pass Passphrase.</p>
 <div class="admonition caution">
 <p class="admonition-title">An autoReconnect will work if SSID detection succeeded</p>
 <p>An autoReconnect will not effect if the SSID which stored credential to be connected is a hidden access point.</p>
 </div>
 <h3 id="auto-save-credential"><i class="fa fa-caret-right"></i> Auto save Credential<a class="headerlink" href="#auto-save-credential" title="Permanent link">&para;</a></h3>
-<p>By default, AutoConnect saves the credentials of the established connection in EEPROM. You can disable it with the <a href="apiconfig.html#autosave"><strong>autoSave</strong></a> parameter specified by <a href="apiconfig.html">AutoConnectConfig</a>.</p>
+<p>By default, AutoConnect saves the credentials of the established connection to the flash. You can disable it with the <a href="apiconfig.html#autosave"><strong>autoSave</strong></a> parameter specified by <a href="apiconfig.html">AutoConnectConfig</a>.<br />
+See the <a href="credit.html">Saved credentials access</a> chapter for details on accessing stored credentials.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">Config.autoSave</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_SAVECREDENTIAL_NEVER;</span>
@@ -1146,8 +1224,30 @@
 </pre></div>
 
 <div class="admonition note">
-<p class="admonition-title">In ESP32, the credentials for AutoConnect are not in NVS</p>
-<p>The credentials used by AutoConnect are not saved in NVS on ESP32 module. ESP-IDF saves the WiFi connection configuration to NVS, but AutoConnect stores it on the EEPROM partition. You can find the partition table for default as <a href="https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv">default.csv</a></p>
+<p class="admonition-title">Credentials storage location</p>
+<p>The location where AutoConnect saves credentials depends on the module type and the AutoConnect library version, also arduino-esp32 core version.
+<table>
+  <tr>
+    <th rowspan="2" style="vertical-align:bottom">AutoConnect</th>
+    <th rowspan="2" style="vertical-align:bottom">Arduino core<br>for ESP8266</th>
+    <th colspan="2" style="text-align:center;vertical-align:bottom">Arduino core for ESP32</th>
+  </tr>
+  <tr>
+    <th style="text-align:center;vertical-align:bottom">1.0.2 earlier</td>
+    <th style="text-align:center;vertical-align:bottom">1.0.3 later</td>
+  </tr>
+  <tr>
+    <td>v0.9.12 earlier</td>
+    <td rowspan="2" style="text-align:center;vertical-align:middle">EEPROM</td>
+    <td>EEPROM (partition)</td>
+    <td>Not supported</td>
+  </tr>
+  <tr>
+    <td>v1.0.0 later</td>
+    <td>Preferences (nvs)<p>(Can be used EEPROM with turning off AUTOCONNECT_USE_PREFERENCES macro)</p></td>
+    <td>Preferences (nvs)</td>
+  </tr>
+</table></p>
 </div>
 <h3 id="captive-portal-start-detection"><i class="fa fa-caret-right"></i> Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h3>
 <p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="api.html#ondetect"><em>AutoConnect::onDetect</em></a> function that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
@@ -1322,7 +1422,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">acConfig;</span>
 
-<span style="background-color: #49483e"><span style="color: #f8f8f2">acConfig.autoRaise</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">acConfig.autoRise</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
 </span><span style="color: #f8f8f2">portal.config(acConfig);</span>
 <span style="color: #f8f8f2">portal.begin();</span>
 </pre></div>
@@ -1356,8 +1456,12 @@ Sketch    OTA update   File system   EEPROM  WiFi config (SDK)
 <blockquote>
 <p>EEPROM library uses one sector of flash located <a href="http://arduino-esp8266.readthedocs.io/en/latest/libraries.html?highlight=SPIFFS#eeprom">just after the SPIFFS</a>.</p>
 </blockquote>
-<p>Also, the placement of the EEPROM area of ESP32 is described in the <a href="https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv">partition table</a>. So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.</p>
+<p>Also, in ESP32 arduino core 1.0.2 earlier, the placement of the EEPROM area of ESP32 is described in the <a href="https://github.com/espressif/arduino-esp32/blob/master/tools/partitions/default.csv">partition table</a>. So in the default state, the credential storage area used by AutoConnect conflicts with data owned by the user sketch. It will be destroyed together saved data in EEPROM by user sketch and AutoConnect each other. But you can move the storage area to avoid this.</p>
 <p>The <a href="apiconfig.html#boundaryoffset"><strong>boundaryOffset</strong></a> in <a href="apiconfig.html">AutoConnectConfig</a> specifies the start offset of the credentials storage area. The default value is 0.</p>
+<div class="admonition info">
+<p class="admonition-title">The boundaryOffset ignored with AutoConnect v1.0.0 later on ESP32 arduino core 1.0.3 later</p>
+<p>For ESP32 arduino core 1.0.3 and later, AutoConnect will store credentials to Preferences in the nvs. Since it is defined as the namespace dedicated to AutoConnect and separated from the area used for user sketches. Therefore, the boundaryOffet is ignored with the combination of AutoConnect v1.0.0 or later and the arduino-esp32 1.0.3 or later.</p>
+</div>
 <h3 id="on-demand-start-the-captive-portal"><i class="fa fa-caret-right"></i> On-demand start the captive portal<a class="headerlink" href="#on-demand-start-the-captive-portal" title="Permanent link">&para;</a></h3>
 <p>If you do not usually connect to WiFi and need to establish a WiFi connection if necessary, you can combine the <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> option with the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> option to achieve on-demand connection. This behavior is similar to the <a href="https://github.com/tzapu/WiFiManager#on-demand-configuration-portal">WiFiManager's startConfigPortal</a> function. In order to do this, you usually configure only with AutoConnectConfig in <em>setup()</em> and <a href="api.html#begin"><em>AutoConnect::begin</em></a> handles in <em>loop()</em>.</p>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
@@ -1544,7 +1648,7 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 
 <p>The AutoConnect ticker indicates the WiFi connection status in the following three flicker patterns:</p>
 <ul>
-<li>Short blink: The ESP8266/ESP32 module stays in APSTA mode.</li>
+<li>Short blink: The ESP module stays in APSTA mode.</li>
 <li>Short-on and long-off: No STA connection state. (i.e. WiFi.status != WL_CONNECTED)</li>
 <li>No blink: WiFi connection with access point established and data link enabled. (i.e. WiFi.status = WL_CONNECTED)</li>
 </ul>
@@ -1557,13 +1661,13 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 
 <ul>
 <li><code>AUTOCONNECTT_FLICKER_PERIODAP</code>:<br />
-  Assigns a flicker period when the ESP8266/ESP32 module stays in APSTA mode.</li>
+  Assigns a flicker period when the ESP module stays in APSTA mode.</li>
 <li><code>AUTOCONNECT_FLICKER_PERIODDC</code>:<br />
   Assigns a flicker period when WiFi is disconnected.</li>
 <li><code>AUTOCONNECT_FLICKER_WIDTHAP</code> and <code>AUTOCONNECT_FLICKER_WIDTHDC</code>:<br />
   Specify the duty rate for each period[ms] in 8-bit resolution.</li>
 </ul>
-<p><a href="apiconfig.html#tickerport">AutoConnectConfig::tickerPort</a> specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP8266/ESP32 module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's <strong>LED_BUILTIN</strong>. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to <strong>LED_BUILTIN</strong>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
+<p><a href="apiconfig.html#tickerport">AutoConnectConfig::tickerPort</a> specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's <strong>LED_BUILTIN</strong>. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to <strong>LED_BUILTIN</strong>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></p>
 <p><a href="apiconfig.html#tickeron">AutoConnectConfig::tickerOn</a> specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is <strong>LOW</strong>. The logic level of LED_BUILTIN for popular modules are as follows:</p>
 <table>
 <thead>

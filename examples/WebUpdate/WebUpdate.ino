@@ -12,19 +12,13 @@
   file on the update UI page to update the firmware.
 
   Notes:
-  1. This example is valid only for ESP8266. In order to apply this
-  example to ESP32, it is necessary to quote WebUpdate.ino included
-  in the ESP32 arduino core distribution and implement a class
-  equivalent to ESP8266HTTPUpdateServer. But it is not included in this
-  example.
-
-  2. To experience this example, your client OS needs to be running a
+  1. To experience this example, your client OS needs to be running a
   service that can respond to multicast DNS.
   For Mac OSX support is built in through Bonjour already.
   For Linux, install Avahi.
   For Windows10, available since Windows10 1803(April 2018 Update/RS4).
 
-  3. If you receive an error as follows:
+  2. If you receive an error as follows:
   Update error: ERROR[11]: Invalid bootstrapping state, reset ESP8266 before updating.
   You need reset the module before sketch running.
   Refer to https://hieromon.github.io/AutoConnect/faq.html#hang-up-after-reset for details.
@@ -32,13 +26,27 @@
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
 */
-#ifdef ARDUINO_ARCH_ESP8266
 
+#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <ESP8266HTTPUpdateServer.h>
+#define HOSTIDENTIFY  "esp8266"
+#define mDNSUpdate(c)  do { c.update(); } while(0)
+using WebServerClass = ESP8266WebServer;
+using HTTPUpdateServerClass = ESP8266HTTPUpdateServer;
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <WiFi.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
+#include "HTTPUpdateServer.h"
+#define HOSTIDENTIFY  "esp32"
+#define mDNSUpdate(c)  do {} while(0)
+using WebServerClass = WebServer;
+using HTTPUpdateServerClass = HTTPUpdateServer;
+#endif
+#include <WiFiClient.h>
 #include <AutoConnect.h>
 
 // This page for an example only, you can prepare the other for your application.
@@ -64,17 +72,19 @@ static const char AUX_AppPage[] PROGMEM = R"(
 )";
 
 // Fix hostname for mDNS. It is a requirement for the lightweight update feature.
-static const char* host = "esp8266-webupdate";
+static const char* host = HOSTIDENTIFY "-webupdate";
 #define HTTP_PORT 80
 
 // ESP8266WebServer instance will be shared both AutoConnect and UpdateServer.
-ESP8266WebServer  httpServer(HTTP_PORT);
+WebServerClass  httpServer(HTTP_PORT);
 
+#define USERNAME "user"   //*< Replace the actual username you want */
+#define PASSWORD "pass"   //*< Replace the actual password you want */
 // Declare AutoConnectAux to bind the HTTPWebUpdateServer via /update url
 // and call it from the menu.
 // The custom web page is an empty page that does not contain AutoConnectElements.
 // Its content will be emitted by ESP8266HTTPUpdateServer.
-ESP8266HTTPUpdateServer httpUpdater;
+HTTPUpdateServerClass httpUpdater;
 AutoConnectAux  update("/update", "Update");
 
 // Declare AutoConnect and the custom web pages for an application sketch.
@@ -88,7 +98,7 @@ void setup() {
 
   // Prepare the ESP8266HTTPUpdateServer
   // The /update handler will be registered during this function.
-  httpUpdater.setup(&httpServer);
+  httpUpdater.setup(&httpServer, USERNAME, PASSWORD);
 
   // Load a custom web page for a sketch and a dummy page for the updater.
   hello.load(AUX_AppPage);
@@ -105,14 +115,10 @@ void setup() {
 }
 
 void loop() {
-  // Sketch the application here.
+  // Sketches the application here.
 
   // Invokes mDNS::update and AutoConnect::handleClient() for the menu processing.
-  MDNS.update();
+  mDNSUpdate(MDNS);
   portal.handleClient();
+  delay(1);
 }
-
-#else
-void setup() {}
-void loop() {}
-#endif

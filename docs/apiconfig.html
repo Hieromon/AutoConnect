@@ -389,18 +389,78 @@
       
       
 
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      OTA Updates
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        OTA Updates
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaupdate.html" title="OTA Updates" class="md-nav__link">
+      OTA Updates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+      Using Web Browser
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaserver.html" title="Using Update Server" class="md-nav__link">
+      Using Update Server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked>
     
-    <label class="md-nav__link" for="nav-7">
+    <label class="md-nav__link" for="nav-8">
       Library APIs
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-7">
+      <label class="md-nav__title" for="nav-8">
         Library APIs
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -716,6 +776,18 @@
 
 
   <li class="md-nav__item">
+    <a href="apiupdate.html" title="AutoConnectUpdate API" class="md-nav__link">
+      AutoConnectUpdate API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="apiextra.html" title="Something extra" class="md-nav__link">
       Something extra
     </a>
@@ -734,13 +806,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
     
-    <label class="md-nav__link" for="nav-8">
+    <label class="md-nav__link" for="nav-9">
       Examples
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-8">
+      <label class="md-nav__title" for="nav-9">
         Examples
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -806,13 +878,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
     
-    <label class="md-nav__link" for="nav-9">
+    <label class="md-nav__link" for="nav-10">
       Appendix
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
+      <label class="md-nav__title" for="nav-10">
         Appendix
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -1204,7 +1276,7 @@
     <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is <strong>172.217.28.1</strong></span></dd>
 </dl></p>
 <h3 id="autoreconnect"><i class="fa fa-caret-right"></i> autoReconnect<a class="headerlink" href="#autoreconnect" title="Permanent link">&para;</a></h3>
-<p>Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, <em>AutoConnect::begin()</em> function will attempt to reconnect to a known access point using credentials stored in the EEPROM, even if the connection failed by current SSID.<br />
+<p>Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, <em>AutoConnect::begin()</em> function will attempt to reconnect to a known access point using credentials stored in the flash, even if the connection failed by current SSID.<br />
 If the connection fails, starts the captive portal in SoftAP+STA mode.<br />
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
@@ -1256,7 +1328,8 @@ If the connection fails, starts the captive portal in SoftAP+STA mode.<br />
 </dl></p>
 <h3 id="boundaryoffset"><i class="fa fa-caret-right"></i> boundaryOffset<a class="headerlink" href="#boundaryoffset" title="Permanent link">&para;</a></h3>
 <p>Sets the offset address of the credential storage area for EEPROM. This value must be between greater than 4 and less than flash sector size. (4096 by SDK)<br />
-The default value is 0.
+The default value is 0.<br />
+This option is valid only for ESP8266 or ESP32 arduino core 1.0.2 earlier.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>uint16_t</dd>
@@ -1384,11 +1457,11 @@ The default value is 0.
     <dt><strong>Type</strong></dt>
     <dd>bool</dd>
     <dt><strong>Value</strong></dt>
-    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while <a href="api.html#begin">AutoConnect::begin</a> operation. The <strong>AUTOCONNECT_TICKER_PORT</strong> macro defined in the <code>AutoConnectDefs.h</code> header file assigns pins for signal output. The default pin is arduino variants LED_BUILTIN. For boards without the LED_BUILTIN pin, assume pin #2.</span></dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while <a href="api.html#begin">AutoConnect::begin</a> operation. The <strong>AUTOCONNECT_TICKER_PORT</strong> macro in the <code>AutoConnectDefs.h</code> header file assigns pins for signal output. The default pin is arduino valiant's LED_BUILTIN. For boards without the LED_BUILTIN pin, assume pin #2.</span></dd>
     <dd><span class="apidef">false</span>No flicker signal output.<span class="apidesc"></span></dd>
 </dl></p>
 <h3 id="tickerport"><i class="fa fa-caret-right"></i> tickerPort<a class="headerlink" href="#tickerport" title="Permanent link">&para;</a></h3>
-<p>Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition <strong>LED_BUILTIN</strong> macro redefined by <strong>AUTOCONNECT_TICKER_PORT</strong> in <code>AutoConnectDefs.h</code>.
+<p>Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by <strong>AUTOCONNECT_TICKER_PORT</strong> in <code>AutoConnectDefs.h</code>.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>uint8_t</dd>

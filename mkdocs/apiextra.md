@@ -11,6 +11,7 @@ To reference the icon, use the **AUTOCONNECT_LINK** macro in the sketch. It expa
     <dd><span class="apidef">BAR_24</span>Bars icon, 24x24.</dd>
     <dd><span class="apidef">BAR_32</span>Bars icon, 32x32.</dd>
     <dd><span class="apidef">BAR_48</span>Bars icon, 48x48.</dd>
+    <dd><span class="apidef">COG_16</span>Cog icon, 16x16.</dd>
     <dd><span class="apidef">COG_24</span>Cog icon, 24x24.</dd>
     <dd><span class="apidef">COG_32</span>Cog icon, 32x32.</dd>
 </dl>

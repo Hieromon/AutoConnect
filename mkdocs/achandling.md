@@ -13,10 +13,10 @@ The AutoConnectAux class has several functions to manipulate AutoConnectElements
 To add AutoConnectElment(s) to an AutoConnectAux object, use the add function.
 
 ```cpp
-void AutoConnectAux::add(AutoConenctElement& addon)
+void AutoConnectAux::add(AutoConnectElement& addon)
 ```
 ```cpp
-void AutoConnectAux::add(AutoConenctElementVT addons)
+void AutoConnectAux::add(AutoConnectElementVT addons)
 ```
 
 The add function adds the specified AutoConnectElement to AutoConnectAux. The AutoConnectElementVT type is the [*std::vector*](https://en.cppreference.com/w/cpp/container/vector) of the [*reference wrapper*](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper) to AutoConnectElements, and you can add these elements in bulk by using the [*list initialization*](https://en.cppreference.com/w/cpp/language/list_initialization) with the sketch.
@@ -70,7 +70,7 @@ AutoConnectElement* AutoConnectAux::getElement(const String& name)
 ```
 
 ```cpp
-T& AutoConenctAux::getElement<T>(const String& name)
+T& AutoConnectAux::getElement<T>(const String& name)
 ```
 
 ```cpp
@@ -108,10 +108,10 @@ The AutoConnectElement type behaves as a variant of other element types. Therefo
 
 ```cpp
 const String auxJson = String("{\"title\":\"Page 1 title\",\"uri\":\"/page1\",\"menu\":true,\"element\":[{\"name\":\"caption\",\"type\":\"ACText\",\"value\":\"hello, world\"}]}");
-AutoConenct portal;
+AutoConnect portal;
 portal.load(auxJson);
 AutoConnectAux* aux = portal.aux("/page1");  // Identify the AutoConnectAux instance with uri
-AutoConenctText& text = aux->getElement<AutoConnectText>("caption");  // Cast to real type and access members
+AutoConnectText& text = aux->getElement<AutoConnectText>("caption");  // Cast to real type and access members
 Serial.println(text.value);
 ```
 
@@ -180,7 +180,7 @@ static const char AUX[] PROGMEM = R"(
 AutoConnect    portal;
 AutoConnectAux page;
 
-String onPage(AutoConnectAux& aux, PageArgument& args) {
+String onPage(AutoConectAux& aux, PageArgument& args) {
   AutoConnectSubmit& send = aux["send"].as<AutoConnectSubmit>();
   if (WiFi.isConnected())
     send.enable = (WiFi.getMode() == WIFI_STA);
@@ -397,7 +397,7 @@ An above example is the most simple sketch of handling values entered into a cus
 
 Another method is effective when custom Web pages have complicated page transitions. It is a way to straight access the AutoConnectElements member value. You can get the AutoConnectElement with the specified name using the [getElement](#get-autoconnectelement-from-the-autoconnectaux) function. The following sketch executes the above example with AutoConnect only, without using the function of ESP8266WebServer.
 
-```cpp hl_lines="47 50"
+```cpp hl_lines="48 51"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>
@@ -595,60 +595,6 @@ portal.on("/echo", [](AutoConnectAux& aux, PageArgument& args) {
 portal.begin();
 ```
 
-### <i class="fa fa-wrench"></i> Retrieve the values with WebServer::on handler
-
-ESP8266WebServer class and the WebServer (for ESP32) class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on (or WebServer::on for ESP32) function.
-
-When the page transitions from the custom Web page created by AutoConnectAux to the handler registered by ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the [uri](acelements.md#uri) attribute of [AutoConnectSubmit](acelements.md#autoconnectsubmit)) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler by the sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the [**AutoConnectAux::fetchElement**](apiaux.md#fetchelement) function for value processing with the on-page handler.
-
-The following sketch is an example of extracting values inputted on a custom web page with an on-page handler and then processing it.
-
-```cpp hl_lines="13 20 27 38"
-ESP8266WebServer server;
-AutoConnect portal(server);
-AutoConnectAux Input;
-
-const static char InputPage[] PROGMEM = R"r(
-{
-  "title": "Input", "uri": "/input", "menu": true, "element": [
-    { "name": "input", "type": "ACInput", "label": "INPUT" },
-    {
-      "name": "save",
-      "type": "ACSubmit",
-      "value": "SAVE",
-      "uri": "/"
-    }
-  ]
-}
-)r";
-
-// An on-page handler for '/' access
-void onRoot() {
-  String  content =
-  "<html>"
-  "<head><meta name='viewport' content='width=device-width, initial-scale=1'></head>"
-  "<body><div>INPUT: {{value}}</div></body>"
-  "</html>";
-
-  Input.fetchElement();    // Preliminary acquisition
-
-  // For this steps to work, need to call fetchElement function beforehand.
-  String value = Input["input"].value;
-  content.replace("{{value}}", value);
-  server.send(200, "text/html", content);
-}
-
-void setup() {
-  Input.load(InputPage);
-  portal.join(Input);
-  server.on("/", onRoot);  // Register the on-page handler
-  portal.begin();  
-}
-
-void loop() {
-  portal.handleClient();
-}
-```
 
 ### <i class="fa fa-wpforms"></i> Overwrite the AutoConnectElements
 
@@ -694,7 +640,7 @@ void loop() {
 
 ### <i class="far fa-check-square"></i> Check data against on submission
 
-By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.md#autoconnectinput), you can find errors in data styles while typing in custom Web pages. The pattern is specified by [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).[^2] If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.
+By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.md#autoconnectinput), you can find errors in data styles while typing in custom Web pages. The pattern is specified with [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).[^2] If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.
 
 [^2]:Regular expression specification as a pattern of AutoConnectInput is [JavaScript compliant](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions).
 
@@ -714,18 +660,60 @@ By giving a [pattern](apielements.md#pattern) to [AutoConnectInput](apielements.
 }
 ```
 
-<div>
-  <span style="display:block;margin-left:136px;"><img width="32px" height="32xp" src="images/arrow_down.png"></span>
-  <span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
-</div>
+<i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> It's shown as like:<br>
+<span style="display:block;width:306px;height:136px;border:1px solid lightgrey;"><img data-gifffer="images/aux_pattern.gif" data-gifffer-height="134" data-gifffer-width="304" /></span>
 
-If you are not familiar with regular expressions, you may feel that description very strange. And matter of fact, it is a strange description for those unfamiliar with formal languages. If your regular expression can not interpret the intended syntax and semantics, you can use an online tester. The [regex101](https://regex101.com/) is an exceptional online site for testing and debugging regular expressions.
+If you are not familiar with regular expressions, you may feel that description very strange. Matter of fact, it's a strange description for those who are unfamiliar with the formal languages. If your regular expression can not interpret the intended syntax and semantics, you can use an online tester. The [regex101](https://regex101.com/) is an exceptional online tool for testing and debugging regular expressions.
 
-### <img src="images/regexp.png" align="top"> Validate input data
+### <img src="images/regexp.png" align="top"> Input data validation
 
 The [pattern](apielements.md#pattern) attribute of [AutoConnectInput](apielements.md#autoconnectinput) only determines the data consistency on the web browser based on the given regular expression. In order to guarantee the validity of input data, it is necessary to verify it before actually using it.
 
-You can validate input data from [AutoConnectInput](apielements.md#autoconnectinput) using the [isValid](apielements.md#isvalid) function before actually processing it.  The [isValid](apielements.md#isvalid) function determines whether the [value](apielements.md#value_3) currently stored in [AutoConnectInput](apielements.md#autoconnectinput) matches the [pattern](apielements.md#pattern). 
+You can validate input data from [AutoConnectInput](apielements.md#autoconnectinput) using the [isValid](apielements.md#isvalid) function before actually processing it.  The [isValid](apielements.md#isvalid) function determines whether the [value](apielements.md#value_3) currently stored in [AutoConnectInput](apielements.md#autoconnectinput) matches the [pattern](apielements.md#pattern).
+
+You can also use the [AutoConnectAux::isValid](apiaux.md#isvalid) function to verify the data input to all [AutoConnectInput](apielements.md#autoconnectinput) elements on the custom Web page at once. The two sketches below show the difference between using [AutoConnectInput::isValid](apielements.md#isvalid) and using [AutoConnectAux::isValid](apiaux.md#isvalid). In both cases, it verifies the input data of the same AutoConnectInput, but in the case of using AutoConnectAux::isValid, the amount of sketch coding is small.
+
+**A common declaration**
+
+```cpp
+const char PAGE[] PROGMEM = R"(
+{
+  "title": "Custom page",
+  "uri": "/page",
+  "menu": true,
+  "element": [
+    {
+      "name": "input1",
+      "type": "ACInput",
+      "pattern": "^[0-9]{4}$"
+    },
+    {
+      "name": "input2",
+      "type": "ACInput",
+      "pattern": "^[a-zA-Z]{4}$"
+    }
+  ]
+}
+)";
+AutoConnectAux page;
+page.load(PAGE);
+```
+
+**Using AutoConnectInput::isValid**
+
+```cpp
+AutoConnectInput& input1 = page["input1"].as<AutoConnectInput>();
+AutoConnectInput& input2 = page["input2"].as<AutoConnectInput>();
+if (!input1.isValid() || !input2.isValid())
+  Serial.println("Validation error");
+```
+
+**Using AutoConnectAux::isValid**
+
+```cpp
+if (!page.isValid())
+  Serial.println("Validation error");
+```
 
 ### <i class="fa fa-exchange"></i> Convert data to actually type
 

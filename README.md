@@ -45,6 +45,10 @@ These HTML elements that make up the user-owned screen can be easily loaded from
 <img width="32px" src="mkdocs/images/arrow_right.png" align="top">&emsp;
 <img width="30%" height="400px" src="mkdocs/images/AutoConnectAux.gif">
 
+### Quick and easy to equip the OTA update feature <sup><sub>ENHANCED w/ v1.0.0</sub></sup>
+
+You can quickly and easily equip the [OTA update feature](https://hieromon.github.io/AutoConnect/otaupdate.html) to your sketch and also you can operate the firmware update process via OTA from AutoConnect menu.
+
 ## Supported hardware
 
 Apply the [Arduino core](https://github.com/esp8266/Arduino) of the ESP8266 Community.
@@ -66,6 +70,7 @@ Alter the platform applying the [arduino-esp32](https://github.com/espressif/ard
 - Ai-Thinker NodeMCU-32S
 - Heltec WiFi Kit 32
 - M5Stack
+- Unexpected Maker TinyPICO
 - And other ESP32 modules supported by the Additional Board Manager URLs of the Arduino-IDE.
 
 ## Simple usage
@@ -95,6 +100,13 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [FAQ](https://hieromon.github.io/AutoConnect/faq.html).
 
 ## Change log
+
+### [1.0.0] Sept. 7, 2019
+- Supports Arduino core for ESP32 1.0.3.
+- Supports AutoConnectUpdate for the OTA update.
+- Supports Preferences for saving credentials with ESP32 core 1.0.3 and later. **In ESP32, the credentials stored past in EEPROM will lose**.
+- Supports AutoConnectAux::isValid function.
+- Supports the global attribute with all AutoConnectElements.
 
 ### [0.9.12] Aug. 18, 2019
 - Fixed missing captive portal notifications on the newer mobile OS client. As a result of this fix, the SoftAP default IP address and gateway have been changed to **172.217.28.1**. (issue #85) 

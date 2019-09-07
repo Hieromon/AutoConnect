@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementJson classes.
  * @file AutoConnectElementImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.11
- * @date 2019-06-25
+ * @version  1.0.0
+ * @date 2019-09-03
  * @copyright  MIT license.
  */
 
@@ -72,6 +72,8 @@ void AutoConnectElementJson::_serialize(JsonObject& json) {
     }
     json[F(AUTOCONNECT_JSON_KEY_POSTERIOR)] = posterior;
   }
+  if (global)
+    json[F(AUTOCONNECT_JSON_KEY_GLOBAL)] = true;
 }
 
 /**
@@ -92,6 +94,9 @@ void AutoConnectElementJson::_setMember(const JsonObject& json) {
       post = AC_Tag_P;
     else
       AC_DBG("Warning '%s' loading, unknown posterior '%s'\n", name.c_str(), posterior.c_str());
+  }
+  if (json.containsKey(F(AUTOCONNECT_JSON_KEY_GLOBAL))) {
+    global = json[F(AUTOCONNECT_JSON_KEY_GLOBAL)].as<bool>();
   }
 }
 

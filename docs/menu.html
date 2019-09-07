@@ -485,10 +485,70 @@
       <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
     
     <label class="md-nav__link" for="nav-7">
-      Library APIs
+      OTA Updates
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-7">
+        OTA Updates
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaupdate.html" title="OTA Updates" class="md-nav__link">
+      OTA Updates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+      Using Web Browser
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="otaserver.html" title="Using Update Server" class="md-nav__link">
+      Using Update Server
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Library APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
         Library APIs
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -548,6 +608,18 @@
 
 
   <li class="md-nav__item">
+    <a href="apiupdate.html" title="AutoConnectUpdate API" class="md-nav__link">
+      AutoConnectUpdate API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="apiextra.html" title="Something extra" class="md-nav__link">
       Something extra
     </a>
@@ -566,13 +638,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
     
-    <label class="md-nav__link" for="nav-8">
+    <label class="md-nav__link" for="nav-9">
       Examples
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-8">
+      <label class="md-nav__title" for="nav-9">
         Examples
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -638,13 +710,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
     
-    <label class="md-nav__link" for="nav-9">
+    <label class="md-nav__link" for="nav-10">
       Appendix
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
+      <label class="md-nav__title" for="nav-10">
         Appendix
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -854,7 +926,7 @@
 <p>Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to the home path of its sketch.</p>
 <ul>
 <li><strong>Configure new AP</strong>: Configure SSID and Password for new access point.</li>
-<li><strong>Open SSIDs</strong>: Opens the past SSID which has been established connection from EEPROM.</li>
+<li><strong>Open SSIDs</strong>: Opens the past SSID which has been established connection from the flash.</li>
 <li><strong>Disconnect</strong>: Disconnects current connection.</li>
 <li><strong>Reset...</strong>: Rest the ESP8266/ESP32 module.</li>
 <li><strong>HOME</strong>: Return to user home page.</li>
@@ -865,7 +937,7 @@
 Enter SSID and Passphrase and tap "<strong>apply</strong>" to starts WiFi connection. </p>
 <p><img src="images/newap.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <h2 id="open-ssids"><i class="fa fa-bars"></i> Open SSIDs<a class="headerlink" href="#open-ssids" title="Permanent link">&para;</a></h2>
-<p>Once it was established WiFi connection, its SSID and password will be saved in EEPROM of ESP8266/ESP32 automatically. The <strong>Open SSIDs</strong> menu reads the saved SSID credentials from the EEPROM. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.</p>
+<p>Once it was established WiFi connection, its SSID and password will be saved in the flash of ESP8266/ESP32 automatically. The <strong>Open SSIDs</strong> menu reads the saved SSID credentials from the flash. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.</p>
 <p><img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <h2 id="disconnect"><i class="fa fa-bars"></i> Disconnect<a class="headerlink" href="#disconnect" title="Permanent link">&para;</a></h2>
 <p>Disconnect ESP8266/ESP32 from the current connection. It can also reset the ESP8266/ESP32 automatically after disconnection by instructing with using <a href="api.html#autoreset">API</a> in the sketch.</p>

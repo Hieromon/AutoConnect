@@ -15,7 +15,7 @@ The AutoConnect menu appears when you access the **AutoConnect root path**. It i
 Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to the home path of its sketch.
 
 - **Configure new AP**: Configure SSID and Password for new access point.
-- **Open SSIDs**: Opens the past SSID which has been established connection from EEPROM.
+- **Open SSIDs**: Opens the past SSID which has been established connection from the flash.
 - **Disconnect**: Disconnects current connection.
 - **Reset...**: Rest the ESP8266/ESP32 module.
 - **HOME**: Return to user home page.
@@ -31,7 +31,7 @@ Enter SSID and Passphrase and tap "**apply**" to starts WiFi connection.
 
 ## <i class="fa fa-bars"></i> Open SSIDs
 
-Once it was established WiFi connection, its SSID and password will be saved in EEPROM of ESP8266/ESP32 automatically. The **Open SSIDs** menu reads the saved SSID credentials from the EEPROM. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.
+Once it was established WiFi connection, its SSID and password will be saved in the flash of ESP8266/ESP32 automatically. The **Open SSIDs** menu reads the saved SSID credentials from the flash. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.
 
 <img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 

@@ -88,6 +88,30 @@ for (AutoConnectElement& elm : elements) {
 }
 ```
 
+### <i class="fa fa-caret-right"></i> isMenu
+
+```cpp
+bool isMenu(void)
+```
+Returns whether embedded in the menu or not. The isMenu is a function that complements the [menu](apiaux.md#menu) function.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The custom Web page has been incorporated into the AutoConnect menu as a menu item.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">This custom Web page is not currently a menu item.</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> isValid
+
+```cpp
+bool isValid(void)
+```
+Performs [validation](apielements.md#isvalid) of all [AutoConnectInput](apielements.md#autoconnectinput) elements owned by AutoConnectAux and returns the result. The isValid function will return the true even if the AutoConnectAux does not own AutoConnectInputs.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Validation is successful. A value of all AutoConnectInputs match with each pattern.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Some elements failed validation.</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> load
 
 ```cpp
@@ -183,7 +207,7 @@ Load specified element from JSON document into AutoConnectAux. The JSON document
 ```cpp
 void menu(const bool post)
 ```
-Set or reset the display as menu item for this AutoConnectAux. This function programmatically manipulates the menu parameter of the [AutoConenctAux constructor](apiaux.md#autoconnectaux).
+Set or reset the display as menu item for this AutoConnectAux. This function programmatically manipulates the menu parameter of the [AutoConnectAux constructor](apiaux.md#autoconnectaux).
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Show on the menu.</span></dd>
@@ -243,7 +267,7 @@ typedef struct {
 ```cpp
 bool release(const String& name)
 ```
-Release a specified AutoConnectElement from AutoConenctAux. The release function is provided to dynamically change the structure of the custom Web pages with the sketch. By combining the release function and the [add](apiaux.md#add) function or the [loadElement](apiaux.md#loadelement) function, the sketch can change the style of the custom Web page according to its behavior.
+Release a specified AutoConnectElement from AutoConnectAux. The release function is provided to dynamically change the structure of the custom Web pages with the sketch. By combining the release function and the [add](apiaux.md#add) function or the [loadElement](apiaux.md#loadelement) function, the sketch can change the style of the custom Web page according to its behavior.
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of AutoConnectElements to be released.</span></dd>
@@ -257,7 +281,7 @@ Release a specified AutoConnectElement from AutoConenctAux. The release function
 ```cpp
 size_t saveElement(Stream& out, std::vector<String> const& names = {})
 ```
-Write elements of AutoConnectAux to the stream. The saveElement function outputs the specified AutoConenctElements as a JSON document using the [prettyPrintTo](https://arduinojson.org/v5/api/jsonobject/prettyprintto/) function of the [ArduinoJson](https://arduinojson.org/) library.
+Write elements of AutoConnectAux to the stream. The saveElement function outputs the specified AutoConnectElements as a JSON document using the [prettyPrintTo](https://arduinojson.org/v5/api/jsonobject/prettyprintto/) function of the [ArduinoJson](https://arduinojson.org/) library.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">out</span><span class="apidesc">Output stream to be output. SPIFFS, SD also Serial can be specified generally.</span></dd>

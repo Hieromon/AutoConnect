@@ -20,7 +20,7 @@ A JSON document for AutoConnect can contain the custom Web page multiple. You ca
 
 AutoConnectAux will configure custom Web pages with JSON objects. The elements that make up the object are as follows:
 
-```
+```js
 {
   "title" : title,
   "uri" : uri,
@@ -99,11 +99,13 @@ You can put declarations of multiple custom Web pages in one JSON document. In t
 ]
 ```
 
+The above custom Web page definitions can be loaded in a batch using the [AutoConnect::load](api.md#load) function.
+
 ### <i class="fa fa-caret-right"></i> JSON object for AutoConnectElements
 
 JSON description for AutoConnectElements describes as an array in the *element* with arguments of [each constructor](acelements.md#constructor).
 
-```
+```js
 {
   "name" : name,
   "type" : type,
@@ -124,6 +126,7 @@ JSON description for AutoConnectElements describes as an array in the *element* 
 : -  AutoConnectInput: [**ACInput**](#acinput)
 : -  AutoConnectRadio: [**ACRadio**](#acradio)
 : -  AutoConnectSelect: [**ACSelect**](#acselect)
+: -  AutoConnectStyle: [**ACStyle**](#acstyle)
 : -  AutoConnectSubmit: [**ACSubmit**](#acsubmit)
 : -  AutoConnectText: [**ACText**](#actext)
 
@@ -169,6 +172,9 @@ This is different for each AutoConnectElements, and the key that can be specifie
 : - **label** : Specifies a label of the drop-down list. Its placement is always to the left of the drop-down list.
 : - **option** : Specifies the initial value collection of the drop-down list as an array element.
 
+#### <i class="fa fa-caret-right"></i> ACStyle
+: - **value** : Specifies the custom CSS code.
+
 #### <i class="fa fa-caret-right"></i> ACSubmit
 : - **value** : Specifies a label of the submit button.
 : - **uri** : Specifies the URI to send form data when the button is clicked.
@@ -182,6 +188,102 @@ This is different for each AutoConnectElements, and the key that can be specifie
     It is based on analysis by ArduinoJson, but the semantic analysis is simplified to save memory. Consequently, it is not an error that a custom Web page JSON document to have unnecessary keys. It will be ignored.
 
 ## Loading JSON document
+
+### <i class="fa fa-caret-right"></i> Loading to AutoConnect
+
+There are two main ways to load the custom Web pages into AutoConnect.
+
+1. Load directly into AutoConnect
+
+    This way does not require an explicit declaration of AutoConnectAux objects with sketches and is also useful when importing the custom Web pages JSON document from an external file such as SPIFFS because the page definition and sketch coding structure can be separated.
+
+    Using the [AutoCoonnect::load](api.md#load) function, AutoConnect dynamically generates the necessary AutoConnectAux objects internally based on the custom Web page definition of the imported JSON document content. In the sketch, the generated AutoConnectAux object can be referenced using the [AutoConnect::aux](api.md#aux) function. You can reach the AutoConnectElements you desired using the [AutoConnectAux::getElement](apiaux.md#getelement) function of its AutoConnectAux.
+
+    In the following example, it loads in a batch a JSON document of custom Web pages stored in SPIFFS and accesses to the AutoConnectInput element.
+
+    ```js
+    [
+      {
+        "title": "page1",
+        "uri": "/page1",
+        "menu": true,
+        "element": [
+          {
+            "name": "input1",
+            "type": "ACInput"
+          }
+        ]
+      },
+      {
+        "title": "page2",
+        "uri": "/page2",
+        "menu": true,
+        "element": [
+          {
+            "name": "input2",
+            "type": "ACInput"
+          }
+        ]
+      }
+    ]
+    ```
+
+    ```cpp hl_lines="3 5 6"
+    AutoConnect portal;
+    File page = SPIFFS.open("/custom_page.json", "r");
+    portal.load(page);
+    page.close();
+    AutoConnectAux* aux = portal.aux("/page1");
+    AutoConnectInput& input1 = aux->getElement<AutoConnectInput>("input1");
+    ```
+
+2. Load to AutoConnectAux and join to AutoConnect
+
+    This way declares AutoConnectAux in the sketch and loads the custom Web pages JSON document there. It has an advantage for if you want to define each page of a custom Web page individually or allocate AutoConnectAux objects dynamically on the sketch side.
+
+    After loading a JSON document using the [AutoConnectAux::load](apiaux.md#load) function by each, integrate those into AutoConnect using the [AutoConnect::join](api.md#join) function.
+
+    In the following example, you can see the difference between two sketches in a sketch modified using the AutoConnectAux::load.
+
+    ```js
+    {
+      "title": "page1",
+      "uri": "/page1",
+      "menu": true,
+      "element": [
+        {
+          "name": "input1",
+          "type": "ACInput"
+        }
+      ]
+    }
+    ```
+    ```js
+    {
+      "title": "page2",
+      "uri": "/page2",
+      "menu": true,
+      "element": [
+        {
+          "name": "input2",
+          "type": "ACInput"
+        }
+      ]
+    }
+    ```
+    ```cpp hl_lines="5 8 10"
+    AutoConnect portal;
+    AutoConnectAux page1;
+    AutoConnectAux page2;
+    File page = SPIFFS.open("/custom_page1.json", "r");
+    page1.load(page);
+    page.close();
+    page = SPIFFS.open("/custom_page2.json", "r");
+    page2.load(page);
+    page.close();
+    portal.join( { page1, page2 } );
+    AutoConnectInput& input1 = page1.getElement<AutoConnectInput>("input1");
+    ```
 
 ### <i class="fa fa-caret-right"></i> Loading from the streamed file
 

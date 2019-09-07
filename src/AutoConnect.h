@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	0.9.11
- *	@date	2019-07-08
+ *	@version	1.0.0
+ *	@date	2019-08-15
  *	@copyright	MIT license.
  */
 
@@ -33,6 +33,11 @@ using WebServerClass = WebServer;
 #include "AutoConnectCredential.h"
 #include "AutoConnectAux.h"
 #include "AutoConnectTicker.h"
+
+// The realization of AutoConnectUpdate is effective only by the explicit
+// definition of AUTOCONNECT_USE_UPDATE
+#include "AutoConnectUpdate.h"
+class AutoConnectUpdate;  // Reference to avoid circular
 
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
@@ -280,6 +285,8 @@ class AutoConnect {
   std::unique_ptr<AutoConnectAux> _aux;
   String        _auxUri;        /**< Last accessed AutoConnectAux */
   String        _prevUri;       /**< Previous generated page uri */
+  /** Available updater, only reset by AutoConnectUpdate::attach is valid */
+  std::unique_ptr<AutoConnectUpdate>  _update;
 
   /** Saved configurations */
   AutoConnectConfig     _apConfig;
@@ -382,6 +389,7 @@ class AutoConnect {
 #endif
 
   friend class AutoConnectAux;
+  friend class AutoConnectUpdate;
 };
 
 #endif  // _AUTOCONNECT_H_

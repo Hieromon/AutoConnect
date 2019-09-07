@@ -48,7 +48,7 @@ typedef enum {
 class AutoConnectAux : public PageBuilder {
  public:
   explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT()) :
-    _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons), _handler(nullptr), _order(AC_EXIT_AHEAD), _uploadHandler(nullptr) { _uri = _uriStr.c_str(); _next.release(); _ac.release(); }
+    chunk(PB_Chunk), _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons), _handler(nullptr), _order(AC_EXIT_AHEAD), _uploadHandler(nullptr) { _uri = _uriStr.c_str(); _next.release(); _ac.release(); }
   ~AutoConnectAux();
   AutoConnectElement& operator[](const String& name) { return *getElement(name); }
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
@@ -59,6 +59,8 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement*   getElement(const String& name);                 /**< Get registered AutoConnectElement as specified name */
   AutoConnectElementVT& getElements(void) { return _addonElm; }         /**< Get vector of all elements */
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
+  bool  isMenu(void) { return _menu; }                                  /**< Return whether embedded in the menu or not */
+  bool  isValid(void) const;                                            /**< Validate all AutoConnectInput value */
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
@@ -86,6 +88,8 @@ class AutoConnectAux : public PageBuilder {
   bool  loadElement(Stream& in, std::vector<String> const& names);      /**< Load any specified elements */
   size_t  saveElement(Stream& out, std::vector<String> const& names = {});  /**< Write elements of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
+
+  TransferEncoding_t    chunk;                                          /**< Chunked transfer specified */
 
  protected:
   void  upload(const String& requestUri, const HTTPUpload& upload);     /**< Uploader wrapper */

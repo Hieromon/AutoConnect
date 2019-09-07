@@ -25,6 +25,6 @@
     "espressif8266",
     "espressif32"
   ],
-  "version": "0.9.12",
+  "version": "1.0.0",
   "license": "MIT"
 }

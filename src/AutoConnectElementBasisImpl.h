@@ -227,6 +227,8 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       if (n == checked)
         html += String(F(" checked"));
       html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
+      if (n <= tags.size())
+        html += tags[n - 1];
       if (order == AC_Vertical)
         html += String(F("<br>"));
     }

@@ -39,6 +39,20 @@ typedef SDFile        SDFileT;
 #include "AutoConnectDefs.h"
 #include "AutoConnectUpload.h"
 
+namespace AutoConnectUtil {
+AC_HAS_FUNC(end);
+
+template<typename T>
+typename std::enable_if<AutoConnectUtil::has_func_end<T>::value, void>::type end(T* media) {
+  media->end();
+}
+
+template<typename T>
+typename std::enable_if<!AutoConnectUtil::has_func_end<T>::value, void>::type end(T* media) {
+  (void)(media);
+}
+}
+
 /**
  * Handles the default upload process depending on the upload status.
  * This handler function supports the status of UPLOAD_FILE_START,
@@ -191,9 +205,7 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
   void  _close(void) override {
     if (_file)
       _file.close();
-#if defined(ARDUINO_ARCH_ESP32) || (defined(ARDUINO_ARCH_ESP8266) && (!defined(ARDUINO_ESP8266_RELEASE_2_4_0) && !defined(ARDUINO_ESP8266_RELEASE_2_4_1) && !defined(ARDUINO_ESP8266_RELEASE_2_4_2)))
-    _media->end();
-#endif
+    AutoConnectUtil::end<SDClassT>(_media);
   }
 
  private:

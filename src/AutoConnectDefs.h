@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  0.9.12
- * @date 2019-08-18
+ * @version  1.0.0
+ * @date 2019-08-15
  * @copyright  MIT license.
  */
 
@@ -11,7 +11,7 @@
 #define _AUTOCONNECTDEFS_H_
 
 // Uncomment the following AC_DEBUG to enable debug output.
-#define AC_DEBUG
+//#define AC_DEBUG
 
 // Debug output destination can be defined externally with AC_DEBUG_PORT
 #ifndef AC_DEBUG_PORT
@@ -28,6 +28,9 @@
 // Indicator to specify that AutoConnectAux handles elements with JSON.
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
 #define AUTOCONNECT_USE_JSON
+
+// Indicator of whether to use the AutoConnectUpdate feature.
+#define AUTOCONNECT_USE_UPDATE
 
 // Predefined parameters
 // SSID that Captive portal started.
@@ -88,6 +91,10 @@
 #define AUTOCONNECT_URI_RESET   AUTOCONNECT_URI "/reset"
 #define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
 #define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
+#define AUTOCONNECT_URI_UPDATE  AUTOCONNECT_URI "/update"
+#define AUTOCONNECT_URI_UPDATE_ACT      AUTOCONNECT_URI "/update_act"
+#define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
+#define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
 
 // Time-out limitation when AutoConnect::begin [ms]
 #ifndef AUTOCONNECT_TIMEOUT
@@ -134,7 +141,7 @@
 #define AUTOCONNECT_SSIDPAGEUNIT_LINES  5
 #endif // !AUTOCONNECT_SSIDPAGEUNIT_LINES
 
-// SPI transfer speed for SD
+// SPI transfer speed for SD [Hz]
 #ifndef AUTOCONNECT_SD_SPEED
 #define AUTOCONNECT_SD_SPEED    4000000
 #endif // !AUTOCONNECT_SD_SPEED
@@ -176,7 +183,72 @@
 #define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
 #endif // !AUTOCONNECT_JSONPSRAM_SIZE
 
+// Available HTTP port number for the update [ms]
+#ifndef AUTOCONNECT_UPDATE_PORT
+#define AUTOCONNECT_UPDATE_PORT       8000
+#endif // !AUTOCONNECT_UPDATE_PORT
+
+// HTTP client timeout limitation for the update [ms]
+#ifndef AUTOCONNECT_UPDATE_TIMEOUT
+#define AUTOCONNECT_UPDATE_TIMEOUT    8000
+#endif // !AUTOCONNECT_UPDATE_TIMEOUT
+
+// Maximum wait time until transitioning  AutoConnectUpdate dialog page [ms]
+#ifndef AUTOCONNECT_UPDATE_DURATION
+#define AUTOCONNECT_UPDATE_DURATION   180000
+#endif // !AUTOCONNECT_UPDATE_DURATION
+
+// Interval time of progress status periodical inquiry [ms]
+#ifndef AUTOCONNECT_UPDATE_INTERVAL
+#define AUTOCONNECT_UPDATE_INTERVAL   400
+#endif // !AUTOCONNECT_UPDATE_INTERVAL
+
+// Wait timer for rebooting after updated
+#ifndef AUTOCONNECT_UPDATE_WAITFORREBOOT
+#define AUTOCONNECT_UPDATE_WAITFORREBOOT  9000
+#endif // !AUTOCONNECT_UPDATE_WAITFORREBOOT
+
+// A signal value that the board dependent LED turns on.
+// As a typical example, the ON signal of built-in LED such as the
+// NodeMCU is LOW and the HIGH for the NodeMCU-32S as another example.
+#ifndef AUTOCONNECT_UPDATE_LEDON
+// #define AUTOCONNECT_UPDATE_LEDON  HIGH
+#define AUTOCONNECT_UPDATE_LEDON  LOW
+#endif // !AUTOCONNECT_UPDATE_LEDON
+
+// URIs of the behaviors owned by the update server
+#ifndef AUTOCONNECT_UPDATE_CATALOG
+#define AUTOCONNECT_UPDATE_CATALOG    "/_catalog"
+#endif // !AUTOCONNECT_UPDATE_CATALOG
+#ifndef AUTOCONNECT_UPDATE_DOWNLOAD
+#define AUTOCONNECT_UPDATE_DOWNLOAD   "/"
+#endif // !AUTOCONNECT_UPDATE_DOWNLOAD
+#ifndef AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
+#define AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE  256
+#endif // !AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
+
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
+
+// Numeric to string deployment
+#define AUTOCONNECT_STRING_DEPLOY(n)  _AUTOCONNECT_STRING_DEPLOY(n)
+#define _AUTOCONNECT_STRING_DEPLOY(s) #s
+
+// Generates a template that determines whether the class owns the
+// specified member function.
+// The purpose of this macro is to avoid the use of invalid member
+// functions due to differences in the version of the library which
+// AutoConnect depends on.
+#define AC_HAS_FUNC(func)                                   \
+template<typename T>                                        \
+struct has_func_##func {                                    \
+ private:                                                   \
+  typedef char  one;                                        \
+  typedef long  two;                                        \
+  template<typename U> static one test(decltype(&U::func)); \
+  template<typename U> static two test(...);                \
+ public:                                                    \
+  enum { value = sizeof(test<T>(0)) == sizeof(char) };      \
+}
 
 #endif // _AUTOCONNECTDEFS_H_

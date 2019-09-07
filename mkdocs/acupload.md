@@ -125,7 +125,7 @@ The AutoConnect built-in upload handler can save the upload file to three locati
 2. SD device externally connected to the ESP8266/ESP32 module
 3. Other character devices
 
-You can specify the device type to save with the [**store**](acelements.md#store) attribute of AutoConenctFile, and it accepts the following values:
+You can specify the device type to save with the [**store**](acelements.md#store) attribute of AutoConnectFile, and it accepts the following values:
 
 - Flash : `AC_File_FS` for the API parameter or `fs` for the JSON document
 - SD : `AC_File_SD` for the API parameter or `sd` for the JSON document

@@ -19,7 +19,7 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Store the established connection
 
-<span class="lead">The connection authentication data as credentials are saved automatically in EEPROM of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](menu.md).</span>
+<span class="lead">The connection authentication data as credentials are saved automatically in the flash of ESP8266/ESP32 and You can select the past SSID from the [AutoConnect menu](menu.md).</span>
 
 ### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Easy to embed in
 
@@ -38,6 +38,12 @@ Easy implementing the Web interface constituting the WLAN for ESP8266/ESP32 WiFi
 <img style="float:left;margin-top:200px;margin-left:10px;margin-right:10px;width:32px;" src="images/arrow_right.png">
 <span style="float:left;width:242px;height:425px;border:1px solid lightgrey;"><img data-gifffer="images/aux_ov.gif" data-gifffer-width="240" data-gifffer-height="423" /></span>
 </div>
+
+### <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Quick and easy to equip the [OTA update feature](otaupdate.md) <sup><sub>ENHANCED w/v1.0.0</sub></sup>
+
+<span class="lead">You can quickly and easily equip the OTA update feature to your sketch and also you can operate the firmware update process via OTA from AutoConnect menu.</span>
+
+<span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span>
 
 ## Installation
 
@@ -81,6 +87,9 @@ Install third-party platform using the *Boards Manager* of Arduino IDE. Package 
 
 Also, to apply AutoConnect to ESP32, the [arduino-esp32 core](https://github.com/espressif/arduino-esp32) provided by Espressif is needed. Stable 1.0.1 or required and the [latest release](https://github.com/espressif/arduino-esp32/releases/latest) is recommended.  
 Install third-party platform using the *Boards Manager* of Arduino IDE. You can add multiple URLs into *Additional Board Manager URLs* field, separating them with commas. Package URL is https://dl.espressif.com/dl/package_esp32_index.json for ESP32.
+
+!!! info "Arduino core for ESP32 1.0.3 or later"
+    For ESP32, AutoConnect v1.0.0 later is required for arduino-esp32 1.0.3 or later.
 
 <i class="fa fa-download"></i> <strong>Additional library (Required)</strong>
 

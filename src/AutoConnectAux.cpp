@@ -143,6 +143,21 @@ AutoConnectElement* AutoConnectAux::getElement(const String& name) {
 }
 
 /**
+ * Validate all AutoConnectInputs value.
+ * @return true  Validation successfull
+ * @return false Some elements failed validation.
+ */
+bool AutoConnectAux::isValid(void) const {
+  bool  rc = true;
+  for (AutoConnectElement& elm : _addonElm)
+    if (elm.typeOf() == AC_Input) {
+      AutoConnectInput& elmInput = reinterpret_cast<AutoConnectInput&>(elm);
+      rc &= elmInput.isValid();
+    }
+  return rc;
+}
+
+/**
  * Releases the AutoConnectElements with the specified name from 
  * the AutoConnectAux page. Releases all AutoConnectElements with 
  * the same name in AutoConnectAux.
@@ -327,7 +342,7 @@ void AutoConnectAux::_concat(AutoConnectAux& aux) {
 
 /**
  * Register the AutoConnect that owns itself.
- * AutoConenctAux needs to access the AutoConnect member. Also 
+ * AutoConnectAux needs to access the AutoConnect member. Also 
  * AutoConnectAux is cataloged by chain list. The _join function 
  * registers AutoConnect in the following AutoConnectAux chain list.
  * @param  ac    A reference of AutoConnect.
@@ -352,7 +367,7 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
   String  menuItem;
 
   if (_menu)
-    menuItem = String(FPSTR("<li class=\"luxbar-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
+    menuItem = String(FPSTR("<li class=\"lb-item\"><a href=\"")) + String(_uri) + String("\">") + _title + String(FPSTR("</a></li>"));
   if (_next)
     menuItem += _next->_injectMenu(args);
   return menuItem;
@@ -493,6 +508,8 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       elm->addToken(String(FPSTR("AUX_URI")), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
       elm->addToken(String(FPSTR("ENC_TYPE")), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
       elm->addToken(String(FPSTR("AUX_ELEMENT")), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
+      // Restore transfer mode by each page
+      mother->_responsePage->chunked(chunk);
     }
   }
   return elm;
@@ -528,6 +545,16 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
         if (elm.typeOf() == AC_Checkbox)
           elmValue = "checked";
         setElementValue(elm.name, elmValue);
+
+        // Copy a value to other elements declared as global.
+        if (elm.global) {
+          AutoConnectAux* aux = _ac->_aux.get();
+          while (aux) {
+            if (aux != this)
+              aux->setElementValue(elm.name, elmValue);
+            aux = aux->_next.get();
+          }
+        }
       }
     }
   }

@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    0.9.11
- *  @date   2019-07-09
+ *  @version    1.0.0
+ *  @date   2019-08-15
  *  @copyright  MIT license.
  */
 
@@ -59,7 +59,7 @@ void AutoConnect::_initialize(void) {
 #endif
   _aux.release();
   _auxUri = String("");
-  _ticker.reset();
+
 }
 
 /**
@@ -161,9 +161,14 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   }
   _currentHostIP = WiFi.localIP();
 
-  // Rushing into the portal.
-  if (!cs) {
-
+  // End first begin process, the captive portal specific process starts here.
+  if (cs) {
+    // Activate AutoConnectUpdate if it is attached and incorporate it into the AutoConnect menu.
+    if (_update)
+      _update->enable();
+  }
+ // Rushing into the portal.
+  else {
     // The captive portal is effective at the autoRise is valid only.
     if (_apConfig.autoRise) {
 
@@ -341,7 +346,6 @@ void AutoConnect::end(void) {
     }
   }
 
-  _ticker.reset();
 }
 
 /**
@@ -472,8 +476,10 @@ void AutoConnect::handleRequest(void) {
         // Save current credential
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
           AutoConnectCredential credit(_apConfig.boundaryOffset);
-          credit.save(&_credential);
-          AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
+          if (credit.save(&_credential))
+            AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
+          else
+            AC_DBG("credential %s save failed\n", reinterpret_cast<const char*>(_credential.ssid));
         }
 
         // Ensures that keeps a connection with the current AP while the portal behaves.
@@ -481,6 +487,11 @@ void AutoConnect::handleRequest(void) {
       }
       else
         AC_DBG("%s has no BSSID, saving is unavailable\n", reinterpret_cast<const char*>(_credential.ssid));
+
+      // Activate AutoConnectUpdate if it is attached and incorporate
+      // it into the AutoConnect menu.
+      if (_update)
+        _update->enable();
     }
     else {
       _currentHostIP = WiFi.softAPIP();
@@ -506,7 +517,6 @@ void AutoConnect::handleRequest(void) {
 
   if (_rfDisconnect) {
     // Disconnect from the current AP.
-//    _waitForEndTransmission();
     _stopPortal();
     _disconnectWiFi(false);
     while (WiFi.status() == WL_CONNECTED) {
@@ -523,6 +533,10 @@ void AutoConnect::handleRequest(void) {
       delay(1000);
     }
   }
+
+  // Handle the update behaviors for attached AutoConnectUpdate.
+  if (_update)
+    _update->handleUpdate();
 }
 
 /**
