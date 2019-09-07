@@ -26,7 +26,7 @@ before_install:
   - arduino --install-library PubSubClient,PageBuilder:1.3.4
   - arduino --install-library ArduinoJson:5.13.5
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
-  - arduino --install-library ArduinoJson:6.10.1
+  - arduino --install-library ArduinoJson:6.12.0
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
   - mkdir -p ~/Arduino/libraries
