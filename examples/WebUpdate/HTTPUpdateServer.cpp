@@ -47,7 +47,7 @@ void HTTPUpdateServer::setup(WebServer* server, const String& path, const String
 
   // handler for the /update form page
   _server->on(path.c_str(), HTTP_GET, [&] () {
-    if (_username != emptyString && _password != emptyString && !_server->authenticate(_username.c_str(), _password.c_str()))
+    if (_username != _emptyString && _password != _emptyString && !_server->authenticate(_username.c_str(), _password.c_str()))
       return _server->requestAuthentication();
     _server->send_P(200, PSTR("text/html"), serverIndex);
   });
@@ -76,7 +76,7 @@ void HTTPUpdateServer::setup(WebServer* server, const String& path, const String
       if (_serial_output)
         Serial.setDebugOutput(true);
 
-      _authenticated = (_username == emptyString || _password == emptyString || _server->authenticate(_username.c_str(), _password.c_str()));
+      _authenticated = (_username == _emptyString || _password == _emptyString || _server->authenticate(_username.c_str(), _password.c_str()));
       if (!_authenticated) {
         if (_serial_output)
           Serial.println("Unauthenticated Update");
@@ -126,5 +126,10 @@ void HTTPUpdateServer::_setUpdaterError() {
   Update.printError(str);
   _updaterError = str.c_str();
 }
+
+/**
+ * Shared empty String instance
+ */
+const String HTTPUpdateServer::_emptyString;
 
 #endif // !ARDUINO_ARCH_ESP32

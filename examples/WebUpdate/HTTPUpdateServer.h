@@ -20,8 +20,8 @@ class HTTPUpdateServer {
  public:
   explicit HTTPUpdateServer(bool serial_debug = false) : _serial_output(serial_debug), _server(nullptr), _username(emptyString), _password(emptyString), _authenticated(false) {}
   ~HTTPUpdateServer() {}
-  void  setup(WebServer* server) { setup(server, emptyString, emptyString); }
-  void  setup(WebServer* server, const String& path) { setup(server, path, emptyString, emptyString); }
+  void  setup(WebServer* server) { setup(server, _emptyString, _emptyString); }
+  void  setup(WebServer* server, const String& path) { setup(server, path, _emptyString, _emptyString); }
   void  setup(WebServer* server, const String& username, const String& password) { setup(server, "/update", username, password); }
   void  setup(WebServer* server, const String& path, const String& username, const String& password);
   void  updateCredentials(const String& username, const String& password) { _username = username; _password = password; }
@@ -36,6 +36,7 @@ class HTTPUpdateServer {
   String  _password;
   bool    _authenticated;
   String  _updaterError;
+  static const String _emptyString;
 };
 
 #endif // !ARDUINO_ARCH_ESP32
