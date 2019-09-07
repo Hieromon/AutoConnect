@@ -18,7 +18,7 @@ class WebServer;
 
 class HTTPUpdateServer {
  public:
-  explicit HTTPUpdateServer(bool serial_debug = false) : _serial_output(serial_debug), _server(nullptr), _username(emptyString), _password(emptyString), _authenticated(false) {}
+  explicit HTTPUpdateServer(bool serial_debug = false) : _serial_output(serial_debug), _server(nullptr), _username(_emptyString), _password(_emptyString), _authenticated(false) {}
   ~HTTPUpdateServer() {}
   void  setup(WebServer* server) { setup(server, _emptyString, _emptyString); }
   void  setup(WebServer* server, const String& path) { setup(server, path, _emptyString, _emptyString); }
