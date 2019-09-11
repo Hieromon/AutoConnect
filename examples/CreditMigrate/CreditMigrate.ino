@@ -23,20 +23,20 @@
  * @param  size  Returns a size of the eeprom partition
  * @return Retrieved data buffered pointer
  */
-uint8_t* retrievePartition(size_t *size) {
-  const esp_partition_t*  eeprom = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, "eeprom");
+uint8_t* retrievePartition(const char* name, size_t *size) {
+  const esp_partition_t*  eeprom = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, name);
 
   if (!eeprom) {
-    Serial.println("EEPROM partition not found");
+    Serial.printf("%s partition not found\n", name);
     return nullptr;
   }
   uint8_t*  pBuf = (uint8_t*)malloc(eeprom->size);
   if (!pBuf) {
-    Serial.println("Insufficient memory to retrieve EEPROM partition");
+    Serial.printf("Insufficient memory to retrieve %s partition\n", name);
     return nullptr;
   }
   if (esp_partition_read(eeprom, 0, (void*)pBuf, eeprom->size) != ESP_OK) {
-    Serial.println("Unable to read EEPROM partition");
+    Serial.printf("Unable to read %s partition\n", name);
     free(pBuf);
     return nullptr;
   }
@@ -49,18 +49,18 @@ uint8_t* retrievePartition(size_t *size) {
  * @param  eeprom  Retrieved data buffered pointer
  * @param  size    Retrieved data size
  */
-void convert(uint8_t* eeprom, size_t size) {
+void convert(const uint8_t* eeprom, const size_t size) {
   uint8_t*  ac_credt = (uint8_t*)strstr((const char*)eeprom, "AC_CREDT");
   if (!ac_credt)
-    Serial.println("AC_CREDT identifier not found in EEPROM partition.");
+    Serial.println("AC_CREDT identifier not found in the partition.");
   else {
     AutoConnectCredential credential;
-    uint8_t*  bp = ac_credt + sizeof("AC_CREDT") - 1;
+    uint8_t*  bp = ac_credt + sizeof("AC_CREDT") - sizeof('\0');
     uint8_t*  dp = bp;
     uint8_t   entries = *dp++;
     size_t    dpSize = *dp++;
     dpSize += *dp++ << 8;
-    Serial.printf("%d stored credential(s), size:%d\n", (int)entries, dpSize);
+    Serial.printf("%d stored credential(s),size:%d\n", (int)entries, dpSize);
 
     // Start EEPROM to Preferences migration
     uint8_t*  ep = dp + dpSize - 1;
@@ -92,7 +92,7 @@ void convert(uint8_t* eeprom, size_t size) {
         Serial.printf(":%02x", config.bssid[ei]);
       }
       bool rc = credential.save(&config);
-      Serial.println(rc ? " saved" : " failed to save");
+      Serial.println(rc ? " transferred" : " failed to save Preferences");
     }
   }
 }
@@ -103,11 +103,11 @@ void setup() {
   Serial.println();
 
   size_t    eepromSize;
-  uint8_t*  eepromData = retrievePartition(&eepromSize);
+  uint8_t*  eepromData = retrievePartition("eeprom", &eepromSize);
   if (eepromData) {
-    Serial.println("Start EEPROM migration to Preferences");
+    Serial.println("Start migration to Preferences");
     convert(eepromData, eepromSize);
-    Serial.println("Conversion ended");
+    Serial.println("Transfer ended");
     free(eepromData);
   }
 }
