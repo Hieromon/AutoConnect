@@ -496,6 +496,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#transfer-of-input-values-across-pages" title=" Transfer of input values ​​across pages" class="md-nav__link">
+     Transfer of input values ​​across pages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-the-values-with-webserveron-handler" title=" Retrieve the values with WebServer::on handler" class="md-nav__link">
+     Retrieve the values with WebServer::on handler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#overwrite-the-autoconnectelements" title=" Overwrite the AutoConnectElements" class="md-nav__link">
      Overwrite the AutoConnectElements
   </a>
@@ -1030,6 +1044,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#transfer-of-input-values-across-pages" title=" Transfer of input values ​​across pages" class="md-nav__link">
+     Transfer of input values ​​across pages
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-the-values-with-webserveron-handler" title=" Retrieve the values with WebServer::on handler" class="md-nav__link">
+     Retrieve the values with WebServer::on handler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#overwrite-the-autoconnectelements" title=" Overwrite the AutoConnectElements" class="md-nav__link">
      Overwrite the AutoConnectElements
   </a>
@@ -1237,37 +1265,36 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">AUX[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
-<span style="color: #e6db74">{</span>
-<span style="color: #e6db74">  &quot;uri&quot; : &quot;/aux&quot;,</span>
-<span style="color: #e6db74">  &quot;title&quot; : &quot;Aux.&quot;,</span>
-<span style="color: #e6db74">  &quot;menu&quot; : true,</span>
-<span style="color: #e6db74">  &quot;element&quot; : [</span>
-<span style="color: #e6db74">    {</span>
-<span style="color: #e6db74">      &quot;name&quot;: &quot;input&quot;,</span>
-<span style="color: #e6db74">      &quot;type&quot;: &quot;ACInput&quot;,</span>
-<span style="color: #e6db74">      &quot;label&quot;: &quot;Input&quot;</span>
-<span style="color: #e6db74">    },</span>
-<span style="color: #e6db74">    {</span>
-<span style="color: #e6db74">      &quot;name&quot;: &quot;send&quot;,</span>
-<span style="color: #e6db74">      &quot;type&quot;: &quot;ACSubmit&quot;,</span>
-<span style="color: #e6db74">      &quot;value&quot;: &quot;SEND&quot;,</span>
-<span style="color: #e6db74">      &quot;uri&quot;: &quot;/send&quot;</span>
-<span style="color: #e6db74">    }</span>
-<span style="color: #e6db74">  ]</span>
-<span style="color: #e6db74">}</span>
-<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">AUX[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">R(</span><span style="color: #e6db74">&quot;</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #e6db74">&quot;name&quot;</span> <span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;aux&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">&quot;uri&quot;</span> <span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/aux&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">&quot;menu&quot;</span> <span style="color: #f92672">:</span> <span style="color: #f8f8f2">true,</span>
+  <span style="color: #e6db74">&quot;element&quot;</span> <span style="color: #f92672">:</span> <span style="color: #f8f8f2">[</span>
+    <span style="color: #f8f8f2">{</span>
+      <span style="color: #e6db74">&quot;name&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;input&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #e6db74">&quot;label&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;Input&quot;</span>
+    <span style="color: #f8f8f2">},</span>
+    <span style="color: #f8f8f2">{</span>
+      <span style="color: #e6db74">&quot;name&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;send&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;ACSubmit&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #e6db74">&quot;uri&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/send&quot;</span>
+    <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">]</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #e6db74">&quot;);</span>
 
 <span style="color: #f8f8f2">AutoConnect</span>    <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page;</span>
 
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">onPage</span><span style="color: #f8f8f2">(AutoConectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">send</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;send&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
-</span><span style="background-color: #49483e">  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.isConnected())</span>
+  <span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">send</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;send&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectSubmit</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+<span style="background-color: #49483e">  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.isConnected())</span>
 </span><span style="background-color: #49483e">    <span style="color: #f8f8f2">send.enable</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">(WiFi.getMode()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WIFI_STA);</span>
 </span><span style="background-color: #49483e">  <span style="color: #66d9ef">else</span>
-</span>    <span style="color: #f8f8f2">send.enable</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
-  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+</span><span style="background-color: #49483e">    <span style="color: #f8f8f2">send.enable</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
+</span>  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1645,6 +1672,119 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">});</span>
 
 <span style="color: #f8f8f2">portal.begin();</span>
+</pre></div>
+
+<h3 id="transfer-of-input-values-across-pages"><i class="fa fa-wrench"></i> Transfer of input values ​​across pages<a class="headerlink" href="#transfer-of-input-values-across-pages" title="Permanent link">&para;</a></h3>
+<p>Since v1.0.0, AutoConnect supports a new attribute with each element that allows automatic transfer of input values across pages without sketching. AutoConnect will copy the input value of the elements declared as <a href="apielements.html#global_2">global</a> to the same-named global elements on a different custom Web pages at the page transition timing.</p>
+<p><img src="images/global.svg"> </p>
+<p>The <strong>global</strong> attribute will be useful for echoing input values back to another custom Web pages. This copy operation can be performed between different types. (eg., copy value from AutoConnectInput to AutoConnectText) The following example reflects the input value of PAGE1 to the AutoConnectText field of PAGE2 without sketch code.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE1[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;PAGE1&quot;,</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/page1&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;name&quot;: &quot;input1&quot;,</span>
+</span><span style="color: #e6db74">      &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;global&quot;: true</span>
+</span><span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;send&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACSubmit&quot;,</span>
+<span style="color: #e6db74">      &quot;value&quot;: &quot;OK&quot;,</span>
+<span style="color: #e6db74">      &quot;uri&quot;: &quot;/page2&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE2[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;PAGE2&quot;,</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/page2&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;name&quot;: &quot;input1&quot;,</span>
+</span><span style="color: #e6db74">      &quot;type&quot;: &quot;ACText&quot;,</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;global&quot;: true</span>
+</span><span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page1;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page2;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">page1.load(PAGE1);</span>
+  <span style="color: #f8f8f2">page2.load(PAGE2);</span>
+  <span style="color: #f8f8f2">portal.join(</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">page1,</span> <span style="color: #f8f8f2">page2</span> <span style="color: #f8f8f2">});</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+<p><i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> The value entered in <strong>input1 declared in PAGE1</strong> is reflected in <strong>input1 of PAGE2</strong> as an AutoConnectText value even if there is no sketch code to transfer it to PAGE2. It's shown as like:<br>
+<span style="width:300px;height:159px"><img align="top" width="300" height="159" src="images/global1.png"></span>
+<span style="margin-left:7px;"><img width="20" src="images/arrow_right.png"></span>
+<span style="margin-left:7px;width:300px;height:159px"><img width="300" height="159" src="images/global2.png"></span></p>
+<div class="admonition note">
+<p class="admonition-title">Copy only for same-named and the global</p>
+<p>The input value will be copied only if the global attribute of the destination element is true. If an element with the same name is declared non-global, the value is not copied.</p>
+</div>
+<h3 id="retrieve-the-values-with-webserveron-handler"><i class="fa fa-wrench"></i> Retrieve the values with WebServer::on handler<a class="headerlink" href="#retrieve-the-values-with-webserveron-handler" title="Permanent link">&para;</a></h3>
+<p>ESP8266WebServer class and the WebServer class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on function.</p>
+<p>When a page transition from a custom Web page created by AutoConnectAux to a handler registered with ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the <a href="acelements.html#uri">uri</a> attribute of <a href="acelements.html#autoconnectsubmit">AutoConnectSubmit</a>) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler coded with the sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the <a href="apiaux.html#fetchelement">AutoConnectAux::fetchElement</a> function for value processing with the on-page handler.</p>
+<p>The following sketch is an example of extracting values inputted on a custom web page with an on-page handler and then processing it.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">Input;</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">InputPage[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;r(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Input&quot;, &quot;uri&quot;: &quot;/input&quot;, &quot;menu&quot;: true, &quot;element&quot;: [</span>
+<span style="color: #e6db74">    { &quot;name&quot;: &quot;input&quot;, &quot;type&quot;: &quot;ACInput&quot;, &quot;label&quot;: &quot;INPUT&quot; },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;save&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACSubmit&quot;,</span>
+<span style="color: #e6db74">      &quot;value&quot;: &quot;SAVE&quot;,</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;uri&quot;: &quot;/&quot;</span>
+</span><span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)r&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #75715e">// An on-page handler for &#39;/&#39; access</span>
+<span style="background-color: #49483e"><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">onRoot</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+</span>  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">content</span> <span style="color: #f92672">=</span>
+  <span style="color: #e6db74">&quot;&lt;html&gt;&quot;</span>
+  <span style="color: #e6db74">&quot;&lt;head&gt;&lt;meta name=&#39;viewport&#39; content=&#39;width=device-width, initial-scale=1&#39;&gt;&lt;/head&gt;&quot;</span>
+  <span style="color: #e6db74">&quot;&lt;body&gt;&lt;div&gt;INPUT: {{value}}&lt;/div&gt;&lt;/body&gt;&quot;</span>
+  <span style="color: #e6db74">&quot;&lt;/html&gt;&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">Input.fetchElement();</span>    <span style="color: #75715e">// Preliminary acquisition</span>
+</span>
+  <span style="color: #75715e">// For this steps to work, need to call fetchElement function beforehand.</span>
+  <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Input[</span><span style="color: #e6db74">&quot;input&quot;</span><span style="color: #f8f8f2">].value;</span>
+  <span style="color: #f8f8f2">content.replace(</span><span style="color: #e6db74">&quot;{{value}}&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">value);</span>
+  <span style="color: #f8f8f2">server.send(</span><span style="color: #ae81ff">200</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text/html&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">content);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">Input.load(InputPage);</span>
+  <span style="color: #f8f8f2">portal.join(Input);</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">server.on(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">onRoot);</span>  <span style="color: #75715e">// Register the on-page handler</span>
+</span>  <span style="color: #f8f8f2">portal.begin();</span>  
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
 </pre></div>
 
 <h3 id="overwrite-the-autoconnectelements"><i class="fa fa-wpforms"></i> Overwrite the AutoConnectElements<a class="headerlink" href="#overwrite-the-autoconnectelements" title="Permanent link">&para;</a></h3>

@@ -156,10 +156,10 @@ For example, to enable the submit button only when the ESP module is connected t
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>
 
-static const char AUX[] PROGMEM = R"(
+static const char AUX[] PROGMEM = R("
 {
+  "name" : "aux",
   "uri" : "/aux",
-  "title" : "Aux.",
   "menu" : true,
   "element" : [
     {
@@ -170,12 +170,11 @@ static const char AUX[] PROGMEM = R"(
     {
       "name": "send",
       "type": "ACSubmit",
-      "value": "SEND",
       "uri": "/send"
     }
   ]
 }
-)";
+");
 
 AutoConnect    portal;
 AutoConnectAux page;
@@ -595,6 +594,128 @@ portal.on("/echo", [](AutoConnectAux& aux, PageArgument& args) {
 portal.begin();
 ```
 
+### <i class="fa fa-wrench"></i> Transfer of input values ​​across pages
+
+Since v1.0.0, AutoConnect supports a new attribute with each element that allows automatic transfer of input values across pages without sketching. AutoConnect will copy the input value of the elements declared as [global](apielements.md#global_2) to the same-named global elements on a different custom Web pages at the page transition timing.
+
+<img src="images/global.svg"> 
+
+The **global** attribute will be useful for echoing input values back to another custom Web pages. This copy operation can be performed between different types. (eg., copy value from AutoConnectInput to AutoConnectText) The following example reflects the input value of PAGE1 to the AutoConnectText field of PAGE2 without sketch code.
+
+```cpp hl_lines="8 10 28 30"
+static const char PAGE1[] PROGMEM = R"(
+{
+  "title": "PAGE1",
+  "uri": "/page1",
+  "menu": true,
+  "element": [
+    {
+      "name": "input1",
+      "type": "ACInput",
+      "global": true
+    },
+    {
+      "name": "send",
+      "type": "ACSubmit",
+      "value": "OK",
+      "uri": "/page2"
+    }
+  ]
+}
+)";
+static const char PAGE2[] PROGMEM = R"(
+{
+  "title": "PAGE2",
+  "uri": "/page2",
+  "menu": false,
+  "element": [
+    {
+      "name": "input1",
+      "type": "ACText",
+      "global": true
+    }
+  ]
+}
+)";
+
+AutoConnect portal;
+AutoConnectAux page1;
+AutoConnectAux page2;
+
+void setup() {
+  page1.load(PAGE1);
+  page2.load(PAGE2);
+  portal.join( { page1, page2 });
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+<i class="fa fa-arrow-down"></i><br><i class="fa fa-eye"></i> The value entered in **input1 declared in PAGE1** is reflected in **input1 of PAGE2** as an AutoConnectText value even if there is no sketch code to transfer it to PAGE2. It's shown as like:<br>
+<span style="width:300px;height:159px"><img align="top" width="300" height="159" src="images/global1.png"></span>
+<span style="margin-left:7px;"><img width="20" src="images/arrow_right.png"></span>
+<span style="margin-left:7px;width:300px;height:159px"><img width="300" height="159" src="images/global2.png"></span>
+
+!!! note "Copy only for same-named and the global"
+    The input value will be copied only if the global attribute of the destination element is true. If an element with the same name is declared non-global, the value is not copied.
+
+### <i class="fa fa-wrench"></i> Retrieve the values with WebServer::on handler
+
+ESP8266WebServer class and the WebServer class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on function.
+
+When a page transition from a custom Web page created by AutoConnectAux to a handler registered with ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the [uri](acelements.md#uri) attribute of [AutoConnectSubmit](acelements.md#autoconnectsubmit)) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler coded with the sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the [AutoConnectAux::fetchElement](apiaux.md#fetchelement) function for value processing with the on-page handler.
+
+The following sketch is an example of extracting values inputted on a custom web page with an on-page handler and then processing it.
+
+```cpp hl_lines="13 20 27 38"
+ESP8266WebServer server;
+AutoConnect portal(server);
+AutoConnectAux Input;
+
+const static char InputPage[] PROGMEM = R"r(
+{
+  "title": "Input", "uri": "/input", "menu": true, "element": [
+    { "name": "input", "type": "ACInput", "label": "INPUT" },
+    {
+      "name": "save",
+      "type": "ACSubmit",
+      "value": "SAVE",
+      "uri": "/"
+    }
+  ]
+}
+)r";
+
+// An on-page handler for '/' access
+void onRoot() {
+  String  content =
+  "<html>"
+  "<head><meta name='viewport' content='width=device-width, initial-scale=1'></head>"
+  "<body><div>INPUT: {{value}}</div></body>"
+  "</html>";
+
+  Input.fetchElement();    // Preliminary acquisition
+
+  // For this steps to work, need to call fetchElement function beforehand.
+  String value = Input["input"].value;
+  content.replace("{{value}}", value);
+  server.send(200, "text/html", content);
+}
+
+void setup() {
+  Input.load(InputPage);
+  portal.join(Input);
+  server.on("/", onRoot);  // Register the on-page handler
+  portal.begin();  
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
 
 ### <i class="fa fa-wpforms"></i> Overwrite the AutoConnectElements
 
