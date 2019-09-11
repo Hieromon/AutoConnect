@@ -107,15 +107,23 @@ AutoConnectCheckbox(const char* name = "", const char* value = "", const char* l
 It indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent by submit.
 <dl class="apidl">
     <dt>**Type**</dt>
-
+    <dd><span class="apidef">bool</span><span class="apidesc"></span>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> enable
 
-
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
 
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -196,18 +204,25 @@ AutoConnectElement(const char* name = "", const char* value = "", const ACPoster
 
 ### <i class="fa fa-code"></i> Public member variables
 
+#### <i class="fa fa-caret-right"></i> enable
+
+Enable HTML tag generation for the element.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> name
 
 The element name.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
-#### <i class="fa fa-caret-right"></i> value
-
-Value of the element. It is output as HTML as it is as a source for generating HTML code.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
@@ -224,6 +239,14 @@ Specifies a tag to add behind the HTML code generated from the element.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
 </span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+Value of the element. It is output as HTML as it is as a source for generating HTML code.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -247,7 +270,7 @@ AutoConnectElement& as<T>(void)
 Casts the reference to the AutoConnectElement the specified type.
 <dl class="apidl">
     <dt>**Parameter**</dt>
-    <dd><span class="apidef">T</span><span class="apidesc">The element type. AutoConnectElements type such as [AutoConnectButton](apielements.md#autoconnectbutton), [AutoConnectCheckbox](apielements.md#autoconnectcheckbox), [AutoConnectFile](apielements.md#autoconnectfile), [AutoConnectInput](apielements.md#autoconnectinput), [AutoConnectRadio](apielements.md#autoconnectradio), [AutoConnectSelect](apielements.md#autoconnectselect), [AutoConnectStyle](apielements.md#autoconnectstyle),[AutoConnectSubmit](apielements.md#autoconnectsubmit), [AutoConnectText](apielements.md#autoconnecttext).</span></dd>
+    <dd><span class="apidef">T</span><span class="apidesc">The element type. AutoConnectElements type such as [AutoConnectButton](apielements.md#autoconnectbutton), [AutoConnectCheckbox](apielements.md#autoconnectcheckbox), [AutoConnectFile](apielements.md#autoconnectfile), [AutoConnectInput](apielements.md#autoconnectinput), [AutoConnectRadio](apielements.md#autoconnectradio), [AutoConnectSelect](apielements.md#autoconnectselect), [AutoConnectStyle](apielements.md#autoconnectstyle), [AutoConnectSubmit](apielements.md#autoconnectsubmit), [AutoConnectText](apielements.md#autoconnecttext).</span></dd>
     <dt>**Return value**</dt>
     <dd>A reference to the AutoConnectElement with actual type.</dd>
 </dl>
@@ -272,18 +295,34 @@ AutoConnectFile(const char* name = "", const char* value = "", const char* label
 
 #### <i class="fa fa-caret-right"></i> enable
 
-
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
 </dl>
 
+#### <i class="fa fa-caret-right"></i> global
 
-
-
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> label
+
+A label is an optional string. A label is always arranged on the left side of the file input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The file input box and the label are connected by the id attribute.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> mimeType
+
+The mime type of the upload file which included as Media type in the http post request. Set by the client (usually the browser) that requested the upload. It is determined by the file type as `application/octet-stream`, `text` etc. which is described in [IANA Media Type](https://www.iana.org/assignments/media-types/media-types.xhtml).
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> name
@@ -294,17 +333,43 @@ The element name.
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
+#### <i class="fa fa-caret-right"></i> post
 
-
-The mime type of the upload file which included as Media type in the http post request. Set by the client (usually the browser) that requested the upload. It is determined by the file type as `application/octet-stream`, `text` etc. which is described in [IANA Media Type](https://www.iana.org/assignments/media-types/media-types.xhtml).
+Specifies a tag to add behind the HTML code generated from the element.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
+        
+- **`AC_Tag_None`** : No generate additional tags.
+- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
+- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+</span></dd>
 </dl>
 
+#### <i class="fa fa-caret-right"></i> size
 
+Size of the uploading file.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">size_t</span><span class="apidesc"></span></dd>
+</dl>
 
+#### <i class="fa fa-caret-right"></i> store
 
+Specifies the save destination of the uploaded file. You can use the built-in uploader to save uploaded file to the flash of the ESP8266/ESP32 module or external SD media without writing a dedicated sketch code. It also supports saving to any destination using a custom uploader that inherits from the AutoConnectUploadHandler class.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">ACFile_t</span><span class="apidesc">
+        
+- **`AC_File_FS`** : Save the uploaded file to SPIFFS in the flash.
+- **`AC_File_SD`** : Save the uploaded file to SD.
+- **`AC_File_Extern`** : Save the file using your own upload handler.
+    </span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+File name to be upload. The value contains the value entered by the client browser to the `#!html <input type="file">` tag and is read-only.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
@@ -345,23 +410,23 @@ AutoConnectInput(const char* name = "", const char* value = "", const char* labe
 
 #### <i class="fa fa-caret-right"></i> enable
 
-
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
 </dl>
 
+#### <i class="fa fa-caret-right"></i> global
 
-
-
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
-#### <i class="fa fa-caret-right"></i> value
+#### <i class="fa fa-caret-right"></i> label
 
-Value of the element. It becomes a value attribute of an HTML `#!html <input type="text">` tag. An entered text in the custom Web page will be sent with a query string of the form. The value set before accessing the page is displayed as the initial value.
+A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The input box and the label are connected by the id attribute.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
@@ -370,14 +435,6 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 #### <i class="fa fa-caret-right"></i> name
 
 The element name.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
-#### <i class="fa fa-caret-right"></i> value
-
-Value of the element. It becomes a value attribute of an HTML `#!html <input type="text">` tag. An entered text in the custom Web page will be sent with a query string of the form. The value set before accessing the page is displayed as the initial value.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
@@ -410,6 +467,14 @@ Specifies a tag to add behind the HTML code generated from the element.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
 </span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+Value of the element. It becomes a value attribute of an HTML `#!html <input type="text">` tag. An entered text in the custom Web page will be sent with a query string of the form. The value set before accessing the page is displayed as the initial value.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
@@ -466,10 +531,18 @@ Specifies the index number (1-based) of the **values** to be checked. If this pa
 
 #### <i class="fa fa-caret-right"></i> enable
 
-
+Enable HTML tag generation for the element.
 <dl class="apidl">
     <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
 
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -622,6 +695,21 @@ AutoConnectSelect(const char* name = "", std::vector<String> const& options = {}
 
 ### <i class="fa fa-code"></i> Public member variables
 
+#### <i class="fa fa-caret-right"></i> enable
+
+Enable HTML tag generation for the element.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> name
 
@@ -751,6 +839,57 @@ Returns current selected option of the select list.
     <dd>A String of an option current selected. If there is no select option, a null string returned.</dd>
 </dl>
 
+## AutoConnectStyle
+
+### <i class="fa fa-code"></i> Constructor
+
+```cpp
+AutoConnectStyle(const char* name = "", const char* value = "")
+```
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Raw CSS code to insert into a style block in a custom web page to generate.</span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member variables
+
+#### <i class="fa fa-caret-right"></i> enable
+
+Enable HTML tag generation for the element.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> name
+
+The element name.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+Raw CSS code to insert into a style block in a custom web page to generate. 
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member functions
+
+#### <i class="fa fa-caret-right"></i> typeOf
+
+```cpp
+ACElement_t typeOf(void)
+```
+Returns type of AutoConnectElement.
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>AC_Style</dd>
+</dl>
 
 ## AutoConnectSubmit
 
@@ -769,6 +908,21 @@ AutoConnectSubmit(const char* name = "", const char* value ="", char* uri = "", 
 
 ### <i class="fa fa-code"></i> Public member variables
 
+#### <i class="fa fa-caret-right"></i> enable
+
+Enable HTML tag generation for the element.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> name
 
@@ -838,6 +992,29 @@ AutoConnectText(const char* name = "", const char* value = "", const char* style
 
 ### <i class="fa fa-code"></i> Public member variables
 
+#### <i class="fa fa-caret-right"></i> enable
+
+Enable HTML tag generation for the element.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> format
+
+The conversion format when outputting values. The format string conforms to C-style printf library functions.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> name
 
