@@ -721,6 +721,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#after-updating-to-autoconnect-v100-established-aps-disappear-from-open-ssids-with-esp32" title=" After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32." class="md-nav__link">
+     After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title=" An esp8266ap as SoftAP was connected but Captive portal does not start." class="md-nav__link">
      An esp8266ap as SoftAP was connected but Captive portal does not start.
   </a>
@@ -967,6 +974,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#after-updating-to-autoconnect-v100-established-aps-disappear-from-open-ssids-with-esp32" title=" After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32." class="md-nav__link">
+     After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title=" An esp8266ap as SoftAP was connected but Captive portal does not start." class="md-nav__link">
      An esp8266ap as SoftAP was connected but Captive portal does not start.
   </a>
@@ -1175,6 +1189,13 @@
 <p>If you can access the <strong>AutoConnect root path</strong> as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses <em>ESP8266WebServer::handleClient()</em> without <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.<br />
 For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a> after <em>ESP8266WebServer::handleClient()</em> invoked, or use <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a>. <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a> is equivalent <em>ESP8266WebServer::handleClient</em> combined <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.</p>
 <p>See also the explanation <a href="basicusage.html#esp8266webserver-hosted-or-parasitic">here</a>.</p>
+<h2 id="after-updating-to-autoconnect-v100-established-aps-disappear-from-open-ssids-with-esp32"><i class="fa fa-question-circle"></i> After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32.<a class="headerlink" href="#after-updating-to-autoconnect-v100-established-aps-disappear-from-open-ssids-with-esp32" title="Permanent link">&para;</a></h2>
+<p>Since AutoConnect v1.0.0 for ESP32, the storage location in the flash of established credentials has moved from EEPROM to Preferences. After You update AutoConnect to v1.0.0, past credentials saved by v0.9.12 earlier will <em>not be accessible</em> from the AutoConnect menu - <strong>Open SSIDs</strong>. You need to transfer once the stored credentials from the EEPROM area to the Preferences area.</p>
+<p>You can migrate the past saved credentials using <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/CreditMigrate"><strong>CreditMigrate.ino</strong></a> which the examples folder contains.</p>
+<div class="admonition info">
+<p class="admonition-title">Needs to Arduino core for ESP32 1.0.2 or earlier</p>
+<p>EEPROM area with arduino-esp32 core <strong>1.0.3</strong> has moved from <strong>partition</strong> to the <strong>nvs</strong>. CreditMigrate.ino requires arduino-esp32 core <strong>1.0.2</strong> or earlier to migrate saved credentials.</p>
+</div>
 <h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
 <h2 id="connection-lost-immediately-after-establishment-with-ap"><i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP<a class="headerlink" href="#connection-lost-immediately-after-establishment-with-ap" title="Permanent link">&para;</a></h2>
