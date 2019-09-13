@@ -5,6 +5,15 @@ For AutoConnect menus to work properly, call [*AutoConnect::handleRequest()*](ap
 
 See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasitic).
 
+## <i class="fa fa-question-circle"></i> After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32.
+
+Since AutoConnect v1.0.0 for ESP32, the storage location in the flash of established credentials has moved from EEPROM to Preferences. After You update AutoConnect to v1.0.0, past credentials saved by v0.9.12 earlier will *not be accessible* from the AutoConnect menu - **Open SSIDs**. You need to transfer once the stored credentials from the EEPROM area to the Preferences area.
+
+You can migrate the past saved credentials using [**CreditMigrate.ino**](https://github.com/Hieromon/AutoConnect/tree/master/examples/CreditMigrate) which the examples folder contains.
+
+!!! info "Needs to Arduino core for ESP32 1.0.2 or earlier"
+    EEPROM area with arduino-esp32 core **1.0.3** has moved from **partition** to the **nvs**. CreditMigrate.ino requires arduino-esp32 core **1.0.2** or earlier to migrate saved credentials.
+
 ## <i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.

@@ -101,7 +101,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [1.0.1] Sept. 10, 2019
+### [1.0.1] Sept. 13, 2019
 - Added a sketch for ESP32 boards that migrates credentials stored in EEPROM partition to the Preferences.
 
 ### [1.0.0] Sept. 7, 2019
