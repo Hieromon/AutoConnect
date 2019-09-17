@@ -18,6 +18,29 @@ You can migrate the past saved credentials using [**CreditMigrate.ino**](https:/
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
+## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
+
+If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directive. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.
+
+If you use EEPROM with your sketch, declare `#include <EEPROM.h>` in front of `#include <AutoConnect.h>`.
+
+## <i class="fa fa-question-circle"></i> Compile error that 'ESPhttpUpdate' was not declared in this scope
+
+If the user sketch includes the header file as `ESP8266httpUpdate.h`, this compilation error may occur depending on the order of the `#include` directive. `AutoConnectUpdate.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_HTTPUPDATE** internally, so if your sketch includes `ESP8266httpUpdate.h` after `AutoConnect.h`, the **ESPhttpUpdate** global variable will be lost.
+
+You can avoid a compile error in one of two ways:
+
+1. Disable an AutoConnectUpdate feature if you don't need.
+
+    You can disable the AutoConnectUpdate feature by commenting out the **AUTOCONNECT_USE_UPDATE** macro in the `AutoConnectDefs.h` header file.
+    ```cpp
+    #define AUTOCONNECT_USE_UPDATE
+    ```
+
+2. Change the order of `#include` directives.
+
+    With the sketch, `#include <ESP8266httpUpdate.h>` before `#include <AutoConnect.h>`.
+
 ## <i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP
 
 A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur when the following conditions are satisfied at the same time.
