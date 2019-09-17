@@ -520,7 +520,7 @@ bool AutoConnectCredential::_del(const char* ssid, const bool commit) {
 uint8_t AutoConnectCredential::_import(void) {
   uint8_t cn = 0;
   if (_pref->begin(AC_CREDENTIAL_NVSNAME, true)) {
-    size_t  psz = AutoConnectUtil::getPrefBytesLength<Preferences>(_pref.get(), AC_CREDENTIAL_NVSKEY);
+    size_t  psz = _getPrefBytesLength<Preferences>(_pref.get(), AC_CREDENTIAL_NVSKEY);
     if (psz) {
       uint8_t* credtPool = (uint8_t*)malloc(psz);
       if (credtPool) {

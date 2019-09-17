@@ -114,28 +114,9 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
 #define AC_CREDENTIAL_NVSNAME  AC_IDENTIFIER
 #define AC_CREDENTIAL_NVSKEY   AC_CREDENTIAL_NVSNAME
 
+/** Declare the member function existence determination */
 namespace AutoConnectUtil {
 AC_HAS_FUNC(getBytesLength);
-
-template<typename T>
-typename std::enable_if<AutoConnectUtil::has_func_getBytesLength<T>::value, size_t>::type getPrefBytesLength(T* pref, const char* key) {
-  return pref->getBytesLength(key);
-}
-
-template<typename T>
-typename std::enable_if<!AutoConnectUtil::has_func_getBytesLength<T>::value, size_t>::type getPrefBytesLength(T* pref, const char* key) {
-  AC_UNUSED(pref);
-  uint32_t  handle;
-  size_t    len;
-  esp_err_t err = nvs_open(AC_CREDENTIAL_NVSNAME, NVS_READONLY, &handle);
-  if (err)
-    len = 0;
-  else {
-    (void)nvs_get_blob(handle, key, NULL, &len);
-    nvs_close(handle);
-  }
-  return len;
-}
 }
 
 /** AutoConnectCredential class using Preferences for ESP32 */
@@ -165,6 +146,24 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   bool    _del(const char* ssid, const bool commit);  /**< Deletes an entry */
   uint8_t _import(void);    /**< Import from the nvs */
   void    _obtain(AC_CREDT_t::iterator const& it, station_config_t* config);  /**< Obtain an entry from iterator */
+  template<typename T>
+  typename std::enable_if<AutoConnectUtil::has_func_getBytesLength<T>::value, size_t>::type _getPrefBytesLength(T* pref, const char* key) {
+    return pref->getBytesLength(key);
+  }
+  template<typename T>
+  typename std::enable_if<!AutoConnectUtil::has_func_getBytesLength<T>::value, size_t>::type _getPrefBytesLength(T* pref, const char* key) {
+    AC_UNUSED(pref);
+    uint32_t  handle;
+    size_t    len;
+    esp_err_t err = nvs_open(AC_CREDENTIAL_NVSNAME, NVS_READONLY, &handle);
+    if (err)
+      len = 0;
+    else {
+      (void)nvs_get_blob(handle, key, NULL, &len);
+      nvs_close(handle);
+    }
+    return len;
+  }
 
   AC_CREDT_t  _credit;      /**< Dictionary to maintain the credentials */
   std::unique_ptr<Preferences>  _pref;  /**< Preferences class instance to access the nvs */
