@@ -20,13 +20,13 @@ Captive portal detection could not be trapped. It is necessary to disconnect and
 
 ## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
 
-If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directive. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.
+If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directives. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.
 
 If you use EEPROM with your sketch, declare `#include <EEPROM.h>` in front of `#include <AutoConnect.h>`.
 
 ## <i class="fa fa-question-circle"></i> Compile error that 'ESPhttpUpdate' was not declared in this scope
 
-If the user sketch includes the header file as `ESP8266httpUpdate.h`, this compilation error may occur depending on the order of the `#include` directive. `AutoConnectUpdate.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_HTTPUPDATE** internally, so if your sketch includes `ESP8266httpUpdate.h` after `AutoConnect.h`, the **ESPhttpUpdate** global variable will be lost.
+If the user sketch includes the header file as `ESP8266httpUpdate.h`, this compilation error may occur depending on the order of the `#include` directives. `AutoConnectUpdate.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_HTTPUPDATE** internally, so if your sketch includes `ESP8266httpUpdate.h` after `AutoConnect.h`, the **ESPhttpUpdate** global variable will be lost.
 
 You can avoid a compile error in one of two ways:
 
