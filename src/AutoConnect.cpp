@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.0.0
- *  @date   2019-08-15
+ *  @version    1.0.6
+ *  @date   2019-09-17
  *  @copyright  MIT license.
  */
 
@@ -152,10 +152,12 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     // Load a valid credential.
     if (_loadAvailCredential()) {
       // Try to reconnect with a stored credential.
-      AC_DBG("autoReconnect loaded SSID:%s\n", reinterpret_cast<const char*>(_credential.ssid));
+      char  ssid_c[sizeof(station_config::ssid) + 1];
+      strncpy(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
+      AC_DBG("autoReconnect loaded SSID:%s\n", ssid_c);
       const char* psk = strlen(reinterpret_cast<const char*>(_credential.password)) ? reinterpret_cast<const char*>(_credential.password) : nullptr;
-      WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), psk);
-      AC_DBG("WiFi.begin(%s%s%s)\n", _credential.ssid, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
+      WiFi.begin(ssid_c, psk);
+      AC_DBG("WiFi.begin(%s%s%s)\n", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
       cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
     }
   }
@@ -465,8 +467,14 @@ void AutoConnect::handleRequest(void) {
 
     // An attempt to establish a new AP.
     int32_t ch = _connectCh == 0 ? _apConfig.channel : _connectCh;
-    AC_DBG("Attempt:%s Ch(%d)\n", reinterpret_cast<const char*>(_credential.ssid), (int)ch);
-    WiFi.begin(reinterpret_cast<const char*>(_credential.ssid), reinterpret_cast<const char*>(_credential.password), ch);
+    char ssid_c[sizeof(station_config::ssid) + 1];
+    char password_c[sizeof(station_config::password) + 1];
+    strncpy(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
+    ssid_c[sizeof(ssid_c) - 1] = '\0';
+    strncpy(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
+    password_c[sizeof(password_c) - 1] = '\0';
+    AC_DBG("Attempt:%s Ch(%d)\n", ssid_c, (int)ch);
+    WiFi.begin(ssid_c, password_c, ch);
     if (_waitForConnect(_connectTimeout) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
@@ -477,16 +485,16 @@ void AutoConnect::handleRequest(void) {
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
           AutoConnectCredential credit(_apConfig.boundaryOffset);
           if (credit.save(&_credential))
-            AC_DBG("%s credential saved\n", reinterpret_cast<const char*>(_credential.ssid));
+            AC_DBG("%*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
           else
-            AC_DBG("credential %s save failed\n", reinterpret_cast<const char*>(_credential.ssid));
+            AC_DBG("credential %*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
         }
 
         // Ensures that keeps a connection with the current AP while the portal behaves.
         _setReconnect(AC_RECONNECT_SET);
       }
       else
-        AC_DBG("%s has no BSSID, saving is unavailable\n", reinterpret_cast<const char*>(_credential.ssid));
+        AC_DBG("%*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
 
       // Activate AutoConnectUpdate if it is attached and incorporate
       // it into the AutoConnect menu.
@@ -730,7 +738,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &entry);
     strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));
-    AC_DBG("Credential loaded:%s\n", _credential.ssid);
+    AC_DBG("Credential loaded:%*s\n", sizeof(station_config::ssid), _credential.ssid);
   }
   else {
     AC_DBG("Queried SSID:%s\n", args.arg(AUTOCONNECT_PARAMID_SSID).c_str());
@@ -743,7 +751,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   _connectCh = 0;
   for (uint8_t nn = 0; nn < _scanCount; nn++) {
     String  ssid = WiFi.SSID(nn);
-    if (!strcmp(ssid.c_str(), reinterpret_cast<const char*>(_credential.ssid))) {
+    if (!strncmp(ssid.c_str(), reinterpret_cast<const char*>(_credential.ssid), sizeof(station_config::ssid))) {
       _connectCh = WiFi.channel(nn);
       break;
     }
