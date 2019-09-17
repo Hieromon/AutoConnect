@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectCredential class.
  *  @file AutoConnectCredential.h
  *  @author hieromon@gmail.com
- *  @version  1.0.0
- *  @date 2019-08-15
+ *  @version  1.0.2
+ *  @date 2019-09-16
  *  @copyright  MIT license.
  */
 
@@ -40,6 +40,7 @@ uint8_t  bssid[6];
 wifi_fast_scan_threshold_t threshold;
 };
 #endif
+#include "AutoConnectDefs.h"
 
 /**
  * Credential storage area offset specifier in EEPROM.
@@ -105,11 +106,18 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
 
 #else
 // #pragma message "AutoConnectCredential applies the Preferences"
+#include <type_traits>
 #include <map>
 #include <Preferences.h>
+#include <nvs.h>
 
 #define AC_CREDENTIAL_NVSNAME  AC_IDENTIFIER
 #define AC_CREDENTIAL_NVSKEY   AC_CREDENTIAL_NVSNAME
+
+/** Declare the member function existence determination */
+namespace AutoConnectUtil {
+AC_HAS_FUNC(getBytesLength);
+}
 
 /** AutoConnectCredential class using Preferences for ESP32 */
 class AutoConnectCredential : public AutoConnectCredentialBase {
@@ -138,6 +146,24 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   bool    _del(const char* ssid, const bool commit);  /**< Deletes an entry */
   uint8_t _import(void);    /**< Import from the nvs */
   void    _obtain(AC_CREDT_t::iterator const& it, station_config_t* config);  /**< Obtain an entry from iterator */
+  template<typename T>
+  typename std::enable_if<AutoConnectUtil::has_func_getBytesLength<T>::value, size_t>::type _getPrefBytesLength(T* pref, const char* key) {
+    return pref->getBytesLength(key);
+  }
+  template<typename T>
+  typename std::enable_if<!AutoConnectUtil::has_func_getBytesLength<T>::value, size_t>::type _getPrefBytesLength(T* pref, const char* key) {
+    AC_UNUSED(pref);
+    uint32_t  handle;
+    size_t    len;
+    esp_err_t err = nvs_open(AC_CREDENTIAL_NVSNAME, NVS_READONLY, &handle);
+    if (err)
+      len = 0;
+    else {
+      (void)nvs_get_blob(handle, key, NULL, &len);
+      nvs_close(handle);
+    }
+    return len;
+  }
 
   AC_CREDT_t  _credit;      /**< Dictionary to maintain the credentials */
   std::unique_ptr<Preferences>  _pref;  /**< Preferences class instance to access the nvs */

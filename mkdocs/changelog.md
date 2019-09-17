@@ -1,3 +1,8 @@
+#### [1.0.2] Sept. 17, 2019
+- Fixed SSID non termination.
+- Fixed compilation error that getBytesLength missing with ESP32.
+- Added #include directive restriction for EEPROM and ESP8266httpUpdate to FAQ.
+
 #### [1.0.1] Sept. 13, 2019
 - Added a sketch for ESP32 boards that migrates credentials stored in EEPROM partition to the Preferences.
 

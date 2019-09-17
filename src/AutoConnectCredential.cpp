@@ -2,8 +2,8 @@
  *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	1.0.0
- *	@date	2019-08-15
+ *	@version	1.0.2
+ *	@date	2019-09-16
  *	@copyright	MIT license.
  */
 
@@ -520,7 +520,7 @@ bool AutoConnectCredential::_del(const char* ssid, const bool commit) {
 uint8_t AutoConnectCredential::_import(void) {
   uint8_t cn = 0;
   if (_pref->begin(AC_CREDENTIAL_NVSNAME, true)) {
-    size_t  psz = _pref->getBytesLength(AC_CREDENTIAL_NVSKEY);
+    size_t  psz = _getPrefBytesLength<Preferences>(_pref.get(), AC_CREDENTIAL_NVSKEY);
     if (psz) {
       uint8_t* credtPool = (uint8_t*)malloc(psz);
       if (credtPool) {
