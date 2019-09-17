@@ -1241,8 +1241,8 @@ String AutoConnect::_token_BOOTURI(PageArgument& args) {
 String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
   AC_UNUSED(args);
   char  ssid_c[sizeof(station_config::ssid) + 1];
-  strncpy(ssid_c, reinterpret_cast<char*>(_credential.ssid), sizeof(ssid_c) - 1);
-  ssid_c[sizeof(ssid_c) - 1] = '\0';
+  *ssid_c = '\0';
+  strncat(ssid_c, reinterpret_cast<char*>(_credential.ssid), sizeof(ssid_c) - 1);
   String  ssid = String(ssid_c);
   return ssid;
 }

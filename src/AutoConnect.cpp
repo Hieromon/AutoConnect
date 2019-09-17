@@ -153,9 +153,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     if (_loadAvailCredential()) {
       // Try to reconnect with a stored credential.
       char  ssid_c[sizeof(station_config::ssid) + 1];
-      strncpy(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
+      char  password_c[sizeof(station_config::password) + 1];
+      *ssid_c = '\0';
+      strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
+      *password_c = '\0';
+      strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
       AC_DBG("autoReconnect loaded SSID:%s\n", ssid_c);
-      const char* psk = strlen(reinterpret_cast<const char*>(_credential.password)) ? reinterpret_cast<const char*>(_credential.password) : nullptr;
+      const char* psk = strlen(password_c) ? password_c : nullptr;
       WiFi.begin(ssid_c, psk);
       AC_DBG("WiFi.begin(%s%s%s)\n", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
       cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
@@ -469,10 +473,10 @@ void AutoConnect::handleRequest(void) {
     int32_t ch = _connectCh == 0 ? _apConfig.channel : _connectCh;
     char ssid_c[sizeof(station_config::ssid) + 1];
     char password_c[sizeof(station_config::password) + 1];
-    strncpy(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
-    ssid_c[sizeof(ssid_c) - 1] = '\0';
-    strncpy(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
-    password_c[sizeof(password_c) - 1] = '\0';
+    *ssid_c = '\0';
+    strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
+    *password_c = '\0';
+    strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
     AC_DBG("Attempt:%s Ch(%d)\n", ssid_c, (int)ch);
     WiFi.begin(ssid_c, password_c, ch);
     if (_waitForConnect(_connectTimeout) == WL_CONNECTED) {
