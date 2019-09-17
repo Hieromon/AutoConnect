@@ -735,6 +735,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#compile-error-that-eeprom-was-not-declared-in-this-scope" title=" Compile error that 'EEPROM' was not declared in this scope" class="md-nav__link">
+     Compile error that 'EEPROM' was not declared in this scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile-error-that-esphttpupdate-was-not-declared-in-this-scope" title=" Compile error that 'ESPhttpUpdate' was not declared in this scope" class="md-nav__link">
+     Compile error that 'ESPhttpUpdate' was not declared in this scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#connection-lost-immediately-after-establishment-with-ap" title=" Connection lost immediately after establishment with AP" class="md-nav__link">
      Connection lost immediately after establishment with AP
   </a>
@@ -988,6 +1002,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#compile-error-that-eeprom-was-not-declared-in-this-scope" title=" Compile error that 'EEPROM' was not declared in this scope" class="md-nav__link">
+     Compile error that 'EEPROM' was not declared in this scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compile-error-that-esphttpupdate-was-not-declared-in-this-scope" title=" Compile error that 'ESPhttpUpdate' was not declared in this scope" class="md-nav__link">
+     Compile error that 'ESPhttpUpdate' was not declared in this scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#connection-lost-immediately-after-establishment-with-ap" title=" Connection lost immediately after establishment with AP" class="md-nav__link">
      Connection lost immediately after establishment with AP
   </a>
@@ -1198,6 +1226,24 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 </div>
 <h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
+<h2 id="compile-error-that-eeprom-was-not-declared-in-this-scope"><i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope<a class="headerlink" href="#compile-error-that-eeprom-was-not-declared-in-this-scope" title="Permanent link">&para;</a></h2>
+<p>If the user sketch includes the header file as <code>EEPROM.h</code>, this compilation error may occur depending on the order of the <code>#include</code> directives. <code>AutoConnectCredentials.h</code> including in succession linked from <code>AutoConnect.h</code> defines <strong>NO_GLOBAL_EEPROM</strong> internally, so if your sketch includes <code>EEPROM.h</code> after <code>AutoConnect.h</code>, the <strong>EEPROM</strong> global variable will be lost.</p>
+<p>If you use EEPROM with your sketch, declare <code>#include &lt;EEPROM.h&gt;</code> in front of <code>#include &lt;AutoConnect.h&gt;</code>.</p>
+<h2 id="compile-error-that-esphttpupdate-was-not-declared-in-this-scope"><i class="fa fa-question-circle"></i> Compile error that 'ESPhttpUpdate' was not declared in this scope<a class="headerlink" href="#compile-error-that-esphttpupdate-was-not-declared-in-this-scope" title="Permanent link">&para;</a></h2>
+<p>If the user sketch includes the header file as <code>ESP8266httpUpdate.h</code>, this compilation error may occur depending on the order of the <code>#include</code> directives. <code>AutoConnectUpdate.h</code> including in succession linked from <code>AutoConnect.h</code> defines <strong>NO_GLOBAL_HTTPUPDATE</strong> internally, so if your sketch includes <code>ESP8266httpUpdate.h</code> after <code>AutoConnect.h</code>, the <strong>ESPhttpUpdate</strong> global variable will be lost.</p>
+<p>You can avoid a compile error in one of two ways:</p>
+<ol>
+<li>
+<p>Disable an AutoConnectUpdate feature if you don't need.</p>
+<p>You can disable the AutoConnectUpdate feature by commenting out the <strong>AUTOCONNECT_USE_UPDATE</strong> macro in the <code>AutoConnectDefs.h</code> header file.
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_USE_UPDATE</span>
+</pre></div></p>
+</li>
+<li>
+<p>Change the order of <code>#include</code> directives.</p>
+<p>With the sketch, <code>#include &lt;ESP8266httpUpdate.h&gt;</code> before <code>#include &lt;AutoConnect.h&gt;</code>.</p>
+</li>
+</ol>
 <h2 id="connection-lost-immediately-after-establishment-with-ap"><i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP<a class="headerlink" href="#connection-lost-immediately-after-establishment-with-ap" title="Permanent link">&para;</a></h2>
 <p>A captive portal is disconnected immediately after the connection establishes with the new AP. This is a known problem of ESP32, and it may occur when the following conditions are satisfied at the same time.</p>
 <ul>
