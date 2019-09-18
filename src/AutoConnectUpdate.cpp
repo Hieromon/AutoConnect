@@ -2,8 +2,8 @@
  * AutoConnectUpdate class implementation.
  * @file   AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
- * @version    1.0.0
- * @date   2019-08-15
+ * @version    1.0.2
+ * @date   2019-09-18
  * @copyright  MIT license.
  */
 
@@ -396,7 +396,7 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
 
 #if ARDUINOJSON_VERSION_MAJOR<=5
         ArduinoJsonObject json = jb.parseObject(responseBody);
-        parse = jb.success();
+        parse = json.success();
 #else
         DeserializationError err = deserializeJson(jb, responseBody);
         ArduinoJsonObject json = jb.as<JsonObject>();
@@ -417,8 +417,13 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
           }
         }
         else {
-          caption.value = String(F("Invalid catalog list:")) + String(err.c_str());
-          AC_DBG("JSON:%s\n", err.c_str());
+#if ARDUINOJSON_VERSION_MAJOR<=5
+          String  errCaption = String(F("JSON parse error"));
+#else
+          String  errCaption = String(err.c_str());
+#endif
+          caption.value = String(F("Invalid catalog list:")) + errCaption;
+          AC_DBG("JSON:%s\n", errCaption.c_str());
           break;
         }
       } while (responseBody.findUntil(endOfEntry, endOfList));
