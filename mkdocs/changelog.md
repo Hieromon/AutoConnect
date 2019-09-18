@@ -1,4 +1,5 @@
-#### [1.0.2] Sept. 17, 2019
+#### [1.0.2] Sept. 19, 2019
+- Fixed compilation error that no member named 'success' with ArduinoJson 5.
 - Fixed SSID non termination.
 - Fixed compilation error that getBytesLength missing with ESP32.
 - Added #include directive restriction for EEPROM and ESP8266httpUpdate to FAQ.
