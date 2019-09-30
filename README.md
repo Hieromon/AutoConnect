@@ -101,6 +101,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.0.3] Sept. 30, 2019
+- Fixed a return of AutoConnectCredential::entries(). (issue #133)
+
 ### [1.0.2] Sept. 19, 2019
 - Fixed compilation error that no member named 'success' with ArduinoJson 5. (issue #130)
 - Fixed SSID non termination. (issue #128)
