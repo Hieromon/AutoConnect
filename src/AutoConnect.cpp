@@ -489,16 +489,16 @@ void AutoConnect::handleRequest(void) {
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
           AutoConnectCredential credit(_apConfig.boundaryOffset);
           if (credit.save(&_credential))
-            AC_DBG("%*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+            AC_DBG("%.*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
           else
-            AC_DBG("credential %*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+            AC_DBG("credential %.*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
         }
 
         // Ensures that keeps a connection with the current AP while the portal behaves.
         _setReconnect(AC_RECONNECT_SET);
       }
       else
-        AC_DBG("%*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+        AC_DBG("%.*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
 
       // Activate AutoConnectUpdate if it is attached and incorporate
       // it into the AutoConnect menu.
@@ -742,7 +742,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &entry);
     strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));
-    AC_DBG("Credential loaded:%*s\n", sizeof(station_config::ssid), _credential.ssid);
+    AC_DBG("Credential loaded:%.*s\n", sizeof(station_config::ssid), _credential.ssid);
   }
   else {
     AC_DBG("Queried SSID:%s\n", args.arg(AUTOCONNECT_PARAMID_SSID).c_str());

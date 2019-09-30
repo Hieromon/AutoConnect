@@ -1,3 +1,6 @@
+#### [1.0.3] Sept. 30, 2019
+- Fixed a return of AutoConnectCredential::entries().
+
 #### [1.0.2] Sept. 19, 2019
 - Fixed compilation error that no member named 'success' with ArduinoJson 5.
 - Fixed SSID non termination.

@@ -345,6 +345,15 @@ inline bool AutoConnectCredential::del(const char* ssid) {
 }
 
 /**
+ *  Refresh the number of stored credential entries.
+ *  @retval A number of entries.
+ */
+inline uint8_t AutoConnectCredential::entries(void) {
+  _entries = _credit.size();
+  return _entries;
+}
+
+/**
  *  Load the credential entry for the specified SSID from the internal
  *  dictionary. The credentials are stored to the station_config
  *  structure which specified by *config as the SSID and password.
@@ -356,6 +365,7 @@ inline bool AutoConnectCredential::del(const char* ssid) {
 int8_t AutoConnectCredential::load(const char* ssid, struct station_config* config) {
   // Determine the number in entries
   int8_t  en = 0;
+  _entries = _import(); // Reload the saved credentials
   for (decltype(_credit)::iterator it = _credit.begin(), e = _credit.end(); it != e; ++it) {
     String  key = it->first;
     if (!strcmp(ssid, key.c_str())) {
@@ -377,6 +387,7 @@ int8_t AutoConnectCredential::load(const char* ssid, struct station_config* conf
  *          false   The number is not available.
  */
 bool AutoConnectCredential::load(int8_t entry, struct station_config* config) {
+  _entries = _import();
   for (decltype(_credit)::iterator it = _credit.begin(), e = _credit.end(); it != e; ++it) {
     if (!entry--) {
       _obtain(it, config);

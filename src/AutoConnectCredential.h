@@ -126,6 +126,7 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   explicit AutoConnectCredential(uint16_t offset);
   ~AutoConnectCredential();
   bool    del(const char* ssid) override;
+  uint8_t entries(void) override;
   int8_t  load(const char* ssid, struct station_config* config) override;
   bool    load(int8_t entry, struct station_config* config) override;
   bool    save(const struct station_config* config) override;
