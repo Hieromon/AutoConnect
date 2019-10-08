@@ -806,9 +806,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     // Read from EEPROM
     AutoConnectCredential credential(_apConfig.boundaryOffset);
     station_config_t entry;
-    credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &entry);
-    strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
-    strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));
+    credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &_credential);
 #ifdef AC_DEBUG
     IPAddress staip = IPAddress(_credential.config.sta.ip);
     AC_DBG("Credential loaded:%.*s(%s)\n", sizeof(station_config_t::ssid), reinterpret_cast<const char*>(_credential.ssid), _credential.dhcp == STA_DHCP ? "DHCP" : staip.toString().c_str());
@@ -819,7 +817,43 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     // Credential had by the post parameter.
     strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(String(F(AUTOCONNECT_PARAMID_SSID))).c_str(), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_PASS))).c_str(), sizeof(_credential.password));
+    // Static IP detection
+    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DHCP)))) {
+      _credential.dhcp = STA_DHCP;
+      _credential.config.sta.ip = _credential.config.sta.gateway = _credential.config.sta.netmask = _credential.config.sta.dns1 = _credential.config.sta.dns2 = 0U;
+    }
+    else {
+      _credential.dhcp = STA_STATIC;
+      IPAddress cast;
+      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_STAIP)))) {
+        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_STAIP))));
+        _credential.config.sta.ip = static_cast<uint32_t>(cast);
+      }
+      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_GTWAY)))) {
+        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_GTWAY))));
+        _credential.config.sta.gateway = static_cast<uint32_t>(cast);
+      }
+      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_NTMSK)))) {
+        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_NTMSK))));
+        _credential.config.sta.netmask = static_cast<uint32_t>(cast);
+      }
+      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DNS1)))) {
+        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_DNS1))));
+        _credential.config.sta.dns1 = static_cast<uint32_t>(cast);
+      }
+      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DNS2)))) {
+        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_DNS2))));
+        _credential.config.sta.dns2 = static_cast<uint32_t>(cast);
+      }
+    }
   }
+
+  // Restore the configured IPs to STA configuration
+  _apConfig.staip = static_cast<IPAddress>(_credential.config.sta.ip);
+  _apConfig.staGateway = static_cast<IPAddress>(_credential.config.sta.gateway);
+  _apConfig.staNetmask = static_cast<IPAddress>(_credential.config.sta.netmask);
+  _apConfig.dns1 = static_cast<IPAddress>(_credential.config.sta.dns1);
+  _apConfig.dns2 = static_cast<IPAddress>(_credential.config.sta.dns2);
 
   // Determine the connection channel based on the scan result.
   _connectCh = 0;
@@ -830,33 +864,6 @@ String AutoConnect::_induceConnect(PageArgument& args) {
       break;
     }
   }
-
-  // Static IP detection
-  _credential.config.sta.ip = _credential.config.sta.gateway = _credential.config.sta.netmask = _credential.config.sta.dns1 = _credential.config.sta.dns2 = 0U;
-  if (!args.hasArg(String(F(AUTOCONNECT_PARAMID_DHCP)))) {
-    _credential.dhcp = STA_STATIC;
-    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_STAIP)))) {
-      _apConfig.staip.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_STAIP))));
-      _credential.config.sta.ip = (uint32_t)_apConfig.staip;
-    }
-    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_GTWAY)))) {
-      _apConfig.staGateway.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_GTWAY))));
-      _credential.config.sta.gateway = (uint32_t)_apConfig.staGateway;
-    }
-    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_NTMSK)))) {
-      _apConfig.staNetmask.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_NTMSK))));
-      _credential.config.sta.netmask = (uint32_t)_apConfig.staNetmask;
-    }
-    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DNS1)))) {
-      _apConfig.dns1.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_DNS1))));
-      _credential.config.sta.dns1 = (uint32_t)_apConfig.dns1;
-    }
-    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DNS2))))
-      _apConfig.dns2.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_DNS2))));
-      _credential.config.sta.dns2 = (uint32_t)_apConfig.dns2;
-  }
-  else
-    _credential.dhcp = STA_DHCP;
 
   // Turn on the trigger to start WiFi.begin().
   _rfConnect = true;
