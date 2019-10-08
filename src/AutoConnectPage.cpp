@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    1.0.2
- *  @date   2019-09-17
+ *  @version    1.1.0
+ *  @date   2019-10-07
  *  @copyright  MIT license.
  */
 
@@ -38,12 +38,12 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
   ".base-panel{"
     "margin:0 22px 0 22px"
   "}"
-  ".base-panel>*>label{"
+  ".base-panel * label{"
     "display:inline-block;"
     "width:3.0em;"
     "text-align:right"
   "}"
-  ".base-panel>*>label.slist{"
+  ".base-panel * .slist{"
     "width:auto;"
     "font-size:0.9em;"
     "margin-left:10px;"
@@ -100,34 +100,33 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
 
 /**< non-marked list for UL */
 const char AutoConnect::_CSS_UL[] PROGMEM = {
-  "ul.noorder{"
+  ".noorder,.exp{"
     "padding:0;"
     "list-style:none;"
     "display:table"
   "}"
-  "ul.noorder li{"
-    "display:table-row"
+  ".noorder li,.exp{"
+    "display:table-row-group"
   "}"
-  "ul.noorder>*>label{"
+  ".noorder li label, .exp li *{"
     "display:table-cell;"
     "width:auto;"
-    "margin-right:10px;"
     "text-align:right;"
     "padding:10px 0.5em"
   "}"
-  "ul.noorder input[type=\"checkbox\"]{"
+  ".noorder input[type=\"checkbox\"]{"
     "-moz-appearance:checkbox;"
     "-webkit-appearance:checkbox"
   "}"
-  "ul.noorder input[type=\"radio\"]{"
+  ".noorder input[type=\"radio\"]{"
     "margin-right:0.5em;"
     "-moz-appearance:radio;"
     "-webkit-appearance:radio"
   "}"
-  "ul.noorder input[type=\"text\"]{"
+  ".noorder input[type=\"text\"]{"
     "width:auto"
   "}"
-  "ul.noorder input[type=\"text\"]:invalid{"
+  ".noorder input[type=\"text\"]:invalid{"
     "background:#fce4d6"
   "}"
 };
@@ -223,7 +222,8 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
     "color:#D9434E"
   "}"
   ".aux-page label{"
-    "padding:10px 0.5em"
+    "display:inline;"
+    "padding:10px 0.5em;"
   "}"
 };
 
@@ -683,18 +683,44 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
               "<label for=\"passphrase\">Passphrase</label>"
               "<input id=\"passphrase\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_PASS "\" placeholder=\"Passphrase\">"
             "</li>"
-            "<br><li><input type=\"submit\" value=\"Apply\"></li>"
+            "<li>"
+              "<label for=\"dhcp\">Enable DHCP</label>"
+              "<input id=\"dhcp\" type=\"checkbox\" name=\"dhcp\" value=\"en\" checked onclick=\"vsw(this.checked);\">"
+            "</li>"
+            "<li class=\"exp\" style=\"display:none\">"
+              "<label for=\"sip\">IP Address</label>"
+              "<input id=\"sip\" type=\"text\" name=\"staip\" value=\"{{CONFIG_IP}}\">"
+            "</li>"
+            "<li class=\"exp\" style=\"display:none\">"
+              "<label for=\"gw\">Gateway</label>"
+              "<input id=\"gw\" type=\"text\" name=\"gateway\" value=\"{{CONFIG_GW}}\">"
+            "</li>"
+            "<li class=\"exp\" style=\"display:none\">"
+              "<label for=\"nm\">Netmask</label>"
+              "<input id=\"nm\" type=\"text\" name=\"netmask\" value=\"{{CONFIG_NM}}\">"
+            "</li>"
+            "<li class=\"exp\" style=\"display:none\">"
+              "<label for=\"ns1\">DNS1</label>"
+              "<input id=\"ns1\" type=\"text\" name=\"dns1\" value=\"{{CONFIG_DNS1}}\">"
+            "</li>"
+            "<li class=\"exp\" style=\"display:none\">"
+              "<label for=\"ns2\">DNS2</label>"
+              "<input id=\"ns2\" type=\"text\" name=\"dns2\" value=\"{{CONFIG_DNS2}}\">"
+            "</li>"
+            "<li><input type=\"submit\" value=\"Apply\"></li>"
           "</ul>"
         "</form>"
       "</div>"
     "</div>"
-  "</body>"
   "<script type=\"text/javascript\">"
-    "function onFocus(value){"
-      "document.getElementById('ssid').value=value;"
-      "document.getElementById('passphrase').focus();"
+    "function onFocus(e){"
+      "document.getElementById('ssid').value=e,document.getElementById('passphrase').focus()"
+    "}"
+    "function vsw(e){"
+      "var t;t=e?'none':'table-row';for(const e of document.getElementsByClassName('exp'))e.style.display=t;e||document.getElementById('sip').focus()"
     "}"
   "</script>"
+  "</body>"
   "</html>"
 };
 
@@ -1189,10 +1215,35 @@ String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
   return String(_hiddenSSIDCount);
 }
 
+String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
+  AC_UNUSED(args);
+  return !_apConfig.staip ? String(F("0.0.0.0")) : _apConfig.staip.toString();
+}
+
+String AutoConnect::_token_CONFIG_STAGATEWAY(PageArgument& args) {
+  AC_UNUSED(args);
+  return !_apConfig.staGateway ? String(F("0.0.0.0")) : _apConfig.staGateway.toString();
+}
+
+String AutoConnect::_token_CONFIG_STANETMASK(PageArgument& args) {
+  AC_UNUSED(args);
+  return !_apConfig.staNetmask ? String(F("0.0.0.0")) : _apConfig.staNetmask.toString();
+}
+
+String AutoConnect::_token_CONFIG_STADNS1(PageArgument& args) {
+  AC_UNUSED(args);
+  return !_apConfig.dns1 ? String(F("0.0.0.0")) : _apConfig.dns1.toString();
+}
+
+String AutoConnect::_token_CONFIG_STADNS2(PageArgument& args) {
+  AC_UNUSED(args);
+  return !_apConfig.dns2 ? String(F("0.0.0.0")) : _apConfig.dns2.toString();
+}
+
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   AC_UNUSED(args);
   AutoConnectCredential credit(_apConfig.boundaryOffset);
-  struct station_config entry;
+  station_config_t  entry;
   String ssidList;
   String rssiSym;
 
@@ -1210,7 +1261,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label class=\"slist\">"));
     rssiSym = String(F("N/A</label>"));
     for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
-      if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config::bssid))) {
+      if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config_t::bssid))) {
         _connectCh = WiFi.channel(sc);
         rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;&ensp;Ch.")) + String(_connectCh) + String(F("</label>"));
         if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
@@ -1240,7 +1291,7 @@ String AutoConnect::_token_BOOTURI(PageArgument& args) {
 
 String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  char  ssid_c[sizeof(station_config::ssid) + 1];
+  char  ssid_c[sizeof(station_config_t::ssid) + 1];
   *ssid_c = '\0';
   strncat(ssid_c, reinterpret_cast<char*>(_credential.ssid), sizeof(ssid_c) - 1);
   String  ssid = String(ssid_c);
@@ -1307,6 +1358,11 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("LIST_SSID")), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("SSID_COUNT")), std::bind(&AutoConnect::_token_SSID_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CONFIG_IP")), std::bind(&AutoConnect::_token_CONFIG_STAIP, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CONFIG_GW")), std::bind(&AutoConnect::_token_CONFIG_STAGATEWAY, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CONFIG_NM")), std::bind(&AutoConnect::_token_CONFIG_STANETMASK, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CONFIG_DNS1")), std::bind(&AutoConnect::_token_CONFIG_STADNS1, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CONFIG_DNS2")), std::bind(&AutoConnect::_token_CONFIG_STADNS2, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 

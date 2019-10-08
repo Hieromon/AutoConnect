@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectCredential class.
  *  @file AutoConnectCredential.h
  *  @author hieromon@gmail.com
- *  @version  1.0.2
- *  @date 2019-09-16
+ *  @version  1.1.0
+ *  @date 2019-10-07
  *  @copyright  MIT license.
  */
 
@@ -32,13 +32,6 @@ extern "C" {
 #define AC_CREDENTIAL_PREFERENCES 0
 #endif
 #include <esp_wifi.h>
-struct station_config {
-uint8_t  ssid[32];
-uint8_t  password[64];
-uint8_t  bssid_set;
-uint8_t  bssid[6];
-wifi_fast_scan_threshold_t threshold;
-};
 #endif
 #include "AutoConnectDefs.h"
 
@@ -59,15 +52,37 @@ wifi_fast_scan_threshold_t threshold;
 #define AC_IDENTIFIER "AC_CREDT"
 #endif
 
+typedef enum {
+  STA_DHCP,
+  STA_STATIC
+} station_config_dhcp;
+
+typedef struct {
+  uint8_t ssid[32];
+  uint8_t password[64];
+  uint8_t bssid[6];
+  uint8_t dhcp;   /**< 1:DHCP, 2:Static IP */
+  union _config {
+    uint32_t  addr[5];
+    struct _sta {
+      uint32_t ip;
+      uint32_t gateway;
+      uint32_t netmask;
+      uint32_t dns1;
+      uint32_t dns2;
+    } sta;
+  } config;
+} station_config_t;
+
 class AutoConnectCredentialBase {
  public:
   explicit AutoConnectCredentialBase() : _entries(0), _containSize(0) {}
   virtual ~AutoConnectCredentialBase() {}
   virtual uint8_t entries(void) { return _entries; }
   virtual bool    del(const char* ssid) = 0;
-  virtual int8_t  load(const char* ssid, struct station_config* config) = 0;
-  virtual bool    load(int8_t entry, struct station_config* config) = 0;
-  virtual bool    save(const struct station_config* config) = 0;
+  virtual int8_t  load(const char* ssid, station_config_t* config) = 0;
+  virtual bool    load(int8_t entry, station_config_t* config) = 0;
+  virtual bool    save(const station_config_t* config) = 0;
 
  protected:
   virtual void  _allocateEntry(void) = 0; /**< Initialize storage for credentials. */
@@ -88,15 +103,15 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   explicit AutoConnectCredential(uint16_t offset);
   ~AutoConnectCredential();
   bool    del(const char* ssid) override;
-  int8_t  load(const char* ssid, struct station_config* config) override;
-  bool    load(int8_t entry, struct station_config* config) override;
-  bool    save(const struct station_config* config) override;
+  int8_t  load(const char* ssid, station_config_t* config) override;
+  bool    load(int8_t entry, station_config_t* config) override;
+  bool    save(const station_config_t* config) override;
 
  protected:
   void    _allocateEntry(void) override;  /**< Initialize storage for credentials. */
 
  private:
-  void    _retrieveEntry(char* ssid, char* password, uint8_t* bssid);   /**< Read an available entry. */
+  void    _retrieveEntry(station_config_t* config);   /**< Read an available entry. */
 
   int       _dp;            /**< The current address in EEPROM */
   int       _ep;            /**< The current entry address in EEPROM */
@@ -127,20 +142,22 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   ~AutoConnectCredential();
   bool    del(const char* ssid) override;
   uint8_t entries(void) override;
-  int8_t  load(const char* ssid, struct station_config* config) override;
-  bool    load(int8_t entry, struct station_config* config) override;
-  bool    save(const struct station_config* config) override;
+  int8_t  load(const char* ssid, station_config_t* config) override;
+  bool    load(int8_t entry, station_config_t* config) override;
+  bool    save(const station_config_t* config) override;
 
  protected:
   void    _allocateEntry(void) override;  /**< Initialize storage for credentials. */
 
  private:
   typedef struct {
-    String  password;
-    uint8_t bssid[6];
+    String   password;
+    uint8_t  bssid[6];
+    uint8_t  dhcp;   /**< 1:DHCP, 2:Static IP */
+    uint32_t ip[5];
   } AC_CREDTBODY_t;         /**< Credential entry */
   typedef std::map<String, AC_CREDTBODY_t>  AC_CREDT_t;
-  typedef station_config  station_config_t;
+  // typedef station_config  station_config_t;
 
   bool    _add(const station_config_t* config); /**< Add an entry */
   size_t  _commit(void);    /**< Write back to the nvs */

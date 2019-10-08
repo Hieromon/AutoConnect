@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.0.0
- *	@date	2019-08-15
+ *	@version	1.1.0
+ *	@date	2019-10-07
  *	@copyright	MIT license.
  */
 
@@ -229,10 +229,12 @@ class AutoConnect {
   } AC_STARECONNECT_t;
   void  _initialize(void);
   bool  _config(void);
+  bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
+  bool  _getConfigSTA(station_config_t* config);
   void  _startWebServer(void);
   void  _startDNSServer(void);
   void  _handleNotFound(void);
-  bool  _loadAvailCredential(void);
+  bool  _loadAvailCredential(const char* ssid);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
@@ -289,8 +291,8 @@ class AutoConnect {
   std::unique_ptr<AutoConnectUpdate>  _update;
 
   /** Saved configurations */
-  AutoConnectConfig     _apConfig;
-  struct station_config _credential;
+  AutoConnectConfig  _apConfig;
+  station_config_t   _credential;
   uint8_t       _hiddenSSIDCount;
   int16_t       _scanCount;
   uint8_t       _connectCh;
@@ -374,6 +376,11 @@ class AutoConnect {
   String _token_LIST_SSID(PageArgument& args);
   String _token_SSID_COUNT(PageArgument& args);
   String _token_HIDDEN_COUNT(PageArgument& args);
+  String _token_CONFIG_STAIP(PageArgument& args);
+  String _token_CONFIG_STAGATEWAY(PageArgument& args);
+  String _token_CONFIG_STANETMASK(PageArgument& args);
+  String _token_CONFIG_STADNS1(PageArgument& args);
+  String _token_CONFIG_STADNS2(PageArgument& args);
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);
   String _token_BOOTURI(PageArgument& args);

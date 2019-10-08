@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page declaration.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    1.0.0
- *  @date   2019-08-15
+ *  @version    1.1.0
+ *  @date   2019-10-04
  *  @copyright  MIT license.
  */
 
@@ -15,6 +15,12 @@
 #define AUTOCONNECT_PARAMID_SSID  "SSID"
 #define AUTOCONNECT_PARAMID_PASS  "Passphrase"
 #define AUTOCONNECT_PARAMID_CRED  "Credential"
+#define AUTOCONNECT_PARAMID_DHCP  "dhcp"
+#define AUTOCONNECT_PARAMID_STAIP "staip"
+#define AUTOCONNECT_PARAMID_GTWAY "gateway"
+#define AUTOCONNECT_PARAMID_NTMSK "netmask"
+#define AUTOCONNECT_PARAMID_DNS1  "dns1"
+#define AUTOCONNECT_PARAMID_DNS2  "dns2"
 
 // AutoConnect menu hyper-link as image
 #define AUTOCONNECT_GLYPH_COG_16  "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA" \
