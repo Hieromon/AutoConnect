@@ -25,9 +25,13 @@ Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to 
 ## <i class="fa fa-bars"></i> Configure new AP
 
 Scan all available access point in the vicinity and display it. Strength and security of the detected AP are marked. The <i class="fa fa-lock"></i> is indicated for the SSID that needs a security key. "**Hidden:**" means the number of hidden SSIDs discovered.  
-Enter SSID and Passphrase and tap "**apply**" to starts WiFi connection. 
+Enter SSID and Passphrase and tap "**Apply**" to starts WiFi connection. 
 
 <img src="images/newap.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
+
+If you want to configure with static IP, uncheck "**Enable DHCP**". Once the WiFi connection is established, the entered static IP configuration is saved in the credentials and restored to the station configuration via the [Open SSIDs](#open-ssids) menu.
+
+<img src="images/newap_static.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
 ## <i class="fa fa-bars"></i> Open SSIDs
 
