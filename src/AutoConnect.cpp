@@ -805,7 +805,6 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   if (args.hasArg(String(F(AUTOCONNECT_PARAMID_CRED)))) {
     // Read from EEPROM
     AutoConnectCredential credential(_apConfig.boundaryOffset);
-    station_config_t entry;
     credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &_credential);
 #ifdef AC_DEBUG
     IPAddress staip = IPAddress(_credential.config.sta.ip);
