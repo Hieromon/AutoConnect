@@ -824,26 +824,19 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     }
     else {
       _credential.dhcp = STA_STATIC;
-      IPAddress cast;
-      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_STAIP)))) {
-        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_STAIP))));
-        _credential.config.sta.ip = static_cast<uint32_t>(cast);
-      }
-      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_GTWAY)))) {
-        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_GTWAY))));
-        _credential.config.sta.gateway = static_cast<uint32_t>(cast);
-      }
-      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_NTMSK)))) {
-        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_NTMSK))));
-        _credential.config.sta.netmask = static_cast<uint32_t>(cast);
-      }
-      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DNS1)))) {
-        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_DNS1))));
-        _credential.config.sta.dns1 = static_cast<uint32_t>(cast);
-      }
-      if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DNS2)))) {
-        cast.fromString(args.arg(String(F(AUTOCONNECT_PARAMID_DNS2))));
-        _credential.config.sta.dns2 = static_cast<uint32_t>(cast);
+      const String paramId[] = {
+        String(F(AUTOCONNECT_PARAMID_STAIP)),
+        String(F(AUTOCONNECT_PARAMID_GTWAY)),
+        String(F(AUTOCONNECT_PARAMID_NTMSK)),
+        String(F(AUTOCONNECT_PARAMID_DNS1)),
+        String(F(AUTOCONNECT_PARAMID_DNS2))
+      };
+      for (uint8_t i = 0; i < sizeof(station_config_t::_config::addr) / sizeof(uint32_t); i++) {
+        if (args.hasArg(paramId[i])) {
+          IPAddress ip;
+          if (ip.fromString(args.arg(paramId[i])))
+            _credential.config.addr[i] = static_cast<uint32_t>(ip);
+        }
       }
     }
   }
