@@ -715,7 +715,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
   "<script type=\"text/javascript\">"
     "window.onload=function(){"
       "['sip','gw','nm','ns1','ns2'].forEach(function(n,o,t){"
-        "io=document.getElementById(n),io.placeholder='0.0.0.0',io.pattern='^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'})"
+        "io=document.getElementById(n),io.placeholder='0.0.0.0',io.pattern='^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'})"
       "};"
     "function onFocus(e){"
       "document.getElementById('ssid').value=e,document.getElementById('passphrase').focus()"
