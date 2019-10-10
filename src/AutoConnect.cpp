@@ -184,7 +184,8 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Activate the AP mode with configured softAP and start the access point.
       WiFi.mode(WIFI_AP_STA);
-      while (WiFi.getMode() != WIFI_AP_STA) {
+
+      while (WiFi.getMode() != WIFI_AP_STA && !_apConfig.contuineOnDisconnect) {
         delay(1);
         yield();
       }
@@ -196,20 +197,26 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       }
 #endif
       WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
-      do {
-        delay(100);
-        yield();
-      } while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0));
+      if(!_apConfig.contuineOnDisconnect)
+      {
+        do {
+          delay(100);
+          yield();
+        } while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0));
+      }
 #if defined(ARDUINO_ARCH_ESP32)
       if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
         _config();
       }
 #endif
-      if (_apConfig.apip != IPAddress(0, 0, 0, 0)) {
-        do {
-          delay(100);
-          yield();
-        } while (WiFi.softAPIP() != _apConfig.apip);
+      if(!_apConfig.contuineOnDisconnect)
+      {
+        if (_apConfig.apip != IPAddress(0, 0, 0, 0)) {
+          do {
+            delay(100);
+            yield();
+          } while (WiFi.softAPIP() != _apConfig.apip);
+        }
       }
       _currentHostIP = WiFi.softAPIP();
       AC_DBG("SoftAP %s/%s Ch(%d) IP:%s %s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _currentHostIP.toString().c_str(), _apConfig.hidden ? "hidden" : "");
@@ -233,15 +240,17 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         // Start the captive portal to make a new connection
         bool  hasTimeout = false;
         _portalAccessPeriod = millis();
-        while (WiFi.status() != WL_CONNECTED && !_rfReset) {
-          handleClient();
-          // Force execution of queued processes.
-          yield();
-          // Check timeout
-          if ((hasTimeout = _hasTimeout(_apConfig.portalTimeout))) {
-            AC_DBG("CP timeout exceeded:%ld\n", millis() - _portalAccessPeriod);
-            break;
-          }
+        if(!_apConfig.contuineOnDisconnect)
+        {
+          while (WiFi.status() != WL_CONNECTED && !_rfReset) {
+            handleClient();
+            // Force execution of queued processes.
+            yield();
+            // Check timeout
+            if ((hasTimeout = _hasTimeout(_apConfig.portalTimeout))) {
+              AC_DBG("CP timeout exceeded:%ld\n", millis() - _portalAccessPeriod);
+              break;
+            }
         }
         cs = WiFi.status() == WL_CONNECTED;
 

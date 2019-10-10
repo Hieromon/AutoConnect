@@ -74,6 +74,7 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
+    contuineOnDisconnect(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
@@ -106,6 +107,7 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
+    contuineOnDisconnect(false),
     portalTimeout(portalTimeout),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
@@ -138,6 +140,7 @@ class AutoConnectConfig {
     autoReconnect = o.autoReconnect;
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
+    contuineOnDisconnect = o.contuineOnDisconnect;
     portalTimeout = o.portalTimeout;
     ticker = o.ticker;
     tickerPort = o.tickerPort;
@@ -169,6 +172,7 @@ class AutoConnectConfig {
   bool      autoReconnect;      /**< Automatic reconnect with past SSID */
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
+  bool      contuineOnDisconnect; /**< Dont stop setup method on when WIFI is Disconnected. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
