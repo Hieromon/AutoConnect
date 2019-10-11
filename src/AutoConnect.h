@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.1.0
- *	@date	2019-10-07
+ *	@date	2019-10-11
  *	@copyright	MIT license.
  */
 
@@ -377,10 +377,6 @@ class AutoConnect {
   String _token_SSID_COUNT(PageArgument& args);
   String _token_HIDDEN_COUNT(PageArgument& args);
   String _token_CONFIG_STAIP(PageArgument& args);
-  String _token_CONFIG_STAGATEWAY(PageArgument& args);
-  String _token_CONFIG_STANETMASK(PageArgument& args);
-  String _token_CONFIG_STADNS1(PageArgument& args);
-  String _token_CONFIG_STADNS2(PageArgument& args);
   String _token_OPEN_SSID(PageArgument& args);
   String _token_UPTIME(PageArgument& args);
   String _token_BOOTURI(PageArgument& args);

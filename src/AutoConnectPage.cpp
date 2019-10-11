@@ -3,7 +3,7 @@
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
  *  @version    1.1.0
- *  @date   2019-10-07
+ *  @date   2019-10-11
  *  @copyright  MIT license.
  */
 
@@ -687,26 +687,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
               "<label for=\"dhcp\">Enable DHCP</label>"
               "<input id=\"dhcp\" type=\"checkbox\" name=\"dhcp\" value=\"en\" checked onclick=\"vsw(this.checked);\">"
             "</li>"
-            "<li class=\"exp\" style=\"display:none\">"
-              "<label for=\"sip\">IP Address</label>"
-              "<input id=\"sip\" type=\"text\" name=\"staip\" value=\"{{CONFIG_IP}}\">"
-            "</li>"
-            "<li class=\"exp\" style=\"display:none\">"
-              "<label for=\"gw\">Gateway</label>"
-              "<input id=\"gw\" type=\"text\" name=\"gateway\" value=\"{{CONFIG_GW}}\">"
-            "</li>"
-            "<li class=\"exp\" style=\"display:none\">"
-              "<label for=\"nm\">Netmask</label>"
-              "<input id=\"nm\" type=\"text\" name=\"netmask\" value=\"{{CONFIG_NM}}\">"
-            "</li>"
-            "<li class=\"exp\" style=\"display:none\">"
-              "<label for=\"ns1\">DNS1</label>"
-              "<input id=\"ns1\" type=\"text\" name=\"dns1\" value=\"{{CONFIG_DNS1}}\">"
-            "</li>"
-            "<li class=\"exp\" style=\"display:none\">"
-              "<label for=\"ns2\">DNS2</label>"
-              "<input id=\"ns2\" type=\"text\" name=\"dns2\" value=\"{{CONFIG_DNS2}}\">"
-            "</li>"
+            "{{CONFIG_IP}}"
             "<li><input type=\"submit\" value=\"Apply\"></li>"
           "</ul>"
         "</form>"
@@ -714,9 +695,9 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
     "</div>"
   "<script type=\"text/javascript\">"
     "window.onload=function(){"
-      "['sip','gw','nm','ns1','ns2'].forEach(function(n,o,t){"
-        "io=document.getElementById(n),io.placeholder='0.0.0.0',io.pattern='^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'})"
-      "};"
+      "['" AUTOCONNECT_PARAMID_STAIP "','" AUTOCONNECT_PARAMID_GTWAY "','" AUTOCONNECT_PARAMID_NTMSK "','" AUTOCONNECT_PARAMID_DNS1 "','" AUTOCONNECT_PARAMID_DNS2 "'].forEach(function(n,o,t){"
+        "io=document.getElementById(n),io.placeholder='0.0.0.0',io.pattern='^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'});"
+      "vsw(true)};"
     "function onFocus(e){"
       "document.getElementById('ssid').value=e,document.getElementById('passphrase').focus()"
     "}"
@@ -1221,27 +1202,41 @@ String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
 
 String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
   AC_UNUSED(args);
-  return !_apConfig.staip ? String(F("0.0.0.0")) : _apConfig.staip.toString();
-}
+  static const char _configIPList[] PROGMEM =
+    "<li class=\"exp\">"
+    "<label for=\"%s\">%s</label>"
+    "<input id=\"%s\" type=\"text\" name=\"%s\" value=\"%s\">"
+    "</li>";
+  struct _reps {
+    PGM_P lid;
+    PGM_P lbl;
+  } static const reps[]  = {
+    { PSTR(AUTOCONNECT_PARAMID_STAIP), PSTR("IP Address") },
+    { PSTR(AUTOCONNECT_PARAMID_GTWAY), PSTR("Gateway") },
+    { PSTR(AUTOCONNECT_PARAMID_NTMSK), PSTR("Netmask") },
+    { PSTR(AUTOCONNECT_PARAMID_DNS1), PSTR("DNS1") },
+    { PSTR(AUTOCONNECT_PARAMID_DNS2), PSTR("DNS2") }
+  };
+  char  liCont[600];
+  char* liBuf = liCont;
 
-String AutoConnect::_token_CONFIG_STAGATEWAY(PageArgument& args) {
-  AC_UNUSED(args);
-  return !_apConfig.staGateway ? String(F("0.0.0.0")) : _apConfig.staGateway.toString();
-}
-
-String AutoConnect::_token_CONFIG_STANETMASK(PageArgument& args) {
-  AC_UNUSED(args);
-  return !_apConfig.staNetmask ? String(F("0.0.0.0")) : _apConfig.staNetmask.toString();
-}
-
-String AutoConnect::_token_CONFIG_STADNS1(PageArgument& args) {
-  AC_UNUSED(args);
-  return !_apConfig.dns1 ? String(F("0.0.0.0")) : _apConfig.dns1.toString();
-}
-
-String AutoConnect::_token_CONFIG_STADNS2(PageArgument& args) {
-  AC_UNUSED(args);
-  return !_apConfig.dns2 ? String(F("0.0.0.0")) : _apConfig.dns2.toString();
+  for (uint8_t i = 0; i < 5; i++) {
+    IPAddress*  ip;
+    if (i == 0)
+      ip = &_apConfig.staip;
+    else if (i == 1)
+      ip = &_apConfig.staGateway;
+    else if (i == 2)
+      ip = &_apConfig.staNetmask;
+    else if (i == 3)
+      ip = &_apConfig.dns1;
+    else if (i == 4)
+      ip = &_apConfig.dns2;
+    String  ipStr = *ip ? ip->toString() : String(F("0.0.0.0"));
+    snprintf_P(liBuf, sizeof(liCont), (PGM_P)_configIPList, reps[i].lid, reps[i].lbl, reps[i].lid, reps[i].lid, ipStr.c_str());
+    liBuf += strlen(liBuf);
+  }
+  return String(liCont);
 }
 
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
@@ -1363,10 +1358,6 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("SSID_COUNT")), std::bind(&AutoConnect::_token_SSID_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CONFIG_IP")), std::bind(&AutoConnect::_token_CONFIG_STAIP, this, std::placeholders::_1));
-    elm->addToken(String(FPSTR("CONFIG_GW")), std::bind(&AutoConnect::_token_CONFIG_STAGATEWAY, this, std::placeholders::_1));
-    elm->addToken(String(FPSTR("CONFIG_NM")), std::bind(&AutoConnect::_token_CONFIG_STANETMASK, this, std::placeholders::_1));
-    elm->addToken(String(FPSTR("CONFIG_DNS1")), std::bind(&AutoConnect::_token_CONFIG_STADNS1, this, std::placeholders::_1));
-    elm->addToken(String(FPSTR("CONFIG_DNS2")), std::bind(&AutoConnect::_token_CONFIG_STADNS2, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 

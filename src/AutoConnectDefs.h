@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-08-15
+ * @version  1.1.0
+ * @date 2019-10-11
  * @copyright  MIT license.
  */
 
@@ -11,7 +11,7 @@
 #define _AUTOCONNECTDEFS_H_
 
 // Uncomment the following AC_DEBUG to enable debug output.
-#define AC_DEBUG
+//#define AC_DEBUG
 
 // Debug output destination can be defined externally with AC_DEBUG_PORT
 #ifndef AC_DEBUG_PORT
@@ -133,7 +133,7 @@
 
 // Reserved buffer size to build content
 #ifndef AUTOCONNECT_CONTENTBUFFER_SIZE
-#define AUTOCONNECT_CONTENTBUFFER_SIZE  (13 * 1024)
+#define AUTOCONNECT_CONTENTBUFFER_SIZE  (14 * 1024)
 #endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
 
 // Number of unit lines in the page that lists available SSIDs
