@@ -3,7 +3,7 @@
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
  *  @version    1.1.0
- *  @date   2019-10-11
+ *  @date   2019-10-13
  *  @copyright  MIT license.
  */
 
@@ -1154,11 +1154,27 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
     _scanCount = WiFi.scanNetworks(false, true);
     AC_DBG("%d network(s) found\n", (int)_scanCount);
   }
+  // Preapre SSID list content building buffer
+  size_t  bufSize = 192 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? AUTOCONNECT_SSIDPAGEUNIT_LINES : _scanCount);
+  bufSize += 88 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? (_scanCount > (AUTOCONNECT_SSIDPAGEUNIT_LINES * 2) ? 2 : 1) : 0);
+  char* ssidList = (char*)malloc(bufSize);
+  if (!ssidList) {
+    AC_DBG("ssidList buffer(%d) allocation failed\n", (int)bufSize);
+    return _emptyString;
+  }
+  AC_DBG_DUMB("\n");
   // Locate to the page and build SSD list content.
-  String  ssidList = String("");
+  static const char _ssidList[] PROGMEM =
+    "<input type=\"button\" onClick=\"onFocus(this.getAttribute('value'))\" value=\"%s\">"
+    "<label class=\"slist\">%d&#037;&ensp;Ch.%d</label>%s<br>";
+  static const char _ssidEnc[] PROGMEM =
+    "<span class=\"img-lock\"></span>";
+  static const char _ssidPage[] PROGMEM =
+    "<button type=\"submit\" name=\"page\" value=\"%d\" formaction=\"/_ac/config\">%s</button>&emsp;";
   _hiddenSSIDCount = 0;
   uint8_t validCount = 0;
   uint8_t dispCount = 0;
+  char* slBuf = ssidList;
   for (uint8_t i = 0; i < _scanCount; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
@@ -1167,11 +1183,8 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
       // per page in the available SSID list.
       if (validCount >= page * AUTOCONNECT_SSIDPAGEUNIT_LINES && validCount <= (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES - 1) {
         if (++dispCount <= AUTOCONNECT_SSIDPAGEUNIT_LINES) {
-          ssidList += String(F("<input type=\"button\" onClick=\"onFocus(this.getAttribute('value'))\" value=\"")) + ssid + String("\">");
-          ssidList += String(F("<label class=\"slist\">")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
-          if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
-            ssidList += String(F("<span class=\"img-lock\"></span>"));
-          ssidList += String(F("<br>"));
+          snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidList, ssid.c_str(), AutoConnect::_toWiFiQuality(WiFi.RSSI(i)), WiFi.channel(i), WiFi.encryptionType(i) != ENC_TYPE_NONE ? (PGM_P)_ssidEnc : "");
+          slBuf += strlen(slBuf);
         }
       }
       // The validCount counts the found SSIDs that is not the Hidden
@@ -1182,12 +1195,18 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
       _hiddenSSIDCount++;
   }
   // Prepare perv. button
-  if (page >= 1)
-    ssidList += String(F("<button type=\"submit\" name=\"page\" value=\"")) + String(page - 1) + String(F("\" formaction=\"")) + String(F(AUTOCONNECT_URI_CONFIG)) + String(F("\">Prev.</button>&emsp;"));
+  if (page >= 1) {
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page - 1, PSTR("Prev."));
+    slBuf = ssidList + strlen(ssidList);
+  }
   // Prepare next button
-  if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES)
-    ssidList += String(F("<button type=\"submit\" name=\"page\" value=\"")) + String(page + 1) + String(F("\" formaction=\"")) + String(F(AUTOCONNECT_URI_CONFIG)) + String(F("\">Next</button>&emsp;"));
-  return ssidList;
+  if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES) {
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page + 1, PSTR("Next"));
+  }
+  // return ssidList;
+  String ssidListStr = String(ssidList);
+  free(ssidList);
+  return ssidListStr;
 }
 
 String AutoConnect::_token_SSID_COUNT(PageArgument& args) {
@@ -1233,7 +1252,7 @@ String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
     else if (i == 4)
       ip = &_apConfig.dns2;
     String  ipStr = *ip ? ip->toString() : String(F("0.0.0.0"));
-    snprintf_P(liBuf, sizeof(liCont), (PGM_P)_configIPList, reps[i].lid, reps[i].lbl, reps[i].lid, reps[i].lid, ipStr.c_str());
+    snprintf_P(liBuf, sizeof(liCont) - (liBuf - liCont), (PGM_P)_configIPList, reps[i].lid, reps[i].lbl, reps[i].lid, reps[i].lid, ipStr.c_str());
     liBuf += strlen(liBuf);
   }
   return String(liCont);
