@@ -103,7 +103,7 @@ PageBuilder delPage("/del", { elmDel });
 // with the <li> tag.
 String viewCredential(PageArgument& args) {
   AutoConnectCredential  ac(CREDENTIAL_OFFSET);
-  struct station_config  entry;
+  station_config_t  entry;
   String content = "";
   uint8_t  count = ac.entries();          // Get number of entries.
 

@@ -53,7 +53,7 @@ extern "C" {
 #endif
 
 typedef enum {
-  STA_DHCP,
+  STA_DHCP = 0,
   STA_STATIC
 } station_config_dhcp;
 
@@ -61,7 +61,7 @@ typedef struct {
   uint8_t ssid[32];
   uint8_t password[64];
   uint8_t bssid[6];
-  uint8_t dhcp;   /**< 1:DHCP, 2:Static IP */
+  uint8_t dhcp;   /**< 0:DHCP, 1:Static IP */
   union _config {
     uint32_t  addr[5];
     struct _sta {
