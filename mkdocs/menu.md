@@ -29,7 +29,9 @@ Enter SSID and Passphrase and tap "**Apply**" to starts WiFi connection.
 
 <img src="images/newap.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
-If you want to configure with static IP, uncheck "**Enable DHCP**". Once the WiFi connection is established, the entered static IP configuration is saved in the credentials and restored to the station configuration via the [Open SSIDs](#open-ssids) menu.
+If you want to configure with static IP, uncheck "**Enable DHCP**". Once the WiFi connection is established, the entered static IP[^1] configuration is saved in the credentials and restored to the station configuration via the [Open SSIDs](#open-ssids) menu.
+
+[^1]: AutoConnect will not check the syntax and validity of the entered IP address. If the entered static IPs are incorrect, it cannot connect to the access point.
 
 <img src="images/newap_static.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
@@ -38,6 +40,12 @@ If you want to configure with static IP, uncheck "**Enable DHCP**". Once the WiF
 Once it was established WiFi connection, its SSID and password will be saved in the flash of ESP8266/ESP32 automatically. The **Open SSIDs** menu reads the saved SSID credentials from the flash. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.
 
 <img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
+
+!!! note "Saved credentials data structure has changed"
+    A structure of AutoConnect saved credentials have changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
+    ```
+    esptool -c esp8266 (or esp32) - p [COM_PORT] erase_flash
+    ```
 
 ## <i class="fa fa-bars"></i> Disconnect
 

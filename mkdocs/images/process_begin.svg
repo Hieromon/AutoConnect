@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="99.499031mm"
+   width="109mm"
    height="371.83472mm"
-   viewBox="0 0 99.499031 371.83471"
+   viewBox="0 0 108.99999 371.83472"
    version="1.1"
    id="svg8776"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
@@ -248,8 +248,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="182.89588"
-     inkscape:cy="1285.7123"
+     inkscape:cx="259.43725"
+     inkscape:cy="1200.0696"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -264,11 +264,11 @@
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:snap-bbox-midpoints="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1029"
-     inkscape:window-x="1272"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1571"
+     inkscape:window-height="1013"
+     inkscape:window-x="1376"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -277,7 +277,7 @@
        type="xygrid"
        id="grid9104"
        originx="-23.664512"
-       originy="15.544299" />
+       originy="15.544259" />
   </sodipodi:namedview>
   <metadata
      id="metadata8773">
@@ -295,7 +295,7 @@
      inkscape:label="レイヤー 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-23.664512,59.290408)">
+     transform="translate(-23.664512,59.290411)">
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458341px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 58.208337,-11.256129 v 3.8405916"
@@ -1265,27 +1265,26 @@
            sodipodi:role="line">WiFi.config (STA)</tspan></text>
     </g>
     <g
-       id="g1187"
-       transform="translate(-46.605488,-48.241008)">
+       id="g1141">
       <rect
          ry="0.26458257"
          rx="0.26458332"
-         y="13.168248"
-         x="87.615906"
+         y="-35.072762"
+         x="41.010418"
          height="7.9375019"
          width="34.395828"
          id="rect9134-4-7-4-7-57"
          style="opacity:0.66000001;vector-effect:none;fill:#e7f3ff;fill-opacity:1;stroke:#000000;stroke-width:0.26458329;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill" />
       <text
          id="text9138-7-3-9-9-90"
-         y="18.015242"
-         x="89.345772"
+         y="-30.225767"
+         x="42.740284"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
          xml:space="preserve"><tspan
            id="tspan1182"
            sodipodi:role="line"
-           x="89.345772"
-           y="18.015242">Load current config</tspan></text>
+           x="42.740284"
+           y="-30.225767">Load current config</tspan></text>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458341px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1393,5 +1392,37 @@
          x="60.096973"
          y="-8.7963543"
          style="stroke-width:0.26458332">YES</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="79.585876"
+       y="-32.471371"
+       id="text9138-7-3-9-9-90-9"><tspan
+         sodipodi:role="line"
+         id="tspan1283"
+         x="79.585876"
+         y="-32.471371">Loads saved credentials from the flash</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1285"
+         x="79.585876"
+         y="-28.502621">that matches the last SSID stored in</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1287"
+         x="79.585876"
+         y="-24.533871">the ESP module. </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:serif;-inkscape-font-specification:'serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="79.543159"
+       y="-14.876924"
+       id="text9138-7-3-9-9-90-9-7"><tspan
+         sodipodi:role="line"
+         id="tspan1289"
+         x="79.543159"
+         y="-14.876924">If that credential has a static IP,</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1291"
+         x="79.543159"
+         y="-10.908174">restore it.</tspan></text>
   </g>
 </svg>

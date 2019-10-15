@@ -180,6 +180,13 @@ Because AutoConnect does not send a login success response to the captive portal
 
 If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
 
+## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
+
+A structure of AutoConnect saved credentials have changed in two times throughout enhancement with v1.0.3 and v1.1.0. Especially in v1.1.0 enhancements, there is no backward compatibility of AutoConnectCredential structures to the earlier versions. To save the credentials correctly in v110, you must erase the flash of the ESP module using the esptool completely.
+```
+esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
+```
+
 ## <i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.
 
 Is there the AutoConnectElements element named **SUBMIT** in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the `input type=submit` element for the form submission and uses [HTML form element submit](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit) function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use **SUBMIT** as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.

@@ -50,6 +50,9 @@ Here, tap *"Configure new AP"* to connect the new access point then the SSID con
 
 <img src="images/menu_login.png" style="border:1px solid lightgrey;width:280px;" /><img src="images/arrow_right.svg" style="vertical-align:top;padding-top:120px;width:48px;margin-left:30px;margin-right:30px;" /><img src="images/config_ssid.png" style="border:1px solid lightgrey;width:280px;" />
 
+!!! info "Can be configured with static IP"
+    Since v1.1.0, [**Configure new AP**](menu.md#configure-new-ap) menu can configure for WIFI_STA with static IP.
+
 ### <i class="fa fa-rss"></i> Connection establishment
 
 After connection established, the current status screen will appear. It is already connected to WLAN with WiFi mode as WIFI\_AP\_STA and the IP connection status is displayed there including the SSID. Then at this screen, you have two options for the next step.
