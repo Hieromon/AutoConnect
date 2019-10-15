@@ -3,7 +3,7 @@
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
  *  @version    1.1.0
- *  @date   2019-10-13
+ *  @date   2019-10-15
  *  @copyright  MIT license.
  */
 
@@ -289,7 +289,7 @@ const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
     "position:relative;"
     "margin:100px auto"
   "}"
-  ".double-bounce1, .double-bounce2{"
+  ".dbl-bounce1, .dbl-bounce2{"
     "width:100%;"
     "height:100%;"
     "border-radius:50%;"
@@ -301,7 +301,7 @@ const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
     "-webkit-animation:sk-bounce 2.0s infinite ease-in-out;"
     "animation:sk-bounce 2.0s infinite ease-in-out"
   "}"
-  ".double-bounce2{"
+  ".dbl-bounce2{"
     "-webkit-animation-delay:-1.0s;"
     "animation-delay:-1.0s"
   "}"
@@ -487,10 +487,10 @@ const char AutoConnect::_CSS_LUXBAR[] PROGMEM = {
       "white-space:nowrap;"
     "}"
   "}"
-  ".lb-cb:checked+.lb-menu .lb-burger-doublespin span::before{"
+  ".lb-cb:checked+.lb-menu .lb-burger-dblspin span::before{"
     "transform:rotate(225deg)"
   "}"
-  ".lb-cb:checked+.lb-menu .lb-burger-doublespin span::after{"
+  ".lb-cb:checked+.lb-menu .lb-burger-dblspin span::after{"
     "transform:rotate(-225deg)"
   "}"
   ".lb-menu-material,"
@@ -525,7 +525,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
       "<ul class=\"lb-navigation\">"
         "<li class=\"lb-header\">"
           "<a href=\"" AUTOCONNECT_URI "\" class=\"lb-brand\">MENU_TITLE</a>"
-          "<label class=\"lb-burger lb-burger-doublespin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
+          "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
         "</li>"
         "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW "</a></li>"
         "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS "</a></li>"
@@ -751,8 +751,8 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
       "{{MENU_PRE}}"
       "{{MENU_POST}}"
       "<div class=\"spinner\">"
-        "<div class=\"double-bounce1\"></div>"
-        "<div class=\"double-bounce2\"></div>"
+        "<div class=\"dbl-bounce1\"></div>"
+        "<div class=\"dbl-bounce2\"></div>"
         "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#0b0b33;\">{{CUR_SSID}}</div>"
       "</div>"
     "</div>"
@@ -1006,15 +1006,17 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   AC_UNUSED(args);
-  const char* wlStatusSymbol ="";
-  static const char* wlStatusSymbols[] = {
+  PGM_P wlStatusSymbol = PSTR("");
+  // const char* wlStatusSymbol ="";
+  PGM_P wlStatusSymbols[] = {
+  // static const char* wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
-    "IDLE",
-    "CONNECTING",
-    "WRONG_PASSWORD",
-    "NO_AP_FOUND",
-    "CONNECT_FAIL",
-    "GOT_IP"
+    PSTR("IDLE"),
+    PSTR("CONNECTING"),
+    PSTR("WRONG_PASSWORD"),
+    PSTR("NO_AP_FOUND"),
+    PSTR("CONNECT_FAIL"),
+    PSTR("GOT_IP")
   };
   switch (wifi_station_get_connect_status()) {
   case STATION_IDLE:
@@ -1036,14 +1038,14 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     wlStatusSymbol = wlStatusSymbols[5];
     break;
 #elif defined(ARDUINO_ARCH_ESP32)
-    "IDLE",
-    "NO_SSID_AVAIL",
-    "SCAN_COMPLETED",
-    "CONNECTED",
-    "CONNECT_FAILED",
-    "CONNECTION_LOST",
-    "DISCONNECTED",
-    "NO_SHIELD"
+    PSTR("IDLE"),
+    PSTR("NO_SSID_AVAIL"),
+    PSTR("SCAN_COMPLETED"),
+    PSTR("CONNECTED"),
+    PSTR("CONNECT_FAILED"),
+    PSTR("CONNECTION_LOST"),
+    PSTR("DISCONNECTED"),
+    PSTR("NO_SHIELD")
   };
   switch (_rsConnect) {
   case WL_IDLE_STATUS:
@@ -1072,7 +1074,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     break;
 #endif
   }
-  return String("(") + String(_rsConnect) + String(") ") + String(wlStatusSymbol);
+  return String("(") + String(_rsConnect) + String(") ") + String(FPSTR(wlStatusSymbol));
 }
 
 String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
@@ -1260,10 +1262,16 @@ String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
 
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  AutoConnectCredential credit(_apConfig.boundaryOffset);
-  station_config_t  entry;
+  static const char _ssidList[] PROGMEM = "<input id=\"sb\" type=\"submit\" name=\"%s\" value=\"%s\"><label class=\"slist\">%s</label>%s<br>";
+  static const char _ssidRssi[] PROGMEM = "%d&#037;&ensp;Ch.%d";
+  static const char _ssidNA[]   PROGMEM = "N/A";
+  static const char _ssidLock[] PROGMEM = "<span class=\"img-lock\"></span>";
+  static const char _ssidNull[] PROGMEM = "";
   String ssidList;
-  String rssiSym;
+  station_config_t  entry;
+  char  slCont[176];
+  char  rssiCont[32];
+  AutoConnectCredential credit(_apConfig.boundaryOffset);
 
   uint8_t creEntries = credit.entries();
   if (creEntries > 0) {
@@ -1274,20 +1282,23 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     ssidList = String(F("<p><b>No saved credentials.</b></p>"));
 
   for (uint8_t i = 0; i < creEntries; i++) {
+    rssiCont[0] = '\0';
+    PGM_P rssiSym = _ssidNA;
+    PGM_P ssidLock = _ssidNull;
     credit.load(i, &entry);
     AC_DBG("A credential #%d loaded\n", (int)i);
-    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label class=\"slist\">"));
-    rssiSym = String(F("N/A</label>"));
     for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
       if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config_t::bssid))) {
         _connectCh = WiFi.channel(sc);
-        rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;&ensp;Ch.")) + String(_connectCh) + String(F("</label>"));
+        snprintf_P(rssiCont, sizeof(rssiCont), (PGM_P)_ssidRssi, AutoConnect::_toWiFiQuality(WiFi.RSSI(sc)), _connectCh);
+        rssiSym = rssiCont;
         if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
-          rssiSym += String(F("<span class=\"img-lock\"></span>"));
+          ssidLock = _ssidLock;
         break;
       }
     }
-    ssidList += rssiSym + String(F("<br>"));
+    snprintf_P(slCont, sizeof(slCont), (PGM_P)_ssidList, AUTOCONNECT_PARAMID_CRED, reinterpret_cast<char*>(entry.ssid), rssiSym, ssidLock);
+    ssidList += String(slCont);
   }
   return ssidList;
 }
