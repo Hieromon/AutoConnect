@@ -184,9 +184,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Connection unsuccessful, launch the captive portal.
 #if defined(ARDUINO_ARCH_ESP8266)
-      if (!_apConfig.apip && !_apConfig.gateway && !_apConfig.netmask) {
-        _config();
-      }
+      _config();
 #endif
       WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
       do {
@@ -194,9 +192,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         yield();
       } while (!WiFi.softAPIP());
 #if defined(ARDUINO_ARCH_ESP32)
-      if (!(static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U)) {
-        _config();
-      }
+      _config();
 #endif
       if (_apConfig.apip) {
         do {
@@ -300,6 +296,8 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  by Config method.
  */
 bool AutoConnect::_config(void) {
+  if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U)
+    AC_DBG("Warning: Contains invalid SoftAPIP address(es).\n");
   bool  rc = WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);
   AC_DBG("SoftAP configure %s, %s, %s %s\n", _apConfig.apip.toString().c_str(), _apConfig.gateway.toString().c_str(), _apConfig.netmask.toString().c_str(), rc ? "" : "failed");
   return rc;
