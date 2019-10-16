@@ -1,5 +1,6 @@
 #### [1.1.0] Oct. 15, 2019
 - Supports static IPs with the [**Configure new AP**](menu.md#configure-new-ap) menu.
+- Fixed compilation error that no member named 'printTo' with ArduinoJson 5.
 
 #### [1.0.3] Sept. 30, 2019
 - Fixed a return of AutoConnectCredential::entries().

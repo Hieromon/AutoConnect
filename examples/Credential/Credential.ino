@@ -125,7 +125,7 @@ String delCredential(PageArgument& args) {
     int8_t  e = args.arg("num").toInt();
     Serial.printf("Request deletion #%d\n", e);
     if (e > 0) {
-      struct  station_config entry;
+      station_config_t  entry;
 
       // If the input number is valid, delete that entry.
       int8_t  de = ac.load(e - 1, &entry);  // A base of entry num is 0.
