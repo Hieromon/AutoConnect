@@ -3,7 +3,7 @@
 
 ## <i class="fa fa-external-link"></i> Where the from
 
-The following screen will appear as the AutoConnect menu when you access to **AutoConnect root URL** via `http://{localIP}/_ac`. (eg. `http://172.217.28.1/_ac`) It is a top page of AutoConnect which shows the current WiFi connection statistics. To invoke the AutoConnect menu, you can t tap <i class="fa fa-bars"></i> at right on top.
+The following screen will appear as the AutoConnect menu when you access to **AutoConnect root URL** via `http://{localIP}/_ac`. (eg. `http://172.217.28.1/_ac`) It is a top page of AutoConnect which shows the current WiFi connection statistics. To invoke the AutoConnect menu, you can tap <i class="fa fa-bars"></i> at right on top.
 
 <img src="images/ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
