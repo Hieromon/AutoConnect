@@ -57,7 +57,7 @@ void AutoConnect::_initialize(void) {
 #ifdef ARDUINO_ARCH_ESP32
   _disconnectEventId = -1;  // The member available for ESP32 only
 #endif
-  _aux.release();
+  _aux = nullptr;
   _auxUri = String("");
 
 }
@@ -367,11 +367,11 @@ WebServerClass& AutoConnect::host(void) {
  *  @return A pointer of AutoConnectAux instance.
  */
 AutoConnectAux* AutoConnect::aux(const String& uri) const {
-  AutoConnectAux* aux_p = _aux.get();
+  AutoConnectAux* aux_p = _aux;
   while (aux_p) {
     if (!strcmp(aux_p->uri(), uri.c_str()))
       break;
-    aux_p = aux_p->_next.get();
+    aux_p = aux_p->_next;
   }
   return aux_p;
 }
@@ -385,7 +385,7 @@ void AutoConnect::join(AutoConnectAux& aux) {
   if (_aux)
     _aux->_concat(aux);
   else
-    _aux.reset(&aux);
+    _aux = &aux;
   aux._join(*this);
   AC_DBG("%s on hands\n", aux.uri());
 }
@@ -563,13 +563,13 @@ void AutoConnect::handleRequest(void) {
  *  registered.
  */
 bool AutoConnect::on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order) {
-  AutoConnectAux* aux = _aux.get();
+  AutoConnectAux* aux = _aux;
   while (aux) {
     if (!strcmp(uri.c_str(), aux->uri())) {
       aux->on(handler, order);
       return true;
     }
-    aux = aux->_next.get();
+    aux = aux->_next;
   }
   return false;
 }
@@ -865,13 +865,13 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
  *  upload function of the AutoConnectAux which has a destination URI.
  */
 void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& upload) {
-  AutoConnectAux* aux = _aux.get();
+  AutoConnectAux* aux = _aux;
   while (aux) {
     if (aux->_uriStr == requestUri) {
       aux->upload(_prevUri, upload);
       break;
     }
-    aux = aux->_next.get();
+    aux = aux->_next;
   }
 }
 

@@ -74,8 +74,6 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
 AutoConnectAux::~AutoConnectAux() {
   _addonElm.clear();
   _addonElm.swap(_addonElm);
-  if (_ac)
-    _ac.release();
 }
 
 /**
@@ -116,7 +114,7 @@ void AutoConnectAux::fetchElement(void) {
     _ac->_auxUri = _webServer->arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
     _ac->_auxUri.replace("&#47;", "/");
     AC_DBG("fetch %s", _ac->_auxUri.c_str());
-    AutoConnectAux* aux = _ac->_aux.get();
+    AutoConnectAux* aux = _ac->_aux;
     while (aux) {
       if (aux->_uriStr == _ac->_auxUri) {
         // Save the value owned by each element contained in the POST body
@@ -124,7 +122,7 @@ void AutoConnectAux::fetchElement(void) {
         aux->_storeElements(_webServer);
         break;
       }
-      aux = aux->_next.get();
+      aux = aux->_next;
     }
   }
 }
@@ -262,13 +260,13 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
     String  logContext = "missing";
 
     AutoConnectElementVT  addons;
-    AutoConnectAux* aux = _ac->_aux.get();
+    AutoConnectAux* aux = _ac->_aux;
     while (aux) {
       if (aux->_uriStr == requestUri) {
         addons = aux->_addonElm;
         break;
       }
-      aux = aux->_next.get();
+      aux = aux->_next;
     }
 
     _currentUpload = nullptr;
@@ -337,7 +335,7 @@ void AutoConnectAux::_concat(AutoConnectAux& aux) {
   if (_next)
     _next->_concat(aux);
   else
-    _next.reset(&aux);
+    _next = &aux;
 }
 
 /**
@@ -348,7 +346,7 @@ void AutoConnectAux::_concat(AutoConnectAux& aux) {
  * @param  ac    A reference of AutoConnect.
  */
 void AutoConnectAux::_join(AutoConnect& ac) {
-  _ac.reset(&ac);
+  _ac = &ac;
 
   // Chain to subsequent AutoConnectAux in the list.
   if (_next)
@@ -486,7 +484,7 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
         elm = _next->_setupPage(uri);
       }
     } else {
-      AutoConnect*  mother = _ac.get();
+      AutoConnect*  mother = _ac;
       // Overwrite actual AutoConnectMenu title to the Aux. page title
       if (_title.length())
         mother->_menuTitle = _title;
@@ -548,11 +546,11 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
 
         // Copy a value to other elements declared as global.
         if (elm.global) {
-          AutoConnectAux* aux = _ac->_aux.get();
+          AutoConnectAux* aux = _ac->_aux;
           while (aux) {
             if (aux != this)
               aux->setElementValue(elm.name, elmValue);
-            aux = aux->_next.get();
+            aux = aux->_next;
           }
         }
       }

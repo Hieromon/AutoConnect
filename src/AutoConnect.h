@@ -282,7 +282,7 @@ class AutoConnect {
   PageElement*  _currentPageElement;
 
   /** Extended pages made up with AutoConnectAux */
-  std::unique_ptr<AutoConnectAux> _aux;
+  AutoConnectAux* _aux = nullptr;
   String        _auxUri;        /**< Last accessed AutoConnectAux */
   String        _prevUri;       /**< Previous generated page uri */
   /** Available updater, only reset by AutoConnectUpdate::attach is valid */
