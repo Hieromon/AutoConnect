@@ -102,7 +102,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 ## Change log
 
 ### [1.1.0] Oct. 15, 2019
-- Supprts static IPs with the 'Configure new AP' menu. (issue #132)
+- Supports static IPs with the 'Configure new AP' menu. (issue #132)
 - Fixed compilation error that no member named 'printTo' with ArduinoJson 5.
 
 ### [1.0.3] Sept. 30, 2019
