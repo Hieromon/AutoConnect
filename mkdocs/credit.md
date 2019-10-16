@@ -201,7 +201,7 @@ There may be 0xff as an invalid data in the credential saving area. The 0xff are
 | variable(5)  | 4        | Gateway address (uint32_t) |
 | variable(9)  | 4        | Netmask (uint32_t) |
 | variable(13) | 4        | Primary DNS address (uint32_t) |
-| variable(17) | 4        | Secondary IP address (uint32_t) |
+| variable(17) | 4        | Secondary DNS address (uint32_t) |
 | variable     | variable | Contained the next entries. (Continuation SSID+Password+BSSID+DHCP flag+Static IPs(if exists)) |
 | variable     | 1        | 0x00. End of container. |
 
