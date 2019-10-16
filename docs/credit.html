@@ -772,8 +772,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#station_config" title="  station_config" class="md-nav__link">
-      station_config
+  <a href="#station_config_t" title="  station_config_t" class="md-nav__link">
+      station_config_t
   </a>
   
 </li>
@@ -982,8 +982,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#station_config" title="  station_config" class="md-nav__link">
-      station_config
+  <a href="#station_config_t" title="  station_config_t" class="md-nav__link">
+      station_config_t
   </a>
   
 </li>
@@ -1075,37 +1075,37 @@
     <dd>Number of entries as contained credentials.</dd>
 </dl></p>
 <h4 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h4>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">station_config</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </pre></div>
 
 <p>Load a credential entry and store to <strong>config</strong>.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be loaded.</span></dd>
-    <dd><span class="apidef">config</span><span class="apidesc">station_config</span></dd>
+    <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt><strong>Return value</strong></dt>
-    <dd>Save the specified SSID's credential entry to station_config pointed to by the parameter as <strong>config</strong>. -1 is returned if the SSID is not saved. </dd>
+    <dd>Save the specified SSID's credential entry to station_config_t pointed to by the parameter as <strong>config</strong>. -1 is returned if the SSID is not saved. </dd>
 </dl></p>
 <h4 id="load_1"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load_1" title="Permanent link">&para;</a></h4>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">entry,</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">station_config</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">entry,</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </pre></div>
 
 <p>Load a credential entry and store to <strong>config</strong>.
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">entry</span><span class="apidesc">Specifies the index number based 0 to be loaded.</span></dd>
-    <dd><span class="apidef">config</span><span class="apidesc">station_config</span></dd>
+    <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt><strong>Return value</strong></dt>
-    <dd>Save the specified credential entry to station_config pointed to by the parameter as <strong>config</strong>. -1 is returned if specified number is not saved. </dd>
+    <dd>Save the specified credential entry to station_config_t pointed to by the parameter as <strong>config</strong>. -1 is returned if specified number is not saved. </dd>
 </dl></p>
 <h4 id="save"><i class="fa fa-caret-right"></i> save<a class="headerlink" href="#save" title="Permanent link">&para;</a></h4>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">save(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">station_config</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">save(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </pre></div>
 
 <p>Save a credential entry.
 <dl class="apidl">
     <dt><strong>Parameter</strong></dt>
-    <dd><span class="apidef">config</span><span class="apidesc">station_config to be saved.</span></dd>
+    <dd><span class="apidef">config</span><span class="apidesc">station_config_t to be saved.</span></dd>
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully saved.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Failed to save.</span></dd>
@@ -1128,7 +1128,7 @@
 The following function is an implementation example, and you can use it to achieve batch clearing.
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">deleteAllCredentials</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">AutoConnectCredential</span> <span style="color: #f8f8f2">credential;</span>
-  <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">station_config</span> <span style="color: #f8f8f2">config;</span>
+  <span style="color: #f8f8f2">station_config_t</span> <span style="color: #f8f8f2">config;</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ent</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">credential.entries();</span>
 
   <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(ent</span><span style="color: #f92672">--</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
@@ -1139,27 +1139,36 @@ The following function is an implementation example, and you can use it to achie
 </pre></div></p>
 </div>
 <h2 id="the-data-structures">The data structures<a class="headerlink" href="#the-data-structures" title="Permanent link">&para;</a></h2>
-<h3 id="station_config"><i class="fa fa-code"></i>  station_config<a class="headerlink" href="#station_config" title="Permanent link">&para;</a></h3>
-<p>A structure is included in the ESP8266 SDK. You can use it in the sketch like as follows:</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">extern</span> <span style="color: #e6db74">&quot;C&quot;</span> <span style="color: #f8f8f2">{</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;user_interface.h&gt;</span>
-<span style="color: #f8f8f2">}</span>
+<h3 id="station_config_t"><i class="fa fa-code"></i>  station_config_t<a class="headerlink" href="#station_config_t" title="Permanent link">&para;</a></h3>
+<p>The saved credential structure is defined as stato_config_t in the AcutoConnectCredential header file.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">typedef</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ssid[</span><span style="color: #ae81ff">32</span><span style="color: #f8f8f2">];</span>
+  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">password[</span><span style="color: #ae81ff">64</span><span style="color: #f8f8f2">];</span>
+  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">bssid[</span><span style="color: #ae81ff">6</span><span style="color: #f8f8f2">];</span>
+  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">dhcp;</span>   <span style="color: #75715e">/**&lt; 0:DHCP, 1:Static IP */</span>
+  <span style="color: #66d9ef">union</span> <span style="color: #f8f8f2">_config</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">uint32_t</span>  <span style="color: #f8f8f2">addr[</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">];</span>
+    <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">_sta</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">ip;</span>
+      <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">gateway;</span>
+      <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">netmask;</span>
+      <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">dns1;</span>
+      <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">dns2;</span>
+    <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">sta;</span>
+  <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">config;</span>
+<span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">station_config_t;</span>
 </pre></div>
 
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">station_config</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">ssid[</span><span style="color: #ae81ff">32</span><span style="color: #f8f8f2">];</span>
-  <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">password[</span><span style="color: #ae81ff">64</span><span style="color: #f8f8f2">];</span>
-  <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">bssid_set;</span>
-  <span style="color: #f8f8f2">uint8</span> <span style="color: #f8f8f2">bssid[</span><span style="color: #ae81ff">6</span><span style="color: #f8f8f2">];</span>
-<span style="color: #f8f8f2">};</span>
-</pre></div>
-
+<div class="admonition note">
+<p class="admonition-title">The byte size of station_config_t in program memory and stored credentials is different</p>
+<p>There is a gap byte for boundary alignment between the <code>dhcp</code> member and the static IP members of the above station_config_t. Its gap byte will be removed with saved credentials on the flash.</p>
+</div>
 <h3 id="the-credential-entry"><i class="fa fa-code"></i>  The credential entry<a class="headerlink" href="#the-credential-entry" title="Permanent link">&para;</a></h3>
 <p>A data structure of the credential saving area in EEPROM as the below. <sup id="fnref:4"><a class="footnote-ref" href="#fn:4" rel="footnote">4</a></sup></p>
 <table>
 <thead>
 <tr>
-<th>Byte offset</th>
+<th>byte offset</th>
 <th>Length</th>
 <th>Value</th>
 </tr>
@@ -1197,8 +1206,43 @@ The following function is an implementation example, and you can use it to achie
 </tr>
 <tr>
 <td>variable</td>
+<td>1</td>
+<td>Flag for DHCP or Static IP (0:DHCP, 1:Static IP)</td>
+</tr>
+<tr>
+<td><td colspan=3>The following IP address entries are stored only for static IPs.</td>
 <td></td>
-<td>Contained the next entries. (Continuation SSID+Password+BSSID)</td>
+<td></td>
+</tr>
+<tr>
+<td>variable(1)</td>
+<td>4</td>
+<td>Station IP address (uint32_t)</td>
+</tr>
+<tr>
+<td>variable(5)</td>
+<td>4</td>
+<td>Gateway address (uint32_t)</td>
+</tr>
+<tr>
+<td>variable(9)</td>
+<td>4</td>
+<td>Netmask (uint32_t)</td>
+</tr>
+<tr>
+<td>variable(13)</td>
+<td>4</td>
+<td>Primary DNS address (uint32_t)</td>
+</tr>
+<tr>
+<td>variable(17)</td>
+<td>4</td>
+<td>Secondary IP address (uint32_t)</td>
+</tr>
+<tr>
+<td>variable</td>
+<td>variable</td>
+<td>Contained the next entries. (Continuation SSID+Password+BSSID+DHCP flag+Static IPs(if exists))</td>
 </tr>
 <tr>
 <td>variable</td>
@@ -1207,6 +1251,12 @@ The following function is an implementation example, and you can use it to achie
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">AutoConnectCredential has changed</p>
+<p>It was lost AutoConnectCredential backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not work properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>esptool -c esp8266 (or esp32) - p [COM_PORT] erase_flash
+</pre></div></p>
+</div>
 <div class="footnote">
 <hr />
 <ol>

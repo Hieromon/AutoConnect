@@ -362,8 +362,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#by-attaching-autoconnect-menu" title=" by attaching AutoConnect menu" class="md-nav__link">
-     by attaching AutoConnect menu
+  <a href="#attaching-to-autoconnect-menu" title=" Attaching to AutoConnect menu" class="md-nav__link">
+     Attaching to AutoConnect menu
   </a>
   
 </li>
@@ -886,8 +886,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#by-attaching-autoconnect-menu" title=" by attaching AutoConnect menu" class="md-nav__link">
-     by attaching AutoConnect menu
+  <a href="#attaching-to-autoconnect-menu" title=" Attaching to AutoConnect menu" class="md-nav__link">
+     Attaching to AutoConnect menu
   </a>
   
 </li>
@@ -916,11 +916,11 @@
 <p>The AutoConnect menu is developed using the <a href="https://github.com/balzss/luxbar">LuxBar</a> which is licensed under the MIT License. See the <a href="license.html">License</a>.</p>
 </div>
 <h2 id="where-the-from"><i class="fa fa-external-link"></i> Where the from<a class="headerlink" href="#where-the-from" title="Permanent link">&para;</a></h2>
-<p>The AutoConnect menu appears when you access the <strong>AutoConnect root path</strong>. It is assigned "<strong>/_ac</strong>" located on the <em>local IP address</em> of ESP8266/ESP32 module by default. This location can be changed in the sketch. The following screen will appear at access to <code>http://{localIP}/_ac</code> as the root path. This is the statistics of the current WiFi connection. You can access the menu from the here, to invoke it tap <i class="fa fa-bars"></i> at right on top. (e.g. <code>http://172.217.28.1/_ac</code> for SoftAP mode.)</p>
+<p>The following screen will appear as the AutoConnect menu when you access to <strong>AutoConnect root URL</strong> via <code>http://{localIP}/_ac</code>. (eg. <code>http://172.217.28.1/_ac</code>) It is a top page of AutoConnect which shows the current WiFi connection statistics. To invoke the AutoConnect menu, you can t tap <i class="fa fa-bars"></i> at right on top.</p>
 <p><img src="images/ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <div class="admonition note">
-<p class="admonition-title">What's the local IP?</p>
-<p>A local IP means Local IP at connection established or SoftAP's IP.</p>
+<p class="admonition-title">AutoConnect root URL</p>
+<p>It is assigned "<strong>/_ac</strong>" located on the <em>local IP address</em> of ESP8266/ESP32 module by default and can be changed with the sketch. A local IP means Local IP at connection established or SoftAP's IP.</p>
 </div>
 <h2 id="right-on-top"><i class="fa fa-bars"></i> Right on top<a class="headerlink" href="#right-on-top" title="Permanent link">&para;</a></h2>
 <p>Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to the home path of its sketch.</p>
@@ -933,36 +933,52 @@
 </ul>
 <p><img src="images/menu.png" style="width:280px;" /></p>
 <h2 id="configure-new-ap"><i class="fa fa-bars"></i> Configure new AP<a class="headerlink" href="#configure-new-ap" title="Permanent link">&para;</a></h2>
-<p>Scan all available access point in the vicinity and display it. Strength and security of the detected AP are marked. The <i class="fa fa-lock"></i> is indicated for the SSID that needs a security key. "<strong>Hidden:</strong>" means the number of hidden SSIDs discovered.<br />
-Enter SSID and Passphrase and tap "<strong>apply</strong>" to starts WiFi connection. </p>
+<p>It scans all available access points in the vicinity and display it further the WiFi signal strength and security indicator as <i class="fa fa-lock"></i> of the detected AP. Below that, the number of discovered hidden APs will be displayed. 
+Enter SSID and Passphrase and tap "<strong>Apply</strong>" to start a WiFi connection. </p>
 <p><img src="images/newap.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
+<p>If you want to configure with static IP, uncheck "<strong>Enable DHCP</strong>". Once the WiFi connection is established, the entered static IP<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> configuration will be stored to the credentials in the flash and restored to the station configuration via the <a href="#open-ssids">Open SSIDs</a> menu.</p>
+<p><img src="images/newap_static.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <h2 id="open-ssids"><i class="fa fa-bars"></i> Open SSIDs<a class="headerlink" href="#open-ssids" title="Permanent link">&para;</a></h2>
-<p>Once it was established WiFi connection, its SSID and password will be saved in the flash of ESP8266/ESP32 automatically. The <strong>Open SSIDs</strong> menu reads the saved SSID credentials from the flash. The stored credential data are listed by the SSID as shown below. Its label is a clickable button. Tap the SSID button, starts WiFi connection it.</p>
+<p>After WiFi connected, AutoConnect will automatically save the established SSID and password to the flash on the ESP module. <strong>Open SSIDs</strong> menu reads the saved SSID credentials and lists them as below. Listed items are clickable buttons and can initiate a connection to its access point.</p>
 <p><img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
+<div class="admonition note">
+<p class="admonition-title">Saved credentials data structure has changed</p>
+<p>A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>esptool -c esp8266 (or esp32) - p [COM_PORT] erase_flash
+</pre></div></p>
+</div>
 <h2 id="disconnect"><i class="fa fa-bars"></i> Disconnect<a class="headerlink" href="#disconnect" title="Permanent link">&para;</a></h2>
-<p>Disconnect ESP8266/ESP32 from the current connection. It can also reset the ESP8266/ESP32 automatically after disconnection by instructing with using <a href="api.html#autoreset">API</a> in the sketch.</p>
-<p>After tapping "Disconnect", you will not be able to reach the AutoConnect menu. Once disconnected, you will need to set the SSID again for connecting the WLAN. </p>
+<p>It disconnects ESP8266/ESP32 from the current connection. Also, ESP8266/ESP32 can be automatically reset after WiFi cutting by instructing with the sketch using the <a href="api.html#autoreset">AutoConnect API</a>.</p>
+<p>After tapping the <strong>Disconnect</strong>, you will not be able to reach the AutoConnect menu. Once disconnected, you will need to set the SSID again for connecting to the WLAN. </p>
 <h2 id="reset"><i class="fa fa-bars"></i> Reset...<a class="headerlink" href="#reset" title="Permanent link">&para;</a></h2>
-<p>Reset the ESP8266/ESP32 module, it will start rebooting. After rebooting complete, the ESP8266/ESP32 module begins establishing the previous connection with WIFI_STA mode, and <em>esp8266ap</em> or <em>esp32ap</em> of an access point will disappear from WLAN.</p>
+<p>Resetting the ESP8266/ESP32 module will initiate a reboot. When the module restarting, the <em>esp8266ap</em> or <em>esp32ap</em> access point will disappear from the WLAN and the ESP8266/ESP32 module will begin to reconnect a previous access point with WIFI_STA mode.</p>
 <p><img src="images/resetting.png" style="width:280px;" /></p>
 <div class="admonition warning">
 <p class="admonition-title">Not every ESP8266 module will be rebooted normally</p>
 <p>The Reset menu is using the <strong>ESP.reset()</strong> function for ESP8266. This is an almost hardware reset. In order to resume the sketch normally, the <a href="https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes">state of GPIO0</a> is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also <a href="faq.html#hang-up-after-reset">FAQ</a>.</p>
 </div>
 <h2 id="custom-menu-items"><i class="fa fa-bars"></i> Custom menu items<a class="headerlink" href="#custom-menu-items" title="Permanent link">&para;</a></h2>
-<p>The menu items of the custom Web page line up at the below in the AutoConnect menu if the custom Web pages are joined. Details for <a href="acintro.html#custom-web-pages-in-autoconnectmenu">Custom Web pages in AutoConnect menu</a>.</p>
+<p>If the sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for <a href="acintro.html#custom-web-pages-in-autoconnectmenu">Custom Web pages in AutoConnect menu</a>.</p>
 <h2 id="home"><i class="fa fa-bars"></i> HOME<a class="headerlink" href="#home" title="Permanent link">&para;</a></h2>
-<p>A <strong>HOME</strong> item located at the bottom of the menu list is a link to the home path. The URI as the home path is <code>/</code> by default, and it is defined by <code>AUTOCONNECT_HOMEURI</code> with <strong>AutoConnectDefs.h</strong> file.</p>
+<p>A <strong>HOME</strong> item at the bottom of the menu list is a link to the home path, and the default URI is <code>/</code> which is defined by <code>AUTOCONNECT_HOMEURI</code> in <strong>AutoConnectDefs.h</strong> header file.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_HOMEURI     &quot;/&quot;</span>
 </pre></div>
 
-<p>You can change the HOME path using the AutoConnect API. The <a href="api.html#home"><strong>AutoConnect::home</strong></a> function sets the URI as a link of the HOME item of the AutoConnect menu.</p>
-<h2 id="by-attaching-autoconnect-menu"><i class="fa fa-bars"></i> by attaching AutoConnect menu<a class="headerlink" href="#by-attaching-autoconnect-menu" title="Permanent link">&para;</a></h2>
-<p>The AutoConnect menu can contain HTML pages of your owns sketch as custom items. It works for HTML pages implemented by <strong>ESP8266WebServer::on</strong> handler or <strong>WebServer::on</strong> handler for ESP32. That is, you can make it as menu items to invoke the legacy web page. The below screenshot is the result of adding an example sketch for the ESP8266WebServer library known as <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser">FSBrowser</a> to the AutoConnect menu item. It adds Edit and List items with little modification to the legacy sketch code.</p>
+<p>Also, you can change the HOME path using the AutoConnect API. The <a href="api.html#home"><strong>AutoConnect::home</strong></a> function sets the URI as a link of the HOME item in the AutoConnect menu.</p>
+<h2 id="attaching-to-autoconnect-menu"><i class="fa fa-bars"></i> Attaching to AutoConnect menu<a class="headerlink" href="#attaching-to-autoconnect-menu" title="Permanent link">&para;</a></h2>
+<p>The AutoConnect menu can contain your sketch's web pages as extra items as a custom. It works for HTML pages implemented by the <strong>ESP8266WebServer::on</strong> handler or the <strong>WebServer::on</strong> handler for ESP32. That is, you can make them invoke the legacy web pages from the AutoConnect menu. The below screen-shot is the result of adding an example sketch for the ESP8266WebServer library known as <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser">FSBrowser</a> to the AutoConnect menu item. It can add Edit and List items with little modification to the legacy sketch code.</p>
 <div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="images/fsbmenu.png"></div>
 
 <p><img style="margin-left:70px;width:auto;height:420px;" src="images/fsbmenu_expand.png"></p>
-<p>You can extend the AutoConnect menu to improve the original sketches and according to the procedure described in section <a href="advancedusage.html#casts-the-html-pages-to-be-add-on-into-the-menu"><em>Advanced Usage</em></a>.</p>
+<p>You can improve your sketches by extending the AutoConnect menu by adding the legacy web pages according to the procedure described in section <a href="advancedusage.html#casts-the-html-pages-to-be-add-on-into-the-menu"><em>Advanced Usage</em></a>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>AutoConnect does not check the syntax and validity of the entered IP address. If the entered static IPs are incorrect, it cannot connect to the access point.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
                   
                 
