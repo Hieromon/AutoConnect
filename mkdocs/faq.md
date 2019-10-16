@@ -195,7 +195,7 @@ It may be two possibilities as follows:
 2. Heap is insufficient memory. AutoConnect entrusts HTML generation to PageBuilder that makes heavy use the String::concatenate function and causes memory fragmentation. This is a structural problem with PageBuilder, but it is difficult to solve immediately.
 
 If this issue produces with your sketch, Reloading the page may recover.  
-Also, you can check the memory running out status by rebuilding the sketch with [PageBuilder's debug log option](faq.html#fn:2) turned on.
+Also, you can check the memory running out status by rebuilding the sketch with [PageBuilder's debug log option](faq.md#fn:2) turned on.
 
 If the heap memory is insufficient, the following message is displayed on the serial console.
 
