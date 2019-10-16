@@ -182,9 +182,25 @@ If the sketch is correct, a JSON syntax error may have occurred. In this case, a
 
 ## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
 
-A structure of AutoConnect saved credentials have changed in two times throughout enhancement with v1.0.3 and v1.1.0. Especially in v1.1.0 enhancements, there is no backward compatibility of AutoConnectCredential structures to the earlier versions. To save the credentials correctly in v110, you must erase the flash of the ESP module using the esptool completely.
+A structure of AutoConnect saved credentials has changed two times throughout enhancement with v1.0.3 and v1.1.0. In particular, due to enhancements in v1.1.0, AutoConnectCredential data structure has lost the backward compatibility with previous versions. You must erase the flash of the ESP module using the esptool completely to save the credentials correctly with v1.1.0.
 ```
 esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
+```
+
+## <i class="fa fa-question-circle"></i> Some AutoConnect page is cut off.
+
+It may be two possibilities as follows:
+
+1. Packet loss during transmission due to a too weak WiFi signal.
+2. Heap is insufficient memory. AutoConnect entrusts HTML generation to PageBuilder that makes heavy use the String::concatenate function and causes memory fragmentation. This is a structural problem with PageBuilder, but it is difficult to solve immediately.
+
+If this issue produces with your sketch, Reloading the page may recover.  
+Also, you can check the memory running out status by rebuilding the sketch with [PageBuilder's debug log option](faq.html#fn:2) turned on.
+
+If the heap memory is insufficient, the following message is displayed on the serial console.
+
+```
+[PB] Failed building, free heap:<Size of free heap>
 ```
 
 ## <i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.

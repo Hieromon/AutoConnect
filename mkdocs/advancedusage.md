@@ -190,7 +190,7 @@ void loop() {
 
 If your sketch handles web pages, you can embed the pages into the AutoConnect menu in continuance enjoying the utility of the WiFi connection feature. Unlike the custom Web pages by [AutoConnectElements](acelements.md), this allows to legacy web pages registered by *ESP8266WebServer::on* or *WebServer::on* function.
 
-You can use AutoConnectAux only constructed with the URI of the page to be embedding. AutoConnectElements is not required. The basic procedure for this as follows:
+To implement embedding your legacy web pages to the AutoConnect menu, you can use AutoConnectAux only constructed with the URI of the page to be embedding. AutoConnectElements is not required. The basic procedure for this as follows:
 
 1. Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.
 2. Sketch the legacy page handlers.
