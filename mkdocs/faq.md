@@ -180,6 +180,29 @@ Because AutoConnect does not send a login success response to the captive portal
 
 If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
 
+## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
+
+A structure of AutoConnect saved credentials has changed two times throughout enhancement with v1.0.3 and v1.1.0. In particular, due to enhancements in v1.1.0, AutoConnectCredential data structure has lost the backward compatibility with previous versions. You must erase the flash of the ESP module using the esptool completely to save the credentials correctly with v1.1.0.
+```
+esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
+```
+
+## <i class="fa fa-question-circle"></i> Some AutoConnect page is cut off.
+
+It may be two possibilities as follows:
+
+1. Packet loss during transmission due to a too weak WiFi signal.
+2. Heap is insufficient memory. AutoConnect entrusts HTML generation to PageBuilder that makes heavy use the String::concatenate function and causes memory fragmentation. This is a structural problem with PageBuilder, but it is difficult to solve immediately.
+
+If this issue produces with your sketch, Reloading the page may recover.  
+Also, you can check the memory running out status by rebuilding the sketch with [PageBuilder's debug log option](faq.md#fn:2) turned on.
+
+If the heap memory is insufficient, the following message is displayed on the serial console.
+
+```
+[PB] Failed building, free heap:<Size of free heap>
+```
+
 ## <i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.
 
 Is there the AutoConnectElements element named **SUBMIT** in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the `input type=submit` element for the form submission and uses [HTML form element submit](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit) function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use **SUBMIT** as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.

@@ -79,43 +79,43 @@ Returns number of entries as contained credentials.
 #### <i class="fa fa-caret-right"></i> load
 
 ```cpp
-int8_t load(const char* ssid, struct station_config* config)
+int8_t load(const char* ssid, station_config_t* config)
 ```
 
 Load a credential entry and store to **config**.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be loaded.</span></dd>
-    <dd><span class="apidef">config</span><span class="apidesc">station_config</span></dd>
+    <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt>**Return value**</dt>
-    <dd>Save the specified SSID's credential entry to station_config pointed to by the parameter as **config**. -1 is returned if the SSID is not saved. </dd>
+    <dd>Save the specified SSID's credential entry to station_config_t pointed to by the parameter as **config**. -1 is returned if the SSID is not saved. </dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> load
 
 ```cpp
-bool load(int8_t entry, struct station_config* config)
+bool load(int8_t entry, station_config_t* config)
 ```
 
 Load a credential entry and store to **config**.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">entry</span><span class="apidesc">Specifies the index number based 0 to be loaded.</span></dd>
-    <dd><span class="apidef">config</span><span class="apidesc">station_config</span></dd>
+    <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt>**Return value**</dt>
-    <dd>Save the specified credential entry to station_config pointed to by the parameter as **config**. -1 is returned if specified number is not saved. </dd>
+    <dd>Save the specified credential entry to station_config_t pointed to by the parameter as **config**. -1 is returned if specified number is not saved. </dd>
 </dl>
 
 #### <i class="fa fa-caret-right"></i> save
 
 ```cpp
-bool save(const struct station_config* config)
+bool save(const station_config_t* config)
 ```
 
 Save a credential entry.
 <dl class="apidl">
     <dt>**Parameter**</dt>
-    <dd><span class="apidef">config</span><span class="apidesc">station_config to be saved.</span></dd>
+    <dd><span class="apidef">config</span><span class="apidesc">station_config_t to be saved.</span></dd>
     <dt>**Return value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully saved.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Failed to save.</span></dd>
@@ -142,7 +142,7 @@ Delete a credential the specified SSID.
     ```cpp
     void deleteAllCredentials(void) {
       AutoConnectCredential credential;
-      struct station_config config;
+      station_config_t config;
       uint8_t ent = credential.entries();
 
       while (ent--) {
@@ -154,24 +154,31 @@ Delete a credential the specified SSID.
 
 ## The data structures
 
-### <i class="fa fa-code"></i>  station_config
+### <i class="fa fa-code"></i>  station_config_t
 
-A structure is included in the ESP8266 SDK. You can use it in the sketch like as follows:
-
-```cpp
-extern "C" {
-#include <user_interface.h>
-}
-```
+The saved credential structure is defined as stato_config_t in the AcutoConnectCredential header file.
 
 ```cpp
-struct station_config {
-  uint8 ssid[32];
-  uint8 password[64];
-  uint8 bssid_set;
-  uint8 bssid[6];
-};
+typedef struct {
+  uint8_t ssid[32];
+  uint8_t password[64];
+  uint8_t bssid[6];
+  uint8_t dhcp;   /**< 0:DHCP, 1:Static IP */
+  union _config {
+    uint32_t  addr[5];
+    struct _sta {
+      uint32_t ip;
+      uint32_t gateway;
+      uint32_t netmask;
+      uint32_t dns1;
+      uint32_t dns2;
+    } sta;
+  } config;
+} station_config_t;
 ```
+
+!!! note "The byte size of station_config_t in program memory and stored credentials is different"
+    There is a gap byte for boundary alignment between the `dhcp` member and the static IP members of the above station_config_t. Its gap byte will be removed with saved credentials on the flash.
 
 ### <i class="fa fa-code"></i>  The credential entry
 
@@ -180,13 +187,26 @@ A data structure of the credential saving area in EEPROM as the below. [^4]
 [^4]:
 There may be 0xff as an invalid data in the credential saving area. The 0xff area would be reused.
 
-| Byte offset | Length   | Value                                                               |
-|-------------|----------|---------------------------------------------------------------------|
-| 0           | 8        | AC_CREDT                                                            |
-| 8           | 1        | Number of contained entries (uint8_t)                               |
-| 9           | 2        | Container size, excluding size of AC_CREDT and size of the number of entries(width for uint16_t type). |
-| 11          | variable | SSID terminated by 0x00. Max length is 32 bytes.                    |
-| variable    | variable | Password plain text terminated by 0x00. Max length is 64 bytes.     |
-| variable    | 6        | BSSID                                                               |
-| variable    |          | Contained the next entries. (Continuation SSID+Password+BSSID)      |
-| variable    | 1        | 0x00. End of container.                                             |
+| byte offset  | Length | Value |
+|------------- |--------|-------|
+| 0            | 8        | AC_CREDT |
+| 8            | 1        | Number of contained entries (uint8_t) |
+| 9            | 2        | Container size, excluding size of AC_CREDT and size of the number of entries(width for uint16_t type). |
+| 11           | variable | SSID terminated by 0x00. Max length is 32 bytes. |
+| variable     | variable | Password plain text terminated by 0x00. Max length is 64 bytes. |
+| variable     | 6        | BSSID |
+| variable     | 1        | Flag for DHCP or Static IP (0:DHCP, 1:Static IP) |
+| <td colspan=3>The following IP address entries are stored only for static IPs.
+| variable(1)  | 4        | Station IP address (uint32_t) |
+| variable(5)  | 4        | Gateway address (uint32_t) |
+| variable(9)  | 4        | Netmask (uint32_t) |
+| variable(13) | 4        | Primary DNS address (uint32_t) |
+| variable(17) | 4        | Secondary IP address (uint32_t) |
+| variable     | variable | Contained the next entries. (Continuation SSID+Password+BSSID+DHCP flag+Static IPs(if exists)) |
+| variable     | 1        | 0x00. End of container. |
+
+!!! note "AutoConnectCredential has changed"
+    It was lost AutoConnectCredential backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not work properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
+    ```
+    esptool -c esp8266 (or esp32) - p [COM_PORT] erase_flash
+    ```

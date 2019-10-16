@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.0.6
- *  @date   2019-09-17
+ *  @version    1.1.0
+ *  @date   2019-10-08
  *  @copyright  MIT license.
  */
 
@@ -53,7 +53,7 @@ void AutoConnect::_initialize(void) {
   _menuTitle = _apConfig.title;
   _connectTimeout = AUTOCONNECT_TIMEOUT;
   _scanCount = 0;
-  memset(&_credential, 0x00, sizeof(struct station_config));
+  memset(&_credential, 0x00, sizeof(station_config_t));
 #ifdef ARDUINO_ARCH_ESP32
   _disconnectEventId = -1;  // The member available for ESP32 only
 #endif
@@ -111,22 +111,14 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       _ticker->start(AUTOCONNECT_FLICKER_PERIODDC, (uint8_t)AUTOCONNECT_FLICKER_WIDTHDC);
   }
 
-  // Advance configuration for STA mode.
-#ifdef AC_DEBUG
-  String staip_s = _apConfig.staip.toString();
-  String staGateway_s = _apConfig.staGateway.toString();
-  String staNetmask_s = _apConfig.staNetmask.toString();
-  String dns1_s = _apConfig.dns1.toString();
-  String dns2_s = _apConfig.dns2.toString();
-  AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s)\n", staip_s.c_str(), staGateway_s.c_str(), staNetmask_s.c_str(), dns1_s.c_str(), dns2_s.c_str());
-#endif
-  if (!WiFi.config(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2)) {
-    AC_DBG("failed\n");
-    return false;
+  // Advance configuration for STA mode. Restore previous configuration of STA.
+  station_config_t  current;
+  if (_getConfigSTA(&current)) {
+    AC_DBG("Current:%.32s\n", current.ssid);
+    _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
   }
-#ifdef ARDUINO_ARCH_ESP8266
-  AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
-#endif
+  if (!_configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2))
+    return false;
 
   // If the portal is requested promptly skip the first WiFi.begin and
   // immediately start the portal.
@@ -150,16 +142,17 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // Reconnect with a valid credential as the autoReconnect option is enabled.
   if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
     // Load a valid credential.
-    if (_loadAvailCredential()) {
+    if (_loadAvailCredential(nullptr)) {
       // Try to reconnect with a stored credential.
-      char  ssid_c[sizeof(station_config::ssid) + 1];
-      char  password_c[sizeof(station_config::password) + 1];
+      char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
+      char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
       *ssid_c = '\0';
-      strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
+      strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - sizeof('\0'));
       *password_c = '\0';
-      strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
+      strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - sizeof('\0'));
       AC_DBG("autoReconnect loaded SSID:%s\n", ssid_c);
       const char* psk = strlen(password_c) ? password_c : nullptr;
+      _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
       WiFi.begin(ssid_c, psk);
       AC_DBG("WiFi.begin(%s%s%s)\n", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
       cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
@@ -191,21 +184,17 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Connection unsuccessful, launch the captive portal.
 #if defined(ARDUINO_ARCH_ESP8266)
-      if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
-        _config();
-      }
+      _config();
 #endif
       WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
       do {
         delay(100);
         yield();
-      } while (WiFi.softAPIP() == IPAddress(0, 0, 0, 0));
+      } while (!WiFi.softAPIP());
 #if defined(ARDUINO_ARCH_ESP32)
-      if (!(_apConfig.apip == IPAddress(0, 0, 0, 0) || _apConfig.gateway == IPAddress(0, 0, 0, 0) || _apConfig.netmask == IPAddress(0, 0, 0, 0))) {
-        _config();
-      }
+      _config();
 #endif
-      if (_apConfig.apip != IPAddress(0, 0, 0, 0)) {
+      if (_apConfig.apip) {
         do {
           delay(100);
           yield();
@@ -307,8 +296,67 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  by Config method.
  */
 bool AutoConnect::_config(void) {
+  if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U)
+    AC_DBG("Warning: Contains invalid SoftAPIP address(es).\n");
   bool  rc = WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);
   AC_DBG("SoftAP configure %s, %s, %s %s\n", _apConfig.apip.toString().c_str(), _apConfig.gateway.toString().c_str(), _apConfig.netmask.toString().c_str(), rc ? "" : "failed");
+  return rc;
+}
+
+/**
+ *  Advance configuration for STA mode.
+ *  @param  ip       IP address
+ *  @param  gateway  Gateway address
+ *  @param  netmask  Netmask
+ *  @param  dns1     Primary DNS address
+ *  @param  dns2     Secondary DNS address
+ *  @return true     Station successfully configured
+ *  @return false    WiFi.config failed
+ */
+bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2) {
+  bool  rc;
+
+  AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s)\n", ip.toString().c_str(), gateway.toString().c_str(), netmask.toString().c_str(), dns1.toString().c_str(), dns2.toString().c_str());
+  if (!(rc = WiFi.config(ip, gateway, netmask, dns1, dns2)))
+    AC_DBG("failed\n");
+#ifdef ARDUINO_ARCH_ESP8266
+  AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
+#endif
+  return rc;
+}
+
+/**
+ *  Obtains the currently established AP connection to determine if the
+ *  station configuration needs to run before the first WiFi.begin.
+ *  Get the SSID of the currently connected AP stored in the ESP module
+ *  by using the SDK API natively.
+ *  AutoConnect::begin retrieves the IP configuration from the stored
+ *  credentials of AutoConnectCredential based on that SSID and executes
+ *  WiFi.config before WiFi.begin.
+ *  @param  config  Station configuration stored in the ESP module.
+ *  @return true    The config parameter has obtained configuration.
+ *  @return false   Station configuration does not exist.
+ */
+bool AutoConnect::_getConfigSTA(station_config_t* config) {
+  bool  rc;
+  uint8_t*  ssid;
+  uint8_t*  bssid;
+
+#if defined(ARDUINO_ARCH_ESP8266)
+  struct station_config current;
+  ssid = current.ssid;
+  bssid = current.bssid;
+  rc = wifi_station_get_config(&current);
+#elif defined(ARDUINO_ARCH_ESP32)
+  wifi_config_t current;
+  ssid = current.sta.ssid;
+  bssid = current.sta.bssid;
+  rc = (esp_wifi_get_config(WIFI_IF_STA, &current) == ESP_OK);
+#endif
+  if (rc) {
+    memcpy(config->ssid, ssid, sizeof(station_config_t::ssid));
+    memcpy(config->bssid, bssid, sizeof(station_config_t::bssid));
+  }
   return rc;
 }
 
@@ -469,10 +517,13 @@ void AutoConnect::handleRequest(void) {
     if (WiFi.status() == WL_CONNECTED)
       _disconnectWiFi(true);
 
+    // Leave current AP, reconfigure station
+    _configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2);
+
     // An attempt to establish a new AP.
     int32_t ch = _connectCh == 0 ? _apConfig.channel : _connectCh;
-    char ssid_c[sizeof(station_config::ssid) + 1];
-    char password_c[sizeof(station_config::password) + 1];
+    char ssid_c[sizeof(station_config_t::ssid) + 1];
+    char password_c[sizeof(station_config_t::password) + 1];
     *ssid_c = '\0';
     strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
     *password_c = '\0';
@@ -481,7 +532,7 @@ void AutoConnect::handleRequest(void) {
     WiFi.begin(ssid_c, password_c, ch);
     if (_waitForConnect(_connectTimeout) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
-        memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config::bssid));
+        memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config_t::bssid));
         _currentHostIP = WiFi.localIP();
         _redirectURI = String(F(AUTOCONNECT_URI_SUCCESS));
 
@@ -592,26 +643,40 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
 
 /**
  *  Load stored credentials that match nearby WLANs.
+ *  @param  ssid  SSID which should be loaded. If nullptr is assigned, search SSID with WiFi.scan.
  *  @return true  A matched credential of BSSID was loaded.
  */
-bool AutoConnect::_loadAvailCredential(void) {
+bool AutoConnect::_loadAvailCredential(const char* ssid) {
   AutoConnectCredential credential(_apConfig.boundaryOffset);
 
   if (credential.entries() > 0) {
     // Scan the vicinity only when the saved credentials are existing.
-    WiFi.scanDelete();
-    int8_t  nn = WiFi.scanNetworks(false, true);
-    AC_DBG("%d network(s) found\n", (int)nn);
-    if (nn > 0) {
-      // Determine valid credentials by BSSID.
-      for (uint8_t i = 0; i < credential.entries(); i++) {
-        credential.load(i, &_credential);
-        for (uint8_t n = 0; n < nn; n++) {
-          if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config::bssid)))
-            return true;
+    if (!ssid) {
+      WiFi.scanDelete();
+      int8_t  nn = WiFi.scanNetworks(false, true);
+      AC_DBG("%d network(s) found\n", (int)nn);
+      if (nn > 0) {
+        // Determine valid credentials by BSSID.
+        for (uint8_t i = 0; i < credential.entries(); i++) {
+          credential.load(i, &_credential);
+          for (uint8_t n = 0; n < nn; n++) {
+            if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid)))
+              return true;
+          }
         }
       }
     }
+    else if (strlen(ssid))
+      if (credential.load(ssid, &_credential) >= 0) {
+        if (_credential.dhcp == STA_STATIC) {
+          _apConfig.staip = static_cast<IPAddress>(_credential.config.sta.ip);
+          _apConfig.staGateway = static_cast<IPAddress>(_credential.config.sta.gateway);
+          _apConfig.staNetmask = static_cast<IPAddress>(_credential.config.sta.netmask);
+          _apConfig.dns1 = static_cast<IPAddress>(_credential.config.sta.dns1);
+          _apConfig.dns2 = static_cast<IPAddress>(_credential.config.sta.dns2);
+        }
+        return true;
+      }
   }
   return false;
 }
@@ -738,24 +803,53 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   if (args.hasArg(String(F(AUTOCONNECT_PARAMID_CRED)))) {
     // Read from EEPROM
     AutoConnectCredential credential(_apConfig.boundaryOffset);
-    struct station_config entry;
-    credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &entry);
-    strncpy(reinterpret_cast<char*>(_credential.ssid), reinterpret_cast<const char*>(entry.ssid), sizeof(_credential.ssid));
-    strncpy(reinterpret_cast<char*>(_credential.password), reinterpret_cast<const char*>(entry.password), sizeof(_credential.password));
-    AC_DBG("Credential loaded:%.*s\n", sizeof(station_config::ssid), _credential.ssid);
+    credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &_credential);
+#ifdef AC_DEBUG
+    IPAddress staip = IPAddress(_credential.config.sta.ip);
+    AC_DBG("Credential loaded:%.*s(%s)\n", sizeof(station_config_t::ssid), reinterpret_cast<const char*>(_credential.ssid), _credential.dhcp == STA_DHCP ? "DHCP" : staip.toString().c_str());
+#endif
   }
   else {
     AC_DBG("Queried SSID:%s\n", args.arg(AUTOCONNECT_PARAMID_SSID).c_str());
     // Credential had by the post parameter.
     strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(String(F(AUTOCONNECT_PARAMID_SSID))).c_str(), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_PASS))).c_str(), sizeof(_credential.password));
+    // Static IP detection
+    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DHCP)))) {
+      _credential.dhcp = STA_DHCP;
+      _credential.config.sta.ip = _credential.config.sta.gateway = _credential.config.sta.netmask = _credential.config.sta.dns1 = _credential.config.sta.dns2 = 0U;
+    }
+    else {
+      _credential.dhcp = STA_STATIC;
+      const String paramId[] = {
+        String(F(AUTOCONNECT_PARAMID_STAIP)),
+        String(F(AUTOCONNECT_PARAMID_GTWAY)),
+        String(F(AUTOCONNECT_PARAMID_NTMSK)),
+        String(F(AUTOCONNECT_PARAMID_DNS1)),
+        String(F(AUTOCONNECT_PARAMID_DNS2))
+      };
+      for (uint8_t i = 0; i < sizeof(station_config_t::_config::addr) / sizeof(uint32_t); i++) {
+        if (args.hasArg(paramId[i])) {
+          IPAddress ip;
+          if (ip.fromString(args.arg(paramId[i])))
+            _credential.config.addr[i] = static_cast<uint32_t>(ip);
+        }
+      }
+    }
   }
+
+  // Restore the configured IPs to STA configuration
+  _apConfig.staip = static_cast<IPAddress>(_credential.config.sta.ip);
+  _apConfig.staGateway = static_cast<IPAddress>(_credential.config.sta.gateway);
+  _apConfig.staNetmask = static_cast<IPAddress>(_credential.config.sta.netmask);
+  _apConfig.dns1 = static_cast<IPAddress>(_credential.config.sta.dns1);
+  _apConfig.dns2 = static_cast<IPAddress>(_credential.config.sta.dns2);
 
   // Determine the connection channel based on the scan result.
   _connectCh = 0;
   for (uint8_t nn = 0; nn < _scanCount; nn++) {
     String  ssid = WiFi.SSID(nn);
-    if (!strncmp(ssid.c_str(), reinterpret_cast<const char*>(_credential.ssid), sizeof(station_config::ssid))) {
+    if (!strncmp(ssid.c_str(), reinterpret_cast<const char*>(_credential.ssid), sizeof(station_config_t::ssid))) {
       _connectCh = WiFi.channel(nn);
       break;
     }
@@ -811,6 +905,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
   // This is the specification as before.
   redirect += _currentHostIP.toString();
 #endif
+  AC_DBG("Redirect to %s\n", redirect.c_str());
   redirect += _redirectURI;
   _webServer->sendHeader(String(F("Location")), redirect, true);
   _webServer->send(302, String(F("text/plain")), _emptyString);

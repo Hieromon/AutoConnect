@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    1.0.2
- *  @date   2019-09-17
+ *  @version    1.1.0
+ *  @date   2019-10-15
  *  @copyright  MIT license.
  */
 
@@ -38,12 +38,12 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
   ".base-panel{"
     "margin:0 22px 0 22px"
   "}"
-  ".base-panel>*>label{"
+  ".base-panel * label :not(.bins){"
     "display:inline-block;"
     "width:3.0em;"
     "text-align:right"
   "}"
-  ".base-panel>*>label.slist{"
+  ".base-panel * .slist{"
     "width:auto;"
     "font-size:0.9em;"
     "margin-left:10px;"
@@ -100,34 +100,33 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
 
 /**< non-marked list for UL */
 const char AutoConnect::_CSS_UL[] PROGMEM = {
-  "ul.noorder{"
+  ".noorder,.exp{"
     "padding:0;"
     "list-style:none;"
     "display:table"
   "}"
-  "ul.noorder li{"
-    "display:table-row"
+  ".noorder li,.exp{"
+    "display:table-row-group"
   "}"
-  "ul.noorder>*>label{"
+  ".noorder li label, .exp li *{"
     "display:table-cell;"
     "width:auto;"
-    "margin-right:10px;"
     "text-align:right;"
     "padding:10px 0.5em"
   "}"
-  "ul.noorder input[type=\"checkbox\"]{"
+  ".noorder input[type=\"checkbox\"]{"
     "-moz-appearance:checkbox;"
     "-webkit-appearance:checkbox"
   "}"
-  "ul.noorder input[type=\"radio\"]{"
+  ".noorder input[type=\"radio\"]{"
     "margin-right:0.5em;"
     "-moz-appearance:radio;"
     "-webkit-appearance:radio"
   "}"
-  "ul.noorder input[type=\"text\"]{"
+  ".noorder input[type=\"text\"]{"
     "width:auto"
   "}"
-  "ul.noorder input[type=\"text\"]:invalid{"
+  ".noorder input[type=\"text\"]:invalid{"
     "background:#fce4d6"
   "}"
 };
@@ -223,7 +222,8 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
     "color:#D9434E"
   "}"
   ".aux-page label{"
-    "padding:10px 0.5em"
+    "display:inline;"
+    "padding:10px 0.5em;"
   "}"
 };
 
@@ -289,7 +289,7 @@ const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
     "position:relative;"
     "margin:100px auto"
   "}"
-  ".double-bounce1, .double-bounce2{"
+  ".dbl-bounce1, .dbl-bounce2{"
     "width:100%;"
     "height:100%;"
     "border-radius:50%;"
@@ -301,7 +301,7 @@ const char AutoConnect::_CSS_SPINNER[] PROGMEM = {
     "-webkit-animation:sk-bounce 2.0s infinite ease-in-out;"
     "animation:sk-bounce 2.0s infinite ease-in-out"
   "}"
-  ".double-bounce2{"
+  ".dbl-bounce2{"
     "-webkit-animation-delay:-1.0s;"
     "animation-delay:-1.0s"
   "}"
@@ -487,10 +487,10 @@ const char AutoConnect::_CSS_LUXBAR[] PROGMEM = {
       "white-space:nowrap;"
     "}"
   "}"
-  ".lb-cb:checked+.lb-menu .lb-burger-doublespin span::before{"
+  ".lb-cb:checked+.lb-menu .lb-burger-dblspin span::before{"
     "transform:rotate(225deg)"
   "}"
-  ".lb-cb:checked+.lb-menu .lb-burger-doublespin span::after{"
+  ".lb-cb:checked+.lb-menu .lb-burger-dblspin span::after{"
     "transform:rotate(-225deg)"
   "}"
   ".lb-menu-material,"
@@ -525,7 +525,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
       "<ul class=\"lb-navigation\">"
         "<li class=\"lb-header\">"
           "<a href=\"" AUTOCONNECT_URI "\" class=\"lb-brand\">MENU_TITLE</a>"
-          "<label class=\"lb-burger lb-burger-doublespin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
+          "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
         "</li>"
         "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW "</a></li>"
         "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS "</a></li>"
@@ -683,18 +683,29 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
               "<label for=\"passphrase\">Passphrase</label>"
               "<input id=\"passphrase\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_PASS "\" placeholder=\"Passphrase\">"
             "</li>"
-            "<br><li><input type=\"submit\" value=\"Apply\"></li>"
+            "<li>"
+              "<label for=\"dhcp\">Enable DHCP</label>"
+              "<input id=\"dhcp\" type=\"checkbox\" name=\"dhcp\" value=\"en\" checked onclick=\"vsw(this.checked);\">"
+            "</li>"
+            "{{CONFIG_IP}}"
+            "<li><input type=\"submit\" value=\"Apply\"></li>"
           "</ul>"
         "</form>"
       "</div>"
     "</div>"
-  "</body>"
   "<script type=\"text/javascript\">"
-    "function onFocus(value){"
-      "document.getElementById('ssid').value=value;"
-      "document.getElementById('passphrase').focus();"
+    "window.onload=function(){"
+      "['" AUTOCONNECT_PARAMID_STAIP "','" AUTOCONNECT_PARAMID_GTWAY "','" AUTOCONNECT_PARAMID_NTMSK "','" AUTOCONNECT_PARAMID_DNS1 "','" AUTOCONNECT_PARAMID_DNS2 "'].forEach(function(n,o,t){"
+        "io=document.getElementById(n),io.placeholder='0.0.0.0',io.pattern='^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'});"
+      "vsw(true)};"
+    "function onFocus(e){"
+      "document.getElementById('ssid').value=e,document.getElementById('passphrase').focus()"
+    "}"
+    "function vsw(e){"
+      "var t;t=e?'none':'table-row';for(const e of document.getElementsByClassName('exp'))e.style.display=t;e||document.getElementById('sip').focus()"
     "}"
   "</script>"
+  "</body>"
   "</html>"
 };
 
@@ -740,8 +751,8 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
       "{{MENU_PRE}}"
       "{{MENU_POST}}"
       "<div class=\"spinner\">"
-        "<div class=\"double-bounce1\"></div>"
-        "<div class=\"double-bounce2\"></div>"
+        "<div class=\"dbl-bounce1\"></div>"
+        "<div class=\"dbl-bounce2\"></div>"
         "<div style=\"position:absolute;left:-100%;right:-100%;text-align:center;margin:10px auto;font-weight:bold;color:#0b0b33;\">{{CUR_SSID}}</div>"
       "</div>"
     "</div>"
@@ -995,15 +1006,17 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   AC_UNUSED(args);
-  const char* wlStatusSymbol ="";
-  static const char* wlStatusSymbols[] = {
+  PGM_P wlStatusSymbol = PSTR("");
+  // const char* wlStatusSymbol ="";
+  PGM_P wlStatusSymbols[] = {
+  // static const char* wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
-    "IDLE",
-    "CONNECTING",
-    "WRONG_PASSWORD",
-    "NO_AP_FOUND",
-    "CONNECT_FAIL",
-    "GOT_IP"
+    PSTR("IDLE"),
+    PSTR("CONNECTING"),
+    PSTR("WRONG_PASSWORD"),
+    PSTR("NO_AP_FOUND"),
+    PSTR("CONNECT_FAIL"),
+    PSTR("GOT_IP")
   };
   switch (wifi_station_get_connect_status()) {
   case STATION_IDLE:
@@ -1025,14 +1038,14 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     wlStatusSymbol = wlStatusSymbols[5];
     break;
 #elif defined(ARDUINO_ARCH_ESP32)
-    "IDLE",
-    "NO_SSID_AVAIL",
-    "SCAN_COMPLETED",
-    "CONNECTED",
-    "CONNECT_FAILED",
-    "CONNECTION_LOST",
-    "DISCONNECTED",
-    "NO_SHIELD"
+    PSTR("IDLE"),
+    PSTR("NO_SSID_AVAIL"),
+    PSTR("SCAN_COMPLETED"),
+    PSTR("CONNECTED"),
+    PSTR("CONNECT_FAILED"),
+    PSTR("CONNECTION_LOST"),
+    PSTR("DISCONNECTED"),
+    PSTR("NO_SHIELD")
   };
   switch (_rsConnect) {
   case WL_IDLE_STATUS:
@@ -1061,7 +1074,7 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
     break;
 #endif
   }
-  return String("(") + String(_rsConnect) + String(") ") + String(wlStatusSymbol);
+  return String("(") + String(_rsConnect) + String(") ") + String(FPSTR(wlStatusSymbol));
 }
 
 String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
@@ -1143,11 +1156,27 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
     _scanCount = WiFi.scanNetworks(false, true);
     AC_DBG("%d network(s) found\n", (int)_scanCount);
   }
+  // Preapre SSID list content building buffer
+  size_t  bufSize = 192 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? AUTOCONNECT_SSIDPAGEUNIT_LINES : _scanCount);
+  bufSize += 88 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? (_scanCount > (AUTOCONNECT_SSIDPAGEUNIT_LINES * 2) ? 2 : 1) : 0);
+  char* ssidList = (char*)malloc(bufSize);
+  if (!ssidList) {
+    AC_DBG("ssidList buffer(%d) allocation failed\n", (int)bufSize);
+    return _emptyString;
+  }
+  AC_DBG_DUMB("\n");
   // Locate to the page and build SSD list content.
-  String  ssidList = String("");
+  static const char _ssidList[] PROGMEM =
+    "<input type=\"button\" onClick=\"onFocus(this.getAttribute('value'))\" value=\"%s\">"
+    "<label class=\"slist\">%d&#037;&ensp;Ch.%d</label>%s<br>";
+  static const char _ssidEnc[] PROGMEM =
+    "<span class=\"img-lock\"></span>";
+  static const char _ssidPage[] PROGMEM =
+    "<button type=\"submit\" name=\"page\" value=\"%d\" formaction=\"/_ac/config\">%s</button>&emsp;";
   _hiddenSSIDCount = 0;
   uint8_t validCount = 0;
   uint8_t dispCount = 0;
+  char* slBuf = ssidList;
   for (uint8_t i = 0; i < _scanCount; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
@@ -1156,11 +1185,8 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
       // per page in the available SSID list.
       if (validCount >= page * AUTOCONNECT_SSIDPAGEUNIT_LINES && validCount <= (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES - 1) {
         if (++dispCount <= AUTOCONNECT_SSIDPAGEUNIT_LINES) {
-          ssidList += String(F("<input type=\"button\" onClick=\"onFocus(this.getAttribute('value'))\" value=\"")) + ssid + String("\">");
-          ssidList += String(F("<label class=\"slist\">")) + String(AutoConnect::_toWiFiQuality(WiFi.RSSI(i))) + String(F("&#037;&ensp;Ch.")) + String(WiFi.channel(i)) + String(F("</label>"));
-          if (WiFi.encryptionType(i) != ENC_TYPE_NONE)
-            ssidList += String(F("<span class=\"img-lock\"></span>"));
-          ssidList += String(F("<br>"));
+          snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidList, ssid.c_str(), AutoConnect::_toWiFiQuality(WiFi.RSSI(i)), WiFi.channel(i), WiFi.encryptionType(i) != ENC_TYPE_NONE ? (PGM_P)_ssidEnc : "");
+          slBuf += strlen(slBuf);
         }
       }
       // The validCount counts the found SSIDs that is not the Hidden
@@ -1171,12 +1197,18 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
       _hiddenSSIDCount++;
   }
   // Prepare perv. button
-  if (page >= 1)
-    ssidList += String(F("<button type=\"submit\" name=\"page\" value=\"")) + String(page - 1) + String(F("\" formaction=\"")) + String(F(AUTOCONNECT_URI_CONFIG)) + String(F("\">Prev.</button>&emsp;"));
+  if (page >= 1) {
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page - 1, PSTR("Prev."));
+    slBuf = ssidList + strlen(ssidList);
+  }
   // Prepare next button
-  if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES)
-    ssidList += String(F("<button type=\"submit\" name=\"page\" value=\"")) + String(page + 1) + String(F("\" formaction=\"")) + String(F(AUTOCONNECT_URI_CONFIG)) + String(F("\">Next</button>&emsp;"));
-  return ssidList;
+  if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES) {
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page + 1, PSTR("Next"));
+  }
+  // return ssidList;
+  String ssidListStr = String(ssidList);
+  free(ssidList);
+  return ssidListStr;
 }
 
 String AutoConnect::_token_SSID_COUNT(PageArgument& args) {
@@ -1189,12 +1221,57 @@ String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
   return String(_hiddenSSIDCount);
 }
 
+String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
+  AC_UNUSED(args);
+  static const char _configIPList[] PROGMEM =
+    "<li class=\"exp\">"
+    "<label for=\"%s\">%s</label>"
+    "<input id=\"%s\" type=\"text\" name=\"%s\" value=\"%s\">"
+    "</li>";
+  struct _reps {
+    PGM_P lid;
+    PGM_P lbl;
+  } static const reps[]  = {
+    { PSTR(AUTOCONNECT_PARAMID_STAIP), PSTR("IP Address") },
+    { PSTR(AUTOCONNECT_PARAMID_GTWAY), PSTR("Gateway") },
+    { PSTR(AUTOCONNECT_PARAMID_NTMSK), PSTR("Netmask") },
+    { PSTR(AUTOCONNECT_PARAMID_DNS1), PSTR("DNS1") },
+    { PSTR(AUTOCONNECT_PARAMID_DNS2), PSTR("DNS2") }
+  };
+  char  liCont[600];
+  char* liBuf = liCont;
+
+  for (uint8_t i = 0; i < 5; i++) {
+    IPAddress*  ip;
+    if (i == 0)
+      ip = &_apConfig.staip;
+    else if (i == 1)
+      ip = &_apConfig.staGateway;
+    else if (i == 2)
+      ip = &_apConfig.staNetmask;
+    else if (i == 3)
+      ip = &_apConfig.dns1;
+    else if (i == 4)
+      ip = &_apConfig.dns2;
+    String  ipStr = *ip ? ip->toString() : String(F("0.0.0.0"));
+    snprintf_P(liBuf, sizeof(liCont) - (liBuf - liCont), (PGM_P)_configIPList, reps[i].lid, reps[i].lbl, reps[i].lid, reps[i].lid, ipStr.c_str());
+    liBuf += strlen(liBuf);
+  }
+  return String(liCont);
+}
+
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  AutoConnectCredential credit(_apConfig.boundaryOffset);
-  struct station_config entry;
+  static const char _ssidList[] PROGMEM = "<input id=\"sb\" type=\"submit\" name=\"%s\" value=\"%s\"><label class=\"slist\">%s</label>%s<br>";
+  static const char _ssidRssi[] PROGMEM = "%d&#037;&ensp;Ch.%d";
+  static const char _ssidNA[]   PROGMEM = "N/A";
+  static const char _ssidLock[] PROGMEM = "<span class=\"img-lock\"></span>";
+  static const char _ssidNull[] PROGMEM = "";
   String ssidList;
-  String rssiSym;
+  station_config_t  entry;
+  char  slCont[176];
+  char  rssiCont[32];
+  AutoConnectCredential credit(_apConfig.boundaryOffset);
 
   uint8_t creEntries = credit.entries();
   if (creEntries > 0) {
@@ -1205,20 +1282,23 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     ssidList = String(F("<p><b>No saved credentials.</b></p>"));
 
   for (uint8_t i = 0; i < creEntries; i++) {
+    rssiCont[0] = '\0';
+    PGM_P rssiSym = _ssidNA;
+    PGM_P ssidLock = _ssidNull;
     credit.load(i, &entry);
     AC_DBG("A credential #%d loaded\n", (int)i);
-    ssidList += String(F("<input id=\"sb\" type=\"submit\" name=\"" AUTOCONNECT_PARAMID_CRED "\" value=\"")) + String(reinterpret_cast<char*>(entry.ssid)) + String(F("\"><label class=\"slist\">"));
-    rssiSym = String(F("N/A</label>"));
     for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
-      if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config::bssid))) {
+      if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config_t::bssid))) {
         _connectCh = WiFi.channel(sc);
-        rssiSym = String(AutoConnect::_toWiFiQuality(WiFi.RSSI(sc))) + String(F("&#037;&ensp;Ch.")) + String(_connectCh) + String(F("</label>"));
+        snprintf_P(rssiCont, sizeof(rssiCont), (PGM_P)_ssidRssi, AutoConnect::_toWiFiQuality(WiFi.RSSI(sc)), _connectCh);
+        rssiSym = rssiCont;
         if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
-          rssiSym += String(F("<span class=\"img-lock\"></span>"));
+          ssidLock = _ssidLock;
         break;
       }
     }
-    ssidList += rssiSym + String(F("<br>"));
+    snprintf_P(slCont, sizeof(slCont), (PGM_P)_ssidList, AUTOCONNECT_PARAMID_CRED, reinterpret_cast<char*>(entry.ssid), rssiSym, ssidLock);
+    ssidList += String(slCont);
   }
   return ssidList;
 }
@@ -1240,7 +1320,7 @@ String AutoConnect::_token_BOOTURI(PageArgument& args) {
 
 String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  char  ssid_c[sizeof(station_config::ssid) + 1];
+  char  ssid_c[sizeof(station_config_t::ssid) + 1];
   *ssid_c = '\0';
   strncat(ssid_c, reinterpret_cast<char*>(_credential.ssid), sizeof(ssid_c) - 1);
   String  ssid = String(ssid_c);
@@ -1307,6 +1387,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("LIST_SSID")), std::bind(&AutoConnect::_token_LIST_SSID, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("SSID_COUNT")), std::bind(&AutoConnect::_token_SSID_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
+    elm->addToken(String(FPSTR("CONFIG_IP")), std::bind(&AutoConnect::_token_CONFIG_STAIP, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 

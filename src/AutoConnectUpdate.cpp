@@ -405,7 +405,7 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
         if (parse) {
 #ifdef AC_DEBUG
           AC_DBG_DUMB("\n");
-          ARDUINOJSON_PRINT(jb, AC_DEBUG_PORT);
+          ARDUINOJSON_PRINT(json, AC_DEBUG_PORT);
 #endif
           // Register only bin type file name as available sketch binary to
           // AutoConnectRadio value based on the response from the update server.

@@ -75,7 +75,7 @@ void convert(const uint8_t* eeprom, const size_t size) {
         break;
 
       // Obtain each entry and store to Preferences
-      struct station_config config;
+      station_config_t  config;
       Serial.printf("[%d] ", ec);
       uint8_t ei = 0;
       do {
@@ -90,6 +90,17 @@ void convert(const uint8_t* eeprom, const size_t size) {
       for (ei = 0; ei < sizeof(config.bssid); ei++) {
         config.bssid[ei] = *dp++;
         Serial.printf(":%02x", config.bssid[ei]);
+      }
+      config.dhcp = *dp++;
+      if (config.dhcp == STA_STATIC) {
+        for (uint8_t e = 0; e < sizeof(station_config_t::_config::addr) / sizeof(uint32_t); e++) {
+          uint32_t* ip = &config.config.addr[e];
+          *ip = 0;
+          for (uint8_t b = 0; b < sizeof(uint32_t); b++) {
+            *ip <<= 8;
+            *ip += *dp++;
+          }
+        }
       }
       bool rc = credential.save(&config);
       Serial.println(rc ? " transferred" : " failed to save Preferences");
