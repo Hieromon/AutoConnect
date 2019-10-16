@@ -38,7 +38,7 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
   ".base-panel{"
     "margin:0 22px 0 22px"
   "}"
-  ".base-panel * label{"
+  ".base-panel * label :not(.bins){"
     "display:inline-block;"
     "width:3.0em;"
     "text-align:right"

@@ -14,7 +14,7 @@
 // Define the AUTOCONNECT_URI_UPDATE page to select the sketch binary
 // for update and order update execution.
 const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] PROGMEM = {
-  { AC_Element, "binSty", "<style type=\"text/css\">.bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,span{margin:0 .5em 0 .5em;padding:0;text-align:left}</style>", nullptr },
+  { AC_Element, "binSty", "<style type=\"text/css\">.bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,.bins span{margin:0 .5em 0 .5em;padding:0;text-align:left}</style>", nullptr },
   { AC_Text, "caption", nullptr, nullptr },
   { AC_Element, "c1", "<div class=\"bins\">", nullptr },
   { AC_Radio, "firmwares", nullptr, nullptr },
