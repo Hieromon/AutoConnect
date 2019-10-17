@@ -1177,6 +1177,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   uint8_t validCount = 0;
   uint8_t dispCount = 0;
   char* slBuf = ssidList;
+  *slBuf = '\0';
   for (uint8_t i = 0; i < _scanCount; i++) {
     String ssid = WiFi.SSID(i);
     if (ssid.length() > 0) {
