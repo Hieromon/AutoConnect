@@ -361,11 +361,7 @@ void AutoConnect::home(const String& uri) {
  */
 void AutoConnect::end(void) {
   _responsePage.reset();
-
-  if (_currentPageElement != nullptr) {
-    _currentPageElement->~PageElement();
-    _currentPageElement = nullptr;
-  }
+  _currentPageElement.reset();
 
   _stopPortal();
   _dnsServer.reset();
@@ -912,12 +908,13 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   _purgePages();
 
   // Create the page dynamically
-  if ((_currentPageElement = _setupPage(uri)) == nullptr)
-    if (_aux) {
-      // Requested URL is not a normal page, exploring AUX pages
-      _currentPageElement = _aux->_setupPage(uri);
-    }
-  if (_currentPageElement != nullptr) {
+  _currentPageElement.reset( _setupPage(uri) );
+  if (!_currentPageElement && _aux) {
+    // Requested URL is not a normal page, exploring AUX pages
+    _currentPageElement.reset(_aux->_setupPage(uri));
+  }
+
+  if (_currentPageElement) {
     AC_DBG_DUMB(",generated:%s", uri.c_str());
     _uri = uri;
     _responsePage->addElement(*_currentPageElement);
@@ -947,9 +944,8 @@ void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& uplo
  */
 void AutoConnect::_purgePages(void) {
   _responsePage->clearElement();
-  if (_currentPageElement != nullptr) {
-    delete _currentPageElement;
-    _currentPageElement = nullptr;
+  if (_currentPageElement) {
+    _currentPageElement.reset();
     _uri = String("");
   }
 }

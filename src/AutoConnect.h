@@ -275,7 +275,7 @@ class AutoConnect {
    *  menu page corresponding to the URI is generated.
    */
   std::unique_ptr<PageBuilder> _responsePage;
-  PageElement*  _currentPageElement = nullptr;
+  std::unique_ptr<PageElement> _currentPageElement;
 
   /** Extended pages made up with AutoConnectAux */
   AutoConnectAux* _aux = nullptr; /**< A top of registered AutoConnectAux */
