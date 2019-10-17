@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAuxBasis.h
  * @author hieromon@gmail.com
- * @version  0.9.9
- * @date 2019-05-23
+ * @version  1.1.1
+ * @date 2019-10-17
  * @copyright  MIT license.
  */
 
@@ -148,8 +148,8 @@ class AutoConnectAux : public PageBuilder {
   bool    _menu;                              /**< Switch for menu displaying */
   String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */
-  AutoConnectAux* _next = nullptr;      /**< Auxiliary pages chain list */
-  AutoConnect*    _ac = nullptr;        /**< Hosted AutoConnect instance */
+  AutoConnectAux*       _next = nullptr;      /**< Auxiliary pages chain list */
+  AutoConnect*          _ac = nullptr;        /**< Hosted AutoConnect instance */
   AuxHandlerFunctionT   _handler;             /**< User sketch callback function when AutoConnectAux page requested. */
   AutoConnectExitOrder_t  _order;             /**< The order in which callback functions are called. */
   PageBuilder::UploadFuncT    _uploadHandler; /**< The AutoConnectFile corresponding to current upload */

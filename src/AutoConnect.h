@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.0
- *	@date	2019-10-11
+ *	@version	1.1.1
+ *	@date	2019-10-17
  *	@copyright	MIT license.
  */
 
@@ -284,7 +284,7 @@ class AutoConnect {
   PageElement*  _currentPageElement;
 
   /** Extended pages made up with AutoConnectAux */
-  AutoConnectAux* _aux = nullptr;
+  AutoConnectAux* _aux = nullptr; /**< A top of registered AutoConnectAux */
   String        _auxUri;        /**< Last accessed AutoConnectAux */
   String        _prevUri;       /**< Previous generated page uri */
   /** Available updater, only reset by AutoConnectUpdate::attach is valid */

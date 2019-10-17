@@ -1,3 +1,7 @@
+#### [1.1.1] Oct. 17, 2019
+- Fixed crash with unique_ptr deleting reference content.
+- Fixed disconnection request initialization missing.
+
 #### [1.1.0] Oct. 15, 2019
 - Supports static IPs with the [**Configure new AP**](menu.md#configure-new-ap) menu.
 - Fixed compilation error that no member named 'printTo' with ArduinoJson 5.
