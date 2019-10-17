@@ -27,10 +27,12 @@
  *  AutoConnect default constructor. This entry activates WebServer
  *  internally and the web server is allocated internal.
  */
-AutoConnect::AutoConnect() {
-  _initialize();
-  _webServer.reset(nullptr);
-  _dnsServer.reset(nullptr);
+AutoConnect::AutoConnect()
+: _scanCount( 0 )
+, _connectTimeout( AUTOCONNECT_TIMEOUT )
+, _menuTitle( _apConfig.title )
+{
+  memset(&_credential, 0x00, sizeof(station_config_t));
 }
 
 /**
@@ -38,27 +40,10 @@ AutoConnect::AutoConnect() {
  *  User's added URI handler response can be included in handleClient method.
  *  @param  webServer   A reference of ESP8266WebServer instance.
  */
-AutoConnect::AutoConnect(WebServerClass& webServer) {
-  _initialize();
+AutoConnect::AutoConnect(WebServerClass& webServer)
+: AutoConnect()
+{
   _webServer = WebserverUP(&webServer, [](WebServerClass*){});
-  _dnsServer.reset(nullptr);
-}
-
-void AutoConnect::_initialize(void) {
-  _rfConnect = false;
-  _rfReset = false;
-  _rfDisconnect = false;
-  _responsePage = nullptr;
-  _currentPageElement = nullptr;
-  _menuTitle = _apConfig.title;
-  _connectTimeout = AUTOCONNECT_TIMEOUT;
-  _scanCount = 0;
-  memset(&_credential, 0x00, sizeof(station_config_t));
-#ifdef ARDUINO_ARCH_ESP32
-  _disconnectEventId = -1;  // The member available for ESP32 only
-#endif
-  _aux = nullptr;
-  _auxUri = String("");
 }
 
 /**

@@ -222,7 +222,6 @@ class AutoConnect {
     AC_RECONNECT_SET,
     AC_RECONNECT_RESET
   } AC_STARECONNECT_t;
-  void  _initialize(void);
   bool  _config(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
   bool  _getConfigSTA(station_config_t* config);
@@ -275,8 +274,8 @@ class AutoConnect {
    *  Every time a GET/POST HTTP request occurs, an AutoConnect
    *  menu page corresponding to the URI is generated.
    */
-  PageBuilder*  _responsePage;
-  PageElement*  _currentPageElement;
+  PageBuilder*  _responsePage = nullptr;
+  PageElement*  _currentPageElement = nullptr;
 
   /** Extended pages made up with AutoConnectAux */
   AutoConnectAux* _aux = nullptr; /**< A top of registered AutoConnectAux */
@@ -295,12 +294,12 @@ class AutoConnect {
   unsigned long _portalAccessPeriod;
 
   /** The control indicators */
-  bool  _rfConnect;             /**< URI /connect requested */
-  bool  _rfDisconnect;          /**< URI /disc requested */
-  bool  _rfReset;               /**< URI /reset requested */
+  bool  _rfConnect = false;     /**< URI /connect requested */
+  bool  _rfDisconnect = false;  /**< URI /disc requested */
+  bool  _rfReset = false;       /**< URI /reset requested */
   wl_status_t   _rsConnect;     /**< connection result */
 #ifdef ARDUINO_ARCH_ESP32
-  WiFiEventId_t _disconnectEventId; /**< STA disconnection event handler registered id  */
+  WiFiEventId_t _disconnectEventId = -1; /**< STA disconnection event handler registered id  */
 #endif
   std::unique_ptr<AutoConnectTicker>  _ticker;  /**< */
 
