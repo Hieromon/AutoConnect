@@ -309,64 +309,73 @@ class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTex
  */
 template<>
 inline AutoConnectButtonJson& AutoConnectElementJson::as<AutoConnectButtonJson>(void) {
-  if (typeOf() != AC_Button)
+  if (typeOf() != AC_Button) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectButtonJson*>(this));
 }
 
 template<>
 inline AutoConnectCheckboxJson& AutoConnectElementJson::as<AutoConnectCheckboxJson>(void) {
-  if (typeOf() != AC_Checkbox)
+  if (typeOf() != AC_Checkbox) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectCheckboxJson*>(this));
 }
 
 template<>
 inline AutoConnectFileJson& AutoConnectElementJson::as<AutoConnectFileJson>(void) {
-  if (typeOf() != AC_File)
+  if (typeOf() != AC_File) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectFileJson*>(this));
 }
 
 template<>
 inline AutoConnectInputJson& AutoConnectElementJson::as<AutoConnectInputJson>(void) {
-  if (typeOf() != AC_Input)
+  if (typeOf() != AC_Input) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectInputJson*>(this));
 }
 
 template<>
 inline AutoConnectRadioJson& AutoConnectElementJson::as<AutoConnectRadioJson>(void) {
-  if (typeOf() != AC_Radio)
+  if (typeOf() != AC_Radio) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectRadioJson*>(this));
 }
 
 template<>
 inline AutoConnectSelectJson& AutoConnectElementJson::as<AutoConnectSelectJson>(void) {
-  if (typeOf() != AC_Select)
+  if (typeOf() != AC_Select) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectSelectJson*>(this));
 }
 
 template<>
 inline AutoConnectStyleJson& AutoConnectElementJson::as<AutoConnectStyleJson>(void) {
-  if (typeOf() != AC_Style)
+  if (typeOf() != AC_Style) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectStyleJson*>(this));
 }
 
 template<>
 inline AutoConnectSubmitJson& AutoConnectElementJson::as<AutoConnectSubmitJson>(void) {
-  if (typeOf() != AC_Submit)
+  if (typeOf() != AC_Submit) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectSubmitJson*>(this));
 }
 
 template<>
 inline AutoConnectTextJson& AutoConnectElementJson::as<AutoConnectTextJson>(void) {
-  if (typeOf() != AC_Text)
+  if (typeOf() != AC_Text) {
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
   return *(reinterpret_cast<AutoConnectTextJson*>(this));
 }
 

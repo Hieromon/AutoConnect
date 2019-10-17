@@ -295,8 +295,9 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  by Config method.
  */
 bool AutoConnect::_config(void) {
-  if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U)
+  if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U) {
     AC_DBG("Warning: Contains invalid SoftAPIP address(es).\n");
+  }
   bool  rc = WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);
   AC_DBG("SoftAP configure %s, %s, %s %s\n", _apConfig.apip.toString().c_str(), _apConfig.gateway.toString().c_str(), _apConfig.netmask.toString().c_str(), rc ? "" : "failed");
   return rc;
@@ -316,8 +317,9 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
   bool  rc;
 
   AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s)\n", ip.toString().c_str(), gateway.toString().c_str(), netmask.toString().c_str(), dns1.toString().c_str(), dns2.toString().c_str());
-  if (!(rc = WiFi.config(ip, gateway, netmask, dns1, dns2)))
+  if (!(rc = WiFi.config(ip, gateway, netmask, dns1, dns2))) {
     AC_DBG("failed\n");
+  }
 #ifdef ARDUINO_ARCH_ESP8266
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
 #endif
@@ -524,17 +526,20 @@ void AutoConnect::handleRequest(void) {
         // Save current credential
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
           AutoConnectCredential credit(_apConfig.boundaryOffset);
-          if (credit.save(&_credential))
+          if (credit.save(&_credential)) {
             AC_DBG("%.*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
-          else
+          }
+          else {
             AC_DBG("credential %.*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+          }
         }
 
         // Ensures that keeps a connection with the current AP while the portal behaves.
         _setReconnect(AC_RECONNECT_SET);
       }
-      else
+      else {
         AC_DBG("%.*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+      }
 
       // Activate AutoConnectUpdate if it is attached and incorporate
       // it into the AutoConnect menu.
