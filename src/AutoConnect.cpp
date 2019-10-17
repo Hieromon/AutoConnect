@@ -385,13 +385,11 @@ void AutoConnect::end(void) {
   }
 
   _stopPortal();
+  _dnsServer.reset();
+
   if (_webServer) {
     switch (_webServerAlloc) {
     case AC_WEBSERVER_HOSTED:
-      if (_dnsServer) {
-        _dnsServer->stop();
-        _dnsServer.reset();
-      }
       _webServer.reset();
       break;
     case AC_WEBSERVER_PARASITIC:
@@ -686,7 +684,7 @@ bool AutoConnect::_loadAvailCredential(const char* ssid) {
  *  Stops DNS server and flush tcp sending.
  */
 void AutoConnect::_stopPortal(void) {
-  if (_dnsServer && _webServerAlloc == AC_WEBSERVER_HOSTED)
+  if (_dnsServer)
     _dnsServer->stop();
 
   if (_webServer) {
