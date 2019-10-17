@@ -218,11 +218,6 @@ class AutoConnect {
   void  onNotFound(WebServerClass::THandlerFunction fn);
 
  protected:
-  enum _webServerAllocateType {
-    AC_WEBSERVER_PARASITIC,
-    AC_WEBSERVER_HOSTED
-  };
-  typedef enum _webServerAllocateType  AC_WEBSERVER_TYPE;
   typedef enum {
     AC_RECONNECT_SET,
     AC_RECONNECT_RESET
@@ -271,9 +266,9 @@ class AutoConnect {
   size_t               _freeHeapSize;
 
   /** Servers which works in concert. */
-  std::unique_ptr<WebServerClass> _webServer;
+  typedef std::unique_ptr<WebServerClass, std::function<void(WebServerClass *)> > WebserverUP;
+  WebserverUP _webServer = WebserverUP(nullptr, std::default_delete<WebServerClass>());
   std::unique_ptr<DNSServer>      _dnsServer;
-  AC_WEBSERVER_TYPE               _webServerAlloc;
 
   /**
    *  Dynamically hold one page of AutoConnect menu.

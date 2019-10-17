@@ -22,6 +22,7 @@
 #define	SET_HOSTNAME(x)	do { WiFi.setHostname(x); } while(0)
 #endif
 
+
 /**
  *  AutoConnect default constructor. This entry activates WebServer
  *  internally and the web server is allocated internal.
@@ -30,7 +31,6 @@ AutoConnect::AutoConnect() {
   _initialize();
   _webServer.reset(nullptr);
   _dnsServer.reset(nullptr);
-  _webServerAlloc = AC_WEBSERVER_HOSTED;
 }
 
 /**
@@ -40,9 +40,8 @@ AutoConnect::AutoConnect() {
  */
 AutoConnect::AutoConnect(WebServerClass& webServer) {
   _initialize();
-  _webServer.reset(&webServer);
+  _webServer = WebserverUP(&webServer, [](WebServerClass*){});
   _dnsServer.reset(nullptr);
-  _webServerAlloc = AC_WEBSERVER_PARASITIC;
 }
 
 void AutoConnect::_initialize(void) {
@@ -386,18 +385,7 @@ void AutoConnect::end(void) {
 
   _stopPortal();
   _dnsServer.reset();
-
-  if (_webServer) {
-    switch (_webServerAlloc) {
-    case AC_WEBSERVER_HOSTED:
-      _webServer.reset();
-      break;
-    case AC_WEBSERVER_PARASITIC:
-      _webServer.release();
-      break;
-    }
-  }
-
+  _webServer.reset();
 }
 
 /**
@@ -453,8 +441,7 @@ void AutoConnect::_startWebServer(void) {
   // Boot Web server
   if (!_webServer) {
     // Only when hosting WebServer internally
-    _webServer.reset(new WebServerClass(AUTOCONNECT_HTTPPORT));
-    _webServerAlloc = AC_WEBSERVER_HOSTED;
+    _webServer =  WebserverUP(new WebServerClass(AUTOCONNECT_HTTPPORT), std::default_delete<WebServerClass>() );
     AC_DBG("WebServer allocated\n");
   }
   // Discard the original the not found handler to redirect captive portal detection.
