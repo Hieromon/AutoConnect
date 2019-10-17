@@ -1054,8 +1054,7 @@ void AutoConnect::_setReconnect(const AC_STARECONNECT_t order) {
   if (order == AC_RECONNECT_SET) {
     _disconnectEventId = WiFi.onEvent([](WiFiEvent_t e, WiFiEventInfo_t info) {
       AC_DBG("STA lost connection:%d\n", info.disconnected.reason);
-      bool  rst = WiFi.reconnect();
-      AC_DBG("STA connection %s\n", rst ? "restored" : "failed");
+      AC_DBG("STA connection %s\n", WiFi.reconnect() ? "restored" : "failed");
     }, WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED);
     AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
   }
