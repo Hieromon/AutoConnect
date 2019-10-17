@@ -48,6 +48,7 @@ AutoConnect::AutoConnect(WebServerClass& webServer) {
 void AutoConnect::_initialize(void) {
   _rfConnect = false;
   _rfReset = false;
+  _rfDisconnect = false;
   _responsePage = nullptr;
   _currentPageElement = nullptr;
   _menuTitle = _apConfig.title;
