@@ -48,7 +48,7 @@ typedef enum {
 class AutoConnectAux : public PageBuilder {
  public:
   explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT()) :
-    chunk(PB_Chunk), _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons), _handler(nullptr), _order(AC_EXIT_AHEAD), _uploadHandler(nullptr) { _uri = _uriStr.c_str(); _next.release(); _ac.release(); }
+    chunk(PB_Chunk), _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons), _handler(nullptr), _order(AC_EXIT_AHEAD), _uploadHandler(nullptr) { _uri = _uriStr.c_str(); }
   ~AutoConnectAux();
   AutoConnectElement& operator[](const String& name) { return *getElement(name); }
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
@@ -148,8 +148,8 @@ class AutoConnectAux : public PageBuilder {
   bool    _menu;                              /**< Switch for menu displaying */
   String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */
-  std::unique_ptr<AutoConnectAux> _next;      /**< Auxiliary pages chain list */
-  std::unique_ptr<AutoConnect>    _ac;        /**< Hosted AutoConnect instance */
+  AutoConnectAux* _next = nullptr;      /**< Auxiliary pages chain list */
+  AutoConnect*    _ac = nullptr;        /**< Hosted AutoConnect instance */
   AuxHandlerFunctionT   _handler;             /**< User sketch callback function when AutoConnectAux page requested. */
   AutoConnectExitOrder_t  _order;             /**< The order in which callback functions are called. */
   PageBuilder::UploadFuncT    _uploadHandler; /**< The AutoConnectFile corresponding to current upload */
