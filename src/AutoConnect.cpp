@@ -360,11 +360,8 @@ void AutoConnect::home(const String& uri) {
  *  Stops AutoConnect captive portal service.
  */
 void AutoConnect::end(void) {
-  if (_responsePage != nullptr) {
-    _responsePage->~PageBuilder();
-    delete _responsePage;
-    _responsePage = nullptr;
-  }
+  _responsePage.reset();
+
   if (_currentPageElement != nullptr) {
     _currentPageElement->~PageElement();
     _currentPageElement = nullptr;
@@ -436,7 +433,7 @@ void AutoConnect::_startWebServer(void) {
   _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
   // here, Prepare PageBuilders for captive portal
   if (!_responsePage) {
-    _responsePage = new PageBuilder();
+    _responsePage.reset( new PageBuilder() );
     _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->onUpload(std::bind(&AutoConnect::_handleUpload, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->insert(*_webServer);

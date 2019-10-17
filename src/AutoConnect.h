@@ -274,7 +274,7 @@ class AutoConnect {
    *  Every time a GET/POST HTTP request occurs, an AutoConnect
    *  menu page corresponding to the URI is generated.
    */
-  PageBuilder*  _responsePage = nullptr;
+  std::unique_ptr<PageBuilder> _responsePage;
   PageElement*  _currentPageElement = nullptr;
 
   /** Extended pages made up with AutoConnectAux */
