@@ -101,6 +101,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.1.1] Oct. 17, 2019
+- Fixed crash with unique_ptr deleting reference content. (issue #138)
+- Fixed disconnection request initialization missing. (issue #139)
+
 ### [1.1.0] Oct. 15, 2019
 - Supports static IPs with the 'Configure new AP' menu. (issue #132)
 - Fixed compilation error that no member named 'printTo' with ArduinoJson 5.
