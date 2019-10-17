@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.0
- *  @date   2019-10-08
+ *  @version    1.1.1
+ *  @date   2019-10-17
  *  @copyright  MIT license.
  */
 
@@ -60,7 +60,6 @@ void AutoConnect::_initialize(void) {
 #endif
   _aux = nullptr;
   _auxUri = String("");
-
 }
 
 /**

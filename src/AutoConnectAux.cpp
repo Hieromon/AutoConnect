@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAuxBasisImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.10
- * @date 2019-06-12
+ * @version  1.1.1
+ * @date 2019-10-17
  * @copyright  MIT license.
  */
 #include <algorithm>
