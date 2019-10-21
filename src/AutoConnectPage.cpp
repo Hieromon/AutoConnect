@@ -1157,7 +1157,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
     AC_DBG("%d network(s) found\n", (int)_scanCount);
   }
   // Preapre SSID list content building buffer
-  size_t  bufSize = 192 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? AUTOCONNECT_SSIDPAGEUNIT_LINES : _scanCount);
+  size_t  bufSize = sizeof('\0') + 192 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? AUTOCONNECT_SSIDPAGEUNIT_LINES : _scanCount);
   bufSize += 88 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? (_scanCount > (AUTOCONNECT_SSIDPAGEUNIT_LINES * 2) ? 2 : 1) : 0);
   char* ssidList = (char*)malloc(bufSize);
   if (!ssidList) {
