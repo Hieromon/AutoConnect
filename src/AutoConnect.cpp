@@ -22,15 +22,17 @@
 #define	SET_HOSTNAME(x)	do { WiFi.setHostname(x); } while(0)
 #endif
 
+
 /**
  *  AutoConnect default constructor. This entry activates WebServer
  *  internally and the web server is allocated internal.
  */
-AutoConnect::AutoConnect() {
-  _initialize();
-  _webServer.reset(nullptr);
-  _dnsServer.reset(nullptr);
-  _webServerAlloc = AC_WEBSERVER_HOSTED;
+AutoConnect::AutoConnect()
+: _scanCount( 0 )
+, _connectTimeout( AUTOCONNECT_TIMEOUT )
+, _menuTitle( _apConfig.title )
+{
+  memset(&_credential, 0x00, sizeof(station_config_t));
 }
 
 /**
@@ -38,28 +40,10 @@ AutoConnect::AutoConnect() {
  *  User's added URI handler response can be included in handleClient method.
  *  @param  webServer   A reference of ESP8266WebServer instance.
  */
-AutoConnect::AutoConnect(WebServerClass& webServer) {
-  _initialize();
-  _webServer.reset(&webServer);
-  _dnsServer.reset(nullptr);
-  _webServerAlloc = AC_WEBSERVER_PARASITIC;
-}
-
-void AutoConnect::_initialize(void) {
-  _rfConnect = false;
-  _rfReset = false;
-  _rfDisconnect = false;
-  _responsePage = nullptr;
-  _currentPageElement = nullptr;
-  _menuTitle = _apConfig.title;
-  _connectTimeout = AUTOCONNECT_TIMEOUT;
-  _scanCount = 0;
-  memset(&_credential, 0x00, sizeof(station_config_t));
-#ifdef ARDUINO_ARCH_ESP32
-  _disconnectEventId = -1;  // The member available for ESP32 only
-#endif
-  _aux = nullptr;
-  _auxUri = String("");
+AutoConnect::AutoConnect(WebServerClass& webServer)
+: AutoConnect()
+{
+  _webServer = WebserverUP(&webServer, [](WebServerClass*){});
 }
 
 /**
@@ -296,8 +280,9 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  by Config method.
  */
 bool AutoConnect::_config(void) {
-  if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U)
+  if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U) {
     AC_DBG("Warning: Contains invalid SoftAPIP address(es).\n");
+  }
   bool  rc = WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);
   AC_DBG("SoftAP configure %s, %s, %s %s\n", _apConfig.apip.toString().c_str(), _apConfig.gateway.toString().c_str(), _apConfig.netmask.toString().c_str(), rc ? "" : "failed");
   return rc;
@@ -317,8 +302,9 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
   bool  rc;
 
   AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s)\n", ip.toString().c_str(), gateway.toString().c_str(), netmask.toString().c_str(), dns1.toString().c_str(), dns2.toString().c_str());
-  if (!(rc = WiFi.config(ip, gateway, netmask, dns1, dns2)))
+  if (!(rc = WiFi.config(ip, gateway, netmask, dns1, dns2))) {
     AC_DBG("failed\n");
+  }
 #ifdef ARDUINO_ARCH_ESP8266
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
 #endif
@@ -374,32 +360,12 @@ void AutoConnect::home(const String& uri) {
  *  Stops AutoConnect captive portal service.
  */
 void AutoConnect::end(void) {
-  if (_responsePage != nullptr) {
-    _responsePage->~PageBuilder();
-    delete _responsePage;
-    _responsePage = nullptr;
-  }
-  if (_currentPageElement != nullptr) {
-    _currentPageElement->~PageElement();
-    _currentPageElement = nullptr;
-  }
+  _responsePage.reset();
+  _currentPageElement.reset();
 
   _stopPortal();
-  if (_webServer) {
-    switch (_webServerAlloc) {
-    case AC_WEBSERVER_HOSTED:
-      if (_dnsServer) {
-        _dnsServer->stop();
-        _dnsServer.reset();
-      }
-      _webServer.reset();
-      break;
-    case AC_WEBSERVER_PARASITIC:
-      _webServer.release();
-      break;
-    }
-  }
-
+  _dnsServer.reset();
+  _webServer.reset();
 }
 
 /**
@@ -455,8 +421,7 @@ void AutoConnect::_startWebServer(void) {
   // Boot Web server
   if (!_webServer) {
     // Only when hosting WebServer internally
-    _webServer.reset(new WebServerClass(AUTOCONNECT_HTTPPORT));
-    _webServerAlloc = AC_WEBSERVER_HOSTED;
+    _webServer =  WebserverUP(new WebServerClass(AUTOCONNECT_HTTPPORT), std::default_delete<WebServerClass>() );
     AC_DBG("WebServer allocated\n");
   }
   // Discard the original the not found handler to redirect captive portal detection.
@@ -464,7 +429,7 @@ void AutoConnect::_startWebServer(void) {
   _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
   // here, Prepare PageBuilders for captive portal
   if (!_responsePage) {
-    _responsePage = new PageBuilder();
+    _responsePage.reset( new PageBuilder() );
     _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->onUpload(std::bind(&AutoConnect::_handleUpload, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->insert(*_webServer);
@@ -539,17 +504,20 @@ void AutoConnect::handleRequest(void) {
         // Save current credential
         if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
           AutoConnectCredential credit(_apConfig.boundaryOffset);
-          if (credit.save(&_credential))
+          if (credit.save(&_credential)) {
             AC_DBG("%.*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
-          else
+          }
+          else {
             AC_DBG("credential %.*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+          }
         }
 
         // Ensures that keeps a connection with the current AP while the portal behaves.
         _setReconnect(AC_RECONNECT_SET);
       }
-      else
+      else {
         AC_DBG("%.*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+      }
 
       // Activate AutoConnectUpdate if it is attached and incorporate
       // it into the AutoConnect menu.
@@ -686,7 +654,7 @@ bool AutoConnect::_loadAvailCredential(const char* ssid) {
  *  Stops DNS server and flush tcp sending.
  */
 void AutoConnect::_stopPortal(void) {
-  if (_dnsServer && _webServerAlloc == AC_WEBSERVER_HOSTED)
+  if (_dnsServer)
     _dnsServer->stop();
 
   if (_webServer) {
@@ -940,12 +908,13 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   _purgePages();
 
   // Create the page dynamically
-  if ((_currentPageElement = _setupPage(uri)) == nullptr)
-    if (_aux) {
-      // Requested URL is not a normal page, exploring AUX pages
-      _currentPageElement = _aux->_setupPage(uri);
-    }
-  if (_currentPageElement != nullptr) {
+  _currentPageElement.reset( _setupPage(uri) );
+  if (!_currentPageElement && _aux) {
+    // Requested URL is not a normal page, exploring AUX pages
+    _currentPageElement.reset(_aux->_setupPage(uri));
+  }
+
+  if (_currentPageElement) {
     AC_DBG_DUMB(",generated:%s", uri.c_str());
     _uri = uri;
     _responsePage->addElement(*_currentPageElement);
@@ -975,9 +944,8 @@ void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& uplo
  */
 void AutoConnect::_purgePages(void) {
   _responsePage->clearElement();
-  if (_currentPageElement != nullptr) {
-    delete _currentPageElement;
-    _currentPageElement = nullptr;
+  if (_currentPageElement) {
+    _currentPageElement.reset();
     _uri = String("");
   }
 }
@@ -1064,8 +1032,7 @@ void AutoConnect::_setReconnect(const AC_STARECONNECT_t order) {
   if (order == AC_RECONNECT_SET) {
     _disconnectEventId = WiFi.onEvent([](WiFiEvent_t e, WiFiEventInfo_t info) {
       AC_DBG("STA lost connection:%d\n", info.disconnected.reason);
-      bool  rst = WiFi.reconnect();
-      AC_DBG("STA connection %s\n", rst ? "restored" : "failed");
+      AC_DBG("STA connection %s\n", WiFi.reconnect() ? "restored" : "failed");
     }, WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED);
     AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
   }

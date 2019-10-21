@@ -303,8 +303,9 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
         _upload = _uploadHandler;
         AC_DBG_DUMB("enabled\n");
       }
-      else
+      else {
         AC_DBG_DUMB("missing\n");
+      }
     }
   }
 
