@@ -1,3 +1,7 @@
+#### [1.1.2] Oct. 22, 2019
+- Fixed crash when no SSID found.
+- Fixed memory leak on destruction.
+
 #### [1.1.1] Oct. 17, 2019
 - Fixed crash with unique_ptr deleting reference content.
 - Fixed disconnection request initialization missing.
