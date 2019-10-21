@@ -488,8 +488,9 @@ bool AutoConnectCredential::_add(const station_config_t* config) {
     std::pair<AC_CREDT_t::iterator, bool> rc = _credit.insert(std::make_pair(ssid, credtBody));
     _entries = _credit.size();
     #ifdef AC_DBG
-    if (!rc.second)
+    if (!rc.second) {
       AC_DBG("Failed to save a credential %s\n", config->ssid);
+    }
     #endif
     return rc.second;
   }
@@ -560,14 +561,16 @@ size_t AutoConnectCredential::_commit(void) {
       _pref->end();
     }
     #ifdef AC_DBG
-    else
+    else {
       AC_DBG("Preferences begin failed to save " AC_CREDENTIAL_NVSKEY "\n");
+    }
     #endif
     free(credtPool);
   }
   #ifdef AC_DBG
-  else
+  else {
     AC_DBG("Preferences pool %d(B) allocation failed\n", psz);
+  }
   #endif
   return sz;
 }
@@ -639,15 +642,17 @@ uint8_t AutoConnectCredential::_import(void) {
         free(credtPool);
       }
       #ifdef AC_DBG
-      else
+      else {
         AC_DBG("Preferences pool %d(B) allocation failed\n", psz);
+      }
       #endif
     }
     _pref->end();
   }
   #ifdef AC_DBG
-  else
+  else {
     AC_DBG("Preferences begin failed to import " AC_CREDENTIAL_NVSKEY "\n");
+  }
   #endif
   return cn;
 }
