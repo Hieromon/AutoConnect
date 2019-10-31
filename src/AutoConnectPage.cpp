@@ -1172,7 +1172,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   static const char _ssidEnc[] PROGMEM =
     "<span class=\"img-lock\"></span>";
   static const char _ssidPage[] PROGMEM =
-    "<button type=\"submit\" name=\"page\" value=\"%d\" formaction=\"/_ac/config\">%s</button>&emsp;";
+    "<button type=\"submit\" name=\"page\" value=\"%d\" formaction=\"" AUTOCONNECT_URI_CONFIG "\">%s</button>&emsp;";
   _hiddenSSIDCount = 0;
   uint8_t validCount = 0;
   uint8_t dispCount = 0;
