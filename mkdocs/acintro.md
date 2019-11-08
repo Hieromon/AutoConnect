@@ -48,7 +48,7 @@ You can create multiple custom Web pages and specify pages that can be called fr
     ACText(header, "MQTT broker settings");
     ACText(caption1, "Publishing the WiFi...");
     ACSubmit(save, "SAVE", "/mqtt_save");
-    AutoConnectAux  aux1("/mqtt_setting", "MQTT Setting", { header, caption1, save });
+    AutoConnectAux  aux1("/mqtt_setting", "MQTT Setting", true, { header, caption1, save });
     
     ACText(caption2, "Save parameters");
     ACSubmit(start, "START", "/mqtt_start"); 
