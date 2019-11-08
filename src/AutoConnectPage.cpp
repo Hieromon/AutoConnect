@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.h
  *  @author hieromon@gmail.com
- *  @version    1.1.0
- *  @date   2019-10-15
+ *  @version    1.1.3
+ *  @date   2019-11-08
  *  @copyright  MIT license.
  */
 
@@ -672,6 +672,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
       "{{MENU_POST}}"
       "<div class=\"base-panel\">"
         "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
+          "<div style=\"width:0;height:0;padding:0;border:0;margin:0\" aria-hidden=\"true\" tabindex=\"-1\"><button type=\"submit\" name=\"apply\" value=\"apply\"></button></div>"
           "{{LIST_SSID}}"
           "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">Total:{{SSID_COUNT}} Hidden:{{HIDDEN_COUNT}}</div>"
           "<ul class=\"noorder\">"
@@ -688,7 +689,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
               "<input id=\"dhcp\" type=\"checkbox\" name=\"dhcp\" value=\"en\" checked onclick=\"vsw(this.checked);\">"
             "</li>"
             "{{CONFIG_IP}}"
-            "<li><input type=\"submit\" value=\"Apply\"></li>"
+            "<li><input type=\"submit\" name=\"apply\" value=\"Apply\"></li>"
           "</ul>"
         "</form>"
       "</div>"
