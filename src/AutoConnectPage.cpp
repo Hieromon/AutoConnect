@@ -672,7 +672,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
       "{{MENU_POST}}"
       "<div class=\"base-panel\">"
         "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
-          "<div style=\"width:0;height:0;padding:0;border:0;margin:0\" aria-hidden=\"true\" tabindex=\"-1\"><button type=\"submit\" name=\"apply\" value=\"apply\"></button></div>"
+          "<button style=\"width:0;height:0;padding:0;border:0;margin:0\" aria-hidden=\"true\" tabindex=\"-1\" type=\"submit\" name=\"apply\" value=\"apply\"></button>"
           "{{LIST_SSID}}"
           "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">Total:{{SSID_COUNT}} Hidden:{{HIDDEN_COUNT}}</div>"
           "<ul class=\"noorder\">"
