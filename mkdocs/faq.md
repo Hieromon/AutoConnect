@@ -147,6 +147,23 @@ HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com
 
 You can change both by using [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk). Refer to section [Change SSID and Password for SoftAP](advancedusage.md#change-ssid-and-password-for-softap) in [Advanced usage](advancedusage.md).
 
+## <i class="fa fa-question-circle"></i> How do I detach the ArdunoJson?
+
+If you don't use ArduinoJson at all, you can detach it from the library. By detaching ArduinoJson, the binary size after compilation can be reduced. You can implement custom Web pages with your sketches without using ArduinoJson. Its method is described in [Custom Web pages w/o JSON](wojson.md).  
+To completely remove ArduinoJson at compile-time from the binary, you need to define a special `#define` directive for it. And if you define the directive, you will not be able to use the [OTA update with the update server](otaserver.md#updates-with-the-update-server) feature as well as AutoConnectAux described by JSON.
+
+To exclude ArduinoJson at compile-time, give the following `#define` directive as a compiler option such as the [arduino-cli](https://github.com/arduino/arduino-cli) or [PlatformIO](https://platformio.org/).
+
+```
+#define AUTOCONNECT_NOUSE_JSON
+```
+
+For example, add the following description to the `[env]` section of the `platformio.ini` file with the `build-flags`.
+
+```ini
+build-flags = -DAUTOCONNECT_NOUSE_JSON
+```
+
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
 Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [Appendix](credit.md) for details.

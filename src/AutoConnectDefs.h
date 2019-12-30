@@ -27,10 +27,12 @@
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
+#ifndef AUTOCONNECT_NOUSE_JSON
 #define AUTOCONNECT_USE_JSON
 
 // Indicator of whether to use the AutoConnectUpdate feature.
 #define AUTOCONNECT_USE_UPDATE
+#endif
 
 // Predefined parameters
 // SSID that Captive portal started.

@@ -28,6 +28,9 @@ In addition to the above procedure, to completely cut off for binding with the A
 !!! caution "JSON processing will be disabled"
     Commenting out the **AUTOCONNECT_USE_JSON** macro invalidates all functions related to JSON processing. If the sketch is using the JSON function, it will result in a compile error.
 
+!!! hint "Exclude the ArduinoJson by each compile-time"
+    If you want to exclude ArduinoJson without changing the library code, specify the **AUTOCONNECT_NOUSE_JSON** directive as a compiler option according to the method described in the [FAQ](faq.md#how-do-i-detach-the-ardunojson).
+
 ## Implementation example without ArduinoJson
 
 The code excluding JSON processing from the mqttRSSI sketch attached to the library is as follows. <small>(It is a part of code. Refer to mqttRSSI_NA.ino for the whole sketch.)</small>
