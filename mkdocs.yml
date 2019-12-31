@@ -50,7 +50,7 @@ repo_url: 'https://github.com/Hieromon/AutoConnect'
 edit_uri: ""
 
 # Copyright
-copyright: 'Copyright &copy; 2018-2019 Hieromon Ikasamo'
+copyright: 'Copyright &copy; 2018-2020 Hieromon Ikasamo'
 
 # Configuration
 use_directory_urls: false

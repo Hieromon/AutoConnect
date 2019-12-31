@@ -187,6 +187,9 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
         break;
       }
 #endif
+#ifndef AC_DEBUG
+      AC_UNUSED(sdVerify);
+#endif
       AC_DBG("%s mounted\n", sdVerify);
       _file = _media->open(filename, oflag);
       return _file != false;
