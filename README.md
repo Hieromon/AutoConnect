@@ -101,6 +101,12 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.1.3] Jan. 1, 2020
+- Added AUTOCONNECT_NOUSE_JSON directive. (issue #167)
+- Removed compiler warning of unused.
+- Improved Config New button behavior. (issue #150)
+- Fixed relocate Config New menu URI inability.
+
 ### [1.1.2] Oct. 22, 2019
 - Fixed crash when no SSID found.
 - Fixed memory leak on destruction. (PR #144)

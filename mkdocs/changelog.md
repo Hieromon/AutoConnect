@@ -1,3 +1,9 @@
+#### [1.1.3] Jan. 1, 2020
+- Added AUTOCONNECT_NOUSE_JSON directive
+- Removed compiler warning of unused.
+- Improved Config New button behavior.
+- Fixed relocate Config New menu URI inability.
+
 #### [1.1.2] Oct. 22, 2019
 - Fixed crash when no SSID found.
 - Fixed memory leak on destruction.
