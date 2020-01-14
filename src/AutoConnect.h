@@ -262,7 +262,9 @@ class AutoConnect {
 #endif // !AUTOCONNECT_USE_JSON
 
   typedef std::function<bool(IPAddress&)>  DetectExit_ft;
+  typedef std::function<void(IPAddress&)>  ConnectExit_ft;
   void  onDetect(DetectExit_ft fn);
+  void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServerClass::THandlerFunction fn);
 
  protected:
@@ -310,6 +312,7 @@ class AutoConnect {
   static uint32_t      _getFlashChipRealSize(void);
   static String        _toMACAddressString(const uint8_t mac[]);
   static unsigned int  _toWiFiQuality(int32_t rssi);
+  ConnectExit_ft       _onConnectExit;
   DetectExit_ft        _onDetectExit;
   WebServerClass::THandlerFunction _notFoundHandler;
   size_t               _freeHeapSize;

@@ -650,6 +650,14 @@ bool AutoConnect::on(const String& uri, const AuxHandlerFunctionT handler, AutoC
 }
 
 /**
+ *  Register the exit routine that is being called when WiFi connected.
+ *  @param  fn  A function of the exit routine.
+ */
+void AutoConnect::onConnect(ConnectExit_ft fn) {
+  _onConnectExit = fn;
+}
+
+/**
  *  Register the exit routine for the starting captive portal.
  *  @param  fn  A function of the exit routine.
  */
@@ -1115,6 +1123,11 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
     delay(300);
   }
   AC_DBG_DUMB("%s IP:%s\n", wifiStatus == WL_CONNECTED ? "established" : "time out", WiFi.localIP().toString().c_str());
+  if (WiFi.status() == WL_CONNECTED)
+    if (_onConnectExit) {
+      IPAddress localIP = WiFi.localIP();
+      _onConnectExit(localIP);
+    }
   return wifiStatus;
 }
 
