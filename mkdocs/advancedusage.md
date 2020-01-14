@@ -79,7 +79,7 @@ The captive portal will only be activated if 1st-WiFi::begin fails. Sketch can d
 ```cpp hl_lines="3 13"
 AutoConnect Portal;
 
-bool startCP(IPAddress ip) {
+bool startCP(IPAddress& ip) {
   digitalWrite(BUILTIN_LED, HIGH);
   Serial.println("C.P. started, IP:" + WiFi.localIP().toString());
   return true;

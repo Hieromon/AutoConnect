@@ -261,7 +261,7 @@ class AutoConnect {
   bool  load(Stream& aux);
 #endif // !AUTOCONNECT_USE_JSON
 
-  typedef std::function<bool(IPAddress)>  DetectExit_ft;
+  typedef std::function<bool(IPAddress&)>  DetectExit_ft;
   void  onDetect(DetectExit_ft fn);
   void  onNotFound(WebServerClass::THandlerFunction fn);
 

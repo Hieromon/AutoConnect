@@ -88,7 +88,7 @@ void sendRedirect(String uri) {
   server.client().stop();
 }
 
-bool atDetect(IPAddress softapIP) {
+bool atDetect(IPAddress& softapIP) {
   Serial.println("Captive portal started, SoftAP IP:" + softapIP.toString());
   return true;
 }

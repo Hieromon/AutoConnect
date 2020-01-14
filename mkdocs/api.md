@@ -315,7 +315,7 @@ Register the function which will call from AutoConnect at the start of the capti
 An *fn* specifies the function called when the captive portal starts. Its prototype declaration is defined as "*DetectExit_ft*".
 
 ```cpp
-typedef std::function<bool(IPAddress softapIP)>  DetectExit_ft
+typedef std::function<bool(IPAddress& softapIP)>  DetectExit_ft
 ```
 <dl class="apidl">
     <dt>**Parameter**</dt>

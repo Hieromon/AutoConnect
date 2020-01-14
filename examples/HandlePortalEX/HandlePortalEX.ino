@@ -119,7 +119,7 @@ void sendRedirect(String uri) {
   io.cancel();
 }
 
-bool atDetect(IPAddress softapIP) {
+bool atDetect(IPAddress& softapIP) {
   Serial.println("Captive portal started, SoftAP IP:" + softapIP.toString());
   return true;
 }
