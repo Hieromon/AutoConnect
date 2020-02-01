@@ -1,9 +1,10 @@
 /**
  *  AutoConnect proper menu label constant definition.
- *  @file   AutoConnectLabels.h
- *  @author hieromon@gmail.com
+ *  Czech language.
+ *  @file   AutoConnectLabels_cz.h
+ *  @author dmaixner@gmail.com
  *  @version    1.0.0
- *  @date   2019-08-15
+ *  @date   2020-02-01
  *  @copyright  MIT license.
  */
 
@@ -11,13 +12,9 @@
 #define _AUTOCONNECTLABELS_H_
 
 /**
- * The upper row of each of the following definition items is the
- * default value. The lower row is an alternative label string as
- * a sample and can be changed you wish.
- * 
- * To define new language, just create new AutoConnectLabels_lang.h
- * file with your translation and then you can use it, by adding
- * directive to building process.
+ * This file serves as and alternative translation of
+ * AutoConnectLabels.h.
+ * To use it, you should add directive to building process.
  * E.g. for PlatformIO you can add to your environment in
  * platformio.ini this build_flag:
  * ```
@@ -38,88 +35,82 @@
 
 // Menu item: Configure new AP
 #ifndef AUTOCONNECT_MENULABEL_CONFIGNEW
-#define AUTOCONNECT_MENULABEL_CONFIGNEW   "Configure new AP"
-//#define AUTOCONNECT_MENULABEL_CONFIGNEW   "Establish a new AP"
+#define AUTOCONNECT_MENULABEL_CONFIGNEW "Nastavení nové WiFi"
 #endif // !AUTOCONNECT_MENULABEL_CONFIGNEW
 
 // Menu item: Open SSIDs
 #ifndef AUTOCONNECT_MENULABEL_OPENSSIDS
-#define AUTOCONNECT_MENULABEL_OPENSSIDS   "Open SSIDs"
-//#define AUTOCONNECT_MENULABEL_OPENSSIDS   "Open credentials"
+#define AUTOCONNECT_MENULABEL_OPENSSIDS "Uložené WiFi"
 #endif // !AUTOCONNECT_MENULABEL_OPENSSIDS
 
 // Menu item: Disconnect
 #ifndef AUTOCONNECT_MENULABEL_DISCONNECT
-#define AUTOCONNECT_MENULABEL_DISCONNECT  "Disconnect"
-//#define AUTOCONNECT_MENULABEL_DISCONNECT  "Leave {{CUR_SSID}}"
+#define AUTOCONNECT_MENULABEL_DISCONNECT "Odpojit"
 #endif // !AUTOCONNECT_MENULABEL_DISCONNECT
 
 // Menu item: Reset...
 #ifndef AUTOCONNECT_MENULABEL_RESET
-#define AUTOCONNECT_MENULABEL_RESET       "Reset..."
-//#define AUTOCONNECT_MENULABEL_RESET       "Reboot..."
+#define AUTOCONNECT_MENULABEL_RESET "Restart zařízení"
 #endif // !AUTOCONNECT_MENULABEL_RESET
 
 // Menu item: HOME
 #ifndef AUTOCONNECT_MENULABEL_HOME
-#define AUTOCONNECT_MENULABEL_HOME        "HOME"
-//#define AUTOCONNECT_MENULABEL_HOME        "Main"
+#define AUTOCONNECT_MENULABEL_HOME "Informace o zařízení"
 #endif // !AUTOCONNECT_MENULABEL_HOME
 
 // Menu item: Update
 #ifndef AUTOCONNECT_MENULABEL_UPDATE
-#define AUTOCONNECT_MENULABEL_UPDATE      "Update"
+#define AUTOCONNECT_MENULABEL_UPDATE "Přehrát firmware"
 #endif // !AUTOCONNECT_MENULABEL_UPDATE
 
 // Button label: RESET
 #ifndef AUTOCONNECT_BUTTONLABEL_RESET
-#define AUTOCONNECT_BUTTONLABEL_RESET     "RESET"
-//#define AUTOCONNECT_BUTTONLABEL_RESET     "Reboot"
+#define AUTOCONNECT_BUTTONLABEL_RESET "Reset"
 #endif // !AUTOCONNECT_BUTTONLABEL_RESET
 
 // Page title: Page not found
 #ifndef AUTOCONNECT_PAGETITLE_NOTFOUND
-#define AUTOCONNECT_PAGETITLE_NOTFOUND "Page not found"
+#define AUTOCONNECT_PAGETITLE_NOTFOUND "Stránka nenalezena"
 #endif // !AUTOCONNECT_PAGETITLE_NOTFOUND
 
 // Page title: AutoConnect resetting
 #ifndef AUTOCONNECT_PAGETITLE_RESETTING
-#define AUTOCONNECT_PAGETITLE_RESETTING "AutoConnect resetting"
+#define AUTOCONNECT_PAGETITLE_RESETTING "Restartuji"
 #endif // !AUTOCONNECT_PAGETITLE_RESETTING
 
 // Page title: AutoConnect statistics
 #ifndef AUTOCONNECT_PAGETITLE_STATISTICS
-#define AUTOCONNECT_PAGETITLE_STATISTICS "AutoConnect statistics"
+#define AUTOCONNECT_PAGETITLE_STATISTICS "Statistika"
 #endif // !AUTOCONNECT_PAGETITLE_STATISTICS
 
 // Page statistics row: Established connection
 #ifndef AUTOCONNECT_PAGESTATS_ESTABLISHEDCONNECTION
-#define AUTOCONNECT_PAGESTATS_ESTABLISHEDCONNECTION "Established connection"
+#define AUTOCONNECT_PAGESTATS_ESTABLISHEDCONNECTION "Navázané spojení"
 #endif // !AUTOCONNECT_PAGESTATS_ESTABLISHEDCONNECTION
 
 // Page statistics row: Mode
 #ifndef AUTOCONNECT_PAGESTATS_MODE
-#define AUTOCONNECT_PAGESTATS_MODE "Mode"
+#define AUTOCONNECT_PAGESTATS_MODE "Mód"
 #endif // !AUTOCONNECT_PAGESTATS_MODE
 
 // Page statistics row: IP
 #ifndef AUTOCONNECT_PAGESTATS_IP
-#define AUTOCONNECT_PAGESTATS_IP "IP"
+#define AUTOCONNECT_PAGESTATS_IP "IP adresa"
 #endif // !AUTOCONNECT_PAGESTATS_IP
 
 // Page statistics row: GW
 #ifndef AUTOCONNECT_PAGESTATS_GATEWAY
-#define AUTOCONNECT_PAGESTATS_GATEWAY "GW"
+#define AUTOCONNECT_PAGESTATS_GATEWAY "Brána"
 #endif // !AUTOCONNECT_PAGESTATS_GATEWAY
 
 // Page statistics row: Subnet mask
 #ifndef AUTOCONNECT_PAGESTATS_SUBNETMASK
-#define AUTOCONNECT_PAGESTATS_SUBNETMASK "Subnet mask"
+#define AUTOCONNECT_PAGESTATS_SUBNETMASK "Maska podsítě"
 #endif // !AUTOCONNECT_PAGESTATS_SUBNETMASK
 
 // Page statistics row: SoftAP IP
 #ifndef AUTOCONNECT_PAGESTATS_SOFTAPIP
-#define AUTOCONNECT_PAGESTATS_SOFTAPIP "SoftAP IP"
+#define AUTOCONNECT_PAGESTATS_SOFTAPIP "AP IP adresa"
 #endif // !AUTOCONNECT_PAGESTATS_SOFTAPIP
 
 // Page statistics row: AP MAC
@@ -134,7 +125,7 @@
 
 // Page statistics row: Channel
 #ifndef AUTOCONNECT_PAGESTATS_CHANNEL
-#define AUTOCONNECT_PAGESTATS_CHANNEL "Channel"
+#define AUTOCONNECT_PAGESTATS_CHANNEL "Kanál"
 #endif // !AUTOCONNECT_PAGESTATS_CHANNEL
 
 // Page statistics row: dBm
@@ -144,37 +135,37 @@
 
 // Page statistics row: Chip ID
 #ifndef AUTOCONNECT_PAGESTATS_CHIPID
-#define AUTOCONNECT_PAGESTATS_CHIPID "Chip ID"
+#define AUTOCONNECT_PAGESTATS_CHIPID "ID čipu"
 #endif // !AUTOCONNECT_PAGESTATS_CHIPID
 
 // Page statistics row: CPU Freq.
 #ifndef AUTOCONNECT_PAGESTATS_CPUFREQ
-#define AUTOCONNECT_PAGESTATS_CPUFREQ "CPU Freq."
+#define AUTOCONNECT_PAGESTATS_CPUFREQ "Frekvence CPU"
 #endif // !AUTOCONNECT_PAGESTATS_CPUFREQ
 
 // Page statistics row: Flash size
 #ifndef AUTOCONNECT_PAGESTATS_FLASHSIZE
-#define AUTOCONNECT_PAGESTATS_FLASHSIZE "Flash size"
+#define AUTOCONNECT_PAGESTATS_FLASHSIZE "Velikost paměti"
 #endif // !AUTOCONNECT_PAGESTATS_FLASHSIZE
 
 // Page statistics row: Free memory
 #ifndef AUTOCONNECT_PAGESTATS_FREEMEM
-#define AUTOCONNECT_PAGESTATS_FREEMEM "Free memory"
+#define AUTOCONNECT_PAGESTATS_FREEMEM "Volné paměti"
 #endif // !AUTOCONNECT_PAGESTATS_FREEMEM
 
 // Page title: AutoConnect config
 #ifndef AUTOCONNECT_PAGETITLE_CONFIG
-#define AUTOCONNECT_PAGETITLE_CONFIG "AutoConnect config"
+#define AUTOCONNECT_PAGETITLE_CONFIG "Konfigurace"
 #endif // !AUTOCONNECT_PAGETITLE_CONFIG
 
 // Page config text: Total:
 #ifndef AUTOCONNECT_PAGECONFIG_TOTAL
-#define AUTOCONNECT_PAGECONFIG_TOTAL "Total:"
+#define AUTOCONNECT_PAGECONFIG_TOTAL "Celkem: "
 #endif // !AUTOCONNECT_PAGECONFIG_TOTAL
 
 // Page config text: Hidden:
 #ifndef AUTOCONNECT_PAGECONFIG_HIDDEN
-#define AUTOCONNECT_PAGECONFIG_HIDDEN "Hidden:"
+#define AUTOCONNECT_PAGECONFIG_HIDDEN "Skryté: "
 #endif // !AUTOCONNECT_PAGECONFIG_HIDDEN
 
 // Page config text: SSID
@@ -184,62 +175,62 @@
 
 // Page config text: Passphrase
 #ifndef AUTOCONNECT_PAGECONFIG_PASSPHRASE
-#define AUTOCONNECT_PAGECONFIG_PASSPHRASE "Passphrase"
+#define AUTOCONNECT_PAGECONFIG_PASSPHRASE "Heslo"
 #endif // !AUTOCONNECT_PAGECONFIG_PASSPHRASE
 
 // Page config text: Enable DHCP
 #ifndef AUTOCONNECT_PAGECONFIG_ENABLEDHCP
-#define AUTOCONNECT_PAGECONFIG_ENABLEDHCP "Enable DHCP"
+#define AUTOCONNECT_PAGECONFIG_ENABLEDHCP "Zapnout DHCP"
 #endif // !AUTOCONNECT_PAGECONFIG_ENABLEDHCP
 
 // Page config text: Apply
 #ifndef AUTOCONNECT_PAGECONFIG_APPLY
-#define AUTOCONNECT_PAGECONFIG_APPLY "Apply"
+#define AUTOCONNECT_PAGECONFIG_APPLY "Uložit"
 #endif // !AUTOCONNECT_PAGECONFIG_APPLY
 
 // Page title: AutoConnect credentials
 #ifndef AUTOCONNECT_PAGETITLE_CREDENTIALS
-#define AUTOCONNECT_PAGETITLE_CREDENTIALS "AutoConnect credentials"
+#define AUTOCONNECT_PAGETITLE_CREDENTIALS "Pověření"
 #endif // !AUTOCONNECT_PAGETITLE_CREDENTIALS
 
 // Page title: AutoConnect connecting
 #ifndef AUTOCONNECT_PAGETITLE_CONNECTING
-#define AUTOCONNECT_PAGETITLE_CONNECTING "AutoConnect connecting"
+#define AUTOCONNECT_PAGETITLE_CONNECTING "Připojuji"
 #endif // !AUTOCONNECT_PAGETITLE_CONNECTING
 
 // Page title: AutoConnect connection failed
 #ifndef AUTOCONNECT_PAGETITLE_CONNECTIONFAILED
-#define AUTOCONNECT_PAGETITLE_CONNECTIONFAILED "AutoConnect connection failed"
+#define AUTOCONNECT_PAGETITLE_CONNECTIONFAILED "Připojení selhalo"
 #endif // !AUTOCONNECT_PAGETITLE_CONNECTIONFAILED
 
 // Page connection failed: Connection Failed
 #ifndef AUTOCONNECT_PAGECONNECTIONFAILED_CONNECTIONFAILED
-#define AUTOCONNECT_PAGECONNECTIONFAILED_CONNECTIONFAILED "Connection Failed"
+#define AUTOCONNECT_PAGECONNECTIONFAILED_CONNECTIONFAILED "Připojení selhalo"
 #endif // !AUTOCONNECT_PAGECONNECTIONFAILED_CONNECTIONFAILED
 
 // Page title: AutoConnect disconnected
 #ifndef AUTOCONNECT_PAGETITLE_DISCONNECTED
-#define AUTOCONNECT_PAGETITLE_DISCONNECTED "AutoConnect disconnected"
+#define AUTOCONNECT_PAGETITLE_DISCONNECTED "Odpojeno"
 #endif // !AUTOCONNECT_PAGETITLE_DISCONNECTED
 
 // Text: No saved credentials.
 #ifndef AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS
-#define AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "No saved credentials."
+#define AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "Žádné uložené WiFi sítě."
 #endif // !AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS
 
 // Menu Text: Connecting
 #ifndef AUTOCONNECT_MENUTEXT_CONNECTING
-#define AUTOCONNECT_MENUTEXT_CONNECTING "Connecting"
+#define AUTOCONNECT_MENUTEXT_CONNECTING "Připojuji"
 #endif // !AUTOCONNECT_MENUTEXT_CONNECTING
 
 // Menu Text: Disconnect
 #ifndef AUTOCONNECT_MENUTEXT_DISCONNECT
-#define AUTOCONNECT_MENUTEXT_DISCONNECT "Disconnect"
+#define AUTOCONNECT_MENUTEXT_DISCONNECT "Odpojit"
 #endif // !AUTOCONNECT_MENUTEXT_DISCONNECT
 
 // Menu Text: Failed
 #ifndef AUTOCONNECT_MENUTEXT_FAILED
-#define AUTOCONNECT_MENUTEXT_FAILED "Failed"
+#define AUTOCONNECT_MENUTEXT_FAILED "Připojení selhalo"
 #endif // !AUTOCONNECT_MENUTEXT_FAILED
 
 // Menu colors

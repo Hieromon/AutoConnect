@@ -550,7 +550,7 @@ const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
 /**< The 404 page content. */
 const char  AutoConnect::_PAGE_404[] PROGMEM = {
   "{{HEAD}}"
-    "<title>Page not found</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_NOTFOUND "</title>"
   "</head>"
   "<body>"
     "404 Not found"
@@ -562,7 +562,7 @@ const char  AutoConnect::_PAGE_404[] PROGMEM = {
 const char  AutoConnect::_PAGE_RESETTING[] PROGMEM = {
   "{{HEAD}}"
     "<meta http-equiv=\"refresh\" content=\"{{UPTIME}};url={{BOOTURI}}\">"
-    "<title>AutoConnect resetting</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_RESETTING "</title>"
   "</head>"
   "<body>"
     "<h2>{{RESET}}</h2>"
@@ -573,7 +573,7 @@ const char  AutoConnect::_PAGE_RESETTING[] PROGMEM = {
 /**< AutoConnect portal page. */
 const char  AutoConnect::_PAGE_STAT[] PROGMEM = {
   "{{HEAD}}"
-    "<title>AutoConnect statistics</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_STATISTICS "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
@@ -589,59 +589,59 @@ const char  AutoConnect::_PAGE_STAT[] PROGMEM = {
         "<table class=\"info\" style=\"border:none;\">"
           "<tbody>"
           "<tr>"
-            "<td>Established connection</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_ESTABLISHEDCONNECTION "</td>"
             "<td>{{ESTAB_SSID}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Mode</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_MODE "</td>"
             "<td>{{WIFI_MODE}}({{WIFI_STATUS}})</td>"
           "</tr>"
           "<tr>"
-            "<td>IP</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_IP "</td>"
             "<td>{{LOCAL_IP}}</td>"
           "</tr>"
           "<tr>"
-            "<td>GW</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_GATEWAY "</td>"
             "<td>{{GATEWAY}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Subnet mask</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_SUBNETMASK "</td>"
             "<td>{{NETMASK}}</td>"
           "</tr>"
           "<tr>"
-            "<td>SoftAP IP</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_SOFTAPIP "</td>"
             "<td>{{SOFTAP_IP}}</td>"
           "</tr>"
           "<tr>"
-            "<td>AP MAC</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_APMAC "</td>"
             "<td>{{AP_MAC}}</td>"
           "</tr>"
           "<tr>"
-            "<td>STA MAC</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_STAMAC "</td>"
             "<td>{{STA_MAC}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Channel</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_CHANNEL "</td>"
             "<td>{{CHANNEL}}</td>"
           "</tr>"
           "<tr>"
-            "<td>dBm</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_DBM "</td>"
             "<td>{{DBM}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Chip ID</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_CHIPID "</td>"
             "<td>{{CHIP_ID}}</td>"
           "</tr>"
           "<tr>"
-            "<td>CPU Freq.</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_CPUFREQ "</td>"
             "<td>{{CPU_FREQ}}MHz</td>"
           "</tr>"
           "<tr>"
-            "<td>Flash size</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_FLASHSIZE "</td>"
             "<td>{{FLASH_SIZE}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Free memory</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_FREEMEM "</td>"
             "<td>{{FREE_HEAP}}</td>"
           "</tr>"
           "</tbody>"
@@ -655,7 +655,7 @@ const char  AutoConnect::_PAGE_STAT[] PROGMEM = {
 /**< A page that specifies the new configuration. */
 const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
   "{{HEAD}}"
-    "<title>AutoConnect config</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_CONFIG "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_ICON_LOCK}}"
@@ -674,22 +674,22 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
         "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
           "<button style=\"width:0;height:0;padding:0;border:0;margin:0\" aria-hidden=\"true\" tabindex=\"-1\" type=\"submit\" name=\"apply\" value=\"apply\"></button>"
           "{{LIST_SSID}}"
-          "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">Total:{{SSID_COUNT}} Hidden:{{HIDDEN_COUNT}}</div>"
+          "<div style=\"margin:16px 0 8px 0;border-bottom:solid 1px #263238;\">" AUTOCONNECT_PAGECONFIG_TOTAL "{{SSID_COUNT}} " AUTOCONNECT_PAGECONFIG_HIDDEN "{{HIDDEN_COUNT}}</div>"
           "<ul class=\"noorder\">"
             "<li>"
-              "<label for=\"ssid\">SSID</label>"
-              "<input id=\"ssid\" type=\"text\" name=\"" AUTOCONNECT_PARAMID_SSID "\" placeholder=\"SSID\">"
+              "<label for=\"ssid\">" AUTOCONNECT_PAGECONFIG_SSID "</label>"
+              "<input id=\"ssid\" type=\"text\" name=\"" AUTOCONNECT_PARAMID_SSID "\" placeholder=\"" AUTOCONNECT_PAGECONFIG_SSID "\">"
             "</li>"
             "<li>"
-              "<label for=\"passphrase\">Passphrase</label>"
-              "<input id=\"passphrase\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_PASS "\" placeholder=\"Passphrase\">"
+              "<label for=\"passphrase\">" AUTOCONNECT_PAGECONFIG_PASSPHRASE "</label>"
+              "<input id=\"passphrase\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_PASS "\" placeholder=\"" AUTOCONNECT_PAGECONFIG_PASSPHRASE "\">"
             "</li>"
             "<li>"
-              "<label for=\"dhcp\">Enable DHCP</label>"
+              "<label for=\"dhcp\">" AUTOCONNECT_PAGECONFIG_ENABLEDHCP "</label>"
               "<input id=\"dhcp\" type=\"checkbox\" name=\"dhcp\" value=\"en\" checked onclick=\"vsw(this.checked);\">"
             "</li>"
             "{{CONFIG_IP}}"
-            "<li><input type=\"submit\" name=\"apply\" value=\"Apply\"></li>"
+            "<li><input type=\"submit\" name=\"apply\" value=\"" AUTOCONNECT_PAGECONFIG_APPLY "\"></li>"
           "</ul>"
         "</form>"
       "</div>"
@@ -713,7 +713,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
 /**< A page that reads stored authentication information and starts connection. */
 const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
   "{{HEAD}}"
-    "<title>AutoConnect credentials</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_CREDENTIALS "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_ICON_LOCK}}"
@@ -740,7 +740,7 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
 const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
   "{{REQ}}"
   "{{HEAD}}"
-    "<title>AutoConnect connecting</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_CONNECTING "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_SPINNER}}"
@@ -768,7 +768,7 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
 /**< A page announcing that a connection has been established. */
 const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
   "{{HEAD}}"
-    "<title>AutoConnect statistics</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_STATISTICS "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
@@ -784,30 +784,30 @@ const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
         "<table class=\"info\" style=\"border:none;\">"
           "<tbody>"
           "<tr>"
-            "<td>Established connection</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_ESTABLISHEDCONNECTION "</td>"
             "<td>{{ESTAB_SSID}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Mode</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_MODE "</td>"
             "<td>{{WIFI_MODE}}({{WIFI_STATUS}})</td>"
           "</tr>"
           "<tr>"
-            "<td>IP</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_IP "</td>"
             "<td>{{LOCAL_IP}}</td>"
           "</tr>"
-            "<td>GW</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_GATEWAY "</td>"
             "<td>{{GATEWAY}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Subnet mask</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_SUBNETMASK "</td>"
             "<td>{{NETMASK}}</td>"
           "</tr>"
           "<tr>"
-            "<td>Channel</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_CHANNEL "</td>"
             "<td>{{CHANNEL}}</td>"
           "</tr>"
           "<tr>"
-            "<td>dBm</td>"
+            "<td>" AUTOCONNECT_PAGESTATS_DBM "</td>"
             "<td>{{DBM}}</td>"
           "</tr>"
           "</tbody>"
@@ -821,7 +821,7 @@ const char  AutoConnect::_PAGE_SUCCESS[] PROGMEM = {
 /**< A response page for connection failed. */
 const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
   "{{HEAD}}"
-    "<title>AutoConnect statistics</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_CONNECTIONFAILED "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
@@ -837,7 +837,7 @@ const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
         "<table class=\"info\" style=\"border:none;\">"
           "<tbody>"
           "<tr>"
-            "<td>Connection Failed</td>"
+            "<td>" AUTOCONNECT_PAGECONNECTIONFAILED_CONNECTIONFAILED "</td>"
             "<td>{{STATION_STATUS}}</td>"
           "</tr>"
           "</tbody>"
@@ -852,7 +852,7 @@ const char  AutoConnect::_PAGE_FAIL[] PROGMEM = {
 const char  AutoConnect::_PAGE_DISCONN[] PROGMEM = {
   "{{DISCONNECT}}"
   "{{HEAD}}"
-    "<title>AutoConnect disconnected</title>"
+    "<title>" AUTOCONNECT_PAGETITLE_DISCONNECTED "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_LUXBAR}}"
@@ -1281,7 +1281,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     _scanCount = WiFi.scanNetworks(false, true);
   }
   else
-    ssidList = String(F("<p><b>No saved credentials.</b></p>"));
+    ssidList = String(F("<p><b>" AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "</b></p>"));
 
   for (uint8_t i = 0; i < creEntries; i++) {
     rssiCont[0] = '\0';
@@ -1394,7 +1394,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
   else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
 
     // Setup /auto/connect
-    _menuTitle = FPSTR("Connecting");
+    _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_CONNECTING);
     elm->setMold(_PAGE_CONNECTING);
     elm->addToken(String(FPSTR("REQ")), std::bind(&AutoConnect::_induceConnect, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
@@ -1422,7 +1422,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
   else if (uri == String(AUTOCONNECT_URI_DISCON)) {
 
     // Setup /auto/disc
-    _menuTitle = FPSTR("Disconnect");
+    _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_DISCONNECT);
     elm->setMold(_PAGE_DISCONN);
     elm->addToken(String(FPSTR("DISCONNECT")), std::bind(&AutoConnect::_induceDisconnect, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
@@ -1469,7 +1469,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
   else if (uri == String(AUTOCONNECT_URI_FAIL)) {
 
     // Setup /auto/fail
-    _menuTitle = FPSTR("Failed");
+    _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_FAILED);
     elm->setMold(_PAGE_FAIL);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));

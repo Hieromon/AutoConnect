@@ -10,7 +10,11 @@
 #ifndef _AUTOCONNECTPAGE_H_
 #define _AUTOCONNECTPAGE_H_
 
-#include "AutoConnectLabels.h"
+#ifndef _AUTOCONNECTLABELSLANG_
+    #include "AutoConnectLabels.h"
+#else
+    #include _AUTOCONNECTLABELSLANG_
+#endif
 
 #define AUTOCONNECT_PARAMID_SSID  "SSID"
 #define AUTOCONNECT_PARAMID_PASS  "Passphrase"
