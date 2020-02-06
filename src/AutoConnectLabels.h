@@ -15,17 +15,6 @@
  * default value. The lower row is an alternative label string as
  * a sample and can be changed you wish.
  * 
- * To define new language, just create new AutoConnectLabels_lang.h
- * file with your translation and then you can use it, by adding
- * directive to building process.
- * 
- * E.g. for PlatformIO you can add to your environment in
- * platformio.ini this build_flag:
- * ```
- * build_flags = 
- *      '-D_AUTOCONNECTLABELSLANG_="AutoConnectLabels_lang.h"'
- * ```
- *
  * Notes:
  * You can find some tokens for the PageBuilder if you parse
  * AutoConnectPage.cpp. Some of the tokens are valid at the time
