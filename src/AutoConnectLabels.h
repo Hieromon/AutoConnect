@@ -18,11 +18,12 @@
  * To define new language, just create new AutoConnectLabels_lang.h
  * file with your translation and then you can use it, by adding
  * directive to building process.
+ * 
  * E.g. for PlatformIO you can add to your environment in
  * platformio.ini this build_flag:
  * ```
  * build_flags = 
- *      '-D_AUTOCONNECTLABELSLANG_="AutoConnectLabels_cz.h"'
+ *      '-D_AUTOCONNECTLABELSLANG_="AutoConnectLabels_lang.h"'
  * ```
  *
  * Notes:
