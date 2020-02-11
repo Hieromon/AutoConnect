@@ -19,6 +19,33 @@ extern "C" {
 #endif
 #include "AutoConnect.h"
 #include "AutoConnectPage.h"
+/**< Override the hardcoded strings contained in the AutoConnect pages.    */
+/**< e.g. for PlatformIO, you can add your environment in platformio.ini   */
+/**< along with AC_LABLES macro which specifies the user-defined label     */
+/**< constants as follows:                                                 */
+/**<                                                                       */
+/**< lib_ldf_mode = chain+                                                 */
+/**< build_flags =                                                         */
+/**<   -DAC_LABELS='"${PROJECT_SRC_DIR}/mylabels.h"'                       */
+/**<                                                                       */
+/**< And places mylabels.h, it needs a structure of the define directive   */
+/**< provided per label string definition for the change your wants.       */
+/**<                                                                       */
+/**< #ifdef [ID YOU WANT TO CHANGE]                                        */
+/**< #undef [ID YOU WANT TO CHANGE]                                        */
+/**< #define [ID YOU WANT TO CHANGE] "NEW_STRING_FOR_THISONE"              */
+/**< #endif                                                                */
+/**<                                                                       */
+/**< example:
+#ifdef AUTOCONNECT_MENULABEL_CONFIGNEW
+#undef AUTOCONNECT_MENULABEL_CONFIGNEW
+#define AUTOCONNECT_MENULABEL_CONFIGNEW   "NEW_STRING_FOR_THISONE"
+#endif
+*/
+#ifdef AC_LABELS
+#include  AC_LABELS
+#endif
+
 #include "AutoConnectCredential.h"
 
 /**< Basic CSS common to all pages */
@@ -1157,7 +1184,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
     _scanCount = WiFi.scanNetworks(false, true);
     AC_DBG("%d network(s) found\n", (int)_scanCount);
   }
-  // Preapre SSID list content building buffer
+  // Prepare SSID list content building buffer
   size_t  bufSize = sizeof('\0') + 192 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? AUTOCONNECT_SSIDPAGEUNIT_LINES : _scanCount);
   bufSize += 88 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? (_scanCount > (AUTOCONNECT_SSIDPAGEUNIT_LINES * 2) ? 2 : 1) : 0);
   char* ssidList = (char*)malloc(bufSize);
@@ -1331,7 +1358,7 @@ String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
 
 /**
  *  This function dynamically build up the response pages that conform to
- *  the requested URI. A PageBuilder instance is stored in _rensponsePage
+ *  the requested URI. A PageBuilder instance is stored in _responsePage
  *  as the response page.
  *  @param  Requested URI.
  *  @retval true  A response page generated.
