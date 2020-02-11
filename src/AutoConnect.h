@@ -309,7 +309,7 @@ class AutoConnect {
   String        _redirectURI;   /**< Redirect destination */
   String        _menuTitle;     /**< Title string of the page */
 
-  /** PegeElements of AutoConnect site. */
+  /** PageElements of AutoConnect site. */
   static const char _CSS_BASE[] PROGMEM;
   static const char _CSS_UL[] PROGMEM;
   static const char _CSS_ICON_LOCK[] PROGMEM;
@@ -377,7 +377,7 @@ class AutoConnect {
   String _token_CURRENT_SSID(PageArgument& args);
 
  private:
-  static const  String  _emptyString; /**< An empty string alloaction  **/
+  static const  String  _emptyString; /**< An empty string allocation  **/
 
 #if defined(ARDUINO_ARCH_ESP8266)
   friend ESP8266WebServer;
