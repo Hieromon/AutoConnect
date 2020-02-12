@@ -1004,27 +1004,29 @@ String AutoConnect::_token_ESTAB_SSID(PageArgument& args) {
 
 String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
   AC_UNUSED(args);
-  const char* wifiMode = "";
+  PGM_P wifiMode;
   switch (WiFi.getMode()) {
   case WIFI_OFF:
-    wifiMode = "OFF";
+    wifiMode = PSTR("OFF");
     break;
   case WIFI_STA:
-    wifiMode = "STA";
+    wifiMode = PSTR("STA");
     break;
   case WIFI_AP:
-    wifiMode = "AP";
+    wifiMode = PSTR("AP");
     break;
   case WIFI_AP_STA:
-    wifiMode = "AP_STA";
+    wifiMode = PSTR("AP_STA");
     break;
 #ifdef ARDUINO_ARCH_ESP32
   case WIFI_MODE_MAX:
-    wifiMode = "MAX";
+    wifiMode = PSTR("MAX";)
     break;
 #endif
+  default:
+    wifiMode = PSTR("experiment");
   }
-  return String(wifiMode);
+  return String(FPSTR(wifiMode));
 }
 
 String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
