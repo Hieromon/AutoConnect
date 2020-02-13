@@ -40,6 +40,7 @@ nav:
     - 'Saved credentials access': credit.md
     - 'File upload handler': acupload.md
     - 'Custom colorized': colorized.md
+    - 'Change label text': changelabel.md
   - 'FAQ' : faq.md
   - 'Change log' : changelog.md
   - 'License' : license.md
