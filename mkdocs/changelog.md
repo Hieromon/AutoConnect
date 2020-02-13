@@ -1,5 +1,5 @@
 #### [1.1.4] Feb. 14, 2020
-- Supports for overriding menu items with user-defined labels.
+- Supports for overriding text of the menu items with user-defined labels.
 - Fixed the compiler warning with experimental WiFi mode of ESP8266.
 
 #### [1.1.3] Jan. 1, 2020

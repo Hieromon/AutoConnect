@@ -101,6 +101,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.1.4] Feb. 14, 2020
+- Supports for overriding text of the menu items with user-defined labels.
+- Fixed the compiler warning with experimental WiFi mode of ESP8266.
+
 ### [1.1.3] Jan. 1, 2020
 - Added AUTOCONNECT_NOUSE_JSON directive. (issue #167)
 - Removed compiler warning of unused.
