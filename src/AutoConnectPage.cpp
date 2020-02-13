@@ -24,7 +24,6 @@ extern "C" {
 /**< along with AC_LABLES macro which specifies the user-defined label     */
 /**< constants as follows:                                                 */
 /**<                                                                       */
-/**< lib_ldf_mode = chain+                                                 */
 /**< build_flags =                                                         */
 /**<   -DAC_LABELS='"${PROJECT_SRC_DIR}/mylabels.h"'                       */
 /**<                                                                       */
