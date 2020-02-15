@@ -311,6 +311,16 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
   return rc;
 }
 
+String AutoConnect::_getBootUri()
+{
+  if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
+    return String(AUTOCONNECT_URI);
+  else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
+    return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
+  else
+    return _emptyString;
+}
+
 /**
  *  Obtains the currently established AP connection to determine if the
  *  station configuration needs to run before the first WiFi.begin.
@@ -675,7 +685,7 @@ bool AutoConnect::_captivePortal(void) {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString()) && (!hostHeader.endsWith(F(".local")))) {
     AC_DBG("Detected application, %s, %s\n", hostHeader.c_str(), WiFi.localIP().toString().c_str());
-    String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
+    String location = String(F("http://")) + _webServer->client().localIP().toString() + _getBootUri();
     _webServer->sendHeader(String(F("Location")), location, true);
     _webServer->send(302, String(F("text/plain")), _emptyString);
     _webServer->client().flush();

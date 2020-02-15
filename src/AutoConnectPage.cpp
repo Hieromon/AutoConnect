@@ -550,7 +550,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
     "<div class=\"lb-menu lb-menu-right lb-menu-material\">"
       "<ul class=\"lb-navigation\">"
         "<li class=\"lb-header\">"
-          "<a href=\"" AUTOCONNECT_URI "\" class=\"lb-brand\">MENU_TITLE</a>"
+          "<a href=\"BOOT_URI\" class=\"lb-brand\">MENU_TITLE</a>"
           "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
         "</li>"
         "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW "</a></li>"
@@ -972,6 +972,7 @@ String AutoConnect::_token_HEAD(PageArgument& args) {
 
 String AutoConnect::_token_MENU_PRE(PageArgument& args) {
   String  currentMenu = FPSTR(_ELM_MENU_PRE);
+  currentMenu.replace(String(F("BOOT_URI")), _getBootUri());
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
   currentMenu.replace(String(F("{{CUR_SSID}}")), _token_ESTAB_SSID(args));
   return currentMenu;
@@ -1340,12 +1341,7 @@ String AutoConnect::_token_UPTIME(PageArgument& args) {
 
 String AutoConnect::_token_BOOTURI(PageArgument& args) {
   AC_UNUSED(args);
-  if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
-    return String(AUTOCONNECT_URI);
-  else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
-    return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
-  else
-    return _emptyString;
+  return _getBootUri();
 }
 
 String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
