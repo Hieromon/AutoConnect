@@ -276,7 +276,7 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
 
 /**
  *  Configure access point.
- *  Set up access point with internal AucoConnectConfig parameter corrected
+ *  Set up access point with internal AutoConnectConfig parameter corrected
  *  by Config method.
  */
 bool AutoConnect::_config(void) {
