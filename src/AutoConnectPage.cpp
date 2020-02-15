@@ -1019,7 +1019,7 @@ String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
     break;
 #ifdef ARDUINO_ARCH_ESP32
   case WIFI_MODE_MAX:
-    wifiMode = PSTR("MAX";)
+    wifiMode = PSTR("MAX");
     break;
 #endif
   default:
