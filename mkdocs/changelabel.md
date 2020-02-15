@@ -116,5 +116,5 @@ After placing the `mylabels.h` file and add the `build_flags`, build the project
 
 !!! caution "Need clean-up before re-build with updated `mylabels.h`"
     When you have updated `mylabels.h`, you need deleting compiled library object files before build. Use `Clean` of a PlatformIO task on VSCode status bar.
-    <p><img src="images/vscode_statusbar.png"></p>
     <p><img src="images/vscode_clean.png"></p>
+    <p><img src="images/vscode_statusbar.png"></p>
