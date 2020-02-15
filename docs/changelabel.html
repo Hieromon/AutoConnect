@@ -13,7 +13,7 @@
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
-        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/colorized.html">
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/changelabel.html">
       
       
         <meta name="author" content="Hieromon Ikasamo">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Custom colorized - AutoConnect for ESP8266/ESP32</title>
+        <title>Change label text - AutoConnect for ESP8266/ESP32</title>
       
     
     
@@ -122,7 +122,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#autoconnect-menu-colorizing" tabindex="1" class="md-skip">
+      <a href="#change-the-items-label-text" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -148,7 +148,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Custom colorized
+                Change label text
               
             </span>
           
@@ -674,6 +674,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="colorized.html" title="Custom colorized" class="md-nav__link">
+      Custom colorized
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -683,11 +695,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Custom colorized
+        Change label text
       </label>
     
-    <a href="colorized.html" title="Custom colorized" class="md-nav__link md-nav__link--active">
-      Custom colorized
+    <a href="changelabel.html" title="Change label text" class="md-nav__link md-nav__link--active">
+      Change label text
     </a>
     
       
@@ -699,37 +711,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#autoconnect-menu-colorizing" class="md-nav__link">
-    AutoConnect menu colorizing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#typical-color-schemes" class="md-nav__link">
-    Typical color schemes
+  <a href="#change-the-items-label-text" class="md-nav__link">
+    Change the item's label text
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#indigo" class="md-nav__link">
-     Indigo
+  <a href="#preparation" class="md-nav__link">
+    Preparation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-change-the-label-text" class="md-nav__link">
+    How to change the label text
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#label-text-replacement-header-file" class="md-nav__link">
+    Label text replacement header file
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dim-gray" class="md-nav__link">
-     Dim-gray
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#brown" class="md-nav__link">
-     Brown
+  <a href="#configuration-of-platformioini" class="md-nav__link">
+    Configuration of platformio.ini
   </a>
   
 </li>
@@ -747,18 +765,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="changelabel.html" title="Change label text" class="md-nav__link">
-      Change label text
-    </a>
   </li>
 
         
@@ -822,37 +828,43 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#autoconnect-menu-colorizing" class="md-nav__link">
-    AutoConnect menu colorizing
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#typical-color-schemes" class="md-nav__link">
-    Typical color schemes
+  <a href="#change-the-items-label-text" class="md-nav__link">
+    Change the item's label text
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#indigo" class="md-nav__link">
-     Indigo
+  <a href="#preparation" class="md-nav__link">
+    Preparation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-change-the-label-text" class="md-nav__link">
+    How to change the label text
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#label-text-replacement-header-file" class="md-nav__link">
+    Label text replacement header file
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#dim-gray" class="md-nav__link">
-     Dim-gray
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#brown" class="md-nav__link">
-     Brown
+  <a href="#configuration-of-platformioini" class="md-nav__link">
+    Configuration of platformio.ini
   </a>
   
 </li>
@@ -879,59 +891,111 @@
               
                 
                 
-                  <h1>Custom colorized</h1>
+                  <h1>Change label text</h1>
                 
-                <h2 id="autoconnect-menu-colorizing">AutoConnect menu colorizing<a class="headerlink" href="#autoconnect-menu-colorizing" title="Permanent link">&para;</a></h2>
-<p>You can easily change the color of the AutoConnect menu. Menu colors can be changed statically by the AutoConnect menu color definition determined at compile time. You cannot change the color while the sketch is running.</p>
-<p>The menu color scheme has been separated to <code>AutoConnectLabels.h</code> placed the AutoConnect library folder.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> You can change the color scheme of the menu with the following three color codes. The color code also accepts CSS standard color names.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
-<p>In <code>AutoConnectLabels.h</code> you can find three definition macros for menu colors:</p>
+                <h2 id="change-the-items-label-text">Change the item's label text<a class="headerlink" href="#change-the-items-label-text" title="Permanent link">&para;</a></h2>
+<p>You can change the text of AutoConnect menu items. The easiest way is to rewrite the header file directly in the library that defines the menu label. <a href="advancedusage.html#change-the-menu-labels">Advanced Usage</a> section describes the detailed how to change the label text directly.</p>
+<p>However, this way is less preferred as it modifies the library code and further affects the entire Arduino project you compile. So, here's how to change the label text for each Arduino project without directly modifying the library code. Using this method, you can also display the label text and fixed text on AutoConnect pages in your national language.</p>
+<p>(e.g. in Japanese)
+<img src="images/localize.png"></p>
+<h3 id="preparation">Preparation<a class="headerlink" href="#preparation" title="Permanent link">&para;</a></h3>
+<p>AutoConnect needs a definition file as c++ header (.h) to change the label text. It is used when your Arduino project is compiled, and there is no additional memory consumption due to changing the label text. This header file describes each fixed text of AutoConnect with the <code>#define</code> preprocessor directive.</p>
+<p>The next thing you need is <a href="https://platformio.org/">PlatformIO</a>. <a href="https://docs.platformio.org/en/latest/what-is-platformio.html#overview">PlatformIO</a> is a very powerful environment for embedded development with multi-platform and multi-architecture build systems. And you can easily set up a PlatformIO for the Arduino development system as follows on your host machine.</p>
 <ul>
-<li>
-<p>#define <b>AUTOCONNECT_MENUCOLOR_TEXT</b><br />
-Defines the menu text color.</p>
-</li>
-<li>
-<p>#define <b>AUTOCONNECT_MENUCOLOR_BACKGROUND</b><br />
-Defines the menu background color.</p>
-</li>
-<li>
-<p>#define <b>AUTOCONNECT_MENUCOLOR_ACTIVE</b><br />
-Defines the active menu item background color.</p>
-</li>
+<li><a href="https://platformio.org/install/ide?install=vscode">Microsoft Visual Studio Code</a></li>
+<li><a href="https://platformio.org/platformio-ide">PlatformIO IDE</a> (included PlatformIO core)</li>
 </ul>
-<h2 id="typical-color-schemes">Typical color schemes<a class="headerlink" href="#typical-color-schemes" title="Permanent link">&para;</a></h2>
-<p>Here are some color schemes picked up.</p>
-<h3 id="indigo"><i class="fas fa-palette"></i> Indigo<a class="headerlink" href="#indigo" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_TEXT        &quot;#ffa500&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_BACKGROUND  &quot;#1a237e&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_ACTIVE      &quot;#283593&quot;</span>
+<div class="admonition info">
+<p class="admonition-title">Install PlatformIO and VSCode</p>
+<p>Please refer to <a href="https://docs.platformio.org/en/latest/ide/vscode.html#installation">the official documentation</a> for PlatformIO and VSCode installation.</p>
+</div>
+<p>The rest of this section assumes that you have a PlatformIO environment with VSCode as the front end that has installed on your host machine.</p>
+<h2 id="how-to-change-the-label-text">How to change the label text<a class="headerlink" href="#how-to-change-the-label-text" title="Permanent link">&para;</a></h2>
+<h3 id="label-text-replacement-header-file">Label text replacement header file<a class="headerlink" href="#label-text-replacement-header-file" title="Permanent link">&para;</a></h3>
+<p>AutoConnect label texts are pre-assigned with a fixed string so that it can be determined at compile time. Their default definitions are in the <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h"><code>AutoConnectLabels.h</code></a> file that has all the replaceable label text defined by the <code>#define</code> directive.</p>
+<table>
+    <tr><th>Label placed</th><th>Pre-defined text</th><th>ID (#define macro)</th></tr>
+    <tr><td rowspan="6">Menu item</td><td>Configure new AP</td><td>AUTOCONNECT_MENULABEL_CONFIGNEW</td></tr>
+    <tr><td>Open SSIDs</td><td>AUTOCONNECT_MENULABEL_OPENSSIDS</td></tr>
+    <tr><td>Disconnect</td><td>AUTOCONNECT_MENULABEL_DISCONNECT</td></tr>
+    <tr><td>Reset...</td><td>AUTOCONNECT_MENULABEL_RESET</td></tr>
+    <tr><td>HOME</td><td>AUTOCONNECT_MENULABEL_HOME</td></tr>
+    <tr><td>Update</td><td>AUTOCONNECT_MENULABEL_UPDATE</td></tr>
+    <tr><td>Button label</td><td>RESET</td><td>AUTOCONNECT_BUTTONLABEL_RESET</td></tr>
+    <tr><td rowspan="8">Page title</td><td>Page not found</td><td>AUTOCONNECT_PAGETITLE_NOTFOUND</td></tr>
+    <tr><td>AutoConnect config</td><td>AUTOCONNECT_PAGETITLE_CONFIG</td></tr>
+    <tr><td>AutoConnect connecting</td><td>AUTOCONNECT_PAGETITLE_CONNECTING</td></tr>
+    <tr><td>AutoConnect connection failed</td><td>AUTOCONNECT_PAGETITLE_CONNECTIONFAILED</td></tr>
+    <tr><td>AutoConnect credentials</td><td>AUTOCONNECT_PAGETITLE_CREDENTIALS</td></tr>
+    <tr><td>AutoConnect disconnected</td><td>AUTOCONNECT_PAGETITLE_DISCONNECTED</td></tr>
+    <tr><td>AutoConnect resetting</td><td>AUTOCONNECT_PAGETITLE_RESETTING</td></tr>
+    <tr><td>AutoConnect statistics</td><td>AUTOCONNECT_PAGETITLE_STATISTICS</td></tr>
+    <tr><td rowspan="14">Page:[statistics] row</td><td>Established connection</td><td>AUTOCONNECT_PAGESTATS_ESTABLISHEDCONNECTION</td></tr>
+    <tr><td>Mode</td><td>AUTOCONNECT_PAGESTATS_MODE</td></tr>
+    <tr><td>IP</td><td>AUTOCONNECT_PAGESTATS_IP</td></tr>
+    <tr><td>GW</td><td>AUTOCONNECT_PAGESTATS_GATEWAY</td></tr>
+    <tr><td>Subnet mask</td><td>AUTOCONNECT_PAGESTATS_SUBNETMASK</td></tr>
+    <tr><td>SoftAP IP</td><td>AUTOCONNECT_PAGESTATS_SOFTAPIP</td></tr>
+    <tr><td>AP MAC</td><td>AUTOCONNECT_PAGESTATS_APMAC</td></tr>
+    <tr><td>STA MAC</td><td>AUTOCONNECT_PAGESTATS_STAMAC</td></tr>
+    <tr><td>Channel</td><td>AUTOCONNECT_PAGESTATS_CHANNEL</td></tr>
+    <tr><td>dBm</td><td>AUTOCONNECT_PAGESTATS_DBM</td></tr>
+    <tr><td>Chip ID</td><td>AUTOCONNECT_PAGESTATS_CHIPID</td></tr>
+    <tr><td>CPU Freq.</td><td>AUTOCONNECT_PAGESTATS_CPUFREQ</td></tr>
+    <tr><td>Flash size</td><td>AUTOCONNECT_PAGESTATS_FLASHSIZE</td></tr>
+    <tr><td>Free memory</td><td>AUTOCONNECT_PAGESTATS_FREEMEM</td></tr>
+    <tr><td rowspan="6">Page:[config] text</td><td>Total:</td><td>AUTOCONNECT_PAGECONFIG_TOTAL</td></tr>
+    <tr><td>Hidden:</td><td>AUTOCONNECT_PAGECONFIG_HIDDEN</td></tr>
+    <tr><td>SSID</td><td>AUTOCONNECT_PAGECONFIG_SSID</td></tr>
+    <tr><td>Passphrase</td><td>AUTOCONNECT_PAGECONFIG_PASSPHRASE</td></tr>
+    <tr><td>Enable DHCP</td><td>AUTOCONNECT_PAGECONFIG_ENABLEDHCP</td></tr>
+    <tr><td>Apply</td><td>AUTOCONNECT_PAGECONFIG_APPLY</td></tr>
+    <tr><td>Page:[connection failed]</td><td>Connection Failed</td><td>AUTOCONNECT_PAGECONNECTIONFAILED_CONNECTIONFAILED</td></tr>
+    <tr><td>Text</td><td>No saved credentials.</td><td>AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS</td></tr>
+    <tr><td rowspan="3">Menu Text</td><td>Connecting</td><td>AUTOCONNECT_MENUTEXT_CONNECTING</td></tr>
+    <tr><td>Disconnect</td><td>AUTOCONNECT_MENUTEXT_DISCONNECT</td></tr>
+    <tr><td>Failed</td><td>AUTOCONNECT_MENUTEXT_FAILED</td></tr>
+</table>
+
+<p>The definition of label text must conform to a certain coding pattern. Undefine with <code>#undef</code> the <code>#define</code> directive corresponding to the above IDs, and then redefine the ID with the replacement text. And surround it with <code>#ifdef</code> ~ <code>#endif</code>.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#ifdef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
+<span style="color: #75715e">#undef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;NEW_STRING_YOU_WISH&quot;</span>
+<span style="color: #75715e">#endif</span>
 </pre></div>
 
-<p><img src="images/ACMenu_indigo.png"></p>
-<h3 id="dim-gray"><i class="fas fa-palette"></i> Dim-gray<a class="headerlink" href="#dim-gray" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_TEXT        &quot;#fffacd&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_BACKGROUND  &quot;#696969&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_ACTIVE      &quot;#808080&quot;</span>
+<p>You may not need to rewrite all definitions. It depends on your wishes and is sufficient that the above the include file contains only the labels you need.</p>
+<h3 id="configuration-of-platformioini">Configuration of platformio.ini<a class="headerlink" href="#configuration-of-platformioini" title="Permanent link">&para;</a></h3>
+<p>You prepare its header file and place it in the <code>src</code> folder of the project folder. You can name the file whatever you like, but for the sake of explanation, let's say <code>mylabels.h</code>.</p>
+<p>When you store <code>mylabels.h</code> containing the new label text definition in the <code>src</code> folder, your Arduino project folder structure should look like this:</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>&lt;Project folder&gt;
+|-- &lt;pio&gt;
+|-- &lt;.vscode&gt;
+|-- &lt;include&gt;
+|-- &lt;lib&gt;
+|-- &lt;src&gt;
+|   |-- main.cpp
+|   |-- mylabels.h  &lt;-- Depends on the project
+|-- &lt;test&gt;
+|-- .gitignore
+|-- .travis.yml
+|-- platformio.ini
 </pre></div>
 
-<p><img src="images/ACMenu_dimgray.png"></p>
-<h3 id="brown"><i class="fas fa-palette"></i> Brown<a class="headerlink" href="#brown" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_TEXT        &quot;#e6e6fa&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_BACKGROUND  &quot;#3e2723&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_ACTIVE      &quot;#4e342e&quot;</span>
+<p>Then, open <a href="https://docs.platformio.org/en/latest/projectconf.html"><code>platformio.ini</code></a> file and add new <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags"><code>build_flags</code></a> for including <code>mylabels.h</code> to override the label text.</p>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">-DAC_LABELS=&#39;&quot;${PROJECT_SRC_DIR}/mylabels.h&quot;&#39;</span>
 </pre></div>
 
-<p><img src="images/ACMenu_brown.png"></p>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>Usually, it will locate to the Arduino/libraries/AutoConnect/src folder of user documents.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p>The W3C HTML and CSS standards have listed only 16 valid color names: aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow. Major browsers can accept more color names, but they are not web safe in typically.&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-</ol>
+<div class="admonition hint">
+<p class="admonition-title">Just change the <code>mylabels.h</code></p>
+<p>Keep <code>-DAC_LABELS='"${PROJECT_SRC_DIR}/YOUR_FILE_NAME"'</code> when changing the above <code>build_flags</code> item to match your labels header file name.</p>
+</div>
+<p>After placing the <code>mylabels.h</code> file and add the <code>build_flags</code>, build the project with the replaced label text. You will see the AutoConnect screen with the new text replaced by <code>mylabels.h</code>.</p>
+<div class="admonition caution">
+<p class="admonition-title">Need clean-up before re-build with updated <code>mylabels.h</code></p>
+<p>When you have updated <code>mylabels.h</code>, you need deleting compiled library object files before build. Use <code>Clean</code> of a PlatformIO task on VSCode status bar.
+<p><img src="images/vscode_clean.png"></p>
+<p><img src="images/vscode_statusbar.png"></p></p>
 </div>
                 
                   
@@ -954,7 +1018,7 @@ Defines the active menu item background color.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="acupload.html" title="File upload handler" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="colorized.html" title="Custom colorized" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -963,19 +1027,19 @@ Defines the active menu item background color.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                File upload handler
+                Custom colorized
               </span>
             </div>
           </a>
         
         
-          <a href="changelabel.html" title="Change label text" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="faq.html" title="FAQ" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Change label text
+                FAQ
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
