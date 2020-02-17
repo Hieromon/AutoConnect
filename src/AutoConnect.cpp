@@ -311,8 +311,13 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
   return rc;
 }
 
-String AutoConnect::_getBootUri()
-{
+/**
+ *  Get URI to redirect at boot. It uses the URI according to the
+ *  AutoConnectConfig::bootUti setting with the AutoConnectConfig::homeUri
+ *  as the boot path.
+ *  @return the boot uri.
+ */
+String AutoConnect::_getBootUri(void) const {
   if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
     return String(AUTOCONNECT_URI);
   else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
@@ -685,7 +690,7 @@ bool AutoConnect::_captivePortal(void) {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString()) && (!hostHeader.endsWith(F(".local")))) {
     AC_DBG("Detected application, %s, %s\n", hostHeader.c_str(), WiFi.localIP().toString().c_str());
-    String location = String(F("http://")) + _webServer->client().localIP().toString() + _getBootUri();
+    String location = String(F("http://")) + _webServer->client().localIP().toString() + (_apConfig.bootUri == AC_ONBOOTURI_PORTAL ? _getBootUri() : String(AUTOCONNECT_URI));
     _webServer->sendHeader(String(F("Location")), location, true);
     _webServer->send(302, String(F("text/plain")), _emptyString);
     _webServer->client().flush();

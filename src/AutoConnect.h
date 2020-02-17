@@ -47,7 +47,8 @@ typedef enum AC_SAVECREDENTIAL {
 
 typedef enum AC_ONBOOTURI {
   AC_ONBOOTURI_ROOT,
-  AC_ONBOOTURI_HOME
+  AC_ONBOOTURI_HOME,
+  AC_ONBOOTURI_PORTAL
 } AC_ONBOOTURI_t;
 
 class AutoConnectConfig {
@@ -224,7 +225,7 @@ class AutoConnect {
   } AC_STARECONNECT_t;
   bool  _config(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
-  String _getBootUri();
+  String _getBootUri(void) const;
   bool  _getConfigSTA(station_config_t* config);
   void  _startWebServer(void);
   void  _startDNSServer(void);
