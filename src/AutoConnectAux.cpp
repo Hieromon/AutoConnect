@@ -188,9 +188,13 @@ bool AutoConnectAux::setElementValue(const String& name, const String value) {
     }
     else {
       if (elm->typeOf() == AC_Checkbox) {
+        AutoConnectCheckbox* elmCheckbox = reinterpret_cast<AutoConnectCheckbox*>(elm);
         if (value == "checked") {
-          AutoConnectCheckbox* elmCheckbox = reinterpret_cast<AutoConnectCheckbox*>(elm);
           elmCheckbox->checked = true;
+        }
+        else
+        {
+          elmCheckbox->checked = false;
         }
       }
       else if (elm->typeOf() == AC_Radio) {
