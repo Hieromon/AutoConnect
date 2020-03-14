@@ -58,6 +58,10 @@ class AutoConnectConfig {
    *  assigned from macro. Password is same as above too.
    */
   AutoConnectConfig() :
+#ifdef INC_RSSI_USE_SUP  //!!!
+    conMinRSSI(AUTOCONNECT_CON_MIN_RSSI),
+    conFindMaxRSSI(AUTOCONNECT_CON_FIND_MAX_RSSI),
+#endif    
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
@@ -90,6 +94,10 @@ class AutoConnectConfig {
    *  Configure by SSID for the captive portal access point and password.
    */
   AutoConnectConfig(const char* ap, const char* password, const unsigned long portalTimeout = 0, const uint8_t channel = AUTOCONNECT_AP_CH) :
+#ifdef INC_RSSI_USE_SUP  //!!!
+    conMinRSSI(AUTOCONNECT_CON_MIN_RSSI),
+    conFindMaxRSSI(AUTOCONNECT_CON_FIND_MAX_RSSI),
+#endif    
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
@@ -122,6 +130,10 @@ class AutoConnectConfig {
   ~AutoConnectConfig() {}
 
   AutoConnectConfig& operator=(const AutoConnectConfig& o) {
+#ifdef INC_RSSI_USE_SUP  //!!!
+    conMinRSSI=o.conMinRSSI;
+    conFindMaxRSSI=o.conFindMaxRSSI;
+#endif    
     apip = o.apip;
     gateway = o.gateway;
     netmask = o.netmask;
@@ -153,6 +165,11 @@ class AutoConnectConfig {
     return *this;
   }
 
+
+#ifdef INC_RSSI_USE_SUP   //!!!
+  int       conMinRSSI;          /**< Minimum AP signal strength accepted for connection */
+  bool      conFindMaxRSSI;      /**< Find stored AP with highest signal strength for connection */
+#endif
   IPAddress apip;               /**< SoftAP IP address */
   IPAddress gateway;            /**< SoftAP gateway address */
   IPAddress netmask;            /**< SoftAP subnet mask */

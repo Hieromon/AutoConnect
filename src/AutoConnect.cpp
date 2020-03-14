@@ -121,6 +121,14 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     }
     AC_DBG("WiFi.begin(%s%s%s)\n", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
     cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+#ifdef INC_RSSI_USE_SUP     //!!!
+    if(cs==true) {
+      if(WiFi.RSSI()<_apConfig.conMinRSSI || _apConfig.conFindMaxRSSI==true) {
+	_disconnectWiFi(false);
+	cs=false;
+      }
+    }
+#endif
   }
 
   // Reconnect with a valid credential as the autoReconnect option is enabled.
@@ -625,13 +633,46 @@ bool AutoConnect::_loadAvailCredential(const char* ssid) {
       AC_DBG("%d network(s) found\n", (int)nn);
       if (nn > 0) {
         // Determine valid credentials by BSSID.
+#ifdef INC_RSSI_USE_SUP  //!!!
+	int maxRSSIWifiIndex=-1;
+	int maxRSSICredIndex=-1;
+#endif	
         for (uint8_t i = 0; i < credential.entries(); i++) {
           credential.load(i, &_credential);
           for (uint8_t n = 0; n < nn; n++) {
+#ifdef INC_RSSI_USE_SUP  //!!!
+            if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid))) {
+
+	      if(WiFi.RSSI(n)>=_apConfig.conMinRSSI) {
+		if(_apConfig.conFindMaxRSSI!=true) {
+		  return true;
+		}
+
+		if(maxRSSIWifiIndex<0) {
+		  maxRSSIWifiIndex=n;
+		  maxRSSICredIndex=i;
+		} else {
+		  if(WiFi.RSSI(n)>WiFi.RSSI(maxRSSIWifiIndex)) {
+		    maxRSSIWifiIndex=n;
+		    maxRSSICredIndex=i;
+		  }
+		}
+		
+	      }
+
+	    }
+#else
             if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid)))
               return true;
+#endif
           }
         }
+#ifdef INC_RSSI_USE_SUP  //!!!
+	if(maxRSSIWifiIndex>=0) {
+	  credential.load(maxRSSICredIndex, &_credential);
+	  return true;
+	}
+#endif	
       }
     }
     else if (strlen(ssid))
