@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.1
- *	@date	2019-10-17
+ *	@version	1.1.5
+ *	@date	2020-03-16
  *	@copyright	MIT license.
  */
 
@@ -50,6 +50,12 @@ typedef enum AC_ONBOOTURI {
   AC_ONBOOTURI_HOME
 } AC_ONBOOTURI_t;
 
+/** WiFi connection disposition, it specifies the order of WiFI connecting with saved credentials. */
+typedef enum AC_WIFIDISP {
+  AC_WIFIDISP_RECENT,
+  AC_WIFIDISP_RSSI
+} AC_WIFIDISP_t;
+
 class AutoConnectConfig {
  public:
   /**
@@ -58,10 +64,6 @@ class AutoConnectConfig {
    *  assigned from macro. Password is same as above too.
    */
   AutoConnectConfig() :
-#ifdef INC_RSSI_USE_SUP  //!!!
-    conMinRSSI(AUTOCONNECT_CON_MIN_RSSI),
-    conFindMaxRSSI(AUTOCONNECT_CON_FIND_MAX_RSSI),
-#endif    
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
@@ -69,8 +71,10 @@ class AutoConnectConfig {
     psk(String(AUTOCONNECT_PSK)),
     channel(AUTOCONNECT_AP_CH),
     hidden(0),
+    minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
+    wifiDisp(AC_WIFIDISP_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -94,10 +98,6 @@ class AutoConnectConfig {
    *  Configure by SSID for the captive portal access point and password.
    */
   AutoConnectConfig(const char* ap, const char* password, const unsigned long portalTimeout = 0, const uint8_t channel = AUTOCONNECT_AP_CH) :
-#ifdef INC_RSSI_USE_SUP  //!!!
-    conMinRSSI(AUTOCONNECT_CON_MIN_RSSI),
-    conFindMaxRSSI(AUTOCONNECT_CON_FIND_MAX_RSSI),
-#endif    
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
@@ -105,8 +105,10 @@ class AutoConnectConfig {
     psk(String(password)),
     channel(channel),
     hidden(0),
+    minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
+    wifiDisp(AC_WIFIDISP_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -130,10 +132,6 @@ class AutoConnectConfig {
   ~AutoConnectConfig() {}
 
   AutoConnectConfig& operator=(const AutoConnectConfig& o) {
-#ifdef INC_RSSI_USE_SUP  //!!!
-    conMinRSSI=o.conMinRSSI;
-    conFindMaxRSSI=o.conFindMaxRSSI;
-#endif    
     apip = o.apip;
     gateway = o.gateway;
     netmask = o.netmask;
@@ -141,8 +139,10 @@ class AutoConnectConfig {
     psk = o.psk;
     channel = o.channel;
     hidden = o.hidden;
+    minRSSI=o.minRSSI;
     autoSave = o.autoSave;
     bootUri = o.bootUri;
+    wifiDisp = o.wifiDisp;
     boundaryOffset = o.boundaryOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
@@ -166,10 +166,6 @@ class AutoConnectConfig {
   }
 
 
-#ifdef INC_RSSI_USE_SUP   //!!!
-  int       conMinRSSI;          /**< Minimum AP signal strength accepted for connection */
-  bool      conFindMaxRSSI;      /**< Find stored AP with highest signal strength for connection */
-#endif
   IPAddress apip;               /**< SoftAP IP address */
   IPAddress gateway;            /**< SoftAP gateway address */
   IPAddress netmask;            /**< SoftAP subnet mask */
@@ -177,8 +173,10 @@ class AutoConnectConfig {
   String    psk;                /**< SoftAP password */
   uint8_t   channel;            /**< SoftAP used wifi channel */
   uint8_t   hidden;             /**< SoftAP SSID hidden */
+  int16_t   minRSSI;            /**< Lowest WiFi signal strength (RSSI) that can be connected. */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
   AC_ONBOOTURI_t  bootUri;      /**< An uri invoking after reset */
+  AC_WIFIDISP_t wifiDisp;       /**< WiFI connection disposition */  
   uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
   int       uptime;             /**< Length of start up time */
   bool      autoRise;           /**< Automatic starting the captive portal */
@@ -245,7 +243,7 @@ class AutoConnect {
   void  _startWebServer(void);
   void  _startDNSServer(void);
   void  _handleNotFound(void);
-  bool  _loadAvailCredential(const char* ssid);
+  bool  _loadAvailCredential(const char* ssid, const AC_WIFIDISP_t wifiDisp = AC_WIFIDISP_RECENT, const bool excludeCurrent = false);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);

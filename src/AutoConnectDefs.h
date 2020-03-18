@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.1.0
- * @date 2019-10-11
+ * @version  1.1.5
+ * @date 2020-03-16
  * @copyright  MIT license.
  */
 
@@ -14,10 +14,6 @@
 #define INC_RSSI_USE_SUP   1
 
 #ifdef INC_RSSI_USE_SUP   //!!!
-#ifndef AUTOCONNECT_CON_MIN_RSSI
-#define AUTOCONNECT_CON_MIN_RSSI     -100       // no limit
-#endif
-
 #ifndef AUTOCONNECT_CON_FIND_MAX_RSSI
 #define AUTOCONNECT_CON_FIND_MAX_RSSI  false       // use first available
 #endif
@@ -187,6 +183,11 @@
 #define AUTOCONNECT_TICKER_PORT       2
 #endif
 #endif
+
+// Lowest WiFi signal strength (RSSI) that can be connected.
+#ifndef AUTOCONNECT_MIN_RSSI
+#define AUTOCONNECT_MIN_RSSI          -120  // No limit
+#endif // !AUTOCONNECT_MIN_RSSI
 
 // ArduinoJson buffer size
 #ifndef AUTOCONNECT_JSONBUFFER_SIZE
