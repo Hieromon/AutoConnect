@@ -1,3 +1,6 @@
+### [1.1.5] Mar. 19, 2020
+- Supports an attempt order when available APs would be found multiple, and RSSI lower bound on AP signal strength. This option can specify the order of connection attempting according to the WiFi signal strength indicated with RSSI.
+
 #### [1.1.4] Feb. 14, 2020
 - Supports for overriding text of the menu items with user-defined labels.
 - Fixed the compiler warning with experimental WiFi mode of ESP8266.
