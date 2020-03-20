@@ -10,15 +10,6 @@
 #ifndef _AUTOCONNECTDEFS_H_
 #define _AUTOCONNECTDEFS_H_
 
-//!!!
-#define INC_RSSI_USE_SUP   1
-
-#ifdef INC_RSSI_USE_SUP   //!!!
-#ifndef AUTOCONNECT_CON_FIND_MAX_RSSI
-#define AUTOCONNECT_CON_FIND_MAX_RSSI  false       // use first available
-#endif
-#endif
-
 // Uncomment the following AC_DEBUG to enable debug output.
 //#define AC_DEBUG
 
@@ -33,7 +24,6 @@
 #define AC_DBG(...)
 #define AC_DBG_DUMB(...)
 #endif // !AC_DEBUG
-
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
