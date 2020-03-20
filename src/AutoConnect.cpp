@@ -110,10 +110,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     station_config_t  current;
     if (_getConfigSTA(&current))
       AC_DBG("Current:%.32s\n", current.ssid);
-    if (_apConfig.wifiDisp == AC_WIFIDISP_RSSI && (ssid == nullptr && passphrase == nullptr)) {
-      // AC_WIFIDISP_RSSI is available when SSID and password are not provided.
+    if (_apConfig.principle == AC_PRINCIPLE_RSSI && (ssid == nullptr && passphrase == nullptr)) {
+      // AC_PRINCIPLE_RSSI is available when SSID and password are not provided.
       // Find the strongest signal from the broadcast among the saved credentials.
-      if ((cs = _loadAvailCredential(nullptr, AC_WIFIDISP_RSSI, false))) {
+      if ((cs = _loadAvailCredential(nullptr, AC_PRINCIPLE_RSSI, false))) {
         memcpy(current.ssid, _credential.ssid, sizeof(station_config_t::ssid));
         memcpy(current.password, _credential.password, sizeof(station_config_t::password));
         c_ssid = reinterpret_cast<const char*>(current.ssid);
@@ -143,7 +143,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // Reconnect with a valid credential as the autoReconnect option is enabled.
   if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
     // Load a valid credential.
-    if (_loadAvailCredential(nullptr, _apConfig.wifiDisp, true)) {
+    if (_loadAvailCredential(nullptr, _apConfig.principle, true)) {
       // Try to reconnect with a stored credential.
       char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
       char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
@@ -151,7 +151,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - sizeof('\0'));
       *password_c = '\0';
       strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - sizeof('\0'));
-      AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.wifiDisp == AC_WIFIDISP_RECENT ? "RECENT" : "RSSI");
+      AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
       const char* psk = strlen(password_c) ? password_c : nullptr;
       _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
       WiFi.begin(ssid_c, psk);
@@ -629,11 +629,11 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
 /**
  *  Load stored credentials that match nearby WLANs.
  *  @param  ssid  SSID which should be loaded. If nullptr is assigned, search SSID with WiFi.scan.
- *  @param  wifiDisp  WiFi connection disposition.
+ *  @param  principle  WiFi connection principle.
  *  @param  excludeCurrent  Skip loading the current SSID.
  *  @return true  A matched credential of BSSID was loaded.
  */
-bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_WIFIDISP_t wifiDisp, const bool excludeCurrent) {
+bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle, const bool excludeCurrent) {
   AutoConnectCredential credential(_apConfig.boundaryOffset);
 
   if (credential.entries() > 0) {
@@ -651,8 +651,8 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_WIFIDISP_t wif
         const bool  skipCurrent = excludeCurrent & (strlen(currentSSID) > 0);
         for (uint8_t i = 0; i < credential.entries(); i++) {
           credential.load(i, &_credential);
-          // Seek valid configuration according to the WiFi connection disposition.
-          // Verify that an available SSIDs meet AC_WIFIDISP_t requirements.
+          // Seek valid configuration according to the WiFi connection principle.
+          // Verify that an available SSIDs meet AC_PRINCIPLE_t requirements.
           for (uint8_t n = 0; n < nn; n++) {
             if (skipCurrent && !strcmp(currentSSID, WiFi.SSID(n).c_str()))
               continue;
@@ -663,12 +663,12 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_WIFIDISP_t wif
                 continue;
               }
               // Determine valid credential
-              switch (wifiDisp) {
-              case AC_WIFIDISP_RECENT:
+              switch (principle) {
+              case AC_PRINCIPLE_RECENT:
                 // By BSSID, exit to keep the credential just loaded.
                 return true;
 
-              case AC_WIFIDISP_RSSI:
+              case AC_PRINCIPLE_RSSI:
                 // Verify that most strong radio signal.
                 // Continue seeking to find the strongest WIFI signal SSID.
                 if (WiFi.RSSI(n) > minRSSI) {
@@ -681,7 +681,7 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_WIFIDISP_t wif
             }
           }
         }
-        // Increasing the minSSI will indicate the successfully sought for AC_WIFIDISP_RSSI.
+        // Increasing the minSSI will indicate the successfully sought for AC_PRINCIPLE_RSSI.
         // Restore the credential that has maximum RSSI.
         if (minRSSI > -120) {
           memcpy(&_credential, &validConfig, sizeof(station_config_t));

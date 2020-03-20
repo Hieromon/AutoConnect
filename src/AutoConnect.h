@@ -50,11 +50,11 @@ typedef enum AC_ONBOOTURI {
   AC_ONBOOTURI_HOME
 } AC_ONBOOTURI_t;
 
-/** WiFi connection disposition, it specifies the order of WiFI connecting with saved credentials. */
-typedef enum AC_WIFIDISP {
-  AC_WIFIDISP_RECENT,
-  AC_WIFIDISP_RSSI
-} AC_WIFIDISP_t;
+/** WiFi connection principle, it specifies the order of WiFi connecting with saved credentials. */
+typedef enum AC_PRINCIPLE {
+  AC_PRINCIPLE_RECENT,
+  AC_PRINCIPLE_RSSI
+} AC_PRINCIPLE_t;
 
 class AutoConnectConfig {
  public:
@@ -74,7 +74,7 @@ class AutoConnectConfig {
     minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
-    wifiDisp(AC_WIFIDISP_RECENT),
+    principle(AC_PRINCIPLE_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -108,7 +108,7 @@ class AutoConnectConfig {
     minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
-    wifiDisp(AC_WIFIDISP_RECENT),
+    principle(AC_PRINCIPLE_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -142,7 +142,7 @@ class AutoConnectConfig {
     minRSSI=o.minRSSI;
     autoSave = o.autoSave;
     bootUri = o.bootUri;
-    wifiDisp = o.wifiDisp;
+    principle = o.principle;
     boundaryOffset = o.boundaryOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
@@ -176,7 +176,7 @@ class AutoConnectConfig {
   int16_t   minRSSI;            /**< Lowest WiFi signal strength (RSSI) that can be connected. */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
   AC_ONBOOTURI_t  bootUri;      /**< An uri invoking after reset */
-  AC_WIFIDISP_t wifiDisp;       /**< WiFI connection disposition */  
+  AC_PRINCIPLE_t  principle;    /**< WiFi connection principle */  
   uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
   int       uptime;             /**< Length of start up time */
   bool      autoRise;           /**< Automatic starting the captive portal */
@@ -243,7 +243,7 @@ class AutoConnect {
   void  _startWebServer(void);
   void  _startDNSServer(void);
   void  _handleNotFound(void);
-  bool  _loadAvailCredential(const char* ssid, const AC_WIFIDISP_t wifiDisp = AC_WIFIDISP_RECENT, const bool excludeCurrent = false);
+  bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
