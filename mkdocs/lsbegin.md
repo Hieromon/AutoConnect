@@ -1,17 +1,17 @@
 ## AutoConnect::begin logic sequence
 
-Several parameters as follows of [AutoConnectConfig](apiconfig.md) affect the behavior of [AutoConnect::begin](api.md#begin) function. Each parameter affects the behaves in interacted order with the priority and apply to the logic sequence of [AutoConnect::begin](api.md#begin).
+The following parameters of [AutoConnectConfig](apiconfig.md) affect the behavior of [AutoConnect::begin](api.md#begin) function and control a logic sequence. They are also evaluated on a case-by-case basis and may not be valid in all situations. The sketch must consider the role of these parameters and the conditions under which they will work as intended. You need to understand what happens when using these parameters in combination.
 
-- [immediateStart](apiconfig.md#immediatestart) : The captive portal start immediately, without first WiFi.begin.
+- [immediateStart](apiconfig.md#immediatestart) : The captive portal start immediately, without the 1st-WiFi.begin.
 - [autoReconenct](apiconfig.md#autoreconnect) : Attempt re-connect with past SSID by saved credential.
 - [portalTimeout](apiconfig.md#portaltimeout) : Time out limit for the portal.
 - [retainPortal](apiconfig.md#retainportal) : Keep DNS server functioning for the captive portal.
 
-You can use these parameters in combination with sketch requirements and need to understand correctly the behavior caused by the parameters. The following chart shows the AutoConnect::begin logic sequence including the effect of these parameters.
+The following chart shows the AutoConnect::begin logic sequence that contains the control flow with each parameter takes effect.
 
 <img align="center" src="images/process_begin.svg">
 
-For example, [AutoConnect::begin](api.md#begin) will not exits without the [**portalTimeout**](apiconfig.md#portaltimeout) while the connection not establishes, but WebServer will start to work. A DNS server that detects the probe of the captive portal is also effective. So, your sketch may work seemingly, but it will close with inside a loop of the [AutoConnect::begin](api.md#begin) function. Especially when invoking [AutoConnect::begin](api.md#begin) in the **setup()**, execution control does not pass to the **loop()**.
+For example, [AutoConnect::begin](api.md#begin) will not end without the [**portalTimeout**](apiconfig.md#portaltimeout) while the connection not establishes, but WebServer will start to work. And the DNS server also will start to make the captive portal detection to the client. The custom web page now responds correctly with the behavior of the two internally launched servers, and the sketch looks like working. But AutoConnect::begin does not end yet. Especially when invoking AutoConnect::begin in the **setup()**, control flow does not pass to the **loop()**.
 
 As different scenes, you may use the [**immediateStart**](apiconfig.md#immediatestart) effectively. Equipped the external switch to activate the captive portal with the ESP module, combined with the [**portalTime**](apiconfig.md#portaltimeout) and the [**retainPortal**](apiconfig.md#retainportal) it will become WiFi active connection feature. You can start [AutoConnect::begin](api.md#begin) at any point in the **loop()**, which allows your sketch can behave both the offline mode and the online mode.
 

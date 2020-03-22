@@ -14,11 +14,11 @@ AutoConnect stores the established WiFi connection in the flash of the ESP8266/E
 
 ### <i class="fa fa-caret-right"></i> Automatic reconnect
 
-When the captive portal is started, SoftAP starts and the STA is disconnected. The current SSID setting memorized in ESP8266 will be lost but then the reconnect behavior of ESP32 is somewhat different from this.
+AutoConnect changes WIFI mode depending on the situation. The [AutoConnect::begin](lsbegin.md) function starts WIFI in STA mode and starts the webserver if the connection is successful by the 1st-WiFi.begin. But if the connection fails with the least recently established access point, AutoConnect will switch the WIFI mode to AP_STA and starts the DNS server to be able to launch a captive portal.
 
-The [*WiFiSTAClass::disconnect*](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.
+When the captive portal is started, SoftAP starts and the STA is disconnected. At this point, the station configuration information that the ESP module has stored on its own (it is known as the SDK's [station_config](https://github.com/esp8266/Arduino/blob/db75d2c448bfccc6dc308bdeb9fbd3efca7927ff/tools/sdk/include/user_interface.h#L249) structure) is discarded.
 
-If the [**autoReconnect**](apiconfig.md#autoreconnect) option of the [AutoConnectConfig](apiconfig.md) class is enabled, it automatically attempts to reconnect to the disconnected past access point. When the autoReconnect option is specified, AutoConnect will not start SoftAP immediately if the first WiFi.begin fails. It will scan WiFi signal and the same connection information as the detected BSSID is stored in the flash as AutoConnect's credentials, explicitly apply it with WiFi.begin and rerun.
+AutoConnect can connect to an access point again using saved credential that has disconnected once, and its control is allowed by [**autoReconnect**](apiconfig.md#autoreconnect). [*AutoConnectConfig::autoReconnect*](apiconfig.md#autoreconnect) option specifies to attempt to reconnect to the past established access point that stored in saved credentials. AutoConnect does not start SoftAP immediately even if 1st-WiFi.begin fails when the [**autoReconnct**](apiconfig.md#autoreconnect) is enabled. It will scan the WiFi signal, and if the same BSSID as the detected BSSID is stored in flash as AutoConnect credentials, explicitly apply it and reruns WiFi.begin still WIFI_STA mode. (The autoReconnect works effectively even if the SSID is a hidden access point)
 
 ```cpp hl_lines="3"
 AutoConnect       Portal;
@@ -28,10 +28,11 @@ Portal.config(Config);
 Portal.begin();
 ```
 
-An autoReconnect option is available to *AutoConnect::begin* without SSID and pass Passphrase.
+An [**autoRecconect**](apiconfig.md#autoreconnect) option is only available for [*AutoConnect::begin*](api.md#begin) without SSID and PASSWORD parameter.
 
-!!! caution "An autoReconnect will work if SSID detection succeeded"
-    An autoReconnect will not effect if the SSID which stored credential to be connected is a hidden access point.
+!!! note "An autoReconnect is not autoreconnect"
+    The [*WiFiSTAClass::disconnect*](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by the arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.
+    
 
 ### <i class="fa fa-caret-right"></i> Autosave Credential
 
