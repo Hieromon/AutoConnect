@@ -553,10 +553,10 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
           "<a href=\"BOOT_URI\" class=\"lb-brand\">MENU_TITLE</a>"
           "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
         "</li>"
-        "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW "</a></li>"
-        "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS "</a></li>"
-        "<li class=\"lb-item\"><a href=\"" AUTOCONNECT_URI_DISCON "\">" AUTOCONNECT_MENULABEL_DISCONNECT "</a></li>"
-        "<li class=\"lb-item\" id=\"reset\"><a href=\"#rdlg\">" AUTOCONNECT_MENULABEL_RESET "</a></li>"
+        "MENU_CONFIGNEW"
+        "MENU_OPENSSIDS"
+        "MENU_DISCONNECT"
+        "MENU_RESET"
 };
 
 const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
@@ -564,7 +564,8 @@ const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
 };
 
 const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
-        "<li class=\"lb-item\"><a href=\"HOME_URI\">" AUTOCONNECT_MENULABEL_HOME "</a></li>"
+        "MENU_HOME"
+        "MENU_DEVINFO"
       "</ul>"
     "</div>"
     "<div class=\"lap\" id=\"rdlg\"><a href=\"#reset\" class=\"overlap\"></a>"
@@ -972,6 +973,10 @@ String AutoConnect::_token_HEAD(PageArgument& args) {
 
 String AutoConnect::_token_MENU_PRE(PageArgument& args) {
   String  currentMenu = FPSTR(_ELM_MENU_PRE);
+  currentMenu.replace(String(F("MENU_CONFIGNEW")), _attachMenuItem(AC_MENUITEM_CONFIGNEW));
+  currentMenu.replace(String(F("MENU_OPENSSIDS")), _attachMenuItem(AC_MENUITEM_OPENSSIDS));
+  currentMenu.replace(String(F("MENU_DISCONNECT")), _attachMenuItem(AC_MENUITEM_DISCONNECT));
+  currentMenu.replace(String(F("MENU_RESET")), _attachMenuItem(AC_MENUITEM_RESET));
   currentMenu.replace(String(F("BOOT_URI")), _getBootUri());
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
   currentMenu.replace(String(F("{{CUR_SSID}}")), _token_ESTAB_SSID(args));
@@ -988,7 +993,9 @@ String AutoConnect::_token_MENU_AUX(PageArgument& args) {
 String AutoConnect::_token_MENU_POST(PageArgument& args) {
   AC_UNUSED(args);
   String  postMenu = FPSTR(_ELM_MENU_POST);
+  postMenu.replace(String(F("MENU_HOME")), _attachMenuItem(AC_MENUITEM_HOME));
   postMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
+  postMenu.replace(String(F("MENU_DEVINFO")), _attachMenuItem(AC_MENUITEM_DEVINFO));
   return postMenu;
 }
 
@@ -1353,6 +1360,24 @@ String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
   return ssid;
 }
 
+String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
+  String liItem = String(F("<li class=\"lb-item\""));
+  if (_apConfig.attachMenu & AC_MENUITEM_CONFIGNEW)
+    liItem += String(F("><a href=\"" AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW));
+  else if (_apConfig.attachMenu & AC_MENUITEM_OPENSSIDS)
+    liItem += String(F("><a href=\"" AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS));
+  else if (_apConfig.attachMenu & AC_MENUITEM_DISCONNECT)
+    liItem += String(F("><a href=\"" AUTOCONNECT_URI_DISCON "\">" AUTOCONNECT_MENULABEL_DISCONNECT));
+  else if (_apConfig.attachMenu & AC_MENUITEM_RESET)
+    liItem += String(F(" id=\"reset\"><a href=\"#rdlg\">" AUTOCONNECT_MENULABEL_RESET));
+  else if (_apConfig.attachMenu & AC_MENUITEM_HOME)
+    liItem += String(F("><a href=\"HOME_URI\">" AUTOCONNECT_MENULABEL_HOME));
+  else if (_apConfig.attachMenu & AC_MENUITEM_DEVINFO)
+    liItem += String(F("><a href=\"" AUTOCONNECT_URI "\">" AUTOCONNECT_MENULABEL_DEVICEINFO));
+  liItem += String(F("</a></li>"));
+  return liItem;
+}
+
 /**
  *  This function dynamically build up the response pages that conform to
  *  the requested URI. A PageBuilder instance is stored in _responsePage
@@ -1361,7 +1386,7 @@ String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
  *  @retval true  A response page generated.
  *  @retval false Requested uri is not defined.
  */
-PageElement* AutoConnect::_setupPage(String uri) {
+PageElement* AutoConnect::_setupPage(String& uri) {
   PageElement *elm = new PageElement();
 
   // Restore menu title
@@ -1396,7 +1421,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("CHIP_ID")), std::bind(&AutoConnect::_token_CHIP_ID, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("FREE_HEAP")), std::bind(&AutoConnect::_token_FREE_HEAP, this, std::placeholders::_1));
   }
-  else if (uri == String(AUTOCONNECT_URI_CONFIG)) {
+  else if (uri == String(AUTOCONNECT_URI_CONFIG) && (_apConfig.attachMenu & AC_MENUITEM_CONFIGNEW)) {
 
     // Setup /auto/config
     elm->setMold(_PAGE_CONFIGNEW);
@@ -1415,7 +1440,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("HIDDEN_COUNT")), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CONFIG_IP")), std::bind(&AutoConnect::_token_CONFIG_STAIP, this, std::placeholders::_1));
   }
-  else if (uri == String(AUTOCONNECT_URI_CONNECT)) {
+  else if (uri == String(AUTOCONNECT_URI_CONNECT) && (_apConfig.attachMenu & AC_MENUITEM_CONFIGNEW || _apConfig.attachMenu & AC_MENUITEM_OPENSSIDS)) {
 
     // Setup /auto/connect
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_CONNECTING);
@@ -1429,7 +1454,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CUR_SSID")), std::bind(&AutoConnect::_token_CURRENT_SSID, this, std::placeholders::_1));
  }
-  else if (uri == String(AUTOCONNECT_URI_OPEN)) {
+  else if (uri == String(AUTOCONNECT_URI_OPEN) && (_apConfig.attachMenu & AC_MENUITEM_OPENSSIDS)) {
 
     // Setup /auto/open
     elm->setMold(_PAGE_OPENCREDT);
@@ -1443,7 +1468,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("OPEN_SSID")), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
   }
-  else if (uri == String(AUTOCONNECT_URI_DISCON)) {
+  else if (uri == String(AUTOCONNECT_URI_DISCON) && (_apConfig.attachMenu & AC_MENUITEM_DISCONNECT)) {
 
     // Setup /auto/disc
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_DISCONNECT);
@@ -1455,7 +1480,7 @@ PageElement* AutoConnect::_setupPage(String uri) {
     elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
   }
-  else if (uri == String(AUTOCONNECT_URI_RESET)) {
+  else if (uri == String(AUTOCONNECT_URI_RESET) && (_apConfig.attachMenu & AC_MENUITEM_RESET)) {
 
     // Setup /auto/reset
     elm->setMold(_PAGE_RESETTING);

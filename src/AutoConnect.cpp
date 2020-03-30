@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.1
- *  @date   2019-10-17
+ *  @version    1.1.4
+ *  @date   2020-03-30
  *  @copyright  MIT license.
  */
 
@@ -311,8 +311,13 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
   return rc;
 }
 
-String AutoConnect::_getBootUri()
-{
+/**
+ *  Get URI to redirect at boot. It uses the URI according to the
+ *  AutoConnectConfig::bootUti setting with the AutoConnectConfig::homeUri
+ *  as the boot path.
+ *  @return the boot uri.
+ */
+String AutoConnect::_getBootUri(void) {
   if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
     return String(AUTOCONNECT_URI);
   else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)

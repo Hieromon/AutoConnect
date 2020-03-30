@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.1
- *	@date	2019-10-17
+ *	@version	1.1.4
+ *	@date	2020-03-30
  *	@copyright	MIT license.
  */
 
@@ -45,10 +45,22 @@ typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_AUTO
 } AC_SAVECREDENTIAL_t;
 
+/**< URI that can be specified to AutoConnectConfig::bootUri. */
 typedef enum AC_ONBOOTURI {
   AC_ONBOOTURI_ROOT,
   AC_ONBOOTURI_HOME
 } AC_ONBOOTURI_t;
+
+/**< An enumerated type of the designated menu items. */
+typedef enum AC_MENUITEM {
+  AC_MENUITEM_CONFIGNEW  = 0x0001,
+  AC_MENUITEM_OPENSSIDS  = 0x0002,
+  AC_MENUITEM_DISCONNECT = 0x0004,
+  AC_MENUITEM_RESET      = 0x0008,
+  AC_MENUITEM_HOME       = 0x0010,
+  AC_MENUITEM_UPDATE     = 0x0020,
+  AC_MENUITEM_DEVINFO    = 0x0040
+} AC_MENUITEM_t;
 
 class AutoConnectConfig {
  public:
@@ -75,6 +87,7 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
+    attachMenu(AC_MENUITEM_CONFIGNEW + AC_MENUITEM_OPENSSIDS + AC_MENUITEM_DISCONNECT + AC_MENUITEM_RESET + AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
@@ -107,6 +120,7 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(portalTimeout),
+    attachMenu(AC_MENUITEM_CONFIGNEW + AC_MENUITEM_OPENSSIDS + AC_MENUITEM_DISCONNECT + AC_MENUITEM_RESET + AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
@@ -139,6 +153,7 @@ class AutoConnectConfig {
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
     portalTimeout = o.portalTimeout;
+    attachMenu = o.attachMenu;
     ticker = o.ticker;
     tickerPort = o.tickerPort;
     tickerOn = o.tickerOn;
@@ -170,6 +185,7 @@ class AutoConnectConfig {
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
+  uint16_t  attachMenu;         /**< A compound value of the menu items to be attached */
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
@@ -224,7 +240,7 @@ class AutoConnect {
   } AC_STARECONNECT_t;
   bool  _config(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
-  String _getBootUri();
+  String _getBootUri(void);
   bool  _getConfigSTA(station_config_t* config);
   void  _startWebServer(void);
   void  _startDNSServer(void);
@@ -234,7 +250,7 @@ class AutoConnect {
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
   void  _purgePages(void);
-  virtual PageElement*  _setupPage(String uri);
+  virtual PageElement*  _setupPage(String& uri);
 #ifdef AUTOCONNECT_USE_JSON
   template<typename T>
   bool  _parseJson(T in);
@@ -257,6 +273,7 @@ class AutoConnect {
   void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
+  String               _attachMenuItem(const AC_MENUITEM_t item);
   static uint32_t      _getChipId(void);
   static uint32_t      _getFlashChipRealSize(void);
   static String        _toMACAddressString(const uint8_t mac[]);
