@@ -553,10 +553,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
           "<a href=\"BOOT_URI\" class=\"lb-brand\">MENU_TITLE</a>"
           "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
         "</li>"
-        "MENU_CONFIGNEW"
-        "MENU_OPENSSIDS"
-        "MENU_DISCONNECT"
-        "MENU_RESET"
+        "MENU_LIST"
 };
 
 const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
@@ -973,10 +970,11 @@ String AutoConnect::_token_HEAD(PageArgument& args) {
 
 String AutoConnect::_token_MENU_PRE(PageArgument& args) {
   String  currentMenu = FPSTR(_ELM_MENU_PRE);
-  currentMenu.replace(String(F("MENU_CONFIGNEW")), _attachMenuItem(AC_MENUITEM_CONFIGNEW));
-  currentMenu.replace(String(F("MENU_OPENSSIDS")), _attachMenuItem(AC_MENUITEM_OPENSSIDS));
-  currentMenu.replace(String(F("MENU_DISCONNECT")), _attachMenuItem(AC_MENUITEM_DISCONNECT));
-  currentMenu.replace(String(F("MENU_RESET")), _attachMenuItem(AC_MENUITEM_RESET));
+  String  menuItem = _attachMenuItem(AC_MENUITEM_CONFIGNEW) +
+                     _attachMenuItem(AC_MENUITEM_OPENSSIDS) +
+                     _attachMenuItem(AC_MENUITEM_DISCONNECT) +
+                     _attachMenuItem(AC_MENUITEM_RESET);
+  currentMenu.replace(String(F("MENU_LIST")), menuItem);
   currentMenu.replace(String(F("BOOT_URI")), _getBootUri());
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
   currentMenu.replace(String(F("{{CUR_SSID}}")), _token_ESTAB_SSID(args));
