@@ -76,6 +76,26 @@ A **HOME** item at the bottom of the menu list is a link to the home path, and t
 
 Also, you can change the HOME path using the AutoConnect API. The [**AutoConnect::home**](api.md#home) function sets the URI as a link of the HOME item in the AutoConnect menu.
 
+## <i class="fa fa-bars"></i> Applying the active menu items
+
+Each of the above menu items can be configured with a Sketch. [AutoConnectConfig::applyMenu](apiconfig.md#applymenu) specifies the menu items that will be enabled at runtime.  
+For example, by disabling the [Configure new AP](#configure-new-ap) and [Disconnect](#disconnect) item, you can prevent the configuration for unknown access points.
+
+```cpp
+AutoConnect portal;
+AutoConnectConfig config;
+
+void setup() {
+  config.applyMenu = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_RESET | AC_MENUITEM_HOME;
+  portal.config(config);
+}
+```
+The result of executing the above Sketch is as below:
+
+<img src="images/applymenu.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
+
+Details for [AutoConnectConfig::applyMenu](apiconfig.md#applymenu).
+
 ## <i class="fa fa-bars"></i> Attaching to AutoConnect menu
 
 The AutoConnect menu can contain your sketch's web pages as extra items as a custom. It works for HTML pages implemented by the **ESP8266WebServer::on** handler or the **WebServer::on** handler for ESP32. That is, you can make them invoke the legacy web pages from the AutoConnect menu. The below screen-shot is the result of adding an example sketch for the ESP8266WebServer library known as [FSBrowser](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser) to the AutoConnect menu item. It can add Edit and List items with little modification to the legacy sketch code.
