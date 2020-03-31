@@ -1366,35 +1366,52 @@ String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
  *  @return HTML string of a li tag with the menu item.
  */
 String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
-  AC_MENUITEM_t liItem = static_cast<AC_MENUITEM_t>(_apConfig.attachMenu & static_cast<uint16_t>(item));
-  String  li = String(F("<li class=\"lb-item\""));
-  if (liItem == AC_MENUITEM_RESET)
-    li += String(F(" id=\"reset\"><a href=\"#rdlg\">" AUTOCONNECT_MENULABEL_RESET));
-  else {
-    li += String(F("><a href=\""));
-    switch (liItem) {
-    case AC_MENUITEM_CONFIGNEW:
-      li += String(F(AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW));
-      break;
-    case AC_MENUITEM_OPENSSIDS:
-      li += String(F(AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS));
-      break;
-    case AC_MENUITEM_DISCONNECT:
-      li += String(F(AUTOCONNECT_URI_DISCON "\">" AUTOCONNECT_MENULABEL_DISCONNECT));
-      break;
-    case AC_MENUITEM_DEVINFO:
-      li += String(F(AUTOCONNECT_URI "\">" AUTOCONNECT_MENULABEL_DEVICEINFO));
-      break;
-    case AC_MENUITEM_HOME:
-      li += String(F("HOME_URI\">" AUTOCONNECT_MENULABEL_HOME));
-      break;
-    default:
-      li = _emptyString;
-      break;
-    }
+  static const char _liTempl[]  PROGMEM = "<li class=\"lb-item\"%s><a href=\"%s\">%s</a></li>";
+  PGM_P id;
+  PGM_P link;
+  PGM_P label;
+
+  switch (static_cast<AC_MENUITEM_t>(_apConfig.attachMenu & static_cast<uint16_t>(item))) {
+  case AC_MENUITEM_CONFIGNEW:
+    id = PSTR("");
+    link = PSTR(AUTOCONNECT_URI_CONFIG);
+    label = PSTR(AUTOCONNECT_MENULABEL_CONFIGNEW);
+    break;
+  case AC_MENUITEM_OPENSSIDS:
+    id = PSTR("");
+    link = PSTR(AUTOCONNECT_URI_OPEN);
+    label = PSTR(AUTOCONNECT_MENULABEL_OPENSSIDS);
+    break;
+  case AC_MENUITEM_DISCONNECT:
+    id = PSTR("");
+    link = PSTR(AUTOCONNECT_URI_DISCON);
+    label = PSTR(AUTOCONNECT_MENULABEL_DISCONNECT);
+    break;
+  case AC_MENUITEM_RESET:
+    id = PSTR(" id=\"reset\"");
+    link = PSTR("#rdlg");
+    label = PSTR(AUTOCONNECT_MENULABEL_RESET);
+    break;
+  case AC_MENUITEM_HOME:
+    id = PSTR("");
+    link = PSTR("HOME_URI");
+    label = PSTR(AUTOCONNECT_MENULABEL_HOME);
+    break;
+  case AC_MENUITEM_DEVINFO:
+    id = PSTR("");
+    link = PSTR(AUTOCONNECT_URI);
+    label = PSTR(AUTOCONNECT_MENULABEL_DEVINFO);
+    break;
+  default:
+    id = nullptr;
+    link = nullptr;
+    label = nullptr;
+    break;
   }
-  li += String(F("</a></li>"));
-  return li;
+  char  li[128] = { '\0' };
+  if (!!id && !!link && !!label)
+    snprintf(li, sizeof(li), (PGM_P)_liTempl, id, link, label);
+  return String(li);
 }
 
 /**
