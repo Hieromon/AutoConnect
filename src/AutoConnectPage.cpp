@@ -1360,22 +1360,41 @@ String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
   return ssid;
 }
 
+/**
+ *  Generate AutoConnect menu item configured by AutoConnectConfig::attachMenu.
+ *  @param  item  An enumerated value for the generating item configured in AutoConnectConfig.
+ *  @return HTML string of a li tag with the menu item.
+ */
 String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
-  String liItem = String(F("<li class=\"lb-item\""));
-  if (_apConfig.attachMenu & AC_MENUITEM_CONFIGNEW)
-    liItem += String(F("><a href=\"" AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW));
-  else if (_apConfig.attachMenu & AC_MENUITEM_OPENSSIDS)
-    liItem += String(F("><a href=\"" AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS));
-  else if (_apConfig.attachMenu & AC_MENUITEM_DISCONNECT)
-    liItem += String(F("><a href=\"" AUTOCONNECT_URI_DISCON "\">" AUTOCONNECT_MENULABEL_DISCONNECT));
-  else if (_apConfig.attachMenu & AC_MENUITEM_RESET)
-    liItem += String(F(" id=\"reset\"><a href=\"#rdlg\">" AUTOCONNECT_MENULABEL_RESET));
-  else if (_apConfig.attachMenu & AC_MENUITEM_HOME)
-    liItem += String(F("><a href=\"HOME_URI\">" AUTOCONNECT_MENULABEL_HOME));
-  else if (_apConfig.attachMenu & AC_MENUITEM_DEVINFO)
-    liItem += String(F("><a href=\"" AUTOCONNECT_URI "\">" AUTOCONNECT_MENULABEL_DEVICEINFO));
-  liItem += String(F("</a></li>"));
-  return liItem;
+  AC_MENUITEM_t liItem = static_cast<AC_MENUITEM_t>(_apConfig.attachMenu & static_cast<uint16_t>(item));
+  String  li = String(F("<li class=\"lb-item\""));
+  if (liItem == AC_MENUITEM_RESET)
+    li += String(F(" id=\"reset\"><a href=\"#rdlg\">" AUTOCONNECT_MENULABEL_RESET));
+  else {
+    li += String(F("><a href=\""));
+    switch (liItem) {
+    case AC_MENUITEM_CONFIGNEW:
+      li += String(F(AUTOCONNECT_URI_CONFIG "\">" AUTOCONNECT_MENULABEL_CONFIGNEW));
+      break;
+    case AC_MENUITEM_OPENSSIDS:
+      li += String(F(AUTOCONNECT_URI_OPEN "\">" AUTOCONNECT_MENULABEL_OPENSSIDS));
+      break;
+    case AC_MENUITEM_DISCONNECT:
+      li += String(F(AUTOCONNECT_URI_DISCON "\">" AUTOCONNECT_MENULABEL_DISCONNECT));
+      break;
+    case AC_MENUITEM_DEVINFO:
+      li += String(F(AUTOCONNECT_URI "\">" AUTOCONNECT_MENULABEL_DEVICEINFO));
+      break;
+    case AC_MENUITEM_HOME:
+      li += String(F("HOME_URI\">" AUTOCONNECT_MENULABEL_HOME));
+      break;
+    default:
+      li = _emptyString;
+      break;
+    }
+  }
+  li += String(F("</a></li>"));
+  return li;
 }
 
 /**

@@ -53,6 +53,7 @@ typedef enum AC_ONBOOTURI {
 
 /**< An enumerated type of the designated menu items. */
 typedef enum AC_MENUITEM {
+  AC_MENUITEM_NONE       = 0x0000,
   AC_MENUITEM_CONFIGNEW  = 0x0001,
   AC_MENUITEM_OPENSSIDS  = 0x0002,
   AC_MENUITEM_DISCONNECT = 0x0004,
