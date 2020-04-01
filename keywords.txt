@@ -26,10 +26,12 @@ attach	KEYWORD2
 aux	KEYWORD2
 config	KEYWORD2
 begin	KEYWORD2
-disable	KEYWORD2
+disable KEYWORD2
+disableMenu	KEYWORD2
 del	KEYWORD2
 end	KEYWORD2
-enable	KEYWORD2
+enable  KEYWORD2
+enableMenu	KEYWORD2
 entries	KEYWORD2
 fetchElement	KEYWORD2
 getElement	KEYWORD2
