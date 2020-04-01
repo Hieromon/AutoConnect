@@ -88,7 +88,7 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
-    applyMenu(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
+    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
@@ -121,7 +121,7 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(portalTimeout),
-    applyMenu(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
+    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
@@ -154,7 +154,7 @@ class AutoConnectConfig {
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
     portalTimeout = o.portalTimeout;
-    applyMenu = o.applyMenu;
+    menuItems = o.menuItems;
     ticker = o.ticker;
     tickerPort = o.tickerPort;
     tickerOn = o.tickerOn;
@@ -186,7 +186,7 @@ class AutoConnectConfig {
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
-  uint16_t  applyMenu;          /**< A compound value of the menu items to be attached */
+  uint16_t  menuItems;          /**< A compound value of the menu items to be attached */
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
@@ -221,6 +221,8 @@ class AutoConnect {
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
   String where(void) const { return _auxUri; }
+  inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
+  inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON

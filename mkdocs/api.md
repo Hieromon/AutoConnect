@@ -110,7 +110,7 @@ bool config(AutoConnectConfig& config)
 bool config(const char* ap, const char* password = nullptr)
 ```
 
-Set SoftAP's WiFi configuration and static IP configuration. 
+Set SoftAP's WiFi configuration and static IP configuration.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">config</span><span class="apidesc">Reference to [**AutoConnectConfig**](apiconfig.md) containing SoftAP's parameters and static IP parameters.</span></dd>
@@ -120,6 +120,35 @@ Set SoftAP's WiFi configuration and static IP configuration.
     <dd><span class="apidef">true</span><span class="apidesc">Successfully configured.</span></dd>
     <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd>
 </dl>
+
+### <i class="fa fa-caret-right"></i> enableMenu
+
+```cpp
+void enableMenu(const uint16_t items)
+```
+
+Enable the [AutoConnect menu](menu.md) items specified by the items parameter with logical OR value using **AC_MENUITEM_t** constant.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items applying to the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu. AC_MENUITEM_t is enumeration type to identify each menu item and it has the below values.</span></dd>
+: - **AC_MENUITEM_CONFIGNEW** :
+    [Configure new AP](menu.md#configure-new-ap)
+: - **AC_MENUITEM_OPENSSIDS** :
+    [Open SSIDs](menu.md#open-ssids)
+: - **AC_MENUITEM_DISCONNECT** :
+    [Disconnect](menu.md#disconnect)
+: - **AC_MENUITEM_RESET** :
+    [Reset...](menu.md#reset)
+: - **AC_MENUITEM_HOME** :
+    [HOME](menu.md#home)
+: - **AC_MENUITEM_DEVINFO** :
+    [Device statistics](menu.md#where-the-from) as AutoConnect root page
+</dl>
+
+!!! note "It is added, not replaced."
+    The initial configuration of the AutoConnect menu items:  
+    `AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME`  
+    The enableMenu function adds an indication of the specified items to the current. Therefore, use the [disableMenu](#disableMenu) to remove the specified item from the initial menu.
 
 ### <i class="fa fa-caret-right"></i> end
 
@@ -131,6 +160,19 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
 
 !!! warning "Attention to end"
     The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
+
+
+### <i class="fa fa-caret-right"></i> disableMenu
+
+```cpp
+void disableMenu(const uint16_t items)
+```
+
+Disable the [AutoConnect menu](menu.md) items specified by the items parameter with logical OR value using **AC_MENUITEM_t** constant.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items deleting from the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item. Refer to the [enableMenu](#enablemenu) about AC_MENUITEM_t.</span></dd>
+</dl>
 
 ### <i class="fa fa-caret-right"></i> handleClient
 

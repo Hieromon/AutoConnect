@@ -78,7 +78,7 @@ Also, you can change the HOME path using the AutoConnect API. The [**AutoConnect
 
 ## <i class="fa fa-bars"></i> Applying the active menu items
 
-Each of the above menu items can be configured with a Sketch. [AutoConnectConfig::applyMenu](apiconfig.md#applymenu) specifies the menu items that will be enabled at runtime.  
+Each of the above menu items can be configured with a Sketch. [AutoConnectConfig::menuItems](apiconfig.md#menuitems) specifies the menu items that will be enabled at runtime. You can also adjust available menu items using [AutoConnect::enableMenu](api.md#enablemenu) and [AutoConnect::disableMenu](api.md#disablemenu) function. It is an alternative to [AutoConnectConfig::menuItems](apiconfig.md#menuitems) and provides a shortcut to avoid using AutoConnectConfig.  
 For example, by disabling the [Configure new AP](#configure-new-ap) and [Disconnect](#disconnect) item, you can prevent the configuration for unknown access points.
 
 ```cpp
@@ -86,15 +86,27 @@ AutoConnect portal;
 AutoConnectConfig config;
 
 void setup() {
-  config.applyMenu = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_RESET | AC_MENUITEM_HOME;
+  config.menuItems = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_RESET | AC_MENUITEM_HOME;
   portal.config(config);
 }
 ```
+
+The next is another way to achieve the same effect.
+
+```cpp
+AutoConnect portal;
+
+void setup() {
+  portal.disableMenu(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_DISCONNECT);
+  portal.config(config);
+}
+```
+
 The result of executing the above Sketch is as below:
 
 <img src="images/applymenu.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
-Details for [AutoConnectConfig::applyMenu](apiconfig.md#applymenu).
+Details for [AutoConnectConfig::menuItems](apiconfig.md#menuitems).
 
 ## <i class="fa fa-bars"></i> Attaching to AutoConnect menu
 

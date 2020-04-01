@@ -40,9 +40,9 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
     <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **172.217.28.1**</span></dd>
 </dl>
 
-### <i class="fa fa-caret-right"></i> applyMenu
+### <i class="fa fa-caret-right"></i> menuItems
 
-Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily combine valid menus by coordinating the applyMenu value.
+Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily combine valid menus by coordinating the menuItems value.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">uint16_t</span><span class="apidesc">It provides the combined **AC_MENUITEM_t** value of the item to apply to the AutoConnect menu.<br>Specify the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu.  It affects not only disappear the items from the menu also invalidates the URI they have. As a consequence, even if it accesses the URL directly will occur a 404 error.<br>The default value is logical OR of AC_MENUITEM_CONFIGNEW, AC_MENUITEM_OPENSSIDS, AC_MENUITEM_DISCONNECT, AC_MENUITEM_RESET and AC_MENUITEM_HOME.</span></dd>
@@ -57,10 +57,10 @@ Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily
 </dl>
 
 !!! info "How to specify the value of the menu items"
-    An applyMenu accepts the logical OR of AC_MENUITEM_t type value. For example, to enable only Open SSIDs and HOME items, specify:
+    An menuItems accepts the logical OR of AC_MENUITEM_t type value. For example, to enable only Open SSIDs and HOME items, specify:
     ```cpp
     AutoConnectConfig config;
-    config.applyMenu = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_HOME;
+    config.menuItems = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_HOME;
     ```
     However, even if you specify like the above, the AutoConnectAux page items still display on the menu. To remove the AutoConnectAux items, use the [AutoConnectAux::menu](apiaux.md#menu) function.
 
