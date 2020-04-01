@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.4
- *	@date	2020-03-30
+ *	@version	1.1.5
+ *	@date	2020-04-01
  *	@copyright	MIT license.
  */
 
