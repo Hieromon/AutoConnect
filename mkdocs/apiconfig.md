@@ -40,30 +40,6 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
     <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **172.217.28.1**</span></dd>
 </dl>
 
-### <i class="fa fa-caret-right"></i> menuItems
-
-Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily combine valid menus by coordinating the menuItems value.
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">uint16_t</span><span class="apidesc">It provides the combined **AC_MENUITEM_t** value of the item to apply to the AutoConnect menu.<br>Specify the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu.  It affects not only disappear the items from the menu also invalidates the URI they have. As a consequence, even if it accesses the URL directly will occur a 404 error.<br>The default value is logical OR of AC_MENUITEM_CONFIGNEW, AC_MENUITEM_OPENSSIDS, AC_MENUITEM_DISCONNECT, AC_MENUITEM_RESET and AC_MENUITEM_HOME.</span></dd>
-    <dt>**Value**</dt>
-    <dd><span class="apidef">AC_MENUITEM_NONE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">No assign items except for the AutoConnectAux page item.</span></dd>
-    <dd><span class="apidef">AC_MENUITEM_CONFIGNEW</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Configure new AP](menu.md#config-new-ap) item.</span></dd>
-    <dd><span class="apidef">AC_MENUITEM_OPENSSIDS</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Open SSIDs](menu.md#open-ssids) item.</span></dd>
-    <dd><span class="apidef">AC_MENUITEM_DISCONNECT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Disconnect](menu.md#disconnect) item.</span></dd>
-    <dd><span class="apidef">AC_MENUITEM_RESET</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Reset...](menu.md#reset) item.</span></dd>
-    <dd><span class="apidef">AC_MENUITEM_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [HOME](menu.md#home) item.</span></dd>
-    <dd><span class="apidef">AC_MENUITEM_DEVINFO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends the **Device info** item which links to [AutoConnect statistics page](menu.md##where-the-from).</span></dd>
-</dl>
-
-!!! info "How to specify the value of the menu items"
-    An menuItems accepts the logical OR of AC_MENUITEM_t type value. For example, to enable only Open SSIDs and HOME items, specify:
-    ```cpp
-    AutoConnectConfig config;
-    config.menuItems = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_HOME;
-    ```
-    However, even if you specify like the above, the AutoConnectAux page items still display on the menu. To remove the AutoConnectAux items, use the [AutoConnectAux::menu](apiaux.md#menu) function.
-
 ### <i class="fa fa-caret-right"></i> autoReconnect
 
 Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the flash, even if the connection failed by current SSID.  
@@ -212,6 +188,30 @@ Disable the first WiFi.begin() and start the captive portal. If this option is e
     <dd><span class="apidef">true</span><span class="apidesc">Start the captive portal with [**AutoConnect::begin**](api.md#begin).</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Enable the first WiFi.begin() and it will start captive portal when connection failed. This is default.</span></dd>
 </dl>
+
+### <i class="fa fa-caret-right"></i> menuItems
+
+Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily combine valid menus by coordinating the menuItems value.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">uint16_t</span><span class="apidesc">It provides the combined **AC_MENUITEM_t** value of the item to apply to the AutoConnect menu.<br>Specify the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu.  It affects not only disappear the items from the menu also invalidates the URI they have. As a consequence, even if it accesses the URL directly will occur a 404 error.<br>The default value is logical OR of AC_MENUITEM_CONFIGNEW, AC_MENUITEM_OPENSSIDS, AC_MENUITEM_DISCONNECT, AC_MENUITEM_RESET and AC_MENUITEM_HOME.</span></dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_MENUITEM_NONE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">No assign items except for the AutoConnectAux page item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_CONFIGNEW</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Configure new AP](menu.md#config-new-ap) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_OPENSSIDS</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Open SSIDs](menu.md#open-ssids) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_DISCONNECT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Disconnect](menu.md#disconnect) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_RESET</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Reset...](menu.md#reset) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [HOME](menu.md#home) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_DEVINFO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends the **Device info** item which links to [AutoConnect statistics page](menu.md##where-the-from).</span></dd>
+</dl>
+
+!!! info "How to specify the value of the menu items"
+    An menuItems accepts the logical OR of AC_MENUITEM_t type value. For example, to enable only Open SSIDs and HOME items, specify:
+    ```cpp
+    AutoConnectConfig config;
+    config.menuItems = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_HOME;
+    ```
+    However, even if you specify like the above, the AutoConnectAux page items still display on the menu. To remove the AutoConnectAux items, use the [AutoConnectAux::menu](apiaux.md#menu) function.
 
 ### <i class="fa fa-caret-right"></i> netmask
 
