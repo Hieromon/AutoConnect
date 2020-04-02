@@ -115,7 +115,7 @@ If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not 
 
 If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.
 
-```
+```powershell
 ets Jan  8 2013,rst cause:2, boot mode:(1,6) or (1,7)
 ets Jan  8 2013,rst cause:4, boot mode:(1,6) or (1,7)
 wdt reset
@@ -124,7 +124,7 @@ wdt reset
 The correct boot mode for starting the sketch is **(3, x)**.
 
 !!! info "ESP8266 Boot Messages"
-    It is described by [ESP8266 Non-OS SDK API Reference](view-source:https://www.espressif.com/en/products/hardware/esp8266ex/resources), section A.5.
+    It is described by [ESP8266 Non-OS SDK API Reference](https://www.espressif.com/en/products/hardware/esp8266ex/resources), section A.5.
 
     | Messages | Description |
     |----------|-------------|
@@ -154,7 +154,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 
 To exclude ArduinoJson at compile-time, give the following `#define` directive as a compiler option such as the [arduino-cli](https://github.com/arduino/arduino-cli) or [PlatformIO](https://platformio.org/).
 
-```
+```cpp
 #define AUTOCONNECT_NOUSE_JSON
 ```
 
@@ -200,7 +200,7 @@ If the sketch is correct, a JSON syntax error may have occurred. In this case, a
 ## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
 
 A structure of AutoConnect saved credentials has changed two times throughout enhancement with v1.0.3 and v1.1.0. In particular, due to enhancements in v1.1.0, AutoConnectCredential data structure has lost the backward compatibility with previous versions. You must erase the flash of the ESP module using the esptool completely to save the credentials correctly with v1.1.0.
-```
+```powershell
 esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
 ```
 
@@ -216,7 +216,7 @@ Also, you can check the memory running out status by rebuilding the sketch with 
 
 If the heap memory is insufficient, the following message is displayed on the serial console.
 
-```
+```powershell
 [PB] Failed building, free heap:<Size of free heap>
 ```
 

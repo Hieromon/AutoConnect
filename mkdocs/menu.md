@@ -43,8 +43,8 @@ After WiFi connected, AutoConnect will automatically save the established SSID a
 
 !!! note "Saved credentials data structure has changed"
     A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
-    ```
-    esptool -c esp8266 (or esp32) - p [COM_PORT] erase_flash
+    ```powershell
+    esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
     ```
 
 ## <i class="fa fa-bars"></i> Disconnect

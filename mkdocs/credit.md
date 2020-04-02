@@ -207,6 +207,6 @@ There may be 0xff as an invalid data in the credential saving area. The 0xff are
 
 !!! note "AutoConnectCredential has changed"
     It was lost AutoConnectCredential backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not work properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
-    ```
-    esptool -c esp8266 (or esp32) - p [COM_PORT] erase_flash
+    ```powershell
+    esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
     ```

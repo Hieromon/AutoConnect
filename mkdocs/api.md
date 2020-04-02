@@ -13,16 +13,16 @@ They contain in ```AutoConnectDefs.h```.
 ```cpp
 #define AC_DEBUG                                // Monitor message output activation
 #define AC_DEBUG_PORT           Serial          // Default message output device
-#define AUTOCONNECT_AP_IP       0x01F4A8C0      // Default SoftAP IP
-#define AUTOCONNECT_AP_GW       0x01F4A8C0      // Default SoftAP Gateway IP
+#define AUTOCONNECT_AP_IP       0x011CD9AC      // Default SoftAP IP
+#define AUTOCONNECT_AP_GW       0x011CD9AC      // Default SoftAP Gateway IP
 #define AUTOCONNECT_AP_NM       0x00FFFFFF      // Default subnet mask
 #define AUTOCONNECT_DNSPORT     53              // Default DNS port at captive portal
 #define AUTOCONNECT_HTTPPORT    80              // Default HTTP
 #define AUTOCONNECT_MENU_TITLE  "AutoConnect"   // Default AutoConnect menu title
-#define AUTOCONNECT_STARTUPTIME 10              // Default waiting time[s] for after reset
 #define AUTOCONNECT_URI         "/_ac"          // Default AutoConnect root path
 #define AUTOCONNECT_TIMEOUT     30000           // Default connection timeout[ms]
 #define AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT  0    // Captive portal timeout value
+#define AUTOCONNECT_STARTUPTIME 30              // Default waiting time[s] for after reset
 #define AUTOCONNECT_USE_JSON                    // Allow AutoConnect elements to be handled by JSON format
 ```
 

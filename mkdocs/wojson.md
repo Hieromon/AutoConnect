@@ -35,7 +35,7 @@ In addition to the above procedure, to completely cut off for binding with the A
 
 The code excluding JSON processing from the mqttRSSI sketch attached to the library is as follows. <small>(It is a part of code. Refer to mqttRSSI_NA.ino for the whole sketch.)</small>
 
-<i class="fa fa-code"></i> The JSON document for mqttRSSI
+<i class="fab fa-js-square"></i> The JSON document for mqttRSSI
 
 ```json
 [

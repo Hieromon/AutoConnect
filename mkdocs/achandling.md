@@ -543,7 +543,7 @@ String append(AutoConnectAux& aux, PageArgument& args) {
 ### <i class="fa fa-wrench"></i> How you can reach the values
 
 AutoConnectSubmit uses the POST method to send HTTP requests. A value of AutoConnectInput sent to the ESP8266 or ESP32 with POST is stored in the request body of the HTTP request:
-```
+```powershell
 POST /feels HTTP/1.1
 Host: ESP8266_IP_ADDRESS
 name1=value1&name2=value2&name3=value3

@@ -307,7 +307,7 @@ By default, the credentials saving area is occupied from the beginning of EEPROM
 
 > The following diagram illustrates flash layout used in Arduino environment:
 
-> ```
+> ```powershell
 > |--------------|-------|---------------|--|--|--|--|--|
 > ^              ^       ^               ^     ^
 > Sketch    OTA update   File system   EEPROM  WiFi config (SDK)

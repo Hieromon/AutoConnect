@@ -88,7 +88,7 @@ You prepare its header file and place it in the `src` folder of the project fold
 
 When you store `mylabels.h` containing the new label text definition in the `src` folder, your Arduino project folder structure should look like this:
 
-```
+```javascript
 <Project folder>
 |-- <pio>
 |-- <.vscode>
