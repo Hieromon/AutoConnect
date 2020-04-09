@@ -8,8 +8,8 @@
  * @copyright  MIT license.
  */
 
-#ifndef _AUTOCONNECTUPDATEPAGE_H
-#define _AUTOCONNECTUPDATEPAGE_H
+#ifndef _AUTOCONNECTUPDATEPAGE_H_
+#define _AUTOCONNECTUPDATEPAGE_H_
 
 // Define the AUTOCONNECT_URI_UPDATE page to select the sketch binary
 // for update and order update execution.
@@ -19,10 +19,10 @@ const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] 
   { AC_Element, "c1", "<div class=\"bins\">", nullptr },
   { AC_Radio, "firmwares", nullptr, nullptr },
   { AC_Element, "c1", "</div>", nullptr },
-  { AC_Submit, "update", "UPDATE", AUTOCONNECT_URI_UPDATE_ACT }
+  { AC_Submit, "update", AUTOCONNECT_BUTTONLABEL_UPDATE, AUTOCONNECT_URI_UPDATE_ACT }
 };
 const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageCatalog PROGMEM = {
-  AUTOCONNECT_URI_UPDATE, "Update", false, AutoConnectUpdateAct::_elmCatalog
+  AUTOCONNECT_URI_UPDATE, AUTOCONNECT_MENULABEL_UPDATE, false, AutoConnectUpdateAct::_elmCatalog
 };
 
 // Define the AUTOCONNECT_URI_UPDATE_ACT page to display during the
@@ -45,7 +45,7 @@ const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmProgress[]
   { AC_Element, "c7", "}window.onload=bar;</script>", nullptr }
 };
 const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageProgress PROGMEM = {
-  AUTOCONNECT_URI_UPDATE_ACT, "Update", false, AutoConnectUpdateAct::_elmProgress
+  AUTOCONNECT_URI_UPDATE_ACT, AUTOCONNECT_MENULABEL_UPDATE, false, AutoConnectUpdateAct::_elmProgress
 };
 
 // Definition of the AUTOCONNECT_URI_UPDATE_RESULT page to notify update results
@@ -54,7 +54,7 @@ const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmResult[] P
   { AC_Element, "restart", "<script type=\"text/javascript\">window.onload=function(){var e=new FormData;e.append(\"op\",\"#r\");var o=new XMLHttpRequest;o.timeout=" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_TIMEOUT) ",o.onloadend=function(){setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\"," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_WAITFORREBOOT) ")},o.open(\"POST\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),o.send(e)};</script>", nullptr }
 };
 const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageResult PROGMEM = {
-  AUTOCONNECT_URI_UPDATE_RESULT, "Update", false, AutoConnectUpdateAct::_elmResult
+  AUTOCONNECT_URI_UPDATE_RESULT, AUTOCONNECT_MENULABEL_UPDATE, false, AutoConnectUpdateAct::_elmResult
 };
 
 #endif // _AUTOCONNECTUPDATEPAGE_H
