@@ -8,9 +8,9 @@ AutoConnectUpdate(const String& host, const uint16_t port, const String& uri, co
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">host</span><span class="apidesc">Update server address. Specifies IP address or FQDN.</span></dd>
-    <dd><span class="apidef">port</span><span class="apidesc">Specifies HTTP port for the updating process. The default is defined as the  **AUTOCONNECT_UPDATE_PORT** macro in the `AutoConnectDefs.h` header file.</span></dd>
+    <dd><span class="apidef">port</span><span class="apidesc">Specifies HTTP port for the updating process. The default is defined as the  **AUTOCONNECT_UPDATE_PORT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.</span></dd>
     <dd><span class="apidef">uri</span><span class="apidesc">Specifies a URI on the update server that has deployed available binary sketch files.</span></dd>
-    <dd><span class="apidef">timeout</span><span class="apidesc">Specifies the maximum response time for the update server. The default is defined as the **AUTOCONNECT_UPDATE_TIMEOUT** macro in the `AutoConnectDefs.h` header file.</span></dt>
+    <dd><span class="apidef">timeout</span><span class="apidesc">Specifies the maximum response time for the update server. The default is defined as the **AUTOCONNECT_UPDATE_TIMEOUT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.</span></dt>
     <dd><span class="apidef">ledOn</span><span class="apidesc">Active signal to light the LED ticker during the update. Specifies **HIGH** or **LOW**</span></dt>
 </dl>
 
@@ -82,7 +82,7 @@ void AutoConnectUpdate::setLedPin(int ledPin, uint8_t ledOn)
 Sets the port and the ON signal level of the externally connected LED that should act as a ticker during the update process.
 <dl class="apidl">
     <dt>**Parameter**</dt>
-    <dd><span class="apidef">ledPin</span><span class="apidesc">Specifies the PIN connected external LED for the ticker. The default is defined as the  **AUTOCONNECT_TICKER_PORT** macro in the `AutoConnectDefs.h` header file and it is derived from the board-specific **LED_BUILTIN**. By default, the AutoConnectUpdate class does not use the ticker for boards without the LED_BUILTIN definition. If you connect the ticker LED externally, you need to specify the PIN using the [setLedPin](#setledpin) function.</span></dd>
+    <dd><span class="apidef">ledPin</span><span class="apidesc">Specifies the PIN connected external LED for the ticker. The default is defined as the  **AUTOCONNECT_TICKER_PORT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file and it is derived from the board-specific **LED_BUILTIN**. By default, the AutoConnectUpdate class does not use the ticker for boards without the LED_BUILTIN definition. If you connect the ticker LED externally, you need to specify the PIN using the [setLedPin](#setledpin) function.</span></dd>
     <dd><span class="apidef">ledOn</span><span class="apidesc">Specifies the the ON signal level of the LED PIN port. It is **HIGH** or **LOW**.</span></dd>
 </dl>
 
@@ -123,7 +123,7 @@ Update server address. Specifies IP address or FQDN.
 HTTP port for the updating process.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc">The default is defined as the  **AUTOCONNECT_UPDATE_PORT** macro in the `AutoConnectDefs.h` header file.</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc">The default is defined as the  **AUTOCONNECT_UPDATE_PORT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> uri

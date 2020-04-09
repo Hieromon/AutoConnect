@@ -32,7 +32,7 @@ You can avoid a compile error in one of two ways:
 
 1. Disable an AutoConnectUpdate feature if you don't need.
 
-    You can disable the AutoConnectUpdate feature by commenting out the **AUTOCONNECT_USE_UPDATE** macro in the `AutoConnectDefs.h` header file.
+    You can disable the AutoConnectUpdate feature by commenting out the [**AUTOCONNECT_USE_UPDATE**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L34) macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.
     ```cpp
     #define AUTOCONNECT_USE_UPDATE
     ```
@@ -137,7 +137,7 @@ You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more 
 
 ## <i class="fa fa-question-circle"></i> How change HTTP port?
 
-HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112) header file. You can change it directly with several editors and must re-compile.
+HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L123) header file. You can change it directly with several editors and must re-compile.
 
 ```cpp
 #define AUTOCONNECT_HTTPPORT    80

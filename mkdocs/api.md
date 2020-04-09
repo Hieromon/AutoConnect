@@ -24,6 +24,11 @@ They contain in ```AutoConnectDefs.h```.
 #define AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT  0    // Captive portal timeout value
 #define AUTOCONNECT_STARTUPTIME 30              // Default waiting time[s] for after reset
 #define AUTOCONNECT_USE_JSON                    // Allow AutoConnect elements to be handled by JSON format
+#define AUTOCONNECT_USE_UPDATE                  // Indicator of whether to use the AutoConnectUpdate feature.
+#define AUTOCONNECT_UPDATE_PORT 8000            // Available HTTP port number for the update
+#define AUTOCONNECT_UPDATE_TIMEOUT  8000        // HTTP client timeout limitation for the update [ms]
+#define AUTOCONNECT_TICKER_PORT LED_BUILTIN     // Ticker port
+#endif
 ```
 
 !!! note "Macros placement moved"

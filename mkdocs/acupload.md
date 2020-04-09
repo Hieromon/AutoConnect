@@ -209,7 +209,7 @@ typedef struct {
     </span></dd>
 </dl>
 
-The upload handler needs to implement processing based on the enumeration value of HTTPUpload.status as **HTTPUploadStatus** enum type. HTTPUploadStatus enumeration is as follows:
+An upload handler needs to implement a procedure corresponding with **HTTPUploadStatus** enum value indicated by the uploading process of ESP8266WebServer class, which contained in HTTPUpload.status as following values:
 
 - **`UPLOAD_FILE_START`** : Invokes to the \_open.
 - **`UPLOAD_FILE_WRITE`** : Invokes to the \_write.

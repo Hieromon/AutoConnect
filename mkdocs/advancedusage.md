@@ -224,7 +224,7 @@ Executing the above sketch will rewrite the menu title for the **FSBrowser** as 
 
 ### <i class="fa fa-caret-right"></i> Change the menu labels
 
-You can change the label of the AutoConnect menu item by rewriting the default label letter in [AutoConnectLabels.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h) macros. However, changing menu items letter influences all the sketch's build scenes.
+You can change the label of the AutoConnect menu item by rewriting the default label letter in [AutoConnectLabels.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h) macros. However, changing menu items letter influences all build scenes for the Sketch.
 
 ```cpp
 #define AUTOCONNECT_MENULABEL_CONFIGNEW   "Configure new AP"
@@ -234,6 +234,7 @@ You can change the label of the AutoConnect menu item by rewriting the default l
 #define AUTOCONNECT_MENULABEL_HOME        "HOME"
 #define AUTOCONNECT_BUTTONLABEL_RESET     "RESET"
 ```
+See also: [*Change label text*](changelabel.md)
 
 ### <i class="fa fa-caret-right"></i> Combination with mDNS
 
@@ -486,7 +487,7 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 
-A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L62) macro in the include header file as [AutoConnectDef.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDef.h).
+A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69) macro in the include header file as [AutoConnectDef.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDef.h).
 
 ```cpp
 #define AUTOCONNECT_URI         "/_ac"

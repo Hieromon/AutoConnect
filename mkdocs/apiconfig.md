@@ -97,7 +97,7 @@ Specify the location to be redirected after module reset in the AutoConnect menu
     <dt>**Type**</dt>
     <dd>AC_ONBOOTURI_t</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef">AC_ONBOOTURI_ROOT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in AutoConnectDefs.h.</span></dd>
+    <dd><span class="apidef">AC_ONBOOTURI_ROOT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in [`AutoConnectDefs.h`](api.md#defined-macros).</span></dd>
     <dd><span class="apidef">AC_ONBOOTURI_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">It is redirected to the URI specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</span></dd>
 </dl>
 
@@ -291,7 +291,7 @@ Set flicker signal output according to WiFi connection status during AutoConnect
 
 ### <i class="fa fa-caret-right"></i> tickerPort
 
-Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **AUTOCONNECT_TICKER_PORT** in `AutoConnectDefs.h`.
+Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **AUTOCONNECT_TICKER_PORT** in [`AutoConnectDefs.h`](api.md#defined-macros).
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint8_t</dd>
