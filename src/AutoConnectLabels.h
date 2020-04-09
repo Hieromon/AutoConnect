@@ -2,8 +2,8 @@
  *  AutoConnect proper menu label constant definition.
  *  @file   AutoConnectLabels.h
  *  @author hieromon@gmail.com
- *  @version    1.1.4
- *  @date   2020-02-13
+ *  @version    1.1.5
+ *  @date   2020-04-09
  *  @copyright  MIT license.
  */
 
@@ -71,6 +71,11 @@
 #define AUTOCONNECT_BUTTONLABEL_RESET     "RESET"
 //#define AUTOCONNECT_BUTTONLABEL_RESET     "Reboot"
 #endif // !AUTOCONNECT_BUTTONLABEL_RESET
+
+// Button label: UPDATE
+#ifndef AUTOCONNECT_BUTTONLABEL_UPDATE
+#define AUTOCONNECT_BUTTONLABEL_UPDATE     "UPDATE"
+#endif // !AUTOCONNECT_BUTTONLABEL_UPDATE
 
 // Page title: Page not found
 #ifndef AUTOCONNECT_PAGETITLE_NOTFOUND
@@ -221,6 +226,26 @@
 #ifndef AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS
 #define AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "No saved credentials."
 #endif // !AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS
+
+// Text: The update page caption
+#ifndef AUTOCONNECT_TEXT_UPDATINGFIRMWARE
+#define AUTOCONNECT_TEXT_UPDATINGFIRMWARE "Updating firmware via OTA"
+#endif // !AUTOCONNECT_TEXT_UPDATINGFIRMWARE
+
+// Text: The update page's file selection button label
+#ifndef AUTOCONNECT_TEXT_SELECTFIRMWARE
+#define AUTOCONNECT_TEXT_SELECTFIRMWARE "Select firmware: "
+#endif // !AUTOCONNECT_TEXT_SELECTFIRMWARE
+
+// Text: OTA success
+#ifndef AUTOCONNECT_TEXT_OTASUCCESS
+#define AUTOCONNECT_TEXT_OTASUCCESS "Successfully updated, rebooting..."
+#endif // !AUTOCONNECT_TEXT_OTASUCCESS
+
+// Text: OTA failure
+#ifndef AUTOCONNECT_TEXT_OTAFAILURE
+#define AUTOCONNECT_TEXT_OTAFAILURE "Failed to update: "
+#endif // !AUTOCONNECT_TEXT_OTAFAILURE
 
 // Menu Text: Connecting
 #ifndef AUTOCONNECT_MENUTEXT_CONNECTING

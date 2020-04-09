@@ -95,6 +95,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       _ticker->start(AUTOCONNECT_FLICKER_PERIODDC, (uint8_t)AUTOCONNECT_FLICKER_WIDTHDC);
   }
 
+  // Attach AutoConnectOTA if OTA is available.
+  if (_apConfig.ota) {
+    _ota.reset(new AutoConnectOTA());
+    _ota->attach(*this);
+    _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
+  }
+
   // Advance configuration for STA mode. Restore previous configuration of STA.
   station_config_t  current;
   if (_getConfigSTA(&current)) {
@@ -377,6 +384,9 @@ void AutoConnect::home(const String& uri) {
 void AutoConnect::end(void) {
   _responsePage.reset();
   _currentPageElement.reset();
+  _ticker.reset();
+  _update.reset();
+  _ota.reset();
 
   _stopPortal();
   _dnsServer.reset();
@@ -583,6 +593,15 @@ void AutoConnect::handleRequest(void) {
   // Handle the update behaviors for attached AutoConnectUpdate.
   if (_update)
     _update->handleUpdate();
+
+  // Indicate the reboot at the next handleClient turn
+  // with on completion of the update via OTA.
+  if (_ota) {
+    if (_ota->status() == AutoConnectOTA::OTA_RIP) {
+      _webServer->client().setNoDelay(true);
+      _rfReset = true;
+    }
+  }
 }
 
 /**
@@ -850,7 +869,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
 // that occurs at connection establishment.
 // [WiFiClient.cpp:463] connected(): Disconnected: RES: 0, ERR: 128
 // When connecting as a station, TCP reset caused by switching of the
-// radio channel occurs. Although the Espressif's view is true. However,
+// radio channel occurs. Although the Espressif view is true. However,
 // the actual TCP reset occurs not at the time of switching the channel.
 // It occurs at the connection from the ESP32 to the AP is established
 // and it is possible that TCP reset is occurring in other situations.

@@ -31,8 +31,12 @@ using WebServerClass = WebServer;
 #include "AutoConnectDefs.h"
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
-#include "AutoConnectAux.h"
 #include "AutoConnectTicker.h"
+#include "AutoConnectAux.h"
+
+// The realization of AutoConnectOTA is effective only by the explicit
+#include "AutoConnectOTA.h"
+class AutoConnectOTA;  // Reference to avoid circular
 
 // The realization of AutoConnectUpdate is effective only by the explicit
 // definition of AUTOCONNECT_USE_UPDATE
@@ -125,6 +129,7 @@ class AutoConnectConfig {
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
+    ota(false),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -158,6 +163,7 @@ class AutoConnectConfig {
     ticker = o.ticker;
     tickerPort = o.tickerPort;
     tickerOn = o.tickerOn;
+    ota = o.ota;
     hostName = o.hostName;
     homeUri = o.homeUri;
     title = o.title;
@@ -190,6 +196,7 @@ class AutoConnectConfig {
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
+  bool      ota;                /**< Attach built-in OTA */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   String    title;              /**< Menu title */
@@ -304,6 +311,8 @@ class AutoConnect {
   String        _prevUri;       /**< Previous generated page uri */
   /** Available updater, only reset by AutoConnectUpdate::attach is valid */
   std::unique_ptr<AutoConnectUpdate>  _update;
+  /** OTA updater */
+  std::unique_ptr<AutoConnectOTA>     _ota;
 
   /** Saved configurations */
   AutoConnectConfig  _apConfig;
