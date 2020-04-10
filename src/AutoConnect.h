@@ -55,6 +55,13 @@ typedef enum AC_ONBOOTURI {
   AC_ONBOOTURI_HOME
 } AC_ONBOOTURI_t;
 
+/**< Specifier for using built-in OTA */
+typedef enum AC_OTA {
+  AC_OTA_NONE,
+  AC_OTA_USE,
+  AC_OTA_USEAUTH
+} AC_OTA_t;
+
 /**< An enumerated type of the designated menu items. */
 typedef enum AC_MENUITEM {
   AC_MENUITEM_NONE       = 0x0000,
@@ -92,10 +99,11 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
-    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
+    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
+    ota(AC_OTA_NONE),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -125,11 +133,11 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(portalTimeout),
-    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
+    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
-    ota(false),
+    ota(AC_OTA_NONE),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -196,7 +204,7 @@ class AutoConnectConfig {
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
-  bool      ota;                /**< Attach built-in OTA */
+  AC_OTA_t  ota;                /**< Attach built-in OTA */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   String    title;              /**< Menu title */
