@@ -36,9 +36,10 @@ class AutoConnectOTA : public AutoConnectUploadHandler {
   AutoConnectOTA() : _status(OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {}
   ~AutoConnectOTA();
   void  attach(AutoConnect& portal);
-  String  error(void) const { return _err; }
-  AC_OTAStatus_t  status(void) const { return _status; }
-  void  setTicker(uint8_t pin, uint8_t on) { _tickerPort = pin, _tickerOn = on; }
+  String  error(void) const { return _err; }                /**< Returns current error string */
+  void  menu(const bool post) { _auxUpdate->menu(post); };  /**< Enabel or disable arranging a created AutoConnectOTA page in the menu. */
+  AC_OTAStatus_t  status(void) const { return _status; }    /**< Return current error status of the Update class */
+  void  setTicker(int8_t pin, uint8_t on) { _tickerPort = pin, _tickerOn = on; }  /**< Set ticker LED port */
 
  protected:
   // Attribute definition of the element to be placed on the update page.
@@ -72,7 +73,7 @@ class AutoConnectOTA : public AutoConnectUploadHandler {
   void  _setError(void);
 
   AC_OTAStatus_t  _status;      /**< Status for update progress */
-  uint8_t _tickerPort;          /**< GPIO for flicker */
+  int8_t  _tickerPort;          /**< GPIO for flicker */
   uint8_t _tickerOn;            /**< A signal for flicker turn on */
   String  _binName;             /**< An updater file name */
   String  _err;                 /**< Occurred error stamp */

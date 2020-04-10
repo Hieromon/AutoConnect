@@ -96,7 +96,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   }
 
   // Attach AutoConnectOTA if OTA is available.
-  if (_apConfig.ota) {
+  if (_apConfig.ota != AC_OTA_NONE) {
     _ota.reset(new AutoConnectOTA());
     _ota->attach(*this);
     _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
@@ -594,13 +594,16 @@ void AutoConnect::handleRequest(void) {
   if (_update)
     _update->handleUpdate();
 
-  // Indicate the reboot at the next handleClient turn
-  // with on completion of the update via OTA.
+  // Post-process for AutoConnectOTA
   if (_ota) {
     if (_ota->status() == AutoConnectOTA::OTA_RIP) {
+      // Indicate the reboot at the next handleClient turn
+      // with on completion of the update via OTA.
       _webServer->client().setNoDelay(true);
       _rfReset = true;
     }
+    // Reflect the menu display specifier from AutoConnectConfig to AutoConnectOTA page
+    _ota->menu(_apConfig.menuItems & AC_MENUITEM_UPDATE);
   }
 }
 
