@@ -8,9 +8,14 @@
  */
 
 #include <functional>
+#if defined(ARDUINO_ARCH_ESP8266)
+#include <WiFiUdp.h>
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <Update.h>
+#endif
+#include <StreamString.h>
 #include "AutoConnectOTA.h"
 #include "AutoConnectOTAPage.h"
-#include <StreamString.h>
 
 /**
  * A destructor. Release the OTA operation pages.
@@ -24,7 +29,7 @@ AutoConnectOTA::~AutoConnectOTA() {
  * Attach the AutoConnectOTA to hosted AutoConnect which constitutes
  * the update process. This function creates an OTA operation page as
  * AutoConnectAux instance and allows it to receive binary updates.
- * @param  portal   A reference of AutoConnect
+ * @param  portal A reference of AutoConnect
  */
 void AutoConnectOTA::attach(AutoConnect& portal) {
   AutoConnectAux* updatePage;
@@ -102,18 +107,22 @@ void AutoConnectOTA::_buildAux(AutoConnectAux* aux, const AutoConnectOTA::ACPage
 /**
  * Check the space needed for the update
  * This function overrides AutoConnectUploadHandler::_open.
- * @param  filename  An updater bin file name
- * @param  mode      File access mode, but it is not be used.
- * @return true      Ready for update
- * @return false     Not enough FLASH space to update.
+ * @param  filename An updater bin file name
+ * @param  mode     File access mode, but it is not be used.
+ * @return true     Ready for update
+ * @return false    Not enough FLASH space to update.
  */
 bool AutoConnectOTA::_open(const char* filename, const char* mode) {
   AC_UNUSED(mode);
   _binName = String(strchr(filename, '/') + sizeof(char));
+#ifdef ARDUINO_ARCH_ESP8266
   WiFiUDP::stopAll();
+#endif
   uint32_t  maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
   // It only supports FLASH as a sketch area for updating.
-  if (Update.begin(maxSketchSpace, U_FLASH, _tickerPort, _tickerOn)) {
+  if (Update.begin(maxSketchSpace, U_FLASH)) {
+    if (_tickerPort != -1)
+      pinMode(static_cast<uint8_t>(_tickerPort), OUTPUT);
     _status = OTA_START;
     AC_DBG("%s updating start\n", filename);
     return true;
@@ -127,10 +136,12 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
  * This function overrides AutoConnectUploadHandler::_write.
  * @param  buf  Buffer address where received update file was stored.
  * @param  size Size to be written.
- * @return the amount written
+ * @return      the amount written
  */
 size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
   size_t  wsz = 0;
+  if (_tickerPort != -1)
+    digitalWrite(_tickerPort, digitalRead(_tickerPort) ^ 0x01);
   if (!_err.length()) {
     _status = OTA_PROGRESS;
     wsz = Update.write(const_cast<uint8_t*>(buf), size);
@@ -162,14 +173,16 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
       AC_DBG_DUMB(" aborted\n");
     }
   }
+  if (_tickerPort != -1)
+    digitalWrite(_tickerPort, !_tickerOn);
 }
 
 /**
  * Callback of the update operation page as AutoConnectAux.
  * Reflect the flash result of Update class to the page.
- * @param  result  Upload post-process page
- * @param  args    Unused
- * @return none
+ * @param  result Upload post-process page
+ * @param  args   Unused
+ * @return        Empty string
  */
 String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   AC_UNUSED(args);
