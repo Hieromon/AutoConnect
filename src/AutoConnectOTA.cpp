@@ -10,6 +10,7 @@
 #include <functional>
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <WiFiUdp.h>
+#include <Updater.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <Update.h>
 #endif
@@ -205,11 +206,10 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   result["bin"].as<AutoConnectText>().style += String(stColor);
   result["result"].as<AutoConnectText>().value = st;
 
-  // The rc element on the result page has an update return code
-  // which is a hidden field.
-  // By setting the error code of the Update class into its field,
-  // the homepage after reboot will automatically GET by the JavaScript
-  // on the result page.
+  // AutoConnectOTA result page generates a transition after reboot
+  // according to the error code from the Update class. By setting the
+  // error code of the Update class into the rc element, this page will
+  // automatically GET the homepage of the updated sketch.
   result["rc"].value.replace("%d", String(Update.getError()));
   return String("");
 }
