@@ -57,9 +57,8 @@ typedef enum AC_ONBOOTURI {
 
 /**< Specifier for using built-in OTA */
 typedef enum AC_OTA {
-  AC_OTA_NONE,
-  AC_OTA_USE,
-  AC_OTA_USEAUTH
+  AC_OTA_EXTRA,
+  AC_OTA_BUILTIN
 } AC_OTA_t;
 
 /**< An enumerated type of the designated menu items. */
@@ -103,7 +102,7 @@ class AutoConnectConfig {
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
-    ota(AC_OTA_NONE),
+    ota(AC_OTA_EXTRA),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -137,7 +136,7 @@ class AutoConnectConfig {
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
-    ota(AC_OTA_NONE),
+    ota(AC_OTA_EXTRA),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),

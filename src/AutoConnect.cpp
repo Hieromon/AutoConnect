@@ -96,7 +96,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   }
 
   // Attach AutoConnectOTA if OTA is available.
-  if (_apConfig.ota != AC_OTA_NONE) {
+  if (_apConfig.ota == AC_OTA_BUILTIN) {
     _ota.reset(new AutoConnectOTA());
     _ota->attach(*this);
     _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
