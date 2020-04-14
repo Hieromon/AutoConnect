@@ -18,6 +18,7 @@ Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to 
 - **Open SSIDs**: Opens the past SSID which has been established connection from the flash.
 - **Disconnect**: Disconnects current connection.
 - **Reset...**: Rest the ESP8266/ESP32 module.
+- **Update**: OTA updates. (Optional)
 - **HOME**: Return to user home page.
 
 <img src="images/menu.png" style="width:280px;" />
@@ -65,6 +66,13 @@ Resetting the ESP8266/ESP32 module will initiate a reboot. When the module resta
 ## <i class="fa fa-bars"></i> Custom menu items
 
 If the sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnectmenu).
+
+## <i class="fa fa-bars"></i> Update
+
+If you specify [AutoConnectConfig::ota](apiconfig.md#ota) to import the OTA update feature into Sketch, an item will appear in the menu list as **Update**.
+
+!!! note "The Update menu item will appear only AutoConnectOTA enabled"
+    The Update item is displayed automatically in the menu only when [AutoConnectConfig::ota](apiconfig.md#ota) is specified with **AC_OTA_BUILTIN** or [AutoConnectUpdate](otaserver.md#how-to-embed-autoconnectupdate-to-your-sketch) is attached.
 
 ## <i class="fa fa-bars"></i> HOME
 

@@ -444,6 +444,7 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - Home URL of the user sketch application.
 - Menu title.
 - Ticker signal output.
+- Built-in OTA update.
 
 !!! note "AutoConnect::config before AutoConnect::begin"
     *AutoConnect::config* must be executed before *AutoConnect::begin*.
@@ -453,6 +454,22 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 **HOME** for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the [*AutoConnect::home*](api.md#home) function.
 
 <img src="images/menu_home.png" />
+
+The sketch HOME path is closely related to the [bootUri](apiconfig.md#booturi) that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:
+
+- **AUTOCONNECT_URI**  
+    The **ROOT** of AutoConnect. It is defined in `AutoConnectDefs.h` and is assigned an [AutoConnect statistics screen](menu.md#where-the-from) by default.
+- [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri)  
+    It is the hyperlink of listed on the AutoConnect menu list as **HOME**.
+- [**AutoConnectConfig::bootUri**](apiconfig.md#booturi)  
+    Which page appears at the captive portal, AUTOCONNECT_URI or the homeUri. Its page will pop up automatically when you visit the captive portal.
+
+| The definition of **HOME** | Behavior | Specified by | Default value | Possible value |
+|---|---|---|---|---|
+| **ROOT** of AutoConnect | Default for AC_ONBOOTURI_ROOT | `#define AUTOCONNECT_URI` in `AutoConnectDefs.h` |  `/_ac` | URI string |
+| **HOME** for Application-specific | Listed on the **menu list** as **HOME**<br>Also, It may be linked from the **menu title** and is **redundant** with the HOME menu item.<br>eg. Case of bootURI = AC_ONBOOTURI_HOME | AutoConnectConfig::homeURI | `/` | URI string |
+| Which page **loads** at the boot time, ROOT or HOME | Appears after module reboot by **RESET** button with AutoConnect menu | AutoConnectConfig::bootURI | AC_ONBOOTURI_ROOT | AC_ONBOOTURI_HOME |
+| Which page **appears** at the captive portal, ROOT or HOME | Auto pop-up | AutoConnectConfig::bootURI | AC_ONBOOTURI_ROOT | AC_ONBOOTURI_HOME |
 
 ### <i class="fa fa-caret-right"></i> Change SSID and Password for SoftAP
 
@@ -582,3 +599,18 @@ NodeMCU 32s | Active-high | 2 | T2
 LOLIN32 Pro | Active-low | 5 | SS
 SparkFun ESP32 Thing | Active-high | 5
 Adafruit Feather HUZZAH32 | Active-high | 13 | A12
+
+### <i class="fa fa-caret-right"></i> Built-in OTA update feature
+
+AutoConnect features a built-in OTA function to update ESP module firmware. You can easily make the Sketch that equips OTA and able to operate with the AutoConnect menu.
+
+<span style="display:block;margin-left:auto;margin-right:auto;width:292px;height:482px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="480" data-gifffer-width="290" /></span>
+
+[AutoConnectConfig::ota](apiconfig.md#ota) specifies to import the [built-in OTA update class](otabrowser.md) into the Sketch.  
+See the [Updates with the Web Browser](otabrowser.md) chapter for details.
+
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>

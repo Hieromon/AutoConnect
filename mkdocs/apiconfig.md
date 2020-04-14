@@ -194,13 +194,14 @@ Disable the first WiFi.begin() and start the captive portal. If this option is e
 Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily combine valid menus by coordinating the menuItems value.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">uint16_t</span><span class="apidesc">It provides the combined **AC_MENUITEM_t** value of the item to apply to the AutoConnect menu.<br>Specify the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu.  It affects not only disappear the items from the menu also invalidates the URI they have. As a consequence, even if it accesses the URL directly will occur a 404 error.<br>The default value is logical OR of AC_MENUITEM_CONFIGNEW, AC_MENUITEM_OPENSSIDS, AC_MENUITEM_DISCONNECT, AC_MENUITEM_RESET and AC_MENUITEM_HOME.</span></dd>
+    <dd><span class="apidef">uint16_t</span><span class="apidesc">It provides the combined **AC_MENUITEM_t** value of the item to apply to the AutoConnect menu.<br>Specify the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu.  It affects not only disappear the items from the menu also invalidates the URI they have. As a consequence, even if it accesses the URL directly will occur a 404 error.<br>The default value is logical OR of AC_MENUITEM_CONFIGNEW, AC_MENUITEM_OPENSSIDS, AC_MENUITEM_DISCONNECT, AC_MENUITEM_RESET, AC_MENUITEM_UPDATE and AC_MENUITEM_HOME.</span></dd>
     <dt>**Value**</dt>
     <dd><span class="apidef">AC_MENUITEM_NONE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">No assign items except for the AutoConnectAux page item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_CONFIGNEW</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Configure new AP](menu.md#config-new-ap) item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_OPENSSIDS</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Open SSIDs](menu.md#open-ssids) item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_DISCONNECT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Disconnect](menu.md#disconnect) item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_RESET</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Reset...](menu.md#reset) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_UPDATE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Update](menu.md#update) item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [HOME](menu.md#home) item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_DEVINFO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends the **Device info** item which links to [AutoConnect statistics page](menu.md##where-the-from).</span></dd>
 </dl>
@@ -220,6 +221,18 @@ Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initi
     <dt>**Type**</dt>
     <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **255.255.255.0**</span></dd>
 </dl>
+
+### <i class="fa fa-caret-right"></i> ota
+
+Specifies to import the built-in OTA update class into the sketch. When this option is enabled, an **Update** item will appear in the AutoConnect menu, and the OTA update via Web browser will be automatically embedded to the Sketch.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>AC_OTA_t</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_OTA_EXTRA</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">AutoConnect does not import AutoConnectOTA. This is the default.</span></dd>
+    <dd><span class="apidef">AC_OTA_BUILTIN</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Specifies to include AutoConnectOTA in the Sketch.</span></dd>
+</dl>
+
 
 ### <i class="fa fa-caret-right"></i> portalTimeout
 

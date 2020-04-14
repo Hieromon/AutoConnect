@@ -30,8 +30,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="651.92637"
-     inkscape:cy="34.265665"
+     inkscape:cx="296.75158"
+     inkscape:cy="216.8199"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -41,8 +41,8 @@
      fit-margin-bottom="0"
      inkscape:window-width="1728"
      inkscape:window-height="951"
-     inkscape:window-x="1256"
-     inkscape:window-y="402"
+     inkscape:window-x="1435"
+     inkscape:window-y="57"
      inkscape:window-maximized="0"
      inkscape:snap-global="false"
      units="px" />
@@ -54,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -63,6 +63,17 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-12.547598,-15.546577)">
+    <rect
+       style="opacity:0.36199999;vector-effect:none;fill:#3366cc;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
+       id="rect948"
+       width="45.150471"
+       height="115.4073"
+       x="145.46172"
+       y="24.934029"
+       rx="0.60422629"
+       ry="0.60422629"
+       inkscape:export-xdpi="115.2"
+       inkscape:export-ydpi="115.2" />
     <image
        y="75.296074"
        x="12.547598"
@@ -344,7 +355,7 @@
        id="rect1235"
        width="14.40583"
        height="44.609631"
-       x="118.32714"
+       x="114.62297"
        y="25.193104"
        rx="0.60422671"
        ry="0.60422671"
@@ -356,24 +367,21 @@
        width="14.40583"
        height="108.9034"
        x="149.43047"
-       y="31.543108"
+       y="28.368105"
        rx="0.60422671"
        ry="0.60422671"
        inkscape:export-xdpi="115.2"
        inkscape:export-ydpi="115.2" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
        x="156.66739"
-       y="85.779831"
+       y="82.604828"
        id="text1239-6"
        inkscape:export-xdpi="115.2"
        inkscape:export-ydpi="115.2"><tspan
          sodipodi:role="line"
-         id="tspan1237-5"
-         x="85.779831"
-         y="156.66739"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:tb-rl;text-anchor:middle;stroke-width:0.26458332">ESP8266HTTPUpdateServer</tspan></text>
+         id="tspan926">AutoConnectOTA</tspan></text>
     <path
        id="path1371"
        d="M 110.00865,33.59853 H 97.95942 c -0.26445,0 -0.47887,0.21442 -0.47887,0.47887 v 2.23473 c 0,0.26446 0.21442,0.47887 0.47887,0.47887 h 12.04923 v 1.83803 c 0,0.85327 1.03161,1.28058 1.63499,0.67724 l 3.43426,-3.43426 c 0.37404,-0.37404 0.37404,-0.98045 0,-1.35444 l -3.43426,-3.43427 c -0.60334,-0.60333 -1.63499,-0.17602 -1.63499,0.67725 z"
@@ -463,7 +471,7 @@
        width="14.40583"
        height="75.036728"
        x="171.50305"
-       y="31.543108"
+       y="28.368105"
        rx="0.60422671"
        ry="0.60422671"
        inkscape:export-xdpi="115.2"
@@ -472,31 +480,17 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="178.73997"
-       y="68.958122"
+       y="65.783119"
        id="text1239-6-0"
        inkscape:export-xdpi="115.2"
        inkscape:export-ydpi="115.2"><tspan
          sodipodi:role="line"
-         id="tspan1237-5-6"
-         x="68.958122"
-         y="178.73997"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:tb-rl;text-anchor:middle;stroke-width:0.26458332">ESP8266HTTPUpdate</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="167.95082"
-       y="29.151556"
-       id="text1493-91-9"
-       inkscape:export-xdpi="115.2"
-       inkscape:export-ydpi="115.2"><tspan
-         sodipodi:role="line"
-         id="tspan1491-3-7"
-         x="167.95082"
-         y="29.151556"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332">ESP8266 Arduino Core</tspan></text>
+         id="tspan924"
+         x="66.312286"
+         y="178.21082">Update class of Arduino core</tspan></text>
     <path
        id="path1371-5-3-0-2-8"
-       d="m 165.10961,86.653036 c 0,0.85326 1.03161,1.28057 1.63499,0.67723 l 3.43425,-3.43425 c 0.37404,-0.37405 0.37404,-0.98046 0,-1.35445 l -3.43425,-3.43427 c -0.60334,-0.60333 -1.63499,-0.17602 -1.63499,0.67725 -0.0135,2.99825 0,4.18637 0,6.86849 z"
+       d="m 165.10961,83.478034 c 0,0.85326 1.03161,1.28057 1.63499,0.67723 l 3.43425,-3.43425 c 0.37404,-0.37405 0.37404,-0.98046 0,-1.35445 l -3.43425,-3.43427 c -0.60334,-0.60333 -1.63499,-0.17602 -1.63499,0.67725 -0.0135,2.99825 0,4.18637 0,6.86849 z"
        inkscape:connector-curvature="0"
        style="fill:#3366cc;stroke-width:0.26458332"
        sodipodi:nodetypes="ccccccc"
@@ -504,7 +498,7 @@
        inkscape:export-ydpi="115.2" />
     <path
        id="path1371-5-3-0-2-84"
-       d="m 180.30222,126.23079 v -17.38126 c 0,-0.26445 -0.21445,-0.56964 -0.47888,-0.57241 l -2.23472,-0.0234 c -0.26445,-0.003 -0.47888,0.34281 -0.47888,0.60751 v 17.36954 h -1.83803 c -0.85326,0 -1.28057,1.03161 -0.67723,1.63499 l 3.43425,3.43425 c 0.37405,0.37404 0.98046,0.37404 1.35445,0 l 3.43427,-3.43425 c 0.60333,-0.60334 0.17602,-1.63499 -0.67725,-1.63499 z"
+       d="m 180.30222,123.05577 v -17.38126 c 0,-0.26445 -0.21445,-0.56964 -0.47888,-0.57241 l -2.23472,-0.0234 c -0.26445,-0.003 -0.47888,0.34281 -0.47888,0.60751 v 17.36954 h -1.83803 c -0.85326,0 -1.28057,1.03161 -0.67723,1.63499 l 3.43425,3.43425 c 0.37405,0.37404 0.98046,0.37404 1.35445,0 l 3.43427,-3.43425 c 0.60333,-0.60334 0.17602,-1.63499 -0.67725,-1.63499 z"
        inkscape:connector-curvature="0"
        style="fill:#3366cc;stroke-width:0.26458332"
        sodipodi:nodetypes="csssscsccccsc"
@@ -525,43 +519,32 @@
        sodipodi:nodetypes="csssscsccccsc"
        inkscape:export-xdpi="115.2"
        inkscape:export-ydpi="115.2" />
-    <rect
-       style="opacity:0.36199999;vector-effect:none;fill:#3366cc;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke markers fill"
-       id="rect948"
-       width="45.150471"
-       height="118.58781"
-       x="145.46172"
-       y="24.928524"
-       rx="0.60422629"
-       ry="0.60422629"
-       inkscape:export-xdpi="115.2"
-       inkscape:export-ydpi="115.2" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.15875;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="178.23099"
-       y="121.06407"
+       y="117.88908"
        id="text1493-91-8"
        inkscape:export-xdpi="115.2"
        inkscape:export-ydpi="115.2"><tspan
          sodipodi:role="line"
          id="tspan1491-3-2"
          x="178.23099"
-         y="121.06407"
+         y="117.88908"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke:#ffffff;stroke-width:0.15875;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">UPDATE</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="125.21369"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="121.50953"
        y="47.255043"
        id="text1239"
        inkscape:export-xdpi="115.2"
        inkscape:export-ydpi="115.2"><tspan
          sodipodi:role="line"
          id="tspan1237"
-         x="47.255043"
-         y="125.21369"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:tb-rl;text-anchor:middle;stroke-width:0.26458332">AutoConnectAux</tspan></text>
+         x="47.78421"
+         y="120.98036"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:tb;text-anchor:middle;stroke-width:0.26458332;">AutoConnectAux</tspan></text>
     <image
        y="133.65536"
        x="173.49591"
