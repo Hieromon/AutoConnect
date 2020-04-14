@@ -95,13 +95,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       _ticker->start(AUTOCONNECT_FLICKER_PERIODDC, (uint8_t)AUTOCONNECT_FLICKER_WIDTHDC);
   }
 
-  // Attach AutoConnectOTA if OTA is available.
-  if (_apConfig.ota == AC_OTA_BUILTIN) {
-    _ota.reset(new AutoConnectOTA());
-    _ota->attach(*this);
-    _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
-  }
-
   // Advance configuration for STA mode. Restore previous configuration of STA.
   station_config_t  current;
   if (_getConfigSTA(&current)) {
@@ -593,6 +586,15 @@ void AutoConnect::handleRequest(void) {
   // Handle the update behaviors for attached AutoConnectUpdate.
   if (_update)
     _update->handleUpdate();
+
+  // Attach AutoConnectOTA if OTA is available.
+  if (_apConfig.ota == AC_OTA_BUILTIN) {
+    if (!_ota) {
+      _ota.reset(new AutoConnectOTA());
+      _ota->attach(*this);
+      _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
+    }
+  }
 
   // Post-process for AutoConnectOTA
   if (_ota) {
