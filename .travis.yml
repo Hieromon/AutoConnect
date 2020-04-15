@@ -1,6 +1,7 @@
 branches:
   only:
     - master
+    - enhance/.+
 language: generic
 env:
   global:
