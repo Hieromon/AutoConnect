@@ -55,11 +55,11 @@ typedef enum AC_ONBOOTURI {
   AC_ONBOOTURI_HOME
 } AC_ONBOOTURI_t;
 
-/**< Specifier for using built-in OTA */
-typedef enum AC_OTA {
-  AC_OTA_EXTRA,
-  AC_OTA_BUILTIN
-} AC_OTA_t;
+/** WiFi connection principle, it specifies the order of WiFi connecting with saved credentials. */
+typedef enum AC_PRINCIPLE {
+  AC_PRINCIPLE_RECENT,
+  AC_PRINCIPLE_RSSI
+} AC_PRINCIPLE_t;
 
 /**< An enumerated type of the designated menu items. */
 typedef enum AC_MENUITEM {
@@ -72,6 +72,12 @@ typedef enum AC_MENUITEM {
   AC_MENUITEM_UPDATE     = 0x0020,
   AC_MENUITEM_DEVINFO    = 0x0040
 } AC_MENUITEM_t;
+
+/**< Specifier for using built-in OTA */
+typedef enum AC_OTA {
+  AC_OTA_EXTRA,
+  AC_OTA_BUILTIN
+} AC_OTA_t;
 
 class AutoConnectConfig {
  public:
@@ -88,8 +94,10 @@ class AutoConnectConfig {
     psk(String(AUTOCONNECT_PSK)),
     channel(AUTOCONNECT_AP_CH),
     hidden(0),
+    minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
+    principle(AC_PRINCIPLE_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -122,8 +130,10 @@ class AutoConnectConfig {
     psk(String(password)),
     channel(channel),
     hidden(0),
+    minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
+    principle(AC_PRINCIPLE_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -156,8 +166,10 @@ class AutoConnectConfig {
     psk = o.psk;
     channel = o.channel;
     hidden = o.hidden;
+    minRSSI=o.minRSSI;
     autoSave = o.autoSave;
     bootUri = o.bootUri;
+    principle = o.principle;
     boundaryOffset = o.boundaryOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
@@ -182,6 +194,7 @@ class AutoConnectConfig {
     return *this;
   }
 
+
   IPAddress apip;               /**< SoftAP IP address */
   IPAddress gateway;            /**< SoftAP gateway address */
   IPAddress netmask;            /**< SoftAP subnet mask */
@@ -189,8 +202,10 @@ class AutoConnectConfig {
   String    psk;                /**< SoftAP password */
   uint8_t   channel;            /**< SoftAP used wifi channel */
   uint8_t   hidden;             /**< SoftAP SSID hidden */
+  int16_t   minRSSI;            /**< Lowest WiFi signal strength (RSSI) that can be connected. */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
   AC_ONBOOTURI_t  bootUri;      /**< An uri invoking after reset */
+  AC_PRINCIPLE_t  principle;    /**< WiFi connection principle */  
   uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
   int       uptime;             /**< Length of start up time */
   bool      autoRise;           /**< Automatic starting the captive portal */
@@ -262,7 +277,7 @@ class AutoConnect {
   void  _startWebServer(void);
   void  _startDNSServer(void);
   void  _handleNotFound(void);
-  bool  _loadAvailCredential(const char* ssid);
+  bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);

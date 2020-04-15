@@ -589,7 +589,12 @@ const char  AutoConnect::_PAGE_RESETTING[] PROGMEM = {
     "<title>" AUTOCONNECT_PAGETITLE_RESETTING "</title>"
   "</head>"
   "<body>"
-    "<h2>{{RESET}}</h2>"
+    "<h3><div style=\"display:inline-block\"><span>{{RESET}}</span><span id=\"cd\"></span></div></h3>"
+    "<script type=\"text/javascript\">"
+      "window.onload=function(){"
+        "var t={{UPTIME}},elm=document.getElementById(\"cd\"),ct=setInterval(function(){--t?elm.innerHTML=String(t)+\"&nbsp;sec.\":(elm.innerHTML=\"expiry\",clearInterval(ct))},1e3);"
+      "};"
+    "</script>"
   "</body>"
   "</html>"
 };

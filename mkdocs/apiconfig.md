@@ -214,6 +214,14 @@ Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily
     ```
     However, even if you specify like the above, the AutoConnectAux page items still display on the menu. To remove the AutoConnectAux items, use the [AutoConnectAux::menu](apiaux.md#menu) function.
 
+### <i class="fa fa-caret-right"></i> minRSSI
+
+Specify the lower limit of the WiFi signal strength allowed to use as an access point. This value should be greater than -120 as RSSI. Generally, a data link will not be established unless it exceeds -90 dBm. Also, packet transmission is not reliable below -70 dBm to -80 dBm.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">int16_t</span><span class="apidesc">The default value is -120</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> netmask
 
 Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
@@ -240,6 +248,17 @@ Specify the timeout value of the captive portal in [ms] units. It is valid when 
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">unsigned long</span><span class="apidesc">Captive portal timeout value. The default value is 0.</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> principle
+
+Specify the connection order will attempt to connect to one of the highest RSSI values among multiple available access points. It is given as an enumeration value of **AC_PRINCIPLE_t** indicating.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>AC_PRINCIPLE_t</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_PRINCIPLE_RECENT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Attempts to connect in the order of the saved credentials entries. The entry order is generally a time series connected in the past.</span></dd>
+    <dd><span class="apidef">AC_PRINCIPLE_RSSI</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Attempts to connect to one of the highest RSSI values among multiple available access points.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> psk

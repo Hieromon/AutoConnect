@@ -58,7 +58,7 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       "value": [
         "Button-1",
         "Button-2",
-        "Butotn-3"
+        "Button-3"
       ],
       "label": "Radio buttons",
       "arrange": "vertical",
