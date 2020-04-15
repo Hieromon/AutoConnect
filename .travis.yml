@@ -47,4 +47,5 @@ script:
   - buildExampleSketch mqttRSSI_NA
   - buildExampleSketch Simple
   - buildExampleSketch Update
+  - buildExampleSketch OTAUpdate
   - buildExampleSketch WebUpdate
