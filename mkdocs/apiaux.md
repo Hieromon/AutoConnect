@@ -188,7 +188,7 @@ Load specified element from JSON document into AutoConnectAux. The JSON document
 !!! caution "Maybe it is an array"
     Please note that the JSON document that is the input for loadElement is an array syntax of AutoConnectElements when there are multiple elements. For example, the following JSON document has a syntax error:
 
-    ```json
+    ```js
     {
       "name": "Caption",
       "type": "ACText",

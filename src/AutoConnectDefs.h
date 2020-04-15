@@ -185,7 +185,7 @@
 #define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
 #endif // !AUTOCONNECT_JSONPSRAM_SIZE
 
-// Available HTTP port number for the update [ms]
+// Available HTTP port number for the update
 #ifndef AUTOCONNECT_UPDATE_PORT
 #define AUTOCONNECT_UPDATE_PORT       8000
 #endif // !AUTOCONNECT_UPDATE_PORT
@@ -207,7 +207,7 @@
 
 // Wait timer for rebooting after updated
 #ifndef AUTOCONNECT_UPDATE_WAITFORREBOOT
-#define AUTOCONNECT_UPDATE_WAITFORREBOOT  9000
+#define AUTOCONNECT_UPDATE_WAITFORREBOOT  15000
 #endif // !AUTOCONNECT_UPDATE_WAITFORREBOOT
 
 // A signal value that the board dependent LED turns on.

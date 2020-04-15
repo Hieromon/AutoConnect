@@ -32,7 +32,7 @@ class AutoConnectUploadHandler {
 protected:
   virtual bool   _open(const char* filename, const char* mode) = 0;
   virtual size_t _write(const uint8_t *buf, const size_t size) = 0;
-  virtual void   _close(void) = 0;
+  virtual void   _close(const HTTPUploadStatus status) = 0;
 };
 
 #endif // !_AUTOCONNECTUPLOAD_H_

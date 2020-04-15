@@ -149,31 +149,31 @@ Here, represent examples the typical regular expression for the input validation
 
 ### <img src="images/regexp.png" align="top"> URL
 
-```
+```powershell
 ^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
 ```
 
 ### <img src="images/regexp.png" align="top"> DNS hostname
 
-```
+```powershell
 ^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$
 ```
 
 ### <img src="images/regexp.png" align="top"> email address [^2]
 
-```
+```powershell
 ^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$
 ```
 
 ### <img src="images/regexp.png" align="top"> IP Address
 
-```
+```powershell
 ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$
 ```
 
 ### <img src="images/regexp.png" align="top"> Date as MM/DD/YYYY [^3]
 
-```
+```powershell
 ^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d$
 ```
 

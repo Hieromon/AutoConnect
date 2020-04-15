@@ -74,7 +74,7 @@ void AutoConnectUploadHandler::upload(const String& requestUri, const HTTPUpload
     break;
   case UPLOAD_FILE_ABORTED:
   case UPLOAD_FILE_END:
-    _close();
+    _close(upload.status);
     break;
   }
 }
@@ -83,7 +83,7 @@ void AutoConnectUploadHandler::upload(const String& requestUri, const HTTPUpload
 class AutoConnectUploadFS : public AutoConnectUploadHandler {
  public:
   explicit AutoConnectUploadFS(SPIFFST& media) : _media(&media) {}
-  ~AutoConnectUploadFS() { _close(); }
+  ~AutoConnectUploadFS() { _close(HTTPUploadStatus::UPLOAD_FILE_END); }
 
  protected:
   bool  _open(const char* filename, const char* mode) override {
@@ -106,7 +106,8 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
       return -1;
   }
 
-  void  _close(void) override {
+  void  _close(const HTTPUploadStatus status) override {
+    AC_UNUSED(status);
     if (_file)
       _file.close();
     _media->end();
@@ -142,7 +143,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
 class AutoConnectUploadSD : public AutoConnectUploadHandler {
  public:
   explicit AutoConnectUploadSD(SDClassT& media, const uint8_t cs = AUTOCONNECT_SD_CS, const uint32_t speed = AUTOCONNECT_SD_SPEED) : _media(&media), _cs(cs), _speed(speed) {}
-  ~AutoConnectUploadSD() { _close(); }
+  ~AutoConnectUploadSD() { _close(HTTPUploadStatus::UPLOAD_FILE_END); }
 
  protected:
   bool  _open(const char* filename, const char* mode) override {
@@ -205,7 +206,8 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
       return -1;
   }
 
-  void  _close(void) override {
+  void  _close(const HTTPUploadStatus status) override {
+    AC_UNUSED(status);
     if (_file)
       _file.close();
     AutoConnectUtil::end<SDClassT>(_media);

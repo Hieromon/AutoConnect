@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.1
- *  @date   2019-10-17
+ *  @version    1.1.5
+ *  @date   2020-03-30
  *  @copyright  MIT license.
  */
 
@@ -312,6 +312,21 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
 }
 
 /**
+ *  Get URI to redirect at boot. It uses the URI according to the
+ *  AutoConnectConfig::bootUti setting with the AutoConnectConfig::homeUri
+ *  as the boot path.
+ *  @return the boot uri.
+ */
+String AutoConnect::_getBootUri(void) {
+  if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
+    return String(AUTOCONNECT_URI);
+  else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
+    return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
+  else
+    return _emptyString;
+}
+
+/**
  *  Obtains the currently established AP connection to determine if the
  *  station configuration needs to run before the first WiFi.begin.
  *  Get the SSID of the currently connected AP stored in the ESP module
@@ -362,6 +377,9 @@ void AutoConnect::home(const String& uri) {
 void AutoConnect::end(void) {
   _responsePage.reset();
   _currentPageElement.reset();
+  _ticker.reset();
+  _update.reset();
+  _ota.reset();
 
   _stopPortal();
   _dnsServer.reset();
@@ -568,6 +586,27 @@ void AutoConnect::handleRequest(void) {
   // Handle the update behaviors for attached AutoConnectUpdate.
   if (_update)
     _update->handleUpdate();
+
+  // Attach AutoConnectOTA if OTA is available.
+  if (_apConfig.ota == AC_OTA_BUILTIN) {
+    if (!_ota) {
+      _ota.reset(new AutoConnectOTA());
+      _ota->attach(*this);
+      _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
+    }
+  }
+
+  // Post-process for AutoConnectOTA
+  if (_ota) {
+    if (_ota->status() == AutoConnectOTA::OTA_RIP) {
+      // Indicate the reboot at the next handleClient turn
+      // with on completion of the update via OTA.
+      _webServer->client().setNoDelay(true);
+      _rfReset = true;
+    }
+    // Reflect the menu display specifier from AutoConnectConfig to AutoConnectOTA page
+    _ota->menu(_apConfig.menuItems & AC_MENUITEM_UPDATE);
+  }
 }
 
 /**
@@ -675,7 +714,7 @@ bool AutoConnect::_captivePortal(void) {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString()) && (!hostHeader.endsWith(F(".local")))) {
     AC_DBG("Detected application, %s, %s\n", hostHeader.c_str(), WiFi.localIP().toString().c_str());
-    String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
+    String location = String(F("http://")) + _webServer->client().localIP().toString() + _getBootUri();
     _webServer->sendHeader(String(F("Location")), location, true);
     _webServer->send(302, String(F("text/plain")), _emptyString);
     _webServer->client().flush();
@@ -835,7 +874,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
 // that occurs at connection establishment.
 // [WiFiClient.cpp:463] connected(): Disconnected: RES: 0, ERR: 128
 // When connecting as a station, TCP reset caused by switching of the
-// radio channel occurs. Although the Espressif's view is true. However,
+// radio channel occurs. Although the Espressif view is true. However,
 // the actual TCP reset occurs not at the time of switching the channel.
 // It occurs at the connection from the ESP32 to the AP is established
 // and it is possible that TCP reset is occurring in other situations.

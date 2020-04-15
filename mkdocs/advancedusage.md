@@ -199,7 +199,50 @@ To implement embedding your legacy web pages to the AutoConnect menu, you can us
 5. [Begin](api.md#begin) the portal.
 6. Performs [*AutoConnect::handleClient*](api.md#handleClient) in the **loop** function.
 
-For details, see section [Constructing the menu](menuize.md) of Examples page.
+```cpp hl_lines="10 28 32"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+ESP8266WebServer  server;
+
+// Declaration for casting legacy page to AutoConnect menu.
+// Specifies an uri and the menu label.
+AutoConnect       portal(server);
+AutoConnectAux    hello("/hello", "Hello");   // Step #1 as the above procedure
+
+// Step #2 as the above procedure
+// A conventional web page driven by the ESP8266WebServer::on handler.
+// This is a legacy.
+void handleHello() {
+  server.send(200, "text/html", String(F(
+"<html>"
+"<head><meta name='viewport' content='width=device-width,initial-scale=1.0'></head>"
+"<body>Hello, world</body>"
+"</html>"
+  )));
+}
+
+void setup() {
+  // Step #3 as the above procedure
+  // Register the "on" handler as usual to ESP8266WebServer.
+  // Match this URI with the URI of AutoConnectAux to cast.
+  server.on("/hello", handleHello);
+
+  // Step #4 as the above procedure
+  // Joins AutoConnectAux to cast the page via the handleRoot to AutoConnect.
+  portal.join({ hello });
+  portal.begin();           // Step #5 as the above procedure
+}
+
+void loop() {
+  portal.handleClient();    // Step #6 as the above procedure
+}
+```
+
+<img width="232px" src="images/castmenu.png">
+
+For more details, see section [Constructing the menu](menuize.md) of Examples page.
 
 ### <i class="fa fa-caret-right"></i> Change menu title
 
@@ -224,7 +267,7 @@ Executing the above sketch will rewrite the menu title for the **FSBrowser** as 
 
 ### <i class="fa fa-caret-right"></i> Change the menu labels
 
-You can change the label of the AutoConnect menu item by rewriting the default label letter in [AutoConnectLabels.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h) macros. However, changing menu items letter influences all the sketch's build scenes.
+You can change the label of the AutoConnect menu item by rewriting the default label letter in [AutoConnectLabels.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h) macros. However, changing menu items letter influences all build scenes for the Sketch.
 
 ```cpp
 #define AUTOCONNECT_MENULABEL_CONFIGNEW   "Configure new AP"
@@ -234,6 +277,7 @@ You can change the label of the AutoConnect menu item by rewriting the default l
 #define AUTOCONNECT_MENULABEL_HOME        "HOME"
 #define AUTOCONNECT_BUTTONLABEL_RESET     "RESET"
 ```
+See also: [*Change label text*](changelabel.md)
 
 ### <i class="fa fa-caret-right"></i> Combination with mDNS
 
@@ -307,7 +351,7 @@ By default, the credentials saving area is occupied from the beginning of EEPROM
 
 > The following diagram illustrates flash layout used in Arduino environment:
 
-> ```
+> ```powershell
 > |--------------|-------|---------------|--|--|--|--|--|
 > ^              ^       ^               ^     ^
 > Sketch    OTA update   File system   EEPROM  WiFi config (SDK)
@@ -443,6 +487,7 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 - Home URL of the user sketch application.
 - Menu title.
 - Ticker signal output.
+- Built-in OTA update.
 
 !!! note "AutoConnect::config before AutoConnect::begin"
     *AutoConnect::config* must be executed before *AutoConnect::begin*.
@@ -452,6 +497,22 @@ AutoConnect will activate SoftAP at failed the first *WiFi.begin*. It SoftAP set
 **HOME** for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the [*AutoConnect::home*](api.md#home) function.
 
 <img src="images/menu_home.png" />
+
+The sketch HOME path is closely related to the [bootUri](apiconfig.md#booturi) that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:
+
+- **AUTOCONNECT_URI**  
+    The **ROOT** of AutoConnect. It is defined in `AutoConnectDefs.h` and is assigned an [AutoConnect statistics screen](menu.md#where-the-from) by default.
+- [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri)  
+    It is the hyperlink of listed on the AutoConnect menu list as **HOME**.
+- [**AutoConnectConfig::bootUri**](apiconfig.md#booturi)  
+    Which page appears at the captive portal, AUTOCONNECT_URI or the homeUri. Its page will pop up automatically when you visit the captive portal.
+
+| The definition of **HOME** | Behavior | Specified by | Default value | Possible value |
+|---|---|---|---|---|
+| **ROOT** of AutoConnect | Default for AC_ONBOOTURI_ROOT | `#define AUTOCONNECT_URI` in `AutoConnectDefs.h` |  `/_ac` | URI string |
+| **HOME** for Application-specific | Listed on the **menu list** as **HOME**<br>Also, It may be linked from the **menu title** and is **redundant** with the HOME menu item.<br>eg. Case of bootURI = AC_ONBOOTURI_HOME | AutoConnectConfig::homeURI | `/` | URI string |
+| Which page **loads** at the boot time, ROOT or HOME | Appears after module reboot by **RESET** button with AutoConnect menu | AutoConnectConfig::bootURI | AC_ONBOOTURI_ROOT | AC_ONBOOTURI_HOME |
+| Which page **appears** at the captive portal, ROOT or HOME | Auto pop-up | AutoConnectConfig::bootURI | AC_ONBOOTURI_ROOT | AC_ONBOOTURI_HOME |
 
 ### <i class="fa fa-caret-right"></i> Change SSID and Password for SoftAP
 
@@ -486,7 +547,7 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 
-A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L62) macro in the include header file as [AutoConnectDef.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDef.h).
+A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69) macro in the include header file as [AutoConnectDef.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDef.h).
 
 ```cpp
 #define AUTOCONNECT_URI         "/_ac"
@@ -581,3 +642,18 @@ NodeMCU 32s | Active-high | 2 | T2
 LOLIN32 Pro | Active-low | 5 | SS
 SparkFun ESP32 Thing | Active-high | 5
 Adafruit Feather HUZZAH32 | Active-high | 13 | A12
+
+### <i class="fa fa-caret-right"></i> Built-in OTA update feature
+
+AutoConnect features a built-in OTA function to update ESP module firmware. You can easily make the Sketch that equips OTA and able to operate with the AutoConnect menu.
+
+<span style="display:block;margin-left:auto;margin-right:auto;width:292px;height:482px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="480" data-gifffer-width="290" /></span>
+
+[AutoConnectConfig::ota](apiconfig.md#ota) specifies to import the [built-in OTA update class](otabrowser.md) into the Sketch.  
+See the [Updates with the Web Browser](otabrowser.md) chapter for details.
+
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>

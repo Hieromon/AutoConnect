@@ -139,7 +139,7 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
  * @param  value    A string value entered by the selected file name.
  * @param  label    A label string that follows file-select box, optionally.
  * The label is placed in front of file-select box.
- * @param  store    An enumuration value of store type.
+ * @param  store    An enumeration value of store type.
  */
 class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFileBasis {
  public:

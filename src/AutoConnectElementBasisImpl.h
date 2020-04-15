@@ -100,7 +100,7 @@ const String AutoConnectFileBasis::toHTML(void) const {
 
 /**
  * Instantiate the upload handler with the specified store type.
- * @param store An enumuration value of ACFile_t
+ * @param store An enumeration value of ACFile_t
  */
 bool AutoConnectFileBasis::attach(const ACFile_t store) {
   AutoConnectUploadFS*  handlerFS;

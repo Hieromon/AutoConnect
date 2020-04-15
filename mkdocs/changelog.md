@@ -1,3 +1,8 @@
+#### [1.1.5] Apr. 15, 2020
+- Changed the [bootUri behavior](advancedusage.md#assign-user-sketchs-home-path) to be an automatic pop-up at the captive portal.
+- Supports AutoConnect [menu configuration](menu.md#applying-the-active-menu-items).
+- Supports the built-in OTA feature as [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115).
+
 #### [1.1.4] Feb. 14, 2020
 - Supports for overriding text of the menu items with user-defined labels.
 - Fixed the compiler warning with experimental WiFi mode of ESP8266.
