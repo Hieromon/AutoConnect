@@ -159,21 +159,25 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
  * @param  status Updater binary upload completion status.
  */
 void AutoConnectOTA::_close(const HTTPUploadStatus status) {
+  AC_DBG("OTA update");
   if (!_err.length()) {
-    AC_DBG("OTA update ");
     if (status == UPLOAD_FILE_END) {
       if (Update.end(true)) {
         _status = OTA_SUCCESS;
-        AC_DBG_DUMB("succeeds, turn to reboot.\n");
+        AC_DBG_DUMB(" succeeds, turn to reboot");
       }
-      else
+      else {
         _setError();
+        AC_DBG_DUMB(" flash failed");
+      }
     }
     else {
-      Update.end(false);
-      AC_DBG_DUMB(" aborted\n");
+      AC_DBG_DUMB(" aborted");
     }
   }
+  AC_DBG_DUMB(". %s\n", _err.c_str());
+  if (_err.length())
+      Update.end(false);
   if (_tickerPort != -1)
     digitalWrite(_tickerPort, !_tickerOn);
 }
@@ -221,6 +225,5 @@ void AutoConnectOTA::_setError(void) {
   StreamString  eStr;
   Update.printError(eStr);
   _err = String(eStr.c_str());
-  AC_DBG("%s\n", _err.c_str());
   _status = OTA_FAIL;
 }
