@@ -2,7 +2,7 @@
 
 AutoConnect provides **two type platforms** for updating the binary sketch in the ESP8266 or ESP32 module via OTA. They correspond to the [Web Browser Update](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#web-browser) and [HTTP Server Update](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#http-server) whiches mentioned in the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#ota-updates).
 
-[**The update behavior using a web browser**](otabrowser.md) as the client that supplies the binary sketch file for update follows the scenario assumed by the ESP8266 Arduino core. Therefore, the user sketch must meet the requirements described in the ESP8266 Arduino Core documentation, but you can easily embed the update feature that able to handle with the web browser by AutoConnect. All you need to do is that [join](api.md#join) the [AutoConnectAux](apiaux.md) with embedded **ESP8266HTTPUpdateServer**[^1] of the core library to AutoConnect.
+[**The update behavior using a web browser**](otabrowser.md) as the client that supplies the binary sketch file for update follows the scenario assumed by the ESP8266 Arduino core. Therefore, the user sketch must meet the requirements described in the ESP8266 Arduino Core documentation, but you can easily embed the OTA update feature that able to operate via the web browser by AutoConnect menu. All you need to do is that specify [AutoConnectConfig](apiconfig.md#ota).
 
 [^1]: The AutoConnect library provides an implementation of the **HTTPUpdateServer** class that ported from ESP8266HTTPUpdateServer class for ESP32 intention. It is contained the **WebUpdate** under the examples folder.
 

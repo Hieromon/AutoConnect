@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.1
- *	@date	2019-10-17
+ *	@version	1.1.5
+ *	@date	2020-04-01
  *	@copyright	MIT license.
  */
 
@@ -31,8 +31,12 @@ using WebServerClass = WebServer;
 #include "AutoConnectDefs.h"
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
-#include "AutoConnectAux.h"
 #include "AutoConnectTicker.h"
+#include "AutoConnectAux.h"
+
+// The realization of AutoConnectOTA is effective only by the explicit
+#include "AutoConnectOTA.h"
+class AutoConnectOTA;  // Reference to avoid circular
 
 // The realization of AutoConnectUpdate is effective only by the explicit
 // definition of AUTOCONNECT_USE_UPDATE
@@ -45,10 +49,35 @@ typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_AUTO
 } AC_SAVECREDENTIAL_t;
 
+/**< URI that can be specified to AutoConnectConfig::bootUri. */
 typedef enum AC_ONBOOTURI {
   AC_ONBOOTURI_ROOT,
   AC_ONBOOTURI_HOME
 } AC_ONBOOTURI_t;
+
+/** WiFi connection principle, it specifies the order of WiFi connecting with saved credentials. */
+typedef enum AC_PRINCIPLE {
+  AC_PRINCIPLE_RECENT,
+  AC_PRINCIPLE_RSSI
+} AC_PRINCIPLE_t;
+
+/**< An enumerated type of the designated menu items. */
+typedef enum AC_MENUITEM {
+  AC_MENUITEM_NONE       = 0x0000,
+  AC_MENUITEM_CONFIGNEW  = 0x0001,
+  AC_MENUITEM_OPENSSIDS  = 0x0002,
+  AC_MENUITEM_DISCONNECT = 0x0004,
+  AC_MENUITEM_RESET      = 0x0008,
+  AC_MENUITEM_HOME       = 0x0010,
+  AC_MENUITEM_UPDATE     = 0x0020,
+  AC_MENUITEM_DEVINFO    = 0x0040
+} AC_MENUITEM_t;
+
+/**< Specifier for using built-in OTA */
+typedef enum AC_OTA {
+  AC_OTA_EXTRA,
+  AC_OTA_BUILTIN
+} AC_OTA_t;
 
 class AutoConnectConfig {
  public:
@@ -65,8 +94,10 @@ class AutoConnectConfig {
     psk(String(AUTOCONNECT_PSK)),
     channel(AUTOCONNECT_AP_CH),
     hidden(0),
+    minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
+    principle(AC_PRINCIPLE_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -75,9 +106,11 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
+    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
+    ota(AC_OTA_EXTRA),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -97,8 +130,10 @@ class AutoConnectConfig {
     psk(String(password)),
     channel(channel),
     hidden(0),
+    minRSSI(AUTOCONNECT_MIN_RSSI),
     autoSave(AC_SAVECREDENTIAL_AUTO),
     bootUri(AC_ONBOOTURI_ROOT),
+    principle(AC_PRINCIPLE_RECENT),
     boundaryOffset(AC_IDENTIFIER_OFFSET),
     uptime(AUTOCONNECT_STARTUPTIME),
     autoRise(true),
@@ -107,9 +142,11 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     portalTimeout(portalTimeout),
+    menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
+    ota(AC_OTA_EXTRA),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -129,8 +166,10 @@ class AutoConnectConfig {
     psk = o.psk;
     channel = o.channel;
     hidden = o.hidden;
+    minRSSI=o.minRSSI;
     autoSave = o.autoSave;
     bootUri = o.bootUri;
+    principle = o.principle;
     boundaryOffset = o.boundaryOffset;
     uptime = o.uptime;
     autoRise = o.autoRise;
@@ -139,9 +178,11 @@ class AutoConnectConfig {
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
     portalTimeout = o.portalTimeout;
+    menuItems = o.menuItems;
     ticker = o.ticker;
     tickerPort = o.tickerPort;
     tickerOn = o.tickerOn;
+    ota = o.ota;
     hostName = o.hostName;
     homeUri = o.homeUri;
     title = o.title;
@@ -153,6 +194,7 @@ class AutoConnectConfig {
     return *this;
   }
 
+
   IPAddress apip;               /**< SoftAP IP address */
   IPAddress gateway;            /**< SoftAP gateway address */
   IPAddress netmask;            /**< SoftAP subnet mask */
@@ -160,8 +202,10 @@ class AutoConnectConfig {
   String    psk;                /**< SoftAP password */
   uint8_t   channel;            /**< SoftAP used wifi channel */
   uint8_t   hidden;             /**< SoftAP SSID hidden */
+  int16_t   minRSSI;            /**< Lowest WiFi signal strength (RSSI) that can be connected. */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
   AC_ONBOOTURI_t  bootUri;      /**< An uri invoking after reset */
+  AC_PRINCIPLE_t  principle;    /**< WiFi connection principle */  
   uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
   int       uptime;             /**< Length of start up time */
   bool      autoRise;           /**< Automatic starting the captive portal */
@@ -170,9 +214,11 @@ class AutoConnectConfig {
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
+  uint16_t  menuItems;          /**< A compound value of the menu items to be attached */
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
+  AC_OTA_t  ota;                /**< Attach built-in OTA */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   String    title;              /**< Menu title */
@@ -204,6 +250,8 @@ class AutoConnect {
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
   String where(void) const { return _auxUri; }
+  inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
+  inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
@@ -224,16 +272,17 @@ class AutoConnect {
   } AC_STARECONNECT_t;
   bool  _config(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
+  String _getBootUri(void);
   bool  _getConfigSTA(station_config_t* config);
   void  _startWebServer(void);
   void  _startDNSServer(void);
   void  _handleNotFound(void);
-  bool  _loadAvailCredential(const char* ssid);
+  bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
   void  _purgePages(void);
-  virtual PageElement*  _setupPage(String uri);
+  virtual PageElement*  _setupPage(String& uri);
 #ifdef AUTOCONNECT_USE_JSON
   template<typename T>
   bool  _parseJson(T in);
@@ -256,6 +305,7 @@ class AutoConnect {
   void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
+  String               _attachMenuItem(const AC_MENUITEM_t item);
   static uint32_t      _getChipId(void);
   static uint32_t      _getFlashChipRealSize(void);
   static String        _toMACAddressString(const uint8_t mac[]);
@@ -283,6 +333,8 @@ class AutoConnect {
   String        _prevUri;       /**< Previous generated page uri */
   /** Available updater, only reset by AutoConnectUpdate::attach is valid */
   std::unique_ptr<AutoConnectUpdate>  _update;
+  /** OTA updater */
+  std::unique_ptr<AutoConnectOTA>     _ota;
 
   /** Saved configurations */
   AutoConnectConfig  _apConfig;

@@ -70,7 +70,7 @@ In the OTA platform, you can place the update server operated by the script in a
 For Python2: *AUTOCONNECT\_LIBRARY\_PATH*/src/updateserver/python2  
 For Python3: *AUTOCONNECT\_LIBRARY\_PATH*/src/updateserver/python3
 
-```bash
+```powershell
 updateserver.py [-h] [--port PORT] [--bind IP_ADDRESS] [--catalog CATALOG] [--log LOG_LEVEL]
 ```
 <dl class="apidl">
@@ -91,7 +91,7 @@ updateserver.py [-h] [--port PORT] [--bind IP_ADDRESS] [--catalog CATALOG] [--lo
 
     3. Start updateserver.py  
        For example, to start the update server on the host with IP address 172.16.1.10 using 8080 port[^4], execute the following command:
-      ```bash
+      ```powershell
       python updateserver.py --port 8080 --bind 172.16.1.10 --catalog bin --log debug
       ```  
       In this example assumes that the binary sketch files are deployed under the path `bin` from the current directory.
@@ -118,7 +118,7 @@ Above requirements will be implemented on along the HTTP protocol. The AutoConne
 
 #### 1. HTTP URL query for the catalog list of the updatable
 
-```
+```powershell
 [address]/_catalog?op=list&path=[path]
 ```
 <dl class="apidl">
@@ -159,7 +159,7 @@ The above JSON object is one entry. The actual catalog list is an array of this 
 
 The AutoConnectUpdate class issues a HTTP GET request with the specified host address and URI. The update server responds by sending back a binary sketch file with the following header:
 
-```
+```powershell
 Content-Type: application/octet-stream
 Content-Disposition: attachment; filename="BINARY_SKETCH_FILE_NAME"
 Content-Length: LENGTH_OF_CONTENT

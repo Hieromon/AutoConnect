@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.1.0
- * @date 2019-10-11
+ * @version  1.1.5
+ * @date 2020-03-16
  * @copyright  MIT license.
  */
 
@@ -174,6 +174,11 @@
 #endif
 #endif
 
+// Lowest WiFi signal strength (RSSI) that can be connected.
+#ifndef AUTOCONNECT_MIN_RSSI
+#define AUTOCONNECT_MIN_RSSI          -120  // No limit
+#endif // !AUTOCONNECT_MIN_RSSI
+
 // ArduinoJson buffer size
 #ifndef AUTOCONNECT_JSONBUFFER_SIZE
 #define AUTOCONNECT_JSONBUFFER_SIZE     256
@@ -185,7 +190,7 @@
 #define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
 #endif // !AUTOCONNECT_JSONPSRAM_SIZE
 
-// Available HTTP port number for the update [ms]
+// Available HTTP port number for the update
 #ifndef AUTOCONNECT_UPDATE_PORT
 #define AUTOCONNECT_UPDATE_PORT       8000
 #endif // !AUTOCONNECT_UPDATE_PORT
@@ -207,7 +212,7 @@
 
 // Wait timer for rebooting after updated
 #ifndef AUTOCONNECT_UPDATE_WAITFORREBOOT
-#define AUTOCONNECT_UPDATE_WAITFORREBOOT  9000
+#define AUTOCONNECT_UPDATE_WAITFORREBOOT  15000
 #endif // !AUTOCONNECT_UPDATE_WAITFORREBOOT
 
 // A signal value that the board dependent LED turns on.

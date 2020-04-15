@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.1
- *  @date   2019-10-17
+ *  @version    1.1.5
+ *  @date   2020-04-15
  *  @copyright  MIT license.
  */
 
@@ -95,15 +95,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       _ticker->start(AUTOCONNECT_FLICKER_PERIODDC, (uint8_t)AUTOCONNECT_FLICKER_WIDTHDC);
   }
 
-  // Advance configuration for STA mode. Restore previous configuration of STA.
-  station_config_t  current;
-  if (_getConfigSTA(&current)) {
-    AC_DBG("Current:%.32s\n", current.ssid);
-    _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
-  }
-  if (!_configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2))
-    return false;
-
   // If the portal is requested promptly skip the first WiFi.begin and
   // immediately start the portal.
   if (_apConfig.immediateStart) {
@@ -112,21 +103,47 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     AC_DBG("Start the portal immediately\n");
   }
   else {
-    // Try to connect by STA immediately.
-    if (ssid == nullptr && passphrase == nullptr)
-      WiFi.begin();
-    else {
-      _disconnectWiFi(false);
-      WiFi.begin(ssid, passphrase);
+    cs = true;
+    // Prepare valid configuration according to the WiFi connection right order.
+    const char* c_ssid = ssid;
+    const char* c_password = passphrase;
+    station_config_t  current;
+    if (_getConfigSTA(&current))
+      AC_DBG("Current:%.32s\n", current.ssid);
+    if (_apConfig.principle == AC_PRINCIPLE_RSSI && (ssid == nullptr && passphrase == nullptr)) {
+      // AC_PRINCIPLE_RSSI is available when SSID and password are not provided.
+      // Find the strongest signal from the broadcast among the saved credentials.
+      if ((cs = _loadAvailCredential(nullptr, AC_PRINCIPLE_RSSI, false))) {
+        memcpy(current.ssid, _credential.ssid, sizeof(station_config_t::ssid));
+        memcpy(current.password, _credential.password, sizeof(station_config_t::password));
+        c_ssid = reinterpret_cast<const char*>(current.ssid);
+        c_password = reinterpret_cast<const char*>(current.password);
+        AC_DBG("Adopted:%.32s\n", c_ssid);
+      }
     }
-    AC_DBG("WiFi.begin(%s%s%s)\n", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
-    cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+
+    if (cs) {
+      // Advance configuration for STA mode. Restore previous configuration of STA.
+      _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
+      if (!_configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2))
+        return false;
+
+      // Try to connect by STA immediately.
+      if (c_ssid == nullptr && c_password == nullptr)
+        WiFi.begin();
+      else {
+        _disconnectWiFi(false);
+        WiFi.begin(c_ssid, c_password);
+      }
+      AC_DBG("WiFi.begin(%s%s%s)\n", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
+      cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+    }
   }
 
   // Reconnect with a valid credential as the autoReconnect option is enabled.
   if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
     // Load a valid credential.
-    if (_loadAvailCredential(nullptr)) {
+    if (_loadAvailCredential(nullptr, _apConfig.principle, true)) {
       // Try to reconnect with a stored credential.
       char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
       char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
@@ -134,7 +151,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - sizeof('\0'));
       *password_c = '\0';
       strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - sizeof('\0'));
-      AC_DBG("autoReconnect loaded SSID:%s\n", ssid_c);
+      AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
       const char* psk = strlen(password_c) ? password_c : nullptr;
       _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
       WiFi.begin(ssid_c, psk);
@@ -312,6 +329,21 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
 }
 
 /**
+ *  Get URI to redirect at boot. It uses the URI according to the
+ *  AutoConnectConfig::bootUti setting with the AutoConnectConfig::homeUri
+ *  as the boot path.
+ *  @return the boot uri.
+ */
+String AutoConnect::_getBootUri(void) {
+  if (_apConfig.bootUri == AC_ONBOOTURI_ROOT)
+    return String(AUTOCONNECT_URI);
+  else if (_apConfig.bootUri == AC_ONBOOTURI_HOME)
+    return _apConfig.homeUri.length() > 0 ? _apConfig.homeUri : String("/");
+  else
+    return _emptyString;
+}
+
+/**
  *  Obtains the currently established AP connection to determine if the
  *  station configuration needs to run before the first WiFi.begin.
  *  Get the SSID of the currently connected AP stored in the ESP module
@@ -362,6 +394,9 @@ void AutoConnect::home(const String& uri) {
 void AutoConnect::end(void) {
   _responsePage.reset();
   _currentPageElement.reset();
+  _ticker.reset();
+  _update.reset();
+  _ota.reset();
 
   _stopPortal();
   _dnsServer.reset();
@@ -568,6 +603,27 @@ void AutoConnect::handleRequest(void) {
   // Handle the update behaviors for attached AutoConnectUpdate.
   if (_update)
     _update->handleUpdate();
+
+  // Attach AutoConnectOTA if OTA is available.
+  if (_apConfig.ota == AC_OTA_BUILTIN) {
+    if (!_ota) {
+      _ota.reset(new AutoConnectOTA());
+      _ota->attach(*this);
+      _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
+    }
+  }
+
+  // Post-process for AutoConnectOTA
+  if (_ota) {
+    if (_ota->status() == AutoConnectOTA::OTA_RIP) {
+      // Indicate the reboot at the next handleClient turn
+      // with on completion of the update via OTA.
+      _webServer->client().setNoDelay(true);
+      _rfReset = true;
+    }
+    // Reflect the menu display specifier from AutoConnectConfig to AutoConnectOTA page
+    _ota->menu(_apConfig.menuItems & AC_MENUITEM_UPDATE);
+  }
 }
 
 /**
@@ -612,9 +668,11 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
 /**
  *  Load stored credentials that match nearby WLANs.
  *  @param  ssid  SSID which should be loaded. If nullptr is assigned, search SSID with WiFi.scan.
+ *  @param  principle  WiFi connection principle.
+ *  @param  excludeCurrent  Skip loading the current SSID.
  *  @return true  A matched credential of BSSID was loaded.
  */
-bool AutoConnect::_loadAvailCredential(const char* ssid) {
+bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle, const bool excludeCurrent) {
   AutoConnectCredential credential(_apConfig.boundaryOffset);
 
   if (credential.entries() > 0) {
@@ -624,16 +682,55 @@ bool AutoConnect::_loadAvailCredential(const char* ssid) {
       int8_t  nn = WiFi.scanNetworks(false, true);
       AC_DBG("%d network(s) found\n", (int)nn);
       if (nn > 0) {
-        // Determine valid credentials by BSSID.
+        station_config_t  validConfig;  // Temporary to find the strongest RSSI.
+        int32_t minRSSI = -120;         // Min value to find the strongest RSSI.
+
+        // Seek SSID
+        const char* currentSSID = WiFi.SSID().c_str();
+        const bool  skipCurrent = excludeCurrent & (strlen(currentSSID) > 0);
         for (uint8_t i = 0; i < credential.entries(); i++) {
           credential.load(i, &_credential);
+          // Seek valid configuration according to the WiFi connection principle.
+          // Verify that an available SSIDs meet AC_PRINCIPLE_t requirements.
           for (uint8_t n = 0; n < nn; n++) {
-            if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid)))
-              return true;
+            if (skipCurrent && !strcmp(currentSSID, WiFi.SSID(n).c_str()))
+              continue;
+            if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid))) {
+              // Excepts SSID that has weak RSSI under the lower limit.
+              if (WiFi.RSSI(n) < _apConfig.minRSSI) {
+                AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
+                continue;
+              }
+              // Determine valid credential
+              switch (principle) {
+              case AC_PRINCIPLE_RECENT:
+                // By BSSID, exit to keep the credential just loaded.
+                return true;
+
+              case AC_PRINCIPLE_RSSI:
+                // Verify that most strong radio signal.
+                // Continue seeking to find the strongest WIFI signal SSID.
+                if (WiFi.RSSI(n) > minRSSI) {
+                  minRSSI = WiFi.RSSI(n);
+                  memcpy(&validConfig, &_credential, sizeof(station_config_t));
+                }
+                break;
+              }
+              break;
+            }
           }
+        }
+        // Increasing the minSSI will indicate the successfully sought for AC_PRINCIPLE_RSSI.
+        // Restore the credential that has maximum RSSI.
+        if (minRSSI > -120) {
+          memcpy(&_credential, &validConfig, sizeof(station_config_t));
+          return true;
         }
       }
     }
+
+    // The SSID to load was specified.
+    // Set the IP configuration globally from the saved credential.
     else if (strlen(ssid))
       if (credential.load(ssid, &_credential) >= 0) {
         if (_credential.dhcp == STA_STATIC) {
@@ -675,7 +772,7 @@ bool AutoConnect::_captivePortal(void) {
   String  hostHeader = _webServer->hostHeader();
   if (!_isIP(hostHeader) && (hostHeader != WiFi.localIP().toString()) && (!hostHeader.endsWith(F(".local")))) {
     AC_DBG("Detected application, %s, %s\n", hostHeader.c_str(), WiFi.localIP().toString().c_str());
-    String location = String(F("http://")) + _webServer->client().localIP().toString() + String(AUTOCONNECT_URI);
+    String location = String(F("http://")) + _webServer->client().localIP().toString() + _getBootUri();
     _webServer->sendHeader(String(F("Location")), location, true);
     _webServer->send(302, String(F("text/plain")), _emptyString);
     _webServer->client().flush();
@@ -835,7 +932,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
 // that occurs at connection establishment.
 // [WiFiClient.cpp:463] connected(): Disconnected: RES: 0, ERR: 128
 // When connecting as a station, TCP reset caused by switching of the
-// radio channel occurs. Although the Espressif's view is true. However,
+// radio channel occurs. Although the Espressif view is true. However,
 // the actual TCP reset occurs not at the time of switching the channel.
 // It occurs at the connection from the ESP32 to the AP is established
 // and it is possible that TCP reset is occurring in other situations.

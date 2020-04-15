@@ -12,12 +12,13 @@ The following screen will appear as the AutoConnect menu when you access to **Au
 
 ## <i class="fa fa-bars"></i> Right on top
 
-Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to the home path of its sketch.
+Currently, AutoConnect supports six menus. Undermost menu as "HOME" returns to the home path of its sketch.
 
 - **Configure new AP**: Configure SSID and Password for new access point.
 - **Open SSIDs**: Opens the past SSID which has been established connection from the flash.
 - **Disconnect**: Disconnects current connection.
 - **Reset...**: Rest the ESP8266/ESP32 module.
+- **Update**: OTA updates. (Optional)
 - **HOME**: Return to user home page.
 
 <img src="images/menu.png" style="width:280px;" />
@@ -43,8 +44,8 @@ After WiFi connected, AutoConnect will automatically save the established SSID a
 
 !!! note "Saved credentials data structure has changed"
     A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
-    ```
-    esptool -c esp8266 (or esp32) - p [COM_PORT] erase_flash
+    ```powershell
+    esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
     ```
 
 ## <i class="fa fa-bars"></i> Disconnect
@@ -66,6 +67,13 @@ Resetting the ESP8266/ESP32 module will initiate a reboot. When the module resta
 
 If the sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnectmenu).
 
+## <i class="fa fa-bars"></i> Update
+
+If you specify [AutoConnectConfig::ota](apiconfig.md#ota) to import the OTA update feature into Sketch, an item will appear in the menu list as **Update**.
+
+!!! note "The Update menu item will appear only AutoConnectOTA enabled"
+    The Update item is displayed automatically in the menu only when [AutoConnectConfig::ota](apiconfig.md#ota) is specified with **AC_OTA_BUILTIN** or [AutoConnectUpdate](otaserver.md#how-to-embed-autoconnectupdate-to-your-sketch) is attached.
+
 ## <i class="fa fa-bars"></i> HOME
 
 A **HOME** item at the bottom of the menu list is a link to the home path, and the default URI is `/` which is defined by `AUTOCONNECT_HOMEURI` in **AutoConnectDefs.h** header file.
@@ -75,6 +83,38 @@ A **HOME** item at the bottom of the menu list is a link to the home path, and t
 ```
 
 Also, you can change the HOME path using the AutoConnect API. The [**AutoConnect::home**](api.md#home) function sets the URI as a link of the HOME item in the AutoConnect menu.
+
+## <i class="fa fa-bars"></i> Applying the active menu items
+
+Each of the above menu items can be configured with a Sketch. [AutoConnectConfig::menuItems](apiconfig.md#menuitems) specifies the menu items that will be enabled at runtime. You can also adjust available menu items using [AutoConnect::enableMenu](api.md#enablemenu) and [AutoConnect::disableMenu](api.md#disablemenu) function. It is an alternative to [AutoConnectConfig::menuItems](apiconfig.md#menuitems) and provides a shortcut to avoid using AutoConnectConfig.  
+For example, by disabling the [Configure new AP](#configure-new-ap) and [Disconnect](#disconnect) item, you can prevent the configuration for unknown access points.
+
+```cpp
+AutoConnect portal;
+AutoConnectConfig config;
+
+void setup() {
+  config.menuItems = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_RESET | AC_MENUITEM_HOME;
+  portal.config(config);
+}
+```
+
+The next is another way to achieve the same effect.
+
+```cpp
+AutoConnect portal;
+
+void setup() {
+  portal.disableMenu(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_DISCONNECT);
+  portal.config(config);
+}
+```
+
+The result of executing the above Sketch is as below:
+
+<img src="images/applymenu.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
+
+Details for [AutoConnectConfig::menuItems](apiconfig.md#menuitems).
 
 ## <i class="fa fa-bars"></i> Attaching to AutoConnect menu
 

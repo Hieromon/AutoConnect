@@ -97,7 +97,7 @@ Specify the location to be redirected after module reset in the AutoConnect menu
     <dt>**Type**</dt>
     <dd>AC_ONBOOTURI_t</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef">AC_ONBOOTURI_ROOT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in AutoConnectDefs.h.</span></dd>
+    <dd><span class="apidef">AC_ONBOOTURI_ROOT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Resetting the module redirects it to the AutoConnect root path. The root path is assumed to be AUTOCONNECT_URI defined in [`AutoConnectDefs.h`](api.md#defined-macros).</span></dd>
     <dd><span class="apidef">AC_ONBOOTURI_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">It is redirected to the URI specified by [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri).</span></dd>
 </dl>
 
@@ -189,6 +189,39 @@ Disable the first WiFi.begin() and start the captive portal. If this option is e
     <dd><span class="apidef">false</span><span class="apidesc">Enable the first WiFi.begin() and it will start captive portal when connection failed. This is default.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> menuItems
+
+Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily combine valid menus by coordinating the menuItems value.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">uint16_t</span><span class="apidesc">It provides the combined **AC_MENUITEM_t** value of the item to apply to the AutoConnect menu.<br>Specify the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu.  It affects not only disappear the items from the menu also invalidates the URI they have. As a consequence, even if it accesses the URL directly will occur a 404 error.<br>The default value is logical OR of AC_MENUITEM_CONFIGNEW, AC_MENUITEM_OPENSSIDS, AC_MENUITEM_DISCONNECT, AC_MENUITEM_RESET, AC_MENUITEM_UPDATE and AC_MENUITEM_HOME.</span></dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_MENUITEM_NONE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">No assign items except for the AutoConnectAux page item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_CONFIGNEW</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Configure new AP](menu.md#config-new-ap) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_OPENSSIDS</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Open SSIDs](menu.md#open-ssids) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_DISCONNECT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Disconnect](menu.md#disconnect) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_RESET</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Reset...](menu.md#reset) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_UPDATE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Update](menu.md#update) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [HOME](menu.md#home) item.</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_DEVINFO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends the **Device info** item which links to [AutoConnect statistics page](menu.md##where-the-from).</span></dd>
+</dl>
+
+!!! info "How to specify the value of the menu items"
+    An menuItems accepts the logical OR of AC_MENUITEM_t type value. For example, to enable only Open SSIDs and HOME items, specify:
+    ```cpp
+    AutoConnectConfig config;
+    config.menuItems = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_HOME;
+    ```
+    However, even if you specify like the above, the AutoConnectAux page items still display on the menu. To remove the AutoConnectAux items, use the [AutoConnectAux::menu](apiaux.md#menu) function.
+
+### <i class="fa fa-caret-right"></i> minRSSI
+
+Specify the lower limit of the WiFi signal strength allowed to use as an access point. This value should be greater than -120 as RSSI. Generally, a data link will not be established unless it exceeds -90 dBm. Also, packet transmission is not reliable below -70 dBm to -80 dBm.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">int16_t</span><span class="apidesc">The default value is -120</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> netmask
 
 Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initial WiFi.begin, it starts the captive portal with the IP address specified this.
@@ -197,12 +230,35 @@ Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initi
     <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **255.255.255.0**</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> ota
+
+Specifies to import the built-in OTA update class into the sketch. When this option is enabled, an **Update** item will appear in the AutoConnect menu, and the OTA update via Web browser will be automatically embedded to the Sketch.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>AC_OTA_t</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_OTA_EXTRA</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">AutoConnect does not import AutoConnectOTA. This is the default.</span></dd>
+    <dd><span class="apidef">AC_OTA_BUILTIN</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Specifies to include AutoConnectOTA in the Sketch.</span></dd>
+</dl>
+
+
 ### <i class="fa fa-caret-right"></i> portalTimeout
 
 Specify the timeout value of the captive portal in [ms] units. It is valid when the station is not connected and does not time out if the station is connected to the ESP module in SoftAP mode (i.e. Attempting WiFi connection with the portal function). If 0, the captive portal will not be timed-out.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">unsigned long</span><span class="apidesc">Captive portal timeout value. The default value is 0.</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> principle
+
+Specify the connection order will attempt to connect to one of the highest RSSI values among multiple available access points. It is given as an enumeration value of **AC_PRINCIPLE_t** indicating.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>AC_PRINCIPLE_t</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_PRINCIPLE_RECENT</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Attempts to connect in the order of the saved credentials entries. The entry order is generally a time series connected in the past.</span></dd>
+    <dd><span class="apidef">AC_PRINCIPLE_RSSI</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Attempts to connect to one of the highest RSSI values among multiple available access points.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> psk
@@ -267,7 +323,7 @@ Set flicker signal output according to WiFi connection status during AutoConnect
 
 ### <i class="fa fa-caret-right"></i> tickerPort
 
-Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **AUTOCONNECT_TICKER_PORT** in `AutoConnectDefs.h`.
+Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **AUTOCONNECT_TICKER_PORT** in [`AutoConnectDefs.h`](api.md#defined-macros).
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint8_t</dd>

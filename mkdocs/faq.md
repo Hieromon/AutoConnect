@@ -32,7 +32,7 @@ You can avoid a compile error in one of two ways:
 
 1. Disable an AutoConnectUpdate feature if you don't need.
 
-    You can disable the AutoConnectUpdate feature by commenting out the **AUTOCONNECT_USE_UPDATE** macro in the `AutoConnectDefs.h` header file.
+    You can disable the AutoConnectUpdate feature by commenting out the [**AUTOCONNECT_USE_UPDATE**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L34) macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.
     ```cpp
     #define AUTOCONNECT_USE_UPDATE
     ```
@@ -67,7 +67,7 @@ You have the following two options to avoid this conflict:
 
 - Suppresses the automatic save operation of credentials by AutoConnect.  
   You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](advancedusage.md#automatic-reconnect) will be lost.  
-  If you want to stop the automatic saving of the credentials, uses [AutoConnectConfig::autoSave](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#auto-save-credential) for details.
+  If you want to stop the automatic saving of the credentials, uses [AutoConnectConfig::autoSave](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#autosave-credential) for details.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
@@ -115,7 +115,7 @@ If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not 
 
 If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.
 
-```
+```powershell
 ets Jan  8 2013,rst cause:2, boot mode:(1,6) or (1,7)
 ets Jan  8 2013,rst cause:4, boot mode:(1,6) or (1,7)
 wdt reset
@@ -124,7 +124,7 @@ wdt reset
 The correct boot mode for starting the sketch is **(3, x)**.
 
 !!! info "ESP8266 Boot Messages"
-    It is described by [ESP8266 Non-OS SDK API Reference](view-source:https://www.espressif.com/en/products/hardware/esp8266ex/resources), section A.5.
+    It is described by [ESP8266 Non-OS SDK API Reference](https://www.espressif.com/en/products/hardware/esp8266ex/resources), section A.5.
 
     | Messages | Description |
     |----------|-------------|
@@ -137,7 +137,7 @@ You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more 
 
 ## <i class="fa fa-question-circle"></i> How change HTTP port?
 
-HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L112) header file. You can change it directly with several editors and must re-compile.
+HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L123) header file. You can change it directly with several editors and must re-compile.
 
 ```cpp
 #define AUTOCONNECT_HTTPPORT    80
@@ -154,7 +154,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 
 To exclude ArduinoJson at compile-time, give the following `#define` directive as a compiler option such as the [arduino-cli](https://github.com/arduino/arduino-cli) or [PlatformIO](https://platformio.org/).
 
-```
+```cpp
 #define AUTOCONNECT_NOUSE_JSON
 ```
 
@@ -200,7 +200,7 @@ If the sketch is correct, a JSON syntax error may have occurred. In this case, a
 ## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
 
 A structure of AutoConnect saved credentials has changed two times throughout enhancement with v1.0.3 and v1.1.0. In particular, due to enhancements in v1.1.0, AutoConnectCredential data structure has lost the backward compatibility with previous versions. You must erase the flash of the ESP module using the esptool completely to save the credentials correctly with v1.1.0.
-```
+```powershell
 esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
 ```
 
@@ -216,7 +216,7 @@ Also, you can check the memory running out status by rebuilding the sketch with 
 
 If the heap memory is insufficient, the following message is displayed on the serial console.
 
-```
+```powershell
 [PB] Failed building, free heap:<Size of free heap>
 ```
 

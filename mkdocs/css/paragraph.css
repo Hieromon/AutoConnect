@@ -9,6 +9,7 @@
 }
 
 .md-typeset pre {
+  background-color: #272822 !important;
   font-size: 12px;
 }
 
