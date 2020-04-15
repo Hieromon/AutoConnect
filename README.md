@@ -101,9 +101,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [1.1.5] Apr. 1, 2020
-- Supports AutoConnect menu configuration.
+### [1.1.5] Apr. 15, 2020
 - Changed the bootUri behavior to be an automatic pop-up at the captive portal. (PR #181)
+- Supports AutoConnect menu configuration.
+- Supports the built-in OTA feature.
 
 ### [1.1.4] Feb. 14, 2020
 - Supports for overriding text of the menu items with user-defined labels.
