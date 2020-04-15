@@ -1,4 +1,4 @@
-banches:
+branches:
   only:
     - master
 language: generic
