@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.1b62728e.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.adb8469c.css">
       
         <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
       
@@ -57,7 +57,7 @@
       
     
     
-      <script src="assets/javascripts/modernizr.268332fc.js"></script>
+      <script src="assets/javascripts/modernizr.86422ebf.js"></script>
     
     
       
@@ -73,7 +73,7 @@
     
       <link rel="stylesheet" href="css/extra.css">
     
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     
     
       
@@ -122,7 +122,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#updates-with-the-update-server" tabindex="1" class="md-skip">
+      <a href="#updates-with-the-update-server" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -131,9 +131,9 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
+        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" aria-label="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
           
-            <img src="images/arduino-logo.svg" width="24" height="24">
+            <img alt="logo" src="images/arduino-logo.svg" width="24" height="24">
           
         </a>
       </div>
@@ -162,7 +162,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
         &#xE5CD;
@@ -225,7 +225,7 @@
   <label class="md-nav__title md-nav__title--site" for="__drawer">
     <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
       
-        <img src="images/arduino-logo.svg" width="48" height="48">
+        <img alt="logo" src="images/arduino-logo.svg" width="48" height="48">
       
     </a>
     AutoConnect for ESP8266/ESP32
@@ -951,29 +951,29 @@ The AutoConnect library provides an update server script implemented in Python t
 <li>Attach the AutoConnectUpdate object to AutoConnect using <a href="apiupdate.html#attach">AutoConnectUpdate::attach</a> function.</li>
 <li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>.</li>
 </ol>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>                          <span style="color: #75715e">// Step #1</span>
-<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>                               <span style="color: #75715e">// Step #2</span>
-<span style="color: #f8f8f2">AutoConnectUpdate</span> <span style="color: #a6e22e">update</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;192.168.0.100&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">8000</span><span style="color: #f8f8f2">);</span>  <span style="color: #75715e">// Step #3</span>
+<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>                          <span style="color: #7a7a7a">// Step #1</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>                               <span style="color: #7a7a7a">// Step #2</span>
+<span style="color: #f8f8f2">AutoConnectUpdate</span> <span style="color: #a6e22e">update</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;192.168.0.100&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">8000</span><span style="color: #f8f8f2">);</span>  <span style="color: #7a7a7a">// Step #3</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(portal.begin())</span> <span style="color: #f8f8f2">{</span>     <span style="color: #75715e">// Step #4</span>
-    <span style="color: #f8f8f2">update.attach(portal);</span>  <span style="color: #75715e">// Step #5</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(portal.begin())</span> <span style="color: #f8f8f2">{</span>     <span style="color: #7a7a7a">// Step #4</span>
+    <span style="color: #f8f8f2">update.attach(portal);</span>  <span style="color: #7a7a7a">// Step #5</span>
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">portal.handleClient();</span>    <span style="color: #75715e">// Step #6</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>    <span style="color: #7a7a7a">// Step #6</span>
 <span style="color: #f8f8f2">}</span>
-</pre></div>
+</code></pre></div>
 
 <p><span style="display:block;margin-left:auto;margin-right:auto;width:282px;height:362px;border:1px solid lightgrey;"><img data-gifffer="images/serverupdate.gif" data-gifffer-height="360" data-gifffer-width="280" /></span></p>
 <h3 id="behavior-of-the-autoconnectupdate-class"><i class="fas fa-desktop"></i> Behavior of the AutoConnectUpdate class<a class="headerlink" href="#behavior-of-the-autoconnectupdate-class" title="Permanent link">&para;</a></h3>
 <p>A sketch incorporating the AutoConnectUpdate class has an extended menu item as <strong>UPDATE</strong> in the AutoConnect menu. <strong>UPDATE</strong> as menu item will be attached by the AutoConnectUpdate automatically.</p>
-<p>When an UPDATE item started, its first action is requesting a <a href="#2-the-catalog-list-content">catalog list</a> of updatable binary sketch files to the <a href="#update-server-for-the-autoconnectupdate-class">update server</a>. Then the update server sends back the catalog list of stored binary sketch files to a client which is the ESP module. The AutoConnectUpdate class will display responded list to a custom Web page<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> on the browser.</p>
+<p>When an UPDATE item started, its first action is requesting a <a href="#2-the-catalog-list-content">catalog list</a> of updatable binary sketch files to the <a href="#update-server-for-the-autoconnectupdate-class">update server</a>. Then the update server sends back the catalog list of stored binary sketch files to a client which is the ESP module. The AutoConnectUpdate class will display responded list to a custom Web page<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> on the browser.</p>
 <p><img align="top" src="images/updatemenu.png" width="240" />
 <img style="margin-left:30px;" src="images/updatelist.png" width="240" /></p>
 <p>The substance of Available firmware list is a custom Web page by AutoConnectAux, and you can select the target binary sketch file with the radio button (AutoConnectRadio). A progress bar will appear to notify the updating status once the update has begun. When the update finished, the ESP module will reset automatically to launch a new firmware.</p>
@@ -981,10 +981,10 @@ The AutoConnect library provides an update server script implemented in Python t
 <img style="margin-left:30px;" src="images/updated.png" width="240" /></p>
 <p>The AutoConnectUpdate class performs the above series of operations in conjunction with the update server. All you need to do is attach the AutoConnectUpdate class to AutoConnect and execute the <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>.</p>
 <h3 id="update-server-for-the-autoconnectupdate-class"><i class="fas fa-server"></i> Update server for the AutoConnectUpdate class<a class="headerlink" href="#update-server-for-the-autoconnectupdate-class" title="Permanent link">&para;</a></h3>
-<p>The above series of operations using AutoConnectUpdate class requires an update server that can work with it. AutoConnect provides an update server script implemented in Python. This server script conforms to a sketch that uses the AutoConnectUpdate class as an update client agent.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></p>
+<p>The above series of operations using AutoConnectUpdate class requires an update server that can work with it. AutoConnect provides an update server script implemented in Python. This server script conforms to a sketch that uses the AutoConnectUpdate class as an update client agent.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 <p>In the OTA platform, you can place the update server operated by the script in a location that is reachable from the ESP module on the network.</p>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>updateserver.py <span style="color: #f92672">[</span>-h<span style="color: #f92672">]</span> <span style="color: #f92672">[</span>--port PORT<span style="color: #f92672">]</span> <span style="color: #f92672">[</span>--bind IP_ADDRESS<span style="color: #f92672">]</span> <span style="color: #f92672">[</span>--catalog CATALOG<span style="color: #f92672">]</span> <span style="color: #f92672">[</span>--log LOG_LEVEL<span style="color: #f92672">]</span>
-</pre></div>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">updateserver.py</span> <span style="color: #f8f8f2">[-h]</span> <span style="color: #f8f8f2">[--port</span> <span style="color: #f8f8f2">PORT]</span> <span style="color: #f8f8f2">[--bind</span> <span style="color: #f8f8f2">IP_ADDRESS]</span> <span style="color: #f8f8f2">[--catalog</span> <span style="color: #f8f8f2">CATALOG]</span> <span style="color: #f8f8f2">[--log</span> <span style="color: #f8f8f2">LOG_LEVEL]</span>
+</code></pre></div>
 <dl class="apidl">
   <dt></dt>
   <dd><span class="apidef"><strong>--help | -h</strong></span><span class="apidesc">Show help message and exit.</span>
@@ -1002,13 +1002,13 @@ The AutoConnect library provides an update server script implemented in Python t
 </li>
 <li>
 <p>Deploy the binary sketch files<br />
-   Use the Arduino IDE to output a binary file of sketches and deploy it<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup> under the update server. The path which specifies for the <strong>--catalog</strong> option of updateServer.py is the path of the binary sketch files you deployed.</p>
+   Use the Arduino IDE to output a binary file of sketches and deploy it<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> under the update server. The path which specifies for the <strong>--catalog</strong> option of updateServer.py is the path of the binary sketch files you deployed.</p>
 </li>
 <li>
 <p>Start updateserver.py<br />
-   For example, to start the update server on the host with IP address 172.16.1.10 using 8080 port<sup id="fnref:4"><a class="footnote-ref" href="#fn:4" rel="footnote">4</a></sup>, execute the following command:
-  <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>python updateserver.py --port <span style="color: #ae81ff">8080</span> --bind <span style="color: #ae81ff">172</span>.16.1.10 --catalog bin --log debug
-</pre></div>
+   For example, to start the update server on the host with IP address 172.16.1.10 using 8080 port<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>, execute the following command:
+  <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">python</span> <span style="color: #f8f8f2">updateserver.py</span> <span style="color: #f8f8f2">--port</span> <span style="color: #f8f8f2">8080</span> <span style="color: #f8f8f2">--bind</span> <span style="color: #f8f8f2">172.16.1.10</span> <span style="color: #f8f8f2">--catalog</span> <span style="color: #f8f8f2">bin</span> <span style="color: #f8f8f2">--log</span> <span style="color: #f8f8f2">debug</span>
+</code></pre></div>
   In this example assumes that the binary sketch files are deployed under the path <code>bin</code> from the current directory.</p>
 </li>
 </ol>
@@ -1021,13 +1021,13 @@ The AutoConnect library provides an update server script implemented in Python t
 <p>You can also equip an update server that works with the AutoConnectUpdate class. It can be improved more widely applicable by adding extensions such as version control and authentication to the updateserver.py script. It is necessary to understand the specifications related to HTTP data streams and sequences to enhance the update server that the AutoConnectUpdate class assumes.</p>
 <p>This section describes the contents of the HTTP data stream required by the communication with AutoConnectUpdate class. To work correctly with the AutoConnectUpdate class, the update server must meet two requirements:</p>
 <ul>
-<li>The update server notifies the catalog list of updatable binary files which stored in the update server to the client agent. <sup id="fnref:5"><a class="footnote-ref" href="#fn:5" rel="footnote">5</a></sup></li>
-<li>Send an updating binary file and MD5 hash to a client in response to URI request (HTTP GET). <sup id="fnref:6"><a class="footnote-ref" href="#fn:6" rel="footnote">6</a></sup></li>
+<li>The update server notifies the catalog list of updatable binary files which stored in the update server to the client agent. <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></li>
+<li>Send an updating binary file and MD5 hash to a client in response to URI request (HTTP GET). <sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></li>
 </ul>
 <p>Above requirements will be implemented on along the HTTP protocol. The AutoConnectUpdate class requests an update server to notify the client for a catalog list of binary sketch files using an HTTP URL query string. The specifications of the HTTP query and the contents of the catalog list to be returned are as follows:</p>
 <h4 id="1-http-url-query-for-the-catalog-list-of-the-updatable">1. HTTP URL query for the catalog list of the updatable<a class="headerlink" href="#1-http-url-query-for-the-catalog-list-of-the-updatable" title="Permanent link">&para;</a></h4>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>[address]/_catalog?op=list&amp;path=[path]
-</pre></div>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">[address]</span><span style="color: #f8f8f2">/_catalog</span><span style="color: #66d9ef">?</span><span style="color: #f8f8f2">op=list&amp;path=</span><span style="color: #66d9ef">[path]</span>
+</code></pre></div>
 <dl class="apidl">
   <dt></dt>
   <dd><span class="apidef"><strong>address</strong></span><span class="apidesc">URL of the update server</span>
@@ -1037,14 +1037,14 @@ The AutoConnect library provides an update server script implemented in Python t
 </dl></p>
 <h4 id="2-the-catalog-list-content">2. The catalog list content<a class="headerlink" href="#2-the-catalog-list-content" title="Permanent link">&para;</a></h4>
 <p>The response (that is, the catalog list) to the above query from the server is the following specification in JSON format.</p>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">{</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;name&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_NAME</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;type&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_TYPE</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;date&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_TIMESTAMP_DATED</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;time&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_TIMESTAMP_TIMED</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;size&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_SIZE</span>
 <span style="color: #f8f8f2">}</span>
-</pre></div>
+</code></pre></div>
 <dl class="apidl">
   <dt></dt>
   <dd><span class="apidef"><strong>name</strong></span><span class="apidesc">Binary sketch file name for update (String)</span>
@@ -1053,14 +1053,14 @@ The AutoConnect library provides an update server script implemented in Python t
   <dd><span class="apidef"><strong>time</strong></span><span class="apidesc">File update time. AutoConnect v1.0.0 treats the file update date as an annotation and is not equip the version control feature yet. (String)</span>
   <dd><span class="apidef"><strong>size</strong></span><span class="apidesc">File byte count (Numeric)</span>
 </dl></p>
-<p>The above JSON object is one entry. The actual catalog list is an array of this entry since it  assumes that an update server will provide multiple update binary files in production. The update server should respond with the MIME type specified as <code>application/json</code> for the catalog list.<sup id="fnref:7"><a class="footnote-ref" href="#fn:7" rel="footnote">7</a></sup></p>
+<p>The above JSON object is one entry. The actual catalog list is an array of this entry since it  assumes that an update server will provide multiple update binary files in production. The update server should respond with the MIME type specified as <code>application/json</code> for the catalog list.<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></p>
 <h4 id="3-the-binary-sketch-file-used-for-updating">3. The binary sketch file used for updating<a class="headerlink" href="#3-the-binary-sketch-file-used-for-updating" title="Permanent link">&para;</a></h4>
 <p>The AutoConnectUpdate class issues a HTTP GET request with the specified host address and URI. The update server responds by sending back a binary sketch file with the following header:</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span>Content-Type: application/octet-stream
-Content-Disposition: attachment; filename=&quot;BINARY_SKETCH_FILE_NAME&quot;
-Content-Length: LENGTH_OF_CONTENT
-x-MD5: HEXDIGEST
-</pre></div>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">Content-Type</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">application/octet-stream</span>
+<span style="color: #f8f8f2">Content-Disposition</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">attachment;</span> <span style="color: #f8f8f2">filename=</span><span style="color: #e6db74">&quot;BINARY_SKETCH_FILE_NAME&quot;</span>
+<span style="color: #f8f8f2">Content-Length</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">LENGTH_OF_CONTENT</span>
+<span style="color: #f8f8f2">x-MD5</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">HEXDIGEST</span>
+</code></pre></div>
 
 <p>The header <strong>x-MD5</strong> is a 128-bit hash value (digest in hexadecimal) that represents the checksum of the binary sketch file for updates required for the ESP8266HTTPUpdate class.</p>
 <script>
@@ -1073,27 +1073,27 @@ x-MD5: HEXDIGEST
 <hr />
 <ol>
 <li id="fn:1">
-<p>You can scroll horizontally on the browser to see the timestamp and file size that the catalog list contains.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>You can scroll horizontally on the browser to see the timestamp and file size that the catalog list contains.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
 <p>The folders containing the script:<br />
 For Python2: <em>AUTOCONNECT_LIBRARY_PATH</em>/src/updateserver/python2<br />
-For Python3: <em>AUTOCONNECT_LIBRARY_PATH</em>/src/updateserver/python3&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+For Python3: <em>AUTOCONNECT_LIBRARY_PATH</em>/src/updateserver/python3&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:3">
-<p>Deploying the binary sketch file output by Arduino IDE is usually just copying to the folder for deployment. However, its folder must be accessible from the updateserver.py script.&#160;<a class="footnote-backref" href="#fnref:3" rev="footnote" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>Deploying the binary sketch file output by Arduino IDE is usually just copying to the folder for deployment. However, its folder must be accessible from the updateserver.py script.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:4">
-<p>The port of the update server and the port used by the AutoConnectUpdate class must be the same.&#160;<a class="footnote-backref" href="#fnref:4" rev="footnote" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>The port of the update server and the port used by the AutoConnectUpdate class must be the same.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:5">
-<p>The <strong>client agent</strong> is an instance of the AutoConnectUpdate class.&#160;<a class="footnote-backref" href="#fnref:5" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p>The <strong>client agent</strong> is an instance of the AutoConnectUpdate class.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 <li id="fn:6">
-<p>The client agent will send its URI request to the update server.&#160;<a class="footnote-backref" href="#fnref:6" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+<p>The client agent will send its URI request to the update server.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
 </li>
 <li id="fn:7">
-<p>It should be represented as <code>Content-Type: application/json</code> in the HTTP response header.&#160;<a class="footnote-backref" href="#fnref:7" rev="footnote" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+<p>It should be represented as <code>Content-Type: application/json</code> in the HTTP response header.&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -1159,18 +1159,18 @@ For Python3: <em>AUTOCONNECT_LIBRARY_PATH</em>/src/updateserver/python3&#160;<a 
           </div>
         
         powered by
-        <a href="https://www.mkdocs.org">MkDocs</a>
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
         and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs</a>
       </div>
       
   <div class="md-footer-social">
     <link rel="stylesheet" href="assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/Hieromon" class="md-footer-social__link fa fa-github"></a>
+      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
     
-      <a href="https://twitter.com/hieromon" class="md-footer-social__link fa fa-twitter"></a>
+      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
     
   </div>
 
@@ -1180,9 +1180,9 @@ For Python3: <em>AUTOCONNECT_LIBRARY_PATH</em>/src/updateserver/python3&#160;<a 
       
     </div>
     
-      <script src="assets/javascripts/application.808e90bb.js"></script>
+      <script src="assets/javascripts/application.c33a9706.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
+      <script>app.initialize({version:"1.1",url:{base:"."}})</script>
       
         <script src="js/gifffer.min.js"></script>
       
