@@ -1278,7 +1278,7 @@ String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
   char* liBuf = liCont;
 
   for (uint8_t i = 0; i < 5; i++) {
-    IPAddress*  ip;
+    IPAddress*  ip = nullptr;
     if (i == 0)
       ip = &_apConfig.staip;
     else if (i == 1)
@@ -1289,7 +1289,7 @@ String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
       ip = &_apConfig.dns1;
     else if (i == 4)
       ip = &_apConfig.dns2;
-    String  ipStr = *ip ? ip->toString() : String(F("0.0.0.0"));
+    String  ipStr = ip != nullptr ? ip->toString() : String(F("0.0.0.0"));
     snprintf_P(liBuf, sizeof(liCont) - (liBuf - liCont), (PGM_P)_configIPList, reps[i].lid, reps[i].lbl, reps[i].lid, reps[i].lid, ipStr.c_str());
     liBuf += strlen(liBuf);
   }
