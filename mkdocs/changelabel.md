@@ -29,13 +29,15 @@ AutoConnect label texts are pre-assigned with a fixed string so that it can be d
 
 <table>
 	<tr><th>Label placed</th><th>Pre-defined text</th><th>ID (#define macro)</th></tr>
-	<tr><td rowspan="6">Menu item</td><td>Configure new AP</td><td>AUTOCONNECT_MENULABEL_CONFIGNEW</td></tr>
+	<tr><td rowspan="7">Menu item</td><td>Configure new AP</td><td>AUTOCONNECT_MENULABEL_CONFIGNEW</td></tr>
 	<tr><td>Open SSIDs</td><td>AUTOCONNECT_MENULABEL_OPENSSIDS</td></tr>
 	<tr><td>Disconnect</td><td>AUTOCONNECT_MENULABEL_DISCONNECT</td></tr>
 	<tr><td>Reset...</td><td>AUTOCONNECT_MENULABEL_RESET</td></tr>
 	<tr><td>HOME</td><td>AUTOCONNECT_MENULABEL_HOME</td></tr>
 	<tr><td>Update</td><td>AUTOCONNECT_MENULABEL_UPDATE</td></tr>
-	<tr><td>Button label</td><td>RESET</td><td>AUTOCONNECT_BUTTONLABEL_RESET</td></tr>
+    <tr><td>Device info</td><td>AUTOCONNECT_MENULABEL_DEVINFO</td></tr>
+	<tr><td rowspan="2">Button label</td><td>RESET</td><td>AUTOCONNECT_BUTTONLABEL_RESET</td></tr>
+    <tr><td>UPDATE</td><td>AUTOCONNECT_BUTTONLABEL_UPDATE</td></tr>
 	<tr><td rowspan="8">Page title</td><td>Page not found</td><td>AUTOCONNECT_PAGETITLE_NOTFOUND</td></tr>
     <tr><td>AutoConnect config</td><td>AUTOCONNECT_PAGETITLE_CONFIG</td></tr>
     <tr><td>AutoConnect connecting</td><td>AUTOCONNECT_PAGETITLE_CONNECTING</td></tr>
@@ -64,6 +66,10 @@ AutoConnect label texts are pre-assigned with a fixed string so that it can be d
     <tr><td>Passphrase</td><td>AUTOCONNECT_PAGECONFIG_PASSPHRASE</td></tr>
     <tr><td>Enable DHCP</td><td>AUTOCONNECT_PAGECONFIG_ENABLEDHCP</td></tr>
     <tr><td>Apply</td><td>AUTOCONNECT_PAGECONFIG_APPLY</td></tr>
+    <tr><td rowspan="4">Page:[update] text</td><td>Updating firmware</td><td>AUTOCONNECT_TEXT_UPDATINGFIRMWARE</td></tr>
+    <tr><td>Select firmware:</td><td>AUTOCONNECT_TEXT_SELECTFIRMWARE</td></tr>
+    <tr><td>Successfully updated, rebooting...</td><td>AUTOCONNECT_TEXT_OTASUCCESS</td></tr>
+    <tr><td>Failed to update:</td><td>AUTOCONNECT_TEXT_OTAFAILURE</td></tr>
     <tr><td>Page:[connection failed]</td><td>Connection Failed</td><td>AUTOCONNECT_PAGECONNECTIONFAILED_CONNECTIONFAILED</td></tr>
     <tr><td>Text</td><td>No saved credentials.</td><td>AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS</td></tr>
     <tr><td rowspan="3">Menu Text</td><td>Connecting</td><td>AUTOCONNECT_MENUTEXT_CONNECTING</td></tr>

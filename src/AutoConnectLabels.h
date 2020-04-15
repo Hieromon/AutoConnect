@@ -229,7 +229,7 @@
 
 // Text: The update page caption
 #ifndef AUTOCONNECT_TEXT_UPDATINGFIRMWARE
-#define AUTOCONNECT_TEXT_UPDATINGFIRMWARE "Updating firmware via OTA"
+#define AUTOCONNECT_TEXT_UPDATINGFIRMWARE "Updating firmware"
 #endif // !AUTOCONNECT_TEXT_UPDATINGFIRMWARE
 
 // Text: The update page's file selection button label

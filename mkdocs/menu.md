@@ -12,7 +12,7 @@ The following screen will appear as the AutoConnect menu when you access to **Au
 
 ## <i class="fa fa-bars"></i> Right on top
 
-Currently, AutoConnect supports four menus. Undermost menu as "HOME" returns to the home path of its sketch.
+Currently, AutoConnect supports six menus. Undermost menu as "HOME" returns to the home path of its sketch.
 
 - **Configure new AP**: Configure SSID and Password for new access point.
 - **Open SSIDs**: Opens the past SSID which has been established connection from the flash.

@@ -199,7 +199,50 @@ To implement embedding your legacy web pages to the AutoConnect menu, you can us
 5. [Begin](api.md#begin) the portal.
 6. Performs [*AutoConnect::handleClient*](api.md#handleClient) in the **loop** function.
 
-For details, see section [Constructing the menu](menuize.md) of Examples page.
+```cpp hl_lines="10 28 32"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+ESP8266WebServer  server;
+
+// Declaration for casting legacy page to AutoConnect menu.
+// Specifies an uri and the menu label.
+AutoConnect       portal(server);
+AutoConnectAux    hello("/hello", "Hello");   // Step #1 as the above procedure
+
+// Step #2 as the above procedure
+// A conventional web page driven by the ESP8266WebServer::on handler.
+// This is a legacy.
+void handleHello() {
+  server.send(200, "text/html", String(F(
+"<html>"
+"<head><meta name='viewport' content='width=device-width,initial-scale=1.0'></head>"
+"<body>Hello, world</body>"
+"</html>"
+  )));
+}
+
+void setup() {
+  // Step #3 as the above procedure
+  // Register the "on" handler as usual to ESP8266WebServer.
+  // Match this URI with the URI of AutoConnectAux to cast.
+  server.on("/hello", handleHello);
+
+  // Step #4 as the above procedure
+  // Joins AutoConnectAux to cast the page via the handleRoot to AutoConnect.
+  portal.join({ hello });
+  portal.begin();           // Step #5 as the above procedure
+}
+
+void loop() {
+  portal.handleClient();    // Step #6 as the above procedure
+}
+```
+
+<img width="232px" src="images/castmenu.png">
+
+For more details, see section [Constructing the menu](menuize.md) of Examples page.
 
 ### <i class="fa fa-caret-right"></i> Change menu title
 
