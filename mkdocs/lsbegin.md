@@ -2,8 +2,9 @@
 
 The following parameters of [AutoConnectConfig](apiconfig.md) affect the behavior and control a logic sequence of [AutoConnect::begin](api.md#begin) function. These parameters are evaluated on a case-by-case basis and may not be valid in all situations. The Sketch must consider the role of these parameters and the conditions under which they will work as intended. You need to understand what happens when using these parameters in combination.
 
-- [immediateStart](apiconfig.md#immediatestart) : The captive portal start immediately, without the 1st-WiFi.begin.
-- [autoReconenct](apiconfig.md#autoreconnect) : Attempt re-connect with past SSID by saved credential.
+- [autoReconnect](apiconfig.md#autoreconnect) : Attempts re-connect with past SSID by saved credential.
+- [autoRise](apiconfig.md#autorise) : Controls starting the captive portal.
+- [immediateStart](apiconfig.md#immediatestart) : Starts the captive portal immediately, without the 1st-WiFi.begin.
 - [portalTimeout](apiconfig.md#portaltimeout) : Time out limit for the portal.
 - [retainPortal](apiconfig.md#retainportal) : Keep DNS server functioning for the captive portal.
 

@@ -70,7 +70,7 @@ Reset ESP8266 module automatically after WLAN disconnected.
 
 ### <i class="fa fa-caret-right"></i> autoRise
 
-Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the first *WiFi.begin* fails.
+Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the 1st-WiFi.begin fails.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>bool</dd>
@@ -112,7 +112,7 @@ This option is valid only for ESP8266 or ESP32 arduino core 1.0.2 earlier.
 </dl>
 
 !!! warning "It will conflict with user data."
-    If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.
+    If the Sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.
 
 ### <i class="fa fa-caret-right"></i> channel
 
@@ -180,13 +180,13 @@ Sets the station host name of ESP8266/ESP32.
 
 ### <i class="fa fa-caret-right"></i> immediateStart
 
-Disable the first WiFi.begin() and start the captive portal. If this option is enabled, the module will be in AP_STA mode and the captive portal will be activated regardless of [**AutoConnectConfig::autoRise**](apiconfig.md#autorise) specification.
+Disable the 1st-WiFi.begin and start the captive portal. If this option is enabled, the module will be in AP_STA mode and the captive portal. The evaluation rank of this parameter is lower than the [**AutoConnectConfig::autoRise**](apiconfig.md#autorise). Even if immediateStart is true, the captive portal will not launch if autoRise is false.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Start the captive portal with [**AutoConnect::begin**](api.md#begin).</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Enable the first WiFi.begin() and it will start captive portal when connection failed. This is default.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Enable the 1st-WiFi.begin and it will start captive portal when connection failed. This is default.</span></dd>
 </dl>
 
 ### <i class="fa fa-caret-right"></i> menuItems
@@ -232,7 +232,7 @@ Sets subnet mask for Soft AP in captive portal. When AutoConnect fails the initi
 
 ### <i class="fa fa-caret-right"></i> ota
 
-Specifies to import the built-in OTA update class into the sketch. When this option is enabled, an **Update** item will appear in the AutoConnect menu, and the OTA update via Web browser will be automatically embedded to the Sketch.
+Specifies to import the built-in OTA update class into the Sketch. When this option is enabled, an **Update** item will appear in the AutoConnect menu, and the OTA update via Web browser will be automatically embedded to the Sketch.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>AC_OTA_t</dd>
@@ -281,7 +281,7 @@ Specify whether to continue the portal function even if the captive portal timed
 </dl>
 
 !!! hint "Connection request after timed-out"
-    With the **retainPortal**, even if AutoConnect::begin in the setup() is timed out, you can execute the sketch and the portal function as a WiFi connection attempt by calling AutoConnect::handleClient in the loop().
+    With the **retainPortal**, even if AutoConnect::begin in the setup() is timed out, you can execute the Sketch and the portal function as a WiFi connection attempt by calling AutoConnect::handleClient in the loop().
 
 !!! info "All unresolved addresses redirects to /_ac"
     If you enable the **retainPortal** option, **all unresolved URIs will be redirected to `SoftAPIP/_ac`**. It happens frequently as client devices repeat captive portal probes in particular. To avoid this, you need to exit from the WiFi connection Apps on your device once.
@@ -362,7 +362,7 @@ Config.autoSave = AC_SAVECREDENTIAL_NEVER;    // No save credential
 Config.boundaryOffset = 64;                   // Reserve 64 bytes for the user data in EEPROM.
 Config.portalTimeout = 60000;                 // Sets timeout value for the captive portal
 Config.retainPortal = true;                   // Retains the portal function after timed-out
-Config.homeUri = "/index.html";				  // Sets home path of the sketch application
+Config.homeUri = "/index.html";				  // Sets home path of Sketch application
 Config.title ="My menu";                      // Customize the menu title
 Config.staip = IPAddress(192,168,10,10);      // Sets static IP
 Config.staGateway = IPAddress(192,168,10,1);  // Sets WiFi router address
