@@ -267,7 +267,7 @@ typedef struct {
 ```cpp
 bool release(const String& name)
 ```
-Release a specified AutoConnectElement from AutoConnectAux. The release function is provided to dynamically change the structure of the custom Web pages with the sketch. By combining the release function and the [add](apiaux.md#add) function or the [loadElement](apiaux.md#loadelement) function, the sketch can change the style of the custom Web page according to its behavior.
+Release a specified AutoConnectElement from AutoConnectAux. The release function is provided to dynamically change the structure of the custom Web pages with the Sketch. By combining the release function and the [add](apiaux.md#add) function or the [loadElement](apiaux.md#loadelement) function, the Sketch can change the style of the custom Web page according to its behavior.
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of AutoConnectElements to be released.</span></dd>
@@ -316,7 +316,7 @@ Sets the value of the specified AutoConnectElement. If values ​​is specified
 </dl>
 
 !!! hint "You can directly access the value member variable."
-    If you are gripping with the sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
+    If you are gripping with the Sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
     ```cpp
     AutoConnectAux aux;
     // ... Griping the AutoConnectText here.

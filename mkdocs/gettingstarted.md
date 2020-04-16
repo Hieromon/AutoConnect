@@ -57,14 +57,14 @@ Here, tap *"Configure new AP"* to connect the new access point then the SSID con
 
 After connection established, the current status screen will appear. It is already connected to WLAN with WiFi mode as WIFI\_AP\_STA and the IP connection status is displayed there including the SSID. Then at this screen, you have two options for the next step.
 
-For one, continues execution of the sketch while keeping this connection. You can access ESP8266 via browser through the established IP address after cancel to "**Log in**" by upper right on the screen.  
+For one, continues execution of the Sketch while keeping this connection. You can access ESP8266 via browser through the established IP address after cancel to "**Log in**" by upper right on the screen.  
 Or, "**RESET**" can be selected. The ESP8266 resets and reboots. After that, immediately before the connection will be restored automatically with WIFI\_STA mode.
 
 <img src="images/established.png" style="border:1px solid lightgrey;width:280px;" /><img src="images/arrow_right.svg" style="vertical-align:top;padding-top:120px;width:48px;margin-left:30px;margin-right:30px;" /><img src="images/reset.png" style="border:1px solid lightgrey;width:280px;" />
 
 ### <i class="fa fa-play-circle"></i> Run for usually
 
-The IP address of ESP8266 would be displayed on the serial monitor after connection restored. Please access its address from the browser. The "Hello, world" page will respond. It's the page that was handled by in the sketch with "**on**" function of *ESP8266WebServer*.
+The IP address of ESP8266 would be displayed on the serial monitor after connection restored. Please access its address from the browser. The "Hello, world" page will respond. It's the page that was handled by in the Sketch with "**on**" function of *ESP8266WebServer*.
 
 <img src="images/serial.png" style="vertical-align:top;" /><img src="images/arrow_right.svg" style="vertical-align:top;padding-top:60px;width:48px;margin-left:45px;margin-right:30px;" /><img src="images/hello_world.png" style="border:1px solid lightgrey;width:280px;" />
 

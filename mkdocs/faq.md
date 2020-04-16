@@ -1,6 +1,6 @@
 ## <i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.
 
-If you can access the **AutoConnect root path** as http://ESP8266IPADDRESS/_ac from browser, probably the sketch uses *ESP8266WebServer::handleClient()* without [*AutoConnect::handleRequest()*](api.md#handlerequest).  
+If you can access the **AutoConnect root path** as http://ESP8266IPADDRESS/_ac from browser, probably the Sketch uses *ESP8266WebServer::handleClient()* without [*AutoConnect::handleRequest()*](api.md#handlerequest).  
 For AutoConnect menus to work properly, call [*AutoConnect::handleRequest()*](api.md#handlerequest) after *ESP8266WebServer::handleClient()* invoked, or use [*AutoConnect::handleClient()*](api.md#handleclient). [*AutoConnect::handleClient()*](api.md#handleclient) is equivalent *ESP8266WebServer::handleClient* combined [*AutoConnect::handleRequest()*](api.md#handlerequest).
 
 See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasitic).
@@ -39,7 +39,7 @@ You can avoid a compile error in one of two ways:
 
 2. Change the order of `#include` directives.
 
-    With the sketch, `#include <ESP8266httpUpdate.h>` before `#include <AutoConnect.h>`.
+    With the Sketch, `#include <ESP8266httpUpdate.h>` before `#include <AutoConnect.h>`.
 
 ## <i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP
 
@@ -109,7 +109,7 @@ Probably **WiFi.begin** failed with the specified SSID. Activating the [debug pr
 
 ## <i class="fa fa-question-circle"></i> Hang up after Reset?
 
-If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017 [^1]
+If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017 [^1]
 
 [^1]: This issue has been resolved in ESP8266 core 2.5.0 and later.    
 
@@ -121,7 +121,7 @@ ets Jan  8 2013,rst cause:4, boot mode:(1,6) or (1,7)
 wdt reset
 ```
 
-The correct boot mode for starting the sketch is **(3, x)**.
+The correct boot mode for starting the Sketch is **(3, x)**.
 
 !!! info "ESP8266 Boot Messages"
     It is described by [ESP8266 Non-OS SDK API Reference](https://www.espressif.com/en/products/hardware/esp8266ex/resources), section A.5.
@@ -166,7 +166,7 @@ build-flags = -DAUTOCONNECT_NOUSE_JSON
 
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
-Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [Appendix](credit.md) for details.
+Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [Appendix](credit.md) for details.
 
 !!! hint
     With the [**ESPShaker**](https://github.com/Hieromon/ESPShaker), you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.
@@ -195,7 +195,7 @@ Because AutoConnect does not send a login success response to the captive portal
 
 ## <i class="fa fa-question-circle"></i> I cannot see the custom Web page.
 
-If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
+If the Sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
 
 ## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
 
@@ -212,7 +212,7 @@ It may be two possibilities as follows:
 2. Heap is insufficient memory. AutoConnect entrusts HTML generation to PageBuilder that makes heavy use the String::concatenate function and causes memory fragmentation. This is a structural problem with PageBuilder, but it is difficult to solve immediately.
 
 If this issue produces with your sketch, Reloading the page may recover.  
-Also, you can check the memory running out status by rebuilding the sketch with [PageBuilder's debug log option](faq.md#fn:2) turned on.
+Also, you can check the memory running out status by rebuilding the Sketch with [PageBuilder's debug log option](faq.md#fn:2) turned on.
 
 If the heap memory is insufficient, the following message is displayed on the serial console.
 
@@ -288,7 +288,7 @@ If you can not solve AutoConnect problems please report to [Issues](https://gith
 * [ ] lwIP variant
 * [ ] Problem description
 * [ ] If you have a STACK DUMP decoded result with formatted by the code block tag
-* [ ] The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)
+* [ ] the Sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)
 * [ ] Debug messages output (Including arduino core)
 
 I will make efforts to solve as quickly as possible. But I would like you to know that it is not always possible.

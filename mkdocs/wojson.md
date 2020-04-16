@@ -2,7 +2,7 @@
 
 Custom Web page processing consumes a lot of memory. AutoConnect will take a whole string of the JSON document for the custom Web pages into memory. The required buffer size for the JSON document of example sketch *mqttRSSI* reaches approximately 3000 bytes. And actually, it needs twice the heap area. Especially this constraint will be a problem with the ESP8266 which has a heap size poor.
 
-AutoConnect can handle custom Web pages without using JSON. In that case, since the ArduinoJson library will not be bound, the sketch size will also be reduced.
+AutoConnect can handle custom Web pages without using JSON. In that case, since the ArduinoJson library will not be bound, the Sketch size will also be reduced.
 
 ## Writing the custom Web pages without JSON
 
@@ -18,7 +18,7 @@ To handle the custom Web pages without using JSON, follow the steps below.
 
 In addition to the above procedure, to completely cut off for binding with the ArduinoJson library, turn off the ArduinoJson use indicator which is declared by the [AutoConnect definitions](api.md#defined-macros). Its declaration is in **AutoConnectDefs.h** file.[^1]
 
-[^1]:Detaching the ArduinoJson library reduces the sketch size by approximately 10K bytes.
+[^1]:Detaching the ArduinoJson library reduces the Sketch size by approximately 10K bytes.
 
 ```cpp
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
@@ -26,7 +26,7 @@ In addition to the above procedure, to completely cut off for binding with the A
 ```
 
 !!! caution "JSON processing will be disabled"
-    Commenting out the **AUTOCONNECT_USE_JSON** macro invalidates all functions related to JSON processing. If the sketch is using the JSON function, it will result in a compile error.
+    Commenting out the **AUTOCONNECT_USE_JSON** macro invalidates all functions related to JSON processing. If the Sketch is using the JSON function, it will result in a compile error.
 
 !!! hint "Exclude the ArduinoJson by each compile-time"
     If you want to exclude ArduinoJson without changing the library code, specify the **AUTOCONNECT_NOUSE_JSON** directive as a compiler option according to the method described in the [FAQ](faq.md#how-do-i-detach-the-ardunojson).

@@ -1,6 +1,6 @@
-## Embed the AutoConnect to the sketch
+## Embed the AutoConnect to the Sketch
 
-Here hold two case examples. Both examples perform the same function. Only how to incorporate the **AutoConnect** into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the [PageBuilder](https://github.com/Hieromon/PageBuilder) library for HTML assemblies.
+Here hold two case examples. Both examples perform the same function. Only how to incorporate the **AutoConnect** into the Sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the [PageBuilder](https://github.com/Hieromon/PageBuilder) library for HTML assemblies.
 
 ## What does this example do?
 
@@ -31,7 +31,7 @@ Declare only AutoConnect, performs handleClient.
 
 ## Used with MQTT as a client application
 
-The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also convenient for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.
+The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also convenient for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the Sketch.
 
 This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the [ThingSpeak](https://thingspeak.com/) for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as [MQTT client](https://github.com/knolleary/pubsubclient). This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.
 
@@ -41,7 +41,7 @@ This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It 
 
 - Arduino Client for MQTT - It's the [PubSubClient](https://github.com/knolleary/pubsubclient), install it to Arduino IDE. If you have the latest version already, this step does not need.
 - Create a channel on ThingSpeak.
-- Get the Channel API Keys from ThingSpeak, put its keys to the sketch.
+- Get the Channel API Keys from ThingSpeak, put its keys to the Sketch.
 
 The ThingSpeak is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further. ThingSpeak has the free plan for the account which uses within the scope of this example.[^1] You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/users/sign_up).
 
@@ -78,9 +78,9 @@ The last key you need is the **User API Key** and can be confirmed it in the use
 
 <img src="images/USERKey.png" width="70%"/>
 
-### The sketch, Publishes messages
+### the Sketch, Publishes messages
 
-The complete code of the sketch is [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) in the [AutoConnect repository](https://github.com/Hieromon/AutoConnect). Replace the following #define in a sketch with **User API Key**, **Write API Key** and **Channel ID**. After Keys updated, compile the sketch and upload it.
+The complete code of the Sketch is [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) in the [AutoConnect repository](https://github.com/Hieromon/AutoConnect). Replace the following #define in a sketch with **User API Key**, **Write API Key** and **Channel ID**. After Keys updated, compile the Sketch and upload it.
 
 ```cpp
 #define MQTT_USER_KEY        "****************"  // Replace to User API Key.

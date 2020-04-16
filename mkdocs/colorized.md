@@ -1,6 +1,6 @@
 ## AutoConnect menu colorizing ##
 
-You can easily change the color of the AutoConnect menu. Menu colors can be changed statically by the AutoConnect menu color definition determined at compile time. You cannot change the color while the sketch is running.
+You can easily change the color of the AutoConnect menu. Menu colors can be changed statically by the AutoConnect menu color definition determined at compile time. You cannot change the color while the Sketch is running.
 
 The menu color scheme has been separated to `AutoConnectLabels.h` placed the AutoConnect library folder.[^1] You can change the color scheme of the menu with the following three color codes. The color code also accepts CSS standard color names.[^2]
 

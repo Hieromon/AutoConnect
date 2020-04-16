@@ -8,7 +8,7 @@ The following screen will appear as the AutoConnect menu when you access to **Au
 <img src="images/ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
 !!! note "AutoConnect root URL"
-    It is assigned "**/_ac**" located on the *local IP address* of ESP8266/ESP32 module by default and can be changed with the sketch. A local IP means Local IP at connection established or SoftAP's IP.
+    It is assigned "**/_ac**" located on the *local IP address* of ESP8266/ESP32 module by default and can be changed with the Sketch. A local IP means Local IP at connection established or SoftAP's IP.
 
 ## <i class="fa fa-bars"></i> Right on top
 
@@ -43,14 +43,14 @@ After WiFi connected, AutoConnect will automatically save the established SSID a
 <img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
 !!! note "Saved credentials data structure has changed"
-    A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
+    A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the Sketch uploading.
     ```powershell
     esptool -c esp8266 (or esp32) -p [COM_PORT] erase_flash
     ```
 
 ## <i class="fa fa-bars"></i> Disconnect
 
-It disconnects ESP8266/ESP32 from the current connection. Also, ESP8266/ESP32 can be automatically reset after WiFi cutting by instructing with the sketch using the [AutoConnect API](api.md#autoreset).
+It disconnects ESP8266/ESP32 from the current connection. Also, ESP8266/ESP32 can be automatically reset after WiFi cutting by instructing with the Sketch using the [AutoConnect API](api.md#autoreset).
 
 After tapping the **Disconnect**, you will not be able to reach the AutoConnect menu. Once disconnected, you will need to set the SSID again for connecting to the WLAN. 
 
@@ -61,11 +61,11 @@ Resetting the ESP8266/ESP32 module will initiate a reboot. When the module resta
 <img src="images/resetting.png" style="width:280px;" />
 
 !!! warning "Not every ESP8266 module will be rebooted normally"
-    The Reset menu is using the **ESP.reset()** function for ESP8266. This is an almost hardware reset. In order to resume the sketch normally, the [state of GPIO0](https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes) is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also [FAQ](faq.md#hang-up-after-reset).
+    The Reset menu is using the **ESP.reset()** function for ESP8266. This is an almost hardware reset. In order to resume the Sketch normally, the [state of GPIO0](https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes) is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also [FAQ](faq.md#hang-up-after-reset).
 
 ## <i class="fa fa-bars"></i> Custom menu items
 
-If the sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnectmenu).
+If the Sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnectmenu).
 
 ## <i class="fa fa-bars"></i> Update
 

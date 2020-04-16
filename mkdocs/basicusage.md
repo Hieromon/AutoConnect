@@ -1,8 +1,8 @@
 ## Simple usage
 
-### <i class="fa fa-edit"></i> Embed to the sketches
+### <i class="fa fa-edit"></i> Embed to the Sketches
 
-How embed the AutoConnect to the sketches you have. Most simple approach to applying AutoConnect for the existing sketches, follow the below steps. The below sketch is for ESP8266. For ESP32, replace ```ESP8266WebServer``` with ```WebServer``` and ```ESP8266WiFi.h``` with ```WiFi.h``` respectively.
+How embed the AutoConnect to the Sketches you have. Most simple approach to applying AutoConnect for the existing Sketches, follow the below steps. The below Sketch is for ESP8266. For ESP32, replace ```ESP8266WebServer``` with ```WebServer``` and ```ESP8266WiFi.h``` with ```WiFi.h``` respectively.
 
 <img src="images/BeforeAfter.svg" />
 
@@ -16,7 +16,7 @@ How embed the AutoConnect to the sketches you have. Most simple approach to appl
 </ul>
 
 [^1]:
-Each *VARIABLE* conforms to the actual declaration in the sketches.  
+Each *VARIABLE* conforms to the actual declaration in the Sketches.  
 
 [^2]:
 WiFi SSID and Password can be specified AutoConnect::begin() too.
@@ -26,7 +26,7 @@ Replacement the **handleClient** method is not indispensable. AutoConnect can st
 
 ## Basic usage
 
-### <i class="fa fa-caret-right"></i> Basic logic sequence for the user sketches
+### <i class="fa fa-caret-right"></i> Basic logic sequence for the user Sketches
 
 #### 1. A typical logic sequence
 
@@ -40,7 +40,7 @@ Replacement the **handleClient** method is not indispensable. AutoConnect can st
        5.2 <strong>Starts </strong>`AutoConnect::begin()`<strong>.</strong>  
        5.3 <strong>Check WiFi connection status.</strong>  
     6. <strong>loop()</strong>  
-       6.1 <strong>Do the process for actual sketch.</strong>  
+       6.1 <strong>Do the process for actual Sketch.</strong>  
        6.2 <strong>Invokes </strong>`AutoConnect::handleClient()`<strong>, or invokes </strong>`ESP8266WebServer::handleClient()`<strong>/</strong>`WebServer::handleClient`<strong> then </strong>`AutoConnect::handleRequest()`<strong>.</strong>  
 
 #### 2. Declare AutoConnect object
@@ -59,15 +59,15 @@ AutoConnect VARIABLE;
 
 - **The parameter with an ESP8266WebServer/WebServer variable:** An ESP8266WebServer/WebServer object variable must be declared. AutoConnect uses its variable to handles the [AutoConnect menu](menu.md).
 
-- **With no parameter:** The sketch does not declare ESP8266WebServer/WebServer object. In this case, AutoConnect allocates an instance of the ESP8266WebServer/WebServer internally. The logic sequence of the sketch is somewhat different as the above. To register a URL handler function by *ESP8266WebServer::on* or *WebServer::on* should be performed after [*AutoConnect::begin*](api.md#begin).
+- **With no parameter:** the Sketch does not declare ESP8266WebServer/WebServer object. In this case, AutoConnect allocates an instance of the ESP8266WebServer/WebServer internally. The logic sequence of the Sketch is somewhat different as the above. To register a URL handler function by *ESP8266WebServer::on* or *WebServer::on* should be performed after [*AutoConnect::begin*](api.md#begin).
 
 #### 3. No need WiFI.begin(...)
 
-AutoConnect internally performs *WiFi.begin* to establish a WiFi connection. There is no need for a general process to establish a connection using *WiFi.begin* with a sketch code.
+AutoConnect internally performs *WiFi.begin* to establish a WiFi connection. There is no need for a general process to establish a connection using *WiFi.begin* with a Sketch code.
 
 #### 4. Alternate ESP8266WebServer::begin() and WebServer::begin()
 
-[*AutoConnect::begin*](api.md#begin) executes *ESP8266WebServer::begin*/*WebServer::begin* internally too and it starts the DNS server to behave as a Captive portal. So it is not needed to call *ESP8266WebServer::begin*/*WebServer::begin* in the sketch.
+[*AutoConnect::begin*](api.md#begin) executes *ESP8266WebServer::begin*/*WebServer::begin* internally too and it starts the DNS server to behave as a Captive portal. So it is not needed to call *ESP8266WebServer::begin*/*WebServer::begin* in the Sketch.
 
 !!! info "Why DNS Server starts"
     AutoConnect traps the detection of the captive portal and achieves a connection with the WLAN interactively by the AutoConnect menu. It responds SoftAP address to all DNS queries temporarily to trap. Once a WiFi connection establishes, the DNS server contributed by AutoConnect stops.
@@ -78,7 +78,7 @@ SSID and Password can also specify by [*AutoConnect::begin*](api.md#begin). ESP8
 
 #### 6. Use ESP8266WebServer::on and WebServer::on to handle URL
 
-AutoConnect is designed to coexist with the process for handling the web pages by user sketches. The page processing function which will send an HTML to the client invoked by the "*on::ESP8266WebServer*" or the "*on::WebServer*" function is the same as when using ESP8266WebServer/WebServer natively.
+AutoConnect is designed to coexist with the process for handling the web pages by user Sketches. The page processing function which will send an HTML to the client invoked by the "*on::ESP8266WebServer*" or the "*on::WebServer*" function is the same as when using ESP8266WebServer/WebServer natively.
 
 #### 7. Use either ESP8266WebServer::handleClient()/WebServer::handleClient() or AutoConnect::handleClient()
 
@@ -93,9 +93,9 @@ Declaration parameter for the constructor | Use ESP8266WebServer::handleClient o
 [None](api.md#constructors) | AutoConnect menu not available.<br>To use AutoConnect menu, need [AutoConnect::handleRequest()](api.md#handlerequest).<br>also to use ESP8266WebServer/WebServer natively, need [AutoConnect::host()](api.md#host). | AutoConnect menu available.<br>To use ESP8266WebServer/WebServer natively, need [AutoConnect::host()](api.md#host).
 [Reference to ESP8266WebServer/WebServer](api.md#withparameter) | AutoConnect menu not available.<br>To use AutoConnect menu, need [AutoConnect::handleRequest()](api.md#handlerequest). | AutoConnect menu available.
 
-- **By declaration for the AutoConnect variable with no parameter**: The ESP8266WebServer/WebServer instance is hosted by AutoConnect automatically then the sketches use [*AutoConnect::host*](api.md#host) as API to get it after [*AutoConnect::begin*](api.md#begin) performed.
+- **By declaration for the AutoConnect variable with no parameter**: The ESP8266WebServer/WebServer instance is hosted by AutoConnect automatically then the Sketches use [*AutoConnect::host*](api.md#host) as API to get it after [*AutoConnect::begin*](api.md#begin) performed.
 
-- **By declaration for the AutoConnect variable with the reference of ESP8266WebServer/WebServer**: AutoConnect will use it. The sketch can use it is too.
+- **By declaration for the AutoConnect variable with the reference of ESP8266WebServer/WebServer**: AutoConnect will use it. the Sketch can use it is too.
 
 - **In use ESP8266WebServer::handleClient()/WebServer::handleClient()**: AutoConnect menu can be dispatched but not works normally. It is necessary to call [*AutoConnect::handleRequest*](api.md#void-handlerequest) after *ESP8255WebServer::handleClient*/*WebServer::handleClient* invoking.
 

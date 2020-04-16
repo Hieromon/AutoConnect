@@ -1,6 +1,6 @@
 
 
-You can embed custom Web pages written in [**JSON**](https://www.json.org/index.html) into AutoConnect without AutoConnectAux &amp; AutoConnectElements declaration. Custom Web page declaration by JSON can  embed in the sketch as a fixed string or can store in the external file such as SPIFFS for stream loading. Also, you can also load and save AutoConnectElements objects individually.[^1]
+You can embed custom Web pages written in [**JSON**](https://www.json.org/index.html) into AutoConnect without AutoConnectAux &amp; AutoConnectElements declaration. Custom Web page declaration by JSON can  embed in the Sketch as a fixed string or can store in the external file such as SPIFFS for stream loading. Also, you can also load and save AutoConnectElements objects individually.[^1]
 
 [^1]:Loading and saving AutoConnect parameters adopt this method.
 
@@ -9,7 +9,7 @@ By providing the following JSON document to AutoConnect, you can include the cus
 <div style="float:left;width:50%;height:470px;overflow:auto"><img src="images/ac_json.png"></div>
 <img style="margin-left:30px;width:40%;height:470px;" src="images/ac_mqtt_setting.png">
 
-A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the sketch process by loading multiple pages of JSON document at once.
+A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the Sketch process by loading multiple pages of JSON document at once.
 
 !!! caution "Adopt ArduinoJson v5 or v6"
     To handle AutoConnectAux and AutoConnectElements written in JSON, you need to install the ArduinoJson library. You can adopt either [version 5](https://arduinojson.org/v5/doc/installation/) or [version 6](https://arduinojson.org/v6/doc/installation/) for the ArduinoJson. AutoConnect supports both versions.
@@ -152,7 +152,7 @@ This is different for each AutoConnectElements, and the key that can be specifie
 : - **store** : Specifies the destination to save the uploaded file. Its value accepts one of the following:<p>
 <b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module.<br>
 <b>sd</b>&nbsp;: Save to an external SD device connected to ESP8266/ESP32 module.<br>
-<b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.</p>
+<b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.</p>
 
 #### <i class="fa fa-caret-right"></i> ACInput
 : - **value** : Specifies the initial text string of the input box. If this value is omitted, placeholder is displayed as the initial string.
@@ -197,7 +197,7 @@ There are two main ways to load the custom Web pages into AutoConnect.
 
     This way does not require an explicit declaration of AutoConnectAux objects with sketches and is also useful when importing the custom Web pages JSON document from an external file such as SPIFFS because the page definition and sketch coding structure can be separated.
 
-    Using the [AutoCoonnect::load](api.md#load) function, AutoConnect dynamically generates the necessary AutoConnectAux objects internally based on the custom Web page definition of the imported JSON document content. In the sketch, the generated AutoConnectAux object can be referenced using the [AutoConnect::aux](api.md#aux) function. You can reach the AutoConnectElements you desired using the [AutoConnectAux::getElement](apiaux.md#getelement) function of its AutoConnectAux.
+    Using the [AutoCoonnect::load](api.md#load) function, AutoConnect dynamically generates the necessary AutoConnectAux objects internally based on the custom Web page definition of the imported JSON document content. In the Sketch, the generated AutoConnectAux object can be referenced using the [AutoConnect::aux](api.md#aux) function. You can reach the AutoConnectElements you desired using the [AutoConnectAux::getElement](apiaux.md#getelement) function of its AutoConnectAux.
 
     In the following example, it loads in a batch a JSON document of custom Web pages stored in SPIFFS and accesses to the AutoConnectInput element.
 
@@ -239,7 +239,7 @@ There are two main ways to load the custom Web pages into AutoConnect.
 
 2. Load to AutoConnectAux and join to AutoConnect
 
-    This way declares AutoConnectAux in the sketch and loads the custom Web pages JSON document there. It has an advantage for if you want to define each page of a custom Web page individually or allocate AutoConnectAux objects dynamically on the sketch side.
+    This way declares AutoConnectAux in the Sketch and loads the custom Web pages JSON document there. It has an advantage for if you want to define each page of a custom Web page individually or allocate AutoConnectAux objects dynamically on the Sketch side.
 
     After loading a JSON document using the [AutoConnectAux::load](apiaux.md#load) function by each, integrate those into AutoConnect using the [AutoConnect::join](api.md#join) function.
 
@@ -363,4 +363,4 @@ For ESP32 module equips with PSRAM, you can allocate the JSON document buffer to
 
 ## Saving JSON document
 
-The sketch can persist AutoConnectElements as a JSON document and also uses [this function](achandling.md#saving-autoconnectelements-with-json) to save the values ​​entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the [load function](achandling.md#loading-autoconnectaux-autoconnectelements-with-json). 
+the Sketch can persist AutoConnectElements as a JSON document and also uses [this function](achandling.md#saving-autoconnectelements-with-json) to save the values ​​entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the [load function](achandling.md#loading-autoconnectaux-autoconnectelements-with-json). 

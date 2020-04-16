@@ -15,7 +15,7 @@ AutoConnectAux is a container for AutoConnectElements. To make a custom Web page
 
 <img src="images/ac_declaration.svg">
 
-The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named *header* and *caption*, adds them to the AutoConnectAux object as *aux*, binds to an AutoConnect object named *portal*. This sequence is the basic procedure for creating custom Web pages with the sketch. The further explanation is available in section [AutoConnectElements](acelements.md) also.
+The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named *header* and *caption*, adds them to the AutoConnectAux object as *aux*, binds to an AutoConnect object named *portal*. This sequence is the basic procedure for creating custom Web pages with the Sketch. The further explanation is available in section [AutoConnectElements](acelements.md) also.
 
 ## Custom Web pages in AutoConnect menu
 
@@ -33,11 +33,11 @@ You can create multiple custom Web pages and specify pages that can be called fr
 <img align="center" width="520px" src="images/ac_auxjoin_multi.svg">
 
 <ul class="horizontal-list">
-    <li><p style="margin:0 20px 0 -20px"><span style="margin-left:20px;float:right;width:280px;height:497px;border:1px solid lightgrey;"><img data-gifffer="images/aux_menu.gif" data-gifffer-width="278" data-gifffer-height="495" /></span>In the above code, the third parameter of <i>aux2</i> is <b>false</b>. The third parameter of the AutoConnectAux constructor is an indicator for whether it's shown to the AutoConnect menu. Right animation is an execution result of the above code. You will see that the menu applies only two items for three custom Web pages. The sketch of this animation is written to transition to <i>aux2</i> by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by <i>aux1</i>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>The <i>aux2</i> page transitions only from the <i>aux1</i> page. As shown in mqttRSSI in the library example, its page replies the saving result for the parameters entered on the previous page. It can not be invoked directly from the menu and want to hide them with AutoConnect menu items. The utility of the third parameter of the AutoConnectAux constructor is that.</p></li>
+    <li><p style="margin:0 20px 0 -20px"><span style="margin-left:20px;float:right;width:280px;height:497px;border:1px solid lightgrey;"><img data-gifffer="images/aux_menu.gif" data-gifffer-width="278" data-gifffer-height="495" /></span>In the above code, the third parameter of <i>aux2</i> is <b>false</b>. The third parameter of the AutoConnectAux constructor is an indicator for whether it's shown to the AutoConnect menu. Right animation is an execution result of the above code. You will see that the menu applies only two items for three custom Web pages. the Sketch of this animation is written to transition to <i>aux2</i> by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by <i>aux1</i>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>The <i>aux2</i> page transitions only from the <i>aux1</i> page. As shown in mqttRSSI in the library example, its page replies the saving result for the parameters entered on the previous page. It can not be invoked directly from the menu and want to hide them with AutoConnect menu items. The utility of the third parameter of the AutoConnectAux constructor is that.</p></li>
 </ul>
 
 [^2]:
-    The sketch is actually this:
+    the Sketch is actually this:
     ```cpp
     #include <ESP8266WiFi.h>
     #include <ESP8266WebServer.h>
@@ -82,7 +82,7 @@ So, the basic procedure for handling of the custom Web pages is as follows:
 ## Write the custom Web page with JSON
 
 You can write the custom Web page in JSON without using sketch codes.[^3] It is possible to describe the entire page in JSON and can be described for each element also. The JSON document can be saved in SPIFFS or SD and read using AutoConnect's [**load**](api.md#load) function. you can reduce the steps of the basic procedure with this approach, but this way consumes a lot of memory. 
-The following JSON code and sketch will execute the custom Web page as an example in the above figure. That is, the sketch of this code and footnote[^2] is equivalent.
+The following JSON code and sketch will execute the custom Web page as an example in the above figure. That is, the Sketch of this code and footnote[^2] is equivalent.
 
 **custom_page.json**
 ```json
@@ -137,7 +137,7 @@ The following JSON code and sketch will execute the custom Web page as an exampl
 ]
 ```
 
-**The sketch**
+**the Sketch**
 ```cpp hl_lines="11 12"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>

@@ -42,7 +42,7 @@ AutoConnectAux    hello;            // Step #5
 static const char HELLO_PAGE[] PROGMEM = R"(
 { "title": "Hello world", "uri": "/", "menu": true, "element": [
     { "name": "caption", "type": "ACText", "value": "<h2>Hello, world</h2>",  "style": "text-align:center;color:#2f4f4f;padding:10px;" },
-    { "name": "content", "type": "ACText", "value": "In this page, place the custom web page handled by the sketch application." } ]
+    { "name": "content", "type": "ACText", "value": "In this page, place the custom web page handled by the Sketch application." } ]
 }
 )";                                 // Step #5
 
@@ -128,7 +128,7 @@ Binary sketch files for updating can be retrieved using the Arduino IDE. Open th
 
 <img src="images/export_binary.png" width="450" />
 
-When the compilation is complete, a binary sketch will save with the extension `.bin` in the same folder as the sketch.
+When the compilation is complete, a binary sketch will save with the extension `.bin` in the same folder as the Sketch.
 
 ### <i class="fa fa-edit"></i> OTA updates w/browser without using AutoConnectOTA
 
@@ -160,7 +160,7 @@ To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, ba
 static const char HELLO_PAGE[] PROGMEM = R"(
 { "title": "Hello world", "uri": "/", "menu": true, "element": [
     { "name": "caption", "type": "ACText", "value": "<h2>Hello, world</h2>",  "style": "text-align:center;color:#2f4f4f;padding:10px;" },
-    { "name": "content", "type": "ACText", "value": "In this page, place the custom web page handled by the sketch application." } ]
+    { "name": "content", "type": "ACText", "value": "In this page, place the custom web page handled by the Sketch application." } ]
 }
 )";
 

@@ -60,7 +60,7 @@ AutoConnect(WebServer& webServer)
 
 Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.
 
-The [**handleClient**](api.md#handleclient) function of AutoConnect can include the response of the URI handler added by the user using the "*on*" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the sketch can obtain that reference with the [**host**](api.md#host) function.
+The [**handleClient**](api.md#handleclient) function of AutoConnect can include the response of the URI handler added by the user using the "*on*" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the Sketch can obtain that reference with the [**host**](api.md#host) function.
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd>

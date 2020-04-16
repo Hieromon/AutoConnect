@@ -4,7 +4,7 @@ AutoConnectAux is the container for a custom Web page, AutoConnectElement is the
 
 AutoConnectElements declared in sketch must be programmed to add to AutoConnectAux one after another. Elements are automatically included in AutoConnectAux by AutoConnect if you load it from the JSON document. In either method, it is common to use the function of AutoConnectAux to access an element with a sketch.
 
-## Handing AutoConnectElements with the sketches
+## Handing AutoConnectElements with the Sketches
 
 The AutoConnectAux class has several functions to manipulate AutoConnectElements. The functions can add, delete, retrieve elements, and get and set values.
 
@@ -19,7 +19,7 @@ void AutoConnectAux::add(AutoConnectElement& addon)
 void AutoConnectAux::add(AutoConnectElementVT addons)
 ```
 
-The add function adds the specified AutoConnectElement to AutoConnectAux. The AutoConnectElementVT type is the [*std::vector*](https://en.cppreference.com/w/cpp/container/vector) of the [*reference wrapper*](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper) to AutoConnectElements, and you can add these elements in bulk by using the [*list initialization*](https://en.cppreference.com/w/cpp/language/list_initialization) with the sketch.
+The add function adds the specified AutoConnectElement to AutoConnectAux. The AutoConnectElementVT type is the [*std::vector*](https://en.cppreference.com/w/cpp/container/vector) of the [*reference wrapper*](https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper) to AutoConnectElements, and you can add these elements in bulk by using the [*list initialization*](https://en.cppreference.com/w/cpp/language/list_initialization) with the Sketch.
 
 ```cpp
 typedef std::vector<std::reference_wrapper<AutoConnectElement>> AutoConnectElementVT;
@@ -63,7 +63,7 @@ Similarly this, the uniqueness of the name is also necessary within the JSON doc
 
 ### <i class="fa fa-edit"></i> Get AutoConnectElement from the AutoConnectAux
 
-To retrieve an element from AutoConnectAux, use the getElement or getElements function. Normally, the getElement is needed when accessing the value of AutoConnectElement in the sketch.
+To retrieve an element from AutoConnectAux, use the getElement or getElements function. Normally, the getElement is needed when accessing the value of AutoConnectElement in the Sketch.
 
 ```cpp
 AutoConnectElement* AutoConnectAux::getElement(const String& name)
@@ -104,7 +104,7 @@ AutoConnectText* text = reinterpret_cast<AutoConnectText*>(aux.getElement("TEXT_
 AutoConnectText& text = aux.getElement<AutoConnectText>("TEXT_ELEMENT_NAME");
 ```
 
-The AutoConnectElement type behaves as a variant of other element types. Therefore use cast or template to convert to actual type as above. In the sketch, you access the real type of AutoConnectElement after casting it and storing into the variable.
+The AutoConnectElement type behaves as a variant of other element types. Therefore use cast or template to convert to actual type as above. In the Sketch, you access the real type of AutoConnectElement after casting it and storing into the variable.
 
 ```cpp
 const String auxJson = String("{\"title\":\"Page 1 title\",\"uri\":\"/page1\",\"menu\":true,\"element\":[{\"name\":\"caption\",\"type\":\"ACText\",\"value\":\"hello, world\"}]}");
@@ -115,7 +115,7 @@ AutoConnectText& text = aux->getElement<AutoConnectText>("caption");  // Cast to
 Serial.println(text.value);
 ```
 
-You can also use the [operator **`[]`** of AutoConnectAux](apiaux.md#operator) as another way to get the desired element. An operator **`[]`** is a shortcut for [getElement](apiaux.md#getelement) function with the reference casting and makes simplify the sketch code and treats like an array with the elements placed on a custom Web page. Its argument is the name of the element to be acquired similarly to getElement function. In the sketch, by combining the [**AutoConnectElement::as<T\>**](apielements.md#ast62) function with the operator `[]`, you can access the  AutoConnectElements reference according to its actual type. For example, the following sketch code returns the same as a reference of AutoConnectText element as the `caption`.
+You can also use the [operator **`[]`** of AutoConnectAux](apiaux.md#operator) as another way to get the desired element. An operator **`[]`** is a shortcut for [getElement](apiaux.md#getelement) function with the reference casting and makes simplify the Sketch code and treats like an array with the elements placed on a custom Web page. Its argument is the name of the element to be acquired similarly to getElement function. In the Sketch, by combining the [**AutoConnectElement::as<T\>**](apielements.md#ast62) function with the operator `[]`, you can access the  AutoConnectElements reference according to its actual type. For example, the following sketch code returns the same as a reference of AutoConnectText element as the `caption`.
 
 ```cpp hl_lines="4 5"
 AutoConnect portal;
@@ -145,7 +145,7 @@ To get all the AutoConnectElements in an AutoConnectAux object use the [**getEle
 AutoConnectElementVT& AutoConnectAux::getElements(void)
 ```
 
-### <i class="fa fa-edit"></i> Enable AutoConnectElements during the sketch execution
+### <i class="fa fa-edit"></i> Enable AutoConnectElements during the Sketch execution
 
 AutoConnectElemets have an enable attribute to activate its own HTML generation. Sketches can change the HTMLization of their elements dynamically by setting or resetting the enable value. An element whose the enable attribute is true will generate itself HTML and place on the custom Web page.  And conversely, it will not generate the HTML when the value is false.
 
@@ -201,7 +201,7 @@ void loop() {
 ```
 
 !!! hint "Desirable to set or reset the enable attribute in the page handler"
-    The enable attribute can be set at any time during the sketch execution. The page handler with the [AC_EXIT_AHEAD](apiaux.md#on) option is sure to handle it.
+    The enable attribute can be set at any time during the Sketch execution. The page handler with the [AC_EXIT_AHEAD](apiaux.md#on) option is sure to handle it.
 
 ## Loading &amp; saving AutoConnectElements with JSON
 
@@ -666,7 +666,7 @@ void loop() {
 
 ESP8266WebServer class and the WebServer class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on function.
 
-When a page transition from a custom Web page created by AutoConnectAux to a handler registered with ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the [uri](acelements.md#uri) attribute of [AutoConnectSubmit](acelements.md#autoconnectsubmit)) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler coded with the sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the [AutoConnectAux::fetchElement](apiaux.md#fetchelement) function for value processing with the on-page handler.
+When a page transition from a custom Web page created by AutoConnectAux to a handler registered with ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the [uri](acelements.md#uri) attribute of [AutoConnectSubmit](acelements.md#autoconnectsubmit)) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler coded with the Sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the [AutoConnectAux::fetchElement](apiaux.md#fetchelement) function for value processing with the on-page handler.
 
 The following sketch is an example of extracting values inputted on a custom web page with an on-page handler and then processing it.
 
@@ -723,7 +723,7 @@ Sketches can update the attributes of AutoConnectElements with two approaches. A
 
 The elements for attributes described in the JSON document for AutoConnectElements overwrites the member variables of the target AutoConnectElements. However, AutoConnectAux::loadElement keeps the member variables unchanged if there is no element in the JSON document. This overwriting behavior is the same for the [AutoConnect::load](api.md#load) function.
 
-For example, the combination of the sketch and JSON document as follows updates only the style while keeping Caption (ie. "Hello, world") as AutoConnectText value.
+For example, the combination of the Sketch and JSON document as follows updates only the style while keeping Caption (ie. "Hello, world") as AutoConnectText value.
 
 <i class="fab fa-js-square"></i> External JSON document for the below sketch to modify the text style.
 ```json hl_lines="4"
@@ -735,7 +735,7 @@ For example, the combination of the sketch and JSON document as follows updates 
 ```
 
 <i class="fa fa-arrow-down"></i><br>
-<i class="fa fa-code"></i> The sketch (a part of code), load above JSON.
+<i class="fa fa-code"></i> the Sketch (a part of code), load above JSON.
 ```cpp hl_lines="1"
 ACText(Caption, "Hello, world");
 AutoConnectAux helloPage("/hello", "Hello", true, { Caption });
