@@ -1368,7 +1368,7 @@ If the connection fails, starts the captive portal in SoftAP+STA mode.<br />
     <dd><span class="apidef">false</span><span class="apidesc">No reset.</span></dd>
 </dl></p>
 <h3 id="autorise"><i class="fa fa-caret-right"></i> autoRise<a class="headerlink" href="#autorise" title="Permanent link">&para;</a></h3>
-<p>Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the first <em>WiFi.begin</em> fails.
+<p>Captive portal activation switch. False for disabling the captive portal. It prevents starting the captive portal even if the connection at the 1<sup>st</sup>-WiFi.begin fails.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>bool</dd>
@@ -1404,7 +1404,7 @@ This option is valid only for ESP8266 or ESP32 arduino core 1.0.2 earlier.
 </dl></p>
 <div class="admonition warning">
 <p class="admonition-title">It will conflict with user data.</p>
-<p>If the sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.</p>
+<p>If the Sketch leaves this offset at zero, it will conflict the storage area of credentials with the user sketch owned data. It needs to use the behind of credential area.</p>
 </div>
 <h3 id="channel"><i class="fa fa-caret-right"></i> channel<a class="headerlink" href="#channel" title="Permanent link">&para;</a></h3>
 <p>The channel number of WIFi when SoftAP starts.
@@ -1458,13 +1458,13 @@ This option is valid only for ESP8266 or ESP32 arduino core 1.0.2 earlier.
     <dd>String</dd>
 </dl></p>
 <h3 id="immediatestart"><i class="fa fa-caret-right"></i> immediateStart<a class="headerlink" href="#immediatestart" title="Permanent link">&para;</a></h3>
-<p>Disable the first WiFi.begin() and start the captive portal. If this option is enabled, the module will be in AP_STA mode and the captive portal will be activated regardless of <a href="apiconfig.html#autorise"><strong>AutoConnectConfig::autoRise</strong></a> specification.
+<p>Disable the 1<sup>st</sup>-WiFi.begin and start the captive portal. If this option is enabled, the module will be in AP_STA mode and the captive portal. The evaluation rank of this parameter is lower than the <a href="apiconfig.html#autorise"><strong>AutoConnectConfig::autoRise</strong></a>. Even if immediateStart is true, the captive portal will not launch if autoRise is false.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>bool</dd>
     <dt><strong>Value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Start the captive portal with <a href="api.html#begin"><strong>AutoConnect::begin</strong></a>.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Enable the first WiFi.begin() and it will start captive portal when connection failed. This is default.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Enable the 1<sup>st</sup>-WiFi.begin and it will start captive portal when connection failed. This is default.</span></dd>
 </dl></p>
 <h3 id="menuitems"><i class="fa fa-caret-right"></i> menuItems<a class="headerlink" href="#menuitems" title="Permanent link">&para;</a></h3>
 <p>Configure applying items of the <a href="menu.html">AutoConnect menu</a>. You can arbitrarily combine valid menus by coordinating the menuItems value.
@@ -1502,7 +1502,7 @@ However, even if you specify like the above, the AutoConnectAux page items still
     <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is <strong>255.255.255.0</strong></span></dd>
 </dl></p>
 <h3 id="ota"><i class="fa fa-caret-right"></i> ota<a class="headerlink" href="#ota" title="Permanent link">&para;</a></h3>
-<p>Specifies to import the built-in OTA update class into the sketch. When this option is enabled, an <strong>Update</strong> item will appear in the AutoConnect menu, and the OTA update via Web browser will be automatically embedded to the Sketch.
+<p>Specifies to import the built-in OTA update class into the Sketch. When this option is enabled, an <strong>Update</strong> item will appear in the AutoConnect menu, and the OTA update via Web browser will be automatically embedded to the Sketch.
 <dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>AC_OTA_t</dd>
@@ -1542,7 +1542,7 @@ However, even if you specify like the above, the AutoConnectAux page items still
 </dl></p>
 <div class="admonition hint">
 <p class="admonition-title">Connection request after timed-out</p>
-<p>With the <strong>retainPortal</strong>, even if AutoConnect::begin in the setup() is timed out, you can execute the sketch and the portal function as a WiFi connection attempt by calling AutoConnect::handleClient in the loop().</p>
+<p>With the <strong>retainPortal</strong>, even if AutoConnect::begin in the setup() is timed out, you can execute the Sketch and the portal function as a WiFi connection attempt by calling AutoConnect::handleClient in the loop().</p>
 </div>
 <div class="admonition info">
 <p class="admonition-title">All unresolved addresses redirects to /_ac</p>
@@ -1608,7 +1608,7 @@ However, even if you specify like the above, the AutoConnectAux page items still
 <span style="color: #f8f8f2">Config.boundaryOffset</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">64</span><span style="color: #f8f8f2">;</span>                   <span style="color: #7a7a7a">// Reserve 64 bytes for the user data in EEPROM.</span>
 <span style="color: #f8f8f2">Config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>                 <span style="color: #7a7a7a">// Sets timeout value for the captive portal</span>
 <span style="color: #f8f8f2">Config.retainPortal</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>                   <span style="color: #7a7a7a">// Retains the portal function after timed-out</span>
-<span style="color: #f8f8f2">Config.homeUri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;/index.html&quot;</span><span style="color: #f8f8f2">;</span>               <span style="color: #7a7a7a">// Sets home path of the sketch application</span>
+<span style="color: #f8f8f2">Config.homeUri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;/index.html&quot;</span><span style="color: #f8f8f2">;</span>               <span style="color: #7a7a7a">// Sets home path of Sketch application</span>
 <span style="color: #f8f8f2">Config.title</span> <span style="color: #f92672">=</span><span style="color: #e6db74">&quot;My menu&quot;</span><span style="color: #f8f8f2">;</span>                      <span style="color: #7a7a7a">// Customize the menu title</span>
 <span style="color: #f8f8f2">Config.staip</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">IPAddress(</span><span style="color: #ae81ff">192</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">168</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">);</span>      <span style="color: #7a7a7a">// Sets static IP</span>
 <span style="color: #f8f8f2">Config.staGateway</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">IPAddress(</span><span style="color: #ae81ff">192</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">168</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">);</span>  <span style="color: #7a7a7a">// Sets WiFi router address</span>

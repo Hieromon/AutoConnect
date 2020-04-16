@@ -1987,7 +1987,7 @@
 <p>All custom Web page styles are limited to the built-in unique CSS embedded in the library code. Direct modification of the CSS affects AutoConnect behavior. You can use dedicated elements to relatively safely modify the style of your custom Web page.
 The <a href="#autoconnectstyle">AutoConnectStyle</a> will insert the raw CSS code into the style block in HTML of the custom Web page.</p>
 <h2 id="form-and-autoconnectelements">Form and AutoConnectElements<a class="headerlink" href="#form-and-autoconnectelements" title="Permanent link">&para;</a></h2>
-<p>All AutoConnectElements placed on custom web pages will be contained into one form. Its form is fixed and created by AutoConnect. The form value (usually the text or checkbox you entered) is sent by <a href="#autoconnectsubmit">AutoConnectSubmit</a> using the <strong>POST</strong> method with HTTP. The post method sends the actual form data which is a query string whose contents are the <strong>name</strong> and <strong>value</strong> of AutoConnectElements. You can retrieve the value for the parameter with the sketch from the query string with <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments">ESP8266WebServer::arg</a> function or <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> class of the <a href="api.html#on">AutoConnect::on</a> handler when the form is submitted.</p>
+<p>All AutoConnectElements placed on custom web pages will be contained into one form. Its form is fixed and created by AutoConnect. The form value (usually the text or checkbox you entered) is sent by <a href="#autoconnectsubmit">AutoConnectSubmit</a> using the <strong>POST</strong> method with HTTP. The post method sends the actual form data which is a query string whose contents are the <strong>name</strong> and <strong>value</strong> of AutoConnectElements. You can retrieve the value for the parameter with the Sketch from the query string with <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments">ESP8266WebServer::arg</a> function or <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> class of the <a href="api.html#on">AutoConnect::on</a> handler when the form is submitted.</p>
 <h2 id="autoconnectelement-a-basic-class-of-elements">AutoConnectElement - <small>A basic class of elements</small><a class="headerlink" href="#autoconnectelement-a-basic-class-of-elements" title="Permanent link">&para;</a></h2>
 <p>AutoConnectElement is a base class for other element classes and has common attributes for all elements. It can also be used as a <a href="#variant-for-autoconnectelements">variant</a> of each element. The following items are attributes that AutoConnectElement has and are common to other elements.</p>
 <p><i class="fa fa-eye"></i> <strong>Sample</strong><br>
@@ -2057,7 +2057,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 </tbody>
 </table>
 <h3 id="type"><i class="fa fa-caret-right"></i> type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
-<p>The <strong>type</strong> indicates the type of the element and represented as the <em>ACElement_t</em> enumeration type in the sketch. Since AutoConnectElement also acts as a variant of other elements, it can be applied to handle elements collectively. At that time, the type can be referred to by the <a href="apielements.html#typeof"><strong>typeOf()</strong></a> function. The following example changes the font color of all <a href="#autoconnecttext">AutoConnectText</a> elements of a custom Web page to gray.</p>
+<p>The <strong>type</strong> indicates the type of the element and represented as the <em>ACElement_t</em> enumeration type in the Sketch. Since AutoConnectElement also acts as a variant of other elements, it can be applied to handle elements collectively. At that time, the type can be referred to by the <a href="apielements.html#typeof"><strong>typeOf()</strong></a> function. The following example changes the font color of all <a href="#autoconnecttext">AutoConnectText</a> elements of a custom Web page to gray.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">customPage;</span>
 
 <span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">customPage.getElements();</span>
@@ -2083,7 +2083,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 <li>AutoConnectText: <strong>AC_Text</strong></li>
 <li>Uninitialized element: <strong>AC_Unknown</strong></li>
 </ul>
-<p>Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must <a href="https://en.cppreference.com/w/cpp/language/reinterpret_cast">re-interpret</a> that type with c++. Or, you can be coding the sketch more easily with using the <a href="apielements.html#ast62"><strong>as&lt;T></strong></a> function.</p>
+<p>Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must <a href="https://en.cppreference.com/w/cpp/language/reinterpret_cast">re-interpret</a> that type with c++. Or, you can be coding the Sketch more easily with using the <a href="apielements.html#ast62"><strong>as&lt;T></strong></a> function.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">customPage;</span>
 
 <span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">customPage.getElements();</span>
@@ -2173,7 +2173,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <ul>
 <li><strong><code>AC_File_FS</code></strong> : Save as the SPIFFS file in flash of ESP8266/ESP32 module.</li>
 <li><strong><code>AC_File_SD</code></strong> : Save to an external SD device connected to ESP8266/ESP32 module.</li>
-<li><strong><code>AC_File_Extern</code></strong> : Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd"><strong>AutoConnectUploadHandler</strong></a> class and implements <em>_open</em>, <em>_write</em> and <em>_close</em> function.</li>
+<li><strong><code>AC_File_Extern</code></strong> : Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd"><strong>AutoConnectUploadHandler</strong></a> class and implements <em>_open</em>, <em>_write</em> and <em>_close</em> function.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Built-in uploader is ready.</p>
@@ -2182,7 +2182,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <h3 id="post_3"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_3" title="Permanent link">&para;</a></h3>
 <p>Specifies a tag to add behind the HTML code generated from the element. The default values is <code>AC_Tag_BR</code>.</p>
 <h2 id="autoconnectinput">AutoConnectInput<a class="headerlink" href="#autoconnectinput" title="Permanent link">&para;</a></h2>
-<p>AutoConnectInput generates an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag and a <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the sketches.</p>
+<p>AutoConnectInput generates an HTML <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag and a <code class="codehilite"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the Sketches.</p>
 <p><i class="fa fa-eye"></i> <strong>Sample</strong><br>
 <small><strong><code>AutoConnectInput input("input", "", "Server", "MQTT broker server");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acinput.png"></p>
@@ -2258,7 +2258,7 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 </code></pre></div>
 
 <h3 id="name_6"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_6" title="Permanent link">&para;</a></h3>
-<p>It is the <code>name</code> of the AutoConnectStyle element and is useful only to access this element from the sketch. It does not affect the generated HTML code.</p>
+<p>It is the <code>name</code> of the AutoConnectStyle element and is useful only to access this element from the Sketch. It does not affect the generated HTML code.</p>
 <h3 id="value_5"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_5" title="Permanent link">&para;</a></h3>
 <p>The raw CSS code. It is not necessary to write <code>&lt;style&gt;</code> <code>&lt;/style&gt;</code> tags.</p>
 <h2 id="autoconnectselect">AutoConnectSelect<a class="headerlink" href="#autoconnectselect" title="Permanent link">&para;</a></h2>
@@ -2309,7 +2309,7 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 </code></pre></div>
 
 <h3 id="name_9"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_9" title="Permanent link">&para;</a></h3>
-<p>A <code>name</code> does not exist in the generated HTML. It provides only a means of accessing elements with the sketches.</p>
+<p>A <code>name</code> does not exist in the generated HTML. It provides only a means of accessing elements with the Sketches.</p>
 <h3 id="value_7"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_7" title="Permanent link">&para;</a></h3>
 <p>It becomes content and also can contain the native HTML code, but remember that your written code is enclosed by the div tag.</p>
 <h3 id="style"><i class="fa fa-caret-right"></i> style<a class="headerlink" href="#style" title="Permanent link">&para;</a></h3>

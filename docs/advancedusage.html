@@ -373,6 +373,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#captive-portal-starting-control" class="md-nav__link">
+     Captive portal starting control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#captive-portal-timeout-control" class="md-nav__link">
      Captive portal timeout control
   </a>
@@ -1044,6 +1051,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#captive-portal-starting-control" class="md-nav__link">
+     Captive portal starting control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#captive-portal-timeout-control" class="md-nav__link">
      Captive portal timeout control
   </a>
@@ -1245,7 +1259,7 @@
 <h3 id="404-handler"><i class="fa fa-caret-right"></i> 404 handler<a class="headerlink" href="#404-handler" title="Permanent link">&para;</a></h3>
 <p>Registering the "not found" handler is a different way than ESP8266WebServer (WebServer as ESP32). The <em>onNotFound</em> of ESP8266WebServer/WebServer does not work with AutoConnect. AutoConnect overrides <em>ESP8266WebServer::onNotFound</em>/<em>WebServer::onNotFound</em> to handle a captive portal. To register "not found" handler, use <a href="api.html#onnotfound"><em>AutoConnect::onNotFound</em></a>.</p>
 <h3 id="access-to-saved-credentials"><i class="fa fa-caret-right"></i> Access to saved credentials<a class="headerlink" href="#access-to-saved-credentials" title="Permanent link">&para;</a></h3>
-<p>AutoConnect stores the established WiFi connection in the flash of the ESP8266/ESP32 module and equips the class to access it from the sketch. You can read, write or erase the credentials using this class individually. It's <a href="credit.html#autoconnectcredential">AutoConnectCredential</a> class which provides the access method to the saved credentials in the flash. Refer to section <a href="credit.html">Saved credentials access</a> for details.</p>
+<p>AutoConnect stores the established WiFi connection in the flash of the ESP8266/ESP32 module and equips the class to access it from the Sketch. You can read, write or erase the credentials using this class individually. It's <a href="credit.html#autoconnectcredential">AutoConnectCredential</a> class which provides the access method to the saved credentials in the flash. Refer to section <a href="credit.html">Saved credentials access</a> for details.</p>
 <div class="admonition note">
 <p class="admonition-title">Where to store credentials in ESP32 with AutoConnect v1.0.0 or later</p>
 <p>Since v1.0.0, credentials are stored in nvs of ESP32. AutoConnect v1.0.0 or later accesses the credentials area using the <strong>Preferences</strong> class with the arduino esp-32 core. So in ESP32, the credentials are not in the EEPROM, it is in the namespace <strong>AC_CREDT</strong> of the nvs. See <a href="credit.html">Saved credentials access</a> for details.<br />
@@ -1304,7 +1318,7 @@ See the <a href="credit.html">Saved credentials access</a> chapter for details o
 </table></p>
 </div>
 <h3 id="captive-portal-start-detection"><i class="fa fa-caret-right"></i> Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h3>
-<p>The captive portal will only be activated if the first <em>WiFi::begin</em> fails. Sketch can detect with the <a href="api.html#ondetect"><em>AutoConnect::onDetect</em></a> function that the captive portal has started. For example, the sketch can be written like as follows that turns on the LED at the start captive portal.</p>
+<p>The captive portal will only be activated if 1<sup>st</sup>-WiFi::begin fails. Sketch can detect with the <a href="api.html#ondetect"><em>AutoConnect::onDetect</em></a> function that the captive portal has started. For example, the Sketch can be written like as follows that turns on the LED at the start captive portal.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 
 <span style="background-color: #49483e"><span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">startCP</span><span style="color: #f8f8f2">(IPAddress</span> <span style="color: #f8f8f2">ip)</span> <span style="color: #f8f8f2">{</span>
@@ -1328,8 +1342,32 @@ See the <a href="credit.html">Saved credentials access</a> chapter for details o
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 
+<h3 id="captive-portal-starting-control"><i class="fa fa-caret-right"></i> Captive portal starting control<a class="headerlink" href="#captive-portal-starting-control" title="Permanent link">&para;</a></h3>
+<p>Basically, the captive portal launch is subject to 1<sup>st</sup>-WiFi.begin result, but Sketch can control it. The Sketch can direct the following four actions by configuring AutoConnect with two parameters, <a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a> and <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a>.</p>
+<table>
+  <tr>
+    <th rowspan="2" align="center">AutoConnectConfig<br>::immediateStart</th>
+    <th colspan="2" align="center">AutoConnectConfig::autoRise</th>
+  </tr>
+  <tr>
+    <td>true</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td>true</td>
+    <td>Skip 1st-WiFi.begin<br>ESP module becomes SoftAP and the captive portal starts immediately.<br></td>
+    <td>Not attempt WiFi connection.<br>Only WebServer will start in STA mode.</td>
+  </tr>
+  <tr>
+    <td>false</td>
+    <td>Attempts WiFi connection in STA mode.<br>In some cases, the autoReconnect may restore the connection even if 1st-WiFiBeing fails.<br>If the connection is completely lost, the captive portal will be launched.<br><b>This is the default.</b></td>
+    <td>Attempts WiFi connection in STA mode.<br>In some cases, the autoReconnect may restore the connection even if 1st-WiFiBeing fails.<br>ESP module stays in STA mode and WebServer will start.</td>
+  </tr>
+</table>
+
 <h3 id="captive-portal-timeout-control"><i class="fa fa-caret-right"></i> Captive portal timeout control<a class="headerlink" href="#captive-portal-timeout-control" title="Permanent link">&para;</a></h3>
-<p>AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of <a href="api.html#begin"><em>AutoConnect::begin</em></a>. The default value is macro defined by <a href="api.html#defined-macros"><strong>AUTOCONNECT_TIMEOUT</strong></a> in the <strong>AutoConnectDefs.h</strong> file.</p>
+<p>Once AutoConnect has entered the captive portal state due to the above conditions, it will not exit until a WiFi connection can be established. (But that is the default behavior)</p>
+<p>The Sketch can abort the <a href="api.html#begin"><em>AutoConnect::begin</em></a> by setting the captive portal timeout and returns control to Sketch. AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of <a href="api.html#begin"><em>AutoConnect::begin</em></a>. The default value is macro defined by <a href="api.html#defined-macros"><strong>AUTOCONNECT_TIMEOUT</strong></a> in the <strong>AutoConnectDefs.h</strong> file.</p>
 <p>The other timeout control is for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the <a href="#on-demand-start-the-captive-portal"><strong>immediateStart</strong></a> option to create sketches with high mobility.</p>
 <p>The timeout of the captive portal is specified together with <a href="apiconfig.html#portaltimeout"><em>AutoConnectConfig::portalTimeout</em></a> as follows.</p>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
@@ -1380,7 +1418,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 
-<p>There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the sketch.</p>
+<p>There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the Sketch.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
@@ -1464,7 +1502,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <ol>
 <li>
 <p>Overwrite the label literal of library source code directly.</p>
-<p>You can change the label of the AutoConnect menu item by rewriting the default label literal in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h">AutoConnectLabels.h</a> macros. However, changing menu items literal influences all the sketch's build scenes.</p>
+<p>You can change the label of the AutoConnect menu item by rewriting the default label literal in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h">AutoConnectLabels.h</a> macros. However, changing menu items literal influences all the Sketch's build scenes.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;Configure new AP&quot;</span>
 <span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_OPENSSIDS   &quot;Open SSIDs&quot;</span>
 <span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_DISCONNECT  &quot;Disconnect&quot;</span>
@@ -1489,7 +1527,7 @@ And PlatformIO is a build system. Library sources will not be compiled unless Au
 </li>
 </ol>
 <h3 id="combination-with-mdns"><i class="fa fa-caret-right"></i> Combination with mDNS<a class="headerlink" href="#combination-with-mdns" title="Permanent link">&para;</a></h3>
-<p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The sketch can start the MDNS responder after <a href="api.html#begin"><em>AutoConnect::begin</em></a>.</p>
+<p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The Sketch can start the MDNS responder after <a href="api.html#begin"><em>AutoConnect::begin</em></a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266mDNS.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
@@ -1536,7 +1574,7 @@ Combining these two parameters allows you to filter the destination AP when mult
     <td>Restoring static IPs suitable for the SSID from saved credentials</td>
 </tr>
 <tr>
-    <td>Specified with the sketch</td>
+    <td>Specified with the Sketch</td>
     <td>Not efective</td>
     <td>By AutoConnect::begin parameters</td>
     <td>Use the specified value of AutoConnectConfig</td>
@@ -1560,7 +1598,7 @@ Combining these two parameters allows you to filter the destination AP when mult
 </code></pre></div>
 
 <h3 id="disable-the-captive-portal"><i class="fa fa-caret-right"></i> Disable the captive portal<a class="headerlink" href="#disable-the-captive-portal" title="Permanent link">&para;</a></h3>
-<p>It can also prevent the captive portal from starting even if the connection at the first <em>WiFi.begin</em> fails. In this case, <a href="api.html#begin"><em>AutoConnect::begin</em></a> behaves same as <em>WiFi.begin</em>.</p>
+<p>It can also prevent the captive portal from starting even if the connection at the 1<sup>st</sup>-WiFi.begin fails. In this case, <a href="api.html#begin"><em>AutoConnect::begin</em></a> behaves same as <em>WiFi.begin</em>.</p>
 <p>For disabling the captive portal, <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> sets to false with <a href="apiconfig.html">AutoConnectConfig</a>.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">acConfig;</span>
@@ -1704,7 +1742,7 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 <p>The host() can be referred at after <em>AutoConnect::begin</em>.</p>
 </div>
 <h3 id="usage-for-automatically-instantiated-esp8266webserverwebserver"><i class="fa fa-caret-right"></i> Usage for automatically instantiated ESP8266WebServer/WebServer<a class="headerlink" href="#usage-for-automatically-instantiated-esp8266webserverwebserver" title="Permanent link">&para;</a></h3>
-<p>The sketch can handle URL requests using ESP8266WebServer or WebServer that AutoConnect started internally. ESP8266WebServer/WebServer instantiated dynamically by AutoConnect can be referred to by <a href="api.html#host"><em>AutoConnect::host</em></a> function. The sketch can use the '<strong>on</strong>' function, '<strong>send</strong>' function, '<strong>client</strong>' function and others by ESP8266WebServer/WebServer reference of its return value.</p>
+<p>The Sketch can handle URL requests using ESP8266WebServer or WebServer that AutoConnect started internally. ESP8266WebServer/WebServer instantiated dynamically by AutoConnect can be referred to by <a href="api.html#host"><em>AutoConnect::host</em></a> function. The Sketch can use the '<strong>on</strong>' function, '<strong>send</strong>' function, '<strong>client</strong>' function and others by ESP8266WebServer/WebServer reference of its return value.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
@@ -1741,7 +1779,7 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 
 <div class="admonition note">
 <p class="admonition-title">ESP8266WebServer/WebServer function should be called after AutoConnect::begin</p>
-<p>The sketch cannot refer to an instance of ESP8266WebServer/WebServer until AutoConnect::begin completes successfully.</p>
+<p>The Sketch cannot refer to an instance of ESP8266WebServer/WebServer until AutoConnect::begin completes successfully.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Do not use with ESP8266WebServer::begin or WebServer::begin</p>
@@ -1774,7 +1812,7 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 <h3 id="assign-user-sketchs-home-path"><i class="fa fa-caret-right"></i> Assign user sketch's home path<a class="headerlink" href="#assign-user-sketchs-home-path" title="Permanent link">&para;</a></h3>
 <p><strong>HOME</strong> for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the <a href="api.html#home"><em>AutoConnect::home</em></a> function.</p>
 <p><img src="images/menu_home.png" /></p>
-<p>The sketch HOME path is closely related to the <a href="apiconfig.html#booturi">bootUri</a> that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:</p>
+<p>The Sketch HOME path is closely related to the <a href="apiconfig.html#booturi">bootUri</a> that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:</p>
 <ul>
 <li><strong>AUTOCONNECT_URI</strong><br />
     The <strong>ROOT</strong> of AutoConnect. It is defined in <code>AutoConnectDefs.h</code> and is assigned an <a href="menu.html#where-the-from">AutoConnect statistics screen</a> by default.</li>
@@ -1872,7 +1910,7 @@ See the <a href="otabrowser.html">Updates with the Web Browser</a> chapter for d
 <p>You can also assign no password to SoftAP launched as a captive portal. Assigning a null string as <code>String("")</code> to <a href="apiconfig.html#psk"><em>AutoConnectConfig::psk</em></a> does not require a password when connecting to SoftAP.<br />
 But this method is not recommended. The broadcast radio of SSID emitted from SoftAP will leak and reach several tens of meters.</p>
 <h3 id="configuration-for-soft-ap-and-captive-portal"><i class="fa fa-caret-right"></i> Configuration for Soft AP and captive portal<a class="headerlink" href="#configuration-for-soft-ap-and-captive-portal" title="Permanent link">&para;</a></h3>
-<p>AutoConnect will activate SoftAP at failed the first <em>WiFi.begin</em>. It SoftAP settings are stored in <a href="apiconfig.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> as the following parameters. The sketch could be configured SoftAP using these parameters, refer the <a href="apiconfig.html#public-member-variables">AutoConnectConfig API</a> for details.</p>
+<p>AutoConnect will activate SoftAP at failed the 1<sup>st</sup>-WiFi.begin. It SoftAP settings are stored in <a href="apiconfig.html#autoconnectconfig"><strong>AutoConnectConfig</strong></a> as the following parameters. The Sketch could be configured SoftAP using these parameters, refer the <a href="apiconfig.html#public-member-variables">AutoConnectConfig API</a> for details.</p>
 <h3 id="configure-wifi-channel"><i class="fa fa-caret-right"></i> Configure WiFi channel<a class="headerlink" href="#configure-wifi-channel" title="Permanent link">&para;</a></h3>
 <p>Appropriately specifying the WiFi channel to use for ESP8266 and ESP32 is essential for a stable connection with the access point. AutoConnect remembers the WiFi channel with a credential of the access point once connected and reuses it.</p>
 <p>The default channel when a captive portal starts and AutoConnect itself becomes an access point is the <a href="apiconfig.html#channel"><em>AutoConnectConfig::channel</em></a> member. If this channel is different from the channel of the access point you will attempt to connect, WiFi.begin may fail. The cause is that the ESP module shares the same channel in AP mode and STA mode. If the connection attempt is not stable, specifying a proper channel using AutoConnectConfig::channel may result in a stable connection.</p>

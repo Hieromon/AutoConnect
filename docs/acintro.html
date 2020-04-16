@@ -907,7 +907,7 @@ AutoConnect can handle custom Web pages prepared by user sketches individually. 
 <p align="center"><img align="center" width="560px" src="images/ac_objects.svg"></p>
 AutoConnectAux is a container for AutoConnectElements. To make a custom Web page, create elements that make up the page and put it in the AutoConnectAux object. Joining its AutoConnectAux object to AutoConnect will integrate the custom Web page into the AutoConnect menu.</p>
 <p><img src="images/ac_declaration.svg"></p>
-<p>The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named <em>header</em> and <em>caption</em>, adds them to the AutoConnectAux object as <em>aux</em>, binds to an AutoConnect object named <em>portal</em>. This sequence is the basic procedure for creating custom Web pages with the sketch. The further explanation is available in section <a href="acelements.html">AutoConnectElements</a> also.</p>
+<p>The above figure shows a code sequence that declares AutoConnectElements and put in the AutoConnectAux container and integrates those into AutoConnect. It declares two text elements named <em>header</em> and <em>caption</em>, adds them to the AutoConnectAux object as <em>aux</em>, binds to an AutoConnect object named <em>portal</em>. This sequence is the basic procedure for creating custom Web pages with the Sketch. The further explanation is available in section <a href="acelements.html">AutoConnectElements</a> also.</p>
 <h2 id="custom-web-pages-in-autoconnect-menu">Custom Web pages in AutoConnect menu<a class="headerlink" href="#custom-web-pages-in-autoconnect-menu" title="Permanent link">&para;</a></h2>
 <ul class="horizontal-list">
     <li><img style="margin:0 20px 0 -20px;float:left;width:300px;" src="images/ac_auxmenu.png">
@@ -918,7 +918,7 @@ AutoConnectAux is a container for AutoConnectElements. To make a custom Web page
 <p>You can create multiple custom Web pages and specify pages that can be called from the menu. The following sketch shows a code sequence for integrating three custom Web pages into one and embedding them in a menu.</p>
 <p><img align="center" width="520px" src="images/ac_auxjoin_multi.svg"></p>
 <ul class="horizontal-list">
-    <li><p style="margin:0 20px 0 -20px"><span style="margin-left:20px;float:right;width:280px;height:497px;border:1px solid lightgrey;"><img data-gifffer="images/aux_menu.gif" data-gifffer-width="278" data-gifffer-height="495" /></span>In the above code, the third parameter of <i>aux2</i> is <b>false</b>. The third parameter of the AutoConnectAux constructor is an indicator for whether it's shown to the AutoConnect menu. Right animation is an execution result of the above code. You will see that the menu applies only two items for three custom Web pages. The sketch of this animation is written to transition to <i>aux2</i> by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by <i>aux1</i>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>The <i>aux2</i> page transitions only from the <i>aux1</i> page. As shown in mqttRSSI in the library example, its page replies the saving result for the parameters entered on the previous page. It can not be invoked directly from the menu and want to hide them with AutoConnect menu items. The utility of the third parameter of the AutoConnectAux constructor is that.</p></li>
+    <li><p style="margin:0 20px 0 -20px"><span style="margin-left:20px;float:right;width:280px;height:497px;border:1px solid lightgrey;"><img data-gifffer="images/aux_menu.gif" data-gifffer-width="278" data-gifffer-height="495" /></span>In the above code, the third parameter of <i>aux2</i> is <b>false</b>. The third parameter of the AutoConnectAux constructor is an indicator for whether it's shown to the AutoConnect menu. Right animation is an execution result of the above code. You will see that the menu applies only two items for three custom Web pages. the Sketch of this animation is written to transition to <i>aux2</i> by the utility of the <a href="acelements.html#autoconnectsubmit"><b>AutoConnectSubmit</b></a> element owned by <i>aux1</i>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup><br>The <i>aux2</i> page transitions only from the <i>aux1</i> page. As shown in mqttRSSI in the library example, its page replies the saving result for the parameters entered on the previous page. It can not be invoked directly from the menu and want to hide them with AutoConnect menu items. The utility of the third parameter of the AutoConnectAux constructor is that.</p></li>
 </ul>
 
 <h2 id="basic-steps-to-use-custom-web-pages">Basic steps to use custom Web pages<a class="headerlink" href="#basic-steps-to-use-custom-web-pages" title="Permanent link">&para;</a></h2>
@@ -935,7 +935,7 @@ AutoConnectAux is a container for AutoConnectElements. To make a custom Web page
 </ol>
 <h2 id="write-the-custom-web-page-with-json">Write the custom Web page with JSON<a class="headerlink" href="#write-the-custom-web-page-with-json" title="Permanent link">&para;</a></h2>
 <p>You can write the custom Web page in JSON without using sketch codes.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> It is possible to describe the entire page in JSON and can be described for each element also. The JSON document can be saved in SPIFFS or SD and read using AutoConnect's <a href="api.html#load"><strong>load</strong></a> function. you can reduce the steps of the basic procedure with this approach, but this way consumes a lot of memory. 
-The following JSON code and sketch will execute the custom Web page as an example in the above figure. That is, the sketch of this code and footnote<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> is equivalent.</p>
+The following JSON code and sketch will execute the custom Web page as an example in the above figure. That is, the Sketch of this code and footnote<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> is equivalent.</p>
 <p><strong>custom_page.json</strong>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
@@ -987,7 +987,7 @@ The following JSON code and sketch will execute the custom Web page as an exampl
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">]</span>
 </code></pre></div></p>
-<p><strong>The sketch</strong>
+<p><strong>the Sketch</strong>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;FS.h&gt;</span>
@@ -1026,7 +1026,7 @@ The following JSON code and sketch will execute the custom Web page as an exampl
 <p>There is no overlay in the actual menu.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
-<p>The sketch is actually this:
+<p>the Sketch is actually this:
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>

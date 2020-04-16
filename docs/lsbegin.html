@@ -816,8 +816,9 @@
                 <h2 id="autoconnectbegin-logic-sequence">AutoConnect::begin logic sequence<a class="headerlink" href="#autoconnectbegin-logic-sequence" title="Permanent link">&para;</a></h2>
 <p>The following parameters of <a href="apiconfig.html">AutoConnectConfig</a> affect the behavior and control a logic sequence of <a href="api.html#begin">AutoConnect::begin</a> function. These parameters are evaluated on a case-by-case basis and may not be valid in all situations. The Sketch must consider the role of these parameters and the conditions under which they will work as intended. You need to understand what happens when using these parameters in combination.</p>
 <ul>
-<li><a href="apiconfig.html#immediatestart">immediateStart</a> : The captive portal start immediately, without the 1<sup>st</sup>-WiFi.begin.</li>
-<li><a href="apiconfig.html#autoreconnect">autoReconenct</a> : Attempt re-connect with past SSID by saved credential.</li>
+<li><a href="apiconfig.html#autoreconnect">autoReconnect</a> : Attempts re-connect with past SSID by saved credential.</li>
+<li><a href="apiconfig.html#autorise">autoRise</a> : Controls starting the captive portal.</li>
+<li><a href="apiconfig.html#immediatestart">immediateStart</a> : Starts the captive portal immediately, without the 1<sup>st</sup>-WiFi.begin.</li>
 <li><a href="apiconfig.html#portaltimeout">portalTimeout</a> : Time out limit for the portal.</li>
 <li><a href="apiconfig.html#retainportal">retainPortal</a> : Keep DNS server functioning for the captive portal.</li>
 </ul>

@@ -592,7 +592,7 @@
       
         <li class="md-nav__item">
   <a href="#embed-the-autoconnect-to-the-sketch" class="md-nav__link">
-    Embed the AutoConnect to the sketch
+    Embed the AutoConnect to the Sketch
   </a>
   
 </li>
@@ -668,7 +668,7 @@
         
           <li class="md-nav__item">
   <a href="#the-sketch-publishes-messages" class="md-nav__link">
-    The sketch, Publishes messages
+    the Sketch, Publishes messages
   </a>
   
 </li>
@@ -884,7 +884,7 @@
       
         <li class="md-nav__item">
   <a href="#embed-the-autoconnect-to-the-sketch" class="md-nav__link">
-    Embed the AutoConnect to the sketch
+    Embed the AutoConnect to the Sketch
   </a>
   
 </li>
@@ -960,7 +960,7 @@
         
           <li class="md-nav__item">
   <a href="#the-sketch-publishes-messages" class="md-nav__link">
-    The sketch, Publishes messages
+    the Sketch, Publishes messages
   </a>
   
 </li>
@@ -1003,8 +1003,8 @@
                 
                   <h1>How to embed</h1>
                 
-                <h2 id="embed-the-autoconnect-to-the-sketch">Embed the AutoConnect to the sketch<a class="headerlink" href="#embed-the-autoconnect-to-the-sketch" title="Permanent link">&para;</a></h2>
-<p>Here hold two case examples. Both examples perform the same function. Only how to incorporate the <strong>AutoConnect</strong> into the sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library for HTML assemblies.</p>
+                <h2 id="embed-the-autoconnect-to-the-sketch">Embed the AutoConnect to the Sketch<a class="headerlink" href="#embed-the-autoconnect-to-the-sketch" title="Permanent link">&para;</a></h2>
+<p>Here hold two case examples. Both examples perform the same function. Only how to incorporate the <strong>AutoConnect</strong> into the Sketch differs. Also included in the sample folder, HandlePortal.ino also shows how to use the <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library for HTML assemblies.</p>
 <h2 id="what-does-this-example-do">What does this example do?<a class="headerlink" href="#what-does-this-example-do" title="Permanent link">&para;</a></h2>
 <p>Uses the web interface to light the LED connected to the D0 (sometimes called <em>BUILTIN_LED</em>) port of the <strong><a href="https://github.com/nodemcu/nodemcu-devkit-v1.0">NodeMCU</a></strong> module like the following animation.</p>
 <p>Access to the ESP8266 module connected WiFi from the browser then the page contains the current value of the D0 port would be displayed. The page has the buttons to switch the port value. The LED will blink according to the value with clicked by the button. This example is a typical sketch of manipulating ESP8266's GPIO via WLAN.</p>
@@ -1022,14 +1022,14 @@
 <p>Declare only AutoConnect, performs handleClient.</p>
 <p><img src="images/handlePortal.svg" /></p>
 <h2 id="used-with-mqtt-as-a-client-application">Used with MQTT as a client application<a class="headerlink" href="#used-with-mqtt-as-a-client-application" title="Permanent link">&para;</a></h2>
-<p>The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also convenient for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the sketch.</p>
+<p>The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also convenient for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the Sketch.</p>
 <p>This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the <a href="https://thingspeak.com/">ThingSpeak</a> for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as <a href="https://github.com/knolleary/pubsubclient">MQTT client</a>. This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.</p>
 <p><img src="images/ChannelStatus.png" width="70%"/></p>
 <h3 id="advance-procedures">Advance procedures<a class="headerlink" href="#advance-procedures" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Arduino Client for MQTT - It's the <a href="https://github.com/knolleary/pubsubclient">PubSubClient</a>, install it to Arduino IDE. If you have the latest version already, this step does not need.</li>
 <li>Create a channel on ThingSpeak.</li>
-<li>Get the Channel API Keys from ThingSpeak, put its keys to the sketch.</li>
+<li>Get the Channel API Keys from ThingSpeak, put its keys to the Sketch.</li>
 </ul>
 <p>The ThingSpeak is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further. ThingSpeak has the free plan for the account which uses within the scope of this example.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> You can sign up with the <a href="https://thingspeak.com/users/sign_up">ThingSpeak sign-up page</a>.</p>
 <div class="admonition warning">
@@ -1052,8 +1052,8 @@
 <p><img src="images/APIKeys.png" width="70%"/></p>
 <p>The last key you need is the <strong>User API Key</strong> and can be confirmed it in the user profile. Pull down <strong>Account</strong> from the top menu, select <strong>My profile</strong>. Then you can see the ThingSpeak settings and the <strong>User API Key</strong> is displayed middle of this screen.</p>
 <p><img src="images/USERKey.png" width="70%"/></p>
-<h3 id="the-sketch-publishes-messages">The sketch, Publishes messages<a class="headerlink" href="#the-sketch-publishes-messages" title="Permanent link">&para;</a></h3>
-<p>The complete code of the sketch is <a href="https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino">mqttRSSI.ino</a> in the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect repository</a>. Replace the following #define in a sketch with <strong>User API Key</strong>, <strong>Write API Key</strong> and <strong>Channel ID</strong>. After Keys updated, compile the sketch and upload it.</p>
+<h3 id="the-sketch-publishes-messages">the Sketch, Publishes messages<a class="headerlink" href="#the-sketch-publishes-messages" title="Permanent link">&para;</a></h3>
+<p>The complete code of the Sketch is <a href="https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino">mqttRSSI.ino</a> in the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect repository</a>. Replace the following #define in a sketch with <strong>User API Key</strong>, <strong>Write API Key</strong> and <strong>Channel ID</strong>. After Keys updated, compile the Sketch and upload it.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define MQTT_USER_KEY        &quot;****************&quot;  // Replace to User API Key.</span>
 <span style="color: #7a7a7a">#define CHANNEL_ID           &quot;******&quot;            // Replace to Channel ID.</span>
 <span style="color: #7a7a7a">#define CHANNEL_API_KEY_WR   &quot;****************&quot;  // Replace to the write API Key.</span>

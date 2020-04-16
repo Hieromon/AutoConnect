@@ -964,12 +964,12 @@
                   <h1>File upload handler</h1>
                 
                 <h2 id="uploading-file-from-web-browser">Uploading file from Web Browser<a class="headerlink" href="#uploading-file-from-web-browser" title="Permanent link">&para;</a></h2>
-<p>If you have to write some data individually to the ESP8266/ESP32 module for the sketch behavior, the <a href="acelements.html#autoconnectfile">AutoConnectFile</a> element will assist with your wants implementation. The AutoConnectFile element produces an HTML <code>&lt;input type="file"&gt;</code> tag and can save uploaded file to the flash or external SD of the ESP8266/ESP32 module. The handler for saving is built into AutoConnect. You can use it to inject any sketch data such as the initial values for the custom Web page into the ESP module via OTA without using the sketch data upload tool of Arduino-IDE.
+<p>If you have to write some data individually to the ESP8266/ESP32 module for the Sketch behavior, the <a href="acelements.html#autoconnectfile">AutoConnectFile</a> element will assist with your wants implementation. The AutoConnectFile element produces an HTML <code>&lt;input type="file"&gt;</code> tag and can save uploaded file to the flash or external SD of the ESP8266/ESP32 module. The handler for saving is built into AutoConnect. You can use it to inject any sketch data such as the initial values for the custom Web page into the ESP module via OTA without using the Sketch data upload tool of Arduino-IDE.
 <p style="display:block;margin-left:auto;margin-right:auto;width:603px;height:368px;border:1px solid lightgray;"><img data-gifffer="images/upload.gif" data-gifffer-width="601" data-gifffer-height="366""/></p></p>
 <h2 id="basic-steps-of-the-file-upload-sketch">Basic steps of the file upload sketch<a class="headerlink" href="#basic-steps-of-the-file-upload-sketch" title="Permanent link">&para;</a></h2>
-<p>Here is the basic procedure of the sketch which can upload files from the client browser using AutoConnectFile:<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>Here is the basic procedure of the Sketch which can upload files from the client browser using AutoConnectFile:<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <ol>
-<li>Place AutoConnectFile on a custom Web page by writing JSON or constructor code directly with the sketch.</li>
+<li>Place AutoConnectFile on a custom Web page by writing JSON or constructor code directly with the Sketch.</li>
 <li>Place other AutoConnectElements as needed.</li>
 <li>Place AutoConnectSubmit on the same custom Web page.</li>
 <li>Perform the following process in the on-handler of submitting destination:<ul>
@@ -1099,7 +1099,7 @@
 <p><code>AUTOCONNECT_SD_SPEED</code> defines SPI clock speed depending on the connected device.</p>
 <div class="admonition info">
 <p class="admonition-title">Involves both the begin() and the end()</p>
-<p>The built-in uploader executes the begin and end functions regardless of the sketch whence the file system of the device will terminate with the uploader termination. Therefore, to use the device in the sketch after uploading, you need to <strong>restart it with the begin</strong> function.</p>
+<p>The built-in uploader executes the begin and end functions regardless of the Sketch whence the file system of the device will terminate with the uploader termination. Therefore, to use the device in the Sketch after uploading, you need to <strong>restart it with the begin</strong> function.</p>
 </div>
 <h2 id="when-it-will-be-uploaded">When it will be uploaded<a class="headerlink" href="#when-it-will-be-uploaded" title="Permanent link">&para;</a></h2>
 <p>Upload handler will be launched by ESP8266WebServer/WebServer(as ESP32) library which is triggered by receiving an HTTP stream of POST BODY including file content. Its launching occurs before invoking the page handler.</p>
@@ -1112,7 +1112,7 @@
 <p>You can output the file to any device using a custom uploader by specifying <a href="acjson.html#acfile"><strong>extern</strong></a> with the <a href="acjson.html#acfile"><strong>store</strong></a> attribute of <a href="acjson.html#acfile">AutoConnectFile</a> (or specifying <a href="acelements.html#store"><strong>AC_File_Extern</strong></a> for the <a href="apielements.html#store"><strong>store</strong></a> member variable) and can customize the uploader according to the need to upload files to other than Flash or SD. Implements your own uploader with inheriting the <a href="#upload-handler-base-class"><strong>AutoConnectUploadHandler</strong></a> class which is the base class of the upload handler.</p>
 <div class="admonition note">
 <p class="admonition-title">It's not so difficult</p>
-<p>Implementing the custom uploader requires a little knowledge of the c++ language. If you are less attuned to programming c++, you may find it difficult. But don't worry. You can make it in various situations by just modifying the sketch skeleton that appears at the end of this page.</p>
+<p>Implementing the custom uploader requires a little knowledge of the c++ language. If you are less attuned to programming c++, you may find it difficult. But don't worry. You can make it in various situations by just modifying the Sketch skeleton that appears at the end of this page.</p>
 </div>
 <h3 id="upload-handler-base-class"><i class="fa fa-code"></i> Upload handler base class<a class="headerlink" href="#upload-handler-base-class" title="Permanent link">&para;</a></h3>
 <p>AutoConnectUploadHandler is a base class of upload handler and It has one public member function and three protected functions. </p>
@@ -1218,7 +1218,7 @@
     <dd><span class="apidef">T</span><span class="apidesc">Specifies a class name of the custom uploader. This class name is a class that you implemented by inheriting AutoConnectUploadHandler for custom upload.</span></dd>
     <dd><span class="apidef">uploadClass</span><span class="apidesc">Specifies the custom upload class instance.</span></dd>
 </dl></p>
-<p>The rough structure of the sketches that completed these implementations will be as follows:</p>
+<p>The rough structure of the Sketches that completed these implementations will be as follows:</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>

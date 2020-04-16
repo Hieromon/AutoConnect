@@ -1265,12 +1265,12 @@
                 
                   <h1>Custom Web pages with JSON</h1>
                 
-                <p>You can embed custom Web pages written in <a href="https://www.json.org/index.html"><strong>JSON</strong></a> into AutoConnect without AutoConnectAux &amp; AutoConnectElements declaration. Custom Web page declaration by JSON can  embed in the sketch as a fixed string or can store in the external file such as SPIFFS for stream loading. Also, you can also load and save AutoConnectElements objects individually.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+                <p>You can embed custom Web pages written in <a href="https://www.json.org/index.html"><strong>JSON</strong></a> into AutoConnect without AutoConnectAux &amp; AutoConnectElements declaration. Custom Web page declaration by JSON can  embed in the Sketch as a fixed string or can store in the external file such as SPIFFS for stream loading. Also, you can also load and save AutoConnectElements objects individually.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <p>By providing the following JSON document to AutoConnect, you can include the custom Web page like the below:</p>
 <div style="float:left;width:50%;height:470px;overflow:auto"><img src="images/ac_json.png"></div>
 
 <p><img style="margin-left:30px;width:40%;height:470px;" src="images/ac_mqtt_setting.png"></p>
-<p>A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the sketch process by loading multiple pages of JSON document at once.</p>
+<p>A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the Sketch process by loading multiple pages of JSON document at once.</p>
 <div class="admonition caution">
 <p class="admonition-title">Adopt ArduinoJson v5 or v6</p>
 <p>To handle AutoConnectAux and AutoConnectElements written in JSON, you need to install the ArduinoJson library. You can adopt either <a href="https://arduinojson.org/v5/doc/installation/">version 5</a> or <a href="https://arduinojson.org/v6/doc/installation/">version 6</a> for the ArduinoJson. AutoConnect supports both versions.</p>
@@ -1485,7 +1485,7 @@
 <li><strong>store</strong> : Specifies the destination to save the uploaded file. Its value accepts one of the following:<p>
 <b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module.<br>
 <b>sd</b>&nbsp;: Save to an external SD device connected to ESP8266/ESP32 module.<br>
-<b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the sketch individually. Its uploader must inherit <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd"><strong>AutoConnectUploadHandler</strong></a> class and implements <em>_open</em>, <em>_write</em> and <em>_close</em> function.</p></li>
+<b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd"><strong>AutoConnectUploadHandler</strong></a> class and implements <em>_open</em>, <em>_write</em> and <em>_close</em> function.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1595,7 +1595,7 @@
 <li>
 <p>Load directly into AutoConnect</p>
 <p>This way does not require an explicit declaration of AutoConnectAux objects with sketches and is also useful when importing the custom Web pages JSON document from an external file such as SPIFFS because the page definition and sketch coding structure can be separated.</p>
-<p>Using the <a href="api.html#load">AutoCoonnect::load</a> function, AutoConnect dynamically generates the necessary AutoConnectAux objects internally based on the custom Web page definition of the imported JSON document content. In the sketch, the generated AutoConnectAux object can be referenced using the <a href="api.html#aux">AutoConnect::aux</a> function. You can reach the AutoConnectElements you desired using the <a href="apiaux.html#getelement">AutoConnectAux::getElement</a> function of its AutoConnectAux.</p>
+<p>Using the <a href="api.html#load">AutoCoonnect::load</a> function, AutoConnect dynamically generates the necessary AutoConnectAux objects internally based on the custom Web page definition of the imported JSON document content. In the Sketch, the generated AutoConnectAux object can be referenced using the <a href="api.html#aux">AutoConnect::aux</a> function. You can reach the AutoConnectElements you desired using the <a href="apiaux.html#getelement">AutoConnectAux::getElement</a> function of its AutoConnectAux.</p>
 <p>In the following example, it loads in a batch a JSON document of custom Web pages stored in SPIFFS and accesses to the AutoConnectInput element.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
@@ -1634,7 +1634,7 @@
 </li>
 <li>
 <p>Load to AutoConnectAux and join to AutoConnect</p>
-<p>This way declares AutoConnectAux in the sketch and loads the custom Web pages JSON document there. It has an advantage for if you want to define each page of a custom Web page individually or allocate AutoConnectAux objects dynamically on the sketch side.</p>
+<p>This way declares AutoConnectAux in the Sketch and loads the custom Web pages JSON document there. It has an advantage for if you want to define each page of a custom Web page individually or allocate AutoConnectAux objects dynamically on the Sketch side.</p>
 <p>After loading a JSON document using the <a href="apiaux.html#load">AutoConnectAux::load</a> function by each, integrate those into AutoConnect using the <a href="api.html#join">AutoConnect::join</a> function.</p>
 <p>In the following example, you can see the difference between two sketches in a sketch modified using the AutoConnectAux::load.</p>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
@@ -1734,7 +1734,7 @@ An example of using each function is as follows.
 <h4 id="autoconnect_jsonpsram_size">AUTOCONNECT_JSONPSRAM_SIZE<a class="headerlink" href="#autoconnect_jsonpsram_size" title="Permanent link">&para;</a></h4>
 <p>For ESP32 module equips with PSRAM, you can allocate the JSON document buffer to PSRAM. Buffer allocation to PSRAM will enable when <strong>PSRAM:Enabled</strong> option selected in the Arduino IDE's Board Manager menu. It is available since ArduinoJson 6.10.0.</p>
 <h2 id="saving-json-document">Saving JSON document<a class="headerlink" href="#saving-json-document" title="Permanent link">&para;</a></h2>
-<p>The sketch can persist AutoConnectElements as a JSON document and also uses <a href="achandling.html#saving-autoconnectelements-with-json">this function</a> to save the values ​​entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the <a href="achandling.html#loading-autoconnectaux-autoconnectelements-with-json">load function</a>. </p>
+<p>the Sketch can persist AutoConnectElements as a JSON document and also uses <a href="achandling.html#saving-autoconnectelements-with-json">this function</a> to save the values ​​entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the <a href="achandling.html#loading-autoconnectaux-autoconnectelements-with-json">load function</a>. </p>
 <div class="footnote">
 <hr />
 <ol>

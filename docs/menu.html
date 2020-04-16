@@ -960,7 +960,7 @@
 <p><img src="images/ac.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <div class="admonition note">
 <p class="admonition-title">AutoConnect root URL</p>
-<p>It is assigned "<strong>/_ac</strong>" located on the <em>local IP address</em> of ESP8266/ESP32 module by default and can be changed with the sketch. A local IP means Local IP at connection established or SoftAP's IP.</p>
+<p>It is assigned "<strong>/_ac</strong>" located on the <em>local IP address</em> of ESP8266/ESP32 module by default and can be changed with the Sketch. A local IP means Local IP at connection established or SoftAP's IP.</p>
 </div>
 <h2 id="right-on-top"><i class="fa fa-bars"></i> Right on top<a class="headerlink" href="#right-on-top" title="Permanent link">&para;</a></h2>
 <p>Currently, AutoConnect supports six menus. Undermost menu as "HOME" returns to the home path of its sketch.</p>
@@ -984,22 +984,22 @@ Enter SSID and Passphrase and tap "<strong>Apply</strong>" to start a WiFi conne
 <p><img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
 <div class="admonition note">
 <p class="admonition-title">Saved credentials data structure has changed</p>
-<p>A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
+<p>A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the Sketch uploading.
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">esptool</span> <span style="color: #f8f8f2">-c</span> <span style="color: #f8f8f2">esp8266</span> <span style="color: #f8f8f2">(or</span> <span style="color: #f8f8f2">esp32)</span> <span style="color: #f8f8f2">-p</span> <span style="color: #66d9ef">[COM_PORT]</span> <span style="color: #f8f8f2">erase_flash</span>
 </code></pre></div></p>
 </div>
 <h2 id="disconnect"><i class="fa fa-bars"></i> Disconnect<a class="headerlink" href="#disconnect" title="Permanent link">&para;</a></h2>
-<p>It disconnects ESP8266/ESP32 from the current connection. Also, ESP8266/ESP32 can be automatically reset after WiFi cutting by instructing with the sketch using the <a href="api.html#autoreset">AutoConnect API</a>.</p>
+<p>It disconnects ESP8266/ESP32 from the current connection. Also, ESP8266/ESP32 can be automatically reset after WiFi cutting by instructing with the Sketch using the <a href="api.html#autoreset">AutoConnect API</a>.</p>
 <p>After tapping the <strong>Disconnect</strong>, you will not be able to reach the AutoConnect menu. Once disconnected, you will need to set the SSID again for connecting to the WLAN. </p>
 <h2 id="reset"><i class="fa fa-bars"></i> Reset...<a class="headerlink" href="#reset" title="Permanent link">&para;</a></h2>
 <p>Resetting the ESP8266/ESP32 module will initiate a reboot. When the module restarting, the <em>esp8266ap</em> or <em>esp32ap</em> access point will disappear from the WLAN and the ESP8266/ESP32 module will begin to reconnect a previous access point with WIFI_STA mode.</p>
 <p><img src="images/resetting.png" style="width:280px;" /></p>
 <div class="admonition warning">
 <p class="admonition-title">Not every ESP8266 module will be rebooted normally</p>
-<p>The Reset menu is using the <strong>ESP.reset()</strong> function for ESP8266. This is an almost hardware reset. In order to resume the sketch normally, the <a href="https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes">state of GPIO0</a> is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also <a href="faq.html#hang-up-after-reset">FAQ</a>.</p>
+<p>The Reset menu is using the <strong>ESP.reset()</strong> function for ESP8266. This is an almost hardware reset. In order to resume the Sketch normally, the <a href="https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes">state of GPIO0</a> is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also <a href="faq.html#hang-up-after-reset">FAQ</a>.</p>
 </div>
 <h2 id="custom-menu-items"><i class="fa fa-bars"></i> Custom menu items<a class="headerlink" href="#custom-menu-items" title="Permanent link">&para;</a></h2>
-<p>If the sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for <a href="acintro.html#custom-web-pages-in-autoconnectmenu">Custom Web pages in AutoConnect menu</a>.</p>
+<p>If the Sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for <a href="acintro.html#custom-web-pages-in-autoconnectmenu">Custom Web pages in AutoConnect menu</a>.</p>
 <h2 id="update"><i class="fa fa-bars"></i> Update<a class="headerlink" href="#update" title="Permanent link">&para;</a></h2>
 <p>If you specify <a href="apiconfig.html#ota">AutoConnectConfig::ota</a> to import the OTA update feature into Sketch, an item will appear in the menu list as <strong>Update</strong>.</p>
 <div class="admonition note">

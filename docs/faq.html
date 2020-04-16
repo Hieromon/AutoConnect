@@ -1268,7 +1268,7 @@
                   <h1>FAQ</h1>
                 
                 <h2 id="after-connected-autoconnect-menu-performs-but-no-happens"><i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.<a class="headerlink" href="#after-connected-autoconnect-menu-performs-but-no-happens" title="Permanent link">&para;</a></h2>
-<p>If you can access the <strong>AutoConnect root path</strong> as <a href="http://ESP8266IPADDRESS/_ac">http://ESP8266IPADDRESS/_ac</a> from browser, probably the sketch uses <em>ESP8266WebServer::handleClient()</em> without <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.<br />
+<p>If you can access the <strong>AutoConnect root path</strong> as <a href="http://ESP8266IPADDRESS/_ac">http://ESP8266IPADDRESS/_ac</a> from browser, probably the Sketch uses <em>ESP8266WebServer::handleClient()</em> without <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.<br />
 For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a> after <em>ESP8266WebServer::handleClient()</em> invoked, or use <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a>. <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a> is equivalent <em>ESP8266WebServer::handleClient</em> combined <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.</p>
 <p>See also the explanation <a href="basicusage.html#esp8266webserver-hosted-or-parasitic">here</a>.</p>
 <h2 id="after-updating-to-autoconnect-v100-established-aps-disappear-from-open-ssids-with-esp32"><i class="fa fa-question-circle"></i> After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32.<a class="headerlink" href="#after-updating-to-autoconnect-v100-established-aps-disappear-from-open-ssids-with-esp32" title="Permanent link">&para;</a></h2>
@@ -1295,7 +1295,7 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 </li>
 <li>
 <p>Change the order of <code>#include</code> directives.</p>
-<p>With the sketch, <code>#include &lt;ESP8266httpUpdate.h&gt;</code> before <code>#include &lt;AutoConnect.h&gt;</code>.</p>
+<p>With the Sketch, <code>#include &lt;ESP8266httpUpdate.h&gt;</code> before <code>#include &lt;AutoConnect.h&gt;</code>.</p>
 </li>
 </ol>
 <h2 id="connection-lost-immediately-after-establishment-with-ap"><i class="fa fa-question-circle"></i> Connection lost immediately after establishment with AP<a class="headerlink" href="#connection-lost-immediately-after-establishment-with-ap" title="Permanent link">&para;</a></h2>
@@ -1356,14 +1356,14 @@ You have the following two options to avoid this conflict:</p>
 <h2 id="does-not-response-from-_ac"><i class="fa fa-question-circle"></i> Does not response from /_ac.<a class="headerlink" href="#does-not-response-from-_ac" title="Permanent link">&para;</a></h2>
 <p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="advancedusage.html#debug-print">debug printing</a> will help you to track down the cause.</p>
 <h2 id="hang-up-after-reset"><i class="fa fa-question-circle"></i> Hang up after Reset?<a class="headerlink" href="#hang-up-after-reset" title="Permanent link">&para;</a></h2>
-<p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <p>If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ets</span> <span style="color: #f8f8f2">Jan</span>  <span style="color: #f8f8f2">8</span> <span style="color: #f8f8f2">2013,rst</span> <span style="color: #f8f8f2">cause</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">2,</span> <span style="color: #f8f8f2">boot</span> <span style="color: #f8f8f2">mode</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">(1,6)</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">(1,7)</span>
 <span style="color: #f8f8f2">ets</span> <span style="color: #f8f8f2">Jan</span>  <span style="color: #f8f8f2">8</span> <span style="color: #f8f8f2">2013,rst</span> <span style="color: #f8f8f2">cause</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">4,</span> <span style="color: #f8f8f2">boot</span> <span style="color: #f8f8f2">mode</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">(1,6)</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">(1,7)</span>
 <span style="color: #f8f8f2">wdt</span> <span style="color: #f8f8f2">reset</span>
 </code></pre></div>
 
-<p>The correct boot mode for starting the sketch is <strong>(3, x)</strong>.</p>
+<p>The correct boot mode for starting the Sketch is <strong>(3, x)</strong>.</p>
 <div class="admonition info">
 <p class="admonition-title">ESP8266 Boot Messages</p>
 <p>It is described by <a href="https://www.espressif.com/en/products/hardware/esp8266ex/resources">ESP8266 Non-OS SDK API Reference</a>, section A.5.</p>
@@ -1407,7 +1407,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 </code></pre></div>
 
 <h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
-<p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '<a href="credit.html#saved-credential-in-eeprom">Saved credential access</a>' on section <a href="credit.html">Appendix</a> for details.</p>
+<p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '<a href="credit.html#saved-credential-in-eeprom">Saved credential access</a>' on section <a href="credit.html">Appendix</a> for details.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>With the <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>, you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.</p>
@@ -1425,7 +1425,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 <h2 id="i-cannot-complete-to-wi-fi-login-from-smartphone"><i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.<a class="headerlink" href="#i-cannot-complete-to-wi-fi-login-from-smartphone" title="Permanent link">&para;</a></h2>
 <p>Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.</p>
 <h2 id="i-cannot-see-the-custom-web-page"><i class="fa fa-question-circle"></i> I cannot see the custom Web page.<a class="headerlink" href="#i-cannot-see-the-custom-web-page" title="Permanent link">&para;</a></h2>
-<p>If the sketch is correct, a JSON syntax error may have occurred. In this case, activate the <a href="faq.html#3-turn-on-the-debug-log-options">AC_DEBUG</a> and rerun. If you take the message of JSON syntax error, the <a href="https://arduinojson.org/v5/assistant/">Json Assistant</a> helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. </p>
+<p>If the Sketch is correct, a JSON syntax error may have occurred. In this case, activate the <a href="faq.html#3-turn-on-the-debug-log-options">AC_DEBUG</a> and rerun. If you take the message of JSON syntax error, the <a href="https://arduinojson.org/v5/assistant/">Json Assistant</a> helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. </p>
 <h2 id="saved-credentials-are-wrong-or-lost"><i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.<a class="headerlink" href="#saved-credentials-are-wrong-or-lost" title="Permanent link">&para;</a></h2>
 <p>A structure of AutoConnect saved credentials has changed two times throughout enhancement with v1.0.3 and v1.1.0. In particular, due to enhancements in v1.1.0, AutoConnectCredential data structure has lost the backward compatibility with previous versions. You must erase the flash of the ESP module using the esptool completely to save the credentials correctly with v1.1.0.
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">esptool</span> <span style="color: #f8f8f2">-c</span> <span style="color: #f8f8f2">esp8266</span> <span style="color: #f8f8f2">(or</span> <span style="color: #f8f8f2">esp32)</span> <span style="color: #f8f8f2">-p</span> <span style="color: #66d9ef">[COM_PORT]</span> <span style="color: #f8f8f2">erase_flash</span>
@@ -1437,7 +1437,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 <li>Heap is insufficient memory. AutoConnect entrusts HTML generation to PageBuilder that makes heavy use the String::concatenate function and causes memory fragmentation. This is a structural problem with PageBuilder, but it is difficult to solve immediately.</li>
 </ol>
 <p>If this issue produces with your sketch, Reloading the page may recover.<br />
-Also, you can check the memory running out status by rebuilding the sketch with <a href="faq.html#fn:2">PageBuilder's debug log option</a> turned on.</p>
+Also, you can check the memory running out status by rebuilding the Sketch with <a href="faq.html#fn:2">PageBuilder's debug log option</a> turned on.</p>
 <p>If the heap memory is insufficient, the following message is displayed on the serial console.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">[PB]</span> <span style="color: #f8f8f2">Failed</span> <span style="color: #f8f8f2">building,</span> <span style="color: #f8f8f2">free</span> <span style="color: #f8f8f2">heap</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">&lt;Size</span> <span style="color: #f8f8f2">of</span> <span style="color: #f8f8f2">free</span> <span style="color: #f8f8f2">heap&gt;</span>
 </code></pre></div>
@@ -1488,7 +1488,7 @@ Also, you can check the memory running out status by rebuilding the sketch with 
 <li class="task-list-item"><input type="checkbox" disabled/> lwIP variant</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Problem description</li>
 <li class="task-list-item"><input type="checkbox" disabled/> If you have a STACK DUMP decoded result with formatted by the code block tag</li>
-<li class="task-list-item"><input type="checkbox" disabled/> The sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)</li>
+<li class="task-list-item"><input type="checkbox" disabled/> the Sketch code with formatted by the code block tag (Reduce to the reproducible minimum code for the problem)</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Debug messages output (Including arduino core)</li>
 </ul>
 <p>I will make efforts to solve as quickly as possible. But I would like you to know that it is not always possible.</p>

@@ -842,14 +842,14 @@
                   <h1>Attach the menu</h1>
                 
                 <h2 id="what-menus-can-be-made-using-autoconnect">What menus can be made using AutoConnect<a class="headerlink" href="#what-menus-can-be-made-using-autoconnect" title="Permanent link">&para;</a></h2>
-<p>AutoConnect generates a menu dynamically depending on the instantiated <a href="acintro.html#how-it-works">AutoConnectAux</a> at the sketch executing time. Usually, it is a collection of <a href="acelements.html">AutoConnectElement</a>. In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements.<br>In other words, you can easily create a built-in menu featuring the WiFi connection facility embedding the legacy web pages.</p>
+<p>AutoConnect generates a menu dynamically depending on the instantiated <a href="acintro.html#how-it-works">AutoConnectAux</a> at the Sketch executing time. Usually, it is a collection of <a href="acelements.html">AutoConnectElement</a>. In addition to this, you can generate a menu from only AutoConnectAux, without AutoConnectElements.<br>In other words, you can easily create a built-in menu featuring the WiFi connection facility embedding the legacy web pages.</p>
 <h2 id="basic-mechanism-of-menu-generation">Basic mechanism of menu generation<a class="headerlink" href="#basic-mechanism-of-menu-generation" title="Permanent link">&para;</a></h2>
-<p>The sketch can display the <a href="menu.html">AutoConnect menu</a> by following three patterns depending on AutoConnect-API usage.</p>
+<p>the Sketch can display the <a href="menu.html">AutoConnect menu</a> by following three patterns depending on AutoConnect-API usage.</p>
 <dl>
 <dt><i class="fa fa-desktop"></i>&ensp;<strong>Basic menu</strong></dt>
 <dd>It is the most basic menu for only connecting WiFi. Sketch can automatically display this menu with the basic call sequence of the AutoConnect API which invokes <a href="api.html#begin">AutoConnect::begin</a> and <a href="api.html#handleclient">AutoConnect::handleClient</a>.</dd>
 <dt><i class="fa fa-desktop"></i>&ensp;<strong>Extra menu with custom Web pages which is consisted by <a href="acelements.html">AutoConnectElements</a></strong></dt>
-<dd>It is an extended menu that appears when the sketch consists of the custom Web pages with <a href="acintro.html#how-it-works">AutoConnectAux</a> and AutoConnectElements. Refer to section <a href="acintro.html#custom-web-pages-in-autoconnect-menu"><em>Custom Web pages section</em></a>.</dd>
+<dd>It is an extended menu that appears when the Sketch consists of the custom Web pages with <a href="acintro.html#how-it-works">AutoConnectAux</a> and AutoConnectElements. Refer to section <a href="acintro.html#custom-web-pages-in-autoconnect-menu"><em>Custom Web pages section</em></a>.</dd>
 <dt><i class="fa fa-desktop"></i>&ensp;<strong>Extra menu which contains legacy pages</strong></dt>
 <dd>It is for the legacy sketches using the <strong>on</strong> handler of ESP8266WebServer/WebServer(for ESP32) class natively and looks the same as the extra menu as above.</dd>
 </dl>

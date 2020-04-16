@@ -1315,7 +1315,7 @@ Register the upload handler of the AutoConnectAux.
 <h3 id="release"><i class="fa fa-caret-right"></i> release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">release(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 </code></pre></div>
-Release a specified AutoConnectElement from AutoConnectAux. The release function is provided to dynamically change the structure of the custom Web pages with the sketch. By combining the release function and the <a href="apiaux.html#add">add</a> function or the <a href="apiaux.html#loadelement">loadElement</a> function, the sketch can change the style of the custom Web page according to its behavior.
+Release a specified AutoConnectElement from AutoConnectAux. The release function is provided to dynamically change the structure of the custom Web pages with the Sketch. By combining the release function and the <a href="apiaux.html#add">add</a> function or the <a href="apiaux.html#loadelement">loadElement</a> function, the Sketch can change the style of the custom Web page according to its behavior.
 <dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of AutoConnectElements to be released.</span></dd>
@@ -1359,7 +1359,7 @@ Sets the value of the specified AutoConnectElement. If values ​​is specified
 </dl></p>
 <div class="admonition hint">
 <p class="admonition-title">You can directly access the value member variable.</p>
-<p>If you are gripping with the sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
+<p>If you are gripping with the Sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
 <span style="color: #7a7a7a">// ... Griping the AutoConnectText here.</span>
 <span style="color: #f8f8f2">aux.setElementValue(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">);</span>
