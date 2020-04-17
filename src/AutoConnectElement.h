@@ -1,6 +1,6 @@
 /**
  * Alias declarations for an accessible the AutoConnectElement class.
- * @file AutoConnectAux.h
+ * @file AutoConnectElement.h
  * @author hieromon@gmail.com
  * @version  0.9.8
  * @date 2019-03-11

@@ -1,6 +1,6 @@
 /**
  * Implementation of AutoConnectElementJson classes.
- * @file AutoConnectElementImpl.h
+ * @file AutoConnectElementJsonImpl.h
  * @author hieromon@gmail.com
  * @version  1.0.0
  * @date 2019-09-03

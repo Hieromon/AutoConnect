@@ -1,6 +1,6 @@
 /**
  * Implementation of AutoConnectElementBasis classes.
- * @file AutoConnectElementImpl.h
+ * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
  * @version  0.9.11
  * @date 2019-06-25
