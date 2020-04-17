@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-09-03
+ * @version  1.2.0
+ * @date 2020-04-17
  * @copyright  MIT license.
  */
 
@@ -15,6 +15,7 @@
 
 #define AUTOCONNECT_JSON_KEY_ACTION       "action"
 #define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
+#define AUTOCONNECT_JSON_KEY_AUTH         "auth"
 #define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
 #define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
 #define AUTOCONNECT_JSON_KEY_FORMAT       "format"
@@ -44,8 +45,10 @@
 #define AUTOCONNECT_JSON_TYPE_ACSTYLE     "ACStyle"
 #define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
 #define AUTOCONNECT_JSON_TYPE_ACTEXT      "ACText"
+#define AUTOCONNECT_JSON_VALUE_BASIC      "basic"
 #define AUTOCONNECT_JSON_VALUE_BEHIND     "behind"
 #define AUTOCONNECT_JSON_VALUE_BR         "br"
+#define AUTOCONNECT_JSON_VALUE_DIGEST     "digest"
 #define AUTOCONNECT_JSON_VALUE_EXTERNAL   "extern"
 #define AUTOCONNECT_JSON_VALUE_FS         "fs"
 #define AUTOCONNECT_JSON_VALUE_HORIZONTAL "horizontal"

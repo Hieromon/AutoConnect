@@ -1,8 +1,8 @@
 /**
  *  AutoConnect portal site web page implementation.
- *  @file   AutoConnectPage.h
+ *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.6
+ *  @version    1.2.0
  *  @date   2020-04-17
  *  @copyright  MIT license.
  */
@@ -1008,7 +1008,7 @@ String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
     break;
 #endif
   default:
-    wifiMode = PSTR("experiment");
+    wifiMode = PSTR("experimental");
   }
   return String(FPSTR(wifiMode));
 }
@@ -1301,7 +1301,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     PGM_P rssiSym = _ssidNA;
     PGM_P ssidLock = _ssidNull;
     credit.load(i, &entry);
-    AC_DBG("A credential #%d loaded\n", (int)i);
+    AC_DBG("Credential #%d loaded\n", (int)i);
     for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
       if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config_t::bssid))) {
         _connectCh = WiFi.channel(sc);
@@ -1401,6 +1401,7 @@ String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
  */
 PageElement* AutoConnect::_setupPage(String& uri) {
   PageElement *elm = new PageElement();
+  bool  reqAuth = false;
 
   // Restore menu title
   _menuTitle = _apConfig.title;
@@ -1408,7 +1409,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   // Build the elements of current requested page.
   if (uri == String(AUTOCONNECT_URI)) {
 
-    // Setup /auto
+    // Setup /_ac
+    reqAuth = true;
     _freeHeapSize = ESP.getFreeHeap();
     elm->setMold(_PAGE_STAT);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
@@ -1436,7 +1438,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_CONFIG) && (_apConfig.menuItems & AC_MENUITEM_CONFIGNEW)) {
 
-    // Setup /auto/config
+    // Setup /_ac/config
+    reqAuth = true;
     elm->setMold(_PAGE_CONFIGNEW);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
@@ -1455,7 +1458,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT) && (_apConfig.menuItems & AC_MENUITEM_CONFIGNEW || _apConfig.menuItems & AC_MENUITEM_OPENSSIDS)) {
 
-    // Setup /auto/connect
+    // Setup /_ac/connect
+    reqAuth = true;
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_CONNECTING);
     elm->setMold(_PAGE_CONNECTING);
     elm->addToken(String(FPSTR("REQ")), std::bind(&AutoConnect::_induceConnect, this, std::placeholders::_1));
@@ -1469,7 +1473,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
  }
   else if (uri == String(AUTOCONNECT_URI_OPEN) && (_apConfig.menuItems & AC_MENUITEM_OPENSSIDS)) {
 
-    // Setup /auto/open
+    // Setup /_ac/open
+    reqAuth = true;
     elm->setMold(_PAGE_OPENCREDT);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
@@ -1483,7 +1488,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_DISCON) && (_apConfig.menuItems & AC_MENUITEM_DISCONNECT)) {
 
-    // Setup /auto/disc
+    // Setup /_ac/disc
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_DISCONNECT);
     elm->setMold(_PAGE_DISCONN);
     elm->addToken(String(FPSTR("DISCONNECT")), std::bind(&AutoConnect::_induceDisconnect, this, std::placeholders::_1));
@@ -1495,7 +1500,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_RESET) && (_apConfig.menuItems & AC_MENUITEM_RESET)) {
 
-    // Setup /auto/reset
+    // Setup /_ac/reset
     elm->setMold(_PAGE_RESETTING);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("BOOTURI")), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));
@@ -1504,13 +1509,13 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_RESULT)) {
 
-    // Setup /auto/result
+    // Setup /_ac/result
     elm->setMold("{{RESULT}}");
     elm->addToken(String(FPSTR("RESULT")), std::bind(&AutoConnect::_invokeResult, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_SUCCESS)) {
 
-    // Setup /auto/success
+    // Setup /_ac/success
     elm->setMold(_PAGE_SUCCESS);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
@@ -1530,7 +1535,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_FAIL)) {
 
-    // Setup /auto/fail
+    // Setup /_ac/fail
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_FAILED);
     elm->setMold(_PAGE_FAIL);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
@@ -1557,6 +1562,20 @@ PageElement* AutoConnect::_setupPage(String& uri) {
         _responsePage->chunked(_pageBuildMode[n].transMode);
         break;
       }
+
+    // Regiter authentication method
+    bool authCond = _apConfig.auth != AC_AUTH_NONE &&
+                    _apConfig.authScope == AC_AUTHSCOPE_PORTAL &&
+                    WiFi.status() == WL_CONNECTED &&
+                    reqAuth;
+    if (authCond) {
+      HTTPAuthMethod  auth = _apConfig.auth == AC_AUTH_BASIC ? BASIC_AUTH : DIGEST_AUTH;
+      String  failsContent = String(FPSTR(AutoConnect::_ELM_HTML_HEAD)) + String(F("</head><body>" AUTOCONNECT_TEXT_AUTHFAILED "</body></html>"));
+      _responsePage->authentication(_apConfig.username.c_str(), _apConfig.password.c_str(), auth, AUTOCONNECT_AUTH_REALM, failsContent);
+      AC_DBG_DUMB(",%s+%s/%s", auth == BASIC_AUTH ? "BASIC" : "DIGEST", _apConfig.username.c_str(), _apConfig.password.c_str());
+    }
+    else
+      _responsePage->authentication(nullptr, nullptr);
   }
 
   return elm;

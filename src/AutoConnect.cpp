@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.5
- *  @date   2020-04-15
+ *  @version    1.2.0
+ *  @date   2020-04-17
  *  @copyright  MIT license.
  */
 
@@ -167,7 +167,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     if (_update)
       _update->enable();
   }
- // Rushing into the portal.
+  // Rushing into the portal.
   else {
     // The captive portal is effective at the autoRise is valid only.
     if (_apConfig.autoRise) {
@@ -609,6 +609,7 @@ void AutoConnect::handleRequest(void) {
     if (!_ota) {
       _ota.reset(new AutoConnectOTA());
       _ota->attach(*this);
+      _ota->authentication(_apConfig.auth);
       _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
     }
   }

@@ -1,9 +1,9 @@
 /**
  * Declaration of AutoConnectAux basic class.
- * @file AutoConnectAuxBasis.h
+ * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version  1.1.1
- * @date 2019-10-17
+ * @version  1.2.0
+ * @date 2029-04-17
  * @copyright  MIT license.
  */
 
@@ -20,6 +20,7 @@
 #endif // !AUTOCONNECT_USE_JSON
 #include <PageBuilder.h>
 #include "AutoConnectElement.h"
+#include "AutoConnectTypes.h"
 
 class AutoConnect;  // Reference to avoid circular
 class AutoConnectAux;  // Reference to avoid circular
@@ -53,6 +54,7 @@ class AutoConnectAux : public PageBuilder {
   AutoConnectElement& operator[](const String& name) { return *getElement(name); }
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page */
+  void  authentication(const AC_AUTH_t auth) { _httpAuth = auth; }      /**< Set certain page authentication */
   void  fetchElement(void);                                             /**< Fetch AutoConnectElements values from http query parameters */
   template<typename T>
   T&    getElement(const String& name);
@@ -146,6 +148,7 @@ class AutoConnectAux : public PageBuilder {
 
   String  _title;                             /**< A title of the page */
   bool    _menu;                              /**< Switch for menu displaying */
+  AC_AUTH_t _httpAuth = AC_AUTH_NONE;         /**< Applying HTTP authentication */
   String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */
   AutoConnectAux*       _next = nullptr;      /**< Auxiliary pages chain list */
@@ -160,4 +163,4 @@ class AutoConnectAux : public PageBuilder {
   friend class AutoConnect;
 };
 
-#endif // _AUTOCONNECTAUX_H_
+#endif // !_AUTOCONNECTAUX_H_

@@ -234,6 +234,11 @@
 #define AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE  256
 #endif // !AUTOCONNECT_UPDATE_CATALOG_JSONBUFFER_SIZE
 
+// HTTP authentication default realm
+#ifndef AUTOCONNECT_AUTH_REALM
+#define AUTOCONNECT_AUTH_REALM        "AUTOCONNECT"
+#endif // !AUTOCONNECT_AUTH_REALM
+
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
 

@@ -27,6 +27,15 @@ AutoConnectOTA::~AutoConnectOTA() {
 }
 
 /**
+ * Request authentication with an OTA page access
+ * @param  auth  Authentication method
+ */
+void AutoConnectOTA::authentication(const AC_AUTH_t auth) {
+  if (_auxUpdate)
+    _auxUpdate->authentication(auth);
+}
+
+/**
  * Attach the AutoConnectOTA to hosted AutoConnect which constitutes
  * the update process. This function creates an OTA operation page as
  * AutoConnectAux instance and allows it to receive binary updates.

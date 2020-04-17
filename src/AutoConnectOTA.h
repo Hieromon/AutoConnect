@@ -36,6 +36,7 @@ class AutoConnectOTA : public AutoConnectUploadHandler {
   AutoConnectOTA() : _status(OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {}
   ~AutoConnectOTA();
   void  attach(AutoConnect& portal);
+  void  authentication(const AC_AUTH_t auth);               /**< Set certain page authentication */
   String  error(void) const { return _err; }                /**< Returns current error string */
   void  menu(const bool post) { _auxUpdate->menu(post); };  /**< Enabel or disable arranging a created AutoConnectOTA page in the menu. */
   AC_OTAStatus_t  status(void) const { return _status; }    /**< Return current error status of the Update class */

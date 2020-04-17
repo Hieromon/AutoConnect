@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.5
- *	@date	2020-04-01
+ *	@version	1.2.0
+ *	@date	2020-04-17
  *	@copyright	MIT license.
  */
 
@@ -33,6 +33,7 @@ using WebServerClass = WebServer;
 #include "AutoConnectCredential.h"
 #include "AutoConnectTicker.h"
 #include "AutoConnectAux.h"
+#include "AutoConnectTypes.h"
 
 // The realization of AutoConnectOTA is effective only by the explicit
 #include "AutoConnectOTA.h"
@@ -42,42 +43,6 @@ class AutoConnectOTA;  // Reference to avoid circular
 // definition of AUTOCONNECT_USE_UPDATE
 #include "AutoConnectUpdate.h"
 class AutoConnectUpdate;  // Reference to avoid circular
-
-/**< A type to save established credential at WiFi.begin automatically. */
-typedef enum AC_SAVECREDENTIAL {
-  AC_SAVECREDENTIAL_NEVER,
-  AC_SAVECREDENTIAL_AUTO
-} AC_SAVECREDENTIAL_t;
-
-/**< URI that can be specified to AutoConnectConfig::bootUri. */
-typedef enum AC_ONBOOTURI {
-  AC_ONBOOTURI_ROOT,
-  AC_ONBOOTURI_HOME
-} AC_ONBOOTURI_t;
-
-/** WiFi connection principle, it specifies the order of WiFi connecting with saved credentials. */
-typedef enum AC_PRINCIPLE {
-  AC_PRINCIPLE_RECENT,
-  AC_PRINCIPLE_RSSI
-} AC_PRINCIPLE_t;
-
-/**< An enumerated type of the designated menu items. */
-typedef enum AC_MENUITEM {
-  AC_MENUITEM_NONE       = 0x0000,
-  AC_MENUITEM_CONFIGNEW  = 0x0001,
-  AC_MENUITEM_OPENSSIDS  = 0x0002,
-  AC_MENUITEM_DISCONNECT = 0x0004,
-  AC_MENUITEM_RESET      = 0x0008,
-  AC_MENUITEM_HOME       = 0x0010,
-  AC_MENUITEM_UPDATE     = 0x0020,
-  AC_MENUITEM_DEVINFO    = 0x0040
-} AC_MENUITEM_t;
-
-/**< Specifier for using built-in OTA */
-typedef enum AC_OTA {
-  AC_OTA_EXTRA,
-  AC_OTA_BUILTIN
-} AC_OTA_t;
 
 class AutoConnectConfig {
  public:
@@ -90,8 +55,8 @@ class AutoConnectConfig {
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
-    apid(String(AUTOCONNECT_APID)),
-    psk(String(AUTOCONNECT_PSK)),
+    apid(String(F(AUTOCONNECT_APID))),
+    psk(String(F(AUTOCONNECT_PSK))),
     channel(AUTOCONNECT_AP_CH),
     hidden(0),
     minRSSI(AUTOCONNECT_MIN_RSSI),
@@ -111,6 +76,10 @@ class AutoConnectConfig {
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
     ota(AC_OTA_EXTRA),
+    auth(AC_AUTH_NONE),
+    authScope(AC_AUTHSCOPE_AUX),
+    username(String(F(AUTOCONNECT_APID))),
+    password(String(F(AUTOCONNECT_PSK))),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -147,6 +116,10 @@ class AutoConnectConfig {
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
     ota(AC_OTA_EXTRA),
+    auth(AC_AUTH_NONE),
+    authScope(AC_AUTHSCOPE_AUX),
+    username(String(F(AUTOCONNECT_APID))),
+    password(String(F(AUTOCONNECT_PSK))),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -183,6 +156,10 @@ class AutoConnectConfig {
     tickerPort = o.tickerPort;
     tickerOn = o.tickerOn;
     ota = o.ota;
+    auth = o.auth;
+    authScope = o.authScope;
+    username = o.username;
+    password = o.password;
     hostName = o.hostName;
     homeUri = o.homeUri;
     title = o.title;
@@ -219,6 +196,10 @@ class AutoConnectConfig {
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
   AC_OTA_t  ota;                /**< Attach built-in OTA */
+  AC_AUTH_t auth;               /**< Enable authentication */
+  AC_AUTHSCOPE_t  authScope;    /**< certification scope */
+  String    username;           /**< User name for authentication */
+  String    password;           /**< Authentication password */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   String    title;              /**< Menu title */

@@ -2,7 +2,7 @@
  *  AutoConnect proper menu label constant definition.
  *  @file   AutoConnectLabels.h
  *  @author hieromon@gmail.com
- *  @version    1.1.6
+ *  @version    1.2.0
  *  @date   2020-04-17
  *  @copyright  MIT license.
  */
@@ -246,6 +246,11 @@
 #ifndef AUTOCONNECT_TEXT_OTAFAILURE
 #define AUTOCONNECT_TEXT_OTAFAILURE "Failed to update: "
 #endif // !AUTOCONNECT_TEXT_OTAFAILURE
+
+// Text: Authenticaton failed
+#ifndef AUTOCONNECT_TEXT_AUTHFAILED
+#define AUTOCONNECT_TEXT_AUTHFAILED "Authenticaton failed"
+#endif  // !AUTOCONNECT_TEXT_AUTHFAILED
 
 // Menu Text: Connecting
 #ifndef AUTOCONNECT_MENUTEXT_CONNECTING
