@@ -2,8 +2,8 @@
  *  AutoConnect proper menu label constant definition.
  *  @file   AutoConnectLabels.h
  *  @author hieromon@gmail.com
- *  @version    1.1.5
- *  @date   2020-04-09
+ *  @version    1.1.6
+ *  @date   2020-04-17
  *  @copyright  MIT license.
  */
 
