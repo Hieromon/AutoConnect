@@ -1,3 +1,6 @@
+#### [1.1.6] Apr. 17, 2020
+- Fixed OTA page translation not work.
+
 #### [1.1.5] Apr. 15, 2020
 - Changed the [bootUri behavior](advancedusage.md#assign-user-sketchs-home-path) to be an automatic pop-up at the captive portal.
 - Supports AutoConnect [menu configuration](menu.md#applying-the-active-menu-items).
