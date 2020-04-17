@@ -286,4 +286,31 @@
 #define AUTOCONNECT_MENUCOLOR_ACTIVE      "#37474f"
 // #define AUTOCONNECT_MENUCOLOR_ACTIVE      "#808080"
 #endif
+
+/**< Override the hardcoded strings contained in the AutoConnect pages.    */
+/**< e.g. for PlatformIO, you can add your environment in platformio.ini   */
+/**< along with AC_LABLES macro which specifies the user-defined label     */
+/**< constants as follows:                                                 */
+/**<                                                                       */
+/**< build_flags =                                                         */
+/**<   -DAC_LABELS='"${PROJECT_SRC_DIR}/mylabels.h"'                       */
+/**<                                                                       */
+/**< And places mylabels.h, it needs a structure of the define directive   */
+/**< provided per label string definition for the change your wants.       */
+/**<                                                                       */
+/**< #ifdef [ID YOU WANT TO CHANGE]                                        */
+/**< #undef [ID YOU WANT TO CHANGE]                                        */
+/**< #define [ID YOU WANT TO CHANGE] "NEW_STRING_FOR_THISONE"              */
+/**< #endif                                                                */
+/**<                                                                       */
+/**< example:
+#ifdef AUTOCONNECT_MENULABEL_CONFIGNEW
+#undef AUTOCONNECT_MENULABEL_CONFIGNEW
+#define AUTOCONNECT_MENULABEL_CONFIGNEW   "NEW_STRING_FOR_THISONE"
+#endif
+*/
+#ifdef AC_LABELS
+#include AC_LABELS
+#endif
+
 #endif
