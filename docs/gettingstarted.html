@@ -881,11 +881,11 @@
                 
                 <h2 id="lets-do-the-most-simple-sketch">Let's do the most simple sketch<a class="headerlink" href="#lets-do-the-most-simple-sketch" title="Permanent link">&para;</a></h2>
 <p>Open the Arduino IDE, write the following sketch and upload it. The feature of this sketch is that the SSID and Password are not coded.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;          // Replace with WiFi.h for ESP32</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;     // Replace with WebServer.h for ESP32</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;          // Replace with WiFi.h for ESP32</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;     // Replace with WebServer.h for ESP32</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">Server;</span>          <span style="color: #7a7a7a">// Replace with WebServer for ESP32</span>
+<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">Server;</span>          <span style="color: #75715e">// Replace with WebServer for ESP32</span>
 <span style="color: #f8f8f2">AutoConnect</span>      <span style="color: #a6e22e">Portal</span><span style="color: #f8f8f2">(Server);</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">rootPage</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>

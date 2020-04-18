@@ -1370,25 +1370,25 @@ See the <a href="credit.html">Saved credentials access</a> chapter for details o
 <p>The Sketch can abort the <a href="api.html#begin"><em>AutoConnect::begin</em></a> by setting the captive portal timeout and returns control to Sketch. AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of <a href="api.html#begin"><em>AutoConnect::begin</em></a>. The default value is macro defined by <a href="api.html#defined-macros"><strong>AUTOCONNECT_TIMEOUT</strong></a> in the <strong>AutoConnectDefs.h</strong> file.</p>
 <p>The other timeout control is for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the <a href="#on-demand-start-the-captive-portal"><strong>immediateStart</strong></a> option to create sketches with high mobility.</p>
 <p>The timeout of the captive portal is specified together with <a href="apiconfig.html#portaltimeout"><em>AutoConnectConfig::portalTimeout</em></a> as follows.</p>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span>  <span style="color: #f8f8f2">config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #7a7a7a">// It will time out in 60 seconds</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// It will time out in 60 seconds</span>
 </span>  <span style="color: #f8f8f2">portal.config(config);</span>
   <span style="color: #f8f8f2">portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Some sketch code for the connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Some sketch code for not connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #f8f8f2">portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
@@ -1397,7 +1397,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">acEnable;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #7a7a7a">// It will time out in 60 seconds</span>
+  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// It will time out in 60 seconds</span>
   <span style="color: #f8f8f2">portal.config(config);</span>
   <span style="color: #f8f8f2">acEnable</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.begin();</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">acEnable)</span> <span style="color: #f8f8f2">{</span>
@@ -1407,10 +1407,10 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Some sketch code for the connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Some sketch code for not connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(acEnable)</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #f8f8f2">portal.handleClient();</span>
@@ -1419,15 +1419,15 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 </code></pre></div>
 
 <p>There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the Sketch.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span>  <span style="color: #f8f8f2">config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #7a7a7a">// It will time out in 60 seconds</span>
+  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// It will time out in 60 seconds</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">config.retainPortal</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
 </span>  <span style="color: #f8f8f2">portal.config(config);</span>
   <span style="color: #f8f8f2">portal.begin();</span>
@@ -1435,10 +1435,10 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Some sketch code for the connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Some sketch code for not connected scene is here.</span>
+    <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #f8f8f2">portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
@@ -1455,20 +1455,20 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <li><a href="api.html#begin">Begin</a> the portal.</li>
 <li>Performs <a href="api.html#handleClient"><em>AutoConnect::handleClient</em></a> in the <strong>loop</strong> function.</li>
 </ol>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #f8f8f2">ESP8266WebServer</span>  <span style="color: #f8f8f2">server;</span>
 
-<span style="color: #7a7a7a">// Declaration for casting legacy page to AutoConnect menu.</span>
-<span style="color: #7a7a7a">// Specifies an uri and the menu label.</span>
+<span style="color: #75715e">// Declaration for casting legacy page to AutoConnect menu.</span>
+<span style="color: #75715e">// Specifies an uri and the menu label.</span>
 <span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>
-<span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectAux</span>    <span style="color: #a6e22e">hello</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Hello&quot;</span><span style="color: #f8f8f2">);</span>   <span style="color: #7a7a7a">// Step #1 as the above procedure</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectAux</span>    <span style="color: #a6e22e">hello</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Hello&quot;</span><span style="color: #f8f8f2">);</span>   <span style="color: #75715e">// Step #1 as the above procedure</span>
 </span>
-<span style="color: #7a7a7a">// Step #2 as the above procedure</span>
-<span style="color: #7a7a7a">// A conventional web page driven by the ESP8266WebServer::on handler.</span>
-<span style="color: #7a7a7a">// This is a legacy.</span>
+<span style="color: #75715e">// Step #2 as the above procedure</span>
+<span style="color: #75715e">// A conventional web page driven by the ESP8266WebServer::on handler.</span>
+<span style="color: #75715e">// This is a legacy.</span>
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">handleHello</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">server.send(</span><span style="color: #ae81ff">200</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text/html&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">String(F(</span>
 <span style="color: #e6db74">&quot;&lt;html&gt;&quot;</span>
@@ -1479,19 +1479,19 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">// Step #3 as the above procedure</span>
-  <span style="color: #7a7a7a">// Register the &quot;on&quot; handler as usual to ESP8266WebServer.</span>
-  <span style="color: #7a7a7a">// Match this URI with the URI of AutoConnectAux to cast.</span>
+  <span style="color: #75715e">// Step #3 as the above procedure</span>
+  <span style="color: #75715e">// Register the &quot;on&quot; handler as usual to ESP8266WebServer.</span>
+  <span style="color: #75715e">// Match this URI with the URI of AutoConnectAux to cast.</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">server.on(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">handleHello);</span>
 </span>
-  <span style="color: #7a7a7a">// Step #4 as the above procedure</span>
-  <span style="color: #7a7a7a">// Joins AutoConnectAux to cast the page via the handleRoot to AutoConnect.</span>
+  <span style="color: #75715e">// Step #4 as the above procedure</span>
+  <span style="color: #75715e">// Joins AutoConnectAux to cast the page via the handleRoot to AutoConnect.</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">hello</span> <span style="color: #f8f8f2">});</span>
-</span>  <span style="color: #f8f8f2">portal.begin();</span>           <span style="color: #7a7a7a">// Step #5 as the above procedure</span>
+</span>  <span style="color: #f8f8f2">portal.begin();</span>           <span style="color: #75715e">// Step #5 as the above procedure</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">portal.handleClient();</span>    <span style="color: #7a7a7a">// Step #6 as the above procedure</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>    <span style="color: #75715e">// Step #6 as the above procedure</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 
@@ -1503,15 +1503,15 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <li>
 <p>Overwrite the label literal of library source code directly.</p>
 <p>You can change the label of the AutoConnect menu item by rewriting the default label literal in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h">AutoConnectLabels.h</a> macros. However, changing menu items literal influences all the Sketch's build scenes.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;Configure new AP&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_OPENSSIDS   &quot;Open SSIDs&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_DISCONNECT  &quot;Disconnect&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_RESET       &quot;Reset...&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_UPDATE      &quot;Update&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_HOME        &quot;HOME&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_DEVINFO     &quot;Device info&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_BUTTONLABEL_RESET     &quot;RESET&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_BUTTONLABEL_UPDATE    &quot;UPDATE&quot;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;Configure new AP&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_OPENSSIDS   &quot;Open SSIDs&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_DISCONNECT  &quot;Disconnect&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_RESET       &quot;Reset...&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_UPDATE      &quot;Update&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_HOME        &quot;HOME&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_DEVINFO     &quot;Device info&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_BUTTONLABEL_RESET     &quot;RESET&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_BUTTONLABEL_UPDATE    &quot;UPDATE&quot;</span>
 </code></pre></div>
 
 <div class="admonition note">
@@ -1528,9 +1528,9 @@ And PlatformIO is a build system. Library sources will not be compiled unless Au
 </ol>
 <h3 id="combination-with-mdns"><i class="fa fa-caret-right"></i> Combination with mDNS<a class="headerlink" href="#combination-with-mdns" title="Permanent link">&para;</a></h3>
 <p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The Sketch can start the MDNS responder after <a href="api.html#begin"><em>AutoConnect::begin</em></a>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266mDNS.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266mDNS.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1594,7 +1594,7 @@ Combining these two parameters allows you to filter the destination AP when mult
 
 <h3 id="debug-print"><i class="fa fa-caret-right"></i> Debug print<a class="headerlink" href="#debug-print" title="Permanent link">&para;</a></h3>
 <p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h">AutoConnectDefs.h</a> of library source. Define <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14"><strong>AC_DEBUG</strong></a> macro to output the monitor messages.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AC_DEBUG</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AC_DEBUG</span>
 </code></pre></div>
 
 <h3 id="disable-the-captive-portal"><i class="fa fa-caret-right"></i> Disable the captive portal<a class="headerlink" href="#disable-the-captive-portal" title="Permanent link">&para;</a></h3>
@@ -1632,8 +1632,8 @@ Combining these two parameters allows you to filter the destination AP when mult
 <p>You can use this template if the ESP module does not connect to WiFi at an ordinal situation and need to establish by a manual trigger. In this case, it is desirable that AutoConnect not start until an external switch fires. This behavior is similar to the <a href="https://github.com/tzapu/WiFiManager#on-demand-configuration-portal">WiFiManager's startConfigPortal</a> function.<br />
 <a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a> is an option to launch the portal by the SoftAP immediately without attempting 1<sup>st</sup>-WiFi.begin. Also, by setting the <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> option to false, it is possible to suppress unintended automatic pop-ups of the portal screen when connecting to an ESP module SSID.<br />
 To implement this, execute AutoConnect::config within the <strong>setup()</strong> function as usual, and handle AutoConnect::begin inside the <strong>loop()</strong> function.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define TRIGGER_PIN 5     // Trigger switch should be LOW active.</span>
-<span style="color: #7a7a7a">#define HOLD_TIMER  3000</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define TRIGGER_PIN 5     // Trigger switch should be LOW active.</span>
+<span style="color: #75715e">#define HOLD_TIMER  3000</span>
 
 <span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
@@ -1641,7 +1641,7 @@ To implement this, execute AutoConnect::config within the <strong>setup()</stron
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">pinMode(</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">INPUT_PULLUP);</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.immediateStart</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-</span>  <span style="color: #7a7a7a">// Config.autoRise = false;   // If you don&#39;t need to automatically pop-up the portal when connected to the ESP module&#39;s SSID.</span>
+</span>  <span style="color: #75715e">// Config.autoRise = false;   // If you don&#39;t need to automatically pop-up the portal when connected to the ESP module&#39;s SSID.</span>
   <span style="color: #f8f8f2">Portal.config(Config);</span>
 <span style="color: #f8f8f2">}</span>
 
@@ -1651,18 +1651,18 @@ To implement this, execute AutoConnect::config within the <strong>setup()</stron
     <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(digitalRead(TRIGGER_PIN)</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">LOW)</span> <span style="color: #f8f8f2">{</span>
       <span style="color: #f8f8f2">yield();</span>
     <span style="color: #f8f8f2">}</span>
-    <span style="color: #7a7a7a">// Hold the switch while HOLD_TIMER time to start connect.</span>
+    <span style="color: #75715e">// Hold the switch while HOLD_TIMER time to start connect.</span>
     <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(millis()</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">tm</span> <span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">HOLD_TIMER)</span>
       <span style="color: #f8f8f2">Portal.begin();</span>
   <span style="color: #f8f8f2">}</span>
 
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Here, what to do if the module has connected to a WiFi access point</span>
+    <span style="color: #75715e">// Here, what to do if the module has connected to a WiFi access point</span>
   <span style="color: #f8f8f2">}</span>
 
-  <span style="color: #7a7a7a">// Main process of your sketch</span>
+  <span style="color: #75715e">// Main process of your sketch</span>
 
-  <span style="color: #f8f8f2">Portal.handleClient();</span>  <span style="color: #7a7a7a">// If WiFi is not connected, handleClient will do nothing.</span>
+  <span style="color: #f8f8f2">Portal.handleClient();</span>  <span style="color: #75715e">// If WiFi is not connected, handleClient will do nothing.</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 
@@ -1678,9 +1678,9 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">portal</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
 
 <span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">detectSwitch</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">/*</span>
-<span style="color: #7a7a7a">  Returns true if an external switch to configure is active.</span>
-<span style="color: #7a7a7a">  */</span>
+  <span style="color: #75715e">/*</span>
+<span style="color: #75715e">  Returns true if an external switch to configure is active.</span>
+<span style="color: #75715e">  */</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">connectWiFi</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">password,</span> <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">timeout)</span> <span style="color: #f8f8f2">{</span>
@@ -1704,7 +1704,7 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
       <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
   <span style="color: #f8f8f2">}</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">!=</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #7a7a7a">// Here, do something when WiFi cannot reach.</span>
+    <span style="color: #75715e">// Here, do something when WiFi cannot reach.</span>
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">}</span>
 
@@ -1722,7 +1722,7 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
       <span style="color: #f8f8f2">portal</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
     <span style="color: #f8f8f2">}</span>
   <span style="color: #f8f8f2">}</span>
-  <span style="color: #7a7a7a">// Here, ordinally sketch logic.</span>
+  <span style="color: #75715e">// Here, ordinally sketch logic.</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 
@@ -1743,9 +1743,9 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 </div>
 <h3 id="usage-for-automatically-instantiated-esp8266webserverwebserver"><i class="fa fa-caret-right"></i> Usage for automatically instantiated ESP8266WebServer/WebServer<a class="headerlink" href="#usage-for-automatically-instantiated-esp8266webserverwebserver" title="Permanent link">&para;</a></h3>
 <p>The Sketch can handle URL requests using ESP8266WebServer or WebServer that AutoConnect started internally. ESP8266WebServer/WebServer instantiated dynamically by AutoConnect can be referred to by <a href="api.html#host"><em>AutoConnect::host</em></a> function. The Sketch can use the '<strong>on</strong>' function, '<strong>send</strong>' function, '<strong>client</strong>' function and others by ESP8266WebServer/WebServer reference of its return value.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 
@@ -1764,16 +1764,16 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(r)</span> <span style="color: #f8f8f2">{</span>
 <span style="background-color: #49483e">    <span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">IntServer</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Portal.host();</span>
 </span><span style="background-color: #49483e">    <span style="color: #f8f8f2">IntServer.on(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">handleRoot);</span>
-</span>    <span style="color: #f8f8f2">Portal.onNotFound(handleNotFound);</span>    <span style="color: #7a7a7a">// For only onNotFound.</span>
+</span>    <span style="color: #f8f8f2">Portal.onNotFound(handleNotFound);</span>    <span style="color: #75715e">// For only onNotFound.</span>
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.host().handleClient();</span>
 </span>  <span style="color: #f8f8f2">Portal.handleRequest();</span>
-  <span style="color: #7a7a7a">/* or following one line code is equ.</span>
-<span style="color: #7a7a7a">  Portal.handleClient();</span>
-<span style="color: #7a7a7a">  */</span>
+  <span style="color: #75715e">/* or following one line code is equ.</span>
+<span style="color: #75715e">  Portal.handleClient();</span>
+<span style="color: #75715e">  */</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 
@@ -1873,7 +1873,7 @@ See the <a href="otabrowser.html">Updates with the Web Browser</a> chapter for d
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">// Set menu title</span>
+  <span style="color: #75715e">// Set menu title</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.title</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;FSBrowser&quot;</span><span style="color: #f8f8f2">;</span>
 </span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.config(Config);</span>
 </span>  <span style="color: #f8f8f2">Portal.begin();</span>
@@ -1936,7 +1936,7 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 </div>
 <h3 id="relocate-the-autoconnect-home-path"><i class="fa fa-caret-right"></i> Relocate the AutoConnect home path<a class="headerlink" href="#relocate-the-autoconnect-home-path" title="Permanent link">&para;</a></h3>
 <p>A home path of AutoConnect is <strong>/_ac</strong> by default. You can access from the browser with <a href="http://IPADDRESS/">http://IPADDRESS/</a>_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69"><strong>AUTOCONNECT_URI</strong></a> macro in the include header file as <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h">AutoConnectDefs.h</a>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
 </code></pre></div>
 
 <h3 id="static-ip-assignment-2"><i class="fa fa-caret-right"></i> Static IP assignment <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup><a class="headerlink" href="#static-ip-assignment-2" title="Permanent link">&para;</a></h3>
@@ -1986,10 +1986,10 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 <li>No blink: WiFi connection with access point established and data link enabled. (i.e. WiFi.status = WL_CONNECTED)</li>
 </ul>
 <p>The flicker cycle length is defined by some macros in <code>AutoConnectDefs.h</code> header file.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AUTOCONNECT_FLICKER_PERIODAP  1000 // [ms]</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_FLICKER_PERIODDC  (AUTOCONNECT_FLICKER_PERIODAP &lt;&lt; 1) // [ms]</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_FLICKER_WIDTHAP   96  // (8 bit resolution)</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_FLICKER_WIDTHDC   16  // (8 bit resolution)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_FLICKER_PERIODAP  1000 // [ms]</span>
+<span style="color: #75715e">#define AUTOCONNECT_FLICKER_PERIODDC  (AUTOCONNECT_FLICKER_PERIODAP &lt;&lt; 1) // [ms]</span>
+<span style="color: #75715e">#define AUTOCONNECT_FLICKER_WIDTHAP   96  // (8 bit resolution)</span>
+<span style="color: #75715e">#define AUTOCONNECT_FLICKER_WIDTHDC   16  // (8 bit resolution)</span>
 </code></pre></div>
 
 <ul>

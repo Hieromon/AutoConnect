@@ -1146,9 +1146,9 @@ Get vector of reference of all elements.
     <dd>A reference to std::vector of reference to AutoConnecctElements.</dd>
 </dl></p>
 <p>The getElements returns a reference to std::vector of reference to AutoConnecctElements. This function is provided to handle AutoConnectElemets owned by AutoConnectAux in bulk, and you can use each method of std::vector for a return value.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">// An example of getting type and name of all AutoConnectElements registered in AutoConnectAux.</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// An example of getting type and name of all AutoConnectElements registered in AutoConnectAux.</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
-<span style="color: #7a7a7a">// some code here...</span>
+<span style="color: #75715e">// some code here...</span>
 <span style="color: #f8f8f2">AutoConnectElementVt</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElements();</span>
 <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elm</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">elements)</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #f8f8f2">Serial.printf(</span><span style="color: #e6db74">&quot;name&lt;%s&gt; as type %d</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">elm.name.c_str(),</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)elm.typeOf());</span>
@@ -1361,11 +1361,11 @@ Sets the value of the specified AutoConnectElement. If values ​​is specified
 <p class="admonition-title">You can directly access the value member variable.</p>
 <p>If you are gripping with the Sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
-<span style="color: #7a7a7a">// ... Griping the AutoConnectText here.</span>
+<span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
 <span style="color: #f8f8f2">aux.setElementValue(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">);</span>
 </code></pre></div>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
-<span style="color: #7a7a7a">// ... Griping the AutoConnectText here.</span>
+<span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
 <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">text.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">;</span>
 </code></pre></div>

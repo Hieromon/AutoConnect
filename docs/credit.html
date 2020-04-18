@@ -1062,7 +1062,7 @@
 <p>If you are using an Arduino core for ESP32 1.0.2 earlier and need to use credentials in EEPROM for backward compatibility, turns off the <strong>AUTOCONNECT_USE_PREFERENCES</strong><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> macro definition in <code>AutoConnectCredentials.h</code> file. AutoConnect behaves assuming that credentials are stored in EEPROM if <code>AUTOCONNECT_USE_PREFERENCES</code> is not defined.</p>
 <h2 id="autoconnectcredential">AutoConnectCredential<a class="headerlink" href="#autoconnectcredential" title="Permanent link">&para;</a></h2>
 <h3 id="include-header"><i class="fa fa-code"></i> Include header<a class="headerlink" href="#include-header" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnectCredential.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnectCredential.h&gt;</span>
 </code></pre></div>
 
 <h3 id="constructors"><i class="fa fa-code"></i> Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h3>
@@ -1157,7 +1157,7 @@ The following function is an implementation example, and you can use it to achie
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ssid[</span><span style="color: #ae81ff">32</span><span style="color: #f8f8f2">];</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">password[</span><span style="color: #ae81ff">64</span><span style="color: #f8f8f2">];</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">bssid[</span><span style="color: #ae81ff">6</span><span style="color: #f8f8f2">];</span>
-  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">dhcp;</span>   <span style="color: #7a7a7a">/**&lt; 0:DHCP, 1:Static IP */</span>
+  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">dhcp;</span>   <span style="color: #75715e">/**&lt; 0:DHCP, 1:Static IP */</span>
   <span style="color: #66d9ef">union</span> <span style="color: #f8f8f2">_config</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #66d9ef">uint32_t</span>  <span style="color: #f8f8f2">addr[</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">];</span>
     <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">_sta</span> <span style="color: #f8f8f2">{</span>

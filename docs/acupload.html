@@ -982,12 +982,12 @@
 </ol>
 <p>The following sketch is an example that implements the above basic steps. The <em>postUpload</em> function is the on-handler and retrieves the AutoConnectFile as named <code>upload_file</code>. You should note that this handler is <strong>not</strong> for a custom Web page placed with its AutoConnectFile element. The uploaded file should be processed by the handler for the transition destination page from the AutoConnectFile element placed page. AutoConnect built-in upload handler will save the uploaded file to the specified device before invoking the <em>postUpload</em> function.</p>
 <p>However, If you use uploaded files in different situations, it may be more appropriate to place the actual handling process outside the handler. It applies for the parameter file, etc. The important thing is that you do not have to sketch file reception and storing logic by using the AutoConnectFile element and the upload handler built into the AutoConnect.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;FS.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;FS.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #7a7a7a">// Upload request custom Web page</span>
+<span style="color: #75715e">// Upload request custom Web page</span>
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_UPLOAD[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">{</span>
 <span style="color: #e6db74">  &quot;uri&quot;: &quot;/&quot;,</span>
@@ -1001,7 +1001,7 @@
 <span style="color: #e6db74">}</span>
 <span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
 
-<span style="color: #7a7a7a">// Upload result display</span>
+<span style="color: #75715e">// Upload result display</span>
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_BROWSE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">{</span>
 <span style="color: #e6db74">  &quot;uri&quot;: &quot;/upload&quot;,</span>
@@ -1018,32 +1018,32 @@
 
 <span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>
-<span style="color: #7a7a7a">// Declare AutoConnectAux separately as a custom web page to access</span>
-<span style="color: #7a7a7a">// easily for each page in the post-upload handler.</span>
+<span style="color: #75715e">// Declare AutoConnectAux separately as a custom web page to access</span>
+<span style="color: #75715e">// easily for each page in the post-upload handler.</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">auxUpload;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">auxBrowse;</span>
 
-<span style="color: #7a7a7a">/**</span>
-<span style="color: #7a7a7a"> * Post uploading, AutoConnectFile&#39;s built-in upload handler reads the</span>
-<span style="color: #7a7a7a"> * file saved in SPIFFS and displays the file contents on /upload custom</span>
-<span style="color: #7a7a7a"> * web page. However, only files with mime type uploaded as text are</span>
-<span style="color: #7a7a7a"> * displayed. A custom web page handler is called after upload.</span>
-<span style="color: #7a7a7a"> * @param  aux  AutoConnectAux(/upload)</span>
-<span style="color: #7a7a7a"> * @param  args PageArgument</span>
-<span style="color: #7a7a7a"> * @return Uploaded text content</span>
-<span style="color: #7a7a7a"> */</span>
+<span style="color: #75715e">/**</span>
+<span style="color: #75715e"> * Post uploading, AutoConnectFile&#39;s built-in upload handler reads the</span>
+<span style="color: #75715e"> * file saved in SPIFFS and displays the file contents on /upload custom</span>
+<span style="color: #75715e"> * web page. However, only files with mime type uploaded as text are</span>
+<span style="color: #75715e"> * displayed. A custom web page handler is called after upload.</span>
+<span style="color: #75715e"> * @param  aux  AutoConnectAux(/upload)</span>
+<span style="color: #75715e"> * @param  args PageArgument</span>
+<span style="color: #75715e"> * @return Uploaded text content</span>
+<span style="color: #75715e"> */</span>
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">postUpload</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">content;</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">upload</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">auxUpload[</span><span style="color: #e6db74">&quot;upload_file&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
 </span>  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux_filename</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;filename&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
   <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux_size</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;size&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
   <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux_contentType</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;content_type&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
-  <span style="color: #7a7a7a">// Assignment operator can be used for the element attribute.</span>
+  <span style="color: #75715e">// Assignment operator can be used for the element attribute.</span>
   <span style="color: #f8f8f2">aux_filename.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">upload.value;</span>
   <span style="color: #f8f8f2">aux_size.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(upload.size);</span>
   <span style="color: #f8f8f2">aux_contentType.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">upload.mimeType;</span>
-  <span style="color: #7a7a7a">// The file saved by the AutoConnect upload handler is read from</span>
-  <span style="color: #7a7a7a">// the EEPROM and echoed to a custom web page.</span>
+  <span style="color: #75715e">// The file saved by the AutoConnect upload handler is read from</span>
+  <span style="color: #75715e">// the EEPROM and echoed to a custom web page.</span>
   <span style="color: #f8f8f2">SPIFFS.begin();</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">uploadFile</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(String(</span><span style="color: #e6db74">&quot;/&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">upload.value).c_str(),</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
 </span>  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(uploadFile)</span> <span style="color: #f8f8f2">{</span>
@@ -1091,8 +1091,8 @@
 </ul>
 <p>The substance of AC_File_FS (fs) is a SPIFFS file system implemented by the ESP8266/ESP32 core, and then AutoConnect uses the Global Instance <strong>SPIFFS</strong> to access SPIFFS.</p>
 <p>Also, the substance of AC_File_SD (sd) is a FAT file of Arduino SD library ported to the ESP8266/ESP32 core, and then AutoConnect uses the Global Instance <strong>SD</strong> to access SD. When saving to an external SD device, there are additional required parameters for the connection interface and is defined as the macro in AutoConnectDefs.h.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AUTOCONNECT_SD_CS       SS</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_SD_SPEED    4000000</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_SD_CS       SS</span>
+<span style="color: #75715e">#define AUTOCONNECT_SD_SPEED    4000000</span>
 </code></pre></div>
 
 <p><code>AUTOCONNECT_SD_CS</code> defines which GPIO for the CS (Chip Select, or SS as Slave Select) pin. This definition is derived from pins_arduino.h, which is included in the Arduino core distribution. If you want to assign the CS pin to another GPIO, you need to change the macro definition of AutoConnectDefs.h.</p>
@@ -1219,9 +1219,9 @@
     <dd><span class="apidef">uploadClass</span><span class="apidesc">Specifies the custom upload class instance.</span></dd>
 </dl></p>
 <p>The rough structure of the Sketches that completed these implementations will be as follows:</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_UPLOAD[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">{</span>
@@ -1247,7 +1247,7 @@
 <span style="color: #e6db74">}</span>
 <span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
 
-<span style="color: #7a7a7a">// Custom upload handler class</span>
+<span style="color: #75715e">// Custom upload handler class</span>
 <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">CustomUploader</span> <span style="color: #f92672">:</span> <span style="color: #66d9ef">public</span> <span style="color: #f8f8f2">AutoConnectUploadHandler</span> <span style="color: #f8f8f2">{</span>
 <span style="color: #66d9ef">public</span><span style="color: #f92672">:</span>
   <span style="color: #f8f8f2">CustomUploader()</span> <span style="color: #f8f8f2">{}</span>
@@ -1259,31 +1259,31 @@
   <span style="color: #66d9ef">void</span>   <span style="color: #a6e22e">_close</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">override</span><span style="color: #f8f8f2">;</span>
 <span style="color: #f8f8f2">};</span>
 
-<span style="color: #7a7a7a">// _open for custom open</span>
+<span style="color: #75715e">// _open for custom open</span>
 <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">_open(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">filename,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">mode)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">// Here, an implementation for the open file.</span>
+  <span style="color: #75715e">// Here, an implementation for the open file.</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #7a7a7a">// _open for custom write</span>
+<span style="color: #75715e">// _open for custom write</span>
 <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">_write(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">buf,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">// Here, an implementation for the writing the file data.</span>
+  <span style="color: #75715e">// Here, an implementation for the writing the file data.</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #7a7a7a">// _open for custom close</span>
+<span style="color: #75715e">// _open for custom close</span>
 <span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">_close(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">// Here, an implementation for the close file.</span>
+  <span style="color: #75715e">// Here, an implementation for the close file.</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #f8f8f2">AutoConnect</span>     <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">uploadPage;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">receivePage;</span>
-<span style="color: #f8f8f2">CustomUploader</span>  <span style="color: #f8f8f2">uploader;</span>   <span style="color: #7a7a7a">// Declare the custom uploader</span>
+<span style="color: #f8f8f2">CustomUploader</span>  <span style="color: #f8f8f2">uploader;</span>   <span style="color: #75715e">// Declare the custom uploader</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">uploadPage.load(PAGE_UPLOAD);</span>
   <span style="color: #f8f8f2">receivePage.load(PAGE_RECEIVED);</span>
   <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">uploadPage,</span> <span style="color: #f8f8f2">receivePage</span> <span style="color: #f8f8f2">});</span>
-  <span style="color: #f8f8f2">receivePage.onUpload</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(uploader);</span>  <span style="color: #7a7a7a">// Register the custom uploader</span>
+  <span style="color: #f8f8f2">receivePage.onUpload</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">CustomUploader</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(uploader);</span>  <span style="color: #75715e">// Register the custom uploader</span>
   <span style="color: #f8f8f2">portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 

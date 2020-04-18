@@ -1172,7 +1172,7 @@
 AutoConnectElements contained in AutoConnectAux object are uniquely identified by name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> In the following example, AutoConnectButton <code>button</code> addition will invalid because <code>hello</code> with the same name already exists as AutoConnectText.</p>
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
 <span style="color: #f8f8f2">AutoConnectText</span> <span style="color: #a6e22e">text</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">);</span>
-<span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectButton</span> <span style="color: #a6e22e">button</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;alert(&#39;Hello world!&#39;)&quot;)</span><span style="color: #f8f8f2">;</span>  <span style="color: #7a7a7a">// This is invalid.</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectButton</span> <span style="color: #a6e22e">button</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;alert(&#39;Hello world!&#39;)&quot;)</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// This is invalid.</span>
 </span><span style="color: #f8f8f2">aux.add({</span> <span style="color: #f8f8f2">text,</span> <span style="color: #f8f8f2">button</span> <span style="color: #f8f8f2">});</span>
 </code></pre></div>
 
@@ -1228,10 +1228,10 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
 <span style="color: #f8f8f2">aux.load(</span><span style="color: #e6db74">&quot;SOME_JSON_DOCUMENT&quot;</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #7a7a7a">// Retrieve the pointer of the AutoConnectText</span>
+<span style="color: #75715e">// Retrieve the pointer of the AutoConnectText</span>
 <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">reinterpret_cast</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">*&gt;</span><span style="color: #f8f8f2">(aux.getElement(</span><span style="color: #e6db74">&quot;TEXT_ELEMENT_NAME&quot;</span><span style="color: #f8f8f2">));</span>
 
-<span style="color: #7a7a7a">// Retrieve the reference of the AutoConnectText</span>
+<span style="color: #75715e">// Retrieve the reference of the AutoConnectText</span>
 <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;TEXT_ELEMENT_NAME&quot;</span><span style="color: #f8f8f2">);</span>
 </code></pre></div>
 
@@ -1239,8 +1239,8 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">auxJson</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">Page 1 title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">uri</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">/page1</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">menu</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:true,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">element</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:[{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">name</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">caption</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">type</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">ACText</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">value</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">hello, world</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}]}&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">portal.load(auxJson);</span>
-<span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">);</span>  <span style="color: #7a7a7a">// Identify the AutoConnectAux instance with uri</span>
-<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">);</span>  <span style="color: #7a7a7a">// Cast to real type and access members</span>
+<span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">);</span>  <span style="color: #75715e">// Identify the AutoConnectAux instance with uri</span>
+<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">);</span>  <span style="color: #75715e">// Cast to real type and access members</span>
 <span style="color: #f8f8f2">Serial.println(text.value);</span>
 </code></pre></div>
 
@@ -1273,9 +1273,9 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <h3 id="enable-autoconnectelements-during-the-sketch-execution"><i class="fa fa-edit"></i> Enable AutoConnectElements during the Sketch execution<a class="headerlink" href="#enable-autoconnectelements-during-the-sketch-execution" title="Permanent link">&para;</a></h3>
 <p>AutoConnectElemets have an enable attribute to activate its own HTML generation. Sketches can change the HTMLization of their elements dynamically by setting or resetting the enable value. An element whose the enable attribute is true will generate itself HTML and place on the custom Web page.  And conversely, it will not generate the HTML when the value is false.</p>
 <p>For example, to enable the submit button only when the ESP module is connected to the access point in STA mode, you can sketch the following:</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">AUX[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">R(</span><span style="color: #e6db74">&quot;</span>
 <span style="color: #f8f8f2">{</span>
@@ -1332,7 +1332,7 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <p>To load a JSON document as AutoConnectAux use the <a href="api.html#load"><strong>AutoConnect::load</strong></a> function and load the JSON document of each AutoConnectElement using the <a href="apiaux.html#loadelement"><strong>AutoConnectAux::loadElement</strong></a> function. Although the functions of both are similar, the structure of the target JSON document is different.</p>
 <p>The <a href="apiaux.html#load">AutoConnect::load</a> function loads the entire AutoConnectAux and creates both the AutoConnectAux instance and each AutoConnectElement instance. A single JSON document can contain multiple custom Web pages. If you write JSON of AutoConnectAux as an array, the load function generates all the pages contained in that array. Therefore, it is necessary to supply the JSON document of AutoConnectAux as an input of the load function and must contain the elements described section <a href="acjson.html#json-document-structure-for-autoconnectaux"><em>JSON document structure for AutoConnectAux</em></a>.</p>
 <p>The <a href="apiaux.html#loadelement">AutoConnectAux::loadElement</a> function loads the elements individually into an AutoConnectAux object. The structure of its supplying JSON document is not AutoConnectAux. It must be a <a href="acjson.html#json-object-for-autoconnectelements">JSON structure for AutoConnectElement</a>, but you can specify an array.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">// AutoConnectAux as a custom Web page.</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// AutoConnectAux as a custom Web page.</span>
 <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">page[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">{</span>
 <span style="color: #e6db74">  &quot;title&quot;: &quot;Settings&quot;,</span>
@@ -1354,7 +1354,7 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <span style="color: #e6db74">}</span>
 <span style="color: #e6db74">)raw&quot;</span><span style="color: #f8f8f2">;</span>
 
-<span style="color: #7a7a7a">// Additional AutoConnectElements.</span>
+<span style="color: #75715e">// Additional AutoConnectElements.</span>
 <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">addons[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">[</span>
 <span style="color: #e6db74">  {</span>
@@ -1379,30 +1379,30 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <span style="color: #f8f8f2">AutoConnect</span>     <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">auxPage;</span>
 
-<span style="color: #7a7a7a">// Load a custom Web page.</span>
+<span style="color: #75715e">// Load a custom Web page.</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">portal.load(page);</span>
 </span>
-<span style="color: #7a7a7a">// Get a &#39;/settings&#39; page</span>
+<span style="color: #75715e">// Get a &#39;/settings&#39; page</span>
 <span style="color: #f8f8f2">auxPage</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/settings&quot;</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #7a7a7a">// Also, load only AutoConnectRadio named the period.</span>
+<span style="color: #75715e">// Also, load only AutoConnectRadio named the period.</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">auxPage</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">loadElement(addons,</span> <span style="color: #e6db74">&quot;period&quot;</span><span style="color: #f8f8f2">);</span>
 </span>
-<span style="color: #7a7a7a">// Retrieve a server name from an AutoConnectText value.</span>
+<span style="color: #75715e">// Retrieve a server name from an AutoConnectText value.</span>
 <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">serverName</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">auxPage</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;server&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">Serial.println(serverName.value);</span>
 </code></pre></div>
 
 <h3 id="saving-autoconnectelements-with-json"><i class="fa fa-download"></i> Saving AutoConnectElements with JSON<a class="headerlink" href="#saving-autoconnectelements-with-json" title="Permanent link">&para;</a></h3>
 <p>To save the AutoConnectAux or the AutoConnectElement as a JSON document, use the <a href="apiaux.html#saveelement">AutoConnectAux::saveElement</a> function. It serializes the contents of the object based on the type of the AutoConnectElement. You can persist a serialized AutoConnectElements as a JSON document to a stream.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">// Open a parameter file on the SPIFFS.</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// Open a parameter file on the SPIFFS.</span>
 <span style="color: #f8f8f2">SPIFFS.begin();</span>
 <span style="color: #66d9ef">FILE</span> <span style="color: #f8f8f2">param</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/param&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;w&quot;</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #7a7a7a">// Save elements as the parameters.</span>
+<span style="color: #75715e">// Save elements as the parameters.</span>
 <span style="color: #f8f8f2">auxPage</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">saveElement(param,</span> <span style="color: #f8f8f2">{</span> <span style="color: #e6db74">&quot;server&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;period&quot;</span> <span style="color: #f8f8f2">});</span>
 
-<span style="color: #7a7a7a">// Close a parameter file.</span>
+<span style="color: #75715e">// Close a parameter file.</span>
 <span style="color: #f8f8f2">param.close();</span>
 <span style="color: #f8f8f2">SPIFFS.end();</span>
 </code></pre></div>
@@ -1438,9 +1438,9 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <h3 id="where-to-pick-up-the-values"><i class="fa fa-desktop"></i> Where to pick up the values<a class="headerlink" href="#where-to-pick-up-the-values" title="Permanent link">&para;</a></h3>
 <p>A sketch composed of handlers can receive the value of AutoConnectElements entered in a custom Web page after sending, but that handler is different from the page where the value was entered. It is necessary to be aware that can accept the entered values by the next page handler after the transition.</p>
 <p>Usually, two ways to retrieve entered values we have. One is to use the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments">ESP8266WebServer::arg</a> (or WebServer::arg for ESP32) function in the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers"><code>on handler</code></a> attached by ESP8266WebServer (WebServer w/ESP32 also).</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">addonJson[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">{</span>
@@ -1466,21 +1466,21 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">webServer;</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(webServer);</span>
 
-<span style="color: #7a7a7a">// Here, /feels handler</span>
+<span style="color: #75715e">// Here, /feels handler</span>
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">feelsOn</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
 
-  <span style="color: #7a7a7a">// Retrieve the value of a input-box named &quot;feels&quot;</span>
+  <span style="color: #75715e">// Retrieve the value of a input-box named &quot;feels&quot;</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">feel</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">webServer.arg(</span><span style="color: #e6db74">&quot;feels&quot;</span><span style="color: #f8f8f2">);</span>
 </span>
-  <span style="color: #7a7a7a">// Echo back the value</span>
+  <span style="color: #75715e">// Echo back the value</span>
   <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">echo</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&lt;html&gt;&lt;p style=</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">color:blue;font-family:verdana;font-size:300%;</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">&gt;&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">feel</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot; and a bold world!&lt;/p&gt;&lt;/html&gt;&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #f8f8f2">webServer.send(</span><span style="color: #ae81ff">200</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text/html&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">echo);</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">webServer.on(</span><span style="color: #e6db74">&quot;/feels&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">feelsOn);</span>  <span style="color: #7a7a7a">// Register /feels handler</span>
-  <span style="color: #f8f8f2">portal.load(addonJson);</span>           <span style="color: #7a7a7a">// Load a custom Web page</span>
+  <span style="color: #f8f8f2">webServer.on(</span><span style="color: #e6db74">&quot;/feels&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">feelsOn);</span>  <span style="color: #75715e">// Register /feels handler</span>
+  <span style="color: #f8f8f2">portal.load(addonJson);</span>           <span style="color: #75715e">// Load a custom Web page</span>
   <span style="color: #f8f8f2">portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
@@ -1495,9 +1495,9 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 <p>When you actually try the above sketch, there is no a root handler. So the URL that should be accessed first is <code>/_ac</code> concatenated with the local IP address of the esp8266 module.</p>
 </div>
 <p>Another method is effective when custom Web pages have complicated page transitions. It is a way to straight access the AutoConnectElements member value. You can get the AutoConnectElement with the specified name using the <a href="#get-autoconnectelement-from-the-autoconnectaux">getElement</a> function. The following sketch executes the above example with AutoConnect only, without using the function of ESP8266WebServer.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">addonJson[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">[</span>
@@ -1536,26 +1536,26 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 
-<span style="color: #7a7a7a">// Here, /feels handler</span>
+<span style="color: #75715e">// Here, /feels handler</span>
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">feelsOn</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
 
-  <span style="color: #7a7a7a">// Get the AutoConnectInput named &quot;feels&quot;.</span>
-  <span style="color: #7a7a7a">// The where() function returns an uri string of the AutoConnectAux that triggered this handler.</span>
+  <span style="color: #75715e">// Get the AutoConnectInput named &quot;feels&quot;.</span>
+  <span style="color: #75715e">// The where() function returns an uri string of the AutoConnectAux that triggered this handler.</span>
   <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">hello</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(portal.where());</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">feels</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">hello</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;feels&quot;</span><span style="color: #f8f8f2">);</span>
 </span>
-  <span style="color: #7a7a7a">// Get the AutoConnectText named &quot;echo&quot;.</span>
+  <span style="color: #75715e">// Get the AutoConnectText named &quot;echo&quot;.</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">echo</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;echo&quot;</span><span style="color: #f8f8f2">);</span>
 </span>
-  <span style="color: #7a7a7a">// Echo back from input-box to /feels page.</span>
+  <span style="color: #75715e">// Echo back from input-box to /feels page.</span>
   <span style="color: #f8f8f2">echo.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">feels.value</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot; and a bold world!&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">portal.load(addonJson);</span>                       <span style="color: #7a7a7a">// Load custom Web pages</span>
-  <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/feels&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">feelsOn,</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD);</span>  <span style="color: #7a7a7a">// Register /feels handler</span>
+  <span style="color: #f8f8f2">portal.load(addonJson);</span>                       <span style="color: #75715e">// Load custom Web pages</span>
+  <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/feels&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">feelsOn,</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD);</span>  <span style="color: #75715e">// Register /feels handler</span>
   <span style="color: #f8f8f2">portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
@@ -1606,34 +1606,34 @@ AutoConnectElements contained in AutoConnectAux object are uniquely identified b
 </dd>
 </dl>
 <p>The following example is a part of sketch contained the handlers. </p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">// AutoConnect object declarations</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// AutoConnect object declarations</span>
 <span style="color: #f8f8f2">ACInput(input1);</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">aux</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/aux&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">input1</span> <span style="color: #f8f8f2">});</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
-<span style="color: #7a7a7a">// Pre-declare handlers</span>
+<span style="color: #75715e">// Pre-declare handlers</span>
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">initialize</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #7a7a7a">// Register handlers and launch the portal.</span>
+<span style="color: #75715e">// Register handlers and launch the portal.</span>
 <span style="color: #f8f8f2">aux.on(initialize,</span> <span style="color: #f8f8f2">AC_AHEAD);</span>
 <span style="color: #f8f8f2">aux.on(append,</span> <span style="color: #f8f8f2">AC_LATER);</span>
 <span style="color: #f8f8f2">portal.join(aux);</span>
 <span style="color: #f8f8f2">portal.begin();</span>
 
-<span style="color: #7a7a7a">// Some code here...</span>
+<span style="color: #75715e">// Some code here...</span>
 
-<span style="color: #7a7a7a">// The handler called before HTML generating</span>
+<span style="color: #75715e">// The handler called before HTML generating</span>
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">initialize</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input1</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;input1&quot;</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #7a7a7a">// Set initial value for the input box in a custom Web page.</span>
+  <span style="color: #75715e">// Set initial value for the input box in a custom Web page.</span>
   <span style="color: #f8f8f2">input1.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;Initial value&quot;</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #7a7a7a">// Nothing appendix for a generated HTML.</span>
+  <span style="color: #75715e">// Nothing appendix for a generated HTML.</span>
   <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #7a7a7a">// The handler called after HTML generated</span>
+<span style="color: #75715e">// The handler called after HTML generated</span>
 <span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">// Append an HTML</span>
+  <span style="color: #75715e">// Append an HTML</span>
   <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&lt;p&gt;This text has been added.&lt;/p&gt;&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
@@ -1771,7 +1771,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #e6db74">}</span>
 <span style="color: #e6db74">)r&quot;</span><span style="color: #f8f8f2">;</span>
 
-<span style="color: #7a7a7a">// An on-page handler for &#39;/&#39; access</span>
+<span style="color: #75715e">// An on-page handler for &#39;/&#39; access</span>
 <span style="background-color: #49483e"><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">onRoot</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
 </span>  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">content</span> <span style="color: #f92672">=</span>
   <span style="color: #e6db74">&quot;&lt;html&gt;&quot;</span>
@@ -1779,9 +1779,9 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
   <span style="color: #e6db74">&quot;&lt;body&gt;&lt;div&gt;INPUT: {{value}}&lt;/div&gt;&lt;/body&gt;&quot;</span>
   <span style="color: #e6db74">&quot;&lt;/html&gt;&quot;</span><span style="color: #f8f8f2">;</span>
 
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Input.fetchElement();</span>    <span style="color: #7a7a7a">// Preliminary acquisition</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">Input.fetchElement();</span>    <span style="color: #75715e">// Preliminary acquisition</span>
 </span>
-  <span style="color: #7a7a7a">// For this steps to work, need to call fetchElement function beforehand.</span>
+  <span style="color: #75715e">// For this steps to work, need to call fetchElement function beforehand.</span>
   <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Input[</span><span style="color: #e6db74">&quot;input&quot;</span><span style="color: #f8f8f2">].value;</span>
   <span style="color: #f8f8f2">content.replace(</span><span style="color: #e6db74">&quot;{{value}}&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">value);</span>
   <span style="color: #f8f8f2">server.send(</span><span style="color: #ae81ff">200</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text/html&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">content);</span>
@@ -1790,7 +1790,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">Input.load(InputPage);</span>
   <span style="color: #f8f8f2">portal.join(Input);</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">server.on(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">onRoot);</span>  <span style="color: #7a7a7a">// Register the on-page handler</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">server.on(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">onRoot);</span>  <span style="color: #75715e">// Register the on-page handler</span>
 </span>  <span style="color: #f8f8f2">portal.begin();</span>  
 <span style="color: #f8f8f2">}</span>
 
@@ -1898,9 +1898,9 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <h2 id="transitions-of-the-custom-web-pages">Transitions of the custom Web pages<a class="headerlink" href="#transitions-of-the-custom-web-pages" title="Permanent link">&para;</a></h2>
 <h3 id="scope-lifetime-of-autoconnectaux">Scope &amp; Lifetime of AutoConnectAux<a class="headerlink" href="#scope-lifetime-of-autoconnectaux" title="Permanent link">&para;</a></h3>
 <p>AutoConnectAux and AutoConnectElements must live while the custom Web pages are available. The implementation of the custom Web page inherits from requestHandler driven from ESP8266WebServer (WebServer for ESP32), so the instance of AutoConnectAux and AutoConnectElements must exist for the duration of effect of handleClient. The following example is incorrect for manipulating custom Web pages. Its AutoConnectAux instance will be destructed at the exit of the setup().</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">auxPage[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">{</span>
@@ -1916,7 +1916,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #7a7a7a">// This declaration is wrong.</span>
+  <span style="color: #75715e">// This declaration is wrong.</span>
 <span style="background-color: #49483e">  <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
 </span>  <span style="color: #f8f8f2">aux.load(auxPage);</span>
   <span style="color: #f8f8f2">portal.join(aux);</span>
