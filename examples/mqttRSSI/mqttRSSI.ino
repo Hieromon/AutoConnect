@@ -366,7 +366,6 @@ void setup() {
       config.hostName = hostName;
       Serial.println("hostname set to " + config.hostName);
     }
-    config.bootUri = AC_ONBOOTURI_HOME;
     config.homeUri = "/";
     portal.config(config);
 
@@ -378,6 +377,7 @@ void setup() {
 
   Serial.print("WiFi ");
   if (portal.begin()) {
+    config.bootUri = AC_ONBOOTURI_HOME;
     Serial.println("connected:" + WiFi.SSID());
     Serial.println("IP:" + WiFi.localIP().toString());
   }

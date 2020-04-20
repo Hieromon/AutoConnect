@@ -922,32 +922,32 @@
 </li>
 <li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>.</li>
 </ol>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;            // Step #1</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;       // Step #1</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;            // Step #1</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;            // Step #1</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;       // Step #1</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;            // Step #1</span>
 
-<span style="color: #f8f8f2">ESP8266WebServer</span>  <span style="color: #f8f8f2">server;</span>           <span style="color: #7a7a7a">// Step #2</span>
-<span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>   <span style="color: #7a7a7a">// Step #3</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>           <span style="color: #7a7a7a">// Step #4</span>
-<span style="color: #f8f8f2">AutoConnectAux</span>    <span style="color: #f8f8f2">hello;</span>            <span style="color: #7a7a7a">// Step #5</span>
+<span style="color: #f8f8f2">ESP8266WebServer</span>  <span style="color: #f8f8f2">server;</span>           <span style="color: #75715e">// Step #2</span>
+<span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>   <span style="color: #75715e">// Step #3</span>
+<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>           <span style="color: #75715e">// Step #4</span>
+<span style="color: #f8f8f2">AutoConnectAux</span>    <span style="color: #f8f8f2">hello;</span>            <span style="color: #75715e">// Step #5</span>
 
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">HELLO_PAGE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">{ &quot;title&quot;: &quot;Hello world&quot;, &quot;uri&quot;: &quot;/&quot;, &quot;menu&quot;: true, &quot;element&quot;: [</span>
 <span style="color: #e6db74">    { &quot;name&quot;: &quot;caption&quot;, &quot;type&quot;: &quot;ACText&quot;, &quot;value&quot;: &quot;&lt;h2&gt;Hello, world&lt;/h2&gt;&quot;,  &quot;style&quot;: &quot;text-align:center;color:#2f4f4f;padding:10px;&quot; },</span>
 <span style="color: #e6db74">    { &quot;name&quot;: &quot;content&quot;, &quot;type&quot;: &quot;ACText&quot;, &quot;value&quot;: &quot;In this page, place the custom web page handled by the Sketch application.&quot; } ]</span>
 <span style="color: #e6db74">}</span>
-<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>                                 <span style="color: #7a7a7a">// Step #5</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>                                 <span style="color: #75715e">// Step #5</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">config.ota</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_OTA_BUILTIN;</span>      <span style="color: #7a7a7a">// Step #6.a</span>
-  <span style="color: #f8f8f2">portal.config(config);</span>            <span style="color: #7a7a7a">// Step #6.a</span>
-  <span style="color: #f8f8f2">hello.load(HELLO_PAGE);</span>           <span style="color: #7a7a7a">// Step #6.b</span>
-  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">hello</span> <span style="color: #f8f8f2">});</span>           <span style="color: #7a7a7a">// Step #6.c</span>
-  <span style="color: #f8f8f2">portal.begin();</span>                   <span style="color: #7a7a7a">// Step #6.d</span>
+  <span style="color: #f8f8f2">config.ota</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_OTA_BUILTIN;</span>      <span style="color: #75715e">// Step #6.a</span>
+  <span style="color: #f8f8f2">portal.config(config);</span>            <span style="color: #75715e">// Step #6.a</span>
+  <span style="color: #f8f8f2">hello.load(HELLO_PAGE);</span>           <span style="color: #75715e">// Step #6.b</span>
+  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">hello</span> <span style="color: #f8f8f2">});</span>           <span style="color: #75715e">// Step #6.c</span>
+  <span style="color: #f8f8f2">portal.begin();</span>                   <span style="color: #75715e">// Step #6.d</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">portal.handleClient();</span>            <span style="color: #7a7a7a">// Step #7</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>            <span style="color: #75715e">// Step #7</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 
@@ -959,9 +959,9 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 </div>
 <h3 id="autoconnectota-allocation-uri"><i class="fa fa-wrench"></i> AutoConnectOTA allocation URI<a class="headerlink" href="#autoconnectota-allocation-uri" title="Permanent link">&para;</a></h3>
 <p>AutoConnectOTA has implemented using AutoConnectAUX. So it occupies two URIs by default. An update operation page is assigned to <strong>AUTOCONNECT_URI_UPDATE</strong> and the binary file uploader for the update is assigned to <strong>AUTOCONNECT_URI_UPDATE_ACT</strong>. These symbols are defined in the <code>AutoConnectDefs.h</code> header file as follows:</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AUTOCONNECT_URI             &quot;/_ac&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_URI_UPDATE      AUTOCONNECT_URI &quot;/update&quot;</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_URI_UPDATE_ACT  AUTOCONNECT_URI &quot;/update_act&quot;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_URI             &quot;/_ac&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_URI_UPDATE      AUTOCONNECT_URI &quot;/update&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_URI_UPDATE_ACT  AUTOCONNECT_URI &quot;/update_act&quot;</span>
 </code></pre></div>
 
 <p>Therefore, the normal Sketch that imports AutoConnectOTA while keeping the default, you cannot use the two URIs <code>/_ac/update</code> and <code>/_ac/update_act</code> for your specific. If you want to use the URIs for any purpose other than AutoConnectOTA, you need to override the <code>AutoConnectDefs.h</code> definition at compile time. It can be overwritten by giving the build flags for platformio.ini as follows with the PlatformIO environment for example.</p>
@@ -974,11 +974,11 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 <p>It will be born during <a href="api.html#handleclient">AutoConnect::handleClient</a> process. AutoConnect will evaluate the enabled state of <a href="apiconfig.html#ota">AutoConnectConfig::ota</a> each time the handleClient is executed, and if OTA is enabled then it creates an AutoConnectAux internally and assigns it to the update page. At this time, AutoConnectOTA is also instantiated together. The generated AUX page containing AutoConnectOTA is bound to AutoConnect inside the AutoConnect::handleClient process.</p>
 <p>If you want to attach AutoConnectOTA dynamically with an external trigger, you can sketch like this:<br />
 <em>This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnect OTA will not be imported into Sketch and will not appear on the menu list.</em></p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #7a7a7a">#define TRIGGER 4   // pin assigned to external trigger switch</span>
+<span style="color: #75715e">#define TRIGGER 4   // pin assigned to external trigger switch</span>
 
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
@@ -1026,11 +1026,11 @@ To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, ba
 </li>
 <li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>. </li>
 </ol>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266HTTPUpdateServer.h&gt;    // Step #1</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;WiFiClient.h&gt;                 // Step #1</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266HTTPUpdateServer.h&gt;    // Step #1</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;WiFiClient.h&gt;                 // Step #1</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
 <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">HELLO_PAGE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">{ &quot;title&quot;: &quot;Hello world&quot;, &quot;uri&quot;: &quot;/&quot;, &quot;menu&quot;: true, &quot;element&quot;: [</span>
@@ -1039,21 +1039,21 @@ To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, ba
 <span style="color: #e6db74">}</span>
 <span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
 
-<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">httpServer;</span>                <span style="color: #7a7a7a">// Step #2</span>
-<span style="color: #f8f8f2">ESP8266HTTPUpdateServer</span> <span style="color: #f8f8f2">httpUpdate;</span>         <span style="color: #7a7a7a">// Step #3</span>
-<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(httpServer);</span>             <span style="color: #7a7a7a">// Step #4</span>
-<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">update</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/update&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;UPDATE&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #7a7a7a">// Step #5, #6, #7</span>
-<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">hello;</span>                       <span style="color: #7a7a7a">// Step #8</span>
+<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">httpServer;</span>                <span style="color: #75715e">// Step #2</span>
+<span style="color: #f8f8f2">ESP8266HTTPUpdateServer</span> <span style="color: #f8f8f2">httpUpdate;</span>         <span style="color: #75715e">// Step #3</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(httpServer);</span>             <span style="color: #75715e">// Step #4</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">update</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/update&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;UPDATE&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #75715e">// Step #5, #6, #7</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">hello;</span>                       <span style="color: #75715e">// Step #8</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">httpUpdate.setup(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">httpServer,</span> <span style="color: #e6db74">&quot;USERNAME&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;PASSWORD&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #7a7a7a">// Step #9.a</span>
-  <span style="color: #f8f8f2">hello.load(HELLO_PAGE);</span>                   <span style="color: #7a7a7a">// Step #9.b</span>
-  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">hello,</span> <span style="color: #f8f8f2">update</span> <span style="color: #f8f8f2">});</span>           <span style="color: #7a7a7a">// Step #9.c</span>
-  <span style="color: #f8f8f2">portal.begin();</span>                           <span style="color: #7a7a7a">// Step #9.d</span>
+  <span style="color: #f8f8f2">httpUpdate.setup(</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">httpServer,</span> <span style="color: #e6db74">&quot;USERNAME&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;PASSWORD&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #75715e">// Step #9.a</span>
+  <span style="color: #f8f8f2">hello.load(HELLO_PAGE);</span>                   <span style="color: #75715e">// Step #9.b</span>
+  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">hello,</span> <span style="color: #f8f8f2">update</span> <span style="color: #f8f8f2">});</span>           <span style="color: #75715e">// Step #9.c</span>
+  <span style="color: #f8f8f2">portal.begin();</span>                           <span style="color: #75715e">// Step #9.d</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">portal.handleClient();</span>                    <span style="color: #7a7a7a">// Step #10</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>                    <span style="color: #75715e">// Step #10</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 

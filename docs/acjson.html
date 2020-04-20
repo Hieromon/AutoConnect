@@ -1692,11 +1692,11 @@
 An example of using each function is as follows.
 <div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
 
-<span style="color: #7a7a7a">// Loading from String</span>
+<span style="color: #75715e">// Loading from String</span>
 <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">Page 1 title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">uri</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">/page1</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">menu</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:true,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">element</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:[{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">name</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">caption</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">type</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">ACText</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">value</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">hello, world</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}]}&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">portal.load(aux);</span>
 
-<span style="color: #7a7a7a">// Loading from PROGMEM</span>
+<span style="color: #75715e">// Loading from PROGMEM</span>
 <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">aux[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">{</span>
 <span style="color: #e6db74">  &quot;title&quot; : &quot;Page 1 title&quot;,</span>
@@ -1713,7 +1713,7 @@ An example of using each function is as follows.
 <span style="color: #e6db74">)raw&quot;</span><span style="color: #f8f8f2">;</span>
 <span style="color: #f8f8f2">portal.load(aux);</span>
 
-<span style="color: #7a7a7a">// Loading from Stream assumes &quot;aux.json&quot; file should be store in SPIFFS.</span>
+<span style="color: #75715e">// Loading from Stream assumes &quot;aux.json&quot; file should be store in SPIFFS.</span>
 <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;aux.json&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">portal.load(aux);</span>
 <span style="color: #f8f8f2">aux.close();</span>
@@ -1722,9 +1722,9 @@ An example of using each function is as follows.
 <h3 id="adjust-the-json-document-buffer-size"><i class="fa fa-caret-right"></i> Adjust the JSON document buffer size<a class="headerlink" href="#adjust-the-json-document-buffer-size" title="Permanent link">&para;</a></h3>
 <p>AutoConnect uses ArduinoJson library's dynamic buffer to parse JSON documents. Its dynamic buffer allocation scheme depends on the version 5 or version 6 of ArduinoJson library. Either version must have enough buffer to parse the custom web page's JSON document successfully. AutoConnect has the following three constants internally to complete the parsing as much as possible in both ArduinoJson version. These constants are macro defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h">AutoConnectDefs.h</a>.</p>
 <p>If memory insufficiency occurs during JSON document parsing, you can adjust these constants to avoid insufficiency by using the <a href="https://arduinojson.org/v6/assistant/">JsonAssistant</a> with deriving the required buffer size in advance.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#define AUTOCONNECT_JSONBUFFER_SIZE     256</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_JSONBUFFER_SIZE     256</span>
+<span style="color: #75715e">#define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)</span>
+<span style="color: #75715e">#define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)</span>
 </code></pre></div>
 
 <h4 id="autoconnect_jsonbuffer_size">AUTOCONNECT_JSONBUFFER_SIZE<a class="headerlink" href="#autoconnect_jsonbuffer_size" title="Permanent link">&para;</a></h4>

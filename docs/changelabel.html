@@ -964,10 +964,10 @@
 </table>
 
 <p>The definition of label text must conform to a certain coding pattern. Undefine with <code>#undef</code> the <code>#define</code> directive corresponding to the above IDs, and then redefine the ID with the replacement text. And surround it with <code>#ifdef</code> ~ <code>#endif</code>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#ifdef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
-<span style="color: #7a7a7a">#undef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;NEW_STRING_YOU_WISH&quot;</span>
-<span style="color: #7a7a7a">#endif</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#ifdef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
+<span style="color: #75715e">#undef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;NEW_STRING_YOU_WISH&quot;</span>
+<span style="color: #75715e">#endif</span>
 </code></pre></div>
 
 <p>You may not need to rewrite all definitions. It depends on your wishes and is sufficient that the above the include file contains only the labels you need.</p>

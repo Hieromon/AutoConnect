@@ -951,22 +951,22 @@ The AutoConnect library provides an update server script implemented in Python t
 <li>Attach the AutoConnectUpdate object to AutoConnect using <a href="apiupdate.html#attach">AutoConnectUpdate::attach</a> function.</li>
 <li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>.</li>
 </ol>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #7a7a7a">#include</span> <span style="color: #7a7a7a">&lt;AutoConnect.h&gt;</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>                          <span style="color: #7a7a7a">// Step #1</span>
-<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>                               <span style="color: #7a7a7a">// Step #2</span>
-<span style="color: #f8f8f2">AutoConnectUpdate</span> <span style="color: #a6e22e">update</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;192.168.0.100&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">8000</span><span style="color: #f8f8f2">);</span>  <span style="color: #7a7a7a">// Step #3</span>
+<span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>                          <span style="color: #75715e">// Step #1</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>                               <span style="color: #75715e">// Step #2</span>
+<span style="color: #f8f8f2">AutoConnectUpdate</span> <span style="color: #a6e22e">update</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;192.168.0.100&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">8000</span><span style="color: #f8f8f2">);</span>  <span style="color: #75715e">// Step #3</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(portal.begin())</span> <span style="color: #f8f8f2">{</span>     <span style="color: #7a7a7a">// Step #4</span>
-    <span style="color: #f8f8f2">update.attach(portal);</span>  <span style="color: #7a7a7a">// Step #5</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(portal.begin())</span> <span style="color: #f8f8f2">{</span>     <span style="color: #75715e">// Step #4</span>
+    <span style="color: #f8f8f2">update.attach(portal);</span>  <span style="color: #75715e">// Step #5</span>
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">portal.handleClient();</span>    <span style="color: #7a7a7a">// Step #6</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>    <span style="color: #75715e">// Step #6</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 

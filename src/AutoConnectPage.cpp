@@ -3,7 +3,7 @@
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
  *  @version    1.2.0
- *  @date   2020-04-17
+ *  @date   2020-04-19
  *  @copyright  MIT license.
  */
 
@@ -706,7 +706,7 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
       "document.getElementById('ssid').value=e,document.getElementById('passphrase').focus()"
     "}"
     "function vsw(e){"
-      "var t;t=e?'none':'table-row';for(const e of document.getElementsByClassName('exp'))e.style.display=t;e||document.getElementById('sip').focus()"
+      "var t;t=e?'none':'table-row';for(const n of document.getElementsByClassName('exp'))n.style.display=t,n.getElementsByTagName('input')[0].disabled=e;e||document.getElementById('sip').focus()"
     "}"
   "</script>"
   "</body>"

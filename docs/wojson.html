@@ -856,8 +856,8 @@
 <li>Invoke <a href="api.html#begin">AutoConnect::begin()</a>.</li>
 </ol>
 <p>In addition to the above procedure, to completely cut off for binding with the ArduinoJson library, turn off the ArduinoJson use indicator which is declared by the <a href="api.html#defined-macros">AutoConnect definitions</a>. Its declaration is in <strong>AutoConnectDefs.h</strong> file.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">// Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.</span>
-<span style="color: #7a7a7a">#define AUTOCONNECT_USE_JSON</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.</span>
+<span style="color: #75715e">#define AUTOCONNECT_USE_JSON</span>
 </code></pre></div>
 
 <div class="admonition caution">
@@ -989,8 +989,8 @@
 <span style="color: #f8f8f2">]</span>
 </code></pre></div>
 <span style="margin-right:6px;margin-top:2px;"><img align="middle" width="32" height="32" src="images/arrow_down.png"></span><i class="fa fa-code"></i> Exclude the JSON and replace to the AutoConnectElements natively</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #7a7a7a">// In the declaration,</span>
-<span style="color: #7a7a7a">// Declare AutoConnectElements for the page asf /mqtt_setting</span>
+<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// In the declaration,</span>
+<span style="color: #75715e">// Declare AutoConnectElements for the page asf /mqtt_setting</span>
 <span style="color: #f8f8f2">ACText(header,</span> <span style="color: #e6db74">&quot;&lt;h2&gt;MQTT broker settings&lt;/h2&gt;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text-align:center;color:#2f4f4f;padding:10px;&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">ACText(caption,</span> <span style="color: #e6db74">&quot;Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;font-family:serif;color:#4682b4;&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">ACInput(mqttserver,</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Server&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9</span><span style="color: #ae81ff">\\</span><span style="color: #e6db74">-]*[a-zA-Z0-9])</span><span style="color: #ae81ff">\\</span><span style="color: #e6db74">.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9</span><span style="color: #ae81ff">\\</span><span style="color: #e6db74">-]*[A-Za-z0-9])$&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;MQTT broker server&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1003,7 +1003,7 @@
 <span style="color: #f8f8f2">ACSubmit(save,</span> <span style="color: #e6db74">&quot;Start&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;mqtt_save&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">ACSubmit(discard,</span> <span style="color: #e6db74">&quot;Discard&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #7a7a7a">// Declare the custom Web page as /mqtt_setting and contains the AutoConnectElements</span>
+<span style="color: #75715e">// Declare the custom Web page as /mqtt_setting and contains the AutoConnectElements</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">mqtt_setting</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/mqtt_setting&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;MQTT Setting&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">true,</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">header,</span>
   <span style="color: #f8f8f2">caption,</span>
@@ -1019,20 +1019,20 @@
   <span style="color: #f8f8f2">discard</span>
 <span style="color: #f8f8f2">});</span>
 
-<span style="color: #7a7a7a">// Declare AutoConnectElements for the page as /mqtt_save</span>
+<span style="color: #75715e">// Declare AutoConnectElements for the page as /mqtt_save</span>
 <span style="color: #f8f8f2">ACText(caption2,</span> <span style="color: #e6db74">&quot;&lt;h4&gt;Parameters available as:&lt;/h4&gt;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text-align:center;color:#2f4f4f;padding:10px;&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">ACText(parameters);</span>
 <span style="color: #f8f8f2">ACSubmit(clear,</span> <span style="color: #e6db74">&quot;Clear channel&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;/mqtt_clear&quot;</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #7a7a7a">// Declare the custom Web page as /mqtt_save and contains the AutoConnectElements</span>
+<span style="color: #75715e">// Declare the custom Web page as /mqtt_save and contains the AutoConnectElements</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">mqtt_save</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/mqtt_save&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;MQTT Setting&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">false,</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">caption2,</span>
   <span style="color: #f8f8f2">parameters,</span>
   <span style="color: #f8f8f2">clear</span>
 <span style="color: #f8f8f2">});</span>
 
-<span style="color: #7a7a7a">// In the setup(),</span>
-<span style="color: #7a7a7a">// Join the custom Web pages and performs begin</span>
+<span style="color: #75715e">// In the setup(),</span>
+<span style="color: #75715e">// Join the custom Web pages and performs begin</span>
   <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">mqtt_setting,</span> <span style="color: #f8f8f2">mqtt_save</span> <span style="color: #f8f8f2">});</span>
   <span style="color: #f8f8f2">portal.begin();</span>
 </code></pre></div>

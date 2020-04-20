@@ -102,6 +102,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.1.7] Apr. 19, 2020
+- Fixed Apply button not work. (issue #206)
+
 ### [1.1.6] Apr. 17, 2020
 - Fixed OTA page translation not work. (issue #204)
 
