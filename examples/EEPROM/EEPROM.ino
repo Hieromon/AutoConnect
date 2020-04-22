@@ -9,7 +9,7 @@
   configuration for the Sketch.
   When Sketch stores the own configuration data in the EEPROM, it must
   avoid conflict with the credentials stored by AutoConnect.
-  AutoConnectConfig::boundayOffet designation helps with the conflict,
+  AutoConnectConfig::boundaryOffset designation helps with the conflict,
   but it is inadequate. Sketch uses AutoConnect::getCredentialSize to
   get the size of the actual EEPROM area that should be handled for the
   own custom data I/O.  
@@ -117,8 +117,8 @@ String onEEPROM(AutoConnectAux& page, PageArgument& args) {
   // EEPROM.begin is the sum of the size of the own custom data and
   // the size of the currently stored AutoConnect credentials.
   // eg.
-  //   sizeof(EEPROM_CONFIG_t) + portal.getCredentialSize()
-  EEPROM.begin(sizeof(EEPROM_CONFIG_t) + portal.getCredentialSize());
+  //   EEPROM.begin(portal.getEEPROMUsedSize())
+  EEPROM.begin(portal.getEEPROMUsedSize());
   EEPROM.get<EEPROM_CONFIG_t>(0, eepromConfig);
   EEPROM.end();
 
@@ -136,7 +136,7 @@ String onEEPROMWrite(AutoConnectAux& page, PageArgument& args) {
   strncpy(eepromConfig.data2, page["data2"].value.c_str(), sizeof(EEPROM_CONFIG_t::data2));
   strncpy(eepromConfig.data3, page["data3"].value.c_str(), sizeof(EEPROM_CONFIG_t::data3));
 
-  EEPROM.begin(sizeof(EEPROM_CONFIG_t) + portal.getCredentialSize());
+  EEPROM.begin(portal.getEEPROMUsedSize());
   EEPROM.put<EEPROM_CONFIG_t>(0, eepromConfig);
   EEPROM.commit();
   EEPROM.end();

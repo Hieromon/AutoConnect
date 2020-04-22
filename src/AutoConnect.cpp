@@ -747,12 +747,17 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
 }
 
 /**
- *  Get current AutoConnectCredential size
+ *  Get current AutoConnectCredential size.
+ *  This function is available only for ESP8266 use.
  *  @return  Size of the AutoConnectCredential
  */
-uint16_t AutoConnect::getCredentialSize(void) {
+uint16_t AutoConnect::getEEPROMUsedSize(void) {
+#if defined(ARDUINO_ARCH_ESP8266)
   AutoConnectCredential credentials(_apConfig.boundaryOffset);
-  return credentials.dataSize();
+  return _apConfig.boundaryOffset + credentials.dataSize();
+#elif defined(ARDUINO_ARCH_ESP32)
+  return 0;
+#endif
 }
 
 /**
