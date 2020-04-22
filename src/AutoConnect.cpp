@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.2.0
- *  @date   2020-04-17
+ *  @date   2020-04-22
  *  @copyright  MIT license.
  */
 
@@ -113,9 +113,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     if (_apConfig.principle == AC_PRINCIPLE_RSSI && (ssid == nullptr && passphrase == nullptr)) {
       // AC_PRINCIPLE_RSSI is available when SSID and password are not provided.
       // Find the strongest signal from the broadcast among the saved credentials.
-      if ((cs = _loadAvailCredential(nullptr, AC_PRINCIPLE_RSSI, false))) {
-        memcpy(current.ssid, _credential.ssid, sizeof(station_config_t::ssid));
-        memcpy(current.password, _credential.password, sizeof(station_config_t::password));
+      if ((cs = _loadCurrentCredential(reinterpret_cast<char*>(current.ssid), reinterpret_cast<char*>(current.password), AC_PRINCIPLE_RSSI, false))) {
         c_ssid = reinterpret_cast<const char*>(current.ssid);
         c_password = reinterpret_cast<const char*>(current.password);
         AC_DBG("Adopted:%.32s\n", c_ssid);
@@ -143,14 +141,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // Reconnect with a valid credential as the autoReconnect option is enabled.
   if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
     // Load a valid credential.
-    if (_loadAvailCredential(nullptr, _apConfig.principle, true)) {
+    char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
+    char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
+    if (_loadCurrentCredential(ssid_c, password_c, _apConfig.principle, true)) {
       // Try to reconnect with a stored credential.
-      char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
-      char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
-      *ssid_c = '\0';
-      strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - sizeof('\0'));
-      *password_c = '\0';
-      strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - sizeof('\0'));
       AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
       const char* psk = strlen(password_c) ? password_c : nullptr;
       _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
@@ -672,6 +666,25 @@ void AutoConnect::onDetect(DetectExit_ft fn) {
  */
 void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
   _notFoundHandler = fn;
+}
+
+/**
+ *  Load current available credential
+ *  @param  ssid      A pointer to the buffer that SSID should be stored.
+ *  @param  password  A pointer to the buffer that password should be stored.
+ *  @param  priciple  WiFi connection principle.
+ *  @param  excludeCurrent  Skip loading the current SSID.
+ *  @return true  Current SSID and password returned.
+ *  @return false There is no available SSID.
+ */
+bool AutoConnect::_loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent) {
+  bool  rc;
+
+  if ((rc = _loadAvailCredential(nullptr, principle, excludeCurrent))) {
+    strcpy(ssid, reinterpret_cast<const char*>(_credential.ssid));
+    strcpy(password, reinterpret_cast<const char*>(_credential.password));
+  }
+  return rc;
 }
 
 /**

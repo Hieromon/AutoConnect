@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.2.0
- *	@date	2020-04-17
+ *	@date	2020-04-22
  *	@copyright	MIT license.
  */
 
@@ -261,6 +261,7 @@ class AutoConnect {
   void  _startDNSServer(void);
   void  _handleNotFound(void);
   bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
+  bool  _loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
