@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.5
- *  @date   2020-04-15
+ *  @version    1.2.0
+ *  @date   2020-04-22
  *  @copyright  MIT license.
  */
 
@@ -744,6 +744,15 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
       }
   }
   return false;
+}
+
+/**
+ *  Get current AutoConnectCredential size
+ *  @return  Size of the AutoConnectCredential
+ */
+uint16_t AutoConnect::getCredentialSize(void) {
+  AutoConnectCredential credentials(_apConfig.boundaryOffset);
+  return credentials.dataSize();
 }
 
 /**

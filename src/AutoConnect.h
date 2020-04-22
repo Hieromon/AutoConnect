@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.5
- *	@date	2020-04-01
+ *	@version	1.2.0
+ *	@date	2020-04-22
  *	@copyright	MIT license.
  */
 
@@ -252,6 +252,7 @@ class AutoConnect {
   String where(void) const { return _auxUri; }
   inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
+  uint16_t getCredentialSize(void);
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
