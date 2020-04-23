@@ -747,9 +747,10 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
 }
 
 /**
- *  Get current AutoConnectCredential size.
+ *  Get the total amount of memory required to hold the AutoConnect credentials
+ *  and any custom configuration settings stored in EEPROM.
  *  This function is available only for ESP8266 use.
- *  @return  Size of the AutoConnectCredential
+ *  @return  Combined size of AutoConnect credentials and custom settings.
  */
 uint16_t AutoConnect::getEEPROMUsedSize(void) {
 #if defined(ARDUINO_ARCH_ESP8266)

@@ -5,14 +5,14 @@
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
 
-  This example demonstrates how allocates and handles the custom
-  configuration for the Sketch.
-  When Sketch stores the own configuration data in the EEPROM, it must
-  avoid conflict with the credentials stored by AutoConnect.
-  AutoConnectConfig::boundaryOffset designation helps with the conflict,
-  but it is inadequate. Sketch uses AutoConnect::getCredentialSize to
-  get the size of the actual EEPROM area that should be handled for the
-  own custom data I/O.  
+  The AutoConnectConfig::boundaryOffset setting allows AutoConnect to
+  write its data to EEPROM while preserving custom configuration data.
+  Similarly, when a Sketch writes its own data to EEPROM, it must
+  preserve the data written by AutoConnect.
+  This example demonstrates how to use the getEEPROMUsedSize() method to
+  store custom configuration settings in EEPROM without conflicting with
+  AutoConnect's use of that storage. (Note: this applies to the ESP8266
+  only, not the ESP32.)
 */
 
 #ifndef ARDUINO_ARCH_ESP8266
@@ -113,12 +113,7 @@ String toString(char* c, uint8_t length) {
 String onEEPROM(AutoConnectAux& page, PageArgument& args) {
   EEPROM_CONFIG_t eepromConfig;
 
-  // The actual area size of the EEPROM region to be given to
-  // EEPROM.begin is the sum of the size of the own custom data and
-  // the size of the currently stored AutoConnect credentials.
-  // eg.
-  //   EEPROM.begin(portal.getEEPROMUsedSize())
-  EEPROM.begin(portal.getEEPROMUsedSize());
+  EEPROM.begin(sizeof(eepromConfig));
   EEPROM.get<EEPROM_CONFIG_t>(0, eepromConfig);
   EEPROM.end();
 
@@ -136,6 +131,11 @@ String onEEPROMWrite(AutoConnectAux& page, PageArgument& args) {
   strncpy(eepromConfig.data2, page["data2"].value.c_str(), sizeof(EEPROM_CONFIG_t::data2));
   strncpy(eepromConfig.data3, page["data3"].value.c_str(), sizeof(EEPROM_CONFIG_t::data3));
 
+  // The actual area size of the EEPROM region to be given to
+  // EEPROM.begin is the sum of the size of the own custom data and
+  // the size of the currently stored AutoConnect credentials.
+  // eg.
+  //   EEPROM.begin(portal.getEEPROMUsedSize())
   EEPROM.begin(portal.getEEPROMUsedSize());
   EEPROM.put<EEPROM_CONFIG_t>(0, eepromConfig);
   EEPROM.commit();
