@@ -78,7 +78,7 @@ class AutoConnectCredentialBase {
  public:
   explicit AutoConnectCredentialBase() : _entries(0), _containSize(0) {}
   virtual ~AutoConnectCredentialBase() {}
-  virtual uint8_t entries(void) const { return _entries; }
+  virtual uint8_t entries(void) { return _entries; }
   virtual uint16_t dataSize(void) const { return sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t) + _containSize; }
   virtual bool    del(const char* ssid) = 0;
   virtual int8_t  load(const char* ssid, station_config_t* config) = 0;
