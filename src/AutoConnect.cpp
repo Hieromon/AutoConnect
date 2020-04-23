@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.2.0
- *  @date   2020-04-22
+ *  @date   2020-04-23
  *  @copyright  MIT license.
  */
 
@@ -256,11 +256,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // It doesn't matter the connection status for launching the Web server.
   if (!_responsePage)
     _startWebServer();
-
-  // Stop ticker
-  if (cs)
-    if (_ticker)
-      _ticker->stop();
 
   return cs;
 }
@@ -524,7 +519,7 @@ void AutoConnect::handleRequest(void) {
     strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
     AC_DBG("Attempt:%s Ch(%d)\n", ssid_c, (int)ch);
     WiFi.begin(ssid_c, password_c, ch);
-    if (_waitForConnect(_connectTimeout) == WL_CONNECTED) {
+    if ((_rsConnect = _waitForConnect(_connectTimeout)) == WL_CONNECTED) {
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config_t::bssid));
         _currentHostIP = WiFi.localIP();
@@ -556,12 +551,14 @@ void AutoConnect::handleRequest(void) {
     else {
       _currentHostIP = WiFi.softAPIP();
       _redirectURI = String(F(AUTOCONNECT_URI_FAIL));
-      _rsConnect = WiFi.status();
       _disconnectWiFi(false);
       while (WiFi.status() != WL_IDLE_STATUS && WiFi.status() != WL_DISCONNECTED) {
         delay(1);
         yield();
       }
+      // Restore the ticker
+      if (_ticker && WiFi.getMode() == WIFI_AP_STA)
+        _ticker->start(AUTOCONNECT_FLICKER_PERIODAP, (uint8_t)AUTOCONNECT_FLICKER_WIDTHAP);
     }
     _rfConnect = false;
   }
@@ -618,6 +615,12 @@ void AutoConnect::handleRequest(void) {
     }
     // Reflect the menu display specifier from AutoConnectConfig to AutoConnectOTA page
     _ota->menu(_apConfig.menuItems & AC_MENUITEM_UPDATE);
+  }
+
+  // Post-process for ticker
+  if (_ticker) {
+    if (WiFi.status() == WL_CONNECTED)
+      _ticker->stop();
   }
 }
 
@@ -1211,6 +1214,16 @@ void AutoConnect::_disconnectWiFi(bool wifiOff) {
   while (WiFi.status() == WL_CONNECTED) {
     delay(1);
     yield();
+  }
+  // Restart the ticker to indicate that ESP module into the disconnected state.
+  if (_ticker) {
+    uint32_t  tc = AUTOCONNECT_FLICKER_PERIODDC;
+    uint8_t   tw = AUTOCONNECT_FLICKER_WIDTHDC;
+    if (WiFi.getMode() == WIFI_AP_STA) {
+      tc = AUTOCONNECT_FLICKER_PERIODAP;
+      tw = AUTOCONNECT_FLICKER_WIDTHAP;
+    }
+    _ticker->start(tc, tw);
   }
 }
 

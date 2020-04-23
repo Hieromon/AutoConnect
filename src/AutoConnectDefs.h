@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.1.5
- * @date 2020-03-16
+ * @version  1.2.0
+ * @date 2020-04-23
  * @copyright  MIT license.
  */
 
