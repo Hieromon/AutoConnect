@@ -166,7 +166,6 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
 !!! warning "Attention to end"
     The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
 
-
 ### <i class="fa fa-caret-right"></i> disableMenu
 
 ```cpp
@@ -179,6 +178,21 @@ Disable the [AutoConnect menu](menu.md) items specified by the items parameter w
     <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items deleting from the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item. Refer to the [enableMenu](#enablemenu) about AC_MENUITEM_t.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> getEEPROMUsedSize
+
+```cpp
+uint16_t getEEPROMUsedSize(void)
+```
+
+Returns the total amount of memory required to hold the AutoConnect credentials and any custom configuration settings stored in EEPROM. The Sketch that writes its own custom data to the EEPROM must call `EEPROM.begin` with this value. 
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>Total amount size of saved AutoConnect credentials and custom data.</dd>
+</dl>
+
+!!! note "The getEEPROMUsedSize is available for only ESP8266 use"
+    It is available for only ESP8266 use and will return 0 when used with ESP32.
+    
 ### <i class="fa fa-caret-right"></i> handleClient
 
 ```cpp
