@@ -18,8 +18,8 @@
 #define AC_DEBUG_PORT Serial
 #endif // !AC_DEBUG_PORT
 #ifdef AC_DEBUG
-#define AC_DBG_DUMB(...) do {AC_DEBUG_PORT.printf( __VA_ARGS__ );} while (0)
-#define AC_DBG(...) do {AC_DEBUG_PORT.print("[AC] "); AC_DEBUG_PORT.printf( __VA_ARGS__ );} while (0)
+#define AC_DBG_DUMB(fmt, ...) do {AC_DEBUG_PORT.printf(PSTR(fmt), ## __VA_ARGS__ );} while (0)
+#define AC_DBG(fmt, ...) do {AC_DEBUG_PORT.printf(PSTR("[AC] " fmt), ## __VA_ARGS__ );} while (0)
 #else
 #define AC_DBG(...)
 #define AC_DBG_DUMB(...)
