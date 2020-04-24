@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.2.0
- *  @date   2020-04-23
+ *  @date   2020-04-24
  *  @copyright  MIT license.
  */
 
@@ -439,6 +439,66 @@ void AutoConnect::join(AutoConnectAuxVT auxVector) {
 }
 
 /**
+ *  Creates an AutoConnectAux dynamically with the specified URI and
+ *  integrates it into the menu. Returns false if a menu item with
+ *  the same URI already exists.
+ *  @param  uri   An uri of a new item to add
+ *  @param  title Title of the menu item
+ *  @return true  Added
+ *  @return false The same item has existed.
+ */
+bool AutoConnect::addMenuItem(const String& uri, const String& title) {
+  AutoConnectAux* reg = aux(uri);
+  if (!reg) {
+    reg = new AutoConnectAux(uri, title);
+    join(*reg);
+    return true;
+  }
+  return false;
+}
+
+/**
+ *  Creates an AutoConnectAux dynamically with the specified URI and
+ *  integrates it into the menu. It will register the request handler
+ *  for the WebServer after the addMenuItem works. It has similar
+ *  efficacy to calling addMenuItem and WebSever::on at once.
+ *  @param  uri     An uri of a new item to add
+ *  @param  title   Title of the menu item
+ *  @param  handler Function of the request handler for WebServer class
+ *  @return true    Added
+ *  @return false   The same item has existed.
+ */
+bool AutoConnect::addMenuItem(const String& uri, const String& title, WebServerClass::THandlerFunction handler) {
+  if (_webServer) {
+    if (addMenuItem(uri, title)) {
+      _webServer->on(uri, handler);
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ *  Release a AutoConnectAux from the portal.
+ *  @param  uri   An uri of the AutoConnectAux should be released
+ *  @return true  Specified AUX has released
+ *  @return false Specified AUX not registered
+ */
+AutoConnectAux* AutoConnect::release(const String &uri) {
+  AutoConnectAux**  self = &_aux;
+  while (*self) {
+    if (!strcmp((*self)->uri(), uri.c_str())) {
+      AC_DBG("%s released\n", (*self)->uri());
+      AutoConnectAux* ref = *self;
+      *self = (*self)->_next;
+      return ref;
+    }
+    self = &((*self)->_next);
+  }
+  return nullptr;
+}
+
+/**
  *  Starts Web server for AutoConnect service.
  */
 void AutoConnect::_startWebServer(void) {
@@ -675,7 +735,7 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
  *  Load current available credential
  *  @param  ssid      A pointer to the buffer that SSID should be stored.
  *  @param  password  A pointer to the buffer that password should be stored.
- *  @param  priciple  WiFi connection principle.
+ *  @param  principle  WiFi connection principle.
  *  @param  excludeCurrent  Skip loading the current SSID.
  *  @return true  Current SSID and password returned.
  *  @return false There is no available SSID.

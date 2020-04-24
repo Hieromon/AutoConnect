@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.2.0
- *	@date	2020-04-22
+ *	@date	2020-04-24
  *	@copyright	MIT license.
  */
 
@@ -218,22 +218,25 @@ class AutoConnect {
   AutoConnect(WebServerClass& webServer);
   ~AutoConnect();
   AutoConnectAux* aux(const String& uri) const;
-  bool  config(AutoConnectConfig& Config);
-  bool  config(const char* ap, const char* password = nullptr);
-  void  home(const String& uri);
+  AutoConnectAux* release(const String& uri);
   bool  begin(void);
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
+  bool  config(AutoConnectConfig& Config);
+  bool  config(const char* ap, const char* password = nullptr);
   void  end(void);
+  uint16_t getEEPROMUsedSize(void);
   void  handleClient(void);
   void  handleRequest(void);
+  void  home(const String& uri);
   WebServerClass& host(void);
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
   String where(void) const { return _auxUri; }
+  bool  addMenuItem(const String& uri, const String& title);
+  bool  addMenuItem(const String& uri, const String& title, WebServerClass::THandlerFunction handler);
   inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
-  uint16_t getEEPROMUsedSize(void);
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
