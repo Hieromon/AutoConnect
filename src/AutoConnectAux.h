@@ -121,7 +121,7 @@ class AutoConnectAux : public PageBuilder {
    * The compiler instantiates this template according to the stored data type that contains the JSON document.
    * This template also generates different parsing function calls depending on the ArduinoJson version.
    * @param  T  An object type of the JSON document which must be a passable object to ArduinoJson.
-   * @param  U  An instance of a souce name to load.
+   * @param  U  An instance of a source name to load.
    */
   template<typename T, typename U,
   typename std::enable_if<std::is_same<U, const String&>::value || std::is_same<U, std::vector<String> const&>::value>::type* = nullptr>
