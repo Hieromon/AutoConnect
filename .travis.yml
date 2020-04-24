@@ -33,6 +33,7 @@ script:
   - buildExampleSketch ConfigIP
   - buildExampleSketch Credential
   - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then buildExampleSketch CreditMigrate; fi
+  - if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then buildExampleSketch EEPROM; fi
   - buildExampleSketch Elements
   - buildExampleSketch FileUpload
   - buildExampleSketch FSBrowser

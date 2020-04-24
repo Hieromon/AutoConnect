@@ -772,6 +772,21 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
 }
 
 /**
+ *  Get the total amount of memory required to hold the AutoConnect credentials
+ *  and any custom configuration settings stored in EEPROM.
+ *  This function is available only for ESP8266 use.
+ *  @return  Combined size of AutoConnect credentials and custom settings.
+ */
+uint16_t AutoConnect::getEEPROMUsedSize(void) {
+#if defined(ARDUINO_ARCH_ESP8266)
+  AutoConnectCredential credentials(_apConfig.boundaryOffset);
+  return _apConfig.boundaryOffset + credentials.dataSize();
+#elif defined(ARDUINO_ARCH_ESP32)
+  return 0;
+#endif
+}
+
+/**
  *  Disconnect from the AP and stop the AutoConnect portal.
  *  Stops DNS server and flush tcp sending.
  */

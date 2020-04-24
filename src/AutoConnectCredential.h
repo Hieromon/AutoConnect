@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectCredential class.
  *  @file AutoConnectCredential.h
  *  @author hieromon@gmail.com
- *  @version  1.1.0
- *  @date 2019-10-07
+ *  @version  1.2.0
+ *  @date 2020-04-22
  *  @copyright  MIT license.
  */
 
@@ -79,6 +79,7 @@ class AutoConnectCredentialBase {
   explicit AutoConnectCredentialBase() : _entries(0), _containSize(0) {}
   virtual ~AutoConnectCredentialBase() {}
   virtual uint8_t entries(void) { return _entries; }
+  virtual uint16_t dataSize(void) const { return sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t) + _containSize; }
   virtual bool    del(const char* ssid) = 0;
   virtual int8_t  load(const char* ssid, station_config_t* config) = 0;
   virtual bool    load(int8_t entry, station_config_t* config) = 0;
