@@ -57,8 +57,7 @@ const char AUX_EEPROM_IO[] PROGMEM = R"(
         "name": "write",
         "type": "ACSubmit",
         "value": "WRITE",
-        "uri": "/eeprom",
-        "global": true
+        "uri": "/eeprom"
       }
     ]
   },
