@@ -333,7 +333,7 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
  * AutoConnectAux is collected in the chain list and each object is 
  * chained by the "_next". AutoConnect follows the "_next" to manage 
  * auxiliary pages. The _concat function concatenates subsequent 
- * AutoConnectAuxs.
+ * AutoConnectAuxes.
  * @param  aux   A reference of AutoConnectAux.
  */
 void AutoConnectAux::_concat(AutoConnectAux& aux) {
@@ -648,7 +648,7 @@ bool AutoConnect::load(Stream& aux) {
 
 /**
  * Load AutoConnectAux page from JSON object.
- * @param  aux  A JsonVariant object that stores each element of AutoConnectAuxl.
+ * @param  aux  A JsonVariant object that stores each element of AutoConnectAux.
  * @return true Successfully loaded.
  */
 bool AutoConnect::_load(JsonVariant& auxJson) {

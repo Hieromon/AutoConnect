@@ -160,14 +160,14 @@
 // Flicker pulse width during AP operation (8bit resolution)
 #ifndef AUTOCONNECT_FLICKER_WIDTHAP
 #define AUTOCONNECT_FLICKER_WIDTHAP   96
-#endif // !AUTOCONNECT_FLICKER_WIDTHAPSTA
+#endif // !AUTOCONNECT_FLICKER_WIDTHAP
 // Flicker pulse width while WiFi is not connected (8bit resolution)
 #ifndef AUTOCONNECT_FLICKER_WIDTHDC 
 #define AUTOCONNECT_FLICKER_WIDTHDC   16
 #endif // !AUTOCONNECT_FLICKER_WIDTHDISCON
 // Ticker port
 #ifndef AUTOCONNECT_TICKER_PORT
-#if defined(BUILDIN_LED) || defined(LED_BUILTIN)
+#if defined(BUILTIN_LED) || defined(LED_BUILTIN)
 #define AUTOCONNECT_TICKER_PORT       LED_BUILTIN
 #else  // Native pin for the arduino
 #define AUTOCONNECT_TICKER_PORT       2
