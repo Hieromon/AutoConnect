@@ -68,6 +68,40 @@ The [**handleClient**](api.md#handleclient) function of AutoConnect can include 
 
 ## <i class="fa fa-code"></i> Public member functions
 
+### <i class="fa fa-caret-right"></i> append
+
+- ESP8266/ESP32 Common
+
+```cpp
+AutoConnectAux* append(const String& uri, const String& title)
+```
+
+- For ESP8266
+
+```cpp
+AutoConnectAux* append(const String& uri, const String& title, ESP8266WebServer::THandlerFunction handler)
+```
+
+- For ESP32
+
+```cpp
+AutoConnectAux* append(const String& uri, const String& title, WebServer::THandlerFunction handler)
+```
+Creates an AutoConnectAux dynamically with the specified URI and integrates it into the menu. Calls with a request handler parameter can use this function as menu registration for a legacy page of ESP8266WebServer/WebServer. If the **handler** parameter specified, also it will register the request handler for the ESP8266WebServer/WebServer.  
+AutoConnect manages the menu items using a sequence list, and this function always adds the item to the end of the list. Therefore, the order of the menu items is the additional order.  
+Returns the pointer to created AutoConnectAux instance, the `nullptr` if an AutoConnectAux with the same URI already exists.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI.</span></dd>
+    <dd><span class="apidef">title</span><span class="apidesc">Title for menu item.</span></dd>
+    <dd><span class="apidef">handler</span><span class="apidesc">Request handler function as type of **ESP8266WebServer::THandlerFunction**/**WebServer::THandlerFunction**.</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A Pointer to a created AutoConnectAux instance.</dd>
+</dl>
+
+!!! note "Necessary ESP8266WebServer/WebServer has materialized"
+    The WebServer must have instantiated for calling with a request handler parameter. AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the append function with a request handler parameter must be after AutoConnect::begin.
+
 ### <i class="fa fa-caret-right"></i> aux
 
 ```cpp
@@ -126,13 +160,42 @@ Set SoftAP's WiFi configuration and static IP configuration.
     <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> detach
+```cpp
+AutoConnectAux* detach(const String& uri)
+```
+Detach the AutoConnectAux with the specified URI from the management of AutoConnect. An unmanaged AutoConnectAux will no longer appear in menu items, and its page handler will no longer respond even if the URI is accessed directly. 
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">URI of AutoConnectAux to be detached.</span></dd>
+</dl>
+
+If the request handler registered in the detaching AutoConnectAux is for a legacy page of the ESP8266WebServer/WebServer, the URI is still valid after detaching. AutoConnect does not delete the request handler registered to ESP8266WebServer/WebServer with the `on` function. (It cannot be removed)
+
+!!! hint "Deleting the AutoConnectAux"
+    You can use the return value from the AotoConnect::detach to delete the AutoConnectAux instance which dynamically created with the [AutoConnect::append](api.md#append).
+
+### <i class="fa fa-caret-right"></i> disableMenu
+
+```cpp
+void disableMenu(const uint16_t items)
+```
+
+Disable the [AutoConnect menu](menu.md) items specified by the items parameter with logical OR value using **AC_MENUITEM_t** constant.  
+This function only works for AutoConnect primary menu items. It has no effect on disable for AutoConnectAux items. To disable the items by AutoConnectAux, use the [AutoConnectAux::menu](apiaux.md#menu) function.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items deleting from the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item. Refer to the [enableMenu](#enablemenu) about AC_MENUITEM_t.</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> enableMenu
 
 ```cpp
 void enableMenu(const uint16_t items)
 ```
 
-Enable the [AutoConnect menu](menu.md) items specified by the items parameter with logical OR value using **AC_MENUITEM_t** constant.
+Enable the [AutoConnect menu](menu.md) items specified by the items parameter with logical OR value using **AC_MENUITEM_t** constant.  
+This function only works for AutoConnect primary menu items. It has no effect on enable for AutoConnectAux items. To enable the items by AutoConnectAux, use the [AutoConnectAux::menu](apiaux.md#menu) function.
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items applying to the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu. AC_MENUITEM_t is enumeration type to identify each menu item and it has the below values.</span></dd>
@@ -165,18 +228,6 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
 
 !!! warning "Attention to end"
     The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
-
-### <i class="fa fa-caret-right"></i> disableMenu
-
-```cpp
-void disableMenu(const uint16_t items)
-```
-
-Disable the [AutoConnect menu](menu.md) items specified by the items parameter with logical OR value using **AC_MENUITEM_t** constant.
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items deleting from the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item. Refer to the [enableMenu](#enablemenu) about AC_MENUITEM_t.</span></dd>
-</dl>
 
 ### <i class="fa fa-caret-right"></i> getEEPROMUsedSize
 
@@ -313,6 +364,28 @@ Register the handler function of the AutoConnectAux.
 
 !!! caution "It is not ESP8266WebServer::on, not WebServer::on for ESP32."
     This function effects to AutoConnectAux only. However, it coexists with that of ESP8266WebServer::on or WebServer::on of ESP32. 
+
+### <i class="fa fa-caret-right"></i> onConnct
+
+```cpp
+void onConnect(ConnectExit_ft fn)
+```
+Register the function which will call from AutoConnect at the WiFi connection established.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the WiFi connected.</span></dd>
+</dl>
+
+An *fn* specifies the function called when the WiFi connected. Its prototype declaration is defined as "*ConnectExit_ft*".
+
+```cpp
+typedef std::function<void(IPAddress& localIP)>  ConnectExit_ft;
+```
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">localIP</span><span class="apidesc">An IP address of the ESP module as STA.</span></dd>
+</dd>
+</dl>
 
 ### <i class="fa fa-caret-right"></i> onDetect
 

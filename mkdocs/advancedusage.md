@@ -214,63 +214,79 @@ void loop() {
 }
 ```
 
-### <i class="fa fa-caret-right"></i> Casts the HTML pages to be add-on into the menu
+### <i class="fa fa-caret-right"></i> Capture the legacy web pages as items into the menu
 
-If your sketch handles web pages, you can embed the pages into the AutoConnect menu in continuance enjoying the utility of the WiFi connection feature. Unlike the custom Web pages by [AutoConnectElements](acelements.md), this allows to legacy web pages registered by *ESP8266WebServer::on* or *WebServer::on* function.
+You can embed the ordinary page processed by the ESP8266WebServer request handler as an item into the AutoConnect menu. AutoConnect allows capturing the legacy web pages for ESP8266WebServer or WebServer of ESP32 and extends the menu containing these items, also Sketch can embed the legacy pages using the [*AutoConnect::append*](api.md#append) function.
 
-To implement embedding your legacy web pages to the AutoConnect menu, you can use AutoConnectAux only constructed with the URI of the page to be embedding. AutoConnectElements is not required. The basic procedure for this as follows:
+To process a web page using the ESP8266WebServer class (The WebServer class for ESP32), you usually register a handler with URI by the `on` function. The [*AutoConnect::append*](api.md#append) function creates internally an [**AutoConnectAux**](acintro.md) depended on its URI and integrates into the menu.
 
-1. Declare AutoConnectAux for each legacy page. It includes the URI of the page and item string which will display in the AutoConnect menu.
-2. Sketch the legacy page handlers.
-3. Register those handler functions to ESP8266WebServer/WebServer with the **on** function.
-4. Register AutoConnectAux declared with #1 to AutoConnect using [*AutoConnect::join*](api.md#join) function. It serves as a menu item.
-5. [Begin](api.md#begin) the portal.
-6. Performs [*AutoConnect::handleClient*](api.md#handleClient) in the **loop** function.
+The following code has a mixture of both AutoConnectAux and the legacy web page. An AutoConnectAux page is menued automatically with the [*AutoConnect::join*](api.md#join) or [*AutoConnect::load*](api.md#load) function, and a legacy page is integrated by the [*AutoConnect::append*](api.md#append) function.
 
-```cpp hl_lines="10 28 32"
+```cpp hl_lines="26 35"
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <AutoConnect.h>
 
-ESP8266WebServer  server;
+ESP8266WebServer server;
+AutoConnect      portal(server);
 
-// Declaration for casting legacy page to AutoConnect menu.
-// Specifies an uri and the menu label.
-AutoConnect       portal(server);
-AutoConnectAux    hello("/hello", "Hello");   // Step #1 as the above procedure
-
-// Step #2 as the above procedure
-// A conventional web page driven by the ESP8266WebServer::on handler.
-// This is a legacy.
-void handleHello() {
-  server.send(200, "text/html", String(F(
-"<html>"
-"<head><meta name='viewport' content='width=device-width,initial-scale=1.0'></head>"
-"<body>Hello, world</body>"
-"</html>"
-  )));
+// Definitions of AutoConnectAux page
+static const char PAGE[] PROGMEM = R"(
+{
+  "title": "PAGE",
+  "uri": "/page",
+  "menu": true,
+  "element": [
+    {
+      "name": "cap",
+      "type": "ACText",
+      "value": "This is a custom web page."
+    }
+  ]
 }
+)";
 
 void setup() {
-  // Step #3 as the above procedure
-  // Register the "on" handler as usual to ESP8266WebServer.
-  // Match this URI with the URI of AutoConnectAux to cast.
-  server.on("/hello", handleHello);
+  // The Web page handler located to /hello
+  server.on("/hello", [](){
+    server.send(200, "text/html", String(F(
+"<html>"
+"<head><meta name='viewport' content='width=device-width,initial-scale=1.0'></head>"
+"<body><h2>Hello, world</h2></body>"
+"</html>"
+    )));
+  });
 
-  // Step #4 as the above procedure
-  // Joins AutoConnectAux to cast the page via the handleRoot to AutoConnect.
-  portal.join({ hello });
-  portal.begin();           // Step #5 as the above procedure
+  portal.append("/hello", "HELLO");  // Adds an item as HELLO into the menu
+  portal.load(FPSTR(PAGE));               // Load AutoConnectAux custom web page
+  portal.begin();
 }
 
 void loop() {
-  portal.handleClient();    // Step #6 as the above procedure
+  portal.handleClient();
 }
+  
 ```
 
-<img width="232px" src="images/castmenu.png">
+<span style="display:block;margin-left:auto;margin-right:auto;width:284px;height:462px;border:1px solid lightgrey;"><img data-gifffer="images/addmenu.gif" data-gifffer-height="460" data-gifffer-width="282" /></span>
 
-For more details, see section [Constructing the menu](menuize.md) of Examples page.
+The [*AutoConnect::append*](api.md#append) function also has the third parameter that directly specifies the request handler. It has similar efficacy to calling the append and `ESP8266WebSever::on` at once.
+
+```cpp
+portal.append("/hello", "HELLO", [](){
+  server.send(200, "text/html", String(F(
+"<html>"
+"<head><meta name='viewport' content='width=device-width,initial-scale=1.0'></head>"
+"<body><h2>Hello, world</h2></body>"
+"</html>"
+  )));
+});
+```
+
+For more details, see section [Attach the menu](menuize.md) of Examples page.
+
+!!! note "Necessary ESP8266WebServer/WebServer has materialized"
+    The WebServer must have instantiated for calling with a request handler parameter. AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the [AutoConnct::append](api.md#append) function with a request handler parameter must be after [AutoConnect::begin](api.md#begin).
 
 ### <i class="fa fa-caret-right"></i> Change the menu labels
 
@@ -357,7 +373,7 @@ Combining these two parameters allows you to filter the destination AP when mult
 </tr>
 <tr>
     <td>Specified with the Sketch</td>
-    <td>Not efective</td>
+    <td>Not effective</td>
     <td>By AutoConnect::begin parameters</td>
     <td>Use the specified value of AutoConnectConfig</td>
 </tr>
@@ -383,6 +399,44 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 ```cpp
 #define AC_DEBUG
 ```
+
+### <i class="fa fa-caret-right"></i> Detect WiFi connection establishment with a router
+
+[*AutoConnect::onConnect*](api.md#onconnect) allows the Sketch to detect a WiFi connection to a router. The Sketch uses [*AutoConnect::onConnect*] to register a function to call when WiFi connected.  
+For example, as the following Sketch, this can be combined with [*AutoConnectConfig::retainPortal*](apiconfig.md#retainportal) to stop **SoftAP** in a **loop()**. It avoids blocking in the captive portal state by AutoConnect and allows the loop to run even without a WiFi connection.
+
+```cpp hl_lines="13 14 15 16 17 18 19"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+AutoConnect Portal;
+AutoConnectConfig config;
+
+void setup() {
+  Serial.begin(115200);
+  config.portalTimeout = 1;
+  config.retainPortal = true;
+  portal.config(config);
+  portal.onConnect([](IPAddress& ip){
+    Serial.printf("Connected %s\n", ip.toString().c_str());
+    if (WiFi.getMode() == WI_AP_STA) {
+      WiFi.softAPdisconnect(false);
+      WiFi.mode(WIFI_STA);
+    }
+  });
+  portal.begin();
+}
+
+void loop() {
+  // Here, the Sketch can execute without WiFi connection.
+  // It avoids blocking the state by the captive portal even if the captive portal is available.
+  portal.handleClient();
+}
+```
+
+!!! note "It is not an event"
+    AutoConnect::onConnect has the same effect on the Sketch as the [WiFi.onStationModeConnected](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/generic-class.html#onevent), but AutoConnect does not use the event. Sketch can use `WiFi.onEvent` independently of AutoConnect.
 
 ### <i class="fa fa-caret-right"></i> Disable the captive portal
 
@@ -519,7 +573,7 @@ Here section describes how to launch on demand the captive portal, and suggests 
           portal = nullptr;
         }
       }
-      // Here, ordinally sketch logic.
+      // Here, ordinary sketch logic.
     }
     ```
 
@@ -638,7 +692,7 @@ The Sketch HOME path is closely related to the [bootUri](apiconfig.md#booturi) t
 
 AutoConnect features a built-in OTA function to update ESP module firmware. You can easily make the Sketch that equips OTA and able to operate with the AutoConnect menu.
 
-<span style="display:block;margin-left:auto;margin-right:auto;width:294px;height:482px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="480" data-gifffer-width="292" /></span>
+<span style="display:block;margin-left:auto;margin-right:auto;width:284px;height:462px;border:1px solid lightgrey;"><img data-gifffer="images/webupdate.gif" data-gifffer-height="460" data-gifffer-width="282" /></span>
 
 [*AutoConnectConfig::ota*](apiconfig.md#ota) specifies to import the [built-in OTA update class](otabrowser.md) into the Sketch.  
 See the [Updates with the Web Browser](otabrowser.md) chapter for details.
@@ -684,7 +738,7 @@ Also, you can specify the SSID, password for SoftAP with the constructor of the 
 
 ```cpp hl_lines="2"
 AutoConnect portal;
-AutoConnectConfig config("ap_portal", "new_passwrod");
+AutoConnectConfig config("ap_portal", "new_password");
 
 void setup() {
   portal.config(config);
