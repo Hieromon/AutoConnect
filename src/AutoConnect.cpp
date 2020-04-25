@@ -368,16 +368,6 @@ bool AutoConnect::_getConfigSTA(station_config_t* config) {
 }
 
 /**
- *  Put a user site's home URI.
- *  The URI specified by home is linked from "HOME" in the AutoConnect
- *  portal menu.
- *  @param  uri   A URI string of user site's home.
- */
-void AutoConnect::home(const String& uri) {
-  _apConfig.homeUri = uri;
-}
-
-/**
  *  Stops AutoConnect captive portal service.
  */
 void AutoConnect::end(void) {
@@ -393,150 +383,18 @@ void AutoConnect::end(void) {
 }
 
 /**
- *  Returns the current hosted ESP8266WebServer.
+ *  Get the total amount of memory required to hold the AutoConnect credentials
+ *  and any custom configuration settings stored in EEPROM.
+ *  This function is available only for ESP8266 use.
+ *  @return  Combined size of AutoConnect credentials and custom settings.
  */
-WebServerClass& AutoConnect::host(void) {
-  return  *_webServer;
-}
-
-/**
- *  Returns AutoConnectAux instance of specified.
- *  @param  uri  An uri string.
- *  @return A pointer of AutoConnectAux instance.
- */
-AutoConnectAux* AutoConnect::aux(const String& uri) const {
-  AutoConnectAux* aux_p = _aux;
-  while (aux_p) {
-    if (!strcmp(aux_p->uri(), uri.c_str()))
-      break;
-    aux_p = aux_p->_next;
-  }
-  return aux_p;
-}
-
-/**
- *  Append auxiliary pages made up with AutoConnectAux.
- *  @param  aux A reference to AutoConnectAux that made up
- *  the auxiliary page to be added.
- */
-void AutoConnect::join(AutoConnectAux& aux) {
-  if (_aux)
-    _aux->_concat(aux);
-  else
-    _aux = &aux;
-  aux._join(*this);
-  AC_DBG("%s on hands\n", aux.uri());
-}
-
-/**
- *  Append auxiliary pages made up with AutoConnectAux.
- *  @param  aux A vector of reference to AutoConnectAux that made up
- *  the auxiliary page to be added.
- */
-void AutoConnect::join(AutoConnectAuxVT auxVector) {
-  for (std::reference_wrapper<AutoConnectAux> aux : auxVector)
-    join(aux.get());
-}
-
-/**
- *  Creates an AutoConnectAux dynamically with the specified URI and
- *  integrates it into the menu. Returns false if a menu item with
- *  the same URI already exists.
- *  @param  uri   An uri of a new item to add
- *  @param  title Title of the menu item
- *  @return true  Added
- *  @return false The same item has existed.
- */
-bool AutoConnect::addMenuItem(const String& uri, const String& title) {
-  AutoConnectAux* reg = aux(uri);
-  if (!reg) {
-    reg = new AutoConnectAux(uri, title);
-    join(*reg);
-    return true;
-  }
-  return false;
-}
-
-/**
- *  Creates an AutoConnectAux dynamically with the specified URI and
- *  integrates it into the menu. It will register the request handler
- *  for the WebServer after the addMenuItem works. It has similar
- *  efficacy to calling addMenuItem and WebSever::on at once.
- *  @param  uri     An uri of a new item to add
- *  @param  title   Title of the menu item
- *  @param  handler Function of the request handler for WebServer class
- *  @return true    Added
- *  @return false   The same item has existed.
- */
-bool AutoConnect::addMenuItem(const String& uri, const String& title, WebServerClass::THandlerFunction handler) {
-  if (_webServer) {
-    if (addMenuItem(uri, title)) {
-      _webServer->on(uri, handler);
-      return true;
-    }
-  }
-  return false;
-}
-
-/**
- *  Release a AutoConnectAux from the portal.
- *  @param  uri   An uri of the AutoConnectAux should be released
- *  @return true  Specified AUX has released
- *  @return false Specified AUX not registered
- */
-AutoConnectAux* AutoConnect::release(const String &uri) {
-  AutoConnectAux**  self = &_aux;
-  while (*self) {
-    if (!strcmp((*self)->uri(), uri.c_str())) {
-      AC_DBG("%s released\n", (*self)->uri());
-      AutoConnectAux* ref = *self;
-      *self = (*self)->_next;
-      return ref;
-    }
-    self = &((*self)->_next);
-  }
-  return nullptr;
-}
-
-/**
- *  Starts Web server for AutoConnect service.
- */
-void AutoConnect::_startWebServer(void) {
-  // Boot Web server
-  if (!_webServer) {
-    // Only when hosting WebServer internally
-    _webServer =  WebserverUP(new WebServerClass(AUTOCONNECT_HTTPPORT), std::default_delete<WebServerClass>() );
-    AC_DBG("WebServer allocated\n");
-  }
-  // Discard the original the not found handler to redirect captive portal detection.
-  // It is supposed to evacuate but ESP8266WebServer::_notFoundHandler is not accessible.
-  _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
-  // here, Prepare PageBuilders for captive portal
-  if (!_responsePage) {
-    _responsePage.reset( new PageBuilder() );
-    _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
-    _responsePage->onUpload(std::bind(&AutoConnect::_handleUpload, this, std::placeholders::_1, std::placeholders::_2));
-    _responsePage->insert(*_webServer);
-
-    _webServer->begin();
-    AC_DBG("http server started\n");
-  }
-  else {
-    AC_DBG("http server readied\n");
-  }
-}
-
-/**
- *  Starts DNS server for Captive portal.
- */
-void AutoConnect::_startDNSServer(void) {
-  // Boot DNS server, set up for captive portal redirection.
-  if (!_dnsServer) {
-    _dnsServer.reset(new DNSServer());
-    _dnsServer->setErrorReplyCode(DNSReplyCode::NoError);
-    _dnsServer->start(AUTOCONNECT_DNSPORT, "*", WiFi.softAPIP());
-    AC_DBG("DNS server started\n");
-  }
+uint16_t AutoConnect::getEEPROMUsedSize(void) {
+#if defined(ARDUINO_ARCH_ESP8266)
+  AutoConnectCredential credentials(_apConfig.boundaryOffset);
+  return _apConfig.boundaryOffset + credentials.dataSize();
+#elif defined(ARDUINO_ARCH_ESP32)
+  return 0;
+#endif
 }
 
 /**
@@ -682,6 +540,123 @@ void AutoConnect::handleRequest(void) {
     if (WiFi.status() == WL_CONNECTED)
       _ticker->stop();
   }
+}
+
+/**
+ *  Put a user site's home URI.
+ *  The URI specified by home is linked from "HOME" in the AutoConnect
+ *  portal menu.
+ *  @param  uri   A URI string of user site's home.
+ */
+void AutoConnect::home(const String& uri) {
+  _apConfig.homeUri = uri;
+}
+
+/**
+ *  Returns the current hosted ESP8266WebServer.
+ */
+WebServerClass& AutoConnect::host(void) {
+  return  *_webServer;
+}
+
+/**
+ *  Returns AutoConnectAux instance of specified.
+ *  @param  uri  An uri string.
+ *  @return A pointer of AutoConnectAux instance.
+ */
+AutoConnectAux* AutoConnect::aux(const String& uri) const {
+  AutoConnectAux* aux_p = _aux;
+  while (aux_p) {
+    if (!strcmp(aux_p->uri(), uri.c_str()))
+      break;
+    aux_p = aux_p->_next;
+  }
+  return aux_p;
+}
+
+/**
+ *  Creates an AutoConnectAux dynamically with the specified URI and
+ *  integrates it into the menu. Returns false if a menu item with
+ *  the same URI already exists.
+ *  @param  uri   An uri of a new item to add
+ *  @param  title Title of the menu item
+ *  @return A pointer to an added AutoConnectAux
+ */
+AutoConnectAux* AutoConnect::append(const String& uri, const String& title) {
+  AutoConnectAux* reg = aux(uri);
+  if (!reg) {
+    reg = new AutoConnectAux(uri, title);
+    join(*reg);
+    return reg;
+  }
+  AC_DBG("%s has already listed\n", uri.c_str());
+  return nullptr;
+}
+
+/**
+ *  Creates an AutoConnectAux dynamically with the specified URI and
+ *  integrates it into the menu. It will register the request handler
+ *  for the WebServer after the addMenuItem works. It has similar
+ *  efficacy to calling addMenuItem and WebSever::on at once.
+ *  @param  uri     An uri of a new item to add
+ *  @param  title   Title of the menu item
+ *  @param  handler Function of the request handler for WebServer class
+ *  @return true    Added
+ *  @return A pointer to an added AutoConnectAux
+ */
+AutoConnectAux* AutoConnect::append(const String& uri, const String& title, WebServerClass::THandlerFunction handler) {
+  if (_webServer) {
+    AutoConnectAux* reg = append(uri, title);
+    if (reg)
+      _webServer->on(uri, handler);
+    return reg;
+  }
+  return nullptr;
+}
+
+/**
+ *  Detach a AutoConnectAux from the portal.
+ *  @param  uri   An uri of the AutoConnectAux should be released
+ *  @return true  Specified AUX has released
+ *  @return false Specified AUX not registered
+ */
+AutoConnectAux* AutoConnect::detach(const String &uri) {
+  AutoConnectAux**  self = &_aux;
+  while (*self) {
+    if (!strcmp((*self)->uri(), uri.c_str())) {
+      AC_DBG("%s released\n", (*self)->uri());
+      AutoConnectAux* ref = *self;
+      *self = (*self)->_next;
+      return ref;
+    }
+    self = &((*self)->_next);
+  }
+  AC_DBG("%s not listed\n", uri.c_str());
+  return nullptr;
+}
+
+/**
+ *  Append auxiliary pages made up with AutoConnectAux.
+ *  @param  aux A reference to AutoConnectAux that made up
+ *  the auxiliary page to be added.
+ */
+void AutoConnect::join(AutoConnectAux& aux) {
+  if (_aux)
+    _aux->_concat(aux);
+  else
+    _aux = &aux;
+  aux._join(*this);
+  AC_DBG("%s on hands\n", aux.uri());
+}
+
+/**
+ *  Append auxiliary pages made up with AutoConnectAux.
+ *  @param  aux A vector of reference to AutoConnectAux that made up
+ *  the auxiliary page to be added.
+ */
+void AutoConnect::join(AutoConnectAuxVT auxVector) {
+  for (std::reference_wrapper<AutoConnectAux> aux : auxVector)
+    join(aux.get());
 }
 
 /**
@@ -832,18 +807,44 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
 }
 
 /**
- *  Get the total amount of memory required to hold the AutoConnect credentials
- *  and any custom configuration settings stored in EEPROM.
- *  This function is available only for ESP8266 use.
- *  @return  Combined size of AutoConnect credentials and custom settings.
+ *  Starts Web server for AutoConnect service.
  */
-uint16_t AutoConnect::getEEPROMUsedSize(void) {
-#if defined(ARDUINO_ARCH_ESP8266)
-  AutoConnectCredential credentials(_apConfig.boundaryOffset);
-  return _apConfig.boundaryOffset + credentials.dataSize();
-#elif defined(ARDUINO_ARCH_ESP32)
-  return 0;
-#endif
+void AutoConnect::_startWebServer(void) {
+  // Boot Web server
+  if (!_webServer) {
+    // Only when hosting WebServer internally
+    _webServer =  WebserverUP(new WebServerClass(AUTOCONNECT_HTTPPORT), std::default_delete<WebServerClass>() );
+    AC_DBG("WebServer allocated\n");
+  }
+  // Discard the original the not found handler to redirect captive portal detection.
+  // It is supposed to evacuate but ESP8266WebServer::_notFoundHandler is not accessible.
+  _webServer->onNotFound(std::bind(&AutoConnect::_handleNotFound, this));
+  // here, Prepare PageBuilders for captive portal
+  if (!_responsePage) {
+    _responsePage.reset( new PageBuilder() );
+    _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
+    _responsePage->onUpload(std::bind(&AutoConnect::_handleUpload, this, std::placeholders::_1, std::placeholders::_2));
+    _responsePage->insert(*_webServer);
+
+    _webServer->begin();
+    AC_DBG("http server started\n");
+  }
+  else {
+    AC_DBG("http server readied\n");
+  }
+}
+
+/**
+ *  Starts DNS server for Captive portal.
+ */
+void AutoConnect::_startDNSServer(void) {
+  // Boot DNS server, set up for captive portal redirection.
+  if (!_dnsServer) {
+    _dnsServer.reset(new DNSServer());
+    _dnsServer->setErrorReplyCode(DNSReplyCode::NoError);
+    _dnsServer->start(AUTOCONNECT_DNSPORT, "*", WiFi.softAPIP());
+    AC_DBG("DNS server started\n");
+  }
 }
 
 /**

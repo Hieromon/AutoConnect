@@ -217,8 +217,6 @@ class AutoConnect {
   AutoConnect();
   AutoConnect(WebServerClass& webServer);
   ~AutoConnect();
-  AutoConnectAux* aux(const String& uri) const;
-  AutoConnectAux* release(const String& uri);
   bool  begin(void);
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
   bool  config(AutoConnectConfig& Config);
@@ -229,14 +227,17 @@ class AutoConnect {
   void  handleRequest(void);
   void  home(const String& uri);
   WebServerClass& host(void);
+  String where(void) const { return _auxUri; }
+
+  AutoConnectAux* aux(const String& uri) const;
+  AutoConnectAux* append(const String& uri, const String& title);
+  AutoConnectAux* append(const String& uri, const String& title, WebServerClass::THandlerFunction handler);
+  AutoConnectAux* detach(const String& uri);
+  inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
+  inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
-  String where(void) const { return _auxUri; }
-  bool  addMenuItem(const String& uri, const String& title);
-  bool  addMenuItem(const String& uri, const String& title, WebServerClass::THandlerFunction handler);
-  inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
-  inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
@@ -261,14 +262,14 @@ class AutoConnect {
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
   String _getBootUri(void);
   bool  _getConfigSTA(station_config_t* config);
-  void  _startWebServer(void);
-  void  _startDNSServer(void);
-  void  _handleNotFound(void);
   bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   bool  _loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent);
+  void  _startWebServer(void);
+  void  _startDNSServer(void);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
+  void  _handleNotFound(void);
   void  _purgePages(void);
   virtual PageElement*  _setupPage(String& uri);
 #ifdef AUTOCONNECT_USE_JSON
@@ -352,13 +353,13 @@ class AutoConnect {
 
   /** PageElements of AutoConnect site. */
   static const char _CSS_BASE[] PROGMEM;
+  static const char _CSS_LUXBAR[] PROGMEM;
   static const char _CSS_UL[] PROGMEM;
   static const char _CSS_ICON_LOCK[] PROGMEM;
   static const char _CSS_INPUT_BUTTON[] PROGMEM;
   static const char _CSS_INPUT_TEXT[] PROGMEM;
   static const char _CSS_TABLE[] PROGMEM;
   static const char _CSS_SPINNER[] PROGMEM;
-  static const char _CSS_LUXBAR[] PROGMEM;
   static const char _ELM_HTML_HEAD[] PROGMEM;
   static const char _ELM_MENU_PRE[] PROGMEM;
   static const char _ELM_MENU_AUX[] PROGMEM;
@@ -381,41 +382,41 @@ class AutoConnect {
 
   /** Token handlers for PageBuilder */
   String _token_CSS_BASE(PageArgument& args);
-  String _token_CSS_UL(PageArgument& args);
   String _token_CSS_ICON_LOCK(PageArgument& args);
   String _token_CSS_INPUT_BUTTON(PageArgument& args);
   String _token_CSS_INPUT_TEXT(PageArgument& args);
-  String _token_CSS_TABLE(PageArgument& args);
-  String _token_CSS_SPINNER(PageArgument& args);
   String _token_CSS_LUXBAR(PageArgument& args);
-  String _token_HEAD(PageArgument& args);
-  String _token_MENU_PRE(PageArgument& args);
+  String _token_CSS_SPINNER(PageArgument& args);
+  String _token_CSS_TABLE(PageArgument& args);
+  String _token_CSS_UL(PageArgument& args);
   String _token_MENU_AUX(PageArgument& args);
   String _token_MENU_POST(PageArgument& args);
+  String _token_MENU_PRE(PageArgument& args);
+  String _token_AP_MAC(PageArgument& args);
+  String _token_BOOTURI(PageArgument& args);
+  String _token_CHANNEL(PageArgument& args);
+  String _token_CHIP_ID(PageArgument& args);
+  String _token_CONFIG_STAIP(PageArgument& args);
+  String _token_CPU_FREQ(PageArgument& args);
+  String _token_CURRENT_SSID(PageArgument& args);
+  String _token_DBM(PageArgument& args);
   String _token_ESTAB_SSID(PageArgument& args);
+  String _token_FLASH_SIZE(PageArgument& args);
+  String _token_FREE_HEAP(PageArgument& args);
+  String _token_GATEWAY(PageArgument& args);
+  String _token_HEAD(PageArgument& args);
+  String _token_HIDDEN_COUNT(PageArgument& args);
+  String _token_LIST_SSID(PageArgument& args);
+  String _token_LOCAL_IP(PageArgument& args);
+  String _token_NETMASK(PageArgument& args);
+  String _token_OPEN_SSID(PageArgument& args);
+  String _token_SOFTAP_IP(PageArgument& args);
+  String _token_SSID_COUNT(PageArgument& args);
+  String _token_STA_MAC(PageArgument& args);
+  String _token_STATION_STATUS(PageArgument& args);
+  String _token_UPTIME(PageArgument& args);
   String _token_WIFI_MODE(PageArgument& args);
   String _token_WIFI_STATUS(PageArgument& args);
-  String _token_STATION_STATUS(PageArgument& args);
-  String _token_LOCAL_IP(PageArgument& args);
-  String _token_SOFTAP_IP(PageArgument& args);
-  String _token_GATEWAY(PageArgument& args);
-  String _token_NETMASK(PageArgument& args);
-  String _token_AP_MAC(PageArgument& args);
-  String _token_STA_MAC(PageArgument& args);
-  String _token_CHANNEL(PageArgument& args);
-  String _token_DBM(PageArgument& args);
-  String _token_CPU_FREQ(PageArgument& args);
-  String _token_FLASH_SIZE(PageArgument& args);
-  String _token_CHIP_ID(PageArgument& args);
-  String _token_FREE_HEAP(PageArgument& args);
-  String _token_LIST_SSID(PageArgument& args);
-  String _token_SSID_COUNT(PageArgument& args);
-  String _token_HIDDEN_COUNT(PageArgument& args);
-  String _token_CONFIG_STAIP(PageArgument& args);
-  String _token_OPEN_SSID(PageArgument& args);
-  String _token_UPTIME(PageArgument& args);
-  String _token_BOOTURI(PageArgument& args);
-  String _token_CURRENT_SSID(PageArgument& args);
 
  private:
   static const  String  _emptyString; /**< An empty string allocation  **/
