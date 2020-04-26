@@ -232,7 +232,7 @@ class AutoConnect {
   AutoConnectAux* aux(const String& uri) const;
   AutoConnectAux* append(const String& uri, const String& title);
   AutoConnectAux* append(const String& uri, const String& title, WebServerClass::THandlerFunction handler);
-  AutoConnectAux* detach(const String& uri);
+  bool  detach(const String& uri);
   inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
   inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   void  join(AutoConnectAux& aux);

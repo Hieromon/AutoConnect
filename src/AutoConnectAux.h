@@ -148,6 +148,7 @@ class AutoConnectAux : public PageBuilder {
 
   String  _title;                             /**< A title of the page */
   bool    _menu;                              /**< Switch for menu displaying */
+  bool    _deletable = false;                 /**< Allow deleting itself. */
   AC_AUTH_t _httpAuth = AC_AUTH_NONE;         /**< Applying HTTP authentication */
   String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */

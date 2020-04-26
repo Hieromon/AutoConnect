@@ -285,8 +285,9 @@ portal.append("/hello", "HELLO", [](){
 
 For more details, see section [Attach the menu](menuize.md) of Examples page.
 
-!!! note "Necessary ESP8266WebServer/WebServer has materialized"
-    The WebServer must have instantiated for calling with a request handler parameter. AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the [AutoConnct::append](api.md#append) function with a request handler parameter must be after [AutoConnect::begin](api.md#begin).
+!!! note "An instance of ESP8266WebServer/WebServer is needed"
+    When calling the append function with request handler parameters, an instance of the WebServer as the registration destination must exist.  
+    AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the [AutoConnct::append](api.md#append) function with a request handler parameter must be after [AutoConnect::begin](api.md#begin).
 
 ### <i class="fa fa-caret-right"></i> Change the menu labels
 

@@ -586,6 +586,7 @@ AutoConnectAux* AutoConnect::append(const String& uri, const String& title) {
   AutoConnectAux* reg = aux(uri);
   if (!reg) {
     reg = new AutoConnectAux(uri, title);
+    reg->_deletable = true;
     join(*reg);
     return reg;
   }
@@ -611,6 +612,7 @@ AutoConnectAux* AutoConnect::append(const String& uri, const String& title, WebS
       _webServer->on(uri, handler);
     return reg;
   }
+  AC_DBG("No WebServer instance\n");
   return nullptr;
 }
 
@@ -620,19 +622,21 @@ AutoConnectAux* AutoConnect::append(const String& uri, const String& title, WebS
  *  @return true  Specified AUX has released
  *  @return false Specified AUX not registered
  */
-AutoConnectAux* AutoConnect::detach(const String &uri) {
+bool AutoConnect::detach(const String &uri) {
   AutoConnectAux**  self = &_aux;
   while (*self) {
     if (!strcmp((*self)->uri(), uri.c_str())) {
       AC_DBG("%s released\n", (*self)->uri());
       AutoConnectAux* ref = *self;
       *self = (*self)->_next;
-      return ref;
+      if (ref->_deletable)
+        delete ref;
+      return true;
     }
     self = &((*self)->_next);
   }
   AC_DBG("%s not listed\n", uri.c_str());
-  return nullptr;
+  return false;
 }
 
 /**

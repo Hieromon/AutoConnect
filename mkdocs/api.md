@@ -99,7 +99,7 @@ Returns the pointer to created AutoConnectAux instance, the `nullptr` if an Auto
     <dd>A Pointer to a created AutoConnectAux instance.</dd>
 </dl>
 
-!!! note "Necessary ESP8266WebServer/WebServer has materialized"
+!!! note "An instance of ESP8266WebServer/WebServer is needed"
     The WebServer must have instantiated for calling with a request handler parameter. AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the append function with a request handler parameter must be after AutoConnect::begin.
 
 ### <i class="fa fa-caret-right"></i> aux
@@ -162,18 +162,21 @@ Set SoftAP's WiFi configuration and static IP configuration.
 
 ### <i class="fa fa-caret-right"></i> detach
 ```cpp
-AutoConnectAux* detach(const String& uri)
+bool detach(const String& uri)
 ```
 Detach the AutoConnectAux with the specified URI from the management of AutoConnect. An unmanaged AutoConnectAux will no longer appear in menu items, and its page handler will no longer respond even if the URI is accessed directly. 
 <dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">uri</span><span class="apidesc">URI of AutoConnectAux to be detached.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Successfully detached.</span></dd>
+    <dd><span class="apidef">false</span><span class="aidesc">An AutoConnectAux with the specified URI does not exist.</span></dd>
 </dl>
 
 If the request handler registered in the detaching AutoConnectAux is for a legacy page of the ESP8266WebServer/WebServer, the URI is still valid after detaching. AutoConnect does not delete the request handler registered to ESP8266WebServer/WebServer with the `on` function. (It cannot be removed)
 
 !!! hint "Deleting the AutoConnectAux"
-    You can use the return value from the AotoConnect::detach to delete the AutoConnectAux instance which dynamically created with the [AutoConnect::append](api.md#append).
+    If the AutoConnectAux to detach was added by [AutoConnect::append](api.md#append), it will be automatically removed and freed from memory.
 
 ### <i class="fa fa-caret-right"></i> disableMenu
 
