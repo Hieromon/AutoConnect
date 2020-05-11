@@ -79,18 +79,24 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // Overwrite for the current timeout value.
   _connectTimeout = timeout;
 
-  if (_apConfig.preserveAPMode && !_apConfig.autoRise) {
+  if (_apConfig.preserveWiFiMode && !_apConfig.autoRise) {
     // Captive portal will not be started on connection failure. Enable Station mode
     // without disabling any current soft AP.
-    cs = WiFi.enableSTA(true);
-    AC_DBG(PSTR("Enable WIFI_STA: %s\n"), cs ? "Ok" : "Failed");
+    AC_DBG("WiFi mode %d maintained, STA ", WiFi.getMode());
+    if (WiFi.enableSTA(true)) {
+      AC_DBG_DUMB("enabled");
+    }
+    else {
+      AC_DBG_DUMB("unavailable");
+    }
   }
   else {
     // Start WiFi connection with station mode.
     WiFi.softAPdisconnect(true);
-    cs = WiFi.mode(WIFI_STA);
+    if (!WiFi.mode(WIFI_STA)) {
+      AC_DBG("Unable start WIFI_STA");
+    }
     delay(100);
-    AC_DBG(PSTR("Switch to WIFI_STA: %s\n"), cs ? "Ok" : "Failed");
   }
 
   // Set host name
