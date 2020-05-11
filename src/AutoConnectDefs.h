@@ -21,8 +21,8 @@
 #define AC_DBG_DUMB(fmt, ...) do {AC_DEBUG_PORT.printf(PSTR(fmt), ## __VA_ARGS__ );} while (0)
 #define AC_DBG(fmt, ...) do {AC_DEBUG_PORT.printf(PSTR("[AC] " fmt), ## __VA_ARGS__ );} while (0)
 #else
-#define AC_DBG(...)
-#define AC_DBG_DUMB(...)
+#define AC_DBG(...) do {} while(0)
+#define AC_DBG_DUMB(...) do {} while(0)
 #endif // !AC_DEBUG
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.
