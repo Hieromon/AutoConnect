@@ -761,7 +761,7 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
       "</div>"
     "</div>"
     "<script type=\"text/javascript\">"
-      "setTimeout(\"link()\"," AUTOCONNECT_RESPONSE_WAITTIME ");"
+      "setTimeout(\"link()\"," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_RESPONSE_WAITTIME) ");"
       "function link(){location.href='" AUTOCONNECT_URI_RESULT "';}"
     "</script>"
   "</body>"

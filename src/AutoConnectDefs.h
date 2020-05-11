@@ -113,9 +113,9 @@
 #define AUTOCONNECT_STARTUPTIME (AUTOCONNECT_TIMEOUT/1000)
 #endif // !AUTOCONNECT_STARTUPTIME
 
-// Response wait time until requesting a result of connection attempt, uint:[s] as String
+// Response wait time until requesting a result of connection attempt, uint:[ms]
 #ifndef AUTOCONNECT_RESPONSE_WAITTIME
-#define AUTOCONNECT_RESPONSE_WAITTIME "2"
+#define AUTOCONNECT_RESPONSE_WAITTIME 2000
 #endif // !AUTOCONNECT_RESPONSE_WAITTIME
 
 // Default HTTP port
