@@ -105,7 +105,7 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
-    preserveWiFiMode(false),
+    preserveAPMode(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     ticker(false),
@@ -142,7 +142,7 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
-    preserveWiFiMode(false),
+    preserveAPMode(false),
     portalTimeout(portalTimeout),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     ticker(false),
@@ -179,7 +179,7 @@ class AutoConnectConfig {
     autoReconnect = o.autoReconnect;
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
-    preserveWiFiMode = o.preserveWiFiMode;
+    preserveAPMode = o.preserveAPMode;
     portalTimeout = o.portalTimeout;
     menuItems = o.menuItems;
     ticker = o.ticker;
@@ -216,7 +216,7 @@ class AutoConnectConfig {
   bool      autoReconnect;      /**< Automatic reconnect with past SSID */
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
-  bool      preserveWiFiMode;   /**< Keep existing WiFi mode if captive portal won't be started. */
+  bool      preserveAPMode;     /**< Keep existing AP WiFi mode if captive portal won't be started. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   uint16_t  menuItems;          /**< A compound value of the menu items to be attached */
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
