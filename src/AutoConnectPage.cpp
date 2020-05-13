@@ -1344,23 +1344,20 @@ String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
  */
 String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
   static const char _liTempl[]  PROGMEM = "<li class=\"lb-item\"%s><a href=\"%s\">%s</a></li>";
-  PGM_P id;
+  PGM_P id = PSTR("");
   PGM_P link;
   PGM_P label;
 
   switch (static_cast<AC_MENUITEM_t>(_apConfig.menuItems & static_cast<uint16_t>(item))) {
   case AC_MENUITEM_CONFIGNEW:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI_CONFIG);
     label = PSTR(AUTOCONNECT_MENULABEL_CONFIGNEW);
     break;
   case AC_MENUITEM_OPENSSIDS:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI_OPEN);
     label = PSTR(AUTOCONNECT_MENULABEL_OPENSSIDS);
     break;
   case AC_MENUITEM_DISCONNECT:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI_DISCON);
     label = PSTR(AUTOCONNECT_MENULABEL_DISCONNECT);
     break;
@@ -1370,12 +1367,10 @@ String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
     label = PSTR(AUTOCONNECT_MENULABEL_RESET);
     break;
   case AC_MENUITEM_HOME:
-    id = PSTR("");
     link = PSTR("HOME_URI");
     label = PSTR(AUTOCONNECT_MENULABEL_HOME);
     break;
   case AC_MENUITEM_DEVINFO:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI);
     label = PSTR(AUTOCONNECT_MENULABEL_DEVINFO);
     break;
