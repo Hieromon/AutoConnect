@@ -83,14 +83,14 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     // Captive portal will not be started on connection failure. Enable Station mode
     // without disabling any current soft AP.
     cs = WiFi.enableSTA(true);
-    AC_DBG(PSTR("Enable WIFI_STA: %s\n"), cs ? "Ok" : "Failed");
+    AC_DBG("WiFi mode %d maintained, STA %s\n", WiFi.getMode(), cs ? "enabled" : "unavailable");
   }
   else {
     // Start WiFi connection with station mode.
     WiFi.softAPdisconnect(true);
-    cs = WiFi.mode(WIFI_STA);
+    if (!WiFi.mode(WIFI_STA))
+      AC_DBG("Unable start WIFI_STA\n");
     delay(100);
-    AC_DBG(PSTR("Switch to WIFI_STA: %s\n"), cs ? "Ok" : "Failed");
   }
 
   // Set host name
