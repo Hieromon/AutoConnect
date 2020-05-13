@@ -54,8 +54,6 @@ WebServer server(80);
 //Add a below line for AutoConnect.
 AutoConnect       portal(server);
 AutoConnectConfig config;
-AutoConnectAux    FSBedit("/edit", "Edit");
-AutoConnectAux    FSBlist("/list?dir=\"/\"", "List");
 //holds the current upload
 File fsUploadFile;
 
@@ -325,7 +323,8 @@ void setup(void){
   config.title = "FSBrowser";
   portal.config(config);
   //Register AutoConnect menu
-  portal.join({ FSBedit, FSBlist });
+  portal.append("/edit", "Edit");
+  portal.append("/list?dir=\"/\"", "List");
   //Replacement as follows to make AutoConnect recognition.
   //server.begin();
   portal.begin();
