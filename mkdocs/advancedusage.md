@@ -2,11 +2,12 @@
 
 ### <i class="fa fa-caret-right"></i> 404 handler
 
-Registering the "not found" handler is a different way than ESP8266WebServer (WebServer as ESP32). The *onNotFound* of ESP8266WebServer/WebServer does not work with AutoConnect. AutoConnect overrides *ESP8266WebServer::onNotFound*/*WebServer::onNotFound* to handle a captive portal. To register "not found" handler, use [*AutoConnect::onNotFound*](api.md#onnotfound).
+AutoConnect cannot allow the Sketch registers the **"Not-found"** handler (404-handler) to the ESP8266WebServer natively. AutoConnect traps Not-found handler of the ESP8266WebServer for its own page processing. If the Sketch overrides the Not-found handler, AutoConnect will miss the opportunity to control the HTTP session and becomes unresponsive to the menu.  
+Registering the Not-found handler is a different method than for ESP8266WebServer, use [AutoConnect::onNotFound](api.md#onnotfound). This restriction applies to the WebServer for ESP32 as well.
 
 ### <i class="fa fa-caret-right"></i> Access to saved credentials
 
-AutoConnect stores the established WiFi connection in the flash of the ESP8266/ESP32 module and equips the class to access it from the Sketch. You can read, write or erase the credentials using this class individually. It's [AutoConnectCredential](credit.md#autoconnectcredential) class which provides the access method to the saved credentials in the flash. Refer to section [Saved credentials access](credit.md) for details.
+AutoConnect stores the credentials of the established WiFi connection in the flash of the ESP8266/ESP32 module and equips the class to access them from the Sketch. The Sketch can read, write, or erase the credentials using this class as the [AutoConnectCredential](credit.md#autoconnectcredential) individually. Refer to section [Saved credentials access](credit.md) for details.
 
 !!! note "Where to store credentials in ESP32 with AutoConnect v1.0.0 or later"
     Since v1.0.0, credentials are stored in nvs of ESP32. AutoConnect v1.0.0 or later accesses the credentials area using the **Preferences** class with the arduino esp-32 core. So in ESP32, the credentials are not in the EEPROM, it is in the namespace **AC_CREDT** of the nvs. See [Saved credentials access](credit.md) for details.  
@@ -14,11 +15,11 @@ AutoConnect stores the established WiFi connection in the flash of the ESP8266/E
 
 ### <i class="fa fa-caret-right"></i> Automatic reconnect
 
-AutoConnect changes WIFI mode depending on the situation. The [AutoConnect::begin](lsbegin.md) function starts WIFI in STA mode and starts the webserver if the connection is successful by the 1st-WiFi.begin. But if the connection fails with the least recently established access point, AutoConnect will switch the WIFI mode to AP_STA and starts the DNS server to be able to launch a captive portal.
+AutoConnect will change the WiFi mode depending on the situation. The [AutoConnect::begin](lsbegin.md) function starts WiFi mode in **STA** and starts the webserver if the connection is successful by the 1st-WiFi.begin. But if it will fail to connect with the least recently established access point, it will switch the WiFi mode to **AP_STA** and starts the DNS server to be able to launch a captive portal.
 
-When the captive portal is started, SoftAP starts and the STA is disconnected. At this point, the station configuration information that the ESP module has stored on its own (it is known as the SDK's [station_config](https://github.com/esp8266/Arduino/blob/db75d2c448bfccc6dc308bdeb9fbd3efca7927ff/tools/sdk/include/user_interface.h#L249) structure) is discarded.
+When the captive portal starts, **SoftAP** starts and STA disconnected. At this point, the station configuration information (it is known as the SDK's [station_config](https://github.com/esp8266/Arduino/blob/db75d2c448bfccc6dc308bdeb9fbd3efca7927ff/tools/sdk/include/user_interface.h#L249) structure) that the ESP module has stored on its own is discarded.
 
-AutoConnect can connect to an access point again using saved credential that has disconnected once, and its control is allowed by [**autoReconnect**](apiconfig.md#autoreconnect). [*AutoConnectConfig::autoReconnect*](apiconfig.md#autoreconnect) option specifies to attempt to reconnect to the past established access point that stored in saved credentials. AutoConnect does not start SoftAP immediately even if 1st-WiFi.begin fails when the [**autoReconnct**](apiconfig.md#autoreconnect) is enabled. It will scan the WiFi signal, and if the same BSSID as the detected BSSID is stored in flash as AutoConnect credentials, explicitly apply it and reruns WiFi.begin still WIFI_STA mode. (The autoReconnect works effectively even if the SSID is a hidden access point)
+AutoConnect can connect to an access point again that has disconnected once, and its control is allowed by [*AutoConnectConfig::autoReconnect*](apiconfig.md#autoreconnect) that option specifies to attempt to reconnect to the past established access point using the saved credentials. If the [**autoReconnect**](apiconfig.md#autoreconnect) is enabled, AutoConnect will not launch SoftAP immediately even if 1st-WiFi.begin fails. When AutoConnect fails to connect WiFi, it will scan the WiFi signal to find out which access points it had connected to in the past. Then if it finds the saved BSSID in the broadcasts, AutoConnect will attempt to connect again applying the matched credential explicitly while still in STA mode. (AutoReconnect works well even with hidden SSID access points)
 
 ```cpp hl_lines="3"
 AutoConnect       Portal;
@@ -129,7 +130,7 @@ Basically, the captive portal launch is subject to 1st-WiFi.begin result, but Sk
 
 Once AutoConnect has entered the captive portal state due to the above conditions, it will not exit until a WiFi connection can be established. (But that is the default behavior)
 
-The Sketch can abort the [*AutoConnect::begin*](api.md#begin) by setting the captive portal timeout and returns control to Sketch. AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of [*AutoConnect::begin*](api.md#begin). The default value is macro defined by [**AUTOCONNECT_TIMEOUT**](api.md#defined-macros) in the **AutoConnectDefs.h** file.
+The Sketch can abort the [*AutoConnect::begin*](api.md#begin) by setting the captive portal timeout and returns control to Sketch. AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of [*AutoConnect::begin*](api.md#begin). The default value is macro defined by [**AUTOCONNECT_TIMEOUT**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L103) in AutoConnectDefs.h header file.
 
 The other timeout control is for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the [**immediateStart**](#on-demand-start-the-captive-portal) option to create sketches with high mobility.
 
@@ -216,11 +217,10 @@ void loop() {
 
 ### <i class="fa fa-caret-right"></i> Capture the legacy web pages as items into the menu
 
-You can embed the ordinary page processed by the ESP8266WebServer request handler as an item into the AutoConnect menu. AutoConnect allows capturing the legacy web pages for ESP8266WebServer or WebServer of ESP32 and extends the menu containing these items, also Sketch can embed the legacy pages using the [*AutoConnect::append*](api.md#append) function.
+You can embed the ordinary page processed by the ESP8266WebServer request handler as an item into the AutoConnect menu. AutoConnect can capture the legacy web pages for ESP8266WebServer or WebServer of ESP32 and extends the menu containing these items.  
+In ordinary, the Sketch registers the request handler for the page depending on URI using the [ESP8266WebServer::on](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers) function. AutoConnect allows Sketch to bundle the registered legacy page into a menu. the Sketch is able to include its URI to a menu item using [*AutoConnect::append*](api.md#append) function that creates internally an [**AutoConnectAux**](acintro.md) depended on its URI and integrates into the menu.
 
-To process a web page using the ESP8266WebServer class (The WebServer class for ESP32), you usually register a handler with URI by the `on` function. The [*AutoConnect::append*](api.md#append) function creates internally an [**AutoConnectAux**](acintro.md) depended on its URI and integrates into the menu.
-
-The following code has a mixture of both AutoConnectAux and the legacy web page. An AutoConnectAux page is menued automatically with the [*AutoConnect::join*](api.md#join) or [*AutoConnect::load*](api.md#load) function, and a legacy page is integrated by the [*AutoConnect::append*](api.md#append) function.
+The following code has a mixture of both AutoConnectAux and the legacy web page. An AutoConnectAux page is menued automatically with the [*AutoConnect::join*](api.md#join) or [*AutoConnect::load*](api.md#load) function. Similarly, a legacy page is integrated by the [*AutoConnect::append*](api.md#append) function.
 
 ```cpp hl_lines="26 35"
 #include <ESP8266WiFi.h>
@@ -270,7 +270,9 @@ void loop() {
 
 <span style="display:block;margin-left:auto;margin-right:auto;width:284px;height:462px;border:1px solid lightgrey;"><img data-gifffer="images/addmenu.gif" data-gifffer-height="460" data-gifffer-width="282" /></span>
 
-The [*AutoConnect::append*](api.md#append) function also has the third parameter that directly specifies the request handler. It has similar efficacy to calling the append and `ESP8266WebSever::on` at once.
+The [*AutoConnect::append*](api.md#append) function also has the third parameter that directly specifies the request handler. It has similar efficacy to calling the append and `ESP8266WebSever::on` at once. [^1]
+
+[^1]: However, the pages registered this way remain legacy. Therefore, the AutoConnect menu bar is not appeared. 
 
 ```cpp
 portal.append("/hello", "HELLO", [](){
@@ -283,7 +285,7 @@ portal.append("/hello", "HELLO", [](){
 });
 ```
 
-For more details, see section [Attach the menu](menuize.md) of Examples page.
+For more details, see section [Attach the menus](menuize.md) of Examples page.
 
 !!! note "An instance of ESP8266WebServer/WebServer is needed"
     When calling the append function with request handler parameters, an instance of the WebServer as the registration destination must exist.  
@@ -316,7 +318,7 @@ You can change the label text for each menu item but cannot change them at run t
 
 2. Change the label literals for each Arduino project
 
-    Another way to change the label literal is to provide a header file that defines the label literals, as mentioned in [Appendix](changelabel.md#change-the-items-label-text). You can also use this method to display label text and fixed text in the local language on the AutoConnect page. See [**Appendix:Change the item's label text**](changelabel.md#change-the-items-label-text) for details.
+    Another way to change the label literal is to provide a header file that defines the label literals, as mentioned in [Appendix](changelabel.md#change-the-items-label-text). You can also use this method to display label text and fixed text in the local language on the AutoConnect page. See [Change the item's label text](changelabel.md#change-the-items-label-text) section for details.
 
 ### <i class="fa fa-caret-right"></i> Combination with mDNS
 
@@ -393,9 +395,9 @@ Combining these two parameters allows you to filter the destination AP when mult
 
 ### <i class="fa fa-caret-right"></i> Debug print
 
-You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14) macro to output the monitor messages.[^1]
+You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14) macro to output the monitor messages.[^2]
 
-[^1]:The source code placement of common macros for AutoConnect since v0.9.7 has changed.
+[^2]:The source code placement of common macros for AutoConnect since v0.9.7 has changed.
 
 ```cpp
 #define AC_DEBUG
@@ -403,7 +405,7 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 
 ### <i class="fa fa-caret-right"></i> Detect WiFi connection establishment with a router
 
-[*AutoConnect::onConnect*](api.md#onconnect) allows the Sketch to detect a WiFi connection to a router. The Sketch uses [*AutoConnect::onConnect*] to register a function to call when WiFi connected.  
+[*AutoConnect::onConnect*](api.md#onconnect) allows the Sketch to detect a WiFi connection to a router. The Sketch uses [*AutoConnect::onConnect*](api.md#onconnect) to register a function to call when WiFi connected.  
 For example, as the following Sketch, this can be combined with [*AutoConnectConfig::retainPortal*](apiconfig.md#retainportal) to stop **SoftAP** in a **loop()**. It avoids blocking in the captive portal state by AutoConnect and allows the loop to run even without a WiFi connection.
 
 ```cpp hl_lines="13 14 15 16 17 18 19"
@@ -423,7 +425,7 @@ void setup() {
     Serial.printf("Connected %s\n", ip.toString().c_str());
     if (WiFi.getMode() == WI_AP_STA) {
       WiFi.softAPdisconnect(false);
-      WiFi.mode(WIFI_STA);
+      WiFi.mode(WiFi_STA);
     }
   });
   portal.begin();
@@ -473,7 +475,7 @@ portal.begin();
 
 ### <i class="fa fa-caret-right"></i> On-demand start the captive portal
 
-The [default behavior of AutoConnect::begin](lsbegin.md) gives priority to connect to the least recently established access point. In general, We expect this behavior in most situations, but will intentionally launch the captive portal on some occasion.
+The [default behavior](lsbegin.md) of [*AutoConnect::begin*](api.md#begin) gives priority to connect to the least recently established access point. In general, We expect this behavior in most situations, but will intentionally launch the captive portal on some occasion.
 
 Here section describes how to launch on demand the captive portal, and suggests two templates that you can use to implement it.
 
@@ -536,7 +538,7 @@ Here section describes how to launch on demand the captive portal, and suggests 
     }
 
     bool connectWiFi(const char* ssid, const char* password, unsigned long timeout) {
-      WiFi.mode(WIFI_STA);
+      WiFi.mode(WiFi_STA);
       delay(100);
       WiFi.begin(ssid, password);
       unsigned long tm = millis();
@@ -640,7 +642,9 @@ void loop() {
 
 ### <i class="fa fa-caret-right"></i> Use with the [PageBuilder](https://github.com/Hieromon/PageBuilder) library
 
-In ordinary, the URL handler will respond the request by sending some HTML. [PageBuilder](https://github.com/Hieromon/PageBuilder) library is HTML assembly aid. it can handle predefined HTML as like a template and simplify an HTML string assemble logic, and also the generated HTML send automatically.
+In ordinary, the URL handler will respond to the request from the client by sending some HTML. It will dynamically generate the HTML to respond to based on the sensing data etc. for the changing scene, but it contains elements of variable values in the middle of the HTML fixed string. Therefore, sketches tend to be in a tangled that repeats the logic for data handling and string splicing in turn, which tends to be less readable and maintainable.
+
+[PageBuilder](https://github.com/Hieromon/PageBuilder) library is an HTML assembly aid. it can handle predefined HTML like the template and simplify an HTML string assemble logic, and also the generated HTML send automatically.
 
 An example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for [Github repository](https://github.com/Hieromon/PageBuilder).
 
@@ -648,15 +652,15 @@ An example sketch used with the PageBuilder as follows and it explains how it ai
 
 ## Configuration functions
 
-You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apiconfig.md). AutoConnectConfig is a class that has only AutoConnect configuration data. You define the behavior of AutoConnect using AutoConnectConfig member variables and give it to AutoConnect via the [AutoConnect::config](api.md#config) function.
+You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apiconfig.md). AutoConnectConfig is a class that has only AutoConnect configuration settings. You define the behavior of AutoConnect using AutoConnectConfig member variables and give it to AutoConnect via the [*AutoConnect::config*](api.md#config) function.  
+AutoConnectConfig allows the Sketch controls the behavior of follows:
 
-AutoConnectConfig can specify the following runtime behavior:
-
+- [Applying HTTP authentication](#applying-http-authentication)
 - [Assign user sketch's home path](#assign-user-sketchs-home-path)
 - [Built-in OTA update](#built-in-ota-update-feature)
 - [Change menu title](#change-menu-title)
 - [Change SSID and Password for SoftAP](#change-ssid-and-password-for-softap)
-- [Configuration for Soft AP and captive portal](#configuration-for-soft-ap-and-captive-portal)
+- [Configuration for SoftAP and captive portal](#configuration-for-softap-and-captive-portal)
 - [Configure WiFi channel](#configure-wifi-channel)
 - [Move the saving area of EEPROM for the credentials](#move-the-saving-area-of-eeprom-for-the-credentials)
 - [Relocate the AutoConnect home path](#relocate-the-autoconnect-home-path)
@@ -665,7 +669,34 @@ AutoConnectConfig can specify the following runtime behavior:
 - [Ticker for WiFi status](#ticker-for-wifi-status)
 
 !!! note "AutoConnect::config before AutoConnect::begin"
-    *AutoConnect::config* must be executed before *AutoConnect::begin*.
+    AutoConnect::config must be executed before [*AutoConnect::begin*](api.md#begin).
+
+### <i class="fa fa-caret-right"></i> Applying HTTP authentication
+
+The Sketch may use authentication to protect custom web pages and prevent unauthorized access. AutoConnect has implemented HTTP authentication based on the [ESP8266WebServer::authenticate](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#authentication) function that allows applied to several scopes.
+
+[*AutoConnectConfig::auth*](apiconfig.md#auth) setting allows the Sketch to HTTP authenticate with "[**BASIC**](https://tools.ietf.org/html/rfc2617#section-2)" or "[**DIGEST**](https://tools.ietf.org/html/rfc2617#section-3)" scheme. [*AutoConnectConfig::authScope*](apiconfig.md#authscope) specifies the scope covered by authentication which is the whole range for all pages of the Sketch, custom web pages, or AutoConnect pages. [*AutoConnectConfig::username*](apiconfig.md#username) and [*AutoConnectConfig::password*](apiconfig.md#password) specifies credential as user-id/password pairs.
+
+The Sketch enables HTTP authentication with the [*AutoConnectConfig::auth*](apiconfig.md#auth) setting, also specifies the authentication scheme:
+
+- **AC_AUTH_NONE**  
+    AutoConnect pages and custom web pages do not require authentication. Not protected from all HTTP access. This is the default.
+- **AC_AUTH_DIGEST**  
+    Protect AutoConnect pages and custom web pages with DIGEST authentication.
+- **AC_AUTH_BASIC**  
+    Protect AutoConnect pages and custom web pages with BASIC authentication.
+
+Note that the authentication scope specified in [*AutoConnectConfig::authScope*](apiconfig.md#authscope) is different from the protection scope shown by [**Realm**](https://tools.ietf.org/html/rfc7235#section-2.2) for HTTP authentication. AutoConnect assumes only one Realm and defines it as [**AUTOCONNECT_AUTH_REALM**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L239) in AutoConnectDefs.h header file. Instead, the Sketch will be able to expand or narrow the range of authentication by [*AutoConnectConfig::authScope*](apiconfig.md#authscope) setting, which can be either as follows:
+
+- **AC_AUTHSCOPE_PORTAL**  
+    Require authentication to access for all AutoConnect pages, including custom web pages.
+- **AC_AUTHSCOPE_AUX**  
+    Require authentication to access for all custom web pages, excepting AutoConnect pages. This is the Default.
+- **AC_AUTHSCOPE_PARTIAL**  
+    Authenticate only specific custom web pages which are specified by [*AutoConnectAux::authentication*](apiaux.md#authentication) function or JSON.
+
+!!! info "PageBuilder v1.4.0 or later needed"
+    [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.4.1 or later is required to use HTTP authentication with AutoConnect.
 
 ### <i class="fa fa-caret-right"></i> Assign user sketch's home path
 
@@ -676,11 +707,11 @@ AutoConnectConfig can specify the following runtime behavior:
 The Sketch HOME path is closely related to the [bootUri](apiconfig.md#booturi) that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:
 
 - **AUTOCONNECT_URI**  
-    The **ROOT** of AutoConnect. It is defined in `AutoConnectDefs.h` and is assigned an [AutoConnect statistics screen](menu.md#where-the-from) by default.
+    The **ROOT** URI of AutoConnect. It is defined in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69) file and is assigned to [AutoConnect statistics screen](menu.md#where-the-from) by default.
 - [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri)  
-    It is the hyperlink of listed on the AutoConnect menu list as **HOME**.
+    It is the hyperlink of listed on the AutoConnect menu as **HOME**.
 - [**AutoConnectConfig::bootUri**](apiconfig.md#booturi)  
-    Which page appears at the captive portal, AUTOCONNECT_URI or the homeUri. Its page will pop up automatically when you visit the captive portal.
+    Which page appears at the captive portal, AUTOCONNECT_URI, or the homeUri. Its page will pop up automatically when you visit the captive portal.
 
 | The definition of **HOME** | Behavior | Specified by | Default value | Possible value |
 |---|---|---|---|---|
@@ -750,7 +781,7 @@ void setup() {
 You can also assign no password to SoftAP launched as a captive portal. Assigning a null string as `String("")` to [*AutoConnectConfig::psk*](apiconfig.md#psk) does not require a password when connecting to SoftAP.  
 But this method is not recommended. The broadcast radio of SSID emitted from SoftAP will leak and reach several tens of meters.
 
-### <i class="fa fa-caret-right"></i> Configuration for Soft AP and captive portal
+### <i class="fa fa-caret-right"></i> Configuration for SoftAP and captive portal
 
 AutoConnect will activate SoftAP at failed the 1st-WiFi.begin. It SoftAP settings are stored in [**AutoConnectConfig**](apiconfig.md#autoconnectconfig) as the following parameters. The Sketch could be configured SoftAP using these parameters, refer the [AutoConnectConfig API](apiconfig.md#public-member-variables) for details.
 
@@ -818,17 +849,17 @@ EEPROM.end();
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 
-A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69) macro in the include header file as [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h).
+A home path of AutoConnect is **/\_ac** by default. You can access from the browser with http://IPADDRESS/\_ac. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69) macro in AutoConnectDefs.h header file.
 
 ```cpp
 #define AUTOCONNECT_URI         "/_ac"
 ```
 
-### <i class="fa fa-caret-right"></i> Static IP assignment [^2]
+### <i class="fa fa-caret-right"></i> Static IP assignment [^3]
 
 It is also possible to assign static IP Address to ESP8266/ESP32 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.
 
-To assign a static IP to ESP8266/ESP32 with WIFI\_MODE\_STA, the following parameters are required:
+To assign a static IP to ESP8266/ESP32 with WiFi\_MODE\_STA, the following parameters are required:
 
 - IP address.
 - Gateway address.
@@ -849,7 +880,7 @@ portal.config(Config);
 portal.begin();
 ```
 
-[^2]:Static IP address assignment is available from version 0.9.3.
+[^3]:Static IP address assignment is available from version 0.9.3.
 
 ### <i class="fa fa-caret-right"></i> Station host name
 
@@ -877,11 +908,11 @@ portal.begin();
 
 The AutoConnect ticker indicates the WiFi connection status in the following three flicker patterns:
 
-- Short blink: The ESP module stays in APSTA mode.
+- Short blink: The ESP module stays in AP_STA mode.
 - Short-on and long-off: No STA connection state. (i.e. WiFi.status != WL_CONNECTED)
 - No blink: WiFi connection with access point established and data link enabled. (i.e. WiFi.status = WL_CONNECTED)
 
-The flicker cycle length is defined by some macros in `AutoConnectDefs.h` header file.
+The flicker cycle length is defined by some macros in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
 
 ```cpp
 #define AUTOCONNECT_FLICKER_PERIODAP  1000 // [ms]
@@ -890,16 +921,16 @@ The flicker cycle length is defined by some macros in `AutoConnectDefs.h` header
 #define AUTOCONNECT_FLICKER_WIDTHDC   16  // (8 bit resolution)
 ```
 
-- `AUTOCONNECTT_FLICKER_PERIODAP`:  
-  Assigns a flicker period when the ESP module stays in APSTA mode.
-- `AUTOCONNECT_FLICKER_PERIODDC`:  
+- **AUTOCONNECTT_FLICKER_PERIODAP**:  
+  Assigns a flicker period when the ESP module stays in AP_STA mode.
+- **AUTOCONNECT_FLICKER_PERIODDC**:  
   Assigns a flicker period when WiFi is disconnected.
-- `AUTOCONNECT_FLICKER_WIDTHAP` and `AUTOCONNECT_FLICKER_WIDTHDC`:  
-  Specify the duty rate for each period[ms] in 8-bit resolution.
+- **AUTOCONNECT_FLICKER_WIDTHAP** and **AUTOCONNECT_FLICKER_WIDTHDC**:  
+  Specify the duty rate for each period [ms] in 8-bit resolution.
 
-[*AutoConnectConfig::tickerPort*](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^3]
+[*AutoConnectConfig::tickerPort*](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^4]
 
-[^3]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
+[^4]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
 
 [*AutoConnectConfig::tickerOn*](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**. The logic level of LED_BUILTIN for popular modules are as follows:
 
