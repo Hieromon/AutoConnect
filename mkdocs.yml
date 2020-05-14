@@ -33,7 +33,7 @@ nav:
   - 'Examples' :
     - 'How to embed': howtoembed.md
     - 'Tips for data conversion': datatips.md
-    - 'Attach the menu': menuize.md
+    - 'Attach the menus': menuize.md
     - 'Custom Web pages w/o JSON': wojson.md
   - 'Appendix':
     - 'Inside AutoConnect::begin': lsbegin.md

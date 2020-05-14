@@ -1,6 +1,6 @@
 ## Saved credentials in the flash
 
-AutoConnect stores the established WiFi connection in the flash memory of the ESP8266/ESP32 module and equips the class to access the credentials from the sketch. You can read, write or erase the credentials using this class individually. It's [**AutoConnectCredential**](#autoconnectcredential) class which provides the access method to the saved credentials in the flash.[^1]
+AutoConnect stores the credentials of the established WiFi connection in the flash memory of the ESP8266/ESP32 module and equips the class to access the credentials from the sketch. You can read, write, or erase the credentials using this class individually. It's the [**AutoConnectCredential**](#autoconnectcredential), which provides the way of access to the credentials stored in flash.[^1]
 
 [^1]:An example using AutoConnectCredential is provided as [an example](https://github.com/Hieromon/AutoConnect/blob/master/examples/Credential/Credential.ino) of a library sketch to delete saved credentials.
 

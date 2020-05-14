@@ -368,7 +368,7 @@ Register the handler function of the AutoConnectAux.
 !!! caution "It is not ESP8266WebServer::on, not WebServer::on for ESP32."
     This function effects to AutoConnectAux only. However, it coexists with that of ESP8266WebServer::on or WebServer::on of ESP32. 
 
-### <i class="fa fa-caret-right"></i> onConnct
+### <i class="fa fa-caret-right"></i> onConnect
 
 ```cpp
 void onConnect(ConnectExit_ft fn)
