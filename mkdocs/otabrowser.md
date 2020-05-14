@@ -62,7 +62,7 @@ void loop() {
 [^1]:For ESP32, change the following items:
 
     - Change the include directives appropriately for the ESP32 environment.
-    - Change ESP8266WebServer to Web.
+    - Change ESP8266WebServer to WebServer.
 
 !!! faq "How LED ticking during updates"
     AutoConnectOTA applies LED ticking during updates automatically. The destination LED port and ticker drive depends on [AutoConnectConfig::tickerPort](apiconfig.md#tickerport) and [AutoConnectConfig::tickerOn](apiconfig.md#tickeron) specifying.
@@ -132,10 +132,9 @@ When the compilation is complete, a binary sketch will save with the extension `
 
 ### <i class="fa fa-edit"></i> OTA updates w/browser without using AutoConnectOTA
 
-The legacy OTA method based on ESP8266HTTPUpdateServer without AutoConnectOTA is still valid. 
-To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, basically follow these steps:
+The legacy OTA method based on ESP8266HTTPUpdateServer without AutoConnectOTA is still valid. To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, basically follow these steps:
 
-1. Include `ESP8266HTTPUpdateServer.h`, also `WiFiClient.h`, in addition to the usual directives as `ESP8266WebServer.h` and `AutoConnect.h`.
+1. Include `ESP8266HTTPUpdateServer.h`, also `WiFiClient.h`, in addition to the usual directives as `ESP8266WebServer.h` and `AutoConnect.h`.[^2]
 2. Declare an ESP8266WebServer object. (In ESP32, as WebServer)
 3. Declare an ESP8266HTTPUpdateServer object.
 4. Declare an AutoConnect object with an ESP8266WebServer object as an argument.
@@ -149,6 +148,8 @@ To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, ba
     3. Join these pages to AutoConnect along with the update dialog page declared in step #5.
     4. Invokes [AutoConnect::begin](api.md#begin) function.
 10. Invokes [AutoConnect::handleClient](api.md#handleclient) function in the `loop()`. 
+
+[^2]: The AutoConnect library provides an implementation of the **HTTPUpdateServer** class that ported from ESP8266HTTPUpdateServer class for ESP32 intention. It is contained the **WebUpdate** under the examples folder.
 
 ```cpp
 #include <ESP8266WiFi.h>
