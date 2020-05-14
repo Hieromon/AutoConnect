@@ -40,6 +40,31 @@ Sets IP address for Soft AP in captive portal. When AutoConnect fails the initia
     <dd><span class="apidef">IPAddress</span><span class="apidesc">The default value is **172.217.28.1**</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> auth
+
+Apply HTTP authentication with the AutoConnect web page. This This setting allows the Sketch to authenticate with "BASIC" or "DIGEST" scheme. It is given as an enumeration value of **AC_AUTH_t** that indicates the authentication scheme.  
+This setting determines the default scheme for HTTP authentication with AutoConnect. When the [**AutoConnectConfig::authScope**](#authscope) is **AC_AUTHSCOPE_PARTIAL**, each [AutoConnectAux authentication](apiaux.md#authentication) scheme has priority.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>AC_AUTH_t</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_AUTH_NONE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">No authentication. This is the default.</span></dd>
+    <dd><span class="apidef">AC_AUTH_DIGEST</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Use the [digest scheme](https://tools.ietf.org/html/rfc2617#section-3).</span></dd>
+    <dd><span class="apidef">AC_AUTH_BASIC</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Use the [basic scheme](https://tools.ietf.org/html/rfc2617#section-2).</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> authScope
+
+Specifies the authentication scope of AutoConnect Web pages. The Sketch will be able to expand or narrow the range of authentication by this setting, which can be either as **AC_AUTHSCOPE_t** enumeration value.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>AC_AUTHSCOPE_t</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_AUTHSCOPE_AUX</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Require authentication to access for all custom Web pages, excepting AutoConnect's pages. This is the Default.</span></dd>
+    <dd><span class="apidef">AC_AUTHSCOPE_PARTIAL</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Authenticate only specific custom Web pages which are specified by [AutoConnectAux::authentication](apiaux.md#authentication) function or JSON description.</span></dd>
+    <dd><span class="apidef">AC_AUTHSCOPE_PORTAL</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Require authentication to access for all AutoConnect's pages, including custom Web pages.</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> autoReconnect
 
 Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the flash, even if the connection failed by current SSID.  

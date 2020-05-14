@@ -42,6 +42,21 @@ Add an element to the AutoConnectAux. An added element is displayed on the custo
     <dd><span class="apidef">addons</span><span class="apidesc">An array list of reference of AutoConnectElements. The [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with braced-init-list of the [std::vector](https://en.cppreference.com/w/cpp/container/vector) can be used for the addons parameter cause the actual definition of type **AutoConnectElementVT** is `std::vector<std::reference_wrapper<AutoConnectElement>>`.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> authentication
+
+```cpp
+void  authentication(const AC_AUTH_t auth)
+```
+Set to require authentication with access to a page. When you access a page that requires authentication, HTTP authentication will be performed according to the scheme specified with the auth parameter.
+<dl class="apidl">
+    <dt>**Parameters**</dt>
+    <dd><span class="apidef">auth</span><span class="apidesc">Specifies authentication scheme with the following enumeration value.
+
+- **AC_AUTH_BASIC** : Basic scheme.
+- **AC_AUTH_DIGEST** : Digest scheme.
+    </span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> fetchElement
 
 ```cpp
@@ -179,7 +194,7 @@ Load specified element from JSON document into AutoConnectAux. The JSON document
 - Stream : An entity that inherits stream class, generally SPIFFS or SD.
     </span></dd>
     <dd><span class="apidef">name</span><span class="apidesc">Specifies the name to be load. If the name is not specified, the loadElement function will load all elements contained in the JSON document.</span></dd>
-    <dd><span class="apidef">names</span><span class="apidesc"> Spefifies an array list of String indicating the name of the element to be loaded. The [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with braced-init-list of the [std::vector](https://en.cppreference.com/w/cpp/container/vector) can be used.</span></dd>
+    <dd><span class="apidef">names</span><span class="apidesc"> Specifies an array list of String indicating the name of the element to be loaded. The [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization) with braced-init-list of the [std::vector](https://en.cppreference.com/w/cpp/container/vector) can be used.</span></dd>
     <dt>**Return value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Specified AutoConnectElements successfully loaded.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">JSON document loading failed.</span></dd>
