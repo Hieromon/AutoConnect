@@ -1105,7 +1105,7 @@ String AutoConnect::_invokeResult(PageArgument& args) {
 bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
   AC_UNUSED(method);
   _portalAccessPeriod = millis();
-  AC_DBG("Host:%s,URI:%s", _webServer->hostHeader().c_str(), uri.c_str());
+  AC_DBG("Host:%s,%s", _webServer->hostHeader().c_str(), uri.c_str());
 
   // Here, classify requested uri
   if (uri == _uri) {
