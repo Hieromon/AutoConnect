@@ -201,7 +201,7 @@ class AutoConnectConfig {
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
   AC_OTA_t  ota;                /**< Attach built-in OTA */
   AC_AUTH_t auth;               /**< Enable authentication */
-  AC_AUTHSCOPE_t  authScope;    /**< certification scope */
+  uint16_t  authScope;          /**< Authetication scope */
   String    username;           /**< User name for authentication */
   String    password;           /**< Authentication password */
   String    hostName;           /**< host name */
@@ -262,6 +262,7 @@ class AutoConnect {
     AC_RECONNECT_SET,
     AC_RECONNECT_RESET
   } AC_STARECONNECT_t;
+  void  _authentication(bool allow);
   bool  _config(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
   String _getBootUri(void);

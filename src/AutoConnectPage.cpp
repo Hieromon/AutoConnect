@@ -1558,20 +1558,46 @@ PageElement* AutoConnect::_setupPage(String& uri) {
         break;
       }
 
-    // Regiter authentication method
-    bool authCond = _apConfig.auth != AC_AUTH_NONE &&
-                    _apConfig.authScope == AC_AUTHSCOPE_PORTAL &&
-                    WiFi.status() == WL_CONNECTED &&
-                    reqAuth;
-    if (authCond) {
-      HTTPAuthMethod  auth = _apConfig.auth == AC_AUTH_BASIC ? BASIC_AUTH : DIGEST_AUTH;
-      String  failsContent = String(FPSTR(AutoConnect::_ELM_HTML_HEAD)) + String(F("</head><body>" AUTOCONNECT_TEXT_AUTHFAILED "</body></html>"));
-      _responsePage->authentication(_apConfig.username.c_str(), _apConfig.password.c_str(), auth, AUTOCONNECT_AUTH_REALM, failsContent);
-      AC_DBG_DUMB(",%s+%s/%s", auth == BASIC_AUTH ? "BASIC" : "DIGEST", _apConfig.username.c_str(), _apConfig.password.c_str());
-    }
-    else
-      _responsePage->authentication(nullptr, nullptr);
+    // Regiter authentication
+    // Determine the necessity of authentication from the AutoConnectConfig settings
+    bool auth = (_apConfig.auth != AC_AUTH_NONE) &&
+                (_apConfig.authScope & AC_AUTHSCOPE_AC) &&
+                reqAuth;
+    _authentication(auth);
   }
 
   return elm;
+}
+
+/**
+ *  Allow the page set upped to authenticate.
+ *  The argument parameter indicates that authentication is allowed with
+ *  the condition of the AutoConnect.authScope setting.
+ *  It determines to except authentication in the captive portal state
+ *  when the EXCEPTCP is enabled.
+ *  @param allow  Indication of whether to authenticate with the page.
+ */ 
+void AutoConnect::_authentication(bool allow) {
+  const char* user = nullptr;
+  const char* password = nullptr;
+  HTTPAuthMethod  method = _apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+  String  fails;
+
+  // Enable authentication by setting of AC_AUTHSCOPE_DISCONNECTED even if WiFi is not connected.
+  if (WiFi.status() != WL_CONNECTED && (WiFi.getMode() & WIFI_AP)) {
+    String  accUrl = _webServer->hostHeader();
+    if ((accUrl != WiFi.softAPIP().toString()) && !accUrl.endsWith(F(".local"))) {
+      if (_apConfig.authScope & AC_AUTHSCOPE_EXCEPTCP)
+        allow = false;
+    }
+  }
+
+  if (allow) {
+    // Regiter authentication method
+    user = _apConfig.username.c_str();
+    password = _apConfig.password.c_str();
+    fails = String(FPSTR(AutoConnect::_ELM_HTML_HEAD)) + String(F("</head><body>" AUTOCONNECT_TEXT_AUTHFAILED "</body></html>"));
+    AC_DBG_DUMB(",%s+%s/%s", method == HTTPAuthMethod::BASIC_AUTH ? "BASIC" : "DIGEST", user, password);
+  }
+  _responsePage->authentication(user, password, method, AUTOCONNECT_AUTH_REALM, fails);
 }

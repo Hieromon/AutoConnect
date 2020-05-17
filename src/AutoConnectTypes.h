@@ -48,9 +48,11 @@ typedef enum AC_OTA {
 
 /**< Scope of certification influence */
 typedef enum AC_AUTHSCOPE {
-  AC_AUTHSCOPE_PARTIAL,      // Available for particular AUX-pages.
-  AC_AUTHSCOPE_AUX,          // All AUX-pages are affected by an authentication.
-  AC_AUTHSCOPE_PORTAL        // All AutoConnect pages are affected by an authentication.
+  AC_AUTHSCOPE_PARTIAL  = 0x0001, // Available for particular AUX-pages.
+  AC_AUTHSCOPE_AUX      = 0x0002, // All AUX-pages are affected by an authentication.
+  AC_AUTHSCOPE_AC       = 0x0004, // Allow authentication to AutoConnect pages.
+  AC_AUTHSCOPE_PORTAL   = AC_AUTHSCOPE_AC | AC_AUTHSCOPE_AUX, // All AutoConnect pages are affected by an authentication.
+  AC_AUTHSCOPE_EXCEPTCP = 0x8000  // Ignore authentication even if AP only.
 } AC_AUTHSCOPE_t;
 
 /**< A type to enable authentication. */

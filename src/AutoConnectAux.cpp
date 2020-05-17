@@ -514,41 +514,12 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       // Restore transfer mode by each page
       mother->_responsePage->chunked(chunk);
 
-      // Register authentication method
-      // HTTP authentication works only when connected to WiFi
-      if (WiFi.status() == WL_CONNECTED) {
-        // Determine the necessity of authentication from the conditions of
-        // AutoConnectConfig::authScope and derive the method.
-        const char* authUser = nullptr;
-        const char* authPass = nullptr;
-        HTTPAuthMethod  method = DIGEST_AUTH;
-        bool  authCond = false;
-        if (mother->_apConfig.authScope == AC_AUTHSCOPE_PARTIAL) {
-          if (_httpAuth != AC_AUTH_NONE) {
-            authCond = true;
-            if (_httpAuth == AC_AUTH_BASIC)
-              method = BASIC_AUTH;
-          }
-        }
-        else {
-          if (mother->_apConfig.auth != AC_AUTH_NONE) {
-            authCond = true;
-            if (mother->_apConfig.auth == AC_AUTH_BASIC)
-              method = BASIC_AUTH;
-          }
-        }
-        if (authCond) {
-          authUser = mother->_apConfig.username.c_str();
-          authPass = mother->_apConfig.password.c_str();
-        }
-
-        // It entrusts authentication to PageBuilder.
-        // If WiFi is not connected, authUser will be null, and an authentication will not be issued.
-        String  failsContent = String(FPSTR(AutoConnect::_ELM_HTML_HEAD)) + String(F("</head><body>" AUTOCONNECT_TEXT_AUTHFAILED "</body></html>"));
-        mother->_responsePage->authentication(authUser, authPass, method, AUTOCONNECT_AUTH_REALM, failsContent);
-        if (authUser)
-          AC_DBG_DUMB(",%s+%s/%s", method == BASIC_AUTH ? "BASIC" : "DIGEST", authUser, authPass);
-      }
+      // Register authentication
+      // Determine the necessity of authentication from the conditions of
+      // AutoConnectConfig::authScope and derive the method.
+      bool  auth = (mother->_apConfig.authScope & AC_AUTHSCOPE_AUX) ||
+                   ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
+      mother->_authentication(auth);
     }
   }
   return elm;
