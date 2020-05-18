@@ -1594,8 +1594,8 @@ void AutoConnect::_authentication(bool allow) {
 
   if (allow) {
     // Regiter authentication method
-    user = _apConfig.username.c_str();
-    password = _apConfig.password.c_str();
+    user = _apConfig.username.length() ? _apConfig.username.c_str() : _apConfig.apid.c_str();
+    password = _apConfig.password.length() ? _apConfig.password.c_str() : _apConfig.psk.c_str();
     fails = String(FPSTR(AutoConnect::_ELM_HTML_HEAD)) + String(F("</head><body>" AUTOCONNECT_TEXT_AUTHFAILED "</body></html>"));
     AC_DBG_DUMB(",%s+%s/%s", method == HTTPAuthMethod::BASIC_AUTH ? "BASIC" : "DIGEST", user, password);
   }
