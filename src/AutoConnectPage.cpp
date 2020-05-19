@@ -1587,7 +1587,7 @@ void AutoConnect::_authentication(bool allow) {
   if (WiFi.status() != WL_CONNECTED && (WiFi.getMode() & WIFI_AP)) {
     String  accUrl = _webServer->hostHeader();
     if ((accUrl != WiFi.softAPIP().toString()) && !accUrl.endsWith(F(".local"))) {
-      if (_apConfig.authScope & !AC_AUTHSCOPE_WITHCP)
+      if (!(_apConfig.authScope & AC_AUTHSCOPE_WITHCP))
         allow = false;
     }
   }
