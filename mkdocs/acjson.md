@@ -25,18 +25,25 @@ AutoConnectAux will configure custom Web pages with JSON objects. The elements t
   "title" : title,
   "uri" : uri,
   "menu" : true | false,
+  "auth": authentication,
   "element" : element_array
 }
 ```
 
 #### <i class="fa fa-key"></i> **title**
-: A title of the custom Web page. This is string value. String specified *title* will be displayed in the AutoConnection menu.
+: A title of the custom Web page. This is string value and specifies the *title* will be displayed in the AutoConnection menu.
 
 #### <i class="fa fa-key"></i> **uri**
 : String of URI path that specifies where to place the custom Web page. It needs to be a location from the root path including '**/**'.
 
 #### <i class="fa fa-key"></i> **menu**
 : This is a Boolean value indicating whether to include the custom Web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.
+
+#### <i class="fa fa-key"></i> **auth**
+: It allows that this page requires authentication. An *authentication* specifies the following string that represents the authentication scheme.
+: - **NONE**: No authentication. This is default.
+: - **BASIC**: Apply Basic scheme.
+: - **DIGEST**: Apply Digest scheme.
 
 #### <i class="fa fa-key"></i> **element**
 : Describe an array of JSON objects as *element_array*. It is a JSON object array of the [AutoConnectElements](#json-object-for-autoconnectelements) that make up the custom Web page.

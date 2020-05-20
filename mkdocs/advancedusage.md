@@ -673,30 +673,161 @@ AutoConnectConfig allows the Sketch controls the behavior of follows:
 
 ### <i class="fa fa-caret-right"></i> Applying HTTP authentication
 
-The Sketch may use authentication to protect custom web pages and prevent unauthorized access. AutoConnect has implemented HTTP authentication based on the [ESP8266WebServer::authenticate](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#authentication) function that allows applied to several scopes.
+The Sketch may use authentication to protect custom Web pages and prevent unauthorized access. AutoConnect has implemented HTTP authentication based on the [ESP8266WebServer::authenticate](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#authentication) function that allows applied to several scopes.
 
 [*AutoConnectConfig::auth*](apiconfig.md#auth) setting allows the Sketch to HTTP authenticate with "[**BASIC**](https://tools.ietf.org/html/rfc2617#section-2)" or "[**DIGEST**](https://tools.ietf.org/html/rfc2617#section-3)" scheme. [*AutoConnectConfig::authScope*](apiconfig.md#authscope) specifies the scope covered by authentication which is the whole range for all pages of the Sketch, custom web pages, or AutoConnect pages. [*AutoConnectConfig::username*](apiconfig.md#username) and [*AutoConnectConfig::password*](apiconfig.md#password) specifies credential as user-id/password pairs.
 
 The Sketch enables HTTP authentication with the [*AutoConnectConfig::auth*](apiconfig.md#auth) setting, also specifies the authentication scheme:
 
 - **AC_AUTH_NONE**  
-    AutoConnect pages and custom web pages do not require authentication. Not protected from all HTTP access. This is the default.
+    AutoConnect pages and custom Web pages do not require authentication. Not protected from all HTTP access. This is the default.
 - **AC_AUTH_DIGEST**  
-    Protect AutoConnect pages and custom web pages with DIGEST authentication.
+    Protect AutoConnect pages and custom Web pages with DIGEST authentication.
 - **AC_AUTH_BASIC**  
-    Protect AutoConnect pages and custom web pages with BASIC authentication.
+    Protect AutoConnect pages and custom Web pages with BASIC authentication.
 
-Note that the authentication scope specified in [*AutoConnectConfig::authScope*](apiconfig.md#authscope) is different from the protection scope shown by [**Realm**](https://tools.ietf.org/html/rfc7235#section-2.2) for HTTP authentication. AutoConnect assumes only one Realm and defines it as [**AUTOCONNECT_AUTH_REALM**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L239) in AutoConnectDefs.h header file. Instead, the Sketch will be able to expand or narrow the range of authentication by [*AutoConnectConfig::authScope*](apiconfig.md#authscope) setting, which can be either as follows:
+Note that the authentication scope specified in [*AutoConnectConfig::authScope*](apiconfig.md#authscope) is different from the protection space shown by [**Realm**](https://tools.ietf.org/html/rfc7235#section-2.2) for HTTP authentication. AutoConnect assumes only one Realm and defines it as [**AUTOCONNECT_AUTH_REALM**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L239) in AutoConnectDefs.h header file. Instead, the Sketch will be able to expand or narrow the range of authentication by [*AutoConnectConfig::authScope*](apiconfig.md#authscope) setting, which can be either as follows:
 
 - **AC_AUTHSCOPE_PORTAL**  
-    Require authentication to access for all AutoConnect pages, including custom web pages.
+    Require authentication to access for all AutoConnect pages, including custom Web pages.
 - **AC_AUTHSCOPE_AUX**  
-    Require authentication to access for all custom web pages, excepting AutoConnect pages. This is the Default.
+    Require authentication to access for all custom Web pages, excepting AutoConnect pages. This is the Default.
 - **AC_AUTHSCOPE_PARTIAL**  
-    Authenticate only specific custom web pages which are specified by [*AutoConnectAux::authentication*](apiaux.md#authentication) function or JSON.
+    Authenticate only specific custom Web pages which are specified by [*AutoConnectAux::authentication*](apiaux.md#authentication) function or [JSON](acjson.md#auth).
+
+Also, a credential used for authentication is specified in the Sketch using the [*AutoConnectConfig::username*](apiconfig.md#username) and [*AutoConnectConfig::password*](apiconfig.md#password) settings.[^3]
+
+[^3]:The default user name and password for authentication inherits the setting of [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk).
+
+Here's a minimal Sketch with HTTP authentication for the custom Web page:
+
+```cpp hl_lines="26 27 28 29"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+static const char PAGE_AUTH[] PROGMEM = R"(
+{
+  "uri": "/auth",
+  "title": "Auth",
+  "menu": true,
+  "element": [
+    {
+      "name": "text",
+      "type": "ACText",
+      "value": "AutoConnect has authorized",
+      "style": "font-family:Arial;font-size:18px;font-weight:400;color:#191970"
+    }
+  ]
+}
+)";
+
+WebServerClass    server;
+AutoConnect       portal(server);
+AutoConnectConfig config;
+
+void setup() {
+  config.auth = AC_AUTH_DIGEST;
+  config.authScope = AC_AUTHSCOPE_AUX;
+  config.username = "user";
+  config.password = "password";
+  portal.config(config);
+  portal.load(FPSTR(PAGE_AUTH));
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+If you want to authenticate only specific pages in a Sketch that handles multiple custom Web pages, set **AC_AUTHSCOPE_PARTIAL** to [*AutoConnectConfig::authScope*](apiconfig.md#authscope). Then, indicate the authentication instruction using [**auth**](acjson.md#auth) key with JSON on the relevant page.  
+**AC_AUTHSCOPE_PARTIAL** value takes precedence over [*AutoConnectConfig::auth*](apiconfig.md#auth) setting and tells to use the specified authentication scheme on each custom Web page. In the following example Sketch, it has two custom web pages, `Hello` and `Auth`, and only the `Auth` page is applied authentication without AutoConnectConfig::auth setting.
+
+```cpp hl_lines="26 45"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+static const char PAGE_HELLO[] PROGMEM = R"(
+{
+  "uri": "/hello",
+  "title": "Hello",
+  "menu": true,
+  "element": [
+    {
+      "name": "text",
+      "type": "ACText",
+      "value": "Hello, word",
+      "style": "font-family:Arial;font-size:18px;font-weight:400;color:#191970"
+    }
+  ]
+}
+)";
+
+static const char PAGE_AUTH[] PROGMEM = R"(
+{
+  "uri": "/auth",
+  "title": "Auth",
+  "menu": true,
+  "auth": "digest",
+  "element": [
+    {
+      "name": "text",
+      "type": "ACText",
+      "value": "AutoConnect has authorized",
+      "style": "font-family:Arial;font-size:18px;font-weight:400;color:#191970"
+    }
+  ]
+}
+)";
+
+WebServerClass    server;
+AutoConnect       portal(server);
+AutoConnectConfig config;
+
+void setup() {
+  // It's a default value but has no meaning in the AC_AUTHSCOPE_PARTIAL setting.
+  // config.auth = AC_AUTH_NONE;
+  config.authScope = AC_AUTHSCOPE_PARTIAL;
+  config.username = "user";
+  config.password = "password";
+  portal.config(config);
+  portal.load(FPSTR(PAGE_HELLO));
+  portal.load(FPSTR(PAGE_AUTH));
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
 
 !!! info "PageBuilder v1.4.0 or later needed"
     [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.4.1 or later is required to use HTTP authentication with AutoConnect.
+
+!!! warning "Can not use ESP32 arduino core 1.0.4 stable release"
+    For ESP32, Arduino core 1.0.4 stable has a bug for HTTP authentication. The upstream of the master is recommended. (or use 1.0.5 later)
+
+### <i class="fa fa-caret-right"></i> Applying HTTP authentication for Built-in OTA
+
+[*AutoConnectConfig::auth*](apiconfig.md#auth) setting also affects the [built-in OTA](otaupdate.md) feature. **AC_AUTH_BASIC** or **AC_AUTH_DIGEST** setting allows Built-in OTA to authenticate with the [UPDATE](otabrowser.md#updates-with-the-web-browserupdated-wv115) page. This setting is valid even if [*AutoConnectConfig::authScope*](apiconfig.md#authscope) is **AC_AUTHSCOPE_PARTIAL**. That is if the AutoConnectConfig::auth setting is BASIC or DIGEST, authentication will be required for Built-in OTA.
+
+### <i class="fa fa-caret-right"></i> Authentication with the captive portal state
+
+When accessing the ESP module from an iOS or Android device in the captive portal state, the HTTP authentication framework is disabled in the OS of the client device. Even if the ESP module responds with a `401 unauthorized` with `WWW-Authenticate`, those client device OSs under the captive portal do not display the login dialog and deprive the user of the opportunity to enter their credentials. There will always be an unauthorized error.
+
+AutoConnect's authentication operation based on HTTP (not HTTPS) depends on the OS of the client device, so in the captive portal state, most devices will unconditionally result in an authentication error. Therefore, the default authentication behavior of AutoConnect does not apply authentication in the captive portal state. (It will be ignored even if the AutoConnect setting is not AC_AUTH_NONE)
+
+However, if you want to deny unauthorized access to the protected page even in the captive portal state, you can use the extension bit of [*AutoConnectConfig::authScope*](apiconfig.md#authScope). The **AC_AUTHSCOPE_WITHCP** flag allows AutoConnect to authentication in the captive portal state. It is set using a logical OR operator for the [*AutoConnectConfig::authScope*](apiconfig.md#authScope) setting and AutoConnect will enable authentication at the captive portal if the **AC_AUTHSCOPE_WITHCP** is ON.
+
+```cpp hl_lines="4"
+AutoConnectConfig config;
+...
+config.auth = AC_AUTH_DIGEST;
+config.authScope = AC_AUTHSCOPE_AUX | AC_AUTHSCOPE_WITHCP;
+...
+```
 
 ### <i class="fa fa-caret-right"></i> Assign user sketch's home path
 
@@ -855,9 +986,11 @@ A home path of AutoConnect is **/\_ac** by default. You can access from the brow
 #define AUTOCONNECT_URI         "/_ac"
 ```
 
-### <i class="fa fa-caret-right"></i> Static IP assignment [^3]
+### <i class="fa fa-caret-right"></i> Static IP assignment
 
-It is also possible to assign static IP Address to ESP8266/ESP32 in STA mode. By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.
+It is also possible to assign static IP Address to ESP8266/ESP32 in STA mode.[^4] By default DHCP is enabled and it becomes the IP address assigned by the DHCP server with *WiFi.begin*.
+
+[^4]:Static IP address assignment is available from version 0.9.3.
 
 To assign a static IP to ESP8266/ESP32 with WiFi\_MODE\_STA, the following parameters are required:
 
@@ -879,8 +1012,6 @@ Config.dns1 = IPAddress(192,168,1,1);
 portal.config(Config);
 portal.begin();
 ```
-
-[^3]:Static IP address assignment is available from version 0.9.3.
 
 ### <i class="fa fa-caret-right"></i> Station host name
 
@@ -928,9 +1059,9 @@ The flicker cycle length is defined by some macros in [AutoConnectDefs.h](https:
 - **AUTOCONNECT_FLICKER_WIDTHAP** and **AUTOCONNECT_FLICKER_WIDTHDC**:  
   Specify the duty rate for each period [ms] in 8-bit resolution.
 
-[*AutoConnectConfig::tickerPort*](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^4]
+[*AutoConnectConfig::tickerPort*](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^5]
 
-[^4]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
+[^5]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
 
 [*AutoConnectConfig::tickerOn*](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**. The logic level of LED_BUILTIN for popular modules are as follows:
 
