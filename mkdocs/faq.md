@@ -183,7 +183,22 @@ Link button to AutoConnect menu can be embedded into Sketch's web page. The root
 
 ### Sketch size
 
-It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)
+1. For ESP8266  
+   It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)
+
+2. For ESP32  
+   The BIN size of the sketch grows to over 1M bytes. In the case of a sketch with many custom Web pages, when applying the partition table for the default scheme, the remaining flash size that can be utilized by the user application may be less than 200K bytes. Therefore, it is advisable to resize the partition to make more available space for the application. The ESP32 arduino core has various [partition schemes](https://github.com/espressif/arduino-esp32/tree/master/tools/partitions), and you can choose it according to your Sketch feature.  
+   You can change the partition scheme from the **Tools > Partition Scheme** menu of Arduino IDE.
+
+   <img src="images/partition.png">
+
+!!! hint "Change the partition scheme with PlatformIO"
+    Use `board_build.partitions` directive with `platformio.ini`.
+    ```ini
+    [env:esp32dev]
+    board_build.partitions = min_spiffs.csv
+    ```
+    Details for the [PlatformIO documentation](https://docs.platformio.org/en/latest/platforms/espressif32.html#partition-tables).
 
 ### Heap size
 

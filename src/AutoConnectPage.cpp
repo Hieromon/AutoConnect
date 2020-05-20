@@ -1573,8 +1573,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
  *  Allow the page set upped to authenticate.
  *  The argument parameter indicates that authentication is allowed with
  *  the condition of the AutoConnect.authScope setting.
- *  It determines to except authentication in the captive portal state
- *  when the EXCEPTCP is enabled.
+ *  It determines to admit authentication in the captive portal state
+ *  when the AP_AUTHSCOPE_WITHCP is enabled.
  *  @param allow  Indication of whether to authenticate with the page.
  */ 
 void AutoConnect::_authentication(bool allow) {
@@ -1587,7 +1587,7 @@ void AutoConnect::_authentication(bool allow) {
   if (WiFi.status() != WL_CONNECTED && (WiFi.getMode() & WIFI_AP)) {
     String  accUrl = _webServer->hostHeader();
     if ((accUrl != WiFi.softAPIP().toString()) && !accUrl.endsWith(F(".local"))) {
-      if (_apConfig.authScope & AC_AUTHSCOPE_EXCEPTCP)
+      if (!(_apConfig.authScope & AC_AUTHSCOPE_WITHCP))
         allow = false;
     }
   }

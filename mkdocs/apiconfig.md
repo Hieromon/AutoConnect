@@ -65,6 +65,14 @@ Specifies the authentication scope of AutoConnect Web pages. The Sketch will be 
     <dd><span class="apidef">AC_AUTHSCOPE_PORTAL</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Require authentication to access for all AutoConnect's pages, including custom Web pages.</span></dd>
 </dl>
 
+This setting is available only when [AutoConnectConfig::auth](#auth) is other than **AC_AUTH_NONE**. Ignored if it is AC_AUTH_NONE.
+
+Also, the authScope setting has another bit that indicates to allow authentication in the captive portal state. Its enum value cannot be used alone and is always for qualifying the above three enum values.
+<dl class="apidl">
+    <dt>**Value**</dt>
+    <dd><span class="apidef">AC_AUTHSCOPE_WITHCP</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Allow authentication with the captive portal state. This value cannot be used alone to declare an authentication scope. It indicates to enable authentication in the captive portal by the logical OR operator with one of the AC_AUTHSCOPE_t values above.</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> autoReconnect
 
 Automatically will try to reconnect with the past established access point (BSSID) when the current configured SSID in ESP8266/ESP32 could not be connected. By enabling this option, *AutoConnect::begin()* function will attempt to reconnect to a known access point using credentials stored in the flash, even if the connection failed by current SSID.  
@@ -266,6 +274,13 @@ Specifies to import the built-in OTA update class into the Sketch. When this opt
     <dd><span class="apidef">AC_OTA_BUILTIN</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Specifies to include AutoConnectOTA in the Sketch.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> password
+
+Set the password for authentication.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"> The default value is same as [psk](#psk).</span></dd>
+</dl>
 
 ### <i class="fa fa-caret-right"></i> portalTimeout
 
@@ -371,6 +386,14 @@ Set the menu title.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd>String</dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> username
+
+Set the username for authentication.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"> The default value is same as [apid](#apid).</span></dd>
 </dl>
 
 ## <i class="fa fa-code"></i> AutoConnectConfig example
