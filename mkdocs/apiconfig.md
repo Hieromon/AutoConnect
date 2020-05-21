@@ -290,6 +290,19 @@ Specify the timeout value of the captive portal in [ms] units. It is valid when 
     <dd><span class="apidef">unsigned long</span><span class="apidesc">Captive portal timeout value. The default value is 0.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> preserveAPMode
+
+Specifies starting the STA while maintaining the state of the SoftAP mode in the [**AutoConnect::begin**](api.md#begin). This setting only applies when the [**AutoConnectConfig::autoRise**](apiconfig.md#autorise) is false.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>bool</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">AutoConnect::begin keeps AP mode.</span></dd>
+    <dd><span class="apidef">false</span>AutoConnect::begin will stop SoftAP at the beginning of the process.<span class="apidesc"></span></dd>
+</dl>
+
+Note that this option is not for starting the SoftAP forcibly in [**AutoConnect::begin**](api.md#begin) and only keeps AP mode, SoftAP initiation is left to the Sketch.
+
 ### <i class="fa fa-caret-right"></i> principle
 
 Specify the connection order will attempt to connect to one of the highest RSSI values among multiple available access points. It is given as an enumeration value of **AC_PRINCIPLE_t** indicating.

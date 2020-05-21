@@ -456,6 +456,12 @@ portal.config(acConfig);
 portal.begin();
 ```
 
+### <i class="fa fa-caret-right"></i> Launch SoftAP separately with the Sketch
+
+Certain communication protocols applicable to the ESP module require that the WiFi mode is AP + STA in order to operate normally. (ie. [ESP-NOW](https://www.espressif.com/en/products/software/esp-now), [ESP-MESH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html)) Even Sketches using Espressif own WiFi protocol will able to open a gateway to the Internet by connecting to a WiFi router via AutoConnect. To enable applying these protocols, It needs to launch SoftAP by itself in a sketch and then call [*AutoConnect::begin*](api.md#begin), but the default behavior of [*AutoConnect::begin*](api.md#begin) will turn off SoftAP always then it unable to open a connection.
+
+[*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveAPMode) setting maintains WiFi-AP mode without disabling SoftAP inside [*AutoConnect::begin*](api.md#begin). The Sketch can utilize the WiFi connection via AutoConnect with ESP-MESH and ESP-NOW protocol by enabling this option.
+
 ### <i class="fa fa-caret-right"></i> Make SSID of SoftAP unique
 
 You can change SoftAP's SSID and password programmatically when the captive portal starts up. By using chip specific ID of esp8266/esp32 you can make SSID of SoftAP unique. SSID and password for SoftAP is [*AutoConnectConfig::apid*](apiconfig.md#apid) and [*AutoConnectConfig::psk*](apiconfig.md#psk).
@@ -656,6 +662,8 @@ You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apic
 AutoConnectConfig allows the Sketch controls the behavior of follows:
 
 - [Applying HTTP authentication](#applying-http-authentication)
+- [Applying HTTP authentication for Built-in OTA](#applying-http-authentication-for-built-in-ota)
+- [Authentication with the captive portal state](#authentication-with-the-captive-portal-state)
 - [Assign user sketch's home path](#assign-user-sketchs-home-path)
 - [Built-in OTA update](#built-in-ota-update-feature)
 - [Change menu title](#change-menu-title)
