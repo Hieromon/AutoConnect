@@ -456,18 +456,6 @@ portal.config(acConfig);
 portal.begin();
 ```
 
-### <i class="fa fa-caret-right"></i> Launch SoftAP separately with the Sketch
-
-Sketch using AutoConnect can open a gateway to the Internet by connecting to a WiFi router even through use Espressif's peculiar WiFi protocol (eg. [ESP-MESH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html) or [ESP-NOW](https://www.espressif.com/en/products/software/esp-now)). These specific communication protocols require to keeps AP + STA as the WiFi mode. That is, to apply these protocols, it needs to launch SoftAP by a sketch itself and then call [*AutoConnect::begin*](api.md#begin). But the default behavior of [*AutoConnect::begin*](api.md#begin) will turn off SoftAP always then it will unable to open a connection.
-
-[*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveAPMode) setting maintains WiFi-AP mode without disabling SoftAP inside [*AutoConnect::begin*](api.md#begin). The Sketch can utilize the WiFi connection via AutoConnect with ESP-MESH and ESP-NOW protocol by enabling this option.
-
-The following diagram quoted from the [ESP-MESH documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html#mesh-building-a-network) that illustrates the typical topology of the MESH network. The module located at the Root Node bridges between the mesh network and the router by an application that handles two protocols, TCP/IP and ESP-MESH. Its SoftAP communicates with the internal mesh network as an interface of the mesh layer. On the other hand, STA performs station communication with the WiFi router as an interface of the TCP/IP layer. AutoConnect allows assists the connection between the router and the STA of the Root Node using [*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveapmode) and starting the SoftAP via Sketch separately.
-
-<img src="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/_images/mesh-bidirectional-data-stream.png">
-
-Also in general, the Sketch should set **false** to [*AutoConnectConfig::autoRise*](apiconfig.md#autorise), **true** to [*AutoConnectConfig::immediateStart*](apiconfig.md#immediatestart) when applying to those protocols.
-
 ### <i class="fa fa-caret-right"></i> Make SSID of SoftAP unique
 
 You can change SoftAP's SSID and password programmatically when the captive portal starts up. By using chip specific ID of esp8266/esp32 you can make SSID of SoftAP unique. SSID and password for SoftAP is [*AutoConnectConfig::apid*](apiconfig.md#apid) and [*AutoConnectConfig::psk*](apiconfig.md#psk).
@@ -677,6 +665,7 @@ AutoConnectConfig allows the Sketch controls the behavior of follows:
 - [Configuration for SoftAP and captive portal](#configuration-for-softap-and-captive-portal)
 - [Configure WiFi channel](#configure-wifi-channel)
 - [Move the saving area of EEPROM for the credentials](#move-the-saving-area-of-eeprom-for-the-credentials)
+- [Preserve WIFI_AP mode](#preserve-wifi_ap-mode)
 - [Relocate the AutoConnect home path](#relocate-the-autoconnect-home-path)
 - [Static IP assignment](#static-ip-assignment-2)
 - [Station host name](#station-host-name)
@@ -991,6 +980,18 @@ EEPROM.commit();
 EEPROM.end();
 ...
 ```
+
+### <i class="fa fa-caret-right"></i> Preserve WIFI_AP mode
+
+Sketch using AutoConnect can open a gateway to the Internet by connecting to a WiFi router even through use Espressif's peculiar WiFi protocol (eg. [ESP-MESH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html) or [ESP-NOW](https://www.espressif.com/en/products/software/esp-now)). These specific communication protocols require to keeps AP + STA as the WiFi mode. That is, to apply these protocols, it needs to launch SoftAP by a sketch itself and then call [*AutoConnect::begin*](api.md#begin). But the default behavior of [*AutoConnect::begin*](api.md#begin) will turn off SoftAP always then it will unable to open a connection.
+
+[*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveAPMode) setting maintains WIFI_AP mode without disabling SoftAP inside [*AutoConnect::begin*](api.md#begin). The Sketch can utilize the WiFi connection via AutoConnect with ESP-MESH and ESP-NOW protocol by enabling this option.
+
+The following diagram quoted from the [ESP-MESH documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html#mesh-building-a-network) that illustrates the typical topology of the MESH network. The module located at the Root Node bridges between the mesh network and the router by an application that handles two protocols, TCP/IP and ESP-MESH. Its SoftAP communicates with the internal mesh network as an interface of the mesh layer. On the other hand, STA performs station communication with the WiFi router as an interface of the TCP/IP layer. AutoConnect allows assists the connection between the router and the STA of the Root Node using [*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveapmode) and starting the SoftAP via Sketch separately.
+
+<img src="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/_images/mesh-bidirectional-data-stream.png">
+
+Also in general, the Sketch should set **false** to [*AutoConnectConfig::autoRise*](apiconfig.md#autorise), **true** to [*AutoConnectConfig::immediateStart*](apiconfig.md#immediatestart) when applying to those protocols.
 
 ### <i class="fa fa-caret-right"></i> Relocate the AutoConnect home path
 
