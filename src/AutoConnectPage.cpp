@@ -523,6 +523,7 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
     "<input type=\"checkbox\" class=\"lb-cb\" id=\"lb-cb\"/>"
     "<div class=\"lb-menu lb-menu-right lb-menu-material\">"
       "<ul class=\"lb-navigation\">"
+        "MENU_LOGO"
         "<li class=\"lb-header\">"
           "<a href=\"BOOT_URI\" class=\"lb-brand\">MENU_TITLE</a>"
           "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
@@ -953,6 +954,8 @@ String AutoConnect::_token_MENU_PRE(PageArgument& args) {
                      _attachMenuItem(AC_MENUITEM_OPENSSIDS) +
                      _attachMenuItem(AC_MENUITEM_DISCONNECT) +
                      _attachMenuItem(AC_MENUITEM_RESET);
+  String  logoItem = _attachLogoItem();
+  currentMenu.replace(String(F("MENU_LOGO")), logoItem);
   currentMenu.replace(String(F("MENU_LIST")), menuItem);
   currentMenu.replace(String(F("BOOT_URI")), _getBootUri());
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
@@ -1390,6 +1393,19 @@ String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
     snprintf(li, sizeof(li), (PGM_P)_liTempl, id, link, label);
   return String(li);
 }
+
+/**
+ *  Generate AutoConnect logo item configured by AutoConnectConfig::attachMenu.
+ *  @param  item  An enumerated value for the generating item configured in AutoConnectConfig.
+ *  @return HTML string of a li tag with the menu item.
+ */
+ String AutoConnect::_attachLogoItem() {
+   if (_apConfig.logo==String("")){
+     return String("");
+   }
+   String resp = "<li class=\"lb-header\"><img src=\"data:image/png;base64," + _apConfig.logo + "\" alt=\"Logo Failed\" id=\"itemImg\" height=\"60\" width=\"60\"></li>";
+   return resp;
+ }
 
 /**
  *  This function dynamically build up the response pages that conform to
