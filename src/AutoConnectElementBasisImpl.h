@@ -354,4 +354,34 @@ const String AutoConnectTextBasis::toHTML(void) const {
   return html;
 }
 
+/**
+ * Generate an HTML image element from a base64 string of the value member. If a style
+ * exists, it gives a style attribute.
+ * @return String an HTML string.
+ */
+const String AutoConnectImageBasis::toHTML(void) const {
+  String  html = String("");
+
+  if (enable) {
+    html = String(F("<div id=\"")) + name + String('"');
+    String  value_f = value;
+
+    if (style.length())
+      html += String(F(" style=\"")) + style + String("\"");
+    html += String(">");
+    if (format.length()) {
+      int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
+      char* buffer;
+      if ((buffer = (char*)malloc(buflen))) {
+        snprintf(buffer, buflen, format.c_str(), value.c_str());
+        value_f = String(buffer);
+        free(buffer);
+      }
+    }
+    html += String(F("<img src='data:image/png;base64,")) + value_f + String(F("' alt='Image cannot be rendered'></div>"));
+    html = AutoConnectElementBasis::posterior(html);
+  }
+  return html;
+}
+
 #endif // _AUTOCONNECTELEMENTBASISIMPL_H_

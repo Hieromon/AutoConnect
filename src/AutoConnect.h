@@ -118,7 +118,8 @@ class AutoConnectConfig {
     staGateway(0U),
     staNetmask(0U),
     dns1(0U),
-    dns2(0U) {}
+    dns2(0U),
+    logo(String("")) {}
   /**
    *  Configure by SSID for the captive portal access point and password.
    */
@@ -154,7 +155,8 @@ class AutoConnectConfig {
     staGateway(0U),
     staNetmask(0U),
     dns1(0U),
-    dns2(0U) {}
+    dns2(0U),
+    logo(String("")) {}
 
   ~AutoConnectConfig() {}
 
@@ -191,6 +193,7 @@ class AutoConnectConfig {
     staNetmask = o.staNetmask;
     dns1 = o.dns1;
     dns2 = o.dns2;
+    logo = o.logo;
     return *this;
   }
 
@@ -205,7 +208,7 @@ class AutoConnectConfig {
   int16_t   minRSSI;            /**< Lowest WiFi signal strength (RSSI) that can be connected. */
   AC_SAVECREDENTIAL_t  autoSave;  /**< Auto save credential */
   AC_ONBOOTURI_t  bootUri;      /**< An uri invoking after reset */
-  AC_PRINCIPLE_t  principle;    /**< WiFi connection principle */  
+  AC_PRINCIPLE_t  principle;    /**< WiFi connection principle */
   uint16_t  boundaryOffset;     /**< The save storage offset of EEPROM */
   int       uptime;             /**< Length of start up time */
   bool      autoRise;           /**< Automatic starting the captive portal */
@@ -227,6 +230,7 @@ class AutoConnectConfig {
   IPAddress staNetmask;         /**< Station subnet mask */
   IPAddress dns1;               /**< Primary DNS server */
   IPAddress dns2;               /**< Secondary DNS server */
+  String    logo;               /** String in base64 to add logo **/
 };
 
 typedef std::vector<std::reference_wrapper<AutoConnectAux>> AutoConnectAuxVT;
@@ -306,6 +310,7 @@ class AutoConnect {
 
   /** Utilities */
   String               _attachMenuItem(const AC_MENUITEM_t item);
+  String               _attachLogoItem();
   static uint32_t      _getChipId(void);
   static uint32_t      _getFlashChipRealSize(void);
   static String        _toMACAddressString(const uint8_t mac[]);

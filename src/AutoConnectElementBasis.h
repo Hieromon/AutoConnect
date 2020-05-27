@@ -38,6 +38,7 @@ typedef enum {
   AC_Style,
   AC_Submit,
   AC_Text,
+  AC_Image,
   AC_Unknown = -1
 } ACElement_t;      /**< AutoConnectElement class type */
 
@@ -300,6 +301,29 @@ class AutoConnectTextBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
   String  format;     /**< C string that contains the text to be written */
 };
 
+/**
+ * Image arrangement class, a part of AutoConnectAux element.
+ * @param
+ * @param  name     Image name string.
+ * @param  value    Image value as base64 string.
+ * @param  style    A string of style-code for decoration, optionally.
+ * @param  format   C string that contains the value to be formatted.
+ * An arrangement image would be placed with <div> contains. A string
+ * of style-codes are given for '<div style=>'.
+ */
+
+class AutoConnectImageBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+ public:
+  explicit AutoConnectImageBasis(const char* name = "", const char* value = "", const char* style = "", const char* format = "", const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), style(String(style)), format(String(format)) {
+    _type = AC_Image;
+  }
+  virtual ~AutoConnectImageBasis() {}
+  const String  toHTML(void) const override;
+
+  String  style;      /**< CSS style modifier native code */
+  String  format;     /**< C string that contains the text to be written */
+};
+
 #ifndef AUTOCONNECT_USE_JSON
 /**
  * Casts only a class derived from the AutoConnectElement class to the
@@ -366,6 +390,13 @@ inline AutoConnectTextBasis& AutoConnectElementBasis::as<AutoConnectTextBasis>(v
   if (typeOf() != AC_Text)
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
   return *(reinterpret_cast<AutoConnectTextBasis*>(this));
+}
+
+template<>
+inline AutoConnectImageBasis& AutoConnectElementBasis::as<AutoConnectImageBasis>(void) {
+  if (typeOf() != AC_Image)
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<AutoConnectImageBasis*>(this));
 }
 #endif
 
