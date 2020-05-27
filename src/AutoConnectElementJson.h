@@ -44,6 +44,7 @@
 #define AUTOCONNECT_JSON_TYPE_ACSTYLE     "ACStyle"
 #define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
 #define AUTOCONNECT_JSON_TYPE_ACTEXT      "ACText"
+#define AUTOCONNECT_JSON_TYPE_ACIMAGE     "ACImage"
 #define AUTOCONNECT_JSON_VALUE_BEHIND     "behind"
 #define AUTOCONNECT_JSON_VALUE_BR         "br"
 #define AUTOCONNECT_JSON_VALUE_EXTERNAL   "extern"
@@ -304,6 +305,31 @@ class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTex
 };
 
 /**
+ * Image arrangement class, a part of AutoConnectAux element.
+ * @param
+ * @param  name     Image name string.
+ * @param  value    Image value string.
+ * @param  style    A string of style-code for decoration, optionally.
+ * An arrangement image would be placed with <div> contains. A string
+ * of style-codes are given for '<div style=>'.
+ */
+class AutoConnectImageJson : public AutoConnectElementJson, public AutoConnectImageBasis {
+ public:
+  explicit AutoConnectImageJson(const char* name = "", const char* value = "", const char* style = "", const char* format = "", const ACPosterior_t post = AC_Tag_None) {
+    AutoConnectImageBasis::name = String(name);
+    AutoConnectImageBasis::value = String(value);
+    AutoConnectImageBasis::style = String(style);
+    AutoConnectImageBasis::format = String(format);
+    AutoConnectImageBasis::post = post;
+    _defaultPost = AC_Tag_None;
+  }
+  ~AutoConnectImageJson() {}
+  size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
+  void  serialize(JsonObject& json) override;
+};
+
+/**
  * Casts only a class derived from the AutoConnectElement class to the
  * actual element class.
  */
@@ -377,6 +403,14 @@ inline AutoConnectTextJson& AutoConnectElementJson::as<AutoConnectTextJson>(void
     AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
   }
   return *(reinterpret_cast<AutoConnectTextJson*>(this));
+}
+
+template<>
+inline AutoConnectImageJson& AutoConnectElementJson::as<AutoConnectImageJson>(void) {
+  if (typeOf() != AC_Image) {
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  }
+  return *(reinterpret_cast<AutoConnectImageJson*>(this));
 }
 
 #endif // _AUTOCONNECTELEMENTJSON_H_

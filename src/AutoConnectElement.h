@@ -24,6 +24,7 @@ using AutoConnectSelect   = AutoConnectSelectJson;
 using AutoConnectStyle    = AutoConnectStyleJson;
 using AutoConnectSubmit   = AutoConnectSubmitJson;
 using AutoConnectText     = AutoConnectTextJson;
+using AutoConnectImage     = AutoConnectImageJson;
 #define AUTOCONNECT_JSON_BUFFER_SIZE  256
 #else
 using AutoConnectElement  = AutoConnectElementBasis;
@@ -36,6 +37,7 @@ using AutoConnectSelect   = AutoConnectSelectBasis;
 using AutoConnectStyle    = AutoConnectStyleBasis;
 using AutoConnectSubmit   = AutoConnectSubmitBasis;
 using AutoConnectText     = AutoConnectTextBasis;
+using AutoConnectImage    = AutoConnectImageBasis;
 #endif // !AUTOCONNECT_USE_JSON
 
 /**
@@ -53,5 +55,6 @@ using AutoConnectText     = AutoConnectTextBasis;
 #define ACSubmit(n, ...)   AutoConnectSubmit n(#n, ##__VA_ARGS__)
 #define ACStyle(n, ...)    AutoConnectStyle n(#n, ##__VA_ARGS__)
 #define ACText(n, ...)     AutoConnectText n(#n, ##__VA_ARGS__)
+#define ACImage(n, ...)    AutoConnectImage n(#n, ##__VA_ARGS__)
 
 #endif // _AUTOCONNECTELEMENT_H_

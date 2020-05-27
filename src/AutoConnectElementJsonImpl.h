@@ -200,7 +200,7 @@ void AutoConnectCheckboxJson::serialize(JsonObject& json) {
 size_t AutoConnectFileJson::getObjectSize(void) const {
   size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
   size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_STORE) + sizeof(AUTOCONNECT_JSON_VALUE_EXTERNAL);
-  return size; 
+  return size;
 }
 
 /**
@@ -521,6 +521,47 @@ bool AutoConnectTextJson::loadMember(const JsonObject& json) {
 void AutoConnectTextJson::serialize(JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACTEXT));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_STYLE)] = style;
+  json[F(AUTOCONNECT_JSON_KEY_FORMAT)] = format;
+}
+
+/**
+ * Returns JSON object size.
+ * @return  An object size for JsonBuffer.
+ */
+size_t AutoConnectImageJson::getObjectSize(void) const {
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(2);
+  size += sizeof(AUTOCONNECT_JSON_KEY_STYLE) + style.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_FORMAT) + format.length() + 1;
+  return size;
+}
+
+/**
+ * Load a image element attribute member from the JSON object.
+ * @param  json  JSON object with the definition of AutoConnectElement.
+ * @return true  AutoConnectElement loaded
+ * @return false Type of AutoConnectElement is mismatched.
+ */
+bool AutoConnectImageJson::loadMember(const JsonObject& json) {
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
+  if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACIMAGE))) {
+    _setMember(json);
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STYLE)))
+      style = json[F(AUTOCONNECT_JSON_KEY_STYLE)].as<String>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_FORMAT)))
+      format = json[F(AUTOCONNECT_JSON_KEY_FORMAT)].as<String>();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Serialize AutoConnectImage to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectImageJson::serialize(JsonObject& json) {
+  _serialize(json);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACIMAGE));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
   json[F(AUTOCONNECT_JSON_KEY_STYLE)] = style;
   json[F(AUTOCONNECT_JSON_KEY_FORMAT)] = format;
