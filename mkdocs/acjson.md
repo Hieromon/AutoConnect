@@ -157,9 +157,13 @@ This is different for each AutoConnectElements, and the key that can be specifie
 : - **value** : The file name of the upload file will be stored. The `value` is read-only and will be ignored if specified.
 : - **label** : Specifies a label of the file selection box. Its placement is always to the left of the file selection box.
 : - **store** : Specifies the destination to save the uploaded file. Its value accepts one of the following:<p>
-<b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module.<br>
+<b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module. If the valid file system of the ESP8266 module incorporating the Sketch is [LittleFS](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html#spiffs-and-littlefs), AutoConnect assumes the file system to be LittleFS. However, it does not sense the actual file system, so If the Sketch implementation does not match the file system on the ESP8266 depends, a file writing error will occur.<br>
 <b>sd</b>&nbsp;: Save to an external SD device connected to ESP8266/ESP32 module.<br>
 <b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.</p>
+
+    !!! note "A valid filesystem of ESP8266 on board flash"
+        AutoConnect has assumed [**LittleFS**](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html#spiffs-and-littlefs) as a valid file system since v1.2.0 enhancement. On the other hand, the ESP8266 arduino core has supported LittleFS officially since a release 2.7.0.<br>
+        LittleFS support in AutoConnect relies on the FS instance declared by the arduino core used at compile-time per project, and its FS instance will acquire by either the SPIFFS class or the LittleFS class. That is, you need to choose which file system will be available in the actual Sketch and make consistent it with AutoConnect assumed file system. So, you can choose which one uses the file systems per project via adjustment the **AC_USE_SPIFFS** macro enable or disable. AutoConnect determines the available file system by the **AC_USE_SPIFFS** macro which defined in [AutoConnectDefs.h](api.md#defined-macros) header file. 
 
 #### <i class="fa fa-caret-right"></i> ACInput
 : - **value** : Specifies the initial text string of the input box. If this value is omitted, placeholder is displayed as the initial string.
@@ -334,7 +338,7 @@ const char aux[] PROGMEM = R"raw(
   ]
 }
 )raw";
-portal.load(aux);
+portal.load(FPSTR(aux));
 
 // Loading from Stream assumes "aux.json" file should be store in SPIFFS.
 File aux = SPIFFS.open("aux.json", "r");
