@@ -3,7 +3,7 @@
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
  * @version  1.2.0
- * @date 2020-04-23
+ * @date 2020-05-29
  * @copyright  MIT license.
  */
 
@@ -18,11 +18,11 @@
 #define AC_DEBUG_PORT Serial
 #endif // !AC_DEBUG_PORT
 #ifdef AC_DEBUG
-#define AC_DBG_DUMB(fmt, ...) do {AC_DEBUG_PORT.printf(PSTR(fmt), ## __VA_ARGS__ );} while (0)
-#define AC_DBG(fmt, ...) do {AC_DEBUG_PORT.printf(PSTR("[AC] " fmt), ## __VA_ARGS__ );} while (0)
+#define AC_DBG_DUMB(fmt, ...) do {AC_DEBUG_PORT.printf_P((PGM_P)PSTR(fmt), ## __VA_ARGS__ );} while (0)
+#define AC_DBG(fmt, ...) do {AC_DEBUG_PORT.printf_P((PGM_P)PSTR("[AC] " fmt), ## __VA_ARGS__ );} while (0)
 #else
-#define AC_DBG(...) do {} while(0)
-#define AC_DBG_DUMB(...) do {} while(0)
+#define AC_DBG(...) do {(void)0;} while(0)
+#define AC_DBG_DUMB(...) do {(void)0;} while(0)
 #endif // !AC_DEBUG
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.
@@ -32,6 +32,19 @@
 
 // Indicator of whether to use the AutoConnectUpdate feature.
 #define AUTOCONNECT_USE_UPDATE
+#endif
+
+// SPIFFS has deprecated on EP8266 core. This flag indicates that
+// the migration to LittleFS has not completed.
+//#define AC_USE_SPIFFS
+
+// Deploys SPIFFS usage flag to the global.
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AC_USE_SPIFFS
+#define AUTOCONNECT_USE_SPIFFS
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#define AUTOCONNECT_USE_SPIFFS
 #endif
 
 // Predefined parameters

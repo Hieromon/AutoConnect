@@ -2,8 +2,8 @@
  * The default upload handler implementation.
  * @file AutoConnectUploadImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.9
- * @date 2019-05-25
+ * @version  1.2.0
+ * @date 2020-05-29
  * @copyright  MIT license.
  */
 
@@ -20,7 +20,11 @@
 #include <SPI.h>
 #include <SD.h>
 #define FS_NO_GLOBALS
+#ifdef AUTOCONNECT_USE_SPIFFS
 #include <FS.h>
+#else
+#include <LittleFS.h>
+#endif
 
 // Types branching to be code commonly for the file system classes with
 // ESP8266 and ESP32.
