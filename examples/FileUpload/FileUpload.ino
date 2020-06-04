@@ -26,8 +26,21 @@
 #include <WebServer.h>
 #include <SPIFFS.h>
 #endif
-#include <FS.h>
 #include <AutoConnect.h>
+
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#ifdef AUTOCONNECT_USE_SPIFFS
+#include <FS.h>
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
 
 // Upload request custom Web page
 static const char PAGE_UPLOAD[] PROGMEM = R"(
@@ -126,8 +139,8 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
   // The file saved by the AutoConnect upload handler is read from
   // the EEPROM and echoed to a custom web page.
   if (upload.mimeType.indexOf("text/") >= 0) {
-    SPIFFS.begin();
-    File uploadFile = SPIFFS.open(String("/" + upload.value).c_str(), FILE_MODE_R);
+    FlashFS.begin();
+    File uploadFile = FlashFS.open(String("/" + upload.value).c_str(), FILE_MODE_R);
     if (uploadFile) {
       while (uploadFile.available()) {
         char c = uploadFile.read();
@@ -140,7 +153,7 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
     }
     else
       content = "Not saved";
-    SPIFFS.end();
+    FlashFS.end();
   }
   return content;
 }

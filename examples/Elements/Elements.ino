@@ -20,10 +20,25 @@ using WebServerClass = ESP8266WebServer;
 #include <SPIFFS.h>
 using WebServerClass = WebServer;
 #endif
-#include <FS.h>
 #include <AutoConnect.h>
 
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#ifdef AUTOCONNECT_USE_SPIFFS
+#include <FS.h>
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
+
 #define PARAM_FILE      "/elements.json"
+#define USERNAME        "username_you_wish"   // For HTTP authentication
+#define PASSWORD        "password_you_wish"   // For HTTP authentication
 
 static const char PAGE_ELEMENTS[] PROGMEM = R"(
 {
@@ -156,13 +171,13 @@ void setup() {
       // Since this handler only supports AutoConnectSubmit called the
       // Load, it uses the uri of the custom web page placed to
       // determine whether the Load was called me or not.
-      SPIFFS.begin();
-      File param = SPIFFS.open(PARAM_FILE, "r");
+      FlashFS.begin();
+      File param = FlashFS.open(PARAM_FILE, "r");
       if (param) {
         aux.loadElement(param, { "text", "check", "input", "radio", "select" } );
         param.close();
       }
-      SPIFFS.end();
+      FlashFS.end();
     }
     return String();
   });
@@ -181,28 +196,32 @@ void setup() {
     aux["caption"].value = PARAM_FILE;
 
 #if defined(ARDUINO_ARCH_ESP8266)
-    SPIFFS.begin();
+    FlashFS.begin();
 #elif defined(ARDUINO_ARCH_ESP32)
-    SPIFFS.begin(true);
+    FlashFS.begin(true);
 #endif
-    File param = SPIFFS.open(PARAM_FILE, "w");
+    File param = FlashFS.open(PARAM_FILE, "w");
     if (param) {
       // Save as a loadable set for parameters.
       elementsAux.saveElement(param, { "text", "check", "input", "radio", "select" });
       param.close();
       // Read the saved elements again to display.
-      param = SPIFFS.open(PARAM_FILE, "r");
+      param = FlashFS.open(PARAM_FILE, "r");
       aux["echo"].value = param.readString();
       param.close();
     }
     else {
-      aux["echo"].value = "SPIFFS failed to open.";
+      aux["echo"].value = "Filesystem failed to open.";
     }
-    SPIFFS.end();
+    FlashFS.end();
     return String();
   });
 
   portal.join({ elementsAux, saveAux });
+  config.auth = AC_AUTH_DIGEST;
+  config.authScope = AC_AUTHSCOPE_AUX;
+  config.username = USERNAME;
+  config.password = PASSWORD;
   config.ticker = true;
   portal.config(config);
   portal.begin();
