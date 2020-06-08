@@ -807,7 +807,7 @@ void loop() {
 ```
 
 !!! info "PageBuilder v1.4.0 or later needed"
-    [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.4.1 or later is required to use HTTP authentication with AutoConnect.
+    [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.4.0 or later is required to use HTTP authentication with AutoConnect. Also, v1.4.2 or later is required to eliminate SPIFFS, which is deprecated as a file system for ESP8266 module.
 
 !!! warning "Can not use ESP32 arduino core 1.0.4 stable release"
     For ESP32, Arduino core 1.0.4 stable has a bug for HTTP authentication. The upstream of the master is recommended. (or use 1.0.5 later)
