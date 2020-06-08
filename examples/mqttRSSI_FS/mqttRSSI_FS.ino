@@ -29,9 +29,22 @@
 #include <HTTPClient.h>
 #define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
-#include <FS.h>
 #include <PubSubClient.h>
 #include <AutoConnect.h>
+
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#ifdef AUTOCONNECT_USE_SPIFFS
+#include <FS.h>
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
 
 #define PARAM_FILE      "/param.json"
 #define AUX_MQTTSETTING "/mqtt_setting"
@@ -110,7 +123,7 @@ int getStrength(uint8_t points) {
 
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
-  File param = SPIFFS.open(PARAM_FILE, "r");
+  File param = FlashFS.open(PARAM_FILE, "r");
   if (param) {
     aux.loadElement(param);
     param.close();
@@ -144,7 +157,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
-  File param = SPIFFS.open(PARAM_FILE, "w");
+  File param = FlashFS.open(PARAM_FILE, "w");
   portal.aux("/mqtt_setting")->saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "period", "uniqueid", "hostname" });
   param.close();
 
@@ -205,17 +218,17 @@ void handleClearChannel() {
   webServer.client().stop();
 }
 
-// Load AutoConnectAux JSON from SPIFFS.
+// Load AutoConnectAux JSON from the flash on the board.
 bool loadAux(const String auxName) {
   bool  rc = false;
   String  fn = auxName + ".json";
-  File fs = SPIFFS.open(fn.c_str(), "r");
+  File fs = FlashFS.open(fn.c_str(), "r");
   if (fs) {
     rc = portal.load(fs);
     fs.close();
   }
   else
-    Serial.println("SPIFFS open failed: " + fn);
+    Serial.println("Filesystem open failed: " + fn);
   return rc;
 }
 

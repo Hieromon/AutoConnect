@@ -23,9 +23,22 @@ https://opensource.org/licenses/MIT
 #include <HTTPClient.h>
 #define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
-#include <FS.h>
 #include <PubSubClient.h>
 #include <AutoConnect.h>
+
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#ifdef AUTOCONNECT_USE_SPIFFS
+#include <FS.h>
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
 
 #define PARAM_FILE      "/param.json"
 #define AUX_SETTING_URI "/mqtt_setting"
@@ -253,7 +266,7 @@ void getParams(AutoConnectAux& aux) {
 // elements defined in /mqtt_setting JSON.
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
-  File param = SPIFFS.open(PARAM_FILE, "r");
+  File param = FlashFS.open(PARAM_FILE, "r");
   if (param) {
     if (aux.loadElement(param)) {
       getParams(aux);
@@ -287,7 +300,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
-  File param = SPIFFS.open(PARAM_FILE, "w");
+  File param = FlashFS.open(PARAM_FILE, "w");
   mqtt_setting.saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "period", "hostname" });
   param.close();
 
@@ -352,7 +365,7 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-  SPIFFS.begin();
+  FlashFS.begin();
 
   if (portal.load(FPSTR(AUX_mqtt_setting))) {
     AutoConnectAux& mqtt_setting = *portal.aux(AUX_SETTING_URI);

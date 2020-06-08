@@ -22,14 +22,27 @@ typedef ESP8266WebServer WEBServer;
 #include <SPIFFS.h>
 typedef WebServer WEBServer;
 #endif
-#include <FS.h>
 #include <AutoConnect.h>
+
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#ifdef AUTOCONNECT_USE_SPIFFS
+#include <FS.h>
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
 
 #define HELLO_URI   "/hello"
 #define PARAM_STYLE "/style.json"
 
 // Declare AutoConnectText with only a value.
-// Qualify the Caption by reading style attributes from the SPIFFS style.json file.
+// Qualify the Caption by reading style attributes from the style.json file.
 ACText(Caption, "Hello, world");
 
 //AutoConnectAux for the custom Web page.
@@ -54,15 +67,15 @@ String onHello(AutoConnectAux& aux, PageArgument& args) {
   return String();
 }
 
-// Load the element from specified file in SPIFFS.
+// Load the element from specified file in the flash on board.
 void loadParam(const char* fileName) {
-  SPIFFS.begin();
-  File param = SPIFFS.open(fileName, "r");
+  Flash.begin();
+  File param = FlashFS.open(fileName, "r");
   if (param) {
     ElementJson = param.readString();
     param.close();
   }
-  SPIFFS.end();
+  FlashFS.end();
 }
 
 void setup() {

@@ -23,9 +23,22 @@ https://opensource.org/licenses/MIT
 #include <HTTPClient.h>
 #define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
-#include <FS.h>
 #include <PubSubClient.h>
 #include <AutoConnect.h>
+
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#ifdef AUTOCONNECT_USE_SPIFFS
+#include <FS.h>
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
 
 #define PARAM_FILE      "/param.json"
 #define AUX_SETTING_URI "/mqtt_setting"
@@ -214,7 +227,7 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-  SPIFFS.begin();
+  FlashFS.begin();
 
   if (uniqueid.checked) {
     config.apid = String("ESP") + "-" + String(GET_CHIPID(), HEX);
