@@ -380,7 +380,6 @@ bool AutoConnect::_getConfigSTA(station_config_t* config) {
  *  Stops AutoConnect captive portal service.
  */
 void AutoConnect::end(void) {
-  _responsePage.reset();
   _currentPageElement.reset();
   _ticker.reset();
   _update.reset();

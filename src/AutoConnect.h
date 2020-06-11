@@ -220,7 +220,7 @@ class AutoConnect {
  public:
   AutoConnect();
   AutoConnect(WebServerClass& webServer);
-  ~AutoConnect();
+  virtual ~AutoConnect();
   bool  begin(void);
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
   bool  config(AutoConnectConfig& Config);
