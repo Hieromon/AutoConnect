@@ -744,8 +744,23 @@ void loop() {
 }
 ```
 
-If you want to authenticate only specific pages in a Sketch that handles multiple custom Web pages, set **AC_AUTHSCOPE_PARTIAL** to [*AutoConnectConfig::authScope*](apiconfig.md#authscope). Then, indicate the authentication instruction using [**auth**](acjson.md#auth) key with JSON on the relevant page.  
-**AC_AUTHSCOPE_PARTIAL** value takes precedence over [*AutoConnectConfig::auth*](apiconfig.md#auth) setting and tells to use the specified authentication scheme on each custom Web page. In the following example Sketch, it has two custom web pages, `Hello` and `Auth`, and only the `Auth` page is applied authentication without AutoConnectConfig::auth setting.
+If you want to authenticate only specific pages in a Sketch that handles multiple custom Web pages, set **AC_AUTHSCOPE_PARTIAL** to [*AutoConnectConfig::authScope*](apiconfig.md#authscope). Then, it specifies the authentication scheme with the [**auth**](acjson.md#auth) key in the JSON description of the page should be authenticated.  
+
+AutoConnect determines which authentication method to use for custom Web pages (such as AutoConnectAux) based on its association with [*AutoConnectConfig::authScope*](apiconfig.md#authscope) setting. The table below shows which authentication scheme will be finally adopted. As shown in this table, the final authentication scheme depends on the [*AutoConnectConfig::authScope*](apiconfig.md#authscope) setting, and if **AC_AUTHSCOPE_PARTIAL** is specified it, [AutoConnectAux's authentication](apiaux.md#authentication) setting takes precedence over the [*AutoConnectConfig::auth*](apiconfig.md#auth) setting.
+
+| AutoConnectConfig::authScope | Authentication scheme for the custom Web page |
+|---|---|
+| AC_AUTHSCOPE_PORTAL | Specified by AutoConnectConfig::auth |
+| AC_AUTHSCOPE_AUX | Specified by AutoConnectConfig::auth |
+| AC_AUTHSCOPE_PARTIAL | Specified by [AutoConnectAux::authentication](apiaux.md#authentication), The default values is **AC_AUTH_NONE**. |
+
+Authentication designation for AutoConnectAux can also be specified by giving the following value to the **auth** key by the JSON description:
+
+- "auth" : "basic"
+- "auth" : "digest"
+- "auth" : "none"
+
+The following example Sketch has two custom Web pages, `Hello` and `Auth`. It applies authentication only to the `Auth` page by setting AC_AUTHSCOPE_PARTIAL to AutoConnectConfig::authScope.
 
 ```cpp hl_lines="26 45"
 #include <ESP8266WiFi.h>
