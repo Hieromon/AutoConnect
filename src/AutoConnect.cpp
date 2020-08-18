@@ -124,7 +124,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
     if (cs) {
       // Advance configuration for STA mode. Restore previous configuration of STA.
-      _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
+      bool available_cred = _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
       if (!_configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2))
         return false;
 
@@ -135,8 +135,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         _disconnectWiFi(false);
         WiFi.begin(c_ssid, c_password);
       }
-      AC_DBG("WiFi.begin(%s%s%s)\n", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
-      cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+      if(c_ssid == nullptr && c_password == nullptr && available_cred == false){
+        cs = false;
+      }
+      else{
+        AC_DBG("WiFi.begin(%s%s%s)\n", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
+        cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+      }
     }
   }
 
