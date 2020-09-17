@@ -46,46 +46,49 @@ nav:
   - 'License' : license.md
 
 # Repository
-repo_name: 'Hieromon/AutoConnect'
-repo_url: 'https://github.com/Hieromon/AutoConnect'
+repo_name: Hieromon/AutoConnect
+repo_url: https://github.com/Hieromon/AutoConnect
 edit_uri: ""
 
 # Copyright
-copyright: 'Copyright &copy; 2018-2020 Hieromon Ikasamo'
+copyright: Copyright &copy; 2018-2020 Hieromon Ikasamo
 
 # Configuration
 use_directory_urls: false
 theme:
-  name: 'material'
-  feature:
-    tabs: false
-  language: 'en'
-  logo: 'images/arduino-logo.svg'
+  name: material
+  features:
+    - tabs
+    - instant
+  language: en
+  logo: images/arduino-logo.svg
+  icon:
+    repo: fontawesome/brands/github
   palette:
-    primary: 'indigo'
-    accent: 'indigo'
+    primary: indigo
+    accent: indigo
   font:
-    text: 'Roboto'
-    code: 'Roboto Mono'
+    text: Roboto
+    code: Roboto Mono
 
 # Customization
 extra_css:
-  - 'css/paragraph.css'
-  - 'css/extra.css'
-  - 'https://use.fontawesome.com/releases/v5.6.3/css/all.css'
+  - css/paragraph.css
+  - css/extra.css
+  - https://use.fontawesome.com/releases/v5.6.3/css/all.css
 extra_javascript:
-  - 'js/gifffer.min.js'
+  - js/gifffer.min.js
 extra:
   social:
-    - type: 'github'
-      link: 'https://github.com/Hieromon'
-    - type: 'twitter'
-      link: 'https://twitter.com/hieromon'
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/Hieromon
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/hieromon
 
 # Google Analytics
 google_analytics:
   - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
-  - 'auto'
+  - auto
 
 # Extensions
 markdown_extensions:
@@ -95,8 +98,8 @@ markdown_extensions:
   - codehilite:
       guess_lang: false
       linenums: none
-      noclasses: true
       use_pygments: true
+      noclasses: true
       pygments_style: monokai
   - footnotes
   - pymdownx.betterem:
