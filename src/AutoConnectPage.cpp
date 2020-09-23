@@ -1578,9 +1578,22 @@ PageElement* AutoConnect::_setupPage(String& uri) {
  *  @param allow  Indication of whether to authenticate with the page.
  */ 
 void AutoConnect::_authentication(bool allow) {
+  HTTPAuthMethod  method = _apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+  _authentication(allow, method);
+}
+
+/**
+ *  Allow the page set upped to authenticate.
+ *  The argument parameter indicates that authentication is allowed with
+ *  the condition of the AutoConnect.authScope setting.
+ *  It determines to admit authentication in the captive portal state
+ *  when the AP_AUTHSCOPE_WITHCP is enabled.
+ *  @param allow  Indication of whether to authenticate with the page.
+ */ 
+void AutoConnect::_authentication(bool allow, const HTTPAuthMethod method) {
   const char* user = nullptr;
   const char* password = nullptr;
-  HTTPAuthMethod  method = _apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+  // HTTPAuthMethod  method = _apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
   String  fails;
 
   // Enable authentication by setting of AC_AUTHSCOPE_DISCONNECTED even if WiFi is not connected.

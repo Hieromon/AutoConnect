@@ -263,6 +263,7 @@ class AutoConnect {
     AC_RECONNECT_RESET
   } AC_STARECONNECT_t;
   void  _authentication(bool allow);
+  void  _authentication(bool allow, const HTTPAuthMethod method);
   bool  _config(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
   String _getBootUri(void);
