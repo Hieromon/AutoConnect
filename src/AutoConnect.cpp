@@ -478,10 +478,16 @@ void AutoConnect::handleRequest(void) {
       _currentHostIP = WiFi.softAPIP();
       _redirectURI = String(F(AUTOCONNECT_URI_FAIL));
       _disconnectWiFi(false);
-      while (WiFi.status() != WL_IDLE_STATUS && WiFi.status() != WL_DISCONNECTED) {
+      wl_status_t wl = WiFi.status();
+      unsigned long tm = millis();
+      while (wl != WL_IDLE_STATUS && wl != WL_DISCONNECTED && wl != WL_NO_SSID_AVAIL) {
+        if (millis() - tm > 3000)
+          break;
         delay(1);
         yield();
+        wl = WiFi.status();
       }
+      AC_DBG("Disconnected an attempt, status(%d)\n", wl);
       // Restore the ticker
       if (_ticker && WiFi.getMode() == WIFI_AP_STA)
         _ticker->start(AUTOCONNECT_FLICKER_PERIODAP, (uint8_t)AUTOCONNECT_FLICKER_WIDTHAP);
