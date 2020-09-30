@@ -129,7 +129,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
   case AC_File_Extern:
     break;
   }
-  return _upload != false;
+  return _upload ? true : false;
 }
 
 /**
