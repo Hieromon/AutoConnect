@@ -252,6 +252,12 @@
 #define AUTOCONNECT_AUTH_REALM        "AUTOCONNECT"
 #endif // !AUTOCONNECT_AUTH_REALM
 
+// File name condition that AutoConnectOTA considers to be firmware
+// Restricts with a regular expression
+#ifndef AUTOCONNECT_UPLOAD_ASFIRMWARE
+#define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
+#endif
+
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
 

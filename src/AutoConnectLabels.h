@@ -234,13 +234,18 @@
 
 // Text: The update page's file selection button label
 #ifndef AUTOCONNECT_TEXT_SELECTFIRMWARE
-#define AUTOCONNECT_TEXT_SELECTFIRMWARE "Select firmware: "
+#define AUTOCONNECT_TEXT_SELECTFIRMWARE "Select file: "
 #endif // !AUTOCONNECT_TEXT_SELECTFIRMWARE
 
 // Text: OTA success
 #ifndef AUTOCONNECT_TEXT_OTASUCCESS
 #define AUTOCONNECT_TEXT_OTASUCCESS "Successfully updated, rebooting..."
 #endif // !AUTOCONNECT_TEXT_OTASUCCESS
+
+// Text: OTA success
+#ifndef AUTOCONNECT_TEXT_OTAUPLOADED
+#define AUTOCONNECT_TEXT_OTAUPLOADED "Successfully uploaded"
+#endif // !AUTOCONNECT_TEXT_OTAUPLOADED
 
 // Text: OTA failure
 #ifndef AUTOCONNECT_TEXT_OTAFAILURE

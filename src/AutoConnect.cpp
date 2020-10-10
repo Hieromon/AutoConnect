@@ -542,8 +542,14 @@ void AutoConnect::handleRequest(void) {
     if (_ota->status() == AutoConnectOTA::OTA_RIP) {
       // Indicate the reboot at the next handleClient turn
       // with on completion of the update via OTA.
-      _webServer->client().setNoDelay(true);
-      _rfReset = true;
+      if (_webServer->client().connected()) {
+        _webServer->client().setNoDelay(true);
+        _ota->reset();
+      }
+
+      if (_ota->dest() == AutoConnectOTA::OTA_DEST_FIRM)
+        // OTA for firmware update requires module reset.
+        _rfReset = true;
     }
     // Reflect the menu display specifier from AutoConnectConfig to AutoConnectOTA page
     _ota->menu(_apConfig.menuItems & AC_MENUITEM_UPDATE);
