@@ -36,8 +36,11 @@
 */
 #ifdef AUTOCONNECT_USE_SPIFFS
 #include <FS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
 FS& FlashFS = SPIFFS;
-#else
+#elif defined(ARDUINO_ARCH_ESP32)
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
 #include <LittleFS.h>
 FS& FlashFS = LittleFS;
 #endif
