@@ -180,7 +180,7 @@ bool AutoConnectInputBasis::isValid(void) const {
       regfree(&preg);
     }
 #elif defined(ARDUINO_ARCH_ESP32)
-    const std::regex  re(pattern.c_str());
+    const std::regex  re(std::string(pattern.c_str()));
     rc = std::regex_match(value.c_str(), re);
 #endif
   }
