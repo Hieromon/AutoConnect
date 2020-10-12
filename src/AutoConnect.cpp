@@ -228,6 +228,11 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         _portalAccessPeriod = millis();
         while (WiFi.status() != WL_CONNECTED && !_rfReset) {
           handleClient();
+          // By an exit routine to escape from Captive portal
+          if (_whileCaptivePortal) {
+            if (!_whileCaptivePortal())
+              break;
+          }
           // Force execution of queued processes.
           yield();
           // Check timeout
@@ -728,6 +733,14 @@ void AutoConnect::onDetect(DetectExit_ft fn) {
  */
 void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
   _notFoundHandler = fn;
+}
+
+/**
+ *  Register an exit routine to call during the captive portal.
+ *  @param  fn  A function of the exit routine that calls while captive portal.
+ */
+void AutoConnect::whileCaptivePortal(WhileCaptivePortalExit_ft fn) {
+  _whileCaptivePortal = fn;
 }
 
 /**

@@ -253,9 +253,11 @@ class AutoConnect {
 
   typedef std::function<bool(IPAddress&)>  DetectExit_ft;
   typedef std::function<void(IPAddress&)>  ConnectExit_ft;
+  typedef std::function<bool(void)>        WhileCaptivePortalExit_ft;
   void  onDetect(DetectExit_ft fn);
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServerClass::THandlerFunction fn);
+  void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
 
  protected:
   typedef enum {
@@ -307,6 +309,7 @@ class AutoConnect {
   static unsigned int  _toWiFiQuality(int32_t rssi);
   ConnectExit_ft       _onConnectExit;
   DetectExit_ft        _onDetectExit;
+  WhileCaptivePortalExit_ft _whileCaptivePortal;
   WebServerClass::THandlerFunction _notFoundHandler;
   size_t               _freeHeapSize;
 
