@@ -73,6 +73,7 @@ class AutoConnectConfig {
     preserveAPMode(false),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
+    reconnectInterval(0),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
@@ -114,6 +115,7 @@ class AutoConnectConfig {
     preserveAPMode(false),
     portalTimeout(portalTimeout),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
+    reconnectInterval(0),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
@@ -155,6 +157,7 @@ class AutoConnectConfig {
     preserveAPMode = o.preserveAPMode;
     portalTimeout = o.portalTimeout;
     menuItems = o.menuItems;
+    reconnectInterval = o.reconnectInterval;
     ticker = o.ticker;
     tickerPort = o.tickerPort;
     tickerOn = o.tickerOn;
@@ -196,6 +199,7 @@ class AutoConnectConfig {
   bool      preserveAPMode;     /**< Keep existing AP WiFi mode if captive portal won't be started. */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   uint16_t  menuItems;          /**< A compound value of the menu items to be attached */
+  uint8_t   reconnectInterval;  /**< Auto-reconnect attempt interval uint */
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
@@ -272,6 +276,7 @@ class AutoConnect {
   bool  _getConfigSTA(station_config_t* config);
   bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   bool  _loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent);
+  bool  _seekCredential(const AC_PRINCIPLE_t principle, const bool excludeCurrent);
   void  _startWebServer(void);
   void  _startDNSServer(void);
   void  _stopPortal(void);
@@ -343,6 +348,7 @@ class AutoConnect {
   uint8_t       _connectCh;
   unsigned long _connectTimeout;
   unsigned long _portalAccessPeriod;
+  unsigned long _attemptPeriod;
 
   /** The control indicators */
   bool  _rfConnect = false;     /**< URI /connect requested */

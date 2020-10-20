@@ -47,6 +47,17 @@
 #define AUTOCONNECT_USE_SPIFFS
 #endif
 
+// Whether or not it points to the target access point is determined by
+// matching the SSID or BSSID. The default key to collate is BSSID.
+// The BSSID is usually fixed to the MAC address unique to its AP,
+// but when using some mobile hotspots, the BSSID may change even for
+// the same access point.
+// If you operate inconvenience in aiming at the access point by BSSID,
+// you can change the collation key to SSID by uncommenting the below.
+// If the AUTOCONNECT_APKEY_SSID is defined at compile-time, the access
+// point will be collated by the SSID.
+//#define AUTOCONNECT_APKEY_SSID
+
 // Predefined parameters
 // SSID that Captive portal started.
 #ifndef AUTOCONNECT_APID
@@ -110,6 +121,11 @@
 #define AUTOCONNECT_URI_UPDATE_ACT      AUTOCONNECT_URI "/update_act"
 #define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
+
+// Number of seconds in uint time [s]
+#ifndef AUTOCONNECT_UNITTIME
+#define AUTOCONNECT_UNITTIME    30
+#endif
 
 // Time-out limitation when AutoConnect::begin [ms]
 #ifndef AUTOCONNECT_TIMEOUT

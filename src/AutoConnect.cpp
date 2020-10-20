@@ -431,6 +431,36 @@ void AutoConnect::handleClient(void) {
  *  Handling for the AutoConnect menu request.
  */
 void AutoConnect::handleRequest(void) {
+  // AutoConnectConfig::reconnectInterval allows a dynamic connection
+  // to a known access point without blocking the execution of
+  // Sketch's loop function.
+  if (WiFi.status() != WL_CONNECTED && _apConfig.autoReconnect && _apConfig.reconnectInterval > 0) {
+    int8_t  sc = WiFi.scanComplete();
+
+    // Scan has not triggered then starts asynchrony scan and repeats at
+    // intervals of time with AutoConnectConfig::reconnectInterval value
+    //  multiplied by AUTOCONNECT_UNITTIME.
+    if (sc == WIFI_SCAN_FAILED) {
+      if (millis() - _attemptPeriod > ((unsigned long)_apConfig.reconnectInterval * AUTOCONNECT_UNITTIME * 1000)) {
+        WiFi.setAutoReconnect(false);
+        WiFi.scanNetworks(true, true);
+        AC_DBG("Attempts autoReconnect\n");
+      }
+    }
+
+    // After the background scan is complete, seek a connectable access
+    // point. If it is found, it will generate a connection request inside.
+    else if (sc != WIFI_SCAN_RUNNING) {
+      AC_DBG("%d network(s) found\n", (int)sc);
+      if (sc > 0) {
+        if (_seekCredential(_apConfig.principle, false))
+        _rfConnect = true;
+      }
+      _attemptPeriod = millis();
+      WiFi.scanDelete();
+    }
+  }
+
   // Handling processing requests to AutoConnect.
   if (_rfConnect) {
     // Leave from the AP currently.
@@ -778,52 +808,8 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
       WiFi.scanDelete();
       int8_t  nn = WiFi.scanNetworks(false, true);
       AC_DBG("%d network(s) found\n", (int)nn);
-      if (nn > 0) {
-        station_config_t  validConfig;  // Temporary to find the strongest RSSI.
-        int32_t minRSSI = -120;         // Min value to find the strongest RSSI.
-
-        // Seek SSID
-        const char* currentSSID = WiFi.SSID().c_str();
-        const bool  skipCurrent = excludeCurrent & (strlen(currentSSID) > 0);
-        for (uint8_t i = 0; i < credential.entries(); i++) {
-          credential.load(i, &_credential);
-          // Seek valid configuration according to the WiFi connection principle.
-          // Verify that an available SSIDs meet AC_PRINCIPLE_t requirements.
-          for (uint8_t n = 0; n < nn; n++) {
-            if (skipCurrent && !strcmp(currentSSID, WiFi.SSID(n).c_str()))
-              continue;
-            if (!memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid))) {
-              // Excepts SSID that has weak RSSI under the lower limit.
-              if (WiFi.RSSI(n) < _apConfig.minRSSI) {
-                AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
-                continue;
-              }
-              // Determine valid credential
-              switch (principle) {
-              case AC_PRINCIPLE_RECENT:
-                // By BSSID, exit to keep the credential just loaded.
-                return true;
-
-              case AC_PRINCIPLE_RSSI:
-                // Verify that most strong radio signal.
-                // Continue seeking to find the strongest WIFI signal SSID.
-                if (WiFi.RSSI(n) > minRSSI) {
-                  minRSSI = WiFi.RSSI(n);
-                  memcpy(&validConfig, &_credential, sizeof(station_config_t));
-                }
-                break;
-              }
-              break;
-            }
-          }
-        }
-        // Increasing the minSSI will indicate the successfully sought for AC_PRINCIPLE_RSSI.
-        // Restore the credential that has maximum RSSI.
-        if (minRSSI > -120) {
-          memcpy(&_credential, &validConfig, sizeof(station_config_t));
-          return true;
-        }
-      }
+      if (nn > 0)
+        return _seekCredential(principle, excludeCurrent);
     }
 
     // The SSID to load was specified.
@@ -839,6 +825,74 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
         }
         return true;
       }
+  }
+  return false;
+}
+
+/**
+ *  Aims a connectable access point by seeking with the WiFi scan results.
+ *  The collation uses the saved credentials, and the connection priority
+ *  follows AutoConnectConfig::principle.
+ *  Either BSSID or SSID of the collation key is determined at compile
+ *  time according to the AUTOCONNECT_APKEY_SSID definition.
+ *  @param  principle  WiFi connection principle.
+ *  @param  excludeCurrent  Skip loading the current SSID.
+ *  @return true  A matched credential of BSSID was loaded.
+ */
+bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const bool excludeCurrent) {
+  AutoConnectCredential credential(_apConfig.boundaryOffset);
+  station_config_t  validConfig;  // Temporary to find the strongest RSSI.
+  int32_t minRSSI = -120;         // Min value to find the strongest RSSI.
+
+  // Seek SSID
+  const char* currentSSID = WiFi.SSID().c_str();
+  const bool  skipCurrent = excludeCurrent & (strlen(currentSSID) > 0);
+  for (uint8_t i = 0; i < credential.entries(); i++) {
+    credential.load(i, &_credential);
+    // Seek valid configuration according to the WiFi connection principle.
+    // Verify that an available SSIDs meet AC_PRINCIPLE_t requirements.
+    for (uint8_t n = 0; n < WiFi.scanComplete(); n++) {
+      if (skipCurrent && !strcmp(currentSSID, WiFi.SSID(n).c_str()))
+        continue;
+      if (
+        // The access point collation key is determined at compile time
+        // according to the AUTOCONNECT_APKEY_SSID definition, which is
+        // either BSSID or SSID.
+#ifdef AUTOCONNECT_APKEY_SSID
+        !strcmp((const char*)_credential.ssid, WiFi.SSID(n).c_str())
+#else
+        !memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid))
+#endif
+        ) {
+        // Excepts SSID that has weak RSSI under the lower limit.
+        if (WiFi.RSSI(n) < _apConfig.minRSSI) {
+          AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
+          continue;
+        }
+        // Determine valid credential
+        switch (principle) {
+        case AC_PRINCIPLE_RECENT:
+          // By BSSID, exit to keep the credential just loaded.
+          return true;
+
+        case AC_PRINCIPLE_RSSI:
+          // Verify that most strong radio signal.
+          // Continue seeking to find the strongest WIFI signal SSID.
+          if (WiFi.RSSI(n) > minRSSI) {
+            minRSSI = WiFi.RSSI(n);
+            memcpy(&validConfig, &_credential, sizeof(station_config_t));
+          }
+          break;
+        }
+        break;
+      }
+    }
+  }
+  // Increasing the minSSI will indicate the successfully sought for AC_PRINCIPLE_RSSI.
+  // Restore the credential that has maximum RSSI.
+  if (minRSSI > -120) {
+    memcpy(&_credential, &validConfig, sizeof(station_config_t));
+    return true;
   }
   return false;
 }
@@ -1258,6 +1312,7 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
       IPAddress localIP = WiFi.localIP();
       _onConnectExit(localIP);
     }
+  _attemptPeriod = millis();  // Save to measure the interval between an autoReconnect.
   return wifiStatus;
 }
 
