@@ -1201,7 +1201,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
         // according to the AUTOCONNECT_APKEY_SSID definition, which is
         // either BSSID or SSID.
 #ifdef AUTOCONNECT_APKEY_SSID
-        !strcmp((const char*)entry.ssid, WiFi.SSID(sc).c_str())
+        !strcmp(reinterpret_cast<const char*>(entry.ssid), WiFi.SSID(sc).c_str())
 #else
         !memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config_t::bssid))
 #endif

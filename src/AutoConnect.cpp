@@ -859,7 +859,7 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const bool exc
         // according to the AUTOCONNECT_APKEY_SSID definition, which is
         // either BSSID or SSID.
 #ifdef AUTOCONNECT_APKEY_SSID
-        !strcmp((const char*)_credential.ssid, WiFi.SSID(n).c_str())
+        !strcmp(reinterpret_cast<const char*>(_credential.ssid), WiFi.SSID(n).c_str())
 #else
         !memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid))
 #endif
