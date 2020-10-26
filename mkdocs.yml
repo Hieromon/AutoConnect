@@ -57,9 +57,6 @@ copyright: Copyright &copy; 2018-2020 Hieromon Ikasamo
 use_directory_urls: false
 theme:
   name: material
-  features:
-    - tabs
-    - instant
   language: en
   logo: images/arduino-logo.svg
   icon:
