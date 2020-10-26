@@ -375,7 +375,6 @@ File name to be upload. The value contains the value entered by the client brows
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
 </dl>
 
-
 ### <i class="fa fa-code"></i> Public member functions
 
 #### <i class="fa fa-caret-right"></i> typeOf

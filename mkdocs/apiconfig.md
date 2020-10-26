@@ -4,20 +4,23 @@
 
 ```cpp
 AutoConnectConfig()
-```  
+```
+
 ```cpp
 AutoConnectConfig(const char* ap, const char* password)
 ```
+
 ```cpp
 AutoConnectConfig(const char* ap, const char* password, const unsigned long timeout)
 ```
+
 ```cpp
 AutoConnectConfig(const char* ap, const char* password, const unsigned long timeout, const uint8_t channel)
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">ap</span><span class="apidesc">SSID for SoftAP. The length should be up to 31. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</span></dd>
-    <dd><span class="apidef">password</span><span class="apidesc">Password for SodtAP. The length should be from 8 to up to 63. The default value is **12345678**.</span></dd>
+    <dd><span class="apidef">password</span><span class="apidesc">Password for SoftAP. The length should be from 8 to up to 63. The default value is **12345678**.</span></dd>
     <dd><span class="apidef">timeout</span><span class="apidesc">The timeout value of the captive portal in [ms] units. The default value is 0.</span></dd>
     <dd><span class="apidef">channel</span><span class="apidesc">The channel number of WIFi when SoftAP starts. The default values is 1.</span></dd>
 </dl>
@@ -26,7 +29,7 @@ AutoConnectConfig(const char* ap, const char* password, const unsigned long time
 
 ### <i class="fa fa-caret-right"></i> apid
 
-SoftAP's SSID. 
+SoftAP's SSID.
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"> The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</span></dd>
@@ -88,7 +91,15 @@ If the connection fails, starts the captive portal in SoftAP+STA mode.
 When the autoReconnect option is enabled, an automatic connection will behave if the following conditions are satisfied.
 
 - Invokes *AutoConnect::begin* without user name and password parameter as ```begin()```.
-- If one of the saved BSSIDs (not the SSID) of the credentials matches the BSSID detected by the network scan.
+- If one of the saved credentials matches the BSSID (or SSID) detected by the network scan.
+
+!!! Info "Either BSSID or SSID to aim the access point"
+    Whether or not it points to the target access point is determined by matching the **SSID** or **BSSID**. The **default key** to collate is **BSSID**.  
+    The BSSID is usually fixed to the MAC address unique to its access point device, but when using some mobile hotspots, the BSSID may change even for the same access point. If you operate inconvenience in aiming at the access point by BSSID, you can change the collation key to SSID by uncomment the below line in `AutoConnectDefs.h`:
+    ```cpp
+    #define AUTOCONNECT_APKEY_SSID
+    ```
+    If `AUTOCONNECT_APKEY_SSID` macro is defined when the library is compiled, the access points are collated by the SSID.
 
 ### <i class="fa fa-caret-right"></i> autoReset
 
@@ -322,6 +333,27 @@ Sets password for SoftAP. The length should be from 8 to up to 63. The default v
     <dd>String</dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> reconnectInterval
+
+Specifies the number of units for interval time to attempt automatic reconnection when [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled. This value is specified by the number of unit times from 0 to 255, and one unit time is macro-defined as **AUTOCONNECT_UNITTIME** in `AutoConnectDefs.h` file of library source code, and its initial value is 30[s].
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>uint8_t</dd>
+</dl>
+
+WiFi connection retry is repeated inside [**AutoConnect::handleClient**](api.md#handleClient) after the number of seconds that the reconnectInterval value is multiplied by **AUTOCONNECT_UNITTIME** from the previous attempt. Then, when the connection with one of the saved credentials is established, the automatic reconnection will stop. And while [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled, if the WiFi connection is lost, it will start to auto-reconnect again inside [**AutoConnect::handleClient**](api.md#handleclient).
+
+If **0** is specified for the reconnectInterval, background reconnection attempt repeatedly will not be made, and only once at the first WiFi.begin failure in [**AutoConnect::begin**](api.md#begin). (Only when [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled) The default value is 0.
+
+!!! Info "AUTOCONNECT_UNITTIME"
+    **AUTOCONNECT_UNITTIME** as macro defined in `AutoConnectDefs.h` file of library source code as the below:
+    ```cpp
+    // Number of seconds in uint time [s]
+    #ifndef AUTOCONNECT_UNITTIME
+    #define AUTOCONNECT_UNITTIME    30
+    #endif
+    ```
+
 ### <i class="fa fa-caret-right"></i> retainPortal
 
 Specify whether to continue the portal function even if the captive portal timed out. If the true, when a timeout occurs, the [**AutoConnect::begin**](api.md#begin) function is exited with returns false, but the portal facility remains alive. So SoftAP remains alive and you can invoke AutoConnect while continuing sketch execution. The default is false.
@@ -423,7 +455,7 @@ Config.autoSave = AC_SAVECREDENTIAL_NEVER;    // No save credential
 Config.boundaryOffset = 64;                   // Reserve 64 bytes for the user data in EEPROM.
 Config.portalTimeout = 60000;                 // Sets timeout value for the captive portal
 Config.retainPortal = true;                   // Retains the portal function after timed-out
-Config.homeUri = "/index.html";				  // Sets home path of Sketch application
+Config.homeUri = "/index.html";               // Sets home path of Sketch application
 Config.title ="My menu";                      // Customize the menu title
 Config.staip = IPAddress(192,168,10,10);      // Sets static IP
 Config.staGateway = IPAddress(192,168,10,1);  // Sets WiFi router address

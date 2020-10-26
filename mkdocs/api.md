@@ -436,6 +436,7 @@ Register the handler function for undefined URL request detected.
 </dl>
 
 ### <i class="fa fa-caret-right"></i> where
+
 ```cpp
 String where(void)
 ```
@@ -448,3 +449,26 @@ This function is provided to access the fields (ie. the AutoConnectElements) wit
 </dl>
 
 The **where** function usage is described in the section [*Where to pick up the values*](achandling.md#where-to-pick-up-the-values).
+
+### <i class="fa fa-caret-right"></i> whileCaptivePortal
+
+```cpp
+void whileCaptivePortal(WhileCaptivePortalExit_ft fn)
+```
+Register the function which will call from AutoConnect during a stay in the captive portal.
+<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd>
+
+</dl>
+
+An *fn* specifies the function called while staying in the captive portal. Its prototype declaration is defined as "*WhileCaptivePortalExit_ft*".
+
+```cpp
+typedef std::function<bool(void)>   WhileCaptivePortalExit_ft
+```
+<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
+</dl>

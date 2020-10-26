@@ -29,11 +29,45 @@ Portal.config(Config);
 Portal.begin();
 ```
 
-An [**autoRecconect**](apiconfig.md#autoreconnect) option is only available for [*AutoConnect::begin*](api.md#begin) without SSID and PASSWORD parameter.
+An [**autoReconnect**](apiconfig.md#autoreconnect) option is only available for [*AutoConnect::begin*](api.md#begin) without SSID and PASSWORD parameter.
 
 !!! note "An autoReconnect is not autoreconnect"
     The [*WiFiSTAClass::disconnect*](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin() without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by the arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.
     
+### <i class="fa fa-caret-right"></i> Automatic reconnect (Background)
+
+Combining [**autoReconnect**](advancedusage.md#automatic-reconnect) with [*AutoConnectConfig::reconnectInterval*](apiconfig.md#reconnectinterval) allows you to periodically repeat connection attempts to known access points within [*AutoConnect::handleClient*](api.md#handleclient). This process is pseudo-asynchronous and does not block the Sketch process in the `loop()` function.
+
+The reconnectInterval specifies the interval time to seek for known access points with saved credentials during the **handleClient** loop and attempt to connect to the AP.
+
+```cpp hl_lines="7 8"
+AutoConnect       Portal;
+AutoConnectConfig Config;
+
+void setup() {
+  Config.portalTimeout = 180000;  // Limit connection wait time on the captive portal to 3 minutes.
+  Config.retainPortal = true;     // Keep the captive portal open regardless of establishing a connection.
+  Config.autoReconnect = true;    // Attempt automatic reconnection.
+  Config.reconnectInterval = 6;   // Seek interval time is 180[s].
+  Portal.config(Config);
+  Portal.begin();
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    // Here, what to do if WiFi is connected.
+  }
+  else {
+    // Here, what to do if WiFi is not connected.
+  }
+
+  Portal.handleClient();
+}
+```
+
+Above Sketch shows a configuration example that you want to keep connecting to known access points as long as possible. When the WiFi connection is lost, it will start seeking the WiFi network every 30 seconds during the handleClient loop.
+
+In addition, the effect of [**retainPortal**](apiconfig.md#retainportal) allows the captive portal to continue even if [*AutoConnect::begin*](api.md#begin) fails to connect to WiFi, allowing you to operate the AutoConnect menu without blocking the Sketch loop process.
 
 ### <i class="fa fa-caret-right"></i> Autosave Credential
 
@@ -125,6 +159,35 @@ Basically, the captive portal launch is subject to 1st-WiFi.begin result, but Sk
     <td>Attempts WiFi connection in STA mode.<br>In some cases, the autoReconnect may restore the connection even if 1st-WiFiBeing fails.<br>ESP module stays in STA mode and WebServer will start.</td>
   </tr>
 </table>
+
+### <i class="fa fa-caret-right"></i> Captive portal stay control
+
+With [*AutoConnect::begin*](api.md#begin), once the captive portal is started without being able to connect to a known WiFi access point, control will not return to sketch until the WiFi connection is established or times out. This behavior helps to pin the ESP module's network participation as a WiFi client (that is, AutoConnect::begin is an alternative to WiFi.begin) but it can not rush into the loop function regardless of network connection status. Also, while the ESP module is in the captive portal state and waiting for a connection operation to the access point, While the ESP module is in the captive portal state and waiting for a connection operation to the access point, Sketch's behavior is constrained to the [escape condition of AutoConnect::begin](lsbegin.md).
+
+[*AutoConnect::whileCaptivePortal*](api.md#whilecaptiveportal) exit allows the sketch to continue the process temporarily when the ESP module remains standalone and the captive portal is open. It registers the user's sketch function that AutoConnect::begin calls while executing a waiting loop for access to the captive portal.
+
+To register the whileCaptivePortal exit routine, use the [*AutoConnect::whileCaptivePortal*](api.md#whilecaptiveportal) function as follows:
+
+```cpp hl_lines="13"
+AutoConnect portal;
+
+bool whileCP(void) {
+  bool  rc;
+  // Here, something to process while the captive portal is open.
+  // To escape from the captive portal loop, this exit function returns false.
+  // rc = true;, or rc = false;
+  return rc;
+}
+
+void setup() {
+  ...
+  portal.whileCaptivePortal(whileCP);
+  portal.begin();
+  ...
+}
+```
+
+The whileCaptivePortal exit is called repeatedly while the captive portal is open until WiFi connected or times out occurs. In the sketch, returning a **FALSE** value from the whileCaptivePortal function allows the control to escape from the captive portal loop even before the wait time reaches the timeout.
 
 ### <i class="fa fa-caret-right"></i> Captive portal timeout control
 
@@ -289,7 +352,7 @@ For more details, see section [Attach the menus](menuize.md) of Examples page.
 
 !!! note "An instance of ESP8266WebServer/WebServer is needed"
     When calling the append function with request handler parameters, an instance of the WebServer as the registration destination must exist.  
-    AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the [AutoConnct::append](api.md#append) function with a request handler parameter must be after [AutoConnect::begin](api.md#begin).
+    AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the [AutoConnect::append](api.md#append) function with a request handler parameter must be after [AutoConnect::begin](api.md#begin).
 
 ### <i class="fa fa-caret-right"></i> Change the menu labels
 
@@ -940,6 +1003,22 @@ Appropriately specifying the WiFi channel to use for ESP8266 and ESP32 is essent
 
 The default channel when a captive portal starts and AutoConnect itself becomes an access point is the [*AutoConnectConfig::channel*](apiconfig.md#channel) member. If this channel is different from the channel of the access point you will attempt to connect, WiFi.begin may fail. The cause is that the ESP module shares the same channel in AP mode and STA mode. If the connection attempt is not stable, specifying a proper channel using AutoConnectConfig::channel may result in a stable connection.
 
+### <i class="fa fa-caret-right"></i> Match with known access points by SSID
+
+By default, AutoConnect uses the **BSSID** to search for known access points. (Usually it's the MAC address of the device) By using BSSID as the key to seeking WiFi networks, AutoConnect can discover even if the access point has hidden. But when using some mobile hotspots, the BSSID may change even for the same mobile hotspots.
+
+If you operate inconvenience in aiming at the access point by BSSID, you can change the collation key from BSSID to SSID by uncommenting `AUTOCONNECT_APKEY_SSID` macro definition in `AutoConnectDefs.h` library source code.
+
+```cpp
+#define AUTOCONNECT_APKEY_SSID
+```
+
+Allow you to use [PlatformIO](https://platformio.org/platformio-ide) as a build system and give the following description to the [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/section_env_build.html?highlight=build_flags#build-flags), you can enable **AUTOCONNECT_APKEY_SSID** each build without modifying the library source code:
+
+```ini
+build_flags = -DAUTOCONNECT_APKEY_SSID
+```
+
 ### <i class="fa fa-caret-right"></i> Move the saving area of EEPROM for the credentials
 
 By default, the credentials saving area is occupied from the beginning of EEPROM area. [ESP8266 Arduino core document](http://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=eeprom#flash-layout) says that:
@@ -1082,7 +1161,7 @@ The flicker cycle length is defined by some macros in [AutoConnectDefs.h](https:
 #define AUTOCONNECT_FLICKER_WIDTHDC   16  // (8 bit resolution)
 ```
 
-- **AUTOCONNECTT_FLICKER_PERIODAP**:  
+- **AUTOCONNECT_FLICKER_PERIODAP**:  
   Assigns a flicker period when the ESP module stays in AP_STA mode.
 - **AUTOCONNECT_FLICKER_PERIODDC**:  
   Assigns a flicker period when WiFi is disconnected.

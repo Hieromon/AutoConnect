@@ -18,6 +18,12 @@ You can migrate the past saved credentials using [**CreditMigrate.ino**](https:/
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
+## <i class="fa fa-question-circle"></i> Captive portal does not pop up.
+
+If your ESP module is already transparent to the internet, the captive portal screen will not pop up even if [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal) is enabled. Some people have mistaken sometimes about the behavioral condition of the Captive portal, it only pops up automatically when the ESP module is disconnected state from the Internet.
+
+We will hypothesize that you keep the ESP module with AP_STA mode by specifing the **retainPortal** and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the **esp32ap**, the OS of your cellphone will determine that the access point (i.e. **esp32ap**) is transparent to the Internet. That is, the captive portal does not pop up.
+
 ## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
 
 If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directives. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.
@@ -238,6 +244,44 @@ If the heap memory is insufficient, the following message is displayed on the se
 ## <i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.
 
 Is there the AutoConnectElements element named **SUBMIT** in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the `input type=submit` element for the form submission and uses [HTML form element submit](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit) function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use **SUBMIT** as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.
+
+## <i class="fa fa-question-circle"></i> Unable to change any macro definitions by the Sketch.
+
+The various macro definitions that determine the configuration of AutoConnect cannot be redefined by hard-coding with Sketch. The compilation unit has a different AutoConnect library itself than the Sketch, and the configuration definitions in AutoConnectDefs.h are quoted in the compilation for AutoConnect only. For example, the following Sketch does not enable AC_DEBUG and does not change HTTP port also the menu background color:
+
+```cpp hl_lines="1 2 3"
+#define AC_DEBUG                                    // No effect
+#define AUTOCONNECT_HTTPPORT    8080                // No effect
+#define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#696969" // No effect
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+AutoConnect Portal;
+
+void setup() {
+  Portal.begin();
+}
+
+void loop() {
+  Portal.handleClient();
+}
+```
+
+To enable them, edit `AutoConnectDefs.h` as the library source code directly, or supply them as the external parameters using a build system like [PlatformIO](https://platformio.org/platformio-ide) with [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/section_env_build.html?highlight=build_flags#build-flags):
+
+```ini hl_lines="7 8 9 10"
+platform = espressif8266
+board = nodemcuv2
+board_build.f_cpu = 160000000L
+board_build.f_flash = 80000000L
+board_build.flash_mode = dio
+board_build.filesystem = littlefs
+build_flags =
+  -DAC_DEBUG
+  -DAUTOCONNECT_HTTPPORT=8080
+  -DAUTOCONNECT_MENUCOLOR_BACKGROUND='"#696969"'
+```
 
 ## <i class="fa fa-question-circle"></i> Still, not stable with my sketch.
 
