@@ -434,6 +434,16 @@ class AutoConnect {
   String _token_WIFI_STATUS(PageArgument& args);
 
  private:
+  // The access point collation key is determined at compile time
+  // according to the AUTOCONNECT_APKEY_SSID definition, which is
+  inline bool _isValidAP(const station_config_t& config, const uint8_t item) const {
+#if defined(AUTOCONNECT_APKEY_SSID)
+    return !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item));
+#else
+    return !memcmp(config.bssid, WiFi.BSSID(item), sizeof(station_config_t::bssid));
+#endif
+  }
+
   static const  String  _emptyString; /**< An empty string allocation  **/
 
 #if defined(ARDUINO_ARCH_ESP8266)

@@ -854,18 +854,12 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const bool exc
     for (uint8_t n = 0; n < WiFi.scanComplete(); n++) {
       if (skipCurrent && !strcmp(currentSSID, WiFi.SSID(n).c_str()))
         continue;
-      if (
-        // The access point collation key is determined at compile time
-        // according to the AUTOCONNECT_APKEY_SSID definition, which is
-        // either BSSID or SSID.
-#ifdef AUTOCONNECT_APKEY_SSID
-        !strcmp(reinterpret_cast<const char*>(_credential.ssid), WiFi.SSID(n).c_str())
-#else
-        !memcmp(_credential.bssid, WiFi.BSSID(n), sizeof(station_config_t::bssid))
-#endif
-        ) {
-        // Excepts SSID that has weak RSSI under the lower limit.
+      // The access point collation key is determined at compile time
+      // according to the AUTOCONNECT_APKEY_SSID definition, which is
+      // either BSSID or SSID.
+      if (_isValidAP(_credential, n)) {
         if (WiFi.RSSI(n) < _apConfig.minRSSI) {
+          // Excepts SSID that has weak RSSI under the lower limit.
           AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
           continue;
         }

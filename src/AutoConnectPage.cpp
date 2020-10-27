@@ -1196,16 +1196,10 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     credit.load(i, &entry);
     AC_DBG("Credential #%d loaded\n", (int)i);
     for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
-      if (
+      if (_isValidAP(entry, sc)) {
         // The access point collation key is determined at compile time
         // according to the AUTOCONNECT_APKEY_SSID definition, which is
         // either BSSID or SSID.
-#ifdef AUTOCONNECT_APKEY_SSID
-        !strcmp(reinterpret_cast<const char*>(entry.ssid), WiFi.SSID(sc).c_str())
-#else
-        !memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config_t::bssid))
-#endif
-        ) {
         _connectCh = WiFi.channel(sc);
         snprintf_P(rssiCont, sizeof(rssiCont), (PGM_P)_ssidRssi, AutoConnect::_toWiFiQuality(WiFi.RSSI(sc)), _connectCh);
         rssiSym = rssiCont;
