@@ -433,13 +433,64 @@ Set the menu title.
     <dd>String</dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> uptime
+
+Specifies the waiting time for the module to reboot.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">int</span><span class="apidesc">The default value is AUTOCONNECT_TIMEOUT/1000.</span></dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> username
 
 Set the username for authentication.
 <dl class="apidl">
     <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"> The default value is same as [apid](#apid).</span></dd>
+    <dd><span class="apidef">String</span><span class="apidesc">The default value is same as [apid](#apid).</span></dd>
 </dl>
+
+## <i class="fa fa-code"></i> AutoConnectConfig Initial values
+
+| Public member | Data type | Initial value definition | Defined symbol |
+|---------------|------|----------------|--------------------------|
+| [apid](#apid) | String | `esp8266ap`<br>`esp32ap` | AUTOCONNECT_APID |
+| [apip](#apip) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_IP |
+| [auth](#auth) | AC_AUTH_t | AC_AUTH_NONE | AC_AUTH_NONE<br>AC_AUTH_DIGEST<br>AC_AUTH_BASIC |
+| [authScope](#authscope) | AC_AUTHSCOPE_t | AC_AUTHSCOPE_AUX | AC_AUTHSCOPE_PARTIAL<br>AC_AUTHSCOPE_AUX<br>AC_AUTHSCOPE_AC<br>AC_AUTHSCOPE_PORTAL<br>AC_AUTHSCOPE_WITHCP |
+| [autoReconnect](#autoreconnect) | bool | false | |
+| [autoReset](#autoreset) | bool | true | |
+| [autoRise](#autorise) | bool | true | |
+| [autoSave](#autosave) | AC_SAVECREDENTIAL_t | AC_SAVECREDENTIAL_AUTO | AC_SAVECREDENTIAL_NEVER<br>AC_SAVECREDENTIAL_AUTO |
+| [bootUri](#booturi) | AC_ONBOOTURI_t | AC_ONBOOTURI_ROOT | AC_ONBOOTURI_ROOT<br>AC_ONBOOTURI_HOME |
+| [boundaryOffset](#boundaryoffset) | uint16_t | 0 | AC_IDENTIFIER_OFFSET |
+| [channel](#channel) | uint8_t | 1 | AUTOCONNECT_AP_CH |
+| [dns1](#dns1) | IPAddress | 0U | |
+| [dns2](#dns2) | IPAddress | 0U | |
+| [gateway](#gateway) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_GW |
+| [hidden](#hidden) | uint8_t | 0 | |
+| [homeUri](#homeuri) | String | `/` | AUTOCONNECT_HOMEURI |
+| [hostName](#hostname) | String | BLANK | |
+| [immediateStart](#immediatestart) | bool | false | |
+| [menuItems](#menuIiems) | uint16_t | AC_MENUITEM_CONFIGNEW<br>+ AC_MENUITEM_OPENSSIDS<br>+ AC_MENUITEM_DISCONNECT<br>+ AC_MENUITEM_RESET<br>+ AC_MENUITEM_UPDATE<br>+ AC_MENUITEM_HOME | AC_MENUITEM_CONFIGNEW<br>AC_MENUITEM_OPENSSIDS<br>AC_MENUITEM_DISCONNECT<br>AC_MENUITEM_RESET<br>AC_MENUITEM_UPDATE<br>AC_MENUITEM_HOME |
+| [minRSSI](#minrssi) | int16_t | -120 | AUTOCONNECT_MIN_RSSI |
+| [netmask](#netmask) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_NM |
+| [ota](#ota) | AC_OTA_t | AC_OTA_EXTRA | AC_OTA_EXTRA<br>AC_OTA_BUILTIN |
+| [password](#password) | String | BLANK | |
+| [portalTimeout](#portaltimeout) | unsigned long | 0 | AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT |
+| [preserveAPMode](#preserveapmode) | bool | false | |
+| [principle](#principle) | AC_PRINCIPLE_t | AC_PRINCIPLE_RECENT | AC_PRINCIPLE_RECENT<br>AC_PRINCIPLE_RSSI |
+| [psk](#psk) | String | `12345678` | AUTOCONNECT_PSK |
+| [reconnectInterval](#reconnectinterval) | uint8_t | 0 | |
+| [retainPortal](#retainportal) | bool | false | |
+| [staGateway](#stagateway) | IPAddress | 0U | |
+| [staip](#staip) | IPAddress | 0U | |
+| [staNetmask](#stanetmask) | IPAddress | 0U | |
+| [ticker](#ticker) | bool | false | |
+| [tickerOn](#tickeron) | uint8_t | LOW | AUTOCONNECT_UPDATE_LEDON |
+| [tickerPort](#tickerport) | uint8_t | LED_BUILTIN | AUTOCONNECT_TICKER_PORT |
+| [title](#title) | String | `AutoConnect` | AUTOCONNECT_MENU_TITLE |
+| [uptime](#uptime) | int | AUTOCONNECT_TIMEOUT/1000 | AUTOCONNECT_STARTUPTIME |
+| [username](#username) | String | BLANK | |
 
 ## <i class="fa fa-code"></i> AutoConnectConfig example
 
