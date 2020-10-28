@@ -438,7 +438,7 @@ class AutoConnect {
   // according to the AUTOCONNECT_APKEY_SSID definition, which is
   inline bool _isValidAP(const station_config_t& config, const uint8_t item) const {
 #if defined(AUTOCONNECT_APKEY_SSID)
-    return !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item));
+    return !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item).c_str());
 #else
     return !memcmp(config.bssid, WiFi.BSSID(item), sizeof(station_config_t::bssid));
 #endif
