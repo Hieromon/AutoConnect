@@ -22,11 +22,13 @@ AutoConnectUpdate	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 add	KEYWORD2
+append	KEYWORD2
 as	KEYWORD2
 attach	KEYWORD2
 aux	KEYWORD2
 config	KEYWORD2
 begin	KEYWORD2
+detach KEYWORD2
 disable KEYWORD2
 disableMenu	KEYWORD2
 del	KEYWORD2
@@ -53,6 +55,7 @@ on	KEYWORD2
 onDetect	KEYWORD2
 onNotFound	KEYWORD2
 onUpload	KEYWORD2
+reconnectInterval	KEYWORD2
 release	KEYWORD2
 save	KEYWORD2
 saveElement	KEYWORD2
@@ -63,6 +66,7 @@ toHTML	KEYWORD2
 typeOf	KEYWORD2
 value	KEYWORD2
 where	KEYWORD2
+whileCaptivePortal	KEYWORD2
 
 #######################################
 # Literals (KEYWORD3)
