@@ -108,7 +108,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   // immediately start the portal.
   if (_apConfig.immediateStart) {
     cs = false;
-    _apConfig.autoReconnect = false;
     AC_DBG("Start the portal immediately\n");
   }
   else {
@@ -145,21 +144,21 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       AC_DBG("WiFi.begin(%s%s%s)\n", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
       cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
     }
-  }
 
-  // Reconnect with a valid credential as the autoReconnect option is enabled.
-  if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
-    // Load a valid credential.
-    char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
-    char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
-    if (_loadCurrentCredential(ssid_c, password_c, _apConfig.principle, true)) {
-      // Try to reconnect with a stored credential.
-      AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
-      const char* psk = strlen(password_c) ? password_c : nullptr;
-      _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
-      WiFi.begin(ssid_c, psk);
-      AC_DBG("WiFi.begin(%s%s%s)\n", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
-      cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+    // Reconnect with a valid credential as the autoReconnect option is enabled.
+    if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
+      // Load a valid credential.
+      char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
+      char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
+      if (_loadCurrentCredential(ssid_c, password_c, _apConfig.principle, strlen(reinterpret_cast<const char*>(current.ssid)) > 0)) {
+        // Try to reconnect with a stored credential.
+        AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
+        const char* psk = strlen(password_c) ? password_c : nullptr;
+        _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
+        WiFi.begin(ssid_c, psk);
+        AC_DBG("WiFi.begin(%s%s%s)\n", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
+        cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+      }
     }
   }
   _currentHostIP = WiFi.localIP();
@@ -244,21 +243,15 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         cs = WiFi.status() == WL_CONNECTED;
 
         // If WLAN successfully connected, release DNS server.
-        if (cs) {
-          _dnsServer->stop();
-          _dnsServer.reset();
-          AC_DBG("DNS server stopped\n");
-        }
-        // Captive portal staying time exceeds timeout,
         // Close the portal if an option for keeping the portal is false.
-        else if (hasTimeout) {
+        if (cs) {
           if (_apConfig.retainPortal) {
             _purgePages();
             AC_DBG("Maintain portal\n");
           }
-          else {
+          // Captive portal staying time exceeds timeout,
+          else
             _stopPortal();
-          }
         }
       }
     }
@@ -323,7 +316,7 @@ bool AutoConnect::_configSTA(const IPAddress& ip, const IPAddress& gateway, cons
 
   AC_DBG("WiFi.config(IP=%s, Gateway=%s, Subnetmask=%s, DNS1=%s, DNS2=%s)\n", ip.toString().c_str(), gateway.toString().c_str(), netmask.toString().c_str(), dns1.toString().c_str(), dns2.toString().c_str());
   if (!(rc = WiFi.config(ip, gateway, netmask, dns1, dns2))) {
-    AC_DBG("failed\n");
+    AC_DBG("failed, AC::begin abort\n");
   }
 #ifdef ARDUINO_ARCH_ESP8266
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
@@ -541,13 +534,20 @@ void AutoConnect::handleRequest(void) {
 
   if (_rfDisconnect) {
     // Disconnect from the current AP.
-    _stopPortal();
     _disconnectWiFi(false);
     while (WiFi.status() == WL_CONNECTED) {
       delay(10);
       yield();
     }
-    AC_DBG("Disconnected\n");
+    AC_DBG("Disconnected ");
+    if (!_apConfig.retainPortal) {
+      _stopPortal();
+    }
+    else {
+      if (_dnsServer)
+        AC_DBG_DUMB("- Portal maintained");
+      AC_DBG_DUMB("\n");
+    }
     // Reset disconnection request
     _rfDisconnect = false;
 
@@ -852,12 +852,12 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const bool exc
     // Seek valid configuration according to the WiFi connection principle.
     // Verify that an available SSIDs meet AC_PRINCIPLE_t requirements.
     for (uint8_t n = 0; n < WiFi.scanComplete(); n++) {
-      if (skipCurrent && !strcmp(currentSSID, WiFi.SSID(n).c_str()))
-        continue;
       // The access point collation key is determined at compile time
       // according to the AUTOCONNECT_APKEY_SSID definition, which is
       // either BSSID or SSID.
       if (_isValidAP(_credential, n)) {
+        if (skipCurrent)
+          continue;
         if (WiFi.RSSI(n) < _apConfig.minRSSI) {
           // Excepts SSID that has weak RSSI under the lower limit.
           AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
@@ -937,8 +937,10 @@ void AutoConnect::_startDNSServer(void) {
  *  Stops DNS server and flush tcp sending.
  */
 void AutoConnect::_stopPortal(void) {
-  if (_dnsServer)
+  if (_dnsServer) {
     _dnsServer->stop();
+    AC_DBG("DNS server stopped\n");
+  }
 
   if (_webServer) {
     _webServer->client().stop();
