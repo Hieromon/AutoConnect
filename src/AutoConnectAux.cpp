@@ -3,7 +3,7 @@
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
  * @version  1.2.0
- * @date 2020-04-17
+ * @date 2020-10-30
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -517,9 +517,8 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       // Register authentication
       // Determine the necessity of authentication from the conditions of
       // AutoConnectConfig::authScope and derive the method.
-      // bool  auth = ((mother->_apConfig.authScope & AC_AUTHSCOPE_AUX) && (_httpAuth != AC_AUTH_NONE)) ||
-      //              ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
-      bool  auth = ((mother->_apConfig.authScope & AC_AUTHSCOPE_AUX) | (mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL)) && (_httpAuth != AC_AUTH_NONE);
+      bool  auth = (mother->_apConfig.authScope & AC_AUTHSCOPE_AUX)
+                 | ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
       HTTPAuthMethod  method;
       if (mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL)
         method = _httpAuth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
