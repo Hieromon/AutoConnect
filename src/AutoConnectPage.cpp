@@ -1152,7 +1152,6 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES) {
     snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page + 1, PSTR("Next"));
   }
-  // return ssidList;
   String ssidListStr = String(ssidList);
   free(ssidList);
   return ssidListStr;
@@ -1234,9 +1233,7 @@ String AutoConnect::_token_STA_MAC(PageArgument& args) {
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   AC_UNUSED(args);
   PGM_P wlStatusSymbol = PSTR("");
-  // const char* wlStatusSymbol ="";
   PGM_P wlStatusSymbols[] = {
-  // static const char* wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
     PSTR("IDLE"),
     PSTR("CONNECTING"),
@@ -1597,7 +1594,6 @@ void AutoConnect::_authentication(bool allow) {
 void AutoConnect::_authentication(bool allow, const HTTPAuthMethod method) {
   const char* user = nullptr;
   const char* password = nullptr;
-  // HTTPAuthMethod  method = _apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
   String  fails;
 
   // Enable authentication by setting of AC_AUTHSCOPE_DISCONNECTED even if WiFi is not connected.

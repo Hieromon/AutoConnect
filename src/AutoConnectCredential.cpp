@@ -547,7 +547,6 @@ size_t AutoConnectCredential::_commit(void) {
       // Static IP configuration
       if (credtBody.dhcp == STA_STATIC) {
         for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++) {
-          // uint32_t  ip = credtBody.ip[e];
           for (uint8_t b = 1; b <= sizeof(credtBody.ip[e]); b++)
             credtPool[dp++] = ((uint8_t*)&credtBody.ip[e])[sizeof(credtBody.ip[e]) - b];
         }

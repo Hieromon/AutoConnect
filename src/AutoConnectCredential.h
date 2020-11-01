@@ -158,7 +158,6 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
     uint32_t ip[5];
   } AC_CREDTBODY_t;         /**< Credential entry */
   typedef std::map<String, AC_CREDTBODY_t>  AC_CREDT_t;
-  // typedef station_config  station_config_t;
 
   bool    _add(const station_config_t* config); /**< Add an entry */
   size_t  _commit(void);    /**< Write back to the nvs */

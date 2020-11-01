@@ -376,7 +376,6 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
     int responseCode = httpClient.GET();
     if (responseCode == HTTP_CODE_OK) {
 
-      // JsonVariant jb;
       bool  parse;
       char  beginOfList[] = "[";
       char  endOfEntry[] = ",";
