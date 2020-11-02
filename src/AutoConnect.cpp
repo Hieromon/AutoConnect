@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.2.0
- *  @date   2020-04-24
+ *  @date   2020-10-30
  *  @copyright  MIT license.
  */
 
@@ -171,6 +171,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   }
   // Rushing into the portal.
   else {
+    // Connection unsuccessful, launch the captive portal.
     // The captive portal is effective at the autoRise is valid only.
     if (_apConfig.autoRise) {
 
@@ -179,36 +180,8 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       _disconnectWiFi(false);
 
       // Activate the AP mode with configured softAP and start the access point.
-      WiFi.mode(WIFI_AP_STA);
-      while (WiFi.getMode() != WIFI_AP_STA) {
-        delay(1);
-        yield();
-      }
-
-      // Connection unsuccessful, launch the captive portal.
-#if defined(ARDUINO_ARCH_ESP8266)
-      _config();
-#endif
-      WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
-      do {
-        delay(100);
-        yield();
-      } while (!WiFi.softAPIP());
-#if defined(ARDUINO_ARCH_ESP32)
-      _config();
-#endif
-      if (_apConfig.apip) {
-        do {
-          delay(100);
-          yield();
-        } while (WiFi.softAPIP() != _apConfig.apip);
-      }
+      _softAP();
       _currentHostIP = WiFi.softAPIP();
-      AC_DBG("SoftAP %s/%s Ch(%d) IP:%s %s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _currentHostIP.toString().c_str(), _apConfig.hidden ? "hidden" : "");
-
-      // Start ticker with AP_STA
-      if (_ticker)
-        _ticker->start(AUTOCONNECT_FLICKER_PERIODAP, (uint8_t)AUTOCONNECT_FLICKER_WIDTHAP);
 
       // Fork to the exit routine that starts captive portal.
       cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
@@ -221,6 +194,12 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         // Prepare for redirecting captive portal detection.
         // Pass all URL requests to _captivePortal to disguise the captive portal.
         _startDNSServer();
+
+        // The following two lines are the trick statements.
+        // They have the effect of avoiding unintended automatic
+        // reconnection by autoReconnect within handleClient.
+        bool  actReconnect = _apConfig.autoReconnect;
+        _apConfig.autoReconnect = false;
 
         // Start the captive portal to make a new connection
         bool  hasTimeout = false;
@@ -242,14 +221,16 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         }
         cs = WiFi.status() == WL_CONNECTED;
 
-        // If WLAN successfully connected, release DNS server.
+        // Restore actual autoReconnect settings.
+        _apConfig.autoReconnect = actReconnect;
+
+        // Captive portal staying time exceeds timeout,
         // Close the portal if an option for keeping the portal is false.
-        if (cs) {
+        if (!cs && hasTimeout) {
           if (_apConfig.retainPortal) {
             _purgePages();
             AC_DBG("Maintain portal\n");
           }
-          // Captive portal staying time exceeds timeout,
           else
             _stopPortal();
         }
@@ -424,35 +405,53 @@ void AutoConnect::handleClient(void) {
  *  Handling for the AutoConnect menu request.
  */
 void AutoConnect::handleRequest(void) {
-  // AutoConnectConfig::reconnectInterval allows a dynamic connection
-  // to a known access point without blocking the execution of
-  // Sketch's loop function.
-  if (WiFi.status() != WL_CONNECTED && _apConfig.autoReconnect && _apConfig.reconnectInterval > 0) {
-    int8_t  sc = WiFi.scanComplete();
+  bool  skipPostTicker;
 
-    // Scan has not triggered then starts asynchrony scan and repeats at
-    // intervals of time with AutoConnectConfig::reconnectInterval value
-    //  multiplied by AUTOCONNECT_UNITTIME.
-    if (sc == WIFI_SCAN_FAILED) {
-      if (millis() - _attemptPeriod > ((unsigned long)_apConfig.reconnectInterval * AUTOCONNECT_UNITTIME * 1000)) {
-        WiFi.setAutoReconnect(false);
-        WiFi.scanNetworks(true, true);
-        AC_DBG("Attempts autoReconnect\n");
-      }
+  // Controls reconnection and portal startup when WiFi is disconnected.
+  if (WiFi.status() != WL_CONNECTED) {
+
+    // Launch the captive portal when SoftAP is active and autoRise is
+    // specified to be maintained.
+    // Pass all URL requests to _captivePortal to disguise the captive portal.
+    if (_apConfig.retainPortal && _apConfig.autoRise) {
+      if (!(WiFi.getMode() & WIFI_AP))
+        _softAP();
+      _startDNSServer();
     }
 
-    // After the background scan is complete, seek a connectable access
-    // point. If it is found, it will generate a connection request inside.
-    else if (sc != WIFI_SCAN_RUNNING) {
-      AC_DBG("%d network(s) found\n", (int)sc);
-      if (sc > 0) {
-        if (_seekCredential(_apConfig.principle, false))
-        _rfConnect = true;
+    // AutoConnectConfig::reconnectInterval allows a dynamic connection
+    // to a known access point without blocking the execution of
+    // Sketch's loop function.
+    if (_apConfig.autoReconnect && _apConfig.reconnectInterval > 0) {
+      int8_t  sc = WiFi.scanComplete();
+
+      // Scan has not triggered then starts asynchrony scan and repeats at
+      // intervals of time with AutoConnectConfig::reconnectInterval value
+      //  multiplied by AUTOCONNECT_UNITTIME.
+      if (sc == WIFI_SCAN_FAILED) {
+        if (millis() - _attemptPeriod > ((unsigned long)_apConfig.reconnectInterval * AUTOCONNECT_UNITTIME * 1000)) {
+          WiFi.setAutoReconnect(false);
+          WiFi.scanNetworks(true, true);
+          AC_DBG("Attempt to autoReconnect\n");
+        }
       }
-      _attemptPeriod = millis();
-      WiFi.scanDelete();
+
+      // After the background scan is complete, seek a connectable
+      // access point. If it is found, it will generate a connection
+      // request inside.
+      else if (sc != WIFI_SCAN_RUNNING) {
+        AC_DBG("%d network(s) found\n", (int)sc);
+        if (sc > 0) {
+          if (_seekCredential(_apConfig.principle, false))
+          _rfConnect = true;
+        }
+        _attemptPeriod = millis();
+        WiFi.scanDelete();
+      }
     }
   }
+  else
+    _attemptPeriod = millis();
 
   // Handling processing requests to AutoConnect.
   if (_rfConnect) {
@@ -472,8 +471,22 @@ void AutoConnect::handleRequest(void) {
     *password_c = '\0';
     strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
     AC_DBG("Attempt:%s Ch(%d)\n", ssid_c, (int)ch);
+
     WiFi.begin(ssid_c, password_c, ch);
     if ((_rsConnect = _waitForConnect(_connectTimeout)) == WL_CONNECTED) {
+      // WLAN successfully connected then release the DNS server.
+      // Also, stop WIFI_AP if retainPortal not specified.
+      _stopDNSServer();
+      if (!_apConfig.retainPortal) {
+        WiFi.softAPdisconnect(true);
+        WiFi.enableAP(false);
+      }
+      else {
+        AC_DBG("Maintain SoftAP\n");
+      }
+
+      // It will automatically save the credential which was able to
+      // establish current connection.
       if (WiFi.BSSID() != NULL) {
         memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config_t::bssid));
         _currentHostIP = WiFi.localIP();
@@ -490,7 +503,8 @@ void AutoConnect::handleRequest(void) {
           }
         }
 
-        // Ensures that keeps a connection with the current AP while the portal behaves.
+        // Ensures that keeps a connection with the current AP
+        // while the portal behaves.
         _setReconnect(AC_RECONNECT_SET);
       }
       else {
@@ -515,10 +529,7 @@ void AutoConnect::handleRequest(void) {
         yield();
         wl = WiFi.status();
       }
-      AC_DBG("Disconnected an attempt, status(%d)\n", wl);
-      // Restore the ticker
-      if (_ticker && WiFi.getMode() == WIFI_AP_STA)
-        _ticker->start(AUTOCONNECT_FLICKER_PERIODAP, (uint8_t)AUTOCONNECT_FLICKER_WIDTHAP);
+      AC_DBG("Abandon attempt, status(%d)\n", wl);
     }
     _rfConnect = false;
   }
@@ -540,7 +551,7 @@ void AutoConnect::handleRequest(void) {
       yield();
     }
     AC_DBG("Disconnected ");
-    if (!_apConfig.retainPortal) {
+    if ((WiFi.getMode() & WIFI_AP) && !_apConfig.retainPortal) {
       _stopPortal();
     }
     else {
@@ -558,9 +569,17 @@ void AutoConnect::handleRequest(void) {
     }
   }
 
+  // Indicate that not disturb the ticker cycle during OTA.
+  // It will be set to true during OTA in progress due to
+  // subsequent OTA handling.
+  skipPostTicker = false;
+
   // Handle the update behaviors for attached AutoConnectUpdate.
-  if (_update)
+  if (_update) {
     _update->handleUpdate();
+    if (_update->status() == UPDATE_PROGRESS)
+      skipPostTicker = true;
+  }
 
   // Attach AutoConnectOTA if OTA is available.
   if (_apConfig.ota == AC_OTA_BUILTIN) {
@@ -586,14 +605,28 @@ void AutoConnect::handleRequest(void) {
         // OTA for firmware update requires module reset.
         _rfReset = true;
     }
-    // Reflect the menu display specifier from AutoConnectConfig to AutoConnectOTA page
+    else if (_ota->status() == AutoConnectOTA::OTA_PROGRESS)
+      skipPostTicker = true;
+    // Reflect the menu display specifier from AutoConnectConfig to
+    // AutoConnectOTA page
     _ota->menu(_apConfig.menuItems & AC_MENUITEM_UPDATE);
   }
 
   // Post-process for ticker
-  if (_ticker) {
-    if (WiFi.status() == WL_CONNECTED)
+  // Adjust the ticker cycle to the latest WiFi connection state.
+  if (_ticker && !skipPostTicker) {
+    uint8_t   tWidth;
+    uint32_t  tCycle = WiFi.status() == WL_CONNECTED ? 0 : AUTOCONNECT_FLICKER_PERIODDC;
+    tWidth = AUTOCONNECT_FLICKER_WIDTHDC;
+    if (WiFi.getMode() & WIFI_AP) {
+      tCycle = AUTOCONNECT_FLICKER_PERIODAP;
+      tWidth = AUTOCONNECT_FLICKER_WIDTHAP;
+    }
+    if (tCycle != _ticker->getCycle()) {
       _ticker->stop();
+      if (tCycle)
+        _ticker->start(tCycle, tWidth);
+    }    
   }
 }
 
@@ -892,6 +925,40 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const bool exc
 }
 
 /**
+ *  Changes WiFi mode to enable SoftAP and configure IPs with current
+ *  AutoConnectConfig settings then start SoftAP.
+ */
+void AutoConnect::_softAP(void) {
+  WiFi.enableAP(true);
+  while (!(WiFi.getMode() & WIFI_AP)) {
+    delay(1);
+    yield();
+  }
+
+#if defined(ARDUINO_ARCH_ESP8266)
+  _config();
+#endif
+
+  WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
+  do {
+    delay(100);
+    yield();
+  } while (!WiFi.softAPIP());
+
+#if defined(ARDUINO_ARCH_ESP32)
+  _config();
+#endif
+
+  if (_apConfig.apip) {
+    do {
+      delay(100);
+      yield();
+    } while (WiFi.softAPIP() != _apConfig.apip);
+  }
+  AC_DBG("SoftAP %s/%s Ch(%d) IP:%s %s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, WiFi.softAPIP().toString().c_str(), _apConfig.hidden ? "hidden" : "");
+}
+
+/**
  *  Starts Web server for AutoConnect service.
  */
 void AutoConnect::_startWebServer(void) {
@@ -933,14 +1000,23 @@ void AutoConnect::_startDNSServer(void) {
 }
 
 /**
+ *  Stops DNS server.
+ *  Free its instance to avoid multiple launches when the retainPortal enabled.
+ */
+void AutoConnect::_stopDNSServer(void) {
+  if (_dnsServer) {
+    _dnsServer->stop();
+    _dnsServer.reset();
+    AC_DBG("DNS server stopped\n");
+  }
+}
+
+/**
  *  Disconnect from the AP and stop the AutoConnect portal.
  *  Stops DNS server and flush tcp sending.
  */
 void AutoConnect::_stopPortal(void) {
-  if (_dnsServer) {
-    _dnsServer->stop();
-    AC_DBG("DNS server stopped\n");
-  }
+  _stopDNSServer();
 
   if (_webServer) {
     _webServer->client().stop();
@@ -1378,16 +1454,6 @@ void AutoConnect::_disconnectWiFi(bool wifiOff) {
   while (WiFi.status() == WL_CONNECTED) {
     delay(1);
     yield();
-  }
-  // Restart the ticker to indicate that ESP module into the disconnected state.
-  if (_ticker) {
-    uint32_t  tc = AUTOCONNECT_FLICKER_PERIODDC;
-    uint8_t   tw = AUTOCONNECT_FLICKER_WIDTHDC;
-    if (WiFi.getMode() == WIFI_AP_STA) {
-      tc = AUTOCONNECT_FLICKER_PERIODAP;
-      tw = AUTOCONNECT_FLICKER_WIDTHAP;
-    }
-    _ticker->start(tc, tw);
   }
 }
 

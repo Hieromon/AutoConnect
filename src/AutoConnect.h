@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.2.0
- *	@date	2020-04-24
+ *	@date	2020-10-30
  *	@copyright	MIT license.
  */
 
@@ -279,6 +279,7 @@ class AutoConnect {
   bool  _seekCredential(const AC_PRINCIPLE_t principle, const bool excludeCurrent);
   void  _startWebServer(void);
   void  _startDNSServer(void);
+  void  _stopDNSServer(void);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
@@ -301,6 +302,7 @@ class AutoConnect {
   bool  _captivePortal(void);
   bool  _hasTimeout(unsigned long timeout);
   bool  _isIP(String ipStr);
+  void  _softAP(void);
   wl_status_t _waitForConnect(unsigned long timeout);
   void  _waitForEndTransmission(void);
   void  _disconnectWiFi(bool wifiOff);

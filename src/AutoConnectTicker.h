@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectTicker class.
  *  @file   AutoConnectTicker.h
  *  @author hieromon@gmail.com
- *  @version    0.9.11
- *  @date   2019-07-09
+ *  @version    1.2.0
+ *  @date   2020-10-30
  *  @copyright  MIT license.
  */
 
@@ -33,8 +33,10 @@ class AutoConnectTicker {
   void start(const uint32_t cycle, const uint32_t duty);
   void start(const uint32_t cycle, const uint8_t width) { start(cycle, (uint32_t)((cycle * width) >> 8)); }
   void start(void);
-  void stop(void) { _period.detach(); _pulse.detach(); digitalWrite(_port, !_turnOn); }
+  void stop(void) { _period.detach(); _pulse.detach(); digitalWrite(_port, !_turnOn); _cycle = 0; _duty = 0; }
   void onPeriod(Callback_ft cb) { _callback = cb ;}
+  uint32_t getCycle(void) const { return _cycle; }
+  uint32_t getDuty(void) const { return _duty; }
 
  protected:
   Ticker    _period;        /**< Ticker for flicking cycle */
