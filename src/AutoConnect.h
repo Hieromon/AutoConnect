@@ -270,7 +270,7 @@ class AutoConnect {
   } AC_STARECONNECT_t;
   void  _authentication(bool allow);
   void  _authentication(bool allow, const HTTPAuthMethod method);
-  bool  _config(void);
+  bool  _configAP(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
   String _getBootUri(void);
   bool  _getConfigSTA(station_config_t* config);

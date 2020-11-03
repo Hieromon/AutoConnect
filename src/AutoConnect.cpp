@@ -135,14 +135,22 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         return false;
 
       // Try to connect by STA immediately.
+      wl_status_t cc;
       if (c_ssid == nullptr && c_password == nullptr)
-        WiFi.begin();
+        cc = WiFi.begin();
       else {
         _disconnectWiFi(false);
-        WiFi.begin(c_ssid, c_password);
+        cc = WiFi.begin(c_ssid, c_password);
       }
-      AC_DBG("WiFi.begin(%s%s%s)\n", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
-      cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+      AC_DBG("WiFi.begin(%s%s%s)", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
+      if (cc != WL_CONNECT_FAILED) {
+        AC_DBG_DUMB("\n");
+        cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+      }
+      else {
+        AC_DBG_DUMB(" failed\n");
+        cs = false;
+      }
     }
 
     // Reconnect with a valid credential as the autoReconnect option is enabled.
@@ -155,9 +163,15 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
         const char* psk = strlen(password_c) ? password_c : nullptr;
         _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
-        WiFi.begin(ssid_c, psk);
-        AC_DBG("WiFi.begin(%s%s%s)\n", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
-        cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+        wl_status_t cc = WiFi.begin(ssid_c, psk);
+        AC_DBG("WiFi.begin(%s%s%s)", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
+        if (cc != WL_CONNECT_FAILED) {
+          AC_DBG_DUMB("\n");
+          cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
+        }
+        else {
+          AC_DBG_DUMB(" failed\n");
+        }
       }
     }
   }
@@ -256,7 +270,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 bool AutoConnect::config(const char* ap, const char* password) {
   _apConfig.apid = String(ap);
   _apConfig.psk = String(password);
-  return _config();
+  return true; //_config();
 }
 
 /**
@@ -265,7 +279,7 @@ bool AutoConnect::config(const char* ap, const char* password) {
  */
 bool AutoConnect::config(AutoConnectConfig& Config) {
   _apConfig = Config;
-  return _config();
+  return true; //_config();
 }
 
 /**
@@ -273,7 +287,7 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  Set up access point with internal AutoConnectConfig parameter corrected
  *  by Config method.
  */
-bool AutoConnect::_config(void) {
+bool AutoConnect::_configAP(void) {
   if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U) {
     AC_DBG("Warning: Contains invalid SoftAPIP address(es).\n");
   }
@@ -414,9 +428,15 @@ void AutoConnect::handleRequest(void) {
     // specified to be maintained.
     // Pass all URL requests to _captivePortal to disguise the captive portal.
     if (_apConfig.retainPortal && _apConfig.autoRise) {
-      if (!(WiFi.getMode() & WIFI_AP))
+      if (!(WiFi.getMode() & WIFI_AP)) {
         _softAP();
-      _startDNSServer();
+        _currentHostIP = WiFi.softAPIP();
+      }
+      if (!_dnsServer) {
+        bool  cs = _onDetectExit ? _onDetectExit(_currentHostIP) : true;
+        if (cs)
+          _startDNSServer();
+      }
     }
 
     // AutoConnectConfig::reconnectInterval allows a dynamic connection
@@ -470,66 +490,67 @@ void AutoConnect::handleRequest(void) {
     strncat(ssid_c, reinterpret_cast<const char*>(_credential.ssid), sizeof(ssid_c) - 1);
     *password_c = '\0';
     strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
-    AC_DBG("Attempt:%s Ch(%d)\n", ssid_c, (int)ch);
+    AC_DBG("WiFi.begin(%s%s%s) ch(%d)", ssid_c, strlen(password_c) ? "," : "", strlen(password_c) ? password_c : "", (int)ch);
 
-    WiFi.begin(ssid_c, password_c, ch);
-    if ((_rsConnect = _waitForConnect(_connectTimeout)) == WL_CONNECTED) {
-      // WLAN successfully connected then release the DNS server.
-      // Also, stop WIFI_AP if retainPortal not specified.
-      _stopDNSServer();
-      if (!_apConfig.retainPortal) {
-        WiFi.softAPdisconnect(true);
-        WiFi.enableAP(false);
-      }
-      else {
-        AC_DBG("Maintain SoftAP\n");
-      }
-
-      // It will automatically save the credential which was able to
-      // establish current connection.
-      if (WiFi.BSSID() != NULL) {
-        memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config_t::bssid));
-        _currentHostIP = WiFi.localIP();
-        _redirectURI = String(F(AUTOCONNECT_URI_SUCCESS));
-
-        // Save current credential
-        if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
-          AutoConnectCredential credit(_apConfig.boundaryOffset);
-          if (credit.save(&_credential)) {
-            AC_DBG("%.*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
-          }
-          else {
-            AC_DBG("credential %.*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
-          }
+    if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
+      if ((_rsConnect = _waitForConnect(_connectTimeout)) == WL_CONNECTED) {
+        // WLAN successfully connected then release the DNS server.
+        // Also, stop WIFI_AP if retainPortal not specified.
+        _stopDNSServer();
+        if (!_apConfig.retainPortal) {
+          WiFi.softAPdisconnect(true);
+          WiFi.enableAP(false);
+        }
+        else {
+          AC_DBG("Maintain SoftAP\n");
         }
 
-        // Ensures that keeps a connection with the current AP
-        // while the portal behaves.
-        _setReconnect(AC_RECONNECT_SET);
+        // It will automatically save the credential which was able to
+        // establish current connection.
+        if (WiFi.BSSID() != NULL) {
+          memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config_t::bssid));
+          _currentHostIP = WiFi.localIP();
+          _redirectURI = String(F(AUTOCONNECT_URI_SUCCESS));
+
+          // Save current credential
+          if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
+            AutoConnectCredential credit(_apConfig.boundaryOffset);
+            if (credit.save(&_credential)) {
+              AC_DBG("%.*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+            }
+            else {
+              AC_DBG("credential %.*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+            }
+          }
+
+          // Ensures that keeps a connection with the current AP
+          // while the portal behaves.
+          _setReconnect(AC_RECONNECT_SET);
+        }
+        else {
+          AC_DBG("%.*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+        }
+
+        // Activate AutoConnectUpdate if it is attached and incorporate
+        // it into the AutoConnect menu.
+        if (_update)
+          _update->enable();
       }
       else {
-        AC_DBG("%.*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+        _currentHostIP = WiFi.softAPIP();
+        _redirectURI = String(F(AUTOCONNECT_URI_FAIL));
+        _disconnectWiFi(false);
+        wl_status_t wl = WiFi.status();
+        unsigned long tm = millis();
+        while (wl != WL_IDLE_STATUS && wl != WL_DISCONNECTED && wl != WL_NO_SSID_AVAIL) {
+          if (millis() - tm > 3000)
+            break;
+          delay(1);
+          yield();
+          wl = WiFi.status();
+        }
+        AC_DBG("Abandon attempt, status(%d)\n", wl);
       }
-
-      // Activate AutoConnectUpdate if it is attached and incorporate
-      // it into the AutoConnect menu.
-      if (_update)
-        _update->enable();
-    }
-    else {
-      _currentHostIP = WiFi.softAPIP();
-      _redirectURI = String(F(AUTOCONNECT_URI_FAIL));
-      _disconnectWiFi(false);
-      wl_status_t wl = WiFi.status();
-      unsigned long tm = millis();
-      while (wl != WL_IDLE_STATUS && wl != WL_DISCONNECTED && wl != WL_NO_SSID_AVAIL) {
-        if (millis() - tm > 3000)
-          break;
-        delay(1);
-        yield();
-        wl = WiFi.status();
-      }
-      AC_DBG("Abandon attempt, status(%d)\n", wl);
     }
     _rfConnect = false;
   }
@@ -936,7 +957,7 @@ void AutoConnect::_softAP(void) {
   }
 
 #if defined(ARDUINO_ARCH_ESP8266)
-  _config();
+  _configAP();
 #endif
 
   WiFi.softAP(_apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, _apConfig.hidden);
@@ -946,7 +967,7 @@ void AutoConnect::_softAP(void) {
   } while (!WiFi.softAPIP());
 
 #if defined(ARDUINO_ARCH_ESP32)
-  _config();
+  _configAP();
 #endif
 
   if (_apConfig.apip) {
