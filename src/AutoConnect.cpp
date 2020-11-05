@@ -29,7 +29,6 @@
  */
 AutoConnect::AutoConnect()
 : _scanCount( 0 )
-, _connectTimeout( AUTOCONNECT_TIMEOUT )
 , _menuTitle( _apConfig.title )
 {
   memset(&_credential, 0x00, sizeof(station_config_t));
@@ -58,7 +57,7 @@ AutoConnect::~AutoConnect() {
  *  Starts establishing WiFi connection without SSID and password.
  */
 bool AutoConnect::begin(void) {
-  return begin(nullptr, nullptr);
+  return begin(nullptr, nullptr, _apConfig.beginTimeout);
 }
 
 /**
@@ -77,7 +76,8 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   bool  cs;
 
   // Overwrite for the current timeout value.
-  _connectTimeout = timeout;
+  if (timeout == 0)
+    timeout = _apConfig.beginTimeout;
 
   if (_apConfig.preserveAPMode && !_apConfig.autoRise) {
     // Captive portal will not be started on connection failure. Enable Station mode
@@ -143,10 +143,8 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         cc = WiFi.begin(c_ssid, c_password);
       }
       AC_DBG("WiFi.begin(%s%s%s)", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
-      if (cc != WL_CONNECT_FAILED) {
-        AC_DBG_DUMB("\n");
-        cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
-      }
+      if (cc != WL_CONNECT_FAILED)
+        cs = _waitForConnect(timeout) == WL_CONNECTED;
       else {
         AC_DBG_DUMB(" failed\n");
         cs = false;
@@ -165,10 +163,8 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
         wl_status_t cc = WiFi.begin(ssid_c, psk);
         AC_DBG("WiFi.begin(%s%s%s)", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
-        if (cc != WL_CONNECT_FAILED) {
-          AC_DBG_DUMB("\n");
-          cs = _waitForConnect(_connectTimeout) == WL_CONNECTED;
-        }
+        if (cc != WL_CONNECT_FAILED)
+          cs = _waitForConnect(timeout) == WL_CONNECTED;
         else {
           AC_DBG_DUMB(" failed\n");
         }
@@ -493,7 +489,7 @@ void AutoConnect::handleRequest(void) {
     AC_DBG("WiFi.begin(%s%s%s) ch(%d)", ssid_c, strlen(password_c) ? "," : "", strlen(password_c) ? password_c : "", (int)ch);
 
     if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
-      if ((_rsConnect = _waitForConnect(_connectTimeout)) == WL_CONNECTED) {
+      if ((_rsConnect = _waitForConnect(_apConfig.beginTimeout)) == WL_CONNECTED) {
         // WLAN successfully connected then release the DNS server.
         // Also, stop WIFI_AP if retainPortal not specified.
         _stopDNSServer();
@@ -1389,7 +1385,6 @@ unsigned int AutoConnect::_toWiFiQuality(int32_t rssi) {
 wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
   wl_status_t wifiStatus;
 
-  AC_DBG("Connecting");
   unsigned long st = millis();
   while ((wifiStatus = WiFi.status()) != WL_CONNECTED) {
     if (timeout) {

@@ -71,6 +71,7 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     preserveAPMode(false),
+    beginTimeout(AUTOCONNECT_TIMEOUT),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     reconnectInterval(0),
@@ -113,6 +114,7 @@ class AutoConnectConfig {
     immediateStart(false),
     retainPortal(false),
     preserveAPMode(false),
+    beginTimeout(AUTOCONNECT_TIMEOUT),
     portalTimeout(portalTimeout),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
     reconnectInterval(0),
@@ -155,6 +157,7 @@ class AutoConnectConfig {
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
     preserveAPMode = o.preserveAPMode;
+    beginTimeout = o.beginTimeout;
     portalTimeout = o.portalTimeout;
     menuItems = o.menuItems;
     reconnectInterval = o.reconnectInterval;
@@ -197,6 +200,7 @@ class AutoConnectConfig {
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
   bool      preserveAPMode;     /**< Keep existing AP WiFi mode if captive portal won't be started. */
+  unsigned long beginTimeout;   /**< Timeout value for WiFi.begin */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   uint16_t  menuItems;          /**< A compound value of the menu items to be attached */
   uint8_t   reconnectInterval;  /**< Auto-reconnect attempt interval uint */
@@ -226,7 +230,7 @@ class AutoConnect {
   AutoConnect(WebServerClass& webServer);
   virtual ~AutoConnect();
   bool  begin(void);
-  bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
+  bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = 0);
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
   void  end(void);
@@ -348,7 +352,6 @@ class AutoConnect {
   uint8_t       _hiddenSSIDCount;
   int16_t       _scanCount;
   uint8_t       _connectCh;
-  unsigned long _connectTimeout;
   unsigned long _portalAccessPeriod;
   unsigned long _attemptPeriod;
 
