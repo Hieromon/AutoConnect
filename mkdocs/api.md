@@ -150,7 +150,7 @@ bool config(AutoConnectConfig& config)
 bool config(const char* ap, const char* password = nullptr)
 ```
 
-Set SoftAP's WiFi configuration and static IP configuration.
+Set AutoConnect configuration settings.
 <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">config</span><span class="apidesc">Reference to [**AutoConnectConfig**](apiconfig.md) containing SoftAP's parameters and static IP parameters.</span></dd>
@@ -254,7 +254,14 @@ Returns the total amount of memory required to hold the AutoConnect credentials 
 void handleClient(void)
 ```
 
-Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect, and the client request handlers contained in the user sketch are also handled.
+Process the AutoConnect menu interface. The [ESP8266WebServer::handleClient](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#handling-incoming-client-requests)[^1] function hosted by AutoConnect is also called from within AutoConnect to handle the request handlers contained in Sketch.
+
+!!! info "Enhanced AutoConnect::handleClient"
+    The handleClient function enhanced since AutoConnect 1.2.0 can start the captive portal according to the WiFi connection status.  
+    By properly specifying [AutoConnectConfig::**retainPortal**](apiconfig.md#retainportal) and [AutoConnectConfig::**autoRise**](apiconfig.md#autorise), when handleClient detects WiFi disconnection, it shifts WiFi mode to **WIFI_AP_STA** and starts the DNS server together with **SoftAP** dynamically. Then trapping for incoming HTTP requests from client devices will be started by AutoConnect. Thus it will open the captive portal behind the execution of the sketch `loop()` function. The captive portal launched by enhanced handleClient does not interfere with sketch execution except waiting for the result of WiFi.begin.  
+    Also, [AutoConnectConfig::**autoReconnect**](apiconfig.md#autoreconnect) has improved. The Sketch can specify the [AutoConnectConfig::**reconnectInterval**](apiconfig.md#reconnectinterval) to continue retrying the reconnection with enhanced handleClient.
+
+[^1]:Equivalent to the **WebServer::handleClient** function on the **ESP32** platform.
 
 ### <i class="fa fa-caret-right"></i> handleRequest
 
@@ -265,7 +272,7 @@ void handleRequest(void)
 Handling for the AutoConnect menu request.
 
 !!! warning "About used in combination with handleClient"
-    The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266WebServer::handleClient or WebServer::handleClient.
+    The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used following ESP8266WebServer::handleClient or WebServer::handleClient.
 
 ### <i class="fa fa-caret-right"></i> home
 
