@@ -1,3 +1,14 @@
+In order for your sketches combined with AutoConnect to work as you intended, make them based on the right understanding of configuration settings and their effectiveness. AutoConnect includes the configuration settings using [AutoConnectConfig](apiconfig.md) class that adjusts controlling the behaviors for WiFi connection and the captive portal.  
+For advanced usages, the configuration settings and the Sketch examples are followings:
+
+- [AutoConnect WiFi connection control](#autoconnect-wifi-connection-control)
+- [Captive portal control](#captive-portal-control)
+- [Authentication settings](#authentication-settings)
+- [Credential accesses](#credential-accesses)
+- [Settings for customizing the AutoConnect page exterior](#settings-for-customizing-the-autoconnect-page-exterior)
+- [Settings and controls involved for network and WiFi](#settings-and-controls-involved-for-network-and-wifi)
+- [Other operation settings and controls](#other-operation-settings-and-controls)
+
 ## AutoConnect WiFi connection control
 
 AutoConnect aims to connect the ESP module as a station to a WiFi access point. It is equipped with various APIs to keep a WiFi connection as possible while sketch running. The main APIs for maintaining a WiFi connection are [AutoConnect::begin](api.md#begin) and [AutoConnect::handleClient](api.md#handleclient). You can make sketches with flexible WiFi connection capability by properly using these two APIs and the settings by [AutoConnectConfig](apiconfig.md).
@@ -6,9 +17,10 @@ AutoConnect aims to connect the ESP module as a station to a WiFi access point. 
 - [Automatic reconnect (Background)](#automatic-reconnect-background)
 - [Configure WiFi channel](#configure-wifi-channel)
 - [Connects depending on the WiFi signal strength](#connects-depending-on-the-wifi-signal-strength)
-- [Detect WiFi connection establishment with a router](#detect-wifi-connection-establishment-with-a-router)
+- [Detection of connection establishment to AP](#detection-of-connection-establishment-to-ap)
 - [Match with known access points by SSID](#match-with-known-access-points-by-ssid)
 - [Preserve WIFI_AP mode](#preserve-wifi_ap-mode)
+- [Timeout settings for a connection attempt](#timeout-settings-for-a-connection-attempt)
 
 ### <i class="fa fa-caret-right"></i> Automatic reconnect
 
@@ -26,9 +38,9 @@ Portal.config(Config);
 Portal.begin();
 ```
 
-An [**autoReconnect**](apiconfig.md#autoreconnect) option is only available for [AutoConnect::begin](api.md#begin) without SSID and PASSWORD parameter.
+The [**autoReconnect**](apiconfig.md#autoreconnect) option is only available for [AutoConnect::begin](api.md#begin) without SSID and PASSWORD parameter. If you use [AutoConnect::begin](api.md#begin) with an SSID and PASSWORD, no reconnection attempt will be made if the 1st-WiFi.begin fails to connect to that SSID.
 
-!!! note "An autoReconnect is not autoreconnect"
+!!! note "The autoReconnect is not autoreconnect"
     The [*WiFiSTAClass::disconnect*](https://github.com/espressif/arduino-esp32/blob/a0f0bd930cfd2d607bf3d3288f46e2d265dd2e11/libraries/WiFi/src/WiFiSTA.h#L46) function implemented in the arduino-esp32 has extended parameters than the ESP8266's arduino-core. The second parameter of WiFi.disconnect on the arduino-esp32 core that does not exist in the [ESP8266WiFiSTAClass](https://github.com/esp8266/Arduino/blob/7e1bdb225da8ab337373517e6a86a99432921a86/libraries/ESP8266WiFi/src/ESP8266WiFiSTA.cpp#L296) has the effect of deleting the currently connected WiFi configuration and its default value is "false". On the ESP32 platform, even if WiFi.disconnect is executed, WiFi.begin without the parameters in the next turn will try to connect to that AP. That is, automatic reconnection is implemented in arduino-esp32 already. Although this behavior appears seemingly competent, it is rather a disadvantage in scenes where you want to change the access point each time. When explicitly disconnecting WiFi from the Disconnect menu, AutoConnect will erase the AP connection settings saved by the arduino-esp32 core. AutoConnect's automatic reconnection is a mechanism independent from the automatic reconnection of the arduino-esp32 core.
     
 ### <i class="fa fa-caret-right"></i> Automatic reconnect (Background)
@@ -61,6 +73,9 @@ void loop() {
 ```
 
 Above Sketch shows a configuration example that you want to keep connecting to known access points as long as possible. When the WiFi connection is lost, it will start seeking the WiFi network every 30 seconds during the handleClient loop.
+
+!!! info "Limitation for automatic reconnection to a specific access point"
+    AutoConnect 1.2.0 has not allowed attempts to automatically reconnect to a particular access point yet. It is recognized as a future enhancement. With the current automatic reconnection, one of the known access points is always selected.
 
 Also, you can combine the background automatic reconnect performing inside the loop function by [handleClient](api.md#handleclient) with [*AutoConnectConfig::retainPortal*](apiconfig.md#retainportal) and [*AutoConnectConfig::autoReset*](apiconfig.md#autoreset), to enable pop up the captive portal automatically on the client device each time the ESP module disconnects from the access point.
 
@@ -147,38 +162,58 @@ Combining these two parameters allows you to filter the destination AP when mult
 </tr>
 </table>
 
-### <i class="fa fa-caret-right"></i> Detect WiFi connection establishment with a router
+### <i class="fa fa-caret-right"></i> Detection of connection establishment to AP
 
-[AutoConnect::onConnect](api.md#onconnect) allows the Sketch to detect a WiFi connection to a router. The Sketch uses [AutoConnect::onConnect](api.md#onconnect) to register a function to call when WiFi connected.  
-For example, as the following Sketch, this can be combined with [*AutoConnectConfig::retainPortal*](apiconfig.md#retainportal) to stop **SoftAP** in a **loop()**. It avoids blocking in the captive portal state by AutoConnect and allows the loop to run even without a WiFi connection.
+The Sketch can detect that the ESP module has established a WiFi connection as a station to the access point. The [AutoConnect::begin](api.md#begin) or [AutoConnect::handleClient](api.md#handleclient) will transit the control temporarily to the function in the Sketch registered by [AutoConnect::onConnect](api.md#onconnect) when the ESP module establish a WiFi connection.  
+The **ConnectExit** function registered with [AutoConnect::onConnect](api.md#onconnect) should have the following types and arguments:
 
-```cpp hl_lines="13 14 15 16 17 18 19"
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <AutoConnect.h>
+```cpp
+void ConnectExit(IPAddress& ip)
+```
 
+The **ConnectExit** function is of type *void*. The argument *ip* is the IP address assigned to the ESP module by the connected AP. [AutoConnect::onConnect](api.md#onconnect) allows the Sketch registers a **ConnectExit** function to AutoConnect. Also, you can make the function using a [**lambda expression**](https://en.cppreference.com/w/cpp/language/lambda).
+
+```cpp hl_lines="3 4 5 6 7 8 12"
 AutoConnect Portal;
-AutoConnectConfig config;
+
+void onConnect(IPAddress& ipaddr) {
+  Serial.print("WiFi connected with ");
+  Serial.print(WiFi.SSID());
+  Serial.print(", IP:");
+  Serial.println(ipaddr.toString());
+}
 
 void setup() {
   Serial.begin(115200);
-  config.portalTimeout = 1;
-  config.retainPortal = true;
-  portal.config(config);
-  portal.onConnect([](IPAddress& ip){
-    Serial.printf("Connected %s\n", ip.toString().c_str());
-    if (WiFi.getMode() == WI_AP_STA) {
-      WiFi.softAPdisconnect(false);
-      WiFi.mode(WiFi_STA);
-    }
-  });
-  portal.begin();
+  Portal.onConnect(onConnect);  // Register the ConnectExit function
+  Portal.begin();
 }
 
 void loop() {
-  // Here, the Sketch can execute without WiFi connection.
-  // It avoids blocking the state by the captive portal even if the captive portal is available.
-  portal.handleClient();
+  Portal.handleClient();
+}
+```
+
+In addition, a sketch that shuts down SoftAP when the ESP module connects to the access point can be described using a lambda expression as follows:
+
+```cpp hl_lines="5 6 7 8 9 10 11 12"
+AutoConnect Portal;
+
+void setup() {
+  Serial.begin(115200);
+  Portal.onConnect([](IPAddress& ipaddr){
+    Serial.printf("WiiFi connected with %s, IP:%s\n", WiFi.SSID().c_str(), ipaddr.toString().c_str());
+    if (WiFi.getMode() & WIFI_AP) {
+      WiFi.softAPdisconnect(true);
+      WiFi.enableAP(false);
+      Serial.printf("SoftAP:%s shutted down\n", WiFi.softAPSSID().c_str());
+    }
+  });
+  Portal.begin();
+}
+
+void loop() {
+  Portal.handleClient();
 }
 ```
 
@@ -214,6 +249,31 @@ The following diagram quoted from the [ESP-MESH documentation](https://docs.espr
 <img src="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/_images/mesh-bidirectional-data-stream.png">
 
 Also in general, the Sketch should set **false** to [*AutoConnectConfig::autoRise*](apiconfig.md#autorise), **true** to [*AutoConnectConfig::immediateStart*](apiconfig.md#immediatestart) when applying to those protocols.
+
+### <i class="fa fa-caret-right"></i> Timeout settings for a connection attempt
+
+AutoConnect uses [*AutoConnectConfig::beginTimeout*](apiconfig.md#begintimeout) value to limit time to attempt when connecting the ESP module to the access point as a WiFi station. The default value is **AUTOCONNECT_TIMEOUT** defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132) and the initial value is 30 seconds. (actually specified in milliseconds)  
+For example, the following sketch sets the connection timeout to 15 seconds:
+
+```cpp hl_lines="5"
+AutoConnect Portal;
+AutoConnectConfig Config;
+
+void setup() {
+  Config.beginTimeout = 15000; // Timeout sets to 15[s]
+  Portal.config(Config);
+  Portal.begin();
+}
+
+void loop () {
+  Portal.handleClient();
+}
+```
+
+In addition, the limit of the waiting time for connection attempts can be specified by the [AutoConnect::begin](api.md#begin) parameter too. The *timeout* parameter specified in [AutoConnect::begin](api.md#begin) takes precedence over [*AutoConnectConfig::beginTimeout*](apiconfig.md#begintimeout).
+
+!!! note "The beginTime has an effect on handleClient"
+    The [**beginTimeout**](apiconfig.md#begintimeout) value will be applied with [**handleClient**](api.md#handleclient) when requesting a connection from the captive portal and when attempting to reconnect with [**autoReconnect**](apiconfig.md#autoreconnect).
 
 ## Captive portal control
 

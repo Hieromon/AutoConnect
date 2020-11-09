@@ -134,6 +134,15 @@ The credential saved automatically at the connection establishment.
     <dd><span class="apidef">AC_SAVECREDENTIAL_NEVER</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">The credential no saved.</span></dd>
 </dl>
 
+### <i class="fa fa-caret-right"></i> beginTimeout
+
+Specify the limit time to attempt WiFi connection to the accesspoint. AutoConnect uses this value to abort the connection attempt at **WiFi.begin**. Its actual value specified in milliseconds unit.  
+The default value is **AUTOCONNECT_TIMEOUT** defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132) and the initial value is 30 seconds.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>unsigned long</dd>
+</dl>
+
 ### <i class="fa fa-caret-right"></i> bootUri
 
 Specify the location to be redirected after module reset in the AutoConnect menu. It is given as an enumeration value of **AC_ONBOOTURI_t** indicating either the AutoConnect root path or the user screen home path.
@@ -343,7 +352,7 @@ Specifies the number of units for interval time to attempt automatic reconnectio
 
 WiFi connection retry is repeated inside [**AutoConnect::handleClient**](api.md#handleClient) after the number of seconds that the reconnectInterval value is multiplied by **AUTOCONNECT_UNITTIME** from the previous attempt. Then, when the connection with one of the saved credentials is established, the automatic reconnection will stop. And while [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled, if the WiFi connection is lost, it will start to auto-reconnect again inside [**AutoConnect::handleClient**](api.md#handleclient).
 
-If **0** is specified for the reconnectInterval, background reconnection attempt repeatedly will not be made, and only once at the first WiFi.begin failure in [**AutoConnect::begin**](api.md#begin). (Only when [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled) The default value is 0.
+If **0** is specified for the reconnectInterval, background reconnection attempt repeatedly will not be made, and only once at the 1st-WiFi.begin failure in [**AutoConnect::begin**](api.md#begin). (Only when [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled) The default value is 0.
 
 !!! Info "AUTOCONNECT_UNITTIME"
     **AUTOCONNECT_UNITTIME** as macro defined in `AutoConnectDefs.h` file of library source code as the below:
@@ -451,7 +460,7 @@ Set the username for authentication.
 
 ## <i class="fa fa-code"></i> AutoConnectConfig Initial values
 
-| Public member | Data type | Initial value definition | Defined symbol |
+| Public member | Data type | Initial value definition | Defined symbol [^1] |
 |---------------|------|----------------|--------------------------|
 | [apid](#apid) | String | `esp8266ap`<br>`esp32ap` | AUTOCONNECT_APID |
 | [apip](#apip) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_IP |
@@ -469,13 +478,13 @@ Set the username for authentication.
 | [gateway](#gateway) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_GW |
 | [hidden](#hidden) | uint8_t | 0 | |
 | [homeUri](#homeuri) | String | `/` | AUTOCONNECT_HOMEURI |
-| [hostName](#hostname) | String | BLANK | |
+| [hostName](#hostname) | String | NULL | |
 | [immediateStart](#immediatestart) | bool | false | |
 | [menuItems](#menuIiems) | uint16_t | AC_MENUITEM_CONFIGNEW<br>+ AC_MENUITEM_OPENSSIDS<br>+ AC_MENUITEM_DISCONNECT<br>+ AC_MENUITEM_RESET<br>+ AC_MENUITEM_UPDATE<br>+ AC_MENUITEM_HOME | AC_MENUITEM_CONFIGNEW<br>AC_MENUITEM_OPENSSIDS<br>AC_MENUITEM_DISCONNECT<br>AC_MENUITEM_RESET<br>AC_MENUITEM_UPDATE<br>AC_MENUITEM_HOME |
 | [minRSSI](#minrssi) | int16_t | -120 | AUTOCONNECT_MIN_RSSI |
 | [netmask](#netmask) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_NM |
 | [ota](#ota) | AC_OTA_t | AC_OTA_EXTRA | AC_OTA_EXTRA<br>AC_OTA_BUILTIN |
-| [password](#password) | String | BLANK | |
+| [password](#password) | String | Follow [psk](#psk) | |
 | [portalTimeout](#portaltimeout) | unsigned long | 0 | AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT |
 | [preserveAPMode](#preserveapmode) | bool | false | |
 | [principle](#principle) | AC_PRINCIPLE_t | AC_PRINCIPLE_RECENT | AC_PRINCIPLE_RECENT<br>AC_PRINCIPLE_RSSI |
@@ -490,7 +499,10 @@ Set the username for authentication.
 | [tickerPort](#tickerport) | uint8_t | LED_BUILTIN | AUTOCONNECT_TICKER_PORT |
 | [title](#title) | String | `AutoConnect` | AUTOCONNECT_MENU_TITLE |
 | [uptime](#uptime) | int | AUTOCONNECT_TIMEOUT/1000 | AUTOCONNECT_STARTUPTIME |
-| [username](#username) | String | BLANK | |
+| [username](#username) | String | Follow [apid](#apid) | |
+
+[^1]:
+Those symbols are defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h).
 
 ## <i class="fa fa-code"></i> AutoConnectConfig example
 
