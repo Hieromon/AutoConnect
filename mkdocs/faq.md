@@ -77,7 +77,7 @@ You have the following two options to avoid this conflict:
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
-Maybe it is successfully connected at the [**first WiFi.begin**](lsbegin.md#autoconnectbegin-logic-sequence). ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
+Maybe it is successfully connected at the [**1st-WiFi.begin**](lsbegin.md#autoconnectbegin-logic-sequence). ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
 
 The saved SSID would be cleared by  *WiFi.disconnect()* with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.
 
@@ -169,6 +169,32 @@ For example, add the following description to the `[env]` section of the `platfo
 ```ini
 build-flags = -DAUTOCONNECT_NOUSE_JSON
 ```
+
+## <i class="fa fa-question-circle"></i> How place the password input box on the custom Web page?
+
+There is still no dedicated AutoConnectElement for entering the password equivalent to `input type="password"` HTML element. But you can substitute it with the AutoConnectElement.  
+[AutoConnectElement](apielements.md#autoconnectelement) allows you to place the native HTML element on the page. You can embed the `input type="password"` element on the page like as:
+
+```json
+{
+  "name": "pass",
+  "type": "ACElement",
+  "value": "<label for=\"pass\">Password:</label><input type=\"password\" id=\"pass\" name=\"pass\" minlength=\"8\" required>"
+}
+```
+
+Then, instead of accessing that AutoConnectElement directly, obtains the password entered from the POST body included in the HTTP request from the hosted ESP8266WebServer class. Its process carries out with the [AutoConnectAux page handler](achandling.html#how-you-can-reach-the-values). Follow the code below:
+
+```cpp
+
+String aux_page_handler(AutoConnectAux &aux, PageArgument &arg) {
+  Serial.println(arg.arg("pass"));  // Obtain your password
+  return "";
+}
+```
+
+AutoConnect passes a [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) to the AutoConnectAux page handler. The handler can use the [PageArgument::arg](https://github.com/Hieromon/PageBuilder#string-pageargumentargstring-name) function to get the parameters contained in the HTTP request for the page.  
+Also, the equivalent can also be implemented using [ESP8266WebServer::arg]() function with the [ESP8266WebServer client request handler](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers).
 
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
