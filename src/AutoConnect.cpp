@@ -208,8 +208,11 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         // The following two lines are the trick statements.
         // They have the effect of avoiding unintended automatic
         // reconnection by autoReconnect within handleClient.
+        // Also retainPortal too.
         bool  actReconnect = _apConfig.autoReconnect;
+        bool  actRetainPortal = _apConfig.retainPortal;
         _apConfig.autoReconnect = false;
+        _apConfig.retainPortal = true;
 
         // Start the captive portal to make a new connection
         bool  hasTimeout = false;
@@ -231,8 +234,9 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         }
         cs = WiFi.status() == WL_CONNECTED;
 
-        // Restore actual autoReconnect settings.
+        // Restore actual autoReconnect and retainPortal settings.
         _apConfig.autoReconnect = actReconnect;
+        _apConfig.retainPortal = actRetainPortal;
 
         // Captive portal staying time exceeds timeout,
         // Close the portal if an option for keeping the portal is false.
