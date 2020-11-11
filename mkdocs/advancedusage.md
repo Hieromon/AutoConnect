@@ -285,6 +285,7 @@ The default behavior of AutoConnect is to launch the captive portal if 1st-WiFi.
 - [Disable the captive portal](#disable-the-captive-portal)
 - [Launch the captive portal on demand by external trigger](#launch-the-captive-portal-on-demand-by-external-trigger)
 - [Launch the captive portal as demanded on WiFi disconnect](#launch-the-captive-portal-as-demanded-on-wifi-disconnect)
+- [Shutting down the captive portal](#shutting-down-the-captive-portal)
 - [Sketch execution during the captive portal loop](#sketch-execution-during-the-captive-portal-loop)
 
 ### <i class="fa fa-caret-right"></i> Captive portal start control
@@ -656,6 +657,39 @@ The above sketch will shutdown the SoftAP after elapsed time exceeds 30 seconds 
 
 !!!info "Stopped SoftAP is still displayed"
     After SoftAP stopped, there is a time lag before it disappears from the detected access points list on the client device.
+
+### <i class="fa fa-caret-right"></i> Shutting down the captive portal
+
+There is some complexity in the conditions under which AutoConnect shuts down the captive portal. Making a sketch that activates SoftAP only when needed can seem tedious.  
+But there is a reason why. Even if AutoConnect could establish a connection using a captive portal, your cell phone as a client device would still have to keep connected to the ESP module-generated SoftAP in order to send the page for notifying the connection successful to a user. At that point, your client device that opened the captive portal still needs a connection with SoftAP.
+
+What happens, after all, is as follows:
+
+1. You made a connection to the access point such as WiFi router using the captive portal and took a successful page.
+2. Your sketch will rush into the loop function and starts to works well, hooray!
+3. Oops. Don't celebrate yet. I can see SoftAP ID on my cell phone. But the AutoConnect page never pops up automatically. Why?
+
+Because, for the above reasons, we can not promptly shut down the SoftAP. (However, DNS will stop)
+
+So, If you want to stop SoftAP after connecting to the access point using the captive portal, you need to implement the shutdown process with Sketch explicitly. A template of the basic sketch that can stop the SoftAP after the connection is the following:
+
+```cpp hl_lines="5 6 7 8"
+AutoConnect Portal;
+
+void setup() {
+  if (Portal.begin()) {
+    if (WiFi.getMode() & WIFI_AP) {
+      WiFi.softAPdisconnect(true);
+      WiFi.enableAP(false);
+    }
+  }
+  Portal.begin();
+}
+
+void loop() {
+  Portal.handleClient();
+}
+```
 
 ### <i class="fa fa-caret-right"></i> Sketch execution during the captive portal loop
 
