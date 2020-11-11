@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementJson classes.
  * @file AutoConnectElementJsonImpl.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-09-03
+ * @version  1.2.0
+ * @date 2020-11-11
  * @copyright  MIT license.
  */
 
@@ -261,7 +261,7 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
  */
 size_t AutoConnectInputJson::getObjectSize(void) const {
   size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + 1;
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + sizeof(AUTOCONNECT_JSON_KEY_VISIBLE) + sizeof(AUTOCONNECT_JSON_VALUE_PASSWORD) + 1;
   return size;
 }
 
@@ -281,6 +281,17 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
       pattern = json[F(AUTOCONNECT_JSON_KEY_PATTERN)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)))
       placeholder = json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)].as<String>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VISIBLE))) {
+      String  visible = json[F(AUTOCONNECT_JSON_KEY_VISIBLE)].as<String>();
+      if (visible.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PLAIN)))
+        visibility = AC_Input_Plain;
+      else if (visible.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PASSWORD)))
+        visibility = AC_Input_Password;
+      else {
+        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), visible.c_str());
+        return false;
+      }
+    }
     return true;
   }
   return false;
@@ -297,6 +308,14 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   json[F(AUTOCONNECT_JSON_KEY_PATTERN)] = pattern;
   json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)] = placeholder;
+  switch (visibility) {
+  case AC_Input_Plain:
+    json[F(AUTOCONNECT_JSON_KEY_VISIBLE)] = String(F(AUTOCONNECT_JSON_VALUE_PLAIN));
+    break;
+  case AC_Input_Password:
+    json[F(AUTOCONNECT_JSON_KEY_VISIBLE)] = String(F(AUTOCONNECT_JSON_VALUE_PASSWORD));
+    break;
+  }
 }
 
 /**

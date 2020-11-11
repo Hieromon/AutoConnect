@@ -3,7 +3,7 @@
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
  * @version  1.2.0
- * @date 2020-04-17
+ * @date 2020-11-11
  * @copyright  MIT license.
  */
 
@@ -35,6 +35,7 @@
 #define AUTOCONNECT_JSON_KEY_TYPE         "type"
 #define AUTOCONNECT_JSON_KEY_URI          "uri"
 #define AUTOCONNECT_JSON_KEY_VALUE        "value"
+#define AUTOCONNECT_JSON_KEY_VISIBLE      "visible"
 #define AUTOCONNECT_JSON_TYPE_ACBUTTON    "ACButton"
 #define AUTOCONNECT_JSON_TYPE_ACCHECKBOX  "ACCheckBox"
 #define AUTOCONNECT_JSON_TYPE_ACELEMENT   "ACElement"
@@ -55,6 +56,8 @@
 #define AUTOCONNECT_JSON_VALUE_INFRONT    "infront"
 #define AUTOCONNECT_JSON_VALUE_NONE       "none"
 #define AUTOCONNECT_JSON_VALUE_PAR        "par"
+#define AUTOCONNECT_JSON_VALUE_PASSWORD   "password"
+#define AUTOCONNECT_JSON_VALUE_PLAIN      "plain"
 #define AUTOCONNECT_JSON_VALUE_SD         "sd"
 #define AUTOCONNECT_JSON_VALUE_VERTICAL   "vertical"
 
@@ -171,12 +174,13 @@ class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFil
  */
 class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectInputBasis {
  public:
-  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR) {
+  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t visible = AC_Input_Plain) {
     AutoConnectInputBasis::name = String(name);
     AutoConnectInputBasis::value = String(value);
     AutoConnectInputBasis::label = String(label);
     AutoConnectInputBasis::pattern = String(pattern);
     AutoConnectInputBasis::placeholder = String(placeholder);
+    AutoConnectInputBasis::visibility = visible;
     AutoConnectInputBasis::post = post;
     _defaultPost = AC_Tag_BR;
   }
