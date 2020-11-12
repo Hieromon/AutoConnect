@@ -146,17 +146,20 @@ const String AutoConnectInputBasis::toHTML(void) const {
   if (enable) {
     if (label.length())
       html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
-    PGM_P visible;
-    switch (visibility) {
-    case AC_Input_Password:
-      visible = PSTR("password");
+    PGM_P adaptableType;
+    switch (adapt) {
+    case AC_Input_Number:
+      adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_NUMBER);
       break;
-    case AC_Input_Plain:
+    case AC_Input_Password:
+      adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_PASSWORD);
+      break;
+    case AC_Input_Text:
     default:
-      visible = PSTR("text");
+      adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_TEXT);
       break;
     }
-    html += String(F("<input type=\"")) + String(visible) + String(F("\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
+    html += String(F("<input type=\"")) + String(adaptableType) + String(F("\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
     if (pattern.length())
       html += String(F(" pattern=\"")) + pattern + String("\"");
     if (placeholder.length())

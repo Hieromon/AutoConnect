@@ -58,16 +58,17 @@ void AutoConnectElementJson::serialize(JsonObject& json) {
 void AutoConnectElementJson::_serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_NAME)] = name;
   if (post != _defaultPost) {
-    String  posterior;
+    PGM_P posterior;
     switch (post) {
-    case AC_Tag_None:
-      posterior = AUTOCONNECT_JSON_VALUE_NONE;
-      break;
     case AC_Tag_BR:
-      posterior = AUTOCONNECT_JSON_VALUE_BR;
+      posterior = PSTR(AUTOCONNECT_JSON_VALUE_BR);
       break;
     case AC_Tag_P:
-      posterior = AUTOCONNECT_JSON_VALUE_PAR;
+      posterior = PSTR(AUTOCONNECT_JSON_VALUE_PAR);
+      break;
+    case AC_Tag_None:
+    default:
+      posterior = PSTR(AUTOCONNECT_JSON_VALUE_NONE);
       break;
     }
     json[F(AUTOCONNECT_JSON_KEY_POSTERIOR)] = posterior;
@@ -242,17 +243,20 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACFILE));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
+  PGM_P media;
   switch (store) {
-  case AC_File_FS:
-    json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_FS;
-    break;
   case AC_File_SD:
-    json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_SD;
+    media = PSTR(AUTOCONNECT_JSON_VALUE_SD);
     break;
   case AC_File_Extern:
-    json[F(AUTOCONNECT_JSON_KEY_STORE)] = AUTOCONNECT_JSON_VALUE_EXTERNAL;
+    media = PSTR(AUTOCONNECT_JSON_VALUE_EXTERNAL);
+    break;
+  case AC_File_FS:
+  default:
+    media = PSTR(AUTOCONNECT_JSON_VALUE_FS);
     break;
   }
+  json[F(AUTOCONNECT_JSON_KEY_STORE)] = media;
 }
 
 /**
@@ -261,7 +265,7 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
  */
 size_t AutoConnectInputJson::getObjectSize(void) const {
   size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + sizeof(AUTOCONNECT_JSON_KEY_VISIBLE) + sizeof(AUTOCONNECT_JSON_VALUE_PASSWORD) + 1;
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + sizeof(AUTOCONNECT_JSON_KEY_ADAPT) + sizeof(AUTOCONNECT_JSON_VALUE_PASSWORD) + 1;
   return size;
 }
 
@@ -281,14 +285,16 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
       pattern = json[F(AUTOCONNECT_JSON_KEY_PATTERN)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)))
       placeholder = json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)].as<String>();
-    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VISIBLE))) {
-      String  visible = json[F(AUTOCONNECT_JSON_KEY_VISIBLE)].as<String>();
-      if (visible.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PLAIN)))
-        visibility = AC_Input_Plain;
-      else if (visible.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PASSWORD)))
-        visibility = AC_Input_Password;
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ADAPT))) {
+      String  adaptableType = json[F(AUTOCONNECT_JSON_KEY_ADAPT)].as<String>();
+      if (adaptableType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_TEXT)))
+        adapt = AC_Input_Text;
+      else if (adaptableType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PASSWORD)))
+        adapt = AC_Input_Password;
+      else if (adaptableType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_NUMBER)))
+        adapt = AC_Input_Number;
       else {
-        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), visible.c_str());
+        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), adaptableType.c_str());
         return false;
       }
     }
@@ -308,14 +314,20 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   json[F(AUTOCONNECT_JSON_KEY_PATTERN)] = pattern;
   json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)] = placeholder;
-  switch (visibility) {
-  case AC_Input_Plain:
-    json[F(AUTOCONNECT_JSON_KEY_VISIBLE)] = String(F(AUTOCONNECT_JSON_VALUE_PLAIN));
-    break;
+  PGM_P adaptableType;
+  switch (adapt) {
   case AC_Input_Password:
-    json[F(AUTOCONNECT_JSON_KEY_VISIBLE)] = String(F(AUTOCONNECT_JSON_VALUE_PASSWORD));
+    adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_PASSWORD);
+    break;
+  case AC_Input_Number:
+    adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_NUMBER);
+    break;
+  case AC_Input_Text:
+  default:
+    adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_TEXT);
     break;
   }
+  json[F(AUTOCONNECT_JSON_KEY_ADAPT)] = adaptableType;
 }
 
 /**
@@ -377,14 +389,17 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
   ArduinoJsonArray  values = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_VALUE));
   for (const String& v : _values)
     values.add(v);
+  PGM_P direction;
   switch (order) {
   case AC_Horizontal:
-    json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = String(F(AUTOCONNECT_JSON_VALUE_HORIZONTAL));
+    direction = PSTR(AUTOCONNECT_JSON_VALUE_HORIZONTAL);
     break;
   case AC_Vertical:
-    json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = String(F(AUTOCONNECT_JSON_VALUE_VERTICAL));
+  default:
+    direction = PSTR(AUTOCONNECT_JSON_VALUE_VERTICAL);
     break;
   }
+  json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = direction;
   if (checked > 0)
     json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
 }
