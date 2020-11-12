@@ -265,7 +265,7 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
  */
 size_t AutoConnectInputJson::getObjectSize(void) const {
   size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + sizeof(AUTOCONNECT_JSON_KEY_ADAPT) + sizeof(AUTOCONNECT_JSON_VALUE_PASSWORD) + 1;
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + sizeof(AUTOCONNECT_JSON_KEY_APPLY) + sizeof(AUTOCONNECT_JSON_VALUE_PASSWORD) + 1;
   return size;
 }
 
@@ -285,16 +285,16 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
       pattern = json[F(AUTOCONNECT_JSON_KEY_PATTERN)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)))
       placeholder = json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)].as<String>();
-    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_ADAPT))) {
-      String  adaptableType = json[F(AUTOCONNECT_JSON_KEY_ADAPT)].as<String>();
-      if (adaptableType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_TEXT)))
-        adapt = AC_Input_Text;
-      else if (adaptableType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PASSWORD)))
-        adapt = AC_Input_Password;
-      else if (adaptableType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_NUMBER)))
-        adapt = AC_Input_Number;
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_APPLY))) {
+      String  applyType = json[F(AUTOCONNECT_JSON_KEY_APPLY)].as<String>();
+      if (applyType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_TEXT)))
+        apply = AC_Input_Text;
+      else if (applyType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PASSWORD)))
+        apply = AC_Input_Password;
+      else if (applyType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_NUMBER)))
+        apply = AC_Input_Number;
       else {
-        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), adaptableType.c_str());
+        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), applyType.c_str());
         return false;
       }
     }
@@ -314,20 +314,20 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   json[F(AUTOCONNECT_JSON_KEY_PATTERN)] = pattern;
   json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)] = placeholder;
-  PGM_P adaptableType;
-  switch (adapt) {
+  PGM_P applyType;
+  switch (apply) {
   case AC_Input_Password:
-    adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_PASSWORD);
+    applyType = PSTR(AUTOCONNECT_JSON_VALUE_PASSWORD);
     break;
   case AC_Input_Number:
-    adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_NUMBER);
+    applyType = PSTR(AUTOCONNECT_JSON_VALUE_NUMBER);
     break;
   case AC_Input_Text:
   default:
-    adaptableType = PSTR(AUTOCONNECT_JSON_VALUE_TEXT);
+    applyType = PSTR(AUTOCONNECT_JSON_VALUE_TEXT);
     break;
   }
-  json[F(AUTOCONNECT_JSON_KEY_ADAPT)] = adaptableType;
+  json[F(AUTOCONNECT_JSON_KEY_APPLY)] = applyType;
 }
 
 /**

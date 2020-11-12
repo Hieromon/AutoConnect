@@ -177,7 +177,7 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
  */
 class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t adapt = AC_Input_Text) : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), adapt(adapt) {
+  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text) : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), apply(apply) {
     _type = AC_Input;
   }
   virtual ~AutoConnectInputBasis() {}
@@ -187,7 +187,7 @@ class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
   String  label;      /**< A label for a subsequent input box */
   String  pattern;    /**< Format pattern to aid validation of input value */
   String  placeholder;  /**< Pre-filled placeholder */
-  ACInput_t adapt;    /**< An input element type attribute */
+  ACInput_t apply;    /**< An input element type attribute */
 };
 
 /**

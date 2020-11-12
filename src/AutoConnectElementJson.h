@@ -14,7 +14,7 @@
 #include "AutoConnectJsonDefs.h"
 
 #define AUTOCONNECT_JSON_KEY_ACTION       "action"
-#define AUTOCONNECT_JSON_KEY_ADAPT        "adapt"
+#define AUTOCONNECT_JSON_KEY_APPLY        "apply"
 #define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
 #define AUTOCONNECT_JSON_KEY_AUTH         "auth"
 #define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
@@ -175,13 +175,13 @@ class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFil
  */
 class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectInputBasis {
  public:
-  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t adapt = AC_Input_Text) {
+  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text) {
     AutoConnectInputBasis::name = String(name);
     AutoConnectInputBasis::value = String(value);
     AutoConnectInputBasis::label = String(label);
     AutoConnectInputBasis::pattern = String(pattern);
     AutoConnectInputBasis::placeholder = String(placeholder);
-    AutoConnectInputBasis::adapt = adapt;
+    AutoConnectInputBasis::apply = apply;
     AutoConnectInputBasis::post = post;
     _defaultPost = AC_Tag_BR;
   }
