@@ -493,7 +493,15 @@ void AutoConnect::handleRequest(void) {
     AC_DBG("WiFi.begin(%s%s%s) ch(%d)", ssid_c, strlen(password_c) ? "," : "", strlen(password_c) ? password_c : "", (int)ch);
 
     if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
-      if ((_rsConnect = _waitForConnect(_apConfig.beginTimeout)) == WL_CONNECTED) {
+      // Wait for the connection attempt to complete and send a response
+      // page to notify the connection result.
+      // End the current session to complete a response page transmission.
+      _rsConnect = _waitForConnect(_apConfig.beginTimeout);
+      do {
+        _webServer->handleClient();
+      } while (_webServer->client());
+
+      if (_rsConnect == WL_CONNECTED) {
         // WLAN successfully connected then release the DNS server.
         // Also, stop WIFI_AP if retainPortal not specified.
         _stopDNSServer();
