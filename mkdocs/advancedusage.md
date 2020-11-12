@@ -673,23 +673,27 @@ Because, for the above reasons, we can not promptly shut down the SoftAP. (Howev
 
 So, If you want to stop SoftAP after connecting to the access point using the captive portal, you need to implement the shutdown process with Sketch explicitly. A template of the basic sketch that can stop the SoftAP after the connection is the following:
 
-```cpp hl_lines="5 6 7 8"
+```cpp hl_lines="5 6 7 8 9"
 AutoConnect Portal;
 
 void setup() {
   if (Portal.begin()) {
     if (WiFi.getMode() & WIFI_AP) {
+      Portal.handleClient();
       WiFi.softAPdisconnect(true);
       WiFi.enableAP(false);
     }
   }
-  Portal.begin();
 }
 
 void loop() {
   Portal.handleClient();
 }
 ```
+
+!!! note "If you stop SoftAP, the connection will be lost"
+    If you stop SoftAP immediately after the [AutoConnect::begin](api.md#begin) successful, will part with the connection and cannot see the result notifying on your client device.  
+    You can expect to receive result notifications if you run [**handleClient**](api.md#handleclient) before stopping SoftAP. (although you may not always succeed; it will not work if the WiFi radio signal is weak)
 
 ### <i class="fa fa-caret-right"></i> Sketch execution during the captive portal loop
 
