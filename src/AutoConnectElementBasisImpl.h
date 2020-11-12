@@ -3,7 +3,7 @@
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
  * @version  1.2.0
- * @date 2029-05-29
+ * @date 2020-11-11
  * @copyright  MIT license.
  */
 
@@ -28,7 +28,7 @@ namespace AutoConnectFS { SPIFFST& FLASHFS = LittleFS; };
 #endif
 
 /**
- * Append post-tag accoring by the post attribute.
+ * Append post-tag according by the post attribute.
  * @param  s  An original string
  * @return    A string that appended the post tag
  */
