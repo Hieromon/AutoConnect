@@ -196,6 +196,9 @@ String aux_page_handler(AutoConnectAux &aux, PageArgument &arg) {
 AutoConnect passes a [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) to the AutoConnectAux page handler. The handler can use the [PageArgument::arg](https://github.com/Hieromon/PageBuilder#string-pageargumentargstring-name) function to get the parameters contained in the HTTP request for the page.  
 Also, the equivalent can also be implemented using [ESP8266WebServer::arg]() function with the [ESP8266WebServer client request handler](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers).
 
+!!! info "AutoConnectInput accepts password input&nbsp;<sub><sup>ENHANCED w/v1.2.0</sup></sub>"
+    Since AutoConnect 1.2.0, [**AutoConnectInput**](acelements.md#autoconnectinput) element got to accept pasword input and number input. Just specify the **apply** attribute in the [**AutoConnectInput element**](acjson.md#acinput).
+
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
 Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [Appendix](credit.md) for details.
