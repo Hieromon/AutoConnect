@@ -252,7 +252,7 @@ Specifies a tag to add behind the HTML code generated from the element. The defa
 
 ## AutoConnectInput
 
-AutoConnectInput generates an HTML `#!html <input type="text">` tag and a `#!html <label>` tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the Sketches.
+AutoConnectInput generates an HTML `#!html <input type="text">`, `#!html <input type="number">` or `#!html <input type="password">` tag and a `#!html <label>` tag. It can also have a placeholder. The value of the input box is passed to the destination in the query string and can be retrieved programmatically. You can also update from the Sketches.
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectInput input("input", "", "Server", "MQTT broker server");`**</small>
@@ -262,7 +262,7 @@ AutoConnectInput generates an HTML `#!html <input type="text">` tag and a `#!htm
 ### <i class="fa fa-edit"></i> Constructor
 
 ```cpp
-AutoConnectInput(const char* name, const char* value, const char* label, const char* pattern, const char* placeholder, const ACPosterior_t post)
+AutoConnectInput(const char* name, const char* value, const char* label, const char* pattern, const char* placeholder, const ACPosterior_t post, const ACInput_t apply)
 ```
 
 ### <i class="fa fa-caret-right"></i> name
@@ -299,6 +299,14 @@ A placeholder is an option string. Specification of a placeholder will generate 
 ### <i class="fa fa-caret-right"></i> post
 
 Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_BR`.
+
+### <i class="fa fa-caret-right"></i> apply
+
+Specifies the type of input that the text box accepts. AutoConnectInput will generate either a `input type="text"`, `input type="password"`, or `input type="number"` tag based on the `apply` specifying as input type. The input type can be specified the following values in the *ACInput_t* enumeration type.
+
+- **`AC_Input_Text`** : `input type="text"`
+- **`AC_Input_Password`** : `input type="password"`
+- **`AC_Input_Number`** : `input type="number"`
 
 ## AutoConnectRadio
 
@@ -487,7 +495,7 @@ ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</sma
 
 ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_File\_FS**</small> | <small>**AC\_File\_SD**</small> | <small>**AC\_File\_Extern**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
 
-ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Input\_Text**</small> | <small>**AC\_Input\_Password**</small> | <small>**AC\_Input\_Number**</small> <small>\]</small>)
 
 ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Horizontal</small>** | <small>**AC\_Vertical**</small> <small>\]</small> <small>\[</small> , *checked* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
 
