@@ -195,7 +195,10 @@ The filename pattern that should be treated as the firmware is defined as the **
 #define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
 ```
 
-!!! note "Specify with the PlatformIO"
+!!! note "Escape for the special characters"
+    If the filename pattern contains special characters for the regular expressions, it must be escaped appropriately. Also, the `AUTOCONNECT_UPLOAD_ASFIRMWARE` definition is treated as a replacement string for the **#define** directive for C++ preprocessor, so the backslash must be escaped too.
+
+!!! info "Specify with the PlatformIO"
     `AUTOCONNECT_UPLOAD_ASFIRMWARE` pattern will be embedded into the binary sketch is determined at compile time. The [**PlatformIO**](https://platformio.org/platformio-ide) build system allows you to change the pattern expression for each project without modifying the library source code.
     
     ```ini
