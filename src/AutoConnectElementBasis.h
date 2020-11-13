@@ -81,7 +81,7 @@ class AutoConnectElementBasis {
     _type = AC_Element;
   }
   virtual ~AutoConnectElementBasis() {}
-  virtual const String  toHTML(void) const { return enable ? value : String(""); }
+  virtual const String  toHTML(void) const { return enable ? posterior(value) : String(""); }
   ACElement_t typeOf(void) const { return _type; }
   const String  posterior(const String& s) const;
 #ifndef AUTOCONNECT_USE_JSON
