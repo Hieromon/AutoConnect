@@ -673,13 +673,12 @@ Because, for the above reasons, we can not promptly shut down the SoftAP. (Howev
 
 So, If you want to stop SoftAP after connecting to the access point using the captive portal, you need to implement the shutdown process with Sketch explicitly. A template of the basic sketch that can stop the SoftAP after the connection is the following:
 
-```cpp hl_lines="5 6 7 8 9"
+```cpp hl_lines="5 6 7 8"
 AutoConnect Portal;
 
 void setup() {
   if (Portal.begin()) {
     if (WiFi.getMode() & WIFI_AP) {
-      Portal.handleClient();
       WiFi.softAPdisconnect(true);
       WiFi.enableAP(false);
     }
@@ -1327,6 +1326,7 @@ You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apic
 
 - [Built-in OTA update](#built-in-ota-update-feature)
 - [Debug print](#debug-print)
+- [File uploading via built-in OTA feature](#file-uploading-via-built-in-ota-feature)
 - [Ticker for WiFi status](#ticker-for-wifi-status)
 - [Refers the hosted ESP8266WebServer/WebServer](#refers-the-hosted-esp8266webserverwebserver)
 - [Usage for automatically instantiated ESP8266WebServer/WebServer](#usage-for-automatically-instantiated-esp8266webserverwebserver)
@@ -1353,6 +1353,25 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 ```cpp
 #define AC_DEBUG
 ```
+
+### <i class="fa fa-caret-right"></i> File uploading via built-in OTA feature
+
+The [built-in OTA update feature](otabrowser.md) can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the [**Update**](menu.md#update) of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This utilization is useful for the operation of transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.
+
+The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, files with names with a **.bin** extension are subject to firmware updates. A file that has the other patterns with extension will be saved to SPIFFS in the flush.
+
+The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
+
+```cpp
+#define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
+```
+
+!!! note "Specify with the PlatformIO"
+    `AUTOCONNECT_UPLOAD_ASFIRMWARE` pattern will be embedded into the binary sketch is determined at compile time. The [**PlatformIO**](https://platformio.org/platformio-ide) build system allows you to change the pattern expression for each project without modifying the library source code.
+    
+    ```ini
+    build_flags=-DAUTOCONNECT_UPLOAD_ASFIRMWARE='"^.*\\.[bB][iI][nN]$"'
+    ```
 
 ### <i class="fa fa-caret-right"></i> Refers the hosted ESP8266WebServer/WebServer
 
