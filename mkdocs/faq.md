@@ -183,7 +183,7 @@ There is still no dedicated AutoConnectElement for entering the password equival
 }
 ```
 
-Then, instead of accessing that AutoConnectElement directly, obtains the password entered from the POST body included in the HTTP request from the hosted ESP8266WebServer class. Its process carries out with the [AutoConnectAux page handler](achandling.html#how-you-can-reach-the-values). Follow the code below:
+Then, instead of accessing that AutoConnectElement directly, obtains the password entered from the POST body included in the HTTP request from the hosted ESP8266WebServer class. Its process carries out with the [AutoConnectAux page handler](achandling.md#how-you-can-reach-the-values). Follow the code below:
 
 ```cpp
 
