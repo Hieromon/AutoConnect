@@ -71,7 +71,7 @@ void AutoConnectElementJson::_serialize(JsonObject& json) {
       posterior = PSTR(AUTOCONNECT_JSON_VALUE_NONE);
       break;
     }
-    json[F(AUTOCONNECT_JSON_KEY_POSTERIOR)] = posterior;
+    json[F(AUTOCONNECT_JSON_KEY_POSTERIOR)] = String(FPSTR(posterior));
   }
   if (global)
     json[F(AUTOCONNECT_JSON_KEY_GLOBAL)] = true;
@@ -256,7 +256,7 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
     media = PSTR(AUTOCONNECT_JSON_VALUE_FS);
     break;
   }
-  json[F(AUTOCONNECT_JSON_KEY_STORE)] = media;
+  json[F(AUTOCONNECT_JSON_KEY_STORE)] = String(FPSTR(media));
 }
 
 /**
@@ -327,7 +327,7 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
     applyType = PSTR(AUTOCONNECT_JSON_VALUE_TEXT);
     break;
   }
-  json[F(AUTOCONNECT_JSON_KEY_APPLY)] = applyType;
+  json[F(AUTOCONNECT_JSON_KEY_APPLY)] = String(FPSTR(applyType));
 }
 
 /**
@@ -399,7 +399,7 @@ void AutoConnectRadioJson::serialize(JsonObject& json) {
     direction = PSTR(AUTOCONNECT_JSON_VALUE_VERTICAL);
     break;
   }
-  json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = direction;
+  json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = String(FPSTR(direction));
   if (checked > 0)
     json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
 }
