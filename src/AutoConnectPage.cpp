@@ -134,7 +134,6 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
 /**< Image icon for inline expansion, the lock mark. */
 const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
   ".img-lock{"
-    "display:inline-block;"
     "width:22px;"
     "height:22px;"
     "margin-top:14px;"
