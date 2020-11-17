@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.2.0
- *  @date   2020-10-30
+ *  @date   2020-11-15
  *  @copyright  MIT license.
  */
 
@@ -111,63 +111,72 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     AC_DBG("Start the portal immediately\n");
   }
   else {
-    cs = true;
-    // Prepare valid configuration according to the WiFi connection right order.
-    const char* c_ssid = ssid;
-    const char* c_password = passphrase;
     station_config_t  current;
+    // Restore current STA configuration
     if (_getConfigSTA(&current))
       AC_DBG("Current:%.32s\n", current.ssid);
-    if (_apConfig.principle == AC_PRINCIPLE_RSSI && (ssid == nullptr && passphrase == nullptr)) {
+
+    // Prepare valid configuration according to the WiFi connection right order.
+    cs = true;
+    _rfAdHocBegin = ssid == nullptr ? false : (strlen(ssid) > 0);
+    if (_rfAdHocBegin) {
+      // Save for autoReconnect
+      strcpy(reinterpret_cast<char*>(_credential.ssid), ssid);
+      if (passphrase)
+        strcpy(reinterpret_cast<char*>(_credential.password), passphrase);
+    }
+    else {
       // AC_PRINCIPLE_RSSI is available when SSID and password are not provided.
-      // Find the strongest signal from the broadcast among the saved credentials.
-      if ((cs = _loadCurrentCredential(reinterpret_cast<char*>(current.ssid), reinterpret_cast<char*>(current.password), AC_PRINCIPLE_RSSI, false))) {
-        c_ssid = reinterpret_cast<const char*>(current.ssid);
-        c_password = reinterpret_cast<const char*>(current.password);
-        AC_DBG("Adopted:%.32s\n", c_ssid);
+      if (_apConfig.principle == AC_PRINCIPLE_RSSI) {
+        // Find the strongest signal from the broadcast among the saved credentials.
+        if ((cs = _loadCurrentCredential(reinterpret_cast<char*>(current.ssid), reinterpret_cast<char*>(current.password), AC_PRINCIPLE_RSSI, false))) {
+          ssid = reinterpret_cast<const char*>(current.ssid);
+          passphrase = reinterpret_cast<const char*>(current.password);
+          AC_DBG("Adopted:%.32s\n", ssid);
+        }
       }
+      _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
     }
 
     if (cs) {
       // Advance configuration for STA mode. Restore previous configuration of STA.
-      _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
+      // _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
       if (!_configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2))
         return false;
 
       // Try to connect by STA immediately.
-      wl_status_t cc;
-      if (c_ssid == nullptr && c_password == nullptr)
-        cc = WiFi.begin();
+      if (!_rfAdHocBegin)
+        cs = WiFi.begin() != WL_CONNECT_FAILED;
       else {
         _disconnectWiFi(false);
-        cc = WiFi.begin(c_ssid, c_password);
+        cs = WiFi.begin(ssid, passphrase) != WL_CONNECT_FAILED;
       }
-      AC_DBG("WiFi.begin(%s%s%s)", c_ssid == nullptr ? "" : c_ssid, c_password == nullptr ? "" : ",", c_password == nullptr ? "" : c_password);
-      if (cc != WL_CONNECT_FAILED)
+      AC_DBG("WiFi.begin(%s%s%s)", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
+      if (cs)
         cs = _waitForConnect(timeout) == WL_CONNECTED;
       else {
         AC_DBG_DUMB(" failed\n");
-        cs = false;
       }
     }
 
     // Reconnect with a valid credential as the autoReconnect option is enabled.
-    if (!cs && _apConfig.autoReconnect && (ssid == nullptr && passphrase == nullptr)) {
+    if (!cs && _apConfig.autoReconnect && !_rfAdHocBegin) {
       // Load a valid credential.
       char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
       char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
-      if (_loadCurrentCredential(ssid_c, password_c, _apConfig.principle, strlen(reinterpret_cast<const char*>(current.ssid)) > 0)) {
+      AC_DBG("autoReconnect");
+      if ((cs = _loadCurrentCredential(ssid_c, password_c, _apConfig.principle, strlen(reinterpret_cast<const char*>(current.ssid)) > 0))) {
         // Try to reconnect with a stored credential.
-        AC_DBG("autoReconnect loaded:%s(%s)\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
+        AC_DBG_DUMB(", %s(%s) loaded\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
         const char* psk = strlen(password_c) ? password_c : nullptr;
         _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
-        wl_status_t cc = WiFi.begin(ssid_c, psk);
+        cs = WiFi.begin(ssid_c, psk) != WL_CONNECT_FAILED;
         AC_DBG("WiFi.begin(%s%s%s)", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
-        if (cc != WL_CONNECT_FAILED)
+        if (cs)
           cs = _waitForConnect(timeout) == WL_CONNECTED;
-        else {
-          AC_DBG_DUMB(" failed\n");
-        }
+      }
+      if (!cs) {
+        AC_DBG_DUMB(" failed\n");
       }
     }
   }
@@ -447,12 +456,12 @@ void AutoConnect::handleRequest(void) {
 
       // Scan has not triggered then starts asynchrony scan and repeats at
       // intervals of time with AutoConnectConfig::reconnectInterval value
-      //  multiplied by AUTOCONNECT_UNITTIME.
+      // multiplied by AUTOCONNECT_UNITTIME.
       if (sc == WIFI_SCAN_FAILED) {
         if (millis() - _attemptPeriod > ((unsigned long)_apConfig.reconnectInterval * AUTOCONNECT_UNITTIME * 1000)) {
-          WiFi.setAutoReconnect(false);
-          WiFi.scanNetworks(true, true);
-          AC_DBG("Attempt to autoReconnect\n");
+          int8_t  sn = WiFi.scanNetworks(true, true);
+          AC_DBG("autoReconnect %s\n", sn == WIFI_SCAN_RUNNING ? "running" : "failed");
+          _attemptPeriod = millis();
         }
       }
 
@@ -462,10 +471,9 @@ void AutoConnect::handleRequest(void) {
       else if (sc != WIFI_SCAN_RUNNING) {
         AC_DBG("%d network(s) found\n", (int)sc);
         if (sc > 0) {
-          if (_seekCredential(_apConfig.principle, false))
-          _rfConnect = true;
+          if (_seekCredential(_apConfig.principle, _rfAdHocBegin ? AC_SEEKMODE_CURRENT : AC_SEEKMODE_ANY))
+            _rfConnect = true;
         }
-        _attemptPeriod = millis();
         WiFi.scanDelete();
       }
     }
@@ -481,6 +489,10 @@ void AutoConnect::handleRequest(void) {
 
     // Leave current AP, reconfigure station
     _configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2);
+
+    // Purge scan results to initialize the asynchronous network scan that
+    // will be triggered by disconnection during handleRequests.
+    WiFi.scanDelete();
 
     // An attempt to establish a new AP.
     int32_t ch = _connectCh == 0 ? _apConfig.channel : _connectCh;
@@ -557,7 +569,7 @@ void AutoConnect::handleRequest(void) {
           yield();
           wl = WiFi.status();
         }
-        AC_DBG("Abandon attempt, status(%d)\n", wl);
+        AC_DBG("Quit connecting, status(%d)\n", wl);
       }
     }
     _rfConnect = false;
@@ -867,11 +879,10 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
   if (credential.entries() > 0) {
     // Scan the vicinity only when the saved credentials are existing.
     if (!ssid) {
-      WiFi.scanDelete();
       int8_t  nn = WiFi.scanNetworks(false, true);
-      AC_DBG("%d network(s) found\n", (int)nn);
+      AC_DBG_DUMB(", %d network(s) found", (int)nn);
       if (nn > 0)
-        return _seekCredential(principle, excludeCurrent);
+        return _seekCredential(principle, excludeCurrent ? AC_SEEKMODE_NEWONE : AC_SEEKMODE_ANY);
     }
 
     // The SSID to load was specified.
@@ -898,52 +909,60 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
  *  Either BSSID or SSID of the collation key is determined at compile
  *  time according to the AUTOCONNECT_APKEY_SSID definition.
  *  @param  principle  WiFi connection principle.
- *  @param  excludeCurrent  Skip loading the current SSID.
+ *  @param  mode  Seek mode for whether to target a specific SSID.
  *  @return true  A matched credential of BSSID was loaded.
  */
-bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const bool excludeCurrent) {
+bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKMODE_t mode) {
   AutoConnectCredential credential(_apConfig.boundaryOffset);
   station_config_t  validConfig;  // Temporary to find the strongest RSSI.
   int32_t minRSSI = -120;         // Min value to find the strongest RSSI.
 
   // Seek SSID
   const char* currentSSID = WiFi.SSID().c_str();
-  const bool  skipCurrent = excludeCurrent & (strlen(currentSSID) > 0);
-  for (uint8_t i = 0; i < credential.entries(); i++) {
-    credential.load(i, &_credential);
-    // Seek valid configuration according to the WiFi connection principle.
-    // Verify that an available SSIDs meet AC_PRINCIPLE_t requirements.
-    for (uint8_t n = 0; n < WiFi.scanComplete(); n++) {
-      // The access point collation key is determined at compile time
-      // according to the AUTOCONNECT_APKEY_SSID definition, which is
-      // either BSSID or SSID.
-      if (_isValidAP(_credential, n)) {
-        if (skipCurrent)
-          continue;
-        if (WiFi.RSSI(n) < _apConfig.minRSSI) {
-          // Excepts SSID that has weak RSSI under the lower limit.
-          AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
-          continue;
-        }
-        // Determine valid credential
-        switch (principle) {
-        case AC_PRINCIPLE_RECENT:
-          // By BSSID, exit to keep the credential just loaded.
-          return true;
+  for (uint8_t n = 0; n < WiFi.scanComplete(); n++) {
+    if (mode == AC_SEEKMODE_CURRENT) {
+      // It finds a specific access point that matches the SSID
+      // specified by AutoConnect::begin.
+      if (!strcmp(WiFi.SSID(n).c_str(), reinterpret_cast<const char*>(_credential.ssid)))
+        return true;
+    }
+    else {
+      // Seek valid configuration according to the WiFi connection principle.
+      // Verify that an available SSIDs meet AC_PRINCIPLE_t requirements.
+      for (uint8_t i = 0; i < credential.entries(); i++) {
+        credential.load(i, &_credential);
+        // The access point collation key is determined at compile time
+        // according to the AUTOCONNECT_APKEY_SSID definition, which is
+        // either BSSID or SSID.
+        if (_isValidAP(_credential, n)) {
+          if ((mode == AC_SEEKMODE_NEWONE) && (strlen(currentSSID) > 0))
+            continue;
+          if (WiFi.RSSI(n) < _apConfig.minRSSI) {
+            // Excepts SSID that has weak RSSI under the lower limit.
+            AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
+            continue;
+          }
+          // Determine valid credential
+          switch (principle) {
+          case AC_PRINCIPLE_RECENT:
+            // By BSSID, exit to keep the credential just loaded.
+            return true;
 
-        case AC_PRINCIPLE_RSSI:
-          // Verify that most strong radio signal.
-          // Continue seeking to find the strongest WIFI signal SSID.
-          if (WiFi.RSSI(n) > minRSSI) {
-            minRSSI = WiFi.RSSI(n);
-            memcpy(&validConfig, &_credential, sizeof(station_config_t));
+          case AC_PRINCIPLE_RSSI:
+            // Verify that most strong radio signal.
+            // Continue seeking to find the strongest WIFI signal SSID.
+            if (WiFi.RSSI(n) > minRSSI) {
+              minRSSI = WiFi.RSSI(n);
+              memcpy(&validConfig, &_credential, sizeof(station_config_t));
+            }
+            break;
           }
           break;
         }
-        break;
       }
     }
   }
+
   // Increasing the minSSI will indicate the successfully sought for AC_PRINCIPLE_RSSI.
   // Restore the credential that has maximum RSSI.
   if (minRSSI > -120) {

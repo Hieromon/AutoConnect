@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.2.0
- *	@date	2020-10-30
+ *	@date	2020-11-15
  *	@copyright	MIT license.
  */
 
@@ -272,6 +272,11 @@ class AutoConnect {
     AC_RECONNECT_SET,
     AC_RECONNECT_RESET
   } AC_STARECONNECT_t;
+  typedef enum {
+    AC_SEEKMODE_ANY,
+    AC_SEEKMODE_NEWONE,
+    AC_SEEKMODE_CURRENT
+  } AC_SEEKMODE_t;
   void  _authentication(bool allow);
   void  _authentication(bool allow, const HTTPAuthMethod method);
   bool  _configAP(void);
@@ -280,7 +285,7 @@ class AutoConnect {
   bool  _getConfigSTA(station_config_t* config);
   bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   bool  _loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent);
-  bool  _seekCredential(const AC_PRINCIPLE_t principle, const bool excludeCurrent);
+  bool  _seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKMODE_t mode);
   void  _startWebServer(void);
   void  _startDNSServer(void);
   void  _stopDNSServer(void);
@@ -356,6 +361,7 @@ class AutoConnect {
   unsigned long _attemptPeriod;
 
   /** The control indicators */
+  bool  _rfAdHocBegin = false;  /**< Specified with AutoConnect::begin */
   bool  _rfConnect = false;     /**< URI /connect requested */
   bool  _rfDisconnect = false;  /**< URI /disc requested */
   bool  _rfReset = false;       /**< URI /reset requested */
@@ -363,7 +369,8 @@ class AutoConnect {
 #ifdef ARDUINO_ARCH_ESP32
   WiFiEventId_t _disconnectEventId = -1; /**< STA disconnection event handler registered id  */
 #endif
-  std::unique_ptr<AutoConnectTicker>  _ticker;  /**< */
+  /** Only available with ticker enabled */
+  std::unique_ptr<AutoConnectTicker>  _ticker;
 
   /** HTTP header information of the currently requested page. */
   IPAddress     _currentHostIP; /**< host IP address */
