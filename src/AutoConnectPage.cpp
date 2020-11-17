@@ -1096,7 +1096,6 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
     page = args.arg("page").toInt();
   else {
     // Scan at a first time
-    WiFi.scanDelete();
     _scanCount = WiFi.scanNetworks(false, true);
     AC_DBG("%d network(s) found, ", (int)_scanCount);
   }
@@ -1107,6 +1106,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
   char* ssidList = (char*)malloc(bufSize);
   if (!ssidList) {
     AC_DBG_DUMB(" alloc. failed\n");
+    WiFi.scanDelete();
     return _emptyString;
   }
   AC_DBG_DUMB("\n");
