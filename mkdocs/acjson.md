@@ -384,7 +384,7 @@ AutoConnect uses ArduinoJson library's dynamic buffer to parse JSON documents. I
 
 If memory insufficiency occurs during JSON document parsing, you can adjust these constants to avoid insufficiency by using the [JsonAssistant](https://arduinojson.org/v6/assistant/) with deriving the required buffer size in advance.
 
-```cpp
+```
 #define AUTOCONNECT_JSONBUFFER_SIZE     256
 #define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)
 #define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)

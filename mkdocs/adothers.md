@@ -27,7 +27,7 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 
 [^5]:The source code placement of common macros for AutoConnect since v0.9.7 has changed.
 
-```cpp
+```
 #define AC_DEBUG
 ```
 
@@ -43,7 +43,7 @@ The built-in OTA update feature determines where to save the uploaded file accor
 
 The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
 
-```cpp
+```
 #define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
 ```
 
@@ -171,7 +171,7 @@ The AutoConnect ticker indicates the WiFi connection status in the following thr
 
 The flicker cycle length is defined by some macros in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L180) header file.
 
-```cpp
+```
 #define AUTOCONNECT_FLICKER_PERIODAP  1000 // [ms]
 #define AUTOCONNECT_FLICKER_PERIODDC  (AUTOCONNECT_FLICKER_PERIODAP << 1) // [ms]
 #define AUTOCONNECT_FLICKER_WIDTHAP   96  // (8 bit resolution)

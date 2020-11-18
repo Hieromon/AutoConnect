@@ -135,7 +135,7 @@ The substance of AC_File_FS (fs) is a SPIFFS file system implemented by the ESP8
 
 Also, the substance of AC_File_SD (sd) is a FAT file of Arduino SD library ported to the ESP8266/ESP32 core, and then AutoConnect uses the Global Instance **SD** to access SD. When saving to an external SD device, there are additional required parameters for the connection interface and is defined as the macro in AutoConnectDefs.h.
 
-```cpp
+```
 #define AUTOCONNECT_SD_CS       SS
 #define AUTOCONNECT_SD_SPEED    4000000
 ```
