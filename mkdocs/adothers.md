@@ -3,8 +3,9 @@ You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apic
 - [Built-in OTA update](#built-in-ota-update-feature)
 - [Debug print](#debug-print)
 - [File uploading via built-in OTA feature](#file-uploading-via-built-in-ota-feature)
-- [Ticker for WiFi status](#ticker-for-wifi-status)
 - [Refers the hosted ESP8266WebServer/WebServer](#refers-the-hosted-esp8266webserverwebserver)
+- [Reset the ESP module after disconnecting from WLAN](#reset-the-esp-module-after-disconnecting-from-wlan)
+- [Ticker for WiFi status](#ticker-for-wifi-status)
 - [Usage for automatically instantiated ESP8266WebServer/WebServer](#usage-for-automatically-instantiated-esp8266webserverwebserver)
 - [Use with the [PageBuilder](https://github.com/Hieromon/PageBuilder) library](#use-with-the-pagebuilder-library)
 
@@ -29,6 +30,10 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 ```cpp
 #define AC_DEBUG
 ```
+
+!!! note "How to enable AC_DEBUG"
+    The **#define** is a C++ preprocessor directive. The build process of the Sketch by the Arduino IDE is processed independently of the subsequent C++ compilation unit. Writing the #define directive for AC_DEBUG in the Sketch has no effect on the AutoConnect library.  
+    To compile the AutoConnect library with the AC_DEBUG directive, you can either edit the library source code directly (usually it is located in ~/Arduino/libraries/AutoConnect/src) or use a build system which can configure the preprocessor directives externally such as [**PlatformIO**](https://platformio.org/).
 
 ## File uploading via built-in OTA feature
 
@@ -63,6 +68,84 @@ server.send(200, "text/plain", "Hello, world");
 
 !!! info "When host() is valid"
     The host() can be referred at after [AutoConnect::begin](api.md#begin).
+
+## Reset the ESP module after disconnecting from WLAN
+
+[Disconnect](menu.md#disconnect) by menu operation allows the ESP8266/ESP32 module to reset automatically after disconnecting from WLAN. This behavior is enabled by default and can be disabled by [*AutoConnectConfig::autoReset*](apiconfig.md#autoreset) settings.
+
+```cpp hl_lines="3"
+AutoConnect       Portal;
+AutoConnectConfig Config;
+Config.autoReset = false; // Continue sketch processing even after disconnecting from by AutoConnect menu.
+Portal.config(Config);
+Portal.begin();
+```
+
+The [**autoReset**](apiconfig.md#autoreset) setting will automatically reset the ESP module when disconnecting WiFi only if you intentionally navigate the [menu](menu.md#disconnect). And it does not participate in passive disconnection conditions such as disconnection due to sketch processing or loss of WiFi signal. 
+
+You can combine [**autoReset**](apiconfig.md#autoreset) with [**autoReconnect**](apiconfig.md#autoreconnect) to disconnect from WiFi and automatically reconnect to another AP while continuing the Sketch operation.
+
+The Sketch below shows an example of a  meaningful combination of [**autoReset**](apiconfig.md#autoreset) and [**autoReconnect**](apiconfig.md#autoreconnect). It can connect to the access point once with the captive portal but assumes that it can be disconnected from the WLAN by intentional menu navigation. In that case, the Sketch will continue processing without resetting the module. Then an external switch allows to start automatic reconnecting. In this situation, if known access points appear nearby, the ESP module will automatically reconnect to them in the handleClient loop. In this state transition, the module continues the Sketch process without resetting.
+
+```cpp
+AutoConnect       Portal;
+AutoConnectConfig Config;
+
+const int reconnectSwitch = 14; // Assign the reconnect switch to GPIO14
+
+ICACHE_RAM_ATTR void detectsReconnect() {
+  if (!Config.autoReconnect) {  // Chattering elimination
+    // autoReconnect is enabled by interrupt of the GPIO trigger,
+    Config.autoReconnect = true;  // Activate reconnection
+    Config.reconnectInterval = 2; // Attempt to reconnect at 60 seconds intervals.
+    Portal.config(Config);
+    Serial.printf("Turn on autoReconnect, interval %d[s]\n", Config.reconnectInterval * AUTOCONNECT_UNITTIME);
+  }
+}
+
+void setup() {
+  Config.ticker = true;   // Setting up WiFi connection indicator
+  Portal.config(Config);  
+
+  if (Portal.begin()) {
+    Config.autoReset = false;
+    Portal.config(Config);
+
+    // Set external switch pin to reconnect as interrupt, assign interrupt function and set RISING mode
+    pinMode(reconnectSwitch, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(reconnectSwitch), detectsReconnect, RISING);
+  }
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    /*
+    Here, your sketch process with WiFi connection
+    */
+  }
+  else {
+    /*
+    Here, your sketch process without WiFi connection
+    */
+  }
+
+  // Post process, turn to initial state of autoReconnect.
+  if (Config.autoReconnect) {
+    if (WiFi.status() == WL_CONNECTED) {
+      Config.autoReconnect = false;
+      Portal.config(Config);
+    }
+  }
+
+  // The actual reconnection takes place within handleClient.
+  Portal.handleClient();
+}
+```
+
+!!! info "An external switch wiring to GPIO"
+    The wiring for the above Sketch assumes a momentary effects switch that connects the GPIO pin 14 to GND. You can experience it with easily wire on a breadboard using a NodeMCU as like:
+
+    <img src="images/extswitch.png" style="width:320px;"/>
 
 ## Ticker for WiFi status
 
