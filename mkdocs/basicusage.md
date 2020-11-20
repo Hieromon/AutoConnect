@@ -6,14 +6,17 @@ How embed the AutoConnect to the Sketches you have. Most simple approach to appl
 
 <img src="images/BeforeAfter.svg" />
 
-<ul class="ulsty-edit" style="list-style:none;">
-  <li>Insert <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span></code> to behind of <code class="codehilite"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span></code>.</li>
-  <li>Insert <code class="codehilite"><span class="na">AutoConnect</span> <em>PORTAL(WEBSERVER);</em></code> to behind of <code class="codehilite"><span class="na">ESP8266WebServer</span> <em>WEBSERVER;</em></code> declaration.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></li>
-  <li>Remove <code class="codehilite">WiFi.<span class="na">begin</span>(<em>SSID</em>,<em>PSK</em>)</code> and the subsequent logic for the connection status check.</li>
-  <li>Replace <code class="codehilite"><em>WEBSERVER</em>.<span class="na">begin</span><span class="p">()</span></code> to <code class="codehilite"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></li>
-  <li>Replace <code class="codehilite"><em>WEBSERVER</em>.<span class="na">handleClient</span><span class="p">()</span></code> to <code class="codehilite"><em>PORTAL</em>.<span class="na">handleClient</span><span class="p">()</span></code>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup></li>
-  <li>If the connection checks logic is needed, you can check the return value according to <code class="codehilite"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code> with <code class="codehilite">true</code> or <code class="codehilite">false</code>.</li>
-</ul>
+:fontawesome-regular-edit: Insert <code class="highlight"><span class="cp">#include</span> <span class="cpf">&lt;AutoConnect.h&gt;</span></code> to behind of <code class="highlight"><span class="cp">#include</span> <span class="cpf">&lt;ESP8266WebServer.h&gt;</span></code>.
+
+:fontawesome-regular-edit: Insert <code class="highlight"><span class="na">AutoConnect</span> <em>PORTAL(WEBSERVER);</em></code> to behind of <code class="highlight"><span class="na">ESP8266WebServer</span> <em>WEBSERVER;</em></code> declaration.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>
+
+:fontawesome-regular-edit: Remove <code class="highlight">WiFi.<span class="na">begin</span>(<em>SSID</em>,<em>PSK</em>)</code> and the subsequent logic for the connection status check.
+
+:fontawesome-regular-edit: Replace <code class="highlight"><em>WEBSERVER</em>.<span class="na">begin</span><span class="p">()</span></code> to <code class="highlight"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>
+
+:fontawesome-regular-edit: Replace <code class="highlight"><em>WEBSERVER</em>.<span class="na">handleClient</span><span class="p">()</span></code> to <code class="highlight"><em>PORTAL</em>.<span class="na">handleClient</span><span class="p">()</span></code>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3" rel="footnote">3</a></sup>
+
+:fontawesome-regular-edit: If the connection checks logic is needed, you can check the return value according to <code class="highlight"><em>PORTAL</em>.<span class="na">begin</span><span class="p">()</span></code> with <code class="highlight">true</code> or <code class="highlight">false</code>.
 
 [^1]:
 Each *VARIABLE* conforms to the actual declaration in the Sketches.  

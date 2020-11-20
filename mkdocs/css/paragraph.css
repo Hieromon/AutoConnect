@@ -51,12 +51,6 @@
   width: calc(100% - 100px);
 }
 
-.ulsty-edit > li:before {
-  font-family: 'FontAwesome';
-  content: '\f044';
-  margin:0 0.8em 0 -1.8em;
-}
-
 .horizontal-list {
   list-style-type: none;
   overflow: hidden;
