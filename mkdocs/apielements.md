@@ -479,7 +479,7 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 
 #### <i class="fa fa-caret-right"></i> apply
 
-Specifies the type of input that the text box accepts. AutoConnectInput will generate either a `#!html <input type="text">`, `#!html <input type="password">`, or `#!html <input type="number">` tag based on the `apply` specifying as input type. The input type can be specified the following values in the *ACInput_t* enumeration type.
+Specifies the type of input that the text box accepts. AutoConnectInput will generate either a `#!html <input type="text">`, `#!html <input type="password">`, or `#!html <input type="number">` tag based on the `apply` specifying as input type. The input type can be specified the following values in the *ACInput_t* enumeration type. [^1]
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">ACInput_t</span><span class="apidesc">
@@ -489,6 +489,8 @@ Specifies the type of input that the text box accepts. AutoConnectInput will gen
 - **`AC_Input_Number`** : `input type="number"`
 </span></dd>
 </dl>
+
+[^1]: **ACInput_t** does not mind what kind of display effects on the browser. For example, **input type="number"** has a spin button in Chrome, but has no display effects in iOS Safari. You will see the numeric keypad at inputting the number field with giving the pattern as `\d*`.
 
 ### <i class="fa fa-code"></i> Public member functions
 
