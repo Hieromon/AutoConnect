@@ -1,4 +1,4 @@
-You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apiconfig.md). AutoConnectConfig is a class that has only AutoConnect configuration settings. You define the behavior of AutoConnect using AutoConnectConfig member variables and give it to AutoConnect via the [AutoConnect::config](api.md#config) function. This allows Sketch controls the following:
+You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apiconfig.md). AutoConnectConfig is a class that has only AutoConnect configuration settings. You direct the behavior of AutoConnect using AutoConnectConfig member variables and give it to AutoConnect via the [AutoConnect::config](api.md#config) function. This allows Sketch controls the following:
 
 - [Built-in OTA update](#built-in-ota-update-feature)
 - [Debug print](#debug-print)
@@ -9,8 +9,8 @@ You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apic
 - [Usage for automatically instantiated ESP8266WebServer/WebServer](#usage-for-automatically-instantiated-esp8266webserverwebserver)
 - [Use with the [PageBuilder](https://github.com/Hieromon/PageBuilder) library](#use-with-the-pagebuilder-library)
 
-!!! note "AutoConnect::config before AutoConnect::begin"
-    [AutoConnect::config](api.md#config) must be executed before [AutoConnect::begin](api.md#begin).
+!!! note "Don't forget [**AutoConnect::config**](api.md#config)"
+    The configuration cannot be reflected by only changing the member variables of AutoConnectConfig settings. Don't forget to run the [AutoConnect::config](api.md#config) function after changing the AutoConnectConfig member variables.
 
 ## Built-in OTA update feature
 

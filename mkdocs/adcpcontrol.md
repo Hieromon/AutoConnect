@@ -330,9 +330,6 @@ void loop() {
 }
 ```
 
-!!! note "Don't forget [**AutoConnect::config**](api.md#config)"
-    The configuration cannot be reflected by only changing the member variables of AutoConnectConfig settings. Don't forget to run the [AutoConnect::config](api.md#config) function after changing the AutoConnectConfig member variables.
-
 The [*retainPortal*](apiconfig.md#retainportal) option will keep SoftAP even if WiFi has established a connection as a client with the router.  Since it has the effect of stopping the DNS server, the phenomenon that the portal screen will not pop up automatically even though SoftAP is in action occur.<br>
 This is a legacy behavior to ensure backward compatibility with up to AutoConnect v1.1.7. To stop SoftAP on escape from the on-demand captive portal, you need to explicitly call **[`WiFi.softAPdisconnect(true)`](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html#softapdisconnect)** and **[`WiFi.enableAP(false)`](https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/generic-class.html?highlight=enableAP#other-function-calls)** in the Sketch.
 
