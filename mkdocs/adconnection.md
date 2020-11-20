@@ -4,7 +4,7 @@ AutoConnect aims to connect the ESP module as a station to a WiFi access point. 
 - [Automatic reconnect (Background)](#automatic-reconnect-background)
 - [Configure WiFi channel](#configure-wifi-channel)
 - [Connects depending on the WiFi signal strength](#connects-depending-on-the-wifi-signal-strength)
-- [Detection of connection establishment to AP](#detection-of-connection-establishment-to-ap)
+- [Detects connection establishment to AP](#detects-connection-establishment-to-ap)
 - [Match with known access points by SSID](#match-with-known-access-points-by-ssid)
 - [Preserve WIFI_AP mode](#preserve-wifi_ap-mode)
 - [Timeout settings for a connection attempt](#timeout-settings-for-a-connection-attempt)
@@ -62,7 +62,8 @@ void loop() {
 Above Sketch shows a configuration example that you want to keep connecting to known access points as long as possible. When the WiFi connection is lost, it will start seeking the WiFi network every 30 seconds during the handleClient loop.
 
 !!! info "Limitation for automatic reconnection to a specific access point"
-    AutoConnect 1.2.0 has not allowed attempts to automatically reconnect to a particular access point yet. It is recognized as a future enhancement. With the current automatic reconnection, one of the known access points is always selected.
+    An access point that ESP module to reconnect automatically depends on whether the SSID and password argument existence with [AutoConnect::begin](api.md#begin). If the Sketch calls [AutoConnect::begin](api.md#begin) without specifying an SSID or password, the [autoReconnect](apiconfig.md#autoreconnect) will connect to one of the detected access points and cannot be pre-determined.  
+    The other one, the case of the Sketch specifies SSID and password with [AutoConnect::begin](api.md#begin), the [autoReconnect](apiconfig.md#autoreconnect) will try to reconnect to a specified access point periodically during the handleClient loop.
 
 Also, you can combine the background automatic reconnect performing inside the loop function by [handleClient](api.md#handleclient) with [*AutoConnectConfig::retainPortal*](apiconfig.md#retainportal) and [*AutoConnectConfig::autoReset*](apiconfig.md#autoreset), to enable pop up the captive portal automatically on the client device each time the ESP module disconnects from the access point.
 
@@ -149,7 +150,7 @@ Combining these two parameters allows you to filter the destination AP when mult
 </tr>
 </table>
 
-## Detection of connection establishment to AP
+## Detects connection establishment to AP
 
 The Sketch can detect that the ESP module has established a WiFi connection as a station to the access point. The [AutoConnect::begin](api.md#begin) or [AutoConnect::handleClient](api.md#handleclient) will transit the control temporarily to the function in the Sketch registered by [AutoConnect::onConnect](api.md#onconnect) when the ESP module establish a WiFi connection.  
 The **ConnectExit** function registered with [AutoConnect::onConnect](api.md#onconnect) should have the following types and arguments:
@@ -193,7 +194,7 @@ void setup() {
     if (WiFi.getMode() & WIFI_AP) {
       WiFi.softAPdisconnect(true);
       WiFi.enableAP(false);
-      Serial.printf("SoftAP:%s shutted down\n", WiFi.softAPSSID().c_str());
+      Serial.printf("SoftAP:%s shut down\n", WiFi.softAPSSID().c_str());
     }
   });
   Portal.begin();
@@ -209,7 +210,7 @@ void loop() {
 
 ## Match with known access points by SSID
 
-By default, AutoConnect uses the **BSSID** to search for known access points. (Usually, it's the MAC address of the device) By using BSSID as the key to finding the WiFi network, AutoConnect can find even if the access point is hidden. However BSSIDs can change on some mobile hotspots, the BSSID-keyed seacrches may not be able to find known access points.  
+By default, AutoConnect uses the **BSSID** to search for known access points. (Usually, it's the MAC address of the device) By using BSSID as the key to finding the WiFi network, AutoConnect can find even if the access point is hidden. However BSSIDs can change on some mobile hotspots, the BSSID-keyed searches may not be able to find known access points.  
 If you operate inconvenience in aiming at the access point by BSSID, you can change the collation key from BSSID to SSID by uncommenting `AUTOCONNECT_APKEY_SSID` macro definition in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L59) library source code.
 
 ```cpp
@@ -259,5 +260,5 @@ void loop () {
 
 In addition, the limit of the waiting time for connection attempts can be specified by the [AutoConnect::begin](api.md#begin) parameter too. The *timeout* parameter specified in [AutoConnect::begin](api.md#begin) takes precedence over [*AutoConnectConfig::beginTimeout*](apiconfig.md#begintimeout).
 
-!!! note "The beginTime has an effect on handleClient"
+!!! note "The beginTimeout has an effect on handleClient"
     The [**beginTimeout**](apiconfig.md#begintimeout) value will be applied with [**handleClient**](api.md#handleclient) when requesting a connection from the captive portal and when attempting to reconnect with [**autoReconnect**](apiconfig.md#autoreconnect).
