@@ -82,7 +82,7 @@ The last key you need is the **User API Key** and can be confirmed it in the use
 
 The complete code of the Sketch is [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) in the [AutoConnect repository](https://github.com/Hieromon/AutoConnect). Replace the following #define in a sketch with **User API Key**, **Write API Key** and **Channel ID**. After Keys updated, compile the Sketch and upload it.
 
-```
+```cpp
 #define MQTT_USER_KEY        "****************"  // Replace to User API Key.
 #define CHANNEL_ID           "******"            // Replace to Channel ID.
 #define CHANNEL_API_KEY_WR   "****************"  // Replace to the write API Key.

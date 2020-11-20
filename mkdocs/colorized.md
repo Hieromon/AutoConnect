@@ -25,7 +25,7 @@ Here are some color schemes picked up.
 
 ### <i class="fas fa-palette"></i> Indigo
 
-```
+```cpp
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#ffa500"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#1a237e"
 #define AUTOCONNECT_MENUCOLOR_ACTIVE      "#283593"
@@ -35,7 +35,7 @@ Here are some color schemes picked up.
 
 ### <i class="fas fa-palette"></i> Dim-gray
 
-```
+```cpp
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#fffacd"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#696969"
 #define AUTOCONNECT_MENUCOLOR_ACTIVE      "#808080"
@@ -45,7 +45,7 @@ Here are some color schemes picked up.
 
 ### <i class="fas fa-palette"></i> Brown
 
-```
+```cpp
 #define AUTOCONNECT_MENUCOLOR_TEXT        "#e6e6fa"
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#3e2723"
 #define AUTOCONNECT_MENUCOLOR_ACTIVE      "#4e342e"

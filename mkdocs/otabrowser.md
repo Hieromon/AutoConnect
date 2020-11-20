@@ -74,7 +74,7 @@ void loop() {
 
 AutoConnectOTA has implemented using AutoConnectAUX. So it occupies two URIs by default. An update operation page is assigned to **AUTOCONNECT_URI_UPDATE** and the binary file uploader for the update is assigned to **AUTOCONNECT_URI_UPDATE_ACT**. These symbols are defined in the `AutoConnectDefs.h` header file as follows:
 
-```
+```cpp
 #define AUTOCONNECT_URI             "/_ac"
 #define AUTOCONNECT_URI_UPDATE      AUTOCONNECT_URI "/update"
 #define AUTOCONNECT_URI_UPDATE_ACT  AUTOCONNECT_URI "/update_act"
@@ -191,7 +191,7 @@ The built-in OTA update feature determines where to save the uploaded file accor
 
 The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
 
-```
+```cpp
 #define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
 ```
 

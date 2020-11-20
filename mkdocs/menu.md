@@ -78,7 +78,7 @@ If you specify [AutoConnectConfig::ota](apiconfig.md#ota) to import the OTA upda
 
 A **HOME** item at the bottom of the menu list is a link to the home path, and the default URI is `/` which is defined by `AUTOCONNECT_HOMEURI` in **AutoConnectDefs.h** header file.
 
-```
+```cpp
 #define AUTOCONNECT_HOMEURI     "/"
 ```
 

@@ -39,7 +39,7 @@ You can avoid a compile error in one of two ways:
 1. Disable an AutoConnectUpdate feature if you don't need.
 
     You can disable the AutoConnectUpdate feature by commenting out the [**AUTOCONNECT_USE_UPDATE**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L34) macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.
-    ```
+    ```cpp
     #define AUTOCONNECT_USE_UPDATE
     ```
 
@@ -145,7 +145,7 @@ You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more 
 
 HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L123) header file. You can change it directly with several editors and must re-compile.
 
-```
+```cpp
 #define AUTOCONNECT_HTTPPORT    80
 ```
 
@@ -160,7 +160,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 
 To exclude ArduinoJson at compile-time, give the following `#define` directive as a compiler option such as the [arduino-cli](https://github.com/arduino/arduino-cli) or [PlatformIO](https://platformio.org/).
 
-```
+```cpp
 #define AUTOCONNECT_NOUSE_JSON
 ```
 
@@ -278,7 +278,7 @@ Is there the AutoConnectElements element named **SUBMIT** in the custom Web page
 
 The various macro definitions that determine the configuration of AutoConnect cannot be redefined by hard-coding with Sketch. The compilation unit has a different AutoConnect library itself than the Sketch, and the configuration definitions in AutoConnectDefs.h are quoted in the compilation for AutoConnect only. For example, the following Sketch does not enable AC_DEBUG and does not change HTTP port also the menu background color:
 
-``` hl_lines="1 2 3"
+```cpp hl_lines="1 2 3"
 #define AC_DEBUG                                    // No effect
 #define AUTOCONNECT_HTTPPORT    8080                // No effect
 #define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#696969" // No effect
@@ -352,13 +352,13 @@ To fully enable for the AutoConnect debug logging options, change the following 
 
 <i class="fas fa-angle-right"></i> AutoConnectDefs.h
 
-```
+```cpp
 #define AC_DEBUG
 ```
 
 <i class="fas fa-angle-right"></i> PageBuilder.h [^2]
 
-```
+```cpp
 #define PB_DEBUG
 ```
 
