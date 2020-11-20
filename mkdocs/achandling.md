@@ -15,6 +15,7 @@ To add AutoConnectElment(s) to an AutoConnectAux object, use the add function.
 ```cpp
 void AutoConnectAux::add(AutoConnectElement& addon)
 ```
+
 ```cpp
 void AutoConnectAux::add(AutoConnectElementVT addons)
 ```
@@ -24,6 +25,7 @@ The add function adds the specified AutoConnectElement to AutoConnectAux. The Au
 ```cpp
 typedef std::vector<std::reference_wrapper<AutoConnectElement>> AutoConnectElementVT;
 ```
+
 AutoConnectElements contained in AutoConnectAux object are uniquely identified by name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.[^1] In the following example, AutoConnectButton `button` addition will invalid because `hello` with the same name already exists as AutoConnectText.
 
 [^1]: The valid scope of the name is within an AutoConnectAux.
