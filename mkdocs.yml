@@ -14,7 +14,7 @@ nav:
   - 'AutoConnect menu' : menu.md
   - 'Basic usage' : basicusage.md
   - 'Advanced usage' :
-    - 'Summary' : advancedusage.md
+    - 'Advanced usage' : advancedusage.md
     - 'AutoConnect WiFi connection control' : adconnection.md
     - 'Captive portal control' : adcpcontrol.md
     - 'Authentication settings' : adauthentication.md
@@ -112,6 +112,9 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
