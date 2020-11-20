@@ -393,7 +393,7 @@ Returns type of AutoConnectFile.
 ### <i class="fa fa-code"></i> Constructor
 
 ```cpp
-AutoConnectInput(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR)
+AutoConnectInput(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text)
 ```
 <dl class="apidl">
     <dt>**Parameters**</dt>
@@ -403,6 +403,7 @@ AutoConnectInput(const char* name = "", const char* value = "", const char* labe
     <dd><span class="apidef">pattern</span><span class="apidesc">Regular expression string for checking data format.</span></dd>
     <dd><span class="apidef">placeholder</span><span class="apidesc">A placeholder string.</span></dd>
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
+    <dd><span class="apidef">apply</span><span class="apidesc">Specifies the type of input that the text box accepts.</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member variables
@@ -474,6 +475,19 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 <dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> apply
+
+Specifies the type of input that the text box accepts. AutoConnectInput will generate either a `#!html <input type="text">`, `#!html <input type="password">`, or `#!html <input type="number">` tag based on the `apply` specifying as input type. The input type can be specified the following values in the *ACInput_t* enumeration type.
+<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">ACInput_t</span><span class="apidesc">
+        
+- **`AC_Input_Text`** : `input type="text"`
+- **`AC_Input_Password`** : `input type="password"`
+- **`AC_Input_Number`** : `input type="number"`
+</span></dd>
 </dl>
 
 ### <i class="fa fa-code"></i> Public member functions
