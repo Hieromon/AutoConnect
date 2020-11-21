@@ -10,7 +10,7 @@ You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apic
 - [Use with the [PageBuilder](https://github.com/Hieromon/PageBuilder) library](#use-with-the-pagebuilder-library)
 
 !!! note "Don't forget [**AutoConnect::config**](api.md#config)"
-    The configuration cannot be reflected by only changing the member variables of AutoConnectConfig settings. Don't forget to run the [AutoConnect::config](api.md#config) function after changing the AutoConnectConfig member variables.
+    The configuration cannot be reflected by only changing the member variables of [AutoConnectConfig](apiconfig.md) settings. It will be reflected in the actual ones by [AutoConnect::config](api.md#config) function. Don't forget to run the [AutoConnect::config](api.md#config) after changing the AutoConnectConfig member variables.
 
 ## Built-in OTA update feature
 
