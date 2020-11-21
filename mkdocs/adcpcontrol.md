@@ -5,8 +5,8 @@ The default behavior of AutoConnect is to launch the captive portal if 1st-WiFi.
 - [Captive portal timeout control](#captive-portal-timeout-control)
 - [Disable the captive portal](#disable-the-captive-portal)
 - [Launch the captive portal on demand by external trigger](#launch-the-captive-portal-on-demand-by-external-trigger)
-- [Launch the captive portal as demanded on WiFi disconnect](#launch-the-captive-portal-as-demanded-on-wifi-disconnect)
-- [Shutting down the captive portal](#shutting-down-the-captive-portal)
+- [Launch the captive portal on demand at losing WiFi](#launch-the-captive-portal-on-demand-at-losing-wifi)
+- [Shutdown the captive portal](#shutdown-the-captive-portal)
 - [Sketch execution during the captive portal loop](#sketch-execution-during-the-captive-portal-loop)
 
 ## Captive portal start control
@@ -281,9 +281,9 @@ Here section describes how to launch on demand the captive portal, and suggests 
     }
     ```
 
-## Launch the captive portal as demanded on WiFi disconnect
+## Launch the captive portal on demand at losing WiFi
 
-If the ESP module lost established WiFi connection during the loop of [**handleClient**](api.md#handleclient), you can prevent the ESP module from becoming an absolute standalone by starting the captive portal on demand.
+If the ESP module loses the established WiFi connection during the loop of [**handleClient**](api.md#handleclient), you can prevent the ESP module from going absolutely standalone by launching the captive portal on demand.
 
 When [**retainPortal**](apiconfig.md#retainportal) and [**autoRise**](apiconfig.md#autorise) settings are enabled, AutoConnect will launch SoftAP and start DNS when it detects a WiFi disconnect with the router during a handleClient loop. This behavior will occur caused by a WiFi disconnect detection even if the WiFi mode is STA.
 
@@ -376,7 +376,7 @@ The above sketch will shutdown the SoftAP after elapsed time exceeds 30 seconds 
 !!!info "Stopped SoftAP is still displayed"
     After SoftAP stopped, there is a time lag before it disappears from the detected access points list on the client device.
 
-## Shutting down the captive portal
+## Shutdown the captive portal
 
 There is some complexity in the conditions under which AutoConnect shuts down the captive portal. Making a sketch that activates SoftAP only when needed can seem tedious.  
 But there is a reason why. Even if AutoConnect could establish a connection using a captive portal, your cell phone as a client device would still have to keep connected to the ESP module-generated SoftAP in order to send the page for notifying the connection successful to a user. At that point, your client device that opened the captive portal still needs a connection with SoftAP.

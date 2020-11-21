@@ -6,7 +6,7 @@ AutoConnect aims to connect the ESP module as a station to a WiFi access point. 
 - [Connects depending on the WiFi signal strength](#connects-depending-on-the-wifi-signal-strength)
 - [Detects connection establishment to AP](#detects-connection-establishment-to-ap)
 - [Match with known access points by SSID](#match-with-known-access-points-by-ssid)
-- [Preserve WIFI_AP mode](#preserve-wifi_ap-mode)
+- [Preserve AP mode](#preserve-ap-mode)
 - [Timeout settings for a connection attempt](#timeout-settings-for-a-connection-attempt)
 
 ## Automatic reconnect
@@ -90,7 +90,7 @@ void loop() {
 }
 ```
 
-!!! info "The effective range of the [reconnectInterval](apiconfig.md#reconnectinterval) depending on several values"
+!!! info "The effective range of the [reconnectInterval](apiconfig.md#reconnectinterval) depending on the setting value"
     The range of values that reconnectInterval can take is 0 to 255. (Actual seconds are from 0 to 255&#xd7;AUTOCONNECT_UNITTIME)<br>
     Reconnect behavior depends on the setting value. If it is 0, reconnection will work if the 1st-WiFi.begin in AutoConnect::begin fails and will suspend during the handleClient loop. If reconnectInterval is greater than 0, AutoConnect will attempt to reconnect both in AutoConnect::begin and during the handleClient loop.
 
@@ -226,7 +226,7 @@ build_flags=-DAUTOCONNECT_APKEY_SSID
 !!! info "Can't be found hidden APs in SSID-keyed"
     The hidden access point's SSID will be blank on the broadcast. So if the seek key is an SSID, AutoConnect will not find it.
 
-## Preserve WIFI_AP mode
+## Preserve AP mode
 
 Sketch using AutoConnect can open a gateway to the Internet by connecting to a WiFi router even through use Espressif's peculiar WiFi protocol (eg. [ESP-MESH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html) or [ESP-NOW](https://www.espressif.com/en/products/software/esp-now)). These specific communication protocols require to keeps AP + STA as the WiFi mode. That is, to apply these protocols, it needs to launch SoftAP by a sketch itself and then call [AutoConnect::begin](api.md#begin). But the default behavior of [AutoConnect::begin](api.md#begin) will turn off SoftAP always then it will unable to open a connection.
 
