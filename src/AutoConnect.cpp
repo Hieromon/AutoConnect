@@ -585,28 +585,32 @@ void AutoConnect::handleRequest(void) {
   }
 
   if (_rfDisconnect) {
-    // Disconnect from the current AP.
-    _disconnectWiFi(false);
-    while (WiFi.status() == WL_CONNECTED) {
-      delay(10);
-      yield();
-    }
-    AC_DBG("Disconnected ");
-    if ((WiFi.getMode() & WIFI_AP) && !_apConfig.retainPortal) {
-      _stopPortal();
-    }
-    else {
-      if (_dnsServer)
-        AC_DBG_DUMB("- Portal maintained");
-      AC_DBG_DUMB("\n");
-    }
-    // Reset disconnection request
-    _rfDisconnect = false;
+    // Response for disconnection request is not completed while
+    // the session exists.
+    if (!_webServer->client()) {
+      // Disconnect from the current AP.
+      _disconnectWiFi(false);
+      while (WiFi.status() == WL_CONNECTED) {
+        delay(10);
+        yield();
+      }
+      AC_DBG("Disconnected ");
+      if ((WiFi.getMode() & WIFI_AP) && !_apConfig.retainPortal) {
+        _stopPortal();
+      }
+      else {
+        if (_dnsServer)
+          AC_DBG_DUMB("- Portal maintained");
+        AC_DBG_DUMB("\n");
+      }
+      // Reset disconnection request
+      _rfDisconnect = false;
 
-    if (_apConfig.autoReset) {
-      delay(1000);
-      SOFT_RESET();
-      delay(1000);
+      if (_apConfig.autoReset) {
+        delay(1000);
+        SOFT_RESET();
+        delay(1000);
+      }
     }
   }
 
