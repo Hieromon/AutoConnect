@@ -8,22 +8,22 @@
 	padding-bottom: 5px;
 }
 
-.md-typeset pre {
+.md-typeset pre, .highlight code {
   background-color: #272822 !important;
   font-size: 12px;
 }
 
-.md-typeset .codehilitetable {
+.md-typeset .highlighttable .codehilitetable {
   margin-left:-20px;
   margin-right: -20px;
   border-radius: 0;
 }
 
-.md-typeset .codehilitetable .linenodiv {
+.md-typeset .highlighttable .codehilitetable .linenodiv {
   background-color: #222 !important;
 }
 
-.md-typeset .codehilitetable .linenodiv pre {
+.md-typeset .highlighttable .codehilitetable .linenodiv pre {
   background-color: #222 !important;
   color: #aaa;
   margin: 0;
@@ -49,12 +49,6 @@
 .apidesc {
   display: inline-block;
   width: calc(100% - 100px);
-}
-
-.ulsty-edit > li:before {
-  font-family: 'FontAwesome';
-  content: '\f044';
-  margin:0 0.8em 0 -1.8em;
 }
 
 .horizontal-list {
