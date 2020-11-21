@@ -36,6 +36,8 @@ WebServer server;
 #endif
 AutoConnect      portal(server);
 
+void sendRedirect(String);
+
 static const char PROGMEM mold_page[] = R"*lit(
 <html>
 <head>
