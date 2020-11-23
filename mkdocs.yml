@@ -116,7 +116,10 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
-  - pymdownx.magiclink
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: Hieromon
+      repo: AutoConnect
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
