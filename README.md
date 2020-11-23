@@ -102,6 +102,30 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.2.0] Nov. 23, 2020
+- Supports LittleFS file system with ESP8266 platform.
+- Supports HTTP authentication. (issue #171)
+- Supports AutoConnectConfig::preserveAPMode setting. (issue #210)
+- Supports an **onConnect** exit.
+- Supports a **whileCaptivePortal** exit. (issue #149, issue #244)
+- Enhanced ticker to work even in handleClient loop.
+- Enhanced the ability to upload a regular file with AutoConnectOTA. (issue #236)
+- Enhanced AutoConnectInput to allow accepts password and number type. (issue #237, issue #255)
+- Enhanced handleClient to launch the captive portal when losing WiFi connection.
+- Added **getEEPROMUsedSize** that notifies the occupied size of the credential storage area. (issue #209)
+- Added the **append** and the **detach** function that can be dynamically AutoConnectAux attaching and detaching. (issue #230)
+- Added **AUTOCONNECT_APKEY_SSID** definition to seek access points by SSID. (issue #251)
+- Added AutoConnectConfig::beginTimeout setting. (issue #247)
+- Improved atuoReconnect to work even in handleClient loop. (issue #234, issue #251)
+- Fixed incorrect connection wait time. (issue #216)
+- Fixed an exception in the AutoConnect::end function.
+- Avoids an empty-body warning when AC_DEBUG is disabled. (issue #218)
+- Fixed not being able to specify channel ID with a mqttRSSI.ino example. (issue #262)
+- Fixed an invalid SPIFFS compile error with ESP32.
+- Fixed a core panic in the regex with ESP32.
+- Fixed posterior being disabled in AutoConnectElement.
+- Fixed deficiently forward references with HandleClient.ino example. (PR #275)
+
 ### [1.1.7] Apr. 19, 2020
 - Fixed Apply button not work. (issue #206)
 
