@@ -76,7 +76,7 @@ The [**boundaryOffset**](apiconfig.md#boundaryoffset) in [AutoConnectConfig](api
 
 The [*AutoConnectConfig::boundaryOffset*](apiconfig.md#boundaryoffset) setting allows AutoConnect to write its data to EEPROM while preserving custom configuration data. Similarly, when a Sketch writes its own data to EEPROM, it must preserve the data written by AutoConnect.  
 The EEPROM library for ESP8266 erases the entire flash sector when it writes to any part of the sector. Therefore, when writing data to EEPROM with a sketch that handles the custom data, it is necessary to call `EEPROM.begin` using a total amount of a custom data size and the saved credentials size.  
-The following code shows how to use the [*AutoConnect::getEEPROMUsedSize*](api.md#geteepromusedsize) function to store custom configuration settings in EEPROM without conflicting with AutoConnect's use of that storage.
+The following code shows how to use the [AutoConnect::getEEPROMUsedSize](api.md#geteepromusedsize) function to store custom configuration settings in EEPROM without conflicting with AutoConnect's use of that storage.
 
 ```cpp hl_lines="13 21"
 AutoConnect       portal;
