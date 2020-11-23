@@ -189,8 +189,9 @@ The actual upload process is handled by the three private functions above, and t
 ```cpp
 public virtual void upload(const String& requestUri, const HTTPUpload& upload)
 ```
+
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">requestUri</span><span class="apidesc">URI of upload request source.</span></dd>
     <dd><span class="apidef">upload</span><span class="apidesc">A data structure of the upload file as <b>HTTPUpload</b>. It is defined in the ESP8266WebServer (WebServer as ESP32) library as follows:
 
@@ -221,11 +222,12 @@ The \_open function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_START
 ```cpp
 protected virtual bool _open(const char* filename, const char* mode) = 0
 ```
+
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">filename</span><span class="apidesc">Uploading file name.</span></dd>
     <dd><span class="apidef">mode</span><span class="apidesc">An indicator for the file access mode, a "w" for writing.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">File open successful.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Failed to open.</span></dd>
 </dl>
@@ -233,13 +235,14 @@ protected virtual bool _open(const char* filename, const char* mode) = 0
 The \_write function will be invoked when HTTPUploadStatus is **UPLOAD_FILE_WRITE**. The content of the upload file is divided and the \_write will be invoked in multiple times. Usually, the implementation of an inherited class will write data.
 
 ```cpp
-protected virtual size_t _write(const uint8_t *buf, const size_t size))= 0
+protected virtual size_t _write(const uint8_t *buf, const size_t size) = 0
 ```
+
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">buf</span><span class="apidesc">File content block.</span></dd>
     <dd><span class="apidef">size</span><span class="apidesc">File block size to write.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd>Size written.</dd>
 </dl>
 
@@ -292,8 +295,9 @@ In order to upload a file by the custom uploader, it is necessary to register it
 ```cpp
 void AutoConnectAux::onUpload<T>(T& uploadClass)
 ```
+
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">T</span><span class="apidesc">Specifies a class name of the custom uploader. This class name is a class that you implemented by inheriting AutoConnectUploadHandler for custom upload.</span></dd>
     <dd><span class="apidef">uploadClass</span><span class="apidesc">Specifies the custom upload class instance.</span></dd>
 </dl>
