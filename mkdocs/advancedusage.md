@@ -1,6 +1,6 @@
 ## Summary
 
-In order for your sketches combined with AutoConnect to work as you intended, make them based on the right understanding of configuration settings and their effectiveness. AutoConnect includes the configuration settings using [AutoConnectConfig](apiconfig.md) class that adjusts controlling the behaviors for WiFi connection and the captive portal.  
+To make sketches work as you intended with AutoConnect, make sure you understand the implications of the setting parameters and configure AutoConnect. [AutoConnectConfig](apiconfig.md) allows you to incorporate settings into AutoConnect that coordinate control over WiFi connectivity and captive portal behavior.  
 For advanced usages, the configuration settings and the Sketch examples are followings:
 
 - [AutoConnect WiFi connection control](adconnection.md)
