@@ -312,6 +312,12 @@ build_flags =
   -DAUTOCONNECT_MENUCOLOR_BACKGROUND='"#696969"'
 ```
 
+## <i class="fa fa-question-circle"></i> Unauthorize error without prompting the login dialog.
+
+The custom web pages that require authentication will occur unauthorized error always without prompting the login dialog under the captive portal state on some OS. This is a captive portal restriction and expected behavior. The captive portal web browser is almost a complete web browser, but while the captive portal session restricts the response to `WWW-authenticate` requests. (In intrinsically, the captive portal is a mechanism for authentication in itself)
+
+Once you exit from the captive portal session and connect SoftAP IP directly afresh, you can access custom web pages along with prompting a login dialog.
+
 ## <i class="fa fa-question-circle"></i> Still, not stable with my sketch.
 
 If AutoConnect behavior is not stable with your sketch, you can try the following measures.
