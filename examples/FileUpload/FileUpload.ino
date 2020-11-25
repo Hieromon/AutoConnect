@@ -1,6 +1,6 @@
 /*
   FileUpload.ino, Example for the AutoConnect library.
-  Copyright (c) 2019, Hieromon Ikasamo
+  Copyright (c) 2020, Hieromon Ikasamo
   https://github.com/Hieromon/AutoConnect
 
   This software is released under the MIT License.
@@ -34,15 +34,17 @@
   the valid file system. After including AutoConnect.h, the Sketch can determine
   whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
 */
-#ifdef AUTOCONNECT_USE_SPIFFS
 #include <FS.h>
 #if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AUTOCONNECT_USE_SPIFFS
 FS& FlashFS = SPIFFS;
-#elif defined(ARDUINO_ARCH_ESP32)
-fs::SPIFFSFS& FlashFS = SPIFFS;
-#endif
+#else
 #include <LittleFS.h>
 FS& FlashFS = LittleFS;
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
 // Upload request custom Web page

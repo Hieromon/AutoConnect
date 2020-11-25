@@ -8,7 +8,7 @@ For details, please refer to the project page.
 https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application
 
 This example is based on the environment as of March 20, 2018.
-Copyright (c) 2018 Hieromon Ikasamo.
+Copyright (c) 2020 Hieromon Ikasamo.
 This software is released under the MIT License.
 https://opensource.org/licenses/MIT
 */
@@ -32,15 +32,17 @@ https://opensource.org/licenses/MIT
   the valid file system. After including AutoConnect.h, the Sketch can determine
   whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
 */
-#ifdef AUTOCONNECT_USE_SPIFFS
 #include <FS.h>
 #if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AUTOCONNECT_USE_SPIFFS
 FS& FlashFS = SPIFFS;
-#elif defined(ARDUINO_ARCH_ESP32)
-fs::SPIFFSFS& FlashFS = SPIFFS;
-#endif
+#else
 #include <LittleFS.h>
 FS& FlashFS = LittleFS;
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
 #define PARAM_FILE      "/param.json"
@@ -279,12 +281,8 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
       Serial.println(PARAM_FILE " failed to load");
     param.close();
   }
-  else {
+  else
     Serial.println(PARAM_FILE " open failed");
-#ifdef ARDUINO_ARCH_ESP32
-    Serial.println("If you get error as 'SPIFFS: mount failed, -10025', Please modify with 'SPIFFS.begin(true)'.");
-#endif
-  }
   return String("");
 }
 
@@ -369,7 +367,12 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
+
+#if defined(ARDUINO_ARCH_ESP8266)
   FlashFS.begin();
+#elif defined(ARDUINO_ARCH_ESP32)
+  FlashFS.begin(true);
+#endif
 
   if (portal.load(FPSTR(AUX_mqtt_setting))) {
     AutoConnectAux& mqtt_setting = *portal.aux(AUX_SETTING_URI);
@@ -384,13 +387,17 @@ void setup() {
       Serial.println("hostname set to " + config.hostName);
     }
     config.homeUri = "/";
-    portal.config(config);
 
     portal.on(AUX_SETTING_URI, loadParams);
     portal.on(AUX_SAVE_URI, saveParams);
   }
   else
     Serial.println("load error");
+
+  // Reconnect and continue publishing even if WiFi is disconnected.
+  config.autoReconnect = true;
+  config.reconnectInterval = 1;
+  portal.config(config);
 
   Serial.print("WiFi ");
   if (portal.begin()) {

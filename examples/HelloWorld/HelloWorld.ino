@@ -1,6 +1,6 @@
 /*
   HelloWorld.ino, Example for the AutoConnect library.
-  Copyright (c) 2019, Hieromon Ikasamo
+  Copyright (c) 2020, Hieromon Ikasamo
   https://github.com/Hieromon/AutoConnect
 
   This software is released under the MIT License.
@@ -30,15 +30,17 @@ typedef WebServer WEBServer;
   the valid file system. After including AutoConnect.h, the Sketch can determine
   whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
 */
-#ifdef AUTOCONNECT_USE_SPIFFS
 #include <FS.h>
 #if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AUTOCONNECT_USE_SPIFFS
 FS& FlashFS = SPIFFS;
-#elif defined(ARDUINO_ARCH_ESP32)
-fs::SPIFFSFS& FlashFS = SPIFFS;
-#endif
+#else
 #include <LittleFS.h>
 FS& FlashFS = LittleFS;
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
 #define HELLO_URI   "/hello"
@@ -72,18 +74,27 @@ String onHello(AutoConnectAux& aux, PageArgument& args) {
 
 // Load the element from specified file in the flash on board.
 void loadParam(const char* fileName) {
-  Flash.begin();
+#if defined(ARDUINO_ARCH_ESP8266)
+  FlashFS.begin();
+#elif defined(ARDUINO_ARCH_ESP32)
+  FlashFS.begin(true);
+#endif
+  Serial.printf("Style %s ", fileName);
   File param = FlashFS.open(fileName, "r");
   if (param) {
     ElementJson = param.readString();
     param.close();
+    Serial.printf("loaded:\n%s", ElementJson.c_str());
   }
+  else
+    Serial.println("open failed");
   FlashFS.end();
 }
 
 void setup() {
   delay(1000);
   Serial.begin(115200);
+  Serial.println();
 
   loadParam(PARAM_STYLE);     // Pre-load the element from JSON.
   helloPage.on(onHello);      // Register the attribute overwrite handler.

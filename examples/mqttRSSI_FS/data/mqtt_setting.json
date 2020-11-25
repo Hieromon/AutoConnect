@@ -23,7 +23,7 @@
     {
       "name": "mqttserver",
       "type": "ACInput",
-      "value": "",
+      "value": "mqtt.thingspeak.com",
       "placeholder": "MQTT broker server",
       "label": "Server"
     },
@@ -36,7 +36,7 @@
     {
       "name": "userkey",
       "type": "ACInput",
-      "value": "NRTFYGJ6TJFGX4RC",
+      "value": "",
       "label": "User Key"
     },
     {
