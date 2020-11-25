@@ -517,8 +517,8 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       // Register authentication
       // Determine the necessity of authentication from the conditions of
       // AutoConnectConfig::authScope and derive the method.
-      bool  auth = (mother->_apConfig.authScope & AC_AUTHSCOPE_AUX)
-                 | ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
+      bool  auth = ((mother->_apConfig.authScope & AC_AUTHSCOPE_AUX) && (mother->_apConfig.auth != AC_AUTH_NONE))
+                || ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
       HTTPAuthMethod  method;
       if (mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL)
         method = _httpAuth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
