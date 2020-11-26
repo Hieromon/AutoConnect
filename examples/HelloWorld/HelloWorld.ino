@@ -7,10 +7,25 @@
   https://opensource.org/licenses/MIT
 */
 /*
-  To experience this example, upload the JSON files which are .json
-  from the data folder. These files contain the attributes for the
-  Caption as AutoConnectText.
-  You can change the elements for your realization.
+  To experience this example, upload the JSON file which is style.json
+  from the data folder. Its file contains the attributes for the Caption
+  of AutoConnectText.
+  Let compile the Sketch and upload it to the ESP module. At that time,
+  don't forget to upload green.json and tomato.json placed in the data
+  folder.
+  Now let's run the sketch. You can see the Hello, world screen by
+  accessing the IP address of the ESP module from a web browser. If you
+  apply green.json or tomato.json displayed on the same screen, the text
+  color will change.
+  There, you will find the Update appearing in the AutoConnect menu.
+  Then prepare a new JSON document with the text editor you're used to.
+  You can easily create a new style definition by using the green.json
+  included in this example as a template.
+  Next, select the Update menu in your browser to navigate to the upload
+  screen. What you upload is the new style definition JSON file you just
+  created. Let's display the Hello screen again. You will see the new
+  file just uploaded will be added. It is the convenience of OTA updates
+  enhanced with AutoCOnnect v1.2.0.
 */
 
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -25,11 +40,10 @@ typedef WebServer WEBServer;
 #include <AutoConnect.h>
 
 /*
-  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems
-  that will become the AUTOCONNECT_USE_SPIFFS identifier and is exported
-  as showng the valid file system. After including AutoConnect.h, the
-  Sketch can determine whether to use FS.h or LittleFS.h by
-  AUTOCONNECT_USE_SPIFFS definition.
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showing
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
 */
 #include <FS.h>
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -54,6 +68,7 @@ ACSubmit(Apply, "Apply", HELLO_URI);
 
 //AutoConnectAux for the custom Web page.
 AutoConnectAux helloPage(HELLO_URI, "Hello", true, { Caption, Styles, Apply });
+AutoConnectConfig config;
 AutoConnect portal;
 
 // JSON document loading buffer
@@ -126,6 +141,8 @@ void setup() {
 
   helloPage.on(onHello);      // Register the attribute overwrite handler.
   portal.join(helloPage);     // Join the hello page.
+  config.ota = AC_OTA_BUILTIN;
+  portal.config(config);
   portal.begin();
 
   WEBServer& webServer = portal.host();

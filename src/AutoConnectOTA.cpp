@@ -16,6 +16,9 @@
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <regex>
 #include <Update.h>
+extern "C" {
+#include "esp_spiffs.h"
+}
 #endif
 #include <StreamString.h>
 #include "AutoConnectOTA.h"
@@ -164,9 +167,16 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
     // Allocate fs::FS according to the pinned Filesystem.
     _fs = &AutoConnectFS::OTAFS;
 #if defined(ARDUINO_ARCH_ESP8266)
-    bc = _fs->begin();
+    FSInfo  info;
+    if (_fs->info(info))
+      bc = true;
+    else
+      bc = _fs->begin();
 #elif defined(ARDUINO_ARCH_ESP32)
-    bc = _fs->begin(true);
+    if (esp_spiffs_mounted(NULL))
+      bc = true;
+    else
+      bc = _fs->begin(true);
 #endif
     if (bc) {
       _file = _fs->open(filename, "w");
@@ -232,7 +242,6 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
         ec = Update.end(true);
       else {
         _file.close();
-        _fs->end();
       }
       if (ec) {
         _status = OTA_SUCCESS;
