@@ -107,12 +107,7 @@ String onHello(AutoConnectAux& aux, PageArgument& args) {
   // List parameter files stored on the flash.
   // Those files need to be uploaded to the filesystem in advance.
   styles.empty();
-#ifdef AUTOCONNECT_USE_SPIFFS
-  Dir dir = FlashFS.openDir("/");
-  while (dir.next()) {
-    styles.add(dir.fileName());
-  }
-#else
+#if defined(ARDUINO_ARCH_ESP32)
   File  dir = FlashFS.open("/", "r");
   if (dir) {
     File  parmFile = dir.openNextFile();
@@ -121,9 +116,15 @@ String onHello(AutoConnectAux& aux, PageArgument& args) {
         styles.add(String(parmFile.name()));
       parmFile = dir.openNextFile();
     }
-    parmFile.close();
+  }
+#elif defined(ARDUINO_ARCH_ESP8266)
+  Dir dir = FlashFS.openDir("/");
+  while (dir.next()) {
+    if (!dir.isDirectory())
+      styles.add(dir.fileName());
   }
 #endif
+
   // Apply picked style
   helloPage.loadElement(ElementJson);
   return String();
