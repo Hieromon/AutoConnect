@@ -18,6 +18,16 @@ You can migrate the past saved credentials using [**CreditMigrate.ino**](https:/
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
+## <i class="fa fa-question-circle"></i> Cannot automatically reconnect to a WiFi Hotspot
+
+WiFi Hotspot ability using a cell phone has no official designation name, but it is commonly referred to as a mobile hotspot or a Personal Hotspot. Generally, this feature using data communication with your cellular to ensure the connection to the Internet. AutoConnect allows you to connect to a WiFi hotspot that has been temporarily launched as an access point and then stores a credential for establishing a connection in the same way as a regular fixed access point.
+
+However, there's a case where it may not be able to reconnect automatically to a known WiFi hotspot. For security reasons, some device operating systems randomly change the MAC address of the WiFi hotspot at each boot for a hotspot. (Especially iOS14) AutoConnect uses the BSSID to find the known SSID from among WiFi signals being broadcast. (it's the MAC address) This method works if the BSSID that the hotspot originates is fixed, but AutoConnect will not be able to find known SSIDs when it changes.  
+Consider activating the [AUTOCONNECT_APKEY_SSID](adconnection.md#match-with-known-access-points-by-ssid) definition if you want to reconnect automatically to a known WiFi hotspot.
+
+!!! info "Cannot immobilize the MAC address of Personal Hotspot"
+    We may not be able to immobilize the MAC address of Personal Hotspot on iOS14. This specification change seems to be related to the private network connection enhancement of iOS14 devices. I found this change during the testing phase, but it is not the confirmed information. (iOS14 offers an option to immobilize the MAC address as a client device, but there is still no option to immobilize it where the device became a hotspot)
+
 ## <i class="fa fa-question-circle"></i> Captive portal does not pop up.
 
 If your ESP module is already transparent to the internet, the captive portal screen will not pop up even if [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal) is enabled. Some people have mistaken sometimes about the behavioral condition of the Captive portal, it only pops up automatically when the ESP module is disconnected state from the Internet.
