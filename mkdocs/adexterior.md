@@ -132,3 +132,8 @@ Executing the above sketch will rewrite the menu title for the **FSBrowser** as 
 <div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
 <img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png">
 
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>

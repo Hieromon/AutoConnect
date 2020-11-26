@@ -1,4 +1,4 @@
-You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apiconfig.md). AutoConnectConfig is a class that has only AutoConnect configuration settings. You direct the behavior of AutoConnect using AutoConnectConfig member variables and give it to AutoConnect via the [AutoConnect::config](api.md#config) function. This allows Sketch controls the following:
+AutoConnect also has features that are not directly related to WiFi connection abilities. They're mostly like a little accessory but can reduce the amount of sketch code. 
 
 - [Built-in OTA update](#built-in-ota-update-feature)
 - [Debug print](#debug-print)
@@ -7,10 +7,7 @@ You can adjust the AutoConnect behave at run-time using [AutoConnectConfig](apic
 - [Reset the ESP module after disconnecting from WLAN](#reset-the-esp-module-after-disconnecting-from-wlan)
 - [Ticker for WiFi status](#ticker-for-wifi-status)
 - [Usage for automatically instantiated ESP8266WebServer/WebServer](#usage-for-automatically-instantiated-esp8266webserverwebserver)
-- [Use with the [PageBuilder](https://github.com/Hieromon/PageBuilder) library](#use-with-the-pagebuilder-library)
-
-!!! note "Don't forget [**AutoConnect::config**](api.md#config)"
-    The configuration cannot be reflected by only changing the member variables of [AutoConnectConfig](apiconfig.md) settings. It will be reflected in the actual ones by [AutoConnect::config](api.md#config) function. Don't forget to run the [AutoConnect::config](api.md#config) after changing the AutoConnectConfig member variables.
+- [Use with the PageBuilder library](#use-with-the-pagebuilder-library)
 
 ## Built-in OTA update feature
 
@@ -31,17 +28,17 @@ You can output AutoConnect monitor messages to the **Serial**. A monitor message
 #define AC_DEBUG
 ```
 
+AutoConnect does not automatically start the Serial even if AC_DEBUG is activated. The Sketch should start the Serial during its setup phase using **`Serial.begin(BAUDRATE)`**.
+
 !!! note "How to enable AC_DEBUG"
     The **#define** is a C++ preprocessor directive. The build process of the Sketch by the Arduino IDE is processed independently of the subsequent C++ compilation unit. Writing the #define directive for AC_DEBUG in the Sketch has no effect on the AutoConnect library.  
     To compile the AutoConnect library with the AC_DEBUG directive, you can either edit the library source code directly (usually it is located in ~/Arduino/libraries/AutoConnect/src) or use a build system which can configure the preprocessor directives externally such as [**PlatformIO**](https://platformio.org/).
 
 ## File uploading via built-in OTA feature
 
-The [built-in OTA update feature](otabrowser.md) can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the [**Update**](menu.md#update) of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This utilization is useful for the operation of transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.
+The [built-in OTA update feature](otabrowser.md) can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the [**Update**](menu.md#update) of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This ability is useful for transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.
 
-The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, files with names with a **.bin** extension are subject to firmware updates. A file that has the other patterns with extension will be saved to SPIFFS in the flash.
-
-The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
+The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, files with names with a **.bin** extension are subject to firmware updates. A file that has the other patterns with extension will be saved to the filesystem in the flash. The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
 
 ```cpp
 #define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"

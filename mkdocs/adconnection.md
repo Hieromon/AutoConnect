@@ -1,4 +1,4 @@
-AutoConnect aims to connect the ESP module as a station to a WiFi access point. It is equipped with various APIs to keep a WiFi connection as possible while sketch running. The main APIs for maintaining a WiFi connection are [AutoConnect::begin](api.md#begin) and [AutoConnect::handleClient](api.md#handleclient). You can make sketches with flexible WiFi connection capability by properly using these two APIs and the settings by [AutoConnectConfig](apiconfig.md).
+AutoConnect aims to connect the ESP module as a station to a WiFi access point and equips with various APIs to maintain a WiFi connection as possible while sketch running. The main APIs are [AutoConnect::begin](api.md#begin) and [AutoConnect::handleClient](api.md#handleclient). You can make sketches with flexible WiFi connection capability by properly using these two APIs and the settings by [AutoConnectConfig](apiconfig.md).
 
 - [Automatic reconnect](#automatic-reconnect)
 - [Automatic reconnect (Background)](#automatic-reconnect-background)
@@ -11,7 +11,7 @@ AutoConnect aims to connect the ESP module as a station to a WiFi access point. 
 
 ## Automatic reconnect
 
-AutoConnect will change the WiFi mode depending on the situation. The [AutoConnect::begin](lsbegin.md) function starts WiFi mode in **STA** and starts the webserver if the connection is successful by the 1st-WiFi.begin. But if it will fail to connect with the least recently established access point, it will switch the WiFi mode to **AP_STA** and starts the DNS server to be able to launch a captive portal.
+AutoConnect will change the WiFi mode depending on the situation. The [AutoConnect::begin](lsbegin.md) function starts WiFi mode in **STA** and starts the webserver if the connection is successful by the [**1st-WiFi.begin**](lsbegin.md). But if it will fail to connect with the least recently established access point, it will switch the WiFi mode to **AP_STA** and starts the DNS server to be able to launch a captive portal.
 
 When the captive portal starts, **SoftAP** starts and STA disconnected. At this point, the station configuration information (it is known as the SDK's [station_config](https://github.com/esp8266/Arduino/blob/db75d2c448bfccc6dc308bdeb9fbd3efca7927ff/tools/sdk/include/user_interface.h#L249) structure) that the ESP module has stored on its own is discarded.
 

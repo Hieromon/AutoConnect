@@ -4,7 +4,7 @@ The Sketch may use authentication to protect custom Web pages and prevent unauth
 
 - [Applying HTTP authentication](#applying-http-authentication)
 - [Applying HTTP authentication for Built-in OTA](#applying-http-authentication-for-built-in-ota)
-- [Authentication with the captive portal state](#authentication-with-the-captive-portal-state)
+- [Authentication within the captive portal state](#authentication-within-the-captive-portal-state)
 
 ## Applying HTTP authentication
 
@@ -161,7 +161,7 @@ void loop() {
 
 [*AutoConnectConfig::auth*](apiconfig.md#auth) setting also affects the [built-in OTA](otaupdate.md) feature. **AC_AUTH_BASIC** or **AC_AUTH_DIGEST** setting allows Built-in OTA to authenticate with the [UPDATE](otabrowser.md#updates-with-the-web-browserupdated-wv115) page. This setting is valid even if [*AutoConnectConfig::authScope*](apiconfig.md#authscope) is **AC_AUTHSCOPE_PARTIAL**. That is if the AutoConnectConfig::auth setting is BASIC or DIGEST, authentication will be required for Built-in OTA.
 
-## Authentication with the captive portal state
+## Authentication within the captive portal state
 
 When accessing the ESP module from an iOS or Android device in the captive portal state, the HTTP authentication framework is disabled in the OS of the client device. Even if the ESP module responds with a `401 unauthorized` with `WWW-Authenticate`, those client device OSs under the captive portal do not display the login dialog and deprive the user of the opportunity to enter their credentials. There will always be an unauthorized error.
 
