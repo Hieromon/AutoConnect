@@ -462,6 +462,7 @@ void AutoConnect::handleRequest(void) {
           int8_t  sn = WiFi.scanNetworks(true, true);
           AC_DBG("autoReconnect %s\n", sn == WIFI_SCAN_RUNNING ? "running" : "failed");
           _attemptPeriod = millis();
+          (void)(sn);
         }
       }
 
