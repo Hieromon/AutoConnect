@@ -17,10 +17,10 @@ nav:
     - 'Advanced usage' : advancedusage.md
     - 'AutoConnect WiFi connection control' : adconnection.md
     - 'Captive portal control' : adcpcontrol.md
+    - 'Settings and controls for network and WiFi' : adnetwork.md
     - 'Authentication settings' : adauthentication.md
     - 'Credential accesses' : adcredential.md
-    - 'Settings for customizing the page exterior' : adexterior.md
-    - 'Settings and controls for network and WiFi' : adnetwork.md
+    - 'Customizing page appearance' : adexterior.md
     - 'Other operation settings and controls' : adothers.md
   - 'Custom Web pages' :
     - 'Custom Web pages with AutoConnect' : acintro.md

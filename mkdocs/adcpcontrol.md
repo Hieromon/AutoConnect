@@ -72,13 +72,11 @@ void loop() {
 
 ## Captive portal timeout control
 
-Once AutoConnect has entered the captive portal state due to the above conditions, it will not exit until a WiFi connection can be established. (But that is the default behavior)
+Once AutoConnect has entered the captive portal state due to the above conditions, the default behavior is that [AutoConnect::begin](api.md#begin) will not exit until a WiFi connection is established. Captive portal timeout control prevents AutoConnect from blocking the Sketch progress. The Sketch can abort AutoConnect::begin and returns control to the Sketch. 
 
-The Sketch can abort the [AutoConnect::begin](api.md#begin) by setting the captive portal timeout and returns control to Sketch. AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of [AutoConnect::begin](api.md#begin). The default value is macro defined by [**AUTOCONNECT_TIMEOUT**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L103) in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
+AutoConnect has two parameters for timeout control. The first is the timeout value used when trying to connect to the specified AP. It works like a typical timeout control for connection attempts with WiFi.begin. This setting is specified by the [*AutoConnectConfig::beginTimeout*](apiconfig.md#begintimeout) or third argument of the [AutoConnect::begin](api.md#begin) function. The default value is the macro defined by [**AUTOCONNECT_TIMEOUT**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L103) in the [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
 
-The other timeout control is for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the [**immediateStart**](#launch-the-captive-portal-on-demand-by-external-trigger) option to create sketches with high mobility.
-
-The timeout of the captive portal is specified together with [*AutoConnectConfig::portalTimeout*](apiconfig.md#portaltimeout) as follows.
+Another timeout control is for the captive portal itself. It is useful if you want to keep the Sketch offline running even if a WiFi connection is not possible. You can also combine its setting with the [**immediateStart**](#launch-the-captive-portal-on-demand-by-external-trigger) option to create highly mobile sketches. The timeout of the captive portal is specified by the [*AutoConnectConfig::portalTimeout*](apiconfig.md#portaltimeout) as follows.
 
 ```cpp hl_lines="9"
 #include <ESP8266WiFi.h>
@@ -104,6 +102,7 @@ void loop() {
   portal.handleClient();
 }
 ```
+
 Also, if you want to stop AutoConnect completely when the captive portal is timed out, you need to call the [AutoConnect::end](api.md#end) function. It looks like the following code:
 
 ```cpp
@@ -131,7 +130,9 @@ void loop() {
 }
 ```
 
-There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The [*AutoConnectConfig::retainPortal*](apiconfig.md#retainportal) option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the Sketch.
+AutoConnectConfig has another option related to timeouts that you can enable to take advantage of the captive portal feature after a timeout occurrence. The [*AutoConnectConfig::retainPortal*](apiconfig.md#retainportal) option will not shut down SoftAP and the internal DNS server even though [AutoConnect::begin](api.md#begin) has aborted due to a timeout occurrence. Even after the captive portal times out, you can always try to connect to the AP while keeping the Sketch running offline.
+
+The following sample code is the Sketch above with the [**retainPortal**](apiconfig.md#retainportal) setting added. As you can see, the implementation for captive portal continuation does not affect the main logic of the Sketch.
 
 ```cpp hl_lines="10"
 #include <ESP8266WiFi.h>
