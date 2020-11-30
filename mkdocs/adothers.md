@@ -19,6 +19,19 @@ AutoConnect features a built-in OTA function to update ESP module firmware. You 
 [*AutoConnectConfig::ota*](apiconfig.md#ota) specifies to import the [built-in OTA update class](otabrowser.md) into the Sketch.  
 See the [Updates with the Web Browser](otabrowser.md) chapter for details.
 
+## Choice of the filesystem for ESP8266
+
+For ESP8266, since the Arduino core v2.7.0, SPIFFS has deprecated and the migration to [**LittleFS**](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=littleFS#spiffs-deprecation-warning) is being promoted currently. AutoConnect has adopted LittleFS as the default filesystem to follow the core standard.
+
+However, SPIFFS is still valid. AutoConnect can correctly compile and execute sketches made with SPIFFS assumed. When you make an AutoConnect sketch with SPIFFS enabled, you need to change the macro definition that [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L39) has.  
+**AC_USE_SPIFFS** definition will enable SPIFFS as the filesystem.
+
+```cpp
+#define AC_USE_SPIFFS
+```
+
+See also the [FAQ](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) to help you enable AC_USE_SPIFFS correctly.
+
 ## Debug print
 
 You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14) macro to output the monitor messages.[^5]
@@ -34,19 +47,6 @@ AutoConnect does not automatically start the Serial even if AC_DEBUG is activate
 !!! note "How to enable AC_DEBUG"
     The **#define** is a C++ preprocessor directive. The build process of the Sketch by the Arduino IDE is processed independently of the subsequent C++ compilation unit. Writing the #define directive for AC_DEBUG in the Sketch has no effect on the AutoConnect library.  
     To compile the AutoConnect library with the AC_DEBUG directive, you can either edit the library source code directly (usually it is located in ~/Arduino/libraries/AutoConnect/src) or use a build system which can configure the preprocessor directives externally such as [**PlatformIO**](https://platformio.org/).
-
-## Choice of the filesystem for ESP8266
-
-For ESP8266, since the Arduino core v2.7.0, SPIFFS has deprecated and the migration to [**LittleFS**](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=littleFS#spiffs-deprecation-warning) is being promoted currently. AutoConnect has adopted LittleFS as the default filesystem to follow the core standard.
-
-However, SPIFFS is still valid. AutoConnect can correctly compile and execute sketches made with SPIFFS assumed. When you make an AutoConnect sketch with SPIFFS enabled, you need to change the macro definition that [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L39) has.  
-**AC_USE_SPIFFS** definition will enable SPIFFS as the filesystem.
-
-```cpp
-#define AC_USE_SPIFFS
-```
-
-See also the [FAQ](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) to help you enable AC_USE_SPIFFS correctly.
 
 ## File uploading via built-in OTA feature
 

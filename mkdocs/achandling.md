@@ -719,7 +719,7 @@ void loop() {
 }
 ```
 
-### <i class="fa fa-wpforms"></i> Overwrite the AutoConnectElements
+### <i class="fa fa-edit"></i> Overwrite the AutoConnectElements
 
 Sketches can update the attributes of AutoConnectElements with two approaches. A one is to assign directly to the attributes of a member variable of its element. The other is to overwrite them with loading the element by [AutoConnectAux::loadElement](apiaux.md#loadelement). 
 
@@ -838,9 +838,105 @@ if (!page.isValid())
   Serial.println("Validation error");
 ```
 
-### <i class="fa fa-exchange"></i> Convert data to actually type
+### <i class="fas fa-exchange-alt"></i> Convert data to actually type
 
 The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type. For the typical data type conversion method, refer to section [*Tips for data conversion*](datatips.md#convert-autoconnectelements-value-to-actual-data-type).
+
+## Place HTML elements undefined in AutoConnectElements
+
+Of the many HTML elements for markup, AutoConnet can only support a limited number. If you are designing a custom web page and the elements you want are not in AutoConnectElements, consider using an AutoConnectElement. [AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML tag elements that are undefined in AutoConnectElemets on custom web pages.
+
+!!! warning "Not all of them work"
+    The strongest constraint is the heap size required to generate HTML for the entire custom Web page. AutoConnect creates a custom web page as a chunk of String. It's not a stream. Therefore, it may not be possible to generate long HTML pages. See also [FAQ](faq.md#some-autoconnect-page-is-cut-off).
+
+### <i class="far fa-file-code"></i> Place a markup or a styled HTML tag
+
+If the HTML element you want to place is just the tag that makes up the appearance of the web page, assign the tag element directly to the [value](apielements.md#value_2) member of AutoConnectElement. If the tag you are trying to place is for static markup effects, just write the `value` as follows:
+
+```json
+{
+  "name": "headline",
+  "type": "ACElement",
+  "value": "<hr style='height:1px;border-width:0;color:gray;background-color:#52a6ed'>"
+}
+```
+
+If the element has a hierarchy like a `<table> ~ </table>`, describe the entire element in the `value`:
+
+```json
+{
+  "name": "table",
+  "type": "ACElement",
+  "value": "<table><tr><th>Board</th><th>Platform</th></tr><tr><td>NodeMCU</td><td>Espressif8266</td></tr><tr><td>ESP32-DevKitC</td><td>Espressif32</td></tr></table>"
+}
+```
+
+Also, using [AutoConnectStyle](acelements.md#autoconnectstyle) combined, you can give the style effect of only that element.
+
+```json
+{
+  "name": "tablestyle",
+  "type": "ACStyle",
+  "value": "table.style{font-family:arial,sans-serif;border-collapse:collapse;width:100%;color:black;}table.style td,table.style th{border:1px solid #dddddd;text-align:center;padding:8px;}table.style tr:nth-child(even){background-color:#dddddd;}"
+},
+{
+  "name": "table",
+  "type": "ACElement",
+  "value": "<table class='style'><tr><th>Board</th><th>Platform</th></tr><tr><td>NodeMCU</td><td>Espressif8266</td></tr><tr><td>ESP32-DevKitC</td><td>Espressif32</td></tr></table>"
+}
+```
+
+<i class="fa fa-arrow-down"></i><br>
+<i class="fa fa-eye"></i> As you see it:
+  <table class="achandling">
+  <tr>
+    <th>Board</th>
+    <th>Platform</th>
+  </tr>
+  <tr>
+    <td>NodeMCU</td>
+    <td>Espressif8266</td>
+  </tr>
+  <tr>
+    <td>ESP32-DevKitC</td>
+    <td>Espressif32</td>
+  </tr>
+</table>
+
+### <i class="far fa-file-code"></i> Place the input elements within a form
+
+There is still no dedicated AutoConnectElement for entering other than equivalent to `checkbox`, `file`, `number`, `password`, `radio` and `text` for `<input type="...">` HTML element. But you can substitute them with the AutoConnectElement.
+
+For example, if you use the `<input>` element of `type="date"` to place a field where you can enter a date, the AutoConnectElement would look like this:
+
+```json
+{
+  "name": "date",
+  "type": "ACElement",
+  "value": "<label for='picker'>Date:</label><input type='date' id='picker' name='date'>"
+}
+```
+
+And it becomes a textbox that validates the input or a special date picker interface.  
+Then, instead of accessing that AutoConnectElement directly, obtains entered date value from the POST body included in the HTTP request from the hosted ESP8266WebServer class. Its process carries out with the [AutoConnectAux page handler](achandling.md#how-you-can-reach-the-values) following:
+
+```cpp
+String aux_page_handler(AutoConnectAux &aux, PageArgument &arg) {
+  Serial.println(arg.arg("date"));  // Obtain a date value entered
+  return "";
+}
+```
+
+AutoConnect passes a [PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) to the AutoConnectAux page handler. The handler can use the [PageArgument::arg](https://github.com/Hieromon/PageBuilder#string-pageargumentargstring-name) function to get the parameters contained in the HTTP request for the page. 
+Also, the equivalent can also be implemented using [ESP8266WebServer::arg](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments) function with the [ESP8266WebServer client request handler](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers).
+
+### <i class="fab fa-js-square"></i> Using JavaScript
+
+You can use AutoConnectElement to embed JavaScript into the custom Web page as with HTML elements for markup. 
+
+### <i class="fas fa-globe"></i> Communicate with the Sketch using AJAX
+
+As a matter of fact, [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115) class is implemented by using this technique and is a custom Web page by AutoConnectAux.
 
 ## Transitions of the custom Web pages
 

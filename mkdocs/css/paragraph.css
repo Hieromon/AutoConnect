@@ -60,3 +60,20 @@
   float: left;
   display: block;
 }
+
+table.achandling {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+  color: black;
+}
+
+table.achandling th, table.achandling td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+table.achandling tr:nth-child(even) {
+  background-color: #dddddd;
+}
