@@ -932,11 +932,174 @@ Also, the equivalent can also be implemented using [ESP8266WebServer::arg](https
 
 ### <i class="fab fa-js-square"></i> Using JavaScript
 
-You can use AutoConnectElement to embed JavaScript into the custom Web page as with HTML elements for markup. 
+What is described in this section belongs to the tips of what effectiveness a web page can have using AutoConnectElement, rather than the correct usage for AutoConnect.  
+You can use AutoConnectElement to embed JavaScript into the custom Web page as with HTML elements for markup. The reason for embedding JavaScript on a page depends on your requirements, but One of the most common requirements is the need to access elements of a web page. You can implement the requirements by having the AutoConnectElement have JavaScript that contains DOM access.
 
-### <i class="fas fa-globe"></i> Communicate with the Sketch using AJAX
+The following screenshot shows an example of accessing AutoConnectText via the DOM using an AutoConnectElement with JavaScript. This web page is a very simple example and returns the result of multiplying the multiplier entered in an AutoConnectInput field.
 
-As a matter of fact, [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115) class is implemented by using this technique and is a custom Web page by AutoConnectAux.
+<img src="images/jsmultiply.png">
+
+This custom Web page is generated from the following JSON document:
+
+```json
+{
+  "uri": "/jselement",
+  "title": "Multiply",
+  "menu": true,
+  "element": [
+    {
+      "name": "multiplier",
+      "type": "ACInput",
+      "label": "3 &times; ",
+      "apply": "number",
+      "posterior": "none"
+    },
+    {
+      "name": "op",
+      "type": "ACButton",
+      "value": " = ",
+      "action": "multi()",
+      "posterior": "none"
+    },
+    {
+      "name": "answer",
+      "type": "ACText"
+    },
+    {
+      "name": "js",
+      "type": "ACElement",
+      "value": "<script type='text/javascript'>function multi() {document.getElementById('answer').innerHTML=3*document.getElementById('multiplier').value;}</script>"
+    }
+  ]
+}  
+```
+
+An input field for a `multiplier` is defined by AutoConnectInput. The field for displaying the results exists with the name `answer`. The multiplication function is what AutoConnectElement has as JavaScript and it has the following content:
+
+```js
+function multi() {
+  document.getElementById('answer').innerHTML = 3 * document.getElementById('multiplier').value;
+}
+```
+
+And the action for calling the `multi()` function is the `=` labeled button as the AutoConnectButton element. AutoConnect generates the [**name**](acjson.md#name) attribute of each AutoConnectElement as the **Id** of the HTML tag. The Id should be useful for DOM access.
+
+!!! warning "JavaScript that is too long can cause insufficient memory"
+    If it reaches thousands of bytes, AutoConnect will not be able to complete the HTML generation for the page.
+
+### <i class="fas fa-globe"></i> Communicate with the Sketch using XHR
+
+AutoConnectElement allows having scripts that create sessions based on [**XHR**](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). XMLHttpRequest (XHR) is a JavaScript API to create AJAX requests. Its methods provide the ability to send network requests between the browser and a server. The Sketch simply implements the server-side process as a response handler to a normal HTTP request and can equip with a dynamic custom Web page. This technique is tricky but does not cause page transitions and is useful for implementing dynamic pages. As a matter of fact, [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115) class is implemented by using this technique and is a custom Web page by AutoConnectAux.
+
+Here's a simple example of JavaScript-based on XHR and a server-side request handler. It's like a clock that displays the time in real-time on an AutoConnect custom web page. The sketch in the following example is roughly divided into two structures.  
+The AutoConnectElement defined with the name `js` gets the server time with XHR and updates the response via the DOM with the AutoConnectText named `time` and substance is the following JavaScript:
+
+```js
+var xhr;
+
+function clock() {
+    xhr.open('GET', '/clock');
+    xhr.responseType = 'text';
+    xhr.send();
+}
+
+window.onclose = function() {
+    xhr.abort();
+};
+
+window.onload = function() {
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && xhr.status == 200) {
+            document.getElementById('time').innerHTML = this.responseText;
+        }
+    };
+    setInterval(clock, 1000);
+};
+```
+
+This script issues a GET request to `/clock` every second and updates the element of Id=`time` with the text content of its response. As this script shows, it will issue a send request using the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object.
+
+The other component is located on the AutoConnect-hosted ESP8266WebServer server. This component gets the current time from the NTP server and sends the value as text to the client.
+
+```cpp
+void auxClock() {
+  time_t  t;
+  struct tm *tm;
+  char    dateTime[24];
+
+  t = time(NULL);
+  tm = localtime(&t);
+  sprintf(dateTime, "%04d/%02d/%02d %02d:%02d:%02d.",
+                    tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
+                    tm->tm_hour, tm->tm_min, tm->tm_sec);
+  server.send(200, "text/plain", dateTime);
+}
+```
+
+Then just register the `auxClock` function as a `/clock` URL handler with the hosted ESP8266Server instance.
+
+```cpp
+server.on("/clock", auxClock);
+```
+
+As you can see from the above two components, AutoConnect does not intervene in those communications and no page transitions occur. A complete sketch that integrates the above components and includes a custom Web page declaration for time display looks like this:
+
+```cpp
+#include <Arduino.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+#include <time.h>
+
+static const char JSPAGE[] PROGMEM = R"'(
+{
+  "uri": "/jselement",
+  "title": "Clock",
+  "menu": true,
+  "element": [
+    {
+      "name": "time",
+      "type": "ACText"
+    },
+    {
+      "name": "js",
+      "type": "ACElement",
+      "value": "<script type='text/javascript'>var xhr;function clock(){xhr.open('GET', '/clock');xhr.responseType='text';xhr.send();}window.onclose=function(){xhr.abort();};window.onload=function(){xhr=new XMLHttpRequest();xhr.onreadystatechange=function(){if(this.readyState==4&&xhr.status==200){document.getElementById('time').innerHTML=this.responseText;}};setInterval(clock,1000);};</script>"
+    }
+  ]
+}  
+)'";
+
+ESP8266WebServer  server;
+AutoConnect portal(server);
+
+void auxClock() {
+  time_t  t;
+  struct tm *tm;
+  char    dateTime[24];
+
+  t = time(NULL);
+  tm = localtime(&t);
+  sprintf(dateTime, "%04d/%02d/%02d %02d:%02d:%02d.",
+                    tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
+                    tm->tm_hour, tm->tm_min, tm->tm_sec);
+  server.send(200, "text/plain", dateTime);
+}
+
+void setup() {
+  delay(1000);
+  portal.load(FPSTR(JSPAGE));
+  if (portal.begin()) {
+    server.on("/clock", auxClock);
+    configTime(0, 0, "europe.pool.ntp.org");
+  }
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
 
 ## Transitions of the custom Web pages
 
