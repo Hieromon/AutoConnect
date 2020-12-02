@@ -197,7 +197,7 @@ void handleRoot() {
     "</body>"
     "</html>";
 
-  content.replace("{{CHANNEL}}", channelid);
+  content.replace("{{CHANNEL}}", channelid.value);
   WiFiWebServer&  webServer = portal.host();
   webServer.send(200, "text/html", content);
 }
