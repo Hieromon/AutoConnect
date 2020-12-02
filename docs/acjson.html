@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -1364,7 +1364,7 @@
 <h2 id="json-objects-elements-for-the-custom-web-page">JSON objects &amp; elements for the custom Web page<a class="headerlink" href="#json-objects-elements-for-the-custom-web-page" title="Permanent link">&para;</a></h2>
 <h3 id="json-document-structure-for-autoconnectaux"><i class="fa fa-caret-right"></i> JSON document structure for AutoConnectAux<a class="headerlink" href="#json-document-structure-for-autoconnectaux" title="Permanent link">&para;</a></h3>
 <p>AutoConnectAux will configure custom Web pages with JSON objects. The elements that make up the object are as follows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;title&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">title</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;uri&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">uri</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;menu&quot;</span> <span style="color: #f92672">:</span> <span style="color: #66d9ef">true</span> <span style="color: #f92672">|</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">,</span>
@@ -1413,7 +1413,7 @@
 </div>
 <h3 id="multiple-custom-web-pages-declaration-in-json-document"><i class="fa fa-copy"></i> Multiple custom Web pages declaration in JSON document<a class="headerlink" href="#multiple-custom-web-pages-declaration-in-json-document" title="Permanent link">&para;</a></h3>
 <p>You can put declarations of multiple custom Web pages in one JSON document. In that case, declare an array of each custom Web page with JSON. The following JSON document contains three custom Web pages:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">[</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
     <span style="color: #f92672">&quot;title&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Page 1 title&quot;</span><span style="color: #f8f8f2">,</span>
     <span style="color: #f92672">&quot;uri&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1465,7 +1465,7 @@
 <p>The above custom Web page definitions can be loaded in a batch using the <a href="api.html#load">AutoConnect::load</a> function.</p>
 <h3 id="json-object-for-autoconnectelements"><i class="fa fa-caret-right"></i> JSON object for AutoConnectElements<a class="headerlink" href="#json-object-for-autoconnectelements" title="Permanent link">&para;</a></h3>
 <p>JSON description for AutoConnectElements describes as an array in the <em>element</em> with arguments of <a href="acelements.html#constructor">each constructor</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;name&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;type&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">type</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;posterior&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">posterior</span><span style="color: #f8f8f2">,</span>
@@ -1777,7 +1777,7 @@ LittleFS support in AutoConnect relies on the FS instance declared by the arduin
 <p>This way does not require an explicit declaration of AutoConnectAux objects with sketches and is also useful when importing the custom Web pages JSON document from an external file such as SPIFFS because the page definition and sketch coding structure can be separated.</p>
 <p>Using the <a href="api.html#load">AutoCoonnect::load</a> function, AutoConnect dynamically generates the necessary AutoConnectAux objects internally based on the custom Web page definition of the imported JSON document content. In the Sketch, the generated AutoConnectAux object can be referenced using the <a href="api.html#aux">AutoConnect::aux</a> function. You can reach the AutoConnectElements you desired using the <a href="apiaux.html#getelement">AutoConnectAux::getElement</a> function of its AutoConnectAux.</p>
 <p>In the following example, it loads in a batch a JSON document of custom Web pages stored in SPIFFS and accesses to the AutoConnectInput element.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">[</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
     <span style="color: #e6db74">&quot;title&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;page1&quot;</span><span style="color: #f8f8f2">,</span>
     <span style="color: #e6db74">&quot;uri&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1802,7 +1802,7 @@ LittleFS support in AutoConnect relies on the FS instance declared by the arduin
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">]</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/custom_page.json&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">portal.load(page);</span>
 </span><span style="color: #f8f8f2">page.close();</span>
@@ -1815,7 +1815,7 @@ LittleFS support in AutoConnect relies on the FS instance declared by the arduin
 <p>This way declares AutoConnectAux in the Sketch and loads the custom Web pages JSON document there. It has an advantage for if you want to define each page of a custom Web page individually or allocate AutoConnectAux objects dynamically on the Sketch side.</p>
 <p>After loading a JSON document using the <a href="apiaux.html#load">AutoConnectAux::load</a> function by each, integrate those into AutoConnect using the <a href="api.html#join">AutoConnect::join</a> function.</p>
 <p>In the following example, you can see the difference between two sketches in a sketch modified using the AutoConnectAux::load.</p>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;title&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;page1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;uri&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;menu&quot;</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
@@ -1827,7 +1827,7 @@ LittleFS support in AutoConnect relies on the FS instance declared by the arduin
   <span style="color: #f8f8f2">]</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;title&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;page2&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;uri&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/page2&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;menu&quot;</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
@@ -1839,7 +1839,7 @@ LittleFS support in AutoConnect relies on the FS instance declared by the arduin
   <span style="color: #f8f8f2">]</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page1;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page2;</span>
 <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/custom_page1.json&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1861,14 +1861,14 @@ LittleFS support in AutoConnect relies on the FS instance declared by the arduin
 <li>Stream</li>
 </ul>
 <p>To load custom Web pages JSON document into AutoConnect, use the <a href="api.html#load">load</a> function of the AutoConnect class. Its JSON document can read must be completed as a description interpretable by the ArduinoJson library. It cannot import custom Web pages if there are syntax errors for the JSON. If you can not see the custom Web page prepared by JSON, you can check the syntax with <a href="https://arduinojson.org/v5/assistant/">ArduinoJson Assistant</a>. It is useful for pre-checking.</p>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
 An example of using each function is as follows.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
 
 <span style="color: #75715e">// Loading from String</span>
 <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">Page 1 title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">uri</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">/page1</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">menu</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:true,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">element</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:[{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">name</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">caption</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">type</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">ACText</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">value</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">hello, world</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}]}&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1900,7 +1900,7 @@ An example of using each function is as follows.
 <h3 id="adjust-the-json-document-buffer-size"><i class="fa fa-caret-right"></i> Adjust the JSON document buffer size<a class="headerlink" href="#adjust-the-json-document-buffer-size" title="Permanent link">&para;</a></h3>
 <p>AutoConnect uses ArduinoJson library's dynamic buffer to parse JSON documents. Its dynamic buffer allocation scheme depends on the version 5 or version 6 of ArduinoJson library. Either version must have enough buffer to parse the custom web page's JSON document successfully. AutoConnect has the following three constants internally to complete the parsing as much as possible in both ArduinoJson version. These constants are macro defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h">AutoConnectDefs.h</a>.</p>
 <p>If memory insufficiency occurs during JSON document parsing, you can adjust these constants to avoid insufficiency by using the <a href="https://arduinojson.org/v6/assistant/">JsonAssistant</a> with deriving the required buffer size in advance.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_JSONBUFFER_SIZE     256</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_JSONBUFFER_SIZE     256</span>
 <span style="color: #75715e">#define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)</span>
 <span style="color: #75715e">#define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)</span>
 </code></pre></div>
@@ -2012,8 +2012,8 @@ An example of using each function is as follows.
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -1121,82 +1121,67 @@
 <p>If you are using an Arduino core for ESP32 1.0.2 earlier and need to use credentials in EEPROM for backward compatibility, turns off the <strong>AUTOCONNECT_USE_PREFERENCES</strong><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> macro definition in <code>AutoConnectCredentials.h</code> file. AutoConnect behaves assuming that credentials are stored in EEPROM if <code>AUTOCONNECT_USE_PREFERENCES</code> is not defined.</p>
 <h2 id="autoconnectcredential">AutoConnectCredential<a class="headerlink" href="#autoconnectcredential" title="Permanent link">&para;</a></h2>
 <h3 id="include-header"><i class="fa fa-code"></i> Include header<a class="headerlink" href="#include-header" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnectCredential.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnectCredential.h&gt;</span>
 </code></pre></div>
 <h3 id="constructors"><i class="fa fa-code"></i> Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectCredential();</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectCredential();</span>
 </code></pre></div>
 <p>AutoConnectCredential default constructor. The default offset value is 0. In ESP8266 or ESP32 with arduino core 1.0.2 earlier, if the offset value is 0, the credential area starts from the top of the EEPROM. If you use this area in a user sketch, AutoConnect may overwrite that data.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectCredential(</span><span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">offset);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectCredential(</span><span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">offset);</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameter**</dt>
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">offset</span><span class="apidesc">Species offset from the top of the EEPROM for the credential area together. The offset value is from 0 to the flash sector size. This parameter is ignored for AutoConnect v1.0.0 or later with arduino-esp32 core 1.0.3 or later.</span></dd>
 </dl>
 
 <h3 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
 <h4 id="entries"><i class="fa fa-caret-right"></i> entries<a class="headerlink" href="#entries" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">entries(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">entries(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-<p>Returns number of entries as contained credentials.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>Number of entries as contained credentials.</dd>
-</dl>
-
+<p>Returns number of entries as contained credentials.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>Number of entries as contained credentials.</dd></dl></p>
 <h4 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </code></pre></div>
-<p>Load a credential entry and store to <strong>config</strong>.</p>
-<dl class="apidl">
-    <dt>**Parameters**</dt>
+<p>Load a credential entry and store to <strong>config</strong>.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be loaded.</span></dd>
     <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
-    <dt>**Return value**</dt>
-    <dd>Save the specified SSID's credential entry to station_config_t pointed to by the parameter as **config**. -1 is returned if the SSID is not saved. </dd>
-</dl>
-
+    <dt><strong>Return value</strong></dt>
+    <dd>Save the specified SSID's credential entry to station_config_t pointed to by the parameter as <strong>config</strong>. -1 is returned if the SSID is not saved.</dd></dl></p>
 <h4 id="load_1"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">entry,</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">entry,</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </code></pre></div>
-<p>Load a credential entry and store to <strong>config</strong>.</p>
-<dl class="apidl">
-    <dt>**Parameters**</dt>
+<p>Load a credential entry and store to <strong>config</strong>.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">entry</span><span class="apidesc">Specifies the index number based 0 to be loaded.</span></dd>
     <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
-    <dt>**Return value**</dt>
-    <dd>Save the specified credential entry to station_config_t pointed to by the parameter as **config**. -1 is returned if specified number is not saved. </dd>
-</dl>
-
+    <dt><strong>Return value</strong></dt>
+    <dd>Save the specified credential entry to station_config_t pointed to by the parameter as <strong>config</strong>. -1 is returned if specified number is not saved.</dd></dl></p>
 <h4 id="save"><i class="fa fa-caret-right"></i> save<a class="headerlink" href="#save" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">save(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">save(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </code></pre></div>
-<p>Save a credential entry.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+<p>Save a credential entry.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">config</span><span class="apidesc">station_config_t to be saved.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully saved.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Failed to save.</span></dd>
-</dl>
-
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to save.</span></dd></dl></p>
 <h4 id="del"><i class="fa fa-caret-right"></i> del<a class="headerlink" href="#del" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">del(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">del(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid)</span>
 </code></pre></div>
-<p>Delete a credential the specified SSID.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+<p>Delete a credential the specified SSID.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be deleted.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully deleted.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Failed to delete.</span></dd>
-</dl>
-
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to delete.</span></dd></dl></p>
 <div class="admonition example">
 <p class="admonition-title">Clear saved credentials</p>
 <p>There is no particular API for batch clearing of all credential data stored by AutoConnect. It is necessary to prepare a sketch function that combines several AutoConnectCredential APIs  to erase all saved credentials.
-The following function is an implementation example, and you can use it to achieve batch clearing.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">deleteAllCredentials</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+The following function is an implementation example, and you can use it to achieve batch clearing.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">deleteAllCredentials</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">AutoConnectCredential</span> <span style="color: #f8f8f2">credential;</span>
   <span style="color: #f8f8f2">station_config_t</span> <span style="color: #f8f8f2">config;</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ent</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">credential.entries();</span>
@@ -1206,19 +1191,19 @@ The following function is an implementation example, and you can use it to achie
     <span style="color: #f8f8f2">credential.del((</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">config.ssid[</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">]);</span>
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">}</span>
-</code></pre></div></p>
+</code></pre></div>
 </div>
 <h2 id="the-data-structures">The data structures<a class="headerlink" href="#the-data-structures" title="Permanent link">&para;</a></h2>
 <h3 id="station_config_t"><i class="fa fa-code"></i>  station_config_t<a class="headerlink" href="#station_config_t" title="Permanent link">&para;</a></h3>
 <p>The saved credential structure is defined as stato_config_t in the AcutoConnectCredential header file.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ssid[</span><span style="color: #ae81ff">32</span><span style="color: #f8f8f2">];</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">password[</span><span style="color: #ae81ff">64</span><span style="color: #f8f8f2">];</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">bssid[</span><span style="color: #ae81ff">6</span><span style="color: #f8f8f2">];</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">dhcp;</span>   <span style="color: #75715e">/**&lt; 0:DHCP, 1:Static IP */</span>
-  <span style="color: #66d9ef">union</span> <span style="color: #f8f8f2">_config</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">union</span> <span style="color: #a6e22e">_config</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #66d9ef">uint32_t</span>  <span style="color: #f8f8f2">addr[</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">];</span>
-    <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">_sta</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">struct</span> <span style="color: #a6e22e">_sta</span> <span style="color: #f8f8f2">{</span>
       <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">ip;</span>
       <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">gateway;</span>
       <span style="color: #66d9ef">uint32_t</span> <span style="color: #f8f8f2">netmask;</span>
@@ -1323,7 +1308,7 @@ The following function is an implementation example, and you can use it to achie
 <div class="admonition note">
 <p class="admonition-title">AutoConnectCredential has changed</p>
 <p>It was lost AutoConnectCredential backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not work properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the sketch uploading.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">esptool</span> <span style="color: #f8f8f2">-c</span> <span style="color: #f8f8f2">esp8266</span> <span style="color: #f8f8f2">(or</span> <span style="color: #f8f8f2">esp32)</span> <span style="color: #f8f8f2">-p</span> <span style="color: #66d9ef">[COM_PORT]</span> <span style="color: #f8f8f2">erase_flash</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">esptool</span> <span style="color: #f8f8f2">-c</span> <span style="color: #f8f8f2">esp8266</span> <span style="color: #f8f8f2">(or</span> <span style="color: #f8f8f2">esp32)</span> <span style="color: #f8f8f2">-p</span> <span style="color: #66d9ef">[COM_PORT]</span> <span style="color: #f8f8f2">erase_flash</span>
 </code></pre></div></p>
 </div>
 <div class="footnote">
@@ -1435,8 +1420,8 @@ The following function is an implementation example, and you can use it to achie
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -3068,10 +3068,10 @@
                 
                 <h2 id="autoconnectbutton">AutoConnectButton<a class="headerlink" href="#autoconnectbutton" title="Permanent link">&para;</a></h2>
 <h3 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectButton(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">action</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(),</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">action</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(),</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
     <dd><span class="apidef">action</span><span class="apidesc">Native code of the action script executed when the button is clicked.</span></dd>
@@ -3080,68 +3080,48 @@
 
 <h3 id="public-member-variables"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables" title="Permanent link">&para;</a></h3>
 <h4 id="action"><i class="fa fa-caret-right"></i> action<a class="headerlink" href="#action" title="Permanent link">&para;</a></h4>
-<p>HTML native code of the action script to be executed when the button is clicked. It is mostly used with a JavaScript to activate a script.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>HTML native code of the action script to be executed when the button is clicked. It is mostly used with a JavaScript to activate a script.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="enable"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="name"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="value"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value" title="Permanent link">&para;</a></h4>
-<p>Value of the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Value of the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
 <h4 id="typeof"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Button</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Button</dd></dl></p>
 <h2 id="autoconnectcheckbox">AutoConnectCheckbox<a class="headerlink" href="#autoconnectcheckbox" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_1"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectCheckbox(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosition_t</span> <span style="color: #f8f8f2">labelPosition</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Behind,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectCheckbox(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosition_t</span> <span style="color: #f8f8f2">labelPosition</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Behind,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">A label string prefixed to the checkbox.</span></dd>
@@ -3153,85 +3133,61 @@ Returns type of AutoConnectElement.</p>
 <h3 id="public-member-variables_1"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_1" title="Permanent link">&para;</a></h3>
 <h4 id="checked"><i class="fa fa-caret-right"></i> checked<a class="headerlink" href="#checked" title="Permanent link">&para;</a></h4>
 <p>It indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent by submit.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc"></span>
-</dl>
+<dl class="apidl"><dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc"></span></dl>
 
 <h4 id="enable_1"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_1" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_1"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_1" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="label"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label" title="Permanent link">&para;</a></h4>
-<p>A label is an optional string. A label is always arranged on the right side of the checkbox. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an <code>id</code> attribute. The checkbox and the label are connected by the id attribute.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A label is an optional string. A label is always arranged on the right side of the checkbox. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an <code>id</code> attribute. The checkbox and the label are connected by the id attribute.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="labelposition"><i class="fa fa-caret-right"></i> labelPosition<a class="headerlink" href="#labelposition" title="Permanent link">&para;</a></h4>
-<p>Specifies the position of the label to generate with ACPostion_t enumeration value.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosition_t</span><span class="apidesc">
-
-- **`AC_Infront`** : Place a label in front of the check box.
-- **`AC_Behind`** : Place a label behind the check box.
-</span></dd>
-</dl>
-
+<p>Specifies the position of the label to generate with ACPostion_t enumeration value.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosition_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Infront</code></strong> : Place a label in front of the check box.</li>
+<li><strong><code>AC_Behind</code></strong> : Place a label behind the check box.
+</span></dd></dl></li>
+</ul>
 <h4 id="name_1"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_1" title="Permanent link">&para;</a></h4>
-<p>The element name. </p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post_1"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_1" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="value_1"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_1" title="Permanent link">&para;</a></h4>
-<p>Value of the element. It becomes a value attribute of an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;checkbox&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Value of the element. It becomes a value attribute of an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;checkbox&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_1"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_1" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_1"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_1" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Checkbox</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Checkbox</dd></dl></p>
 <h2 id="autoconnectelement">AutoConnectElement<a class="headerlink" href="#autoconnectelement" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_2"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_2" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
@@ -3239,72 +3195,52 @@ Returns type of AutoConnectElement.</p>
 
 <h3 id="public-member-variables_2"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_2" title="Permanent link">&para;</a></h3>
 <h4 id="enable_2"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_2" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_2"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_2" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="name_2"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_2" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post_2"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_2" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="value_2"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_2" title="Permanent link">&para;</a></h4>
-<p>Value of the element. It is output as HTML as it is as a source for generating HTML code.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Value of the element. It is output as HTML as it is as a source for generating HTML code.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_2"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_2" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_2"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_2" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Element</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Element</dd></dl></p>
 <h4 id="ast"><i class="fa fa-caret-right"></i> as&lt;T><a class="headerlink" href="#ast" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Casts the reference to the AutoConnectElement the specified type.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">T</span><span class="apidesc">The element type. AutoConnectElements type such as [AutoConnectButton](apielements.md#autoconnectbutton), [AutoConnectCheckbox](apielements.md#autoconnectcheckbox), [AutoConnectFile](apielements.md#autoconnectfile), [AutoConnectInput](apielements.md#autoconnectinput), [AutoConnectRadio](apielements.md#autoconnectradio), [AutoConnectSelect](apielements.md#autoconnectselect), [AutoConnectStyle](apielements.md#autoconnectstyle), [AutoConnectSubmit](apielements.md#autoconnectsubmit), [AutoConnectText](apielements.md#autoconnecttext).</span></dd>
-    <dt>**Return value**</dt>
-    <dd>A reference to the AutoConnectElement with actual type.</dd>
-</dl>
-
+<p>Casts the reference to the AutoConnectElement the specified type.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">T</span><span class="apidesc">The element type. AutoConnectElements type such as <a href="apielements.html#autoconnectbutton">AutoConnectButton</a>, <a href="apielements.html#autoconnectcheckbox">AutoConnectCheckbox</a>, <a href="apielements.html#autoconnectfile">AutoConnectFile</a>, <a href="apielements.html#autoconnectinput">AutoConnectInput</a>, <a href="apielements.html#autoconnectradio">AutoConnectRadio</a>, <a href="apielements.html#autoconnectselect">AutoConnectSelect</a>, <a href="apielements.html#autoconnectstyle">AutoConnectStyle</a>, <a href="apielements.html#autoconnectsubmit">AutoConnectSubmit</a>, <a href="apielements.html#autoconnecttext">AutoConnectText</a>.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference to the AutoConnectElement with actual type.</dd></dl></p>
 <h2 id="autoconnectfile">AutoConnectFile<a class="headerlink" href="#autoconnectfile" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_3"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_3" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectFile(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACFile_t</span> <span style="color: #f8f8f2">store</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_File_FS,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectFile(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACFile_t</span> <span style="color: #f8f8f2">store</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_File_FS,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">File name to be upload.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
@@ -3314,94 +3250,67 @@ Casts the reference to the AutoConnectElement the specified type.</p>
 
 <h3 id="public-member-variables_3"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_3" title="Permanent link">&para;</a></h3>
 <h4 id="enable_3"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_3" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_3"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_3" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="label_1"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_1" title="Permanent link">&para;</a></h4>
-<p>A label is an optional string. A label is always arranged on the left side of the file input box. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The file input box and the label are connected by the id attribute.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A label is an optional string. A label is always arranged on the left side of the file input box. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The file input box and the label are connected by the id attribute.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="mimetype"><i class="fa fa-caret-right"></i> mimeType<a class="headerlink" href="#mimetype" title="Permanent link">&para;</a></h4>
-<p>The mime type of the upload file which included as Media type in the http post request. Set by the client (usually the browser) that requested the upload. It is determined by the file type as <code>application/octet-stream</code>, <code>text</code> etc. which is described in <a href="https://www.iana.org/assignments/media-types/media-types.xhtml">IANA Media Type</a>.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The mime type of the upload file which included as Media type in the http post request. Set by the client (usually the browser) that requested the upload. It is determined by the file type as <code>application/octet-stream</code>, <code>text</code> etc. which is described in <a href="https://www.iana.org/assignments/media-types/media-types.xhtml">IANA Media Type</a>.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="name_3"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_3" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post_3"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_3" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="size"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size" title="Permanent link">&para;</a></h4>
-<p>Size of the uploading file.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">size_t</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Size of the uploading file.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">size_t</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="store"><i class="fa fa-caret-right"></i> store<a class="headerlink" href="#store" title="Permanent link">&para;</a></h4>
-<p>Specifies the save destination of the uploaded file. You can use the built-in uploader to save uploaded file to the flash of the ESP8266/ESP32 module or external SD media without writing a dedicated sketch code. It also supports saving to any destination using a custom uploader that inherits from the AutoConnectUploadHandler class.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACFile_t</span><span class="apidesc">
-
-- **`AC_File_FS`** : Save the uploaded file to SPIFFS in the flash.
-- **`AC_File_SD`** : Save the uploaded file to SD.
-- **`AC_File_Extern`** : Save the file using your own upload handler.
-    </span></dd>
-</dl>
-
+<p>Specifies the save destination of the uploaded file. You can use the built-in uploader to save uploaded file to the flash of the ESP8266/ESP32 module or external SD media without writing a dedicated sketch code. It also supports saving to any destination using a custom uploader that inherits from the AutoConnectUploadHandler class.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACFile_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_File_FS</code></strong> : Save the uploaded file to SPIFFS in the flash.</li>
+<li><strong><code>AC_File_SD</code></strong> : Save the uploaded file to SD.</li>
+<li><strong><code>AC_File_Extern</code></strong> : Save the file using your own upload handler.
+    </span></dd></dl></li>
+</ul>
 <h4 id="value_3"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_3" title="Permanent link">&para;</a></h4>
-<p>File name to be upload. The value contains the value entered by the client browser to the <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;file&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag and is read-only.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>File name to be upload. The value contains the value entered by the client browser to the <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;file&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag and is read-only.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_3"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_3" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_3"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_3" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectFile.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
+<p>Returns type of AutoConnectFile.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
     <dd>AC_File</dd>
-</dl>
-
+</dl></p>
 <h2 id="autoconnectinput">AutoConnectInput<a class="headerlink" href="#autoconnectinput" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_4"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_4" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACInput_t</span> <span style="color: #f8f8f2">apply</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Input_Text)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACInput_t</span> <span style="color: #f8f8f2">apply</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Input_Text)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">Value of the element.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
@@ -3413,106 +3322,76 @@ Returns type of AutoConnectFile.</p>
 
 <h3 id="public-member-variables_4"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_4" title="Permanent link">&para;</a></h3>
 <h4 id="enable_4"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_4" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_4"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_4" title="Permanent link">&para;</a></h4>
 <p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
+<dl class="apidl">    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
 <h4 id="label_2"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_2" title="Permanent link">&para;</a></h4>
-<p>A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The input box and the label are connected by the id attribute.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The input box and the label are connected by the id attribute.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="name_4"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_4" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="pattern"><i class="fa fa-caret-right"></i> pattern<a class="headerlink" href="#pattern" title="Permanent link">&para;</a></h4>
-<p>A pattern specifies a regular expression that the input-box's value is checked against on form submission.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A pattern specifies a regular expression that the input-box's value is checked against on form submission.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="placeholder"><i class="fa fa-caret-right"></i> placeholder<a class="headerlink" href="#placeholder" title="Permanent link">&para;</a></h4>
-<p>A placeholder is an option string. Specification of a placeholder will generate a <code>placeholder</code> attribute for the input tag.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A placeholder is an option string. Specification of a placeholder will generate a <code>placeholder</code> attribute for the input tag.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post_4"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_4" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="value_4"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_4" title="Permanent link">&para;</a></h4>
-<p>Value of the element. It becomes a value attribute of an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag. An entered text in the custom Web page will be sent with a query string of the form. The value set before accessing the page is displayed as the initial value.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Value of the element. It becomes a value attribute of an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag. An entered text in the custom Web page will be sent with a query string of the form. The value set before accessing the page is displayed as the initial value.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="apply"><i class="fa fa-caret-right"></i> apply<a class="headerlink" href="#apply" title="Permanent link">&para;</a></h4>
-<p>Specifies the type of input that the text box accepts. AutoConnectInput will generate either a <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code>, <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;password&quot;</span><span style="color: #f8f8f2">&gt;</span></code>, or <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;number&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag based on the <code>apply</code> specifying as input type. The input type can be specified the following values in the <em>ACInput_t</em> enumeration type. <sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACInput_t</span><span class="apidesc">
-
-- **`AC_Input_Text`** : `input type="text"`
-- **`AC_Input_Password`** : `input type="password"`
-- **`AC_Input_Number`** : `input type="number"`
-</span></dd>
-</dl>
-
+<p>Specifies the type of input that the text box accepts. AutoConnectInput will generate either a <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;text&quot;</span><span style="color: #f8f8f2">&gt;</span></code>, <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;password&quot;</span><span style="color: #f8f8f2">&gt;</span></code>, or <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;number&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag based on the <code>apply</code> specifying as input type. The input type can be specified the following values in the <em>ACInput_t</em> enumeration type. <sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup><dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACInput_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Input_Text</code></strong> : <code>input type="text"</code></li>
+<li><strong><code>AC_Input_Password</code></strong> : <code>input type="password"</code></li>
+<li><strong><code>AC_Input_Number</code></strong> : <code>input type="number"</code>
+</span></dd></dl></li>
+</ul>
 <h3 id="public-member-functions_4"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_4" title="Permanent link">&para;</a></h3>
 <h4 id="isvalid"><i class="fa fa-caret-right"></i> isValid<a class="headerlink" href="#isvalid" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Evaluate the pattern as a regexp and return whether value matches. Always return true if the pattern is undefined.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
+<p>Evaluate the pattern as a regexp and return whether value matches. Always return true if the pattern is undefined.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">The value matches a pattern.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">The value does not match a pattern.</span></dd>
-</dl>
-
+    <dd><span class="apidef">false</span><span class="apidesc">The value does not match a pattern.</span></dd></dl></p>
 <h4 id="typeof_4"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_4" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Input</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Input</dd></dl></p>
 <h2 id="autoconnectradio">AutoConnectRadio<a class="headerlink" href="#autoconnectradio" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_5"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_5" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACArrange_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Vertical,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACArrange_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Vertical,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies a [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
+    <dd><span class="apidef">values</span><span class="apidesc">An array of values of the radio buttons. Specifies a <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
     <dd><span class="apidef">order</span><span class="apidesc">The direction to arrange the radio buttons.</span></dd>
     <dd><span class="apidef">checked</span><span class="apidesc">An index to be checked in the radio buttons.</span></dd>
@@ -3521,51 +3400,34 @@ Returns type of AutoConnectElement.</p>
 
 <h3 id="public-member-variables_5"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_5" title="Permanent link">&para;</a></h3>
 <h4 id="checked_1"><i class="fa fa-caret-right"></i> checked<a class="headerlink" href="#checked_1" title="Permanent link">&para;</a></h4>
-<p>Specifies the index number (1-based) of the <strong>values</strong> to be checked. If this parameter is not specified neither item is checked.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Specifies the index number (1-based) of the <strong>values</strong> to be checked. If this parameter is not specified neither item is checked.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="enable_5"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_5" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_5"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_5" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="label_3"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_3" title="Permanent link">&para;</a></h4>
-<p>A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the <a href="#order">order</a>.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the <a href="#order">order</a>.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="name_5"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_5" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="order"><i class="fa fa-caret-right"></i> order<a class="headerlink" href="#order" title="Permanent link">&para;</a></h4>
-<p>Specifies the direction to arrange the radio buttons. A label will place in the left or the top according to the <strong><em>order</em></strong>. It is a value of <strong>ACArrange_t</strong> type and accepts one of the following:</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACArrange_t</span><span class="apidesc">
-
-- **`AC_Horizontal`** : Horizontal arrangement.
-- **`AC_Vertical`** : Vertical arrangement.
-    </span></dd>
-</dl>
-
+<p>Specifies the direction to arrange the radio buttons. A label will place in the left or the top according to the <strong><em>order</em></strong>. It is a value of <strong>ACArrange_t</strong> type and accepts one of the following:<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACArrange_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Horizontal</code></strong> : Horizontal arrangement.</li>
+<li><strong><code>AC_Vertical</code></strong> : Vertical arrangement.
+    </span></dd></dl></li>
+</ul>
 <h4 id="post_5"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_5" title="Permanent link">&para;</a></h4>
 <p>Specifies a tag to add behind the HTML code generated from the element.</p>
 <dl class="apidl">
@@ -3575,91 +3437,66 @@ Returns type of AutoConnectElement.</p>
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
+</span></dd></dl>
 
 <h4 id="values"><i class="fa fa-caret-right"></i> values<a class="headerlink" href="#values" title="Permanent link">&para;</a></h4>
-<p>An array of String type for the radio button options. It is an initialization list can be used. The <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the values.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>An array of String type for the radio button options. It is an initialization list can be used. The <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the values.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_5"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_5" title="Permanent link">&para;</a></h3>
 <h4 id="add"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
 </code></pre></div>
-Adds an option for the radio button.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd>
-</dl>
-
+<p>Adds an option for the radio button.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd></dl></p>
 <h4 id="check"><i class="fa fa-caret-right"></i> check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">check(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">check(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
 </code></pre></div>
-Indicates the check of the specified option for the radio buttons. You can use the <strong>check</strong> function for checking dynamically with arbitrary of the radio button.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">value</span><span class="apidesc">An option string to be checked.</span></dd>
-</dl>
-
+<p>Indicates the check of the specified option for the radio buttons. You can use the <strong>check</strong> function for checking dynamically with arbitrary of the radio button.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">value</span><span class="apidesc">An option string to be checked.</span></dd></dl></p>
 <h4 id="empty"><i class="fa fa-caret-right"></i> empty<a class="headerlink" href="#empty" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Clear the array of option strings that AutoConnectRadio has in the values. When the <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.</p>
-<p>The empty function resets the checked value to zero. When the empty function is executed, any button will be turned off.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd>
-</dl>
-
+<p>Clear the array of option strings that AutoConnectRadio has in the values. When the <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.</p>
+<p>The empty function resets the checked value to zero. When the empty function is executed, any button will be turned off.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd></dl></p>
 <h4 id="operator"><i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;<a class="headerlink" href="#operator" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
 </code></pre></div>
-Returns a value string of the index specified by <strong><em>n</em></strong>.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+<p>Returns a value string of the index specified by <strong><em>n</em></strong>.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">n</span><span class="apidesc">Index of values array to return. Its base number is 0.</span></dd>
-    <dt>**Return value**</dt>
-    <dd>A reference of a value string indexed by the specified the **n**.</dd>
-</dl>
-
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference of a value string indexed by the specified the <strong>n</strong>.</dd></dl></p>
 <h4 id="size_1"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size_1" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns number of options which contained.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>Number of options which contained.</dd>
-</dl>
-
+<p>Returns number of options which contained.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>Number of options which contained.</dd></dl></p>
 <h4 id="typeof_5"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_5" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Radio</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Radio</dd></dl></p>
 <h4 id="value_5"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_5" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code>  <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code>  <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span>
 </code></pre></div>
-Returns current checked option of the radio buttons.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>A String of an option current checked. If there is no checked option, a null string returned.</dd>
-</dl>
-
+<p>Returns current checked option of the radio buttons.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A String of an option current checked. If there is no checked option, a null string returned.</dd></dl></p>
 <h2 id="autoconnectselect">AutoConnectSelect<a class="headerlink" href="#autoconnectselect" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_6"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_6" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">selected</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">selected</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies a [std::vector](https://en.cppreference.com/w/cpp/container/vector) object.</span></dd>
+    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies a <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
     <dd><span class="apidef">selected</span><span class="apidesc">An option should be pre-selected when the page loads.</span></dd>
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
@@ -3667,174 +3504,121 @@ Returns current checked option of the radio buttons.</p>
 
 <h3 id="public-member-variables_6"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_6" title="Permanent link">&para;</a></h3>
 <h4 id="enable_6"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_6" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_6"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_6" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="name_6"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_6" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="label_4"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_4" title="Permanent link">&para;</a></h4>
-<p>A label is an optional string. A label will be arranged in the top of the selection list.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A label is an optional string. A label will be arranged in the top of the selection list.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="options"><i class="fa fa-caret-right"></i> options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h4>
-<p>An array of String type for the selection options. It is an initialization list can be used. The <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">option</span> <span style="color: #a6e22e">value</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the options.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>An array of String type for the selection options. It is an initialization list can be used. The <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">option</span> <span style="color: #a6e22e">value</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the options.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post_6"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_6" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="selected"><i class="fa fa-caret-right"></i> selected<a class="headerlink" href="#selected" title="Permanent link">&para;</a></h4>
-<p>A <code>selected</code> is an optional value. Specifies 1-based index value of an options array that an option should be pre-selected when the page loads.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A <code>selected</code> is an optional value. Specifies 1-based index value of an options array that an option should be pre-selected when the page loads.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_6"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_6" title="Permanent link">&para;</a></h3>
 <h4 id="add_1"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add_1" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">option)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">option)</span>
 </code></pre></div>
-Adds a selectable option string for the selection list.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd>
-</dl>
-
+<p>Adds a selectable option string for the selection list.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd></dl></p>
 <h4 id="empty_1"><i class="fa fa-caret-right"></i> empty<a class="headerlink" href="#empty_1" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Clear the array of options list that AutoConnectSelect has in the options. When the <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.</p>
-<p>The empty function resets the selected value to zero. When the empty function is executed, there are no selected options and the first item is placed at the beginning.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd>
-</dl>
-
+<p>Clear the array of options list that AutoConnectSelect has in the options. When the <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.</p>
+<p>The empty function resets the selected value to zero. When the empty function is executed, there are no selected options and the first item is placed at the beginning.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd></dl></p>
 <h4 id="operator_1"><i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;<a class="headerlink" href="#operator_1" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
 </code></pre></div>
-Returns an option string of the index specified by <strong><em>n</em></strong>.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+<p>Returns an option string of the index specified by <strong><em>n</em></strong>.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">n</span><span class="apidesc">Index of options array to return. Its base number is 0.</span></dd>
-    <dt>**Return value**</dt>
-    <dd>A reference of a option string indexed by the specified the **n**.</dd>
-</dl>
-
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference of a option string indexed by the specified the <strong>n</strong>.</dd></dl></p>
 <h4 id="select"><i class="fa fa-caret-right"></i> select<a class="headerlink" href="#select" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span>  <span style="color: #a6e22e">select</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span>  <span style="color: #a6e22e">select</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value);</span>
 </code></pre></div>
-Selects an option with the value.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">value</span><span class="apidesc">String value that option should be selected in an option array.</span></dd>
-</dl>
-
+<p>Selects an option with the value.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">value</span><span class="apidesc">String value that option should be selected in an option array.</span></dd></dl></p>
 <h4 id="size_2"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size_2" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns number of options which contained.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>Number of options which contained.</dd>
-</dl>
-
+<p>Returns number of options which contained.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>Number of options which contained.</dd></dl></p>
 <h4 id="typeof_6"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_6" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Select</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Select</dd></dl></p>
 <h4 id="value_6"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_6" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span><span style="color: #f8f8f2">;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span><span style="color: #f8f8f2">;</span>
 </code></pre></div>
-Returns current selected option of the select list.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>A String of an option current selected. If there is no select option, a null string returned.</dd>
-</dl>
-
+<p>Returns current selected option of the select list.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A String of an option current selected. If there is no select option, a null string returned.</dd></dl></p>
 <h2 id="autoconnectstyle">AutoConnectStyle<a class="headerlink" href="#autoconnectstyle" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_7"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_7" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectStyle(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectStyle(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">Raw CSS code to insert into a style block in a custom web page to generate.</span></dd>
 </dl>
 
 <h3 id="public-member-variables_7"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_7" title="Permanent link">&para;</a></h3>
 <h4 id="enable_7"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_7" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="name_7"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_7" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="value_7"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_7" title="Permanent link">&para;</a></h4>
-<p>Raw CSS code to insert into a style block in a custom web page to generate. </p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Raw CSS code to insert into a style block in a custom web page to generate.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_7"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_7" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_7"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_7" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Style</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Style</dd></dl></p>
 <h2 id="autoconnectsubmit">AutoConnectSubmit<a class="headerlink" href="#autoconnectsubmit" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_8"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_8" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectSubmit(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">uri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectSubmit(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">uri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">The name of the submit button as an HTML `#!html <input type="button">` tag, it will also be the label of the button.</span></dd>
     <dd><span class="apidef">uri</span><span class="apidesc">Destination URI.</span></dd>
@@ -3843,68 +3627,47 @@ Returns type of AutoConnectElement.</p>
 
 <h3 id="public-member-variables_8"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_8" title="Permanent link">&para;</a></h3>
 <h4 id="enable_8"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_8" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_7"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_7" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="name_8"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_8" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post_7"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_7" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="uri"><i class="fa fa-caret-right"></i> uri<a class="headerlink" href="#uri" title="Permanent link">&para;</a></h4>
-<p>Destination URI.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>Destination URI.<dl class="apidl">    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="value_8"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_8" title="Permanent link">&para;</a></h4>
-<p>The name of the submit button. It will also be the label of the button.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The name of the submit button. It will also be the label of the button.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_8"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_8" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_8"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_8" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Submit</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Submit</dd></dl></p>
 <h2 id="autoconnecttext">AutoConnectText<a class="headerlink" href="#autoconnecttext" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_9"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_9" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectText(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">format</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectText(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">format</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">String of content for the text element.</span></dd>
     <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the text.</span></dd>
@@ -3914,69 +3677,46 @@ Returns type of AutoConnectElement.</p>
 
 <h3 id="public-member-variables_9"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_9" title="Permanent link">&para;</a></h3>
 <h4 id="enable_9"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_9" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd>
-</dl>
-
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="format"><i class="fa fa-caret-right"></i> format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h4>
-<p>The conversion format when outputting values. The format string conforms to C-style printf library functions.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The conversion format when outputting values. The format string conforms to C-style printf library functions.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="global_8"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_8" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd>
-</dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="name_9"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_9" title="Permanent link">&para;</a></h4>
-<p>The element name.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="post_8"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_8" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-</span></dd>
-</dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="style"><i class="fa fa-caret-right"></i> style<a class="headerlink" href="#style" title="Permanent link">&para;</a></h4>
-<p>A style code with CSS format that qualifiers the text.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A style code with CSS format that qualifiers the text.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="value_9"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_9" title="Permanent link">&para;</a></h4>
-<p>A content string of the text element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd>
-</dl>
-
+<p>A content string of the text element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_9"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_9" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_9"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_9" title="Permanent link">&para;</a></h4>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns type of AutoConnectElement.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>AC_Text</dd>
-</dl>
-
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Text</dd></dl></p>
 <div class="footnote">
 <hr />
 <ol>
@@ -4077,8 +3817,8 @@ Returns type of AutoConnectElement.</p>
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

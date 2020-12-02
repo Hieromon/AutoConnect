@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -362,7 +362,7 @@
       
         <li class="md-nav__item">
   <a href="#launch-the-captive-portal-on-demand-at-losing-wifi" class="md-nav__link">
-    Launch the captive portal on demand at losing WiFi
+    Launch the captive portal on-demand at losing WiFi
   </a>
   
 </li>
@@ -385,6 +385,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
   </li>
 
         
@@ -419,19 +431,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -936,7 +936,7 @@
       
         <li class="md-nav__item">
   <a href="#launch-the-captive-portal-on-demand-at-losing-wifi" class="md-nav__link">
-    Launch the captive portal on demand at losing WiFi
+    Launch the captive portal on-demand at losing WiFi
   </a>
   
 </li>
@@ -970,21 +970,21 @@
                 
                   <h1>Captive portal control</h1>
                 
-                <p>The default behavior of AutoConnect is to launch the captive portal if 1<sup>st</sup>-WiFi.begin attempting inside <a href="api.html#begin">AutoConnect::begin</a> fails. You can change this default behavior through the <a href="apiconfig.html">AutoConnectConfig</a> configuration settings mixture some processes of the Sketch.</p>
+                <p>The default behavior of AutoConnect is to launch the captive portal if 1<sup>st</sup>-WiFi.begin attempting inside <a href="api.html#begin">AutoConnect::begin</a> fails. You can change this default behavior through the <a href="apiconfig.html">AutoConnectConfig</a> settings join together with Sketch code that implements to control the WiFi connection attempting.</p>
 <ul>
 <li><a href="#captive-portal-start-control">Captive portal start control</a></li>
 <li><a href="#captive-portal-start-detection">Captive portal start detection</a></li>
 <li><a href="#captive-portal-timeout-control">Captive portal timeout control</a></li>
 <li><a href="#disable-the-captive-portal">Disable the captive portal</a></li>
 <li><a href="#launch-the-captive-portal-on-demand-by-external-trigger">Launch the captive portal on demand by external trigger</a></li>
-<li><a href="#launch-the-captive-portal-on-demand-at-losing-wifi">Launch the captive portal on demand at losing WiFi</a></li>
+<li><a href="#launch-the-captive-portal-on-demand-at-losing-wifi">Launch the captive portal on-demand at losing WiFi</a></li>
 <li><a href="#shutdown-the-captive-portal">Shutdown the captive portal</a></li>
 <li><a href="#sketch-execution-during-the-captive-portal-loop">Sketch execution during the captive portal loop</a></li>
 </ul>
 <h2 id="captive-portal-start-control">Captive portal start control<a class="headerlink" href="#captive-portal-start-control" title="Permanent link">&para;</a></h2>
-<p>AutoConnect will launch the captive portal based on the <a href="apiconfig.html">AutoConnectConfig</a> settings when the WiFi connection status will become to certain conditions. The settings involved in launching the captive portal that can be configured with <a href="apiconfig.html">AutoConnectConfig</a> are <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> and <a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a>. Also, the <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> controls the continuity of the captive portal, while it may also dynamically launch the captive portal from inside a <a href="api.html#handleclient"><strong>handleClient</strong></a> loop.</p>
+<p>AutoConnect will launch the captive portal based on the <a href="apiconfig.html">AutoConnectConfig</a> settings when the WiFi connection status will become to certain conditions. <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> and <a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a> are concern the conditions to launch the captive portal. Also, the <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> controls the continuity of the captive portal state and allows the Sketch to launch the captive portal dynamically even while in a <a href="api.html#handleclient"><strong>handleClient</strong></a> loop.</p>
 <p>The <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> allows or disallows the launch of the captive portal. AutoConnect launches the captive portal only if the autoRise is <strong>true</strong>. If the autoRise is <strong>false</strong>, the captive portal will not start even if the WiFi connection is lost.</p>
-<p>Basically, the captive portal launch is subject to the result of 1<sup>st</sup>-WiFi.begin, but Sketch can control it. The Sketch can direct the following four actions by configuring AutoConnect with two parameters, the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> and the <a href="apiconfig.html#autorise"><strong>autoRise</strong></a>.</p>
+<p>Basically, the captive portal initiation is triggered by the result of 1<sup>st</sup>-WiFi.begin, but Sketch can control it according to direct the following four actions by configuring AutoConnectConfig with two parameters, the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> and the <a href="apiconfig.html#autorise"><strong>autoRise</strong></a>.</p>
 <table>
   <tr>
     <th rowspan="2" align="center">AutoConnectConfig<br>::immediateStart</th>
@@ -1006,11 +1006,11 @@
   </tr>
 </table>
 
-<p>The <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> specifies the continuity of the captive portal after <a href="api.html#begin">AutoConnect::begin</a> and allows the captive portal would be launched after the Sketch execution has transitioned into the <strong>loop</strong> function. When AutoConnect establishes a WiFi connection while the captive portal with <a href="api.html#begin">AutoConnect::begin</a>, it stops the DNS server to close the captive portal leaving SoftAP is running. In this situation, if the Sketch loses the established WiFi connection while executing the loop function, it can reopen the captive portal.</p>
-<p>However, this behavior can be redundant depending on the Sketch characteristics. In such a case, you can prevent to start captive portal during the <code>loop()</code> by setting <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> to <strong>false</strong>.</p>
+<p>The <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> specifies the continuity of the captive portal after <a href="api.html#begin">AutoConnect::begin</a>, allowing the captive portal would be launched after the Sketch execution has transitioned into the <strong>loop</strong> function. When AutoConnect establishes a WiFi connection while in the captive portal within <a href="api.html#begin">AutoConnect::begin</a>, it stops the DNS server to close the captive portal with SoftAP still running. In this situation, if the Sketch loses the established WiFi connection while executing the loop function, it can reopen the captive portal.</p>
+<p>However, this behavior can be redundant depending on the Sketch characteristics. In such a case, you can prevent to starting the captive portal during the <code>loop()</code> by <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> setting to <strong>false</strong>.</p>
 <h2 id="captive-portal-start-detection">Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h2>
 <p>The captive portal will only be activated if 1<sup>st</sup>-WiFi::begin fails. Sketch can detect with the <a href="api.html#ondetect">AutoConnect::onDetect</a> function that the captive portal has started. For example, the Sketch can be written like as follows that turns on the LED at the start captive portal.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 
 <span style="background-color: #49483e"><span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">startCP</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ip)</span> <span style="color: #f8f8f2">{</span>
 </span>  <span style="color: #f8f8f2">digitalWrite(BUILTIN_LED,</span> <span style="color: #f8f8f2">HIGH);</span>
@@ -1033,11 +1033,10 @@
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <h2 id="captive-portal-timeout-control">Captive portal timeout control<a class="headerlink" href="#captive-portal-timeout-control" title="Permanent link">&para;</a></h2>
-<p>Once AutoConnect has entered the captive portal state due to the above conditions, it will not exit until a WiFi connection can be established. (But that is the default behavior)</p>
-<p>The Sketch can abort the <a href="api.html#begin">AutoConnect::begin</a> by setting the captive portal timeout and returns control to Sketch. AutoConnect has two parameters for timeout control. One is a timeout value used when trying to connect to the specified AP. It behaves the same as general timeout control in connection attempt by WiFi.begin. This control is specified by the third parameter of <a href="api.html#begin">AutoConnect::begin</a>. The default value is macro defined by <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L103"><strong>AUTOCONNECT_TIMEOUT</strong></a> in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> header file.</p>
-<p>The other timeout control is for the captive portal itself. It is useful when you want to continue sketch execution with offline even if the WiFi connection is not possible. You can also combine it with the <a href="#launch-the-captive-portal-on-demand-by-external-trigger"><strong>immediateStart</strong></a> option to create sketches with high mobility.</p>
-<p>The timeout of the captive portal is specified together with <a href="apiconfig.html#portaltimeout"><em>AutoConnectConfig::portalTimeout</em></a> as follows.</p>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<p>Once AutoConnect has entered the captive portal state due to the above conditions, the default behavior is that <a href="api.html#begin">AutoConnect::begin</a> will not exit until a WiFi connection is established. Captive portal timeout control prevents AutoConnect from blocking the Sketch progress. The Sketch can abort AutoConnect::begin and returns control to the Sketch. </p>
+<p>AutoConnect has two parameters for timeout control. The first is the timeout value used when trying to connect to the specified AP. It works like a typical timeout control for connection attempts with WiFi.begin. This setting is specified by the <a href="apiconfig.html#begintimeout"><em>AutoConnectConfig::beginTimeout</em></a> or third argument of the <a href="api.html#begin">AutoConnect::begin</a> function. The default value is the macro defined by <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L103"><strong>AUTOCONNECT_TIMEOUT</strong></a> in the <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> header file.</p>
+<p>Another timeout control is for the captive portal itself. It is useful if you want to keep the Sketch offline running even if a WiFi connection is not possible. You can also combine its setting with the <a href="#launch-the-captive-portal-on-demand-by-external-trigger"><strong>immediateStart</strong></a> option to create highly mobile sketches. The timeout of the captive portal is specified by the <a href="apiconfig.html#portaltimeout"><em>AutoConnectConfig::portalTimeout</em></a> as follows.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1060,8 +1059,8 @@
   <span style="color: #f8f8f2">portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-Also, if you want to stop AutoConnect completely when the captive portal is timed out, you need to call the <a href="api.html#end">AutoConnect::end</a> function. It looks like the following code:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">acEnable;</span>
+<p>Also, if you want to stop AutoConnect completely when the captive portal is timed out, you need to call the <a href="api.html#end">AutoConnect::end</a> function. It looks like the following code:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">acEnable;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// It will time out in 60 seconds</span>
@@ -1084,8 +1083,9 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<p>There is another option related to timeout in AutoConnectConfig. It can make use of the captive portal function even after a timeout. The <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> option will not stop the SoftAP when the captive portal is timed out. If you enable the ratainPortal option, you can try to connect to the AP at any time while continuing to sketch execution with offline even after the captive portal timed-out. Compared to the above code specified no option with the following example code, the captive portal will remain available even after a timeout without changing the logic of the Sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<p>AutoConnectConfig has another option related to timeouts that you can enable to take advantage of the captive portal feature after a timeout occurrence. The <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> option will not shut down SoftAP and the internal DNS server even though <a href="api.html#begin">AutoConnect::begin</a> has aborted due to a timeout occurrence. Even after the captive portal times out, you can always try to connect to the AP while keeping the Sketch running offline.</p>
+<p>The following sample code is the Sketch above with the <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> setting added. As you can see, the implementation for captive portal continuation does not affect the main logic of the Sketch.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1112,7 +1112,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <h2 id="disable-the-captive-portal">Disable the captive portal<a class="headerlink" href="#disable-the-captive-portal" title="Permanent link">&para;</a></h2>
 <p>It can also prevent the captive portal from starting even if the connection at the 1<sup>st</sup>-WiFi.begin fails. In this case, <a href="api.html#begin">AutoConnect::begin</a> behaves same as <em>WiFi.begin</em>.</p>
 <p>For disabling the captive portal, <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> sets to false with <a href="apiconfig.html">AutoConnectConfig</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">acConfig;</span>
 
 <span style="background-color: #49483e"><span style="color: #f8f8f2">acConfig.autoRise</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
@@ -1128,7 +1128,7 @@ Also, if you want to stop AutoConnect completely when the captive portal is time
 <p>You can use this template if the ESP module does not connect to WiFi at an ordinal situation and need to establish by a manual trigger. In this case, it is desirable that AutoConnect not start until an external switch fires. This behavior is similar to the <a href="https://github.com/tzapu/WiFiManager#on-demand-configuration-portal">WiFiManager's startConfigPortal</a> function.<br />
 <a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a> is an option to launch the portal by the SoftAP immediately without attempting 1<sup>st</sup>-WiFi.begin. Also, by setting the <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> option to false, it is possible to suppress unintended automatic pop-ups of the portal screen when connecting to an ESP module SSID.<br />
 To implement this, execute AutoConnect::config within the <strong>setup()</strong> function as usual, and handle AutoConnect::begin inside the <strong>loop()</strong> function.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define TRIGGER_PIN 5     // Trigger switch should be LOW active.</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define TRIGGER_PIN 5     // Trigger switch should be LOW active.</span>
 <span style="color: #75715e">#define HOLD_TIMER  3000</span>
 
 <span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
@@ -1170,7 +1170,7 @@ To implement this, execute AutoConnect::config within the <strong>setup()</stron
 <p>Register new access points on demand</p>
 <p>The following template is useful for controlling the registration of unknown access points. In this case, the ESP module establishes a WiFi connection using WiFi.begin natively without relying on AutoConnect.<br />
 Known access point credentials are saved by AutoConnect, to the ESP module can use the saved credentials to handle WiFi.begin natively. This means that you can explicitly register available access points when needed, and the ESP module will not use unknown access points under normal situations.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">portal</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">portal</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
 
 <span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">detectSwitch</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #75715e">/*</span>
@@ -1222,11 +1222,11 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 </code></pre></div>
 </li>
 </ol>
-<h2 id="launch-the-captive-portal-on-demand-at-losing-wifi">Launch the captive portal on demand at losing WiFi<a class="headerlink" href="#launch-the-captive-portal-on-demand-at-losing-wifi" title="Permanent link">&para;</a></h2>
+<h2 id="launch-the-captive-portal-on-demand-at-losing-wifi">Launch the captive portal on-demand at losing WiFi<a class="headerlink" href="#launch-the-captive-portal-on-demand-at-losing-wifi" title="Permanent link">&para;</a></h2>
 <p>If the ESP module loses the established WiFi connection during the loop of <a href="api.html#handleclient"><strong>handleClient</strong></a>, you can prevent the ESP module from going absolutely standalone by launching the captive portal on demand.</p>
 <p>When <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> and <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> settings are enabled, AutoConnect will launch SoftAP and start DNS when it detects a WiFi disconnect with the router during a handleClient loop. This behavior will occur caused by a WiFi disconnect detection even if the WiFi mode is STA.</p>
 <p><strong>Since AutoConnect v1.2.0</strong>, An improved <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> option allows the captive portal to be restarted during a handleClient loop even if it is closed once in <a href="api.html#begin">AutoConnect::begin</a>. In this case, the Sketch execution stage has already transitioned into the loop function, so the Sketch process seems running concurrently with the captive portal loop. Its captive portal launched from inside handleClient does not block the execution of the Sketch, unlike that launched from <a href="api.html#begin">AutoConnect::begin</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1246,7 +1246,7 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 </div>
 <p>Although the Sketch above specifies the <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a>, it does not instruct starts the captive portal always. AutoConnect will try WiFi.begin once in <a href="api.html#begin">AutoConnect::begin</a> unless the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> option is specified. If AutoConnect fails the 1<sup>st</sup>-WiFi.begin, the captive portal will be launched at that point and the Sketch execution will stay within the <a href="api.html#begin">AutoConnect::begin</a> function.</p>
 <p>There is also a way to avoid starting the captive portal inside <a href="api.html#begin">AutoConnect::begin</a> and start the captive portal according to the WiFi connection status after the Sketch execution transitions to a <strong>handleClient loop</strong>. Adjusting the timing of <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> activation will allow the captive portal to start only from inside <a href="api.html#handleclient">AutoConnect::handleClient</a> function.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1264,7 +1264,7 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 </code></pre></div>
 <p>The <a href="apiconfig.html#retainportal"><em>retainPortal</em></a> option will keep SoftAP even if WiFi has established a connection as a client with the router.  Since it has the effect of stopping the DNS server, the phenomenon that the portal screen will not pop up automatically even though SoftAP is in action occur.<br>
 This is a legacy behavior to ensure backward compatibility with up to AutoConnect v1.1.7. To stop SoftAP on escape from the on-demand captive portal, you need to explicitly call <strong><a href="https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html#softapdisconnect"><code>WiFi.softAPdisconnect(true)</code></a></strong> and <strong><a href="https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/generic-class.html?highlight=enableAP#other-function-calls"><code>WiFi.enableAP(false)</code></a></strong> in the Sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">bool</span>  <span style="color: #f8f8f2">Connected;</span>
@@ -1316,7 +1316,7 @@ But there is a reason why. Even if AutoConnect could establish a connection usin
 </ol>
 <p>Because, for the above reasons, we can not promptly shut down the SoftAP. (However, DNS will stop)</p>
 <p>So, If you want to stop SoftAP after connecting to the access point using the captive portal, you need to implement the shutdown process with Sketch explicitly. A template of the basic sketch that can stop the SoftAP after the connection is the following:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Portal.begin())</span> <span style="color: #f8f8f2">{</span>
@@ -1340,7 +1340,7 @@ You can expect to receive result notifications if you run <a href="api.html#hand
 <p>With <a href="api.html#begin">AutoConnect::begin</a>, once the captive portal is started without being able to connect to a known WiFi access point, control will not return to sketch until the WiFi connection is established or times out. This behavior helps to pin the ESP module's network participation as a WiFi client (that is, AutoConnect::begin is an alternative to WiFi.begin) but it can not rush into the loop function of the Sketch. Therefore, while the ESP module is in the captive portal state and waiting for a connection operation to the access point, the behavior of the Sketch will be restrained by the <a href="lsbegin.html">escape conditions from AutoConnect::begin</a>.</p>
 <p>The <strong>whileCaptivePortal exit</strong> allows the Sketch to continue the process temporarily while the ESP module remains standalone and the captive portal is open. <a href="api.html#whilecaptiveportal">AutConnect::whileCaptivePortal</a> function registers the user's sketch function to be called by <a href="api.html#begin">AutoConnect::begin</a> or <a href="api.html#handleclient">AutoConnect::handleClient</a> during the execution of the captive portal session loop.</p>
 <p>The whileCaptivePortal exit can be registered by following: </p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 
 <span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">whileCP</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">bool</span>  <span style="color: #f8f8f2">rc;</span>
@@ -1391,13 +1391,13 @@ You can expect to receive result notifications if you run <a href="api.html#hand
           </a>
         
         
-          <a href="adauthentication.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="adnetwork.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Authentication settings
+                Settings and controls for network and WiFi
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -1450,8 +1450,8 @@ You can expect to receive result notifications if you run <a href="api.html#hand
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

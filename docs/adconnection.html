@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -394,6 +394,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -419,19 +431,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -970,7 +970,7 @@
                 
                   <h1>AutoConnect WiFi connection control</h1>
                 
-                <p>AutoConnect aims to connect the ESP module as a station to a WiFi access point. It is equipped with various APIs to keep a WiFi connection as possible while sketch running. The main APIs for maintaining a WiFi connection are <a href="api.html#begin">AutoConnect::begin</a> and <a href="api.html#handleclient">AutoConnect::handleClient</a>. You can make sketches with flexible WiFi connection capability by properly using these two APIs and the settings by <a href="apiconfig.html">AutoConnectConfig</a>.</p>
+                <p>AutoConnect aims to connect the ESP module as a station to a WiFi access point and equips with various APIs to maintain a WiFi connection as possible while sketch running. The main APIs are <a href="api.html#begin">AutoConnect::begin</a> and <a href="api.html#handleclient">AutoConnect::handleClient</a>. You can make sketches with flexible WiFi connection capability by properly using these two APIs and the settings by <a href="apiconfig.html">AutoConnectConfig</a>.</p>
 <ul>
 <li><a href="#automatic-reconnect">Automatic reconnect</a></li>
 <li><a href="#automatic-reconnect-background">Automatic reconnect (Background)</a></li>
@@ -982,10 +982,10 @@
 <li><a href="#timeout-settings-for-a-connection-attempt">Timeout settings for a connection attempt</a></li>
 </ul>
 <h2 id="automatic-reconnect">Automatic reconnect<a class="headerlink" href="#automatic-reconnect" title="Permanent link">&para;</a></h2>
-<p>AutoConnect will change the WiFi mode depending on the situation. The <a href="lsbegin.html">AutoConnect::begin</a> function starts WiFi mode in <strong>STA</strong> and starts the webserver if the connection is successful by the 1<sup>st</sup>-WiFi.begin. But if it will fail to connect with the least recently established access point, it will switch the WiFi mode to <strong>AP_STA</strong> and starts the DNS server to be able to launch a captive portal.</p>
+<p>AutoConnect will change the WiFi mode depending on the situation. The <a href="lsbegin.html">AutoConnect::begin</a> function starts WiFi mode in <strong>STA</strong> and starts the webserver if the connection is successful by the <a href="lsbegin.html"><strong>1<sup>st</sup>-WiFi.begin</strong></a>. But if it will fail to connect with the least recently established access point, it will switch the WiFi mode to <strong>AP_STA</strong> and starts the DNS server to be able to launch a captive portal.</p>
 <p>When the captive portal starts, <strong>SoftAP</strong> starts and STA disconnected. At this point, the station configuration information (it is known as the SDK's <a href="https://github.com/esp8266/Arduino/blob/db75d2c448bfccc6dc308bdeb9fbd3efca7927ff/tools/sdk/include/user_interface.h#L249">station_config</a> structure) that the ESP module has stored on its own is discarded.</p>
 <p>AutoConnect can connect to an access point again that has disconnected once, and its control is allowed by <a href="apiconfig.html#autoreconnect"><em>AutoConnectConfig::autoReconnect</em></a> that option specifies to attempt to reconnect to the past established access point using the saved credentials. If the <a href="apiconfig.html#autoreconnect"><strong>autoReconnect</strong></a> is enabled, AutoConnect will not launch SoftAP immediately even if 1<sup>st</sup>-WiFi.begin fails. When AutoConnect fails to connect WiFi, it will scan the WiFi signal to find out which access points it had connected to in the past. Then if it finds the saved BSSID in the broadcasts, AutoConnect will attempt to connect again applying the matched credential explicitly while still in STA mode. (AutoReconnect works well even with hidden SSID access points)</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">Config.autoReconnect</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
 </span><span style="color: #f8f8f2">Portal.config(Config);</span>
@@ -999,7 +999,7 @@
 <h2 id="automatic-reconnect-background">Automatic reconnect (Background)<a class="headerlink" href="#automatic-reconnect-background" title="Permanent link">&para;</a></h2>
 <p>Combining <a href="advancedusage.html#automatic-reconnect"><strong>autoReconnect</strong></a> with <a href="apiconfig.html#reconnectinterval"><em>AutoConnectConfig::reconnectInterval</em></a> allows you to periodically repeat connection attempts to known access points within <a href="api.html#handleclient">AutoConnect::handleClient</a>. This process is pseudo-asynchronous and does not block the Sketch process in the <code>loop()</code> function.</p>
 <p>The reconnectInterval specifies the interval time to seek for known access points with saved credentials during the <strong>handleClient</strong> loop and attempt to connect to the AP.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1027,7 +1027,7 @@
 The other one, the case of the Sketch specifies SSID and password with <a href="api.html#begin">AutoConnect::begin</a>, the <a href="apiconfig.html#autoreconnect">autoReconnect</a> will try to reconnect to a specified access point periodically during the handleClient loop.</p>
 </div>
 <p>Also, you can combine the background automatic reconnect performing inside the loop function by <a href="api.html#handleclient">handleClient</a> with <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> and <a href="apiconfig.html#autoreset"><em>AutoConnectConfig::autoReset</em></a>, to enable pop up the captive portal automatically on the client device each time the ESP module disconnects from the access point.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1105,10 +1105,10 @@ Combining these two parameters allows you to filter the destination AP when mult
 <h2 id="detects-connection-establishment-to-ap">Detects connection establishment to AP<a class="headerlink" href="#detects-connection-establishment-to-ap" title="Permanent link">&para;</a></h2>
 <p>The Sketch can detect that the ESP module has established a WiFi connection as a station to the access point. The <a href="api.html#begin">AutoConnect::begin</a> or <a href="api.html#handleclient">AutoConnect::handleClient</a> will transit the control temporarily to the function in the Sketch registered by <a href="api.html#onconnect">AutoConnect::onConnect</a> when the ESP module establish a WiFi connection.<br />
 The <strong>ConnectExit</strong> function registered with <a href="api.html#onconnect">AutoConnect::onConnect</a> should have the following types and arguments:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">ConnectExit(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ip)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">ConnectExit(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ip)</span>
 </code></pre></div>
 <p>The <strong>ConnectExit</strong> function is of type <em>void</em>. The argument <em>ip</em> is the IP address assigned to the ESP module by the connected AP. <a href="api.html#onconnect">AutoConnect::onConnect</a> allows the Sketch registers a <strong>ConnectExit</strong> function to AutoConnect. Also, you can make the function using a <a href="https://en.cppreference.com/w/cpp/language/lambda"><strong>lambda expression</strong></a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 
 <span style="background-color: #49483e"><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">onConnect</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ipaddr)</span> <span style="color: #f8f8f2">{</span>
 </span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Serial.print(</span><span style="color: #e6db74">&quot;WiFi connected with &quot;</span><span style="color: #f8f8f2">);</span>
@@ -1128,7 +1128,7 @@ The <strong>ConnectExit</strong> function registered with <a href="api.html#onco
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>In addition, a sketch that shuts down SoftAP when the ESP module connects to the access point can be described using a lambda expression as follows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
@@ -1154,10 +1154,10 @@ The <strong>ConnectExit</strong> function registered with <a href="api.html#onco
 <h2 id="match-with-known-access-points-by-ssid">Match with known access points by SSID<a class="headerlink" href="#match-with-known-access-points-by-ssid" title="Permanent link">&para;</a></h2>
 <p>By default, AutoConnect uses the <strong>BSSID</strong> to search for known access points. (Usually, it's the MAC address of the device) By using BSSID as the key to finding the WiFi network, AutoConnect can find even if the access point is hidden. However BSSIDs can change on some mobile hotspots, the BSSID-keyed searches may not be able to find known access points.<br />
 If you operate inconvenience in aiming at the access point by BSSID, you can change the collation key from BSSID to SSID by uncommenting <code>AUTOCONNECT_APKEY_SSID</code> macro definition in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L59"><code>AutoConnectDefs.h</code></a> library source code.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_APKEY_SSID</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_APKEY_SSID</span>
 </code></pre></div>
 <p>Allow you to use <a href="https://platformio.org/platformio-ide">PlatformIO</a> as a build system and give the following description to the <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html?highlight=build_flags#build-flags"><code>platformio.ini</code></a>, you can enable <strong>AUTOCONNECT_APKEY_SSID</strong> each build without modifying the library source code:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #a6e22e">build_flags</span><span style="color: #f92672">=</span><span style="color: #e6db74">-DAUTOCONNECT_APKEY_SSID</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #a6e22e">build_flags</span><span style="color: #f92672">=</span><span style="color: #e6db74">-DAUTOCONNECT_APKEY_SSID</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Can't be found hidden APs in SSID-keyed</p>
@@ -1172,7 +1172,7 @@ If you operate inconvenience in aiming at the access point by BSSID, you can cha
 <h2 id="timeout-settings-for-a-connection-attempt">Timeout settings for a connection attempt<a class="headerlink" href="#timeout-settings-for-a-connection-attempt" title="Permanent link">&para;</a></h2>
 <p>AutoConnect uses <a href="apiconfig.html#begintimeout"><em>AutoConnectConfig::beginTimeout</em></a> value to limit time to attempt when connecting the ESP module to the access point as a WiFi station. The default value is <strong>AUTOCONNECT_TIMEOUT</strong> defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132"><code>AutoConnectDefs.h</code></a> and the initial value is 30 seconds. (actually specified in milliseconds)<br />
 For example, the following sketch sets the connection timeout to 15 seconds:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1282,8 +1282,8 @@ For example, the following sketch sets the connection timeout to 15 seconds:</p>
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

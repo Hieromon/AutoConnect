@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -915,7 +915,7 @@
 <li>Invoke <a href="api.html#begin">AutoConnect::begin()</a>.</li>
 </ol>
 <p>In addition to the above procedure, to completely cut off for binding with the ArduinoJson library, turn off the ArduinoJson use indicator which is declared by the <a href="api.html#defined-macros">AutoConnect definitions</a>. Its declaration is in <strong>AutoConnectDefs.h</strong> file.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">// Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.</span>
 <span style="color: #75715e">#define AUTOCONNECT_USE_JSON</span>
 </code></pre></div>
 <div class="admonition caution">
@@ -929,7 +929,7 @@
 <h2 id="implementation-example-without-arduinojson">Implementation example without ArduinoJson<a class="headerlink" href="#implementation-example-without-arduinojson" title="Permanent link">&para;</a></h2>
 <p>The code excluding JSON processing from the mqttRSSI sketch attached to the library is as follows. <small>(It is a part of code. Refer to mqttRSSI_NA.ino for the whole sketch.)</small></p>
 <p><i class="fab fa-js-square"></i> The JSON document for mqttRSSI</p>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">[</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
     <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;MQTT Setting&quot;</span><span style="color: #f8f8f2">,</span>
     <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/mqtt_setting&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1047,7 +1047,7 @@
 <span style="color: #f8f8f2">]</span>
 </code></pre></div>
 <span style="margin-right:6px;margin-top:2px;"><img align="middle" width="32" height="32" src="images/arrow_down.png"></span><i class="fa fa-code"></i> Exclude the JSON and replace to the AutoConnectElements natively</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">// In the declaration,</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">// In the declaration,</span>
 <span style="color: #75715e">// Declare AutoConnectElements for the page asf /mqtt_setting</span>
 <span style="color: #f8f8f2">ACText(header,</span> <span style="color: #e6db74">&quot;&lt;h2&gt;MQTT broker settings&lt;/h2&gt;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text-align:center;color:#2f4f4f;padding:10px;&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">ACText(caption,</span> <span style="color: #e6db74">&quot;Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;font-family:serif;color:#4682b4;&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1194,8 +1194,8 @@
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -1274,11 +1274,11 @@
                 
                 <h2 id="include-headers"><i class="fa fa-code"></i> Include headers<a class="headerlink" href="#include-headers" title="Permanent link">&para;</a></h2>
 <h3 id="autoconnecth">AutoConnect.h<a class="headerlink" href="#autoconnecth" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 </code></pre></div>
 <h2 id="defined-macros"><i class="fa fa-code"></i> Defined macros<a class="headerlink" href="#defined-macros" title="Permanent link">&para;</a></h2>
 <p>They contain in <code>AutoConnectDefs.h</code>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AC_USE_SPIFFS                           // Use SPIFFS for the file system on the onboard flash, assumes LittleFS if not defined.</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AC_USE_SPIFFS                           // Use SPIFFS for the file system on the onboard flash, assumes LittleFS if not defined.</span>
 <span style="color: #75715e">#define AC_DEBUG                                // Monitor message output activation</span>
 <span style="color: #75715e">#define AC_DEBUG_PORT           Serial          // Default message output device</span>
 <span style="color: #75715e">#define AUTOCONNECT_AP_IP       0x011CD9AC      // Default SoftAP IP</span>
@@ -1304,156 +1304,159 @@
 </div>
 <h2 id="constructors"><i class="fa fa-code"></i> Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h2>
 <h3 id="autoconnect">AutoConnect<a class="headerlink" href="#autoconnect" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect()</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect()</span>
 </code></pre></div>
 <p><a id="withparameter"></a></p>
 <p>AutoConnect default constructor. This entry internally allocates the ESP8266WebServer for ESP8266 or WebServer for ESP32 and is activated internally.</p>
 <ul>
 <li>For ESP8266</li>
 </ul>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect(ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect(ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
 </code></pre></div>
 <ul>
 <li>For ESP32</li>
 </ul>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect(WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect(WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
 </code></pre></div>
 <p>Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.</p>
-<p>The <a href="api.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the Sketch can obtain that reference with the <a href="api.html#host"><strong>host</strong></a> function.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd>
-</dl>
-
+<p>The <a href="api.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the Sketch can obtain that reference with the <a href="api.html#host"><strong>host</strong></a> function.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd></dl></p>
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
 <h3 id="append"><i class="fa fa-caret-right"></i> append<a class="headerlink" href="#append" title="Permanent link">&para;</a></h3>
 <ul>
 <li>ESP8266/ESP32 Common</li>
 </ul>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title)</span>
 </code></pre></div>
 <ul>
 <li>For ESP8266</li>
 </ul>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title,</span> <span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">handler)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title,</span> <span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">handler)</span>
 </code></pre></div>
 <ul>
 <li>For ESP32</li>
 </ul>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title,</span> <span style="color: #f8f8f2">WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">handler)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title,</span> <span style="color: #f8f8f2">WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">handler)</span>
 </code></pre></div>
 Creates an AutoConnectAux dynamically with the specified URI and integrates it into the menu. Calls with a request handler parameter can use this function as menu registration for a legacy page of ESP8266WebServer/WebServer. If the <strong>handler</strong> parameter specified, also it will register the request handler for the ESP8266WebServer/WebServer.<br />
 AutoConnect manages the menu items using a sequence list, and this function always adds the item to the end of the list. Therefore, the order of the menu items is the additional order.<br />
-Returns the pointer to created AutoConnectAux instance, the <code>nullptr</code> if an AutoConnectAux with the same URI already exists.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+Returns the pointer to created AutoConnectAux instance, the <code>nullptr</code> if an AutoConnectAux with the same URI already exists.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI.</span></dd>
     <dd><span class="apidef">title</span><span class="apidesc">Title for menu item.</span></dd>
-    <dd><span class="apidef">handler</span><span class="apidesc">Request handler function as type of **ESP8266WebServer::THandlerFunction**/**WebServer::THandlerFunction**.</span></dd>
-    <dt>**Return value**</dt>
-    <dd>A Pointer to a created AutoConnectAux instance.</dd>
-</dl>
-
+    <dd><span class="apidef">handler</span><span class="apidesc">Request handler function as type of <strong>ESP8266WebServer::THandlerFunction</strong>/<strong>WebServer::THandlerFunction</strong>.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>A Pointer to a created AutoConnectAux instance.</dd></dl></p>
 <div class="admonition note">
 <p class="admonition-title">An instance of ESP8266WebServer/WebServer is needed</p>
 <p>The WebServer must have instantiated for calling with a request handler parameter. AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the append function with a request handler parameter must be after AutoConnect::begin.</p>
 </div>
 <h3 id="aux"><i class="fa fa-caret-right"></i> aux<a class="headerlink" href="#aux" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span> <span style="color: #66d9ef">const</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span> <span style="color: #66d9ef">const</span>
 </code></pre></div>
-Returns a pointer to AutoConnectAux with the URI specified by <em>uri</em>. If AutoConnectAux with that URI is not bound, it returns <strong>nullptr</strong>.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+Returns a pointer to AutoConnectAux with the URI specified by <em>uri</em>. If AutoConnectAux with that URI is not bound, it returns <strong>nullptr</strong>.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd>A Pointer of the AutoConnectAux instance.</dd>
-</dl>
-
+</dl></p>
 <h3 id="begin"><i class="fa fa-caret-right"></i> begin<a class="headerlink" href="#begin" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin()</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin()</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase,</span> <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">timeout)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase,</span> <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">timeout)</span>
 </code></pre></div></p>
 <p>Starts establishing the WiFi connection. The WiFi mode at this time is WIFI_STA.<br />
 AutoConnect first invokes <em>WiFi.begin</em>. If the <em>ssid</em> and the <em>passphrase</em> are missing, its <em>WiFi.begin</em> has no SSID and Password. Regardless of the result, ESP8266WebServer/WebServer will start immediately after the first <em>WiFi.begin</em>.<br />
-The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.</p>
-<dl class="apidl">
-    <dt>**Parameters**</dt>
+The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be connected.</span></dd>
     <dd><span class="apidef">passphrase</span><span class="apidesc">Password for connection.</span></dd>
     <dd><span class="apidef">timeout</span><span class="apidesc">A time out value in milliseconds for waiting connection.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Connection established, AutoConnect service started with WIFI_STA mode.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Could not connected, Captive portal started with WIFI_AP_STA mode.</span></dd>
-</dl>
-
+    <dd><span class="apidef">false</span><span class="apidesc">Could not connected, Captive portal started with WIFI_AP_STA mode.</span></dd></dl></p>
 <h3 id="config"><i class="fa fa-caret-right"></i> config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(AutoConnectConfig</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">config)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(AutoConnectConfig</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">config)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ap,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">password</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ap,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">password</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
 </code></pre></div></p>
-<p>Set AutoConnect configuration settings.</p>
-<dl class="apidl">
-    <dt>**Parameters**</dt>
-    <dd><span class="apidef">config</span><span class="apidesc">Reference to [**AutoConnectConfig**](apiconfig.md) containing SoftAP's parameters and static IP parameters.</span></dd>
-    <dd><span class="apidef">ap</span><span class="apidesc">SSID for SoftAP. The default value is **esp8266ap** for ESP8266, **esp32ap** for ESP32.</span></dd>
-    <dd><span class="apidef">password</span><span class="apidesc">Password for SodtAP. The default value is **12345678**.</span></dd>
-    <dt>**Return value**</dt>
+<p>Set AutoConnect configuration settings.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">config</span><span class="apidesc">Reference to <a href="apiconfig.html"><strong>AutoConnectConfig</strong></a> containing SoftAP's parameters and static IP parameters.</span></dd>
+    <dd><span class="apidef">ap</span><span class="apidesc">SSID for SoftAP. The default value is <strong>esp8266ap</strong> for ESP8266, <strong>esp32ap</strong> for ESP32.</span></dd>
+    <dd><span class="apidef">password</span><span class="apidesc">Password for SodtAP. The default value is <strong>12345678</strong>.</span></dd>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully configured.</span></dd>
-    <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd>
-</dl>
-
+    <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd></dl></p>
 <h3 id="detach"><i class="fa fa-caret-right"></i> detach<a class="headerlink" href="#detach" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">detach(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">detach(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
 </code></pre></div>
-Detach the AutoConnectAux with the specified URI from the management of AutoConnect. An unmanaged AutoConnectAux will no longer appear in menu items, and its page handler will no longer respond even if the URI is accessed directly. </p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+Detach the AutoConnectAux with the specified URI from the management of AutoConnect. An unmanaged AutoConnectAux will no longer appear in menu items, and its page handler will no longer respond even if the URI is accessed directly.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">uri</span><span class="apidesc">URI of AutoConnectAux to be detached.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully detached.</span></dd>
-    <dd><span class="apidef">false</span><span class="aidesc">An AutoConnectAux with the specified URI does not exist.</span></dd>
-</dl>
-
+    <dd><span class="apidef">false</span><span class="aidesc">An AutoConnectAux with the specified URI does not exist.</span></dd></dl></p>
 <p>If the request handler registered in the detaching AutoConnectAux is for a legacy page of the ESP8266WebServer/WebServer, the URI is still valid after detaching. AutoConnect does not delete the request handler registered to ESP8266WebServer/WebServer with the <code>on</code> function. (It cannot be removed)</p>
 <div class="admonition hint">
 <p class="admonition-title">Deleting the AutoConnectAux</p>
 <p>If the AutoConnectAux to detach was added by <a href="api.html#append">AutoConnect::append</a>, it will be automatically removed and freed from memory.</p>
 </div>
 <h3 id="disablemenu"><i class="fa fa-caret-right"></i> disableMenu<a class="headerlink" href="#disablemenu" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">disableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">disableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
 </code></pre></div>
 <p>Disable the <a href="menu.html">AutoConnect menu</a> items specified by the items parameter with logical OR value using <strong>AC_MENUITEM_t</strong> constant.<br />
-This function only works for AutoConnect primary menu items. It has no effect on disable for AutoConnectAux items. To disable the items by AutoConnectAux, use the <a href="apiaux.html#menu">AutoConnectAux::menu</a> function.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items deleting from the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item. Refer to the [enableMenu](#enablemenu) about AC_MENUITEM_t.</span></dd>
-</dl>
-
+This function only works for AutoConnect primary menu items. It has no effect on disable for AutoConnectAux items. To disable the items by AutoConnectAux, use the <a href="apiaux.html#menu">AutoConnectAux::menu</a> function.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of <strong>AC_MENUITEM_t</strong> of the items deleting from the AutoConnect menu. It provides the value calculated from the <strong>logical OR</strong> by the AC_MENUITEM_t value of each item. Refer to the <a href="#enablemenu">enableMenu</a> about AC_MENUITEM_t.</span></dd></dl></p>
 <h3 id="enablemenu"><i class="fa fa-caret-right"></i> enableMenu<a class="headerlink" href="#enablemenu" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">enableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">enableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
 </code></pre></div>
-<p>Enable the <a href="menu.html">AutoConnect menu</a> items specified by the items parameter with logical OR value using <strong>AC_MENUITEM_t</strong> constant.<br />
-This function only works for AutoConnect primary menu items. It has no effect on enable for AutoConnectAux items. To enable the items by AutoConnectAux, use the <a href="apiaux.html#menu">AutoConnectAux::menu</a> function.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items applying to the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item applied as a menu. AC_MENUITEM_t is enumeration type to identify each menu item and it has the below values.</span></dd>
-: - **AC_MENUITEM_CONFIGNEW** :
-    [Configure new AP](menu.md#configure-new-ap)
-: - **AC_MENUITEM_OPENSSIDS** :
-    [Open SSIDs](menu.md#open-ssids)
-: - **AC_MENUITEM_DISCONNECT** :
-    [Disconnect](menu.md#disconnect)
-: - **AC_MENUITEM_RESET** :
-    [Reset...](menu.md#reset)
-: - **AC_MENUITEM_HOME** :
-    [HOME](menu.md#home)
-: - **AC_MENUITEM_DEVINFO** :
-    [Device statistics](menu.md#where-the-from) as AutoConnect root page
+<dl>
+<dt>Enable the <a href="menu.html">AutoConnect menu</a> items specified by the items parameter with logical OR value using <strong>AC_MENUITEM_t</strong> constant.</dt>
+<dt>This function only works for AutoConnect primary menu items. It has no effect on enable for AutoConnectAux items. To enable the items by AutoConnectAux, use the <a href="apiaux.html#menu">AutoConnectAux::menu</a> function.<dl class="apidl"></dt>
+<dt><dt><strong>Parameter</strong></dt></dt>
+<dt><dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of <strong>AC_MENUITEM_t</strong> of the items applying to the AutoConnect menu. It provides the value calculated from the <strong>logical OR</strong> by the AC_MENUITEM_t value of each item applied as a menu. AC_MENUITEM_t is enumeration type to identify each menu item and it has the below values.</span></dd></dt>
+<dd>
+<ul>
+<li><strong>AC_MENUITEM_CONFIGNEW</strong> :
+<a href="menu.html#configure-new-ap">Configure new AP</a></li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_MENUITEM_OPENSSIDS</strong> :
+<a href="menu.html#open-ssids">Open SSIDs</a></li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_MENUITEM_DISCONNECT</strong> :
+<a href="menu.html#disconnect">Disconnect</a></li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_MENUITEM_RESET</strong> :
+<a href="menu.html#reset">Reset...</a></li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_MENUITEM_HOME</strong> :
+<a href="menu.html#home">HOME</a></li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_MENUITEM_DEVINFO</strong> :
+<a href="menu.html#where-the-from">Device statistics</a> as AutoConnect root page</dl></li>
+</ul>
+</dd>
 </dl>
-
 <div class="admonition note">
 <p class="admonition-title">It is added, not replaced.</p>
 <p>The initial configuration of the AutoConnect menu items:<br />
@@ -1461,7 +1464,7 @@ This function only works for AutoConnect primary menu items. It has no effect on
 The enableMenu function adds an indication of the specified items to the current. Therefore, use the <a href="#disableMenu">disableMenu</a> to remove the specified item from the initial menu.</p>
 </div>
 <h3 id="end"><i class="fa fa-caret-right"></i> end<a class="headerlink" href="#end" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">end(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">end(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and DNSServer. </p>
 <div class="admonition warning">
@@ -1469,20 +1472,17 @@ The enableMenu function adds an indication of the specified items to the current
 <p>The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.</p>
 </div>
 <h3 id="geteepromusedsize"><i class="fa fa-caret-right"></i> getEEPROMUsedSize<a class="headerlink" href="#geteepromusedsize" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">getEEPROMUsedSize(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">getEEPROMUsedSize(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-<p>Returns the total amount of memory required to hold the AutoConnect credentials and any custom configuration settings stored in EEPROM. The Sketch that writes its own custom data to the EEPROM must call <code>EEPROM.begin</code> with this value. </p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>Total amount size of saved AutoConnect credentials and custom data.</dd>
-</dl>
-
+<p>Returns the total amount of memory required to hold the AutoConnect credentials and any custom configuration settings stored in EEPROM. The Sketch that writes its own custom data to the EEPROM must call <code>EEPROM.begin</code> with this value.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>Total amount size of saved AutoConnect credentials and custom data.</dd></dl></p>
 <div class="admonition note">
 <p class="admonition-title">The getEEPROMUsedSize is available for only ESP8266 use</p>
 <p>It is available for only ESP8266 use and will return 0 when used with ESP32.</p>
 </div>
 <h3 id="handleclient"><i class="fa fa-caret-right"></i> handleClient<a class="headerlink" href="#handleclient" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleClient(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleClient(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Process the AutoConnect menu interface. The <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#handling-incoming-client-requests">ESP8266WebServer::handleClient</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> function hosted by AutoConnect is also called from within AutoConnect to handle the request handlers contained in Sketch.</p>
 <div class="admonition info">
@@ -1492,7 +1492,7 @@ By properly specifying <a href="apiconfig.html#retainportal">AutoConnectConfig::
 Also, <a href="apiconfig.html#autoreconnect">AutoConnectConfig::<strong>autoReconnect</strong></a> has improved. The Sketch can specify the <a href="apiconfig.html#reconnectinterval">AutoConnectConfig::<strong>reconnectInterval</strong></a> to continue retrying the reconnection with enhanced handleClient.</p>
 </div>
 <h3 id="handlerequest"><i class="fa fa-caret-right"></i> handleRequest<a class="headerlink" href="#handlerequest" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleRequest(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleRequest(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Handling for the AutoConnect menu request.</p>
 <div class="admonition warning">
@@ -1500,126 +1500,117 @@ Also, <a href="apiconfig.html#autoreconnect">AutoConnectConfig::<strong>autoReco
 <p>The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used following ESP8266WebServer::handleClient or WebServer::handleClient.</p>
 </div>
 <h3 id="home"><i class="fa fa-caret-right"></i> home<a class="headerlink" href="#home" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">home(String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">home(String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
 </code></pre></div>
-<p>Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect menu.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">uri</span><span class="aidesc">A URI string of user site's home path.</span></dd>
-</dl>
-
+<p>Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect menu.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">uri</span><span class="aidesc">A URI string of user site's home path.</span></dd></dl></p>
 <h3 id="host"><i class="fa fa-caret-right"></i> host<a class="headerlink" href="#host" title="Permanent link">&para;</a></h3>
 <ul>
 <li>For ESP8266</li>
 </ul>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <ul>
 <li>For ESP32</li>
 </ul>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-<p>Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>A reference of the ESP8266WebServer/WebServer.</dd>
-</dl>
-
+<p>Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference of the ESP8266WebServer/WebServer.</dd></dl></p>
 <div class="admonition note">
 <p class="admonition-title">&amp;reference is not a pointer</p>
 <p>A reference cannot be re-assigned, and must be assigned at initialization. It's like as bind as alias.    <br />
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">server</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.host();</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">server</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.host();</span>
 <span style="color: #f8f8f2">server.handleClient();</span>
 </code></pre></div>
 or<br />
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">portal.host().handleClient();</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">portal.host().handleClient();</span>
 </code></pre></div></p>
 </div>
 <h3 id="join"><i class="fa fa-caret-right"></i> join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">reference_wrapper</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">aux)</span>
-</code></pre></div>
-Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joined one by one, or joined altogether. The AutoConnectAux object joined by the join function can be handled from the AutoConnect menu.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">aux</span><span class="apidesc">Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization).</span></dd>
-</dl>
-
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">reference_wrapper</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">aux)</span>
+</code></pre></div></p>
+<p>Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joined one by one, or joined altogether. The AutoConnectAux object joined by the join function can be handled from the AutoConnect menu.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a>.</span></dd></dl></p>
 <h3 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(PGM_P</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(PGM_P</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
-</code></pre></div>
-Load JSON document of AutoConnectAux which contains AutoConnectElements. If there is a syntax error in the JSON document, false is returned.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+</code></pre></div></p>
+<p>Load JSON document of AutoConnectAux which contains AutoConnectElements. If there is a syntax error in the JSON document, false is returned.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">aux</span><span class="apidesc">The input string to be loaded.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">The JSON document as AutoConnectAux successfully loaded.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the [ArduinoJson Assistant](https://arduinojson.org/v5/assistant/).</span></dd>
-</dl>
-
+    <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the <a href="https://arduinojson.org/v5/assistant/">ArduinoJson Assistant</a>.</span></dd></dl></p>
 <h3 id="on"><i class="fa fa-caret-right"></i> on<a class="headerlink" href="#on" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD)</span>
 </code></pre></div>
-Register the handler function of the AutoConnectAux.</p>
-<dl class="apidl">
-    <dt>**Parameters**</dt>
-    <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI assigned to the AutoConnectAux page.</span></dd>
-    <dd><span class="apidef">handler</span><span class="apidesc">A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.<p class=""apidesc">`String handler(AutoConnectAux&, PageArgument&)`</p></span></dd>
-    <dd><span class="apidef">order</span><span class="apidesc">Specifies when the handler is called with the following enumeration value.</span></dd>
-: - **AC_EXIT_AHEAD** :
-    Called before AutoConnect generates the HTML of the page. You set the value of AutoConnectElements in the handler then its value will be displayed on the page.
-: - **AC_EXIT_LATER** :
-    Called after AutoConnect generates the HTML of the page. You can append to HTML generated by AutoConnect.
-: - **AC_EXIT_BOTH** :
-    Called even before generating HTML and after generated.
+<dl>
+<dt>Register the handler function of the AutoConnectAux.<dl class="apidl"></dt>
+<dt><dt><strong>Parameters</strong></dt></dt>
+<dt><dd><span class="apidef">uri</span><span class="apidesc">A string of the URI assigned to the AutoConnectAux page.</span></dd></dt>
+<dt><dd><span class="apidef">handler</span><span class="apidesc">A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.<p class=""apidesc"><code>String handler(AutoConnectAux&amp;, PageArgument&amp;)</code></p></span></dd></dt>
+<dt><dd><span class="apidef">order</span><span class="apidesc">Specifies when the handler is called with the following enumeration value.</span></dd></dt>
+<dd>
+<ul>
+<li><strong>AC_EXIT_AHEAD</strong> :
+Called before AutoConnect generates the HTML of the page. You set the value of AutoConnectElements in the handler then its value will be displayed on the page.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_EXIT_LATER</strong> :
+Called after AutoConnect generates the HTML of the page. You can append to HTML generated by AutoConnect.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_EXIT_BOTH</strong> :
+Called even before generating HTML and after generated.</dl></li>
+</ul>
+</dd>
 </dl>
-
 <div class="admonition caution">
 <p class="admonition-title">It is not ESP8266WebServer::on, not WebServer::on for ESP32.</p>
 <p>This function effects to AutoConnectAux only. However, it coexists with that of ESP8266WebServer::on or WebServer::on of ESP32. </p>
 </div>
 <h3 id="onconnect"><i class="fa fa-caret-right"></i> onConnect<a class="headerlink" href="#onconnect" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onConnect(ConnectExit_ft</span> <span style="color: #f8f8f2">fn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onConnect(ConnectExit_ft</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
-Register the function which will call from AutoConnect at the WiFi connection established.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the WiFi connected.</span></dd>
-</dl>
-
+<p>Register the function which will call from AutoConnect at the WiFi connection established.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the WiFi connected.</span></dd></dl></p>
 <p>An <em>fn</em> specifies the function called when the WiFi connected. Its prototype declaration is defined as "<em>ConnectExit_ft</em>".</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">localIP)</span><span style="color: #f92672">&gt;</span>  <span style="color: #f8f8f2">ConnectExit_ft;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">localIP)</span><span style="color: #f92672">&gt;</span>  <span style="color: #f8f8f2">ConnectExit_ft;</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameter**</dt>
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">localIP</span><span class="apidesc">An IP address of the ESP module as STA.</span></dd>
-</dd>
 </dl>
 
 <h3 id="ondetect"><i class="fa fa-caret-right"></i> onDetect<a class="headerlink" href="#ondetect" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onDetect(DetectExit_ft</span> <span style="color: #f8f8f2">fn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onDetect(DetectExit_ft</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
-Register the function which will call from AutoConnect at the start of the captive portal.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd>
-
-</dl>
-
+<p>Register the function which will call from AutoConnect at the start of the captive portal.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd></dl></p>
 <p>An <em>fn</em> specifies the function called when the captive portal starts. Its prototype declaration is defined as "<em>DetectExit_ft</em>".</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">softapIP)</span><span style="color: #f92672">&gt;</span>  <span style="color: #f8f8f2">DetectExit_ft</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">softapIP)</span><span style="color: #f92672">&gt;</span>  <span style="color: #f8f8f2">DetectExit_ft</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameter**</dt>
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">softapIP</span><span class="apidesc">An IP address of SoftAP for the captive portal.</span></dd>
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
 </dl>
@@ -1628,46 +1619,36 @@ Register the function which will call from AutoConnect at the start of the capti
 <ul>
 <li>For ESP8266</li>
 </ul>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(ESP8266WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(ESP8266WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
 <ul>
 <li>For ESP32</li>
 </ul>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
-Register the handler function for undefined URL request detected.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd>
-</dl>
-
+<p>Register the handler function for undefined URL request detected.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd></dl></p>
 <h3 id="where"><i class="fa fa-caret-right"></i> where<a class="headerlink" href="#where" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">where(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">where(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns an uri string of the AutoConnectAux uri object of the custom Web page that caused the request to the page.<br>
+<p>Returns an uri string of the AutoConnectAux uri object of the custom Web page that caused the request to the page.<br>
 AutoConnect identifies the URI (ie. the referrer URI) that caused the request each time from the client occurs and will save the URI If the request source is a custom Web page of AutoConnectAux. The <strong>where</strong> function returns a pointer of AutoConnectAux which is a URI of a least recent request from the custom Web page.<br>
-This function is provided to access the fields (ie. the AutoConnectElements) with a custom Web page handler of a page and is available only for request source that is the custom Web pages. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/WebServer for ESP32. In other words, this function only returns the AutoConnecAux page which is a least recently displayed.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
-    <dd>An uri string of the AutoConnectAux that caused the request the page.</dd>
-</dl>
-
+This function is provided to access the fields (ie. the AutoConnectElements) with a custom Web page handler of a page and is available only for request source that is the custom Web pages. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/WebServer for ESP32. In other words, this function only returns the AutoConnecAux page which is a least recently displayed.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>An uri string of the AutoConnectAux that caused the request the page.</dd></dl></p>
 <p>The <strong>where</strong> function usage is described in the section <a href="achandling.html#where-to-pick-up-the-values"><em>Where to pick up the values</em></a>.</p>
 <h3 id="whilecaptiveportal"><i class="fa fa-caret-right"></i> whileCaptivePortal<a class="headerlink" href="#whilecaptiveportal" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">whileCaptivePortal(WhileCaptivePortalExit_ft</span> <span style="color: #f8f8f2">fn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">whileCaptivePortal(WhileCaptivePortalExit_ft</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
-Register the function which will call from AutoConnect during a stay in the captive portal.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd>
-
-</dl>
-
+<p>Register the function which will call from AutoConnect during a stay in the captive portal.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd></dl></p>
 <p>An <em>fn</em> specifies the function called while staying in the captive portal. Its prototype declaration is defined as "<em>WhileCaptivePortalExit_ft</em>".</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">&gt;</span>   <span style="color: #f8f8f2">WhileCaptivePortalExit_ft</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">&gt;</span>   <span style="color: #f8f8f2">WhileCaptivePortalExit_ft</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Return value**</dt>
+    <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
 </dl>
@@ -1772,8 +1753,8 @@ Register the function which will call from AutoConnect during a stay in the capt
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

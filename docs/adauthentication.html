@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -352,8 +364,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#authentication-with-the-captive-portal-state" class="md-nav__link">
-    Authentication with the captive portal state
+  <a href="#authentication-within-the-captive-portal-state" class="md-nav__link">
+    Authentication within the captive portal state
   </a>
   
 </li>
@@ -384,19 +396,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -879,8 +879,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#authentication-with-the-captive-portal-state" class="md-nav__link">
-    Authentication with the captive portal state
+  <a href="#authentication-within-the-captive-portal-state" class="md-nav__link">
+    Authentication within the captive portal state
   </a>
   
 </li>
@@ -904,7 +904,7 @@
 <ul>
 <li><a href="#applying-http-authentication">Applying HTTP authentication</a></li>
 <li><a href="#applying-http-authentication-for-built-in-ota">Applying HTTP authentication for Built-in OTA</a></li>
-<li><a href="#authentication-with-the-captive-portal-state">Authentication with the captive portal state</a></li>
+<li><a href="#authentication-within-the-captive-portal-state">Authentication within the captive portal state</a></li>
 </ul>
 <h2 id="applying-http-authentication">Applying HTTP authentication<a class="headerlink" href="#applying-http-authentication" title="Permanent link">&para;</a></h2>
 <p><a href="apiconfig.html#auth"><em>AutoConnectConfig::auth</em></a> setting allows the Sketch to HTTP authenticate with "<a href="https://tools.ietf.org/html/rfc2617#section-2"><strong>BASIC</strong></a>" or "<a href="https://tools.ietf.org/html/rfc2617#section-3"><strong>DIGEST</strong></a>" scheme. <a href="apiconfig.html#authscope"><em>AutoConnectConfig::authScope</em></a> specifies the scope covered by authentication which is the whole range for all pages of the Sketch, custom web pages, or AutoConnect pages. <a href="apiconfig.html#username"><em>AutoConnectConfig::username</em></a> and <a href="apiconfig.html#password"><em>AutoConnectConfig::password</em></a> specifies credential as user-id/password pairs.</p>
@@ -928,7 +928,7 @@
 </ul>
 <p>Also, a credential used for authentication is specified in the Sketch using the <a href="apiconfig.html#username"><em>AutoConnectConfig::username</em></a> and <a href="apiconfig.html#password"><em>AutoConnectConfig::password</em></a> settings.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 <p>Here's a minimal Sketch with HTTP authentication for the custom Web page:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -997,7 +997,7 @@
 <li>"auth" : "none"</li>
 </ul>
 <p>The following example Sketch has two custom Web pages, <code>Hello</code> and <code>Auth</code>. It applies authentication only to the <code>Auth</code> page by setting AC_AUTHSCOPE_PARTIAL to AutoConnectConfig::authScope.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1064,11 +1064,11 @@
 </div>
 <h2 id="applying-http-authentication-for-built-in-ota">Applying HTTP authentication for Built-in OTA<a class="headerlink" href="#applying-http-authentication-for-built-in-ota" title="Permanent link">&para;</a></h2>
 <p><a href="apiconfig.html#auth"><em>AutoConnectConfig::auth</em></a> setting also affects the <a href="otaupdate.html">built-in OTA</a> feature. <strong>AC_AUTH_BASIC</strong> or <strong>AC_AUTH_DIGEST</strong> setting allows Built-in OTA to authenticate with the <a href="otabrowser.html#updates-with-the-web-browserupdated-wv115">UPDATE</a> page. This setting is valid even if <a href="apiconfig.html#authscope"><em>AutoConnectConfig::authScope</em></a> is <strong>AC_AUTHSCOPE_PARTIAL</strong>. That is if the AutoConnectConfig::auth setting is BASIC or DIGEST, authentication will be required for Built-in OTA.</p>
-<h2 id="authentication-with-the-captive-portal-state">Authentication with the captive portal state<a class="headerlink" href="#authentication-with-the-captive-portal-state" title="Permanent link">&para;</a></h2>
+<h2 id="authentication-within-the-captive-portal-state">Authentication within the captive portal state<a class="headerlink" href="#authentication-within-the-captive-portal-state" title="Permanent link">&para;</a></h2>
 <p>When accessing the ESP module from an iOS or Android device in the captive portal state, the HTTP authentication framework is disabled in the OS of the client device. Even if the ESP module responds with a <code>401 unauthorized</code> with <code>WWW-Authenticate</code>, those client device OSs under the captive portal do not display the login dialog and deprive the user of the opportunity to enter their credentials. There will always be an unauthorized error.</p>
 <p>AutoConnect's authentication operation based on HTTP (not HTTPS) depends on the OS of the client device, so in the captive portal state, most devices will unconditionally result in an authentication error. Therefore, the default authentication behavior of AutoConnect does not apply authentication in the captive portal state. (It will be ignored even if the AutoConnect setting is not AC_AUTH_NONE)</p>
 <p>However, if you want to deny unauthorized access to the protected page even in the captive portal state, you can use the extension bit of <a href="apiconfig.html#authScope"><em>AutoConnectConfig::authScope</em></a>. The <strong>AC_AUTHSCOPE_WITHCP</strong> flag allows AutoConnect to authentication in the captive portal state. It is set using a logical OR operator for the <a href="apiconfig.html#authScope"><em>AutoConnectConfig::authScope</em></a> setting and AutoConnect will enable authentication at the captive portal if the <strong>AC_AUTHSCOPE_WITHCP</strong> is ON.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
 <span style="color: #f8f8f2">...</span>
 <span style="color: #f8f8f2">config.auth</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_AUTH_DIGEST;</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">config.authScope</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_AUTHSCOPE_AUX</span> <span style="color: #f92672">|</span> <span style="color: #f8f8f2">AC_AUTHSCOPE_WITHCP;</span>
@@ -1103,7 +1103,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="adcpcontrol.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="adnetwork.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1112,7 +1112,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Captive portal control
+                Settings and controls for network and WiFi
               </div>
             </div>
           </a>
@@ -1177,8 +1177,8 @@
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

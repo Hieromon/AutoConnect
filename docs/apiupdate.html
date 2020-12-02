@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -1106,7 +1106,7 @@
                 
                 <h2 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
 <h3 id="autoconnectupdate">AutoConnectUpdate<a class="headerlink" href="#autoconnectupdate" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectUpdate(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">port,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">timeout,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectUpdate(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">port,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">timeout,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt>**Parameters**</dt>
@@ -1120,7 +1120,7 @@
 <p>The AutoConnectUpdate class inherits from the <strong>ESP8266HTTPUpdate</strong> (<strong>HTTPUpdate</strong> for ESP32) class.</p>
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
 <h3 id="attach"><i class="fa fa-caret-right"></i> attach<a class="headerlink" href="#attach" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">attach(AutoConnect</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">portal)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">attach(AutoConnect</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">portal)</span>
 </code></pre></div>
 Attaches the <a href="apiupdate.html">AutoConnectUpdate</a> to the AutoConnect which constitutes the bedrock of the update process. This function creates a <a href="otaserver.html#behavior-of-the-autoconnectupdate-class">dialog page</a> for the update operation as an instance of <a href="apiaux.html">AutoConnectAux</a> and participates in the <a href="menu.html">AutoConnect menu</a>.</p>
 <dl class="apidl">
@@ -1129,7 +1129,7 @@ Attaches the <a href="apiupdate.html">AutoConnectUpdate</a> to the AutoConnect w
 </dl>
 
 <h3 id="disable"><i class="fa fa-caret-right"></i> disable<a class="headerlink" href="#disable" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">disable(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">activate)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">disable(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">activate)</span>
 </code></pre></div>
 Disable the Update item in <a href="menu.html">AutoConnect menu</a>. The <a href="#disable">AutoConnect::disable</a> function only hides the Update item from the menu, and the <a href="apiupdate.html">AutoConnectUpdate</a> class is still active with the parameter condition. You can use the <a href="#enable">AutoConnectUpdate::enable</a> function to appear it again in the menu.</p>
 <dl class="apidl">
@@ -1138,19 +1138,19 @@ Disable the Update item in <a href="menu.html">AutoConnect menu</a>. The <a href
 </dl>
 
 <h3 id="enable"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">enable(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">enable(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 Makes <a href="apiupdate.html">AutoConnectUpdate</a> class available by incorporating the OTA update function into the <a href="menu.html">AutoConnect menu</a>. In ordinarily, the <a href="apiupdate.html">AutoConnectUpdate</a> class becomes available by just calling the <a href="#attach">AutoConnectUpdate::attach</a> function.</p>
 <h3 id="handleupdate"><i class="fa fa-caret-right"></i> handleUpdate<a class="headerlink" href="#handleupdate" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">handleUpdate(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">handleUpdate(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 Performs the update process. This function is called by <a href="api.html#handleClient">AutoConnect::handleClient</a> when AutoConnectUpdate is enabled. In many cases, sketches do not need to call this function on purpose.</p>
 <h3 id="isenabled"><i class="fa fa-caret-right"></i> isEnabled<a class="headerlink" href="#isenabled" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">isEnabled(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">isEnabled(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 Returns whether AutoConnectUpdate is enabled.</p>
 <h3 id="rebootonupdate"><i class="fa fa-caret-right"></i> rebootOnUpdate<a class="headerlink" href="#rebootonupdate" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">rebootOnUpdate(</span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">reboot)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">rebootOnUpdate(</span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">reboot)</span>
 </code></pre></div>
 Specifies whether or not to automatically restart the module as a result of the successful completion of the update process.</p>
 <dl class="apidl">
@@ -1160,7 +1160,7 @@ Specifies whether or not to automatically restart the module as a result of the 
 
 <p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
 <h3 id="setledpin"><i class="fa fa-caret-right"></i> setLedPin<a class="headerlink" href="#setledpin" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">setLedPin(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">ledPin,</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">setLedPin(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">ledPin,</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
 </code></pre></div>
 Sets the port and the ON signal level of the externally connected LED that should act as a ticker during the update process.</p>
 <dl class="apidl">
@@ -1171,7 +1171,7 @@ Sets the port and the ON signal level of the externally connected LED that shoul
 
 <p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
 <h3 id="status"><i class="fa fa-caret-right"></i> status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AC_UPDATESTATUS_t</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">status(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AC_UPDATESTATUS_t</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">status(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 Returns the update process status transition indicator as an enumerated value of the <strong>AC_UPDATESTATUS_t</strong> type that indicates the process status of the AutoConnectUpdate class.</p>
 <dl class="apidl">
@@ -1301,8 +1301,8 @@ Returns the update process status transition indicator as an enumerated value of
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

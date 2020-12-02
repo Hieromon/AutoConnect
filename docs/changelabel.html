@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -1023,7 +1023,7 @@
 </table>
 
 <p>The definition of label text must conform to a certain coding pattern. Undefine with <code>#undef</code> the <code>#define</code> directive corresponding to the above IDs, and then redefine the ID with the replacement text. And surround it with <code>#ifdef</code> ~ <code>#endif</code>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#ifdef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#ifdef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
 <span style="color: #75715e">#undef AUTOCONNECT_MENULABEL_CONFIGNEW</span>
 <span style="color: #75715e">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;NEW_STRING_YOU_WISH&quot;</span>
 <span style="color: #75715e">#endif</span>
@@ -1032,7 +1032,7 @@
 <h3 id="configuration-of-platformioini">Configuration of platformio.ini<a class="headerlink" href="#configuration-of-platformioini" title="Permanent link">&para;</a></h3>
 <p>You prepare its header file and place it in the <code>src</code> folder of the project folder. You can name the file whatever you like, but for the sake of explanation, let's say <code>mylabels.h</code>.</p>
 <p>When you store <code>mylabels.h</code> containing the new label text definition in the <code>src</code> folder, your Arduino project folder structure should look like this:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">Project</span> <span style="color: #a6e22e">folder</span><span style="color: #f92672">&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">Project</span> <span style="color: #a6e22e">folder</span><span style="color: #f92672">&gt;</span>
 <span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">pio</span><span style="color: #f92672">&gt;</span>
 <span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">vscode</span><span style="color: #f92672">&gt;</span>
 <span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">include</span><span style="color: #f92672">&gt;</span>
@@ -1046,7 +1046,7 @@
 <span style="color: #f92672">|--</span> <span style="color: #a6e22e">platformio</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ini</span>
 </code></pre></div>
 <p>Then, open <a href="https://docs.platformio.org/en/latest/projectconf.html"><code>platformio.ini</code></a> file and add new <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags"><code>build_flags</code></a> for including <code>mylabels.h</code> to override the label text.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">-DAC_LABELS=&#39;&quot;${PROJECT_SRC_DIR}/mylabels.h&quot;&#39;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">-DAC_LABELS=&#39;&quot;${PROJECT_SRC_DIR}/mylabels.h&quot;&#39;</span>
 </code></pre></div>
 <div class="admonition hint">
 <p class="admonition-title">Just change the <code>mylabels.h</code></p>
@@ -1151,8 +1151,8 @@
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

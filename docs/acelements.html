@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -2067,7 +2067,7 @@ The <a href="#autoconnectstyle">AutoConnectStyle</a> will insert the raw CSS cod
 <small><strong><code>AutoConnectElement element("element", "&lt;hr&gt;");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acelement.png"></p>
 <h3 id="constructor"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name" title="Permanent link">&para;</a></h3>
 <p>Each element has a name. The <strong>name</strong> is the String data type. You can identify each element by the name to access it with sketches. </p>
@@ -2130,7 +2130,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 </table>
 <h3 id="type"><i class="fa fa-caret-right"></i> type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h3>
 <p>The <strong>type</strong> indicates the type of the element and represented as the <em>ACElement_t</em> enumeration type in the Sketch. Since AutoConnectElement also acts as a variant of other elements, it can be applied to handle elements collectively. At that time, the type can be referred to by the <a href="apielements.html#typeof"><strong>typeOf()</strong></a> function. The following example changes the font color of all <a href="#autoconnecttext">AutoConnectText</a> elements of a custom Web page to gray.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">customPage;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">customPage;</span>
 
 <span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">customPage.getElements();</span>
 <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elm</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">elements)</span> <span style="color: #f8f8f2">{</span>
@@ -2155,7 +2155,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 <li>Uninitialized element: <strong>AC_Unknown</strong></li>
 </ul>
 <p>Furthermore, to convert an entity that is not an AutoConnectElement to its native type, you must <a href="https://en.cppreference.com/w/cpp/language/reinterpret_cast">re-interpret</a> that type with c++. Or, you can be coding the Sketch more easily with using the <a href="apielements.html#ast62"><strong>as&lt;T></strong></a> function.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">customPage;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">customPage;</span>
 
 <span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">customPage.getElements();</span>
 <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elm</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">elements)</span> <span style="color: #f8f8f2">{</span>
@@ -2173,7 +2173,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 <small><strong><code>AutoConnectButton button("button", "OK", "myFunction()");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acbutton.png"></p>
 <h3 id="constructor_1"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectButton(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">action,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">action,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name_1"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_1" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectButton element and matches the name attribute of the button tag. It also becomes the parameter name of the query string when submitted.</p>
@@ -2181,7 +2181,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 <p>It becomes a value of the <code>value</code> attribute of an HTML button tag.</p>
 <h3 id="action"><i class="fa fa-caret-right"></i> action<a class="headerlink" href="#action" title="Permanent link">&para;</a></h3>
 <p><strong>action</strong> is String data type and is an <em>onclick</em> attribute fire on a mouse click on the element. It is mostly used with a JavaScript to activate a script.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> For example, the following code defines a custom Web page that copies a content of <code>Text1</code> to <code>Text2</code> by clicking <code>Button</code>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">scCopyText</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">scCopyText</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">&lt;script&gt;</span>
 <span style="background-color: #49483e"><span style="color: #e6db74">function CopyText() {</span>
 </span><span style="background-color: #49483e"><span style="color: #e6db74">  document.getElementById(&quot;Text2&quot;).value = document.getElementById(&quot;Text1&quot;).value;</span>
@@ -2201,7 +2201,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 <small><strong><code>AutoConnectCheckbox checkbox("checkbox", "uniqueapid", "Use APID unique", false);</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/accheckbox.png"></p>
 <h3 id="constructor_2"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_2" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectCheckbox(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">checked,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosition_t</span> <span style="color: #f8f8f2">labelPosition,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectCheckbox(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">checked,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosition_t</span> <span style="color: #f8f8f2">labelPosition,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name_2"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_2" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectCheckbox element and matches the name attribute of the input tag. It also becomes the parameter name of the query string when submitted.</p>
@@ -2226,7 +2226,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <small><strong><code>AutoConnectFile file("file", "", "Upload:", AC_File_FS)</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acfile.png"></p>
 <h3 id="constructor_3"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_3" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectFile(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACFile_t</span> <span style="color: #f8f8f2">store,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectFile(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACFile_t</span> <span style="color: #f8f8f2">store,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name_3"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_3" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectFile element and matches the name attribute of the input tag. It also becomes the parameter name of the query string when submitted.</p>
@@ -2253,7 +2253,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <small><strong><code>AutoConnectInput input("input", "", "Server", "MQTT broker server");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acinput.png"></p>
 <h3 id="constructor_4"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_4" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACInput_t</span> <span style="color: #f8f8f2">apply)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACInput_t</span> <span style="color: #f8f8f2">apply)</span>
 </code></pre></div>
 <h3 id="name_4"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_4" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectInput element and matches the name attribute, the id attribute of the input tag. It also becomes the parameter name of the query string when submitted.</p>
@@ -2298,7 +2298,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <small><strong><code>AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acradio.png"></p>
 <h3 id="constructor_5"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_5" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACArrange_t</span> <span style="color: #f8f8f2">order,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">checked,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACArrange_t</span> <span style="color: #f8f8f2">order,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">checked,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name_5"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_5" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectRadio element and matches the name attribute of the input tags. It also becomes the parameter name of the query string when submitted.</p>
@@ -2325,7 +2325,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 Therefore, specifying the wrong CSS will modulate the behavior of the custom Web page.</p>
 </div>
 <h3 id="constructor_6"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_6" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectStyle(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectStyle(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value)</span>
 </code></pre></div>
 <h3 id="name_6"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_6" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectStyle element and is useful only to access this element from the Sketch. It does not affect the generated HTML code.</p>
@@ -2337,7 +2337,7 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 <small><strong><code>AutoConnectSelect select("select", { String("Europe/London"), String("Europe/Berlin"), String("Europe/Helsinki"), String("Europe/Moscow"), String("Asia/Dubai") }, "Select TZ name");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acselect.png"></p>
 <h3 id="constructor_7"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_7" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">selected,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">selected,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name_7"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_7" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectSelect element and matches the name attribute of the select tags.</p>
@@ -2355,7 +2355,7 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 <small><strong><code>AutoConnectSubmit submit("submit", "Save", "/mqtt_save");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acsubmit.png"></p>
 <h3 id="constructor_8"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_8" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectSubmit(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectSubmit(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name_8"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_8" title="Permanent link">&para;</a></h3>
 <p>It is the <code>name</code> of the AutoConnectSubmit element and matches the name attribute of the input tag.</p>
@@ -2373,7 +2373,7 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 <small><strong><code>AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/actext.png"></p>
 <h3 id="constructor_9"><i class="fa fa-edit"></i> Constructor<a class="headerlink" href="#constructor_9" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectText(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">style,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">format,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectText(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">style,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">format,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post)</span>
 </code></pre></div>
 <h3 id="name_9"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_9" title="Permanent link">&para;</a></h3>
 <p>A <code>name</code> does not exist in the generated HTML. It provides only a means of accessing elements with the Sketches.</p>
@@ -2401,15 +2401,15 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 <div class="admonition memo">
 <p class="admonition-title">Declaration macro usage</p>
 <p>For example, <em>AutoConnectText</em> can be declared using macros.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectText</span> <span style="color: #f8f8f2">caption(</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;color:blue;&quot;</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectText</span> <span style="color: #f8f8f2">caption(</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;color:blue;&quot;</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 equals by using <em>ACText</em> macro.<br>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ACText(caption,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;color:blue;&quot;</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ACText(caption,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;color:blue;&quot;</span><span style="color: #f8f8f2">)</span>
 </code></pre></div></p>
 </div>
 <h3 id="variant-for-autoconnectelements"><i class="fa fa-edit"></i> Variant for AutoConnectElements<a class="headerlink" href="#variant-for-autoconnectelements" title="Permanent link">&para;</a></h3>
 <p>Some AutoConnectAux APIs specify AutoConnectElements as an argument. There are also functions that return a pointer to AutoConnectElements. AutoConnectElement behaves as a variant type of each element class to make these interfaces a single. Use <a href="https://en.cppreference.com/w/cpp/language/reinterpret_cast">reinterpret_cast</a> to cast from a variant pointer to an Actual type pointer of AutoConnectElements.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
 <span style="color: #f8f8f2">ACText(Text1,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">aux.add(Text1);</span>
 <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">text_p</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">reinterpret_cast</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">*&gt;</span><span style="color: #f8f8f2">(aux.getElement(</span><span style="color: #e6db74">&quot;Text1&quot;</span><span style="color: #f8f8f2">));</span>
@@ -2518,8 +2518,8 @@ equals by using <em>ACText</em> macro.<br>
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

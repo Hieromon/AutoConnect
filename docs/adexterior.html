@@ -16,15 +16,15 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
-        <title>Settings for customizing the page exterior - AutoConnect for ESP8266/ESP32</title>
+        <title>Customizing page appearance - AutoConnect for ESP8266/ESP32</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -77,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#capture-the-legacy-web-pages-as-items-into-the-menu" class="md-skip">
+        <a href="#make-different-menu-labels" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Settings for customizing the page exterior
+              Customizing page appearance
             
           </span>
         </div>
@@ -311,6 +311,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -342,12 +354,12 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Settings for customizing the page exterior
+        Customizing page appearance
         <span class="md-nav__icon md-icon"></span>
       </label>
     
     <a href="adexterior.html" class="md-nav__link md-nav__link--active">
-      Settings for customizing the page exterior
+      Customizing page appearance
     </a>
     
       
@@ -362,22 +374,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#make-different-menu-labels" class="md-nav__link">
+    Make different menu labels
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-different-menu-title" class="md-nav__link">
+    Make different menu title
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#capture-the-legacy-web-pages-as-items-into-the-menu" class="md-nav__link">
     Capture the legacy web pages as items into the menu
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-the-menu-labels" class="md-nav__link">
-    Change the menu labels
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-menu-title" class="md-nav__link">
-    Change menu title
   </a>
   
 </li>
@@ -386,18 +398,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
-    </a>
   </li>
 
         
@@ -865,22 +865,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#make-different-menu-labels" class="md-nav__link">
+    Make different menu labels
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#make-different-menu-title" class="md-nav__link">
+    Make different menu title
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#capture-the-legacy-web-pages-as-items-into-the-menu" class="md-nav__link">
     Capture the legacy web pages as items into the menu
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-the-menu-labels" class="md-nav__link">
-    Change the menu labels
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-menu-title" class="md-nav__link">
-    Change menu title
   </a>
   
 </li>
@@ -898,21 +898,63 @@
               
                 
                 
-                  <h1>Settings for customizing the page exterior</h1>
+                  <h1>Customizing page appearance</h1>
                 
-                <p>The design of various AutoConnect web pages is basically inflexible. Its appearance and layout do not have many customizable visual aspects.<br>
-Although, you can customize the following look of AutoConnect web pages:</p>
+                <p>The design of various AutoConnect web pages is basically inflexible. Its appearance and layout don't have many customizable visual aspects but nevertheless, you can customize the following appearances of your AutoConnect web pages:</p>
 <ul>
 <li><a href="colorized.html">AutoConnect menu colorize</a> (See <a href="colorized.html">Appendix</a>)</li>
+<li><a href="#make-different-menu-labels">Make different menu labels</a></li>
+<li><a href="#make-different-menu-title">Make different menu title</a></li>
 <li><a href="#capture-the-legacy-web-pages-as-items-into-the-menu">Capture the legacy web pages as items into the menu</a></li>
-<li><a href="#change-menu-labels">Change menu labels</a></li>
-<li><a href="#change-menu-title">Change menu title</a></li>
 </ul>
+<h2 id="make-different-menu-labels">Make different menu labels<a class="headerlink" href="#make-different-menu-labels" title="Permanent link">&para;</a></h2>
+<p>You can change the label text for each menu item but cannot change them at run time. There are two ways to change the label text, both of which require coding the label literal.</p>
+<ol>
+<li>
+<p>Overwrite the label literal of library source code directly.</p>
+<p>You can change the label of the AutoConnect menu item by rewriting the default label literal in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h">AutoConnectLabels.h</a> macros. However, changing menu items literal influences all the Sketch's build scenes.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;Configure new AP&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_OPENSSIDS   &quot;Open SSIDs&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_DISCONNECT  &quot;Disconnect&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_RESET       &quot;Reset...&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_UPDATE      &quot;Update&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_HOME        &quot;HOME&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_DEVINFO     &quot;Device info&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_BUTTONLABEL_RESET     &quot;RESET&quot;</span>
+<span style="color: #75715e">#define AUTOCONNECT_BUTTONLABEL_UPDATE    &quot;UPDATE&quot;</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><strong>build_flags</strong> with PlatformIO will no effect</p>
+<p>The mistake that many people make is to use PlatformIO's build_flags to try to redefine any literal at compile time.<br>
+The AutoConnect library statically contains the label literals which are embedded as binary data when compiling the library code. The label literals will not change without compiling the library source.<br>
+And PlatformIO is a build system. Library sources will not be compiled unless AutoConnectLabels.h is updated.</p>
+</div>
+</li>
+<li>
+<p>Change the label literals for each Arduino project</p>
+<p>Another way to change the label literal is to provide a header file that defines the label literals, as mentioned in <a href="changelabel.html#change-the-items-label-text">Appendix</a>. You can also use this method to display label text and fixed text in the local language on the AutoConnect page. See <a href="changelabel.html#change-the-items-label-text">Change the item's label text</a> section for details.</p>
+</li>
+</ol>
+<h2 id="make-different-menu-title">Make different menu title<a class="headerlink" href="#make-different-menu-title" title="Permanent link">&para;</a></h2>
+<p>Although the default menu title is <strong>AutoConnect</strong>, you can change the title by setting <a href="apiconfig.html#title"><em>AutoConnectConfig::title</em></a>. To set the menu title properly, you must set before calling <a href="api.html#begin">AutoConnect::begin</a>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// Set menu title</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.title</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;FSBrowser&quot;</span><span style="color: #f8f8f2">;</span>
+</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.config(Config);</span>
+</span>  <span style="color: #f8f8f2">Portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>Executing the above sketch will rewrite the menu title for the <strong>FSBrowser</strong> as the below.</p>
+<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
+<p><img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png"></p>
 <h2 id="capture-the-legacy-web-pages-as-items-into-the-menu">Capture the legacy web pages as items into the menu<a class="headerlink" href="#capture-the-legacy-web-pages-as-items-into-the-menu" title="Permanent link">&para;</a></h2>
 <p>You can embed the ordinary page processed by the ESP8266WebServer request handler as an item into the AutoConnect menu. AutoConnect can capture the legacy web pages for ESP8266WebServer or WebServer of ESP32 and extends the menu containing these items.<br />
 In ordinary, the Sketch registers the request handler for the page depending on URI using the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers">ESP8266WebServer::on</a> function. AutoConnect allows Sketch to bundle the registered legacy page into a menu. the Sketch is able to include its URI to a menu item using <a href="api.html#append">AutoConnect::append</a> function that creates internally an <a href="acintro.html"><strong>AutoConnectAux</strong></a> depended on its URI and integrates into the menu.</p>
 <p>The following code has a mixture of both AutoConnectAux and the legacy web page. An AutoConnectAux page is menued automatically with the <a href="api.html#join">AutoConnect::join</a> or <a href="api.html#load">AutoConnect::load</a> function. Similarly, a legacy page is integrated by the <a href="api.html#append">AutoConnect::append</a> function.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -957,7 +999,7 @@ In ordinary, the Sketch registers the request handler for the page depending on 
 </code></pre></div>
 <p><span style="display:block;margin-left:auto;margin-right:auto;width:284px;height:462px;border:1px solid lightgrey;"><img data-gifffer="images/addmenu.gif" data-gifffer-height="460" data-gifffer-width="282" /></span></p>
 <p>The <a href="api.html#append">AutoConnect::append</a> function also has the third parameter that directly specifies the request handler. It has similar efficacy to calling the append and <code>ESP8266WebSever::on</code> at once. <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">1</a></sup></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">portal.append(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;HELLO&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">[](){</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">portal.append(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;HELLO&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">[](){</span>
   <span style="color: #f8f8f2">server.send(</span><span style="color: #ae81ff">200</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;text/html&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">String(F(</span>
 <span style="color: #e6db74">&quot;&lt;html&gt;&quot;</span>
 <span style="color: #e6db74">&quot;&lt;head&gt;&lt;meta name=&#39;viewport&#39; content=&#39;width=device-width,initial-scale=1.0&#39;&gt;&lt;/head&gt;&quot;</span>
@@ -972,49 +1014,12 @@ In ordinary, the Sketch registers the request handler for the page depending on 
 <p>When calling the append function with request handler parameters, an instance of the WebServer as the registration destination must exist.<br />
 AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the <a href="api.html#append">AutoConnect::append</a> function with a request handler parameter must be after <a href="api.html#begin">AutoConnect::begin</a>.</p>
 </div>
-<h2 id="change-the-menu-labels">Change the menu labels<a class="headerlink" href="#change-the-menu-labels" title="Permanent link">&para;</a></h2>
-<p>You can change the label text for each menu item but cannot change them at run time. There are two ways to change the label text, both of which require coding the label literal.</p>
-<ol>
-<li>
-<p>Overwrite the label literal of library source code directly.</p>
-<p>You can change the label of the AutoConnect menu item by rewriting the default label literal in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectLabels.h">AutoConnectLabels.h</a> macros. However, changing menu items literal influences all the Sketch's build scenes.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_MENULABEL_CONFIGNEW   &quot;Configure new AP&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_OPENSSIDS   &quot;Open SSIDs&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_DISCONNECT  &quot;Disconnect&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_RESET       &quot;Reset...&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_UPDATE      &quot;Update&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_HOME        &quot;HOME&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_MENULABEL_DEVINFO     &quot;Device info&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_BUTTONLABEL_RESET     &quot;RESET&quot;</span>
-<span style="color: #75715e">#define AUTOCONNECT_BUTTONLABEL_UPDATE    &quot;UPDATE&quot;</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title"><strong>build_flags</strong> with PlatformIO will no effect</p>
-<p>The mistake that many people make is to use PlatformIO's build_flags to try to redefine any literal at compile time.<br>
-The AutoConnect library statically contains the label literals which are embedded as binary data when compiling the library code. The label literals will not change without compiling the library source.<br>
-And PlatformIO is a build system. Library sources will not be compiled unless AutoConnectLabels.h is updated.</p>
-</div>
-</li>
-<li>
-<p>Change the label literals for each Arduino project</p>
-<p>Another way to change the label literal is to provide a header file that defines the label literals, as mentioned in <a href="changelabel.html#change-the-items-label-text">Appendix</a>. You can also use this method to display label text and fixed text in the local language on the AutoConnect page. See <a href="changelabel.html#change-the-items-label-text">Change the item's label text</a> section for details.</p>
-</li>
-</ol>
-<h2 id="change-menu-title">Change menu title<a class="headerlink" href="#change-menu-title" title="Permanent link">&para;</a></h2>
-<p>Although the default menu title is <strong>AutoConnect</strong>, you can change the title by setting <a href="apiconfig.html#title"><em>AutoConnectConfig::title</em></a>. To set the menu title properly, you must set before calling <a href="api.html#begin">AutoConnect::begin</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #75715e">// Set menu title</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.title</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;FSBrowser&quot;</span><span style="color: #f8f8f2">;</span>
-</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.config(Config);</span>
-</span>  <span style="color: #f8f8f2">Portal.begin();</span>
-<span style="color: #f8f8f2">}</span>
-</code></pre></div>
-<p>Executing the above sketch will rewrite the menu title for the <strong>FSBrowser</strong> as the below.</p>
-<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
-<p><img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png"></p>
 <div class="footnote">
 <hr />
 <ol>
@@ -1056,13 +1061,13 @@ And PlatformIO is a build system. Library sources will not be compiled unless Au
           </a>
         
         
-          <a href="adnetwork.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="adothers.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Settings and controls for network and WiFi
+                Other operation settings and controls
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -1115,8 +1120,8 @@ And PlatformIO is a build system. Library sources will not be compiled unless Au
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

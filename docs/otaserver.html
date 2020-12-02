@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -1010,7 +1010,7 @@ The AutoConnect library provides an update server script implemented in Python t
 <li>Attach the AutoConnectUpdate object to AutoConnect using <a href="apiupdate.html#attach">AutoConnectUpdate::attach</a> function.</li>
 <li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>.</li>
 </ol>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1041,15 +1041,15 @@ The AutoConnect library provides an update server script implemented in Python t
 <h3 id="update-server-for-the-autoconnectupdate-class"><i class="fas fa-server"></i> Update server for the AutoConnectUpdate class<a class="headerlink" href="#update-server-for-the-autoconnectupdate-class" title="Permanent link">&para;</a></h3>
 <p>The above series of operations using AutoConnectUpdate class requires an update server that can work with it. AutoConnect provides an update server script implemented in Python. This server script conforms to a sketch that uses the AutoConnectUpdate class as an update client agent.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 <p>In the OTA platform, you can place the update server operated by the script in a location that is reachable from the ESP module on the network.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">updateserver.py</span> <span style="color: #f8f8f2">[-h]</span> <span style="color: #f8f8f2">[--port</span> <span style="color: #f8f8f2">PORT]</span> <span style="color: #f8f8f2">[--bind</span> <span style="color: #f8f8f2">IP_ADDRESS]</span> <span style="color: #f8f8f2">[--catalog</span> <span style="color: #f8f8f2">CATALOG]</span> <span style="color: #f8f8f2">[--log</span> <span style="color: #f8f8f2">LOG_LEVEL]</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">updateserver.py</span> <span style="color: #f8f8f2">[-h]</span> <span style="color: #f8f8f2">[--port</span> <span style="color: #f8f8f2">PORT]</span> <span style="color: #f8f8f2">[--bind</span> <span style="color: #f8f8f2">IP_ADDRESS]</span> <span style="color: #f8f8f2">[--catalog</span> <span style="color: #f8f8f2">CATALOG]</span> <span style="color: #f8f8f2">[--log</span> <span style="color: #f8f8f2">LOG_LEVEL]</span>
 </code></pre></div>
 <dl class="apidl">
   <dt></dt>
-  <dd><span class="apidef">**--help | -h**</span><span class="apidesc">Show help message and exit.</span>
-  <dd><span class="apidef">**--port | -p**</span><span class="apidesc">Specifies **PORT** number (Default: 8000)</span>
-  <dd><span class="apidef">**--bind | -b**</span><span class="apidesc">Specifies the IP address to which the update server binds. Usually, it is the host address of the update server. When multiple NICs configured, specify one of the IP addresses. (Default: HOST IP or 127.0.0.0)</span>
-  <dd><span class="apidef">**--catalog | -d**</span><span class="apidesc">Specifies the directory path on the update server that contains the binary sketch files. (Default: The current directory)</span>
-  <dd><span class="apidef">**--log | -l**</span><span class="apidesc">Specifies the level of logging output. It accepts the [Logging Levels](https://docs.python.org/3/library/logging.html?highlight=logging#logging-levels) specified in the Python logging module.</span>
+  <dd><span class="apidef"><strong>--help | -h</strong></span><span class="apidesc">Show help message and exit.</span>
+  <dd><span class="apidef"><strong>--port | -p</strong></span><span class="apidesc">Specifies <strong>PORT</strong> number (Default: 8000)</span>
+  <dd><span class="apidef"><strong>--bind | -b</strong></span><span class="apidesc">Specifies the IP address to which the update server binds. Usually, it is the host address of the update server. When multiple NICs configured, specify one of the IP addresses. (Default: HOST IP or 127.0.0.0)</span>
+  <dd><span class="apidef"><strong>--catalog | -d</strong></span><span class="apidesc">Specifies the directory path on the update server that contains the binary sketch files. (Default: The current directory)</span>
+  <dd><span class="apidef"><strong>--log | -l</strong></span><span class="apidesc">Specifies the level of logging output. It accepts the <a href="https://docs.python.org/3/library/logging.html?highlight=logging#logging-levels">Logging Levels</a> specified in the Python logging module.</span>
 </dl>
 
 <div class="admonition example">
@@ -1066,7 +1066,7 @@ The AutoConnect library provides an update server script implemented in Python t
 <li>
 <p>Start updateserver.py<br />
    For example, to start the update server on the host with IP address 172.16.1.10 using 8080 port<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>, execute the following command:
-  <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">python</span> <span style="color: #f8f8f2">updateserver.py</span> <span style="color: #f8f8f2">--port</span> <span style="color: #f8f8f2">8080</span> <span style="color: #f8f8f2">--bind</span> <span style="color: #f8f8f2">172.16.1.10</span> <span style="color: #f8f8f2">--catalog</span> <span style="color: #f8f8f2">bin</span> <span style="color: #f8f8f2">--log</span> <span style="color: #f8f8f2">debug</span>
+  <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">python</span> <span style="color: #f8f8f2">updateserver.py</span> <span style="color: #f8f8f2">--port</span> <span style="color: #f8f8f2">8080</span> <span style="color: #f8f8f2">--bind</span> <span style="color: #f8f8f2">172.16.1.10</span> <span style="color: #f8f8f2">--catalog</span> <span style="color: #f8f8f2">bin</span> <span style="color: #f8f8f2">--log</span> <span style="color: #f8f8f2">debug</span>
 </code></pre></div>
   In this example assumes that the binary sketch files are deployed under the path <code>bin</code> from the current directory.</p>
 </li>
@@ -1085,19 +1085,19 @@ The AutoConnect library provides an update server script implemented in Python t
 </ul>
 <p>Above requirements will be implemented on along the HTTP protocol. The AutoConnectUpdate class requests an update server to notify the client for a catalog list of binary sketch files using an HTTP URL query string. The specifications of the HTTP query and the contents of the catalog list to be returned are as follows:</p>
 <h4 id="1-http-url-query-for-the-catalog-list-of-the-updatable">1. HTTP URL query for the catalog list of the updatable<a class="headerlink" href="#1-http-url-query-for-the-catalog-list-of-the-updatable" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">[address]</span><span style="color: #f8f8f2">/_catalog</span><span style="color: #66d9ef">?</span><span style="color: #f8f8f2">op=list&amp;path=</span><span style="color: #66d9ef">[path]</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">[address]</span><span style="color: #f8f8f2">/_catalog</span><span style="color: #66d9ef">?</span><span style="color: #f8f8f2">op=list&amp;path=</span><span style="color: #66d9ef">[path]</span>
 </code></pre></div>
 <dl class="apidl">
   <dt></dt>
-  <dd><span class="apidef">**address**</span><span class="apidesc">URL of the update server</span>
-  <dd><span class="apidef">**/_catalog**</span><span class="apidesc">Request path, it is fixed.</span>
-  <dd><span class="apidef">**op**</span><span class="apidesc">Operation command for the update server. Currently, only '**list**' occurs.</span>
-  <dd><span class="apidef">**path**</span><span class="apidesc">Path containing the updatable binary files on the update server.</span>
+  <dd><span class="apidef"><strong>address</strong></span><span class="apidesc">URL of the update server</span>
+  <dd><span class="apidef"><strong>/_catalog</strong></span><span class="apidesc">Request path, it is fixed.</span>
+  <dd><span class="apidef"><strong>op</strong></span><span class="apidesc">Operation command for the update server. Currently, only '<strong>list</strong>' occurs.</span>
+  <dd><span class="apidef"><strong>path</strong></span><span class="apidesc">Path containing the updatable binary files on the update server.</span>
 </dl>
 
 <h4 id="2-the-catalog-list-content">2. The catalog list content<a class="headerlink" href="#2-the-catalog-list-content" title="Permanent link">&para;</a></h4>
 <p>The response (that is, the catalog list) to the above query from the server is the following specification in JSON format.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;name&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_NAME</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;type&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_TYPE</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;date&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">FILE_TIMESTAMP_DATED</span><span style="color: #f8f8f2">,</span>
@@ -1107,17 +1107,17 @@ The AutoConnect library provides an update server script implemented in Python t
 </code></pre></div>
 <dl class="apidl">
   <dt></dt>
-  <dd><span class="apidef">**name**</span><span class="apidesc">Binary sketch file name for update (String)</span>
-  <dd><span class="apidef">**type**</span><span class="apidesc">One of '**bin**', '**directory**' or '**file**'. AutoConnect Update recognizes only file types of '**bin**' as update targets. (String)</span>
-  <dd><span class="apidef">**date**</span><span class="apidesc">File update date. AutoConnect v1.0.0 treats the file update date as an annotation and is not equip the version control feature yet. (String)</span>
-  <dd><span class="apidef">**time**</span><span class="apidesc">File update time. AutoConnect v1.0.0 treats the file update date as an annotation and is not equip the version control feature yet. (String)</span>
-  <dd><span class="apidef">**size**</span><span class="apidesc">File byte count (Numeric)</span>
+  <dd><span class="apidef"><strong>name</strong></span><span class="apidesc">Binary sketch file name for update (String)</span>
+  <dd><span class="apidef"><strong>type</strong></span><span class="apidesc">One of '<strong>bin</strong>', '<strong>directory</strong>' or '<strong>file</strong>'. AutoConnect Update recognizes only file types of '<strong>bin</strong>' as update targets. (String)</span>
+  <dd><span class="apidef"><strong>date</strong></span><span class="apidesc">File update date. AutoConnect v1.0.0 treats the file update date as an annotation and is not equip the version control feature yet. (String)</span>
+  <dd><span class="apidef"><strong>time</strong></span><span class="apidesc">File update time. AutoConnect v1.0.0 treats the file update date as an annotation and is not equip the version control feature yet. (String)</span>
+  <dd><span class="apidef"><strong>size</strong></span><span class="apidesc">File byte count (Numeric)</span>
 </dl>
 
 <p>The above JSON object is one entry. The actual catalog list is an array of this entry since it  assumes that an update server will provide multiple update binary files in production. The update server should respond with the MIME type specified as <code>application/json</code> for the catalog list.<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup></p>
 <h4 id="3-the-binary-sketch-file-used-for-updating">3. The binary sketch file used for updating<a class="headerlink" href="#3-the-binary-sketch-file-used-for-updating" title="Permanent link">&para;</a></h4>
 <p>The AutoConnectUpdate class issues a HTTP GET request with the specified host address and URI. The update server responds by sending back a binary sketch file with the following header:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">Content-Type</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">application/octet-stream</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">Content-Type</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">application/octet-stream</span>
 <span style="color: #f8f8f2">Content-Disposition</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">attachment;</span> <span style="color: #f8f8f2">filename=</span><span style="color: #e6db74">&quot;BINARY_SKETCH_FILE_NAME&quot;</span>
 <span style="color: #f8f8f2">Content-Length</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">LENGTH_OF_CONTENT</span>
 <span style="color: #f8f8f2">x-MD5</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">HEXDIGEST</span>
@@ -1249,8 +1249,8 @@ For Python3: <em>AUTOCONNECT_LIBRARY_PATH</em>/src/updateserver/python3&#160;<a 
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

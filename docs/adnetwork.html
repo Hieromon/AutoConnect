@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,42 +309,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="adauthentication.html" class="md-nav__link">
-      Authentication settings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adcredential.html" class="md-nav__link">
-      Credential accesses
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -440,6 +404,42 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adauthentication.html" class="md-nav__link">
+      Authentication settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adcredential.html" class="md-nav__link">
+      Credential accesses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adexterior.html" class="md-nav__link">
+      Customizing page appearance
+    </a>
   </li>
 
         
@@ -1004,12 +1004,14 @@ Registering the Not-found handler is a different method than for ESP8266WebServe
 <p><strong>HOME</strong> for returning to the user's sketch homepage will display at the bottom of the AutoConnect menu. It could be set using the <a href="api.html#home">AutoConnect::home</a> function.</p>
 <p><img src="images/menu_home.png" /></p>
 <p>The Sketch HOME path is closely related to the <a href="apiconfig.html#booturi">bootUri</a> that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:</p>
-<p>-<strong>AUTOCONNECT_URI</strong><br />
-    The <strong>ROOT</strong> URI of AutoConnect. It is defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L93"><code>AutoConnectDefs.h</code></a> file and is assigned to <a href="menu.html#where-the-from">AutoConnect statistics screen</a> by default.
-- <a href="apiconfig.html#homeuri"><strong>AutoConnectConfig::homeUri</strong></a><br />
-    It is the hyperlink of listed on the AutoConnect menu as <strong>HOME</strong>.
-- <a href="apiconfig.html#booturi"><strong>AutoConnectConfig::bootUri</strong></a><br />
-    Which page appears at the captive portal, AUTOCONNECT_URI, or the homeUri. Its page will pop up automatically when you visit the captive portal.</p>
+<ul>
+<li><strong>AUTOCONNECT_URI</strong><br />
+    The <strong>ROOT</strong> URI of AutoConnect. It is defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L93"><code>AutoConnectDefs.h</code></a> file and is assigned to <a href="menu.html#where-the-from">AutoConnect statistics screen</a> by default.</li>
+<li><a href="apiconfig.html#homeuri"><strong>AutoConnectConfig::homeUri</strong></a><br />
+    It is the hyperlink of listed on the AutoConnect menu as <strong>HOME</strong>.</li>
+<li><a href="apiconfig.html#booturi"><strong>AutoConnectConfig::bootUri</strong></a><br />
+    Which page appears at the captive portal, AUTOCONNECT_URI, or the homeUri. Its page will pop up automatically when you visit the captive portal.</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -1053,7 +1055,7 @@ Registering the Not-found handler is a different method than for ESP8266WebServe
 </table>
 <h2 id="change-ssid-and-password-for-softap">Change SSID and Password for SoftAP<a class="headerlink" href="#change-ssid-and-password-for-softap" title="Permanent link">&para;</a></h2>
 <p>An <strong>esp8266ap</strong> is default SSID name for SoftAP of captive portal and password is <strong>12345678</strong> for ESP8266. Similarly, <strong>esp32ap</strong> and <strong>12345678</strong> for ESP32. You can change both by setting <a href="apiconfig.html#apid">apid</a> and <a href="apiconfig.html#psk">psk</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1064,7 +1066,7 @@ Registering the Not-found handler is a different method than for ESP8266WebServe
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>Also, you can specify the SSID, password for SoftAP with the constructor of the AutoConnectConfig as below.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #a6e22e">config</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;ap_portal&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;new_password&quot;</span><span style="color: #f8f8f2">);</span>
 </span>
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
@@ -1076,7 +1078,7 @@ Registering the Not-found handler is a different method than for ESP8266WebServe
 But this method is not recommended. The broadcast radio of SSID emitted from SoftAP will leak and reach several tens of meters.</p>
 <h2 id="combination-with-mdns">Combination with mDNS<a class="headerlink" href="#combination-with-mdns" title="Permanent link">&para;</a></h2>
 <p>With <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266mDNS">mDNS library</a>, you can access to ESP8266 by name instead of IP address after connection. The Sketch can start the MDNS responder after <a href="api.html#begin">AutoConnect::begin</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266mDNS.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
@@ -1094,7 +1096,7 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 </code></pre></div>
 <h2 id="make-ssid-of-softap-unique">Make SSID of SoftAP unique<a class="headerlink" href="#make-ssid-of-softap-unique" title="Permanent link">&para;</a></h2>
 <p>You can change SoftAP's SSID and password programmatically when the captive portal starts up. By using chip specific ID of esp8266/esp32 you can make SSID of SoftAP unique. SSID and password for SoftAP is <a href="apiconfig.html#apid"><em>AutoConnectConfig::apid</em></a> and <a href="apiconfig.html#psk"><em>AutoConnectConfig::psk</em></a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">acConfig;</span>
 
 <span style="color: #f8f8f2">acConfig.apid</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;ESP-&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(ESP.getChipId(),</span> <span style="color: #f8f8f2">HEX);</span>
@@ -1107,8 +1109,8 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 <p><code>acConfig.apid = "ESP-" + String((uint32_t)(ESP.getEfuseMac() &gt;&gt; 32), HEX);</code></p>
 </div>
 <h2 id="relocate-the-autoconnect-home-path">Relocate the AutoConnect home path<a class="headerlink" href="#relocate-the-autoconnect-home-path" title="Permanent link">&para;</a></h2>
-<p>A home path of AutoConnect is <strong>/_ac</strong> by default. You can access from the browser with <a href="http://IPADDRESS/">http://IPADDRESS/</a>_ac. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69"><strong>AUTOCONNECT_URI</strong></a> macro in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> header file.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
+<p>A home path of AutoConnect is <strong>/_ac</strong> by default. You can access from the browser with <code>http://IPADDRESS_OF_ESP_MODULE/_ac</code>. You can change the home path by revising <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69"><strong>AUTOCONNECT_URI</strong></a> macro in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> header file.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_URI         &quot;/_ac&quot;</span>
 </code></pre></div>
 <h2 id="softap-access-point-ip-settings">SoftAP access point IP settings<a class="headerlink" href="#softap-access-point-ip-settings" title="Permanent link">&para;</a></h2>
 <p>AutoConnect will activate <a href="https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html#soft-access-point-class">SoftAP</a> at failed the 1<sup>st</sup>-WiFi.begin. Its SoftAP settings are stored in AutoConnectConfig as the following parameters. The Sketch could be configured SoftAP using these parameters, refer the <a href="apiconfig.html">AutoConnectConfig API</a> for details.</p>
@@ -1194,7 +1196,7 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
 </tbody>
 </table>
 <p>The above parameters must be set using <a href="apiconfig.html">AutoConnect::config</a> prior to <a href="apiconfig.html#begin">AutoConnect::begin</a> call as following:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>        <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>        <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span>  <span style="color: #f8f8f2">Config;</span>
 <span style="color: #f8f8f2">Config.staip</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">IPAddress(</span><span style="color: #ae81ff">192</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">168</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">Config.staGateway</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">IPAddress(</span><span style="color: #ae81ff">192</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">168</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">);</span>
@@ -1236,7 +1238,7 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="adexterior.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="adcpcontrol.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1245,19 +1247,19 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Settings for customizing the page exterior
+                Captive portal control
               </div>
             </div>
           </a>
         
         
-          <a href="adothers.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="adauthentication.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Other operation settings and controls
+                Authentication settings
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -1310,8 +1312,8 @@ But this method is not recommended. The broadcast radio of SSID emitted from Sof
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({

@@ -16,7 +16,7 @@
         <meta name="author" content="Hieromon Ikasamo">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.21aed14c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
@@ -309,6 +309,18 @@
 
 
   <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="adauthentication.html" class="md-nav__link">
       Authentication settings
     </a>
@@ -334,19 +346,7 @@
 
   <li class="md-nav__item">
     <a href="adexterior.html" class="md-nav__link">
-      Settings for customizing the page exterior
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
+      Customizing page appearance
     </a>
   </li>
 
@@ -988,14 +988,14 @@
 <li>Declare an AutoConnectAux object for your sketch own if needed.</li>
 <li>Perform the following procedure steps in the <code>setup()</code> function:<ol>
 <li>Set <a href="apiconfig.html#ota">AutoConnectConfig::ota</a> to <strong>AC_OTA_BUILTIN</strong> and configure AutoConnect.</li>
-<li>Load the AutoConnectAux pages declared in step #4 for your application.</li>
+<li>Load the AutoConnectAux pages declared in step <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/Hieromon/AutoConnect/issues/4" title="GitHub Issue: Hieromon/AutoConnect#4">#4</a> for your application.</li>
 <li>Join these pages to AutoConnect.</li>
 <li>Invokes <a href="api.html#begin">AutoConnect::begin</a> function.</li>
 </ol>
 </li>
 <li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>.</li>
 </ol>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;            // Step #1</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;            // Step #1</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;       // Step #1</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;            // Step #1</span>
 
@@ -1031,12 +1031,12 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 </div>
 <h3 id="autoconnectota-allocation-uri"><i class="fa fa-wrench"></i> AutoConnectOTA allocation URI<a class="headerlink" href="#autoconnectota-allocation-uri" title="Permanent link">&para;</a></h3>
 <p>AutoConnectOTA has implemented using AutoConnectAUX. So it occupies two URIs by default. An update operation page is assigned to <strong>AUTOCONNECT_URI_UPDATE</strong> and the binary file uploader for the update is assigned to <strong>AUTOCONNECT_URI_UPDATE_ACT</strong>. These symbols are defined in the <code>AutoConnectDefs.h</code> header file as follows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_URI             &quot;/_ac&quot;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_URI             &quot;/_ac&quot;</span>
 <span style="color: #75715e">#define AUTOCONNECT_URI_UPDATE      AUTOCONNECT_URI &quot;/update&quot;</span>
 <span style="color: #75715e">#define AUTOCONNECT_URI_UPDATE_ACT  AUTOCONNECT_URI &quot;/update_act&quot;</span>
 </code></pre></div>
 <p>Therefore, the normal Sketch that imports AutoConnectOTA while keeping the default, you cannot use the two URIs <code>/_ac/update</code> and <code>/_ac/update_act</code> for your specific. If you want to use the URIs for any purpose other than AutoConnectOTA, you need to override the <code>AutoConnectDefs.h</code> definition at compile time. It can be overwritten by giving the build flags for platformio.ini as follows with the PlatformIO environment for example.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74"></span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74"></span>
 <span style="color: #e6db74">  -DAUTOCONNECT_URI_UPDATE=&#39;&quot;/YOURURI&quot;&#39;</span>
 <span style="color: #e6db74">  -DAUTOCONNECT_URI_UPDATE_ACT=&#39;&quot;/YOURURIACT&quot;&#39;</span>
 </code></pre></div>
@@ -1044,7 +1044,7 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 <p>It will be born during <a href="api.html#handleclient">AutoConnect::handleClient</a> process. AutoConnect will evaluate the enabled state of <a href="apiconfig.html#ota">AutoConnectConfig::ota</a> each time the handleClient is executed, and if OTA is enabled then it creates an AutoConnectAux internally and assigns it to the update page. At this time, AutoConnectOTA is also instantiated together. The generated AUX page containing AutoConnectOTA is bound to AutoConnect inside the AutoConnect::handleClient process.</p>
 <p>If you want to attach AutoConnectOTA dynamically with an external trigger, you can sketch like this:<br />
 <em>This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnect OTA will not be imported into Sketch and will not appear on the menu list.</em></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1087,14 +1087,14 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 <li>Declare additional AutoConnectAux pages for your application intention if needed.</li>
 <li>Perform the following procedure steps in the <code>setup()</code> function:<ol>
 <li>Invokes <code>ESP8288HTTPUpdateServer::setup</code> function, specifies the <strong>USERNAME</strong> and the <strong>PASSWORD</strong> as needed.</li>
-<li>Load the AutoConnectAux pages declared in step #8 for your application. (Except the update dialog page)</li>
-<li>Join these pages to AutoConnect along with the update dialog page declared in step #5.</li>
+<li>Load the AutoConnectAux pages declared in step <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/Hieromon/AutoConnect/issues/8" title="GitHub Issue: Hieromon/AutoConnect#8">#8</a> for your application. (Except the update dialog page)</li>
+<li>Join these pages to AutoConnect along with the update dialog page declared in step <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/Hieromon/AutoConnect/issues/5" title="GitHub Issue: Hieromon/AutoConnect#5">#5</a>.</li>
 <li>Invokes <a href="api.html#begin">AutoConnect::begin</a> function.</li>
 </ol>
 </li>
 <li>Invokes <a href="api.html#handleclient">AutoConnect::handleClient</a> function in the <code>loop()</code>. </li>
 </ol>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266HTTPUpdateServer.h&gt;    // Step #1</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;WiFiClient.h&gt;                 // Step #1</span>
@@ -1128,7 +1128,7 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 <p>The <a href="otabrowser.html">built-in OTA update feature</a> can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the <a href="menu.html#update"><strong>Update</strong></a> of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This utilization is useful for the operation of transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.</p>
 <p>The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, files with names with a <strong>.bin</strong> extension are subject to firmware updates. A file that has the other patterns with extension will be saved to SPIFFS in the flash.</p>
 <p>The filename pattern that should be treated as the firmware is defined as the <strong><code>AUTOCONNECT_UPLOAD_ASFIRMWARE</code></strong> macro in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274">AutoConnectDefs.h</a> head file of the library source code and can be specified with the <strong>regular expression</strong>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_UPLOAD_ASFIRMWARE &quot;^.*\\.[bB][iI][nN]$&quot;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_UPLOAD_ASFIRMWARE &quot;^.*\\.[bB][iI][nN]$&quot;</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Escape for the special characters</p>
@@ -1137,7 +1137,7 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 <div class="admonition info">
 <p class="admonition-title">Specify with the PlatformIO</p>
 <p><code>AUTOCONNECT_UPLOAD_ASFIRMWARE</code> pattern will be embedded into the binary sketch is determined at compile time. The <a href="https://platformio.org/platformio-ide"><strong>PlatformIO</strong></a> build system allows you to change the pattern expression for each project without modifying the library source code.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #a6e22e">build_flags</span><span style="color: #f92672">=</span><span style="color: #e6db74">-DAUTOCONNECT_UPLOAD_ASFIRMWARE=&#39;&quot;^.*\\.[bB][iI][nN]$&quot;&#39;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #a6e22e">build_flags</span><span style="color: #f92672">=</span><span style="color: #e6db74">-DAUTOCONNECT_UPLOAD_ASFIRMWARE=&#39;&quot;^.*\\.[bB][iI][nN]$&quot;&#39;</span>
 </code></pre></div>
 </div>
 <script>
@@ -1254,8 +1254,8 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
       
     </div>
     
-      <script src="assets/javascripts/vendor.7e0ee788.min.js"></script>
-      <script src="assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
