@@ -1,9 +1,9 @@
 /**
  * Implementation of AutoConnectElementBasis classes.
- * @file AutoConnectElementImpl.h
+ * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.11
- * @date 2019-06-25
+ * @version  1.2.0
+ * @date 2020-11-11
  * @copyright  MIT license.
  */
 
@@ -19,8 +19,16 @@
 #endif
 #include "AutoConnectElementBasis.h"
 
+// Preserve a valid global Filesystem instance.
+// It allows the interface to the actual filesystem for migration to LittleFS.
+#ifdef AUTOCONNECT_USE_SPIFFS
+namespace AutoConnectFS { SPIFFST& FLASHFS = SPIFFS; };
+#else
+namespace AutoConnectFS { SPIFFST& FLASHFS = LittleFS; };
+#endif
+
 /**
- * Append post-tag accoring by the post attribute.
+ * Append post-tag according by the post attribute.
  * @param  s  An original string
  * @return    A string that appended the post tag
  */
@@ -111,7 +119,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
   // Classify a handler type and create the corresponding handler
   switch (store) {
   case AC_File_FS:
-    handlerFS = new AutoConnectUploadFS(SPIFFS);
+    handlerFS = new AutoConnectUploadFS(AutoConnectFS::FLASHFS);
     _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerFS));
     break;
   case AC_File_SD:
@@ -121,7 +129,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
   case AC_File_Extern:
     break;
   }
-  return _upload != false;
+  return _upload ? true : false;
 }
 
 /**
@@ -138,7 +146,20 @@ const String AutoConnectInputBasis::toHTML(void) const {
   if (enable) {
     if (label.length())
       html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
-    html += String(F("<input type=\"text\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
+    PGM_P applyType;
+    switch (apply) {
+    case AC_Input_Number:
+      applyType = PSTR(AUTOCONNECT_JSON_VALUE_NUMBER);
+      break;
+    case AC_Input_Password:
+      applyType = PSTR(AUTOCONNECT_JSON_VALUE_PASSWORD);
+      break;
+    case AC_Input_Text:
+    default:
+      applyType = PSTR(AUTOCONNECT_JSON_VALUE_TEXT);
+      break;
+    }
+    html += String(F("<input type=\"")) + String(applyType) + String(F("\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
     if (pattern.length())
       html += String(F(" pattern=\"")) + pattern + String("\"");
     if (placeholder.length())
@@ -172,7 +193,7 @@ bool AutoConnectInputBasis::isValid(void) const {
       regfree(&preg);
     }
 #elif defined(ARDUINO_ARCH_ESP32)
-    const std::regex  re(pattern.c_str());
+    const std::regex  re(std::string(pattern.c_str()));
     rc = std::regex_match(value.c_str(), re);
 #endif
   }

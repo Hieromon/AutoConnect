@@ -135,7 +135,7 @@ def dir_json(path):
                     c = '\x00'
                 if c == '\xe9':
                     e['type'] = "bin"
-                    mtime = os.path.getmtime(fn);
+                    mtime = os.path.getmtime(fn)
                     e['date'] = time.strftime('%x', time.localtime(mtime))
                     e['time'] = time.strftime('%X', time.localtime(mtime))
                     e['size'] = os.path.getsize(fn)

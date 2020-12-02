@@ -1,6 +1,6 @@
 /*
   Elements.ino, Example for the AutoConnect library.
-  Copyright (c) 2019, Hieromon Ikasamo
+  Copyright (c) 2020, Hieromon Ikasamo
   https://github.com/Hieromon/AutoConnect
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
@@ -20,10 +20,30 @@ using WebServerClass = ESP8266WebServer;
 #include <SPIFFS.h>
 using WebServerClass = WebServer;
 #endif
-#include <FS.h>
 #include <AutoConnect.h>
 
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as shown
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#include <FS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AUTOCONNECT_USE_SPIFFS
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
+
 #define PARAM_FILE      "/elements.json"
+#define USERNAME        "username_you_wish"   // For HTTP authentication
+#define PASSWORD        "password_you_wish"   // For HTTP authentication
 
 static const char PAGE_ELEMENTS[] PROGMEM = R"(
 {
@@ -31,6 +51,11 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
   "title": "Elements",
   "menu": true,
   "element": [
+    {
+      "name": "tablecss",
+      "type": "ACStyle",
+      "value": "table{font-family:arial,sans-serif;border-collapse:collapse;width:100%;color:black;}td,th{border:1px solid #dddddd;text-align:center;padding:8px;}tr:nth-child(even){background-color:#dddddd;}"
+    },
     {
       "name": "text",
       "type": "ACText",
@@ -51,6 +76,26 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       "label": "Text input",
       "placeholder": "This area accepts hostname patterns",
       "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$"
+    },
+    {
+      "name": "pass",
+      "type": "ACInput",
+      "label": "Password",
+      "apply": "password"
+    },
+    {
+      "name": "number",
+      "type": "ACInput",
+      "label": "Number",
+      "value": "3",
+      "apply": "number",
+      "pattern": "\\d*"
+    },
+    {
+      "name": "hr",
+      "type": "ACElement",
+      "value": "<hr style=\"height:1px;border-width:0;color:gray;background-color:#52a6ed\">",
+      "posterior": "par"
     },
     {
       "name": "radio",
@@ -74,6 +119,18 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       ],
       "label": "Select",
       "selected": 2
+    },
+    {
+      "name": "table",
+      "type": "ACElement",
+      "value": "<table><tr><th>Board</th><th>Platform</th></tr><tr><td>NodeMCU</td><td>Espressif8266</td></tr><tr><td>ESP32-DevKitC</td><td>Espressif32</td></tr></table>",
+      "posterior": "par"
+    },
+    {
+      "name": "upload",
+      "type": "ACFile",
+      "label": "Upload:",
+      "store": "fs"
     },
     {
       "name": "load",
@@ -156,13 +213,13 @@ void setup() {
       // Since this handler only supports AutoConnectSubmit called the
       // Load, it uses the uri of the custom web page placed to
       // determine whether the Load was called me or not.
-      SPIFFS.begin();
-      File param = SPIFFS.open(PARAM_FILE, "r");
+      FlashFS.begin();
+      File param = FlashFS.open(PARAM_FILE, "r");
       if (param) {
-        aux.loadElement(param, { "text", "check", "input", "radio", "select" } );
+        aux.loadElement(param, { "text", "check", "input", "input", "pass", "number", "radio", "select" } );
         param.close();
       }
-      SPIFFS.end();
+      FlashFS.end();
     }
     return String();
   });
@@ -181,28 +238,32 @@ void setup() {
     aux["caption"].value = PARAM_FILE;
 
 #if defined(ARDUINO_ARCH_ESP8266)
-    SPIFFS.begin();
+    FlashFS.begin();
 #elif defined(ARDUINO_ARCH_ESP32)
-    SPIFFS.begin(true);
+    FlashFS.begin(true);
 #endif
-    File param = SPIFFS.open(PARAM_FILE, "w");
+    File param = FlashFS.open(PARAM_FILE, "w");
     if (param) {
       // Save as a loadable set for parameters.
-      elementsAux.saveElement(param, { "text", "check", "input", "radio", "select" });
+      elementsAux.saveElement(param, { "text", "check", "input", "pass", "number", "radio", "select" });
       param.close();
       // Read the saved elements again to display.
-      param = SPIFFS.open(PARAM_FILE, "r");
+      param = FlashFS.open(PARAM_FILE, "r");
       aux["echo"].value = param.readString();
       param.close();
     }
     else {
-      aux["echo"].value = "SPIFFS failed to open.";
+      aux["echo"].value = "Filesystem failed to open.";
     }
-    SPIFFS.end();
+    FlashFS.end();
     return String();
   });
 
   portal.join({ elementsAux, saveAux });
+  config.auth = AC_AUTH_BASIC;
+  config.authScope = AC_AUTHSCOPE_AUX;
+  config.username = USERNAME;
+  config.password = PASSWORD;
   config.ticker = true;
   portal.config(config);
   portal.begin();

@@ -1,16 +1,13 @@
 
-
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/faq.html">
@@ -18,27 +15,8 @@
       
         <meta name="author" content="Hieromon Ikasamo">
       
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -46,27 +24,26 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.adb8469c.css">
-      
-        <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
-      
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
+        <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
         
-        <meta name="theme-color" content="#3f51b5">
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
       
     
     
-      <script src="assets/javascripts/modernizr.86422ebf.js"></script>
-    
     
       
+        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="css/paragraph.css">
@@ -78,101 +55,86 @@
     
       
         
-<script>
-  window.ga = window.ga || function() {
-    (ga.q = ga.q || []).push(arguments)
-  }
-  ga.l = +new Date
-  /* Setup integration and send page view */
-  ga("create", "UA-116150854-1", "auto")
-  ga("set", "anonymizeIp", true)
-  ga("send", "pageview")
-  /* Register handler to log search on blur */
-  document.addEventListener("DOMContentLoaded", () => {
-    if (document.forms.search) {
-      var query = document.forms.search.query
-      query.addEventListener("blur", function() {
-        if (this.value) {
-          var path = document.location.pathname;
-          ga("send", "pageview", path + "?q=" + this.value)
-        }
-      })
-    }
-  })
-</script>
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-116150854-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview",document.location.pathname)})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
   </head>
   
-    
-    
-    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+      
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#after-connected-autoconnect-menu-performs-but-no-happens" tabindex="0" class="md-skip">
-        Skip to content
-      </a>
-    
-    
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" aria-label="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
-          
-            <img alt="logo" src="images/arduino-logo.svg" width="24" height="24">
-          
-        </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          
-            <span class="md-header-nav__topic">
-              AutoConnect for ESP8266/ESP32
-            </span>
-            <span class="md-header-nav__topic">
-              
-                FAQ
-              
-            </span>
-          
-        </div>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
         
-          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-          
+        <a href="#after-connected-autoconnect-menu-performs-but-no-happens" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            AutoConnect for ESP8266/ESP32
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              FAQ
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Type to start searching
+            Initializing search
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -180,71 +142,55 @@
     </div>
   </div>
 </div>
+    
+    
+      <div class="md-header-nav__source">
         
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
   </div>
 </a>
-          </div>
-        </div>
-      
-    </div>
+      </div>
+    
   </nav>
 </header>
     
-    <div class="md-container">
+    <div class="md-container" data-md-component="container">
+      
       
         
       
-      
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
             
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
       
-        <img alt="logo" src="images/arduino-logo.svg" width="48" height="48">
-      
+  <img src="images/arduino-logo.svg" alt="logo">
+
     </a>
     AutoConnect for ESP8266/ESP32
   </label>
   
     <div class="md-nav__source">
       
-
-
-  
-
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
   </div>
@@ -259,7 +205,7 @@
 
 
   <li class="md-nav__item">
-    <a href="index.html" title="Overview" class="md-nav__link">
+    <a href="index.html" class="md-nav__link">
       Overview
     </a>
   </li>
@@ -271,7 +217,7 @@
 
 
   <li class="md-nav__item">
-    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+    <a href="gettingstarted.html" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -283,7 +229,7 @@
 
 
   <li class="md-nav__item">
-    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+    <a href="menu.html" class="md-nav__link">
       AutoConnect menu
     </a>
   </li>
@@ -295,20 +241,8 @@
 
 
   <li class="md-nav__item">
-    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+    <a href="basicusage.html" class="md-nav__link">
       Basic usage
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
-      Advanced usage
     </a>
   </li>
 
@@ -320,13 +254,135 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Advanced usage
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Advanced usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adconnection.html" class="md-nav__link">
+      AutoConnect WiFi connection control
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adcpcontrol.html" class="md-nav__link">
+      Captive portal control
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adauthentication.html" class="md-nav__link">
+      Authentication settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adcredential.html" class="md-nav__link">
+      Credential accesses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adexterior.html" class="md-nav__link">
+      Customizing page appearance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adothers.html" class="md-nav__link">
+      Other operation settings and controls
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
     
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
     <label class="md-nav__link" for="nav-6">
       Custom Web pages
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
         Custom Web pages
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -338,7 +394,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+    <a href="acintro.html" class="md-nav__link">
       Custom Web pages with AutoConnect
     </a>
   </li>
@@ -350,7 +406,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+    <a href="acelements.html" class="md-nav__link">
       AutoConnectElements
     </a>
   </li>
@@ -362,7 +418,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+    <a href="acjson.html" class="md-nav__link">
       Custom Web pages with JSON
     </a>
   </li>
@@ -374,7 +430,7 @@
 
 
   <li class="md-nav__item">
-    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+    <a href="achandling.html" class="md-nav__link">
       Handling the custom Web pages
     </a>
   </li>
@@ -392,13 +448,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
     <label class="md-nav__link" for="nav-7">
       OTA Updates
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
       <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
         OTA Updates
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -410,7 +467,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otaupdate.html" title="OTA Updates" class="md-nav__link">
+    <a href="otaupdate.html" class="md-nav__link">
       OTA Updates
     </a>
   </li>
@@ -422,7 +479,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+    <a href="otabrowser.html" class="md-nav__link">
       Using Web Browser
     </a>
   </li>
@@ -434,7 +491,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otaserver.html" title="Using Update Server" class="md-nav__link">
+    <a href="otaserver.html" class="md-nav__link">
       Using Update Server
     </a>
   </li>
@@ -452,13 +509,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
     <label class="md-nav__link" for="nav-8">
       Library APIs
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
       <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
         Library APIs
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -470,7 +528,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+    <a href="api.html" class="md-nav__link">
       AutoConnect API
     </a>
   </li>
@@ -482,7 +540,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+    <a href="apiaux.html" class="md-nav__link">
       AutoConnectAux API
     </a>
   </li>
@@ -494,7 +552,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+    <a href="apiconfig.html" class="md-nav__link">
       AutoConnectConfig API
     </a>
   </li>
@@ -506,7 +564,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+    <a href="apielements.html" class="md-nav__link">
       AutoConnectElements API
     </a>
   </li>
@@ -518,7 +576,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiupdate.html" title="AutoConnectUpdate API" class="md-nav__link">
+    <a href="apiupdate.html" class="md-nav__link">
       AutoConnectUpdate API
     </a>
   </li>
@@ -530,7 +588,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+    <a href="apiextra.html" class="md-nav__link">
       Something extra
     </a>
   </li>
@@ -548,13 +606,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" >
     <label class="md-nav__link" for="nav-9">
       Examples
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Examples" data-md-level="1">
       <label class="md-nav__title" for="nav-9">
+        <span class="md-nav__icon md-icon"></span>
         Examples
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -566,7 +625,7 @@
 
 
   <li class="md-nav__item">
-    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+    <a href="howtoembed.html" class="md-nav__link">
       How to embed
     </a>
   </li>
@@ -578,7 +637,7 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+    <a href="datatips.html" class="md-nav__link">
       Tips for data conversion
     </a>
   </li>
@@ -590,8 +649,8 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
-      Attach the menu
+    <a href="menuize.html" class="md-nav__link">
+      Attach the menus
     </a>
   </li>
 
@@ -602,7 +661,7 @@
 
 
   <li class="md-nav__item">
-    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+    <a href="wojson.html" class="md-nav__link">
       Custom Web pages w/o JSON
     </a>
   </li>
@@ -620,13 +679,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10" >
     <label class="md-nav__link" for="nav-10">
       Appendix
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Appendix" data-md-level="1">
       <label class="md-nav__title" for="nav-10">
+        <span class="md-nav__icon md-icon"></span>
         Appendix
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -638,7 +698,7 @@
 
 
   <li class="md-nav__item">
-    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+    <a href="lsbegin.html" class="md-nav__link">
       Inside AutoConnect::begin
     </a>
   </li>
@@ -650,7 +710,7 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentials access" class="md-nav__link">
+    <a href="credit.html" class="md-nav__link">
       Saved credentials access
     </a>
   </li>
@@ -662,7 +722,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+    <a href="acupload.html" class="md-nav__link">
       File upload handler
     </a>
   </li>
@@ -674,7 +734,7 @@
 
 
   <li class="md-nav__item">
-    <a href="colorized.html" title="Custom colorized" class="md-nav__link">
+    <a href="colorized.html" class="md-nav__link">
       Custom colorized
     </a>
   </li>
@@ -686,7 +746,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelabel.html" title="Change label text" class="md-nav__link">
+    <a href="changelabel.html" class="md-nav__link">
       Change label text
     </a>
   </li>
@@ -706,23 +766,27 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         FAQ
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="faq.html" title="FAQ" class="md-nav__link md-nav__link--active">
+    <a href="faq.html" class="md-nav__link md-nav__link--active">
       FAQ
     </a>
     
       
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -742,6 +806,20 @@
         <li class="md-nav__item">
   <a href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" class="md-nav__link">
      An esp8266ap as SoftAP was connected but Captive portal does not start.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cannot-automatically-reconnect-to-a-wifi-hotspot" class="md-nav__link">
+     Cannot automatically reconnect to a WiFi Hotspot
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#captive-portal-does-not-pop-up" class="md-nav__link">
+     Captive portal does not pop up.
   </a>
   
 </li>
@@ -824,6 +902,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-place-html-elements-undefined-in-autoconnectelements" class="md-nav__link">
+     How place HTML elements undefined in AutoConnectElements?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-erase-the-credentials-saved-in-eeprom" class="md-nav__link">
      How erase the credentials saved in EEPROM?
   </a>
@@ -842,7 +927,7 @@
      How much memory does AutoConnect consume?
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" How much memory does AutoConnect consume?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -900,11 +985,25 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#unable-to-change-any-macro-definitions-by-the-sketch" class="md-nav__link">
+     Unable to change any macro definitions by the Sketch.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unauthorize-error-without-prompting-the-login-dialog" class="md-nav__link">
+     Unauthorize error without prompting the login dialog.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#still-not-stable-with-my-sketch" class="md-nav__link">
      Still, not stable with my sketch.
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Still, not stable with my sketch.">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -919,7 +1018,7 @@
     2. Change the arduino core version
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="2. Change the arduino core version">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -960,10 +1059,6 @@
   
 </li>
       
-      
-      
-      
-      
     </ul>
   
 </nav>
@@ -977,7 +1072,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelog.html" title="Change log" class="md-nav__link">
+    <a href="changelog.html" class="md-nav__link">
       Change log
     </a>
   </li>
@@ -989,7 +1084,7 @@
 
 
   <li class="md-nav__item">
-    <a href="license.html" title="License" class="md-nav__link">
+    <a href="license.html" class="md-nav__link">
       License
     </a>
   </li>
@@ -1006,11 +1101,14 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -1030,6 +1128,20 @@
         <li class="md-nav__item">
   <a href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" class="md-nav__link">
      An esp8266ap as SoftAP was connected but Captive portal does not start.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cannot-automatically-reconnect-to-a-wifi-hotspot" class="md-nav__link">
+     Cannot automatically reconnect to a WiFi Hotspot
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#captive-portal-does-not-pop-up" class="md-nav__link">
+     Captive portal does not pop up.
   </a>
   
 </li>
@@ -1112,6 +1224,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-place-html-elements-undefined-in-autoconnectelements" class="md-nav__link">
+     How place HTML elements undefined in AutoConnectElements?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-erase-the-credentials-saved-in-eeprom" class="md-nav__link">
      How erase the credentials saved in EEPROM?
   </a>
@@ -1130,7 +1249,7 @@
      How much memory does AutoConnect consume?
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" How much memory does AutoConnect consume?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1188,11 +1307,25 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#unable-to-change-any-macro-definitions-by-the-sketch" class="md-nav__link">
+     Unable to change any macro definitions by the Sketch.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unauthorize-error-without-prompting-the-login-dialog" class="md-nav__link">
+     Unauthorize error without prompting the login dialog.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#still-not-stable-with-my-sketch" class="md-nav__link">
      Still, not stable with my sketch.
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Still, not stable with my sketch.">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1207,7 +1340,7 @@
     2. Change the arduino core version
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="2. Change the arduino core version">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1247,10 +1380,6 @@
     </nav>
   
 </li>
-      
-      
-      
-      
       
     </ul>
   
@@ -1280,6 +1409,17 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 </div>
 <h2 id="an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start"><i class="fa fa-question-circle"></i> An esp8266ap as SoftAP was connected but Captive portal does not start.<a class="headerlink" href="#an-esp8266ap-as-softap-was-connected-but-captive-portal-does-not-start" title="Permanent link">&para;</a></h2>
 <p>Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.</p>
+<h2 id="cannot-automatically-reconnect-to-a-wifi-hotspot"><i class="fa fa-question-circle"></i> Cannot automatically reconnect to a WiFi Hotspot<a class="headerlink" href="#cannot-automatically-reconnect-to-a-wifi-hotspot" title="Permanent link">&para;</a></h2>
+<p>WiFi Hotspot ability using a cell phone has no official designation name, but it is commonly referred to as a mobile hotspot or a Personal Hotspot. Generally, this feature using data communication with your cellular to ensure the connection to the Internet. AutoConnect allows you to connect to a WiFi hotspot that has been temporarily launched as an access point and then stores a credential for establishing a connection in the same way as a regular fixed access point.</p>
+<p>However, there's a case where it may not be able to reconnect automatically to a known WiFi hotspot. For security reasons, some device operating systems randomly change the MAC address of the WiFi hotspot at each boot for a hotspot. (Especially iOS14) AutoConnect uses the BSSID to find the known SSID from among WiFi signals being broadcast. (it's the MAC address) This method works if the BSSID that the hotspot originates is fixed, but AutoConnect will not be able to find known SSIDs when it changes.<br />
+Consider activating the <a href="adconnection.html#match-with-known-access-points-by-ssid">AUTOCONNECT_APKEY_SSID</a> definition if you want to reconnect automatically to a known WiFi hotspot.</p>
+<div class="admonition info">
+<p class="admonition-title">Cannot immobilize the MAC address of Personal Hotspot</p>
+<p>We may not be able to immobilize the MAC address of Personal Hotspot on iOS14. This specification change seems to be related to the private network connection enhancement of iOS14 devices. I found this change during the testing phase, but it is not the confirmed information. (iOS14 offers an option to immobilize the MAC address as a client device, but there is still no option to immobilize it where the device became a hotspot)</p>
+</div>
+<h2 id="captive-portal-does-not-pop-up"><i class="fa fa-question-circle"></i> Captive portal does not pop up.<a class="headerlink" href="#captive-portal-does-not-pop-up" title="Permanent link">&para;</a></h2>
+<p>If your ESP module is already transparent to the internet, the captive portal screen will not pop up even if <a href="apiconfig.html#retainportal"><strong>AutoConnectConfig::retainPortal</strong></a> is enabled. Some people have mistaken sometimes about the behavioral condition of the Captive portal, it only pops up automatically when the ESP module is disconnected state from the Internet.</p>
+<p>We will hypothesize that you keep the ESP module with AP_STA mode by specifing the <strong>retainPortal</strong> and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the <strong>esp32ap</strong>, the OS of your cellphone will determine that the access point (i.e. <strong>esp32ap</strong>) is transparent to the Internet. That is, the captive portal does not pop up.</p>
 <h2 id="compile-error-that-eeprom-was-not-declared-in-this-scope"><i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope<a class="headerlink" href="#compile-error-that-eeprom-was-not-declared-in-this-scope" title="Permanent link">&para;</a></h2>
 <p>If the user sketch includes the header file as <code>EEPROM.h</code>, this compilation error may occur depending on the order of the <code>#include</code> directives. <code>AutoConnectCredentials.h</code> including in succession linked from <code>AutoConnect.h</code> defines <strong>NO_GLOBAL_EEPROM</strong> internally, so if your sketch includes <code>EEPROM.h</code> after <code>AutoConnect.h</code>, the <strong>EEPROM</strong> global variable will be lost.</p>
 <p>If you use EEPROM with your sketch, declare <code>#include &lt;EEPROM.h&gt;</code> in front of <code>#include &lt;AutoConnect.h&gt;</code>.</p>
@@ -1290,7 +1430,7 @@ For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><e
 <li>
 <p>Disable an AutoConnectUpdate feature if you don't need.</p>
 <p>You can disable the AutoConnectUpdate feature by commenting out the <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L34"><strong>AUTOCONNECT_USE_UPDATE</strong></a> macro in the <a href="api.html#defined-macros"><code>AutoConnectDefs.h</code></a> header file.
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_USE_UPDATE</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_USE_UPDATE</span>
 </code></pre></div></p>
 </li>
 <li>
@@ -1327,9 +1467,9 @@ You have the following two options to avoid this conflict:</p>
 </li>
 </ul>
 <h2 id="does-not-appear-esp8266ap-in-smartphone"><i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.<a class="headerlink" href="#does-not-appear-esp8266ap-in-smartphone" title="Permanent link">&para;</a></h2>
-<p>Maybe it is successfully connected at the <a href="lsbegin.html#autoconnectbegin-logic-sequence"><strong>first WiFi.begin</strong></a>. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first <em>WiFi.begin()</em> fails.</p>
+<p>Maybe it is successfully connected at the <a href="lsbegin.html#autoconnectbegin-logic-sequence"><strong>1<sup>st</sup>-WiFi.begin</strong></a>. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first <em>WiFi.begin()</em> fails.</p>
 <p>The saved SSID would be cleared by  <em>WiFi.disconnect()</em> with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
@@ -1349,7 +1489,6 @@ You have the following two options to avoid this conflict:</p>
   <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-
 <details class="hint"><summary>You can interactively check the WiFi state of ESP8266.</summary><p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p>
 <p><img src="images/espshaker.gif" /></p>
 </details>
@@ -1358,11 +1497,10 @@ You have the following two options to avoid this conflict:</p>
 <h2 id="hang-up-after-reset"><i class="fa fa-question-circle"></i> Hang up after Reset?<a class="headerlink" href="#hang-up-after-reset" title="Permanent link">&para;</a></h2>
 <p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <p>If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ets</span> <span style="color: #f8f8f2">Jan</span>  <span style="color: #f8f8f2">8</span> <span style="color: #f8f8f2">2013,rst</span> <span style="color: #f8f8f2">cause</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">2,</span> <span style="color: #f8f8f2">boot</span> <span style="color: #f8f8f2">mode</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">(1,6)</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">(1,7)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ets</span> <span style="color: #f8f8f2">Jan</span>  <span style="color: #f8f8f2">8</span> <span style="color: #f8f8f2">2013,rst</span> <span style="color: #f8f8f2">cause</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">2,</span> <span style="color: #f8f8f2">boot</span> <span style="color: #f8f8f2">mode</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">(1,6)</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">(1,7)</span>
 <span style="color: #f8f8f2">ets</span> <span style="color: #f8f8f2">Jan</span>  <span style="color: #f8f8f2">8</span> <span style="color: #f8f8f2">2013,rst</span> <span style="color: #f8f8f2">cause</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">4,</span> <span style="color: #f8f8f2">boot</span> <span style="color: #f8f8f2">mode</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">(1,6)</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">(1,7)</span>
 <span style="color: #f8f8f2">wdt</span> <span style="color: #f8f8f2">reset</span>
 </code></pre></div>
-
 <p>The correct boot mode for starting the Sketch is <strong>(3, x)</strong>.</p>
 <div class="admonition info">
 <p class="admonition-title">ESP8266 Boot Messages</p>
@@ -1390,36 +1528,53 @@ You have the following two options to avoid this conflict:</p>
 <p>You can use the <a href="api.html#ondetect">AutoConnect::onDetect</a> exit routine. For more details and an implementation example of the onDetect exit routine, refer to the chapter "<a href="advancedusage.html#captive-portal-start-detection">Captive portal start detection</a>".</p>
 <h2 id="how-change-http-port"><i class="fa fa-question-circle"></i> How change HTTP port?<a class="headerlink" href="#how-change-http-port" title="Permanent link">&para;</a></h2>
 <p>HTTP port number is defined as a macro in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L123">AutoConnectDefs.h</a> header file. You can change it directly with several editors and must re-compile.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_HTTPPORT    80</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_HTTPPORT    80</span>
 </code></pre></div>
-
 <h2 id="how-change-ssid-or-password-in-captive-portal"><i class="fa fa-question-circle"></i> How change SSID or Password in Captive portal?<a class="headerlink" href="#how-change-ssid-or-password-in-captive-portal" title="Permanent link">&para;</a></h2>
 <p>You can change both by using <a href="apiconfig.html#apid">AutoConnectConfig::apid</a> and <a href="apiconfig.html#psk">AutoConnectConfig::psk</a>. Refer to section <a href="advancedusage.html#change-ssid-and-password-for-softap">Change SSID and Password for SoftAP</a> in <a href="advancedusage.html">Advanced usage</a>.</p>
 <h2 id="how-do-i-detach-the-ardunojson"><i class="fa fa-question-circle"></i> How do I detach the ArdunoJson?<a class="headerlink" href="#how-do-i-detach-the-ardunojson" title="Permanent link">&para;</a></h2>
 <p>If you don't use ArduinoJson at all, you can detach it from the library. By detaching ArduinoJson, the binary size after compilation can be reduced. You can implement custom Web pages with your sketches without using ArduinoJson. Its method is described in <a href="wojson.html">Custom Web pages w/o JSON</a>.<br />
 To completely remove ArduinoJson at compile-time from the binary, you need to define a special <code>#define</code> directive for it. And if you define the directive, you will not be able to use the <a href="otaserver.html#updates-with-the-update-server">OTA update with the update server</a> feature as well as AutoConnectAux described by JSON.</p>
 <p>To exclude ArduinoJson at compile-time, give the following <code>#define</code> directive as a compiler option such as the <a href="https://github.com/arduino/arduino-cli">arduino-cli</a> or <a href="https://platformio.org/">PlatformIO</a>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_NOUSE_JSON</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_NOUSE_JSON</span>
 </code></pre></div>
-
 <p>For example, add the following description to the <code>[env]</code> section of the <code>platformio.ini</code> file with the <code>build-flags</code>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #a6e22e">build-flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">-DAUTOCONNECT_NOUSE_JSON</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #a6e22e">build-flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">-DAUTOCONNECT_NOUSE_JSON</span>
 </code></pre></div>
-
+<h2 id="how-place-html-elements-undefined-in-autoconnectelements"><i class="fa fa-question-circle"></i> How place HTML elements undefined in AutoConnectElements?<a class="headerlink" href="#how-place-html-elements-undefined-in-autoconnectelements" title="Permanent link">&para;</a></h2>
+<p><a href="acelements.html#autoconnectelement-a-basic-class-of-elements">AutoConnectElement</a> can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See <a href="achandling.html#place-html-elements-undefined-in-autoconnectelements"><em>Handling the custom Web Pages</em></a> section.</p>
 <h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
-<p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '<a href="credit.html#saved-credential-in-eeprom">Saved credential access</a>' on section <a href="credit.html">Appendix</a> for details.</p>
+<p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '<a href="credit.html#saved-credential-in-eeprom">Saved credential access</a>' on section <a href="credit.html"><em>Appendix</em></a> for details.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>With the <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>, you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.</p>
 </div>
 <h2 id="how-locate-the-link-button-to-the-autoconnect-menu"><i class="fa fa-question-circle"></i> How locate the link button to the  AutoConnect menu?<a class="headerlink" href="#how-locate-the-link-button-to-the-autoconnect-menu" title="Permanent link">&para;</a></h2>
 <p>Link button to AutoConnect menu can be embedded into Sketch's web page. The root path of the menu is <strong>/_ac</strong> by default and embed the following <code>&lt;a&gt;&lt;/a&gt;</code> tag in the generating HTML.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">a</span> <span style="color: #a6e22e">style</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;background-color:SteelBlue; display:inline-block; padding:7px 13px; text-decoration:none;&quot;</span> <span style="color: #a6e22e">href</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;/_ac&quot;</span><span style="color: #f8f8f2">&gt;</span>MENU<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">a</span><span style="color: #f8f8f2">&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">a</span> <span style="color: #a6e22e">style</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;background-color:SteelBlue; display:inline-block; padding:7px 13px; text-decoration:none;&quot;</span> <span style="color: #a6e22e">href</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;/_ac&quot;</span><span style="color: #f8f8f2">&gt;</span>MENU<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">a</span><span style="color: #f8f8f2">&gt;</span>
 </code></pre></div>
-
 <h2 id="how-much-memory-does-autoconnect-consume"><i class="fa fa-question-circle"></i> How much memory does AutoConnect consume?<a class="headerlink" href="#how-much-memory-does-autoconnect-consume" title="Permanent link">&para;</a></h2>
 <h3 id="sketch-size">Sketch size<a class="headerlink" href="#sketch-size" title="Permanent link">&para;</a></h3>
-<p>It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)</p>
+<ol>
+<li>
+<p>For ESP8266<br />
+   It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)</p>
+</li>
+<li>
+<p>For ESP32<br />
+   The BIN size of the sketch grows to over 1M bytes. In the case of a sketch with many custom Web pages, when applying the partition table for the default scheme, the remaining flash size that can be utilized by the user application may be less than 200K bytes. Therefore, it is advisable to resize the partition to make more available space for the application. The ESP32 arduino core has various <a href="https://github.com/espressif/arduino-esp32/tree/master/tools/partitions">partition schemes</a>, and you can choose it according to your Sketch feature.<br />
+   You can change the partition scheme from the <strong>Tools &gt; Partition Scheme</strong> menu of Arduino IDE.</p>
+</li>
+</ol>
+<p><img src="images/partition.png"></p>
+<div class="admonition hint">
+<p class="admonition-title">Change the partition scheme with PlatformIO</p>
+<p>Use <code>board_build.partitions</code> directive with <code>platformio.ini</code>.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">[env:esp32dev]</span>
+<span style="color: #a6e22e">board_build.partitions</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">min_spiffs.csv</span>
+</code></pre></div>
+Details for the <a href="https://docs.platformio.org/en/latest/platforms/espressif32.html#partition-tables">PlatformIO documentation</a>.</p>
+</div>
 <h3 id="heap-size">Heap size<a class="headerlink" href="#heap-size" title="Permanent link">&para;</a></h3>
 <p>It consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.</p>
 <h2 id="i-cannot-complete-to-wi-fi-login-from-smartphone"><i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.<a class="headerlink" href="#i-cannot-complete-to-wi-fi-login-from-smartphone" title="Permanent link">&para;</a></h2>
@@ -1428,7 +1583,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 <p>If the Sketch is correct, a JSON syntax error may have occurred. In this case, activate the <a href="faq.html#3-turn-on-the-debug-log-options">AC_DEBUG</a> and rerun. If you take the message of JSON syntax error, the <a href="https://arduinojson.org/v5/assistant/">Json Assistant</a> helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. </p>
 <h2 id="saved-credentials-are-wrong-or-lost"><i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.<a class="headerlink" href="#saved-credentials-are-wrong-or-lost" title="Permanent link">&para;</a></h2>
 <p>A structure of AutoConnect saved credentials has changed two times throughout enhancement with v1.0.3 and v1.1.0. In particular, due to enhancements in v1.1.0, AutoConnectCredential data structure has lost the backward compatibility with previous versions. You must erase the flash of the ESP module using the esptool completely to save the credentials correctly with v1.1.0.
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">esptool</span> <span style="color: #f8f8f2">-c</span> <span style="color: #f8f8f2">esp8266</span> <span style="color: #f8f8f2">(or</span> <span style="color: #f8f8f2">esp32)</span> <span style="color: #f8f8f2">-p</span> <span style="color: #66d9ef">[COM_PORT]</span> <span style="color: #f8f8f2">erase_flash</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">esptool</span> <span style="color: #f8f8f2">-c</span> <span style="color: #f8f8f2">esp8266</span> <span style="color: #f8f8f2">(or</span> <span style="color: #f8f8f2">esp32)</span> <span style="color: #f8f8f2">-p</span> <span style="color: #66d9ef">[COM_PORT]</span> <span style="color: #f8f8f2">erase_flash</span>
 </code></pre></div></p>
 <h2 id="some-autoconnect-page-is-cut-off"><i class="fa fa-question-circle"></i> Some AutoConnect page is cut off.<a class="headerlink" href="#some-autoconnect-page-is-cut-off" title="Permanent link">&para;</a></h2>
 <p>It may be two possibilities as follows:</p>
@@ -1439,23 +1594,55 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 <p>If this issue produces with your sketch, Reloading the page may recover.<br />
 Also, you can check the memory running out status by rebuilding the Sketch with <a href="faq.html#fn:2">PageBuilder's debug log option</a> turned on.</p>
 <p>If the heap memory is insufficient, the following message is displayed on the serial console.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">[PB]</span> <span style="color: #f8f8f2">Failed</span> <span style="color: #f8f8f2">building,</span> <span style="color: #f8f8f2">free</span> <span style="color: #f8f8f2">heap</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">&lt;Size</span> <span style="color: #f8f8f2">of</span> <span style="color: #f8f8f2">free</span> <span style="color: #f8f8f2">heap&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">[PB]</span> <span style="color: #f8f8f2">Failed</span> <span style="color: #f8f8f2">building,</span> <span style="color: #f8f8f2">free</span> <span style="color: #f8f8f2">heap</span><span style="color: #960050; background-color: #1e0010">:</span><span style="color: #f8f8f2">&lt;Size</span> <span style="color: #f8f8f2">of</span> <span style="color: #f8f8f2">free</span> <span style="color: #f8f8f2">heap&gt;</span>
 </code></pre></div>
-
 <h2 id="submit-element-in-a-custom-web-page-does-not-react"><i class="fa fa-question-circle"></i> Submit element in a custom Web page does not react.<a class="headerlink" href="#submit-element-in-a-custom-web-page-does-not-react" title="Permanent link">&para;</a></h2>
 <p>Is there the AutoConnectElements element named <strong>SUBMIT</strong> in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the <code>input type=submit</code> element for the form submission and uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit">HTML form element submit</a> function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use <strong>SUBMIT</strong> as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.</p>
+<h2 id="unable-to-change-any-macro-definitions-by-the-sketch"><i class="fa fa-question-circle"></i> Unable to change any macro definitions by the Sketch.<a class="headerlink" href="#unable-to-change-any-macro-definitions-by-the-sketch" title="Permanent link">&para;</a></h2>
+<p>The various macro definitions that determine the configuration of AutoConnect cannot be redefined by hard-coding with Sketch. The compilation unit has a different AutoConnect library itself than the Sketch, and the configuration definitions in AutoConnectDefs.h are quoted in the compilation for AutoConnect only. For example, the following Sketch does not enable AC_DEBUG and does not change HTTP port also the menu background color:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="background-color: #49483e"><span style="color: #75715e">#define AC_DEBUG                                    // No effect</span>
+</span><span style="background-color: #49483e"><span style="color: #75715e">#define AUTOCONNECT_HTTPPORT    8080                // No effect</span>
+</span><span style="background-color: #49483e"><span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_BACKGROUND  &quot;#696969&quot; // No effect</span>
+</span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">Portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>To enable them, edit <code>AutoConnectDefs.h</code> as the library source code directly, or supply them as the external parameters using a build system like <a href="https://platformio.org/platformio-ide">PlatformIO</a> with <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html?highlight=build_flags#build-flags"><code>platformio.ini</code></a>:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #a6e22e">platform</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">espressif8266</span>
+<span style="color: #a6e22e">board</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">nodemcuv2</span>
+<span style="color: #a6e22e">board_build.f_cpu</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">160000000L</span>
+<span style="color: #a6e22e">board_build.f_flash</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">80000000L</span>
+<span style="color: #a6e22e">board_build.flash_mode</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">dio</span>
+<span style="color: #a6e22e">board_build.filesystem</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">littlefs</span>
+<span style="background-color: #49483e"><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span><span style="color: #e6db74"></span>
+</span><span style="background-color: #49483e"><span style="color: #e6db74">  -DAC_DEBUG</span>
+</span><span style="background-color: #49483e"><span style="color: #e6db74">  -DAUTOCONNECT_HTTPPORT=8080</span>
+</span><span style="background-color: #49483e"><span style="color: #e6db74">  -DAUTOCONNECT_MENUCOLOR_BACKGROUND=&#39;&quot;#696969&quot;&#39;</span>
+</span></code></pre></div>
+<h2 id="unauthorize-error-without-prompting-the-login-dialog"><i class="fa fa-question-circle"></i> Unauthorize error without prompting the login dialog.<a class="headerlink" href="#unauthorize-error-without-prompting-the-login-dialog" title="Permanent link">&para;</a></h2>
+<p>The custom web pages that require authentication will occur unauthorized error always without prompting the login dialog under the captive portal state on some OS. This is a captive portal restriction and expected behavior. The captive portal web browser is almost a complete web browser, but while the captive portal session restricts the response to <code>WWW-authenticate</code> requests. (In intrinsically, the captive portal is a mechanism for authentication in itself)</p>
+<p>Once you exit from the captive portal session and connect SoftAP IP directly afresh, you can access custom web pages along with prompting a login dialog.</p>
 <h2 id="still-not-stable-with-my-sketch"><i class="fa fa-question-circle"></i> Still, not stable with my sketch.<a class="headerlink" href="#still-not-stable-with-my-sketch" title="Permanent link">&para;</a></h2>
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
 <p>Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try to configure the <a href="apiconfig.html#channel">channel</a> with <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the access point.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
 
 <span style="color: #f8f8f2">config.channel</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">3</span><span style="color: #f8f8f2">;</span>     <span style="color: #75715e">// Specifies a channel number that matches the AP</span>
-<span style="color: #f8f8f2">portal.config(config);</span>  <span style="color: #75715e">// Apply channel configurration</span>
+<span style="color: #f8f8f2">portal.config(config);</span>  <span style="color: #75715e">// Apply channel configuration</span>
 <span style="color: #f8f8f2">portal.begin();</span>         <span style="color: #75715e">// Start the portal</span>
 </code></pre></div>
-
 <div class="admonition info">
 <p class="admonition-title">Channel selection guide</p>
 <p>Espressif Systems has released a <a href="https://www.espressif.com/sites/default/files/esp8266_wi-fi_channel_selection_guidelines.pdf">channel selection guide</a>.</p>
@@ -1470,13 +1657,11 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <h3 id="3-turn-on-the-debug-log-options">3. Turn on the debug log options<a class="headerlink" href="#3-turn-on-the-debug-log-options" title="Permanent link">&para;</a></h3>
 <p>To fully enable for the AutoConnect debug logging options, change the following two files.</p>
 <p><i class="fas fa-angle-right"></i> AutoConnectDefs.h</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AC_DEBUG</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AC_DEBUG</span>
 </code></pre></div>
-
 <p><i class="fas fa-angle-right"></i> PageBuilder.h <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define PB_DEBUG</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define PB_DEBUG</span>
 </code></pre></div>
-
 <h3 id="4-reports-the-issue-to-autoconnect-github-repository">4. Reports the issue to AutoConnect Github repository<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-github-repository" title="Permanent link">&para;</a></h3>
 <p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
 <ul class="task-list">
@@ -1508,9 +1693,6 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 </ol>
 </div>
                 
-                  
-                
-                
               
               
                 
@@ -1526,34 +1708,34 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="changelabel.html" title="Change label text" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+          <a href="changelabel.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 Change label text
-              </span>
+              </div>
             </div>
           </a>
         
         
-          <a href="changelog.html" title="Change log" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+          <a href="changelog.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
                 Change log
-              </span>
+              </div>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
             </div>
           </a>
         
@@ -1568,19 +1750,31 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
             Copyright &copy; 2018-2020 Hieromon Ikasamo
           </div>
         
-        powered by
-        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
-        and
+        Made with
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs</a>
+          Material for MkDocs
+        </a>
       </div>
       
   <div class="md-footer-social">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+      
+      
+        
+        
+      
+      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
     
-      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
     
   </div>
 
@@ -1590,9 +1784,18 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
       
     </div>
     
-      <script src="assets/javascripts/application.c33a9706.js"></script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
-      <script>app.initialize({version:"1.1",url:{base:"."}})</script>
+      <script>
+        app = initialize({
+          base: ".",
+          features: [],
+          search: Object.assign({
+            worker: "assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
       
         <script src="js/gifffer.min.js"></script>
       

@@ -25,20 +25,32 @@ AutoConnectAux will configure custom Web pages with JSON objects. The elements t
   "title" : title,
   "uri" : uri,
   "menu" : true | false,
+  "auth": authentication,
   "element" : element_array
 }
 ```
 
 #### <i class="fa fa-key"></i> **title**
-: A title of the custom Web page. This is string value. String specified *title* will be displayed in the AutoConnection menu.
+
+: A title of the custom Web page. This is string value and specifies the *title* will be displayed in the AutoConnection menu.
 
 #### <i class="fa fa-key"></i> **uri**
+
 : String of URI path that specifies where to place the custom Web page. It needs to be a location from the root path including '**/**'.
 
 #### <i class="fa fa-key"></i> **menu**
+
 : This is a Boolean value indicating whether to include the custom Web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.
 
+#### <i class="fa fa-key"></i> **auth**
+
+: It allows that this page requires authentication. An *authentication* specifies the following string that represents the authentication scheme.
+: - **NONE**: No authentication. This is default.
+: - **BASIC**: Apply Basic scheme.
+: - **DIGEST**: Apply Digest scheme.
+
 #### <i class="fa fa-key"></i> **element**
+
 : Describe an array of JSON objects as *element_array*. It is a JSON object array of the [AutoConnectElements](#json-object-for-autoconnectelements) that make up the custom Web page.
 
 !!! note "Order of elements on a custom Web page"
@@ -109,15 +121,18 @@ JSON description for AutoConnectElements describes as an array in the *element* 
 {
   "name" : name,
   "type" : type,
+  "posterior" : posterior,
   key_according_to_type : the_value | array_of_value,
   [ key_according_to_type : the_value | array_of_value ]
 }
 ```
 
 #### <i class="fa fa-key"></i> **name**
+
 : A string of the name for the element.
 
 #### <i class="fa fa-key"></i> **type**
+
 : A string of the type for the element. For this type, specify the following string corresponding to each element.
 : -  AutoConnectButton: [**ACButton**](#acbutton)
 : -  AutoConnectCheckbox: [**ACCheckbox** ](#accheckbox)
@@ -130,61 +145,87 @@ JSON description for AutoConnectElements describes as an array in the *element* 
 : -  AutoConnectSubmit: [**ACSubmit**](#acsubmit)
 : -  AutoConnectText: [**ACText**](#actext)
 
+#### <i class="fa fa-key"></i> posterior
+
+Specifies a tag to add behind the HTML code generated from the element. Its purpose is to place elements on the custom Web page as intended by the user sketch. You can use the **posterior** key with the following values to arrange vertically or horizontal when the elements do not have the intended position on the custom Web Page specifying the following:
+
+: - **none** : No generate additional tags.
+: - **br** : Add a `<br>` tag to the end of the element.
+: - **par** : Include the element in the `<p> ~ </p>` tag.
+
 #### <i class="fa fa-key"></i> **<i>key_according_to_type</i>**
 
 This is different for each AutoConnectElements, and the key that can be specified by the type of AutoConnectElements is determined.
 
 #### <i class="fa fa-caret-right"></i> ACButton
+
 : - **value** : Specifies the button label. This value also applies to the `value` attribute of an HTML `button` tag.
 : - **action** : Specifies an action to be fire on a mouse click on the button. It is mostly used with a JavaScript to activate a script, or it directly describes a JavaScript.
 
 #### <i class="fa fa-caret-right"></i> ACCheckbox
+
 : - **value** : Specifies the value to be supplied to the checkbox. It will be packed in the query string as `name=value` when the checkbox is ticked.
 : - **label** : Specifies a label of the checkbox. Its placement is always to the right of the checkbox.
 : - **checked** : Specifies checking status as a **boolean** value. The value of the checked checkbox element is packed in the query string and sent.
 
 #### <i class="fa fa-caret-right"></i> ACElement
+
 : - **value** : Specifies the source code of generating HTML. The value is native HTML code and is output as HTML as it is.
 
 #### <i class="fa fa-caret-right"></i> ACFile
+
 : - **value** : The file name of the upload file will be stored. The `value` is read-only and will be ignored if specified.
 : - **label** : Specifies a label of the file selection box. Its placement is always to the left of the file selection box.
-: - **store** : Specifies the destination to save the uploaded file. Its value accepts one of the following:<p>
-<b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module.<br>
-<b>sd</b>&nbsp;: Save to an external SD device connected to ESP8266/ESP32 module.<br>
-<b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.</p>
+: - **store** : Specifies the destination to save the uploaded file. Its value accepts one of the following:
+    : - **fs** : Save as the SPIFFS file in flash of ESP8266/ESP32 module. If the valid file system of the ESP8266 module incorporating the Sketch is [LittleFS](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html#spiffs-and-littlefs), AutoConnect assumes the file system to be LittleFS. However, it does not sense the actual file system, so If the Sketch implementation does not match the file system on the ESP8266 depends, a file writing error will occur.
+    : - **sd** : Save to an external SD device connected to ESP8266/ESP32 module.
+    : - **extern** : Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit [**AutoConnectUploadHandler**](acupload.md#to-upload-to-a-device-other-than-flash-or-sd) class and implements *_open*, *_write* and *_close* function.
+
+    !!! note "A valid filesystem of ESP8266 on board flash"
+        AutoConnect has assumed [**LittleFS**](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html#spiffs-and-littlefs) as a valid file system since v1.2.0 enhancement. On the other hand, the ESP8266 arduino core has supported LittleFS officially since a release 2.7.0.<br>
+        LittleFS support in AutoConnect relies on the FS instance declared by the arduino core used at compile-time per project, and its FS instance will acquire by either the SPIFFS class or the LittleFS class. That is, you need to choose which file system will be available in the actual Sketch and make consistent it with AutoConnect assumed file system. So, you can choose which one uses the file systems per project via adjustment the **AC_USE_SPIFFS** macro enable or disable. AutoConnect determines the available file system by the **AC_USE_SPIFFS** macro which defined in [AutoConnectDefs.h](api.md#defined-macros) header file. 
 
 #### <i class="fa fa-caret-right"></i> ACInput
+
 : - **value** : Specifies the initial text string of the input box. If this value is omitted, placeholder is displayed as the initial string.
 : - **label** : Specifies a label of the input box. Its placement is always to the left of the input box.
 : - **placeholder** : Specifies short hint of the input box.
+: - **apply** : Specifies the type of input that the text box accepts. Its value accepts one of the following:
+    : - **text** : A text.
+    : - **password** : Password input field. The text is obscured so that it cannot be read, usually by replacing each character with a symbol such as the asterisk ("`*`") or a dot ("`•`").
+    : - **number** : A field let the user enter number characters only.
 
 #### <i class="fa fa-caret-right"></i> ACRadio
+
 : - **value** : Specifies the collection of radio buttons as an array element.
 : - **label** : Specifies a label of the collection of radio buttons, not for each button. The arrangement will be the top or left side according to the `arrange`.
-: - **arrange** : Specifies the orientation of the radio buttons. Its value accepts one of the following:<p>
-<b>horizontal</b>&nbsp;: Horizontal arrangement.<br>
-<b>vertical</b>&nbsp;: Vertical arrangement.</p>
+: - **arrange** : Specifies the orientation of the radio buttons. Its value accepts one of the following:
+    : - **horizontal** : Horizontal arrangement.
+    : - **vertical** : Vertical arrangement.
 
 : - **checked** : Specifies the index number (1-based) of the radio buttons collection to be checked.
 
 #### <i class="fa fa-caret-right"></i> ACSelect
+
 : - **label** : Specifies a label of the drop-down list. Its placement is always to the left of the drop-down list.
 : - **option** : Specifies the initial value collection of the drop-down list as an array element.
 
 #### <i class="fa fa-caret-right"></i> ACStyle
+
 : - **value** : Specifies the custom CSS code.
 
 #### <i class="fa fa-caret-right"></i> ACSubmit
+
 : - **value** : Specifies a label of the submit button.
 : - **uri** : Specifies the URI to send form data when the button is clicked.
 
 #### <i class="fa fa-caret-right"></i> ACText
+
 : - **value** : Specifies a content and also can contain the native HTML code, but remember that your written code is enclosed by the div tag.
 : - **style** : Specifies the qualification style to give to the content and can use the style attribute format as it is.
 : - **format** : Specifies how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to the C-style printf library functions, but depends on the espressif sdk implementation. The conversion specification is valid only for **%s** format. (Left and Right justification, width are also valid.)
 
-!!! caution "AutoConnect's JSON parsing process is not perfect"
+!!! caution "AutoConnect JSON parsing process is not perfect"
     It is based on analysis by ArduinoJson, but the semantic analysis is simplified to save memory. Consequently, it is not an error that a custom Web page JSON document to have unnecessary keys. It will be ignored.
 
 ## Loading JSON document
@@ -327,7 +368,7 @@ const char aux[] PROGMEM = R"raw(
   ]
 }
 )raw";
-portal.load(aux);
+portal.load(FPSTR(aux));
 
 // Loading from Stream assumes "aux.json" file should be store in SPIFFS.
 File aux = SPIFFS.open("aux.json", "r");

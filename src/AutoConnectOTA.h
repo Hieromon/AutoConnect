@@ -21,8 +21,19 @@
 #include "AutoConnect.h"
 #include "AutoConnectUpload.h"
 
+#include <FS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifndef AUTOCONNECT_USE_SPIFFS
+#include <LittleFS.h>
+#endif
+typedef fs::FS    SPIFFST;
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+typedef fs::SPIFFSFS  SPIFFST;
+#endif
+
 class AutoConnectOTA : public AutoConnectUploadHandler {
- public:
+public:
   // Updating process status
   typedef enum  {
     OTA_IDLE,               /**< Update process has not started */
@@ -33,15 +44,26 @@ class AutoConnectOTA : public AutoConnectUploadHandler {
     OTA_FAIL                /**< Failed to save binary updater by Update class */
   } AC_OTAStatus_t;
 
-  AutoConnectOTA() : _status(OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {}
+  // The treating destination of OTA transferred data
+  typedef enum {
+    OTA_DEST_FILE, /**< To be upload the file */
+    OTA_DEST_FIRM  /**< To update the firmware */
+  } AC_OTADest_t;
+
+  AutoConnectOTA() : asBin(AUTOCONNECT_UPLOAD_ASFIRMWARE), _dest(OTA_DEST_FIRM), _status(OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {}
   ~AutoConnectOTA();
   void  attach(AutoConnect& portal);
+  void  authentication(const AC_AUTH_t auth);               /**< Set certain page authentication */
   String  error(void) const { return _err; }                /**< Returns current error string */
-  void  menu(const bool post) { _auxUpdate->menu(post); };  /**< Enabel or disable arranging a created AutoConnectOTA page in the menu. */
-  AC_OTAStatus_t  status(void) const { return _status; }    /**< Return current error status of the Update class */
+  void  menu(const bool post) { _auxUpdate->menu(post); }   /**< Enabel or disable arranging a created AutoConnectOTA page in the menu. */
+  void  reset(void) { _status = OTA_IDLE; }                 /**< Reset the status */
+  AC_OTAStatus_t  status(void) const { return _status; }    /**< Return a current error status of the Update class */ 
+  AC_OTADest_t  dest(void) const { return _dest; }          /**< Return a current uploading destination */
   void  setTicker(int8_t pin, uint8_t on) { _tickerPort = pin, _tickerOn = on; }  /**< Set ticker LED port */
 
- protected:
+  String  asBin;           /**< Filename pattern when treating OTA updater as firmware. */
+
+protected:
   // Attribute definition of the element to be placed on the update page.
   typedef struct {
     const ACElement_t type;
@@ -58,8 +80,9 @@ class AutoConnectOTA : public AutoConnectUploadHandler {
     const ACElementProp_t* element;
   } ACPage_t;
 
-  template<typename T, size_t N> constexpr
-  size_t  lengthOf(T(&)[N]) noexcept { return N; }
+  template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept {
+    return N;
+  }
   void    _buildAux(AutoConnectAux* aux, const AutoConnectOTA::ACPage_t* page, const size_t elementNum);
   bool    _open(const char* filename, const char* mode) override;
   size_t  _write(const uint8_t *buf, const size_t size) override;
@@ -71,12 +94,17 @@ class AutoConnectOTA : public AutoConnectUploadHandler {
 
  private:
   void  _setError(void);
+  void  _setError(const char* err);
 
+  AC_OTADest_t _dest;           /**< Destination of OTA transferred data */
   AC_OTAStatus_t  _status;      /**< Status for update progress */
   int8_t  _tickerPort;          /**< GPIO for flicker */
   uint8_t _tickerOn;            /**< A signal for flicker turn on */
   String  _binName;             /**< An updater file name */
   String  _err;                 /**< Occurred error stamp */
+
+  SPIFFST*  _fs;                /**< Filesystem for the native file uploading */
+  fs::File  _file;              /**< File handler for the native file uploading */
 
   static const ACPage_t         _pageUpdate  PROGMEM;
   static const ACElementProp_t  _elmUpdate[] PROGMEM;

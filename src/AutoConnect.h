@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.1.5
- *	@date	2020-04-01
+ *	@version	1.2.0
+ *	@date	2020-11-15
  *	@copyright	MIT license.
  */
 
@@ -33,6 +33,7 @@ using WebServerClass = WebServer;
 #include "AutoConnectCredential.h"
 #include "AutoConnectTicker.h"
 #include "AutoConnectAux.h"
+#include "AutoConnectTypes.h"
 
 // The realization of AutoConnectOTA is effective only by the explicit
 #include "AutoConnectOTA.h"
@@ -42,42 +43,6 @@ class AutoConnectOTA;  // Reference to avoid circular
 // definition of AUTOCONNECT_USE_UPDATE
 #include "AutoConnectUpdate.h"
 class AutoConnectUpdate;  // Reference to avoid circular
-
-/**< A type to save established credential at WiFi.begin automatically. */
-typedef enum AC_SAVECREDENTIAL {
-  AC_SAVECREDENTIAL_NEVER,
-  AC_SAVECREDENTIAL_AUTO
-} AC_SAVECREDENTIAL_t;
-
-/**< URI that can be specified to AutoConnectConfig::bootUri. */
-typedef enum AC_ONBOOTURI {
-  AC_ONBOOTURI_ROOT,
-  AC_ONBOOTURI_HOME
-} AC_ONBOOTURI_t;
-
-/** WiFi connection principle, it specifies the order of WiFi connecting with saved credentials. */
-typedef enum AC_PRINCIPLE {
-  AC_PRINCIPLE_RECENT,
-  AC_PRINCIPLE_RSSI
-} AC_PRINCIPLE_t;
-
-/**< An enumerated type of the designated menu items. */
-typedef enum AC_MENUITEM {
-  AC_MENUITEM_NONE       = 0x0000,
-  AC_MENUITEM_CONFIGNEW  = 0x0001,
-  AC_MENUITEM_OPENSSIDS  = 0x0002,
-  AC_MENUITEM_DISCONNECT = 0x0004,
-  AC_MENUITEM_RESET      = 0x0008,
-  AC_MENUITEM_HOME       = 0x0010,
-  AC_MENUITEM_UPDATE     = 0x0020,
-  AC_MENUITEM_DEVINFO    = 0x0040
-} AC_MENUITEM_t;
-
-/**< Specifier for using built-in OTA */
-typedef enum AC_OTA {
-  AC_OTA_EXTRA,
-  AC_OTA_BUILTIN
-} AC_OTA_t;
 
 class AutoConnectConfig {
  public:
@@ -90,8 +55,8 @@ class AutoConnectConfig {
     apip(AUTOCONNECT_AP_IP),
     gateway(AUTOCONNECT_AP_GW),
     netmask(AUTOCONNECT_AP_NM),
-    apid(String(AUTOCONNECT_APID)),
-    psk(String(AUTOCONNECT_PSK)),
+    apid(String(F(AUTOCONNECT_APID))),
+    psk(String(F(AUTOCONNECT_PSK))),
     channel(AUTOCONNECT_AP_CH),
     hidden(0),
     minRSSI(AUTOCONNECT_MIN_RSSI),
@@ -105,12 +70,19 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
+    preserveAPMode(false),
+    beginTimeout(AUTOCONNECT_TIMEOUT),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
+    reconnectInterval(0),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
     ota(AC_OTA_EXTRA),
+    auth(AC_AUTH_NONE),
+    authScope(AC_AUTHSCOPE_AUX),
+    username(String("")),
+    password(String("")),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -141,12 +113,19 @@ class AutoConnectConfig {
     autoReconnect(false),
     immediateStart(false),
     retainPortal(false),
+    preserveAPMode(false),
+    beginTimeout(AUTOCONNECT_TIMEOUT),
     portalTimeout(portalTimeout),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_UPDATE | AC_MENUITEM_HOME),
+    reconnectInterval(0),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
     tickerOn(LOW),
     ota(AC_OTA_EXTRA),
+    auth(AC_AUTH_NONE),
+    authScope(AC_AUTHSCOPE_AUX),
+    username(String("")),
+    password(String("")),
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
@@ -177,12 +156,19 @@ class AutoConnectConfig {
     autoReconnect = o.autoReconnect;
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
+    preserveAPMode = o.preserveAPMode;
+    beginTimeout = o.beginTimeout;
     portalTimeout = o.portalTimeout;
     menuItems = o.menuItems;
+    reconnectInterval = o.reconnectInterval;
     ticker = o.ticker;
     tickerPort = o.tickerPort;
     tickerOn = o.tickerOn;
     ota = o.ota;
+    auth = o.auth;
+    authScope = o.authScope;
+    username = o.username;
+    password = o.password;
     hostName = o.hostName;
     homeUri = o.homeUri;
     title = o.title;
@@ -213,12 +199,19 @@ class AutoConnectConfig {
   bool      autoReconnect;      /**< Automatic reconnect with past SSID */
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
+  bool      preserveAPMode;     /**< Keep existing AP WiFi mode if captive portal won't be started. */
+  unsigned long beginTimeout;   /**< Timeout value for WiFi.begin */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   uint16_t  menuItems;          /**< A compound value of the menu items to be attached */
+  uint8_t   reconnectInterval;  /**< Auto-reconnect attempt interval uint */
   bool      ticker;             /**< Drives LED flicker according to WiFi connection status. */
   uint8_t   tickerPort;         /**< GPIO for flicker */
   uint8_t   tickerOn;           /**< A signal for flicker turn on */
   AC_OTA_t  ota;                /**< Attach built-in OTA */
+  AC_AUTH_t auth;               /**< Enable authentication */
+  uint16_t  authScope;          /**< Authetication scope */
+  String    username;           /**< User name for authentication */
+  String    password;           /**< Authentication password */
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   String    title;              /**< Menu title */
@@ -235,23 +228,28 @@ class AutoConnect {
  public:
   AutoConnect();
   AutoConnect(WebServerClass& webServer);
-  ~AutoConnect();
-  AutoConnectAux* aux(const String& uri) const;
+  virtual ~AutoConnect();
+  bool  begin(void);
+  bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = 0);
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
-  void  home(const String& uri);
-  bool  begin(void);
-  bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = AUTOCONNECT_TIMEOUT);
   void  end(void);
+  uint16_t getEEPROMUsedSize(void);
   void  handleClient(void);
   void  handleRequest(void);
+  void  home(const String& uri);
   WebServerClass& host(void);
+  String where(void) const { return _auxUri; }
+
+  AutoConnectAux* aux(const String& uri) const;
+  AutoConnectAux* append(const String& uri, const String& title);
+  AutoConnectAux* append(const String& uri, const String& title, WebServerClass::THandlerFunction handler);
+  bool  detach(const String& uri);
+  inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
+  inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
-  String where(void) const { return _auxUri; }
-  inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
-  inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
 
   /** For AutoConnectAux described in JSON */
 #ifdef AUTOCONNECT_USE_JSON
@@ -261,26 +259,40 @@ class AutoConnect {
   bool  load(Stream& aux);
 #endif // !AUTOCONNECT_USE_JSON
 
-  typedef std::function<bool(IPAddress)>  DetectExit_ft;
+  typedef std::function<bool(IPAddress&)>  DetectExit_ft;
+  typedef std::function<void(IPAddress&)>  ConnectExit_ft;
+  typedef std::function<bool(void)>        WhileCaptivePortalExit_ft;
   void  onDetect(DetectExit_ft fn);
+  void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServerClass::THandlerFunction fn);
+  void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
 
  protected:
   typedef enum {
     AC_RECONNECT_SET,
     AC_RECONNECT_RESET
   } AC_STARECONNECT_t;
-  bool  _config(void);
+  typedef enum {
+    AC_SEEKMODE_ANY,
+    AC_SEEKMODE_NEWONE,
+    AC_SEEKMODE_CURRENT
+  } AC_SEEKMODE_t;
+  void  _authentication(bool allow);
+  void  _authentication(bool allow, const HTTPAuthMethod method);
+  bool  _configAP(void);
   bool  _configSTA(const IPAddress& ip, const IPAddress& gateway, const IPAddress& netmask, const IPAddress& dns1, const IPAddress& dns2);
   String _getBootUri(void);
   bool  _getConfigSTA(station_config_t* config);
+  bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
+  bool  _loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent);
+  bool  _seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKMODE_t mode);
   void  _startWebServer(void);
   void  _startDNSServer(void);
-  void  _handleNotFound(void);
-  bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
+  void  _stopDNSServer(void);
   void  _stopPortal(void);
   bool  _classifyHandle(HTTPMethod mothod, String uri);
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
+  void  _handleNotFound(void);
   void  _purgePages(void);
   virtual PageElement*  _setupPage(String& uri);
 #ifdef AUTOCONNECT_USE_JSON
@@ -299,6 +311,7 @@ class AutoConnect {
   bool  _captivePortal(void);
   bool  _hasTimeout(unsigned long timeout);
   bool  _isIP(String ipStr);
+  void  _softAP(void);
   wl_status_t _waitForConnect(unsigned long timeout);
   void  _waitForEndTransmission(void);
   void  _disconnectWiFi(bool wifiOff);
@@ -310,7 +323,9 @@ class AutoConnect {
   static uint32_t      _getFlashChipRealSize(void);
   static String        _toMACAddressString(const uint8_t mac[]);
   static unsigned int  _toWiFiQuality(int32_t rssi);
+  ConnectExit_ft       _onConnectExit;
   DetectExit_ft        _onDetectExit;
+  WhileCaptivePortalExit_ft _whileCaptivePortal;
   WebServerClass::THandlerFunction _notFoundHandler;
   size_t               _freeHeapSize;
 
@@ -342,10 +357,11 @@ class AutoConnect {
   uint8_t       _hiddenSSIDCount;
   int16_t       _scanCount;
   uint8_t       _connectCh;
-  unsigned long _connectTimeout;
   unsigned long _portalAccessPeriod;
+  unsigned long _attemptPeriod;
 
   /** The control indicators */
+  bool  _rfAdHocBegin = false;  /**< Specified with AutoConnect::begin */
   bool  _rfConnect = false;     /**< URI /connect requested */
   bool  _rfDisconnect = false;  /**< URI /disc requested */
   bool  _rfReset = false;       /**< URI /reset requested */
@@ -353,7 +369,8 @@ class AutoConnect {
 #ifdef ARDUINO_ARCH_ESP32
   WiFiEventId_t _disconnectEventId = -1; /**< STA disconnection event handler registered id  */
 #endif
-  std::unique_ptr<AutoConnectTicker>  _ticker;  /**< */
+  /** Only available with ticker enabled */
+  std::unique_ptr<AutoConnectTicker>  _ticker;
 
   /** HTTP header information of the currently requested page. */
   IPAddress     _currentHostIP; /**< host IP address */
@@ -363,13 +380,13 @@ class AutoConnect {
 
   /** PageElements of AutoConnect site. */
   static const char _CSS_BASE[] PROGMEM;
+  static const char _CSS_LUXBAR[] PROGMEM;
   static const char _CSS_UL[] PROGMEM;
   static const char _CSS_ICON_LOCK[] PROGMEM;
   static const char _CSS_INPUT_BUTTON[] PROGMEM;
   static const char _CSS_INPUT_TEXT[] PROGMEM;
   static const char _CSS_TABLE[] PROGMEM;
   static const char _CSS_SPINNER[] PROGMEM;
-  static const char _CSS_LUXBAR[] PROGMEM;
   static const char _ELM_HTML_HEAD[] PROGMEM;
   static const char _ELM_MENU_PRE[] PROGMEM;
   static const char _ELM_MENU_AUX[] PROGMEM;
@@ -392,43 +409,53 @@ class AutoConnect {
 
   /** Token handlers for PageBuilder */
   String _token_CSS_BASE(PageArgument& args);
-  String _token_CSS_UL(PageArgument& args);
   String _token_CSS_ICON_LOCK(PageArgument& args);
   String _token_CSS_INPUT_BUTTON(PageArgument& args);
   String _token_CSS_INPUT_TEXT(PageArgument& args);
-  String _token_CSS_TABLE(PageArgument& args);
-  String _token_CSS_SPINNER(PageArgument& args);
   String _token_CSS_LUXBAR(PageArgument& args);
-  String _token_HEAD(PageArgument& args);
-  String _token_MENU_PRE(PageArgument& args);
+  String _token_CSS_SPINNER(PageArgument& args);
+  String _token_CSS_TABLE(PageArgument& args);
+  String _token_CSS_UL(PageArgument& args);
   String _token_MENU_AUX(PageArgument& args);
   String _token_MENU_POST(PageArgument& args);
+  String _token_MENU_PRE(PageArgument& args);
+  String _token_AP_MAC(PageArgument& args);
+  String _token_BOOTURI(PageArgument& args);
+  String _token_CHANNEL(PageArgument& args);
+  String _token_CHIP_ID(PageArgument& args);
+  String _token_CONFIG_STAIP(PageArgument& args);
+  String _token_CPU_FREQ(PageArgument& args);
+  String _token_CURRENT_SSID(PageArgument& args);
+  String _token_DBM(PageArgument& args);
   String _token_ESTAB_SSID(PageArgument& args);
+  String _token_FLASH_SIZE(PageArgument& args);
+  String _token_FREE_HEAP(PageArgument& args);
+  String _token_GATEWAY(PageArgument& args);
+  String _token_HEAD(PageArgument& args);
+  String _token_HIDDEN_COUNT(PageArgument& args);
+  String _token_LIST_SSID(PageArgument& args);
+  String _token_LOCAL_IP(PageArgument& args);
+  String _token_NETMASK(PageArgument& args);
+  String _token_OPEN_SSID(PageArgument& args);
+  String _token_SOFTAP_IP(PageArgument& args);
+  String _token_SSID_COUNT(PageArgument& args);
+  String _token_STA_MAC(PageArgument& args);
+  String _token_STATION_STATUS(PageArgument& args);
+  String _token_UPTIME(PageArgument& args);
   String _token_WIFI_MODE(PageArgument& args);
   String _token_WIFI_STATUS(PageArgument& args);
-  String _token_STATION_STATUS(PageArgument& args);
-  String _token_LOCAL_IP(PageArgument& args);
-  String _token_SOFTAP_IP(PageArgument& args);
-  String _token_GATEWAY(PageArgument& args);
-  String _token_NETMASK(PageArgument& args);
-  String _token_AP_MAC(PageArgument& args);
-  String _token_STA_MAC(PageArgument& args);
-  String _token_CHANNEL(PageArgument& args);
-  String _token_DBM(PageArgument& args);
-  String _token_CPU_FREQ(PageArgument& args);
-  String _token_FLASH_SIZE(PageArgument& args);
-  String _token_CHIP_ID(PageArgument& args);
-  String _token_FREE_HEAP(PageArgument& args);
-  String _token_LIST_SSID(PageArgument& args);
-  String _token_SSID_COUNT(PageArgument& args);
-  String _token_HIDDEN_COUNT(PageArgument& args);
-  String _token_CONFIG_STAIP(PageArgument& args);
-  String _token_OPEN_SSID(PageArgument& args);
-  String _token_UPTIME(PageArgument& args);
-  String _token_BOOTURI(PageArgument& args);
-  String _token_CURRENT_SSID(PageArgument& args);
 
  private:
+  // The access point collation key is determined at compile time
+  // according to the AUTOCONNECT_APKEY_SSID definition, which is
+  inline bool _isValidAP(const station_config_t& config, const uint8_t item) const {
+#if defined(AUTOCONNECT_APKEY_SSID)
+    return !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item).c_str());
+#else
+    return !memcmp(config.bssid, WiFi.BSSID(item), sizeof(station_config_t::bssid));
+#endif
+  }
+
   static const  String  _emptyString; /**< An empty string allocation  **/
 
 #if defined(ARDUINO_ARCH_ESP8266)

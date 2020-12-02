@@ -2,7 +2,7 @@
  *  AutoConnect proper menu label constant definition.
  *  @file   AutoConnectLabels.h
  *  @author hieromon@gmail.com
- *  @version    1.1.6
+ *  @version    1.2.0
  *  @date   2020-04-17
  *  @copyright  MIT license.
  */
@@ -234,7 +234,7 @@
 
 // Text: The update page's file selection button label
 #ifndef AUTOCONNECT_TEXT_SELECTFIRMWARE
-#define AUTOCONNECT_TEXT_SELECTFIRMWARE "Select firmware: "
+#define AUTOCONNECT_TEXT_SELECTFIRMWARE "Select file: "
 #endif // !AUTOCONNECT_TEXT_SELECTFIRMWARE
 
 // Text: OTA success
@@ -242,10 +242,20 @@
 #define AUTOCONNECT_TEXT_OTASUCCESS "Successfully updated, rebooting..."
 #endif // !AUTOCONNECT_TEXT_OTASUCCESS
 
+// Text: OTA success
+#ifndef AUTOCONNECT_TEXT_OTAUPLOADED
+#define AUTOCONNECT_TEXT_OTAUPLOADED "Successfully uploaded"
+#endif // !AUTOCONNECT_TEXT_OTAUPLOADED
+
 // Text: OTA failure
 #ifndef AUTOCONNECT_TEXT_OTAFAILURE
 #define AUTOCONNECT_TEXT_OTAFAILURE "Failed to update: "
 #endif // !AUTOCONNECT_TEXT_OTAFAILURE
+
+// Text: Authenticaton failed
+#ifndef AUTOCONNECT_TEXT_AUTHFAILED
+#define AUTOCONNECT_TEXT_AUTHFAILED "Authenticaton failed"
+#endif  // !AUTOCONNECT_TEXT_AUTHFAILED
 
 // Menu Text: Connecting
 #ifndef AUTOCONNECT_MENUTEXT_CONNECTING

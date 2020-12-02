@@ -41,7 +41,7 @@
  *     description:
  *     [
  *       {
- *         "name": "somefoler",
+ *         "name": "somefolder",
  *         "type": "directory"
  *       },
  *       {
@@ -376,7 +376,6 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
     int responseCode = httpClient.GET();
     if (responseCode == HTTP_CODE_OK) {
 
-      // JsonVariant jb;
       bool  parse;
       char  beginOfList[] = "[";
       char  endOfEntry[] = ",";
@@ -488,7 +487,7 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
 
   switch (_status) {
   case UPDATE_SUCCESS:
-    resForm = String(F(" sucessfully updated. restart..."));
+    resForm = String(F(" successfully updated. restart..."));
     resColor = String(F("blue"));
     restart = true;
     break;
@@ -512,7 +511,7 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
 
 /**
  * A handler for notifying the client of the progress of update processing.
- * This handler specifies the URI behavior defined as THndlerFunc of
+ * This handler specifies the URI behavior defined as THandlerFunc of
  * ESP8266 WebServer (WebServer for ESP32).
  * Usually, that URI is /_ac/update_progress and will return the
  * processed amount of update processing to the client.

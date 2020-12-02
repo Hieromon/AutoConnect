@@ -18,6 +18,22 @@ You can migrate the past saved credentials using [**CreditMigrate.ino**](https:/
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
+## <i class="fa fa-question-circle"></i> Cannot automatically reconnect to a WiFi Hotspot
+
+WiFi Hotspot ability using a cell phone has no official designation name, but it is commonly referred to as a mobile hotspot or a Personal Hotspot. Generally, this feature using data communication with your cellular to ensure the connection to the Internet. AutoConnect allows you to connect to a WiFi hotspot that has been temporarily launched as an access point and then stores a credential for establishing a connection in the same way as a regular fixed access point.
+
+However, there's a case where it may not be able to reconnect automatically to a known WiFi hotspot. For security reasons, some device operating systems randomly change the MAC address of the WiFi hotspot at each boot for a hotspot. (Especially iOS14) AutoConnect uses the BSSID to find the known SSID from among WiFi signals being broadcast. (it's the MAC address) This method works if the BSSID that the hotspot originates is fixed, but AutoConnect will not be able to find known SSIDs when it changes.  
+Consider activating the [AUTOCONNECT_APKEY_SSID](adconnection.md#match-with-known-access-points-by-ssid) definition if you want to reconnect automatically to a known WiFi hotspot.
+
+!!! info "Cannot immobilize the MAC address of Personal Hotspot"
+    We may not be able to immobilize the MAC address of Personal Hotspot on iOS14. This specification change seems to be related to the private network connection enhancement of iOS14 devices. I found this change during the testing phase, but it is not the confirmed information. (iOS14 offers an option to immobilize the MAC address as a client device, but there is still no option to immobilize it where the device became a hotspot)
+
+## <i class="fa fa-question-circle"></i> Captive portal does not pop up.
+
+If your ESP module is already transparent to the internet, the captive portal screen will not pop up even if [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal) is enabled. Some people have mistaken sometimes about the behavioral condition of the Captive portal, it only pops up automatically when the ESP module is disconnected state from the Internet.
+
+We will hypothesize that you keep the ESP module with AP_STA mode by specifing the **retainPortal** and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the **esp32ap**, the OS of your cellphone will determine that the access point (i.e. **esp32ap**) is transparent to the Internet. That is, the captive portal does not pop up.
+
 ## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
 
 If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directives. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.
@@ -71,7 +87,7 @@ You have the following two options to avoid this conflict:
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
-Maybe it is successfully connected at the [**first WiFi.begin**](lsbegin.md#autoconnectbegin-logic-sequence). ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
+Maybe it is successfully connected at the [**1st-WiFi.begin**](lsbegin.md#autoconnectbegin-logic-sequence). ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first *WiFi.begin()* fails.
 
 The saved SSID would be cleared by  *WiFi.disconnect()* with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.
 
@@ -164,9 +180,13 @@ For example, add the following description to the `[env]` section of the `platfo
 build-flags = -DAUTOCONNECT_NOUSE_JSON
 ```
 
+## <i class="fa fa-question-circle"></i> How place HTML elements undefined in AutoConnectElements?
+
+[AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
+
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
-Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [Appendix](credit.md) for details.
+Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [*Appendix*](credit.md) for details.
 
 !!! hint
     With the [**ESPShaker**](https://github.com/Hieromon/ESPShaker), you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.
@@ -183,7 +203,22 @@ Link button to AutoConnect menu can be embedded into Sketch's web page. The root
 
 ### Sketch size
 
-It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)
+1. For ESP8266  
+   It increases about 53K bytes compared to the case without AutoConnect. A sketch size of the most simple example introduced in the Getting started is about 330K bytes. (270K byte without AutoConnect)
+
+2. For ESP32  
+   The BIN size of the sketch grows to over 1M bytes. In the case of a sketch with many custom Web pages, when applying the partition table for the default scheme, the remaining flash size that can be utilized by the user application may be less than 200K bytes. Therefore, it is advisable to resize the partition to make more available space for the application. The ESP32 arduino core has various [partition schemes](https://github.com/espressif/arduino-esp32/tree/master/tools/partitions), and you can choose it according to your Sketch feature.  
+   You can change the partition scheme from the **Tools > Partition Scheme** menu of Arduino IDE.
+
+   <img src="images/partition.png">
+
+!!! hint "Change the partition scheme with PlatformIO"
+    Use `board_build.partitions` directive with `platformio.ini`.
+    ```ini
+    [env:esp32dev]
+    board_build.partitions = min_spiffs.csv
+    ```
+    Details for the [PlatformIO documentation](https://docs.platformio.org/en/latest/platforms/espressif32.html#partition-tables).
 
 ### Heap size
 
@@ -224,6 +259,50 @@ If the heap memory is insufficient, the following message is displayed on the se
 
 Is there the AutoConnectElements element named **SUBMIT** in the custom Web page? (case sensitive ignored) AutoConnect does not rely on the `input type=submit` element for the form submission and uses [HTML form element submit](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit) function instead. So, the submit function will fail if there is an element named 'submit' in the form. You can not use **SUBMIT** as the element name of AutoConnectElements in a custom Web page that declares the AutoConnectSubmit element.
 
+## <i class="fa fa-question-circle"></i> Unable to change any macro definitions by the Sketch.
+
+The various macro definitions that determine the configuration of AutoConnect cannot be redefined by hard-coding with Sketch. The compilation unit has a different AutoConnect library itself than the Sketch, and the configuration definitions in AutoConnectDefs.h are quoted in the compilation for AutoConnect only. For example, the following Sketch does not enable AC_DEBUG and does not change HTTP port also the menu background color:
+
+```cpp hl_lines="1 2 3"
+#define AC_DEBUG                                    // No effect
+#define AUTOCONNECT_HTTPPORT    8080                // No effect
+#define AUTOCONNECT_MENUCOLOR_BACKGROUND  "#696969" // No effect
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+AutoConnect Portal;
+
+void setup() {
+  Portal.begin();
+}
+
+void loop() {
+  Portal.handleClient();
+}
+```
+
+To enable them, edit `AutoConnectDefs.h` as the library source code directly, or supply them as the external parameters using a build system like [PlatformIO](https://platformio.org/platformio-ide) with [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/section_env_build.html?highlight=build_flags#build-flags):
+
+```ini hl_lines="7 8 9 10"
+platform = espressif8266
+board = nodemcuv2
+board_build.f_cpu = 160000000L
+board_build.f_flash = 80000000L
+board_build.flash_mode = dio
+board_build.filesystem = littlefs
+build_flags =
+  -DAC_DEBUG
+  -DAUTOCONNECT_HTTPPORT=8080
+  -DAUTOCONNECT_MENUCOLOR_BACKGROUND='"#696969"'
+```
+
+## <i class="fa fa-question-circle"></i> Unauthorize error without prompting the login dialog.
+
+The custom web pages that require authentication will occur unauthorized error always without prompting the login dialog under the captive portal state on some OS. This is a captive portal restriction and expected behavior. The captive portal web browser is almost a complete web browser, but while the captive portal session restricts the response to `WWW-authenticate` requests. (In intrinsically, the captive portal is a mechanism for authentication in itself)
+
+Once you exit from the captive portal session and connect SoftAP IP directly afresh, you can access custom web pages along with prompting a login dialog.
+
 ## <i class="fa fa-question-circle"></i> Still, not stable with my sketch.
 
 If AutoConnect behavior is not stable with your sketch, you can try the following measures.
@@ -237,7 +316,7 @@ AutoConnect portal;
 AutoConnectConfig config;
 
 config.channel = 3;     // Specifies a channel number that matches the AP
-portal.config(config);  // Apply channel configurration
+portal.config(config);  // Apply channel configuration
 portal.begin();         // Start the portal
 ```
 

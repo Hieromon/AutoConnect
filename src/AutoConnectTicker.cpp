@@ -2,7 +2,7 @@
  *  AutoConnectTicker class implementation.
  *  Provides a service that shows the flicker signal according to WiFi
  *  connection status. 
- *  @file   AutoConnect.cpp
+ *  @file   AutoConnectTicker.cpp
  *  @author hieromon@gmail.com
  *  @version    0.9.11
  *  @date   2019-07-09

@@ -8,7 +8,7 @@ For details, please refer to the project page.
 https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application
 
 This example is based on the environment as of March 20, 2018.
-Copyright (c) 2018 Hieromon Ikasamo.
+Copyright (c) 2020 Hieromon Ikasamo.
 This software is released under the MIT License.
 https://opensource.org/licenses/MIT
 */
@@ -23,9 +23,27 @@ https://opensource.org/licenses/MIT
 #include <HTTPClient.h>
 #define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
-#include <FS.h>
 #include <PubSubClient.h>
 #include <AutoConnect.h>
+
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#include <FS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AUTOCONNECT_USE_SPIFFS
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
 
 #define PARAM_FILE      "/param.json"
 #define AUX_SETTING_URI "/mqtt_setting"
@@ -253,7 +271,7 @@ void getParams(AutoConnectAux& aux) {
 // elements defined in /mqtt_setting JSON.
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
-  File param = SPIFFS.open(PARAM_FILE, "r");
+  File param = FlashFS.open(PARAM_FILE, "r");
   if (param) {
     if (aux.loadElement(param)) {
       getParams(aux);
@@ -263,12 +281,8 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
       Serial.println(PARAM_FILE " failed to load");
     param.close();
   }
-  else {
+  else
     Serial.println(PARAM_FILE " open failed");
-#ifdef ARDUINO_ARCH_ESP32
-    Serial.println("If you get error as 'SPIFFS: mount failed, -10025', Please modify with 'SPIFFS.begin(true)'.");
-#endif
-  }
   return String("");
 }
 
@@ -287,7 +301,7 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
-  File param = SPIFFS.open(PARAM_FILE, "w");
+  File param = FlashFS.open(PARAM_FILE, "w");
   mqtt_setting.saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "period", "hostname" });
   param.close();
 
@@ -312,11 +326,12 @@ void handleRoot() {
     "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
     "</head>"
     "<body>"
-    "<iframe width=\"450\" height=\"260\" style=\"transform:scale(0.79);-o-transform:scale(0.79);-webkit-transform:scale(0.79);-moz-transform:scale(0.79);-ms-transform:scale(0.79);transform-origin:0 0;-o-transform-origin:0 0;-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;border: 1px solid #cccccc;\" src=\"https://thingspeak.com/channels/454951/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&type=line\"></iframe>"
+    "<iframe width=\"450\" height=\"260\" style=\"transform:scale(0.79);-o-transform:scale(0.79);-webkit-transform:scale(0.79);-moz-transform:scale(0.79);-ms-transform:scale(0.79);transform-origin:0 0;-o-transform-origin:0 0;-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;border: 1px solid #cccccc;\" src=\"https://thingspeak.com/channels/{{CHANNEL}}/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&type=line\"></iframe>"
     "<p style=\"padding-top:5px;text-align:center\">" AUTOCONNECT_LINK(COG_24) "</p>"
     "</body>"
     "</html>";
 
+  content.replace("{{CHANNEL}}", channelId);
   WiFiWebServer&  webServer = portal.host();
   webServer.send(200, "text/html", content);
 }
@@ -352,7 +367,12 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-  SPIFFS.begin();
+
+#if defined(ARDUINO_ARCH_ESP8266)
+  FlashFS.begin();
+#elif defined(ARDUINO_ARCH_ESP32)
+  FlashFS.begin(true);
+#endif
 
   if (portal.load(FPSTR(AUX_mqtt_setting))) {
     AutoConnectAux& mqtt_setting = *portal.aux(AUX_SETTING_URI);
@@ -367,13 +387,17 @@ void setup() {
       Serial.println("hostname set to " + config.hostName);
     }
     config.homeUri = "/";
-    portal.config(config);
 
     portal.on(AUX_SETTING_URI, loadParams);
     portal.on(AUX_SAVE_URI, saveParams);
   }
   else
     Serial.println("load error");
+
+  // Reconnect and continue publishing even if WiFi is disconnected.
+  config.autoReconnect = true;
+  config.reconnectInterval = 1;
+  portal.config(config);
 
   Serial.print("WiFi ");
   if (portal.begin()) {

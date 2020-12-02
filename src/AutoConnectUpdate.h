@@ -116,7 +116,7 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   ~AutoConnectUpdateAct();
   void  attach(AutoConnect& portal) override;  /**< Attach the update class to AutoConnect */
   void  enable(void) override;       /**< Enable the AutoConnectUpdateAct */
-  void  disable(const bool activte = false) override;      /**< Disable the AutoConnectUpdateAct */
+  void  disable(const bool activate = false) override;      /**< Disable the AutoConnectUpdateAct */
   void  handleUpdate(void) override; /**< Behaves the update process */
   bool  isEnabled(void) override { return _auxCatalog ? _auxCatalog->isMenu() : false; } /**< Returns current updater effectiveness */
   AC_UPDATESTATUS_t  status(void) override { return _status; }   /**< reports the current update behavior status */

@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-09-03
+ * @version  1.2.0
+ * @date 2020-11-11
  * @copyright  MIT license.
  */
 
@@ -14,7 +14,9 @@
 #include "AutoConnectJsonDefs.h"
 
 #define AUTOCONNECT_JSON_KEY_ACTION       "action"
+#define AUTOCONNECT_JSON_KEY_APPLY        "apply"
 #define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
+#define AUTOCONNECT_JSON_KEY_AUTH         "auth"
 #define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
 #define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
 #define AUTOCONNECT_JSON_KEY_FORMAT       "format"
@@ -44,14 +46,19 @@
 #define AUTOCONNECT_JSON_TYPE_ACSTYLE     "ACStyle"
 #define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
 #define AUTOCONNECT_JSON_TYPE_ACTEXT      "ACText"
+#define AUTOCONNECT_JSON_VALUE_BASIC      "basic"
 #define AUTOCONNECT_JSON_VALUE_BEHIND     "behind"
 #define AUTOCONNECT_JSON_VALUE_BR         "br"
+#define AUTOCONNECT_JSON_VALUE_DIGEST     "digest"
 #define AUTOCONNECT_JSON_VALUE_EXTERNAL   "extern"
 #define AUTOCONNECT_JSON_VALUE_FS         "fs"
 #define AUTOCONNECT_JSON_VALUE_HORIZONTAL "horizontal"
 #define AUTOCONNECT_JSON_VALUE_INFRONT    "infront"
 #define AUTOCONNECT_JSON_VALUE_NONE       "none"
+#define AUTOCONNECT_JSON_VALUE_NUMBER     "number"
 #define AUTOCONNECT_JSON_VALUE_PAR        "par"
+#define AUTOCONNECT_JSON_VALUE_PASSWORD   "password"
+#define AUTOCONNECT_JSON_VALUE_TEXT       "text"
 #define AUTOCONNECT_JSON_VALUE_SD         "sd"
 #define AUTOCONNECT_JSON_VALUE_VERTICAL   "vertical"
 
@@ -168,12 +175,13 @@ class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFil
  */
 class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectInputBasis {
  public:
-  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR) {
+  explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text) {
     AutoConnectInputBasis::name = String(name);
     AutoConnectInputBasis::value = String(value);
     AutoConnectInputBasis::label = String(label);
     AutoConnectInputBasis::pattern = String(pattern);
     AutoConnectInputBasis::placeholder = String(placeholder);
+    AutoConnectInputBasis::apply = apply;
     AutoConnectInputBasis::post = post;
     _defaultPost = AC_Tag_BR;
   }

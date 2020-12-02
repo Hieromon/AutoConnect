@@ -72,6 +72,13 @@ void handleRoot() {
   portal.host().send(200, "text/html", page);
 }
 
+void sendRedirect(String uri) {
+  WebServerClass& server = portal.host();
+  server.sendHeader("Location", uri, true);
+  server.send(302, "text/plain", "");
+  server.client().stop();
+}
+
 void handleGPIO() {
   WebServerClass& server = portal.host();
   if (server.arg("v") == "low")
@@ -81,14 +88,7 @@ void handleGPIO() {
   sendRedirect("/");
 }
 
-void sendRedirect(String uri) {
-  WebServerClass& server = portal.host();
-  server.sendHeader("Location", uri, true);
-  server.send(302, "text/plain", "");
-  server.client().stop();
-}
-
-bool atDetect(IPAddress softapIP) {
+bool atDetect(IPAddress& softapIP) {
   Serial.println("Captive portal started, SoftAP IP:" + softapIP.toString());
   return true;
 }

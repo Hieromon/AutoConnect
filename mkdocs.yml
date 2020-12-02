@@ -13,7 +13,15 @@ nav:
   - 'Getting started' : gettingstarted.md
   - 'AutoConnect menu' : menu.md
   - 'Basic usage' : basicusage.md
-  - 'Advanced usage' : advancedusage.md
+  - 'Advanced usage' :
+    - 'Advanced usage' : advancedusage.md
+    - 'AutoConnect WiFi connection control' : adconnection.md
+    - 'Captive portal control' : adcpcontrol.md
+    - 'Settings and controls for network and WiFi' : adnetwork.md
+    - 'Authentication settings' : adauthentication.md
+    - 'Credential accesses' : adcredential.md
+    - 'Customizing page appearance' : adexterior.md
+    - 'Other operation settings and controls' : adothers.md
   - 'Custom Web pages' :
     - 'Custom Web pages with AutoConnect' : acintro.md
     - 'AutoConnectElements' : acelements.md
@@ -33,7 +41,7 @@ nav:
   - 'Examples' :
     - 'How to embed': howtoembed.md
     - 'Tips for data conversion': datatips.md
-    - 'Attach the menu': menuize.md
+    - 'Attach the menus': menuize.md
     - 'Custom Web pages w/o JSON': wojson.md
   - 'Appendix':
     - 'Inside AutoConnect::begin': lsbegin.md
@@ -46,57 +54,57 @@ nav:
   - 'License' : license.md
 
 # Repository
-repo_name: 'Hieromon/AutoConnect'
-repo_url: 'https://github.com/Hieromon/AutoConnect'
+repo_name: Hieromon/AutoConnect
+repo_url: https://github.com/Hieromon/AutoConnect
 edit_uri: ""
 
 # Copyright
-copyright: 'Copyright &copy; 2018-2020 Hieromon Ikasamo'
+copyright: Copyright &copy; 2018-2020 Hieromon Ikasamo
 
 # Configuration
 use_directory_urls: false
 theme:
-  name: 'material'
-  feature:
-    tabs: false
-  language: 'en'
-  logo: 'images/arduino-logo.svg'
+  name: material
+  language: en
+  logo: images/arduino-logo.svg
+  icon:
+    repo: fontawesome/brands/github
   palette:
-    primary: 'indigo'
-    accent: 'indigo'
+    primary: indigo
+    accent: indigo
   font:
-    text: 'Roboto'
-    code: 'Roboto Mono'
+    text: Roboto
+    code: Roboto Mono
 
 # Customization
 extra_css:
-  - 'css/paragraph.css'
-  - 'css/extra.css'
-  - 'https://use.fontawesome.com/releases/v5.6.3/css/all.css'
+  - css/paragraph.css
+  - css/extra.css
+  - https://use.fontawesome.com/releases/v5.6.3/css/all.css
 extra_javascript:
-  - 'js/gifffer.min.js'
+  - js/gifffer.min.js
 extra:
   social:
-    - type: 'github'
-      link: 'https://github.com/Hieromon'
-    - type: 'twitter'
-      link: 'https://twitter.com/hieromon'
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/Hieromon
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/hieromon
 
 # Google Analytics
 google_analytics:
   - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
-  - 'auto'
+  - auto
 
 # Extensions
 markdown_extensions:
   - admonition
   - attr_list
   - def_list
-  - codehilite:
+  - pymdownx.highlight:
       guess_lang: false
       linenums: none
-      noclasses: true
       use_pygments: true
+      noclasses: true
       pygments_style: monokai
   - footnotes
   - pymdownx.betterem:
@@ -104,8 +112,14 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
-  - pymdownx.magiclink
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: Hieromon
+      repo: AutoConnect
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences

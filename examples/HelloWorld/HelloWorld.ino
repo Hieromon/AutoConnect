@@ -1,6 +1,6 @@
 /*
   HelloWorld.ino, Example for the AutoConnect library.
-  Copyright (c) 2019, Hieromon Ikasamo
+  Copyright (c) 2020, Hieromon Ikasamo
   https://github.com/Hieromon/AutoConnect
 
   This software is released under the MIT License.
@@ -9,7 +9,23 @@
 /*
   To experience this example, upload the JSON file which is style.json
   from the data folder. Its file contains the attributes for the Caption
-  of AutoConnectText. You can change the elements for your realization.
+  of AutoConnectText.
+  Let compile the Sketch and upload it to the ESP module. At that time,
+  don't forget to upload green.json and tomato.json placed in the data
+  folder.
+  Now let's run the sketch. You can see the Hello, world screen by
+  accessing the IP address of the ESP module from a web browser. If you
+  apply green.json or tomato.json displayed on the same screen, the text
+  color will change.
+  There, you will find the Update appearing in the AutoConnect menu.
+  Then prepare a new JSON document with the text editor you're used to.
+  You can easily create a new style definition by using the green.json
+  included in this example as a template.
+  Next, select the Update menu in your browser to navigate to the upload
+  screen. What you upload is the new style definition JSON file you just
+  created. Let's display the Hello screen again. You will see the new
+  file just uploaded will be added. It is the convenience of OTA updates
+  enhanced with AutoCOnnect v1.2.0.
 */
 
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -19,25 +35,57 @@ typedef ESP8266WebServer WEBServer;
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
-#include <SPIFFS.h>
 typedef WebServer WEBServer;
 #endif
-#include <FS.h>
 #include <AutoConnect.h>
 
+/*
+  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showing
+  the valid file system. After including AutoConnect.h, the Sketch can determine
+  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
+*/
+#include <FS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AUTOCONNECT_USE_SPIFFS
+FS& FlashFS = SPIFFS;
+#else
+#include <LittleFS.h>
+FS& FlashFS = LittleFS;
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
+
 #define HELLO_URI   "/hello"
-#define PARAM_STYLE "/style.json"
 
 // Declare AutoConnectText with only a value.
-// Qualify the Caption by reading style attributes from the SPIFFS style.json file.
+// Qualify the Caption by reading style attributes from the style.json file.
 ACText(Caption, "Hello, world");
+ACRadio(Styles, {}, "");
+ACSubmit(Apply, "Apply", HELLO_URI);
 
 //AutoConnectAux for the custom Web page.
-AutoConnectAux helloPage(HELLO_URI, "Hello", true, { Caption });
+AutoConnectAux helloPage(HELLO_URI, "Hello", true, { Caption, Styles, Apply });
+AutoConnectConfig config;
 AutoConnect portal;
 
 // JSON document loading buffer
 String ElementJson;
+
+// Load the element from specified file in the flash on board.
+void loadParam(const char* fileName) {
+  Serial.printf("Style %s ", fileName);
+  File param = FlashFS.open(fileName, "r");
+  if (param) {
+    ElementJson = param.readString();
+    param.close();
+    Serial.printf("loaded:\n%s", ElementJson.c_str());
+  }
+  else
+    Serial.println("open failed");
+}
 
 // Redirects from root to the hello page.
 void onRoot() {
@@ -50,28 +98,52 @@ void onRoot() {
 
 // Load the attribute of the element to modify at runtime from external.
 String onHello(AutoConnectAux& aux, PageArgument& args) {
-  aux.loadElement(ElementJson);
-  return String();
-}
+  // Select the style parameter file and load it into the text element.
+  AutoConnectRadio& styles = helloPage["Styles"].as<AutoConnectRadio>();
+  String  styleName = styles.value();
+  if (styleName.length())
+    loadParam(styleName.c_str());
 
-// Load the element from specified file in SPIFFS.
-void loadParam(const char* fileName) {
-  SPIFFS.begin();
-  File param = SPIFFS.open(fileName, "r");
-  if (param) {
-    ElementJson = param.readString();
-    param.close();
+  // List parameter files stored on the flash.
+  // Those files need to be uploaded to the filesystem in advance.
+  styles.empty();
+#if defined(ARDUINO_ARCH_ESP32)
+  File  dir = FlashFS.open("/", "r");
+  if (dir) {
+    File  parmFile = dir.openNextFile();
+    while (parmFile) {
+      if (!parmFile.isDirectory())
+        styles.add(String(parmFile.name()));
+      parmFile = dir.openNextFile();
+    }
   }
-  SPIFFS.end();
+#elif defined(ARDUINO_ARCH_ESP8266)
+  Dir dir = FlashFS.openDir("/");
+  while (dir.next()) {
+    if (!dir.isDirectory())
+      styles.add(dir.fileName());
+  }
+#endif
+
+  // Apply picked style
+  helloPage.loadElement(ElementJson);
+  return String();
 }
 
 void setup() {
   delay(1000);
   Serial.begin(115200);
+  Serial.println();
+#if defined(ARDUINO_ARCH_ESP8266)
+  FlashFS.begin();
+#elif defined(ARDUINO_ARCH_ESP32)
+  FlashFS.begin(true);
+#endif
 
-  loadParam(PARAM_STYLE);     // Pre-load the element from JSON.
   helloPage.on(onHello);      // Register the attribute overwrite handler.
   portal.join(helloPage);     // Join the hello page.
+  config.ota = AC_OTA_BUILTIN;
+  portal.config(config);
   portal.begin();
 
   WEBServer& webServer = portal.host();

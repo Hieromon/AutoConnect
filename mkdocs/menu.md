@@ -123,4 +123,4 @@ The AutoConnect menu can contain your sketch's web pages as extra items as a cus
 <div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="images/fsbmenu.png"></div>
 <img style="margin-left:70px;width:auto;height:420px;" src="images/fsbmenu_expand.png">
 
-You can improve your sketches by extending the AutoConnect menu by adding the legacy web pages according to the procedure described in section [*Advanced Usage*](advancedusage.md#casts-the-html-pages-to-be-add-on-into-the-menu).
+AutoConnect allows capturing the extra pages handled with ESP8266WebServer or WebServer's legacy into the AutoConnect menu. See Section [*Advanced Usage*](advancedusage.md#capture-the-legacy-web-pages-as-items-into-the-menu) for detailed instructions on how to add the extra pages into its menu.

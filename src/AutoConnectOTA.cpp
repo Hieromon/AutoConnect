@@ -8,15 +8,29 @@
  */
 
 #include <functional>
+#include <stdio.h>
 #if defined(ARDUINO_ARCH_ESP8266)
+#include <regex.h>
 #include <WiFiUdp.h>
 #include <Updater.h>
 #elif defined(ARDUINO_ARCH_ESP32)
+#include <regex>
 #include <Update.h>
+extern "C" {
+#include "esp_spiffs.h"
+}
 #endif
 #include <StreamString.h>
 #include "AutoConnectOTA.h"
 #include "AutoConnectOTAPage.h"
+
+// Preserve a valid global Filesystem instance.
+// It allows the interface to the actual filesystem for migration to LittleFS.
+#ifdef AUTOCONNECT_USE_SPIFFS
+namespace AutoConnectFS { SPIFFST &OTAFS = SPIFFS; };
+#else
+namespace AutoConnectFS { SPIFFST &OTAFS = LittleFS; };
+#endif
 
 /**
  * A destructor. Release the OTA operation pages.
@@ -24,6 +38,15 @@
 AutoConnectOTA::~AutoConnectOTA() {
   _auxUpdate.reset(nullptr);
   _auxResult.reset(nullptr);
+}
+
+/**
+ * Request authentication with an OTA page access
+ * @param  auth  Authentication method
+ */
+void AutoConnectOTA::authentication(const AC_AUTH_t auth) {
+  if (_auxUpdate)
+    _auxUpdate->authentication(auth);
 }
 
 /**
@@ -116,20 +139,63 @@ void AutoConnectOTA::_buildAux(AutoConnectAux* aux, const AutoConnectOTA::ACPage
 bool AutoConnectOTA::_open(const char* filename, const char* mode) {
   AC_UNUSED(mode);
   _binName = String(strchr(filename, '/') + sizeof(char));
-#ifdef ARDUINO_ARCH_ESP8266
+#if defined(ARDUINO_ARCH_ESP8266)
+  regex_t     preg;
+  if (!regcomp(&preg, asBin.c_str(), REG_EXTENDED)) {
+    regmatch_t  p_match[1];
+    _dest = !regexec(&preg, _binName.c_str(), 1, p_match, 0) ? OTA_DEST_FIRM : OTA_DEST_FILE;
+    regfree(&preg);
+  }
+  else {
+    _setError((String("regex failed:") + asBin).c_str());
+    return false;
+  }
+  
   WiFiUDP::stopAll();
+#elif defined(ARDUINO_ARCH_ESP32)
+  const std::regex  re(std::string(asBin.c_str()));
+  _dest = std::regex_match(_binName.c_str(), re) ? OTA_DEST_FIRM : OTA_DEST_FILE;
 #endif
-  uint32_t  maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
-  // It only supports FLASH as a sketch area for updating.
-  if (Update.begin(maxSketchSpace, U_FLASH)) {
+
+  bool  bc;
+  if (_dest == OTA_DEST_FIRM) {
+    uint32_t  maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
+    // It only supports FLASH as a sketch area for updating.
+    bc = Update.begin(maxSketchSpace, U_FLASH);
+  }
+  else {
+    // Allocate fs::FS according to the pinned Filesystem.
+    _fs = &AutoConnectFS::OTAFS;
+#if defined(ARDUINO_ARCH_ESP8266)
+    FSInfo  info;
+    if (_fs->info(info))
+      bc = true;
+    else
+      bc = _fs->begin();
+#elif defined(ARDUINO_ARCH_ESP32)
+    if (esp_spiffs_mounted(NULL))
+      bc = true;
+    else
+      bc = _fs->begin(true);
+#endif
+    if (bc) {
+      _file = _fs->open(filename, "w");
+      if (!_file) {
+        bc = false;
+        _setError((_binName + String(F(" open failed"))).c_str());
+      }
+    }
+    else
+      _setError("FS mount failed");
+  }
+
+  if (bc) {
     if (_tickerPort != -1)
       pinMode(static_cast<uint8_t>(_tickerPort), OUTPUT);
     _status = OTA_START;
-    AC_DBG("%s updating start\n", filename);
-    return true;
+    AC_DBG("%s up%s start\n", filename, _dest == OTA_DEST_FIRM ? "dating" : "loading");
   }
-  _setError();
-  return false;
+  return bc;
 }
 
 /**
@@ -145,9 +211,17 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
     digitalWrite(_tickerPort, digitalRead(_tickerPort) ^ 0x01);
   if (!_err.length()) {
     _status = OTA_PROGRESS;
-    wsz = Update.write(const_cast<uint8_t*>(buf), size);
-    if (wsz != size)
-      _setError();
+
+    if (_dest == OTA_DEST_FIRM) {
+      wsz = Update.write(const_cast<uint8_t*>(buf), size);
+      if (wsz != size)
+        _setError();
+    }
+    else {
+      wsz = _file.write(buf, size);
+      if (wsz != size)
+        _setError("Incomplete writing");
+    }
   }
   return wsz;
 }
@@ -159,25 +233,30 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
  * @param  status Updater binary upload completion status.
  */
 void AutoConnectOTA::_close(const HTTPUploadStatus status) {
-  AC_DBG("OTA update");
+  AC_DBG("OTA up%s ", _dest == OTA_DEST_FIRM ? "date" : "load");
   if (!_err.length()) {
     if (status == UPLOAD_FILE_END) {
-      if (Update.end(true)) {
+
+      bool  ec = true;
+      if (_dest == OTA_DEST_FIRM)
+        ec = Update.end(true);
+      else {
+        _file.close();
+      }
+      if (ec) {
         _status = OTA_SUCCESS;
-        AC_DBG_DUMB(" succeeds, turn to reboot");
+        AC_DBG_DUMB("succeeds");
       }
       else {
         _setError();
-        AC_DBG_DUMB(" flash failed");
+        AC_DBG_DUMB("flash failed");
+        Update.end(false);
       }
     }
-    else {
-      AC_DBG_DUMB(" aborted");
-    }
+    else
+      AC_DBG_DUMB("aborted");
   }
   AC_DBG_DUMB(". %s\n", _err.c_str());
-  if (_err.length())
-      Update.end(false);
   if (_tickerPort != -1)
     digitalWrite(_tickerPort, !_tickerOn);
 }
@@ -197,7 +276,7 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   // Build an updating result caption.
   // Change the color of the bin name depending on the result of the update.
   if (_status == OTA_SUCCESS) {
-    st = String(F(AUTOCONNECT_TEXT_OTASUCCESS));
+    st = _dest == OTA_DEST_FIRM ? String(F(AUTOCONNECT_TEXT_OTASUCCESS)) : String(F(AUTOCONNECT_TEXT_OTAUPLOADED));
     stColor = PSTR("3d7e9a");
     // Notify to the handleClient of loop() thread that it can reboot.
     _status = OTA_RIP;
@@ -214,7 +293,11 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   // according to the error code from the Update class. By setting the
   // error code of the Update class into the rc element, this page will
   // automatically GET the homepage of the updated sketch.
-  result["rc"].value.replace("%d", String(Update.getError()));
+  // When for firmware updating, it's a numeric and will induce redirect
+  // to HOME according to the module restarts.
+  // When for file uploading, it's not numeric and has the effect of
+  // staying on the upload page.
+  result["rc"].value = _dest == OTA_DEST_FIRM ? String(Update.getError()) : String('L');
   return String("");
 }
 
@@ -225,5 +308,10 @@ void AutoConnectOTA::_setError(void) {
   StreamString  eStr;
   Update.printError(eStr);
   _err = String(eStr.c_str());
+  _status = OTA_FAIL;
+}
+
+void AutoConnectOTA::_setError(const char* err) {
+  _err = String(err);
   _status = OTA_FAIL;
 }

@@ -26,7 +26,9 @@ const AutoConnectOTA::ACPage_t AutoConnectOTA::_pageUpdate PROGMEM = {
 const AutoConnectOTA::ACElementProp_t AutoConnectOTA::_elmResult[] PROGMEM = {
   { AC_Text, "bin", nullptr, "margin-bottom:0.5em;font-size:1.2em;font-weight:bold;color:#" },
   { AC_Text, "result", nullptr, nullptr },
-  { AC_Element, "rc", "<div class=\"s_rc\" id=\"rc\">%d</div>", nullptr }
+  { AC_Element, "dvo", "<div class=\"s_rc\" id=\"rc\">", nullptr },
+  { AC_Element, "rc", "", nullptr },
+  { AC_Element, "dvc", "</div>", nullptr }
 };
 
 // The definition of the OTA update result display page.

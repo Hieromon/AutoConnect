@@ -26,7 +26,7 @@
  *  ssid: SSID string with null termination.
  *  password : Password string with null termination.
  *  bssid : BSSID 6 bytes.
- *  d  : DHCP is in available. 0:DCHP 1:Static IP
+ *  d  : DHCP is in available. 0:DHCP 1:Static IP
  *  ip - dns2 : Optional fields for static IPs configuration, these fields are available when d=1.
  *  ip : Static IP (uint32_t)
  *  gw : Gateway address (uint32_t)
@@ -353,7 +353,7 @@ void AutoConnectCredential::_retrieveEntry(station_config_t* config) {
  *  ssid: SSID string with null termination.
  *  password : Password string with null termination.
  *  bssid : BSSID 6 bytes.
- *  d  : DHCP is in available. 0:DCHP 1:Static IP
+ *  d  : DHCP is in available. 0:DHCP 1:Static IP
  *  ip - dns2 : Optional fields for static IPs configuration, these fields are available when d=1.
  *  ip : Static IP (uint32_t)
  *  gw : Gateway address (uint32_t)
@@ -547,7 +547,6 @@ size_t AutoConnectCredential::_commit(void) {
       // Static IP configuration
       if (credtBody.dhcp == STA_STATIC) {
         for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++) {
-          // uint32_t  ip = credtBody.ip[e];
           for (uint8_t b = 1; b <= sizeof(credtBody.ip[e]); b++)
             credtPool[dp++] = ((uint8_t*)&credtBody.ip[e])[sizeof(credtBody.ip[e]) - b];
         }
@@ -576,7 +575,7 @@ size_t AutoConnectCredential::_commit(void) {
 }
 
 /**
- *  Actualy delete the credential entry for the specified SSID from Preferences.
+ *  Delete the credential entry Actually for the specified SSID from Preferences.
  *  @param  ssid    A SSID character string to be deleted.
  *  @param  commit  If false, delete only a credential entry without updating Preferences.
  *  @retval true    The entry successfully delete.

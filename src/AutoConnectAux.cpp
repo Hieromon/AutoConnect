@@ -1,9 +1,9 @@
 /**
  * Implementation of AutoConnectAux class.
- * @file AutoConnectAuxBasisImpl.h
+ * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version  1.1.1
- * @date 2019-10-17
+ * @version  1.2.0
+ * @date 2020-10-30
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -333,7 +333,7 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
  * AutoConnectAux is collected in the chain list and each object is 
  * chained by the "_next". AutoConnect follows the "_next" to manage 
  * auxiliary pages. The _concat function concatenates subsequent 
- * AutoConnectAuxs.
+ * AutoConnectAuxes.
  * @param  aux   A reference of AutoConnectAux.
  */
 void AutoConnectAux::_concat(AutoConnectAux& aux) {
@@ -513,6 +513,18 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       elm->addToken(String(FPSTR("AUX_ELEMENT")), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
       // Restore transfer mode by each page
       mother->_responsePage->chunked(chunk);
+
+      // Register authentication
+      // Determine the necessity of authentication from the conditions of
+      // AutoConnectConfig::authScope and derive the method.
+      bool  auth = ((mother->_apConfig.authScope & AC_AUTHSCOPE_AUX) && (mother->_apConfig.auth != AC_AUTH_NONE))
+                || ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
+      HTTPAuthMethod  method;
+      if (mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL)
+        method = _httpAuth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+      else
+        method = mother->_apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+      mother->_authentication(auth, method);
     }
   }
   return elm;
@@ -612,7 +624,7 @@ bool AutoConnect::load(Stream& aux) {
 
 /**
  * Load AutoConnectAux page from JSON object.
- * @param  aux  A JsonVariant object that stores each element of AutoConnectAuxl.
+ * @param  aux  A JsonVariant object that stores each element of AutoConnectAux.
  * @return true Successfully loaded.
  */
 bool AutoConnect::_load(JsonVariant& auxJson) {
@@ -756,6 +768,13 @@ bool AutoConnectAux::_load(JsonObject& jb) {
   _uriStr = jb[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
   _uri = _uriStr.c_str();
   _menu = jb[F(AUTOCONNECT_JSON_KEY_MENU)].as<bool>();
+  String  auth = jb[F(AUTOCONNECT_JSON_KEY_AUTH)].as<String>();
+  if (auth.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_BASIC)))
+    _httpAuth = AC_AUTH_BASIC;
+  else if (auth.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_DIGEST)))
+    _httpAuth = AC_AUTH_DIGEST;
+  if (auth.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_NONE)))
+    _httpAuth = AC_AUTH_NONE;
   JsonVariant elements = jb[F(AUTOCONNECT_JSON_KEY_ELEMENT)];
   (void)_loadElement(elements, "");
   return true;
@@ -882,7 +901,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
   // Calculate JSON buffer size
   if (amount == 0) {
     bufferSize += JSON_OBJECT_SIZE(4);
-    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT);
+    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT) + sizeof(AUTOCONNECT_JSON_KEY_AUTH) + sizeof(AUTOCONNECT_JSON_VALUE_DIGEST);
     bufferSize += JSON_ARRAY_SIZE(_addonElm.size());
   }
   else
@@ -919,6 +938,10 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
       json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
       json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
       json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
+      if (_httpAuth == AC_AUTH_BASIC)
+        json[F(AUTOCONNECT_JSON_KEY_AUTH)] = String(F(AUTOCONNECT_JSON_VALUE_BASIC));
+      else if (_httpAuth == AC_AUTH_DIGEST)
+        json[F(AUTOCONNECT_JSON_KEY_AUTH)] = String(F(AUTOCONNECT_JSON_VALUE_DIGEST));
       ArduinoJsonArray  elements = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_ELEMENT));
       for (AutoConnectElement& elm : _addonElm) {
         ArduinoJsonObject element = elements.createNestedObject();

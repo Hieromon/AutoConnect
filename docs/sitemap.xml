@@ -1,123 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://Hieromon.github.io/AutoConnect/index.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/gettingstarted.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/menu.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/basicusage.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/advancedusage.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://Hieromon.github.io/AutoConnect/adconnection.html</loc>
+     <lastmod>2020-12-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://Hieromon.github.io/AutoConnect/adcpcontrol.html</loc>
+     <lastmod>2020-12-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://Hieromon.github.io/AutoConnect/adnetwork.html</loc>
+     <lastmod>2020-12-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://Hieromon.github.io/AutoConnect/adauthentication.html</loc>
+     <lastmod>2020-12-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://Hieromon.github.io/AutoConnect/adcredential.html</loc>
+     <lastmod>2020-12-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://Hieromon.github.io/AutoConnect/adexterior.html</loc>
+     <lastmod>2020-12-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://Hieromon.github.io/AutoConnect/adothers.html</loc>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/acintro.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/acelements.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/acjson.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/achandling.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/otaupdate.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/otabrowser.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/otaserver.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/api.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/apiaux.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/apiconfig.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/apielements.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/apiupdate.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/apiextra.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/howtoembed.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/datatips.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/menuize.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/wojson.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/lsbegin.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/credit.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/acupload.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/colorized.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/changelabel.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/faq.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/changelog.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://Hieromon.github.io/AutoConnect/license.html</loc>
-     <lastmod>2020-04-19</lastmod>
+     <lastmod>2020-12-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

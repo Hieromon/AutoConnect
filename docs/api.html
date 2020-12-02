@@ -1,16 +1,13 @@
 
-
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/api.html">
@@ -18,27 +15,8 @@
       
         <meta name="author" content="Hieromon Ikasamo">
       
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -46,27 +24,26 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.adb8469c.css">
-      
-        <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
-      
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
+        <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
         
-        <meta name="theme-color" content="#3f51b5">
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
       
     
     
-      <script src="assets/javascripts/modernizr.86422ebf.js"></script>
-    
     
       
+        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="css/paragraph.css">
@@ -78,101 +55,86 @@
     
       
         
-<script>
-  window.ga = window.ga || function() {
-    (ga.q = ga.q || []).push(arguments)
-  }
-  ga.l = +new Date
-  /* Setup integration and send page view */
-  ga("create", "UA-116150854-1", "auto")
-  ga("set", "anonymizeIp", true)
-  ga("send", "pageview")
-  /* Register handler to log search on blur */
-  document.addEventListener("DOMContentLoaded", () => {
-    if (document.forms.search) {
-      var query = document.forms.search.query
-      query.addEventListener("blur", function() {
-        if (this.value) {
-          var path = document.location.pathname;
-          ga("send", "pageview", path + "?q=" + this.value)
-        }
-      })
-    }
-  })
-</script>
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-116150854-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview",document.location.pathname)})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
   </head>
   
-    
-    
-    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+      
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#include-headers" tabindex="0" class="md-skip">
-        Skip to content
-      </a>
-    
-    
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" aria-label="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
-          
-            <img alt="logo" src="images/arduino-logo.svg" width="24" height="24">
-          
-        </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          
-            <span class="md-header-nav__topic">
-              AutoConnect for ESP8266/ESP32
-            </span>
-            <span class="md-header-nav__topic">
-              
-                AutoConnect API
-              
-            </span>
-          
-        </div>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
         
-          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-          
+        <a href="#include-headers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            AutoConnect for ESP8266/ESP32
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              AutoConnect API
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Type to start searching
+            Initializing search
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -180,71 +142,55 @@
     </div>
   </div>
 </div>
+    
+    
+      <div class="md-header-nav__source">
         
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
   </div>
 </a>
-          </div>
-        </div>
-      
-    </div>
+      </div>
+    
   </nav>
 </header>
     
-    <div class="md-container">
+    <div class="md-container" data-md-component="container">
+      
       
         
       
-      
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
             
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
       
-        <img alt="logo" src="images/arduino-logo.svg" width="48" height="48">
-      
+  <img src="images/arduino-logo.svg" alt="logo">
+
     </a>
     AutoConnect for ESP8266/ESP32
   </label>
   
     <div class="md-nav__source">
       
-
-
-  
-
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
   </div>
@@ -259,7 +205,7 @@
 
 
   <li class="md-nav__item">
-    <a href="index.html" title="Overview" class="md-nav__link">
+    <a href="index.html" class="md-nav__link">
       Overview
     </a>
   </li>
@@ -271,7 +217,7 @@
 
 
   <li class="md-nav__item">
-    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+    <a href="gettingstarted.html" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -283,7 +229,7 @@
 
 
   <li class="md-nav__item">
-    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+    <a href="menu.html" class="md-nav__link">
       AutoConnect menu
     </a>
   </li>
@@ -295,20 +241,8 @@
 
 
   <li class="md-nav__item">
-    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+    <a href="basicusage.html" class="md-nav__link">
       Basic usage
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
-      Advanced usage
     </a>
   </li>
 
@@ -320,13 +254,135 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Advanced usage
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Advanced usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="advancedusage.html" class="md-nav__link">
+      Advanced usage
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adconnection.html" class="md-nav__link">
+      AutoConnect WiFi connection control
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adcpcontrol.html" class="md-nav__link">
+      Captive portal control
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adauthentication.html" class="md-nav__link">
+      Authentication settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adcredential.html" class="md-nav__link">
+      Credential accesses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adexterior.html" class="md-nav__link">
+      Customizing page appearance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adothers.html" class="md-nav__link">
+      Other operation settings and controls
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
     
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
     <label class="md-nav__link" for="nav-6">
       Custom Web pages
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
         Custom Web pages
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -338,7 +394,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+    <a href="acintro.html" class="md-nav__link">
       Custom Web pages with AutoConnect
     </a>
   </li>
@@ -350,7 +406,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+    <a href="acelements.html" class="md-nav__link">
       AutoConnectElements
     </a>
   </li>
@@ -362,7 +418,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link">
+    <a href="acjson.html" class="md-nav__link">
       Custom Web pages with JSON
     </a>
   </li>
@@ -374,7 +430,7 @@
 
 
   <li class="md-nav__item">
-    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+    <a href="achandling.html" class="md-nav__link">
       Handling the custom Web pages
     </a>
   </li>
@@ -392,13 +448,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
     <label class="md-nav__link" for="nav-7">
       OTA Updates
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
       <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
         OTA Updates
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -410,7 +467,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otaupdate.html" title="OTA Updates" class="md-nav__link">
+    <a href="otaupdate.html" class="md-nav__link">
       OTA Updates
     </a>
   </li>
@@ -422,7 +479,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+    <a href="otabrowser.html" class="md-nav__link">
       Using Web Browser
     </a>
   </li>
@@ -434,7 +491,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otaserver.html" title="Using Update Server" class="md-nav__link">
+    <a href="otaserver.html" class="md-nav__link">
       Using Update Server
     </a>
   </li>
@@ -454,13 +511,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked>
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" checked>
     <label class="md-nav__link" for="nav-8">
       Library APIs
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
       <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
         Library APIs
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -475,23 +533,27 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         AutoConnect API
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="api.html" title="AutoConnect API" class="md-nav__link md-nav__link--active">
+    <a href="api.html" class="md-nav__link md-nav__link--active">
       AutoConnect API
     </a>
     
       
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -499,7 +561,7 @@
      Include headers
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Include headers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -526,7 +588,7 @@
      Constructors
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Constructors">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -546,8 +608,15 @@
      Public member functions
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Public member functions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#append" class="md-nav__link">
+     append
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#aux" class="md-nav__link">
@@ -571,6 +640,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#detach" class="md-nav__link">
+     detach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disablemenu" class="md-nav__link">
+     disableMenu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#enablemenu" class="md-nav__link">
      enableMenu
   </a>
@@ -585,8 +668,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#disablemenu" class="md-nav__link">
-     disableMenu
+  <a href="#geteepromusedsize" class="md-nav__link">
+     getEEPROMUsedSize
   </a>
   
 </li>
@@ -641,6 +724,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#onconnect" class="md-nav__link">
+     onConnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ondetect" class="md-nav__link">
      onDetect
   </a>
@@ -661,14 +751,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#whilecaptiveportal" class="md-nav__link">
+     whileCaptivePortal
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
-      
-      
-      
-      
       
     </ul>
   
@@ -683,7 +776,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+    <a href="apiaux.html" class="md-nav__link">
       AutoConnectAux API
     </a>
   </li>
@@ -695,7 +788,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+    <a href="apiconfig.html" class="md-nav__link">
       AutoConnectConfig API
     </a>
   </li>
@@ -707,7 +800,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+    <a href="apielements.html" class="md-nav__link">
       AutoConnectElements API
     </a>
   </li>
@@ -719,7 +812,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiupdate.html" title="AutoConnectUpdate API" class="md-nav__link">
+    <a href="apiupdate.html" class="md-nav__link">
       AutoConnectUpdate API
     </a>
   </li>
@@ -731,7 +824,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+    <a href="apiextra.html" class="md-nav__link">
       Something extra
     </a>
   </li>
@@ -749,13 +842,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" >
     <label class="md-nav__link" for="nav-9">
       Examples
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Examples" data-md-level="1">
       <label class="md-nav__title" for="nav-9">
+        <span class="md-nav__icon md-icon"></span>
         Examples
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -767,7 +861,7 @@
 
 
   <li class="md-nav__item">
-    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+    <a href="howtoembed.html" class="md-nav__link">
       How to embed
     </a>
   </li>
@@ -779,7 +873,7 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+    <a href="datatips.html" class="md-nav__link">
       Tips for data conversion
     </a>
   </li>
@@ -791,8 +885,8 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
-      Attach the menu
+    <a href="menuize.html" class="md-nav__link">
+      Attach the menus
     </a>
   </li>
 
@@ -803,7 +897,7 @@
 
 
   <li class="md-nav__item">
-    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+    <a href="wojson.html" class="md-nav__link">
       Custom Web pages w/o JSON
     </a>
   </li>
@@ -821,13 +915,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10" >
     <label class="md-nav__link" for="nav-10">
       Appendix
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Appendix" data-md-level="1">
       <label class="md-nav__title" for="nav-10">
+        <span class="md-nav__icon md-icon"></span>
         Appendix
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -839,7 +934,7 @@
 
 
   <li class="md-nav__item">
-    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+    <a href="lsbegin.html" class="md-nav__link">
       Inside AutoConnect::begin
     </a>
   </li>
@@ -851,7 +946,7 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentials access" class="md-nav__link">
+    <a href="credit.html" class="md-nav__link">
       Saved credentials access
     </a>
   </li>
@@ -863,7 +958,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+    <a href="acupload.html" class="md-nav__link">
       File upload handler
     </a>
   </li>
@@ -875,7 +970,7 @@
 
 
   <li class="md-nav__item">
-    <a href="colorized.html" title="Custom colorized" class="md-nav__link">
+    <a href="colorized.html" class="md-nav__link">
       Custom colorized
     </a>
   </li>
@@ -887,7 +982,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelabel.html" title="Change label text" class="md-nav__link">
+    <a href="changelabel.html" class="md-nav__link">
       Change label text
     </a>
   </li>
@@ -904,7 +999,7 @@
 
 
   <li class="md-nav__item">
-    <a href="faq.html" title="FAQ" class="md-nav__link">
+    <a href="faq.html" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -916,7 +1011,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelog.html" title="Change log" class="md-nav__link">
+    <a href="changelog.html" class="md-nav__link">
       Change log
     </a>
   </li>
@@ -928,7 +1023,7 @@
 
 
   <li class="md-nav__item">
-    <a href="license.html" title="License" class="md-nav__link">
+    <a href="license.html" class="md-nav__link">
       License
     </a>
   </li>
@@ -945,11 +1040,14 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -957,7 +1055,7 @@
      Include headers
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Include headers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -984,7 +1082,7 @@
      Constructors
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Constructors">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1004,8 +1102,15 @@
      Public member functions
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Public member functions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#append" class="md-nav__link">
+     append
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#aux" class="md-nav__link">
@@ -1029,6 +1134,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#detach" class="md-nav__link">
+     detach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disablemenu" class="md-nav__link">
+     disableMenu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#enablemenu" class="md-nav__link">
      enableMenu
   </a>
@@ -1043,8 +1162,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#disablemenu" class="md-nav__link">
-     disableMenu
+  <a href="#geteepromusedsize" class="md-nav__link">
+     getEEPROMUsedSize
   </a>
   
 </li>
@@ -1099,6 +1218,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#onconnect" class="md-nav__link">
+     onConnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ondetect" class="md-nav__link">
      onDetect
   </a>
@@ -1119,14 +1245,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#whilecaptiveportal" class="md-nav__link">
+     whileCaptivePortal
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
-      
-      
-      
-      
       
     </ul>
   
@@ -1145,12 +1274,12 @@
                 
                 <h2 id="include-headers"><i class="fa fa-code"></i> Include headers<a class="headerlink" href="#include-headers" title="Permanent link">&para;</a></h2>
 <h3 id="autoconnecth">AutoConnect.h<a class="headerlink" href="#autoconnecth" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 </code></pre></div>
-
 <h2 id="defined-macros"><i class="fa fa-code"></i> Defined macros<a class="headerlink" href="#defined-macros" title="Permanent link">&para;</a></h2>
 <p>They contain in <code>AutoConnectDefs.h</code>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AC_DEBUG                                // Monitor message output activation</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AC_USE_SPIFFS                           // Use SPIFFS for the file system on the onboard flash, assumes LittleFS if not defined.</span>
+<span style="color: #75715e">#define AC_DEBUG                                // Monitor message output activation</span>
 <span style="color: #75715e">#define AC_DEBUG_PORT           Serial          // Default message output device</span>
 <span style="color: #75715e">#define AUTOCONNECT_AP_IP       0x011CD9AC      // Default SoftAP IP</span>
 <span style="color: #75715e">#define AUTOCONNECT_AP_GW       0x011CD9AC      // Default SoftAP Gateway IP</span>
@@ -1169,88 +1298,126 @@
 <span style="color: #75715e">#define AUTOCONNECT_TICKER_PORT LED_BUILTIN     // Ticker port</span>
 <span style="color: #75715e">#endif</span>
 </code></pre></div>
-
 <div class="admonition note">
 <p class="admonition-title">Macros placement moved</p>
 <p>Source code placement of the above macros provided for user sketch changed from v0.9.7. The new code is in <code>AutoConnectDefs.h</code>.</p>
 </div>
 <h2 id="constructors"><i class="fa fa-code"></i> Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h2>
 <h3 id="autoconnect">AutoConnect<a class="headerlink" href="#autoconnect" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect()</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect()</span>
 </code></pre></div>
-
 <p><a id="withparameter"></a></p>
 <p>AutoConnect default constructor. This entry internally allocates the ESP8266WebServer for ESP8266 or WebServer for ESP32 and is activated internally.</p>
 <ul>
 <li>For ESP8266</li>
 </ul>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect(ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect(ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
 </code></pre></div>
-
 <ul>
 <li>For ESP32</li>
 </ul>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect(WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect(WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
 </code></pre></div>
-
 <p>Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.</p>
-<p>The <a href="api.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the Sketch can obtain that reference with the <a href="api.html#host"><strong>host</strong></a> function.
-<dl class="apidl">
+<p>The <a href="api.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the Sketch can obtain that reference with the <a href="api.html#host"><strong>host</strong></a> function.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
-    <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd>
-</dl></p>
+    <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd></dl></p>
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
-<h3 id="aux"><i class="fa fa-caret-right"></i> aux<a class="headerlink" href="#aux" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span> <span style="color: #66d9ef">const</span>
+<h3 id="append"><i class="fa fa-caret-right"></i> append<a class="headerlink" href="#append" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ESP8266/ESP32 Common</li>
+</ul>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title)</span>
 </code></pre></div>
-Returns a pointer to AutoConnectAux with the URI specified by <em>uri</em>. If AutoConnectAux with that URI is not bound, it returns <strong>nullptr</strong>.
-<dl class="apidl">
+<ul>
+<li>For ESP8266</li>
+</ul>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title,</span> <span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">handler)</span>
+</code></pre></div>
+<ul>
+<li>For ESP32</li>
+</ul>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">append(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title,</span> <span style="color: #f8f8f2">WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">handler)</span>
+</code></pre></div>
+Creates an AutoConnectAux dynamically with the specified URI and integrates it into the menu. Calls with a request handler parameter can use this function as menu registration for a legacy page of ESP8266WebServer/WebServer. If the <strong>handler</strong> parameter specified, also it will register the request handler for the ESP8266WebServer/WebServer.<br />
+AutoConnect manages the menu items using a sequence list, and this function always adds the item to the end of the list. Therefore, the order of the menu items is the additional order.<br />
+Returns the pointer to created AutoConnectAux instance, the <code>nullptr</code> if an AutoConnectAux with the same URI already exists.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI.</span></dd>
+    <dd><span class="apidef">title</span><span class="apidesc">Title for menu item.</span></dd>
+    <dd><span class="apidef">handler</span><span class="apidesc">Request handler function as type of <strong>ESP8266WebServer::THandlerFunction</strong>/<strong>WebServer::THandlerFunction</strong>.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd>A Pointer to a created AutoConnectAux instance.</dd></dl></p>
+<div class="admonition note">
+<p class="admonition-title">An instance of ESP8266WebServer/WebServer is needed</p>
+<p>The WebServer must have instantiated for calling with a request handler parameter. AutoConnect can instantiate and host a WebServer internally, but in that case, the point in time to call the append function with a request handler parameter must be after AutoConnect::begin.</p>
+</div>
+<h3 id="aux"><i class="fa fa-caret-right"></i> aux<a class="headerlink" href="#aux" title="Permanent link">&para;</a></h3>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span> <span style="color: #66d9ef">const</span>
+</code></pre></div>
+Returns a pointer to AutoConnectAux with the URI specified by <em>uri</em>. If AutoConnectAux with that URI is not bound, it returns <strong>nullptr</strong>.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">uri</span><span class="apidesc">A string of the URI.</span></dd>
     <dt><strong>Return value</strong></dt>
     <dd>A Pointer of the AutoConnectAux instance.</dd>
 </dl></p>
 <h3 id="begin"><i class="fa fa-caret-right"></i> begin<a class="headerlink" href="#begin" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin()</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin()</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase,</span> <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">timeout)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">begin(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">passphrase,</span> <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">timeout)</span>
 </code></pre></div></p>
 <p>Starts establishing the WiFi connection. The WiFi mode at this time is WIFI_STA.<br />
 AutoConnect first invokes <em>WiFi.begin</em>. If the <em>ssid</em> and the <em>passphrase</em> are missing, its <em>WiFi.begin</em> has no SSID and Password. Regardless of the result, ESP8266WebServer/WebServer will start immediately after the first <em>WiFi.begin</em>.<br />
-The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.
-<dl class="apidl">
+The captive portal will not be started if the connection has been established with first <em>WiFi.begin</em>. If the connection cannot establish, switch to WIFI_AP_STA mode and activate SoftAP. Then DNS server starts.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be connected.</span></dd>
     <dd><span class="apidef">passphrase</span><span class="apidesc">Password for connection.</span></dd>
     <dd><span class="apidef">timeout</span><span class="apidesc">A time out value in milliseconds for waiting connection.</span></dd>
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Connection established, AutoConnect service started with WIFI_STA mode.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Could not connected, Captive portal started with WIFI_AP_STA mode.</span></dd>
-</dl></p>
+    <dd><span class="apidef">false</span><span class="apidesc">Could not connected, Captive portal started with WIFI_AP_STA mode.</span></dd></dl></p>
 <h3 id="config"><i class="fa fa-caret-right"></i> config<a class="headerlink" href="#config" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(AutoConnectConfig</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">config)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(AutoConnectConfig</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">config)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ap,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">password</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">config(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ap,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">password</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
 </code></pre></div></p>
-<p>Set SoftAP's WiFi configuration and static IP configuration.
-<dl class="apidl">
+<p>Set AutoConnect configuration settings.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">config</span><span class="apidesc">Reference to <a href="apiconfig.html"><strong>AutoConnectConfig</strong></a> containing SoftAP's parameters and static IP parameters.</span></dd>
     <dd><span class="apidef">ap</span><span class="apidesc">SSID for SoftAP. The default value is <strong>esp8266ap</strong> for ESP8266, <strong>esp32ap</strong> for ESP32.</span></dd>
     <dd><span class="apidef">password</span><span class="apidesc">Password for SodtAP. The default value is <strong>12345678</strong>.</span></dd>
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully configured.</span></dd>
-    <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd>
-</dl></p>
-<h3 id="enablemenu"><i class="fa fa-caret-right"></i> enableMenu<a class="headerlink" href="#enablemenu" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">enableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
+    <dd><span class="apidef">false</span><span class="aidesc">Configuration parameter is invalid, some values out of range.</span></dd></dl></p>
+<h3 id="detach"><i class="fa fa-caret-right"></i> detach<a class="headerlink" href="#detach" title="Permanent link">&para;</a></h3>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">detach(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
 </code></pre></div>
-
+Detach the AutoConnectAux with the specified URI from the management of AutoConnect. An unmanaged AutoConnectAux will no longer appear in menu items, and its page handler will no longer respond even if the URI is accessed directly.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">URI of AutoConnectAux to be detached.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Successfully detached.</span></dd>
+    <dd><span class="apidef">false</span><span class="aidesc">An AutoConnectAux with the specified URI does not exist.</span></dd></dl></p>
+<p>If the request handler registered in the detaching AutoConnectAux is for a legacy page of the ESP8266WebServer/WebServer, the URI is still valid after detaching. AutoConnect does not delete the request handler registered to ESP8266WebServer/WebServer with the <code>on</code> function. (It cannot be removed)</p>
+<div class="admonition hint">
+<p class="admonition-title">Deleting the AutoConnectAux</p>
+<p>If the AutoConnectAux to detach was added by <a href="api.html#append">AutoConnect::append</a>, it will be automatically removed and freed from memory.</p>
+</div>
+<h3 id="disablemenu"><i class="fa fa-caret-right"></i> disableMenu<a class="headerlink" href="#disablemenu" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">disableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
+</code></pre></div>
+<p>Disable the <a href="menu.html">AutoConnect menu</a> items specified by the items parameter with logical OR value using <strong>AC_MENUITEM_t</strong> constant.<br />
+This function only works for AutoConnect primary menu items. It has no effect on disable for AutoConnectAux items. To disable the items by AutoConnectAux, use the <a href="apiaux.html#menu">AutoConnectAux::menu</a> function.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of <strong>AC_MENUITEM_t</strong> of the items deleting from the AutoConnect menu. It provides the value calculated from the <strong>logical OR</strong> by the AC_MENUITEM_t value of each item. Refer to the <a href="#enablemenu">enableMenu</a> about AC_MENUITEM_t.</span></dd></dl></p>
+<h3 id="enablemenu"><i class="fa fa-caret-right"></i> enableMenu<a class="headerlink" href="#enablemenu" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">enableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
+</code></pre></div>
 <dl>
 <dt>Enable the <a href="menu.html">AutoConnect menu</a> items specified by the items parameter with logical OR value using <strong>AC_MENUITEM_t</strong> constant.</dt>
-<dt><dl class="apidl"></dt>
+<dt>This function only works for AutoConnect primary menu items. It has no effect on enable for AutoConnectAux items. To enable the items by AutoConnectAux, use the <a href="apiaux.html#menu">AutoConnectAux::menu</a> function.<dl class="apidl"></dt>
 <dt><dt><strong>Parameter</strong></dt></dt>
 <dt><dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of <strong>AC_MENUITEM_t</strong> of the items applying to the AutoConnect menu. It provides the value calculated from the <strong>logical OR</strong> by the AC_MENUITEM_t value of each item applied as a menu. AC_MENUITEM_t is enumeration type to identify each menu item and it has the below values.</span></dd></dt>
 <dd>
@@ -1286,12 +1453,10 @@ The captive portal will not be started if the connection has been established wi
 <dd>
 <ul>
 <li><strong>AC_MENUITEM_DEVINFO</strong> :
-<a href="menu.html#where-the-from">Device statistics</a> as AutoConnect root page</li>
+<a href="menu.html#where-the-from">Device statistics</a> as AutoConnect root page</dl></li>
 </ul>
 </dd>
 </dl>
-</dl>
-
 <div class="admonition note">
 <p class="admonition-title">It is added, not replaced.</p>
 <p>The initial configuration of the AutoConnect menu items:<br />
@@ -1299,107 +1464,99 @@ The captive portal will not be started if the connection has been established wi
 The enableMenu function adds an indication of the specified items to the current. Therefore, use the <a href="#disableMenu">disableMenu</a> to remove the specified item from the initial menu.</p>
 </div>
 <h3 id="end"><i class="fa fa-caret-right"></i> end<a class="headerlink" href="#end" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">end(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">end(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-
 <p>Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and DNSServer. </p>
 <div class="admonition warning">
 <p class="admonition-title">Attention to end</p>
 <p>The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.</p>
 </div>
-<h3 id="disablemenu"><i class="fa fa-caret-right"></i> disableMenu<a class="headerlink" href="#disablemenu" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">disableMenu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">items)</span>
+<h3 id="geteepromusedsize"><i class="fa fa-caret-right"></i> getEEPROMUsedSize<a class="headerlink" href="#geteepromusedsize" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">getEEPROMUsedSize(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-
-<p>Disable the <a href="menu.html">AutoConnect menu</a> items specified by the items parameter with logical OR value using <strong>AC_MENUITEM_t</strong> constant.
-<dl class="apidl">
-    <dt><strong>Parameter</strong></dt>
-    <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of <strong>AC_MENUITEM_t</strong> of the items deleting from the AutoConnect menu. It provides the value calculated from the <strong>logical OR</strong> by the AC_MENUITEM_t value of each item. Refer to the <a href="#enablemenu">enableMenu</a> about AC_MENUITEM_t.</span></dd>
-</dl></p>
+<p>Returns the total amount of memory required to hold the AutoConnect credentials and any custom configuration settings stored in EEPROM. The Sketch that writes its own custom data to the EEPROM must call <code>EEPROM.begin</code> with this value.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>Total amount size of saved AutoConnect credentials and custom data.</dd></dl></p>
+<div class="admonition note">
+<p class="admonition-title">The getEEPROMUsedSize is available for only ESP8266 use</p>
+<p>It is available for only ESP8266 use and will return 0 when used with ESP32.</p>
+</div>
 <h3 id="handleclient"><i class="fa fa-caret-right"></i> handleClient<a class="headerlink" href="#handleclient" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleClient(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleClient(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-
-<p>Process the AutoConnect menu interface. The handleClient() function of the ESP8266WebServer/WebServer hosted by AutoConnect is also called from within AutoConnect, and the client request handlers contained in the user sketch are also handled.</p>
+<p>Process the AutoConnect menu interface. The <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#handling-incoming-client-requests">ESP8266WebServer::handleClient</a><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> function hosted by AutoConnect is also called from within AutoConnect to handle the request handlers contained in Sketch.</p>
+<div class="admonition info">
+<p class="admonition-title">Enhanced AutoConnect::handleClient</p>
+<p>The handleClient function enhanced since AutoConnect 1.2.0 can start the captive portal according to the WiFi connection status.<br />
+By properly specifying <a href="apiconfig.html#retainportal">AutoConnectConfig::<strong>retainPortal</strong></a> and <a href="apiconfig.html#autorise">AutoConnectConfig::<strong>autoRise</strong></a>, when handleClient detects WiFi disconnection, it shifts WiFi mode to <strong>WIFI_AP_STA</strong> and starts the DNS server together with <strong>SoftAP</strong> dynamically. Then trapping for incoming HTTP requests from client devices will be started by AutoConnect. Thus it will open the captive portal behind the execution of the sketch <code>loop()</code> function. The captive portal launched by enhanced handleClient does not interfere with sketch execution except waiting for the result of WiFi.begin.<br />
+Also, <a href="apiconfig.html#autoreconnect">AutoConnectConfig::<strong>autoReconnect</strong></a> has improved. The Sketch can specify the <a href="apiconfig.html#reconnectinterval">AutoConnectConfig::<strong>reconnectInterval</strong></a> to continue retrying the reconnection with enhanced handleClient.</p>
+</div>
 <h3 id="handlerequest"><i class="fa fa-caret-right"></i> handleRequest<a class="headerlink" href="#handlerequest" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleRequest(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">handleRequest(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-
 <p>Handling for the AutoConnect menu request.</p>
 <div class="admonition warning">
 <p class="admonition-title">About used in combination with handleClient</p>
-<p>The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used with ESP8266WebServer::handleClient or WebServer::handleClient.</p>
+<p>The handleRequest function is not supposed to use with AutoConnect::handleClient. It should be used following ESP8266WebServer::handleClient or WebServer::handleClient.</p>
 </div>
 <h3 id="home"><i class="fa fa-caret-right"></i> home<a class="headerlink" href="#home" title="Permanent link">&para;</a></h3>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">home(String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">home(String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri)</span>
 </code></pre></div>
-
-<p>Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect menu.
-<dl class="apidl">
+<p>Put a user site's home URI. The URI specified by home is linked from "HOME" in the AutoConnect menu.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
-    <dd><span class="apidef">uri</span><span class="aidesc">A URI string of user site's home path.</span></dd>
-</dl></p>
+    <dd><span class="apidef">uri</span><span class="aidesc">A URI string of user site's home path.</span></dd></dl></p>
 <h3 id="host"><i class="fa fa-caret-right"></i> host<a class="headerlink" href="#host" title="Permanent link">&para;</a></h3>
 <ul>
 <li>For ESP8266</li>
 </ul>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-
 <ul>
 <li>For ESP32</li>
 </ul>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-
-<p>Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.
-<dl class="apidl">
+<p>Returns the reference of the ESP8266WebServer/WebServer which is allocated in AutoConnect automatically.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
-    <dd>A reference of the ESP8266WebServer/WebServer.</dd>
-</dl></p>
+    <dd>A reference of the ESP8266WebServer/WebServer.</dd></dl></p>
 <div class="admonition note">
 <p class="admonition-title">&amp;reference is not a pointer</p>
 <p>A reference cannot be re-assigned, and must be assigned at initialization. It's like as bind as alias.    <br />
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">server</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.host();</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">server</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.host();</span>
 <span style="color: #f8f8f2">server.handleClient();</span>
 </code></pre></div>
 or<br />
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">portal.host().handleClient();</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">portal.host().handleClient();</span>
 </code></pre></div></p>
 </div>
 <h3 id="join"><i class="fa fa-caret-right"></i> join<a class="headerlink" href="#join" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">reference_wrapper</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">aux)</span>
-</code></pre></div>
-Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joined one by one, or joined altogether. The AutoConnectAux object joined by the join function can be handled from the AutoConnect menu.
-<dl class="apidl">
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">join(std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">reference_wrapper</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">aux)</span>
+</code></pre></div></p>
+<p>Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joined one by one, or joined altogether. The AutoConnectAux object joined by the join function can be handled from the AutoConnect menu.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
-    <dd><span class="apidef">aux</span><span class="apidesc">Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a>.</span></dd>
-</dl></p>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a>.</span></dd></dl></p>
 <h3 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(PGM_P</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(PGM_P</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
-</code></pre></div>
-Load JSON document of AutoConnectAux which contains AutoConnectElements. If there is a syntax error in the JSON document, false is returned.
-<dl class="apidl">
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+</code></pre></div></p>
+<p>Load JSON document of AutoConnectAux which contains AutoConnectElements. If there is a syntax error in the JSON document, false is returned.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">aux</span><span class="apidesc">The input string to be loaded.</span></dd>
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">The JSON document as AutoConnectAux successfully loaded.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the <a href="https://arduinojson.org/v5/assistant/">ArduinoJson Assistant</a>.</span></dd>
-</dl></p>
+    <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the <a href="https://arduinojson.org/v5/assistant/">ArduinoJson Assistant</a>.</span></dd></dl></p>
 <h3 id="on"><i class="fa fa-caret-right"></i> on<a class="headerlink" href="#on" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD)</span>
+</code></pre></div>
 <dl>
-<dt><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD)</span>
-</code></pre></div></dt>
-<dt>Register the handler function of the AutoConnectAux.</dt>
-<dt><dl class="apidl"></dt>
+<dt>Register the handler function of the AutoConnectAux.<dl class="apidl"></dt>
 <dt><dt><strong>Parameters</strong></dt></dt>
 <dt><dd><span class="apidef">uri</span><span class="apidesc">A string of the URI assigned to the AutoConnectAux page.</span></dd></dt>
 <dt><dd><span class="apidef">handler</span><span class="apidesc">A function that behaves when a request to the AutoConnectAux page occurs. AuxHandlerFunctionT type is defined by the following declaration.<p class=""apidesc"><code>String handler(AutoConnectAux&amp;, PageArgument&amp;)</code></p></span></dd></dt>
@@ -1419,27 +1576,36 @@ Called after AutoConnect generates the HTML of the page. You can append to HTML 
 <dd>
 <ul>
 <li><strong>AC_EXIT_BOTH</strong> :
-Called even before generating HTML and after generated.</li>
+Called even before generating HTML and after generated.</dl></li>
 </ul>
 </dd>
 </dl>
-</dl>
-
 <div class="admonition caution">
 <p class="admonition-title">It is not ESP8266WebServer::on, not WebServer::on for ESP32.</p>
 <p>This function effects to AutoConnectAux only. However, it coexists with that of ESP8266WebServer::on or WebServer::on of ESP32. </p>
 </div>
-<h3 id="ondetect"><i class="fa fa-caret-right"></i> onDetect<a class="headerlink" href="#ondetect" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onDetect(DetectExit_ft</span> <span style="color: #f8f8f2">fn)</span>
+<h3 id="onconnect"><i class="fa fa-caret-right"></i> onConnect<a class="headerlink" href="#onconnect" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onConnect(ConnectExit_ft</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
-Register the function which will call from AutoConnect at the start of the captive portal.
+<p>Register the function which will call from AutoConnect at the WiFi connection established.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the WiFi connected.</span></dd></dl></p>
+<p>An <em>fn</em> specifies the function called when the WiFi connected. Its prototype declaration is defined as "<em>ConnectExit_ft</em>".</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">localIP)</span><span style="color: #f92672">&gt;</span>  <span style="color: #f8f8f2">ConnectExit_ft;</span>
+</code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameter</strong></dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd></p>
+    <dd><span class="apidef">localIP</span><span class="apidesc">An IP address of the ESP module as STA.</span></dd>
 </dl>
 
+<h3 id="ondetect"><i class="fa fa-caret-right"></i> onDetect<a class="headerlink" href="#ondetect" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onDetect(DetectExit_ft</span> <span style="color: #f8f8f2">fn)</span>
+</code></pre></div>
+<p>Register the function which will call from AutoConnect at the start of the captive portal.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd></dl></p>
 <p>An <em>fn</em> specifies the function called when the captive portal starts. Its prototype declaration is defined as "<em>DetectExit_ft</em>".</p>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">(IPAddress</span> <span style="color: #f8f8f2">softapIP)</span><span style="color: #f92672">&gt;</span>  <span style="color: #f8f8f2">DetectExit_ft</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">softapIP)</span><span style="color: #f92672">&gt;</span>  <span style="color: #f8f8f2">DetectExit_ft</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameter</strong></dt>
@@ -1447,38 +1613,54 @@ Register the function which will call from AutoConnect at the start of the capti
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
-</dl></p>
+</dl>
+
 <h3 id="onnotfound"><i class="fa fa-caret-right"></i> onNotFound<a class="headerlink" href="#onnotfound" title="Permanent link">&para;</a></h3>
 <ul>
 <li>For ESP8266</li>
 </ul>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(ESP8266WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(ESP8266WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
-
 <ul>
 <li>For ESP32</li>
 </ul>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onNotFound(WebServer</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">THandlerFunction</span> <span style="color: #f8f8f2">fn)</span>
 </code></pre></div>
-Register the handler function for undefined URL request detected.
-<dl class="apidl">
+<p>Register the handler function for undefined URL request detected.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd>
-</dl></p>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd></dl></p>
 <h3 id="where"><i class="fa fa-caret-right"></i> where<a class="headerlink" href="#where" title="Permanent link">&para;</a></h3>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">where(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">where(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns an uri string of the AutoConnectAux uri object of the custom Web page that caused the request to the page.<br>
+<p>Returns an uri string of the AutoConnectAux uri object of the custom Web page that caused the request to the page.<br>
 AutoConnect identifies the URI (ie. the referrer URI) that caused the request each time from the client occurs and will save the URI If the request source is a custom Web page of AutoConnectAux. The <strong>where</strong> function returns a pointer of AutoConnectAux which is a URI of a least recent request from the custom Web page.<br>
-This function is provided to access the fields (ie. the AutoConnectElements) with a custom Web page handler of a page and is available only for request source that is the custom Web pages. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/WebServer for ESP32. In other words, this function only returns the AutoConnecAux page which is a least recently displayed.
+This function is provided to access the fields (ie. the AutoConnectElements) with a custom Web page handler of a page and is available only for request source that is the custom Web pages. It is invalid for HTTP requests from individual pages registered with the <strong>on</strong> handler of ESP8266WebServer/WebServer for ESP32. In other words, this function only returns the AutoConnecAux page which is a least recently displayed.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>An uri string of the AutoConnectAux that caused the request the page.</dd></dl></p>
+<p>The <strong>where</strong> function usage is described in the section <a href="achandling.html#where-to-pick-up-the-values"><em>Where to pick up the values</em></a>.</p>
+<h3 id="whilecaptiveportal"><i class="fa fa-caret-right"></i> whileCaptivePortal<a class="headerlink" href="#whilecaptiveportal" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">whileCaptivePortal(WhileCaptivePortalExit_ft</span> <span style="color: #f8f8f2">fn)</span>
+</code></pre></div>
+<p>Register the function which will call from AutoConnect during a stay in the captive portal.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd></dl></p>
+<p>An <em>fn</em> specifies the function called while staying in the captive portal. Its prototype declaration is defined as "<em>WhileCaptivePortalExit_ft</em>".</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">&gt;</span>   <span style="color: #f8f8f2">WhileCaptivePortalExit_ft</span>
+</code></pre></div>
 <dl class="apidl">
     <dt><strong>Return value</strong></dt>
-    <dd>An uri string of the AutoConnectAux that caused the request the page.</dd>
-</dl></p>
-<p>The <strong>where</strong> function usage is described in the section <a href="achandling.html#where-to-pick-up-the-values"><em>Where to pick up the values</em></a>.</p>
-                
-                  
-                
+    <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
+</dl>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Equivalent to the <strong>WebServer::handleClient</strong> function on the <strong>ESP32</strong> platform.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
                 
               
               
@@ -1495,34 +1677,34 @@ This function is provided to access the fields (ie. the AutoConnectElements) wit
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="otaserver.html" title="Using Update Server" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+          <a href="otaserver.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 Using Update Server
-              </span>
+              </div>
             </div>
           </a>
         
         
-          <a href="apiaux.html" title="AutoConnectAux API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+          <a href="apiaux.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
                 AutoConnectAux API
-              </span>
+              </div>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
             </div>
           </a>
         
@@ -1537,19 +1719,31 @@ This function is provided to access the fields (ie. the AutoConnectElements) wit
             Copyright &copy; 2018-2020 Hieromon Ikasamo
           </div>
         
-        powered by
-        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
-        and
+        Made with
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs</a>
+          Material for MkDocs
+        </a>
       </div>
       
   <div class="md-footer-social">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+      
+      
+        
+        
+      
+      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
     
-      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
     
   </div>
 
@@ -1559,9 +1753,18 @@ This function is provided to access the fields (ie. the AutoConnectElements) wit
       
     </div>
     
-      <script src="assets/javascripts/application.c33a9706.js"></script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
-      <script>app.initialize({version:"1.1",url:{base:"."}})</script>
+      <script>
+        app = initialize({
+          base: ".",
+          features: [],
+          search: Object.assign({
+            worker: "assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
       
         <script src="js/gifffer.min.js"></script>
       

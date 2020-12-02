@@ -1,16 +1,13 @@
 
-
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/acjson.html">
@@ -18,27 +15,8 @@
       
         <meta name="author" content="Hieromon Ikasamo">
       
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.6.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
     
     
       
@@ -46,27 +24,26 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.adb8469c.css">
-      
-        <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
-      
+      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
       
         
+        <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
         
-        <meta name="theme-color" content="#3f51b5">
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
       
     
     
-      <script src="assets/javascripts/modernizr.86422ebf.js"></script>
-    
     
       
+        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
-    <link rel="stylesheet" href="assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="css/paragraph.css">
@@ -78,101 +55,86 @@
     
       
         
-<script>
-  window.ga = window.ga || function() {
-    (ga.q = ga.q || []).push(arguments)
-  }
-  ga.l = +new Date
-  /* Setup integration and send page view */
-  ga("create", "UA-116150854-1", "auto")
-  ga("set", "anonymizeIp", true)
-  ga("send", "pageview")
-  /* Register handler to log search on blur */
-  document.addEventListener("DOMContentLoaded", () => {
-    if (document.forms.search) {
-      var query = document.forms.search.query
-      query.addEventListener("blur", function() {
-        if (this.value) {
-          var path = document.location.pathname;
-          ga("send", "pageview", path + "?q=" + this.value)
-        }
-      })
-    }
-  })
-</script>
+<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-116150854-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview",document.location.pathname)})</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
       
     
     
   </head>
   
-    
-    
-    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+      
+  
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#json-objects-elements-for-the-custom-web-page" tabindex="0" class="md-skip">
-        Skip to content
-      </a>
-    
-    
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" aria-label="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo">
-          
-            <img alt="logo" src="images/arduino-logo.svg" width="24" height="24">
-          
-        </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          
-            <span class="md-header-nav__topic">
-              AutoConnect for ESP8266/ESP32
-            </span>
-            <span class="md-header-nav__topic">
-              
-                Custom Web pages with JSON
-              
-            </span>
-          
-        </div>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
         
-          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-          
+        <a href="#json-objects-elements-for-the-custom-web-page" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            AutoConnect for ESP8266/ESP32
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Custom Web pages with JSON
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Type to start searching
+            Initializing search
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -180,71 +142,55 @@
     </div>
   </div>
 </div>
+    
+    
+      <div class="md-header-nav__source">
         
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
   </div>
 </a>
-          </div>
-        </div>
-      
-    </div>
+      </div>
+    
   </nav>
 </header>
     
-    <div class="md-container">
+    <div class="md-container" data-md-component="container">
+      
       
         
       
-      
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
             
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
       
-        <img alt="logo" src="images/arduino-logo.svg" width="48" height="48">
-      
+  <img src="images/arduino-logo.svg" alt="logo">
+
     </a>
     AutoConnect for ESP8266/ESP32
   </label>
   
     <div class="md-nav__source">
       
-
-
-  
-
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
   </div>
@@ -259,7 +205,7 @@
 
 
   <li class="md-nav__item">
-    <a href="index.html" title="Overview" class="md-nav__link">
+    <a href="index.html" class="md-nav__link">
       Overview
     </a>
   </li>
@@ -271,7 +217,7 @@
 
 
   <li class="md-nav__item">
-    <a href="gettingstarted.html" title="Getting started" class="md-nav__link">
+    <a href="gettingstarted.html" class="md-nav__link">
       Getting started
     </a>
   </li>
@@ -283,7 +229,7 @@
 
 
   <li class="md-nav__item">
-    <a href="menu.html" title="AutoConnect menu" class="md-nav__link">
+    <a href="menu.html" class="md-nav__link">
       AutoConnect menu
     </a>
   </li>
@@ -295,7 +241,7 @@
 
 
   <li class="md-nav__item">
-    <a href="basicusage.html" title="Basic usage" class="md-nav__link">
+    <a href="basicusage.html" class="md-nav__link">
       Basic usage
     </a>
   </li>
@@ -306,10 +252,119 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      Advanced usage
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Advanced usage
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
   <li class="md-nav__item">
-    <a href="advancedusage.html" title="Advanced usage" class="md-nav__link">
+    <a href="advancedusage.html" class="md-nav__link">
       Advanced usage
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adconnection.html" class="md-nav__link">
+      AutoConnect WiFi connection control
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adcpcontrol.html" class="md-nav__link">
+      Captive portal control
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adnetwork.html" class="md-nav__link">
+      Settings and controls for network and WiFi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adauthentication.html" class="md-nav__link">
+      Authentication settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adcredential.html" class="md-nav__link">
+      Credential accesses
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adexterior.html" class="md-nav__link">
+      Customizing page appearance
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="adothers.html" class="md-nav__link">
+      Other operation settings and controls
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -322,13 +377,14 @@
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
     <label class="md-nav__link" for="nav-6">
       Custom Web pages
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
       <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
         Custom Web pages
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -340,7 +396,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acintro.html" title="Custom Web pages with AutoConnect" class="md-nav__link">
+    <a href="acintro.html" class="md-nav__link">
       Custom Web pages with AutoConnect
     </a>
   </li>
@@ -352,7 +408,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acelements.html" title="AutoConnectElements" class="md-nav__link">
+    <a href="acelements.html" class="md-nav__link">
       AutoConnectElements
     </a>
   </li>
@@ -367,23 +423,27 @@
 
   <li class="md-nav__item md-nav__item--active">
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Custom Web pages with JSON
+        <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="acjson.html" title="Custom Web pages with JSON" class="md-nav__link md-nav__link--active">
+    <a href="acjson.html" class="md-nav__link md-nav__link--active">
       Custom Web pages with JSON
     </a>
     
       
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -391,7 +451,7 @@
     JSON objects &amp; elements for the custom Web page
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="JSON objects &amp; elements for the custom Web page">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -399,7 +459,7 @@
      JSON document structure for AutoConnectAux
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" JSON document structure for AutoConnectAux">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -419,6 +479,13 @@
           <li class="md-nav__item">
   <a href="#menu" class="md-nav__link">
      menu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth" class="md-nav__link">
+     auth
   </a>
   
 </li>
@@ -447,7 +514,7 @@
      JSON object for AutoConnectElements
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" JSON object for AutoConnectElements">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -460,6 +527,13 @@
           <li class="md-nav__item">
   <a href="#type" class="md-nav__link">
      type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posterior" class="md-nav__link">
+     posterior
   </a>
   
 </li>
@@ -556,7 +630,7 @@
     Loading JSON document
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Loading JSON document">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -578,7 +652,7 @@
      Adjust the JSON document buffer size
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Adjust the JSON document buffer size">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -619,10 +693,6 @@
   
 </li>
       
-      
-      
-      
-      
     </ul>
   
 </nav>
@@ -636,7 +706,7 @@
 
 
   <li class="md-nav__item">
-    <a href="achandling.html" title="Handling the custom Web pages" class="md-nav__link">
+    <a href="achandling.html" class="md-nav__link">
       Handling the custom Web pages
     </a>
   </li>
@@ -654,13 +724,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
     <label class="md-nav__link" for="nav-7">
       OTA Updates
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
       <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
         OTA Updates
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -672,7 +743,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otaupdate.html" title="OTA Updates" class="md-nav__link">
+    <a href="otaupdate.html" class="md-nav__link">
       OTA Updates
     </a>
   </li>
@@ -684,7 +755,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otabrowser.html" title="Using Web Browser" class="md-nav__link">
+    <a href="otabrowser.html" class="md-nav__link">
       Using Web Browser
     </a>
   </li>
@@ -696,7 +767,7 @@
 
 
   <li class="md-nav__item">
-    <a href="otaserver.html" title="Using Update Server" class="md-nav__link">
+    <a href="otaserver.html" class="md-nav__link">
       Using Update Server
     </a>
   </li>
@@ -714,13 +785,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
     <label class="md-nav__link" for="nav-8">
       Library APIs
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
       <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
         Library APIs
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -732,7 +804,7 @@
 
 
   <li class="md-nav__item">
-    <a href="api.html" title="AutoConnect API" class="md-nav__link">
+    <a href="api.html" class="md-nav__link">
       AutoConnect API
     </a>
   </li>
@@ -744,7 +816,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiaux.html" title="AutoConnectAux API" class="md-nav__link">
+    <a href="apiaux.html" class="md-nav__link">
       AutoConnectAux API
     </a>
   </li>
@@ -756,7 +828,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiconfig.html" title="AutoConnectConfig API" class="md-nav__link">
+    <a href="apiconfig.html" class="md-nav__link">
       AutoConnectConfig API
     </a>
   </li>
@@ -768,7 +840,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apielements.html" title="AutoConnectElements API" class="md-nav__link">
+    <a href="apielements.html" class="md-nav__link">
       AutoConnectElements API
     </a>
   </li>
@@ -780,7 +852,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiupdate.html" title="AutoConnectUpdate API" class="md-nav__link">
+    <a href="apiupdate.html" class="md-nav__link">
       AutoConnectUpdate API
     </a>
   </li>
@@ -792,7 +864,7 @@
 
 
   <li class="md-nav__item">
-    <a href="apiextra.html" title="Something extra" class="md-nav__link">
+    <a href="apiextra.html" class="md-nav__link">
       Something extra
     </a>
   </li>
@@ -810,13 +882,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" >
     <label class="md-nav__link" for="nav-9">
       Examples
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Examples" data-md-level="1">
       <label class="md-nav__title" for="nav-9">
+        <span class="md-nav__icon md-icon"></span>
         Examples
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -828,7 +901,7 @@
 
 
   <li class="md-nav__item">
-    <a href="howtoembed.html" title="How to embed" class="md-nav__link">
+    <a href="howtoembed.html" class="md-nav__link">
       How to embed
     </a>
   </li>
@@ -840,7 +913,7 @@
 
 
   <li class="md-nav__item">
-    <a href="datatips.html" title="Tips for data conversion" class="md-nav__link">
+    <a href="datatips.html" class="md-nav__link">
       Tips for data conversion
     </a>
   </li>
@@ -852,8 +925,8 @@
 
 
   <li class="md-nav__item">
-    <a href="menuize.html" title="Attach the menu" class="md-nav__link">
-      Attach the menu
+    <a href="menuize.html" class="md-nav__link">
+      Attach the menus
     </a>
   </li>
 
@@ -864,7 +937,7 @@
 
 
   <li class="md-nav__item">
-    <a href="wojson.html" title="Custom Web pages w/o JSON" class="md-nav__link">
+    <a href="wojson.html" class="md-nav__link">
       Custom Web pages w/o JSON
     </a>
   </li>
@@ -882,13 +955,14 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
-    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10" >
     <label class="md-nav__link" for="nav-10">
       Appendix
+      <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+    <nav class="md-nav" aria-label="Appendix" data-md-level="1">
       <label class="md-nav__title" for="nav-10">
+        <span class="md-nav__icon md-icon"></span>
         Appendix
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -900,7 +974,7 @@
 
 
   <li class="md-nav__item">
-    <a href="lsbegin.html" title="Inside AutoConnect::begin" class="md-nav__link">
+    <a href="lsbegin.html" class="md-nav__link">
       Inside AutoConnect::begin
     </a>
   </li>
@@ -912,7 +986,7 @@
 
 
   <li class="md-nav__item">
-    <a href="credit.html" title="Saved credentials access" class="md-nav__link">
+    <a href="credit.html" class="md-nav__link">
       Saved credentials access
     </a>
   </li>
@@ -924,7 +998,7 @@
 
 
   <li class="md-nav__item">
-    <a href="acupload.html" title="File upload handler" class="md-nav__link">
+    <a href="acupload.html" class="md-nav__link">
       File upload handler
     </a>
   </li>
@@ -936,7 +1010,7 @@
 
 
   <li class="md-nav__item">
-    <a href="colorized.html" title="Custom colorized" class="md-nav__link">
+    <a href="colorized.html" class="md-nav__link">
       Custom colorized
     </a>
   </li>
@@ -948,7 +1022,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelabel.html" title="Change label text" class="md-nav__link">
+    <a href="changelabel.html" class="md-nav__link">
       Change label text
     </a>
   </li>
@@ -965,7 +1039,7 @@
 
 
   <li class="md-nav__item">
-    <a href="faq.html" title="FAQ" class="md-nav__link">
+    <a href="faq.html" class="md-nav__link">
       FAQ
     </a>
   </li>
@@ -977,7 +1051,7 @@
 
 
   <li class="md-nav__item">
-    <a href="changelog.html" title="Change log" class="md-nav__link">
+    <a href="changelog.html" class="md-nav__link">
       Change log
     </a>
   </li>
@@ -989,7 +1063,7 @@
 
 
   <li class="md-nav__item">
-    <a href="license.html" title="License" class="md-nav__link">
+    <a href="license.html" class="md-nav__link">
       License
     </a>
   </li>
@@ -1006,11 +1080,14 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
@@ -1018,7 +1095,7 @@
     JSON objects &amp; elements for the custom Web page
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="JSON objects &amp; elements for the custom Web page">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1026,7 +1103,7 @@
      JSON document structure for AutoConnectAux
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" JSON document structure for AutoConnectAux">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1046,6 +1123,13 @@
           <li class="md-nav__item">
   <a href="#menu" class="md-nav__link">
      menu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auth" class="md-nav__link">
+     auth
   </a>
   
 </li>
@@ -1074,7 +1158,7 @@
      JSON object for AutoConnectElements
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" JSON object for AutoConnectElements">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1087,6 +1171,13 @@
           <li class="md-nav__item">
   <a href="#type" class="md-nav__link">
      type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posterior" class="md-nav__link">
+     posterior
   </a>
   
 </li>
@@ -1183,7 +1274,7 @@
     Loading JSON document
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="Loading JSON document">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1205,7 +1296,7 @@
      Adjust the JSON document buffer size
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label=" Adjust the JSON document buffer size">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1245,10 +1336,6 @@
   </a>
   
 </li>
-      
-      
-      
-      
       
     </ul>
   
@@ -1268,7 +1355,6 @@
                 <p>You can embed custom Web pages written in <a href="https://www.json.org/index.html"><strong>JSON</strong></a> into AutoConnect without AutoConnectAux &amp; AutoConnectElements declaration. Custom Web page declaration by JSON can  embed in the Sketch as a fixed string or can store in the external file such as SPIFFS for stream loading. Also, you can also load and save AutoConnectElements objects individually.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <p>By providing the following JSON document to AutoConnect, you can include the custom Web page like the below:</p>
 <div style="float:left;width:50%;height:470px;overflow:auto"><img src="images/ac_json.png"></div>
-
 <p><img style="margin-left:30px;width:40%;height:470px;" src="images/ac_mqtt_setting.png"></p>
 <p>A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the Sketch process by loading multiple pages of JSON document at once.</p>
 <div class="admonition caution">
@@ -1278,17 +1364,17 @@
 <h2 id="json-objects-elements-for-the-custom-web-page">JSON objects &amp; elements for the custom Web page<a class="headerlink" href="#json-objects-elements-for-the-custom-web-page" title="Permanent link">&para;</a></h2>
 <h3 id="json-document-structure-for-autoconnectaux"><i class="fa fa-caret-right"></i> JSON document structure for AutoConnectAux<a class="headerlink" href="#json-document-structure-for-autoconnectaux" title="Permanent link">&para;</a></h3>
 <p>AutoConnectAux will configure custom Web pages with JSON objects. The elements that make up the object are as follows:</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;title&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">title</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;uri&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">uri</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;menu&quot;</span> <span style="color: #f92672">:</span> <span style="color: #66d9ef">true</span> <span style="color: #f92672">|</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">&quot;auth&quot;</span><span style="color: #f92672">:</span> <span style="color: #a6e22e">authentication</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;element&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">element_array</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-
 <h4 id="title"><i class="fa fa-key"></i> <strong>title</strong><a class="headerlink" href="#title" title="Permanent link">&para;</a></h4>
 <dl>
-<dd>A title of the custom Web page. This is string value. String specified <em>title</em> will be displayed in the AutoConnection menu.</dd>
+<dd>A title of the custom Web page. This is string value and specifies the <em>title</em> will be displayed in the AutoConnection menu.</dd>
 </dl>
 <h4 id="uri"><i class="fa fa-key"></i> <strong>uri</strong><a class="headerlink" href="#uri" title="Permanent link">&para;</a></h4>
 <dl>
@@ -1297,6 +1383,25 @@
 <h4 id="menu"><i class="fa fa-key"></i> <strong>menu</strong><a class="headerlink" href="#menu" title="Permanent link">&para;</a></h4>
 <dl>
 <dd>This is a Boolean value indicating whether to include the custom Web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.</dd>
+</dl>
+<h4 id="auth"><i class="fa fa-key"></i> <strong>auth</strong><a class="headerlink" href="#auth" title="Permanent link">&para;</a></h4>
+<dl>
+<dd>It allows that this page requires authentication. An <em>authentication</em> specifies the following string that represents the authentication scheme.</dd>
+<dd>
+<ul>
+<li><strong>NONE</strong>: No authentication. This is default.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>BASIC</strong>: Apply Basic scheme.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>DIGEST</strong>: Apply Digest scheme.</li>
+</ul>
+</dd>
 </dl>
 <h4 id="element"><i class="fa fa-key"></i> <strong>element</strong><a class="headerlink" href="#element" title="Permanent link">&para;</a></h4>
 <dl>
@@ -1308,7 +1413,7 @@
 </div>
 <h3 id="multiple-custom-web-pages-declaration-in-json-document"><i class="fa fa-copy"></i> Multiple custom Web pages declaration in JSON document<a class="headerlink" href="#multiple-custom-web-pages-declaration-in-json-document" title="Permanent link">&para;</a></h3>
 <p>You can put declarations of multiple custom Web pages in one JSON document. In that case, declare an array of each custom Web page with JSON. The following JSON document contains three custom Web pages:</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">[</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
     <span style="color: #f92672">&quot;title&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Page 1 title&quot;</span><span style="color: #f8f8f2">,</span>
     <span style="color: #f92672">&quot;uri&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1357,18 +1462,17 @@
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">]</span>
 </code></pre></div>
-
 <p>The above custom Web page definitions can be loaded in a batch using the <a href="api.html#load">AutoConnect::load</a> function.</p>
 <h3 id="json-object-for-autoconnectelements"><i class="fa fa-caret-right"></i> JSON object for AutoConnectElements<a class="headerlink" href="#json-object-for-autoconnectelements" title="Permanent link">&para;</a></h3>
 <p>JSON description for AutoConnectElements describes as an array in the <em>element</em> with arguments of <a href="acelements.html#constructor">each constructor</a>.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;name&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">name</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;type&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">type</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #e6db74">&quot;posterior&quot;</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">posterior</span><span style="color: #f8f8f2">,</span>
   <span style="color: #a6e22e">key_according_to_type</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">the_value</span> <span style="color: #f92672">|</span> <span style="color: #a6e22e">array_of_value</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f8f8f2">[</span> <span style="color: #a6e22e">key_according_to_type</span> <span style="color: #f92672">:</span> <span style="color: #a6e22e">the_value</span> <span style="color: #f92672">|</span> <span style="color: #a6e22e">array_of_value</span> <span style="color: #f8f8f2">]</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-
 <h4 id="name"><i class="fa fa-key"></i> <strong>name</strong><a class="headerlink" href="#name" title="Permanent link">&para;</a></h4>
 <dl>
 <dd>A string of the name for the element.</dd>
@@ -1427,6 +1531,25 @@
 </ul>
 </dd>
 </dl>
+<h4 id="posterior"><i class="fa fa-key"></i> posterior<a class="headerlink" href="#posterior" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>Specifies a tag to add behind the HTML code generated from the element. Its purpose is to place elements on the custom Web page as intended by the user sketch. You can use the <strong>posterior</strong> key with the following values to arrange vertically or horizontal when the elements do not have the intended position on the custom Web Page specifying the following:</dt>
+<dd>
+<ul>
+<li><strong>none</strong> : No generate additional tags.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>br</strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>par</strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.</li>
+</ul>
+</dd>
+</dl>
 <h4 id="key_according_to_type"><i class="fa fa-key"></i> <strong><i>key_according_to_type</i></strong><a class="headerlink" href="#key_according_to_type" title="Permanent link">&para;</a></h4>
 <p>This is different for each AutoConnectElements, and the key that can be specified by the type of AutoConnectElements is determined.</p>
 <h4 id="acbutton"><i class="fa fa-caret-right"></i> ACButton<a class="headerlink" href="#acbutton" title="Permanent link">&para;</a></h4>
@@ -1482,11 +1605,32 @@
 </dd>
 <dd>
 <ul>
-<li><strong>store</strong> : Specifies the destination to save the uploaded file. Its value accepts one of the following:<p>
-<b>fs</b>&nbsp;: Save as the SPIFFS file in flash of ESP8266/ESP32 module.<br>
-<b>sd</b>&nbsp;: Save to an external SD device connected to ESP8266/ESP32 module.<br>
-<b>extern</b>&nbsp;: Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd"><strong>AutoConnectUploadHandler</strong></a> class and implements <em>_open</em>, <em>_write</em> and <em>_close</em> function.</p></li>
+<li>
+<dl>
+<dt><strong>store</strong> : Specifies the destination to save the uploaded file. Its value accepts one of the following:</dt>
+<dd>
+<ul>
+<li><strong>fs</strong> : Save as the SPIFFS file in flash of ESP8266/ESP32 module. If the valid file system of the ESP8266 module incorporating the Sketch is <a href="https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html#spiffs-and-littlefs">LittleFS</a>, AutoConnect assumes the file system to be LittleFS. However, it does not sense the actual file system, so If the Sketch implementation does not match the file system on the ESP8266 depends, a file writing error will occur.</li>
 </ul>
+</dd>
+<dd>
+<ul>
+<li><strong>sd</strong> : Save to an external SD device connected to ESP8266/ESP32 module.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>extern</strong> : Pass the content of the uploaded file to the uploader which is declared by the Sketch individually. Its uploader must inherit <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd"><strong>AutoConnectUploadHandler</strong></a> class and implements <em>_open</em>, <em>_write</em> and <em>_close</em> function.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">A valid filesystem of ESP8266 on board flash</p>
+<p>AutoConnect has assumed <a href="https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html#spiffs-and-littlefs"><strong>LittleFS</strong></a> as a valid file system since v1.2.0 enhancement. On the other hand, the ESP8266 arduino core has supported LittleFS officially since a release 2.7.0.<br>
+LittleFS support in AutoConnect relies on the FS instance declared by the arduino core used at compile-time per project, and its FS instance will acquire by either the SPIFFS class or the LittleFS class. That is, you need to choose which file system will be available in the actual Sketch and make consistent it with AutoConnect assumed file system. So, you can choose which one uses the file systems per project via adjustment the <strong>AC_USE_SPIFFS</strong> macro enable or disable. AutoConnect determines the available file system by the <strong>AC_USE_SPIFFS</strong> macro which defined in <a href="api.html#defined-macros">AutoConnectDefs.h</a> header file. </p>
+</div>
 </dd>
 </dl>
 <h4 id="acinput"><i class="fa fa-caret-right"></i> ACInput<a class="headerlink" href="#acinput" title="Permanent link">&para;</a></h4>
@@ -1506,6 +1650,30 @@
 <li><strong>placeholder</strong> : Specifies short hint of the input box.</li>
 </ul>
 </dd>
+<dd>
+<ul>
+<li>
+<dl>
+<dt><strong>apply</strong> : Specifies the type of input that the text box accepts. Its value accepts one of the following:</dt>
+<dd>
+<ul>
+<li><strong>text</strong> : A text.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>password</strong> : Password input field. The text is obscured so that it cannot be read, usually by replacing each character with a symbol such as the asterisk ("<code>*</code>") or a dot ("<code>•</code>").</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>number</strong> : A field let the user enter number characters only.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
 </dl>
 <h4 id="acradio"><i class="fa fa-caret-right"></i> ACRadio<a class="headerlink" href="#acradio" title="Permanent link">&para;</a></h4>
 <dl>
@@ -1521,9 +1689,21 @@
 </dd>
 <dd>
 <ul>
-<li><strong>arrange</strong> : Specifies the orientation of the radio buttons. Its value accepts one of the following:<p>
-<b>horizontal</b>&nbsp;: Horizontal arrangement.<br>
-<b>vertical</b>&nbsp;: Vertical arrangement.</p></li>
+<li>
+<dl>
+<dt><strong>arrange</strong> : Specifies the orientation of the radio buttons. Its value accepts one of the following:</dt>
+<dd>
+<ul>
+<li><strong>horizontal</strong> : Horizontal arrangement.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>vertical</strong> : Vertical arrangement.</li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </dd>
 <dd>
@@ -1585,7 +1765,7 @@
 </dd>
 </dl>
 <div class="admonition caution">
-<p class="admonition-title">AutoConnect's JSON parsing process is not perfect</p>
+<p class="admonition-title">AutoConnect JSON parsing process is not perfect</p>
 <p>It is based on analysis by ArduinoJson, but the semantic analysis is simplified to save memory. Consequently, it is not an error that a custom Web page JSON document to have unnecessary keys. It will be ignored.</p>
 </div>
 <h2 id="loading-json-document">Loading JSON document<a class="headerlink" href="#loading-json-document" title="Permanent link">&para;</a></h2>
@@ -1597,7 +1777,7 @@
 <p>This way does not require an explicit declaration of AutoConnectAux objects with sketches and is also useful when importing the custom Web pages JSON document from an external file such as SPIFFS because the page definition and sketch coding structure can be separated.</p>
 <p>Using the <a href="api.html#load">AutoCoonnect::load</a> function, AutoConnect dynamically generates the necessary AutoConnectAux objects internally based on the custom Web page definition of the imported JSON document content. In the Sketch, the generated AutoConnectAux object can be referenced using the <a href="api.html#aux">AutoConnect::aux</a> function. You can reach the AutoConnectElements you desired using the <a href="apiaux.html#getelement">AutoConnectAux::getElement</a> function of its AutoConnectAux.</p>
 <p>In the following example, it loads in a batch a JSON document of custom Web pages stored in SPIFFS and accesses to the AutoConnectInput element.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">[</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
     <span style="color: #e6db74">&quot;title&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;page1&quot;</span><span style="color: #f8f8f2">,</span>
     <span style="color: #e6db74">&quot;uri&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1622,22 +1802,20 @@
   <span style="color: #f8f8f2">}</span>
 <span style="color: #f8f8f2">]</span>
 </code></pre></div>
-
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/custom_page.json&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">portal.load(page);</span>
 </span><span style="color: #f8f8f2">page.close();</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">);</span>
 </span><span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input1</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;input1&quot;</span><span style="color: #f8f8f2">);</span>
 </span></code></pre></div>
-
 </li>
 <li>
 <p>Load to AutoConnectAux and join to AutoConnect</p>
 <p>This way declares AutoConnectAux in the Sketch and loads the custom Web pages JSON document there. It has an advantage for if you want to define each page of a custom Web page individually or allocate AutoConnectAux objects dynamically on the Sketch side.</p>
 <p>After loading a JSON document using the <a href="apiaux.html#load">AutoConnectAux::load</a> function by each, integrate those into AutoConnect using the <a href="api.html#join">AutoConnect::join</a> function.</p>
 <p>In the following example, you can see the difference between two sketches in a sketch modified using the AutoConnectAux::load.</p>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;title&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;page1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;uri&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;menu&quot;</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
@@ -1649,7 +1827,7 @@
   <span style="color: #f8f8f2">]</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #e6db74">&quot;title&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;page2&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;uri&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;/page2&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #e6db74">&quot;menu&quot;</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
@@ -1661,7 +1839,7 @@
   <span style="color: #f8f8f2">]</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page1;</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">page2;</span>
 <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">page</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/custom_page1.json&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1683,14 +1861,14 @@
 <li>Stream</li>
 </ul>
 <p>To load custom Web pages JSON document into AutoConnect, use the <a href="api.html#load">load</a> function of the AutoConnect class. Its JSON document can read must be completed as a description interpretable by the ArduinoJson library. It cannot import custom Web pages if there are syntax errors for the JSON. If you can not see the custom Web page prepared by JSON, you can check the syntax with <a href="https://arduinojson.org/v5/assistant/">ArduinoJson Assistant</a>. It is useful for pre-checking.</p>
-<p><div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux)</span>
 </code></pre></div>
 An example of using each function is as follows.
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
 
 <span style="color: #75715e">// Loading from String</span>
 <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">Page 1 title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">uri</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">/page1</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">menu</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:true,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">element</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:[{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">name</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">caption</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">type</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">ACText</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">value</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">hello, world</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}]}&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1711,7 +1889,7 @@ An example of using each function is as follows.
 <span style="color: #e6db74">  ]</span>
 <span style="color: #e6db74">}</span>
 <span style="color: #e6db74">)raw&quot;</span><span style="color: #f8f8f2">;</span>
-<span style="color: #f8f8f2">portal.load(aux);</span>
+<span style="color: #f8f8f2">portal.load(FPSTR(aux));</span>
 
 <span style="color: #75715e">// Loading from Stream assumes &quot;aux.json&quot; file should be store in SPIFFS.</span>
 <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;aux.json&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1722,11 +1900,10 @@ An example of using each function is as follows.
 <h3 id="adjust-the-json-document-buffer-size"><i class="fa fa-caret-right"></i> Adjust the JSON document buffer size<a class="headerlink" href="#adjust-the-json-document-buffer-size" title="Permanent link">&para;</a></h3>
 <p>AutoConnect uses ArduinoJson library's dynamic buffer to parse JSON documents. Its dynamic buffer allocation scheme depends on the version 5 or version 6 of ArduinoJson library. Either version must have enough buffer to parse the custom web page's JSON document successfully. AutoConnect has the following three constants internally to complete the parsing as much as possible in both ArduinoJson version. These constants are macro defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h">AutoConnectDefs.h</a>.</p>
 <p>If memory insufficiency occurs during JSON document parsing, you can adjust these constants to avoid insufficiency by using the <a href="https://arduinojson.org/v6/assistant/">JsonAssistant</a> with deriving the required buffer size in advance.</p>
-<div class="codehilite" style="background: #272822"><pre style="line-height: 125%"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_JSONBUFFER_SIZE     256</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_JSONBUFFER_SIZE     256</span>
 <span style="color: #75715e">#define AUTOCONNECT_JSONDOCUMENT_SIZE   (8 * 1024)</span>
 <span style="color: #75715e">#define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)</span>
 </code></pre></div>
-
 <h4 id="autoconnect_jsonbuffer_size">AUTOCONNECT_JSONBUFFER_SIZE<a class="headerlink" href="#autoconnect_jsonbuffer_size" title="Permanent link">&para;</a></h4>
 <p>This is a unit size constant of <a href="https://arduinojson.org/v5/faq/what-are-the-differences-between-staticjsonbuffer-and-dynamicjsonbuffer/">DynamicJsonBuffer</a> and works when the library used is ArduinoJson version 5. A buffer size of the JSON document increases with this unit. This value relates to the impact of the fragmented heap area. If it is too large, may occur run-out of memory.</p>
 <h4 id="autoconnect_jsondocument_size">AUTOCONNECT_JSONDOCUMENT_SIZE<a class="headerlink" href="#autoconnect_jsondocument_size" title="Permanent link">&para;</a></h4>
@@ -1744,9 +1921,6 @@ An example of using each function is as follows.
 </ol>
 </div>
                 
-                  
-                
-                
               
               
                 
@@ -1762,34 +1936,34 @@ An example of using each function is as follows.
 <footer class="md-footer">
   
     <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="acelements.html" title="AutoConnectElements" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+          <a href="acelements.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 AutoConnectElements
-              </span>
+              </div>
             </div>
           </a>
         
         
-          <a href="achandling.html" title="Handling the custom Web pages" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
+          <a href="achandling.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
                 Handling the custom Web pages
-              </span>
+              </div>
             </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
             </div>
           </a>
         
@@ -1804,19 +1978,31 @@ An example of using each function is as follows.
             Copyright &copy; 2018-2020 Hieromon Ikasamo
           </div>
         
-        powered by
-        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
-        and
+        Made with
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs</a>
+          Material for MkDocs
+        </a>
       </div>
       
   <div class="md-footer-social">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+      
+      
+        
+        
+      
+      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
     
-      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
     
   </div>
 
@@ -1826,9 +2012,18 @@ An example of using each function is as follows.
       
     </div>
     
-      <script src="assets/javascripts/application.c33a9706.js"></script>
+      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
-      <script>app.initialize({version:"1.1",url:{base:"."}})</script>
+      <script>
+        app = initialize({
+          base: ".",
+          features: [],
+          search: Object.assign({
+            worker: "assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
       
         <script src="js/gifffer.min.js"></script>
       

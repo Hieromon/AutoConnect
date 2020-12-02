@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-09-03
+ * @version  1.2.0
+ * @date 2020-11-11
  * @copyright  MIT license.
  */
 
@@ -63,6 +63,12 @@ typedef enum {
   AC_Behind
 } ACPosition_t;     /**< Position of label subordinate to element */
 
+typedef enum {
+  AC_Input_Text,
+  AC_Input_Password,
+  AC_Input_Number
+} ACInput_t;        /** Input box type attribute */
+
 /**
  * AutoConnectAux element base.
  * Placed a raw text that can be added by user sketch.
@@ -75,7 +81,7 @@ class AutoConnectElementBasis {
     _type = AC_Element;
   }
   virtual ~AutoConnectElementBasis() {}
-  virtual const String  toHTML(void) const { return enable ? value : String(""); }
+  virtual const String  toHTML(void) const { return enable ? posterior(value) : String(""); }
   ACElement_t typeOf(void) const { return _type; }
   const String  posterior(const String& s) const;
 #ifndef AUTOCONNECT_USE_JSON
@@ -171,7 +177,7 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
  */
 class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder))  {
+  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text) : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), apply(apply) {
     _type = AC_Input;
   }
   virtual ~AutoConnectInputBasis() {}
@@ -181,6 +187,7 @@ class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
   String  label;      /**< A label for a subsequent input box */
   String  pattern;    /**< Format pattern to aid validation of input value */
   String  placeholder;  /**< Pre-filled placeholder */
+  ACInput_t apply;    /**< An input element type attribute */
 };
 
 /**

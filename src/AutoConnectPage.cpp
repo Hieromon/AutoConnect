@@ -1,8 +1,8 @@
 /**
  *  AutoConnect portal site web page implementation.
- *  @file   AutoConnectPage.h
+ *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.1.7
+ *  @version    1.2.0
  *  @date   2020-04-19
  *  @copyright  MIT license.
  */
@@ -134,7 +134,6 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
 /**< Image icon for inline expansion, the lock mark. */
 const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
   ".img-lock{"
-    "display:inline-block;"
     "width:22px;"
     "height:22px;"
     "margin-top:14px;"
@@ -761,7 +760,7 @@ const char  AutoConnect::_PAGE_CONNECTING[] PROGMEM = {
       "</div>"
     "</div>"
     "<script type=\"text/javascript\">"
-      "setTimeout(\"link()\"," AUTOCONNECT_RESPONSE_WAITTIME ");"
+      "setTimeout(\"link()\"," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_RESPONSE_WAITTIME) ");"
       "function link(){location.href='" AUTOCONNECT_URI_RESULT "';}"
     "</script>"
   "</body>"
@@ -912,11 +911,6 @@ String AutoConnect::_token_CSS_BASE(PageArgument& args) {
   return String(FPSTR(_CSS_BASE));
 }
 
-String AutoConnect::_token_CSS_UL(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(FPSTR(_CSS_UL));
-}
-
 String AutoConnect::_token_CSS_ICON_LOCK(PageArgument& args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_ICON_LOCK));
@@ -932,9 +926,9 @@ String AutoConnect::_token_CSS_INPUT_TEXT(PageArgument& args) {
   return String(FPSTR(_CSS_INPUT_TEXT));
 }
 
-String AutoConnect::_token_CSS_TABLE(PageArgument& args) {
+String AutoConnect::_token_CSS_LUXBAR(PageArgument& args) {
   AC_UNUSED(args);
-  return String(FPSTR(_CSS_TABLE));
+  return String(FPSTR(_CSS_LUXBAR));
 }
 
 String AutoConnect::_token_CSS_SPINNER(PageArgument& args) {
@@ -942,9 +936,21 @@ String AutoConnect::_token_CSS_SPINNER(PageArgument& args) {
   return String(FPSTR(_CSS_SPINNER));
 }
 
-String AutoConnect::_token_HEAD(PageArgument& args) {
+String AutoConnect::_token_CSS_TABLE(PageArgument& args) {
   AC_UNUSED(args);
-  return String(FPSTR(_ELM_HTML_HEAD));
+  return String(FPSTR(_CSS_TABLE));
+}
+
+String AutoConnect::_token_CSS_UL(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_UL));
+}
+
+String AutoConnect::_token_MENU_AUX(PageArgument& args) {
+  String  menuItem = String("");
+  if (_aux)
+    menuItem = _aux->_injectMenu(args);
+  return menuItem;
 }
 
 String AutoConnect::_token_MENU_PRE(PageArgument& args) {
@@ -960,13 +966,6 @@ String AutoConnect::_token_MENU_PRE(PageArgument& args) {
   return currentMenu;
 }
 
-String AutoConnect::_token_MENU_AUX(PageArgument& args) {
-  String  menuItem = String("");
-  if (_aux)
-    menuItem = _aux->_injectMenu(args);
-  return menuItem;
-}
-
 String AutoConnect::_token_MENU_POST(PageArgument& args) {
   AC_UNUSED(args);
   String  postMenu = FPSTR(_ELM_MENU_POST);
@@ -976,9 +975,85 @@ String AutoConnect::_token_MENU_POST(PageArgument& args) {
   return postMenu;
 }
 
-String AutoConnect::_token_CSS_LUXBAR(PageArgument& args) {
+String AutoConnect::_token_AP_MAC(PageArgument& args) {
   AC_UNUSED(args);
-  return String(FPSTR(_CSS_LUXBAR));
+  uint8_t macAddress[6];
+  WiFi.softAPmacAddress(macAddress);
+  return AutoConnect::_toMACAddressString(macAddress);
+}
+
+String AutoConnect::_token_BOOTURI(PageArgument& args) {
+  AC_UNUSED(args);
+  return _getBootUri();
+}
+
+String AutoConnect::_token_CHANNEL(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(WiFi.channel());
+}
+
+String AutoConnect::_token_CHIP_ID(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(_getChipId());
+}
+
+String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
+  AC_UNUSED(args);
+  static const char _configIPList[] PROGMEM =
+    "<li class=\"exp\">"
+    "<label for=\"%s\">%s</label>"
+    "<input id=\"%s\" type=\"text\" name=\"%s\" value=\"%s\">"
+    "</li>";
+  struct _reps {
+    PGM_P lid;
+    PGM_P lbl;
+  } static const reps[]  = {
+    { PSTR(AUTOCONNECT_PARAMID_STAIP), PSTR("IP Address") },
+    { PSTR(AUTOCONNECT_PARAMID_GTWAY), PSTR("Gateway") },
+    { PSTR(AUTOCONNECT_PARAMID_NTMSK), PSTR("Netmask") },
+    { PSTR(AUTOCONNECT_PARAMID_DNS1), PSTR("DNS1") },
+    { PSTR(AUTOCONNECT_PARAMID_DNS2), PSTR("DNS2") }
+  };
+  char  liCont[600];
+  char* liBuf = liCont;
+
+  for (uint8_t i = 0; i < 5; i++) {
+    IPAddress*  ip = nullptr;
+    if (i == 0)
+      ip = &_apConfig.staip;
+    else if (i == 1)
+      ip = &_apConfig.staGateway;
+    else if (i == 2)
+      ip = &_apConfig.staNetmask;
+    else if (i == 3)
+      ip = &_apConfig.dns1;
+    else if (i == 4)
+      ip = &_apConfig.dns2;
+    String  ipStr = ip != nullptr ? ip->toString() : String(F("0.0.0.0"));
+    snprintf_P(liBuf, sizeof(liCont) - (liBuf - liCont), (PGM_P)_configIPList, reps[i].lid, reps[i].lbl, reps[i].lid, reps[i].lid, ipStr.c_str());
+    liBuf += strlen(liBuf);
+  }
+  return String(liCont);
+}
+
+String AutoConnect::_token_CPU_FREQ(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(ESP.getCpuFreqMHz());
+}
+
+String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
+  AC_UNUSED(args);
+  char  ssid_c[sizeof(station_config_t::ssid) + 1];
+  *ssid_c = '\0';
+  strncat(ssid_c, reinterpret_cast<char*>(_credential.ssid), sizeof(ssid_c) - 1);
+  String  ssid = String(ssid_c);
+  return ssid;
+}
+
+String AutoConnect::_token_DBM(PageArgument& args) {
+  AC_UNUSED(args);
+  int32_t dBm = WiFi.RSSI();
+  return (dBm == 31 ? String(F("N/A")) : String(dBm));
 }
 
 String AutoConnect::_token_ESTAB_SSID(PageArgument& args) {
@@ -986,44 +1061,178 @@ String AutoConnect::_token_ESTAB_SSID(PageArgument& args) {
   return (WiFi.status() == WL_CONNECTED ? WiFi.SSID() : String(F("N/A")));
 }
 
-String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
+String AutoConnect::_token_FLASH_SIZE(PageArgument& args) {
   AC_UNUSED(args);
-  PGM_P wifiMode;
-  switch (WiFi.getMode()) {
-  case WIFI_OFF:
-    wifiMode = PSTR("OFF");
-    break;
-  case WIFI_STA:
-    wifiMode = PSTR("STA");
-    break;
-  case WIFI_AP:
-    wifiMode = PSTR("AP");
-    break;
-  case WIFI_AP_STA:
-    wifiMode = PSTR("AP_STA");
-    break;
-#ifdef ARDUINO_ARCH_ESP32
-  case WIFI_MODE_MAX:
-    wifiMode = PSTR("MAX");
-    break;
-#endif
-  default:
-    wifiMode = PSTR("experiment");
-  }
-  return String(FPSTR(wifiMode));
+  return String(_getFlashChipRealSize());
 }
 
-String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
+String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
   AC_UNUSED(args);
-  return String(WiFi.status());
+  return String(_freeHeapSize);
+}
+
+String AutoConnect::_token_GATEWAY(PageArgument& args) {
+  AC_UNUSED(args);
+  return WiFi.gatewayIP().toString();
+}
+
+String AutoConnect::_token_HEAD(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_ELM_HTML_HEAD));
+}
+
+String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(_hiddenSSIDCount);
+}
+
+String AutoConnect::_token_LIST_SSID(PageArgument& args) {
+  // Obtain the page number to display.
+  // When the display request is the first page, it will be obtained
+  // from the scan results of the WiFiScan class if it has already been
+  // scanned.
+  uint8_t page = 0;
+  if (args.hasArg(String(F("page"))))
+    page = args.arg("page").toInt();
+  else {
+    // Scan at a first time
+    _scanCount = WiFi.scanNetworks(false, true);
+    AC_DBG("%d network(s) found, ", (int)_scanCount);
+  }
+  // Prepare SSID list content building buffer
+  size_t  bufSize = sizeof('\0') + 192 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? AUTOCONNECT_SSIDPAGEUNIT_LINES : _scanCount);
+  bufSize += 88 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? (_scanCount > (AUTOCONNECT_SSIDPAGEUNIT_LINES * 2) ? 2 : 1) : 0);
+  AC_DBG_DUMB("%d buf", bufSize);
+  char* ssidList = (char*)malloc(bufSize);
+  if (!ssidList) {
+    AC_DBG_DUMB(" alloc. failed\n");
+    WiFi.scanDelete();
+    return _emptyString;
+  }
+  AC_DBG_DUMB("\n");
+  // Locate to the page and build SSD list content.
+  static const char _ssidList[] PROGMEM =
+    "<input type=\"button\" onClick=\"onFocus(this.getAttribute('value'))\" value=\"%s\">"
+    "<label class=\"slist\">%d&#037;&ensp;Ch.%d</label>%s<br>";
+  static const char _ssidEnc[] PROGMEM =
+    "<span class=\"img-lock\"></span>";
+  static const char _ssidPage[] PROGMEM =
+    "<button type=\"submit\" name=\"page\" value=\"%d\" formaction=\"" AUTOCONNECT_URI_CONFIG "\">%s</button>&emsp;";
+  _hiddenSSIDCount = 0;
+  uint8_t validCount = 0;
+  uint8_t dispCount = 0;
+  char* slBuf = ssidList;
+  *slBuf = '\0';
+  for (uint8_t i = 0; i < _scanCount; i++) {
+    String ssid = WiFi.SSID(i);
+    if (ssid.length() > 0) {
+      // An available SSID may be listed.
+      // AUTOCONNECT_SSIDPAGEUNIT_LINES determines the number of lines
+      // per page in the available SSID list.
+      if (validCount >= page * AUTOCONNECT_SSIDPAGEUNIT_LINES && validCount <= (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES - 1) {
+        if (++dispCount <= AUTOCONNECT_SSIDPAGEUNIT_LINES) {
+          snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidList, ssid.c_str(), AutoConnect::_toWiFiQuality(WiFi.RSSI(i)), WiFi.channel(i), WiFi.encryptionType(i) != ENC_TYPE_NONE ? (PGM_P)_ssidEnc : "");
+          slBuf += strlen(slBuf);
+        }
+      }
+      // The validCount counts the found SSIDs that is not the Hidden
+      // attribute to determines the next button should be displayed.
+      validCount++;
+    }
+    else
+      _hiddenSSIDCount++;
+  }
+  // Prepare perv. button
+  if (page >= 1) {
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page - 1, PSTR("Prev."));
+    slBuf = ssidList + strlen(ssidList);
+  }
+  // Prepare next button
+  if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES) {
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page + 1, PSTR("Next"));
+  }
+  String ssidListStr = String(ssidList);
+  free(ssidList);
+  return ssidListStr;
+}
+
+String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
+  AC_UNUSED(args);
+  return WiFi.localIP().toString();
+}
+
+String AutoConnect::_token_NETMASK(PageArgument& args) {
+  AC_UNUSED(args);
+  return WiFi.subnetMask().toString();
+}
+
+String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
+  AC_UNUSED(args);
+  static const char _ssidList[] PROGMEM = "<input id=\"sb\" type=\"submit\" name=\"%s\" value=\"%s\"><label class=\"slist\">%s</label>%s<br>";
+  static const char _ssidRssi[] PROGMEM = "%d&#037;&ensp;Ch.%d";
+  static const char _ssidNA[]   PROGMEM = "N/A";
+  static const char _ssidLock[] PROGMEM = "<span class=\"img-lock\"></span>";
+  static const char _ssidNull[] PROGMEM = "";
+  String ssidList;
+  station_config_t  entry;
+  char  slCont[176];
+  char  rssiCont[32];
+  AutoConnectCredential credit(_apConfig.boundaryOffset);
+
+  uint8_t creEntries = credit.entries();
+  if (creEntries > 0) {
+    ssidList = String("");
+    _scanCount = WiFi.scanNetworks(false, true);
+  }
+  else
+    ssidList = String(F("<p><b>" AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "</b></p>"));
+
+  for (uint8_t i = 0; i < creEntries; i++) {
+    rssiCont[0] = '\0';
+    PGM_P rssiSym = _ssidNA;
+    PGM_P ssidLock = _ssidNull;
+    credit.load(i, &entry);
+    AC_DBG("Credential #%d loaded\n", (int)i);
+    for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
+      if (_isValidAP(entry, sc)) {
+        // The access point collation key is determined at compile time
+        // according to the AUTOCONNECT_APKEY_SSID definition, which is
+        // either BSSID or SSID.
+        _connectCh = WiFi.channel(sc);
+        snprintf_P(rssiCont, sizeof(rssiCont), (PGM_P)_ssidRssi, AutoConnect::_toWiFiQuality(WiFi.RSSI(sc)), _connectCh);
+        rssiSym = rssiCont;
+        if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
+          ssidLock = _ssidLock;
+        break;
+      }
+    }
+    snprintf_P(slCont, sizeof(slCont), (PGM_P)_ssidList, AUTOCONNECT_PARAMID_CRED, reinterpret_cast<char*>(entry.ssid), rssiSym, ssidLock);
+    ssidList += String(slCont);
+  }
+  return ssidList;
+}
+
+String AutoConnect::_token_SOFTAP_IP(PageArgument& args) {
+  AC_UNUSED(args);
+  return WiFi.softAPIP().toString();
+}
+
+String AutoConnect::_token_SSID_COUNT(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(_scanCount);
+}
+
+String AutoConnect::_token_STA_MAC(PageArgument& args) {
+  AC_UNUSED(args);
+  uint8_t macAddress[6];
+  WiFi.macAddress(macAddress);
+  return AutoConnect::_toMACAddressString(macAddress);
 }
 
 String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   AC_UNUSED(args);
   PGM_P wlStatusSymbol = PSTR("");
-  // const char* wlStatusSymbol ="";
   PGM_P wlStatusSymbols[] = {
-  // static const char* wlStatusSymbols[] = {
 #if defined(ARDUINO_ARCH_ESP8266)
     PSTR("IDLE"),
     PSTR("CONNECTING"),
@@ -1091,250 +1300,41 @@ String AutoConnect::_token_STATION_STATUS(PageArgument& args) {
   return String("(") + String(_rsConnect) + String(") ") + String(FPSTR(wlStatusSymbol));
 }
 
-String AutoConnect::_token_LOCAL_IP(PageArgument& args) {
-  AC_UNUSED(args);
-  return WiFi.localIP().toString();
-}
-
-String AutoConnect::_token_SOFTAP_IP(PageArgument& args) {
-  AC_UNUSED(args);
-  return WiFi.softAPIP().toString();
-}
-
-String AutoConnect::_token_GATEWAY(PageArgument& args) {
-  AC_UNUSED(args);
-  return WiFi.gatewayIP().toString();
-}
-
-String AutoConnect::_token_NETMASK(PageArgument& args) {
-  AC_UNUSED(args);
-  return WiFi.subnetMask().toString();
-}
-
-String AutoConnect::_token_AP_MAC(PageArgument& args) {
-  AC_UNUSED(args);
-  uint8_t macAddress[6];
-  WiFi.softAPmacAddress(macAddress);
-  return AutoConnect::_toMACAddressString(macAddress);
-}
-
-String AutoConnect::_token_STA_MAC(PageArgument& args) {
-  AC_UNUSED(args);
-  uint8_t macAddress[6];
-  WiFi.macAddress(macAddress);
-  return AutoConnect::_toMACAddressString(macAddress);
-}
-
-String AutoConnect::_token_CHANNEL(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(WiFi.channel());
-}
-
-String AutoConnect::_token_DBM(PageArgument& args) {
-  AC_UNUSED(args);
-  int32_t dBm = WiFi.RSSI();
-  return (dBm == 31 ? String(F("N/A")) : String(dBm));
-}
-
-String AutoConnect::_token_CPU_FREQ(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(ESP.getCpuFreqMHz());
-}
-
-String AutoConnect::_token_FLASH_SIZE(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(_getFlashChipRealSize());
-}
-
-String AutoConnect::_token_CHIP_ID(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(_getChipId());
-}
-
-String AutoConnect::_token_FREE_HEAP(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(_freeHeapSize);
-}
-
-String AutoConnect::_token_LIST_SSID(PageArgument& args) {
-  // Obtain the page number to display.
-  // When the display request is the first page, it will be obtained
-  // from the scan results of the WiFiScan class if it has already been
-  // scanned.
-  uint8_t page = 0;
-  if (args.hasArg(String(F("page"))))
-    page = args.arg("page").toInt();
-  else {
-    // Scan at a first time
-    WiFi.scanDelete();
-    _scanCount = WiFi.scanNetworks(false, true);
-    AC_DBG("%d network(s) found\n", (int)_scanCount);
-  }
-  // Prepare SSID list content building buffer
-  size_t  bufSize = sizeof('\0') + 192 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? AUTOCONNECT_SSIDPAGEUNIT_LINES : _scanCount);
-  bufSize += 88 * (_scanCount > AUTOCONNECT_SSIDPAGEUNIT_LINES ? (_scanCount > (AUTOCONNECT_SSIDPAGEUNIT_LINES * 2) ? 2 : 1) : 0);
-  char* ssidList = (char*)malloc(bufSize);
-  if (!ssidList) {
-    AC_DBG("ssidList buffer(%d) allocation failed\n", (int)bufSize);
-    return _emptyString;
-  }
-  AC_DBG_DUMB("\n");
-  // Locate to the page and build SSD list content.
-  static const char _ssidList[] PROGMEM =
-    "<input type=\"button\" onClick=\"onFocus(this.getAttribute('value'))\" value=\"%s\">"
-    "<label class=\"slist\">%d&#037;&ensp;Ch.%d</label>%s<br>";
-  static const char _ssidEnc[] PROGMEM =
-    "<span class=\"img-lock\"></span>";
-  static const char _ssidPage[] PROGMEM =
-    "<button type=\"submit\" name=\"page\" value=\"%d\" formaction=\"" AUTOCONNECT_URI_CONFIG "\">%s</button>&emsp;";
-  _hiddenSSIDCount = 0;
-  uint8_t validCount = 0;
-  uint8_t dispCount = 0;
-  char* slBuf = ssidList;
-  *slBuf = '\0';
-  for (uint8_t i = 0; i < _scanCount; i++) {
-    String ssid = WiFi.SSID(i);
-    if (ssid.length() > 0) {
-      // An available SSID may be listed.
-      // AUTOCONNECT_SSIDPAGEUNIT_LINES determines the number of lines
-      // per page in the available SSID list.
-      if (validCount >= page * AUTOCONNECT_SSIDPAGEUNIT_LINES && validCount <= (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES - 1) {
-        if (++dispCount <= AUTOCONNECT_SSIDPAGEUNIT_LINES) {
-          snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidList, ssid.c_str(), AutoConnect::_toWiFiQuality(WiFi.RSSI(i)), WiFi.channel(i), WiFi.encryptionType(i) != ENC_TYPE_NONE ? (PGM_P)_ssidEnc : "");
-          slBuf += strlen(slBuf);
-        }
-      }
-      // The validCount counts the found SSIDs that is not the Hidden
-      // attribute to determines the next button should be displayed.
-      validCount++;
-    }
-    else
-      _hiddenSSIDCount++;
-  }
-  // Prepare perv. button
-  if (page >= 1) {
-    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page - 1, PSTR("Prev."));
-    slBuf = ssidList + strlen(ssidList);
-  }
-  // Prepare next button
-  if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES) {
-    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page + 1, PSTR("Next"));
-  }
-  // return ssidList;
-  String ssidListStr = String(ssidList);
-  free(ssidList);
-  return ssidListStr;
-}
-
-String AutoConnect::_token_SSID_COUNT(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(_scanCount);
-}
-
-String AutoConnect::_token_HIDDEN_COUNT(PageArgument& args) {
-  AC_UNUSED(args);
-  return String(_hiddenSSIDCount);
-}
-
-String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
-  AC_UNUSED(args);
-  static const char _configIPList[] PROGMEM =
-    "<li class=\"exp\">"
-    "<label for=\"%s\">%s</label>"
-    "<input id=\"%s\" type=\"text\" name=\"%s\" value=\"%s\">"
-    "</li>";
-  struct _reps {
-    PGM_P lid;
-    PGM_P lbl;
-  } static const reps[]  = {
-    { PSTR(AUTOCONNECT_PARAMID_STAIP), PSTR("IP Address") },
-    { PSTR(AUTOCONNECT_PARAMID_GTWAY), PSTR("Gateway") },
-    { PSTR(AUTOCONNECT_PARAMID_NTMSK), PSTR("Netmask") },
-    { PSTR(AUTOCONNECT_PARAMID_DNS1), PSTR("DNS1") },
-    { PSTR(AUTOCONNECT_PARAMID_DNS2), PSTR("DNS2") }
-  };
-  char  liCont[600];
-  char* liBuf = liCont;
-
-  for (uint8_t i = 0; i < 5; i++) {
-    IPAddress*  ip = nullptr;
-    if (i == 0)
-      ip = &_apConfig.staip;
-    else if (i == 1)
-      ip = &_apConfig.staGateway;
-    else if (i == 2)
-      ip = &_apConfig.staNetmask;
-    else if (i == 3)
-      ip = &_apConfig.dns1;
-    else if (i == 4)
-      ip = &_apConfig.dns2;
-    String  ipStr = ip != nullptr ? ip->toString() : String(F("0.0.0.0"));
-    snprintf_P(liBuf, sizeof(liCont) - (liBuf - liCont), (PGM_P)_configIPList, reps[i].lid, reps[i].lbl, reps[i].lid, reps[i].lid, ipStr.c_str());
-    liBuf += strlen(liBuf);
-  }
-  return String(liCont);
-}
-
-String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
-  AC_UNUSED(args);
-  static const char _ssidList[] PROGMEM = "<input id=\"sb\" type=\"submit\" name=\"%s\" value=\"%s\"><label class=\"slist\">%s</label>%s<br>";
-  static const char _ssidRssi[] PROGMEM = "%d&#037;&ensp;Ch.%d";
-  static const char _ssidNA[]   PROGMEM = "N/A";
-  static const char _ssidLock[] PROGMEM = "<span class=\"img-lock\"></span>";
-  static const char _ssidNull[] PROGMEM = "";
-  String ssidList;
-  station_config_t  entry;
-  char  slCont[176];
-  char  rssiCont[32];
-  AutoConnectCredential credit(_apConfig.boundaryOffset);
-
-  uint8_t creEntries = credit.entries();
-  if (creEntries > 0) {
-    ssidList = String("");
-    _scanCount = WiFi.scanNetworks(false, true);
-  }
-  else
-    ssidList = String(F("<p><b>" AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "</b></p>"));
-
-  for (uint8_t i = 0; i < creEntries; i++) {
-    rssiCont[0] = '\0';
-    PGM_P rssiSym = _ssidNA;
-    PGM_P ssidLock = _ssidNull;
-    credit.load(i, &entry);
-    AC_DBG("A credential #%d loaded\n", (int)i);
-    for (int8_t sc = 0; sc < (int8_t)_scanCount; sc++) {
-      if (!memcmp(entry.bssid, WiFi.BSSID(sc), sizeof(station_config_t::bssid))) {
-        _connectCh = WiFi.channel(sc);
-        snprintf_P(rssiCont, sizeof(rssiCont), (PGM_P)_ssidRssi, AutoConnect::_toWiFiQuality(WiFi.RSSI(sc)), _connectCh);
-        rssiSym = rssiCont;
-        if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
-          ssidLock = _ssidLock;
-        break;
-      }
-    }
-    snprintf_P(slCont, sizeof(slCont), (PGM_P)_ssidList, AUTOCONNECT_PARAMID_CRED, reinterpret_cast<char*>(entry.ssid), rssiSym, ssidLock);
-    ssidList += String(slCont);
-  }
-  return ssidList;
-}
-
 String AutoConnect::_token_UPTIME(PageArgument& args) {
   AC_UNUSED(args);
   return String(_apConfig.uptime);
 }
 
-String AutoConnect::_token_BOOTURI(PageArgument& args) {
+String AutoConnect::_token_WIFI_MODE(PageArgument& args) {
   AC_UNUSED(args);
-  return _getBootUri();
+  PGM_P wifiMode;
+  switch (WiFi.getMode()) {
+  case WIFI_OFF:
+    wifiMode = PSTR("OFF");
+    break;
+  case WIFI_STA:
+    wifiMode = PSTR("STA");
+    break;
+  case WIFI_AP:
+    wifiMode = PSTR("AP");
+    break;
+  case WIFI_AP_STA:
+    wifiMode = PSTR("AP_STA");
+    break;
+#ifdef ARDUINO_ARCH_ESP32
+  case WIFI_MODE_MAX:
+    wifiMode = PSTR("MAX");
+    break;
+#endif
+  default:
+    wifiMode = PSTR("experimental");
+  }
+  return String(FPSTR(wifiMode));
 }
 
-String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
+String AutoConnect::_token_WIFI_STATUS(PageArgument& args) {
   AC_UNUSED(args);
-  char  ssid_c[sizeof(station_config_t::ssid) + 1];
-  *ssid_c = '\0';
-  strncat(ssid_c, reinterpret_cast<char*>(_credential.ssid), sizeof(ssid_c) - 1);
-  String  ssid = String(ssid_c);
-  return ssid;
+  return String(WiFi.status());
 }
 
 /**
@@ -1344,23 +1344,20 @@ String AutoConnect::_token_CURRENT_SSID(PageArgument& args) {
  */
 String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
   static const char _liTempl[]  PROGMEM = "<li class=\"lb-item\"%s><a href=\"%s\">%s</a></li>";
-  PGM_P id;
+  PGM_P id = PSTR("");
   PGM_P link;
   PGM_P label;
 
   switch (static_cast<AC_MENUITEM_t>(_apConfig.menuItems & static_cast<uint16_t>(item))) {
   case AC_MENUITEM_CONFIGNEW:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI_CONFIG);
     label = PSTR(AUTOCONNECT_MENULABEL_CONFIGNEW);
     break;
   case AC_MENUITEM_OPENSSIDS:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI_OPEN);
     label = PSTR(AUTOCONNECT_MENULABEL_OPENSSIDS);
     break;
   case AC_MENUITEM_DISCONNECT:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI_DISCON);
     label = PSTR(AUTOCONNECT_MENULABEL_DISCONNECT);
     break;
@@ -1370,12 +1367,10 @@ String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
     label = PSTR(AUTOCONNECT_MENULABEL_RESET);
     break;
   case AC_MENUITEM_HOME:
-    id = PSTR("");
     link = PSTR("HOME_URI");
     label = PSTR(AUTOCONNECT_MENULABEL_HOME);
     break;
   case AC_MENUITEM_DEVINFO:
-    id = PSTR("");
     link = PSTR(AUTOCONNECT_URI);
     label = PSTR(AUTOCONNECT_MENULABEL_DEVINFO);
     break;
@@ -1401,6 +1396,7 @@ String AutoConnect::_attachMenuItem(const AC_MENUITEM_t item) {
  */
 PageElement* AutoConnect::_setupPage(String& uri) {
   PageElement *elm = new PageElement();
+  bool  reqAuth = false;
 
   // Restore menu title
   _menuTitle = _apConfig.title;
@@ -1408,7 +1404,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   // Build the elements of current requested page.
   if (uri == String(AUTOCONNECT_URI)) {
 
-    // Setup /auto
+    // Setup /_ac
+    reqAuth = true;
     _freeHeapSize = ESP.getFreeHeap();
     elm->setMold(_PAGE_STAT);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
@@ -1436,7 +1433,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_CONFIG) && (_apConfig.menuItems & AC_MENUITEM_CONFIGNEW)) {
 
-    // Setup /auto/config
+    // Setup /_ac/config
+    reqAuth = true;
     elm->setMold(_PAGE_CONFIGNEW);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
@@ -1455,7 +1453,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT) && (_apConfig.menuItems & AC_MENUITEM_CONFIGNEW || _apConfig.menuItems & AC_MENUITEM_OPENSSIDS)) {
 
-    // Setup /auto/connect
+    // Setup /_ac/connect
+    reqAuth = true;
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_CONNECTING);
     elm->setMold(_PAGE_CONNECTING);
     elm->addToken(String(FPSTR("REQ")), std::bind(&AutoConnect::_induceConnect, this, std::placeholders::_1));
@@ -1469,7 +1468,8 @@ PageElement* AutoConnect::_setupPage(String& uri) {
  }
   else if (uri == String(AUTOCONNECT_URI_OPEN) && (_apConfig.menuItems & AC_MENUITEM_OPENSSIDS)) {
 
-    // Setup /auto/open
+    // Setup /_ac/open
+    reqAuth = true;
     elm->setMold(_PAGE_OPENCREDT);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
@@ -1483,7 +1483,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_DISCON) && (_apConfig.menuItems & AC_MENUITEM_DISCONNECT)) {
 
-    // Setup /auto/disc
+    // Setup /_ac/disc
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_DISCONNECT);
     elm->setMold(_PAGE_DISCONN);
     elm->addToken(String(FPSTR("DISCONNECT")), std::bind(&AutoConnect::_induceDisconnect, this, std::placeholders::_1));
@@ -1495,7 +1495,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_RESET) && (_apConfig.menuItems & AC_MENUITEM_RESET)) {
 
-    // Setup /auto/reset
+    // Setup /_ac/reset
     elm->setMold(_PAGE_RESETTING);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("BOOTURI")), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));
@@ -1504,13 +1504,13 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_RESULT)) {
 
-    // Setup /auto/result
+    // Setup /_ac/result
     elm->setMold("{{RESULT}}");
     elm->addToken(String(FPSTR("RESULT")), std::bind(&AutoConnect::_invokeResult, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_SUCCESS)) {
 
-    // Setup /auto/success
+    // Setup /_ac/success
     elm->setMold(_PAGE_SUCCESS);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
@@ -1530,7 +1530,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   }
   else if (uri == String(AUTOCONNECT_URI_FAIL)) {
 
-    // Setup /auto/fail
+    // Setup /_ac/fail
     _menuTitle = FPSTR(AUTOCONNECT_MENUTEXT_FAILED);
     elm->setMold(_PAGE_FAIL);
     elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
@@ -1557,7 +1557,59 @@ PageElement* AutoConnect::_setupPage(String& uri) {
         _responsePage->chunked(_pageBuildMode[n].transMode);
         break;
       }
+
+    // Regiter authentication
+    // Determine the necessity of authentication from the AutoConnectConfig settings
+    bool auth = (_apConfig.auth != AC_AUTH_NONE) &&
+                (_apConfig.authScope & AC_AUTHSCOPE_AC) &&
+                reqAuth;
+    _authentication(auth);
   }
 
   return elm;
+}
+
+/**
+ *  Allow the page set upped to authenticate.
+ *  The argument parameter indicates that authentication is allowed with
+ *  the condition of the AutoConnect.authScope setting.
+ *  It determines to admit authentication in the captive portal state
+ *  when the AP_AUTHSCOPE_WITHCP is enabled.
+ *  @param allow  Indication of whether to authenticate with the page.
+ */ 
+void AutoConnect::_authentication(bool allow) {
+  HTTPAuthMethod  method = _apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+  _authentication(allow, method);
+}
+
+/**
+ *  Allow the page set upped to authenticate.
+ *  The argument parameter indicates that authentication is allowed with
+ *  the condition of the AutoConnect.authScope setting.
+ *  It determines to admit authentication in the captive portal state
+ *  when the AP_AUTHSCOPE_WITHCP is enabled.
+ *  @param allow  Indication of whether to authenticate with the page.
+ */ 
+void AutoConnect::_authentication(bool allow, const HTTPAuthMethod method) {
+  const char* user = nullptr;
+  const char* password = nullptr;
+  String  fails;
+
+  // Enable authentication by setting of AC_AUTHSCOPE_DISCONNECTED even if WiFi is not connected.
+  if (WiFi.status() != WL_CONNECTED && (WiFi.getMode() & WIFI_AP)) {
+    String  accUrl = _webServer->hostHeader();
+    if ((accUrl != WiFi.softAPIP().toString()) && !accUrl.endsWith(F(".local"))) {
+      if (!(_apConfig.authScope & AC_AUTHSCOPE_WITHCP))
+        allow = false;
+    }
+  }
+
+  if (allow) {
+    // Regiter authentication method
+    user = _apConfig.username.length() ? _apConfig.username.c_str() : _apConfig.apid.c_str();
+    password = _apConfig.password.length() ? _apConfig.password.c_str() : _apConfig.psk.c_str();
+    fails = String(FPSTR(AutoConnect::_ELM_HTML_HEAD)) + String(F("</head><body>" AUTOCONNECT_TEXT_AUTHFAILED "</body></html>"));
+    AC_DBG_DUMB(",%s+%s/%s", method == HTTPAuthMethod::BASIC_AUTH ? "BASIC" : "DIGEST", user, password);
+  }
+  _responsePage->authentication(user, password, method, AUTOCONNECT_AUTH_REALM, fails);
 }

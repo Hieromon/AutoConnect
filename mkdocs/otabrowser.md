@@ -62,7 +62,7 @@ void loop() {
 [^1]:For ESP32, change the following items:
 
     - Change the include directives appropriately for the ESP32 environment.
-    - Change ESP8266WebServer to Web.
+    - Change ESP8266WebServer to WebServer.
 
 !!! faq "How LED ticking during updates"
     AutoConnectOTA applies LED ticking during updates automatically. The destination LED port and ticker drive depends on [AutoConnectConfig::tickerPort](apiconfig.md#tickerport) and [AutoConnectConfig::tickerOn](apiconfig.md#tickeron) specifying.
@@ -132,10 +132,9 @@ When the compilation is complete, a binary sketch will save with the extension `
 
 ### <i class="fa fa-edit"></i> OTA updates w/browser without using AutoConnectOTA
 
-The legacy OTA method based on ESP8266HTTPUpdateServer without AutoConnectOTA is still valid. 
-To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, basically follow these steps:
+The legacy OTA method based on ESP8266HTTPUpdateServer without AutoConnectOTA is still valid. To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, basically follow these steps:
 
-1. Include `ESP8266HTTPUpdateServer.h`, also `WiFiClient.h`, in addition to the usual directives as `ESP8266WebServer.h` and `AutoConnect.h`.
+1. Include `ESP8266HTTPUpdateServer.h`, also `WiFiClient.h`, in addition to the usual directives as `ESP8266WebServer.h` and `AutoConnect.h`.[^2]
 2. Declare an ESP8266WebServer object. (In ESP32, as WebServer)
 3. Declare an ESP8266HTTPUpdateServer object.
 4. Declare an AutoConnect object with an ESP8266WebServer object as an argument.
@@ -149,6 +148,8 @@ To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, ba
     3. Join these pages to AutoConnect along with the update dialog page declared in step #5.
     4. Invokes [AutoConnect::begin](api.md#begin) function.
 10. Invokes [AutoConnect::handleClient](api.md#handleclient) function in the `loop()`. 
+
+[^2]: The AutoConnect library provides an implementation of the **HTTPUpdateServer** class that ported from ESP8266HTTPUpdateServer class for ESP32 intention. It is contained the **WebUpdate** under the examples folder.
 
 ```cpp
 #include <ESP8266WiFi.h>
@@ -181,6 +182,28 @@ void loop() {
   portal.handleClient();                    // Step #10
 }
 ```
+
+### <i class="fa fa-edit"></i> Regular file uploading using AutoConnectOTA&nbsp;<sup><sub>ENHANCED w/v1.2.0</sub></sup>
+
+The [built-in OTA update feature](otabrowser.md) can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the [**Update**](menu.md#update) of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This utilization is useful for the operation of transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.
+
+The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, files with names with a **.bin** extension are subject to firmware updates. A file that has the other patterns with extension will be saved to SPIFFS in the flash.
+
+The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
+
+```cpp
+#define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
+```
+
+!!! note "Escape for the special characters"
+    If the filename pattern contains special characters for the regular expressions, it must be escaped appropriately. Also, the `AUTOCONNECT_UPLOAD_ASFIRMWARE` definition is treated as a replacement string for the **#define** directive for C++ preprocessor, so the backslash must be escaped too.
+
+!!! info "Specify with the PlatformIO"
+    `AUTOCONNECT_UPLOAD_ASFIRMWARE` pattern will be embedded into the binary sketch is determined at compile time. The [**PlatformIO**](https://platformio.org/platformio-ide) build system allows you to change the pattern expression for each project without modifying the library source code.
+    
+    ```ini
+    build_flags=-DAUTOCONNECT_UPLOAD_ASFIRMWARE='"^.*\\.[bB][iI][nN]$"'
+    ```
 
 <script>
   window.onload = function() {
