@@ -115,6 +115,10 @@ ICACHE_RAM_ATTR void detectsReconnect() {
 }
 
 void setup() {
+  delay(1000);
+  Serial.begin(115200);
+  Serial.println();
+  
   Config.ticker = true;   // Setting up WiFi connection indicator
   Portal.config(Config);  
 
