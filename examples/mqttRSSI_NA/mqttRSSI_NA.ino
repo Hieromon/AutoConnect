@@ -19,33 +19,12 @@ https://opensource.org/licenses/MIT
 #define GET_CHIPID()  (ESP.getChipId())
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
-#include <SPIFFS.h>
 #include <HTTPClient.h>
 #define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
 #endif
 #include <PubSubClient.h>
 #include <AutoConnect.h>
 
-/*
-  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
-  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
-  the valid file system. After including AutoConnect.h, the Sketch can determine
-  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
-*/
-#include <FS.h>
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifdef AUTOCONNECT_USE_SPIFFS
-FS& FlashFS = SPIFFS;
-#else
-#include <LittleFS.h>
-FS& FlashFS = LittleFS;
-#endif
-#elif defined(ARDUINO_ARCH_ESP32)
-#include <SPIFFS.h>
-fs::SPIFFSFS& FlashFS = SPIFFS;
-#endif
-
-#define PARAM_FILE      "/param.json"
 #define AUX_SETTING_URI "/mqtt_setting"
 #define AUX_SAVE_URI    "/mqtt_save"
 #define AUX_CLEAR_URI   "/mqtt_clear"
@@ -72,7 +51,6 @@ ACInput(channelid, "", "Channel ID", "^[0-9]{6}$");
 ACInput(userkey, "", "User Key");
 ACInput(apikey, "", "API Key");
 ACElement(newline, "<hr>");
-ACCheckbox(uniqueid, "unique", "Use APID unique");
 ACRadio(period, { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);
 ACSubmit(save, "Start", AUX_SAVE_URI);
 ACSubmit(discard, "Discard", "/");
@@ -87,9 +65,7 @@ AutoConnectAux mqtt_setting(AUX_SETTING_URI, "MQTT Setting", true, {
   userkey,
   apikey,
   newline,
-  uniqueid,
   period,
-  newline,
   save,
   discard
 });
@@ -179,7 +155,6 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   echo += "User Key: " + userkey.value + "<br>";
   echo += "API Key: " + apikey.value + "<br>";
   echo += "Update period: " + String(updateInterval / 1000) + " sec.<br>";
-  echo += "Use APID unique: " + String(uniqueid.checked == true ? "true" : "false") + "<br>";
   parameters.value = echo;
 
   return String("");
@@ -204,8 +179,9 @@ void handleRoot() {
 
 // Clear channel using ThingSpeak's API.
 void handleClearChannel() {
-  HTTPClient  httpClient;
   WiFiClient  client;
+  HTTPClient  httpClient;
+
   String  endpoint = mqttserver.value;
   endpoint.replace("mqtt", "api");
   String  delUrl = "http://" + endpoint + "/channels/" + channelid.value + "/feeds.json?api_key=" + userkey.value;
@@ -214,14 +190,14 @@ void handleClearChannel() {
   if (httpClient.begin(client, delUrl)) {
     Serial.print(":");
     int resCode = httpClient.sendRequest("DELETE");
-    String  res = httpClient.getString();
-    httpClient.end();
-    Serial.println(String(resCode) + "," + res);
+    const String& res = httpClient.getString();
+    Serial.println(String(resCode) + String(",") + res);
   }
   else
     Serial.println(" failed");
 
-  // Returns the redirect response.
+  // Returns the redirect response. The page is reloaded and its contents
+  // are updated to the state after deletion.
   WiFiWebServer&  webServer = portal.host();
   webServer.sendHeader("Location", String("http://") + webServer.client().localIP().toString() + String("/"));
   webServer.send(302, "text/plain", "");
@@ -233,22 +209,16 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-  FlashFS.begin();
-
-  if (uniqueid.checked) {
-    config.apid = String("ESP") + "-" + String(GET_CHIPID(), HEX);
-    Serial.println("apid set to " + config.apid);
-  }
-
-  // Join the custom Web pages and register /mqtt_save handler
-  portal.join({ mqtt_setting, mqtt_save });
-  portal.on(AUX_SAVE_URI, saveParams);
 
   // Reconnect and continue publishing even if WiFi is disconnected.
   config.homeUri = "/";
   config.autoReconnect = true;
   config.reconnectInterval = 1;
   portal.config(config);
+
+  // Join the custom Web pages and register /mqtt_save handler
+  portal.join({ mqtt_setting, mqtt_save });
+  portal.on(AUX_SAVE_URI, saveParams);
 
   Serial.print("WiFi ");
   if (portal.begin()) {
@@ -258,10 +228,7 @@ void setup() {
   }
   else {
     Serial.println("connection failed:" + String(WiFi.status()));
-    while (1) {
-      delay(100);
-      yield();
-    }
+    Serial.println("Needs WiFi connection to start publishing messages");
   }
 
   WiFiWebServer&  webServer = portal.host();
@@ -270,16 +237,19 @@ void setup() {
 }
 
 void loop() {
-  portal.handleClient();
-  if (updateInterval > 0) {
-    if (millis() - lastPub > updateInterval) {
-      if (!mqttClient.connected()) {
-        mqttConnect();
+  if (WiFi.status() == WL_CONNECTED) {
+    // MQTT publish control
+    if (updateInterval > 0) {
+      if (millis() - lastPub > updateInterval) {
+        if (!mqttClient.connected()) {
+          mqttConnect();
+        }
+        String item = String("field1=") + String(getStrength(7));
+        mqttPublish(item);
+        mqttClient.loop();
+        lastPub = millis();
       }
-      String item = String("field1=") + String(getStrength(7));
-      mqttPublish(item);
-      mqttClient.loop();
-      lastPub = millis();
     }
   }
+  portal.handleClient();
 }

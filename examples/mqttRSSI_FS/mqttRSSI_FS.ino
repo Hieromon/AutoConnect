@@ -198,8 +198,9 @@ void handleRoot() {
 
 // Clear channel using Thingspeak's API.
 void handleClearChannel() {
-  HTTPClient  httpClient;
   WiFiClient  client;
+  HTTPClient  httpClient;
+
   String  endpoint = serverName;
   endpoint.replace("mqtt", "api");
   String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userKey;
@@ -208,9 +209,8 @@ void handleClearChannel() {
   if (httpClient.begin(client, delUrl)) {
     Serial.print(":");
     int resCode = httpClient.sendRequest("DELETE");
-    String  res = httpClient.getString();
-    httpClient.end();
-    Serial.println(String(resCode) + "," + res);
+    const String& res = httpClient.getString();
+    Serial.println(String(resCode) + String(",") + res);
   }
   else
     Serial.println(" failed");

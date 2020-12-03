@@ -46,6 +46,11 @@
       "label": "API Key"
     },
     {
+      "name": "newline",
+      "type": "ACElement",
+      "value": "<hr>"
+    },
+    {
       "name": "period",
       "type": "ACRadio",
       "label": "Update period",
@@ -56,11 +61,6 @@
       ],
       "arrange": "vertical",
       "checked": 1
-    },
-    {
-      "name": "newline",
-      "type": "ACElement",
-      "value": "<hr>"
     },
     {
       "name": "uniqueid",
