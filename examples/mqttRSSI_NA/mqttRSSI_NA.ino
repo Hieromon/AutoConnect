@@ -179,7 +179,6 @@ void handleRoot() {
 
 // Clear channel using ThingSpeak's API.
 void handleClearChannel() {
-  WiFiClient  client;
   HTTPClient  httpClient;
 
   String  endpoint = mqttserver.value;
@@ -187,11 +186,12 @@ void handleClearChannel() {
   String  delUrl = "http://" + endpoint + "/channels/" + channelid.value + "/feeds.json?api_key=" + userkey.value;
 
   Serial.print("DELETE " + delUrl);
-  if (httpClient.begin(client, delUrl)) {
+  if (httpClient.begin(wifiClient, delUrl)) {
     Serial.print(":");
     int resCode = httpClient.sendRequest("DELETE");
     const String& res = httpClient.getString();
     Serial.println(String(resCode) + String(",") + res);
+    httpClient.end();
   }
   else
     Serial.println(" failed");
