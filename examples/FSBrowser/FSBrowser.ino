@@ -37,16 +37,10 @@
 
 ////////////////////////////////
 
-#if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
-#elif defined(ARDUINO_ARCH_ESP32)
-#include <WiFi.h>
-#include <WebServer.h>
-#include <ESPmDNS.h>
-#endif
-#include <WiFiClient.h>
 #include <SPI.h>
 #include <AutoConnect.h>
 
@@ -79,8 +73,8 @@ SDFSConfig fileSystemConfig = SDFSConfig();
 
 // Exclude unnecessary declarations due to applying AutoConnect
 // #ifndef STASSID
-// #define STASSID "SHAP-G"
-// #define STAPSK  "A0309T0312#"
+// #define STASSID "your-ssid"
+// #define STAPSK  "your-password"
 // #endif
 
 // const char* ssid = STASSID;
@@ -664,7 +658,5 @@ void loop(void) {
   // To make AutoConnect recognize the client handling, replace it with:
   // server.handleClient();
   portal.handleClient();
-#ifdef ARDUINO_ARCH_ESP8266
   MDNS.update();
-#endif
 }

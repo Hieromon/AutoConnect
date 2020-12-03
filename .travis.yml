@@ -36,7 +36,8 @@ script:
   - if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then buildExampleSketch EEPROM; fi
   - buildExampleSketch Elements
   - buildExampleSketch FileUpload
-  - buildExampleSketch FSBrowser
+  - if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then buildExampleSketch FSBrowser; fi
+  - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then buildExampleSketch FSBrowser32; fi
   - buildExampleSketch HandleClient
   - buildExampleSketch HandlePortal
   - buildExampleSketch HandlePortalEX
