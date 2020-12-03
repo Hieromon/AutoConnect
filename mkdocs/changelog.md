@@ -1,29 +1,29 @@
-### [1.2.0] Nov. 23, 2020
+### [1.2.0] Dec. 3, 2020
 ---
 
 #### New features
 
-- Supports a [**whileCaptivePortal**](adcpcontrol.md#sketch-execution-during-the-captive-portal-loop) exit. (issue #149, issue #244)
-- Supports an [**Connect**](adconnection.md#detects-connection-establishment-to-ap) exit.
-- Supports HTTP [authentication](adauthentication.md). (issue #171)
+- Supports a [whileCaptivePortal](adcpcontrol.md#sketch-execution-during-the-captive-portal-loop) exit. (issue #149, issue #244)
+- Supports an [onConnect](adconnection.md#detects-connection-establishment-to-ap) exit.
+- Supports [HTTP authentication](adauthentication.md). (issue #171)
 
 #### Enhancements
 
-- Added **AUTOCONNECT_APKEY_SSID** definition to [seek access points by SSID](adconnection.md#match-with-known-access-points-by-ssid). (issue #251)
+- Added `AUTOCONNECT_APKEY_SSID` definition to [seek access points by SSID](adconnection.md#match-with-known-access-points-by-ssid). (issue #251)
 - Added [AutoConnect::append](api.md#append) and [AutoConnect::detach](api.md#detach) function that can be dynamically AutoConnectAux attaching and detaching. (issue #230)
 - Added [AutoConnect::getEEPROMUsedSize](adcredential.md#move-the-saving-area-of-eeprom-for-the-credentials) that notifies the occupied size of the credential storage area. (issue #209)
 - Added [AutoConnectConfig::beginTimeout](adconnection.md#timeout-settings-for-a-connection-attempt) setting. (issue #247)
 - Added [AutoConnectConfig::preserveAPMode](adconnection.md#preserve-ap-mode) setting. (issue #210)
-- Enable support for file system as **LittleFS** with ESP8266 platform.
+- Enable support for the [*LittleFS*](adothers.md#choice-of-the-filesystem-for-esp8266) as [filesystem](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html#spiffs-and-littlefs) with ESP8266 platform.
 - Enhanced [AutoConnectInput](acelements.md#autoconnectinput) to allow accepts [password](acelements.md#apply) and [number](acelements.md#apply) type. (issue #237, issue #255)
-- Enhanced handleClient to [dynamically launch the captive portal when losing WiFi connection]().
+- Enhanced handleClient to [dynamically launch the captive portal](adcpcontrol.md#launch-the-captive-portal-on-demand-at-losing-wifi) when losing WiFi connection.
 - Enhanced the ability to upload a regular file with [AutoConnectOTA](otabrowser.md#regular-file-uploading-using-autoconnectotaenhanced-wv120). (issue #236)
 - Enhanced ticker to work even in handleClient loop.
 - Improved [autoReconnect](adconnection.md#automatic-reconnect-background) to work even in handleClient loop. (issue #234, issue #251)
 
 #### Fixes
 
-- Avoids an empty-body warning when AC_DEBUG is disabled. (issue #218)
+- Avoids an empty-body warning when `AC_DEBUG` is disabled. (issue #218)
 - Fixed a core panic in the regex with ESP32.
 - Fixed an exception in the AutoConnect::end function.
 - Fixed an invalid SPIFFS compile error with ESP32.
@@ -76,7 +76,7 @@
 #### Enhancements
 
 - Improved Config New button behavior.
-- Added AUTOCONNECT_NOUSE_JSON directive
+- Added `AUTOCONNECT_NOUSE_JSON` directive
 
 #### Fixes
 
@@ -144,8 +144,8 @@
 #### Enhancements
 
 - Supported Arduino core for ESP32 1.0.3.
-- Added [**AutoConnectAux::isValid**](apiaux.md#isvalid) function.
-- Added the [**global**](achandling.md#transfer-of-input-values-across-pages) attribute with all AutoConnectElements.
+- Added [AutoConnectAux::isValid](apiaux.md#isvalid) function.
+- Added the [`global`](achandling.md#transfer-of-input-values-across-pages) attribute with all AutoConnectElements.
 - Changed the credential storage area to Preferences with ESP32 core 1.0.3 and later. **In ESP32, the credentials stored past in EEPROM will lose**.
 
 ### [0.9.12] Aug. 18, 2019
@@ -153,7 +153,7 @@
 
 #### Fixes
 
-- Fixed missing captive portal notifications on the newer mobile OS client. As a result of this fix, the SoftAP default IP address and gateway have been changed to **172.217.28.1**.
+- Fixed missing captive portal notifications on the newer mobile OS client. As a result of this fix, the SoftAP default IP address and gateway have been changed to `172.217.28.1`.
 
 ### [0.9.11] July 13, 2019
 ---
@@ -167,7 +167,7 @@
 - Supports that `<br>` tags can now be added to each element.
 - Supports that able to place the checkbox label forward or backward.
 - Supports flicker signal output according to the status of WiFi_mode.
-- Supports [**AutoConnectAux::fetchElement**](apiaux.md#fetchelement) function to retrieve inputted element values via a custom Web page.
+- Supports [AutoConnectAux::fetchElement](apiaux.md#fetchelement) function to retrieve inputted element values via a custom Web page.
 
 #### Fixes
 
@@ -202,19 +202,19 @@
 
 #### New features
 
-- Supports new element type [**AutoConnectFile**](acelements.md#autoconnectfile) and built-in file uploader.
+- Supports new element type [AutoConnectFile](acelements.md#autoconnectfile) and built-in file uploader.
 
 #### Enhancements
 
 - Enhanced to support ArduinoJson 6.9.1 or later.
 - Enhanced to use PSRAM on ESP32 module as the buffer allocation destination of JsonDocument with ArduinoJson 6.10.0 or later.
-- Added an [**operator`[]`**](apiaux.md#operator) as a shortcut for AutoConnectAux::getElement function.
-- Added an [**AutoConnectElement::as<T\>**](apielements.md#ast62) function to easily coding for conversion from an AutoConnectElement to an actual type.
-- Added a [**format**](acelements.md#format) attribute with the AutoConnectText element.
-- Added a [**selected**](acelements.md#selected) attribute with the AutoConnectSelect element.
+- Added an [operator`[]`](apiaux.md#operator) as a shortcut for AutoConnectAux::getElement function.
+- Added an [AutoConnectElement::as<T\>](apielements.md#ast62) function to easily coding for conversion from an AutoConnectElement to an actual type.
+- Added a [format](acelements.md#format) attribute with the AutoConnectText element.
+- Added a [selected](acelements.md#selected) attribute with the AutoConnectSelect element.
 - Enhanced [AutoConnectAux::loadElement](apiaux.md#loadelement) with multiple elements loading.
 - Changed menu labels placement in source files structure.
-- Changed API interface of [**AutoConnect::where](api.md#where) function.
+- Changed API interface of [AutoConnect::where](api.md#where) function.
 
 #### Fixes
 
@@ -228,17 +228,17 @@
 
 #### New features
 
-- Supports AutoConnect menu extension by user sketch with [**AutoConnectAux**](acintro.md).
+- Supports AutoConnect menu extension by user sketch with [AutoConnectAux](acintro.md).
 - Supports loading and saving of user-defined parameters with JSON format.
 
 #### Enhancements
 
-- Improved the WiFi connection sequence at the first WiFi.begin. Even if [**AutoConnectConfig::autoReconnect**](apiconfig.md#autoreconnect) is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
-- Added the [**AutoConnectConfig::immediateStart**](apiconfig.md#immediatestart) option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the [**AutoConnectConfig::autoRise**](apiconfig.md#autorise) option.
-- Improved boot uri after reset. [**AutoConnectConfig::bootUri**](apiconfig.md#booturi) can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
+- Improved the WiFi connection sequence at the first WiFi.begin. Even if [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) is disabled when SSID and PSK are not specified, it will use the information of the last established access point. The autoReconnect option will achieve trying the connect after a previous connection failed.
+- Added the [AutoConnectConfig::immediateStart](apiconfig.md#immediatestart) option and immediately starts the portal without first trying WiFi.begin. You can start the captive portal at any time in combination with the [AutoConnectConfig::autoRise](apiconfig.md#autorise) option.
+- Improved boot uri after reset. [AutoConnectConfig::bootUri](apiconfig.md#booturi) can be specified either /_ac or HOME path as the uri to be accessed after invoking Reset from AutoConnect menu.
 - Improved source code placement of predefined macros. Defined common macros have been moved to `AutoConnectDefs.h`.
-- Added [**AutoConnectConfig::hostName**](apiconfig.md#hostname). It activates `WiFi.hostname()`/`WiFi.setHostName()`.
-- Added the captive portal time-out. It can be controlled by [**AutoConnectConfig::portalTimeout**](apiconfig.md#portaltimeout) and [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal).
+- Added [AutoConnectConfig::hostName](apiconfig.md#hostname). It activates `WiFi.hostname()`/`WiFi.setHostName()`.
+- Added the captive portal time-out. It can be controlled by [AutoConnectConfig::portalTimeout](apiconfig.md#portaltimeout) and [AutoConnectConfig::retainPortal](apiconfig.md#retainportal).
 
 #### Fixes
 
@@ -253,7 +253,7 @@
 
 #### Fixes
 
-- Fixed disconnection SoftAP completely at the first connection phase of the [**AutoConnect::begin**](api.md#begin).
+- Fixed disconnection SoftAP completely at the first connection phase of the [AutoConnect::begin](api.md#begin).
 
 ### [0.9.5] Aug.27, 2018.
 ---
@@ -271,7 +271,7 @@
 
 #### New features
 
-- Supports [**AutoConnectConfig::autoReconnect**](apiconfig.md#autoreconnect) option, it will scan the WLAN when it can not connect to the default SSID, apply the applicable credentials if it is saved, and try reconnecting.
+- Supports [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) option, it will scan the WLAN when it can not connect to the default SSID, apply the applicable credentials if it is saved, and try reconnecting.
 
 #### Enhancements
 

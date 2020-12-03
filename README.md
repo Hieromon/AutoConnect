@@ -102,7 +102,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [1.2.0] Nov. 23, 2020
+### [1.2.0] Dec. 3, 2020
 - Supports LittleFS file system with ESP8266 platform.
 - Supports HTTP authentication. (issue #171)
 - Supports AutoConnectConfig::preserveAPMode setting. (issue #210)
