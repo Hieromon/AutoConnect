@@ -33,7 +33,7 @@ The location where AutoConnect saves credentials depends on the module type and 
 
 However, sketches do not need to know where to store credentials using the commonly accessible [AutoConnectCredential](#AutoConnectCredential) API.
 
-If you are using an Arduino core for ESP32 1.0.2 earlier and need to use credentials in EEPROM for backward compatibility, turns off the **AUTOCONNECT_USE_PREFERENCES**[^3] macro definition in `AutoConnectCredentials.h` file. AutoConnect behaves assuming that credentials are stored in EEPROM if `AUTOCONNECT_USE_PREFERENCES` is not defined.
+If you are using an Arduino core for ESP32 1.0.2 earlier and need to use credentials in EEPROM for backward compatibility, turns off the **`AUTOCONNECT_USE_PREFERENCES`**[^3] macro definition in `AutoConnectCredentials.h` file. AutoConnect behaves assuming that credentials are stored in EEPROM if `AUTOCONNECT_USE_PREFERENCES` is not defined.
 
 [^2]:The namespace for Preferences used by AutoConnect is **AC_CREDT**.
 [^3]:Available only for AutoConnect v1.0.0 and later.
@@ -86,7 +86,7 @@ Load a credential entry and store to **config**.<dl class="apidl">
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be loaded.</span></dd>
     <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt>**Return value**</dt>
-    <dd>Save the specified SSID's credential entry to station_config_t pointed to by the parameter as **config**. -1 is returned if the SSID is not saved.</dd></dl>
+    <dd>Save the specified SSID's credential entry to `station_config_t` pointed to by the parameter as **config**. -1 is returned if the SSID is not saved.</dd></dl>
 
 #### <i class="fa fa-caret-right"></i> load
 
@@ -99,7 +99,7 @@ Load a credential entry and store to **config**.<dl class="apidl">
     <dd><span class="apidef">entry</span><span class="apidesc">Specifies the index number based 0 to be loaded.</span></dd>
     <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt>**Return value**</dt>
-    <dd>Save the specified credential entry to station_config_t pointed to by the parameter as **config**. -1 is returned if specified number is not saved.</dd></dl>
+    <dd>Save the specified credential entry to `station_config_t` pointed to by the parameter as **config**. -1 is returned if specified number is not saved.</dd></dl>
 
 #### <i class="fa fa-caret-right"></i> save
 
@@ -146,9 +146,9 @@ Delete a credential the specified SSID.<dl class="apidl">
 
 ## The data structures
 
-### <i class="fa fa-code"></i>  station_config_t
+### <i class="fas fa-database"></i>  station_config_t
 
-The saved credential structure is defined as stato_config_t in the AcutoConnectCredential header file.
+The saved credential structure is defined as `station_config_t` in the AcutoConnectCredential header file.
 
 ```cpp
 typedef struct {
@@ -169,10 +169,10 @@ typedef struct {
 } station_config_t;
 ```
 
-!!! note "The byte size of station_config_t in program memory and stored credentials is different"
-    There is a gap byte for boundary alignment between the `dhcp` member and the static IP members of the above station_config_t. Its gap byte will be removed with saved credentials on the flash.
+!!! note "The byte size of `station_config_t` in program memory and stored credentials is different"
+    There is a gap byte for boundary alignment between the `dhcp` member and the static IP members of the above `station_config_t`. Its gap byte will be removed with saved credentials on the flash.
 
-### <i class="fa fa-code"></i>  The credential entry
+### <i class="fas fa-database"></i>  The credential entry
 
 A data structure of the credential saving area in EEPROM as the below. [^4]
 

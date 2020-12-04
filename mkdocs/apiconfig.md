@@ -53,8 +53,7 @@ This setting determines the default scheme for HTTP authentication with AutoConn
 
 ### <i class="fa fa-caret-right"></i> authScope
 
-Specifies the authentication scope of AutoConnect Web pages. The Sketch will be able to expand or narrow the range of authentication by this setting, which can be either as **AC_AUTHSCOPE_t** enumeration value.
-<dl class="apidl">
+Specifies the authentication scope of AutoConnect Web pages. The Sketch will be able to expand or narrow the range of authentication by this setting, which can be either as **AC_AUTHSCOPE_t** enumeration value.<dl class="apidl">
     <dt>**Type**</dt>
     <dd>AC_AUTHSCOPE_t</dd>
     <dt>**Value**</dt>
@@ -81,15 +80,17 @@ If the connection fails, starts the captive portal in SoftAP+STA mode.<dl class=
 
 When the autoReconnect option is enabled, an automatic connection will behave if the following conditions are satisfied.
 
-- Invokes *AutoConnect::begin* without user name and password parameter as ```begin()```.
+- Invokes *AutoConnect::begin* without user name and password parameter as `begin()`.
 - If one of the saved credentials matches the BSSID (or SSID) detected by the network scan.
 
 !!! Info "Either BSSID or SSID to aim the access point"
-    Whether or not it points to the target access point is determined by matching the **SSID** or **BSSID**. The **default key** to collate is **BSSID**.  
+    Whether or not it points to the target access point is determined by matching the **SSID** or **BSSID**. The default key to collate is **BSSID**.  
     The BSSID is usually fixed to the MAC address unique to its access point device, but when using some mobile hotspots, the BSSID may change even for the same access point. If you operate inconvenience in aiming at the access point by BSSID, you can change the collation key to SSID by uncomment the below line in `AutoConnectDefs.h`:
+
     ```cpp
     #define AUTOCONNECT_APKEY_SSID
     ```
+
     If `AUTOCONNECT_APKEY_SSID` macro is defined when the library is compiled, the access points are collated by the SSID.
 
 ### <i class="fa fa-caret-right"></i> autoReset
@@ -122,7 +123,7 @@ The credential saved automatically at the connection establishment.<dl class="ap
 ### <i class="fa fa-caret-right"></i> beginTimeout
 
 Specify the limit time to attempt WiFi connection to the accesspoint. AutoConnect uses this value to abort the connection attempt at **WiFi.begin**. Its actual value specified in milliseconds unit.  
-The default value is **AUTOCONNECT_TIMEOUT** defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132) and the initial value is 30 seconds.<dl class="apidl">
+The default value is `AUTOCONNECT_TIMEOUT` defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132) and the initial value is 30 seconds.<dl class="apidl">
     <dt>**Type**</dt>
     <dd>unsigned long</dd></dl>
 
@@ -289,16 +290,16 @@ Sets password for SoftAP. The length should be from 8 to up to 63. The default v
 
 ### <i class="fa fa-caret-right"></i> reconnectInterval
 
-Specifies the number of units for interval time to attempt automatic reconnection when [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled. This value is specified by the number of unit times from 0 to 255, and one unit time is macro-defined as **AUTOCONNECT_UNITTIME** in `AutoConnectDefs.h` file of library source code, and its initial value is 30[s].<dl class="apidl">
+Specifies the number of units for interval time to attempt automatic reconnection when [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled. This value is specified by the number of unit times from 0 to 255, and one unit time is macro-defined as `AUTOCONNECT_UNITTIME` in `AutoConnectDefs.h` file of library source code, and its initial value is 30[s].<dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint8_t</dd></dl>
 
-WiFi connection retry is repeated inside [**AutoConnect::handleClient**](api.md#handleClient) after the number of seconds that the reconnectInterval value is multiplied by **AUTOCONNECT_UNITTIME** from the previous attempt. Then, when the connection with one of the saved credentials is established, the automatic reconnection will stop. And while [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled, if the WiFi connection is lost, it will start to auto-reconnect again inside [**AutoConnect::handleClient**](api.md#handleclient).
+WiFi connection retry is repeated inside [**AutoConnect::handleClient**](api.md#handleClient) after the number of seconds that the reconnectInterval value is multiplied by `AUTOCONNECT_UNITTIME` from the previous attempt. Then, when the connection with one of the saved credentials is established, the automatic reconnection will stop. And while [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled, if the WiFi connection is lost, it will start to auto-reconnect again inside [**AutoConnect::handleClient**](api.md#handleclient).
 
 If **0** is specified for the reconnectInterval, background reconnection attempt repeatedly will not be made, and only once at the 1st-WiFi.begin failure in [**AutoConnect::begin**](api.md#begin). (Only when [**AutoConnectConfig::autoReconnect**](#autoreconnect) is enabled) The default value is 0.
 
 !!! Info "AUTOCONNECT_UNITTIME"
-    **AUTOCONNECT_UNITTIME** as macro defined in `AutoConnectDefs.h` file of library source code as the below:
+    **`AUTOCONNECT_UNITTIME`** as macro defined in `AutoConnectDefs.h` file of library source code as the below:
     ```cpp
     // Number of seconds in uint time [s]
     #ifndef AUTOCONNECT_UNITTIME
@@ -345,12 +346,12 @@ Set flicker signal output according to WiFi connection status during AutoConnect
     <dt>**Type**</dt>
     <dd>bool</dd>
     <dt>**Value**</dt>
-    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while [AutoConnect::begin](api.md#begin) operation. The **AUTOCONNECT_TICKER_PORT** macro in the `AutoConnectDefs.h` header file assigns pins for signal output. The default pin is arduino valiant's LED_BUILTIN. For boards without the LED_BUILTIN pin, assume pin #2.</span></dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while [AutoConnect::begin](api.md#begin) operation. The `AUTOCONNECT_TICKER_PORT` macro in the `AutoConnectDefs.h` header file assigns pins for signal output. The default pin is arduino valiant's `LED_BUILTIN`. For boards without the LED_BUILTIN pin, assume pin #2.</span></dd>
     <dd><span class="apidef">false</span>No flicker signal output.<span class="apidesc"></span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> tickerPort
 
-Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **AUTOCONNECT_TICKER_PORT** in [`AutoConnectDefs.h`](api.md#defined-macros).<dl class="apidl">
+Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by **`AUTOCONNECT_TICKER_PORT`** in [`AutoConnectDefs.h`](api.md#defined-macros).<dl class="apidl">
     <dt>**Type**</dt>
     <dd>uint8_t</dd></dl>
 
