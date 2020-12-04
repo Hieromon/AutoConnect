@@ -93,8 +93,8 @@ AutoConnectCheckbox(const char* name = "", const char* value = "", const char* l
 
 #### <i class="fa fa-caret-right"></i> checked
 
-It indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent by submit.
-<dl class="apidl"><dt>**Type**</dt>
+It indicates the checked status of the checkbox. The value of the checked checkbox element is packed in the query string and sent by submit.<dl class="apidl">
+    <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc"></span></dl>
 
 #### <i class="fa fa-caret-right"></i> enable
