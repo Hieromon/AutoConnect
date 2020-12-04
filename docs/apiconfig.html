@@ -1538,16 +1538,14 @@ This setting determines the default scheme for HTTP authentication with AutoConn
     <dd><span class="apidef">AC_AUTH_DIGEST</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Use the <a href="https://tools.ietf.org/html/rfc2617#section-3">digest scheme</a>.</span></dd>
     <dd><span class="apidef">AC_AUTH_BASIC</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Use the <a href="https://tools.ietf.org/html/rfc2617#section-2">basic scheme</a>.</span></dd></dl></p>
 <h3 id="authscope"><i class="fa fa-caret-right"></i> authScope<a class="headerlink" href="#authscope" title="Permanent link">&para;</a></h3>
-<p>Specifies the authentication scope of AutoConnect Web pages. The Sketch will be able to expand or narrow the range of authentication by this setting, which can be either as <strong>AC_AUTHSCOPE_t</strong> enumeration value.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
+<p>Specifies the authentication scope of AutoConnect Web pages. The Sketch will be able to expand or narrow the range of authentication by this setting, which can be either as <strong>AC_AUTHSCOPE_t</strong> enumeration value.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
     <dd>AC_AUTHSCOPE_t</dd>
-    <dt>**Value**</dt>
+    <dt><strong>Value</strong></dt>
     <dd><span class="apidef">AC_AUTHSCOPE_AUX</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Require authentication to access for all custom Web pages, excepting AutoConnect's pages. This is the Default.</span></dd>
-    <dd><span class="apidef">AC_AUTHSCOPE_PARTIAL</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Authenticate only specific custom Web pages which are specified by [AutoConnectAux::authentication](apiaux.md#authentication) function or JSON description.</span></dd>
+    <dd><span class="apidef">AC_AUTHSCOPE_PARTIAL</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Authenticate only specific custom Web pages which are specified by <a href="apiaux.html#authentication">AutoConnectAux::authentication</a> function or JSON description.</span></dd>
     <dd><span class="apidef">AC_AUTHSCOPE_PORTAL</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Require authentication to access for all AutoConnect's pages, including custom Web pages.</span></dd>
-</dl>
-
+</dl></p>
 <p>This setting is available only when <a href="#auth">AutoConnectConfig::auth</a> is other than <strong>AC_AUTH_NONE</strong>. Ignored if it is AC_AUTH_NONE.</p>
 <p>Also, the authScope setting has another bit that indicates to allow authentication in the captive portal state. Its enum value cannot be used alone and is always for qualifying the above three enum values.<dl class="apidl">
     <dt><strong>Value</strong></dt>
@@ -1567,11 +1565,11 @@ If the connection fails, starts the captive portal in SoftAP+STA mode.<dl class=
 </ul>
 <div class="admonition info">
 <p class="admonition-title">Either BSSID or SSID to aim the access point</p>
-<p>Whether or not it points to the target access point is determined by matching the <strong>SSID</strong> or <strong>BSSID</strong>. The <strong>default key</strong> to collate is <strong>BSSID</strong>.<br />
-The BSSID is usually fixed to the MAC address unique to its access point device, but when using some mobile hotspots, the BSSID may change even for the same access point. If you operate inconvenience in aiming at the access point by BSSID, you can change the collation key to SSID by uncomment the below line in <code>AutoConnectDefs.h</code>:
+<p>Whether or not it points to the target access point is determined by matching the <strong>SSID</strong> or <strong>BSSID</strong>. The default key to collate is <strong>BSSID</strong>.<br />
+The BSSID is usually fixed to the MAC address unique to its access point device, but when using some mobile hotspots, the BSSID may change even for the same access point. If you operate inconvenience in aiming at the access point by BSSID, you can change the collation key to SSID by uncomment the below line in <code>AutoConnectDefs.h</code>:</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_APKEY_SSID</span>
 </code></pre></div>
-If <code>AUTOCONNECT_APKEY_SSID</code> macro is defined when the library is compiled, the access points are collated by the SSID.</p>
+<p>If <code>AUTOCONNECT_APKEY_SSID</code> macro is defined when the library is compiled, the access points are collated by the SSID.</p>
 </div>
 <h3 id="autoreset"><i class="fa fa-caret-right"></i> autoReset<a class="headerlink" href="#autoreset" title="Permanent link">&para;</a></h3>
 <p>Reset ESP8266 module automatically after WLAN disconnected.<dl class="apidl">
@@ -1596,7 +1594,7 @@ If <code>AUTOCONNECT_APKEY_SSID</code> macro is defined when the library is comp
     <dd><span class="apidef">AC_SAVECREDENTIAL_NEVER</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">The credential no saved.</span></dd></dl></p>
 <h3 id="begintimeout"><i class="fa fa-caret-right"></i> beginTimeout<a class="headerlink" href="#begintimeout" title="Permanent link">&para;</a></h3>
 <p>Specify the limit time to attempt WiFi connection to the accesspoint. AutoConnect uses this value to abort the connection attempt at <strong>WiFi.begin</strong>. Its actual value specified in milliseconds unit.<br />
-The default value is <strong>AUTOCONNECT_TIMEOUT</strong> defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132"><code>AutoConnectDefs.h</code></a> and the initial value is 30 seconds.<dl class="apidl">
+The default value is <code>AUTOCONNECT_TIMEOUT</code> defined in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132"><code>AutoConnectDefs.h</code></a> and the initial value is 30 seconds.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>unsigned long</dd></dl></p>
 <h3 id="booturi"><i class="fa fa-caret-right"></i> bootUri<a class="headerlink" href="#booturi" title="Permanent link">&para;</a></h3>
@@ -1724,14 +1722,14 @@ However, even if you specify like the above, the AutoConnectAux page items still
     <dt><strong>Type</strong></dt>
     <dd>String</dd></dl></p>
 <h3 id="reconnectinterval"><i class="fa fa-caret-right"></i> reconnectInterval<a class="headerlink" href="#reconnectinterval" title="Permanent link">&para;</a></h3>
-<p>Specifies the number of units for interval time to attempt automatic reconnection when <a href="#autoreconnect"><strong>AutoConnectConfig::autoReconnect</strong></a> is enabled. This value is specified by the number of unit times from 0 to 255, and one unit time is macro-defined as <strong>AUTOCONNECT_UNITTIME</strong> in <code>AutoConnectDefs.h</code> file of library source code, and its initial value is 30[s].<dl class="apidl">
+<p>Specifies the number of units for interval time to attempt automatic reconnection when <a href="#autoreconnect"><strong>AutoConnectConfig::autoReconnect</strong></a> is enabled. This value is specified by the number of unit times from 0 to 255, and one unit time is macro-defined as <code>AUTOCONNECT_UNITTIME</code> in <code>AutoConnectDefs.h</code> file of library source code, and its initial value is 30[s].<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>uint8_t</dd></dl></p>
-<p>WiFi connection retry is repeated inside <a href="api.html#handleClient"><strong>AutoConnect::handleClient</strong></a> after the number of seconds that the reconnectInterval value is multiplied by <strong>AUTOCONNECT_UNITTIME</strong> from the previous attempt. Then, when the connection with one of the saved credentials is established, the automatic reconnection will stop. And while <a href="#autoreconnect"><strong>AutoConnectConfig::autoReconnect</strong></a> is enabled, if the WiFi connection is lost, it will start to auto-reconnect again inside <a href="api.html#handleclient"><strong>AutoConnect::handleClient</strong></a>.</p>
+<p>WiFi connection retry is repeated inside <a href="api.html#handleClient"><strong>AutoConnect::handleClient</strong></a> after the number of seconds that the reconnectInterval value is multiplied by <code>AUTOCONNECT_UNITTIME</code> from the previous attempt. Then, when the connection with one of the saved credentials is established, the automatic reconnection will stop. And while <a href="#autoreconnect"><strong>AutoConnectConfig::autoReconnect</strong></a> is enabled, if the WiFi connection is lost, it will start to auto-reconnect again inside <a href="api.html#handleclient"><strong>AutoConnect::handleClient</strong></a>.</p>
 <p>If <strong>0</strong> is specified for the reconnectInterval, background reconnection attempt repeatedly will not be made, and only once at the 1<sup>st</sup>-WiFi.begin failure in <a href="api.html#begin"><strong>AutoConnect::begin</strong></a>. (Only when <a href="#autoreconnect"><strong>AutoConnectConfig::autoReconnect</strong></a> is enabled) The default value is 0.</p>
 <div class="admonition info">
 <p class="admonition-title">AUTOCONNECT_UNITTIME</p>
-<p><strong>AUTOCONNECT_UNITTIME</strong> as macro defined in <code>AutoConnectDefs.h</code> file of library source code as the below:
+<p><strong><code>AUTOCONNECT_UNITTIME</code></strong> as macro defined in <code>AutoConnectDefs.h</code> file of library source code as the below:
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">// Number of seconds in uint time [s]</span>
 <span style="color: #75715e">#ifndef AUTOCONNECT_UNITTIME</span>
 <span style="color: #75715e">#define AUTOCONNECT_UNITTIME    30</span>
@@ -1770,10 +1768,10 @@ However, even if you specify like the above, the AutoConnectAux page items still
     <dt><strong>Type</strong></dt>
     <dd>bool</dd>
     <dt><strong>Value</strong></dt>
-    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while <a href="api.html#begin">AutoConnect::begin</a> operation. The <strong>AUTOCONNECT_TICKER_PORT</strong> macro in the <code>AutoConnectDefs.h</code> header file assigns pins for signal output. The default pin is arduino valiant's LED_BUILTIN. For boards without the LED_BUILTIN pin, assume pin <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/Hieromon/AutoConnect/issues/2" title="GitHub Issue: Hieromon/AutoConnect#2">#2</a>.</span></dd>
+    <dd><span class="apidef">true</span><span class="apidesc">Output the flicker signal while <a href="api.html#begin">AutoConnect::begin</a> operation. The <code>AUTOCONNECT_TICKER_PORT</code> macro in the <code>AutoConnectDefs.h</code> header file assigns pins for signal output. The default pin is arduino valiant's <code>LED_BUILTIN</code>. For boards without the LED_BUILTIN pin, assume pin <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/Hieromon/AutoConnect/issues/2" title="GitHub Issue: Hieromon/AutoConnect#2">#2</a>.</span></dd>
     <dd><span class="apidef">false</span>No flicker signal output.<span class="apidesc"></span></dd></dl></p>
 <h3 id="tickerport"><i class="fa fa-caret-right"></i> tickerPort<a class="headerlink" href="#tickerport" title="Permanent link">&para;</a></h3>
-<p>Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by <strong>AUTOCONNECT_TICKER_PORT</strong> in <a href="api.html#defined-macros"><code>AutoConnectDefs.h</code></a>.<dl class="apidl">
+<p>Specifies the GPIO port number to output the flicker signal of the ticker. The default assumes on the board dependent definition LED_BUILTIN macro redefined by <strong><code>AUTOCONNECT_TICKER_PORT</code></strong> in <a href="api.html#defined-macros"><code>AutoConnectDefs.h</code></a>.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd>uint8_t</dd></dl></p>
 <h3 id="tickeron"><i class="fa fa-caret-right"></i> tickerOn<a class="headerlink" href="#tickeron" title="Permanent link">&para;</a></h3>

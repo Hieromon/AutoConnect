@@ -1118,7 +1118,7 @@
 </table>
 
 <p>However, sketches do not need to know where to store credentials using the commonly accessible <a href="#AutoConnectCredential">AutoConnectCredential</a> API.</p>
-<p>If you are using an Arduino core for ESP32 1.0.2 earlier and need to use credentials in EEPROM for backward compatibility, turns off the <strong>AUTOCONNECT_USE_PREFERENCES</strong><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> macro definition in <code>AutoConnectCredentials.h</code> file. AutoConnect behaves assuming that credentials are stored in EEPROM if <code>AUTOCONNECT_USE_PREFERENCES</code> is not defined.</p>
+<p>If you are using an Arduino core for ESP32 1.0.2 earlier and need to use credentials in EEPROM for backward compatibility, turns off the <strong><code>AUTOCONNECT_USE_PREFERENCES</code></strong><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> macro definition in <code>AutoConnectCredentials.h</code> file. AutoConnect behaves assuming that credentials are stored in EEPROM if <code>AUTOCONNECT_USE_PREFERENCES</code> is not defined.</p>
 <h2 id="autoconnectcredential">AutoConnectCredential<a class="headerlink" href="#autoconnectcredential" title="Permanent link">&para;</a></h2>
 <h3 id="include-header"><i class="fa fa-code"></i> Include header<a class="headerlink" href="#include-header" title="Permanent link">&para;</a></h3>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnectCredential.h&gt;</span>
@@ -1149,7 +1149,7 @@
     <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be loaded.</span></dd>
     <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt><strong>Return value</strong></dt>
-    <dd>Save the specified SSID's credential entry to station_config_t pointed to by the parameter as <strong>config</strong>. -1 is returned if the SSID is not saved.</dd></dl></p>
+    <dd>Save the specified SSID's credential entry to <code>station_config_t</code> pointed to by the parameter as <strong>config</strong>. -1 is returned if the SSID is not saved.</dd></dl></p>
 <h4 id="load_1"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load_1" title="Permanent link">&para;</a></h4>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">entry,</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </code></pre></div>
@@ -1158,7 +1158,7 @@
     <dd><span class="apidef">entry</span><span class="apidesc">Specifies the index number based 0 to be loaded.</span></dd>
     <dd><span class="apidef">config</span><span class="apidesc">station_config_t</span></dd>
     <dt><strong>Return value</strong></dt>
-    <dd>Save the specified credential entry to station_config_t pointed to by the parameter as <strong>config</strong>. -1 is returned if specified number is not saved.</dd></dl></p>
+    <dd>Save the specified credential entry to <code>station_config_t</code> pointed to by the parameter as <strong>config</strong>. -1 is returned if specified number is not saved.</dd></dl></p>
 <h4 id="save"><i class="fa fa-caret-right"></i> save<a class="headerlink" href="#save" title="Permanent link">&para;</a></h4>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">save(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">station_config_t</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">config)</span>
 </code></pre></div>
@@ -1194,8 +1194,8 @@ The following function is an implementation example, and you can use it to achie
 </code></pre></div>
 </div>
 <h2 id="the-data-structures">The data structures<a class="headerlink" href="#the-data-structures" title="Permanent link">&para;</a></h2>
-<h3 id="station_config_t"><i class="fa fa-code"></i>  station_config_t<a class="headerlink" href="#station_config_t" title="Permanent link">&para;</a></h3>
-<p>The saved credential structure is defined as stato_config_t in the AcutoConnectCredential header file.</p>
+<h3 id="station_config_t"><i class="fas fa-database"></i>  station_config_t<a class="headerlink" href="#station_config_t" title="Permanent link">&para;</a></h3>
+<p>The saved credential structure is defined as <code>station_config_t</code> in the AcutoConnectCredential header file.</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ssid[</span><span style="color: #ae81ff">32</span><span style="color: #f8f8f2">];</span>
   <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">password[</span><span style="color: #ae81ff">64</span><span style="color: #f8f8f2">];</span>
@@ -1214,10 +1214,10 @@ The following function is an implementation example, and you can use it to achie
 <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">station_config_t;</span>
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">The byte size of station_config_t in program memory and stored credentials is different</p>
-<p>There is a gap byte for boundary alignment between the <code>dhcp</code> member and the static IP members of the above station_config_t. Its gap byte will be removed with saved credentials on the flash.</p>
+<p class="admonition-title">The byte size of <code>station_config_t</code> in program memory and stored credentials is different</p>
+<p>There is a gap byte for boundary alignment between the <code>dhcp</code> member and the static IP members of the above <code>station_config_t</code>. Its gap byte will be removed with saved credentials on the flash.</p>
 </div>
-<h3 id="the-credential-entry"><i class="fa fa-code"></i>  The credential entry<a class="headerlink" href="#the-credential-entry" title="Permanent link">&para;</a></h3>
+<h3 id="the-credential-entry"><i class="fas fa-database"></i>  The credential entry<a class="headerlink" href="#the-credential-entry" title="Permanent link">&para;</a></h3>
 <p>A data structure of the credential saving area in EEPROM as the below. <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
 <table>
 <thead>
