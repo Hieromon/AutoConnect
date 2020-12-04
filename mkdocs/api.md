@@ -43,9 +43,10 @@ They contain in ```AutoConnectDefs.h```.
 AutoConnect()
 ```
 
-<a id="withparameter"></a>
-
 AutoConnect default constructor. This entry internally allocates the ESP8266WebServer for ESP8266 or WebServer for ESP32 and is activated internally.
+
+AutoConnect will call the user added handler to respond to the HTTP request using the [**ESP8266WebServer::on**](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers) (WebServer::on for ESP32) funtion. This call will be made from during the [**handleClient**](api.md#handleclient) of AutoConnect function.  
+Therefore, in the use case of assigning AutoConnect in this constructor, it is necessary to know the instance of ESP8266WebServer in order to register the request handler. Sketch can use [**host**](api.md#host) functions to obtain a reference to an ESP8266WebServer instance that is internally hosted by AutoConnect.
 
 - For ESP8266
 
@@ -59,9 +60,7 @@ AutoConnect(ESP8266WebServer& webServer)
 AutoConnect(WebServer& webServer)
 ```
 
-Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.
-
-The [**handleClient**](api.md#handleclient) function of AutoConnect can include the response of the URI handler added by the user using the "*on*" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the Sketch can obtain that reference with the [**host**](api.md#host) function.<dl class="apidl">
+Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.<dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd></dl>
 
