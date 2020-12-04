@@ -1109,106 +1109,93 @@
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectUpdate(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">host,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint16_t</span> <span style="color: #f8f8f2">port,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">timeout,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
 </code></pre></div>
 <dl class="apidl">
-    <dt>**Parameters**</dt>
+    <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">host</span><span class="apidesc">Update server address. Specifies IP address or FQDN.</span></dd>
-    <dd><span class="apidef">port</span><span class="apidesc">Specifies HTTP port for the updating process. The default is defined as the  **AUTOCONNECT_UPDATE_PORT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.</span></dd>
+    <dd><span class="apidef">port</span><span class="apidesc">Specifies HTTP port for the updating process. The default assumes <code>AUTOCONNECT_UPDATE_PORT</code> defined in the <a href="api.html#defined-macros"><code>AutoConnectDefs.h</code></a> header file.</span></dd>
     <dd><span class="apidef">uri</span><span class="apidesc">Specifies a URI on the update server that has deployed available binary sketch files.</span></dd>
-    <dd><span class="apidef">timeout</span><span class="apidesc">Specifies the maximum response time for the update server. The default is defined as the **AUTOCONNECT_UPDATE_TIMEOUT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.</span></dt>
-    <dd><span class="apidef">ledOn</span><span class="apidesc">Active signal to light the LED ticker during the update. Specifies **HIGH** or **LOW**</span></dt>
+    <dd><span class="apidef">timeout</span><span class="apidesc">Specifies the maximum response time for the update server. The default assumes <code>AUTOCONNECT_UPDATE_TIMEOUT</code> in the <a href="api.html#defined-macros"><code>AutoConnectDefs.h</code></a> header file.</span></dt>
+    <dd><span class="apidef">ledOn</span><span class="apidesc">Active signal to light the LED ticker during the update. Specifies <strong>HIGH</strong> or <strong>LOW</strong></span></dt>
 </dl>
 
 <p>The AutoConnectUpdate class inherits from the <strong>ESP8266HTTPUpdate</strong> (<strong>HTTPUpdate</strong> for ESP32) class.</p>
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
 <h3 id="attach"><i class="fa fa-caret-right"></i> attach<a class="headerlink" href="#attach" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">attach(AutoConnect</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">portal)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">attach(AutoConnect</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">portal)</span>
 </code></pre></div>
-Attaches the <a href="apiupdate.html">AutoConnectUpdate</a> to the AutoConnect which constitutes the bedrock of the update process. This function creates a <a href="otaserver.html#behavior-of-the-autoconnectupdate-class">dialog page</a> for the update operation as an instance of <a href="apiaux.html">AutoConnectAux</a> and participates in the <a href="menu.html">AutoConnect menu</a>.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
+<p>Attaches the <a href="apiupdate.html">AutoConnectUpdate</a> to the AutoConnect which constitutes the bedrock of the update process. This function creates a <a href="otaserver.html#behavior-of-the-autoconnectupdate-class">dialog page</a> for the update operation as an instance of <a href="apiaux.html">AutoConnectAux</a> and participates in the <a href="menu.html">AutoConnect menu</a>.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">portal</span><span class="apidesc">Specifies a reference to the AutoConnect instance to attach.</span></dd>
-</dl>
-
+</dl></p>
 <h3 id="disable"><i class="fa fa-caret-right"></i> disable<a class="headerlink" href="#disable" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">disable(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">activate)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">disable(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">activate)</span>
 </code></pre></div>
-Disable the Update item in <a href="menu.html">AutoConnect menu</a>. The <a href="#disable">AutoConnect::disable</a> function only hides the Update item from the menu, and the <a href="apiupdate.html">AutoConnectUpdate</a> class is still active with the parameter condition. You can use the <a href="#enable">AutoConnectUpdate::enable</a> function to appear it again in the menu.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">activate</span><span class="apidesc">If specified the **true** then the Update item will be displayed on the [AutoConnect menu](menu.md) and OTA update will be available during the WiFi status is WL_CONNECTED. For the **false**, the OTA update feature is disabled.</span></dd>
-</dl>
-
+<p>Disable the Update item in <a href="menu.html">AutoConnect menu</a>. The <a href="#disable">AutoConnect::disable</a> function only hides the Update item from the menu, and the <a href="apiupdate.html">AutoConnectUpdate</a> class is still active with the parameter condition. You can use the <a href="#enable">AutoConnectUpdate::enable</a> function to appear it again in the menu.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">activate</span><span class="apidesc">If specified the <strong>true</strong> then the Update item will be displayed on the <a href="menu.html">AutoConnect menu</a> and OTA update will be available during the WiFi status is WL_CONNECTED. For the <strong>false</strong>, the OTA update feature is disabled.</span></dd>
+</dl></p>
 <h3 id="enable"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">enable(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">enable(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Makes <a href="apiupdate.html">AutoConnectUpdate</a> class available by incorporating the OTA update function into the <a href="menu.html">AutoConnect menu</a>. In ordinarily, the <a href="apiupdate.html">AutoConnectUpdate</a> class becomes available by just calling the <a href="#attach">AutoConnectUpdate::attach</a> function.</p>
+<p>Makes <a href="apiupdate.html">AutoConnectUpdate</a> class available by incorporating the OTA update function into the <a href="menu.html">AutoConnect menu</a>. In ordinarily, the <a href="apiupdate.html">AutoConnectUpdate</a> class becomes available by just calling the <a href="#attach">AutoConnectUpdate::attach</a> function.</p>
 <h3 id="handleupdate"><i class="fa fa-caret-right"></i> handleUpdate<a class="headerlink" href="#handleupdate" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">handleUpdate(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">handleUpdate(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Performs the update process. This function is called by <a href="api.html#handleClient">AutoConnect::handleClient</a> when AutoConnectUpdate is enabled. In many cases, sketches do not need to call this function on purpose.</p>
+<p>Performs the update process. This function is called by <a href="api.html#handleClient">AutoConnect::handleClient</a> when AutoConnectUpdate is enabled. In many cases, sketches do not need to call this function on purpose.</p>
 <h3 id="isenabled"><i class="fa fa-caret-right"></i> isEnabled<a class="headerlink" href="#isenabled" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">isEnabled(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">isEnabled(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns whether AutoConnectUpdate is enabled.</p>
+<p>Returns whether AutoConnectUpdate is enabled.</p>
 <h3 id="rebootonupdate"><i class="fa fa-caret-right"></i> rebootOnUpdate<a class="headerlink" href="#rebootonupdate" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">rebootOnUpdate(</span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">reboot)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">rebootOnUpdate(</span><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">reboot)</span>
 </code></pre></div>
-Specifies whether or not to automatically restart the module as a result of the successful completion of the update process.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">reboot</span><span class="apidesc">If specified the **true** then the ESP module will reboot after the updating successfully completed. For the **false**, The module does not reboot automatically. The updated firmware remains stored in the flash update firmware area equipped on the ESP module. The boot process during the next start turn of the module by reset will copy the updated firmware to the actual program area and a new sketch program will start. The default value is the true.</span></dd>
-</dl>
-
+<p>Specifies whether or not to automatically restart the module as a result of the successful completion of the update process.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">reboot</span><span class="apidesc">If specified the <strong>true</strong> then the ESP module will reboot after the updating successfully completed. For the <strong>false</strong>, The module does not reboot automatically. The uploaded new firmware remains in the updating stage of the flash on the ESP module.<br />
+    The boot process during the next start turn of the module by reset will copy the updated firmware to the actual program area and a new sketch program will start. The default value is true.</span></dd>
+</dl></p>
 <p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
 <h3 id="setledpin"><i class="fa fa-caret-right"></i> setLedPin<a class="headerlink" href="#setledpin" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">setLedPin(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">ledPin,</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">setLedPin(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">ledPin,</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">ledOn)</span>
 </code></pre></div>
-Sets the port and the ON signal level of the externally connected LED that should act as a ticker during the update process.</p>
-<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">ledPin</span><span class="apidesc">Specifies the PIN connected external LED for the ticker. The default is defined as the  **AUTOCONNECT_TICKER_PORT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file and it is derived from the board-specific **LED_BUILTIN**. By default, the AutoConnectUpdate class does not use the ticker for boards without the LED_BUILTIN definition. If you connect the ticker LED externally, you need to specify the PIN using the [setLedPin](#setledpin) function.</span></dd>
-    <dd><span class="apidef">ledOn</span><span class="apidesc">Specifies the the ON signal level of the LED PIN port. It is **HIGH** or **LOW**.</span></dd>
-</dl>
-
+<p>Sets the port and the ON signal level of the externally connected LED that should act as a ticker during the update process.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">ledPin</span><span class="apidesc">Specifies the PIN connected external LED for the ticker. The default assumes <code>AUTOCONNECT_TICKER_PORT</code> defined in the <a href="api.html#defined-macros"><code>AutoConnectDefs.h</code></a> header file and it is derived from the board-specific <strong>LED_BUILTIN</strong>. By default, the AutoConnectUpdate class does not use the ticker for boards without the LED_BUILTIN definition. If you connect the ticker LED externally, you need to specify the PIN using the <a href="#setledpin">setLedPin</a> function.</span></dd>
+    <dd><span class="apidef">ledOn</span><span class="apidesc">Specifies the the ON signal level of the LED PIN port. It is <strong>HIGH</strong> or <strong>LOW</strong>.</span></dd>
+</dl></p>
 <p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
 <h3 id="status"><i class="fa fa-caret-right"></i> status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AC_UPDATESTATUS_t</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">status(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AC_UPDATESTATUS_t</span> <span style="color: #f8f8f2">AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">status(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
-Returns the update process status transition indicator as an enumerated value of the <strong>AC_UPDATESTATUS_t</strong> type that indicates the process status of the AutoConnectUpdate class.</p>
-<dl class="apidl">
-    <dt>**Return value**</dt>
+<p>Returns the update process status transition indicator as an enumerated value of the <strong>AC_UPDATESTATUS_t</strong> type that indicates the process status of the AutoConnectUpdate class.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
     <dd>One of the enumerated values ​​indicating the status of the Update class as follows:</dd>
-    <dd><span class="apidef"></span><span class="apidesc">
-
-- UPDATE_RESET : Update process ended, need to reset.
-- UPDATE_IDLE : Update process has not started.
-- UPDATE_START : Update process has been started.
-- UPDATE_PROGRESS : Update process has been started.
-- UPDATE_SUCCESS : Update successfully completed.
-- UPDATE_NOAVAIL : No available update.
-- UPDATE_FAIL : Update failed.</span></dd>
-</dl>
-
+    <dd><span class="apidef"></span><span class="apidesc"></p>
+<ul>
+<li>UPDATE_RESET : Update process ended, need to reset.</li>
+<li>UPDATE_IDLE : Update process has not started.</li>
+<li>UPDATE_START : Update process has been started.</li>
+<li>UPDATE_PROGRESS : Update process has been started.</li>
+<li>UPDATE_SUCCESS : Update successfully completed.</li>
+<li>UPDATE_NOAVAIL : No available update.</li>
+<li>UPDATE_FAIL : Update failed.</span></dd>
+</dl></li>
+</ul>
 <h2 id="public-member-variables"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables" title="Permanent link">&para;</a></h2>
 <h3 id="host"><i class="fa fa-caret-right"></i> host<a class="headerlink" href="#host" title="Permanent link">&para;</a></h3>
-<p>Update server address. Specifies IP address or FQDN.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
+<p>Update server address. Specifies IP address or FQDN.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span></dd><dd><span class="apidesc"></span></dd>
-</dl>
-
+</dl></p>
 <h3 id="port"><i class="fa fa-caret-right"></i> port<a class="headerlink" href="#port" title="Permanent link">&para;</a></h3>
-<p>HTTP port for the updating process.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">String</span><span class="apidesc">The default is defined as the  **AUTOCONNECT_UPDATE_PORT** macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.</span></dd>
-</dl>
-
+<p>HTTP port for the updating process.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc">The default assumes <code>AUTOCONNECT_UPDATE_PORT</code> defined in the <a href="api.html#defined-macros"><code>AutoConnectDefs.h</code></a> header file.</span></dd>
+</dl></p>
 <h3 id="uri"><i class="fa fa-caret-right"></i> uri<a class="headerlink" href="#uri" title="Permanent link">&para;</a></h3>
-<p>URI on the update server that has deployed available binary sketch files.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
+<p>URI on the update server that has deployed available binary sketch files.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span></dd><dd><span class="apidesc"></span></dd>
-</dl>
+</dl></p>
                 
               
               

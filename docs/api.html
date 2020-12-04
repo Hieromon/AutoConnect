@@ -1306,8 +1306,9 @@
 <h3 id="autoconnect">AutoConnect<a class="headerlink" href="#autoconnect" title="Permanent link">&para;</a></h3>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect()</span>
 </code></pre></div>
-<p><a id="withparameter"></a></p>
 <p>AutoConnect default constructor. This entry internally allocates the ESP8266WebServer for ESP8266 or WebServer for ESP32 and is activated internally.</p>
+<p>AutoConnect will call the user added handler to respond to the HTTP request using the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers"><strong>ESP8266WebServer::on</strong></a> (WebServer::on for ESP32) funtion. This call will be made from during the <a href="api.html#handleclient"><strong>handleClient</strong></a> of AutoConnect function.<br />
+Therefore, in the use case of assigning AutoConnect in this constructor, it is necessary to know the instance of ESP8266WebServer in order to register the request handler. Sketch can use <a href="api.html#host"><strong>host</strong></a> functions to obtain a reference to an ESP8266WebServer instance that is internally hosted by AutoConnect.</p>
 <ul>
 <li>For ESP8266</li>
 </ul>
@@ -1318,8 +1319,7 @@
 </ul>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect(WebServer</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">webServer)</span>
 </code></pre></div>
-<p>Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.</p>
-<p>The <a href="api.html#handleclient"><strong>handleClient</strong></a> function of AutoConnect can include the response of the URI handler added by the user using the "<em>on</em>" function of ESP8266WebServer/WebServer. If ESP8266WebServer/WebServer is assigned internally by AutoConnect, the Sketch can obtain that reference with the <a href="api.html#host"><strong>host</strong></a> function.<dl class="apidl">
+<p>Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP8266 or WebServer for ESP32.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">webServer</span><span class="apidesc">A reference of ESP8266WebServer or WebServer instance.</span></dd></dl></p>
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
