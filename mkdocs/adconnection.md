@@ -36,7 +36,7 @@ Combining [**autoReconnect**](advancedusage.md#automatic-reconnect) with [*AutoC
 
 The reconnectInterval specifies the interval time to seek for known access points with saved credentials during the **handleClient** loop and attempt to connect to the AP.
 
-```cpp hl_lines="7 8"
+```cpp hl_lines="5 6"
 AutoConnect       Portal;
 AutoConnectConfig Config;
 
