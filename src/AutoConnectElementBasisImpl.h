@@ -149,14 +149,14 @@ const String AutoConnectInputBasis::toHTML(void) const {
     PGM_P applyType;
     switch (apply) {
     case AC_Input_Number:
-      applyType = PSTR(AUTOCONNECT_JSON_VALUE_NUMBER);
+      applyType = PSTR("number");
       break;
     case AC_Input_Password:
-      applyType = PSTR(AUTOCONNECT_JSON_VALUE_PASSWORD);
+      applyType = PSTR("password");
       break;
     case AC_Input_Text:
     default:
-      applyType = PSTR(AUTOCONNECT_JSON_VALUE_TEXT);
+      applyType = PSTR("text");
       break;
     }
     html += String(F("<input type=\"")) + String(applyType) + String(F("\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
