@@ -102,6 +102,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.2.1] Dec. 5, 2020
+
+- Fixed that not declared error with `AUTOCONNECT_NOUSE_JSON`. (issue #282)
+
 ### [1.2.0] Dec. 3, 2020
 - Supports LittleFS file system with ESP8266 platform.
 - Supports HTTP authentication. (issue #171)

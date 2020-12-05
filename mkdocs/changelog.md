@@ -1,3 +1,10 @@
+### [1.2.1] Dec. 5, 2020
+---
+
+#### Fix
+
+- Fixed that not declared error with `AUTOCONNECT_NOUSE_JSON`. (issue #282)
+
 ### [1.2.0] Dec. 3, 2020
 ---
 
