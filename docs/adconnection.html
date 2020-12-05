@@ -1003,11 +1003,11 @@
 <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Config.autoReconnect</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>    <span style="color: #75715e">// Attempt automatic reconnection.</span>
-  <span style="color: #f8f8f2">Config.reconnectInterval</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">6</span><span style="color: #f8f8f2">;</span>   <span style="color: #75715e">// Seek interval time is 180[s].</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.config(Config);</span>
-</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.begin();</span>
-</span><span style="color: #f8f8f2">}</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.autoReconnect</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>    <span style="color: #75715e">// Attempt automatic reconnection.</span>
+</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.reconnectInterval</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">6</span><span style="color: #f8f8f2">;</span>   <span style="color: #75715e">// Seek interval time is 180[s].</span>
+</span>  <span style="color: #f8f8f2">Portal.config(Config);</span>
+  <span style="color: #f8f8f2">Portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
 
 <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
