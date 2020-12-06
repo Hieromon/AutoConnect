@@ -401,7 +401,7 @@
       
         <li class="md-nav__item">
   <a href="#debug-print" class="md-nav__link">
-    Debug print
+    Debug Print
   </a>
   
 </li>
@@ -922,7 +922,7 @@
       
         <li class="md-nav__item">
   <a href="#debug-print" class="md-nav__link">
-    Debug print
+    Debug Print
   </a>
   
 </li>
@@ -988,7 +988,7 @@
 <ul>
 <li><a href="#built-in-ota-update-feature">Built-in OTA update</a></li>
 <li><a href="#choice-of-the-filesystem-for-esp8266">Choice of the filesystem for ESP8266</a></li>
-<li><a href="#debug-print">Debug print</a></li>
+<li><a href="#debug-print">Debug Print</a></li>
 <li><a href="#file-uploading-via-built-in-ota-feature">File uploading via built-in OTA feature</a></li>
 <li><a href="#refers-the-hosted-esp8266webserverwebserver">Refers the hosted ESP8266WebServer/WebServer</a></li>
 <li><a href="#reset-the-esp-module-after-disconnecting-from-wlan">Reset the ESP module after disconnecting from WLAN</a></li>
@@ -1008,8 +1008,8 @@ See the <a href="otabrowser.html">Updates with the Web Browser</a> chapter for d
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AC_USE_SPIFFS</span>
 </code></pre></div>
 <p>See also the <a href="faq.html#unable-to-change-any-macro-definitions-by-the-sketch">FAQ</a> to help you enable AC_USE_SPIFFS correctly.</p>
-<h2 id="debug-print">Debug print<a class="headerlink" href="#debug-print" title="Permanent link">&para;</a></h2>
-<p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> of library source. Define <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14"><strong>AC_DEBUG</strong></a> macro to output the monitor messages.<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">1</a></sup></p>
+<h2 id="debug-print">Debug Print<a class="headerlink" href="#debug-print" title="Permanent link">&para;</a></h2>
+<p>You can output AutoConnect monitor messages to the <strong>Serial</strong>. A monitor message activation switch is in an include header file <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> of library source. Define <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14"><strong>AC_DEBUG</strong></a> macro to output the monitor messages.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define AC_DEBUG</span>
 </code></pre></div>
 <p>AutoConnect does not automatically start the Serial even if AC_DEBUG is activated. The Sketch should start the Serial during its setup phase using <strong><code>Serial.begin(BAUDRATE)</code></strong>.</p>
@@ -1115,13 +1115,13 @@ To compile the AutoConnect library with the AC_DEBUG directive, you can either e
 <p><img src="images/extswitch.png" style="width:320px;"/></p>
 </div>
 <h2 id="ticker-for-wifi-status">Ticker for WiFi status<a class="headerlink" href="#ticker-for-wifi-status" title="Permanent link">&para;</a></h2>
-<p>Flicker signal can be output from the ESP8266/ESP32 module according to WiFi connection status. If you connect the LED to the signal output pin, you can know the WiFi connection status during behavior inside AutoConnect::begin through the LED blink.</p>
-<p><a href="apiconfig.html#ticker"><em>AutoConnectConfig::ticker</em></a> option specifies flicker signal output. The following sketch is an example of flashing the active-high LED connected to pin <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/Hieromon/AutoConnect/issues/16" title="GitHub Issue: Hieromon/AutoConnect#16">#16</a> according to WiFi connection during the AutoConnect::begin.</p>
+<p>Flicker signal can be output from the ESP8266/ESP32 module according to WiFi connection status. By wiring the LED to the signal output pin with the appropriate limiting resistor, you can know the WiFi connection status through the LED blink during the inside behavior of AutoConnect::begin and loop of AutoConnect::handleClient.</p>
+<p><a href="apiconfig.html#ticker"><em>AutoConnectConfig::ticker</em></a> option specifies flicker signal output. The following sketch is an example of blinking the active-low LED connected to <code>GPIO16</code> depending on the WiFi connection status.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>        <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">AutoConnectConfig</span>  <span style="color: #f8f8f2">Config;</span>
 <span style="color: #f8f8f2">Config.ticker</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
 <span style="color: #f8f8f2">config.tickerPort</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">16</span><span style="color: #f8f8f2">;</span>
-<span style="color: #f8f8f2">Config.tickerOn</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">HIGH;</span>
+<span style="color: #f8f8f2">Config.tickerOn</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LOW;</span>
 <span style="color: #f8f8f2">portal.config(Config);</span>
 <span style="color: #f8f8f2">portal.begin();</span>
 </code></pre></div>
@@ -1149,7 +1149,7 @@ To compile the AutoConnect library with the AC_DEBUG directive, you can either e
 <p class="admonition-title">Ticker during OTA</p>
 <p>The LED blinking will always be a short blinking during the update via OTA, regardless of the definition of the flicker cycle.</p>
 </div>
-<p><a href="apiconfig.html#tickerport"><em>AutoConnectConfig::tickerPort</em></a> specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's <strong>LED_BUILTIN</strong>. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to <strong>LED_BUILTIN</strong>.<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">2</a></sup></p>
+<p><a href="apiconfig.html#tickerport"><em>AutoConnectConfig::tickerPort</em></a> specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's <strong>LED_BUILTIN</strong>. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to <strong>LED_BUILTIN</strong>.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
 <p><a href="apiconfig.html#tickeron"><em>AutoConnectConfig::tickerOn</em></a> specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is <strong>LOW</strong>. The logic level of LED_BUILTIN for popular modules are as follows:</p>
 <table>
 <thead>
@@ -1268,11 +1268,15 @@ To compile the AutoConnect library with the AC_DEBUG directive, you can either e
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:5">
-<p>The source code placement of common macros for AutoConnect since v0.9.7 has changed.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn:1">
+<p>The source code placement of common macros for AutoConnect since v0.9.7 has changed.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
-<li id="fn:6">
-<p>It's defined in the <code>pins_arduino.h</code> file, located in the sub-folder named <strong>variants</strong> wherein Arduino IDE installed folder.&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<li id="fn:2">
+<p>The ESP module pin mapping is different for each breakout. Definitions for assigning pin numbers to pin names usually exist in the variant definition program of Arduino core packages. (e.g. <a href="https://github.com/esp8266/Arduino/tree/master/variants">esp8266/arduino core</a>, <a href="https://github.com/espressif/arduino-esp32/tree/master/variants">arduino-esp32 core</a>)<br />
+You may find the definition as <code>pins_arduino.h</code>.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>It's defined in the <code>pins_arduino.h</code> file, located in the sub-folder named <strong>variants</strong> wherein Arduino IDE installed folder.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

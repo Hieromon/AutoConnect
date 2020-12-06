@@ -2,7 +2,7 @@ AutoConnect also has features that are not directly related to WiFi connection a
 
 - [Built-in OTA update](#built-in-ota-update-feature)
 - [Choice of the filesystem for ESP8266](#choice-of-the-filesystem-for-esp8266)
-- [Debug print](#debug-print)
+- [Debug Print](#debug-print)
 - [File uploading via built-in OTA feature](#file-uploading-via-built-in-ota-feature)
 - [Refers the hosted ESP8266WebServer/WebServer](#refers-the-hosted-esp8266webserverwebserver)
 - [Reset the ESP module after disconnecting from WLAN](#reset-the-esp-module-after-disconnecting-from-wlan)
@@ -32,11 +32,11 @@ However, SPIFFS is still valid. AutoConnect can correctly compile and execute sk
 
 See also the [FAQ](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) to help you enable AC_USE_SPIFFS correctly.
 
-## Debug print
+## Debug Print
 
-You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14) macro to output the monitor messages.[^5]
+You can output AutoConnect monitor messages to the **Serial**. A monitor message activation switch is in an include header file [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) of library source. Define [**AC_DEBUG**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L14) macro to output the monitor messages.[^1]
 
-[^5]:The source code placement of common macros for AutoConnect since v0.9.7 has changed.
+[^1]:The source code placement of common macros for AutoConnect since v0.9.7 has changed.
 
 ```cpp
 #define AC_DEBUG
@@ -164,16 +164,19 @@ void loop() {
 
 ## Ticker for WiFi status
 
-Flicker signal can be output from the ESP8266/ESP32 module according to WiFi connection status. If you connect the LED to the signal output pin, you can know the WiFi connection status during behavior inside AutoConnect::begin through the LED blink.
+Flicker signal can be output from the ESP8266/ESP32 module according to WiFi connection status. By wiring the LED to the signal output pin with the appropriate limiting resistor, you can know the WiFi connection status through the LED blink during the inside behavior of AutoConnect::begin and loop of AutoConnect::handleClient.
 
-[*AutoConnectConfig::ticker*](apiconfig.md#ticker) option specifies flicker signal output. The following sketch is an example of flashing the active-high LED connected to pin #16 according to WiFi connection during the AutoConnect::begin.
+[*AutoConnectConfig::ticker*](apiconfig.md#ticker) option specifies flicker signal output. The following sketch is an example of blinking the active-low LED connected to `GPIO16` depending on the WiFi connection status.[^2]
+
+[^2]: The ESP module pin mapping is different for each breakout. Definitions for assigning pin numbers to pin names usually exist in the variant definition program of Arduino core packages. (e.g. [esp8266/arduino core](https://github.com/esp8266/Arduino/tree/master/variants), [arduino-esp32 core](https://github.com/espressif/arduino-esp32/tree/master/variants))  
+You may find the definition as `pins_arduino.h`.
 
 ```cpp
 AutoConnect        portal;
 AutoConnectConfig  Config;
 Config.ticker = true;
 config.tickerPort = 16;
-Config.tickerOn = HIGH;
+Config.tickerOn = LOW;
 portal.config(Config);
 portal.begin();
 ```
@@ -203,9 +206,9 @@ The flicker cycle length is defined by some macros in [`AutoConnectDefs.h`](http
 !!! note "Ticker during OTA"
     The LED blinking will always be a short blinking during the update via OTA, regardless of the definition of the flicker cycle.
 
-[*AutoConnectConfig::tickerPort*](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^6]
+[*AutoConnectConfig::tickerPort*](apiconfig.md#tickerport) specifies a port that outputs the flicker signal. If you are using an LED-equipped ESP module board, you can assign a LED pin to the tick-port for the WiFi connection monitoring without the external LED. The default pin is arduino valiant's **LED\_BUILTIN**. You can refer to the Arduino IDE's variant information to find out which pin actually on the module assign to **LED\_BUILTIN**.[^3]
 
-[^6]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
+[^3]: It's defined in the `pins_arduino.h` file, located in the sub-folder named **variants** wherein Arduino IDE installed folder.
 
 [*AutoConnectConfig::tickerOn*](apiconfig.md#tickeron) specifies the active logic level of the flicker signal. This value indicates the active signal level when driving the ticker. For example, if the LED connected to tickPort lights by LOW, the tickerOn is **LOW**. The logic level of LED_BUILTIN for popular modules are as follows:
 
