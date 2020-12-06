@@ -353,6 +353,9 @@ To fully enable for the AutoConnect debug logging options, change the following 
 #define PB_DEBUG
 ```
 
+!!! info "How to enable the AC_DEBUG, PB_DEBUG"
+    See [*Debug Print*](adothers.md#debug-print) section, and [*one similarly*](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) too.
+
 [^2]: `PageBuilder.h` exists in the `libraries/PageBuilder/src` directory under your sketch folder.
 
 ### 4. Reports the issue to AutoConnect Github repository
