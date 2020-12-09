@@ -111,7 +111,7 @@ class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
   explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String(""), const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), action(String(action)) {
     _type = AC_Button;
   }
-  ~AutoConnectButtonBasis() {}
+  virtual ~AutoConnectButtonBasis() {}
   const String  toHTML(void) const override;
 
   String  action;
