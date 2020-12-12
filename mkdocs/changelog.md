@@ -1,12 +1,19 @@
-### [1.2.1] Dec. 5, 2020
+### [1.2.2] Dec. 13, 2020
+
+#### Fix
+
+- Fixed an issue where OTA updates would crash on the ESP32 platform. (issue #284)  
+  With this fix, `AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP` must be enabled for regular expressions to be enabled in `AUTOCONNECT_UPLOAD_ASFIRMWARE`.
+
 ---
+### [1.2.1] Dec. 5, 2020
 
 #### Fix
 
 - Fixed that not declared error with `AUTOCONNECT_NOUSE_JSON`. (issue #282)
 
-### [1.2.0] Dec. 3, 2020
 ---
+### [1.2.0] Dec. 3, 2020
 
 #### New features
 
@@ -39,22 +46,22 @@
 - Fixed not being able to specify channel ID with a mqttRSSI.ino example. (issue #262)
 - Fixed posterior being disabled in AutoConnectElement.
 
-### [1.1.7] Apr. 19, 2020
 ---
+### [1.1.7] Apr. 19, 2020
 
 #### Fixes
 
 - Fixed Apply button not work.
 
-### [1.1.6] Apr. 17, 2020
 ---
+### [1.1.6] Apr. 17, 2020
 
 #### Fixes
 
 - Fixed OTA page translation not work.
 
+---
 ### [1.1.5] Apr. 15, 2020
-----
 
 #### New features
 
@@ -66,8 +73,8 @@
 - Enhanced allows the AutoConnect::begin to connect to the access point in order of signal strength. This option can specify the order of [connection attempting according to the WiFi signal strength](adconnection.md#connects-depending-on-the-wifi-signal-strength) indicated with RSSI.
 - Changed the [bootUri behavior](advancedusage.md#assign-user-sketchs-home-path) to be an automatic pop-up at the captive portal.
 
-### [1.1.4] Feb. 14, 2020
 ---
+### [1.1.4] Feb. 14, 2020
 
 #### New features
 
@@ -77,8 +84,8 @@
 
 - Fixed the compiler warning with experimental WiFi mode of ESP8266.
 
-### [1.1.3] Jan. 1, 2020
 ---
+### [1.1.3] Jan. 1, 2020
 
 #### Enhancements
 
@@ -90,24 +97,24 @@
 - Fixed relocate Config New menu URI inability.
 - Removed compiler warning of unused.
 
-### [1.1.2] Oct. 22, 2019
 ---
+### [1.1.2] Oct. 22, 2019
 
 #### Fixes
 
 - Fixed a crash when no SSID found.
 - Fixed memory leak on destruction.
 
-### [1.1.1] Oct. 17, 2019
 ---
+### [1.1.1] Oct. 17, 2019
 
 #### Fixes
 
 - Fixed crash with unique_ptr deleting reference content.
 - Fixed disconnection request initialization missing.
 
-### [1.1.0] Oct. 15, 2019
 ---
+### [1.1.0] Oct. 15, 2019
 
 #### Enhancements
 
@@ -117,15 +124,15 @@
 
 - Fixed compilation error that no member named 'printTo' with ArduinoJson version 5.
 
-### [1.0.3] Sept. 30, 2019
 ---
+### [1.0.3] Sept. 30, 2019
 
 #### Fixes
 
 - Fixed a return of AutoConnectCredential::entries().
 
-### [1.0.2] Sept. 19, 2019
 ---
+### [1.0.2] Sept. 19, 2019
 
 #### Fixes
 
@@ -134,15 +141,15 @@
 - Fixed compilation error that getBytesLength missing with ESP32.
 - Added #include directive restriction for EEPROM and ESP8266httpUpdate to FAQ.
 
-### [1.0.1] Sept. 13, 2019
 ---
+### [1.0.1] Sept. 13, 2019
 
 #### Enhancements
 
 - Added an example sketch for ESP32 boards that migrates credentials stored in EEPROM partition to the Preferences.
 
-### [1.0.0] Sept. 7, 2019
 ---
+### [1.0.0] Sept. 7, 2019
 
 #### New features
 
@@ -155,15 +162,15 @@
 - Added the [`global`](achandling.md#transfer-of-input-values-across-pages) attribute with all AutoConnectElements.
 - Changed the credential storage area to Preferences with ESP32 core 1.0.3 and later. **In ESP32, the credentials stored past in EEPROM will lose**.
 
-### [0.9.12] Aug. 18, 2019
 ---
+### [0.9.12] Aug. 18, 2019
 
 #### Fixes
 
 - Fixed missing captive portal notifications on the newer mobile OS client. As a result of this fix, the SoftAP default IP address and gateway have been changed to `172.217.28.1`.
 
-### [0.9.11] July 13, 2019
 ---
+### [0.9.11] July 13, 2019
 
 #### New features
 
@@ -180,15 +187,15 @@
 
 - Fixed bug in AutoConnectCredential when offset is >256.
 
-### [0.9.10] June 12, 2019
 ---
+### [0.9.10] June 12, 2019
 
 #### Fixes
 
 - Fixed the unable to get AutoConnectElemets values ​​in the sketch with ESP8266 arduino core 2.5.2.
 
-### [0.9.9] May 25, 2019
 ---
+### [0.9.9] May 25, 2019
 
 #### Enhancements
 
@@ -204,8 +211,8 @@
 - Fixed that the value remains even after clearing the option with AutoConnectSelect.
 - Fixed that an alignment violation exception occurred when loading AutoConnectAux described by JSON with PROGMEM attribute.
 
-### [0.9.8] May 3, 2019
 ---
+### [0.9.8] May 3, 2019
 
 #### New features
 
@@ -230,8 +237,8 @@
 - Fixed losing elements in saveElement with ArduinoJson version 6.
 - Fixed compile error with older than ESP8266 core 2.5.0.
 
-### [0.9.7] Jan. 25, 2019
 ---
+### [0.9.7] Jan. 25, 2019
 
 #### New features
 
@@ -247,12 +254,12 @@
 - Added [AutoConnectConfig::hostName](apiconfig.md#hostname). It activates `WiFi.hostname()`/`WiFi.setHostName()`.
 - Added the captive portal time-out. It can be controlled by [AutoConnectConfig::portalTimeout](apiconfig.md#portaltimeout) and [AutoConnectConfig::retainPortal](apiconfig.md#retainportal).
 
+---
 #### Fixes
 
 - Fixed crash in some environments. Thank you @ageurtse
 
 ### [0.9.6] Sept.27, 2018.
----
 
 #### Enhancements
 
@@ -262,8 +269,8 @@
 
 - Fixed disconnection SoftAP completely at the first connection phase of the [AutoConnect::begin](api.md#begin).
 
-### [0.9.5] Aug.27, 2018.
 ---
+### [0.9.5] Aug.27, 2018.
 
 #### Enhancements
 
@@ -273,8 +280,8 @@
 
 - Fixed that crash may occur if the number of stored credentials in the EEPROM is smaller than the number of found WiFi networks.
 
-### [0.9.4] May 5, 2018.
 ---
+### [0.9.4] May 5, 2018.
 
 #### New features
 
@@ -284,21 +291,21 @@
 
 - Automatically focus Passphrase after selecting SSID with Configure New AP.
 
-### [0.9.3] March 23, 2018.
 ---
+### [0.9.3] March 23, 2018.
 
 #### Enhancements
 
 - Supports a static IP address assignment.
 
-### [0.9.2] March 19, 2018.
 ---
+### [0.9.2] March 19, 2018.
 
 #### Enhancements
 
 - Improvement of string literal declaration with the examples, no library change.
 
-### [0.9.1] March 13, 2018.
 ---
+### [0.9.1] March 13, 2018.
 
 - A release of the stable.

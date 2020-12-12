@@ -52,17 +52,17 @@ AutoConnect does not automatically start the Serial even if AC_DEBUG is activate
 
 The [built-in OTA update feature](otabrowser.md) can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the [**Update**](menu.md#update) of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This ability is useful for transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.
 
-The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, files with names with a **.bin** extension are subject to firmware updates. A file that has the other patterns with extension will be saved to the filesystem in the flash. The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
+The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, a filename with ends a **`.bin`** extension is subject to firmware updates. A file that has the other extension will be saved as a regular to the filesystem in the flash. The file extension that should be treated as the firmware is defined as the [`AUTOCONNECT_UPLOAD_ASFIRMWARE`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L280) macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file of the library source code. When dealing with another extension for the updating file as firmware change this macro definition.
 
 ```cpp
-#define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
+#define AUTOCONNECT_UPLOAD_ASFIRMWARE ".bin"
 ```
 
 !!! note "Specify with the PlatformIO"
     `AUTOCONNECT_UPLOAD_ASFIRMWARE` pattern will be embedded into the binary sketch is determined at compile time. The [**PlatformIO**](https://platformio.org/platformio-ide) build system allows you to change the pattern expression for each project without modifying the library source code.
     
     ```ini
-    build_flags=-DAUTOCONNECT_UPLOAD_ASFIRMWARE='"^.*\\.[bB][iI][nN]$"'
+    build_flags=-DAUTOCONNECT_UPLOAD_ASFIRMWARE='".bin"'
     ```
 
 ## Refers the hosted ESP8266WebServer/WebServer

@@ -102,6 +102,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.2.2] Dec. 13, 2020
+
+- Fixed an issue where OTA updates would crash on the ESP32 platform. (issue #284)
+
 ### [1.2.1] Dec. 5, 2020
 
 - Fixed that not declared error with `AUTOCONNECT_NOUSE_JSON`. (issue #282)

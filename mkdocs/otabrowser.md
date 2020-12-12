@@ -187,24 +187,26 @@ void loop() {
 
 The [built-in OTA update feature](otabrowser.md) can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the [**Update**](menu.md#update) of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This utilization is useful for the operation of transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.
 
-The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, files with names with a **.bin** extension are subject to firmware updates. A file that has the other patterns with extension will be saved to SPIFFS in the flash.
+The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, a filename with ends a **`.bin`** extension is subject to firmware updates. A file that has another extensions will be saved as a regular to LittleFS (or SPIFFS) in the flash.
 
-The filename pattern that should be treated as the firmware is defined as the **`AUTOCONNECT_UPLOAD_ASFIRMWARE`** macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L274) head file of the library source code and can be specified with the **regular expression**.
+The filename extension that should be treated as the firmware is defined as the [`AUTOCONNECT_UPLOAD_ASFIRMWARE`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L280) macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file of the library source code. When dealing with another extensions for the updating file as firmware change this macro definition.
 
 ```cpp
-#define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
+#define AUTOCONNECT_UPLOAD_ASFIRMWARE ".bin"
 ```
 
-!!! note "Escape for the special characters"
-    If the filename pattern contains special characters for the regular expressions, it must be escaped appropriately. Also, the `AUTOCONNECT_UPLOAD_ASFIRMWARE` definition is treated as a replacement string for the **#define** directive for C++ preprocessor, so the backslash must be escaped too.
-
 !!! info "Specify with the PlatformIO"
-    `AUTOCONNECT_UPLOAD_ASFIRMWARE` pattern will be embedded into the binary sketch is determined at compile time. The [**PlatformIO**](https://platformio.org/platformio-ide) build system allows you to change the pattern expression for each project without modifying the library source code.
-    
+    `AUTOCONNECT_UPLOAD_ASFIRMWARE` pattern will be embedded into the binary sketch is determined at compile time. The [**PlatformIO**](https://platformio.org/platformio-ide) build system allows you to change the pattern of the file extension for each project without modifying the library source code.
+
     ```ini
-    build_flags=-DAUTOCONNECT_UPLOAD_ASFIRMWARE='"^.*\\.[bB][iI][nN]$"'
+    build_flags=-DAUTOCONNECT_UPLOAD_ASFIRMWARE='".bin"'
     ```
 
+!!! note "Use a regular expression to specify the file extension"
+    By default, you can specify only one file extension to be treated as firmware in OTA updates. However, you can specify the file extension as a regular expression, but it consumes a lot of memory.
+
+    If the file extension pattern contains a regular expression, you need to enable the flag of [`AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L277) in `AutoConnectDefs.h`. Also, the `AUTOCONNECT_UPLOAD_ASFIRMWARE` definition as a regular expression is treated as a replacement string for the **#define** directive for C++ preprocessor, so the backslash must be escaped.
+    
 <script>
   window.onload = function() {
     Gifffer();
