@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2020-05-29
+ * @version  1.2.2
+ * @date 2020-12-11
  * @copyright  MIT license.
  */
 
@@ -268,10 +268,17 @@
 #define AUTOCONNECT_AUTH_REALM        "AUTOCONNECT"
 #endif // !AUTOCONNECT_AUTH_REALM
 
-// File name condition that AutoConnectOTA considers to be firmware
-// Restricts with a regular expression
+// Flename pattern that AutoConnectOTA considers to be firmware.
+// The extension used as the criterion for uploading destination is
+// fixed.
+// AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP allows you to use regular
+// expressions with the extension to determine the uploading destination.
 #ifndef AUTOCONNECT_UPLOAD_ASFIRMWARE
-#define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.*\\.[bB][iI][nN]$"
+#ifdef  AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP
+#define AUTOCONNECT_UPLOAD_ASFIRMWARE "^.+\\.bin$"
+#else
+#define AUTOCONNECT_UPLOAD_ASFIRMWARE ".bin"
+#endif
 #endif
 
 // Explicitly avoiding unused warning with token handler of PageBuilder

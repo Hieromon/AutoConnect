@@ -2,23 +2,29 @@
  * AutoConnectOTA class implementation.
  * @file   AutoConnectOTA.cpp
  * @author hieromon@gmail.com
- * @version    1.1.5
- * @date   2020-04-09
+ * @version    1.2.2
+ * @date   2020-12-11
  * @copyright  MIT license.
  */
 
 #include <functional>
 #include <stdio.h>
 #if defined(ARDUINO_ARCH_ESP8266)
-#include <regex.h>
 #include <WiFiUdp.h>
 #include <Updater.h>
+#ifdef AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP
+#include <regex.h>
+#endif
 #elif defined(ARDUINO_ARCH_ESP32)
-#include <regex>
-#include <Update.h>
 extern "C" {
-#include "esp_spiffs.h"
+#include <esp_spiffs.h>
 }
+#include <Update.h>
+#ifdef AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP
+#include <regex>
+#include <esp_pthread.h>
+#include <thread>
+#endif
 #endif
 #include <StreamString.h>
 #include "AutoConnectOTA.h"
@@ -138,26 +144,58 @@ void AutoConnectOTA::_buildAux(AutoConnectAux* aux, const AutoConnectOTA::ACPage
  */
 bool AutoConnectOTA::_open(const char* filename, const char* mode) {
   AC_UNUSED(mode);
-  _binName = String(strchr(filename, '/') + sizeof(char));
+  bool  bc;
+
+  _binName = String(filename + sizeof('/'));
+#ifdef ARDUINO_ARCH_ESP8266
+  WiFiUDP::stopAll();
+#endif
+
+// Uploading filename extension used as the criterion for uploading
+// destination is fixed as the default that is assigned by
+// AUTOCONNECT_UPLOAD_ASFIRMWARE.
+// AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP allows you to use regular
+// expressions with the extension to determine the uploading destination.
+#ifndef AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP
+  String  asBin(F(AUTOCONNECT_UPLOAD_ASFIRMWARE));
+  _binName.toLowerCase();
+  asBin.toLowerCase();
+  _dest = _binName.endsWith(asBin) == true ? OTA_DEST_FIRM : OTA_DEST_FILE;
+#else
+// It is recommended to avoid introducing regular expressions in the
+// judgment to make the file a firmware upload as much as possible.
 #if defined(ARDUINO_ARCH_ESP8266)
-  regex_t     preg;
-  if (!regcomp(&preg, asBin.c_str(), REG_EXTENDED)) {
+  regex_t preg;
+  if (!regcomp(&preg, AUTOCONNECT_UPLOAD_ASFIRMWARE, REG_ICASE | REG_EXTENDED | REG_NOSUB)) {
     regmatch_t  p_match[1];
     _dest = !regexec(&preg, _binName.c_str(), 1, p_match, 0) ? OTA_DEST_FIRM : OTA_DEST_FILE;
     regfree(&preg);
   }
   else {
-    _setError((String("regex failed:") + asBin).c_str());
+    _setError("regex failed:" AUTOCONNECT_UPLOAD_ASFIRMWARE);
     return false;
   }
-  
-  WiFiUDP::stopAll();
 #elif defined(ARDUINO_ARCH_ESP32)
-  const std::regex  re(std::string(asBin.c_str()));
-  _dest = std::regex_match(_binName.c_str(), re) ? OTA_DEST_FIRM : OTA_DEST_FILE;
+// Especially on the ESP32 platform, std::regex fattens the elf, also
+// requires many stack area. It easily eats up the FreeRTOS stack
+// (8KB by default) allocated to an Arduino loop thread.
+// To avoid this, AutoConnectOTA spawns a thread exclusively for regular
+// expression evaluation just. But it comes with a heavy price and no meaning.
+  esp_pthread_cfg_t t_cfg;
+  if (esp_pthread_get_cfg(&t_cfg) != ESP_OK) {
+    // t_cfg = esp_pthread_get_default_config();
+  }
+  t_cfg.stack_size = 1024 * 10;
+  esp_pthread_set_cfg(&t_cfg);
+  std::thread t_regex([&]() {
+    const std::regex  re(std::string(AUTOCONNECT_UPLOAD_ASFIRMWARE), std::regex_constants::icase | std::regex_constants::extended | std::regex_constants::nosubs);
+    _dest = std::regex_match(_binName.c_str(), re) ? OTA_DEST_FIRM : OTA_DEST_FILE;
+  });
+  t_regex.join();
+#endif
 #endif
 
-  bool  bc;
+  AC_DBG("OTA:%s %s\n", _dest == OTA_DEST_FIRM ? "app" : "fs", _binName.c_str());
   if (_dest == OTA_DEST_FIRM) {
     uint32_t  maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
     // It only supports FLASH as a sketch area for updating.
@@ -253,8 +291,10 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
         Update.end(false);
       }
     }
-    else
+    else {
+      _setError("Aborted");
       AC_DBG_DUMB("aborted");
+    }
   }
   AC_DBG_DUMB(". %s\n", _err.c_str());
   if (_tickerPort != -1)

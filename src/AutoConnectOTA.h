@@ -9,8 +9,8 @@
  * binary file.
  * @file AutoConnectOTA.h
  * @author hieromon@gmail.com
- * @version  1.1.5
- * @date 2020-04-09
+ * @version  1.2.2
+ * @date 2020-12-11
  * @copyright  MIT license.
  */
 
@@ -50,9 +50,9 @@ public:
     OTA_DEST_FIRM  /**< To update the firmware */
   } AC_OTADest_t;
 
-  AutoConnectOTA() : asBin(AUTOCONNECT_UPLOAD_ASFIRMWARE), _dest(OTA_DEST_FIRM), _status(OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {}
+  AutoConnectOTA() : _dest(OTA_DEST_FIRM), _status(OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {};
   ~AutoConnectOTA();
-  void  attach(AutoConnect& portal);
+  void  attach(AutoConnect& portal);                        /**< Attach itself to AutoConnect */
   void  authentication(const AC_AUTH_t auth);               /**< Set certain page authentication */
   String  error(void) const { return _err; }                /**< Returns current error string */
   void  menu(const bool post) { _auxUpdate->menu(post); }   /**< Enabel or disable arranging a created AutoConnectOTA page in the menu. */
@@ -60,8 +60,6 @@ public:
   AC_OTAStatus_t  status(void) const { return _status; }    /**< Return a current error status of the Update class */ 
   AC_OTADest_t  dest(void) const { return _dest; }          /**< Return a current uploading destination */
   void  setTicker(int8_t pin, uint8_t on) { _tickerPort = pin, _tickerOn = on; }  /**< Set ticker LED port */
-
-  String  asBin;           /**< Filename pattern when treating OTA updater as firmware. */
 
 protected:
   // Attribute definition of the element to be placed on the update page.
