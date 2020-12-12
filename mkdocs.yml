@@ -68,7 +68,7 @@ theme:
   language: en
   logo: images/arduino-logo.svg
   icon:
-    repo: fontawesome/brands/github
+    logo: logo
   palette:
     primary: indigo
     accent: indigo
@@ -85,7 +85,7 @@ extra_javascript:
   - js/gifffer.min.js
 extra:
   social:
-    - icon: fontawesome/brands/github-alt
+    - icon: fontawesome/brands/github
       link: https://github.com/Hieromon
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/hieromon
