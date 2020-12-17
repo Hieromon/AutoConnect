@@ -2,7 +2,7 @@
 ESP8266/ESP32 publish the RSSI as the WiFi signal strength to ThingSpeak channel.
 This example is for explaining how to use the AutoConnect library.
 
-In order to execute this example, the ThingSpeak account is needed. Sing up
+In order to execute this example, the ThingSpeak account is needed. Sign up
 for New User Account and create a New Channel via My Channels.
 For details, please refer to the project page.
 https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application
