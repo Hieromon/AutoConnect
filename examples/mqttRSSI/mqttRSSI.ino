@@ -28,7 +28,7 @@ https://opensource.org/licenses/MIT
 
 /*
   AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
-  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
+  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showing
   the valid file system. After including AutoConnect.h, the Sketch can determine
   whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
 */
@@ -174,7 +174,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
 ]
 )raw";
 
-// Adjusting WebServer class with between ESP8266 and ESP32.
+// Adjusting WebServer class between ESP8266 and ESP32.
 #if defined(ARDUINO_ARCH_ESP8266)
 typedef ESP8266WebServer  WiFiWebServer;
 #elif defined(ARDUINO_ARCH_ESP32)
@@ -262,7 +262,7 @@ void getParams(AutoConnectAux& aux) {
   hostName.trim();
 }
 
-// Load parameters saved with  saveParams from SPIFFS into the
+// Load parameters saved with saveParams from SPIFFS into the
 // elements defined in /mqtt_setting JSON.
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
@@ -285,7 +285,7 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
 // parameter file. The saveParams as below is a callback function of
 // /mqtt_save. When invoking this handler, the input value of each
 // element is already stored in '/mqtt_setting'.
-// In Sketch, you can output to stream its elements specified by name.
+// In the Sketch, you can output to stream its elements specified by name.
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The 'where()' function returns the AutoConnectAux that caused
   // the transition to this page.
