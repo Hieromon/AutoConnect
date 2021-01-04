@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.2.2
- * @date 2020-12-11
+ * @version  1.2.3
+ * @date 2021-01-02
  * @copyright  MIT license.
  */
 
@@ -157,15 +157,13 @@
 #define AUTOCONNECT_DNSPORT     53
 #endif // !AUTOCONNECT_DNSPORT
 
-// http response transfer method
+// Each page of AutoConnect is http transferred by the content transfer
+// mode of Page Builder.
+// AUTOCONNECT_HTTP_TRANSFER defines default the Transfer-encoding with
+// PageBuilder::TransferEncoding_t.
 #ifndef AUTOCONNECT_HTTP_TRANSFER
-#define AUTOCONNECT_HTTP_TRANSFER PB_ByteStream
+#define AUTOCONNECT_HTTP_TRANSFER     ByteStream
 #endif // !AUTOCONNECT_HTTP_TRANSFER
-
-// Reserved buffer size to build content
-#ifndef AUTOCONNECT_CONTENTBUFFER_SIZE
-#define AUTOCONNECT_CONTENTBUFFER_SIZE  (13 * 1024)
-#endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
 
 // Number of unit lines in the page that lists available SSIDs
 #ifndef AUTOCONNECT_SSIDPAGEUNIT_LINES

@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2029-04-17
+ * @version  1.2.3
+ * @date 2021-01-02
  * @copyright  MIT license.
  */
 
@@ -48,8 +48,7 @@ typedef enum {
  */
 class AutoConnectAux : public PageBuilder {
  public:
-  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT()) :
-    chunk(PB_Chunk), _title(title), _menu(menu), _uriStr(String(uri)), _addonElm(addons), _handler(nullptr), _order(AC_EXIT_AHEAD), _uploadHandler(nullptr) { _uri = _uriStr.c_str(); }
+  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT());
   ~AutoConnectAux();
   AutoConnectElement& operator[](const String& name) { return *getElement(name); }
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
@@ -90,8 +89,6 @@ class AutoConnectAux : public PageBuilder {
   bool  loadElement(Stream& in, std::vector<String> const& names);      /**< Load any specified elements */
   size_t  saveElement(Stream& out, std::vector<String> const& names = {});  /**< Write elements of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
-
-  TransferEncoding_t    chunk;                                          /**< Chunked transfer specified */
 
  protected:
   void  upload(const String& requestUri, const HTTPUpload& upload);     /**< Uploader wrapper */

@@ -102,6 +102,12 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.2.3] Jan. 3, 2021
+
+Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.5.0 or later is required. Please update PageBuilder latest.
+
+- Improved memory management
+
 ### [1.2.2] Dec. 13, 2020
 
 - Fixed an issue where OTA updates would crash on the ESP32 platform. (issue #284)

@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2020-10-30
+ * @version  1.2.3
+ * @date 2021-01-02
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -70,6 +70,26 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "</body>"
   "</html>"
 };
+
+/**
+ * AutoConnectAux default constructor.
+ * @param uri     URI of the page.
+ * @param title   Title that applies to both the page and the menu item.
+ * @param menu    Appearance in menu.
+ * @param addons  Vector of AutoConnect Element that the page contains.
+ */
+AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const bool menu, const AutoConnectElementVT addons)
+: _title(title)
+, _menu(menu)
+, _uriStr(uri)
+, _addonElm(addons)
+, _handler(nullptr)
+, _order(AC_EXIT_AHEAD)
+, _uploadHandler(nullptr)
+{
+  _uri = _uriStr.c_str();
+  transferEncoding(PageBuilder::TransferEncoding_t::AUTOCONNECT_HTTP_TRANSFER);
+}
 
 /**
  * Destructs container of AutoConnectElement and release a unique
@@ -484,7 +504,7 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
   PageElement*  elm = nullptr;
 
   if (_ac) {
-    if (uri != String(_uri)) {
+    if (uri != _uri) {
       if (_next) {
         elm = _next->_setupPage(uri);
       }
@@ -496,23 +516,21 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
 
       elm = new PageElement();
       // Construct the auxiliary page
-      elm->setMold(_PAGE_AUX);
-      elm->addToken(String(FPSTR("HEAD")), std::bind(&AutoConnect::_token_HEAD, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("AUX_TITLE")), std::bind(&AutoConnectAux::_injectTitle, this, std::placeholders::_1));
-      elm->addToken(String(FPSTR("CSS_BASE")), std::bind(&AutoConnect::_token_CSS_BASE, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("CSS_UL")), std::bind(&AutoConnect::_token_CSS_UL, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("CSS_INPUT_BUTTON")), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("CSS_INPUT_TEXT")), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("CSS_LUXBAR")), std::bind(&AutoConnect::_token_CSS_LUXBAR, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("AUX_CSS")), std::bind(&AutoConnectAux::_insertStyle, this, std::placeholders::_1));
-      elm->addToken(String(FPSTR("MENU_PRE")), std::bind(&AutoConnect::_token_MENU_PRE, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("MENU_AUX")), std::bind(&AutoConnect::_token_MENU_AUX, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("MENU_POST")), std::bind(&AutoConnect::_token_MENU_POST, mother, std::placeholders::_1));
-      elm->addToken(String(FPSTR("AUX_URI")), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
-      elm->addToken(String(FPSTR("ENC_TYPE")), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
-      elm->addToken(String(FPSTR("AUX_ELEMENT")), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
-      // Restore transfer mode by each page
-      mother->_responsePage->chunked(chunk);
+      elm->setMold(FPSTR(_PAGE_AUX));
+      elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("AUX_TITLE"), std::bind(&AutoConnectAux::_injectTitle, this, std::placeholders::_1));
+      elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("CSS_UL"), std::bind(&AutoConnect::_token_CSS_UL, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("AUX_CSS"), std::bind(&AutoConnectAux::_insertStyle, this, std::placeholders::_1));
+      elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, mother, std::placeholders::_1));
+      elm->addToken(FPSTR("AUX_URI"), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
+      elm->addToken(FPSTR("ENC_TYPE"), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
+      elm->addToken(FPSTR("AUX_ELEMENT"), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
 
       // Register authentication
       // Determine the necessity of authentication from the conditions of

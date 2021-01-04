@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.2.0
- *  @date   2020-11-15
+ *  @version    1.2.3
+ *  @date   2021-01-02
  *  @copyright  MIT license.
  */
 
@@ -1027,6 +1027,7 @@ void AutoConnect::_startWebServer(void) {
   // here, Prepare PageBuilders for captive portal
   if (!_responsePage) {
     _responsePage.reset( new PageBuilder() );
+    _responsePage->transferEncoding(PageBuilder::TransferEncoding_t::AUTOCONNECT_HTTP_TRANSFER);
     _responsePage->exitCanHandle(std::bind(&AutoConnect::_classifyHandle, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->onUpload(std::bind(&AutoConnect::_handleUpload, this, std::placeholders::_1, std::placeholders::_2));
     _responsePage->insert(*_webServer);
@@ -1139,8 +1140,9 @@ void AutoConnect::_handleNotFound(void) {
       _notFoundHandler();
     }
     else {
-      PageElement page404(_PAGE_404, { { String(F("HEAD")), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1) } });
-      String html = page404.build();
+      PageElement page404(FPSTR(_PAGE_404), { { F("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1) } });
+      String html;
+      page404.build(html);
       _webServer->sendHeader(String(F("Cache-Control")), String(F("no-cache, no-store, must-revalidate")), true);
       _webServer->sendHeader(String(F("Pragma")), String(F("no-cache")));
       _webServer->sendHeader(String(F("Expires")), String("-1"));
@@ -1357,7 +1359,7 @@ void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& uplo
  *  Purge allocated pages. 
  */
 void AutoConnect::_purgePages(void) {
-  _responsePage->clearElement();
+  _responsePage->clearElements();
   if (_currentPageElement) {
     _currentPageElement.reset();
     _uri = String("");

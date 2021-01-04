@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.2.0
- *	@date	2020-11-15
+ *	@version	1.2.3
+ *	@date	2021-01-02
  *	@copyright	MIT license.
  */
 
@@ -400,12 +400,6 @@ class AutoConnect {
   static const char _PAGE_DISCONN[] PROGMEM;
   static const char _PAGE_FAIL[] PROGMEM;
   static const char _PAGE_404[] PROGMEM;
-
-  static const struct PageTranserModeST {
-    const char*              uri;
-    const TransferEncoding_t transMode;
-    const size_t             rSize;
-  } _pageBuildMode[];
 
   /** Token handlers for PageBuilder */
   String _token_CSS_BASE(PageArgument& args);

@@ -1,3 +1,13 @@
+### [1.2.3] Jan. 3, 2021
+
+#### Enhancements
+
+- Improved memory management.
+
+!!! note "PageBuilder v1.5.0 is required"
+    Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.5.0 or later is required. Please update PageBuilder latest.
+
+---
 ### [1.2.2] Dec. 13, 2020
 
 #### Fix
