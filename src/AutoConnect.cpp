@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.2.0
- *  @date   2020-11-15
+ *  @version    1.2.3
+ *  @date   2021-01-07
  *  @copyright  MIT license.
  */
 
@@ -74,6 +74,9 @@ bool AutoConnect::begin(void) {
  */
 bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long timeout) {
   bool  cs;
+
+  AC_ESP_LOG("wifi", ESP_LOG_VERBOSE);
+  AC_ESP_LOG("dhcpd", ESP_LOG_VERBOSE);
 
   // Overwrite for the current timeout value.
   if (timeout == 0)

@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.2.2
- * @date 2020-12-11
+ * @version  1.2.3
+ * @date 2021-01-07
  * @copyright  MIT license.
  */
 
@@ -24,6 +24,19 @@
 #define AC_DBG(...) do {(void)0;} while(0)
 #define AC_DBG_DUMB(...) do {(void)0;} while(0)
 #endif // !AC_DEBUG
+
+// Setting ESP-IDF logging verbosity for ESP32 platform
+// This setting has no effect on the ESP8266 platform
+// Uncomment the following AC_USE_ESPIDFLOG to activate ESP_LOGV output.
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AC_USE_ESPIDFLOG
+#undef AC_USE_ESPIDFLOG
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#ifndef AC_USE_ESPIDFLOG
+//#define AC_USE_ESPIDFLOG
+#endif // !AC_USE_ESPIDFLOG
+#endif
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
@@ -304,5 +317,13 @@ struct has_func_##func {                                    \
  public:                                                    \
   enum { value = sizeof(test<T>(0)) == sizeof(char) };      \
 }
+
+// Provides ESP-IDF logging interface
+// This setting has no effect on the ESP8266 platform
+#if defined(ARDUINO_ARCH_ESP32) && defined(AC_USE_ESPIDFLOG)
+#define AC_ESP_LOG(t, l) do {esp_log_level_set(t, l);} while(0)
+#else
+#define AC_ESP_LOG(...) do {(void)0;} while(0)
+#endif
 
 #endif // _AUTOCONNECTDEFS_H_
