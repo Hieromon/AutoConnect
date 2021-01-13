@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.2.3
- *	@date	2021-01-02
+ *	@date	2021-01-13
  *	@copyright	MIT license.
  */
 
@@ -447,6 +447,23 @@ class AutoConnect {
     return !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item).c_str());
 #else
     return !memcmp(config.bssid, WiFi.BSSID(item), sizeof(station_config_t::bssid));
+#endif
+  }
+
+  // After a reboot without WiFi.disconnect() a WiFi error Reason202
+  // - AUTH_FAIL occurs with some routers: the connection was not broken
+  // off correctly.
+  // The _reconnectDelay makes a duration of the delay to reconnect to
+  // avoid the unconnectedly. issue #292
+  // This functino will be eventually pulled out since the issue will
+  // be gone with the WiFi lib of the arduino-esp32 core.
+  inline void _reconnectDelay(const uint32_t ms) {
+#if defined(ARDUINO_ARCH_ESP32) && AUTOCONNECT_RECONNECT_DELAY > 0
+    AC_DBG_DUMB(", %" PRIu32 " delay duration", AUTOCONNECT_RECONNECT_DELAY);
+    WiFi.disconnect(true, false);
+    delay(ms);
+#else
+    AC_UNUSED(ms);
 #endif
   }
 

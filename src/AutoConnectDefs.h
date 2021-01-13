@@ -3,7 +3,7 @@
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
  * @version  1.2.3
- * @date 2021-01-02
+ * @date 2021-01-13
  * @copyright  MIT license.
  */
 
@@ -24,6 +24,19 @@
 #define AC_DBG(...) do {(void)0;} while(0)
 #define AC_DBG_DUMB(...) do {(void)0;} while(0)
 #endif // !AC_DEBUG
+
+// Setting ESP-IDF logging verbosity for ESP32 platform
+// This setting has no effect on the ESP8266 platform
+// Uncomment the following AC_USE_ESPIDFLOG to activate ESP_LOGV output.
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AC_USE_ESPIDFLOG
+#undef AC_USE_ESPIDFLOG
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#ifndef AC_USE_ESPIDFLOG
+//#define AC_USE_ESPIDFLOG
+#endif // !AC_USE_ESPIDFLOG
+#endif
 
 // Indicator to specify that AutoConnectAux handles elements with JSON.
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
@@ -122,7 +135,7 @@
 #define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
 
-// Number of seconds in uint time [s]
+// Number of seconds in a unit time [s]
 #ifndef AUTOCONNECT_UNITTIME
 #define AUTOCONNECT_UNITTIME    30
 #endif
@@ -131,6 +144,15 @@
 #ifndef AUTOCONNECT_TIMEOUT
 #define AUTOCONNECT_TIMEOUT     30000
 #endif // !AUTOCONNECT_TIMEOUT
+
+// Waiting time [ms] to go into autoReconnect
+// Defined with 0, suppress be delayed.
+#ifndef AUTOCONNECT_RECONNECT_DELAY
+// This definition will be eventually pulled out since the issue will
+// be gone with the WiFi lib of the arduino-esp32 core.
+// Related issue #292
+#define AUTOCONNECT_RECONNECT_DELAY   0
+#endif // !AUTOCONNECT_RECONNECT_DELAY
 
 // Captive portal timeout value [ms]
 #ifndef AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT
@@ -302,5 +324,13 @@ struct has_func_##func {                                    \
  public:                                                    \
   enum { value = sizeof(test<T>(0)) == sizeof(char) };      \
 }
+
+// Provides ESP-IDF logging interface
+// This setting has no effect on the ESP8266 platform
+#if defined(ARDUINO_ARCH_ESP32) && defined(AC_USE_ESPIDFLOG)
+#define AC_ESP_LOG(t, l) do {esp_log_level_set(t, l);} while(0)
+#else
+#define AC_ESP_LOG(...) do {(void)0;} while(0)
+#endif
 
 #endif // _AUTOCONNECTDEFS_H_

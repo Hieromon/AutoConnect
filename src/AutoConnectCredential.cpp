@@ -2,8 +2,8 @@
  *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	1.1.0
- *	@date	2019-10-07
+ *	@version	1.2.3
+ *	@date	2021-01-07
  *	@copyright	MIT license.
  */
 
@@ -375,6 +375,7 @@ AutoConnectCredential::AutoConnectCredential(uint16_t offset) {
 }
 
 void AutoConnectCredential::_allocateEntry(void) {
+  AC_ESP_LOG("nvs", ESP_LOG_VERBOSE);
   _pref.reset(new Preferences);
   _entries = _import();
 }
