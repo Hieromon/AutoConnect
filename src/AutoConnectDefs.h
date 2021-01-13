@@ -3,7 +3,7 @@
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
  * @version  1.2.3
- * @date 2021-01-07
+ * @date 2021-01-13
  * @copyright  MIT license.
  */
 
@@ -135,7 +135,7 @@
 #define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
 
-// Number of seconds in uint time [s]
+// Number of seconds in a unit time [s]
 #ifndef AUTOCONNECT_UNITTIME
 #define AUTOCONNECT_UNITTIME    30
 #endif
@@ -144,6 +144,15 @@
 #ifndef AUTOCONNECT_TIMEOUT
 #define AUTOCONNECT_TIMEOUT     30000
 #endif // !AUTOCONNECT_TIMEOUT
+
+// Waiting time [ms] to go into autoReconnect
+// Defined with 0, suppress be delayed.
+#ifndef AUTOCONNECT_RECONNECT_DELAY
+// This definition will be eventually pulled out since the issue will
+// be gone with the WiFi lib of the arduino-esp32 core.
+// Related issue #292
+#define AUTOCONNECT_RECONNECT_DELAY   0
+#endif // !AUTOCONNECT_RECONNECT_DELAY
 
 // Captive portal timeout value [ms]
 #ifndef AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT

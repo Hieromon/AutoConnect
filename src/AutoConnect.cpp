@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.2.3
- *  @date   2021-01-07
+ *  @date   2021-01-13
  *  @copyright  MIT license.
  */
 
@@ -76,7 +76,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   bool  cs;
 
   AC_ESP_LOG("wifi", ESP_LOG_VERBOSE);
-  AC_ESP_LOG("dhcpd", ESP_LOG_VERBOSE);
+  AC_ESP_LOG("dhcpc", ESP_LOG_VERBOSE);
 
   // Overwrite for the current timeout value.
   if (timeout == 0)
@@ -158,7 +158,12 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
       if (cs)
         cs = _waitForConnect(timeout) == WL_CONNECTED;
       else {
-        AC_DBG_DUMB(" failed\n");
+        AC_DBG_DUMB(" failed");
+        // Wait for the access point to free resources with inserting
+        // a delay. This duration will be eventually pulled out since
+        // the issue will be gone by the arduino-esp32. issue #292
+        _reconnectDelay(AUTOCONNECT_RECONNECT_DELAY);
+        AC_DBG_DUMB("\n");
       }
     }
 
