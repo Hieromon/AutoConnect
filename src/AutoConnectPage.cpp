@@ -164,7 +164,7 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
     "margin:12px;"
     "width:auto"
   "}"
-  "input#sb[type=\"submit\"]{"
+  "#sb[type=\"submit\"]{"
     "width:15em"
   "}"
   "input[type=\"submit\"],button[type=\"submit\"]{"
