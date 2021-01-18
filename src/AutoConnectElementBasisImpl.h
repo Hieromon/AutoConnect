@@ -38,6 +38,8 @@ const String AutoConnectElementBasis::posterior(const String& s) const {
     html = s + String(F("<br>"));
   else if (post == AC_Tag_P)
     html = String("<p>") + s + String(F("</p>"));
+  else if (post == AC_Tag_DIV)
+    html = String("<div>") + s + String(F("</div>"));
   else
     html = s;
   return html;

@@ -55,7 +55,8 @@ typedef enum {
 typedef enum {
   AC_Tag_None = 0,
   AC_Tag_BR = 1,
-  AC_Tag_P = 2
+  AC_Tag_P = 2,
+  AC_Tag_DIV = 3
 } ACPosterior_t;    /**< Tag to be generated following element */
 
 typedef enum {

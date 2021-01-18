@@ -66,6 +66,9 @@ void AutoConnectElementJson::_serialize(JsonObject& json) {
     case AC_Tag_P:
       posterior = PSTR(AUTOCONNECT_JSON_VALUE_PAR);
       break;
+    case AC_Tag_DIV:
+      posterior = PSTR(AUTOCONNECT_JSON_VALUE_DIV);
+      break;
     case AC_Tag_None:
     default:
       posterior = PSTR(AUTOCONNECT_JSON_VALUE_NONE);
@@ -93,6 +96,8 @@ void AutoConnectElementJson::_setMember(const JsonObject& json) {
       post = AC_Tag_BR;
     else if (posterior.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_PAR)))
       post = AC_Tag_P;
+    else if (posterior.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_DIV)))
+      post = AC_Tag_DIV;
     else
       AC_DBG("Warning '%s' loading, unknown posterior '%s'\n", name.c_str(), posterior.c_str());
   }

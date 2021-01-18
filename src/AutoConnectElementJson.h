@@ -50,6 +50,7 @@
 #define AUTOCONNECT_JSON_VALUE_BEHIND     "behind"
 #define AUTOCONNECT_JSON_VALUE_BR         "br"
 #define AUTOCONNECT_JSON_VALUE_DIGEST     "digest"
+#define AUTOCONNECT_JSON_VALUE_DIV        "div"
 #define AUTOCONNECT_JSON_VALUE_EXTERNAL   "extern"
 #define AUTOCONNECT_JSON_VALUE_FS         "fs"
 #define AUTOCONNECT_JSON_VALUE_HORIZONTAL "horizontal"
