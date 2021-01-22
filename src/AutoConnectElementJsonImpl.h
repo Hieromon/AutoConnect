@@ -270,7 +270,7 @@ void AutoConnectFileJson::serialize(JsonObject& json) {
  */
 size_t AutoConnectInputJson::getObjectSize(void) const {
   size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(3);
-  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + sizeof(AUTOCONNECT_JSON_KEY_APPLY) + sizeof(AUTOCONNECT_JSON_VALUE_PASSWORD) + 1;
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PATTERN) + pattern.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_PLACEHOLDER) + placeholder.length() + sizeof(AUTOCONNECT_JSON_KEY_APPLY) + sizeof(AUTOCONNECT_JSON_VALUE_PASSWORD) + sizeof(AUTOCONNECT_JSON_KEY_STYLE) + style.length() + 1;
   return size;
 }
 
@@ -290,6 +290,8 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
       pattern = json[F(AUTOCONNECT_JSON_KEY_PATTERN)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)))
       placeholder = json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)].as<String>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STYLE)))
+      style = json[F(AUTOCONNECT_JSON_KEY_STYLE)].as<String>();
     if (json.containsKey(F(AUTOCONNECT_JSON_KEY_APPLY))) {
       String  applyType = json[F(AUTOCONNECT_JSON_KEY_APPLY)].as<String>();
       if (applyType.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_TEXT)))
@@ -319,6 +321,7 @@ void AutoConnectInputJson::serialize(JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
   json[F(AUTOCONNECT_JSON_KEY_PATTERN)] = pattern;
   json[F(AUTOCONNECT_JSON_KEY_PLACEHOLDER)] = placeholder;
+  json[F(AUTOCONNECT_JSON_KEY_STYLE)] = style;
   PGM_P applyType;
   switch (apply) {
   case AC_Input_Password:

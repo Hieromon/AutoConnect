@@ -168,6 +168,8 @@ const String AutoConnectInputBasis::toHTML(void) const {
       html += String(F(" placeholder=\"")) + placeholder + String("\"");
     if (value.length())
       html += String(F(" value=\"")) + value + String("\"");
+    if (style.length())
+      html += String(F(" style=\"")) + style + String("\"");
     html += String(">");
     html = AutoConnectElementBasis::posterior(html);
   }
