@@ -248,15 +248,17 @@ const String AutoConnectRadioBasis::toHTML(void) const {
     for (const String value : _values) {
       n++;
       String  id = name + "_" + String(n);
-      html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
+      String  innerHtml = String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
       if (n == checked)
-        html += String(F(" checked"));
-      html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
+        innerHtml += String(F(" checked"));
+      innerHtml += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
       if (n <= tags.size())
-        html += tags[n - 1];
-      if (order == AC_Vertical)
-        html += String(F("<br>"));
-      html = AutoConnectElementBasis::posterior(html);
+        innerHtml += tags[n - 1];
+      if (order == AC_Vertical) {
+        html += innerHtml + String(F("<br>"));
+      }
+      else
+        html += AutoConnectElementBasis::posterior(innerHtml);
     }
   }
   return html;
