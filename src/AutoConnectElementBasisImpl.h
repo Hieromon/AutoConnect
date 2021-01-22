@@ -254,8 +254,8 @@ const String AutoConnectRadioBasis::toHTML(void) const {
         html += tags[n - 1];
       if (order == AC_Vertical)
         html += String(F("<br>"));
+      html = AutoConnectElementBasis::posterior(html);
     }
-    html = AutoConnectElementBasis::posterior(html);
   }
   return html;
 }
