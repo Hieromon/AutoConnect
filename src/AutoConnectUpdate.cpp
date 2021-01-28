@@ -2,8 +2,8 @@
  * AutoConnectUpdate class implementation.
  * @file   AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
- * @version    1.0.2
- * @date   2019-09-18
+ * @version    1.2.3
+ * @date   2021-01-23
  * @copyright  MIT license.
  */
 
@@ -293,7 +293,7 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
  * @param  page       Pre-defined ACPage_t
  * @param  elementNum Number of AutoConnectElements to configure.  
  */
-void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectUpdateAct::ACPage_t* page, const size_t elementNum) {
+void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage_t* page, const size_t elementNum) {
   for (size_t n = 0; n < elementNum; n++) {
     if (page->element[n].type == AC_Element) {
       AutoConnectElement* element = new AutoConnectElement;

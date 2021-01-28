@@ -3,7 +3,7 @@
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
  * @version  1.2.3
- * @date 2021-01-02
+ * @date 2021-01-27
  * @copyright  MIT license.
  */
 
@@ -75,25 +75,41 @@ class AutoConnectAux : public PageBuilder {
   }
 
 #ifdef AUTOCONNECT_USE_JSON
-  bool  load(PGM_P in);                                                 /**< Load whole elements to AutoConnectAux Page */
-  bool  load(const __FlashStringHelper* in);                            /**< Load whole elements to AutoConnectAux Page */
-  bool  load(const String& in);                                         /**< Load whole elements to AutoConnectAux Page */
-  bool  load(Stream& in);                                               /**< Load whole elements to AutoConnectAux Page */
-  bool  loadElement(PGM_P in, const String& name = String(""));         /**< Load specified element */
-  bool  loadElement(PGM_P in, std::vector<String> const& names);        /**< Load any specified elements */
-  bool  loadElement(const __FlashStringHelper* in, const String& name = String(""));  /**< Load specified element */
-  bool  loadElement(const __FlashStringHelper* in, std::vector<String> const& names); /**< Load any specified elements */
-  bool  loadElement(const String& in, const String& name = String("")); /**< Load specified element */
-  bool  loadElement(const String& in, std::vector<String> const& names);/**< Load any specified elements */
-  bool  loadElement(Stream& in, const String& name = String(""));       /**< Load specified element */
-  bool  loadElement(Stream& in, std::vector<String> const& names);      /**< Load any specified elements */
+  bool  load(PGM_P in, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);                       /**< Load whole elements to AutoConnectAux Page */
+  bool  load(const __FlashStringHelper* in, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);  /**< Load whole elements to AutoConnectAux Page */
+  bool  load(const String& in, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);               /**< Load whole elements to AutoConnectAux Page */
+  bool  load(Stream& in, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);                     /**< Load whole elements to AutoConnectAux Page */
+  bool  loadElement(PGM_P in, const String& name = String(""), const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);   /**< Load specified element */
+  bool  loadElement(PGM_P in, std::vector<String> const& names, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);  /**< Load any specified elements */
+  bool  loadElement(const __FlashStringHelper* in, const String& name = String(""), const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);  /**< Load specified element */
+  bool  loadElement(const __FlashStringHelper* in, std::vector<String> const& names, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE); /**< Load any specified elements */
+  bool  loadElement(const String& in, const String& name = String(""), const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE); /**< Load specified element */
+  bool  loadElement(const String& in, std::vector<String> const& names, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);/**< Load any specified elements */
+  bool  loadElement(Stream& in, const String& name = String(""), const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);       /**< Load specified element */
+  bool  loadElement(Stream& in, std::vector<String> const& names, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);      /**< Load any specified elements */
   size_t  saveElement(Stream& out, std::vector<String> const& names = {});  /**< Write elements of AutoConnectAux to the stream */
 #endif // !AUTOCONNECT_USE_JSON
+
+  // Attribute definition of the element to be placed on the update page.
+  typedef struct {
+    const ACElement_t type;
+    const char*  name;      /**< Name to assign to AutoConnectElement */
+    const char*  value;     /**< Value owned by an element */
+    const char*  peculiar;  /**< Specific ornamentation for the element */
+  } ACElementProp_t;
+
+  // Attributes to treat included update pages as AutoConnectAux.
+  typedef struct {
+    const char*  uri;       /**< URI for the page */
+    const char*  title;     /**< Menu title of update page */
+    const bool   menu;      /**< Whether to display in menu */
+    const ACElementProp_t* element;
+  } ACPage_t;
 
  protected:
   void  upload(const String& requestUri, const HTTPUpload& upload);     /**< Uploader wrapper */
   void  _concat(AutoConnectAux& aux);                                   /**< Make up chain of AutoConnectAux */
-  void  _join(AutoConnect& ac);                                         /**< Make a link to AutoConnect */
+  virtual void  _join(AutoConnect& ac);                                 /**< Make a link to AutoConnect */
   PageElement*  _setupPage(const String& uri);                          /**< AutoConnectAux page builder */
   const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
   const String  _insertStyle(PageArgument& args);                       /**< Insert CSS style */
@@ -106,7 +122,7 @@ class AutoConnectAux : public PageBuilder {
 
 #ifdef AUTOCONNECT_USE_JSON
   template<typename T>
-  bool  _parseJson(T in);
+  bool  _parseJson(T in, const size_t size);
   bool  _load(JsonObject& in);                                          /**< Load all elements from JSON object */
   bool  _loadElement(JsonVariant& in, const String& name);              /**< Load an element as specified name from JSON object */
   bool  _loadElement(JsonVariant& in, std::vector<String> const& names);  /**< Load any elements as specified name from JSON object */
@@ -122,8 +138,8 @@ class AutoConnectAux : public PageBuilder {
    */
   template<typename T, typename U,
   typename std::enable_if<std::is_same<U, const String&>::value || std::is_same<U, std::vector<String> const&>::value>::type* = nullptr>
-  bool _parseElement(T in, U name) {
-    ArduinoJsonBuffer jsonBuffer(AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE);
+  bool _parseElement(T in, U name, const size_t size) {
+    ArduinoJsonBuffer jsonBuffer(size);
     JsonVariant jb;
   #if ARDUINOJSON_VERSION_MAJOR<=5
     jb = jsonBuffer.parse(in);

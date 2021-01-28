@@ -9,8 +9,8 @@
  * binary file.
  * @file AutoConnectOTA.h
  * @author hieromon@gmail.com
- * @version  1.2.2
- * @date 2020-12-11
+ * @version  1.2.3
+ * @date 2021-01-23
  * @copyright  MIT license.
  */
 
@@ -62,26 +62,10 @@ public:
   void  setTicker(int8_t pin, uint8_t on) { _tickerPort = pin, _tickerOn = on; }  /**< Set ticker LED port */
 
 protected:
-  // Attribute definition of the element to be placed on the update page.
-  typedef struct {
-    const ACElement_t type;
-    const char*  name;      /**< Name to assign to AutoConnectElement */
-    const char*  value;     /**< Value owned by an element */
-    const char*  peculiar;  /**< Specific ornamentation for the element */
-  } ACElementProp_t;
-
-  // Attributes to treat included update pages as AutoConnectAux.
-  typedef struct {
-    const char*  uri;       /**< URI for the page */
-    const char*  title;     /**< Menu title of update page */
-    const bool   menu;      /**< Whether to display in menu */
-    const ACElementProp_t* element;
-  } ACPage_t;
-
   template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept {
     return N;
   }
-  void    _buildAux(AutoConnectAux* aux, const AutoConnectOTA::ACPage_t* page, const size_t elementNum);
+  void    _buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage_t* page, const size_t elementNum);
   bool    _open(const char* filename, const char* mode) override;
   size_t  _write(const uint8_t *buf, const size_t size) override;
   void    _close(const HTTPUploadStatus status) override;
@@ -104,10 +88,10 @@ protected:
   SPIFFST*  _fs;                /**< Filesystem for the native file uploading */
   fs::File  _file;              /**< File handler for the native file uploading */
 
-  static const ACPage_t         _pageUpdate  PROGMEM;
-  static const ACElementProp_t  _elmUpdate[] PROGMEM;
-  static const ACPage_t         _pageResult  PROGMEM;
-  static const ACElementProp_t  _elmResult[] PROGMEM;
+  static const AutoConnectAux::ACPage_t         _pageUpdate  PROGMEM;
+  static const AutoConnectAux::ACElementProp_t  _elmUpdate[] PROGMEM;
+  static const AutoConnectAux::ACPage_t         _pageResult  PROGMEM;
+  static const AutoConnectAux::ACElementProp_t  _elmResult[] PROGMEM;
 };
 
 #endif // !_AUTOCONNECTOTA_H_

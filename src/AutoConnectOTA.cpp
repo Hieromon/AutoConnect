@@ -2,8 +2,8 @@
  * AutoConnectOTA class implementation.
  * @file   AutoConnectOTA.cpp
  * @author hieromon@gmail.com
- * @version    1.2.2
- * @date   2020-12-11
+ * @version    1.2.3
+ * @date   2021-01-23
  * @copyright  MIT license.
  */
 
@@ -90,7 +90,7 @@ void AutoConnectOTA::attach(AutoConnect& portal) {
  * @param  page       Pre-defined ACPage_t
  * @param  elementNum Number of AutoConnectElements to configure.  
  */
-void AutoConnectOTA::_buildAux(AutoConnectAux* aux, const AutoConnectOTA::ACPage_t* page, const size_t elementNum) {
+void AutoConnectOTA::_buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage_t* page, const size_t elementNum) {
   for (size_t n = 0; n < elementNum; n++) {
     if (page->element[n].type == AC_Button) {
       AutoConnectButton* element = new AutoConnectButton;

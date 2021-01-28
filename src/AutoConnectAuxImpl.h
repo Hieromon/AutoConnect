@@ -5,8 +5,8 @@
  * version differences. 
  * @file AutoConnectAuxImpl.h
  * @author hieromon@gmail.com
- * @version  0.9.8
- * @date 2019-03-21
+ * @version  1.2.3
+ * @date 2021-01-23
  * @copyright  MIT license.
  */
 
@@ -228,7 +228,7 @@ bool AutoConnect::_parseJson(T in) {
  * @param  in An instance of a source JSON document to load.
  */
 template<typename T>
-bool AutoConnectAux::_parseJson(T in) {
+bool AutoConnectAux::_parseJson(T in, const size_t size) {
   ArduinoJsonBuffer jsonBuffer(AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE);
 #if ARDUINOJSON_VERSION_MAJOR<=5
   JsonObject& jb = jsonBuffer.parseObject(in);
