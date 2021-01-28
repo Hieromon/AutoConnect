@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementJson classes.
  * @file AutoConnectElementJsonImpl.h
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2020-11-11
+ * @version  1.2.3
+ * @date 2021-01-23
  * @copyright  MIT license.
  */
 
@@ -20,8 +20,23 @@ size_t AutoConnectElementJson::getObjectSize(void) const {
   size_t  size = JSON_OBJECT_SIZE(3);
   size += sizeof(AUTOCONNECT_JSON_KEY_NAME) + sizeof(AUTOCONNECT_JSON_KEY_TYPE) + sizeof(AUTOCONNECT_JSON_KEY_VALUE) + sizeof(AUTOCONNECT_JSON_TYPE_ACELEMENT);
   size += name.length() + 1 + value.length() + 1;
-  if (post != _defaultPost)
-    size += sizeof(AUTOCONNECT_JSON_KEY_POSTERIOR) + (sizeof(AUTOCONNECT_JSON_VALUE_BR) > sizeof(AUTOCONNECT_JSON_VALUE_PAR) ? sizeof(AUTOCONNECT_JSON_VALUE_BR) : sizeof(AUTOCONNECT_JSON_VALUE_PAR));
+  size += sizeof(AUTOCONNECT_JSON_KEY_POSTERIOR);
+  size_t  postSize = 0;
+  switch (post) {
+  case AC_Tag_BR:
+    postSize = sizeof(AUTOCONNECT_JSON_VALUE_BR);
+    break;
+  case AC_Tag_P:
+    postSize = sizeof(AUTOCONNECT_JSON_VALUE_PAR);
+    break;
+  case AC_Tag_DIV:
+    postSize = sizeof(AUTOCONNECT_JSON_VALUE_DIV);
+    break;
+  case AC_Tag_None:
+  default:
+    postSize = sizeof(AUTOCONNECT_JSON_VALUE_NONE);
+  }
+  size += postSize;
   return size;
 }
 
