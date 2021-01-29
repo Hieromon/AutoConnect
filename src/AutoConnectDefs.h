@@ -134,6 +134,7 @@
 #define AUTOCONNECT_URI_UPDATE_ACT      AUTOCONNECT_URI "/update_act"
 #define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
+#define AUTOCONNECT_URI_CONFIGAUX AUTOCONNECT_URI "/acconfig"
 
 // Number of seconds in a unit time [s]
 #ifndef AUTOCONNECT_UNITTIME
@@ -300,6 +301,11 @@
 #define AUTOCONNECT_UPLOAD_ASFIRMWARE ".bin"
 #endif
 #endif
+
+// File name where AutoConnectConfig is persisted on the file system.
+#ifndef AUTOCONNECT_CONFIGAUX_FILE
+#define AUTOCONNECT_CONFIGAUX_FILE    "acconfig.json"
+#endif // !AUTOCONNECT_CONFIGAUX_NAME
 
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
