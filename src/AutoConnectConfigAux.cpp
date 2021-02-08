@@ -7,7 +7,9 @@
  * @copyright  MIT license.
  */
 
+#include <algorithm>
 #include <functional>
+#include <iterator>
 #include <vector>
 #include "AutoConnectConfigAux.h"
 
@@ -761,8 +763,9 @@ void AutoConnectConfigAux::_saveSettings(AutoConnectAux& me) {
   fs::File  cf = AutoConnectFS::CONFIGFS.open(_fn, "w");
   if (cf) {
     std::vector<String> elms;
-    for (PGM_P elm : _elmNames)
-      elms.push_back(String(FPSTR(elm)));
+    std::transform(std::begin(_elmNames), std::end(_elmNames), std::back_inserter(elms), [](PGM_P elmName){
+      return String(FPSTR(elmName));
+    });
     saveElement(cf, elms);
     cf.close();
     AC_DBG_DUMB("saved\n");
