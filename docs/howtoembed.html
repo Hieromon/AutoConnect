@@ -730,8 +730,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-sketch-publishes-messages" class="md-nav__link">
-    the Sketch, Publishes messages
+  <a href="#sketch-publishes-messages" class="md-nav__link">
+    Sketch publishes messages
   </a>
   
 </li>
@@ -1022,8 +1022,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-sketch-publishes-messages" class="md-nav__link">
-    the Sketch, Publishes messages
+  <a href="#sketch-publishes-messages" class="md-nav__link">
+    Sketch publishes messages
   </a>
   
 </li>
@@ -1082,7 +1082,8 @@
 <p><img src="images/handlePortal.svg" /></p>
 <h2 id="used-with-mqtt-as-a-client-application">Used with MQTT as a client application<a class="headerlink" href="#used-with-mqtt-as-a-client-application" title="Permanent link">&para;</a></h2>
 <p>The effect of AutoConnect is not only for ESP8266/ESP32 as the web server. It has advantages for something WiFi client as well. For example, AutoConnect is also convenient for publishing MQTT messages from various measurement points. Even if the SSID is different for each measurement point, it is not necessary to modify the Sketch.</p>
-<p>This example tries to publish the WiFi signal strength of ESP8266 with MQTT. It uses the <a href="https://thingspeak.com/">ThingSpeak</a> for MQTT broker. ESP8266 publishes the RSSI value to the channel created on ThingSpeak as <a href="https://github.com/knolleary/pubsubclient">MQTT client</a>. This example is well suited to demonstrate the usefulness of AutoConnect, as RSSI values are measured at each access point usually. Just adding a few lines of code makes it unnecessary to upload sketches with the different SSIDs rewrite for each access point.</p>
+<p>In this example, it is trying to publish a WiFi signal strength being received ESP8266 through the services on the cloud that can visualize the live data streams for IoT. Using the IoT platform provided by <a href="https://thingspeak.com/">ThingSpeak</a>&trade;, the ESP8266 publishes RSSI values to ThingSpeak MQTT broker channel via the <a href="https://github.com/knolleary/pubsubclient">MQTT client</a> library.</p>
+<p>This example is a good indication of the usefulness of AutoConnect, as RSSI values can typically measure different intensities for each access point. By simply adding a few lines to the Sketch, you do not have to rewrite and upload the Sketch for each access point.</p>
 <p><img src="images/ChannelStatus.png" width="70%"/></p>
 <h3 id="advance-procedures">Advance procedures<a class="headerlink" href="#advance-procedures" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1090,7 +1091,7 @@
 <li>Create a channel on ThingSpeak.</li>
 <li>Get the Channel API Keys from ThingSpeak, put its keys to the Sketch.</li>
 </ul>
-<p>The ThingSpeak is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further. ThingSpeak has the free plan for the account which uses within the scope of this example.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> You can sign up with the <a href="https://thingspeak.com/users/sign_up">ThingSpeak sign-up page</a>.</p>
+<p>The ThingSpeak is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further. ThingSpeak has the free plan for the account which uses within the scope of this example.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> You can sign up with the <a href="https://thingspeak.com/login">ThingSpeak sign-up page</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Whether you should do sign-up or not.</p>
 <p>You are entrusted with the final judgment of account creation for ThingSpeak. Create an account at your own risk.</p>
@@ -1111,12 +1112,19 @@
 <p><img src="images/APIKeys.png" width="70%"/></p>
 <p>The last key you need is the <strong>User API Key</strong> and can be confirmed it in the user profile. Pull down <strong>Account</strong> from the top menu, select <strong>My profile</strong>. Then you can see the ThingSpeak settings and the <strong>User API Key</strong> is displayed middle of this screen.</p>
 <p><img src="images/USERKey.png" width="70%"/></p>
-<h3 id="the-sketch-publishes-messages">the Sketch, Publishes messages<a class="headerlink" href="#the-sketch-publishes-messages" title="Permanent link">&para;</a></h3>
-<p>The complete code of the Sketch is <a href="https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino">mqttRSSI.ino</a> in the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect repository</a>. Replace the following #define in a sketch with <strong>User API Key</strong>, <strong>Write API Key</strong> and <strong>Channel ID</strong>. After Keys updated, compile the Sketch and upload it.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#define MQTT_USER_KEY        &quot;****************&quot;  // Replace to User API Key.</span>
-<span style="color: #75715e">#define CHANNEL_ID           &quot;******&quot;            // Replace to Channel ID.</span>
-<span style="color: #75715e">#define CHANNEL_API_KEY_WR   &quot;****************&quot;  // Replace to the write API Key.</span>
-</code></pre></div>
+<h3 id="sketch-publishes-messages">Sketch publishes messages<a class="headerlink" href="#sketch-publishes-messages" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino">mqttRSSI.ino</a> sketch registered in the <a href="https://github.com/Hieromon/AutoConnect">AutoConnect GitHub repository</a> is the complete code for publishing RSSI to the ThingSpeak channel. It is a sketch with the AutoConnectAux extension pages that allow you to flexibly configure the channel information you create as ThingSpeak channels.</p>
+<p><img src="images/ac_mqtt_setting.png" width="40%"></p>
+<div class="admonition hint">
+<p class="admonition-title">Parameters for the ThingSpeak MQTT channels</p>
+<p>Various settings of the MQTT Setting for the ThingSpeak channels via the above AutoConnectAux are following:</p>
+<ul>
+<li><strong>Server</strong>: <code>mqtt.thingspeak.com</code></li>
+<li><strong>Channel ID</strong>: Specify the channel ID that can be confirmed with <a href="https://thingspeak.com/channels">ThingSpeak My Channels page</a>.</li>
+<li><strong>User Key</strong>: Specify the User API Key of the API Keys that can be confirmed with <a href="https://thingspeak.com/account/profile">ThingSpeak My Profile page</a>.</li>
+<li><strong>API Key</strong>: Specify the Write API Key that can be confirmed by following navigate to "<a href="https://thingspeak.com/channels">ThingSpeak My Channels</a> &gt; Your Channel Name &gt; API Keys Tab &gt; <strong>Write API Key</strong>".</li>
+</ul>
+</div>
 <h3 id="publish-messages">Publish messages<a class="headerlink" href="#publish-messages" title="Permanent link">&para;</a></h3>
 <p>After upload and reboot complete, the message publishing will start via the access point now set. The message carries RSSI as the current WiFi signal strength. The signal strength variations in RSSI are displayed on ThingSpeak's Channel status screen.</p>
 <h3 id="how-embed-to-your-sketches">How embed to your sketches<a class="headerlink" href="#how-embed-to-your-sketches" title="Permanent link">&para;</a></h3>
