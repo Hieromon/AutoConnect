@@ -234,6 +234,7 @@ class AutoConnect {
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
   void  end(void);
+  AutoConnectOTA* getOTA(void) { return _ota.get(); }
   AutoConnectConfig&  getConfig(void) { return _apConfig; }
   uint16_t getEEPROMUsedSize(void);
   void  handleClient(void);
