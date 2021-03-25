@@ -2,8 +2,8 @@
  *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	1.2.3
- *	@date	2021-01-07
+ *	@version	1.3.0
+ *	@date	2021-03-25
  *	@copyright	MIT license.
  */
 
@@ -667,6 +667,7 @@ uint8_t AutoConnectCredential::_import(void) {
 void AutoConnectCredential::_obtain(AC_CREDT_t::iterator const& it, station_config_t* config) {
   String  ssid = it->first;
   AC_CREDTBODY_t&  credtBody = it->second;
+  memset(config, 0x00, sizeof(station_config_t));
   ssid.toCharArray(reinterpret_cast<char*>(config->ssid), sizeof(station_config_t::ssid));
   credtBody.password.toCharArray(reinterpret_cast<char*>(config->password), sizeof(station_config_t::password));
   memcpy(config->bssid, credtBody.bssid, sizeof(station_config_t::bssid));
