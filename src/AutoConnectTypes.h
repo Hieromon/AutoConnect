@@ -2,8 +2,8 @@
  *  AutoConnect quoted type declarations.
  *  @file AutoConnectTypes.h
  *  @author hieromon@gmail.com
- *  @version  1.2.0
- *  @date 2020-04-17
+ *  @version  1.3.0
+ *  @date 2021-03-29
  *  @copyright  MIT license.
  */
 
@@ -61,5 +61,15 @@ typedef enum AC_AUTH {
   AC_AUTH_DIGEST,
   AC_AUTH_BASIC
 } AC_AUTH_t;
+
+/**< OTA Updating process status */
+typedef enum  {
+  AC_OTA_IDLE,          /**< Update process has not started */
+  AC_OTA_START,         /**< Update process has started */
+  AC_OTA_PROGRESS,      /**< Update process in progress */
+  AC_OTA_SUCCESS,       /**< A binary updater has uploaded fine */
+  AC_OTA_RIP,           /**< Ready for module restart */
+  AC_OTA_FAIL           /**< Failed to save binary updater by Update class */
+} AC_OTAStatus_t;
 
 #endif // !_AUTOCONNECTTYPES_H_

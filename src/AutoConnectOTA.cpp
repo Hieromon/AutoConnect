@@ -2,8 +2,8 @@
  * AutoConnectOTA class implementation.
  * @file   AutoConnectOTA.cpp
  * @author hieromon@gmail.com
- * @version    1.2.3
- * @date   2021-01-23
+ * @version    1.3.0
+ * @date   2021-03-29
  * @copyright  MIT license.
  */
 
@@ -230,8 +230,16 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
   if (bc) {
     if (_tickerPort != -1)
       pinMode(static_cast<uint8_t>(_tickerPort), OUTPUT);
-    _status = OTA_START;
+    _status = AC_OTA_START;
     AC_DBG("%s up%s start\n", filename, _dest == OTA_DEST_FIRM ? "dating" : "loading");
+
+    // Notify an OTA status change
+    if (_onStatusChange) {
+      if (!_onStatusChange(_status)) {
+        _setError("OTA cancellation requested");
+        bc = false;
+      }
+    }
   }
   return bc;
 }
@@ -244,11 +252,21 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
  * @return      the amount written
  */
 size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
+  AC_OTAStatus_t  ps = _status;
   size_t  wsz = 0;
   if (_tickerPort != -1)
     digitalWrite(_tickerPort, digitalRead(_tickerPort) ^ 0x01);
   if (!_err.length()) {
-    _status = OTA_PROGRESS;
+    _status = AC_OTA_PROGRESS;
+    if (ps != _status) {
+      // Notify an OTA status change
+      if (_onStatusChange) {
+        if (!_onStatusChange(_status)) {
+          _setError("OTA cancellation requested");
+          return 0;
+        }
+      }
+    }
 
     if (_dest == OTA_DEST_FIRM) {
       wsz = Update.write(const_cast<uint8_t*>(buf), size);
@@ -282,8 +300,10 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
         _file.close();
       }
       if (ec) {
-        _status = OTA_SUCCESS;
+        _status = AC_OTA_SUCCESS;
         AC_DBG_DUMB("succeeds");
+        if (_onStatusChange)  // Notify an OTA status change
+          _onStatusChange(_status);
       }
       else {
         _setError();
@@ -315,11 +335,15 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
 
   // Build an updating result caption.
   // Change the color of the bin name depending on the result of the update.
-  if (_status == OTA_SUCCESS) {
+  if (_status == AC_OTA_SUCCESS) {
     st = _dest == OTA_DEST_FIRM ? String(F(AUTOCONNECT_TEXT_OTASUCCESS)) : String(F(AUTOCONNECT_TEXT_OTAUPLOADED));
     stColor = PSTR("3d7e9a");
     // Notify to the handleClient of loop() thread that it can reboot.
-    _status = OTA_RIP;
+    _status = AC_OTA_RIP;
+    if (_onStatusChange) { // Notify an OTA status change
+      if (!_onStatusChange(_status))
+        _status = AC_OTA_IDLE;
+    }
   }
   else {
     st = String(F(AUTOCONNECT_TEXT_OTAFAILURE)) + _err;
@@ -347,11 +371,12 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
 void AutoConnectOTA::_setError(void) {
   StreamString  eStr;
   Update.printError(eStr);
-  _err = String(eStr.c_str());
-  _status = OTA_FAIL;
+  _setError(eStr.c_str());
 }
 
 void AutoConnectOTA::_setError(const char* err) {
   _err = String(err);
-  _status = OTA_FAIL;
+  _status = AC_OTA_FAIL;
+  if (_onStatusChange)
+    _onStatusChange(_status);
 }

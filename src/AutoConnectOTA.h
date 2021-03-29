@@ -9,16 +9,18 @@
  * binary file.
  * @file AutoConnectOTA.h
  * @author hieromon@gmail.com
- * @version  1.2.3
- * @date 2021-01-23
+ * @version  1.3.0
+ * @date 2021-03-29
  * @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTOTA_H_
 #define _AUTOCONNECTOTA_H_
 
+#include <functional>
 #include <memory>
 #include "AutoConnect.h"
+#include "AutoConnectTypes.h"
 #include "AutoConnectUpload.h"
 
 #include <FS.h>
@@ -34,15 +36,8 @@ typedef fs::SPIFFSFS  SPIFFST;
 
 class AutoConnectOTA : public AutoConnectUploadHandler {
 public:
-  // Updating process status
-  typedef enum  {
-    OTA_IDLE,               /**< Update process has not started */
-    OTA_START,              /**< Update process has started */
-    OTA_PROGRESS,           /**< Update process in progress */
-    OTA_SUCCESS,            /**< A binary updater has uploaded fine */
-    OTA_RIP,                /**< Ready for module restart */
-    OTA_FAIL                /**< Failed to save binary updater by Update class */
-  } AC_OTAStatus_t;
+  // Type declaration of callback function to notify OTA status change
+  typedef std::function<bool(const AC_OTAStatus_t)> StatusChange_ft;
 
   // The treating destination of OTA transferred data
   typedef enum {
@@ -50,16 +45,17 @@ public:
     OTA_DEST_FIRM  /**< To update the firmware */
   } AC_OTADest_t;
 
-  AutoConnectOTA() : _dest(OTA_DEST_FIRM), _status(OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {};
+  AutoConnectOTA() : _dest(OTA_DEST_FIRM), _status(AC_OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {};
   ~AutoConnectOTA();
   void  attach(AutoConnect& portal);                        /**< Attach itself to AutoConnect */
   void  authentication(const AC_AUTH_t auth);               /**< Set certain page authentication */
   String  error(void) const { return _err; }                /**< Returns current error string */
   void  menu(const bool post) { _auxUpdate->menu(post); }   /**< Enabel or disable arranging a created AutoConnectOTA page in the menu. */
-  void  reset(void) { _status = OTA_IDLE; }                 /**< Reset the status */
+  void  reset(void) { _status = AC_OTA_IDLE; }              /**< Reset the status */
   AC_OTAStatus_t  status(void) const { return _status; }    /**< Return a current error status of the Update class */ 
   AC_OTADest_t  dest(void) const { return _dest; }          /**< Return a current uploading destination */
   void  setTicker(int8_t pin, uint8_t on) { _tickerPort = pin, _tickerOn = on; }  /**< Set ticker LED port */
+  void  onStatusChange(StatusChange_ft fn) { _onStatusChange = fn; }  /**< Register a status change notification callback function */
 
 protected:
   template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept {
@@ -73,6 +69,8 @@ protected:
 
   std::unique_ptr<AutoConnectAux> _auxUpdate;   /**< An update operation page */
   std::unique_ptr<AutoConnectAux> _auxResult;   /**< An update result page */
+
+  StatusChange_ft _onStatusChange;              /**< A status change notification callback function */
 
  private:
   void  _setError(void);

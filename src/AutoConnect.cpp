@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.2.3
- *  @date   2021-01-13
+ *  @version    1.3.0
+ *  @date   2021-03-29
  *  @copyright  MIT license.
  */
 
@@ -642,12 +642,14 @@ void AutoConnect::handleRequest(void) {
       _ota->attach(*this);
       _ota->authentication(_apConfig.auth);
       _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);
+      if (_onOTAStatusChangeExit)
+        _ota->onStatusChange(_onOTAStatusChangeExit);
     }
   }
 
   // Post-process for AutoConnectOTA
   if (_ota) {
-    if (_ota->status() == AutoConnectOTA::OTA_RIP) {
+    if (_ota->status() == AC_OTA_RIP) {
       // Indicate the reboot at the next handleClient turn
       // with on completion of the update via OTA.
       if (_webServer->client().connected()) {
@@ -659,7 +661,7 @@ void AutoConnect::handleRequest(void) {
         // OTA for firmware update requires module reset.
         _rfReset = true;
     }
-    else if (_ota->status() == AutoConnectOTA::OTA_PROGRESS)
+    else if (_ota->status() == AC_OTA_PROGRESS)
       skipPostTicker = true;
     // Reflect the menu display specifier from AutoConnectConfig to
     // AutoConnectOTA page
@@ -858,6 +860,14 @@ void AutoConnect::onNotFound(WebServerClass::THandlerFunction fn) {
  */
 void AutoConnect::whileCaptivePortal(WhileCaptivePortalExit_ft fn) {
   _whileCaptivePortal = fn;
+}
+
+/**
+ *  Register a status change notification callback function
+ *  @param  fn  A status change notification callback function.
+ */
+void AutoConnect::onOTAStatusChange(OTAStatusChangeExit_ft fn) {
+  _onOTAStatusChangeExit = fn;
 }
 
 /**

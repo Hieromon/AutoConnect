@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.2.3
- *	@date	2021-01-13
+ *	@version	1.3.0
+ *	@date	2021-03-29
  *	@copyright	MIT license.
  */
 
@@ -29,11 +29,11 @@ using WebServerClass = WebServer;
 #include <EEPROM.h>
 #include <PageBuilder.h>
 #include "AutoConnectDefs.h"
+#include "AutoConnectTypes.h"
 #include "AutoConnectPage.h"
 #include "AutoConnectCredential.h"
 #include "AutoConnectTicker.h"
 #include "AutoConnectAux.h"
-#include "AutoConnectTypes.h"
 
 // The realization of AutoConnectOTA is effective only by the explicit
 #include "AutoConnectOTA.h"
@@ -264,10 +264,12 @@ class AutoConnect {
   typedef std::function<bool(IPAddress&)>  DetectExit_ft;
   typedef std::function<void(IPAddress&)>  ConnectExit_ft;
   typedef std::function<bool(void)>        WhileCaptivePortalExit_ft;
+  typedef std::function<bool(const AC_OTAStatus_t)> OTAStatusChangeExit_ft;
   void  onDetect(DetectExit_ft fn);
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServerClass::THandlerFunction fn);
   void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
+  void  onOTAStatusChange(OTAStatusChangeExit_ft fn);
 
  protected:
   typedef enum {
@@ -329,6 +331,7 @@ class AutoConnect {
   DetectExit_ft        _onDetectExit;
   WhileCaptivePortalExit_ft _whileCaptivePortal;
   WebServerClass::THandlerFunction _notFoundHandler;
+  OTAStatusChangeExit_ft  _onOTAStatusChangeExit;
   size_t               _freeHeapSize;
 
   /** Servers which works in concert. */
