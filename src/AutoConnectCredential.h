@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectCredential class.
  *  @file AutoConnectCredential.h
  *  @author hieromon@gmail.com
- *  @version  1.2.0
- *  @date 2020-04-22
+ *  @version  1.3.0
+ *  @date 2021-02-19
  *  @copyright  MIT license.
  */
 
@@ -54,14 +54,26 @@ extern "C" {
 
 typedef enum {
   STA_DHCP = 0,
-  STA_STATIC
+  STA_STATIC = 1
 } station_config_dhcp;
+
+typedef enum {
+  STA_PSK = 0,
+  STA_EAP = 1
+} station_config_auth;
 
 typedef struct {
   uint8_t ssid[32];
   uint8_t password[64];
   uint8_t bssid[6];
-  uint8_t dhcp;   /**< 0:DHCP, 1:Static IP */
+  union _cs {
+    uint8_t sup;          /**< byte-handling for the cf */
+    struct _attr {
+      uint8_t dhcp  :1;   /**< 0:DHCP, 1:Static IP */
+      uint8_t eap   :1;   /**< 0:PSK 1:EAP */
+      uint8_t       :6;
+    } attr;
+  } cs;  /**< criterial of supplicant */
   union _config {
     uint32_t  addr[5];
     struct _sta {
@@ -72,6 +84,7 @@ typedef struct {
       uint32_t dns2;
     } sta;
   } config;
+  uint8_t eap_username[64];
 } station_config_t;
 
 class AutoConnectCredentialBase {
@@ -154,9 +167,17 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   typedef struct {
     String   password;
     uint8_t  bssid[6];
-    uint8_t  dhcp;   /**< 1:DHCP, 2:Static IP */
+    union _cs {
+      uint8_t sup;        /**< byte-handling for the cf */
+      struct _attr {
+        uint8_t dhcp  :1; /**< 0:DHCP, 1:Static IP */
+        uint8_t eap   :1; /**< 0:PSK, 1:EAP */
+        uint8_t       :6;
+      } attr;
+    } cs;                 /**< criterial of supplicant */
     uint32_t ip[5];
-  } AC_CREDTBODY_t;         /**< Credential entry */
+    String  username;     /**< WPA2 identity */
+  } AC_CREDTBODY_t;       /**< Credential entry */
   typedef std::map<String, AC_CREDTBODY_t>  AC_CREDT_t;
 
   bool    _add(const station_config_t* config); /**< Add an entry */

@@ -2,14 +2,17 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.2.3
- *  @date   2021-01-13
+ *  @version    1.3.0
+ *  @date   2021-02-19
  *  @copyright  MIT license.
  */
 
 #include "AutoConnect.h"
 #ifdef ARDUINO_ARCH_ESP32
 #include <esp_wifi.h>
+#endif
+#ifdef AUTOCONNECT_USE_WPA2E
+#include <esp_wpa2.h>
 #endif
 /**
  *  An actual reset function dependent on the architecture
@@ -30,6 +33,7 @@
 AutoConnect::AutoConnect()
 : _scanCount( 0 )
 , _menuTitle( _apConfig.title )
+, _wl(*this)
 {
   memset(&_credential, 0x00, sizeof(station_config_t));
 }
@@ -149,10 +153,10 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
       // Try to connect by STA immediately.
       if (!_rfAdHocBegin)
-        cs = WiFi.begin() != WL_CONNECT_FAILED;
+        cs = _wl.begin() != WL_CONNECT_FAILED;
       else {
         _disconnectWiFi(false);
-        cs = WiFi.begin(ssid, passphrase) != WL_CONNECT_FAILED;
+        cs = _wl.begin(ssid, passphrase) != WL_CONNECT_FAILED;
       }
       AC_DBG("WiFi.begin(%s%s%s)", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
       if (cs)
@@ -178,7 +182,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
         AC_DBG_DUMB(", %s(%s) loaded\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
         const char* psk = strlen(password_c) ? password_c : nullptr;
         _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
-        cs = WiFi.begin(ssid_c, psk) != WL_CONNECT_FAILED;
+        cs = _wl.begin(ssid_c, psk) != WL_CONNECT_FAILED;
         AC_DBG("WiFi.begin(%s%s%s)", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
         if (cs)
           cs = _waitForConnect(timeout) == WL_CONNECTED;
@@ -902,7 +906,7 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
     // Set the IP configuration globally from the saved credential.
     else if (strlen(ssid))
       if (credential.load(ssid, &_credential) >= 0) {
-        if (_credential.dhcp == STA_STATIC) {
+        if (_credential.cs.attr.dhcp == STA_STATIC) {
           _apConfig.staip = static_cast<IPAddress>(_credential.config.sta.ip);
           _apConfig.staGateway = static_cast<IPAddress>(_credential.config.sta.gateway);
           _apConfig.staNetmask = static_cast<IPAddress>(_credential.config.sta.netmask);
@@ -1198,7 +1202,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     credential.load(args.arg(String(F(AUTOCONNECT_PARAMID_CRED))).c_str(), &_credential);
 #ifdef AC_DEBUG
     IPAddress staip = IPAddress(_credential.config.sta.ip);
-    AC_DBG("Credential loaded:%.*s(%s)\n", sizeof(station_config_t::ssid), reinterpret_cast<const char*>(_credential.ssid), _credential.dhcp == STA_DHCP ? "DHCP" : staip.toString().c_str());
+    AC_DBG("Credential loaded:%.*s(%s) %s\n", sizeof(station_config_t::ssid), reinterpret_cast<const char*>(_credential.ssid), _credential.cs.attr.dhcp == STA_DHCP ? "DHCP" : staip.toString().c_str(), _credential.cs.attr.eap == STA_EAP ? "eap" : "");
 #endif
   }
   else {
@@ -1206,13 +1210,14 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     // Credential had by the post parameter.
     strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(String(F(AUTOCONNECT_PARAMID_SSID))).c_str(), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_PASS))).c_str(), sizeof(_credential.password));
+    _credential.cs.attr.eap = STA_PSK;
     // Static IP detection
     if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DHCP)))) {
-      _credential.dhcp = STA_DHCP;
+      _credential.cs.attr.dhcp = STA_DHCP;
       _credential.config.sta.ip = _credential.config.sta.gateway = _credential.config.sta.netmask = _credential.config.sta.dns1 = _credential.config.sta.dns2 = 0U;
     }
     else {
-      _credential.dhcp = STA_STATIC;
+      _credential.cs.attr.dhcp = STA_STATIC;
       const String paramId[] = {
         String(F(AUTOCONNECT_PARAMID_STAIP)),
         String(F(AUTOCONNECT_PARAMID_GTWAY)),
@@ -1227,6 +1232,31 @@ String AutoConnect::_induceConnect(PageArgument& args) {
             _credential.config.addr[i] = static_cast<uint32_t>(ip);
         }
       }
+    }
+
+    // Here, should be implemented that can handle WAP2-E requests
+    if (args.hasArg(String(F(AUTOCONNECT_PARAMID_WPA2)))) {
+      _credential.cs.attr.eap = STA_EAP;
+      strncpy(reinterpret_cast<char*>(_credential.eap_username), args.arg(String(F(AUTOCONNECT_PARAMID_EID))).c_str(), sizeof(_credential.eap_username));
+      strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_EPW))).c_str(), sizeof(_credential.password));
+      // Bind with esp_wifi_sta_wpa2_ent_set_ttls_phase2_method is
+      // required for Phase 2 authentication,
+      // but Arduino core does not have it.
+      // if (args.hasArg(String(F(AUTOCONNECT_PARAMID_EPH2)))) {
+      //   esp_eap_ttls_phase2_types ph2;
+      //   if (args.arg(String(F(AUTOCONNECT_PARAMID_EPH2))).equalsIgnoreCase(String(F(AUTOCONNECT_PARAMID_PEAP))))
+      //     ph2 = ESP_EAP_TTLS_PHASE2_EAP;
+      //   else if (args.arg(String(F(AUTOCONNECT_PARAMID_EPH2))).equalsIgnoreCase(String(F(AUTOCONNECT_PARAMID_MCP2))))
+      //     ph2 = ESP_EAP_TTLS_PHASE2_MSCHAPV2;
+      //   else if (args.arg(String(F(AUTOCONNECT_PARAMID_EPH2))).equalsIgnoreCase(String(F(AUTOCONNECT_PARAMID_MCP))))
+      //     ph2 = ESP_EAP_TTLS_PHASE2_MSCHAP;
+      //   else if (args.arg(String(F(AUTOCONNECT_PARAMID_EPH2))).equalsIgnoreCase(String(F(AUTOCONNECT_PARAMID_PAP))))
+      //     ph2 = ESP_EAP_TTLS_PHASE2_PAP;
+      //   else if (args.arg(String(F(AUTOCONNECT_PARAMID_EPH2))).equalsIgnoreCase(String(F(AUTOCONNECT_PARAMID_CHAP))))
+      //     ph2 = ESP_EAP_TTLS_PHASE2_CHAP;
+      //   if (esp_wifi_sta_wpa2_ent_set_ttls_phase2_method(ph2) != ESP_OK)
+      //     AC_DBG("WPA2E PH2 register failed\n");
+      // }
     }
   }
 
@@ -1518,6 +1548,90 @@ void AutoConnect::_disconnectWiFi(bool wifiOff) {
     yield();
   }
 }
+
+#ifdef AUTOCONNECT_USE_WPA2E
+/**
+ * Disguised WiFI.Begin for WPA2 Enterprise certification.
+ * @param ac  Reference to AutoConnect instance
+ * @return    wl_status_t
+ */
+wl_status_t AutoConnect::_WPA2E::begin(AutoConnect& ac) {
+  if (ac._credential.cs.attr.eap == STA_EAP)
+    return AutoConnect::_WPA2E::_begin(ac._credential, 0, NULL, true);
+  else
+    return WiFi.begin();
+}
+
+/**
+ * Disguised WiFI.Begin for WPA2 Enterprise certification.
+ * @param  ac Reference to AutoConnect instance
+ * @param  ssid       SSID
+ * @param  passphrase passphrase
+ * @param  channel    Using channel
+ * @param  bssid      BSSID if necessary
+ * @param  connect    The flag to attempt connection
+ * @return    wl_status_t
+ */
+wl_status_t AutoConnect::_WPA2E::begin(AutoConnect& ac, const char* ssid, const char* passphrase, int32_t channel, const uint8_t* bssid, bool connect) {
+  AutoConnectCredential inv;
+  station_config_t  invConf;
+  if (inv.load(ssid, &invConf) > 0)
+    return AutoConnect::_WPA2E::_begin(invConf, channel, bssid, connect);
+  else
+    return WiFi.begin(ssid, passphrase, channel, bssid, connect);
+}
+
+/**
+ * Procedures required for WPA2 Enterprise certification.
+ * @param  conf     station_config_t
+ * @param  channel  Using channel
+ * @param  bssid    BSSID if necessary
+ * @param  connect  The flag to attempt connection
+ */
+wl_status_t AutoConnect::_WPA2E::_begin(station_config_t& conf, int32_t channel, const uint8_t* bssid, bool connect) {
+  const char* pw = reinterpret_cast<const char*>(conf.password);
+  if (conf.cs.attr.eap == STA_EAP) {
+      esp_wifi_sta_wpa2_ent_set_identity(reinterpret_cast<const unsigned char*>(conf.eap_username), strlen(reinterpret_cast<const char*>(conf.eap_username)));
+      esp_wifi_sta_wpa2_ent_set_username(reinterpret_cast<const unsigned char*>(conf.eap_username), strlen(reinterpret_cast<const char*>(conf.eap_username)));
+      esp_wifi_sta_wpa2_ent_set_password(reinterpret_cast<const unsigned char*>(conf.password), strlen(reinterpret_cast<const char*>(conf.password)));
+      esp_wpa2_config_t config = WPA2_CONFIG_INIT_DEFAULT();  //set config settings to default
+      esp_wifi_sta_wpa2_ent_enable(&config);                  //set config settings to enable function
+      pw = nullptr;
+      AC_DBG("Allow for WPA2 Enterprise, %s/%s\n", reinterpret_cast<const unsigned char*>(conf.eap_username), reinterpret_cast<const unsigned char*>(conf.eap_username));
+  }
+  return WiFi.begin(reinterpret_cast<const char*>(conf.ssid), pw, channel, bssid, connect);
+}
+
+#else
+
+/**
+ * A wrapper for WiFi.begin activated when WiFi connection passing with
+ * PSK authentication. Replace the requests with the WiFi.begin arguments as is.
+ * @param  ac Unused
+ * @return wl_status_t from WiFi.begin
+ */
+inline wl_status_t AutoConnect::_PSK::begin(AutoConnect& ac) {
+  AC_UNUSED(ac);
+  return WiFi.begin();
+}
+
+/**
+ * A wrapper for WiFi.begin activated when WiFi connection passing with
+ * PSK authentication. Replace the requests with the WiFi.begin arguments as is.
+ * @param  ac         Unused
+ * @param  ssid       SSID
+ * @param  passphrase PSK
+ * @param  channel    Using channel
+ * @param  BSSID      BSSID if necessary
+ * @param  connect    The flag to attempt connection
+ * @return wl_status_t from WiFi.begin
+ */
+inline wl_status_t AutoConnect::_PSK::begin(AutoConnect& ac, const char* ssid, const char* passphrase, int32_t channel, const uint8_t* bssid, bool connect) {
+  AC_UNUSED(ac);
+  return WiFi.begin(ssid, passphrase, channel, bssid, connect);
+}
+
+#endif
 
 /**
  *  Initialize an empty string to allow returning const String& with nothing.

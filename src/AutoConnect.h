@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.2.3
- *	@date	2021-01-13
+ *	@version	1.3.0
+ *	@date	2021-02-19
  *	@copyright	MIT license.
  */
 
@@ -25,6 +25,9 @@ using WebServerClass = ESP8266WebServer;
 #include <WiFi.h>
 #include <WebServer.h>
 using WebServerClass = WebServer;
+#ifdef AC_USE_WPA2E
+#define AUTOCONNECT_USE_WPA2E
+#endif
 #endif
 #include <EEPROM.h>
 #include <PageBuilder.h>
@@ -393,6 +396,7 @@ class AutoConnect {
   static const char _ELM_MENU_PRE[] PROGMEM;
   static const char _ELM_MENU_AUX[] PROGMEM;
   static const char _ELM_MENU_POST[] PROGMEM;
+  static const char _ELM_CONFIGNEW_WPA2E[] PROGMEM;
   static const char _PAGE_STAT[] PROGMEM;
   static const char _PAGE_CONFIGNEW[] PROGMEM;
   static const char _PAGE_CONNECTING[] PROGMEM;
@@ -420,6 +424,7 @@ class AutoConnect {
   String _token_CHANNEL(PageArgument& args);
   String _token_CHIP_ID(PageArgument& args);
   String _token_CONFIG_STAIP(PageArgument& args);
+  String _token_CONFIG_WPA2E(PageArgument& args);
   String _token_CPU_FREQ(PageArgument& args);
   String _token_CURRENT_SSID(PageArgument& args);
   String _token_DBM(PageArgument& args);
@@ -442,6 +447,51 @@ class AutoConnect {
   String _token_WIFI_STATUS(PageArgument& args);
 
  private:
+  // Impersonate WiFiSTAClass::begin to maintain backward compatibility
+  // to achieve WPA2-Enterprise authentication.
+  // Strategies corresponding to each of WPA2-E and PSK.
+  class _WPA2E {
+   public:
+    static wl_status_t begin(AutoConnect& ac);
+    static wl_status_t begin(AutoConnect& ac, const char* ssid, const char* passphrase = nullptr, int32_t channel = 0, const uint8_t* bssid = NULL, bool connect = true);
+  
+   private:
+    static wl_status_t _begin(station_config_t& conf, int32_t channel, const uint8_t* bssid, bool connect);
+  };
+
+  // With PSK authentication, the request is transparent to WiFi.begin as it is.
+  class _PSK {
+   public:
+    static wl_status_t begin(AutoConnect& ac);
+    static wl_status_t begin(AutoConnect& ac, const char* ssid, const char* passphrase = nullptr, int32_t channel = 0, const uint8_t* bssid = NULL, bool connect = true);
+  };
+
+  // Policy to WPA2-E or PSK implementation
+  template<typename T>
+  class _WL {
+   public:
+    explicit _WL(AutoConnect& ac) : _ac(ac) {}
+    wl_status_t begin(void) {
+      return T::begin(_ac);
+    }
+    wl_status_t begin(const char* ssid, const char* passphrase = nullptr, int32_t channel = 0, const uint8_t* bssid = NULL, bool connect = true) {
+      return T::begin(_ac, ssid, passphrase, channel, bssid, connect);
+    }
+   private:
+    AutoConnect&  _ac;
+  };
+
+  // AC_USE_WPA2E directive activates WPA2-E strategy.
+  // _WL instance impersonates WiFi.begin to allow WPA2-E authentication.
+  // It normally goes through to WiFi.begin and will call esp_wifi_sta_wpa2_ent_enable
+  // if WPA2-E enabledrequires.
+#ifdef AUTOCONNECT_USE_WPA2E
+  using _STG = _WPA2E;
+#else
+  using _STG = _PSK;
+#endif
+  _WL<_STG> _wl;    /**< Reference for materialized _WL instance */
+
   // The access point collation key is determined at compile time
   // according to the AUTOCONNECT_APKEY_SSID definition, which is
   inline bool _isValidAP(const station_config_t& config, const uint8_t item) const {

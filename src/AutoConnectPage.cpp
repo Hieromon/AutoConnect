@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.2.3
- *  @date   2021-01-02
+ *  @version    1.3.0
+ *  @date   2021-03-15
  *  @copyright  MIT license.
  */
 
@@ -49,7 +49,7 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
     "margin-left:10px;"
     "text-align:left"
   "}"
-  "input{"
+  "input,select{"
     "-moz-appearance:none;"
     "-webkit-appearance:none;"
     "font-size:0.9em;"
@@ -100,15 +100,15 @@ const char AutoConnect::_CSS_BASE[] PROGMEM = {
 
 /**< non-marked list for UL */
 const char AutoConnect::_CSS_UL[] PROGMEM = {
-  ".noorder,.exp{"
+  ".noorder,.ex1,.ex2{"
     "padding:0;"
     "list-style:none;"
     "display:table"
   "}"
-  ".noorder li,.exp{"
+  ".noorder li,.ex1,.ex2{"
     "display:table-row-group"
   "}"
-  ".noorder li label, .exp li{"
+  ".noorder li label, .ex1 li, .ex2 li{"
     "display:table-cell;"
     "width:auto;"
     "text-align:right;"
@@ -182,7 +182,7 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
 
 /**< INPUT text style */
 const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
-  "input[type=\"text\"],input[type=\"password\"],input[type=\"number\"],.aux-page select{"
+  "input[type=\"text\"],input[type=\"password\"],input[type=\"number\"],select,.aux-page select{"
     "background-color:#fff;"
     "border:1px solid #ccc;"
     "border-radius:2px;"
@@ -545,6 +545,43 @@ const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
   "</header>"
 };
 
+/**< WPA2 Enterprise authentication settings */
+const char  AutoConnect::_ELM_CONFIGNEW_WPA2E[] PROGMEM = {
+#ifdef AUTOCONNECT_USE_WPA2E
+  "<li>"
+    "<label for=\"" AUTOCONNECT_PARAMID_WPA2 "\">" AUTOCONNECT_PAGECONFIG_WPA2ENTERPRISE "</label>"
+    "<input id=\"" AUTOCONNECT_PARAMID_WPA2 "\" type=\"checkbox\" name=\"" AUTOCONNECT_PARAMID_WPA2 "\" value=\"ee\" unchecked onclick=\"vsw(!this.checked,'ex1');\">"
+  "</li>"
+  "<li class=\"ex1\">"
+    "<label for=\"" AUTOCONNECT_PARAMID_EID "\">" AUTOCONNECT_PAGECONFIG_WPA2EID "</label>"
+    "<input id=\"" AUTOCONNECT_PARAMID_EID "\" type=\"text\" name=\"" AUTOCONNECT_PARAMID_EID "\">"
+  "</li>"
+  "<li class=\"ex1\">"
+    "<label for=\"" AUTOCONNECT_PARAMID_EPW "\">" AUTOCONNECT_PAGECONFIG_WPA2EPASSWORD "</label>"
+    "<input id=\"" AUTOCONNECT_PARAMID_EPW "\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_EPW "\">"
+  "</li>"
+  // "<li class=\"ex1\">"
+  //   "<label for=\"" AUTOCONNECT_PARAMID_EAM "\">" AUTOCONNECT_PAGECONFIG_WPA2EMETHOD "</label>"
+  //   "<select id=\"" AUTOCONNECT_PARAMID_EAM "\" name=\"" AUTOCONNECT_PARAMID_EAM "\">"
+  //     "<option value=\"" AUTOCONNECT_PARAMID_PEAP "\">PEAP</option>"
+  //     "<option value=\"" AUTOCONNECT_PARAMID_TTLS "\">EAP-TTLS</option>"
+  //   "</select>"
+  // "</li>"
+  // "<li class=\"ex1\">"
+  //   "<label for=\"" AUTOCONNECT_PARAMID_EPH2 "\">" AUTOCONNECT_PAGECONFIG_WPA2EPHASE2 "</label>"
+  //   "<select id=\"" AUTOCONNECT_PARAMID_EPH2 "\" name=\"" AUTOCONNECT_PARAMID_EPH2 "\">"
+  //     "<option value=\"" AUTOCONNECT_PARAMID_NONE "\">None</option>"
+  //     "<option value=\"" AUTOCONNECT_PARAMID_MCP2 "\">MsCHAPv2</option>"
+  //     "<option value=\"" AUTOCONNECT_PARAMID_MCP "\">MsCHAP</option>"
+  //     "<option value=\"" AUTOCONNECT_PARAMID_PAP "\">PAP</option>"
+  //     "<option value=\"" AUTOCONNECT_PARAMID_CHAP "\">CHAP</option>"
+  //   "</select>"
+  // "</li>"
+#else
+  " "
+#endif
+};
+
 /**< The 404 page content. */
 const char  AutoConnect::_PAGE_404[] PROGMEM = {
   "{{HEAD}}"
@@ -687,9 +724,10 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
               "<label for=\"passphrase\">" AUTOCONNECT_PAGECONFIG_PASSPHRASE "</label>"
               "<input id=\"passphrase\" type=\"password\" name=\"" AUTOCONNECT_PARAMID_PASS "\" placeholder=\"" AUTOCONNECT_PAGECONFIG_PASSPHRASE "\">"
             "</li>"
+            "{{CONFIG_WPA2E}}"
             "<li>"
               "<label for=\"dhcp\">" AUTOCONNECT_PAGECONFIG_ENABLEDHCP "</label>"
-              "<input id=\"dhcp\" type=\"checkbox\" name=\"dhcp\" value=\"en\" checked onclick=\"vsw(this.checked);\">"
+              "<input id=\"dhcp\" type=\"checkbox\" name=\"dhcp\" value=\"en\" checked onclick=\"vsw(this.checked,'ex2');\">"
             "</li>"
             "{{CONFIG_IP}}"
             "<li><input type=\"submit\" name=\"apply\" value=\"" AUTOCONNECT_PAGECONFIG_APPLY "\"></li>"
@@ -701,12 +739,12 @@ const char  AutoConnect::_PAGE_CONFIGNEW[] PROGMEM = {
     "window.onload=function(){"
       "['" AUTOCONNECT_PARAMID_STAIP "','" AUTOCONNECT_PARAMID_GTWAY "','" AUTOCONNECT_PARAMID_NTMSK "','" AUTOCONNECT_PARAMID_DNS1 "','" AUTOCONNECT_PARAMID_DNS2 "'].forEach(function(n,o,t){"
         "io=document.getElementById(n),io.placeholder='0.0.0.0',io.pattern='^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'});"
-      "vsw(true)};"
+      "vsw(true,'ex1');vsw(true,'ex2')};"
     "function onFocus(e){"
       "document.getElementById('ssid').value=e,document.getElementById('passphrase').focus()"
     "}"
-    "function vsw(e){"
-      "var t;t=e?'none':'table-row';for(const n of document.getElementsByClassName('exp'))n.style.display=t,n.getElementsByTagName('input')[0].disabled=e;e||document.getElementById('sip').focus()"
+    "function vsw(e,li){"
+      "var t;t=e?'none':'table-row';for(const n of document.getElementsByClassName(li))n.style.display=t,n.getElementsByTagName('input').length?n.getElementsByTagName('input')[0].disabled=e:n.getElementsByTagName('select').length&&(n.getElementsByTagName('select')[0].disabled=e);e||document.getElementById('sip').focus()"
     "}"
   "</script>"
   "</body>"
@@ -982,7 +1020,7 @@ String AutoConnect::_token_CHIP_ID(PageArgument& args) {
 String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
   AC_UNUSED(args);
   static const char _configIPList[] PROGMEM =
-    "<li class=\"exp\">"
+    "<li class=\"ex2\">"
     "<label for=\"%s\">%s</label>"
     "<input id=\"%s\" type=\"text\" name=\"%s\" value=\"%s\">"
     "</li>";
@@ -1016,6 +1054,11 @@ String AutoConnect::_token_CONFIG_STAIP(PageArgument& args) {
     liBuf += strlen(liBuf);
   }
   return String(liCont);
+}
+
+String AutoConnect::_token_CONFIG_WPA2E(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_ELM_CONFIGNEW_WPA2E));
 }
 
 String AutoConnect::_token_CPU_FREQ(PageArgument& args) {
@@ -1432,6 +1475,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
     elm->addToken(FPSTR("SSID_COUNT"), std::bind(&AutoConnect::_token_SSID_COUNT, this, std::placeholders::_1));
     elm->addToken(FPSTR("HIDDEN_COUNT"), std::bind(&AutoConnect::_token_HIDDEN_COUNT, this, std::placeholders::_1));
     elm->addToken(FPSTR("CONFIG_IP"), std::bind(&AutoConnect::_token_CONFIG_STAIP, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CONFIG_WPA2E"), std::bind(&AutoConnect::_token_CONFIG_WPA2E, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONNECT) && (_apConfig.menuItems & AC_MENUITEM_CONFIGNEW || _apConfig.menuItems & AC_MENUITEM_OPENSSIDS)) {
 

@@ -344,24 +344,27 @@ void AutoConnectCredential::_retrieveEntry(station_config_t* config) {
  *  The credential area in the flash used by AutoConnect was moved from
  *  EEPROM to NVS with v.1.0.0. A stored credential data structure of
  *  Preferences is as follows. It has no identifier as AC_CREDT.
- *   0 12 3                (u)                  (u+16)            (t)
- *  +-+--+-----------------+-+--+--+--+----+----+-----------------+--+
- *  |e|ss|ssid\0pass\0bssid|d|ip|gw|nm|dns1|dns2|ssid\0pass\0bssid|\0|
- *  +-+--+-----------------+-+--+--+--+----+----+-----------------+--+
+ *  0 12 3                   (u)                (s)     (s+uname_length+1)  (t)
+ *  +-+--+-----------------+-+--+--+--+----+----+-------+-----------------+-+--+
+ *  |e|ss|ssid\0pass\0bssid|d|ip|gw|nm|dns1|dns2|uname\0|ssid\0pass\0bssid|d|\0|
+ *  +-+--+-----------------+-+--+--+--+----+----+-------+-----------------+-+--+
  *  e  : Number of contained entries(uint8_t).
  *  ss : Container size, excluding ID and number of entries(uint16_t).
  *  ssid: SSID string with null termination.
  *  password : Password string with null termination.
  *  bssid : BSSID 6 bytes.
- *  d  : DHCP is in available. 0:DHCP 1:Static IP
- *  ip - dns2 : Optional fields for static IPs configuration, these fields are available when d=1.
+ *  d  : A characteristic indicator byte of Supplicant.
+ *       1... .... : DHCP is in available. 0:DHCP 1:Static IP
+ *       .1.. .... : Apply WAP2-Enterprise authentication
+ *  ip ~ dns2 : Optional fields for static IPs configuration, these fields are available when d=0b1.......
  *  ip : Static IP (uint32_t)
  *  gw : Gateway address (uint32_t)
  *  nm : Netmask (uint32_t)
  *  dns1 : Primary DNS (uint32)
  *  dns2 : Secondary DNS (uint32_t)
+ *  uname : username for WPA2-Enterprise authentication. This field is available when d=0b.1......
  *  t  : The end of the container is a continuous '\0'.
- *  SSID and PASSWORD are terminated by '\ 0'.
+ *  SSID and PASSWORD, uname are terminated by '\ 0'.
  */
 AutoConnectCredential::AutoConnectCredential() {
   _allocateEntry();
@@ -483,9 +486,11 @@ bool AutoConnectCredential::_add(const station_config_t* config) {
     AC_CREDTBODY_t  credtBody;
     credtBody.password = String(reinterpret_cast<const char*>(config->password));
     memcpy(credtBody.bssid, config->bssid, sizeof(AC_CREDTBODY_t::bssid));
-    credtBody.dhcp = config->dhcp;
+    credtBody.cs.sup = config->cs.sup;
+    if (config->cs.attr.eap == STA_EAP)
+      credtBody.username = String(reinterpret_cast<const char*>(config->eap_username));
     for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++)
-      credtBody.ip[e] = credtBody.dhcp == (uint8_t)STA_STATIC ? config->config.addr[e] : 0U;
+      credtBody.ip[e] = credtBody.cs.attr.dhcp == STA_STATIC ? config->config.addr[e] : 0U;
     std::pair<AC_CREDT_t::iterator, bool> rc = _credit.insert(std::make_pair(ssid, credtBody));
     _entries = _credit.size();
     #ifdef AC_DBG
@@ -510,11 +515,13 @@ size_t AutoConnectCredential::_commit(void) {
   for (const auto& credt : _credit) {
     ssid = credt.first;
     credtBody = credt.second;
-    sz += ssid.length() + sizeof('\0') + credtBody.password.length() + sizeof('\0') + sizeof(AC_CREDTBODY_t::bssid) + sizeof(AC_CREDTBODY_t::dhcp);
-    if (credtBody.dhcp == (uint32_t)STA_STATIC) {
+    sz += ssid.length() + sizeof('\0') + credtBody.password.length() + sizeof('\0') + sizeof(AC_CREDTBODY_t::bssid) + sizeof(AC_CREDTBODY_t::cs);
+    if (credtBody.cs.attr.dhcp == STA_STATIC) {
       for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++)
         sz += sizeof(uint32_t);
     }
+    if (credtBody.cs.attr.eap == STA_EAP)
+      sz += credtBody.username.length() + sizeof('\0');
   }
   // When the entry is not empty, the size of container terminator as '\0' must be added.
   _containSize = sz + (_entries ? sizeof('\0') : 0);
@@ -524,6 +531,7 @@ size_t AutoConnectCredential::_commit(void) {
   // Dump container to serialization pool and write it back to NVS.
   uint8_t* credtPool = (uint8_t*)malloc(psz);
   if (credtPool) {
+    memset(credtPool, 0x00, psz);
     uint16_t dp = 0;
     credtPool[dp++] = _entries;  // 'e'
     credtPool[dp++] = (uint8_t)(psz & 0x00ff); // 'ss' low byte
@@ -544,13 +552,18 @@ size_t AutoConnectCredential::_commit(void) {
       memcpy(&credtPool[dp], credtBody.bssid, sizeof(station_config_t::bssid));
       dp += sizeof(station_config_t::bssid);
       // DHCP/Static IP indicator
-      credtPool[dp++] = (uint8_t)credtBody.dhcp;
+      credtPool[dp++] = (uint8_t)credtBody.cs.sup;
       // Static IP configuration
-      if (credtBody.dhcp == STA_STATIC) {
+      if (credtBody.cs.attr.dhcp == STA_STATIC) {
         for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++) {
           for (uint8_t b = 1; b <= sizeof(credtBody.ip[e]); b++)
             credtPool[dp++] = ((uint8_t*)&credtBody.ip[e])[sizeof(credtBody.ip[e]) - b];
         }
+      }
+      if (credtBody.cs.attr.eap == STA_EAP) {
+        itemLen = credtBody.username.length() + sizeof('\0');
+        credtBody.username.toCharArray(reinterpret_cast<char*>(&credtPool[dp]), itemLen);
+        dp += itemLen;
       }
     }
     if (_credit.size() > 0)
@@ -624,17 +637,22 @@ uint8_t AutoConnectCredential::_import(void) {
           memcpy(credtBody.bssid, &credtPool[dp], sizeof(AC_CREDTBODY_t::bssid));
           dp += sizeof(AC_CREDTBODY_t::bssid);
           // DHCP/Static IP indicator
-          credtBody.dhcp = credtPool[dp++];
+          credtBody.cs.sup = credtPool[dp++];
           // Static IP configuration
           for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++) {
             uint32_t* ip = &credtBody.ip[e];
             *ip = 0U;
-            if (credtBody.dhcp == (uint8_t)STA_STATIC) {
+            if (credtBody.cs.attr.dhcp == (uint8_t)STA_STATIC) {
               for (uint8_t b = 0; b < sizeof(uint32_t); b++) {
                 *ip <<= 8;
                 *ip += credtPool[dp++];
               }
             }
+          }
+          // Restore an username for WPA2-Enterprise authentication
+          if (credtBody.cs.attr.eap == STA_EAP) {
+            credtBody.username = String(reinterpret_cast<const char*>(&credtPool[dp]));
+            dp += credtBody.username.length() + sizeof('\0');
           }
           // Make an entry
           _credit.insert(std::make_pair(ssid, credtBody));
@@ -671,9 +689,11 @@ void AutoConnectCredential::_obtain(AC_CREDT_t::iterator const& it, station_conf
   ssid.toCharArray(reinterpret_cast<char*>(config->ssid), sizeof(station_config_t::ssid));
   credtBody.password.toCharArray(reinterpret_cast<char*>(config->password), sizeof(station_config_t::password));
   memcpy(config->bssid, credtBody.bssid, sizeof(station_config_t::bssid));
-  config->dhcp = credtBody.dhcp;
+  config->cs.sup = credtBody.cs.sup;
   for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++)
-    config->config.addr[e] = credtBody.dhcp == (uint8_t)STA_STATIC ? credtBody.ip[e] : 0U;
+    config->config.addr[e] = credtBody.cs.attr.dhcp == STA_STATIC ? credtBody.ip[e] : 0U;
+  if (credtBody.cs.attr.eap == STA_EAP)
+    credtBody.username.toCharArray(reinterpret_cast<char*>(config->eap_username), sizeof(station_config_t::eap_username));
 }
 
 #endif
