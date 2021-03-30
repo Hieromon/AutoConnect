@@ -102,6 +102,18 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.3.0] Mar. 31, 2021
+- Supports a callback with OTA status change. (issue #325)
+- Supports AutoConnectConfigAux.
+- Added **getConfig** function.
+- Added **getOTA** function.
+- Added a style attribute for AutoConnectInput.
+- Added the div tag generation with the AutoConnectElement.
+- Fixed AUTOCONNECT_JSONDOCUMENT_SIZE was inoperative.
+- Fixed garbage being mixed in a loaded credential.
+- Fixed the layout on the page being corrupted with NUMBER type of AutoConnectInput.
+- Fixed the output place of Posterior attribute for AutoConnectRadio.
+
 ### [1.2.3] Jan. 3, 2021
 
 Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.5.0 or later is required. Please update PageBuilder latest.
