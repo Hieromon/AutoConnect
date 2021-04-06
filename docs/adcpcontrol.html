@@ -1014,7 +1014,7 @@
 
 <span style="background-color: #49483e"><span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">startCP</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ip)</span> <span style="color: #f8f8f2">{</span>
 </span>  <span style="color: #f8f8f2">digitalWrite(BUILTIN_LED,</span> <span style="color: #f8f8f2">HIGH);</span>
-  <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;C.P. started, IP:&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">WiFi.localIP().toString());</span>
+  <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;C.P. started, IP:&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">ip.toString());</span>
   <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">true;</span>
 <span style="color: #f8f8f2">}</span>
 
