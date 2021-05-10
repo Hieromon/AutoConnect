@@ -10,7 +10,7 @@
  * @file AutoConnectOTA.h
  * @author hieromon@gmail.com
  * @version  1.3.0
- * @date 2021-03-29
+ * @date 2021-04-08
  * @copyright  MIT license.
  */
 
@@ -37,7 +37,20 @@ typedef fs::SPIFFSFS  SPIFFST;
 class AutoConnectOTA : public AutoConnectUploadHandler {
 public:
   // Type declaration of callback function to notify OTA status change
-  typedef std::function<bool(const AC_OTAStatus_t)> StatusChange_ft;
+  typedef std::function<void(void)> StartExit_ft;
+  typedef std::function<void(void)> EndExit_ft;
+  typedef std::function<void(uint8_t)> ErrorExit_ft;
+  typedef std::function<void(unsigned int, unsigned int)> ProgressExit_ft;
+
+  // Updating process status
+  typedef enum  {
+    AC_OTA_IDLE,          /**< Update process has not started */
+    AC_OTA_START,         /**< Update process has started */
+    AC_OTA_PROGRESS,      /**< Update process in progress */
+    AC_OTA_SUCCESS,       /**< A binary updater has uploaded fine */
+    AC_OTA_RIP,           /**< Ready for module restart */
+    AC_OTA_FAIL           /**< Failed to save binary updater by Update class */
+  } AC_OTAStatus_t;
 
   // The treating destination of OTA transferred data
   typedef enum {
@@ -45,7 +58,7 @@ public:
     OTA_DEST_FIRM  /**< To update the firmware */
   } AC_OTADest_t;
 
-  AutoConnectOTA() : _dest(OTA_DEST_FIRM), _status(AC_OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {};
+  AutoConnectOTA() : _cbStart(NULL), _cbEnd(NULL), _cbError(NULL), _cbProgress(NULL), _dest(OTA_DEST_FIRM), _status(AC_OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {};
   ~AutoConnectOTA();
   void  attach(AutoConnect& portal);                        /**< Attach itself to AutoConnect */
   void  authentication(const AC_AUTH_t auth);               /**< Set certain page authentication */
@@ -55,7 +68,10 @@ public:
   AC_OTAStatus_t  status(void) const { return _status; }    /**< Return a current error status of the Update class */ 
   AC_OTADest_t  dest(void) const { return _dest; }          /**< Return a current uploading destination */
   void  setTicker(int8_t pin, uint8_t on) { _tickerPort = pin, _tickerOn = on; }  /**< Set ticker LED port */
-  void  onStatusChange(StatusChange_ft fn) { _onStatusChange = fn; }  /**< Register a status change notification callback function */
+  AutoConnectOTA& onStart(StartExit_ft fn);                 /**< Register a callback for OTA start */
+  AutoConnectOTA& onEnd(EndExit_ft fn);                     /**< Register a callback for OTA end */
+  AutoConnectOTA& onError(ErrorExit_ft fn);                 /**< Register a callback for OTA error */
+  AutoConnectOTA& onProgress(ProgressExit_ft fn);           /**< Register a callback for OTA in progress */
 
 protected:
   template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept {
@@ -70,7 +86,11 @@ protected:
   std::unique_ptr<AutoConnectAux> _auxUpdate;   /**< An update operation page */
   std::unique_ptr<AutoConnectAux> _auxResult;   /**< An update result page */
 
-  StatusChange_ft _onStatusChange;              /**< A status change notification callback function */
+  /**< A status change notification callback functions */
+  StartExit_ft    _cbStart;
+  EndExit_ft      _cbEnd;
+  ErrorExit_ft    _cbError;
+  ProgressExit_ft _cbProgress;  
 
  private:
   void  _setError(void);
@@ -82,6 +102,7 @@ protected:
   uint8_t _tickerOn;            /**< A signal for flicker turn on */
   String  _binName;             /**< An updater file name */
   String  _err;                 /**< Occurred error stamp */
+  size_t  _ulAmount;            /**< Cumulative amount uploaded */
 
   SPIFFST*  _fs;                /**< Filesystem for the native file uploading */
   fs::File  _file;              /**< File handler for the native file uploading */

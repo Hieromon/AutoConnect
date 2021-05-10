@@ -3,7 +3,7 @@
  * @file   AutoConnectOTA.cpp
  * @author hieromon@gmail.com
  * @version    1.3.0
- * @date   2021-03-29
+ * @date   2021-04-08
  * @copyright  MIT license.
  */
 
@@ -77,6 +77,50 @@ void AutoConnectOTA::attach(AutoConnect& portal) {
 
   portal.join(*_auxUpdate.get());
   portal.join(*_auxResult.get());
+}
+
+/**
+ * Register a function that will call back when the OTA status
+ * transitions to the AC_OTA_START.
+ * @param  fn A function that will be called back.
+ * @return    An instance of AutoConnectOTA
+ */
+AutoConnectOTA& AutoConnectOTA::onStart(StartExit_ft fn) {
+  _cbStart = fn;
+  return *this;
+}
+
+/**
+ * Register a function that will call back when the OTA status
+ * transitions to the AC_OTA_SUCCESS.
+ * @param  fn A function that will be called back.
+ * @return    An instance of AutoConnectOTA
+ */
+AutoConnectOTA& AutoConnectOTA::onEnd(EndExit_ft fn) {
+  _cbEnd = fn;
+  return *this;
+}
+
+/**
+ * Register a function that will call back when the OTA status
+ * transitions to the AC_OTA_FAIL.
+ * @param  fn A function that will be called back.
+ * @return    An instance of AutoConnectOTA
+ */
+AutoConnectOTA& AutoConnectOTA::onError(ErrorExit_ft fn) {
+  _cbError = fn;
+  return *this;
+}
+
+/**
+ * Register a function that will call back when the OTA status
+ * transitions to the AC_OTA_PROGRESS.
+ * @param  fn A function that will be called back.
+ * @return    An instance of AutoConnectOTA
+ */
+AutoConnectOTA& AutoConnectOTA::onProgress(ProgressExit_ft fn) {
+  _cbProgress = fn;
+  return *this;
 }
 
 /**
@@ -195,6 +239,7 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
 #endif
 #endif
 
+  _err.clear();
   AC_DBG("OTA:%s %s\n", _dest == OTA_DEST_FIRM ? "app" : "fs", _binName.c_str());
   if (_dest == OTA_DEST_FIRM) {
     uint32_t  maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
@@ -231,15 +276,12 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
     if (_tickerPort != -1)
       pinMode(static_cast<uint8_t>(_tickerPort), OUTPUT);
     _status = AC_OTA_START;
+    _ulAmount = 0;
     AC_DBG("%s up%s start\n", filename, _dest == OTA_DEST_FIRM ? "dating" : "loading");
 
     // Notify an OTA status change
-    if (_onStatusChange) {
-      if (!_onStatusChange(_status)) {
-        _setError("OTA cancellation requested");
-        bc = false;
-      }
-    }
+    if (_cbStart)
+      _cbStart();
   }
   return bc;
 }
@@ -252,22 +294,11 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
  * @return      the amount written
  */
 size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
-  AC_OTAStatus_t  ps = _status;
   size_t  wsz = 0;
   if (_tickerPort != -1)
     digitalWrite(_tickerPort, digitalRead(_tickerPort) ^ 0x01);
   if (!_err.length()) {
     _status = AC_OTA_PROGRESS;
-    if (ps != _status) {
-      // Notify an OTA status change
-      if (_onStatusChange) {
-        if (!_onStatusChange(_status)) {
-          _setError("OTA cancellation requested");
-          return 0;
-        }
-      }
-    }
-
     if (_dest == OTA_DEST_FIRM) {
       wsz = Update.write(const_cast<uint8_t*>(buf), size);
       if (wsz != size)
@@ -277,6 +308,12 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
       wsz = _file.write(buf, size);
       if (wsz != size)
         _setError("Incomplete writing");
+    }
+    // Notify an OTA status change
+    if (wsz) {
+      _ulAmount += wsz;
+      if (_cbProgress)
+        _cbProgress(_ulAmount, wsz);
     }
   }
   return wsz;
@@ -302,18 +339,18 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
       if (ec) {
         _status = AC_OTA_SUCCESS;
         AC_DBG_DUMB("succeeds");
-        if (_onStatusChange)  // Notify an OTA status change
-          _onStatusChange(_status);
+        if (_cbEnd)  // Notify an OTA status change
+          _cbEnd();
       }
       else {
-        _setError();
         AC_DBG_DUMB("flash failed");
+        _setError();
         Update.end(false);
       }
     }
     else {
-      _setError("Aborted");
       AC_DBG_DUMB("aborted");
+      _setError("Aborted");
     }
   }
   AC_DBG_DUMB(". %s\n", _err.c_str());
@@ -340,10 +377,6 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
     stColor = PSTR("3d7e9a");
     // Notify to the handleClient of loop() thread that it can reboot.
     _status = AC_OTA_RIP;
-    if (_onStatusChange) { // Notify an OTA status change
-      if (!_onStatusChange(_status))
-        _status = AC_OTA_IDLE;
-    }
   }
   else {
     st = String(F(AUTOCONNECT_TEXT_OTAFAILURE)) + _err;
@@ -377,6 +410,6 @@ void AutoConnectOTA::_setError(void) {
 void AutoConnectOTA::_setError(const char* err) {
   _err = String(err);
   _status = AC_OTA_FAIL;
-  if (_onStatusChange)
-    _onStatusChange(_status);
+  if (_cbError)
+    _cbError(Update.getError());
 }

@@ -13,7 +13,6 @@
 #include <vector>
 #include <memory>
 #include <functional>
-#include <DNSServer.h>
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
@@ -26,6 +25,7 @@ using WebServerClass = ESP8266WebServer;
 #include <WebServer.h>
 using WebServerClass = WebServer;
 #endif
+#include <DNSServer.h>
 #include <EEPROM.h>
 #include <PageBuilder.h>
 #include "AutoConnectDefs.h"
@@ -234,7 +234,6 @@ class AutoConnect {
   bool  config(AutoConnectConfig& Config);
   bool  config(const char* ap, const char* password = nullptr);
   void  end(void);
-  AutoConnectOTA* getOTA(void) { return _ota.get(); }
   AutoConnectConfig&  getConfig(void) { return _apConfig; }
   uint16_t getEEPROMUsedSize(void);
   void  handleClient(void);
@@ -261,15 +260,21 @@ class AutoConnect {
   bool  load(Stream& aux);
 #endif // !AUTOCONNECT_USE_JSON
 
-  typedef std::function<bool(IPAddress&)>  DetectExit_ft;
-  typedef std::function<void(IPAddress&)>  ConnectExit_ft;
-  typedef std::function<bool(void)>        WhileCaptivePortalExit_ft;
-  typedef std::function<bool(const AC_OTAStatus_t)> OTAStatusChangeExit_ft;
+  typedef std::function<bool(IPAddress&)> DetectExit_ft;
+  typedef std::function<void(IPAddress&)> ConnectExit_ft;
+  typedef std::function<bool(void)>       WhileCaptivePortalExit_ft;
+  typedef std::function<void(void)>       OTAStartExit_ft;
+  typedef std::function<void(void)>       OTAEndExit_ft;
+  typedef std::function<void(uint8_t)>    OTAErrorExit_ft;
+  typedef std::function<void(unsigned int, unsigned int)> OTAProgressExit_ft;
   void  onDetect(DetectExit_ft fn);
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServerClass::THandlerFunction fn);
   void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
-  void  onOTAStatusChange(OTAStatusChangeExit_ft fn);
+  void  onOTAStart(OTAStartExit_ft fn);
+  void  onOTAEnd(OTAEndExit_ft fn);
+  void  onOTAError(OTAErrorExit_ft fn);
+  void  onOTAProgress(OTAProgressExit_ft fn);
 
  protected:
   typedef enum {
@@ -322,30 +327,33 @@ class AutoConnect {
   void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
-  String               _attachMenuItem(const AC_MENUITEM_t item);
-  static uint32_t      _getChipId(void);
-  static uint32_t      _getFlashChipRealSize(void);
-  static String        _toMACAddressString(const uint8_t mac[]);
-  static unsigned int  _toWiFiQuality(int32_t rssi);
-  ConnectExit_ft       _onConnectExit;
-  DetectExit_ft        _onDetectExit;
+  String              _attachMenuItem(const AC_MENUITEM_t item);
+  static uint32_t     _getChipId(void);
+  static uint32_t     _getFlashChipRealSize(void);
+  static String       _toMACAddressString(const uint8_t mac[]);
+  static unsigned int _toWiFiQuality(int32_t rssi);
+  ConnectExit_ft      _onConnectExit;
+  DetectExit_ft       _onDetectExit;
   WhileCaptivePortalExit_ft _whileCaptivePortal;
-  WebServerClass::THandlerFunction _notFoundHandler;
-  OTAStatusChangeExit_ft  _onOTAStatusChangeExit;
-  size_t               _freeHeapSize;
+  WebServerClass::THandlerFunction  _notFoundHandler;
+  OTAStartExit_ft     _onOTAStartExit;
+  OTAEndExit_ft       _onOTAEndExit;
+  OTAErrorExit_ft     _onOTAErrorExit;
+  OTAProgressExit_ft  _onOTAProgressExit;
+  size_t              _freeHeapSize;
 
   /** Servers which works in concert. */
   typedef std::unique_ptr<WebServerClass, std::function<void(WebServerClass *)> > WebserverUP;
   WebserverUP _webServer = WebserverUP(nullptr, std::default_delete<WebServerClass>());
-  std::unique_ptr<DNSServer>      _dnsServer;
+  std::unique_ptr<DNSServer>    _dnsServer;
 
   /**
    *  Dynamically hold one page of AutoConnect menu.
    *  Every time a GET/POST HTTP request occurs, an AutoConnect
    *  menu page corresponding to the URI is generated.
    */
-  std::unique_ptr<PageBuilder> _responsePage;
-  std::unique_ptr<PageElement> _currentPageElement;
+  std::unique_ptr<PageBuilder>  _responsePage;
+  std::unique_ptr<PageElement>  _currentPageElement;
 
   /** Extended pages made up with AutoConnectAux */
   AutoConnectAux* _aux = nullptr; /**< A top of registered AutoConnectAux */
