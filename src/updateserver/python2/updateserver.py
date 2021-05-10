@@ -18,6 +18,7 @@ import urllib2, urllib, urlparse
 from itertools import imap
 from io import open
 
+
 class UpdateHttpServer(object):
     def __init__(self, port, bind, catalog_dir):
         def handler(*args):

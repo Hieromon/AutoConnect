@@ -14,6 +14,7 @@ import socket
 import time
 import urllib.parse
 
+
 class UpdateHttpServer:
     def __init__(self, port, bind, catalog_dir):
         def handler(*args):
