@@ -46,7 +46,7 @@ class UpdateHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                         path = urllib.parse.parse_qs(query)['path'][0]
                     except KeyError:
                         path = '.'
-                    self.__send_dir(path)
+                    self.__send_dir(os.path.join(self.catalog_dir, path))
                     result = True
                 else:
                     err = '{0} unknown operation'.format(op)
