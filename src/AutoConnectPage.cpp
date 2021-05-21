@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.2.3
- *  @date   2021-01-02
+ *  @version    1.3.0
+ *  @date   2021-05-21
  *  @copyright  MIT license.
  */
 
@@ -1113,7 +1113,7 @@ String AutoConnect::_token_LIST_SSID(PageArgument& args) {
       // per page in the available SSID list.
       if (validCount >= page * AUTOCONNECT_SSIDPAGEUNIT_LINES && validCount <= (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES - 1) {
         if (++dispCount <= AUTOCONNECT_SSIDPAGEUNIT_LINES) {
-          snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidList, ssid.c_str(), AutoConnect::_toWiFiQuality(WiFi.RSSI(i)), WiFi.channel(i), WiFi.encryptionType(i) != ENC_TYPE_NONE ? (PGM_P)_ssidEnc : "");
+          snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidList, ssid.c_str(), AutoConnect::_toWiFiQuality((int32_t)WiFi.RSSI(i)), WiFi.channel(i), WiFi.encryptionType(i) != ENC_TYPE_NONE ? (PGM_P)_ssidEnc : "");
           slBuf += strlen(slBuf);
         }
       }
@@ -1181,7 +1181,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
         // according to the AUTOCONNECT_APKEY_SSID definition, which is
         // either BSSID or SSID.
         _connectCh = WiFi.channel(sc);
-        snprintf_P(rssiCont, sizeof(rssiCont), (PGM_P)_ssidRssi, AutoConnect::_toWiFiQuality(WiFi.RSSI(sc)), _connectCh);
+        snprintf_P(rssiCont, sizeof(rssiCont), (PGM_P)_ssidRssi, AutoConnect::_toWiFiQuality((int32_t)WiFi.RSSI(sc)), _connectCh);
         rssiSym = rssiCont;
         if (WiFi.encryptionType(sc) != ENC_TYPE_NONE)
           ssidLock = _ssidLock;

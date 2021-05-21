@@ -990,9 +990,9 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKM
         if (_isValidAP(_credential, n)) {
           if ((mode == AC_SEEKMODE_NEWONE) && (strlen(currentSSID) > 0))
             continue;
-          if (WiFi.RSSI(n) < _apConfig.minRSSI) {
+          if ((int32_t)WiFi.RSSI(n) < _apConfig.minRSSI) {
             // Excepts SSID that has weak RSSI under the lower limit.
-            AC_DBG("%s:%" PRId32 "dBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), WiFi.RSSI(n));
+            AC_DBG("%s:%ddBm, rejected\n", reinterpret_cast<const char*>(_credential.ssid), (int)WiFi.RSSI(n));
             continue;
           }
           // Determine valid credential
@@ -1004,7 +1004,7 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKM
           case AC_PRINCIPLE_RSSI:
             // Verify that most strong radio signal.
             // Continue seeking to find the strongest WIFI signal SSID.
-            if (WiFi.RSSI(n) > minRSSI) {
+            if ((int32_t)WiFi.RSSI(n) > minRSSI) {
               minRSSI = WiFi.RSSI(n);
               memcpy(&validConfig, &_credential, sizeof(station_config_t));
             }
