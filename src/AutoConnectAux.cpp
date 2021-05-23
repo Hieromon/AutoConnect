@@ -153,6 +153,26 @@ void AutoConnectAux::fetchElement(void) {
 
 /**
  * Get already registered AutoConnectElement.
+ * @param  name  Element name as const char ptr.
+ * @return A pointer to the registered AutoConnectElement.
+ */
+AutoConnectElement* AutoConnectAux::getElement(const char* name) {
+  for (AutoConnectElement& elm : _addonElm) {
+    if (elm.name.length() == strlen(name)) {
+      const char* p = name;
+      const char* elmName = elm.name.c_str();
+      while (tolower(*p++) == tolower(*elmName++)) {
+        if (!*p)
+          return &elm;
+      }
+    }
+  }
+  AC_DBG("Element<%s> not registered\n", name);
+  return nullptr;
+}
+
+/**
+ * Get already registered AutoConnectElement.
  * @param  name  Element name
  * @return A pointer to the registered AutoConnectElement.
  */
