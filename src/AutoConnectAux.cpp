@@ -173,6 +173,26 @@ AutoConnectElement* AutoConnectAux::getElement(const char* name) {
 
 /**
  * Get already registered AutoConnectElement.
+ * @param  name  Element name as PROGMEM.
+ * @return A pointer to the registered AutoConnectElement.
+ */
+AutoConnectElement* AutoConnectAux::getElement(const __FlashStringHelper* name) {
+  for (AutoConnectElement& elm : _addonElm) {
+    if (elm.name.length() == strlen_P(reinterpret_cast<PGM_P>(name))) {
+      PGM_P p = reinterpret_cast<PGM_P>(name);
+      const char* elmName = elm.name.c_str();
+      while (tolower(pgm_read_byte(p++)) == tolower(*elmName++)) {
+        if (!pgm_read_byte(p))
+          return &elm;
+      }
+    }
+  }
+  AC_DBG("Element<%s> not registered\n", String(name).c_str());
+  return nullptr;
+}
+
+/**
+ * Get already registered AutoConnectElement.
  * @param  name  Element name
  * @return A pointer to the registered AutoConnectElement.
  */

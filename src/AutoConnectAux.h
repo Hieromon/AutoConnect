@@ -51,6 +51,7 @@ class AutoConnectAux : public PageBuilder {
   explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT());
   ~AutoConnectAux();
   AutoConnectElement& operator[](const char* name) { return *getElement(name); }
+  AutoConnectElement& operator[](const __FlashStringHelper* name) { return *getElement(name); }
   AutoConnectElement& operator[](const String& name) { return *getElement(name); }
   void  add(AutoConnectElement& addon);                                 /**< Add an element to the auxiliary page */
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page */
@@ -59,6 +60,7 @@ class AutoConnectAux : public PageBuilder {
   template<typename T>
   T&    getElement(const String& name);
   AutoConnectElement*   getElement(const char* name);                   /**< Get registered AutoConnectElement as specified name */
+  AutoConnectElement*   getElement(const __FlashStringHelper* name);    /**< Get registered AutoConnectElement as specified name */
   AutoConnectElement*   getElement(const String& name);                 /**< Get registered AutoConnectElement as specified name */
   AutoConnectElementVT& getElements(void) { return _addonElm; }         /**< Get vector of all elements */
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
