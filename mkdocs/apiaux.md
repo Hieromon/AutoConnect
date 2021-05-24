@@ -19,6 +19,14 @@ AutoConnectAux(const String& uri = String(""), const String& title = String(""),
 ### <i class="fa fa-caret-right"></i> operator [ ]
 
 ```cpp
+AutoConnectElement& operator[](const char* name)
+```
+<p></p>
+```cpp
+AutoConnectElement& operator[](const __FlashStringHelper* name)
+```
+<p></p>
+```cpp
 AutoConnectElement& operator[](const String& name)
 ```
 Returns a reference to the element specified by **name**. An operator `[]` is a shortcut for [getElement](apiaux.md#getelement) function with the reference casting. Unlike getElement, which returns a pointer to that element, an operator `[]` returns a reference to that element. You also need to cast the return value to the actual type, just like the getElement function.<dl class="apidl">
@@ -66,6 +74,14 @@ Retrieve the values of the AutoConnectElements on the custom Web page. Refer to 
 
 ```cpp
 T& getElement<T>(const String& name)
+```
+<p></p>
+```cpp
+AutoConnectElement* getElement(const char* name)
+```
+<p></p>
+```cpp
+AutoConnectElement* getElement(const __FlashStringHelper* name)
 ```
 <p></p>
 ```cpp

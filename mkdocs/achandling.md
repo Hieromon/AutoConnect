@@ -68,6 +68,14 @@ Similarly this, the uniqueness of the name is also necessary within the JSON doc
 To retrieve an element from AutoConnectAux, use the getElement or getElements function. Normally, the getElement is needed when accessing the value of AutoConnectElement in the Sketch.
 
 ```cpp
+AutoConnectElement* AutoConnectAux::getElement(const char* name)
+```
+
+```cpp
+AutoConnectElement* AutoConnectAux::getElement(const __FlashStringHelper* name)
+```
+
+```cpp
 AutoConnectElement* AutoConnectAux::getElement(const String& name)
 ```
 
