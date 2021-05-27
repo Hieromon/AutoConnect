@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.2.3
- * @date 2021-01-13
+ * @version  1.3.0
+ * @date 2021-05-27
  * @copyright  MIT license.
  */
 
@@ -45,6 +45,14 @@
 
 // Indicator of whether to use the AutoConnectUpdate feature.
 #define AUTOCONNECT_USE_UPDATE
+#endif
+
+// Declaration to enable AutoConnectConfigAux.
+// AC_USE_CONFIGAUX must be enabled along with AUTOCONNECT_USE_JSON
+// to enable AutoConnectConfigAux.
+//#define AC_USE_CONFIGAUX 
+#if defined(AC_USE_CONFIGAUX) && defined(AUTOCONNECT_USE_JSON)
+#define AUTOCONNECT_USE_CONFIGAUX
 #endif
 
 // SPIFFS has deprecated on EP8266 core. This flag indicates that

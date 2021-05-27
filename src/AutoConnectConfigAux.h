@@ -9,17 +9,20 @@
  * AutoConnectAux has.
  * @file AutoConnectConfigAux.h
  * @author hieromon@gmail.com
- * @version  1.2.3
- * @date 2021-01-23
+ * @version  1.3.0
+ * @date 2021-05-27
  * @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTCONFIGAUX_H_
 #define _AUTOCONNECTCONFIGAUX_H_
 
-#include <type_traits>
 #include "AutoConnect.h"
 #include "AutoConnectAux.h"
+
+#ifdef AUTOCONNECT_USE_CONFIGAUX
+
+#include <type_traits>
 
 class AutoConnectConfigAux : public AutoConnectAux {
  public:
@@ -93,4 +96,6 @@ class AutoConnectConfigAux : public AutoConnectAux {
   static const char _rdlg[] PROGMEM;            /**< Script to prompt the reset dialog */
 };
 
-#endif
+#endif // !AUTOCONNECT_USE_CONFIGAUX
+
+#endif // !_AUTOCONNECTCONFIGAUX_H_

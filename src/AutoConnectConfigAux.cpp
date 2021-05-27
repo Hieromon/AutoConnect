@@ -2,8 +2,8 @@
  * AutoConnectConfigAux class implementation.
  * @file AutoConnectConfigAux.cpp
  * @author hieromon@gmail.com
- * @version  1.2.3
- * @date 2021-01-23
+ * @version  1.3.0
+ * @date 2021-05-27
  * @copyright  MIT license.
  */
 
@@ -12,6 +12,8 @@
 #include <iterator>
 #include <vector>
 #include "AutoConnectConfigAux.h"
+
+#ifdef AUTOCONNECT_USE_CONFIGAUX
 
 #include <FS.h>
 #if defined(ARDUINO_ARCH_ESP8266)
@@ -961,3 +963,5 @@ void AutoConnectConfigAux::_retrieveSettings(AutoConnectConfigAux& me) {
   me[AUTOCONNECT_CONFIGAUX_ELM_BOUNDARYOFFSET].as<AutoConnectInput>().value = String(acConfig.boundaryOffset);
   AC_DBG("_apConfig retrieved\n");
 }
+
+#endif // !AUTOCONNECT_USE_CONFIGAUX
