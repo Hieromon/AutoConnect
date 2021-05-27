@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version  1.2.3
- * @date 2021-01-27
+ * @version  1.3.0
+ * @date 2021-05-27
  * @copyright  MIT license.
  */
 
@@ -57,6 +57,10 @@ class AutoConnectAux : public PageBuilder {
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page */
   void  authentication(const AC_AUTH_t auth) { _httpAuth = auth; }      /**< Set certain page authentication */
   void  fetchElement(void);                                             /**< Fetch AutoConnectElements values from http query parameters */
+  template<typename T>
+  T&    getElement(const char* name);
+  template<typename T>
+  T&    getElement(const __FlashStringHelper* name);
   template<typename T>
   T&    getElement(const String& name);
   AutoConnectElement*   getElement(const char* name);                   /**< Get registered AutoConnectElement as specified name */
@@ -122,17 +126,47 @@ class AutoConnectAux : public PageBuilder {
   const String  _indicateUri(PageArgument& args);                       /**< Inject the uri that caused the request */
   const String  _indicateEncType(PageArgument& args);                   /**< Inject the ENCTYPE attribute */
   void  _storeElements(WebServerClass* webServer);                      /**< Store element values from contained in request arguments */
+  template<typename T>
+  bool  _isCompatible(const AutoConnectElement* element) const;         /**< Validate a type of AutoConnectElement entity conformity */
   static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
 
 #ifdef AUTOCONNECT_USE_JSON
-  template<typename T>
-  bool  _parseJson(T in, const size_t size);
   bool  _load(JsonObject& in);                                          /**< Load all elements from JSON object */
   bool  _loadElement(JsonVariant& in, const String& name);              /**< Load an element as specified name from JSON object */
   bool  _loadElement(JsonVariant& in, std::vector<String> const& names);  /**< Load any elements as specified name from JSON object */
   AutoConnectElement& _loadElement(JsonObject& in, const String& name); /**< Load an element as specified name from JSON object */
   AutoConnectElement* _createElement(const JsonObject& json);           /**< Create an AutoConnectElement instance from JSON object */
   static ACElement_t  _asElementType(const String& type);               /**< Convert a string of element type to the enumeration value */
+  /**
+   * Parse and load a JSON document which marks up a custom web page.
+   * The compiler instantiates this template according to the stored data
+   * type that contains the JSON document.
+   * This template also generates different parsing function calls
+   * depending on the ArduinoJson version.
+   * @param  T  An object type of the JSON document which must be a
+   * passable object to ArduinoJson.
+   * @param  in An instance of a source JSON document to load.
+   */
+  template<typename T>
+  bool _parseJson(T in, const size_t size) {
+    ArduinoJsonBuffer jsonBuffer(AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE);
+  #if ARDUINOJSON_VERSION_MAJOR<=5
+    JsonObject& jb = jsonBuffer.parseObject(in);
+    if (!jb.success()) {
+      AC_DBG("JSON parse error\n");
+      return false;
+    }
+  #else
+    DeserializationError  err = deserializeJson(jsonBuffer, in);
+    if (err) {
+      AC_DBG("Deserialize:%s\n", err.c_str());
+      return false;
+    }
+    JsonObject jb = jsonBuffer.as<JsonObject>();
+  #endif
+    return _load(jb);
+  }
+
   /**
    * Parse and load a JSON document which declares one of the AutoConnectElement.
    * The compiler instantiates this template according to the stored data type that contains the JSON document.
@@ -180,5 +214,163 @@ class AutoConnectAux : public PageBuilder {
   // Protected members can be used from AutoConnect which handles AutoConnectAux pages.
   friend class AutoConnect;
 };
+
+/**
+ * Implementation of template functions of AutoConnectAux. 
+ * This implementation instantiates completely the void AutoConnectElement
+ * as each type and also absorbs interface differences due to ArduinoJson
+ * version differences. 
+ */
+/**
+ * The validity of AutoConnectElement, the base class of
+ * other AutoConnectElement types, is always true.
+ * @param  element  AutoConnectElement
+ * @return true     The element is feasible. Always true.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectElement>(const AutoConnectElement* element) const {
+  return true;
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectButton
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectButton>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Button);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectCheckbox
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectCheckbox>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Checkbox);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectFile
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectFile>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_File);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectInput
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectInput>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Input);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectRadio
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectRadio>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Radio);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectSelect
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectSelect>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Select);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectSubmit
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectStyle>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Style);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectSubmit
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectSubmit>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Submit);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectText
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectText>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Text);
+}
+
+/**
+ * Get AutoConnectElementJson element.
+ * @param  name  an element name.
+ * @return A reference of AutoConnectElement class.
+ */
+template<typename T>
+T& AutoConnectAux::getElement(const char* name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (_isCompatible<T>(elm))
+      return *(reinterpret_cast<T*>(elm));
+    else
+      AC_DBG("Element<%s> type mismatch<%d>\n", name, elm->typeOf());
+  }
+  return reinterpret_cast<T&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectElementJson element.
+ * @param  name  an element name.
+ * @return A reference of AutoConnectElement class.
+ */
+template<typename T>
+T& AutoConnectAux::getElement(const __FlashStringHelper* name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (_isCompatible<T>(elm))
+      return *(reinterpret_cast<T*>(elm));
+    else
+      AC_DBG("Element<%s> type mismatch<%d>\n", String(name).c_str(), elm->typeOf());
+  }
+  return reinterpret_cast<T&>(_nullElement());
+}
+
+/**
+ * Get AutoConnectElementJson element.
+ * @param  name  an element name.
+ * @return A reference of AutoConnectElement class.
+ */
+template<typename T>
+T& AutoConnectAux::getElement(const String& name) {
+  AutoConnectElement* elm = getElement(name);
+  if (elm) {
+    if (_isCompatible<T>(elm))
+      return *(reinterpret_cast<T*>(elm));
+    else
+      AC_DBG("Element<%s> type mismatch<%d>\n", name.c_str(), elm->typeOf());
+  }
+  return reinterpret_cast<T&>(_nullElement());
+}
 
 #endif // !_AUTOCONNECTAUX_H_

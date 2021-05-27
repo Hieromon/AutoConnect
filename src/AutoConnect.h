@@ -492,4 +492,39 @@ class AutoConnect {
   friend class AutoConnectUpdate;
 };
 
+#ifdef AUTOCONNECT_USE_JSON
+
+/**
+ * Parse and load a JSON document which marks up multiple custom web
+ * pages. The compiler instantiates this template according to the stored
+ * data type that contains the JSON document.
+ * This template also generates different parsing function calls
+ * depending on the ArduinoJson version.
+ * @param  T  An object type of the JSON document which must be a
+ * passable object to ArduinoJson.
+ * @param  in An instance of a source JSON document to load.
+ */
+template<typename T>
+bool AutoConnect::_parseJson(T in) {
+  ArduinoJsonBuffer jsonBuffer(AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE);
+  JsonVariant jv;
+#if ARDUINOJSON_VERSION_MAJOR<=5
+  jv = jsonBuffer.parse(in);
+  if (!jv.success()) {
+    AC_DBG("JSON parse error\n");
+    return false;
+  }
+#else
+  DeserializationError  err = deserializeJson(jsonBuffer, in);
+  if (err) {
+    AC_DBG("Deserialize error:%s\n", err.c_str());
+    return false;
+  }
+  jv = jsonBuffer.as<JsonVariant>();
+#endif
+  return _load(jv);
+}
+
+#endif // !AUTOCONNECT_USE_JSON
+
 #endif  // _AUTOCONNECT_H_

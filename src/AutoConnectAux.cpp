@@ -2,14 +2,13 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version  1.2.3
- * @date 2021-01-23
+ * @version  1.3.0
+ * @date 2021-05-27
  * @copyright  MIT license.
  */
 #include <algorithm>
 #include "AutoConnect.h"
 #include "AutoConnectAux.h"
-#include "AutoConnectAuxImpl.h"
 #include "AutoConnectUploadImpl.h"
 #include "AutoConnectElementBasisImpl.h"
 #ifdef AUTOCONNECT_USE_JSON
