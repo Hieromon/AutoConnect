@@ -721,6 +721,13 @@ AutoConnectAux* AutoConnect::aux(const String& uri) const {
       break;
     aux_p = aux_p->_next;
   }
+  if (!aux_p) {
+    AC_DBG("'%s' not found in auxiliaries", uri.c_str());
+    if (uri[0] != '/') {
+      AC_DBG_DUMB(", path may be missing '/'");
+    }
+    AC_DBG_DUMB("\n");
+  }
   return aux_p;
 }
 
