@@ -59,15 +59,6 @@
 // the migration to LittleFS has not completed.
 //#define AC_USE_SPIFFS
 
-// Deploys SPIFFS usage flag to the global.
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifdef AC_USE_SPIFFS
-#define AUTOCONNECT_USE_SPIFFS
-#endif
-#elif defined(ARDUINO_ARCH_ESP32)
-#define AUTOCONNECT_USE_SPIFFS
-#endif
-
 // Whether or not it points to the target access point is determined by
 // matching the SSID or BSSID. The default key to collate is BSSID.
 // The BSSID is usually fixed to the MAC address unique to its AP,

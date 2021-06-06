@@ -2,8 +2,8 @@
  * The default upload handler implementation.
  * @file AutoConnectUploadImpl.h
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2020-05-29
+ * @version  1.3.0
+ * @date 2021-06-06
  * @copyright  MIT license.
  */
 
@@ -15,33 +15,22 @@
 #include <ESP8266WiFi.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
-#include <SPIFFS.h>
 #endif
 #include <SPI.h>
 #include <SD.h>
+#include "AutoConnectDefs.h"
+#include "AutoConnectUpload.h"
 #define FS_NO_GLOBALS
-#ifdef AUTOCONNECT_USE_SPIFFS
-#include <FS.h>
-#else
-#include <LittleFS.h>
-#endif
-
+#include "AutoConnectFS.h"
 // Types branching to be code commonly for the file system classes with
 // ESP8266 and ESP32.
 #if defined(ARDUINO_ARCH_ESP8266)
-typedef fs::FS        SPIFFST;    // SPIFFS:File system class
-typedef fs::File      SPIFileT;   // SPIFFS:File class
 typedef SDClass       SDClassT;   // SD:File system class
 typedef File          SDFileT;    // SD:File class
 #elif defined(ARDUINO_ARCH_ESP32)
-typedef fs::SPIFFSFS  SPIFFST;
-typedef fs::File      SPIFileT;
 typedef fs::SDFS      SDClassT;
 typedef SDFile        SDFileT;
 #endif
-
-#include "AutoConnectDefs.h"
-#include "AutoConnectUpload.h"
 
 namespace AutoConnectUtil {
 AC_HAS_FUNC(end);
@@ -86,7 +75,7 @@ void AutoConnectUploadHandler::upload(const String& requestUri, const HTTPUpload
 // Default handler for uploading to the standard SPIFFS class embedded in the core.
 class AutoConnectUploadFS : public AutoConnectUploadHandler {
  public:
-  explicit AutoConnectUploadFS(SPIFFST& media) : _media(&media) {}
+  explicit AutoConnectUploadFS(AutoConnectFS::FS& media) : _media(&media) {}
   ~AutoConnectUploadFS() { _close(HTTPUploadStatus::UPLOAD_FILE_END); }
 
  protected:
@@ -118,8 +107,8 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
   }
 
  private:
-  SPIFFST*  _media;
-  SPIFileT  _file; 
+  AutoConnectFS::FS*  _media;
+  fs::File  _file; 
 };
 
 // Fix to be compatibility with backward for ESP8266 core 2.5.1 or later

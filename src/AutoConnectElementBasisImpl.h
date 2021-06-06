@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2020-11-11
+ * @version  1.3.0
+ * @date 2021-06-06
  * @copyright  MIT license.
  */
 
@@ -18,14 +18,7 @@
 #include <regex>
 #endif
 #include "AutoConnectElementBasis.h"
-
-// Preserve a valid global Filesystem instance.
-// It allows the interface to the actual filesystem for migration to LittleFS.
-#ifdef AUTOCONNECT_USE_SPIFFS
-namespace AutoConnectFS { SPIFFST& FLASHFS = SPIFFS; };
-#else
-namespace AutoConnectFS { SPIFFST& FLASHFS = LittleFS; };
-#endif
+#include "AutoConnectFS.h"
 
 /**
  * Append post-tag according by the post attribute.
@@ -121,7 +114,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
   // Classify a handler type and create the corresponding handler
   switch (store) {
   case AC_File_FS:
-    handlerFS = new AutoConnectUploadFS(AutoConnectFS::FLASHFS);
+    handlerFS = new AutoConnectUploadFS(AUTOCONNECT_APPLIED_FILESYSTEM);
     _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerFS));
     break;
   case AC_File_SD:

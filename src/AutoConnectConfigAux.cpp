@@ -15,26 +15,11 @@
 
 #ifdef AUTOCONNECT_USE_CONFIGAUX
 
-#include <FS.h>
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifndef AUTOCONNECT_USE_SPIFFS
-#include <LittleFS.h>
-#endif
-typedef fs::FS    SPIFFST;
-#elif defined(ARDUINO_ARCH_ESP32)
+#include "AutoConnectFS.h"
+#if defined(ARDUINO_ARCH_ESP32) && defined(AC_USE_SPIFFS)
 extern "C" {
 #include <esp_spiffs.h>
 }
-#include <SPIFFS.h>
-typedef fs::SPIFFSFS  SPIFFST;
-#endif
-
-// Preserve a valid global Filesystem instance.
-// It allows the interface to the actual filesystem for migration to LittleFS.
-#ifdef AUTOCONNECT_USE_SPIFFS
-namespace AutoConnectFS { SPIFFST& CONFIGFS = SPIFFS; };
-#else
-namespace AutoConnectFS { SPIFFST& CONFIGFS = LittleFS; };
 #endif
 
 // Name definitions of the AutoConnectElements placed on the AUX page
@@ -713,23 +698,23 @@ void AutoConnectConfigAux::_loadSettings(void) {
   _retrieveSettings(*this);
 #if defined(ARDUINO_ARCH_ESP8266)
   FSInfo  info;
-  if (AutoConnectFS::CONFIGFS.info(info))
+  if (AUTOCONNECT_APPLIED_FILESYSTEM.info(info))
     bc = true;
   else
-    bc = AutoConnectFS::CONFIGFS.begin();
+    bc = AUTOCONNECT_APPLIED_FILESYSTEM.begin();
 #elif defined(ARDUINO_ARCH_ESP32)
   if (esp_spiffs_mounted(NULL))
     bc = true;
   else
-    bc = AutoConnectFS::CONFIGFS.begin(true);
+    bc = AUTOCONNECT_APPLIED_FILESYSTEM.begin(true);
 #endif
   if (!_fn.startsWith(String("/")))
     _fn = String("/") + _fn;
   AC_DBG("Settings %s ", _fn.c_str());
   if (bc) {
     bc = false;
-    if (AutoConnectFS::CONFIGFS.exists(_fn)) {
-      fs::File  cf = AutoConnectFS::CONFIGFS.open(_fn, "r");
+    if (AUTOCONNECT_APPLIED_FILESYSTEM.exists(_fn)) {
+      fs::File  cf = AUTOCONNECT_APPLIED_FILESYSTEM.open(_fn, "r");
       if (cf) {
         size_t fs = ((cf.size() + 256) / 256) * 256;
         AC_DBG_DUMB("Json buffer %u \n", fs);
@@ -762,7 +747,7 @@ void AutoConnectConfigAux::_loadSettings(void) {
  */
 void AutoConnectConfigAux::_saveSettings(AutoConnectAux& me) {
   AC_DBG("Settings %s ", _fn.c_str());
-  fs::File  cf = AutoConnectFS::CONFIGFS.open(_fn, "w");
+  fs::File  cf = AUTOCONNECT_APPLIED_FILESYSTEM.open(_fn, "w");
   if (cf) {
     std::vector<String> elms;
     std::transform(std::begin(_elmNames), std::end(_elmNames), std::back_inserter(elms), [](PGM_P elmName){

@@ -16,9 +16,6 @@
 #include <regex.h>
 #endif
 #elif defined(ARDUINO_ARCH_ESP32)
-extern "C" {
-#include <esp_spiffs.h>
-}
 #include <Update.h>
 #ifdef AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP
 #include <regex>
@@ -30,12 +27,16 @@ extern "C" {
 #include "AutoConnectOTA.h"
 #include "AutoConnectOTAPage.h"
 
-// Preserve a valid global Filesystem instance.
-// It allows the interface to the actual filesystem for migration to LittleFS.
-#ifdef AUTOCONNECT_USE_SPIFFS
-namespace AutoConnectFS { SPIFFST &OTAFS = SPIFFS; };
+#ifdef ARDUINO_ARCH_ESP32
+extern "C" {
+#ifdef AC_USE_SPIFFS
+#include <esp_spiffs.h>
+#define _IS_MOUNTED esp_spiffs_mounted
 #else
-namespace AutoConnectFS { SPIFFST &OTAFS = LittleFS; };
+#include <esp_littlefs.h>
+#define _IS_MOUNTED esp_littlefs_mounted
+#endif
+}
 #endif
 
 /**
@@ -248,7 +249,7 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
   }
   else {
     // Allocate fs::FS according to the pinned Filesystem.
-    _fs = &AutoConnectFS::OTAFS;
+    _fs = &AUTOCONNECT_APPLIED_FILESYSTEM;
 #if defined(ARDUINO_ARCH_ESP8266)
     FSInfo  info;
     if (_fs->info(info))
@@ -256,7 +257,7 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
     else
       bc = _fs->begin();
 #elif defined(ARDUINO_ARCH_ESP32)
-    if (esp_spiffs_mounted(NULL))
+    if (_IS_MOUNTED(NULL))
       bc = true;
     else
       bc = _fs->begin(true);

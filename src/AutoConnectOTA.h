@@ -22,17 +22,7 @@
 #include "AutoConnect.h"
 #include "AutoConnectTypes.h"
 #include "AutoConnectUpload.h"
-
-#include <FS.h>
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifndef AUTOCONNECT_USE_SPIFFS
-#include <LittleFS.h>
-#endif
-typedef fs::FS    SPIFFST;
-#elif defined(ARDUINO_ARCH_ESP32)
-#include <SPIFFS.h>
-typedef fs::SPIFFSFS  SPIFFST;
-#endif
+#include "AutoConnectFS.h"
 
 class AutoConnectOTA : public AutoConnectUploadHandler {
 public:
@@ -104,7 +94,7 @@ protected:
   String  _err;                 /**< Occurred error stamp */
   size_t  _ulAmount;            /**< Cumulative amount uploaded */
 
-  SPIFFST*  _fs;                /**< Filesystem for the native file uploading */
+  AutoConnectFS::FS*  _fs;      /**< Filesystem for the native file uploading */
   fs::File  _file;              /**< File handler for the native file uploading */
 
   static const AutoConnectAux::ACPage_t         _pageUpdate  PROGMEM;
