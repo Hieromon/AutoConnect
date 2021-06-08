@@ -16,7 +16,7 @@
 #ifdef AUTOCONNECT_USE_CONFIGAUX
 
 #include "AutoConnectFS.h"
-#if defined(ARDUINO_ARCH_ESP32) && defined(AC_USE_SPIFFS)
+#if defined(ARDUINO_ARCH_ESP32) && (AC_USE_FILESYSTEM == 1)
 extern "C" {
 #include <esp_spiffs.h>
 }
