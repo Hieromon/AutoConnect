@@ -55,9 +55,17 @@
 #define AUTOCONNECT_USE_CONFIGAUX
 #endif
 
-// SPIFFS has deprecated on EP8266 core. This flag indicates that
-// the migration to LittleFS has not completed.
+// The AC_USE_SPIFFS and AC_USE_LITTLEFS macros declare which filesystem
+// to apply. Their definitions are contradictory to each other and you
+// cannot activate both at the same time.
 //#define AC_USE_SPIFFS
+//#define AC_USE_LITTLEFS
+// Each platform supported by AutoConnect has a default file system,
+// which is LittleFS for ESP8266 and SPIFFS for ESP32. Neither AC_USE_SPIFFS
+// nor AC_USE_LITTLE_FS needs to be explicitly defined as long as you use
+// the default file system. The default file system for each platform is assumed.
+// SPIFFS has deprecated on EP8266 core. AC_USE_SPIFFS flag indicates
+// that the migration to LittleFS has not completed.
 
 // Whether or not it points to the target access point is determined by
 // matching the SSID or BSSID. The default key to collate is BSSID.
