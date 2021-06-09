@@ -320,6 +320,7 @@ class AutoConnect {
   bool  _captivePortal(void);
   bool  _hasTimeout(unsigned long timeout);
   bool  _isIP(const String& ipStr);
+  bool  _isPersistent(void);
   void  _softAP(void);
   wl_status_t _waitForConnect(unsigned long timeout);
   void  _waitForEndTransmission(void);

@@ -98,7 +98,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
 
   // Ensure persistence to save the connected station_config in the SDK.
   // Correspondence to change of WiFi initial mode due to update to ESP8266 core 3.0.0.
-  if (!WiFi.getPersistent()) {
+  if (!_isPersistent()) {
     WiFi.persistent(true);
     AC_DBG("Set persistance\n");
   }
@@ -1427,6 +1427,21 @@ void AutoConnect::_purgePages(void) {
     _currentPageElement.reset();
     _uri = String("");
   }
+}
+
+/**
+ * Returns whether the module is in multiple states where configuration
+ * information can be stored.
+ * This function depends on the platform SDK and always returns false for ESP32.
+ * return true  Persistence
+ * return false Not persistence
+ */
+inline bool AutoConnect::_isPersistent(void) {
+#ifdef ARDUINO_ARCH_ESP8266
+  return WiFi.getPersistent();
+#else
+  return false;
+#endif
 }
 
 /**
