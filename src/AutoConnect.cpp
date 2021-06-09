@@ -96,6 +96,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     delay(100);
   }
 
+  // Ensure persistence to save the connected station_config in the SDK.
+  // Correspondence to change of WiFi initial mode due to update to ESP8266 core 3.0.0.
+  if (!WiFi.getPersistent()) {
+    WiFi.persistent(true);
+    AC_DBG("Set persistance\n");
+  }
+
   // Set host name
   if (_apConfig.hostName.length())
     SET_HOSTNAME(_apConfig.hostName.c_str());
