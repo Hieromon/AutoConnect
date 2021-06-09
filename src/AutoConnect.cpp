@@ -519,6 +519,7 @@ void AutoConnect::handleRequest(void) {
     *password_c = '\0';
     strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
     AC_DBG("WiFi.begin(%s%s%s) ch(%d)", ssid_c, strlen(password_c) ? "," : "", strlen(password_c) ? password_c : "", (int)ch);
+    _redirectURI = "";
 
     if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
       // Wait for the connection attempt to complete and send a response
@@ -1155,7 +1156,6 @@ bool AutoConnect::_captivePortal(void) {
     String location = String(F("http://")) + _webServer->client().localIP().toString() + _getBootUri();
     _webServer->sendHeader(String(F("Location")), location, true);
     _webServer->send(302, String(F("text/plain")), _emptyString);
-    _webServer->client().flush();
     _webServer->client().stop();
     return true;
   }
@@ -1351,14 +1351,15 @@ String AutoConnect::_invokeResult(PageArgument& args) {
   // This is the specification as before.
   redirect += _currentHostIP.toString();
 #endif
-  AC_DBG("Redirect to %s\n", redirect.c_str());
-  redirect += _redirectURI;
+  // Request re-query due to attempt connection not completed
+  redirect += _redirectURI.length() ? _redirectURI : String(F(AUTOCONNECT_URI_RESULT));
+  // Redirect to result page
   _webServer->sendHeader(String(F("Location")), redirect, true);
   _webServer->send(302, String(F("text/plain")), _emptyString);
-  _webServer->client().flush();
   _webServer->client().stop();
   _waitForEndTransmission();  // Wait for response transmission complete
   _responsePage->cancel();
+  AC_DBG("Resulting in %s\n", redirect.c_str());
   return _emptyString;
 }
 
