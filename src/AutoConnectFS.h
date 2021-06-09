@@ -30,6 +30,11 @@
 #  define AC_USE_FILESYSTEM 2
 #endif
 
+// Note: If LITTLEFS.h becomes Not Found in PlatformIO, try specifying
+// lib_ldf_mode=deep with platformio.ini. Due to the deep nesting by
+// preprocessor instructions, the include file cannot be detected by the
+// chain mode (nested include search) of PlatformIO's dependent library
+// search.
 #ifdef ARDUINO_ARCH_ESP8266
 #define AUTOCONNECT_APPLIED_FILECLASS           fs::FS
 #endif
