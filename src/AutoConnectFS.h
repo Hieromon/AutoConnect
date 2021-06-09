@@ -30,23 +30,25 @@
 #  define AC_USE_FILESYSTEM 2
 #endif
 
+#ifdef ARDUINO_ARCH_ESP8266
+#define AUTOCONNECT_APPLIED_FILECLASS           fs::FS
+#endif
 #if AC_USE_FILESYSTEM == 1
-#  include <FS.h>
-#  ifdef ARDUINO_ARCH_ESP32
-#    include <SPIFFS.h>
-#  endif
-#  define AUTOCONNECT_APPLIED_FILECLASS     fs::FS
-#  define AUTOCONNECT_APPLIED_FILESYSTEM    SPIFFS
+#   include <FS.h>
+#   define AUTOCONNECT_APPLIED_FILESYSTEM       SPIFFS
+#   ifdef ARDUINO_ARCH_ESP32
+#       include <SPIFFS.h>
+#       define AUTOCONNECT_APPLIED_FILECLASS    fs::SPIFFSFS
+#   endif
 #elif AC_USE_FILESYSTEM == 2
-#  if defined(ARDUINO_ARCH_ESP8266)
-#    include <LittleFS.h>
-#    define AUTOCONNECT_APPLIED_FILECLASS   fs::FS
-#    define AUTOCONNECT_APPLIED_FILESYSTEM  LittleFS
-#  elif defined(ARDUINO_ARCH_ESP32)
-#    include <LITTLEFS.h>
-#    define AUTOCONNECT_APPLIED_FILECLASS   fs::LITTLEFSFS
-#    define AUTOCONNECT_APPLIED_FILESYSTEM  LITTLEFS
-#  endif
+#   if defined(ARDUINO_ARCH_ESP8266)
+#       include <LittleFS.h>
+#       define AUTOCONNECT_APPLIED_FILESYSTEM   LittleFS
+#   elif defined(ARDUINO_ARCH_ESP32)
+#       include <LITTLEFS.h>
+#    define AUTOCONNECT_APPLIED_FILECLASS       fs::LITTLEFSFS
+#    define AUTOCONNECT_APPLIED_FILESYSTEM      LITTLEFS
+#   endif
 #endif
 
 // Deploy the file class for the AutoConnect scope.
