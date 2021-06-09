@@ -319,7 +319,7 @@ class AutoConnect {
   /** For portal control */
   bool  _captivePortal(void);
   bool  _hasTimeout(unsigned long timeout);
-  bool  _isIP(String ipStr);
+  bool  _isIP(const String& ipStr);
   void  _softAP(void);
   wl_status_t _waitForConnect(unsigned long timeout);
   void  _waitForEndTransmission(void);

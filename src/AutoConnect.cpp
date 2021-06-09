@@ -1426,7 +1426,7 @@ void AutoConnect::_purgePages(void) {
  *  @param  ipStr   IP string for validation.
  *  @return true    Valid.
  */
-bool AutoConnect::_isIP(String ipStr) {
+bool AutoConnect::_isIP(const String& ipStr) {
   for (uint8_t i = 0; i < ipStr.length(); i++) {
     char c = ipStr.charAt(i);
     if (c != '.' && (c < '0' || c > '9'))
