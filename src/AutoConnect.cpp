@@ -82,6 +82,13 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
   if (timeout == 0)
     timeout = _apConfig.beginTimeout;
 
+  // Ensure persistence to save the connected station_config in the SDK.
+  // Correspondence to change of WiFi initial mode due to update to ESP8266 core 3.0.0.
+  if (!_isPersistent()) {
+    WiFi.persistent(true);
+    AC_DBG("Set persistance\n");
+  }
+
   if (_apConfig.preserveAPMode && !_apConfig.autoRise) {
     // Captive portal will not be started on connection failure. Enable Station mode
     // without disabling any current soft AP.
@@ -94,13 +101,6 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     if (!WiFi.mode(WIFI_STA))
       AC_DBG("Unable start WIFI_STA\n");
     delay(100);
-  }
-
-  // Ensure persistence to save the connected station_config in the SDK.
-  // Correspondence to change of WiFi initial mode due to update to ESP8266 core 3.0.0.
-  if (!_isPersistent()) {
-    WiFi.persistent(true);
-    AC_DBG("Set persistance\n");
   }
 
   // Set host name
