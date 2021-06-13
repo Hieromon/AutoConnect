@@ -20,7 +20,6 @@
 #include <SD.h>
 #include "AutoConnectDefs.h"
 #include "AutoConnectUpload.h"
-#define FS_NO_GLOBALS
 #include "AutoConnectFS.h"
 // Types branching to be code commonly for the file system classes with
 // ESP8266 and ESP32.
@@ -80,16 +79,15 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
 
  protected:
   bool  _open(const char* filename, const char* mode) override {
-#if defined(ARDUINO_ARCH_ESP8266)
-    if (_media->begin()) {
-#elif defined(ARDUINO_ARCH_ESP32)
-    if (_media->begin(true)) {
-#endif
-      _file = _media->open(filename, mode);
-      return _file != false;      
+    _mounted = AutoConnectFS::_isMounted(_media);
+    if (!_mounted) {
+      if (!_media->begin(AUTOCONECT_FS_INITIALIZATION)) {
+        AC_DBG("%s mount failed\n", AUTOCONNECT_APPLIED_FILESYSTEM);
+        return false;
+      }
     }
-    AC_DBG("SPIFFS mount failed\n");
-    return false;
+    _file = _media->open(filename, mode);
+    return _file != false;      
   }
 
   size_t  _write(const uint8_t* buf, const size_t size) override {
@@ -103,12 +101,14 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
     AC_UNUSED(status);
     if (_file)
       _file.close();
-    _media->end();
+    if (!_mounted)
+      _media->end();
   }
 
  private:
-  AutoConnectFS::FS*  _media;
-  fs::File  _file; 
+  AutoConnectFS::FS*  _media;       /**< Actual Filesystem */
+  fs::File            _file;        /**< File instace */
+  bool                _mounted;     /**< Need to end of the filesystem */
 };
 
 // Fix to be compatibility with backward for ESP8266 core 2.5.1 or later
