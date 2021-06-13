@@ -27,18 +27,6 @@
 #include "AutoConnectOTA.h"
 #include "AutoConnectOTAPage.h"
 
-#ifdef ARDUINO_ARCH_ESP32
-extern "C" {
-#ifdef AC_USE_SPIFFS
-#include <esp_spiffs.h>
-#define _IS_MOUNTED esp_spiffs_mounted
-#else
-#include <esp_littlefs.h>
-#define _IS_MOUNTED esp_littlefs_mounted
-#endif
-}
-#endif
-
 /**
  * A destructor. Release the OTA operation pages.
  */
@@ -250,18 +238,10 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
   else {
     // Allocate fs::FS according to the pinned Filesystem.
     _fs = &AUTOCONNECT_APPLIED_FILESYSTEM;
-#if defined(ARDUINO_ARCH_ESP8266)
-    FSInfo  info;
-    if (_fs->info(info))
+    if (AutoConnectFS::_isMounted(_fs))
       bc = true;
     else
-      bc = _fs->begin();
-#elif defined(ARDUINO_ARCH_ESP32)
-    if (_IS_MOUNTED(NULL))
-      bc = true;
-    else
-      bc = _fs->begin(true);
-#endif
+      bc = _fs->begin(AUTOCONECT_FS_INITIALIZATION);
     if (bc) {
       _file = _fs->open(filename, "w");
       if (!_file) {

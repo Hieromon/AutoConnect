@@ -18,8 +18,10 @@
 // and AUTOCONNECT_APPLIED_FILESYSTEM is assigned the global instance name.
 #if defined(ARDUINO_ARCH_ESP8266)
 #  define AC_DEFAULT_FILESYSTEM 2
+#  define AUTOCONECT_FS_INITIALIZATION
 #elif defined(ARDUINO_ARCH_ESP32)
 #  define AC_DEFAULT_FILESYSTEM 1
+#  define AUTOCONECT_FS_INITIALIZATION  true
 #endif
 
 #if !defined(AC_USE_SPIFFS) && !defined(AC_USE_LITTLEFS)
@@ -44,6 +46,9 @@
 #   ifdef ARDUINO_ARCH_ESP32
 #       include <SPIFFS.h>
 #       define AUTOCONNECT_APPLIED_FILECLASS    fs::SPIFFSFS
+        extern "C" {
+#         include <esp_spiffs.h>
+        }
 #   endif
 #elif AC_USE_FILESYSTEM == 2
 #   if defined(ARDUINO_ARCH_ESP8266)
@@ -51,12 +56,30 @@
 #       define AUTOCONNECT_APPLIED_FILESYSTEM   LittleFS
 #   elif defined(ARDUINO_ARCH_ESP32)
 #       include <LITTLEFS.h>
-#    define AUTOCONNECT_APPLIED_FILECLASS       fs::LITTLEFSFS
-#    define AUTOCONNECT_APPLIED_FILESYSTEM      LITTLEFS
+#       define AUTOCONNECT_APPLIED_FILECLASS       fs::LITTLEFSFS
+#       define AUTOCONNECT_APPLIED_FILESYSTEM      LITTLEFS
+        extern "C" {
+#         include <esp_littlefs.h>
+        }
 #   endif
 #endif
 
 // Deploy the file class for the AutoConnect scope.
-namespace AutoConnectFS { using FS = AUTOCONNECT_APPLIED_FILECLASS; };
+namespace AutoConnectFS {
+  using FS = AUTOCONNECT_APPLIED_FILECLASS;
+  inline bool _isMounted(AutoConnectFS::FS* filesystem) {
+#if defined(ARDUINO_ARCH_ESP8266)
+    FSInfo  info;
+    return filesystem->info(info);
+#elif defined( ARDUINO_ARCH_ESP32)
+    (void)(filesystem);
+#if AC_USE_FILESYSTEM == 1
+    return esp_spiffs_mounted(NULL);
+#elif AC_USE_FILESYSTEM == 2
+    return esp_littlefs_mounted(NULL);
+#endif
+#endif
+  }
+};
 
 #endif // !_AUTOCONNECTFS_H_
