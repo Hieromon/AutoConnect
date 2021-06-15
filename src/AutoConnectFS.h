@@ -56,8 +56,8 @@
 #       define AUTOCONNECT_APPLIED_FILESYSTEM   LittleFS
 #   elif defined(ARDUINO_ARCH_ESP32)
 #       include <LITTLEFS.h>
-#       define AUTOCONNECT_APPLIED_FILECLASS       fs::LITTLEFSFS
-#       define AUTOCONNECT_APPLIED_FILESYSTEM      LITTLEFS
+#       define AUTOCONNECT_APPLIED_FILECLASS    fs::LITTLEFSFS
+#       define AUTOCONNECT_APPLIED_FILESYSTEM   LITTLEFS
         extern "C" {
 #         include <esp_littlefs.h>
         }

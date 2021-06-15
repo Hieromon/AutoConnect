@@ -82,7 +82,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
     _mounted = AutoConnectFS::_isMounted(_media);
     if (!_mounted) {
       if (!_media->begin(AUTOCONECT_FS_INITIALIZATION)) {
-        AC_DBG("%s mount failed\n", AUTOCONNECT_APPLIED_FILESYSTEM);
+        AC_DBG("%s mount failed\n", AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_APPLIED_FILESYSTEM));
         return false;
       }
     }
