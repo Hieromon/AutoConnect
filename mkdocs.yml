@@ -89,11 +89,9 @@ extra:
       link: https://github.com/Hieromon
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/hieromon
-
-# Google Analytics
-google_analytics:
-  - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
-  - auto
+  analytics:
+    provider: google
+    property: !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
 
 # Extensions
 markdown_extensions:
