@@ -31,6 +31,7 @@ nav:
     - 'OTA Updates' : otaupdate.md
     - 'Using Web Browser' : otabrowser.md
     - 'Using Update Server' : otaserver.md
+  - 'Using Filesystem' : filesystem.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
     - 'AutoConnectAux API': apiaux.md
