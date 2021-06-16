@@ -1045,6 +1045,7 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKM
  *  AutoConnectConfig settings then start SoftAP.
  */
 void AutoConnect::_softAP(void) {
+  WiFi.persistent(false);
   WiFi.enableAP(true);
   while (!(WiFi.getMode() & WIFI_AP)) {
     delay(1);
@@ -1071,6 +1072,7 @@ void AutoConnect::_softAP(void) {
       yield();
     } while (WiFi.softAPIP() != _apConfig.apip);
   }
+  WiFi.persistent(true);
   AC_DBG("SoftAP %s/%s Ch(%d) IP:%s %s\n", _apConfig.apid.c_str(), _apConfig.psk.c_str(), _apConfig.channel, WiFi.softAPIP().toString().c_str(), _apConfig.hidden ? "hidden" : "");
 }
 
