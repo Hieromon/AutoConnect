@@ -453,6 +453,7 @@ void AutoConnect::handleRequest(void) {
     // Pass all URL requests to _captivePortal to disguise the captive portal.
     if (_apConfig.retainPortal && _apConfig.autoRise) {
       if (!(WiFi.getMode() & WIFI_AP)) {
+        _disconnectWiFi(false);
         _softAP();
         _currentHostIP = WiFi.softAPIP();
       }
