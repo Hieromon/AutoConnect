@@ -82,4 +82,11 @@ namespace AutoConnectFS {
   }
 };
 
+// Export an actual file system indicator
+#if AC_USE_FILESYSTEM == 1
+#define AUTOCONNECT_USE_SPIFFS
+#elif AC_USE_FILESYSTEM == 2
+#define AUTOCONNECT_USE_LITTLEFS
+#endif
+
 #endif // !_AUTOCONNECTFS_H_
