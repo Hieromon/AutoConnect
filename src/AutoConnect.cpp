@@ -452,8 +452,13 @@ void AutoConnect::handleRequest(void) {
     // specified to be maintained.
     // Pass all URL requests to _captivePortal to disguise the captive portal.
     if (_apConfig.retainPortal && _apConfig.autoRise) {
+      // Cancel AutoReconnect to ensure detection for queries to penetrate
+      // to the internet from a client.
+      if (WiFi.getAutoConnect())
+        WiFi.setAutoReconnect(false);
+
+      // Restart the responder for the captive portal detection.
       if (!(WiFi.getMode() & WIFI_AP)) {
-        _disconnectWiFi(false);
         _softAP();
         _currentHostIP = WiFi.softAPIP();
       }
@@ -1513,12 +1518,22 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
     AC_DBG_DUMB("%c", '.');
     delay(300);
   }
-  AC_DBG_DUMB("%s IP:%s\n", wifiStatus == WL_CONNECTED ? "established" : "time out", WiFi.localIP().toString().c_str());
-  if (WiFi.status() == WL_CONNECTED)
-    if (_onConnectExit) {
-      IPAddress localIP = WiFi.localIP();
-      _onConnectExit(localIP);
+  if (wifiStatus == WL_CONNECTED) {
+    AC_DBG_DUMB("established");
+    IPAddress localIP = WiFi.localIP();
+    // The esp8266 station reconnection has a problem and can not get
+    // the IP probably. We have to wait until we get the IP.
+    while (!localIP.isSet()) {
+      delay(10);
+      localIP = WiFi.localIP();
     }
+    AC_DBG_DUMB(" IP:%s\n", localIP.toString().c_str());
+    if (_onConnectExit)
+      _onConnectExit(localIP);
+  }
+  else {
+    AC_DBG_DUMB("timeout\n");
+  }
   _attemptPeriod = millis();  // Save to measure the interval between an autoReconnect.
   return wifiStatus;
 }
