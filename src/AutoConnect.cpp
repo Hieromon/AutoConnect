@@ -1523,7 +1523,7 @@ wl_status_t AutoConnect::_waitForConnect(unsigned long timeout) {
     IPAddress localIP = WiFi.localIP();
     // The esp8266 station reconnection has a problem and can not get
     // the IP probably. We have to wait until we get the IP.
-    while (!localIP.isSet()) {
+    while ((uint32_t)localIP == 0UL) {
       delay(10);
       localIP = WiFi.localIP();
     }
