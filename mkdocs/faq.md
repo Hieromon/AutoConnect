@@ -34,6 +34,36 @@ If your ESP module is already transparent to the internet, the captive portal sc
 
 We will hypothesize that you keep the ESP module with AP_STA mode by specifing the **retainPortal** and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the **esp32ap**, the OS of your cellphone will determine that the access point (i.e. **esp32ap**) is transparent to the Internet. That is, the captive portal does not pop up.
 
+## <i class="fa fa-question-circle"></i> Compilation error due to File system header file not found
+
+In [PlatformIO](https://docs.platformio.org/en/latest/), it may occur compilation error such as the bellows:
+
+```cpp
+In file included from C:\Users\<user>\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30:0,
+                 from src/main.cpp:28:
+C:\Users\<user>\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:88:27:
+fatal error: SPIFFS.h: No such file or directory
+```
+
+```cpp
+In file included from C:\Users\<user>\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30,
+                 from src\main.cpp:28:
+C:\Users\<user>\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:93:17:
+fatal error: LittleFS.h: No such file or directory
+```
+
+This compilation error is due to PlatformIO's [Library Dependency Finder](https://docs.platformio.org/en/latest/librarymanager/ldf.html?highlight=ldf#library-dependency-finder-ldf
+) not being able to detect `#include` with default [mode](https://docs.platformio.org/en/latest/librarymanager/ldf.html#dependency-finder-mode) `chain`. Chain mode does not recursively evaluate `.cpp` files. However, AutoConnect determines the default file system at compile time, depending on the platform. In order for LDF to detect it correctly, it is necessary to recursively scan `#include` of the header file, which depends on the file system used.
+
+To avoid compilation errors in PlatformIO, specify [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode) in [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/index.html#platformio-ini-project-configuration-file) as follows:
+
+```ini
+[env]
+lib_ldf_mode = deep
+```
+
+You should specify **`deep`** with [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode).
+
 ## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
 
 If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directives. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.
