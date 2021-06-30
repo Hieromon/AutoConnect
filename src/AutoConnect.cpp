@@ -516,8 +516,8 @@ void AutoConnect::handleRequest(void) {
     *password_c = '\0';
     strncat(password_c, reinterpret_cast<const char*>(_credential.password), sizeof(password_c) - 1);
     AC_DBG("WiFi.begin(%s%s%s) ch(%d)", ssid_c, strlen(password_c) ? "," : "", strlen(password_c) ? password_c : "", (int)ch);
-
-    if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
+    
+    if (_wl.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
       // Wait for the connection attempt to complete and send a response
       // page to notify the connection result.
       // End the current session to complete a response page transmission.
@@ -1490,15 +1490,15 @@ void AutoConnect::_setReconnect(const AC_STARECONNECT_t order) {
 #if defined(ARDUINO_ARCH_ESP32)
   if (order == AC_RECONNECT_SET) {
     _disconnectEventId = WiFi.onEvent([](WiFiEvent_t e, WiFiEventInfo_t info) {
-      AC_DBG("STA lost connection:%d\n", info.disconnected.reason);
+      AC_DBG("STA lost connection:%d\n", info.wifi_sta_disconnected.reason);
       AC_DBG("STA connection %s\n", WiFi.reconnect() ? "restored" : "failed");
-    }, WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED);
-    AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
+    }, WiFiEvent_t::ARDUINO_EVENT_WIFI_AP_STADISCONNECTED);
+    AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::ARDUINO_EVENT_WIFI_AP_STADISCONNECTED));
   }
   else if (order == AC_RECONNECT_RESET) {
     if (_disconnectEventId) {
       WiFi.removeEvent(_disconnectEventId);
-      AC_DBG("Event<%d> handler released\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
+      AC_DBG("Event<%d> handler released\n", static_cast<int>(WiFiEvent_t::ARDUINO_EVENT_WIFI_AP_STADISCONNECTED));
     }
   }
 #elif defined(ARDUINO_ARCH_ESP8266)
@@ -1573,10 +1573,8 @@ wl_status_t AutoConnect::_WPA2E::begin(AutoConnect& ac) {
  * @return    wl_status_t
  */
 wl_status_t AutoConnect::_WPA2E::begin(AutoConnect& ac, const char* ssid, const char* passphrase, int32_t channel, const uint8_t* bssid, bool connect) {
-  AutoConnectCredential inv;
-  station_config_t  invConf;
-  if (inv.load(ssid, &invConf) > 0)
-    return AutoConnect::_WPA2E::_begin(invConf, channel, bssid, connect);
+  if(ac._credential.cs.attr.eap == STA_EAP)
+    return AutoConnect::_WPA2E::_begin(ac._credential, channel, bssid, connect);
   else
     return WiFi.begin(ssid, passphrase, channel, bssid, connect);
 }
@@ -1591,11 +1589,14 @@ wl_status_t AutoConnect::_WPA2E::begin(AutoConnect& ac, const char* ssid, const 
 wl_status_t AutoConnect::_WPA2E::_begin(station_config_t& conf, int32_t channel, const uint8_t* bssid, bool connect) {
   const char* pw = reinterpret_cast<const char*>(conf.password);
   if (conf.cs.attr.eap == STA_EAP) {
+      esp_wifi_sta_wpa2_ent_clear_ca_cert();
+      esp_wifi_sta_wpa2_ent_clear_identity();
+      esp_wifi_sta_wpa2_ent_clear_username();
+      esp_wifi_sta_wpa2_ent_clear_password();
       esp_wifi_sta_wpa2_ent_set_identity(reinterpret_cast<const unsigned char*>(conf.eap_username), strlen(reinterpret_cast<const char*>(conf.eap_username)));
       esp_wifi_sta_wpa2_ent_set_username(reinterpret_cast<const unsigned char*>(conf.eap_username), strlen(reinterpret_cast<const char*>(conf.eap_username)));
       esp_wifi_sta_wpa2_ent_set_password(reinterpret_cast<const unsigned char*>(conf.password), strlen(reinterpret_cast<const char*>(conf.password)));
-      esp_wpa2_config_t config = WPA2_CONFIG_INIT_DEFAULT();  //set config settings to default
-      esp_wifi_sta_wpa2_ent_enable(&config);                  //set config settings to enable function
+      esp_wifi_sta_wpa2_ent_enable();                  //set config settings to enable function
       pw = nullptr;
       AC_DBG("Allow for WPA2 Enterprise, %s/%s\n", reinterpret_cast<const unsigned char*>(conf.eap_username), reinterpret_cast<const unsigned char*>(conf.eap_username));
   }
