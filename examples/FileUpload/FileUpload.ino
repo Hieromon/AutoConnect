@@ -12,40 +12,34 @@
   the size of the upload file.
 
   This example leverages the AutoConnectFile element to upload files to
-  the flash on ​the ESP8266/ESP32 module. The necessary basic process
+  the flash on the ESP8266/ESP32 module. The necessary basic process
   for uploading and storing to flash is already embedded in the
   AutoConnectFile element. By the sketch, just place the AutoConnectFile
   element on a custom web page.
 */
 
+// To properly include the suitable header files to the target platform.
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <LittleFS.h>
+#define FORMAT_ON_FAIL
+#define FILE_MODE_R "r"
+using WiFiWebServer = ESP8266WebServer;
+FS& FlashFS = LittleFS;
+
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
-#include <SPIFFS.h>
-#endif
-#include <AutoConnect.h>
-
-/*
-  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
-  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showng
-  the valid file system. After including AutoConnect.h, the Sketch can determine
-  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
-*/
 #include <FS.h>
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifdef AUTOCONNECT_USE_SPIFFS
-FS& FlashFS = SPIFFS;
-#else
-#include <LittleFS.h>
-FS& FlashFS = LittleFS;
-#endif
-#elif defined(ARDUINO_ARCH_ESP32)
 #include <SPIFFS.h>
+#define FORMAT_ON_FAIL  true
+#define FILE_MODE_R FILE_READ
+using WiFiWebServer = WebServer;
 fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
+
+#include <AutoConnect.h>
 
 // Upload request custom Web page
 static const char PAGE_UPLOAD[] PROGMEM = R"(
@@ -100,18 +94,14 @@ static const char PAGE_BROWSE[] PROGMEM = R"(
       "name": "content_type",
       "type": "ACText",
       "format": "Content: %s"
+    },
+    {
+      "name": "object",
+      "type": "ACElement"
     }
   ]
 }
 )";
-
-#if defined(ARDUINO_ARCH_ESP8266)
-#define FILE_MODE_R "r"
-typedef ESP8266WebServer  WiFiWebServer;
-#elif defined(ARDUINO_ARCH_ESP32)
-#define FILE_MODE_R FILE_READ
-typedef WebServer WiFiWebServer;
-#endif
 
 WiFiWebServer server;
 AutoConnect portal(server);
@@ -119,6 +109,45 @@ AutoConnect portal(server);
 // easily for each page in the post-upload handler.
 AutoConnectAux auxUpload;
 AutoConnectAux auxBrowse;
+
+#ifdef ARDUINO_ARCH_ESP32
+String getContentType(const String& filename) {
+  if (filename.endsWith(".txt")) {
+    return "text/plain";
+  } else if (filename.endsWith(".htm")) {
+    return "text/html";
+  } else if (filename.endsWith(".html")) {
+    return "text/html";
+  } else if (filename.endsWith(".css")) {
+    return "text/css";
+  } else if (filename.endsWith(".js")) {
+    return "application/javascript";
+  } else if (filename.endsWith(".json")) {
+    return "application/json";
+  } else if (filename.endsWith(".png")) {
+    return "image/png";
+  } else if (filename.endsWith(".gif")) {
+    return "image/gif";
+  } else if (filename.endsWith(".jpg")) {
+    return "image/jpeg";
+  } else if (filename.endsWith(".jpeg")) {
+    return "image/jpeg";
+  } else if (filename.endsWith(".ico")) {
+    return "image/x-icon";
+  } else if (filename.endsWith(".svg")) {
+    return "image/svg+xml";
+  } else if (filename.endsWith(".xml")) {
+    return "text/xml";
+  } else if (filename.endsWith(".pdf")) {
+    return "application/x-pdf";
+  } else if (filename.endsWith(".zip")) {
+    return "application/x-zip";
+  } else if (filename.endsWith(".gz")) {
+    return "application/x-gzip";
+  }
+  return "application/octet-stream";
+}
+#endif
 
 /**
  * Post uploading, AutoConnectFile's built-in upload handler reads the
@@ -139,28 +168,40 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
   AutoConnectText&  aux_contentType = aux["content_type"].as<AutoConnectText>();
   // Assignment operator can be used for the element attribute.
   aux_filename.value = upload.value;
+  Serial.printf("uploaded file saved as %s\n", aux_filename.value.c_str());
   aux_size.value = String(upload.size);
   aux_contentType.value = upload.mimeType;
-  // The file saved by the AutoConnect upload handler is read from
-  // the EEPROM and echoed to a custom web page.
-  if (upload.mimeType.indexOf("text/") >= 0) {
-    FlashFS.begin();
-    File uploadFile = FlashFS.open(String("/" + upload.value).c_str(), FILE_MODE_R);
-    if (uploadFile) {
-      while (uploadFile.available()) {
-        char c = uploadFile.read();
-        if (c == '\n')
-          content += "<br>";
-        else
-          content += c;
-      }
-      uploadFile.close();
-    }
-    else
-      content = "Not saved";
-    FlashFS.end();
+
+  // Include the uploaded content in the object tag to provide feedback
+  // in case of success.
+  if (FlashFS.exists(String("/")) + aux_filename.value)
+    auxBrowse["object"].value = String("<object data=\"/") + aux_filename.value + String("\"></object>");
+  else
+    auxBrowse["object"].value = "Not saved";
+  return String();
+}
+
+/**
+ * Read the given file from the filesystem and stream it back to the client
+ */
+void handleFileRead(void) {
+  const String& filePath =
+#if defined(ARDUINO_ARCH_ESP8266)
+    ESP8266WebServer::urlDecode(server.uri());
+#elif defined(ARDUINO_ARCH_ESP32)
+    server.uri();
+#endif
+  if (FlashFS.exists(filePath)) {
+    File  uploadedFile = FlashFS.open(filePath, FILE_MODE_R);
+    String  mime = 
+#if defined(ARDUINO_ARCH_ESP8266)
+      mime::getContentType(filePath);
+#elif defined(ARDUINO_ARCH_ESP32)
+      getContentType(filePath);
+#endif
+    server.streamFile(uploadedFile, mime);
+    uploadedFile.close();
   }
-  return content;
 }
 
 void setup() {
@@ -168,10 +209,21 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
 
+  // Start the filesystem
+  FlashFS.begin(FORMAT_ON_FAIL);
+
+  // Attach the custom web pages
   auxUpload.load(PAGE_UPLOAD);
   auxBrowse.load(PAGE_BROWSE);
+  auxBrowse.on(postUpload);  
   portal.join({ auxUpload, auxBrowse });
-  auxBrowse.on(postUpload);
+
+  // The handleFileRead callback function provides an echo back of the
+  // uploaded file to the client. You can include the uploaded file in
+  // the response by embedding the object HTML tag in your custom web page.
+  // The client browser will request to get the content according to
+  // the link of the object tag, and the request can be caught by onNotFound handler.
+  portal.onNotFound(handleFileRead);
   portal.begin();
 }
 
