@@ -112,7 +112,12 @@ String toString(char* c, uint8_t length) {
 String onEEPROM(AutoConnectAux& page, PageArgument& args) {
   EEPROM_CONFIG_t eepromConfig;
 
-  EEPROM.begin(sizeof(eepromConfig));
+  // It is important to use getEEPROMUsedSize when the user sketch
+  // allocates its own EEPROM area on the ESP8266. It avoids that area
+  // colliding with the area where AutoConnect stores credentials.
+  // Note that the return value of AutoConnect::getEEPROMUsedSize takes
+  // effect after giving the boundaryOffset via AutoConnectConfig.
+  EEPROM.begin(portal.getEEPROMUsedSize());
   EEPROM.get<EEPROM_CONFIG_t>(0, eepromConfig);
   EEPROM.end();
 
