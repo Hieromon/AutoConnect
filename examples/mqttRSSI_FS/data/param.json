@@ -2,26 +2,26 @@
   {
     "name": "mqttserver",
     "type": "ACInput",
-    "value": "mqtt.thingspeak.com",
-    "placeholder": "MQTT broker server",
-    "label": "Server"
+    "value": "mqtt.thingspeak.com"
   },
   {
     "name": "channelid",
     "type": "ACInput",
-    "value": "454951",
-    "label": "Channel ID"
+    "value": "454951"
   },
   {
     "name": "userkey",
     "type": "ACInput",
-    "value": "NRTFYGJ6TJFGX4RC",
-    "label": "User Key"
+    "value": "NRTFYGJ6TJFGX4RC"
   },
   {
     "name": "apikey",
     "type": "ACInput",
-    "value": "HBVQ2XV6VYBI4582",
-    "label": "API Key"
+    "value": "HBVQ2XV6VYBI4582"
+  },
+  {
+    "name": "period",
+    "type": "ACRadio",
+    "checked": 1
   }
 ]
