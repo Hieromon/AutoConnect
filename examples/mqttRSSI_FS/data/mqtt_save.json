@@ -10,8 +10,29 @@
       "style": "text-align:center;color:#2f4f4f;padding:10px;"
     },
     {
-      "name": "parameters",
-      "type": "ACText"
+      "name": "mqttserver",
+      "type": "ACText",
+      "format": "Server: %s"
+    },
+    {
+      "name": "channelid",
+      "type": "ACText",
+      "format": "Channel ID: %s"
+    },
+    {
+      "name": "userkey",
+      "type": "ACText",
+      "format": "User Key: %s"
+    },
+    {
+      "name": "apikey",
+      "type": "ACText",
+      "format": "API Key: %s"
+    },
+    {
+      "name": "period",
+      "type": "ACText",
+      "format": "Update period: %s sec."
     },
     {
       "name": "clear",
