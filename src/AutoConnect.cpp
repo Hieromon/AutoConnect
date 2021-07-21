@@ -653,6 +653,7 @@ void AutoConnect::handleRequest(void) {
   if (_apConfig.ota == AC_OTA_BUILTIN) {
     if (!_ota) {
       _ota.reset(new AutoConnectOTA());
+      _ota->extraCaption = _apConfig.otaExtraCaption;
       _ota->attach(*this);
       _ota->authentication(_apConfig.auth);
       _ota->setTicker(_apConfig.tickerPort, _apConfig.tickerOn);

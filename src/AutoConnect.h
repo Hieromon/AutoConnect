@@ -86,6 +86,7 @@ class AutoConnectConfig {
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
+    otaExtraCaption(String("")),
     staip(0U),
     staGateway(0U),
     staNetmask(0U),
@@ -129,6 +130,7 @@ class AutoConnectConfig {
     hostName(String("")),
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
+    otaExtraCaption(String("")),
     staip(0U),
     staGateway(0U),
     staNetmask(0U),
@@ -172,6 +174,7 @@ class AutoConnectConfig {
     hostName = o.hostName;
     homeUri = o.homeUri;
     title = o.title;
+    otaExtraCaption = o.otaExtraCaption;
     staip = o.staip;
     staGateway = o.staGateway;
     staNetmask = o.staNetmask;
@@ -215,6 +218,7 @@ class AutoConnectConfig {
   String    hostName;           /**< host name */
   String    homeUri;            /**< A URI of user site */
   String    title;              /**< Menu title */
+  String    otaExtraCaption;    /**< Extra caption of OTA Updating Firmware screen */
   IPAddress staip;              /**< Station static IP address */
   IPAddress staGateway;         /**< Station gateway address */
   IPAddress staNetmask;         /**< Station subnet mask */
