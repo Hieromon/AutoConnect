@@ -63,6 +63,8 @@ public:
   AutoConnectOTA& onError(ErrorExit_ft fn);                 /**< Register a callback for OTA error */
   AutoConnectOTA& onProgress(ProgressExit_ft fn);           /**< Register a callback for OTA in progress */
 
+  String  extraCaption;
+
 protected:
   template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept {
     return N;
