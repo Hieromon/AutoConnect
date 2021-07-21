@@ -207,6 +207,14 @@ The filename extension that should be treated as the firmware is defined as the 
 
     If the file extension pattern contains a regular expression, you need to enable the flag of [`AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L277) in `AutoConnectDefs.h`. Also, the `AUTOCONNECT_UPLOAD_ASFIRMWARE` definition as a regular expression is treated as a replacement string for the **#define** directive for C++ preprocessor, so the backslash must be escaped.
     
+### <i class="fa fa-edit"></i> Display an extra string on the update screen&nbsp;<sup><sub>ENHANCED w/v1.3.0</sub></sup>
+
+You can add an extra string to the OTA update screen by the sketch. If an extra string is specified, it will be displayed on the right side of "**Updating firmware**" caption. 
+
+<img src="images/otacaption.png" />
+
+The screenshot above shows an example of adding the current version of the sketch to the OTA caption. 
+
 <script>
   window.onload = function() {
     Gifffer();
