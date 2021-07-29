@@ -55,11 +55,15 @@ void AutoConnectOTA::attach(AutoConnect& portal) {
 
   updatePage = new AutoConnectAux(String(FPSTR(_pageUpdate.uri)), String(FPSTR(_pageUpdate.title)), _pageUpdate.menu);
   _buildAux(updatePage, &_pageUpdate, lengthOf(_elmUpdate));
-  if (extraCaption.length()) {
-    String  extra = String(F("<span style='display:block;text-align:right;font-size:small'>")) + extraCaption + String(F("</span></h3>"));
-    AutoConnectText&  cap = updatePage->getElement<AutoConnectText>((const char*)"cap");
-    cap.value.replace("</h3>", extra);
+  AutoConnectStyle& s_cap = updatePage->getElement<AutoConnectStyle>(F("s_cap"));
+  if (extraCaption) {
+    s_cap.enable = true;
+    AutoConnectText&  cap = updatePage->getElement<AutoConnectText>(F("cap"));
+    String  extra = String(F("<span class=\"s_cap\">")) + String(extraCaption) + String(F("</span>"));
+    cap.value += extra;
   }
+  else
+    s_cap.enable = false;
   _auxUpdate.reset(updatePage);
 
   updatePage = new AutoConnectAux(String(FPSTR(_pageResult.uri)), String(FPSTR(_pageResult.title)), _pageResult.menu);

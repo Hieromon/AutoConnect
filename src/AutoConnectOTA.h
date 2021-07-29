@@ -48,7 +48,7 @@ public:
     OTA_DEST_FIRM  /**< To update the firmware */
   } AC_OTADest_t;
 
-  AutoConnectOTA() : _cbStart(NULL), _cbEnd(NULL), _cbError(NULL), _cbProgress(NULL), _dest(OTA_DEST_FIRM), _status(AC_OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {};
+  AutoConnectOTA() : extraCaption(nullptr), _cbStart(NULL), _cbEnd(NULL), _cbError(NULL), _cbProgress(NULL), _dest(OTA_DEST_FIRM), _status(AC_OTA_IDLE), _tickerPort(-1), _tickerOn(LOW) {};
   ~AutoConnectOTA();
   void  attach(AutoConnect& portal);                        /**< Attach itself to AutoConnect */
   void  authentication(const AC_AUTH_t auth);               /**< Set certain page authentication */
@@ -63,7 +63,7 @@ public:
   AutoConnectOTA& onError(ErrorExit_ft fn);                 /**< Register a callback for OTA error */
   AutoConnectOTA& onProgress(ProgressExit_ft fn);           /**< Register a callback for OTA in progress */
 
-  String  extraCaption;
+  const char* extraCaption;                                 /**< Updating firmware extra caption */
 
 protected:
   template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept {
