@@ -250,6 +250,12 @@ Specifies to import the built-in OTA update class into the Sketch. When this opt
     <dd><span class="apidef">AC_OTA_EXTRA</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">AutoConnect does not import AutoConnectOTA. This is the default.</span></dd>
     <dd><span class="apidef">AC_OTA_BUILTIN</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Specifies to include AutoConnectOTA in the Sketch.</span></dd></dl>
 
+### <i class="fa fa-caret-right"></i> otaExtraCaption
+
+Specifies the caption to be displayed as an extra on the [OTA update screen](otabrowser.md#display-an-extra-string-on-the-update-screenenhanced-wv130). The extra caption you specified will be displayed in the upper right corner of the OTA update screen. Also, you can only specify the caption string, and you cannot specify the style individually. An extra caption will draw up with the default style of AutoConnect.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">const char*</span><span class="apidesc"> An extra caption string pointer.</span></dd></dl>
+
 ### <i class="fa fa-caret-right"></i> password
 
 Set the password for authentication.<dl class="apidl">

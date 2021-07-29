@@ -213,7 +213,59 @@ You can add an extra string to the OTA update screen by the sketch. If an extra 
 
 <img src="images/otacaption.png" />
 
-The screenshot above shows an example of adding the current version of the sketch to the OTA caption. 
+The screenshot above shows an example of adding the current version of the sketch to the OTA caption.
+
+To display in the add an extra caption to the OTA update screen, sets the [AutoConnectConfig::otaExtraCaption](apiconfig.md#otaextracaption) by your sketch. A type of the extra caption type to set in [AutoConnectConfig::otaExtraCaption](apiconfig.md#otaextracaption) is the `const char pointer`. So, its string must remain in the memory area for the duration of OTA. (This string is not copied to the AutoConnectOTA class and expiration must be guaranteed by your sketch)
+
+```cpp hl_lines="1 5 10 11"
+#define FIRMWARE_VERSION  "1.1.12-dev"
+...
+#include <AutoConnect.h>
+...
+const char* fw_ver = FIRMWARE_VERSION;
+AutoConnect portal;
+AutoConnectConfig config;
+
+void setup() {
+  config.ota = AC_OTA_BUILTIN;
+  config.otaExtraCaption = fw_ver;
+  portal.config(config);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+!!! note "Common mistakes about variable expiration"
+    Local variables are valid only within the function. The following code seems to work at first glance. But practically, `*fw_ver` is released at the end of the function. *AutoConnectConfig::otaExtraCaption* holds only a pointer to the extra caption string.
+
+    ```cpp hl_lines="9 12"
+    #define FIRMWARE_VERSION  "1.1.12-dev"
+    ...
+    #include <AutoConnect.h>
+    ...
+    AutoConnect portal;
+    AutoConnectConfig config;
+    
+    void setupConfig() {
+      const char* fw_ver = FIRMWARE_VERSION;
+    
+      config.ota = AC_OTA_BUILTIN;
+      config.otaExtraCaption = fw_ver;  // This code doesn't work as intended.
+      portal.config(config);
+    }
+    
+    void setup() {
+      setupConfig();
+      portal.begin();
+    }
+    
+    void loop() {
+      portal.handleClient();
+    }
+    ```
 
 <script>
   window.onload = function() {
