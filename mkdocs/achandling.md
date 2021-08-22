@@ -89,7 +89,7 @@ The first thing to work on is defining two custom web pages. Here, Value A and V
 }
 ```
 
-Next, define an additional page to display the results. Here we use [AutoConnectText](acjson.md#actext) to display the calculation as a representation string of the expression. There is one thing to watch out for here. That is, the transition destination of the action button as `ADD` that accept the operand (it is specified by the uri of the ACSubmit element named "add") and the uri of the page that displays the answer are the same.
+Next, define an additional page to display the results. Here we use [AutoConnectText](acjson.md#actext) to display the calculation as a representation string of the expression. There is one thing to watch out for here. That is, the transition destination of the action button as `ADD` that accept the operand (it is specified by the `uri` of the ACSubmit element named "add") and the `uri` of the page that displays the answer are the same.
 
 ```json
 {
@@ -104,6 +104,55 @@ Next, define an additional page to display the results. Here we use [AutoConnect
   ]
 }
 ```
+
+When implementing a custom web page handler, it's usually a good idea to pre-determine the page design (which consists of the elements and layouts you want to use) for a better outlook when coding your Sketch. Especially when coding a custom web page handler, you need to specify the AutoConnectElements exactly, and it is recommended to implement it along the JSON defined earlier.
+
+After this, sketch the handlers for the above two custom web pages.
+
+First, the handler for the page allocated to `/add`. The role of this handler is to initialize the values respectively for the `valueA` and `valueB` input boxes. Both of these two input boxes are on the `/add` page, so the handler only references the `AutoConnectAux& aux` argument.
+
+You can use the `[]` operator with the element name like as `aux["valueA"]` to get a reference to an AutoConnectElement by name. Then, once the reference is converted to AutoConnectInput, the `value` member of AutoConnectInput can be accessed. Use the `as<AutoConnectInput>()` function to convert from the AutoConnectElement type to the actual AutoConnectInput type.
+
+```cpp
+String onAdd(AutoConnectAux& aux, PageArgument& args) {
+  aux["valueA"].as<AutoConnectInput>().value = "0";
+  aux["valueB"].as<AutoConnectInput>().value = "0";
+  return String();
+}
+```
+
+Next, the handler for the page allocated to `/results`. The role of this handler is to add the value B to A for the calculation. The `/results` page does not have an element that contains the operands Value A and Value B to calculate. Only the `/add` page has them. The `/results` page handler is called when ACSubmit on the `/add` page works, so `valueA` and `valueB` are included in the form data of the HTTP POST request to the `/results` page. That is, the handler for the `/results` page will get `valueA` and `valueB` from the `PageArgument& args` argument.
+
+```cpp
+String onResults(AutoConnectAux& aux, PageArgument& args) {
+  int valueA = args.arg("valueA").toInt();
+  int valueB = args.arg("valueB").toInt();
+
+  aux["results"].as<AutoConnectText>().value = String(valueA) + " + " + String(valueB) + " = " + String(valueA + valueB);
+  return String();
+}
+```
+
+[PageArgument](https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function) is a built-in class in the [PageBuilder](https://github.com/Hieromon/PageBuilder) library. You can use the [PageArgument::arg](https://github.com/Hieromon/PageBuilder#string-pageargumentargstring-name) function to retrieve the parameters of the form data contained in the POST request by name. Since the `PageArgument::arg` function returns the parameters of the POSTed form data as a string, it converts Value A and Value B to the operand integer value of the addition via the `String::toInt()` function.
+
+```cpp
+int valueA = args.arg("valueA").toInt();
+int valueB = args.arg("valueB").toInt();
+```
+
+In this scenario, in addition to the calculation result, the calculation formula is also displayed on the result page.
+
+```cpp
+aux["results"].as<AutoConnectText>().value = String(valueA) + " + " + String(valueB) + " = " + String(valueA + valueB);
+```
+
+### <i class="fa fa-edit"></i> The customWebpageHandler return value
+
+The customWebpageHandler returns a string. The returned string is used internally by AutoConnect to temporarily qualify the HTML generating of the custom web page. AutoConnect typically calls a custom web page handler before HTML generation.
+
+A detailed description of the [AutoConnectAux::on](apiaux.md#on) function can be found in Section [AutoConnectAux API](apiaux.md).
+
+A complete Sketch coded according to the steps above looks like this (case of ESP8266):
 
 ```cpp
 #include <Arduino.h>
@@ -173,9 +222,6 @@ String onResults(AutoConnectAux& aux, PageArgument& args) {
 
 void setup() {
   delay(1000);
-  Serial.begin(115200);
-  Serial.println();
-
   page_add.load(PAGE_ADD);
   page_results.load(PAGE_RESULTS);
   portal.join({ page_add, page_results });
@@ -188,8 +234,6 @@ void loop() {
   portal.handleClient();
 }
 ```
-
-### <i class="fa fa-edit"></i> The customWebpageHandler return value
 
 ## Handing AutoConnectElements with the Sketches
 
