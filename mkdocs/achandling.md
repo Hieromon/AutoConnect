@@ -150,9 +150,21 @@ aux["results"].as<AutoConnectText>().value = String(valueA) + " + " + String(val
 
 The customWebpageHandler returns a string. The returned string is used internally by AutoConnect to temporarily qualify the HTML generating of the custom web page. AutoConnect typically calls a custom web page handler before HTML generation.
 
+When the customWebpageHandler returns an HTML string for qualification, it applies to the drawing area for the elements of AutoConnectElements. Additionally, you can then specify where the modifier HTML will be inserted. The **second parameter** of the [AutoConnectAux::on](apiaux.md#on) function, which allows the registration of custom web page handlers, indicates where to insert the modifier HTML. 
+
+The Sketch can specify the following three values for the second parameter of AutoConnectAux::on function:
+
+- **AC_EXIT_AHEAD** : Modifiers HTML returned by the custom Web page handler is inserted into the front of the list expansion of AutoConnectElements.
+
+- **AC_EXIT_LATER** : Modifiers HTML returned by the custom Web page handler is inserted into the back of the list expansion of AutoConnectElements.
+
+- **AC_EXIT_BOTH** : The customWebpageHandle will be called twice before and after list expansion of AutoConnectElements.
+
 A detailed description of the [AutoConnectAux::on](apiaux.md#on) function can be found in Section [AutoConnectAux API](apiaux.md).
 
-A complete Sketch coded according to the steps above looks like this (case of ESP8266):
+---
+
+The actual sketch code implemented following these steps above would look like this (case of ESP8266):
 
 ```cpp
 #include <Arduino.h>
