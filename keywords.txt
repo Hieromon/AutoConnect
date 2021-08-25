@@ -39,7 +39,6 @@ entries	KEYWORD2
 fetchElement	KEYWORD2
 getElement	KEYWORD2
 getElements	KEYWORD2
-getOTA	KEYWORD2
 handleClient	KEYWORD2
 handleRequest	KEYWORD2
 home	KEYWORD2
@@ -55,7 +54,10 @@ name	KEYWORD2
 on	KEYWORD2
 onDetect	KEYWORD2
 onNotFound	KEYWORD2
-onOTAStatusChange	KEYWORD2
+onOTAEnd	KEYWORD2
+onOTAError	KEYWORD2
+onOTAProgress	KEYWORD2
+onOTAStart	KEYWORD2
 onUpload	KEYWORD2
 reconnectInterval	KEYWORD2
 release	KEYWORD2

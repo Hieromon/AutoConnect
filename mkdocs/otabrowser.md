@@ -267,6 +267,59 @@ void loop() {
     }
     ```
 
+### <i class="fa fa-edit"></i> Receive the AutoConnectOTA status change&nbsp;<sup><sub>ENHANCED w/v1.3.0</sub></sup>
+
+You can capture the change in the state of the OTA by registering the exit routine to AutoConnect. The exit routine for notifying the state change of AutoConnectOTA can execute the user's sketch function during specific stages of OTA or on an error. Also, these exit routines have the same interface as the [similar exit functions](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#safety) included in the Arduino core.
+
+The following functions register the function in your sketch with AutoConnect to notify OTA state changes.
+
+- [AutoConnect::onOTAStart](api.md#onotastart) : Register the on-start exit routine that is called only once when the OTA has been started.
+- [AutoConnect::onOTAProgress](api.md#onotaprogress) : Register the exit routine that is called during the OTA progress.
+- [AutoConnect::onOTAEnd](api.md#onotaend) : Register the on-end exit routine that is called only once when the OTA is finished.
+- [AutoConnect::onOTAError](api.md#onotaerror) : Register the exit routine that is called when some error occurred.
+
+```cpp hl_lines="30 31 32 33"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+AutoConnect portal;
+AutoConnectConfig config;
+
+void OTAStart() {
+  Serial.println("Start OTA updating");
+}
+
+void OTAEnd() {
+  Serial.println("\nEnd");
+}
+void OTAProgress(unsigned int amount, unsigned int size) {
+  Serial.printf("Progress: %u(%u)\r", amount, size);
+}
+
+void OTAError(uint8_t error) {
+  Serial.printf("Error[%u]: ", error);
+}
+
+void setup() {
+  delay(1000);
+  Serial.begin(115200);
+  Serial.println();
+
+  config.ota = AC_OTA_BUILTIN;
+  portal.config(config);
+  portal.onOTAStart(OTAStart);
+  portal.onOTAEnd(OTAEnd);
+  portal.onOTAProgress(OTAProgress);
+  portal.onOTAError(OTAError);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
 <script>
   window.onload = function() {
     Gifffer();
