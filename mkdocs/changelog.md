@@ -1,3 +1,24 @@
+### [1.3.0] Aug. 31, 2021
+
+#### Enhancements
+
+- Supports ESP8266 3.0.0 Arduino core.
+- Supports LittleFS with ESP32.
+- Supports AutoConnectOTA status notifications.
+- Supports AutoConnectConfigAux. (Preview)
+- Adds a `style` attribute with AutoConnectInput.
+- Adds `[]` operator with const char for AutoConnectAux.
+- Adds `[]` operator with `__FlashStringHelper` for AutoConnectAux.
+- Adds `AutoConnectAux::count` function to get a number of AutoConnectElements.
+- Adds `AutoConnectAux::count` function to get a number of AutoConnectElements.
+- Adds `AutoConnect::getConfig` function to get an actual instance of AutoConnectConfig.
+
+#### Fixes
+
+- Fixed CSS attribute missing of AutoConnectInput with the number type.
+- Improved the the calculation for the size of ArduinoJson document.
+
+---
 ### [1.2.3] Jan. 3, 2021
 
 #### Enhancements

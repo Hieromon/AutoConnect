@@ -57,6 +57,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 
 The default interpretation of the post value is specific to each element.
 

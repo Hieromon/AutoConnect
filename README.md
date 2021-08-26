@@ -102,11 +102,11 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [1.3.0] Mar. 31, 2021
+### [1.3.0] Aug. 31, 2021
 - Supports a callback with OTA status change. (issue #325)
 - Supports AutoConnectConfigAux.
 - Added **getConfig** function.
-- Added **getOTA** function.
+- Added AutoConnectOTA status notification.
 - Added a style attribute for AutoConnectInput.
 - Added the div tag generation with the AutoConnectElement.
 - Fixed AUTOCONNECT_JSONDOCUMENT_SIZE was inoperative.

@@ -152,6 +152,7 @@ Specifies a tag to add behind the HTML code generated from the element. Its purp
 : - **none** : No generate additional tags.
 : - **br** : Add a `<br>` tag to the end of the element.
 : - **par** : Include the element in the `<p> ~ </p>` tag.
+: - **div** : Include the element in the `<div> ~ </div>` tag.
 
 #### <i class="fa fa-key"></i> **<i>key_according_to_type</i>**
 
