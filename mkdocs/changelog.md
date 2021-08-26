@@ -7,6 +7,7 @@
 - Supports AutoConnectOTA status notifications.
 - Supports AutoConnectConfigAux. (Preview)
 - Adds a `style` attribute with AutoConnectInput.
+- Adda the `div` tag generation with the AutoConnectElement.
 - Adds `[]` operator with const char for AutoConnectAux.
 - Adds `[]` operator with `__FlashStringHelper` for AutoConnectAux.
 - Adds `AutoConnectAux::count` function to get a number of AutoConnectElements.
@@ -16,6 +17,8 @@
 #### Fixes
 
 - Fixed CSS attribute missing of AutoConnectInput with the number type.
+- Fixed garbage being mixed in a loaded credential.
+- Fixed the output place of Posterior attribute for AutoConnectRadio.
 - Improved the the calculation for the size of ArduinoJson document.
 
 ---
@@ -26,7 +29,7 @@
 - Improved memory management.
 
 !!! note "PageBuilder v1.5.0 is required"
-    Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.5.0 or later is required. Please update PageBuilder latest.
+    Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.5.0 or later is required. Please update PageBuilder to latest version.
 
 ---
 ### [1.2.2] Dec. 13, 2020

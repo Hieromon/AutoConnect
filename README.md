@@ -103,6 +103,8 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 ## Change log
 
 ### [1.3.0] Aug. 31, 2021
+- Supports ESP8266 3.0.0 Arduino core.
+- Supports LittleFS with ESP32.
 - Supports a callback with OTA status change. (issue #325)
 - Supports AutoConnectConfigAux.
 - Added **getConfig** function.
