@@ -10,8 +10,7 @@
 - Adda the `div` tag generation with the AutoConnectElement.
 - Adds `[]` operator with const char for AutoConnectAux.
 - Adds `[]` operator with `__FlashStringHelper` for AutoConnectAux.
-- Adds `AutoConnectAux::count` function to get a number of AutoConnectElements.
-- Adds `AutoConnectAux::count` function to get a number of AutoConnectElements.
+- Adds `AutoConnectAux::content` function to get a number of AutoConnectElements.
 - Adds `AutoConnect::getConfig` function to get an actual instance of AutoConnectConfig.
 
 #### Fixes
