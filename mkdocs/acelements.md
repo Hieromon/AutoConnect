@@ -309,6 +309,10 @@ Specifies the type of input that the text box accepts. AutoConnectInput will gen
 - **`AC_Input_Password`** : `input type="password"`
 - **`AC_Input_Number`** : `input type="number"`
 
+!!! note "Numerical keypad is different"
+    When the AutoConnectInput element with the `AC_Input_Number` applied is focused on the browser, the numeric keypad may be displayed automatically. For popular mobile OSes such as Android and iOS, the numeric keypad has the following styles and is different with each OS.
+    <div style="display:inline-block"><img src="images/html5_forms_number.png"><span style="padding-left:30px"></span><img src="images/html5_forms_number_ios.png"></div>
+
 ## AutoConnectRadio
 
 AutoConnectRadio generates few HTML `#!html <input type="radio">` tags as grouped and the same number of `#!html <label>` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.

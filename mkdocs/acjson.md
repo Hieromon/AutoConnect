@@ -196,6 +196,10 @@ This is different for each AutoConnectElements, and the key that can be specifie
     : - **password** : Password input field. The text is obscured so that it cannot be read, usually by replacing each character with a symbol such as the asterisk ("`*`") or a dot ("`•`").
     : - **number** : A field let the user enter number characters only.
 
+!!! note "Numerical keypad is different"
+    When the AutoConnectInput element with the `number` applied is focused on the browser, the numeric keypad may be displayed automatically. For popular mobile OSes such as Android and iOS, the numeric keypad has the following styles and is different with each OS.
+    <div style="display:inline-block"><img src="images/html5_forms_number.png"><span style="padding-left:30px"></span><img src="images/html5_forms_number_ios.png"></div>
+
 #### <i class="fa fa-caret-right"></i> ACRadio
 
 : - **value** : Specifies the collection of radio buttons as an array element.
@@ -224,7 +228,7 @@ This is different for each AutoConnectElements, and the key that can be specifie
 
 : - **value** : Specifies a content and also can contain the native HTML code, but remember that your written code is enclosed by the div tag.
 : - **style** : Specifies the qualification style to give to the content and can use the style attribute format as it is.
-: - **format** : Specifies how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to the C-style printf library functions, but depends on the espressif sdk implementation. The conversion specification is valid only for **%s** format. (Left and Right justification, width are also valid.)
+: - **format** : Specifies how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to the C-style printf library functions, but depends on the espressif SDK implementation. The conversion specification is valid only for **%s** format. (Left and Right justification, width are also valid.)
 
 !!! caution "AutoConnect JSON parsing process is not perfect"
     It is based on analysis by ArduinoJson, but the semantic analysis is simplified to save memory. Consequently, it is not an error that a custom Web page JSON document to have unnecessary keys. It will be ignored.
