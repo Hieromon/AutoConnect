@@ -52,7 +52,7 @@ Add an element to the AutoConnectAux. An added element is displayed on the custo
 ### <i class="fa fa-caret-right"></i> authentication
 
 ```cpp
-void  authentication(const AC_AUTH_t auth)
+void authentication(const AC_AUTH_t auth)
 ```
 
 Set to require authentication with access to a page. When you access a page that requires authentication, HTTP authentication will be performed according to the scheme specified with the auth parameter.<dl class="apidl">
@@ -62,6 +62,15 @@ Set to require authentication with access to a page. When you access a page that
 - **AC_AUTH_BASIC** : Basic scheme.
 - **AC_AUTH_DIGEST** : Digest scheme.
     </span></dd></dl>
+
+### <i class="fa fa-caret-right"></i> content
+
+```cpp
+size_t content(void)
+```
+
+Returns the number of AutoConnectElements the AutoConnectAux contains.<dl class="apidl">
+    <dt>**Return value**</dt><dd>A number of the registered AutoConnectElements.</dd></dl>
 
 ### <i class="fa fa-caret-right"></i> fetchElement
 
