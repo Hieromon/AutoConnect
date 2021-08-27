@@ -57,7 +57,7 @@ class AutoConnectAux : public PageBuilder {
   void  add(AutoConnectElementVT addons);                               /**< Add the element set to the auxiliary page */
   AutoConnectElement&   at(const unsigned int index) { return _addonElm.at(index); } /**< Gets the AutoConnectElement pointed to by the index */
   void  authentication(const AC_AUTH_t auth) { _httpAuth = auth; }      /**< Set certain page authentication */
-  size_t  count(void) const { return _addonElm.size(); }                /**< Returns number of contained AutoConnectElements */
+  size_t  content(void) const { return _addonElm.size(); }              /**< Returns number of contained AutoConnectElements */
   void  fetchElement(void);                                             /**< Fetch AutoConnectElements values from http query parameters */
   template<typename T>
   T&    getElement(const char* name);
