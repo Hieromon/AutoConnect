@@ -111,10 +111,13 @@ bool AutoConnectCredential::del(const char* ssid) {
       _eeprom->write(_dp++, 0xff);
 
     // Erase ip configuration extention
-    if (_eeprom->read(_dp) == STA_STATIC) {
+    uint8_t dhcp = _eeprom->read(_dp);
+    if (dhcp == (uint8_t)STA_STATIC) {
       for (uint8_t i = 0; i < sizeof(station_config_t::_config); i++)
         _eeprom->write(_dp++, 0xff);
     }
+    else if (dhcp == (uint8_t)STA_DHCP)
+        _eeprom->write(_dp++, 0xff);
 
     // End 0xff writing, update headers.
     _entries--;
