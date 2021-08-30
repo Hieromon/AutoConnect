@@ -107,7 +107,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Supports LittleFS with ESP32.
 - Supports a callback with OTA status change. (issue #325)
 - Supports AutoConnectConfigAux.
-- Added **getConfig** function.
+- Added AutoConnect::getConfig function.
 - Added AutoConnectOTA status notification.
 - Added a style attribute for AutoConnectInput.
 - Added the div tag generation with the AutoConnectElement.
@@ -115,6 +115,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Fixed garbage being mixed in a loaded credential.
 - Fixed the layout on the page being corrupted with NUMBER type of AutoConnectInput.
 - Fixed the output place of Posterior attribute for AutoConnectRadio.
+
+##### Important note
+
+When building a sketch in the PlatformIO environment, a compile error may appear that says "File system header file not found". This error can be avoided by setting the library search mode to the `deep` in with the `platformio.ini` file. See the documentation [FAQ](https://hieromon.github.io/AutoConnect/faq.html#compile-error-due-to-file-system-header-file-not-found) for more details.
 
 ### [1.2.3] Jan. 3, 2021
 

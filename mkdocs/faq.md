@@ -34,7 +34,7 @@ If your ESP module is already transparent to the internet, the captive portal sc
 
 We will hypothesize that you keep the ESP module with AP_STA mode by specifing the **retainPortal** and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the **esp32ap**, the OS of your cellphone will determine that the access point (i.e. **esp32ap**) is transparent to the Internet. That is, the captive portal does not pop up.
 
-## <i class="fa fa-question-circle"></i> Compilation error due to File system header file not found
+## <i class="fa fa-question-circle"></i> Compile error due to File system header file not found
 
 In [PlatformIO](https://docs.platformio.org/en/latest/), it may occur compilation error such as the bellows:
 
