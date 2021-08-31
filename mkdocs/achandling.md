@@ -56,7 +56,7 @@ The following screenshots are outputs of custom web pages that are based on a sc
 - Returns the calculated result in another custom web page with page transitions.
 
 <div style="display:inline-block">
-  <img src="images/adder.png" width="300px"> <img src="images/answer.png" width="300px">
+  <img src="images/adder.png" width="300px"> <img src="images/arrow_right.png" style="width:35px;margin-left:10px;margin-right:10px;vertical-align:100px"> <img src="images/answer.png" width="300px">
 </div>
 
 The first thing to work on is defining two custom web pages. Here, Value A and Value B are easily defined by applying [AutoConnectInput](acjson.md#acinput). Also, add an action button to perform the calculation with [AutoConnectSubmit](acjson.md#acsubmit).
