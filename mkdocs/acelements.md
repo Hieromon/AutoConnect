@@ -492,25 +492,25 @@ Variables of each AutoConnetElement can be declared with macros. By using the ma
 
 [^2]: The square brackets in the syntax are optional parameters, the stroke is a selection parameter, the bold fonts are literal.
 
-ACElement ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACElement ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *action* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *action* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
  
-ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**true**</small> | <small>**false**</small> <small>\]</small> <small>\[</small> , <small>**AC_Infront**</small> | <small>**AC_Behind**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**true**</small> | <small>**false**</small> <small>\]</small> <small>\[</small> , <small>**AC_Infront**</small> | <small>**AC_Behind**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_File\_FS**</small> | <small>**AC\_File\_SD**</small> | <small>**AC\_File\_Extern**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_File\_FS**</small> | <small>**AC\_File\_SD**</small> | <small>**AC\_File\_Extern**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Input\_Text**</small> | <small>**AC\_Input\_Password**</small> | <small>**AC\_Input\_Number**</small> <small>\]</small>)
+ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Input\_Text**</small> | <small>**AC\_Input\_Password**</small> | <small>**AC\_Input\_Number**</small> <small>\]</small>)
 
-ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Horizontal</small>** | <small>**AC\_Vertical**</small> <small>\]</small> <small>\[</small> , *checked* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Horizontal</small>** | <small>**AC\_Vertical**</small> <small>\]</small> <small>\[</small> , *checked* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
 ACStyle ( *name* <small>\[</small> , *value* <small>\]</small> )
 
-ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> <small>\[</small> , *format* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> <small>\[</small> , *format* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
 !!! memo "Declaration macro usage"
     For example, *AutoConnectText* can be declared using macros.
