@@ -115,6 +115,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Fixed garbage being mixed in a loaded credential.
 - Fixed the layout on the page being corrupted with NUMBER type of AutoConnectInput.
 - Fixed the output place of Posterior attribute for AutoConnectRadio.
+- Fixed Incomplete deletion with AutoConnectCredential. (issue #388)
 
 ##### Important note
 

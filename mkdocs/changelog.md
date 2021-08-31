@@ -19,6 +19,7 @@
 - Fixed garbage being mixed in a loaded credential.
 - Fixed the output place of Posterior attribute for AutoConnectRadio.
 - Improved the the calculation for the size of ArduinoJson document.
+- Fixed Incomplete deletion with AutoConnectCredential.
 
 ---
 ### [1.2.3] Jan. 3, 2021
