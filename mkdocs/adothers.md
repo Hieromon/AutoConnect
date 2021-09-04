@@ -30,7 +30,8 @@ However, SPIFFS is still valid. AutoConnect can correctly compile and execute sk
 #define AC_USE_SPIFFS
 ```
 
-See also the [FAQ](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) to help you enable AC_USE_SPIFFS correctly.
+See also the [FAQ](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) to help you enable AC_USE_SPIFFS correctly.  
+Note that refers to the [Using Filesystem](filesystem.md) chapter to know the utilization capabilities of the file system with AutoConnect.
 
 ## Debug Print
 
@@ -46,7 +47,11 @@ AutoConnect does not automatically start the Serial even if AC_DEBUG is activate
 
 !!! note "How to enable AC_DEBUG"
     The **#define** is a C++ preprocessor directive. The build process of the Sketch by the Arduino IDE is processed independently of the subsequent C++ compilation unit. Writing the #define directive for AC_DEBUG in the Sketch has no effect on the AutoConnect library.  
-    To compile the AutoConnect library with the AC_DEBUG directive, you can either edit the library source code directly (usually it is located in ~/Arduino/libraries/AutoConnect/src) or use a build system which can configure the preprocessor directives externally such as [**PlatformIO**](https://platformio.org/).
+    To compile the AutoConnect library with the AC_DEBUG directive, you can either edit the library source code directly (usually it is located in ~/Arduino/libraries/AutoConnect/src) or use a build system which can configure the preprocessor directives externally such as [**PlatformIO**](https://platformio.org/).  
+    To enable **AC_DEBUG** using PlatformIO without modifying the library source, specify the [`build_flags`](https://docs.platformio.org/en/latest/projectconf/section_env_build.html?highlight=build_flags#build-flags) directive in the [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/index.html#platformio-ini-project-configuration-file) file with each project.  
+    ```ini
+    build_flags = -DAC_DEBUG
+    ```
 
 ## File uploading via built-in OTA feature
 
@@ -274,7 +279,7 @@ In ordinary, the URL handler will respond to the request from the client by send
 
 [PageBuilder](https://github.com/Hieromon/PageBuilder) library is an HTML assembly aid. it can handle predefined HTML like the template and simplify an HTML string assemble logic, and also the generated HTML send automatically.
 
-An example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for [Github repository](https://github.com/Hieromon/PageBuilder).
+An example sketch used with the PageBuilder as follows and it explains how it aids for the HTML generating. Details for [GitHub repository](https://github.com/Hieromon/PageBuilder).
 
 <img src="images/PageBuilder.png" style="width:640px;"/>
 
