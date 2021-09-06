@@ -1,6 +1,6 @@
 ## Selecting appropriate Filesystem
 
-There are two file systems for utilizing the on-board flash on the ESP8266 or the ESP32, SPIFFS and LittleFS. The file system used by AutoConnect is determined when the sketch is built. AutoConnect will determine as a file system to apply either SPIFFS or LittleFS according to the macro definition in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) and has the following two definitions to include the file system.
+There are two file systems for utilizing the onboard flash on the ESP8266 or the ESP32, SPIFFS and LittleFS. The file system to be applied is determined at the time of the sketch built. AutoConnect will determine as a file system to apply either SPIFFS or LittleFS according to the macro definition in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) and has the following two definitions to include the file system.
 
 ```cpp
 #define AC_USE_SPIFFS
@@ -15,9 +15,9 @@ Each platform supported by AutoConnect has a default file system, which is Littl
     SPIFFS has deprecated on EP8266 core. `AC_USE_SPIFFS` flag indicates that the migration to LittleFS has not completed for the Sketch with ESP8266. You will get a warning message when you compile a sketch using SPIFFS.<br>
     Also, LittleFS support on the ESP32 is expected to be in the future beyond [Arduino ESP32 core v2](https://github.com/espressif/arduino-esp32/tree/master/libraries/LITTLEFS). If you want to use the LittleFS library on your ESP32, you must use a [third-party source](https://github.com/lorol/LITTLEFS) provided externally.
 
-The file system that the sketch intended and the file system that applies to AutoConnect must match. (i.e. it is provided by the definitions of `AC_USE_SPIFFS` and `AC_USE_LITTLEFS`) For example, if a sketch includes `LittleFS.h` but `AC_USE_SPIFFS` is defined, the sketch will not be able to access included file system normally.
+The file system intended by the sketch must match the file system applied to AutoConnect. (i.e. it is provided by the definitions of `AC_USE_SPIFFS` and `AC_USE_LITTLEFS`) For example, if the sketch includes `LittleFS.h`, but `AC_USE_SPIFFS` is defined, the sketch will not be able to sucessfully acces the built file system.
 
-## Filesystem selections for PageBuilder must match to AutoConnect
+## Filesystem applied to PageBuilder must match to AutoConnect
 
 Also, [PageBuilder](https://github.com/Hieromon/PageBuilder) has a definition of file system choices to use, similar to AutoConnect. It is the definition of `PB_USE_SPIFFS` and `PB_USE_LITTLEFS` in [`PageBuilder.h`](https://github.com/Hieromon/PageBuilder/blob/master/src/PageBuilder.h) of [PageBuilder](https://github.com/Hieromon/PageBuilder) library source, and its role is the same as these of AutoConnect. 
 
