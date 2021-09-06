@@ -3,14 +3,28 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.3.0
- *  @date   2021-03-29
+ *  @date   2021-09-06
  *  @copyright  MIT license.
  */
 
 #include "AutoConnect.h"
 #ifdef ARDUINO_ARCH_ESP32
 #include <esp_wifi.h>
+/**
+ *  Ensure backword compatibility depending on Arduino core version.
+ */
+// Declare pseudo a new enumerator of WiFiEvent_t type adopted from the core 2.0.0.
+#include <Arduino.h>
+#ifdef ESP_ARDUINO_VERSION_MAJOR
+#if ESP_ARDUINO_VERSION_MAJOR>=2
+#define AC_ESP_WIFIEVENT_DECLARE(x) ARDUINO_EVENT_WIFI_##x
 #endif
+#endif
+#ifndef AC_ESP_WIFIEVENT_DECLARE
+#define AC_ESP_WIFIEVENT_DECLARE(x) SYSTEM_EVENT_##x
+#endif
+#endif
+
 /**
  *  An actual reset function dependent on the architecture
  */
@@ -1551,13 +1565,13 @@ void AutoConnect::_setReconnect(const AC_STARECONNECT_t order) {
     _disconnectEventId = WiFi.onEvent([](WiFiEvent_t e, WiFiEventInfo_t info) {
       AC_DBG("STA lost connection:%d\n", info.disconnected.reason);
       AC_DBG("STA connection %s\n", WiFi.reconnect() ? "restored" : "failed");
-    }, WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED);
-    AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
+    }, WiFiEvent_t::AC_ESP_WIFIEVENT_DECLARE(AP_STADISCONNECTED));
+    AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::AC_ESP_WIFIEVENT_DECLARE(AP_STADISCONNECTED)));
   }
   else if (order == AC_RECONNECT_RESET) {
     if (_disconnectEventId) {
       WiFi.removeEvent(_disconnectEventId);
-      AC_DBG("Event<%d> handler released\n", static_cast<int>(WiFiEvent_t::SYSTEM_EVENT_AP_STADISCONNECTED));
+      AC_DBG("Event<%d> handler released\n", static_cast<int>(WiFiEvent_t::AC_ESP_WIFIEVENT_DECLARE(AP_STADISCONNECTED)));
     }
   }
 #elif defined(ARDUINO_ARCH_ESP8266)
