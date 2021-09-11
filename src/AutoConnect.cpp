@@ -541,6 +541,7 @@ void AutoConnect::handleRequest(void) {
     AC_DBG("WiFi.begin(%s%s%s) ch(%d)", ssid_c, strlen(password_c) ? "," : "", strlen(password_c) ? password_c : "", (int)ch);
     _redirectURI = "";
 
+    // Establish a WiFi connection with the access point.
     if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
       // Wait for the connection attempt to complete and send a response
       // page to notify the connection result.
@@ -562,31 +563,20 @@ void AutoConnect::handleRequest(void) {
           AC_DBG("Maintain SoftAP\n");
         }
 
-        // It will automatically save the credential which was able to
-        // establish current connection.
+        // WiFi linked, validate availability
         if (WiFi.BSSID() != NULL) {
+          // Successfully conencted
           memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config_t::bssid));
           _currentHostIP = WiFi.localIP();
           _redirectURI = String(F(AUTOCONNECT_URI_SUCCESS));
-
-          // Save current credential
-          if (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO) {
-            AutoConnectCredential credit(_apConfig.boundaryOffset);
-            if (credit.save(&_credential)) {
-              AC_DBG("%.*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
-            }
-            else {
-              AC_DBG("credential %.*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
-            }
-          }
 
           // Ensures that keeps a connection with the current AP
           // while the portal behaves.
           _setReconnect(AC_RECONNECT_SET);
         }
-        else {
-          AC_DBG("%.*s has no BSSID, saving is unavailable\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
-        }
+        // WiFi linked up, but IP does not bind.
+        else
+          _rsConnect = WL_CONNECT_FAILED;
 
         // Activate AutoConnectUpdate if it is attached and incorporate
         // it into the AutoConnect menu.
@@ -607,6 +597,22 @@ void AutoConnect::handleRequest(void) {
           wl = WiFi.status();
         }
         AC_DBG("Quit connecting, status(%d)\n", wl);
+      }
+
+      // It will automatically save the credential which was able to
+      // establish current connection.
+      // AC_SAVECREDENTIAL_ALWAYS is an option to intentionally register
+      // an unconnected credential. This option allows the storage of a
+      // credential regardless of the established WIFI connection.
+      if (_apConfig.autoSave == AC_SAVECREDENTIAL_ALWAYS ||
+          ((_rsConnect == WL_CONNECTED) & (_apConfig.autoSave == AC_SAVECREDENTIAL_AUTO))) {
+        AutoConnectCredential credit(_apConfig.boundaryOffset);
+        if (credit.save(&_credential)) {
+          AC_DBG("%.*s credential saved\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+        }
+        else {
+          AC_DBG("credential %.*s save failed\n", sizeof(_credential.ssid), reinterpret_cast<const char*>(_credential.ssid));
+        }
       }
     }
     _rfConnect = false;
@@ -1283,6 +1289,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
     // Credential had by the post parameter.
     strncpy(reinterpret_cast<char*>(_credential.ssid), args.arg(String(F(AUTOCONNECT_PARAMID_SSID))).c_str(), sizeof(_credential.ssid));
     strncpy(reinterpret_cast<char*>(_credential.password), args.arg(String(F(AUTOCONNECT_PARAMID_PASS))).c_str(), sizeof(_credential.password));
+    memset(_credential.bssid, 0x00, sizeof(station_config_t::bssid));
     // Static IP detection
     if (args.hasArg(String(F(AUTOCONNECT_PARAMID_DHCP)))) {
       _credential.dhcp = STA_DHCP;

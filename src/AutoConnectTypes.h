@@ -13,7 +13,8 @@
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_NEVER,
-  AC_SAVECREDENTIAL_AUTO
+  AC_SAVECREDENTIAL_AUTO,
+  AC_SAVECREDENTIAL_ALWAYS
 } AC_SAVECREDENTIAL_t;
 
 /**< URI that can be specified to AutoConnectConfig::bootUri. */

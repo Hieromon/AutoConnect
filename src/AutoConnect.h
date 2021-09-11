@@ -464,7 +464,9 @@ class AutoConnect {
 #if defined(AUTOCONNECT_APKEY_SSID)
     return !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item).c_str());
 #else
-    return !memcmp(config.bssid, WiFi.BSSID(item), sizeof(station_config_t::bssid));
+    return (config.bssid[0] == 0x00) & !memcmp(&config.bssid[0], &config.bssid[1], sizeof(station_config_t::bssid) - 1) ?
+      !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item).c_str()) :
+      !memcmp(config.bssid, WiFi.BSSID(item), sizeof(station_config_t::bssid));
 #endif
   }
 
