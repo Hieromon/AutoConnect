@@ -15,8 +15,11 @@ AutoConnect stores the credentials of the established WiFi connection in the fla
 
 ## Autosave Credential
 
-By default, AutoConnect saves the credentials of the established connection to the flash. You can disable it with the [**autoSave**](apiconfig.md#autosave) parameter specified by [AutoConnectConfig](apiconfig.md).  
-See the [Saved credentials access](credit.md) chapter for details on accessing stored credentials.
+In the sketch, you can give an indication of when to save the credentials by setting the following three options of [*AutoConnectConfig::autoSave*](apiconfig.md#autosave):
+
+- AC_SAVECREDENTIAL_AUTO : AutoConnect will save a credential when the WiFi connection is established with an access point. Its credential contains BSSID which a connection established access point has.
+- AC_SAVECREDENTIAL_ALWAYS : AutoConnect will save a credential entered via [Configure new AP](menu.md#configure-new-ap) menu even if a connection attempt has failed. BSSID does not exist in the credentials registered with this option. (will be 0x00) If this credential is selected as a connection candidate, the SSID will be adopted for matching attempts with the target access point even if [`AUTOCONNECT_APKEY_SSID`](adconnection.md#match-with-known-access-points-by-ssid) is not enabled.
+- AC_SAVECREDENTIAL_NEVER : AutoConnect will not store the credentials even if the connection to the access point is successful. However, the core SDK will save it, so it retains the previously established connection unless you disconnect the ESP module from the connected access point.
 
 ```cpp hl_lines="3"
 AutoConnect       Portal;
