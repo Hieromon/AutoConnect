@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.3.0
- *	@date	2021-07-29
+ *	@date	2021-09-06
  *	@copyright	MIT license.
  */
 
