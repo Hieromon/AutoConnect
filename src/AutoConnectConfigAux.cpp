@@ -3,7 +3,7 @@
  * @file AutoConnectConfigAux.cpp
  * @author hieromon@gmail.com
  * @version  1.3.0
- * @date 2021-05-27
+ * @date 2021-09-13
  * @copyright  MIT license.
  */
 
@@ -318,11 +318,30 @@ const char AutoConnectConfigAux::_ui[] PROGMEM = R"(
   "style": "width:3em"
 },
 {
+  "name": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE R"(L",
+  "type": "ACElement",
+  "value": "<label class=\"fll\" for=\")" AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE R"(\">)" AUTOCONNECT_PAGECONFIG_SAVECREDENTIAL R"(</label>"
+},
+{
+  "name": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE R"(O",
+  "type": "ACElement",
+  "value": "<div class=\"flr\">"
+},
+{
   "name": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE R"(",
-  "type": "ACCheckbox",
-  "value": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE R"(",
-  "label": ")" AUTOCONNECT_PAGECONFIG_SAVECREDENTIAL R"(",
-  "labelposition": "infront"
+  "type": "ACRadio",
+  "value": [
+    "AUTO",
+    "ALWAYS",
+    "NEVER"
+  ],
+  "posterior": "div",
+  "arrange": "horizontal"
+},
+{
+  "name": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE R"(C",
+  "type": "ACElement",
+  "value": "</div>"
 },
 {
   "name": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTORESTART R"(",
@@ -694,7 +713,7 @@ void AutoConnectConfigAux::_loadSettings(void) {
   bool  bc;
   fs::File  cf;
 
-  loadElement(FPSTR(_ui), String(), 8960);
+  loadElement(FPSTR(_ui), String(), 10308);
   _retrieveSettings(*this);
 #if defined(ARDUINO_ARCH_ESP8266)
   FSInfo  info;
@@ -793,7 +812,12 @@ void AutoConnectConfigAux::_restoreSettings(AutoConnectConfigAux& me) {
   acConfig.beginTimeout = me[AUTOCONNECT_CONFIGAUX_ELM_BEGINTIMEOUT].as<AutoConnectInput>().value.toInt();
   acConfig.autoReconnect = me[AUTOCONNECT_CONFIGAUX_ELM_AUTORECONNECT].as<AutoConnectCheckbox>().checked;
   acConfig.reconnectInterval = me[AUTOCONNECT_CONFIGAUX_ELM_RECONNECTINT].as<AutoConnectInput>().value.toInt();
-  acConfig.autoSave = me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectCheckbox>().checked ? AC_SAVECREDENTIAL_AUTO : AC_SAVECREDENTIAL_NEVER;
+  if (me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectRadio>().value() == "AUTO")
+    acConfig.autoSave = AC_SAVECREDENTIAL_AUTO;
+  else if (me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectRadio>().value() == "ALWAYS")
+    acConfig.autoSave = AC_SAVECREDENTIAL_ALWAYS;
+  else if (me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectRadio>().value() == "NEVER")
+    acConfig.autoSave = AC_SAVECREDENTIAL_NEVER;
   acConfig.autoReset = me[AUTOCONNECT_CONFIGAUX_ELM_AUTORESTART].as<AutoConnectCheckbox>().checked;
   acConfig.preserveAPMode = me[AUTOCONNECT_CONFIGAUX_ELM_PRESERVEAPMODE].as<AutoConnectCheckbox>().checked;
   if (univ.fromString(me[AUTOCONNECT_CONFIGAUX_ELM_STAIP].as<AutoConnectInput>().value))
@@ -882,7 +906,19 @@ void AutoConnectConfigAux::_retrieveSettings(AutoConnectConfigAux& me) {
   me[AUTOCONNECT_CONFIGAUX_ELM_BEGINTIMEOUT].as<AutoConnectInput>().value = String(acConfig.beginTimeout);
   me[AUTOCONNECT_CONFIGAUX_ELM_AUTORECONNECT].as<AutoConnectCheckbox>().checked = acConfig.autoReconnect;
   me[AUTOCONNECT_CONFIGAUX_ELM_RECONNECTINT].as<AutoConnectInput>().value = String(acConfig.reconnectInterval);
-  me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectCheckbox>().checked = acConfig.autoSave == AC_SAVECREDENTIAL_AUTO;
+  switch (acConfig.autoSave) {
+  case AC_SAVECREDENTIAL_AUTO:
+    me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectRadio>().check("AUTO");
+    break;
+  case AC_SAVECREDENTIAL_ALWAYS:
+    me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectRadio>().check("ALWAYS");
+    break;
+  case AC_SAVECREDENTIAL_NEVER:
+    me[AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE].as<AutoConnectRadio>().check("NEVER");
+    break;
+  default:
+    break;
+  }
   me[AUTOCONNECT_CONFIGAUX_ELM_AUTORESTART].as<AutoConnectCheckbox>().checked = acConfig.autoReset;
   me[AUTOCONNECT_CONFIGAUX_ELM_PRESERVEAPMODE].as<AutoConnectCheckbox>().checked = acConfig.preserveAPMode;
   me[AUTOCONNECT_CONFIGAUX_ELM_ENABLEDHCP].as<AutoConnectCheckbox>().checked = !(acConfig.staip || acConfig.staGateway || acConfig.staNetmask || acConfig.dns1 || acConfig.dns2); 
