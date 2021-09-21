@@ -21,6 +21,38 @@
 #include "AutoConnectAux.h"
 
 #ifdef AUTOCONNECT_USE_CONFIGAUX
+// AutoConnectConfigAux is an experimental feature that allows 
+// AutoConnectConfig to be persisted and transported. It has been
+// implemented by a custom Web page as AutoConnectAux with a handler
+// that is independent of the existing components of AutoConnect.
+// You can access the AutoConnectConfigAux custom web page via the 
+// Config item from the AutoConnect menu, then this page will load the
+// current settings and allows you to change any item. The applied 
+// settings will be reflected immediately in AutoConnect without calling
+// AutoConnect::config.
+// The AutoConnectConfigAux handler will check if acconfig.json exists 
+// on the default file system when you visit its custom web page. The
+// acconfig.json file is the JSON-represented persistence data for the 
+// AutoConnectConfig instance saved by the APPLY button on the 
+// AutoConnectConfigAux page.
+// To activate the AutoConnectConfigAux, follow the next procedure with
+// your sketch:
+// 1. Uncommect #define AC_USE_CONFIGAUX in AutoConnectDefs.h
+// 2. Include AutoConnectConfigAux.h header file with your Sketch
+// 3. Declare an AutoConnectConfigAux object globally with your Sketch
+// 4. Join the AutoConnectConfigAux object to AutoConnect using the join function
+//
+// #include <AutoConnect.h>
+// #include <AutoConnectConfigAux.h>
+// AutoConnect portal;
+// AutoConnectConfigAux configUX;
+// void setup() {
+//   portal.join(configUX);
+//   portal.begin();
+// }
+// void loop() {
+//   portal.handleClient();
+// }
 
 #include <type_traits>
 
