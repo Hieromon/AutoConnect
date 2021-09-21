@@ -73,6 +73,10 @@ AutoConnectSelect | AC_Tag_BR
 AutoConnectSubmit | AC_Tag_None
 AutoConnectText | AC_Tag_None
 
+!!! note "A placement posterior of AutoConnectText"
+    A placement posterior for AutoConnectText has a slightly peculiar specification. AutoConnectText element without the style attribute will be drained to HTML as a raw value and is accompanied by `<p>`, `<br>` or `<div>` tags according to the post enumeration values.    
+    If the style attribute is specified, the post enumeration value will be ignored and always be enclosed in the `<div>` tag, and the style value will be inserted into `style` attribute of the `<div>` tag.
+
 ### <i class="fa fa-caret-right"></i> type
 
 The **type** indicates the type of the element and represented as the *ACElement_t* enumeration type in the Sketch. Since AutoConnectElement also acts as a variant of other elements, it can be applied to handle elements collectively. At that time, the type can be referred to by the [**typeOf()**](apielements.md#typeof) function. The following example changes the font color of all [AutoConnectText](#autoconnecttext) elements of a custom Web page to gray.
@@ -482,7 +486,8 @@ A `format` is a pointer to a null-terminated multi byte string specifying how to
 
 ### <i class="fa fa-caret-right"></i> post
 
-Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_None`.
+Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_None`.  
+AutoConnectText element without the style parameter will be drained to HTML as a raw value and is accompanied by `<p>`, `<br>` or `<div>` tags according to the post enumeration values. If the style parameter is specified, the post enumeration value will be ignored and always be enclosed in the `<div>` tag, and the style value will be inserted into `style` attribute of the `<div>` tag.
 
 ## How to coding for the elements
 

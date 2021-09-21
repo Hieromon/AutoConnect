@@ -210,10 +210,6 @@ For example, add the following description to the `[env]` section of the `platfo
 build-flags = -DAUTOCONNECT_NOUSE_JSON
 ```
 
-## <i class="fa fa-question-circle"></i> How place HTML elements undefined in AutoConnectElements?
-
-[AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
-
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
 Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [*Appendix*](credit.md) for details.
@@ -253,6 +249,31 @@ Link button to AutoConnect menu can be embedded into Sketch's web page. The root
 ### Heap size
 
 It consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.
+
+## <i class="fa fa-question-circle"></i> How placing a style-qualified AutoConnectText horizontally?
+
+When the [style](acelements.md#style) parameter is specified for [AutoConnectText](acelements.md#autoconnecttext), it is always enclosed by the `<div>` tag, so the element placement direction is vertical and subsequent elements cannot be horizontal. If you want to place an element after AutoConnectText with the style, you can place the AutoConnectText horizontally by specifying the [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display) CSS property with `inline` or `inline-block` in the style value. 
+
+```json
+{
+    "name": "text1",
+    "type": "ACText",
+    "value": "Hello,",
+    "style": "display:inline;color:#f5ad42;font-weight:bold;margin-right:3px"
+},
+{
+    "name": "text2",
+    "type": "ACText",
+    "value": "world",
+    "posterior": "br"
+}
+```
+
+See also [AutoConnectText](acelements.md#post_8) chapter, [CSS Flow Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout) by [MDN](https://developer.mozilla.org/en-US/).
+
+## <i class="fa fa-question-circle"></i> How placing HTML elements undefined in AutoConnectElements?
+
+[AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
 
 ## <i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.
 
