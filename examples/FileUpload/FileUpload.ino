@@ -83,17 +83,20 @@ static const char PAGE_BROWSE[] PROGMEM = R"(
     },
     {
       "name": "filename",
-      "type": "ACText"
+      "type": "ACText",
+      "posterior": "br"
     },
     {
       "name": "size",
       "type": "ACText",
-      "format": "%s bytes uploaded"
+      "format": "%s bytes uploaded",
+      "posterior": "br"
     },
     {
       "name": "content_type",
       "type": "ACText",
-      "format": "Content: %s"
+      "format": "Content: %s",
+      "posterior": "br"
     },
     {
       "name": "object",

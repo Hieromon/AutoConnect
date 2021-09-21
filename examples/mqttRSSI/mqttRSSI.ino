@@ -158,27 +158,32 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "mqttserver",
         "type": "ACText",
-        "format": "Server: %s"
+        "format": "Server: %s",
+        "posterior": "br"
       },
       {
         "name": "channelid",
         "type": "ACText",
-        "format": "Channel ID: %s"
+        "format": "Channel ID: %s",
+        "posterior": "br"
       },
       {
         "name": "userkey",
         "type": "ACText",
-        "format": "User Key: %s"
+        "format": "User Key: %s",
+        "posterior": "br"
       },
       {
         "name": "apikey",
         "type": "ACText",
-        "format": "API Key: %s"
+        "format": "API Key: %s",
+        "posterior": "br"
       },
       {
         "name": "period",
         "type": "ACText",
-        "format": "Update period: %s sec."
+        "format": "Update period: %s sec.",
+        "posterior": "br"
       },
       {
         "name": "clear",
