@@ -3,7 +3,7 @@
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
  * @version  1.3.0
- * @date 2021-06-06
+ * @date 2021-09-21
  * @copyright  MIT license.
  */
 
@@ -353,12 +353,8 @@ const String AutoConnectTextBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    html = String(F("<div id=\"")) + name + String('"');
     String  value_f = value;
 
-    if (style.length())
-      html += String(F(" style=\"")) + style + String("\"");
-    html += String(">");
     if (format.length()) {
       int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
       char* buffer;
@@ -368,8 +364,11 @@ const String AutoConnectTextBasis::toHTML(void) const {
         free(buffer);
       }
     }
-    html += value_f + String(F("</div>"));
-    html = AutoConnectElementBasis::posterior(html);
+
+    if (style.length())
+      html = String(F("<div id=\"")) + name + String(F("\" style=\"")) + style + String("\">") + value_f + String(F("</div>"));
+    else
+      html = AutoConnectElementBasis::posterior(value_f);
   }
   return html;
 }
