@@ -254,8 +254,15 @@ const char AutoConnectConfigAux::_ui[] PROGMEM = R"(
   "type": "ACInput",
   "label": ")" AUTOCONNECT_PAGECONFIG_CPTIMEOUT R"(",
   "placeholder": ")" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT) R"(",
+  "apply": "number",
   "style": "width:5em",
-  "apply": "number"
+  "posterior": "none"
+},
+{
+  "name": ")" AUTOCONNECT_CONFIGAUX_ELM_PORTALTIMEOUT R"(C",
+  "type": "ACText",
+  "value": " [ms]",
+  "posterior": "br"
 },
 {
   "name": "sep3",
@@ -301,7 +308,14 @@ const char AutoConnectConfigAux::_ui[] PROGMEM = R"(
   "label": ")" AUTOCONNECT_PAGECONFIG_BEGINTIMEOUT R"(",
   "placeholder": ")" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_TIMEOUT) R"(",
   "apply": "number",
-  "style": "width:5em"
+  "style": "width:5em",
+  "posterior": "none"
+},
+{
+  "name": ")" AUTOCONNECT_CONFIGAUX_ELM_BEGINTIMEOUT R"(C",
+  "type": "ACText",
+  "value": " [ms]",
+  "posterior": "br"
 },
 {
   "name": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTORECONNECT R"(",
@@ -315,7 +329,14 @@ const char AutoConnectConfigAux::_ui[] PROGMEM = R"(
   "type": "ACInput",
   "label": ")" AUTOCONNECT_PAGECONFIG_RECONNECTINTERVAL R"(",
   "apply": "number",
-  "style": "width:3em"
+  "style": "width:3em",
+  "posterior": "none"
+},
+{
+  "name": ")" AUTOCONNECT_CONFIGAUX_ELM_RECONNECTINT R"(C",
+  "type": "ACText",
+  "value": " x)" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UNITTIME) R"([s]",
+  "posterior": "br"
 },
 {
   "name": ")" AUTOCONNECT_CONFIGAUX_ELM_AUTOSAVE R"(L",
@@ -713,7 +734,11 @@ void AutoConnectConfigAux::_loadSettings(void) {
   bool  bc;
   fs::File  cf;
 
-  loadElement(FPSTR(_ui), String(), 10308);
+  if (!loadElement(FPSTR(_ui), String(), 10400)) {
+    AC_DBG("Failed to load AutoConnectConfigAux\n");
+    return;
+  }
+
   _retrieveSettings(*this);
 #if defined(ARDUINO_ARCH_ESP8266)
   FSInfo  info;
