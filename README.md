@@ -30,7 +30,7 @@ The connection authentication data as credentials are saved automatically in EEP
 
 AutoConnect can be embedded easily into your sketch, just "**begin**" and "**handleClient**".
 
-###  Lives with the your sketches
+### Lives with the your sketches
 
 The sketches which provide the web page using ESP8266WebServer/WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object(ESP8266) or WebServer object(ESP32), or itself can assign it.
 
@@ -102,10 +102,12 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [1.3.0] Aug. 31, 2021
+### [1.3.0] Sep. 25, 2021
 - Supports ESP8266 3.0.0 Arduino core.
+- Supports ESP32 Arduino core 2.0.0.
 - Supports LittleFS with ESP32.
 - Supports a callback with OTA status change. (issue #325)
+- Supports to save credentials always. (Discussions #385)
 - Supports AutoConnectConfigAux.
 - Added AutoConnect::getConfig function.
 - Added AutoConnectOTA status notification.
@@ -116,6 +118,8 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Fixed the layout on the page being corrupted with NUMBER type of AutoConnectInput.
 - Fixed the output place of Posterior attribute for AutoConnectRadio.
 - Fixed Incomplete deletion with AutoConnectCredential. (issue #388)
+- Fixed credentials not erased correctly. (issue #388)
+- Fixed AutoConnectText posterior being unavailable.
 
 ##### Important note
 

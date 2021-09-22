@@ -1,11 +1,13 @@
-### [1.3.0] Aug. 31, 2021
+### [1.3.0] Sep. 25, 2021
 
 #### Enhancements
 
 - Supports ESP8266 3.0.0 Arduino core.
+- Supports ESP32 Arduino core 2.0.0.
 - Supports LittleFS with ESP32.
 - Supports AutoConnectOTA status notifications.
 - Supports AutoConnectConfigAux. (Preview)
+- Supports to save credentials always.
 - Adds a `style` attribute with AutoConnectInput.
 - Adda the `div` tag generation with the AutoConnectElement.
 - Adds `[]` operator with const char for AutoConnectAux.
@@ -20,6 +22,8 @@
 - Fixed the output place of Posterior attribute for AutoConnectRadio.
 - Improved the the calculation for the size of ArduinoJson document.
 - Fixed Incomplete deletion with AutoConnectCredential.
+- Fixed credentials not erased correctly.
+- Fixed AutoConnectText posterior being unavailable.
 
 ---
 ### [1.2.3] Jan. 3, 2021
