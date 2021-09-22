@@ -52,7 +52,7 @@ fs::SPIFFSFS& FlashFS = SPIFFS;
 // Declare AutoConnectText with only a value.
 // Qualify the Caption by reading style attributes from the style.json file.
 const char* HELLO_URI = "/hello";
-ACText(Caption, "Hello, world");
+ACText(Caption, "Hello, world", "", "", AC_Tag_DIV);
 ACRadio(Styles, {}, "");
 ACSubmit(Apply, "Apply", HELLO_URI);
 
