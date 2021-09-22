@@ -52,8 +52,8 @@ void setup() {
 
 Executing the above sketch will rewrite the menu title for the **FSBrowser** as the below.
 
-<div style="float:left;width:40%;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
-<img style="margin-left:70px;width:40%;height:470px;" src="images/fsbmenu_expand.png">
+<div style="float:left;width:264px;height:470px;overflow:hidden;"><img src="images/fsbmenu.png"></div>
+<img style="margin-left:70px;width:264px;height:470px;" src="images/fsbmenu_expand.png">
 
 ## Capture the legacy web pages as items into the menu
 
