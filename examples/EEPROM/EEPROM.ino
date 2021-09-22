@@ -13,6 +13,9 @@
   store custom configuration settings in EEPROM without conflicting with
   AutoConnect's use of that storage. (Note: this applies to the ESP8266
   only, not the ESP32.)
+
+  To experience this example correctly, you need to erase the flash on
+  the ESP8266 module before building the sketch.
 */
 
 #ifndef ARDUINO_ARCH_ESP8266
