@@ -583,6 +583,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#authentication-with-autoconnectota" class="md-nav__link">
+     Authentication with AutoConnectOTA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#how-to-make-the-binary-sketch" class="md-nav__link">
      How to make the binary sketch
   </a>
@@ -1031,6 +1038,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#authentication-with-autoconnectota" class="md-nav__link">
+     Authentication with AutoConnectOTA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#how-to-make-the-binary-sketch" class="md-nav__link">
      How to make the binary sketch
   </a>
@@ -1160,7 +1174,7 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 <h3 id="timing-of-autoconnectota-instantiation"><i class="fa fa-wrench"></i> Timing of AutoConnectOTA instantiation<a class="headerlink" href="#timing-of-autoconnectota-instantiation" title="Permanent link">&para;</a></h3>
 <p>It will be born during <a href="api.html#handleclient">AutoConnect::handleClient</a> process. AutoConnect will evaluate the enabled state of <a href="apiconfig.html#ota">AutoConnectConfig::ota</a> each time the handleClient is executed, and if OTA is enabled then it creates an AutoConnectAux internally and assigns it to the update page. At this time, AutoConnectOTA is also instantiated together. The generated AUX page containing AutoConnectOTA is bound to AutoConnect inside the AutoConnect::handleClient process.</p>
 <p>If you want to attach AutoConnectOTA dynamically with an external trigger, you can sketch like this:<br />
-<em>This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnect OTA will not be imported into Sketch and will not appear on the menu list.</em></p>
+<em>This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnectOTA will not be imported into Sketch and will not appear on the menu list.</em></p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
@@ -1187,6 +1201,32 @@ The AutoConnectOTA activates the ticker constantly regardless of the <a href="ap
 <p class="admonition-title">AutoConnectOTA <strong>cannot</strong> detach dynamically</p>
 <p>Once imported, AutoConnectOTA cannot be removed from the Sketch. It can be only excluded from the menu by overriding <a href="apiconfig.html#menuitems">AutoConnectConfig::menuItems</a>. In this case, the AutoConnectOTA instance remains as a residue.</p>
 </div>
+<h3 id="authentication-with-autoconnectota"><i class="fa fa-wrench"></i> Authentication with AutoConnectOTA<a class="headerlink" href="#authentication-with-autoconnectota" title="Permanent link">&para;</a></h3>
+<p><a href="adauthentication.html#applying-http-authentication-for-built-in-ota">HTTP authentication</a> of AutoConnect is also effective for OTA. Since the implementation of AutoConnectOTA is based on AutoConnectAux, the <a href="apiconfig.html#auth">AutoConnectConfig::auth</a> setting is valid for AutoConnectOTA as well. Also, it allows you to make authentication only on the OTA page while various custom Web pages coexist.</p>
+<p>The <a href="adauthentication.html#applying-http-authentication"><code>AC_AUTH_BASIC</code></a> or <a href="adauthentication.html#applying-http-authentication"><code>AC_AUTH_DIGEST</code></a> setting to the <a href="apiconfig.html#auth"><code>AutoConnectConfig::auth</code></a> enables HTTP authentication. If it is in combination with <strong>AC_AUTHSCOPE_PARTIAL</strong> specified <a href="apiconfig.html#authscope"><code>AutoConnectConfig::authScope</code></a> setting, only an OTA page will be authenticated, excluding other custom Web pages that co-exist.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">aux</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/aux&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;AUX&quot;</span><span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">// Join some custom web page</span>
+  <span style="color: #f8f8f2">portal.join(aux);</span>
+
+  <span style="color: #75715e">// Add OTA into the Sketch</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">config.ota</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_OTA_BUILTIN;</span>
+</span>
+  <span style="color: #75715e">// Enable authentication on OTA page only</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">config.auth</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_AUTH_DIGEST;</span>
+</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">config.authScope</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_AUTHSCOPE_PARTIAL;</span>
+</span>
+  <span style="color: #75715e">// Configure other settings</span>
+  <span style="color: #f8f8f2">...</span>
+
+  <span style="color: #75715e">// Apply configuration settings</span>
+  <span style="color: #f8f8f2">portal.config(config);</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
 <h3 id="how-to-make-the-binary-sketch"><i class="fa fa-wrench"></i> How to make the binary sketch<a class="headerlink" href="#how-to-make-the-binary-sketch" title="Permanent link">&para;</a></h3>
 <p>Binary sketch files for updating can be retrieved using the Arduino IDE. Open the <strong>Sketch</strong> menu and select the <strong>Export compiled Binary</strong>, then starts compilation.</p>
 <p><img src="images/export_binary.png" width="450" /></p>
