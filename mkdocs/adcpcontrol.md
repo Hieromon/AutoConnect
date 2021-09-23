@@ -51,7 +51,7 @@ AutoConnect Portal;
 
 bool startCP(IPAddress& ip) {
   digitalWrite(BUILTIN_LED, HIGH);
-  Serial.println("C.P. started, IP:" + WiFi.localIP().toString());
+  Serial.println("C.P. started, IP:" + ip.toString());
   return true;
 }
 
