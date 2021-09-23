@@ -2,7 +2,7 @@
 
 ### Publish ESP8266/ESP32 WiFi signal strength to MQTT broker
 
-This example is based on the description of the MQTT client application in the [AutoConnect documentation](https://hieromon.github.io/AutoConnect/examples/index.html#used-with-mqtt-as-a-client-application). To experience this example, you need to prepare the [ThingSpeak](https://thingspeak.com/)&trade; account and the channel for MQTT message exchange in advance.
+This example is based on the description of the MQTT client application in the [AutoConnect documentation](https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application). To experience this example, you need to prepare the [ThingSpeak](https://thingspeak.com/)&trade; account and the channel for MQTT message exchange in advance.
 
 The mqttRSSI equips with a custom Web page for configuring broker parameters. You can invoke the MQTT Setting web interface from the AutoConnect menu to configure for the mqtt broker performed on Thingspeak. This custom Web page is written in JSON and embedded in the sketch. Also, the [mqttRSSI_FS](https://github.com/Hieromon/AutoConnect/tree/master/examples/mqttRSSI_FS) example stores the JSON document in the flash of ESP8266/ESP32 module and separates it completely from the sketch. Instructions and the APIs for equipping custom Web pages are available in the [documentation](https://hieromon.github.io/AutoConnect/acintro.html). (This example requires [ArduinoJson](https://github.com/bblanchon/ArduinoJson) version 5 or version 6 library.)
 
