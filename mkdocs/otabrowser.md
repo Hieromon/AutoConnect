@@ -93,7 +93,7 @@ build_flags =
 It will be born during [AutoConnect::handleClient](api.md#handleclient) process. AutoConnect will evaluate the enabled state of [AutoConnectConfig::ota](apiconfig.md#ota) each time the handleClient is executed, and if OTA is enabled then it creates an AutoConnectAux internally and assigns it to the update page. At this time, AutoConnectOTA is also instantiated together. The generated AUX page containing AutoConnectOTA is bound to AutoConnect inside the AutoConnect::handleClient process.
 
 If you want to attach AutoConnectOTA dynamically with an external trigger, you can sketch like this:  
-_This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnect OTA will not be imported into Sketch and will not appear on the menu list._
+_This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnectOTA will not be imported into Sketch and will not appear on the menu list._
 
 ```cpp
 #include <ESP8266WiFi.h>
@@ -121,6 +121,37 @@ void loop() {
 
 !!! note "AutoConnectOTA **cannot** detach dynamically"
     Once imported, AutoConnectOTA cannot be removed from the Sketch. It can be only excluded from the menu by overriding [AutoConnectConfig::menuItems](apiconfig.md#menuitems). In this case, the AutoConnectOTA instance remains as a residue.
+
+### <i class="fa fa-wrench"></i> Authentication with AutoConnectOTA
+
+[HTTP authentication](adauthentication.md#applying-http-authentication-for-built-in-ota) of AutoConnect is also effective for OTA. Since the implementation of AutoConnectOTA is based on AutoConnectAux, the [AutoConnectConfig::auth](apiconfig.md#auth) setting is valid for AutoConnectOTA as well. Also, it allows you to make authentication only on the OTA page while various custom Web pages coexist.
+
+The [`AC_AUTH_BASIC`](adauthentication.md#applying-http-authentication) or [`AC_AUTH_DIGEST`](adauthentication.md#applying-http-authentication) setting to the [`AutoConnectConfig::auth`](apiconfig.md#auth) enables HTTP authentication. If it is in combination with **AC_AUTHSCOPE_PARTIAL** specified [`AutoConnectConfig::authScope`](apiconfig.md#authscope) setting, only an OTA page will be authenticated, excluding other custom Web pages that co-exist.
+
+```cpp hl_lines="10 13 14"
+AutoConnect portal;
+AutoConnectConfig config;
+AutoConnectAux aux("/aux", "AUX");
+
+void setup() {
+  // Join some custom web page
+  portal.join(aux);
+
+  // Add OTA into the Sketch
+  config.ota = AC_OTA_BUILTIN;
+
+  // Enable authentication on OTA page only
+  config.auth = AC_AUTH_DIGEST;
+  config.authScope = AC_AUTHSCOPE_PARTIAL;
+
+  // Configure other settings
+  ...
+
+  // Apply configuration settings
+  portal.config(config);
+  portal.begin();
+}
+```
 
 ### <i class="fa fa-wrench"></i> How to make the binary sketch
 
