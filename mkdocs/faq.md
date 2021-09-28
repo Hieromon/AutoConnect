@@ -64,6 +64,13 @@ lib_ldf_mode = deep
 
 You should specify **`deep`** with [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode).
 
+## <i class="fa fa-question-circle"></i> Compile error occurs due to the text section exceeds
+
+When building the sketch, you may receive a compilation error message similar that the text section exceeds the available space on the board. This error occurs with ESP32 arduino core 2.0.0 or later. Since ESP32 arduino core 2.0.0, the object size of the library tends to be oversized, and the AutoConnect object size is also bloated.
+And also for some example sketches such as mqttRSSI, the BIN size after linkage does not fit in the default partition schema.
+
+I'm aware of this issue and trying to reduce the size of the AutoConnect object, but for now, changing the partition table at build is the most effective workaround. See [How much memory does AutoConnect consume?](#how-much-memory-does-autoconnect-consume) for information on how to change the partition table.
+
 ## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
 
 If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directives. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.

@@ -12,6 +12,13 @@
   the data folder with MkSPIFFS Tool ("ESP8266 Sketch Data Upload" in Tools menu
   in Arduino IDE).
 
+  When building this sketch, you may receive a compilation error message
+  similar to the following:
+  - text section exceeds available space in board
+  This cause is the small text block size of the predetermined partition
+  table. You can avoid this error by selecting Partition Scheme: from
+  Arduino IDE's Tool menu and applying Minimal SPIFFS.
+
   This example is based on the environment as of March 20, 2018.
   Copyright (c) 2020 Hieromon Ikasamo.
   This software is released under the MIT License.
