@@ -912,6 +912,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#compile-error-occurs-due-to-the-text-section-exceeds" class="md-nav__link">
+     Compile error occurs due to the text section exceeds
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#compile-error-that-eeprom-was-not-declared-in-this-scope" class="md-nav__link">
      Compile error that 'EEPROM' was not declared in this scope
   </a>
@@ -1257,6 +1264,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#compile-error-occurs-due-to-the-text-section-exceeds" class="md-nav__link">
+     Compile error occurs due to the text section exceeds
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#compile-error-that-eeprom-was-not-declared-in-this-scope" class="md-nav__link">
      Compile error that 'EEPROM' was not declared in this scope
   </a>
@@ -1555,6 +1569,10 @@ Consider activating the <a href="adconnection.html#match-with-known-access-point
 <span style="color: #a6e22e">lib_ldf_mode</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">deep</span>
 </code></pre></div>
 <p>You should specify <strong><code>deep</code></strong> with <a href="https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode"><code>lib_ldf_mode</code></a>.</p>
+<h2 id="compile-error-occurs-due-to-the-text-section-exceeds"><i class="fa fa-question-circle"></i> Compile error occurs due to the text section exceeds<a class="headerlink" href="#compile-error-occurs-due-to-the-text-section-exceeds" title="Permanent link">&para;</a></h2>
+<p>When building the sketch, you may receive a compilation error message similar that <em>the text section exceeds the available space on the board</em>. This error occurs with ESP32 arduino core 2.0.0 or later. Since ESP32 arduino core 2.0.0, the object size of the library tends to be oversized, and the AutoConnect object size is also bloated.
+And also for some example sketches such as mqttRSSI, the BIN size after linkage does not fit in the default partition scheme.</p>
+<p>I'm aware of this issue<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> and trying to reduce the size of the AutoConnect object, but for now, changing the partition table at build is the most effective workaround. See <a href="#how-much-memory-does-autoconnect-consume">How much memory does AutoConnect consume?</a> for information on how to change the partition table.</p>
 <h2 id="compile-error-that-eeprom-was-not-declared-in-this-scope"><i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope<a class="headerlink" href="#compile-error-that-eeprom-was-not-declared-in-this-scope" title="Permanent link">&para;</a></h2>
 <p>If the user sketch includes the header file as <code>EEPROM.h</code>, this compilation error may occur depending on the order of the <code>#include</code> directives. <code>AutoConnectCredentials.h</code> including in succession linked from <code>AutoConnect.h</code> defines <strong>NO_GLOBAL_EEPROM</strong> internally, so if your sketch includes <code>EEPROM.h</code> after <code>AutoConnect.h</code>, the <strong>EEPROM</strong> global variable will be lost.</p>
 <p>If you use EEPROM with your sketch, declare <code>#include &lt;EEPROM.h&gt;</code> in front of <code>#include &lt;AutoConnect.h&gt;</code>.</p>
@@ -1630,7 +1648,7 @@ You have the following two options to avoid this conflict:</p>
 <h2 id="does-not-response-from-_ac"><i class="fa fa-question-circle"></i> Does not response from /_ac.<a class="headerlink" href="#does-not-response-from-_ac" title="Permanent link">&para;</a></h2>
 <p>Probably <strong>WiFi.begin</strong> failed with the specified SSID. Activating the <a href="advancedusage.html#debug-print">debug printing</a> will help you to track down the cause.</p>
 <h2 id="hang-up-after-reset"><i class="fa fa-question-circle"></i> Hang up after Reset?<a class="headerlink" href="#hang-up-after-reset" title="Permanent link">&para;</a></h2>
-<p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
+<p>If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: <a href="https://github.com/esp8266/Arduino/issues/1017">https://github.com/esp8266/Arduino/issues/1017</a> <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
 <p>If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ets</span> <span style="color: #f8f8f2">Jan</span>  <span style="color: #f8f8f2">8</span> <span style="color: #f8f8f2">2013,rst</span> <span style="color: #f8f8f2">cause:2,</span> <span style="color: #f8f8f2">boot</span> <span style="color: #f8f8f2">mode:(1,6)</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">(1,7)</span>
 <span style="color: #f8f8f2">ets</span> <span style="color: #f8f8f2">Jan</span>  <span style="color: #f8f8f2">8</span> <span style="color: #f8f8f2">2013,rst</span> <span style="color: #f8f8f2">cause:4,</span> <span style="color: #f8f8f2">boot</span> <span style="color: #f8f8f2">mode:(1,6)</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">(1,7)</span>
@@ -1810,7 +1828,7 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <p><i class="fas fa-angle-right"></i> AutoConnectDefs.h</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#define AC_DEBUG</span>
 </code></pre></div>
-<p><i class="fas fa-angle-right"></i> PageBuilder.h <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
+<p><i class="fas fa-angle-right"></i> PageBuilder.h <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#define PB_DEBUG</span>
 </code></pre></div>
 <div class="admonition info">
@@ -1818,7 +1836,7 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <p>See <a href="adothers.html#debug-print"><em>Debug Print</em></a> section, and <a href="faq.html#unable-to-change-any-macro-definitions-by-the-sketch"><em>one similarly</em></a> too.</p>
 </div>
 <h3 id="4-reports-the-issue-to-autoconnect-github-repository">4. Reports the issue to AutoConnect Github repository<a class="headerlink" href="#4-reports-the-issue-to-autoconnect-github-repository" title="Permanent link">&para;</a></h3>
-<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></p>
+<p>If you can not solve AutoConnect problems please report to <a href="https://github.com/Hieromon/AutoConnect/issues">Issues</a>. And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" disabled/> Hardware module</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Arduino core version Including the upstream commit ID if necessary</li>
@@ -1837,13 +1855,16 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <hr />
 <ol>
 <li id="fn:1">
-<p>This issue has been resolved in ESP8266 core 2.5.0 and later.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>In this case, the underlying factor is mainly the bloat of ESP-IDF. This issue is also being discussed by many contributors of the Arduino core development community and efforts are underway to make a solution. Refs: <a href="https://github.com/espressif/arduino-esp32/issues/5630">espressif/arduino-esp32/issue#5630</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:2">
-<p><code>PageBuilder.h</code> exists in the <code>libraries/PageBuilder/src</code> directory under your sketch folder.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>This issue has been resolved in ESP8266 core 2.5.0 and later.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:3">
-<p>Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p><code>PageBuilder.h</code> exists in the <code>libraries/PageBuilder/src</code> directory under your sketch folder.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
