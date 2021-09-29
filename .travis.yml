@@ -4,10 +4,10 @@ env:
   global:
     - IDE_VERSION=1.8.16
   jobs:
-    - BOARD="esp8266:esp8266:generic:xtal=80,eesz=4M3M,ip=lm2f,exception=disabled,FlashMode=qio,FlashFreq=80" ARDJSON="5.13.5"
-    - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M,PartitionScheme=min_spiffs" ARDJSON="5.13.5"
-    - BOARD="esp8266:esp8266:generic:xtal=80,eesz=4M3M,ip=lm2f,exception=disabled,FlashMode=qio,FlashFreq=80" ARDJSON="6.14.0"
-    - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M,PartitionScheme=min_spiffs" ARDJSON="6.18.0"
+    - BOARD="esp8266:esp8266:generic:xtal=80,eesz=4M3M,ip=lm2f,exception=disabled,FlashMode=qio,FlashFreq=80" PB="1.5.0" ARDJSON="5.13.5"
+    - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M,PartitionScheme=min_spiffs" PB="1.5.0" ARDJSON="5.13.5"
+    - BOARD="esp8266:esp8266:generic:xtal=80,eesz=4M3M,ip=lm2f,exception=disabled,FlashMode=qio,FlashFreq=80" PB="1.5.0" ARDJSON="6.14.0"
+    - BOARD="esp32:esp32:esp32:FlashFreq=80,FlashSize=4M,PartitionScheme=min_spiffs" PB="1.5.0" ARDJSON="6.18.0"
 before_install:
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
   - sleep 3
@@ -23,8 +23,7 @@ before_install:
   - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then
       arduino --install-boards esp32:esp32;
     fi
-  - arduino --install-library PubSubClient,PageBuilder
-  - arduino --install-library ArduinoJson:$ARDJSON
+  - arduino --install-library PageBuilder:$PB,ArduinoJson:$ARDJSON,PubSubClient
   - buildExampleSketch() { arduino --verify --board $BOARD $PWD/examples/$1/$1.ino; }
 install:
   - mkdir -p ~/Arduino/libraries
