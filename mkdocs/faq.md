@@ -66,10 +66,12 @@ You should specify **`deep`** with [`lib_ldf_mode`](https://docs.platformio.org/
 
 ## <i class="fa fa-question-circle"></i> Compile error occurs due to the text section exceeds
 
-When building the sketch, you may receive a compilation error message similar that the text section exceeds the available space on the board. This error occurs with ESP32 arduino core 2.0.0 or later. Since ESP32 arduino core 2.0.0, the object size of the library tends to be oversized, and the AutoConnect object size is also bloated.
-And also for some example sketches such as mqttRSSI, the BIN size after linkage does not fit in the default partition schema.
+When building the sketch, you may receive a compilation error message similar that *the text section exceeds the available space on the board*. This error occurs with ESP32 arduino core 2.0.0 or later. Since ESP32 arduino core 2.0.0, the object size of the library tends to be oversized, and the AutoConnect object size is also bloated.
+And also for some example sketches such as mqttRSSI, the BIN size after linkage does not fit in the default partition scheme.
 
-I'm aware of this issue and trying to reduce the size of the AutoConnect object, but for now, changing the partition table at build is the most effective workaround. See [How much memory does AutoConnect consume?](#how-much-memory-does-autoconnect-consume) for information on how to change the partition table.
+I'm aware of this issue[^1] and trying to reduce the size of the AutoConnect object, but for now, changing the partition table at build is the most effective workaround. See [How much memory does AutoConnect consume?](#how-much-memory-does-autoconnect-consume) for information on how to change the partition table.
+
+[^1]: In this case, the underlying factor is mainly the bloat of ESP-IDF. This issue is also being discussed by many contributors of the Arduino core development community and efforts are underway to make a solution. Refs: [espressif/arduino-esp32/issue#5630](https://github.com/espressif/arduino-esp32/issues/5630)
 
 ## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
 
@@ -162,9 +164,9 @@ Probably **WiFi.begin** failed with the specified SSID. Activating the [debug pr
 
 ## <i class="fa fa-question-circle"></i> Hang up after Reset?
 
-If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017 [^1]
+If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017 [^2]
 
-[^1]: This issue has been resolved in ESP8266 core 2.5.0 and later.    
+[^2]: This issue has been resolved in ESP8266 core 2.5.0 and later.    
 
 If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.
 
@@ -405,7 +407,7 @@ To fully enable for the AutoConnect debug logging options, change the following 
 #define AC_DEBUG
 ```
 
-<i class="fas fa-angle-right"></i> PageBuilder.h [^2]
+<i class="fas fa-angle-right"></i> PageBuilder.h [^3]
 
 ```cpp
 #define PB_DEBUG
@@ -414,11 +416,11 @@ To fully enable for the AutoConnect debug logging options, change the following 
 !!! info "How to enable the AC_DEBUG, PB_DEBUG"
     See [*Debug Print*](adothers.md#debug-print) section, and [*one similarly*](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) too.
 
-[^2]: `PageBuilder.h` exists in the `libraries/PageBuilder/src` directory under your sketch folder.
+[^3]: `PageBuilder.h` exists in the `libraries/PageBuilder/src` directory under your sketch folder.
 
 ### 4. Reports the issue to AutoConnect Github repository
 
-If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:[^3]
+If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:[^4]
 
 * [ ] Hardware module
 * [ ] Arduino core version Including the upstream commit ID if necessary
@@ -435,4 +437,4 @@ I will make efforts to solve as quickly as possible. But I would like you to kno
 
 Thank you.
 
-[^3]:Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.
+[^4]:Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.
