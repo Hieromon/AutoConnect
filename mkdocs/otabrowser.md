@@ -93,7 +93,7 @@ build_flags =
 It will be born during [AutoConnect::handleClient](api.md#handleclient) process. AutoConnect will evaluate the enabled state of [AutoConnectConfig::ota](apiconfig.md#ota) each time the handleClient is executed, and if OTA is enabled then it creates an AutoConnectAux internally and assigns it to the update page. At this time, AutoConnectOTA is also instantiated together. The generated AUX page containing AutoConnectOTA is bound to AutoConnect inside the AutoConnect::handleClient process.
 
 If you want to attach AutoConnectOTA dynamically with an external trigger, you can sketch like this:  
-_This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnect OTA will not be imported into Sketch and will not appear on the menu list._
+_This sketch imports the OTA update feature with an external switch assigned to the GPIO pin. While the trigger not occurs, AutoConnectOTA will not be imported into Sketch and will not appear on the menu list._
 
 ```cpp
 #include <ESP8266WiFi.h>
@@ -121,6 +121,37 @@ void loop() {
 
 !!! note "AutoConnectOTA **cannot** detach dynamically"
     Once imported, AutoConnectOTA cannot be removed from the Sketch. It can be only excluded from the menu by overriding [AutoConnectConfig::menuItems](apiconfig.md#menuitems). In this case, the AutoConnectOTA instance remains as a residue.
+
+### <i class="fa fa-wrench"></i> Authentication with AutoConnectOTA
+
+[HTTP authentication](adauthentication.md#applying-http-authentication-for-built-in-ota) of AutoConnect is also effective for OTA. Since the implementation of AutoConnectOTA is based on AutoConnectAux, the [AutoConnectConfig::auth](apiconfig.md#auth) setting is valid for AutoConnectOTA as well. Also, it allows you to make authentication only on the OTA page while various custom Web pages coexist.
+
+The [`AC_AUTH_BASIC`](adauthentication.md#applying-http-authentication) or [`AC_AUTH_DIGEST`](adauthentication.md#applying-http-authentication) setting to the [`AutoConnectConfig::auth`](apiconfig.md#auth) enables HTTP authentication. If it is in combination with **AC_AUTHSCOPE_PARTIAL** specified [`AutoConnectConfig::authScope`](apiconfig.md#authscope) setting, only an OTA page will be authenticated, excluding other custom Web pages that co-exist.
+
+```cpp hl_lines="10 13 14"
+AutoConnect portal;
+AutoConnectConfig config;
+AutoConnectAux aux("/aux", "AUX");
+
+void setup() {
+  // Join some custom web page
+  portal.join(aux);
+
+  // Add OTA into the Sketch
+  config.ota = AC_OTA_BUILTIN;
+
+  // Enable authentication on OTA page only
+  config.auth = AC_AUTH_DIGEST;
+  config.authScope = AC_AUTHSCOPE_PARTIAL;
+
+  // Configure other settings
+  ...
+
+  // Apply configuration settings
+  portal.config(config);
+  portal.begin();
+}
+```
 
 ### <i class="fa fa-wrench"></i> How to make the binary sketch
 
@@ -207,6 +238,119 @@ The filename extension that should be treated as the firmware is defined as the 
 
     If the file extension pattern contains a regular expression, you need to enable the flag of [`AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L277) in `AutoConnectDefs.h`. Also, the `AUTOCONNECT_UPLOAD_ASFIRMWARE` definition as a regular expression is treated as a replacement string for the **#define** directive for C++ preprocessor, so the backslash must be escaped.
     
+### <i class="fa fa-edit"></i> Display an extra string on the update screen&nbsp;<sup><sub>ENHANCED w/v1.3.0</sub></sup>
+
+You can add an extra string to the OTA update screen by the sketch. If an extra string is specified, it will be displayed on the right side of "**Updating firmware**" caption. 
+
+<img src="images/otacaption.png" />
+
+The screenshot above shows an example of adding the current version of the sketch to the OTA caption.
+
+To display in the add an extra caption to the OTA update screen, sets the [AutoConnectConfig::otaExtraCaption](apiconfig.md#otaextracaption) by your sketch. A type of the extra caption type to set in [AutoConnectConfig::otaExtraCaption](apiconfig.md#otaextracaption) is the `const char pointer`. So, its string must remain in the memory area for the duration of OTA. (This string is not copied to the AutoConnectOTA class and expiration must be guaranteed by your sketch)
+
+```cpp hl_lines="1 5 10 11"
+#define FIRMWARE_VERSION  "1.1.12-dev"
+...
+#include <AutoConnect.h>
+...
+const char* fw_ver = FIRMWARE_VERSION;
+AutoConnect portal;
+AutoConnectConfig config;
+
+void setup() {
+  config.ota = AC_OTA_BUILTIN;
+  config.otaExtraCaption = fw_ver;
+  portal.config(config);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+!!! note "Common mistakes about variable expiration"
+    Local variables are valid only within the function. The following code seems to work at first glance. But practically, `*fw_ver` is released at the end of the function. *AutoConnectConfig::otaExtraCaption* holds only a pointer to the extra caption string.
+
+    ```cpp hl_lines="9 12"
+    #define FIRMWARE_VERSION  "1.1.12-dev"
+    ...
+    #include <AutoConnect.h>
+    ...
+    AutoConnect portal;
+    AutoConnectConfig config;
+    
+    void setupConfig() {
+      const char* fw_ver = FIRMWARE_VERSION;
+    
+      config.ota = AC_OTA_BUILTIN;
+      config.otaExtraCaption = fw_ver;  // This code doesn't work as intended.
+      portal.config(config);
+    }
+    
+    void setup() {
+      setupConfig();
+      portal.begin();
+    }
+    
+    void loop() {
+      portal.handleClient();
+    }
+    ```
+
+### <i class="fa fa-edit"></i> Receive the AutoConnectOTA status change&nbsp;<sup><sub>ENHANCED w/v1.3.0</sub></sup>
+
+You can capture the change in the state of the OTA by registering the exit routine to AutoConnect. The exit routine for notifying the state change of AutoConnectOTA can execute the user's sketch function during specific stages of OTA or on an error. Also, these exit routines have the same interface as the [similar exit functions](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#safety) included in the Arduino core.
+
+The following functions register the function in your sketch with AutoConnect to notify OTA state changes.
+
+- [AutoConnect::onOTAStart](api.md#onotastart) : Register the on-start exit routine that is called only once when the OTA has been started.
+- [AutoConnect::onOTAProgress](api.md#onotaprogress) : Register the exit routine that is called during the OTA progress.
+- [AutoConnect::onOTAEnd](api.md#onotaend) : Register the on-end exit routine that is called only once when the OTA is finished.
+- [AutoConnect::onOTAError](api.md#onotaerror) : Register the exit routine that is called when some error occurred.
+
+```cpp hl_lines="30 31 32 33"
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <AutoConnect.h>
+
+AutoConnect portal;
+AutoConnectConfig config;
+
+void OTAStart() {
+  Serial.println("Start OTA updating");
+}
+
+void OTAEnd() {
+  Serial.println("\nEnd");
+}
+void OTAProgress(unsigned int amount, unsigned int size) {
+  Serial.printf("Progress: %u(%u)\r", amount, size);
+}
+
+void OTAError(uint8_t error) {
+  Serial.printf("Error[%u]: ", error);
+}
+
+void setup() {
+  delay(1000);
+  Serial.begin(115200);
+  Serial.println();
+
+  config.ota = AC_OTA_BUILTIN;
+  portal.config(config);
+  portal.onOTAStart(OTAStart);
+  portal.onOTAEnd(OTAEnd);
+  portal.onOTAProgress(OTAProgress);
+  portal.onOTAError(OTAError);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
 <script>
   window.onload = function() {
     Gifffer();

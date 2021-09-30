@@ -6,8 +6,8 @@ You can embed custom Web pages written in [**JSON**](https://www.json.org/index.
 
 By providing the following JSON document to AutoConnect, you can include the custom Web page like the below:
 
-<div style="float:left;width:50%;height:470px;overflow:auto"><img src="images/ac_json.png"></div>
-<img style="margin-left:30px;width:40%;height:470px;" src="images/ac_mqtt_setting.png">
+<div style="float:left;width:409px;height:470px;overflow:auto"><img src="images/ac_json.png"></div>
+<img style="margin-left:30px;width:264px;height:470px;" src="images/ac_mqtt_setting.png">
 
 A JSON document for AutoConnect can contain the custom Web page multiple. You can further reduce the Sketch process by loading multiple pages of JSON document at once.
 
@@ -152,6 +152,7 @@ Specifies a tag to add behind the HTML code generated from the element. Its purp
 : - **none** : No generate additional tags.
 : - **br** : Add a `<br>` tag to the end of the element.
 : - **par** : Include the element in the `<p> ~ </p>` tag.
+: - **div** : Include the element in the `<div> ~ </div>` tag.
 
 #### <i class="fa fa-key"></i> **<i>key_according_to_type</i>**
 
@@ -195,6 +196,10 @@ This is different for each AutoConnectElements, and the key that can be specifie
     : - **password** : Password input field. The text is obscured so that it cannot be read, usually by replacing each character with a symbol such as the asterisk ("`*`") or a dot ("`•`").
     : - **number** : A field let the user enter number characters only.
 
+!!! note "Numerical keypad is different"
+    When the AutoConnectInput element with the `number` applied is focused on the browser, the numeric keypad may be displayed automatically. For popular mobile OSes such as Android and iOS, the numeric keypad has the following styles and is different with each OS.
+    <div style="display:inline-block"><img src="images/html5_forms_number.png"><span style="padding-left:30px"></span><img src="images/html5_forms_number_ios.png"></div>
+
 #### <i class="fa fa-caret-right"></i> ACRadio
 
 : - **value** : Specifies the collection of radio buttons as an array element.
@@ -223,7 +228,7 @@ This is different for each AutoConnectElements, and the key that can be specifie
 
 : - **value** : Specifies a content and also can contain the native HTML code, but remember that your written code is enclosed by the div tag.
 : - **style** : Specifies the qualification style to give to the content and can use the style attribute format as it is.
-: - **format** : Specifies how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to the C-style printf library functions, but depends on the espressif sdk implementation. The conversion specification is valid only for **%s** format. (Left and Right justification, width are also valid.)
+: - **format** : Specifies how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to the C-style printf library functions, but depends on the espressif SDK implementation. The conversion specification is valid only for **%s** format. (Left and Right justification, width are also valid.)
 
 !!! caution "AutoConnect JSON parsing process is not perfect"
     It is based on analysis by ArduinoJson, but the semantic analysis is simplified to save memory. Consequently, it is not an error that a custom Web page JSON document to have unnecessary keys. It will be ignored.

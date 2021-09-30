@@ -3,8 +3,8 @@
  * AutoConnectUpdate class.
  * @file   AutoConnectUpdatePage.h
  * @author hieromon@gmail.com
- * @version    1.0.0
- * @date   2019-08-15
+ * @version    1.3.0
+ * @date   2021-07-23
  * @copyright  MIT license.
  */
 
@@ -13,22 +13,22 @@
 
 // Define the AUTOCONNECT_URI_UPDATE page to select the sketch binary
 // for update and order update execution.
-const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] PROGMEM = {
-  { AC_Element, "binSty", "<style type=\"text/css\">.bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,.bins span{margin:0 .5em 0 .5em;padding:0;text-align:left}</style>", nullptr },
+const AutoConnectAux::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] PROGMEM = {
+  { AC_Style, "s_bin", ".s_bin{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,.bins span{margin:0 .5em 0 .5em;padding:0;text-align:left}", nullptr },
   { AC_Text, "caption", nullptr, nullptr },
-  { AC_Element, "c1", "<div class=\"bins\">", nullptr },
+  { AC_Element, "c1", "<div class=\"s_bin\">", nullptr },
   { AC_Radio, "firmwares", nullptr, nullptr },
   { AC_Element, "c1", "</div>", nullptr },
   { AC_Submit, "update", AUTOCONNECT_BUTTONLABEL_UPDATE, AUTOCONNECT_URI_UPDATE_ACT }
 };
-const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageCatalog PROGMEM = {
+const AutoConnectAux::ACPage_t AutoConnectUpdateAct::_pageCatalog PROGMEM = {
   AUTOCONNECT_URI_UPDATE, AUTOCONNECT_MENULABEL_UPDATE, false, AutoConnectUpdateAct::_elmCatalog
 };
 
 // Define the AUTOCONNECT_URI_UPDATE_ACT page to display during the
 // update process.
-const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmProgress[] PROGMEM = {
-  { AC_Element, "loader", "<style>.loader{border:2px solid #f3f3f3;border-radius:50%;border-top:2px solid #555;width:12px;height:12px;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}</style>", nullptr },
+const AutoConnectAux::ACElementProp_t AutoConnectUpdateAct::_elmProgress[] PROGMEM = {
+  { AC_Style, "loader", ".loader{border:2px solid #f3f3f3;border-radius:50%;border-top:2px solid #555;width:12px;height:12px;-webkit-animation:spin 1s linear infinite;animation:spin 1s linear infinite}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}", nullptr },
   { AC_Element, "c1", "<div style=\"display:inline-block\">", nullptr },
   { AC_Element, "binname", nullptr, nullptr },
   { AC_Element, "c2", "&ensp;from&ensp;", nullptr },
@@ -44,16 +44,16 @@ const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmProgress[]
   { AC_Element, "inprogress_meter", "var e=t.split(\":\"),n=document.getElementById(\"progress\").getElementsByTagName(\"meter\");n[0].setAttribute(\"value\",e[0]),n[0].setAttribute(\"max\",e[1])", nullptr },
   { AC_Element, "c7", "}window.onload=bar;</script>", nullptr }
 };
-const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageProgress PROGMEM = {
+const AutoConnectAux::ACPage_t AutoConnectUpdateAct::_pageProgress PROGMEM = {
   AUTOCONNECT_URI_UPDATE_ACT, AUTOCONNECT_MENULABEL_UPDATE, false, AutoConnectUpdateAct::_elmProgress
 };
 
 // Definition of the AUTOCONNECT_URI_UPDATE_RESULT page to notify update results
-const AutoConnectUpdateAct::ACElementProp_t AutoConnectUpdateAct::_elmResult[] PROGMEM = {
+const AutoConnectAux::ACElementProp_t AutoConnectUpdateAct::_elmResult[] PROGMEM = {
   { AC_Text, "status", nullptr, nullptr },
   { AC_Element, "restart", "<script type=\"text/javascript\">window.onload=function(){var e=new FormData;e.append(\"op\",\"#r\");var o=new XMLHttpRequest;o.timeout=" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_TIMEOUT) ",o.onloadend=function(){setTimeout(\"location.href='" AUTOCONNECT_HOMEURI "'\"," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_WAITFORREBOOT) ")},o.open(\"POST\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),o.send(e)};</script>", nullptr }
 };
-const AutoConnectUpdateAct::ACPage_t AutoConnectUpdateAct::_pageResult PROGMEM = {
+const AutoConnectAux::ACPage_t AutoConnectUpdateAct::_pageResult PROGMEM = {
   AUTOCONNECT_URI_UPDATE_RESULT, AUTOCONNECT_MENULABEL_UPDATE, false, AutoConnectUpdateAct::_elmResult
 };
 

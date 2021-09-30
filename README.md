@@ -2,7 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/Hieromon/AutoConnect)](https://github.com/Hieromon/AutoConnect/releases)
 [![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg?)](https://www.ardu-badge.com/AutoConnect)
-[![Build Status](https://travis-ci.org/Hieromon/AutoConnect.svg?branch=master)](https://travis-ci.org/Hieromon/AutoConnect)
+[![Build Status](https://app.travis-ci.com/Hieromon/AutoConnect.svg?branch=master)](https://app.travis-ci.com/Hieromon/AutoConnect)
 [![License](https://img.shields.io/github/license/Hieromon/AutoConnect)](https://github.com/Hieromon/AutoConnect/blob/master/LICENSE)
 
 An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface. 
@@ -30,7 +30,7 @@ The connection authentication data as credentials are saved automatically in EEP
 
 AutoConnect can be embedded easily into your sketch, just "**begin**" and "**handleClient**".
 
-###  Lives with the your sketches
+### Lives with the your sketches
 
 The sketches which provide the web page using ESP8266WebServer/WebServer there is, AutoConnect will not disturb it. AutoConnect can use an already instantiated ESP8266WebServer object(ESP8266) or WebServer object(ESP32), or itself can assign it.
 
@@ -101,6 +101,37 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [FAQ](https://hieromon.github.io/AutoConnect/faq.html).
 
 ## Change log
+
+### [1.3.0] Sep. 25, 2021
+- Supports ESP8266 3.0.0 Arduino core.
+- Supports ESP32 Arduino core 2.0.0.
+- Supports LittleFS with ESP32.
+- Supports a callback with OTA status change. (issue #325)
+- Supports to save credentials always. (Discussions #385)
+- Supports AutoConnectConfigAux.
+- Added AutoConnect::getConfig function.
+- Added AutoConnectOTA status notification.
+- Added a style attribute for AutoConnectInput.
+- Added the div tag generation with the AutoConnectElement.
+- Fixed AUTOCONNECT_JSONDOCUMENT_SIZE was inoperative.
+- Fixed garbage being mixed in a loaded credential.
+- Fixed the layout on the page being corrupted with NUMBER type of AutoConnectInput.
+- Fixed the output place of Posterior attribute for AutoConnectRadio.
+- Fixed Incomplete deletion with AutoConnectCredential. (issue #388)
+- Fixed credentials not erased correctly. (issue #388)
+- Fixed AutoConnectText posterior being unavailable.
+
+##### Important Notes:
+
+1. Upgraded Arduino core 2.0.0 for ESP32 will increase the compiled sketch binary size. Your sketch may not fit in the flash and may occur an error during the linkage phase.    
+In ESP32 Arduino core 2.0.0, the default maximum sketch binary size is 1280 KB, an area of the same size is reserved for OTA. 1472 KB is added as a file system area to this. You can change this partition definition at will with Arduino IDE for each build. You can also reallocate the SPIFFS area to the sketch binary if the sketch does not require a large file. Select menu `Tool` > `Partition Scheme`, you will be able to find a partition scheme that fits your sketch. Also, in the PlatformIO environment, it can be changed by adding the `board_build.partitions` directive to the `platformio.ini` file. See [FAQ](https://hieromon.github.io/AutoConnect/faq.html#sketch-size) of Documentation for details.
+2. When building a sketch in the PlatformIO environment, a compile error may appear that says: *File system header file not found*. This error can be avoided by setting the library search mode to the `deep` in with the `platformio.ini` file. See [FAQ](https://hieromon.github.io/AutoConnect/faq.html#compile-error-due-to-file-system-header-file-not-found) of Documentation for details.
+
+### [1.2.3] Jan. 3, 2021
+
+Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.5.0 or later is required. Please update PageBuilder latest.
+
+- Improved memory management
 
 ### [1.2.2] Dec. 13, 2020
 

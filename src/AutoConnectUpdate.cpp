@@ -2,8 +2,8 @@
  * AutoConnectUpdate class implementation.
  * @file   AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
- * @version    1.0.2
- * @date   2019-09-18
+ * @version    1.3.0
+ * @date   2021-07-23
  * @copyright  MIT license.
  */
 
@@ -156,18 +156,18 @@ void AutoConnectUpdateAct::attach(AutoConnect& portal) {
   _dialog = AutoConnectUtil::onProgress<UpdateVariedClass>(Update, std::bind(&AutoConnectUpdateAct::_inProgress, this, std::placeholders::_1, std::placeholders::_2));
   // Adjust the client dialog pattern according to the callback validity
   // of the UpdateClass.
-  AutoConnectElement* loader = _auxProgress->getElement(String(F("loader")));
-  AutoConnectElement* progress_meter = _auxProgress->getElement(String(F("progress_meter")));
-  AutoConnectElement* progress_loader = _auxProgress->getElement(String(F("progress_loader")));
-  AutoConnectElement* enable_loader = _auxProgress->getElement(String(F("enable_loader")));
-  AutoConnectElement* inprogress_meter = _auxProgress->getElement(String(F("inprogress_meter")));
+  AutoConnectStyle&   loader = _auxProgress->getElement<AutoConnectStyle>(F("loader"));
+  AutoConnectElement* progress_meter = _auxProgress->getElement(F("progress_meter"));
+  AutoConnectElement* progress_loader = _auxProgress->getElement(F("progress_loader"));
+  AutoConnectElement* enable_loader = _auxProgress->getElement(F("enable_loader"));
+  AutoConnectElement* inprogress_meter = _auxProgress->getElement(F("inprogress_meter"));
   switch (_dialog) {
   case UPDATEDIALOG_LOADER:
     progress_meter->enable =false;
     inprogress_meter->enable = false;
     break;
   case UPDATEDIALOG_METER:
-    loader->enable = false;
+    loader.enable = false;
     progress_loader->enable =false;
     enable_loader->enable =false;
     break;
@@ -293,7 +293,7 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
  * @param  page       Pre-defined ACPage_t
  * @param  elementNum Number of AutoConnectElements to configure.  
  */
-void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectUpdateAct::ACPage_t* page, const size_t elementNum) {
+void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage_t* page, const size_t elementNum) {
   for (size_t n = 0; n < elementNum; n++) {
     if (page->element[n].type == AC_Element) {
       AutoConnectElement* element = new AutoConnectElement;
@@ -359,9 +359,9 @@ String AutoConnectUpdateAct::_onCatalog(AutoConnectAux& catalog, PageArgument& a
 
   // Reallocate available firmwares list.
   _binName = String("");
-  AutoConnectText&  caption = catalog.getElement<AutoConnectText>(String(F("caption")));
-  AutoConnectRadio& firmwares = catalog.getElement<AutoConnectRadio>(String(F("firmwares")));
-  AutoConnectSubmit&  submit = catalog.getElement<AutoConnectSubmit>(String(F("update")));
+  AutoConnectText&  caption = catalog.getElement<AutoConnectText>(F("caption"));
+  AutoConnectRadio& firmwares = catalog.getElement<AutoConnectRadio>(F("firmwares"));
+  AutoConnectSubmit&  submit = catalog.getElement<AutoConnectSubmit>(F("update"));
   firmwares.empty();
   firmwares.tags.clear();
   submit.enable = false;
@@ -464,10 +464,10 @@ String AutoConnectUpdateAct::_onUpdate(AutoConnectAux& progress, PageArgument& a
   AC_UNUSED(args);
 
   // Constructs the dialog page.
-  AutoConnectElement* binName = progress.getElement(String(F("binname")));
-  _binName = _auxCatalog->getElement<AutoConnectRadio>(String(F("firmwares"))).value();
+  AutoConnectElement* binName = progress.getElement(F("binname"));
+  _binName = _auxCatalog->getElement<AutoConnectRadio>(F("firmwares")).value();
   binName->value = _binName;
-  AutoConnectElement* url = progress.getElement(String("url"));
+  AutoConnectElement* url = progress.getElement(F("url"));
   url->value = host + ':' + port;
   return String("");
 }
@@ -501,10 +501,10 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
     resColor = String(F("red"));
     break;
   }
-  AutoConnectText& resultElm = result.getElement<AutoConnectText>(String(F("status")));
+  AutoConnectText& resultElm = result.getElement<AutoConnectText>(F("status"));
   resultElm.value = _binName + resForm;
   resultElm.style = String(F("font-size:120%;color:")) + resColor;
-  result.getElement<AutoConnectElement>(String(F("restart"))).enable = restart;
+  result.getElement<AutoConnectElement>(F("restart")).enable = restart;
 
   return String("");
 }

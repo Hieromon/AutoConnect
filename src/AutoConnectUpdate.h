@@ -21,8 +21,8 @@
  *   pages are incorporated into the AutoConnect menu.
  * @file AutoConnectUpdate.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-08-15
+ * @version  1.2.3
+ * @date 2021-01-23
  * @copyright  MIT license.
  */
 
@@ -133,25 +133,9 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   } AC_UPDATEDIALOG_t;
 
  protected:
-  // Attribute definition of the element to be placed on the update page.
-  typedef struct {
-    const ACElement_t type;
-    const char*  name;      /**< Name to assign to AutoConnectElement */
-    const char*  value;     /**< Value owned by an element */
-    const char*  peculiar;  /**< Specific ornamentation for the element */
-  } ACElementProp_t;
-
-  // Attributes to treat included update pages as AutoConnectAux.
-  typedef struct {
-    const char*  uri;       /**< URI for the page */
-    const char*  title;     /**< Menu title of update page */
-    const bool   menu;      /**< Whether to display in menu */
-    const ACElementProp_t* element;
-  } ACPage_t;
-
   template<typename T, size_t N> constexpr
   size_t  lengthOf(T(&)[N]) noexcept { return N; }
-  void    _buildAux(AutoConnectAux* aux, const AutoConnectUpdateAct::ACPage_t* page, const size_t elementNum);
+  void    _buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage_t* page, const size_t elementNum);
   String  _onCatalog(AutoConnectAux& catalog, PageArgument& args);
   String  _onUpdate(AutoConnectAux& update, PageArgument& args);
   String  _onResult(AutoConnectAux& result, PageArgument& args);
@@ -173,14 +157,14 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   String            _binName;   /**< .bin name to update */
   WebServerClass*   _webServer; /**< Hosted WebServer for XMLHttpRequest */
 
-  static const ACPage_t         _pageCatalog  PROGMEM;
-  static const ACElementProp_t  _elmCatalog[] PROGMEM;
+  static const AutoConnectAux::ACPage_t         _pageCatalog  PROGMEM;
+  static const AutoConnectAux::ACElementProp_t  _elmCatalog[] PROGMEM;
 
-  static const ACPage_t         _pageProgress  PROGMEM;
-  static const ACElementProp_t  _elmProgress[] PROGMEM;
+  static const AutoConnectAux::ACPage_t         _pageProgress  PROGMEM;
+  static const AutoConnectAux::ACElementProp_t  _elmProgress[] PROGMEM;
 
-  static const ACPage_t         _pageResult  PROGMEM;
-  static const ACElementProp_t  _elmResult[] PROGMEM;
+  static const AutoConnectAux::ACPage_t         _pageResult  PROGMEM;
+  static const AutoConnectAux::ACElementProp_t  _elmResult[] PROGMEM;
 
 #if defined(ARDUINO_ARCH_ESP8266)
   friend ESP8266WebServer;

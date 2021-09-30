@@ -51,6 +51,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -140,6 +141,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -204,6 +206,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -294,6 +297,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> size
@@ -398,6 +402,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> value
@@ -512,6 +517,7 @@ Specifies a tag to add behind the HTML code generated from the element.
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> values
@@ -654,6 +660,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> selected
@@ -829,6 +836,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> uri
@@ -906,6 +914,7 @@ Specifies a tag to add behind the HTML code generated from the element.<dl class
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 </span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> style

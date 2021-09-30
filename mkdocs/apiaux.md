@@ -19,6 +19,14 @@ AutoConnectAux(const String& uri = String(""), const String& title = String(""),
 ### <i class="fa fa-caret-right"></i> operator [ ]
 
 ```cpp
+AutoConnectElement& operator[](const char* name)
+```
+<p></p>
+```cpp
+AutoConnectElement& operator[](const __FlashStringHelper* name)
+```
+<p></p>
+```cpp
 AutoConnectElement& operator[](const String& name)
 ```
 Returns a reference to the element specified by **name**. An operator `[]` is a shortcut for [getElement](apiaux.md#getelement) function with the reference casting. Unlike getElement, which returns a pointer to that element, an operator `[]` returns a reference to that element. You also need to cast the return value to the actual type, just like the getElement function.<dl class="apidl">
@@ -44,7 +52,7 @@ Add an element to the AutoConnectAux. An added element is displayed on the custo
 ### <i class="fa fa-caret-right"></i> authentication
 
 ```cpp
-void  authentication(const AC_AUTH_t auth)
+void authentication(const AC_AUTH_t auth)
 ```
 
 Set to require authentication with access to a page. When you access a page that requires authentication, HTTP authentication will be performed according to the scheme specified with the auth parameter.<dl class="apidl">
@@ -54,6 +62,15 @@ Set to require authentication with access to a page. When you access a page that
 - **AC_AUTH_BASIC** : Basic scheme.
 - **AC_AUTH_DIGEST** : Digest scheme.
     </span></dd></dl>
+
+### <i class="fa fa-caret-right"></i> content
+
+```cpp
+size_t content(void)
+```
+
+Returns the number of AutoConnectElements the AutoConnectAux contains.<dl class="apidl">
+    <dt>**Return value**</dt><dd>A number of the registered AutoConnectElements.</dd></dl>
 
 ### <i class="fa fa-caret-right"></i> fetchElement
 
@@ -66,6 +83,14 @@ Retrieve the values of the AutoConnectElements on the custom Web page. Refer to 
 
 ```cpp
 T& getElement<T>(const String& name)
+```
+<p></p>
+```cpp
+AutoConnectElement* getElement(const char* name)
+```
+<p></p>
+```cpp
+AutoConnectElement* getElement(const __FlashStringHelper* name)
 ```
 <p></p>
 ```cpp

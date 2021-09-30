@@ -34,6 +34,45 @@ If your ESP module is already transparent to the internet, the captive portal sc
 
 We will hypothesize that you keep the ESP module with AP_STA mode by specifing the **retainPortal** and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the **esp32ap**, the OS of your cellphone will determine that the access point (i.e. **esp32ap**) is transparent to the Internet. That is, the captive portal does not pop up.
 
+## <i class="fa fa-question-circle"></i> Compile error due to File system header file not found
+
+In [PlatformIO](https://docs.platformio.org/en/latest/), it may occur compilation error such as the bellows:
+
+```cpp
+In file included from C:\Users\<user>\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30:0,
+                 from src/main.cpp:28:
+C:\Users\<user>\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:88:27:
+fatal error: SPIFFS.h: No such file or directory
+```
+
+```cpp
+In file included from C:\Users\<user>\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30,
+                 from src\main.cpp:28:
+C:\Users\<user>\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:93:17:
+fatal error: LittleFS.h: No such file or directory
+```
+
+This compilation error is due to PlatformIO's [Library Dependency Finder](https://docs.platformio.org/en/latest/librarymanager/ldf.html?highlight=ldf#library-dependency-finder-ldf
+) not being able to detect `#include` with default [mode](https://docs.platformio.org/en/latest/librarymanager/ldf.html#dependency-finder-mode) `chain`. Chain mode does not recursively evaluate `.cpp` files. However, AutoConnect determines the default file system at compile time, depending on the platform. In order for LDF to detect it correctly, it is necessary to recursively scan `#include` of the header file, which depends on the file system used.
+
+To avoid compilation errors in PlatformIO, specify [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode) in [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/index.html#platformio-ini-project-configuration-file) as follows:
+
+```ini
+[env]
+lib_ldf_mode = deep
+```
+
+You should specify **`deep`** with [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode).
+
+## <i class="fa fa-question-circle"></i> Compile error occurs due to the text section exceeds
+
+When building the sketch, you may receive a compilation error message similar that *the text section exceeds the available space on the board*. This error occurs with ESP32 arduino core 2.0.0 or later. Since ESP32 arduino core 2.0.0, the object size of the library tends to be oversized, and the AutoConnect object size is also bloated.
+And also for some example sketches such as mqttRSSI, the BIN size after linkage does not fit in the default partition scheme.
+
+I'm aware of this issue[^1] and trying to reduce the size of the AutoConnect object, but for now, changing the partition table at build is the most effective workaround. See [How much memory does AutoConnect consume?](#how-much-memory-does-autoconnect-consume) for information on how to change the partition table.
+
+[^1]: In this case, the underlying factor is mainly the bloat of ESP-IDF. This issue is also being discussed by many contributors of the Arduino core development community and efforts are underway to make a solution. Refs: [espressif/arduino-esp32/issue#5630](https://github.com/espressif/arduino-esp32/issues/5630)
+
 ## <i class="fa fa-question-circle"></i> Compile error that 'EEPROM' was not declared in this scope
 
 If the user sketch includes the header file as `EEPROM.h`, this compilation error may occur depending on the order of the `#include` directives. `AutoConnectCredentials.h` including in succession linked from `AutoConnect.h` defines **NO_GLOBAL_EEPROM** internally, so if your sketch includes `EEPROM.h` after `AutoConnect.h`, the **EEPROM** global variable will be lost.
@@ -125,9 +164,9 @@ Probably **WiFi.begin** failed with the specified SSID. Activating the [debug pr
 
 ## <i class="fa fa-question-circle"></i> Hang up after Reset?
 
-If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017 [^1]
+If ESP8266 hang up after reset by AutoConnect menu, perhaps manual reset is not yet. Especially if it is not manual reset yet after uploading the Sketch, the boot mode will stay 'Uart Download'. There is some discussion about this on the Github's ESP8266 core: https://github.com/esp8266/Arduino/issues/1017 [^2]
 
-[^1]: This issue has been resolved in ESP8266 core 2.5.0 and later.    
+[^2]: This issue has been resolved in ESP8266 core 2.5.0 and later.    
 
 If you received the following message, the boot mode is still sketch uploaded. It needs to the manual reset once.
 
@@ -180,10 +219,6 @@ For example, add the following description to the `[env]` section of the `platfo
 build-flags = -DAUTOCONNECT_NOUSE_JSON
 ```
 
-## <i class="fa fa-question-circle"></i> How place HTML elements undefined in AutoConnectElements?
-
-[AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
-
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
 Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [*Appendix*](credit.md) for details.
@@ -223,6 +258,31 @@ Link button to AutoConnect menu can be embedded into Sketch's web page. The root
 ### Heap size
 
 It consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.
+
+## <i class="fa fa-question-circle"></i> How placing a style-qualified AutoConnectText horizontally?
+
+When the [style](acelements.md#style) parameter is specified for [AutoConnectText](acelements.md#autoconnecttext), it is always enclosed by the `<div>` tag, so the element placement direction is vertical and subsequent elements cannot be horizontal. If you want to place an element after AutoConnectText with the style, you can place the AutoConnectText horizontally by specifying the [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display) CSS property with `inline` or `inline-block` in the style value. 
+
+```json
+{
+    "name": "text1",
+    "type": "ACText",
+    "value": "Hello,",
+    "style": "display:inline;color:#f5ad42;font-weight:bold;margin-right:3px"
+},
+{
+    "name": "text2",
+    "type": "ACText",
+    "value": "world",
+    "posterior": "br"
+}
+```
+
+See also [AutoConnectText](acelements.md#post_8) chapter, [CSS Flow Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout) by [MDN](https://developer.mozilla.org/en-US/).
+
+## <i class="fa fa-question-circle"></i> How placing HTML elements undefined in AutoConnectElements?
+
+[AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
 
 ## <i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.
 
@@ -347,7 +407,7 @@ To fully enable for the AutoConnect debug logging options, change the following 
 #define AC_DEBUG
 ```
 
-<i class="fas fa-angle-right"></i> PageBuilder.h [^2]
+<i class="fas fa-angle-right"></i> PageBuilder.h [^3]
 
 ```cpp
 #define PB_DEBUG
@@ -356,11 +416,11 @@ To fully enable for the AutoConnect debug logging options, change the following 
 !!! info "How to enable the AC_DEBUG, PB_DEBUG"
     See [*Debug Print*](adothers.md#debug-print) section, and [*one similarly*](faq.md#unable-to-change-any-macro-definitions-by-the-sketch) too.
 
-[^2]: `PageBuilder.h` exists in the `libraries/PageBuilder/src` directory under your sketch folder.
+[^3]: `PageBuilder.h` exists in the `libraries/PageBuilder/src` directory under your sketch folder.
 
 ### 4. Reports the issue to AutoConnect Github repository
 
-If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:[^3]
+If you can not solve AutoConnect problems please report to [Issues](https://github.com/Hieromon/AutoConnect/issues). And please make your question comprehensively, not a statement. Include all relevant information to start the problem diagnostics as follows:[^4]
 
 * [ ] Hardware module
 * [ ] Arduino core version Including the upstream commit ID if necessary
@@ -377,4 +437,4 @@ I will make efforts to solve as quickly as possible. But I would like you to kno
 
 Thank you.
 
-[^3]:Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.
+[^4]:Without this information, the reproducibility of the problem is reduced, making diagnosis and analysis difficult.

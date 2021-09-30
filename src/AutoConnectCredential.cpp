@@ -2,8 +2,8 @@
  *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	1.1.0
- *	@date	2019-10-07
+ *	@version	1.3.0
+ *	@date	2021-03-25
  *	@copyright	MIT license.
  */
 
@@ -111,10 +111,13 @@ bool AutoConnectCredential::del(const char* ssid) {
       _eeprom->write(_dp++, 0xff);
 
     // Erase ip configuration extention
-    if (_eeprom->read(_dp) == STA_STATIC) {
+    uint8_t dhcp = _eeprom->read(_dp);
+    if (dhcp == (uint8_t)STA_STATIC) {
       for (uint8_t i = 0; i < sizeof(station_config_t::_config); i++)
         _eeprom->write(_dp++, 0xff);
     }
+    else if (dhcp == (uint8_t)STA_DHCP)
+        _eeprom->write(_dp++, 0xff);
 
     // End 0xff writing, update headers.
     _entries--;
@@ -375,6 +378,7 @@ AutoConnectCredential::AutoConnectCredential(uint16_t offset) {
 }
 
 void AutoConnectCredential::_allocateEntry(void) {
+  AC_ESP_LOG("nvs", ESP_LOG_VERBOSE);
   _pref.reset(new Preferences);
   _entries = _import();
 }
@@ -666,6 +670,7 @@ uint8_t AutoConnectCredential::_import(void) {
 void AutoConnectCredential::_obtain(AC_CREDT_t::iterator const& it, station_config_t* config) {
   String  ssid = it->first;
   AC_CREDTBODY_t&  credtBody = it->second;
+  memset(config, 0x00, sizeof(station_config_t));
   ssid.toCharArray(reinterpret_cast<char*>(config->ssid), sizeof(station_config_t::ssid));
   credtBody.password.toCharArray(reinterpret_cast<char*>(config->password), sizeof(station_config_t::password));
   memcpy(config->bssid, credtBody.bssid, sizeof(station_config_t::bssid));

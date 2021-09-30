@@ -1,3 +1,41 @@
+### [1.3.0] Sep. 25, 2021
+
+#### Enhancements
+
+- Supports ESP8266 3.0.0 Arduino core.
+- Supports ESP32 Arduino core 2.0.0.
+- Supports LittleFS with ESP32.
+- Supports AutoConnectOTA status notifications.
+- Supports AutoConnectConfigAux. (Preview)
+- Supports to save credentials always.
+- Adds a `style` attribute with AutoConnectInput.
+- Adda the `div` tag generation with the AutoConnectElement.
+- Adds `[]` operator with const char for AutoConnectAux.
+- Adds `[]` operator with `__FlashStringHelper` for AutoConnectAux.
+- Adds `AutoConnectAux::content` function to get a number of AutoConnectElements.
+- Adds `AutoConnect::getConfig` function to get an actual instance of AutoConnectConfig.
+
+#### Fixes
+
+- Fixed CSS attribute missing of AutoConnectInput with the number type.
+- Fixed garbage being mixed in a loaded credential.
+- Fixed the output place of Posterior attribute for AutoConnectRadio.
+- Improved the the calculation for the size of ArduinoJson document.
+- Fixed Incomplete deletion with AutoConnectCredential.
+- Fixed credentials not erased correctly.
+- Fixed AutoConnectText posterior being unavailable.
+
+---
+### [1.2.3] Jan. 3, 2021
+
+#### Enhancements
+
+- Improved memory management.
+
+!!! note "PageBuilder v1.5.0 is required"
+    Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder) v1.5.0 or later is required. Please update PageBuilder to latest version.
+
+---
 ### [1.2.2] Dec. 13, 2020
 
 #### Fix

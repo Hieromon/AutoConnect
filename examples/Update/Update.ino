@@ -6,6 +6,12 @@
   https://opensource.org/licenses/MIT
 
   This example presents the simplest OTA Updates scheme.
+  When building this sketch, you may receive a compilation error message
+  similar to the following:
+  - text section exceeds available space in board
+  This cause is the small text block size of the predetermined partition
+  table. You can avoid this error by selecting Partition Scheme: from
+  Arduino IDE's Tool menu and applying Minimal SPIFFS.
 */
 
 #if defined(ARDUINO_ARCH_ESP8266)

@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.2.2
- * @date 2020-12-11
+ * @version  1.3.0
+ * @date 2021-05-27
  * @copyright  MIT license.
  */
 
@@ -25,6 +25,19 @@
 #define AC_DBG_DUMB(...) do {(void)0;} while(0)
 #endif // !AC_DEBUG
 
+// Setting ESP-IDF logging verbosity for ESP32 platform
+// This setting has no effect on the ESP8266 platform
+// Uncomment the following AC_USE_ESPIDFLOG to activate ESP_LOGV output.
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifdef AC_USE_ESPIDFLOG
+#undef AC_USE_ESPIDFLOG
+#endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#ifndef AC_USE_ESPIDFLOG
+//#define AC_USE_ESPIDFLOG
+#endif // !AC_USE_ESPIDFLOG
+#endif
+
 // Indicator to specify that AutoConnectAux handles elements with JSON.
 // Comment out the AUTOCONNECT_USE_JSON macro to detach the ArduinoJson.
 #ifndef AUTOCONNECT_NOUSE_JSON
@@ -34,18 +47,25 @@
 #define AUTOCONNECT_USE_UPDATE
 #endif
 
-// SPIFFS has deprecated on EP8266 core. This flag indicates that
-// the migration to LittleFS has not completed.
-//#define AC_USE_SPIFFS
+// Declaration to enable AutoConnectConfigAux.
+// AC_USE_CONFIGAUX must be enabled along with AUTOCONNECT_USE_JSON
+// to enable AutoConnectConfigAux.
+//#define AC_USE_CONFIGAUX 
+#if defined(AC_USE_CONFIGAUX) && defined(AUTOCONNECT_USE_JSON)
+#define AUTOCONNECT_USE_CONFIGAUX
+#endif
 
-// Deploys SPIFFS usage flag to the global.
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifdef AC_USE_SPIFFS
-#define AUTOCONNECT_USE_SPIFFS
-#endif
-#elif defined(ARDUINO_ARCH_ESP32)
-#define AUTOCONNECT_USE_SPIFFS
-#endif
+// The AC_USE_SPIFFS and AC_USE_LITTLEFS macros declare which filesystem
+// to apply. Their definitions are contradictory to each other and you
+// cannot activate both at the same time.
+//#define AC_USE_SPIFFS
+//#define AC_USE_LITTLEFS
+// Each platform supported by AutoConnect has a default file system,
+// which is LittleFS for ESP8266 and SPIFFS for ESP32. Neither AC_USE_SPIFFS
+// nor AC_USE_LITTLE_FS needs to be explicitly defined as long as you use
+// the default file system. The default file system for each platform is assumed.
+// SPIFFS has deprecated on EP8266 core. AC_USE_SPIFFS flag indicates
+// that the migration to LittleFS has not completed.
 
 // Whether or not it points to the target access point is determined by
 // matching the SSID or BSSID. The default key to collate is BSSID.
@@ -121,8 +141,9 @@
 #define AUTOCONNECT_URI_UPDATE_ACT      AUTOCONNECT_URI "/update_act"
 #define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
+#define AUTOCONNECT_URI_CONFIGAUX AUTOCONNECT_URI "/acconfig"
 
-// Number of seconds in uint time [s]
+// Number of seconds in a unit time [s]
 #ifndef AUTOCONNECT_UNITTIME
 #define AUTOCONNECT_UNITTIME    30
 #endif
@@ -131,6 +152,15 @@
 #ifndef AUTOCONNECT_TIMEOUT
 #define AUTOCONNECT_TIMEOUT     30000
 #endif // !AUTOCONNECT_TIMEOUT
+
+// Waiting time [ms] to go into autoReconnect
+// Defined with 0, suppress be delayed.
+#ifndef AUTOCONNECT_RECONNECT_DELAY
+// This definition will be eventually pulled out since the issue will
+// be gone with the WiFi lib of the arduino-esp32 core.
+// Related issue #292
+#define AUTOCONNECT_RECONNECT_DELAY   0
+#endif // !AUTOCONNECT_RECONNECT_DELAY
 
 // Captive portal timeout value [ms]
 #ifndef AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT
@@ -157,15 +187,13 @@
 #define AUTOCONNECT_DNSPORT     53
 #endif // !AUTOCONNECT_DNSPORT
 
-// http response transfer method
+// Each page of AutoConnect is http transferred by the content transfer
+// mode of Page Builder.
+// AUTOCONNECT_HTTP_TRANSFER defines default the Transfer-encoding with
+// PageBuilder::TransferEncoding_t.
 #ifndef AUTOCONNECT_HTTP_TRANSFER
-#define AUTOCONNECT_HTTP_TRANSFER PB_ByteStream
+#define AUTOCONNECT_HTTP_TRANSFER     ByteStream
 #endif // !AUTOCONNECT_HTTP_TRANSFER
-
-// Reserved buffer size to build content
-#ifndef AUTOCONNECT_CONTENTBUFFER_SIZE
-#define AUTOCONNECT_CONTENTBUFFER_SIZE  (13 * 1024)
-#endif // !AUTOCONNECT_CONTENTBUFFER_SIZE
 
 // Number of unit lines in the page that lists available SSIDs
 #ifndef AUTOCONNECT_SSIDPAGEUNIT_LINES
@@ -281,6 +309,11 @@
 #endif
 #endif
 
+// File name where AutoConnectConfig is persisted on the file system.
+#ifndef AUTOCONNECT_CONFIGAUX_FILE
+#define AUTOCONNECT_CONFIGAUX_FILE    "acconfig.json"
+#endif // !AUTOCONNECT_CONFIGAUX_NAME
+
 // Explicitly avoiding unused warning with token handler of PageBuilder
 #define AC_UNUSED(expr) do { (void)(expr); } while (0)
 
@@ -304,5 +337,13 @@ struct has_func_##func {                                    \
  public:                                                    \
   enum { value = sizeof(test<T>(0)) == sizeof(char) };      \
 }
+
+// Provides ESP-IDF logging interface
+// This setting has no effect on the ESP8266 platform
+#if defined(ARDUINO_ARCH_ESP32) && defined(AC_USE_ESPIDFLOG)
+#define AC_ESP_LOG(t, l) do {esp_log_level_set(t, l);} while(0)
+#else
+#define AC_ESP_LOG(...) do {(void)0;} while(0)
+#endif
 
 #endif // _AUTOCONNECTDEFS_H_

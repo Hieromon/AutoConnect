@@ -57,7 +57,8 @@ static const char AUX_CONFIGIP[] PROGMEM = R"(
     {
       "name": "mac",
       "type": "ACText",
-      "format": "MAC: %s"
+      "format": "MAC: %s",
+      "posterior": "br"
     },
     {
       "name": "staip",
@@ -119,24 +120,28 @@ static const char AUX_RESTART[] PROGMEM = R"(
       "name": "staip",
       "type": "ACText",
       "format": "IP: %s",
+      "posterior": "br",
       "global": true
     },
     {
       "name": "gateway",
       "type": "ACText",
       "format": "Gateway: %s",
+      "posterior": "br",
       "global": true
     },
     {
       "name": "netmask",
       "type": "ACText",
       "format": "Netmask: %s",
+      "posterior": "br",
       "global": true
     },
     {
       "name": "dns1",
       "type": "ACText",
       "format": "DNS1: %s",
+      "posterior": "br",
       "global": true
     },
     {

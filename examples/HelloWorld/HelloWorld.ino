@@ -28,41 +28,31 @@
   enhanced with AutoCOnnect v1.2.0.
 */
 
+// To properly include the suitable header files to the target platform.
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-typedef ESP8266WebServer WEBServer;
+#include <LittleFS.h>
+#define FORMAT_ON_FAIL
+using WiFiWebServer = ESP8266WebServer;
+FS& FlashFS = LittleFS;
+
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
-typedef WebServer WEBServer;
-#endif
-#include <AutoConnect.h>
-
-/*
-  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
-  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showing
-  the valid file system. After including AutoConnect.h, the Sketch can determine
-  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
-*/
 #include <FS.h>
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifdef AUTOCONNECT_USE_SPIFFS
-FS& FlashFS = SPIFFS;
-#else
-#include <LittleFS.h>
-FS& FlashFS = LittleFS;
-#endif
-#elif defined(ARDUINO_ARCH_ESP32)
 #include <SPIFFS.h>
+#define FORMAT_ON_FAIL  true
+using WiFiWebServer = WebServer;
 fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
-#define HELLO_URI   "/hello"
+#include <AutoConnect.h>
 
 // Declare AutoConnectText with only a value.
 // Qualify the Caption by reading style attributes from the style.json file.
-ACText(Caption, "Hello, world");
+const char* HELLO_URI = "/hello";
+ACText(Caption, "Hello, world", "", "", AC_Tag_DIV);
 ACRadio(Styles, {}, "");
 ACSubmit(Apply, "Apply", HELLO_URI);
 
@@ -89,7 +79,7 @@ void loadParam(const char* fileName) {
 
 // Redirects from root to the hello page.
 void onRoot() {
-  WEBServer& webServer = portal.host();
+  WiFiWebServer&  webServer = portal.host();
   webServer.sendHeader("Location", String("http://") + webServer.client().localIP().toString() + String(HELLO_URI));
   webServer.send(302, "text/plain", "");
   webServer.client().flush();
@@ -134,11 +124,7 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-#if defined(ARDUINO_ARCH_ESP8266)
-  FlashFS.begin();
-#elif defined(ARDUINO_ARCH_ESP32)
-  FlashFS.begin(true);
-#endif
+  FlashFS.begin(FORMAT_ON_FAIL);
 
   helloPage.on(onHello);      // Register the attribute overwrite handler.
   portal.join(helloPage);     // Join the hello page.
@@ -146,7 +132,7 @@ void setup() {
   portal.config(config);
   portal.begin();
 
-  WEBServer& webServer = portal.host();
+  WiFiWebServer&  webServer = portal.host();
   webServer.on("/", onRoot);  // Register the root page redirector.
 }
 

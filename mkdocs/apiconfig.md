@@ -118,11 +118,12 @@ The credential saved automatically at the connection establishment.<dl class="ap
     <dd>AC_SAVECREDENTIAL_t</dd>
     <dt>**Value**</dt>
     <dd><span class="apidef">AC_SAVECREDENTIAL_AUTO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">The credential saved automatically. This is the default.</span></dd>
+    <dd><span class="apidef">AC_SAVECREDENTIAL_ALWAYS</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Save specified SSID and Password always even if a specified credential has been rejected.</span></dd>
     <dd><span class="apidef">AC_SAVECREDENTIAL_NEVER</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">The credential no saved.</span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> beginTimeout
 
-Specify the limit time to attempt WiFi connection to the accesspoint. AutoConnect uses this value to abort the connection attempt at **WiFi.begin**. Its actual value specified in milliseconds unit.  
+Specify the limit time to attempt WiFi connection to the access point. AutoConnect uses this value to abort the connection attempt at **WiFi.begin**. Its actual value specified in milliseconds unit.  
 The default value is `AUTOCONNECT_TIMEOUT` defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L132) and the initial value is 30 seconds.<dl class="apidl">
     <dt>**Type**</dt>
     <dd>unsigned long</dd></dl>
@@ -249,6 +250,12 @@ Specifies to import the built-in OTA update class into the Sketch. When this opt
     <dt>**Value**</dt>
     <dd><span class="apidef">AC_OTA_EXTRA</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">AutoConnect does not import AutoConnectOTA. This is the default.</span></dd>
     <dd><span class="apidef">AC_OTA_BUILTIN</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Specifies to include AutoConnectOTA in the Sketch.</span></dd></dl>
+
+### <i class="fa fa-caret-right"></i> otaExtraCaption
+
+Specifies the caption to be displayed as an extra on the [OTA update screen](otabrowser.md#display-an-extra-string-on-the-update-screenenhanced-wv130). The extra caption you specified will be displayed in the upper right corner of the OTA update screen. Also, you can only specify the caption string, and you cannot specify the style individually. An extra caption will draw up with the default style of AutoConnect.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">const char*</span><span class="apidesc"> An extra caption string pointer.</span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> password
 
@@ -393,12 +400,13 @@ Set the username for authentication.<dl class="apidl">
 | [autoReconnect](#autoreconnect) | bool | false | |
 | [autoReset](#autoreset) | bool | true | |
 | [autoRise](#autorise) | bool | true | |
-| [autoSave](#autosave) | AC_SAVECREDENTIAL_t | AC_SAVECREDENTIAL_AUTO | AC_SAVECREDENTIAL_NEVER<br>AC_SAVECREDENTIAL_AUTO |
+| [autoSave](#autosave) | AC_SAVECREDENTIAL_t | AC_SAVECREDENTIAL_AUTO | AC_SAVECREDENTIAL_AUTO<br>AC_SAVECREDENTIAL_ALWAYS<br>AC_SAVECREDENTIAL_NEVER |
+| [beginTimeout](#begintimeout) | unsinged long | 30000UL | AUTOCONNECT_TIMEOUT |
 | [bootUri](#booturi) | AC_ONBOOTURI_t | AC_ONBOOTURI_ROOT | AC_ONBOOTURI_ROOT<br>AC_ONBOOTURI_HOME |
 | [boundaryOffset](#boundaryoffset) | uint16_t | 0 | AC_IDENTIFIER_OFFSET |
 | [channel](#channel) | uint8_t | 1 | AUTOCONNECT_AP_CH |
-| [dns1](#dns1) | IPAddress | 0U | |
-| [dns2](#dns2) | IPAddress | 0U | |
+| [dns1](#dns1) | IPAddress | 0UL | |
+| [dns2](#dns2) | IPAddress | 0UL | |
 | [gateway](#gateway) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_GW |
 | [hidden](#hidden) | uint8_t | 0 | |
 | [homeUri](#homeuri) | String | `/` | AUTOCONNECT_HOMEURI |
@@ -408,16 +416,17 @@ Set the username for authentication.<dl class="apidl">
 | [minRSSI](#minrssi) | int16_t | -120 | AUTOCONNECT_MIN_RSSI |
 | [netmask](#netmask) | IPAddress | 172.217.28.1 | AUTOCONNECT_AP_NM |
 | [ota](#ota) | AC_OTA_t | AC_OTA_EXTRA | AC_OTA_EXTRA<br>AC_OTA_BUILTIN |
+| [otaExtraCaption](#otaextracaption) | const char* | nullptr | |
 | [password](#password) | String | Follow [psk](#psk) | |
-| [portalTimeout](#portaltimeout) | unsigned long | 0 | AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT |
+| [portalTimeout](#portaltimeout) | unsigned long | 0UL | AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT |
 | [preserveAPMode](#preserveapmode) | bool | false | |
 | [principle](#principle) | AC_PRINCIPLE_t | AC_PRINCIPLE_RECENT | AC_PRINCIPLE_RECENT<br>AC_PRINCIPLE_RSSI |
 | [psk](#psk) | String | `12345678` | AUTOCONNECT_PSK |
 | [reconnectInterval](#reconnectinterval) | uint8_t | 0 | |
 | [retainPortal](#retainportal) | bool | false | |
-| [staGateway](#stagateway) | IPAddress | 0U | |
-| [staip](#staip) | IPAddress | 0U | |
-| [staNetmask](#stanetmask) | IPAddress | 0U | |
+| [staGateway](#stagateway) | IPAddress | 0UL | |
+| [staip](#staip) | IPAddress | 0UL | |
+| [staNetmask](#stanetmask) | IPAddress | 0UL | |
 | [ticker](#ticker) | bool | false | |
 | [tickerOn](#tickeron) | uint8_t | LOW | AUTOCONNECT_UPDATE_LEDON |
 | [tickerPort](#tickerport) | uint8_t | LED_BUILTIN | AUTOCONNECT_TICKER_PORT |

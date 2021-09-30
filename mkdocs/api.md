@@ -384,12 +384,13 @@ void onConnect(ConnectExit_ft fn)
 
 Register the function which will call from AutoConnect at the WiFi connection established.<dl class="apidl">
     <dt>**Parameter**</dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the WiFi connected.</span></dd></dl>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called at the WiFi connected.</span></dd>
+</dl>
 
 An *fn* specifies the function called when the WiFi connected. Its prototype declaration is defined as *ConnectExit_ft*.
 
 ```cpp
-typedef std::function<void(IPAddress& localIP)>  ConnectExit_ft;
+typedef std::function<void(IPaddress& localIP)> ConnectExit_ft
 ```
 
 <dl class="apidl">
@@ -405,7 +406,8 @@ void onDetect(DetectExit_ft fn)
 
 Register the function which will call from AutoConnect at the start of the captive portal.<dl class="apidl">
     <dt>**Parameter**</dt>
-    <dd><span class="apidef">fn</span><span class="apidesc">Function called at the captive portal start.</span></dd></dl>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called at the captive portal start.</span></dd>
+</dl>
 
 An *fn* specifies the function called when the captive portal starts. Its prototype declaration is defined as *DetectExit_ft*.
 
@@ -420,7 +422,6 @@ typedef std::function<bool(IPAddress& softapIP)>  DetectExit_ft
     <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
 </dl>
-
 
 ### <i class="fa fa-caret-right"></i> onNotFound
 
@@ -440,8 +441,84 @@ Register the handler function for undefined URL request detected.<dl class="apid
     <dt>**Parameter**</dt>
     <dd><span class="apidef">fn</span><span class="apidesc">A function of the "not found" handler.</span></dd></dl>
 
-### <i class="fa fa-caret-right"></i> where
+### <i class="fa fa-caret-right"></i> onOTAEnd
 
+```cpp
+void onOTAEnd(OTAEndExit_ft fn)
+```
+
+Register the on-end exit routine that is called only once when the OTA is finished.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called when the OTA has been finished.</span></dd>
+</dl>
+
+An *fn* specifies the function called when the OTA has been finished. Its prototype declaration is defined as *OTAEndExit_ft*.
+
+```cpp
+typedef std::function<void(void)> OTAEndExit_ft
+```
+
+### <i class="fa fa-caret-right"></i> onOTAError
+
+```cpp
+void onOTAError(OTAErrorExit_ft fn)
+```
+
+Register the exit routine that is called when some error occurred.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called when some OTA error occurs.</span></dd>
+</dl>
+
+An *fn* specifies the function called when the some error occurred. Its prototype declaration is defined as *OTAErrorExit_ft*.
+
+```cpp
+typedef std::function<void(uint8_t error)> OTAErrorExit_ft
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">error</span><span class="apidesc">Error code of OTA. It is defined in the <a href="https://github.com/esp8266/Arduino/blob/master/cores/esp8266/Updater.h">Updater</a> class or the <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/Update/src/Update.h">Update</a> class of the Arduino core for each platform.</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> onOTAProgress
+
+```cpp
+void onOTAProgress(OTAProgressExit_ft fn)
+```
+
+Register the exit routine that is called during the OTA progress.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called during the OTA progress.</span></dd></dl>
+
+An *fn* specifies the function called during the OTA progress. Its prototype declaration is defined as *OTAProgressExit_ft*.
+
+```cpp
+typedef std::function<void(unsigned int amount, unsigned int size)> OTAProgressExit_ft
+```
+
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">amount</span><span class="apidesc">Total amount of bytes received.</span></dd>
+    <dd><span class="apidef">size</span><span class="apidesc">Block size of current send.</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> onOTAStart
+
+```cpp
+void onOTAStart(OTAStartExit_ft fn)
+```
+
+Register the on-start exit routine that is called only once when the OTA has been started.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called at the OTA start.</span></dd></dl>
+
+An *fn* specifies the function called when the OTA starts. Its prototype declaration is defined as *OTAStartExit_ft*.
+
+```cpp
+typedef std::function<void(void)> OTAStartExit_ft
+```
+
+### <i class="fa fa-caret-right"></i> where
 
 ```cpp
 String where(void)

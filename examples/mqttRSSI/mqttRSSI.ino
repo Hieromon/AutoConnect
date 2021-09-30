@@ -7,48 +7,54 @@ for New User Account and create a New Channel via My Channels.
 For details, please refer to the project page.
 https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application
 
+This example presents the simplest OTA Updates scheme.
+When building this sketch, you may receive a compilation error message
+similar to the following:
+- text section exceeds available space in board
+This cause is the small text block size of the predetermined partition
+table. You can avoid this error by selecting Partition Scheme: from
+Arduino IDE's Tool menu and applying Minimal SPIFFS.
+
 This example is based on the environment as of March 20, 2018.
 Copyright (c) 2020 Hieromon Ikasamo.
 This software is released under the MIT License.
 https://opensource.org/licenses/MIT
 */
 
+// To properly include the suitable header files to the target platform.
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
-#define GET_CHIPID()  (ESP.getChipId())
+#include <ESP8266mDNS.h>
+#include <LittleFS.h>
+#define FORMAT_ON_FAIL
+#define GET_CHIPID()    (ESP.getChipId())
+#define GET_HOSTNAME()  (WiFi.hostname())
+using WiFiWebServer = ESP8266WebServer;
+FS& FlashFS = LittleFS;
+
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
-#include <SPIFFS.h>
+#include <WebServer.h>
 #include <HTTPClient.h>
-#define GET_CHIPID()  ((uint16_t)(ESP.getEfuseMac()>>32))
-#endif
-#include <PubSubClient.h>
-#include <AutoConnect.h>
-
-/*
-  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
-  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as showing
-  the valid file system. After including AutoConnect.h, the Sketch can determine
-  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
-*/
+#include <ESPmDNS.h>
 #include <FS.h>
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifdef AUTOCONNECT_USE_SPIFFS
-FS& FlashFS = SPIFFS;
-#else
-#include <LittleFS.h>
-FS& FlashFS = LittleFS;
-#endif
-#elif defined(ARDUINO_ARCH_ESP32)
 #include <SPIFFS.h>
+#define FORMAT_ON_FAIL  true
+#define GET_CHIPID()    ((uint16_t)(ESP.getEfuseMac()>>32))
+#define GET_HOSTNAME()  (WiFi.getHostname())
+using WiFiWebServer = WebServer;
 fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
-#define PARAM_FILE      "/param.json"
-#define AUX_SETTING_URI "/mqtt_setting"
-#define AUX_SAVE_URI    "/mqtt_save"
-#define AUX_CLEAR_URI   "/mqtt_clear"
+#include <PubSubClient.h>
+#include <AutoConnect.h>
+
+const char* PARAM_FILE      = "/param.json";
+const char* AUX_SETTING_URI = "/mqtt_setting";
+const char* AUX_SAVE_URI    = "/mqtt_save";
+const char* AUX_CLEAR_URI   = "/mqtt_clear";
 
 // JSON definition of AutoConnectAux.
 // Multiple AutoConnectAux can be defined in the JSON array.
@@ -82,7 +88,6 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "mqttserver",
         "type": "ACInput",
-        "value": "",
         "label": "Server",
         "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$",
         "placeholder": "MQTT broker server"
@@ -124,8 +129,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
           "180 sec."
         ],
         "label": "Update period",
-        "arrange": "vertical",
-        "checked": 1
+        "arrange": "vertical"
       },
       {
         "name": "hostname",
@@ -160,8 +164,34 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "style": "text-align:center;color:#2f4f4f;padding:10px;"
       },
       {
-        "name": "parameters",
-        "type": "ACText"
+        "name": "mqttserver",
+        "type": "ACText",
+        "format": "Server: %s",
+        "posterior": "br"
+      },
+      {
+        "name": "channelid",
+        "type": "ACText",
+        "format": "Channel ID: %s",
+        "posterior": "br"
+      },
+      {
+        "name": "userkey",
+        "type": "ACText",
+        "format": "User Key: %s",
+        "posterior": "br"
+      },
+      {
+        "name": "apikey",
+        "type": "ACText",
+        "format": "API Key: %s",
+        "posterior": "br"
+      },
+      {
+        "name": "period",
+        "type": "ACText",
+        "format": "Update period: %s sec.",
+        "posterior": "br"
       },
       {
         "name": "clear",
@@ -174,65 +204,72 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
 ]
 )raw";
 
-// Adjusting WebServer class between ESP8266 and ESP32.
-#if defined(ARDUINO_ARCH_ESP8266)
-typedef ESP8266WebServer  WiFiWebServer;
-#elif defined(ARDUINO_ARCH_ESP32)
-typedef WebServer WiFiWebServer;
-#endif
-
-AutoConnect  portal;
+WiFiWebServer server;
+AutoConnect   portal(server);
 AutoConnectConfig config;
-WiFiClient   wifiClient;
-PubSubClient mqttClient(wifiClient);
+WiFiClient    wifiClient;
+PubSubClient  mqttClient(wifiClient);
+
+String  apId;
+String  hostName;
+
 String  serverName;
 String  channelId;
 String  userKey;
 String  apiKey;
-String  apid;
-String  hostName;
 bool  uniqueid;
-unsigned int  updateInterval = 0;
-unsigned long lastPub = 0;
+unsigned long publishInterval = 0;
+const char* userId = "anyone";
 
-#define MQTT_USER_ID  "anyone"
+unsigned long lastPub = 0;
+unsigned long lastAttempt = 0;
+const unsigned long attemptInterval = 3000;
+bool  reconnect = false;
+int   retry;
 
 bool mqttConnect() {
-  static const char alphanum[] = "0123456789"
+  static const char alphanum[] =
+    "0123456789"
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
-  char    clientId[9];
+  char  clientId[9];
+  bool  rc;
 
-  uint8_t retry = 3;
-  while (!mqttClient.connected()) {
-    if (serverName.length() <= 0)
-      break;
-
+  rc = serverName.length() > 0;
+  if (rc) {
+    // Attempts to connect to the MQTT broker based on a valid server name.
     mqttClient.setServer(serverName.c_str(), 1883);
     Serial.println(String("Attempting MQTT broker:") + serverName);
 
-    for (uint8_t i = 0; i < 8; i++) {
-      clientId[i] = alphanum[random(62)];
-    }
-    clientId[8] = '\0';
+    // Changing the client ID each time you open a session with a broker is
+    // important for publishing continuity. Sessions interrupted by
+    // communication anomalies are thrown away and do not interfere with
+    // subsequent publications.
+    uint8_t i = 0;
+    while (i < sizeof(clientId))
+      clientId[i++] = alphanum[random(sizeof(alphanum))];
+    clientId[i - 1] = '\0';
 
-    if (mqttClient.connect(clientId, MQTT_USER_ID, userKey.c_str())) {
+    rc = mqttClient.connect(clientId, userId, userKey.c_str());
+    if (rc)
       Serial.println("Established:" + String(clientId));
-      return true;
-    }
-    else {
+    else
       Serial.println("Connection failed:" + String(mqttClient.state()));
-      if (!--retry)
-        break;
-      delay(3000);
-    }
   }
-  return false;
+  return rc;
 }
 
-void mqttPublish(String msg) {
-  String path = String("channels/") + channelId + String("/publish/") + apiKey;
-  mqttClient.publish(path.c_str(), msg.c_str());
+bool mqttPublish(const String& endPoint, const String& payload) {
+  // By checking the connection with the broker at the time of the publish
+  // request, it can delegate the reconnection attempt to the loop function.
+  // This strategy eliminates handling the delay that occurs during the
+  // broker reconnection attempt loop and smoothes AutoConnect communication
+  // with the client.
+  reconnect = !mqttClient.connected();
+  if (!reconnect)
+    return mqttClient.publish(endPoint.c_str(), payload.c_str());
+  else
+    return false;
 }
 
 int getStrength(uint8_t points) {
@@ -247,18 +284,18 @@ int getStrength(uint8_t points) {
 }
 
 void getParams(AutoConnectAux& aux) {
-  serverName = aux["mqttserver"].value;
+  serverName = aux[F("mqttserver")].value;
   serverName.trim();
-  channelId = aux["channelid"].value;
+  channelId = aux[F("channelid")].value;
   channelId.trim();
-  userKey = aux["userkey"].value;
+  userKey = aux[F("userkey")].value;
   userKey.trim();
-  apiKey = aux["apikey"].value;
+  apiKey = aux[F("apikey")].value;
   apiKey.trim();
-  AutoConnectRadio& period = aux["period"].as<AutoConnectRadio>();
-  updateInterval = period.value().substring(0, 2).toInt() * 1000;
-  uniqueid = aux["uniqueid"].as<AutoConnectCheckbox>().checked;
-  hostName = aux["hostname"].value;
+  AutoConnectRadio& period = aux[F("period")].as<AutoConnectRadio>();
+  publishInterval = period.value().substring(0, 2).toInt() * 1000;
+  uniqueid = aux[F("uniqueid")].as<AutoConnectCheckbox>().checked;
+  hostName = aux[F("hostname")].value;
   hostName.trim();
 }
 
@@ -266,18 +303,19 @@ void getParams(AutoConnectAux& aux) {
 // elements defined in /mqtt_setting JSON.
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   (void)(args);
+  Serial.print(PARAM_FILE);
   File param = FlashFS.open(PARAM_FILE, "r");
   if (param) {
     if (aux.loadElement(param)) {
       getParams(aux);
-      Serial.println(PARAM_FILE " loaded");
+      Serial.println(" loaded");
     }
     else
-      Serial.println(PARAM_FILE " failed to load");
+      Serial.println(" failed to load");
     param.close();
   }
   else
-    Serial.println(PARAM_FILE " open failed");
+    Serial.println(" open failed");
   return String("");
 }
 
@@ -291,29 +329,26 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // the transition to this page.
   AutoConnectAux&   mqtt_setting = *portal.aux(portal.where());
   getParams(mqtt_setting);
-  AutoConnectInput& mqttserver = mqtt_setting["mqttserver"].as<AutoConnectInput>();
 
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
   File param = FlashFS.open(PARAM_FILE, "w");
-  mqtt_setting.saveElement(param, { "mqttserver", "channelid", "userkey", "apikey", "uniqueid", "period", "hostname" });
+  mqtt_setting.saveElement(param, {"mqttserver", "channelid", "userkey", "apikey", "uniqueid", "period", "hostname"});
   param.close();
 
   // Echo back saved parameters to AutoConnectAux page.
-  AutoConnectText&  echo = aux["parameters"].as<AutoConnectText>();
-  echo.value = "Server: " + serverName;
-  echo.value += mqttserver.isValid() ? String(" (OK)") : String(" (ERR)");
-  echo.value += "<br>Channel ID: " + channelId + "<br>";
-  echo.value += "User Key: " + userKey + "<br>";
-  echo.value += "API Key: " + apiKey + "<br>";
-  echo.value += "Update period: " + String(updateInterval / 1000) + " sec.<br>";
-  echo.value += "Use APID unique: " + String(uniqueid == true ? "true" : "false") + "<br>";
-  echo.value += "ESP host name: " + hostName + "<br>";
+  AutoConnectInput& mqttserver = mqtt_setting[F("mqttserver")].as<AutoConnectInput>();
+  aux[F("mqttserver")].value = serverName + String(mqttserver.isValid() ? " (OK)" : " (ERR)");
+  aux[F("channelid")].value = channelId;
+  aux[F("userkey")].value = userKey;
+  aux[F("apikey")].value = apiKey;
+  aux[F("period")].value = String(publishInterval / 1000);
 
-  return String("");
+  return String();
 }
 
+// The root of the URL to include the channel views that provide the Thingspeak.
 void handleRoot() {
   String  content =
     "<html>"
@@ -327,8 +362,7 @@ void handleRoot() {
     "</html>";
 
   content.replace("{{CHANNEL}}", channelId);
-  WiFiWebServer&  webServer = portal.host();
-  webServer.send(200, "text/html", content);
+  server.send(200, "text/html", content);
 }
 
 // Clear channel using ThingSpeak's API.
@@ -352,11 +386,9 @@ void handleClearChannel() {
 
   // Returns the redirect response. The page is reloaded and its contents
   // are updated to the state after deletion.
-  WiFiWebServer&  webServer = portal.host();
-  webServer.sendHeader("Location", String("http://") + webServer.client().localIP().toString() + String("/"));
-  webServer.send(302, "text/plain", "");
-  webServer.client().flush();
-  webServer.client().stop();
+  server.sendHeader("Location", String("http://") + server.client().localIP().toString() + String("/"));
+  server.send(302, "text/plain", "");
+  server.client().stop();
 }
 
 void setup() {
@@ -364,31 +396,31 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
 
-#if defined(ARDUINO_ARCH_ESP8266)
-  FlashFS.begin();
-#elif defined(ARDUINO_ARCH_ESP32)
-  FlashFS.begin(true);
-#endif
+  FlashFS.begin(FORMAT_ON_FAIL);
 
   if (portal.load(FPSTR(AUX_mqtt_setting))) {
-    AutoConnectAux& mqtt_setting = *portal.aux(AUX_SETTING_URI);
     PageArgument  args;
+    AutoConnectAux& mqtt_setting = *portal.aux(AUX_SETTING_URI);
     loadParams(mqtt_setting, args);
     if (uniqueid) {
-      config.apid = String("ESP") + "-" + String(GET_CHIPID(), HEX);
+      config.apid = "ESP-" + String(GET_CHIPID(), HEX);
       Serial.println("apid set to " + config.apid);
     }
     if (hostName.length()) {
       config.hostName = hostName;
       Serial.println("hostname set to " + config.hostName);
     }
-    config.homeUri = "/";
-
     portal.on(AUX_SETTING_URI, loadParams);
     portal.on(AUX_SAVE_URI, saveParams);
   }
   else
     Serial.println("load error");
+
+  // Assign the captive portal popup screen to the URL as the root path.
+  server.on("/", handleRoot);
+  server.on(AUX_CLEAR_URI, handleClearChannel);
+  config.homeUri = "/";
+  config.bootUri = AC_ONBOOTURI_HOME;
 
   // Reconnect and continue publishing even if WiFi is disconnected.
   config.autoReconnect = true;
@@ -397,34 +429,54 @@ void setup() {
 
   Serial.print("WiFi ");
   if (portal.begin()) {
-    config.bootUri = AC_ONBOOTURI_HOME;
     Serial.println("connected:" + WiFi.SSID());
     Serial.println("IP:" + WiFi.localIP().toString());
+    Serial.print("mDNS responder ");
+    if (MDNS.begin(GET_HOSTNAME())) {
+      MDNS.addService("http", "tcp", 80);
+      Serial.println("started");
+    }
+    else
+      Serial.println("setting up failed");
   }
   else {
     Serial.println("connection failed:" + String(WiFi.status()));
     Serial.println("Needs WiFi connection to start publishing messages");
   }
-
-  WiFiWebServer&  webServer = portal.host();
-  webServer.on("/", handleRoot);
-  webServer.on(AUX_CLEAR_URI, handleClearChannel);
 }
 
 void loop() {
-  if (WiFi.status() == WL_CONNECTED) {
-    // MQTT publish control
-    if (updateInterval > 0) {
-      if (millis() - lastPub > updateInterval) {
-        if (!mqttClient.connected()) {
-          mqttConnect();
+  if (WiFi.status() == WL_CONNECTED && publishInterval > 0) {
+    if (reconnect) {
+      // Attempts to reconnect with the broker do not involve a delay.
+      // The reconnect interval is realized as the measurement of elapsed
+      // time using the millis function.
+      if (millis() - lastAttempt > attemptInterval) {
+        reconnect = !mqttConnect();
+        lastAttempt = millis();
+        if (++retry >= 3) {
+          retry = 0;
+          reconnect = false;
         }
-        String item = String("field1=") + String(getStrength(7));
-        mqttPublish(item);
-        mqttClient.loop();
-        lastPub = millis();
       }
     }
+    else {
+      // It is not the delay function that produces the publish interval.
+      // Using delay inside a loop function is deprecated for web server
+      // sketches. It blocks HTTP request replies.
+      // The publish interval is guaranteed by measuring the elapsed time.
+      if (millis() - lastPub > publishInterval) {
+        String  topic = String("channels/") + channelId + String("/publish/") + apiKey;
+        String  message = String("field1=") + String(getStrength(7));
+        mqttPublish(topic, message);
+        lastPub = millis();
+      }
+      mqttClient.loop();
+    }
   }
+
+#ifdef ARDUINO_ARCH_ESP8266
+  MDNS.update();
+#endif
   portal.handleClient();
 }

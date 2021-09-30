@@ -2,8 +2,8 @@
  *  AutoConnect quoted type declarations.
  *  @file AutoConnectTypes.h
  *  @author hieromon@gmail.com
- *  @version  1.2.0
- *  @date 2020-04-17
+ *  @version  1.3.0
+ *  @date 2021-09-06
  *  @copyright  MIT license.
  */
 
@@ -13,7 +13,8 @@
 /**< A type to save established credential at WiFi.begin automatically. */
 typedef enum AC_SAVECREDENTIAL {
   AC_SAVECREDENTIAL_NEVER,
-  AC_SAVECREDENTIAL_AUTO
+  AC_SAVECREDENTIAL_AUTO,
+  AC_SAVECREDENTIAL_ALWAYS
 } AC_SAVECREDENTIAL_t;
 
 /**< URI that can be specified to AutoConnectConfig::bootUri. */

@@ -1,0 +1,1530 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/filesystem.html">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+    
+    
+      
+        <title>Using Filesystem - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.8b42a75e.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    
+    
+      
+
+  
+
+
+  
+
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-EHK8XV10VE",{page_path:t.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#selecting-appropriate-filesystem" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-header__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AutoConnect for ESP8266/ESP32
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using Filesystem
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gettingstarted.html" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menu.html" class="md-nav__link">
+        AutoConnect menu
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="basicusage.html" class="md-nav__link">
+        Basic usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Advanced usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advancedusage.html" class="md-nav__link">
+        Advanced usage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adconnection.html" class="md-nav__link">
+        AutoConnect WiFi connection control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcpcontrol.html" class="md-nav__link">
+        Captive portal control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adnetwork.html" class="md-nav__link">
+        Settings and controls for network and WiFi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adauthentication.html" class="md-nav__link">
+        Authentication settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcredential.html" class="md-nav__link">
+        Credential accesses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adexterior.html" class="md-nav__link">
+        Customizing page appearance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adothers.html" class="md-nav__link">
+        Other operation settings and controls
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Custom Web pages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Custom Web pages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acintro.html" class="md-nav__link">
+        Custom Web pages with AutoConnect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acelements.html" class="md-nav__link">
+        AutoConnectElements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acjson.html" class="md-nav__link">
+        Custom Web pages with JSON
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="achandling.html" class="md-nav__link">
+        Handling the custom Web pages
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          OTA Updates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OTA Updates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaupdate.html" class="md-nav__link">
+        OTA Updates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otabrowser.html" class="md-nav__link">
+        Using Web Browser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaserver.html" class="md-nav__link">
+        Using Update Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Using Filesystem
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="filesystem.html" class="md-nav__link md-nav__link--active">
+        Using Filesystem
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-appropriate-filesystem" class="md-nav__link">
+    Selecting appropriate Filesystem
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filesystem-applied-to-pagebuilder-must-match-to-autoconnect" class="md-nav__link">
+    Filesystem applied to PageBuilder must match to AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-determine-the-file-system-to-be-used" class="md-nav__link">
+    To determine the file system to be used
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-situations-where-autoconnect-uses-a-file-system" class="md-nav__link">
+    Practical situations where AutoConnect uses a file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical situations where AutoConnect uses a file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screenshot" class="md-nav__link">
+    Screenshot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-web-page-json-definition" class="md-nav__link">
+    Custom Web page JSON definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-file" class="md-nav__link">
+    Parameter file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sketch" class="md-nav__link">
+    The sketch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Library APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Library APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        AutoConnect API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiaux.html" class="md-nav__link">
+        AutoConnectAux API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiconfig.html" class="md-nav__link">
+        AutoConnectConfig API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apielements.html" class="md-nav__link">
+        AutoConnectElements API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiupdate.html" class="md-nav__link">
+        AutoConnectUpdate API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiextra.html" class="md-nav__link">
+        Something extra
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="howtoembed.html" class="md-nav__link">
+        How to embed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datatips.html" class="md-nav__link">
+        Tips for data conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menuize.html" class="md-nav__link">
+        Attach the menus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wojson.html" class="md-nav__link">
+        Custom Web pages w/o JSON
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Appendix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Appendix" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lsbegin.html" class="md-nav__link">
+        Inside AutoConnect::begin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="credit.html" class="md-nav__link">
+        Saved credentials access
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acupload.html" class="md-nav__link">
+        File upload handler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="colorized.html" class="md-nav__link">
+        Custom colorized
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelabel.html" class="md-nav__link">
+        Change label text
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog.html" class="md-nav__link">
+        Change log
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-appropriate-filesystem" class="md-nav__link">
+    Selecting appropriate Filesystem
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filesystem-applied-to-pagebuilder-must-match-to-autoconnect" class="md-nav__link">
+    Filesystem applied to PageBuilder must match to AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-determine-the-file-system-to-be-used" class="md-nav__link">
+    To determine the file system to be used
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-situations-where-autoconnect-uses-a-file-system" class="md-nav__link">
+    Practical situations where AutoConnect uses a file system
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical situations where AutoConnect uses a file system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#screenshot" class="md-nav__link">
+    Screenshot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-web-page-json-definition" class="md-nav__link">
+    Custom Web page JSON definition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-file" class="md-nav__link">
+    Parameter file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-sketch" class="md-nav__link">
+    The sketch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Using Filesystem</h1>
+                
+                <h2 id="selecting-appropriate-filesystem">Selecting appropriate Filesystem<a class="headerlink" href="#selecting-appropriate-filesystem" title="Permanent link">&para;</a></h2>
+<p>There are two file systems for utilizing the onboard flash on the ESP8266 or the ESP32, SPIFFS and LittleFS. The file system to be applied is determined at the time of the sketch built. AutoConnect will determine as a file system to apply either SPIFFS or LittleFS according to the macro definition in <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> and has the following two definitions to include the file system.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#define AC_USE_SPIFFS</span>
+<span style="color: #75715e">#define AC_USE_LITTLEFS</span>
+</code></pre></div>
+<p>The <code>AC_USE_SPIFFS</code> and <code>AC_USE_LITTLEFS</code> macros declare which file system to apply. Their definitions are contradictory to each other and you <strong>cannot activate both at the same time</strong>.</p>
+<p>Each platform supported by AutoConnect has a default file system, which is LittleFS for ESP8266 and SPIFFS for ESP32. Neither <code>AC_USE_SPIFFS</code> nor <code>AC_USE_LITTLE_FS</code> needs to be explicitly defined as long as you use the default file system. The default file system for each platform is assumed.</p>
+<div class="admonition note">
+<p class="admonition-title">SPIFFS has deprecated for ESP8266</p>
+<p>SPIFFS has deprecated on EP8266 core. <code>AC_USE_SPIFFS</code> flag indicates that the migration to LittleFS has not completed for the Sketch with ESP8266. You will get a warning message when you compile a sketch using SPIFFS.<br>
+Also, LittleFS support on the ESP32 is expected to be in the future beyond <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/LITTLEFS">Arduino ESP32 core v2</a>. If you want to use the LittleFS library on your ESP32, you must use a <a href="https://github.com/lorol/LITTLEFS">third-party source</a> provided externally.</p>
+</div>
+<p>The file system intended by the sketch must match the file system applied to AutoConnect. (i.e. it is provided by the definitions of <code>AC_USE_SPIFFS</code> and <code>AC_USE_LITTLEFS</code>) For example, if the sketch includes <code>LittleFS.h</code>, but <code>AC_USE_SPIFFS</code> is defined, the sketch will not be able to sucessfully acces the built file system.</p>
+<h2 id="filesystem-applied-to-pagebuilder-must-match-to-autoconnect">Filesystem applied to PageBuilder must match to AutoConnect<a class="headerlink" href="#filesystem-applied-to-pagebuilder-must-match-to-autoconnect" title="Permanent link">&para;</a></h2>
+<p>Also, <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> has a definition of file system choices to use, similar to AutoConnect. It is the definition of <code>PB_USE_SPIFFS</code> and <code>PB_USE_LITTLEFS</code> in <a href="https://github.com/Hieromon/PageBuilder/blob/master/src/PageBuilder.h"><code>PageBuilder.h</code></a> of <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library source, and its role is the same as these of AutoConnect. </p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#define PB_USE_SPIFFS</span>
+<span style="color: #75715e">#define PB_USE_LITTLEFS</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note the version of each library</p>
+<p>Support for <code>AC_USE_SPIFFS / AC_USE_LITTLEFS</code> and <code>PB_USE_SPIFFS / PB_USE_LITLTEFS</code> is from AutoConnect 1.3.0 and PageBuilder 1.5.0 and later.</p>
+</div>
+<h2 id="to-determine-the-file-system-to-be-used">To determine the file system to be used<a class="headerlink" href="#to-determine-the-file-system-to-be-used" title="Permanent link">&para;</a></h2>
+<p>The most direct way is to edit the library source <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> directly and uncomment the definition of <code>#define AC_USE_SPIFFS</code> or <code>#define AC_USE_LITTLES</code>. In addition to that editing work, the definitions of <code>PB_USE_SPIFFS</code> and <code>PB_USE_LITTLEFS</code> in <a href="https://github.com/Hieromon/PageBuilder/blob/master/src/PageBuilder.h"><code>PageBuilder.h</code></a> also need to be changed. Their definitions must match the <code>AC_USE_SPIFFS</code> and <code>AC_USE_LITTLEFS</code> definitions in <code>AutoConnectDefs.h</code>.  <code>PB_USE_SPIFFS</code> enabled and <code>AC_USE_LITTLEFS</code> enabled state is not allowed, and vice-versa.</p>
+<p>However, this way makes the AutoConnect library inconsistent and may include your unintended file system on a project-by-project basis. By using <a href="https://platformio.org/">PlatformIO</a>, you can efficiently select a file system. That way, you can choose any file system for each project without polluting the library source.</p>
+<p>To apply a different file system for each project without modifying the library source code, add the following <code>build_flags</code> directive to <a href="https://docs.platformio.org/en/latest/projectconf/index.html"><code>platformio.ini</code></a> as a project configuration file of each project.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">[env:esp_wroom_02]</span>
+<span style="color: #a6e22e">platform</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">espressif8266</span>
+<span style="color: #a6e22e">board</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">esp_wroom_02</span>
+<span style="color: #a6e22e">framework</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">arduino</span>
+<span style="color: #a6e22e">lib_extra_dirs</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">~/Documents/Arduino/libraries</span>
+<span style="color: #a6e22e">lib_ldf_mode</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">deep</span>
+<span style="background-color: #49483e"><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span>
+</span><span style="background-color: #49483e">    <span style="color: #a6e22e">-DAC_USE_SPIFFS</span>
+</span><span style="background-color: #49483e">    <span style="color: #a6e22e">-DPB_USE_SPIFFS</span>
+</span><span style="color: #a6e22e">upload_speed</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">921600</span>
+<span style="color: #a6e22e">monitor_speed</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">115200</span>
+</code></pre></div>
+<p>The <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags"><code>build_flags</code></a> as <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-options">build options</a> allows PlatformIO can provide preprocessor macro definitions. <code>-D name</code> for <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags"><code>build_flags</code></a>, which specifies a predefined content, is treated as 1 equal to the <code>#define</code> directive.</p>
+<div class="admonition hint">
+<p class="admonition-title">Library dependency search with PlatformIO</p>
+<p>If <code>#include &lt;LITTLEFS.h&gt;</code> becomes <strong>Not Found</strong> with PlatformIO built, try specifying <a href="https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode"><code>lib_ldf_mode=deep</code></a> with <a href="https://docs.platformio.org/en/latest/projectconf/index.html"><code>platformio.ini</code></a>. Due to the deep nesting by preprocessor instructions, the include file cannot be detected by the <a href="https://docs.platformio.org/en/latest/librarymanager/ldf.html#dependency-finder-mode">chain mode</a> (nested include search) of PlatformIO's <a href="https://docs.platformio.org/en/latest/librarymanager/ldf.html#library-dependency-finder-ldf">Library Dependency Finder</a>. See also <a href="faq.html#compilation-error-due-to-file-system-header-file-not-found">FAQ</a>.</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">LittleFS for ESP8266 with PlatformIO</p>
+<p>The SPIFFS file system is used by default in order to keep legacy projects compatible. To choose LittleFS as the file system with ESP8266 platform, it should be explicitly specified using <a href="https://docs.platformio.org/en/latest/platforms/espressif8266.html?highlight=filesystem#using-filesystem"><code>board_build.filesystem</code></a> option in <code>platformio.ini</code> as follows:  <br />
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">[env:esp_wroom_02]</span>
+<span style="color: #a6e22e">platform</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">espressif8266</span>
+<span style="color: #a6e22e">framework</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">arduino</span>
+<span style="color: #a6e22e">board</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">esp_wroom_02</span>
+<span style="background-color: #49483e"><span style="color: #a6e22e">board_build.filesystem</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">littlefs</span>
+</span><span style="color: #a6e22e">...</span>
+</code></pre></div></p>
+</div>
+<h2 id="practical-situations-where-autoconnect-uses-a-file-system">Practical situations where AutoConnect uses a file system<a class="headerlink" href="#practical-situations-where-autoconnect-uses-a-file-system" title="Permanent link">&para;</a></h2>
+<p>AutoConnect has the ability to use the file system that is:</p>
+<ul>
+<li>
+<p>Place the custom web page defined in the JSON document in an external file and separate it from the sketch source code. This approach allows you to change the layout design of your custom web page by simply modifying the external file without recompiling the sketch.</p>
+</li>
+<li>
+<p>Use the <a href="acelements.html#autoconnectfile">AutoConnectFile</a> element to upload some parameters that control sketch execution to the file system on the ESP module. You can upload from the browser on the client PC via OTA.</p>
+</li>
+</ul>
+<p>The following is an example of a scenario that embodies the combination of these facilities. The sketch below controls LED that blinks like heartbeat by PWM (Pulse-Width Modulation) from ESP8266. Custom web page contains an AutoConnectFile element that allows you to upload a parameter file to the ESP module from the browser on the client PC. And place the custom web page as a JSON document on the LittleFS of the ESP module.</p>
+<h3 id="screenshot">Screenshot<a class="headerlink" href="#screenshot" title="Permanent link">&para;</a></h3>
+<p>The sketch UI of this scenario provides as shown by the screenshot below:</p>
+<p><img src="images/heartbeat.png" width="640px"></p>
+<p>It arranges in a very simple style to focus on how the sketch incorporating AutoConnect will handle the file system. This custom web page is loaded from LittleFS at the beginning of the sketch processing and has already been uploaded to LittleFS on the ESP8266.</p>
+<h3 id="custom-web-page-json-definition">Custom Web page JSON definition<a class="headerlink" href="#custom-web-page-json-definition" title="Permanent link">&para;</a></h3>
+<p>It has a file name as "<code>custom_pages.json</code>" and has two pages whose URI are "<code>/</code>" and "<code>/set</code>". An AutoConnectFile element named "<code>param</code>" is placed to upload a file from a client browser that contains the parameters to determine the behavior of this sketch. (ie. LED blinking cycle of the heartbeat)</p>
+<p>After selecting the parameter file to upload, click the <a href="acelements.html#autoconnectsubmit">AutoConnectSubmit</a> element named "<code>set</code>". This will upload the selected file to LittleF on the ESP8266 module and start processing the sketch-coded "<code>/set</code>" page handler.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">[</span>
+  <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Heartbeat&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="background-color: #49483e">    <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">,</span>
+</span>    <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;element&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;param&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="background-color: #49483e">        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACFile&quot;</span><span style="color: #f8f8f2">,</span>
+</span>        <span style="color: #f92672">&quot;label&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Parameter file:&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;store&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;fs&quot;</span>
+      <span style="color: #f8f8f2">},</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;set&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACSubmit&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;SET&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="background-color: #49483e">        <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/set&quot;</span>
+</span>      <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">]</span>
+  <span style="color: #f8f8f2">},</span>
+  <span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Heartbeat&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="background-color: #49483e">    <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/set&quot;</span><span style="color: #f8f8f2">,</span>
+</span>    <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;element&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span>
+      <span style="color: #f8f8f2">{</span>
+        <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;param&quot;</span><span style="color: #f8f8f2">,</span>
+        <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span>
+      <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">]</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">]</span>
+</code></pre></div>
+<h3 id="parameter-file">Parameter file<a class="headerlink" href="#parameter-file" title="Permanent link">&para;</a></h3>
+<p>You can make the parameters that determine the heartbeat cycle with the JSON definition using your favorite text editor as follows:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
+    <span style="color: #f92672">&quot;led&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">16</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;freq&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;range&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">511</span><span style="color: #f8f8f2">,</span>
+    <span style="color: #f92672">&quot;cycle&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">2</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>We use PWM to make the LED blinking gently repeat like a heartbeat. In addition, we also need the interval time to blink. We will put these values in the parameter file.</p>
+<ul>
+<li>led : Blinking LED assignment pin (Depending on your ESP8266 module)</li>
+<li>freq : PWM frequency [ms] (milliseconds unit)</li>
+<li>range : PWM range (511 ~ 1023, 511 ~ 767 is recommended for smooth blinking)</li>
+<li>cycle : Heartbeat cycle [s] (seconds unit. 4 seconds or less recommended)</li>
+</ul>
+<p>Save the text file with these settings as <code>param.json</code> on your PC. You can upload this file to the ESP8266 module using the <a href="acelements.html#autoconnectfile">AutoConnectFile</a> element named <code>param</code> above. When executing a sketch, the settings described in this file will be read by the <code>/set</code> custom web page handler to control the analog output of the ESP8266 module.</p>
+<h3 id="the-sketch">The sketch<a class="headerlink" href="#the-sketch" title="Permanent link">&para;</a></h3>
+<p>Below is the final sketch that allows the LED to blink like a heartbeat according to the settings contained in the two external files <code>custome_pages.json</code> and <code>param.json</code> mentioned above.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;Arduino.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="background-color: #49483e"><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;LittleFS.h&gt;</span>
+</span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+<span style="background-color: #49483e"><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ArduinoJson.h&gt;</span>
+</span>
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
+
+<span style="color: #75715e">// File names</span>
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">paramFile</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;param.json&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">auxFile</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;custom_pages.json&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #75715e">// Parameters for LED PWM control</span>
+<span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">int</span>  <span style="color: #f8f8f2">led</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">freq;</span>
+<span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">range;</span>
+<span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">int</span>  <span style="color: #f8f8f2">cycle;</span>
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">reso</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">10</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">duty;</span>
+<span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">increase;</span>
+<span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">tmCycle;</span>
+<span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">tmStep;</span>
+
+<span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">onSet</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">StaticJsonDocument</span><span style="color: #f92672">&lt;</span><span style="color: #ae81ff">128</span><span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">doc;</span>
+
+  <span style="color: #75715e">// Open uploaded parameter and parse parameters with JSON</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">param</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LittleFS.open(paramFile,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
+</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(param)</span> <span style="color: #f8f8f2">{</span>
+<span style="background-color: #49483e">    <span style="color: #f8f8f2">DeserializationError</span> <span style="color: #f8f8f2">error</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">deserializeJson(doc,</span> <span style="color: #f8f8f2">param);</span>
+</span>    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(error)</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;param&quot;</span><span style="color: #f8f8f2">].value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;JSON de-serialization failed: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(error.c_str());</span>
+    <span style="color: #f8f8f2">}</span>
+    <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #75715e">// Parsing the parameter JSON was successful.</span>
+      <span style="color: #75715e">// Read the parameters as JSON document from the uploaded parameter file.</span>
+      <span style="color: #f8f8f2">led</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">doc[</span><span style="color: #e6db74">&quot;led&quot;</span><span style="color: #f8f8f2">];</span>
+      <span style="color: #f8f8f2">freq</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">doc[</span><span style="color: #e6db74">&quot;freq&quot;</span><span style="color: #f8f8f2">];</span>
+      <span style="color: #f8f8f2">range</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">doc[</span><span style="color: #e6db74">&quot;range&quot;</span><span style="color: #f8f8f2">];</span>
+      <span style="color: #f8f8f2">cycle</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">doc[</span><span style="color: #e6db74">&quot;cycle&quot;</span><span style="color: #f8f8f2">];</span>
+
+      <span style="color: #75715e">// Set PWM conditions</span>
+      <span style="color: #f8f8f2">analogWriteFreq(freq);</span>
+      <span style="color: #f8f8f2">analogWriteRange(range);</span>
+      <span style="color: #f8f8f2">increase</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">((range</span> <span style="color: #f92672">/</span> <span style="color: #f8f8f2">cycle)</span> <span style="color: #f92672">/</span> <span style="color: #f8f8f2">reso)</span> <span style="color: #f92672">/</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">duty</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">tmCycle</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">millis();</span>
+      <span style="color: #f8f8f2">tmStep</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">tmCycle;</span>
+
+      <span style="color: #75715e">// Echo back uploaded parameters to Custom web page</span>
+      <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">result;</span>
+      <span style="color: #f8f8f2">serializeJson(doc,</span> <span style="color: #f8f8f2">result);</span>
+      <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;param&quot;</span><span style="color: #f8f8f2">].value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">result;</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="background-color: #49483e">    <span style="color: #f8f8f2">param.close();</span>
+</span>  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span>
+    <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;param&quot;</span><span style="color: #f8f8f2">].value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(paramFile)</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot; open error&quot;</span><span style="color: #f8f8f2">);</span>
+
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">Serial.println();</span>
+
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">LittleFS.begin();</span>
+</span>
+  <span style="color: #75715e">// Load Custom web pages from LittleFS</span>
+<span style="background-color: #49483e">  <span style="color: #f8f8f2">File</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">LittleFS.open(auxFile,</span> <span style="color: #e6db74">&quot;r&quot;</span><span style="color: #f8f8f2">);</span>
+</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(aux)</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #75715e">// Attach Custom web page and handler</span>
+<span style="background-color: #49483e">    <span style="color: #f8f8f2">portal.load(aux);</span>
+</span>    <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/set&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">onSet);</span>
+
+    <span style="color: #75715e">// Exclude the HOME item from the menu as the custom web page will</span>
+    <span style="color: #75715e">// be placed in the root path.</span>
+    <span style="color: #f8f8f2">config.menuItems</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0x00ff</span> <span style="color: #f92672">&amp;</span> <span style="color: #f92672">~</span><span style="color: #f8f8f2">(AC_MENUITEM_HOME</span> <span style="color: #f92672">|</span> <span style="color: #f8f8f2">AC_MENUITEM_DEVINFO);</span>
+    <span style="color: #f8f8f2">config.ota</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_OTA_BUILTIN;</span>  <span style="color: #75715e">// You can even update this sketch remotely</span>
+    <span style="color: #f8f8f2">portal.config(config);</span>
+
+    <span style="color: #75715e">// You can close the file once the custom web page has finished loading.</span>
+<span style="background-color: #49483e">    <span style="color: #f8f8f2">aux.close();</span>
+</span>  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">Serial.print(auxFile);</span>
+    <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot; open error&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(led)</span> <span style="color: #f8f8f2">{</span>  <span style="color: #75715e">// The heartbeat begins after the led parameter will set.</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(millis()</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">tmStep</span> <span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">abs(increase))</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">duty</span> <span style="color: #f92672">+=</span> <span style="color: #f8f8f2">increase;</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(duty</span> <span style="color: #f92672">&lt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+        <span style="color: #f8f8f2">duty</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">analogWrite(led,</span> <span style="color: #f8f8f2">duty);</span>
+      <span style="color: #f8f8f2">tmStep</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">millis();</span>
+    <span style="color: #f8f8f2">}</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(millis()</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">tmCycle</span> <span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">(cycle</span> <span style="color: #f92672">*</span> <span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">/</span> <span style="color: #ae81ff">2</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">increase</span> <span style="color: #f92672">*=</span> <span style="color: #ae81ff">-1</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">tmCycle</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">millis();</span>
+    <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>This final sketch consists of four components:</p>
+<ul>
+<li>
+<p><strong>Include appropriate header files</strong>: Include the appropriate file system header files to operate the external files of the ESP8266 module by the sketch. For LitteleFS, it is <code>#include &lt;LittleFS.h&gt;</code>. Also, since we wrote the parameter setting file in JSON, we will deserialize it using 
+      <a href="https://arduinojson.org/">ArduinoJson</a>. The header required for the deserialization process is <code>#include &lt;ArduinoJson.h&gt;</code>.</p>
+</li>
+<li>
+<p><strong>setup</strong>: In the sketch setup phase, the procedure is similar to other sketches when using AutoConnect. In this case, the following steps are appended to apply the file system.</p>
+<ul>
+<li>Start the file system as LittleFS. Then open the custom web page definition file. Upload <a href="#custom-web-page-json-definition">this file</a> as a LittleFS file on the ESP8266 module in advance.</li>
+<li>Arduino can handle the opened file as a stream, so register the file stream with AutoConnect using the <a href="http://localhost:8000/AutoConnect/api.html#load">AutoConnect::load</a> function. This procedure is also detailed in the documentation <a href="achandling.html#loading-saving-autoconnectelements-with-json">Loading &amp; saving AutoConnectElements with JSON</a>.</li>
+</ul>
+</li>
+<li>
+<p><strong>loop</strong>: In the loop, the duty is calculated and analog output is performed to the LED pin. Duty is a value for PWM. PWM is a modulation method that can adjust strength of electric power by turning the pulse train on and off at regular intervals and change the on-time width. In this sketch, the LED on-time is dynamically changed and supplied as the PWM duty to achieve the slow blinking like the heartbeat. The loop calculates this dynamic on-time change from the heartbeat cycle time (<code>cycle</code> setting of <code>param.json</code>) and executes analogWrite at the appropriate timing. The <code>freq</code> value in the parameter settings indicates the regular interval of the PWM.</p>
+<div class="admonition note">
+<p class="admonition-title">Do not use delay in a loop to create time variation for PWM</p>
+<p>It is a fault often found in careless sketches. An HTTP request is sent to the ESP8266 module each time you interact with the AutoConnect menu from the client browser. The request is properly answered by the <a href="api.html#handleclient">AutoConnect::handleClient</a> function. The delay function in the loop obstructs the flow of its processing. Remember that the sketching process will be suspended for the time period you specify by the delay.</p>
+</div>
+</li>
+<li>
+<p><strong><code>/set</code> custom web page handler</strong>: It is named <code>onSet</code> function in above sketch. The <code>onSet</code> handler retrieves PWM settings using ArduinoJson <a href="https://arduinojson.org/v6/api/json/deserializejson/">deserialization</a> from the uploaded <code>param.json</code> file. Each fetched setting value is stored in each global variable. The loop function refers to that value to achieve PWM pulse control.</p>
+</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="otaserver.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using Update Server" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Using Update Server
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="api.html" class="md-footer__link md-footer__link--next" aria-label="Next: AutoConnect API" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              AutoConnect API
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2018-2021 Hieromon Ikasamo
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2020-11-11
+ * @version  1.3.0
+ * @date 2021-09-21
  * @copyright  MIT license.
  */
 
@@ -18,14 +18,7 @@
 #include <regex>
 #endif
 #include "AutoConnectElementBasis.h"
-
-// Preserve a valid global Filesystem instance.
-// It allows the interface to the actual filesystem for migration to LittleFS.
-#ifdef AUTOCONNECT_USE_SPIFFS
-namespace AutoConnectFS { SPIFFST& FLASHFS = SPIFFS; };
-#else
-namespace AutoConnectFS { SPIFFST& FLASHFS = LittleFS; };
-#endif
+#include "AutoConnectFS.h"
 
 /**
  * Append post-tag according by the post attribute.
@@ -38,6 +31,8 @@ const String AutoConnectElementBasis::posterior(const String& s) const {
     html = s + String(F("<br>"));
   else if (post == AC_Tag_P)
     html = String("<p>") + s + String(F("</p>"));
+  else if (post == AC_Tag_DIV)
+    html = String("<div>") + s + String(F("</div>"));
   else
     html = s;
   return html;
@@ -119,7 +114,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
   // Classify a handler type and create the corresponding handler
   switch (store) {
   case AC_File_FS:
-    handlerFS = new AutoConnectUploadFS(AutoConnectFS::FLASHFS);
+    handlerFS = new AutoConnectUploadFS(AUTOCONNECT_APPLIED_FILESYSTEM);
     _upload.reset(reinterpret_cast<AutoConnectUploadHandler*>(handlerFS));
     break;
   case AC_File_SD:
@@ -166,6 +161,8 @@ const String AutoConnectInputBasis::toHTML(void) const {
       html += String(F(" placeholder=\"")) + placeholder + String("\"");
     if (value.length())
       html += String(F(" value=\"")) + value + String("\"");
+    if (style.length())
+      html += String(F(" style=\"")) + style + String("\"");
     html += String(">");
     html = AutoConnectElementBasis::posterior(html);
   }
@@ -244,16 +241,18 @@ const String AutoConnectRadioBasis::toHTML(void) const {
     for (const String value : _values) {
       n++;
       String  id = name + "_" + String(n);
-      html += String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
+      String  innerHtml = String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
       if (n == checked)
-        html += String(F(" checked"));
-      html += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
+        innerHtml += String(F(" checked"));
+      innerHtml += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
       if (n <= tags.size())
-        html += tags[n - 1];
-      if (order == AC_Vertical)
-        html += String(F("<br>"));
+        innerHtml += tags[n - 1];
+      if (order == AC_Vertical) {
+        html += innerHtml + String(F("<br>"));
+      }
+      else
+        html += AutoConnectElementBasis::posterior(innerHtml);
     }
-    html = AutoConnectElementBasis::posterior(html);
   }
   return html;
 }
@@ -354,12 +353,8 @@ const String AutoConnectTextBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    html = String(F("<div id=\"")) + name + String('"');
     String  value_f = value;
 
-    if (style.length())
-      html += String(F(" style=\"")) + style + String("\"");
-    html += String(">");
     if (format.length()) {
       int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
       char* buffer;
@@ -369,8 +364,11 @@ const String AutoConnectTextBasis::toHTML(void) const {
         free(buffer);
       }
     }
-    html += value_f + String(F("</div>"));
-    html = AutoConnectElementBasis::posterior(html);
+
+    if (style.length())
+      html = String(F("<div id=\"")) + name + String(F("\" style=\"")) + style + String("\">") + value_f + String(F("</div>"));
+    else
+      html = AutoConnectElementBasis::posterior(value_f);
   }
   return html;
 }

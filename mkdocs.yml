@@ -31,6 +31,7 @@ nav:
     - 'OTA Updates' : otaupdate.md
     - 'Using Web Browser' : otabrowser.md
     - 'Using Update Server' : otaserver.md
+  - 'Using Filesystem' : filesystem.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
     - 'AutoConnectAux API': apiaux.md
@@ -59,7 +60,7 @@ repo_url: https://github.com/Hieromon/AutoConnect
 edit_uri: ""
 
 # Copyright
-copyright: Copyright &copy; 2018-2020 Hieromon Ikasamo
+copyright: Copyright &copy; 2018-2021 Hieromon Ikasamo
 
 # Configuration
 use_directory_urls: false
@@ -89,11 +90,9 @@ extra:
       link: https://github.com/Hieromon
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/hieromon
-
-# Google Analytics
-google_analytics:
-  - !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
-  - auto
+  analytics:
+    provider: google
+    property: !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
 
 # Extensions
 markdown_extensions:

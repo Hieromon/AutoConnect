@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/achandling.html">
-      
-      
         <meta name="author" content="Hieromon Ikasamo">
       
-      <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/achandling.html">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.6910b76c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.8b42a75e.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -39,9 +39,9 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
       
     
     
@@ -54,10 +54,19 @@
     
     
       
-        
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-116150854-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}),document.addEventListener("DOMContentSwitch",function(){ga("send","pageview",document.location.pathname)})</script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
-      
+
+  
+
+
+  
+
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-EHK8XV10VE",{page_path:t.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE"></script>
+
+
     
     
   </head>
@@ -69,8 +78,10 @@
     
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
-      
   
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -89,46 +100,54 @@
       
 
 <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-header-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-header__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
       
   <img src="images/arduino-logo.svg" alt="logo">
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
             AutoConnect for ESP8266/ESP32
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
             
               Handling the custom Web pages
             
           </span>
         </div>
-      
+      </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -144,12 +163,12 @@
 </div>
     
     
-      <div class="md-header-nav__source">
+      <div class="md-header__source">
         
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
@@ -158,25 +177,30 @@
       </div>
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
         
+          
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://Hieromon.github.io/AutoConnect/" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
       
   <img src="images/arduino-logo.svg" alt="logo">
 
@@ -186,10 +210,10 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source">
+<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     Hieromon/AutoConnect
@@ -203,169 +227,206 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="index.html" class="md-nav__link">
-      Overview
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="gettingstarted.html" class="md-nav__link">
-      Getting started
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item">
-    <a href="menu.html" class="md-nav__link">
-      AutoConnect menu
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="basicusage.html" class="md-nav__link">
-      Basic usage
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gettingstarted.html" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menu.html" class="md-nav__link">
+        AutoConnect menu
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
-    <label class="md-nav__link" for="nav-5">
-      Advanced usage
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
-        <span class="md-nav__icon md-icon"></span>
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="basicusage.html" class="md-nav__link">
+        Basic usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Advanced usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advancedusage.html" class="md-nav__link">
         Advanced usage
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="advancedusage.html" class="md-nav__link">
-      Advanced usage
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adconnection.html" class="md-nav__link">
+        AutoConnect WiFi connection control
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcpcontrol.html" class="md-nav__link">
+        Captive portal control
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adnetwork.html" class="md-nav__link">
+        Settings and controls for network and WiFi
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="adconnection.html" class="md-nav__link">
-      AutoConnect WiFi connection control
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adauthentication.html" class="md-nav__link">
+        Authentication settings
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcredential.html" class="md-nav__link">
+        Credential accesses
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adexterior.html" class="md-nav__link">
+        Customizing page appearance
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="adcpcontrol.html" class="md-nav__link">
-      Captive portal control
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adothers.html" class="md-nav__link">
+        Other operation settings and controls
+      </a>
+    </li>
+  
+
+            
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="adnetwork.html" class="md-nav__link">
-      Settings and controls for network and WiFi
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adauthentication.html" class="md-nav__link">
-      Authentication settings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adcredential.html" class="md-nav__link">
-      Credential accesses
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adexterior.html" class="md-nav__link">
-      Customizing page appearance
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="adothers.html" class="md-nav__link">
-      Other operation settings and controls
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
@@ -373,82 +434,98 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
-    <label class="md-nav__link" for="nav-6">
-      Custom Web pages
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
-      <label class="md-nav__title" for="nav-6">
-        <span class="md-nav__icon md-icon"></span>
-        Custom Web pages
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Custom Web pages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Custom Web pages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="acintro.html" class="md-nav__link">
-      Custom Web pages with AutoConnect
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="acelements.html" class="md-nav__link">
-      AutoConnectElements
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="acjson.html" class="md-nav__link">
-      Custom Web pages with JSON
-    </a>
-  </li>
-
-        
-          
-          
-          
-
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acintro.html" class="md-nav__link">
+        Custom Web pages with AutoConnect
+      </a>
+    </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acelements.html" class="md-nav__link">
+        AutoConnectElements
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item md-nav__item--active">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acjson.html" class="md-nav__link">
+        Custom Web pages with JSON
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Handling the custom Web pages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="achandling.html" class="md-nav__link md-nav__link--active">
         Handling the custom Web pages
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="achandling.html" class="md-nav__link md-nav__link--active">
-      Handling the custom Web pages
-    </a>
-    
+      </a>
       
+        
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
   
@@ -456,12 +533,66 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#page-container-component" class="md-nav__link">
     Page, Container, Component
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-web-page-handler-programming-model" class="md-nav__link">
+    Custom Web page handler programming model
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Web page handler programming model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters-for-the-customwebagehandler" class="md-nav__link">
+     Parameters for the customWebageHandler
+  </a>
+  
+    <nav class="md-nav" aria-label=" Parameters for the customWebageHandler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reference-to-the-autoconnectaux-instance" class="md-nav__link">
+    1. Reference to the AutoConnectAux instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reference-to-the-pageargument-instance" class="md-nav__link">
+    2. Reference to the PageArgument instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-access-to-the-autoconnectelement-values" class="md-nav__link">
+    3. Access to the AutoConnectElement values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-customwebpagehandler-return-value" class="md-nav__link">
+     The customWebpageHandler return value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -680,365 +811,464 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
-      </ul>
-    </nav>
-  </li>
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
-    <label class="md-nav__link" for="nav-7">
-      OTA Updates
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
-      <label class="md-nav__title" for="nav-7">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          OTA Updates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OTA Updates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaupdate.html" class="md-nav__link">
         OTA Updates
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="otaupdate.html" class="md-nav__link">
-      OTA Updates
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otabrowser.html" class="md-nav__link">
+        Using Web Browser
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaserver.html" class="md-nav__link">
+        Using Update Server
+      </a>
+    </li>
+  
+
+            
           
-
-
-  <li class="md-nav__item">
-    <a href="otabrowser.html" class="md-nav__link">
-      Using Web Browser
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="otaserver.html" class="md-nav__link">
-      Using Update Server
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
-    <label class="md-nav__link" for="nav-8">
-      Library APIs
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
-      <label class="md-nav__title" for="nav-8">
-        <span class="md-nav__icon md-icon"></span>
-        Library APIs
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="api.html" class="md-nav__link">
-      AutoConnect API
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="apiaux.html" class="md-nav__link">
-      AutoConnectAux API
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="apiconfig.html" class="md-nav__link">
-      AutoConnectConfig API
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="apielements.html" class="md-nav__link">
-      AutoConnectElements API
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="apiupdate.html" class="md-nav__link">
-      AutoConnectUpdate API
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="apiextra.html" class="md-nav__link">
-      Something extra
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filesystem.html" class="md-nav__link">
+        Using Filesystem
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9" >
-    <label class="md-nav__link" for="nav-9">
-      Examples
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Examples" data-md-level="1">
-      <label class="md-nav__title" for="nav-9">
-        <span class="md-nav__icon md-icon"></span>
-        Examples
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="howtoembed.html" class="md-nav__link">
-      How to embed
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="datatips.html" class="md-nav__link">
-      Tips for data conversion
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="menuize.html" class="md-nav__link">
-      Attach the menus
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="wojson.html" class="md-nav__link">
-      Custom Web pages w/o JSON
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
       
       
       
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10" >
-    <label class="md-nav__link" for="nav-10">
-      Appendix
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Appendix" data-md-level="1">
-      <label class="md-nav__title" for="nav-10">
-        <span class="md-nav__icon md-icon"></span>
-        Appendix
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      
+        <label class="md-nav__link" for="__nav_9">
+          Library APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Library APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        AutoConnect API
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiaux.html" class="md-nav__link">
+        AutoConnectAux API
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiconfig.html" class="md-nav__link">
+        AutoConnectConfig API
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="lsbegin.html" class="md-nav__link">
-      Inside AutoConnect::begin
-    </a>
-  </li>
-
-        
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apielements.html" class="md-nav__link">
+        AutoConnectElements API
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiupdate.html" class="md-nav__link">
+        AutoConnectUpdate API
+      </a>
+    </li>
+  
+
+            
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiextra.html" class="md-nav__link">
+        Something extra
+      </a>
+    </li>
+  
 
-
-  <li class="md-nav__item">
-    <a href="credit.html" class="md-nav__link">
-      Saved credentials access
-    </a>
-  </li>
-
-        
+            
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="acupload.html" class="md-nav__link">
-      File upload handler
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="colorized.html" class="md-nav__link">
-      Custom colorized
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="changelabel.html" class="md-nav__link">
-      Change label text
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="howtoembed.html" class="md-nav__link">
+        How to embed
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="faq.html" class="md-nav__link">
-      FAQ
-    </a>
-  </li>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datatips.html" class="md-nav__link">
+        Tips for data conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menuize.html" class="md-nav__link">
+        Attach the menus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wojson.html" class="md-nav__link">
+        Custom Web pages w/o JSON
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Appendix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Appendix" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lsbegin.html" class="md-nav__link">
+        Inside AutoConnect::begin
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="changelog.html" class="md-nav__link">
-      Change log
-    </a>
-  </li>
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="credit.html" class="md-nav__link">
+        Saved credentials access
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acupload.html" class="md-nav__link">
+        File upload handler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="colorized.html" class="md-nav__link">
+        Custom colorized
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelabel.html" class="md-nav__link">
+        Change label text
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="license.html" class="md-nav__link">
-      License
-    </a>
-  </li>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog.html" class="md-nav__link">
+        Change log
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
 
     
   </ul>
@@ -1048,7 +1278,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1056,16 +1287,71 @@
   
   
   
+  
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#page-container-component" class="md-nav__link">
     Page, Container, Component
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-web-page-handler-programming-model" class="md-nav__link">
+    Custom Web page handler programming model
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom Web page handler programming model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters-for-the-customwebagehandler" class="md-nav__link">
+     Parameters for the customWebageHandler
+  </a>
+  
+    <nav class="md-nav" aria-label=" Parameters for the customWebageHandler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reference-to-the-autoconnectaux-instance" class="md-nav__link">
+    1. Reference to the AutoConnectAux instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reference-to-the-pageargument-instance" class="md-nav__link">
+    2. Reference to the PageArgument instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-access-to-the-autoconnectelement-values" class="md-nav__link">
+    3. Access to the AutoConnectElement values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-customwebpagehandler-return-value" class="md-nav__link">
+     The customWebpageHandler return value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1289,7 +1575,7 @@
               </div>
             
           
-          <div class="md-content">
+          <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
@@ -1299,25 +1585,226 @@
                 <h2 id="page-container-component">Page, Container, Component<a class="headerlink" href="#page-container-component" title="Permanent link">&para;</a></h2>
 <p>AutoConnectAux is the container for a custom Web page, AutoConnectElement is the component of a page. AutoConnectElements must be contained in AutoConnectAux object. (ie. they are the elements displayed on the custom Web page.) Then AutoConnect makes an AutoConnectAux to a page.</p>
 <p>AutoConnectElements declared in sketch must be programmed to add to AutoConnectAux one after another. Elements are automatically included in AutoConnectAux by AutoConnect if you load it from the JSON document. In either method, it is common to use the function of AutoConnectAux to access an element with a sketch.</p>
+<h2 id="custom-web-page-handler-programming-model">Custom Web page handler programming model<a class="headerlink" href="#custom-web-page-handler-programming-model" title="Permanent link">&para;</a></h2>
+<p>To handle Custom Web pages properly, the sketches need to implement to match the programming model. Custom Web page programming model is depicted as follows:</p>
+<p><img src="images/aux_programing_model.svg"></p>
+<p>Custom Web page handler acts as an event handler for processing the HTTP request captured by the WebServer class. The WebServer class parses the HTTP request and calls the registered uri handler appropriately. The custom web page uri (it should be specified by the <a href="acjson.html#uri">JSON description</a> for the custom web page, the <a href="apiaux.html#autoconnectaux">AutoConnectAux constructor</a>, or the <a href="achandling.html#when-setting-the-initial-values">AutoConnect::on</a> function) is not registered directly with the WebServer class, and the Requests always go through the request dispatcher inside AutoConnect.</p>
+<p>When implementing the custom Web page handler, it is possible to give an appropriate function to the handler by understanding the above internal structure in advance. Custom web page handler can be sketched as regular function and has interface is as follows:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">customWebpageHandler(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span>
+</code></pre></div>
+<h3 id="parameters-for-the-customwebagehandler"><i class="fa fa-edit"></i> Parameters for the customWebageHandler<a class="headerlink" href="#parameters-for-the-customwebagehandler" title="Permanent link">&para;</a></h3>
+<p>When the custom web page handler is called, AutoConnect passes the following two parameters:</p>
+<h4 id="1-reference-to-the-autoconnectaux-instance">1. Reference to the AutoConnectAux instance<a class="headerlink" href="#1-reference-to-the-autoconnectaux-instance" title="Permanent link">&para;</a></h4>
+<p>Custom Web page handlers can access the AutoConnectElements owned by its page through a reference to the <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> instance. It can use this access to update the AutoConnectElements value before the user views the page or get the value of AutoConnectElements owned by the page that triggered the transition.</p>
+<p>A list of commonly used functions to access AutoConnectElements with your Sketch via reference to an AutoConnectAux instance is following:</p>
+<ul>
+<li><code>[]</code> operator : Access to an AutoConnectElement by specified element name.</li>
+<li><code>getElement</code> function : Access to an AutoConnectElement by specified element name.</li>
+<li><code>as&lt;&gt;</code> function : Cast from a variant of <code>AutoConnectElemnet</code> type to an actual type such as <code>AutoConnectText</code> or <code>AutoConnectInput</code> etc. To access attributes that exist only in the actual type, it is necessary to convert from the <code>AutoConnectElement</code> type obtained with <code>[]</code> operator or <code>getElement</code> function.</li>
+</ul>
+<p>See the section <a href="achandling.html#get-autoconnectelement-from-the-autoconnectaux">Get AutoConnectElement from the AutoConnectAux</a> and the section <a href="apielements.html">AutoConnectElements API</a> for usage examples and API specifications for each above function.</p>
+<h4 id="2-reference-to-the-pageargument-instance">2. Reference to the PageArgument instance<a class="headerlink" href="#2-reference-to-the-pageargument-instance" title="Permanent link">&para;</a></h4>
+<p>The values of the <a href="acelements.html#autoconnectcheckbox">AutoConnectCheckbox</a>, <a href="acelements.html#autoconnectfile">AutoConnectFile</a>, <a href="acelements.html#autoconnectinput">AutoConnectInput</a>, <a href="acelements.html#autoconnectradio">AutoConnectRadio</a>, and <a href="acelements.html#autoconnectselect">AutoConnectSelect</a> elements are packed into the form data of the HTTP POST method by the page transition caused by <a href="acelements.html#autoconnectsubmit">AutoConnectSubmit</a>. Use the <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> instance to retrieve the values of these transmitted AutoConnectElements with the customWebpageHandler. A list of commonly used functions to access PageArgment member variables with your Sketch via a reference to an PageArgument instance is following:</p>
+<ul>
+<li><code>arg</code> function : Get an element value by specified element name.</li>
+<li><code>hasArg</code> function : Checks for the existence of an element with the specified name.</li>
+</ul>
+<p>The method to get the form data attached to the HTTP request via PageArgument is described with the section <a href="#how-you-can-reach-the-values">How you can reach the values</a>.</p>
+<h4 id="3-access-to-the-autoconnectelement-values">3. Access to the AutoConnectElement values<a class="headerlink" href="#3-access-to-the-autoconnectelement-values" title="Permanent link">&para;</a></h4>
+<p>Here, you have one thing to note. The custom web page handler registered with <a href="achandling.html#when-setting-the-initial-values">AutoConnect::on</a> function is called to respond to an HTTP request to the URL of its page. And, the AutoConnectAux instance then references the custom web page assigned to the requested URL. That is, the AutoConnectAux instance passed to the custom web page handler owns the AutoConnectElements for that page, while the PageArgument instance has the AutoConnectElements value of the custom web page that caused the page transition. You need to keep the difference between the two in mind when implementing the custom web page handler with your Sketch and access these values via the appropriate approach.</p>
+<p>You can access the AutoConnect Elements of the custom web page itself via the <code>AutoConnectAux&amp;</code> argument by specifying the element name. You can also use the <code>PageArgument&amp;</code> argument to get the value of AutoConnectElements for the page that caused the transition to that custom web page. (the URL that issued the HTTP request)</p>
+<p>The following screenshots are outputs of custom web pages that are based on a scenario to help you understand how to access AutoConnectElements properly with a custom web page handler. The requirements for this scenario are:</p>
+<ul>
+<li>Calculate an addition simply, add <code>B</code> to <code>A</code>.</li>
+<li>Perform the calculation with a customWebPageHandler.</li>
+<li>Returns the calculated result in another custom web page with page transitions.</li>
+</ul>
+<div style="display:inline-block">
+  <img src="images/adder.png" width="300px"> <img src="images/arrow_right.png" style="width:35px;margin-left:10px;margin-right:10px;vertical-align:100px"> <img src="images/answer.png" width="300px">
+</div>
+
+<p>The first thing to work on is defining two custom web pages. Here, Value A and Value B are easily defined by applying <a href="acjson.html#acinput">AutoConnectInput</a>. Also, add an action button to perform the calculation with <a href="acjson.html#acsubmit">AutoConnectSubmit</a>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/add&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Adder&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;element&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span>
+    <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;valueA&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;label&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Value A&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;apply&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;number&quot;</span>
+    <span style="color: #f8f8f2">},</span>
+    <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;valueB&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;label&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Value B&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;apply&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;number&quot;</span>
+    <span style="color: #f8f8f2">},</span>
+    <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;add&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACSubmit&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ADD&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/results&quot;</span>
+    <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">]</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>Next, define an additional page to display the results. Here we use <a href="acjson.html#actext">AutoConnectText</a> to display the calculation as a representation string of the expression. There is one thing to watch out for here. That is, the transition destination of the action button as <code>ADD</code> that accept the operand (it is specified by the <code>uri</code> of the ACSubmit element named "add") and the <code>uri</code> of the page that displays the answer are the same.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
+  <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/results&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Adder&quot;</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">,</span>
+  <span style="color: #f92672">&quot;element&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">[</span>
+    <span style="color: #f8f8f2">{</span>
+      <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;results&quot;</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span>
+    <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">]</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>When implementing a custom web page handler, it's usually a good idea to pre-determine the page design (which consists of the elements and layouts you want to use) for a better outlook when coding your Sketch. Especially when coding a custom web page handler, you need to specify the AutoConnectElements exactly, and it is recommended to implement it along the JSON defined earlier.</p>
+<p>After this, sketch the handlers for the above two custom web pages.</p>
+<p>First, the handler for the page allocated to <code>/add</code>. The role of this handler is to initialize the values respectively for the <code>valueA</code> and <code>valueB</code> input boxes. Both of these two input boxes are on the <code>/add</code> page, so the handler only references the <code>AutoConnectAux&amp; aux</code> argument.</p>
+<p>You can use the <code>[]</code> operator with the element name like as <code>aux["valueA"]</code> to get a reference to an AutoConnectElement by name. Then, once the reference is converted to AutoConnectInput, the <code>value</code> member of AutoConnectInput can be accessed. Use the <code>as&lt;AutoConnectInput&gt;()</code> function to convert from the AutoConnectElement type to the actual AutoConnectInput type.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">onAdd</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;valueA&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">().value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;valueB&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">().value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>Next, the handler for the page allocated to <code>/results</code>. The role of this handler is to add the value B to A for the calculation. The <code>/results</code> page does not have an element that contains the operands Value A and Value B to calculate. Only the <code>/add</code> page has them. The <code>/results</code> page handler is called when ACSubmit on the <code>/add</code> page works, so <code>valueA</code> and <code>valueB</code> are included in the form data of the HTTP POST request to the <code>/results</code> page. That is, the handler for the <code>/results</code> page will get <code>valueA</code> and <code>valueB</code> from the <code>PageArgument&amp; args</code> argument.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">onResults</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">valueA</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">args.arg(</span><span style="color: #e6db74">&quot;valueA&quot;</span><span style="color: #f8f8f2">).toInt();</span>
+  <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">valueB</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">args.arg(</span><span style="color: #e6db74">&quot;valueB&quot;</span><span style="color: #f8f8f2">).toInt();</span>
+
+  <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;results&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">().value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(valueA)</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; + &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(valueB)</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; = &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(valueA</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">valueB);</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p><a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> is a built-in class in the <a href="https://github.com/Hieromon/PageBuilder">PageBuilder</a> library. You can use the <a href="https://github.com/Hieromon/PageBuilder#string-pageargumentargstring-name">PageArgument::arg</a> function to retrieve the parameters of the form data contained in the POST request by name. Since the <code>PageArgument::arg</code> function returns the parameters of the POSTed form data as a string, it converts Value A and Value B to the operand integer value of the addition via the <code>String::toInt()</code> function.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">valueA</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">args.arg(</span><span style="color: #e6db74">&quot;valueA&quot;</span><span style="color: #f8f8f2">).toInt();</span>
+<span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">valueB</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">args.arg(</span><span style="color: #e6db74">&quot;valueB&quot;</span><span style="color: #f8f8f2">).toInt();</span>
+</code></pre></div>
+<p>In this scenario, in addition to the calculation result, the calculation formula is also displayed on the result page.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;results&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">().value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(valueA)</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; + &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(valueB)</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; = &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(valueA</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">valueB);</span>
+</code></pre></div>
+<h3 id="the-customwebpagehandler-return-value"><i class="fa fa-edit"></i> The customWebpageHandler return value<a class="headerlink" href="#the-customwebpagehandler-return-value" title="Permanent link">&para;</a></h3>
+<p>The customWebpageHandler returns a string. The returned string is used internally by AutoConnect to temporarily qualify the HTML generating of the custom web page. AutoConnect typically calls a custom web page handler before HTML generation.</p>
+<p>When the customWebpageHandler returns an HTML string for qualification, it applies to the drawing area for the elements of AutoConnectElements. Additionally, you can then specify where the modifier HTML will be inserted. The <strong>second parameter</strong> of the <a href="apiaux.html#on">AutoConnectAux::on</a> function, which allows the registration of custom web page handlers, indicates where to insert the modifier HTML. </p>
+<p>The Sketch can specify the following three values for the second parameter of AutoConnectAux::on function:</p>
+<ul>
+<li>
+<p><strong>AC_EXIT_AHEAD</strong> : Modifiers HTML returned by the custom Web page handler is inserted into the front of the list expansion of AutoConnectElements.</p>
+</li>
+<li>
+<p><strong>AC_EXIT_LATER</strong> : Modifiers HTML returned by the custom Web page handler is inserted into the back of the list expansion of AutoConnectElements.</p>
+</li>
+<li>
+<p><strong>AC_EXIT_BOTH</strong> : The customWebpageHandle will be called twice before and after list expansion of AutoConnectElements.</p>
+</li>
+</ul>
+<p>A detailed description of the <a href="apiaux.html#on">AutoConnectAux::on</a> function can be found in Section <a href="apiaux.html">AutoConnectAux API</a>.</p>
+<hr />
+<p>The actual sketch code implemented following these steps above would look like this (case of ESP8266):</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;Arduino.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_ADD[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/add&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Adder&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;valueA&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="color: #e6db74">      &quot;label&quot;: &quot;Value A&quot;,</span>
+<span style="color: #e6db74">      &quot;apply&quot;: &quot;number&quot;</span>
+<span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;valueB&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACInput&quot;,</span>
+<span style="color: #e6db74">      &quot;label&quot;: &quot;Value B&quot;,</span>
+<span style="color: #e6db74">      &quot;apply&quot;: &quot;number&quot;</span>
+<span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;add&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACSubmit&quot;,</span>
+<span style="color: #e6db74">      &quot;value&quot;: &quot;ADD&quot;,</span>
+<span style="color: #e6db74">      &quot;uri&quot;: &quot;/results&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE_RESULTS[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/results&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Adder&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;results&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACText&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">page_add;</span>
+<span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">page_results;</span>
+
+<span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">onAdd</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;valueA&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">().value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;valueB&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">().value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;0&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">onResults</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">valueA</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">args.arg(</span><span style="color: #e6db74">&quot;valueA&quot;</span><span style="color: #f8f8f2">).toInt();</span>
+  <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">valueB</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">args.arg(</span><span style="color: #e6db74">&quot;valueB&quot;</span><span style="color: #f8f8f2">).toInt();</span>
+
+  <span style="color: #f8f8f2">aux[</span><span style="color: #e6db74">&quot;results&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">().value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(valueA)</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; + &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(valueB)</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; = &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">String(valueA</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">valueB);</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">page_add.load(PAGE_ADD);</span>
+  <span style="color: #f8f8f2">page_results.load(PAGE_RESULTS);</span>
+  <span style="color: #f8f8f2">portal.join({</span> <span style="color: #f8f8f2">page_add,</span> <span style="color: #f8f8f2">page_results</span> <span style="color: #f8f8f2">});</span>
+  <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/add&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">onAdd);</span>
+  <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/results&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">onResults);</span>
+  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
 <h2 id="handing-autoconnectelements-with-the-sketches">Handing AutoConnectElements with the Sketches<a class="headerlink" href="#handing-autoconnectelements-with-the-sketches" title="Permanent link">&para;</a></h2>
 <p>The AutoConnectAux class has several functions to manipulate AutoConnectElements. The functions can add, delete, retrieve elements, and get and set values.</p>
 <h3 id="add-autoconnectelements-to-the-autoconnectaux-object"><i class="fa fa-edit"></i> Add AutoConnectElements to the AutoConnectAux object<a class="headerlink" href="#add-autoconnectelements-to-the-autoconnectaux-object" title="Permanent link">&para;</a></h3>
 <p>To add AutoConnectElment(s) to an AutoConnectAux object, use the add function.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">add(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">addon)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">add(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">addon)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">add(AutoConnectElementVT</span> <span style="color: #f8f8f2">addons)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">add(AutoConnectElementVT</span> <span style="color: #f8f8f2">addons)</span>
 </code></pre></div>
 <p>The add function adds the specified AutoConnectElement to AutoConnectAux. The AutoConnectElementVT type is the <a href="https://en.cppreference.com/w/cpp/container/vector"><em>std::vector</em></a> of the <a href="https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper"><em>reference wrapper</em></a> to AutoConnectElements, and you can add these elements in bulk by using the <a href="https://en.cppreference.com/w/cpp/language/list_initialization"><em>list initialization</em></a> with the Sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">reference_wrapper</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">AutoConnectElementVT;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">reference_wrapper</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;&gt;</span> <span style="color: #f8f8f2">AutoConnectElementVT;</span>
 </code></pre></div>
 <p>AutoConnectElements contained in AutoConnectAux object are uniquely identified by name. When adding an AutoConnectElement, if an element with the same name already exists in the AutoConnectAux, checking the type, and if it is the same, the value will be replaced. If another type of AutoConnectElement exists with the same name, that add operation will be invalid.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> In the following example, AutoConnectButton <code>button</code> addition will invalid because <code>hello</code> with the same name already exists as AutoConnectText.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
 <span style="color: #f8f8f2">AutoConnectText</span> <span style="color: #a6e22e">text</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectButton</span> <span style="color: #a6e22e">button</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;hello, world&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;alert(&#39;Hello world!&#39;)&quot;)</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// This is invalid.</span>
 </span><span style="color: #f8f8f2">aux.add({</span> <span style="color: #f8f8f2">text,</span> <span style="color: #f8f8f2">button</span> <span style="color: #f8f8f2">});</span>
 </code></pre></div>
 <p>Similarly this, the uniqueness of the name is also necessary within the JSON document</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;aux&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;uri&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/aux&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;menu&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
@@ -1342,14 +1829,18 @@
 </div>
 <h3 id="get-autoconnectelement-from-the-autoconnectaux"><i class="fa fa-edit"></i> Get AutoConnectElement from the AutoConnectAux<a class="headerlink" href="#get-autoconnectelement-from-the-autoconnectaux" title="Permanent link">&para;</a></h3>
 <p>To retrieve an element from AutoConnectAux, use the getElement or getElements function. Normally, the getElement is needed when accessing the value of AutoConnectElement in the Sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>The <a href="apiaux.html#getelement"><strong>getElement</strong></a> function returns an AutoConnectElement with the specified name as a key. When you use this function, you need to know the type of AutoConnectElement in advance and specify its type &lt;T> to an argument of the getElement. A type of &lt;T> can be specified as follows.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 <span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 <span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
@@ -1360,7 +1851,7 @@
 <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
 </code></pre></div>
 <p>To retrieve an AutoConnectElement by specifying its type, use the following method.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span>  <span style="color: #f8f8f2">aux;</span>
 <span style="color: #f8f8f2">aux.load(</span><span style="color: #e6db74">&quot;SOME_JSON_DOCUMENT&quot;</span><span style="color: #f8f8f2">);</span>
 
 <span style="color: #75715e">// Retrieve the pointer of the AutoConnectText</span>
@@ -1370,7 +1861,7 @@
 <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;TEXT_ELEMENT_NAME&quot;</span><span style="color: #f8f8f2">);</span>
 </code></pre></div>
 <p>The AutoConnectElement type behaves as a variant of other element types. Therefore use cast or template to convert to actual type as above. In the Sketch, you access the real type of AutoConnectElement after casting it and storing into the variable.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">auxJson</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">Page 1 title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">uri</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">/page1</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">menu</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:true,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">element</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:[{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">name</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">caption</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">type</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">ACText</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">value</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">hello, world</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}]}&quot;</span><span style="color: #f8f8f2">);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">auxJson</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">Page 1 title</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">uri</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">/page1</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">menu</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:true,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">element</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:[{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">name</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">caption</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">type</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">ACText</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">,</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">value</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">hello, world</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}]}&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">portal.load(auxJson);</span>
 <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">);</span>  <span style="color: #75715e">// Identify the AutoConnectAux instance with uri</span>
@@ -1378,7 +1869,7 @@
 <span style="color: #f8f8f2">Serial.println(text.value);</span>
 </code></pre></div>
 <p>You can also use the <a href="apiaux.html#operator">operator <strong><code>[]</code></strong> of AutoConnectAux</a> as another way to get the desired element. An operator <strong><code>[]</code></strong> is a shortcut for <a href="apiaux.html#getelement">getElement</a> function with the reference casting and makes simplify the Sketch code and treats like an array with the elements placed on a custom Web page. Its argument is the name of the element to be acquired similarly to getElement function. In the Sketch, by combining the <a href="apielements.html#ast62"><strong>AutoConnectElement::as&lt;T></strong></a> function with the operator <code>[]</code>, you can access the  AutoConnectElements reference according to its actual type. For example, the following sketch code returns the same as a reference of AutoConnectText element as the <code>caption</code>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 <span style="color: #f8f8f2">portal.load(auxJson);</span>
 <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&amp;</span>  <span style="color: #f8f8f2">aux</span> <span style="color: #f92672">=</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text1</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1387,7 +1878,7 @@
 <div class="admonition note">
 <p class="admonition-title">Need cast to convert to the actual type</p>
 <p>An operator <code>[]</code> returns a reference of an AutoConnectElement. It is necessary to convert the type according to the actual element type with <a href="apielements.html#ast62">AutoConnectElement::as&lt;T></a> function.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
 <span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectCheckbox</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
 <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
 <span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectFile</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">()</span>
@@ -1399,12 +1890,12 @@
 </code></pre></div></p>
 </div>
 <p>To get all the AutoConnectElements in an AutoConnectAux object use the <a href="apiaux.html#getelements"><strong>getElements</strong></a> function. This function returns the vector of the reference wrapper as <strong>AutoConnectElementVT</strong> to all AutoConnectElements registered in the AutoConnectAux.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <h3 id="enable-autoconnectelements-during-the-sketch-execution"><i class="fa fa-edit"></i> Enable AutoConnectElements during the Sketch execution<a class="headerlink" href="#enable-autoconnectelements-during-the-sketch-execution" title="Permanent link">&para;</a></h3>
 <p>AutoConnectElemets have an enable attribute to activate its own HTML generation. Sketches can change the HTMLization of their elements dynamically by setting or resetting the enable value. An element whose the enable attribute is true will generate itself HTML and place on the custom Web page.  And conversely, it will not generate the HTML when the value is false.</p>
 <p>For example, to enable the submit button only when the ESP module is connected to the access point in STA mode, you can sketch the following:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1462,7 +1953,7 @@
 <p>To load a JSON document as AutoConnectAux use the <a href="api.html#load"><strong>AutoConnect::load</strong></a> function and load the JSON document of each AutoConnectElement using the <a href="apiaux.html#loadelement"><strong>AutoConnectAux::loadElement</strong></a> function. Although the functions of both are similar, the structure of the target JSON document is different.</p>
 <p>The <a href="apiaux.html#load">AutoConnect::load</a> function loads the entire AutoConnectAux and creates both the AutoConnectAux instance and each AutoConnectElement instance. A single JSON document can contain multiple custom Web pages. If you write JSON of AutoConnectAux as an array, the load function generates all the pages contained in that array. Therefore, it is necessary to supply the JSON document of AutoConnectAux as an input of the load function and must contain the elements described section <a href="acjson.html#json-document-structure-for-autoconnectaux"><em>JSON document structure for AutoConnectAux</em></a>.</p>
 <p>The <a href="apiaux.html#loadelement">AutoConnectAux::loadElement</a> function loads the elements individually into an AutoConnectAux object. The structure of its supplying JSON document is not AutoConnectAux. It must be a <a href="acjson.html#json-object-for-autoconnectelements">JSON structure for AutoConnectElement</a>, but you can specify an array.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">// AutoConnectAux as a custom Web page.</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">// AutoConnectAux as a custom Web page.</span>
 <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">page[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">{</span>
 <span style="color: #e6db74">  &quot;title&quot;: &quot;Settings&quot;,</span>
@@ -1524,7 +2015,7 @@
 </code></pre></div>
 <h3 id="saving-autoconnectelements-with-json"><i class="fa fa-download"></i> Saving AutoConnectElements with JSON<a class="headerlink" href="#saving-autoconnectelements-with-json" title="Permanent link">&para;</a></h3>
 <p>To save the AutoConnectAux or the AutoConnectElement as a JSON document, use the <a href="apiaux.html#saveelement">AutoConnectAux::saveElement</a> function. It serializes the contents of the object based on the type of the AutoConnectElement. You can persist a serialized AutoConnectElements as a JSON document to a stream.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">// Open a parameter file on the SPIFFS.</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">// Open a parameter file on the SPIFFS.</span>
 <span style="color: #f8f8f2">SPIFFS.begin();</span>
 <span style="color: #66d9ef">FILE</span> <span style="color: #f8f8f2">param</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">SPIFFS.open(</span><span style="color: #e6db74">&quot;/param&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;w&quot;</span><span style="color: #f8f8f2">);</span>
 
@@ -1536,7 +2027,7 @@
 <span style="color: #f8f8f2">SPIFFS.end();</span>
 </code></pre></div>
 <p>The example above saves <code>server</code> and <code>period</code> elements from the AutoConnectAux object as mentioned above to the <code>/param</code> file on SPIFFS. Its JSON document of AutoConnectElements saved by its code looks like this:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">[</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">[</span>
   <span style="color: #f8f8f2">{</span>
     <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;server&quot;</span><span style="color: #f8f8f2">,</span>
     <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
@@ -1565,7 +2056,7 @@
 <h3 id="where-to-pick-up-the-values"><i class="fa fa-desktop"></i> Where to pick up the values<a class="headerlink" href="#where-to-pick-up-the-values" title="Permanent link">&para;</a></h3>
 <p>A sketch composed of handlers can receive the value of AutoConnectElements entered in a custom Web page after sending, but that handler is different from the page where the value was entered. It is necessary to be aware that can accept the entered values by the next page handler after the transition.</p>
 <p>Usually, two ways to retrieve entered values we have. One is to use the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments">ESP8266WebServer::arg</a> (or WebServer::arg for ESP32) function in the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers"><code>on handler</code></a> attached by ESP8266WebServer (WebServer w/ESP32 also).</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1621,7 +2112,7 @@
 <p>When you actually try the above sketch, there is no a root handler. So the URL that should be accessed first is <code>/_ac</code> concatenated with the local IP address of the esp8266 module.</p>
 </div>
 <p>Another method is effective when custom Web pages have complicated page transitions. It is a way to straight access the AutoConnectElements member value. You can get the AutoConnectElement with the specified name using the <a href="#get-autoconnectelement-from-the-autoconnectaux">getElement</a> function. The following sketch executes the above example with AutoConnect only, without using the function of ESP8266WebServer.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -1698,9 +2189,9 @@
 <h3 id="when-setting-the-initial-values"><i class="fa fa-desktop"></i> When setting the initial values<a class="headerlink" href="#when-setting-the-initial-values" title="Permanent link">&para;</a></h3>
 <p>An AutoConnectAux page is dynamically created by AutoConnect when its uri is requested. The initial value of AutoConnectElements can be set before its page request. It is also possible during <code>loop()</code>. To set the initial value when the page is accessed it needs by the handler of its page.</p>
 <p>The <a href="api.html#on"><strong>AutoConnect::on</strong></a> and <a href="apiaux.html#on"><strong>AutoConnectAux::on</strong></a> functions register a handler for a custom Web page and also specify when to call that handler. The behavior of the two <code>on</code> functions is the same, only the class and arguments are different.</p>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order)</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order)</span>
 </code></pre></div></p>
 <p>Parameter <code>uri</code> specifies an URI of the custom Web page, but an AutoConnectAux object with its URI must be registered with AutoConnect via the <a href="api.html#join">AutoConnect::join</a> function beforehand.</p>
 <div class="admonition note">
@@ -1708,7 +2199,7 @@
 <p>The <code>on</code> function for AutoConnect is different from the <code>on</code> function of Arduino core ESP8266WebServer (WebServer for ESP32). You can share the same handler via wrapper, but access to AutoConnectElements is <strong>valid only for handlers registered with <code>on</code> function for AutoConnect</strong>.</p>
 </div>
 <p><code>AuxHandlerFunctionT</code> type is a handler declaration using with <a href="https://en.cppreference.com/w/cpp/utility/functional/function">std::function</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">handler(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">handler(AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span>
 </code></pre></div>
 <p>The handler of the custom Web page has two arguments by a reference of AutoConnectAux and a reference of PageArgument, it returns String. AutoConnect appends the string returned from the handler to the generated HTML. This allows you to add an HTML part before displaying the page.</p>
 <dl>
@@ -1730,7 +2221,7 @@
 </dd>
 </dl>
 <p>The following example is a part of sketch contained the handlers. </p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">// AutoConnect object declarations</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">// AutoConnect object declarations</span>
 <span style="color: #f8f8f2">ACInput(input1);</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">aux</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/aux&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">input1</span> <span style="color: #f8f8f2">});</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
@@ -1763,12 +2254,12 @@
 </code></pre></div>
 <h3 id="how-you-can-reach-the-values"><i class="fa fa-wrench"></i> How you can reach the values<a class="headerlink" href="#how-you-can-reach-the-values" title="Permanent link">&para;</a></h3>
 <p>AutoConnectSubmit uses the POST method to send HTTP requests. A value of AutoConnectInput sent to the ESP8266 or ESP32 with POST is stored in the request body of the HTTP request:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">POST</span> <span style="color: #f8f8f2">/feels</span> <span style="color: #f8f8f2">HTTP/1.1</span>
-<span style="color: #f8f8f2">Host</span><span style="color: #960050; background-color: #1e0010">:</span> <span style="color: #f8f8f2">ESP8266_IP_ADDRESS</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">POST</span> <span style="color: #f8f8f2">/feels</span> <span style="color: #f8f8f2">HTTP/1.1</span>
+<span style="color: #f8f8f2">Host:</span> <span style="color: #f8f8f2">ESP8266_IP_ADDRESS</span>
 <span style="color: #f8f8f2">name1=value1&amp;name2=value2&amp;name3=value3</span>
 </code></pre></div>
 ESP8266WebServer class will parse the query string and rebuilds its arguments when the above request arrives. A custom page handler registered with the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#client-request-handlers">ESP8266WebServer::on</a> function can access the value of AutoConnectElements with <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#getting-information-about-request-arguments">ESP8266WebServe::arg</a> function. It reaches the values of AutoConnectElements without the intermediation of AutoConnect. Therefore, its handler will not be AutoConnectAux and can send a response to the client directly. The following example is part of a server sketch which has two web pages. The <code>/hello</code> page is a custom Web page of AutoConnectAux which has an input box named "input1". Another <code>/echo</code> page is a page handler for ESP8266WebServer, which uses the <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer#sending-responses-to-the-client">ESP8266WebServer::send</a> function to echo back the value of an input1 as an http response.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
 <span style="color: #f8f8f2">AutoConnect</span>      <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>
 <span style="background-color: #49483e"><span style="color: #f8f8f2">ACInput(input1,</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;INPUT&quot;</span><span style="color: #f8f8f2">);</span>
 </span><span style="color: #f8f8f2">ACSubmit(send,</span> <span style="color: #e6db74">&quot;HELLO&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;/echo&quot;</span><span style="color: #f8f8f2">);</span>
@@ -1784,7 +2275,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">portal.begin();</span>
 </code></pre></div>
 <p>Also, you can choose another way to access arguments without going through the ESP8266WebServer class. The <a href="https://github.com/Hieromon/PageBuilder#arguments-of-invoked-user-function">PageArgument</a> object of the custom Web page handler argument is a copy of the arg object of the ESP8266WebServer class. Either of these methods is a simple and easy way to access parameters in custom Web page handlers. However, if you need to access from outside of the handler to the value of AutoConnectElements, you need to accomplish it using with the <a href="#get-autoconnectelement-from-the-autoconnectaux">AutoConnectAux::getElement</a> function. The following sketch code replaces the above example with JSON and PageArgument, and its behaves is equivalent basically to the above sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">auxPage[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">static</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">auxPage[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;raw(</span>
 <span style="color: #e6db74">[</span>
 <span style="color: #e6db74">  { &quot;title&quot;:&quot;Hello&quot;, &quot;uri&quot;:&quot;/hello&quot;, &quot;menu&quot;:true, &quot;element&quot;:[</span>
 <span style="color: #e6db74">    { &quot;name&quot;:&quot;input1&quot;, &quot;type&quot;: &quot;ACInput&quot;, &quot;label&quot;: &quot;INPUT&quot; },</span>
@@ -1802,7 +2293,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/echo&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">[](AutoConnectAux</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">args)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ac_echo</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;echo&quot;</span><span style="color: #f8f8f2">);</span>
   <span style="color: #f8f8f2">ac_echo.value</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">args.arg(</span><span style="color: #e6db74">&quot;input1&quot;</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">String</span><span style="color: #f8f8f2">();</span>  
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">String();</span>  
 <span style="color: #f8f8f2">});</span>
 
 <span style="color: #f8f8f2">portal.begin();</span>
@@ -1811,7 +2302,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p>Since v1.0.0, AutoConnect supports a new attribute with each element that allows automatic transfer of input values across pages without sketching. AutoConnect will copy the input value of the elements declared as <a href="apielements.html#global_2">global</a> to the same-named global elements on a different custom Web pages at the page transition timing.</p>
 <p><img src="images/global.svg"> </p>
 <p>The <strong>global</strong> attribute will be useful for echoing input values back to another custom Web pages. This copy operation can be performed between different types. (eg., copy value from AutoConnectInput to AutoConnectText) The following example reflects the input value of PAGE1 to the AutoConnectText field of PAGE2 without sketch code.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE1[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">static</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE1[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">{</span>
 <span style="color: #e6db74">  &quot;title&quot;: &quot;PAGE1&quot;,</span>
 <span style="color: #e6db74">  &quot;uri&quot;: &quot;/page1&quot;,</span>
@@ -1873,7 +2364,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p>ESP8266WebServer class and the WebServer class assume that the implementation of the ReqestHandler class contained in the WebServer library will handle the URL requests. Usually, it is sketch code registered by ESP8266WebServer::on function.</p>
 <p>When a page transition from a custom Web page created by AutoConnectAux to a handler registered with ESP2866WebServer::on function, a little trick is needed to retrieve the values of AutoConnectElements. (i.e. the URI of the ESP8266WebServer::on handler is specified in the <a href="acelements.html#uri">uri</a> attribute of <a href="acelements.html#autoconnectsubmit">AutoConnectSubmit</a>) AutoConnect cannot intervene in the procedure in which the ESP8266WebServer class calls the on-page handler coded with the Sketch. Therefore, it is necessary to retrieve preliminary the values of AutoConnectElements using the <a href="apiaux.html#fetchelement">AutoConnectAux::fetchElement</a> function for value processing with the on-page handler.</p>
 <p>The following sketch is an example of extracting values inputted on a custom web page with an on-page handler and then processing it.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP8266WebServer</span> <span style="color: #f8f8f2">server;</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #a6e22e">portal</span><span style="color: #f8f8f2">(server);</span>
 <span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">Input;</span>
 
@@ -1923,7 +2414,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p>The elements for attributes described in the JSON document for AutoConnectElements overwrites the member variables of the target AutoConnectElements. However, AutoConnectAux::loadElement keeps the member variables unchanged if there is no element in the JSON document. This overwriting behavior is the same for the <a href="api.html#load">AutoConnect::load</a> function.</p>
 <p>For example, the combination of the Sketch and JSON document as follows updates only the style while keeping Caption (ie. "Hello, world") as AutoConnectText value.</p>
 <p><i class="fab fa-js-square"></i> External JSON document for the below sketch to modify the text style.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Caption&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;type&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
 <span style="background-color: #49483e">  <span style="color: #f92672">&quot;style&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;text-align:center;font-size:24px;font-family:&#39;Impact&#39;,&#39;Futura&#39;,sans-serif;color:tomato;&quot;</span>
@@ -1931,7 +2422,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 </code></pre></div></p>
 <p><i class="fa fa-arrow-down"></i><br>
 <i class="fa fa-code"></i> the Sketch (a part of code), load above JSON.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="background-color: #49483e"><span style="color: #f8f8f2">ACText(Caption,</span> <span style="color: #e6db74">&quot;Hello, world&quot;</span><span style="color: #f8f8f2">);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="background-color: #49483e"><span style="color: #f8f8f2">ACText(Caption,</span> <span style="color: #e6db74">&quot;Hello, world&quot;</span><span style="color: #f8f8f2">);</span>
 </span><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #a6e22e">helloPage</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Hello&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">true,</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">Caption</span> <span style="color: #f8f8f2">});</span>
 <span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
 
@@ -1954,7 +2445,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <i class="fa fa-eye"></i> It's shown as like:<span style="margin-left:14px;width:272px;height:118px;border:1px solid lightgray;"><img align="top" width="270" height="116" src="images/acow.png"></span></p>
 <h3 id="check-data-against-on-submission"><i class="far fa-check-square"></i> Check data against on submission<a class="headerlink" href="#check-data-against-on-submission" title="Permanent link">&para;</a></h3>
 <p>By giving a <a href="apielements.html#pattern">pattern</a> to <a href="apielements.html#autoconnectinput">AutoConnectInput</a>, you can find errors in data styles while typing in custom Web pages. The pattern is specified with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">regular expression</a>.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> If the value during input of AutoConnectInput does not match the regular expression specified in the pattern, its background color changes to pink. The following example shows the behavior when checking the IP address in the AutoConnectInput field.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;title&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Page-1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;uri&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/page1&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;menu&quot;</span> <span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
@@ -1976,7 +2467,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <p>You can validate input data from <a href="apielements.html#autoconnectinput">AutoConnectInput</a> using the <a href="apielements.html#isvalid">isValid</a> function before actually processing it.  The <a href="apielements.html#isvalid">isValid</a> function determines whether the <a href="apielements.html#value_3">value</a> currently stored in <a href="apielements.html#autoconnectinput">AutoConnectInput</a> matches the <a href="apielements.html#pattern">pattern</a>.</p>
 <p>You can also use the <a href="apiaux.html#isvalid">AutoConnectAux::isValid</a> function to verify the data input to all <a href="apielements.html#autoconnectinput">AutoConnectInput</a> elements on the custom Web page at once. The two sketches below show the difference between using <a href="apielements.html#isvalid">AutoConnectInput::isValid</a> and using <a href="apiaux.html#isvalid">AutoConnectAux::isValid</a>. In both cases, it verifies the input data of the same AutoConnectInput, but in the case of using AutoConnectAux::isValid, the amount of sketch coding is small.</p>
 <p><strong>A common declaration</strong></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span> <span style="color: #f8f8f2">PAGE[]</span> <span style="color: #f8f8f2">PROGMEM</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">R&quot;(</span>
 <span style="color: #e6db74">{</span>
 <span style="color: #e6db74">  &quot;title&quot;: &quot;Custom page&quot;,</span>
 <span style="color: #e6db74">  &quot;uri&quot;: &quot;/page&quot;,</span>
@@ -1999,13 +2490,13 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <span style="color: #f8f8f2">page.load(PAGE);</span>
 </code></pre></div>
 <p><strong>Using AutoConnectInput::isValid</strong></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input1</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">page[</span><span style="color: #e6db74">&quot;input1&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input1</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">page[</span><span style="color: #e6db74">&quot;input1&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
 <span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">input2</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">page[</span><span style="color: #e6db74">&quot;input2&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectInput</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
 <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">input1.isValid()</span> <span style="color: #f92672">||</span> <span style="color: #f92672">!</span><span style="color: #f8f8f2">input2.isValid())</span>
   <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;Validation error&quot;</span><span style="color: #f8f8f2">);</span>
 </code></pre></div>
 <p><strong>Using AutoConnectAux::isValid</strong></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">page.isValid())</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">page.isValid())</span>
   <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;Validation error&quot;</span><span style="color: #f8f8f2">);</span>
 </code></pre></div>
 <h3 id="convert-data-to-actually-type"><i class="fas fa-exchange-alt"></i> Convert data to actually type<a class="headerlink" href="#convert-data-to-actually-type" title="Permanent link">&para;</a></h3>
@@ -2018,25 +2509,25 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 </div>
 <h3 id="place-a-markup-or-a-styled-html-tag"><i class="far fa-file-code"></i> Place a markup or a styled HTML tag<a class="headerlink" href="#place-a-markup-or-a-styled-html-tag" title="Permanent link">&para;</a></h3>
 <p>If the HTML element you want to place is just the tag that makes up the appearance of the web page, assign the tag element directly to the <a href="apielements.html#value_2">value</a> member of AutoConnectElement. If the tag you are trying to place is for static markup effects, just write the <code>value</code> as follows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;headline&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACElement&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;&lt;hr style=&#39;height:1px;border-width:0;color:gray;background-color:#52a6ed&#39;&gt;&quot;</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>If the element has a hierarchy like a <code>&lt;table&gt; ~ &lt;/table&gt;</code>, describe the entire element in the <code>value</code>:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;table&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACElement&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Board&lt;/th&gt;&lt;th&gt;Platform&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;NodeMCU&lt;/td&gt;&lt;td&gt;Espressif8266&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;ESP32-DevKitC&lt;/td&gt;&lt;td&gt;Espressif32&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&quot;</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>Also, using <a href="acelements.html#autoconnectstyle">AutoConnectStyle</a> combined, you can give the style effect of only that element.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;tablestyle&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACStyle&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;table.style{font-family:arial,sans-serif;border-collapse:collapse;width:100%;color:black;}table.style td,table.style th{border:1px solid #dddddd;text-align:center;padding:8px;}table.style tr:nth-child(even){background-color:#dddddd;}&quot;</span>
-<span style="color: #f8f8f2">}</span><span style="color: #960050; background-color: #1e0010">,</span>
+<span style="color: #f8f8f2">},</span>
 <span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;table&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACElement&quot;</span><span style="color: #f8f8f2">,</span>
@@ -2064,7 +2555,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 <h3 id="place-the-input-elements-within-a-form"><i class="far fa-file-code"></i> Place the input elements within a form<a class="headerlink" href="#place-the-input-elements-within-a-form" title="Permanent link">&para;</a></h3>
 <p>There is still no dedicated AutoConnectElement for entering other than equivalent to <code>checkbox</code>, <code>file</code>, <code>number</code>, <code>password</code>, <code>radio</code> and <code>text</code> for <code>&lt;input type="..."&gt;</code> HTML element. But you can substitute them with the AutoConnectElement.</p>
 <p>For example, if you use the <code>&lt;input&gt;</code> element of <code>type="date"</code> to place a field where you can enter a date, the AutoConnectElement would look like this:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;date&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACElement&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;&lt;label for=&#39;picker&#39;&gt;Date:&lt;/label&gt;&lt;input type=&#39;date&#39; id=&#39;picker&#39; name=&#39;date&#39;&gt;&quot;</span>
@@ -2072,7 +2563,7 @@ ESP8266WebServer class will parse the query string and rebuilds its arguments wh
 </code></pre></div>
 <p>And it becomes a textbox that validates the input or a special date picker interface.<br />
 Then, instead of accessing that AutoConnectElement directly, obtains entered date value from the POST body included in the HTTP request from the hosted ESP8266WebServer class. Its process carries out with the <a href="achandling.html#how-you-can-reach-the-values">AutoConnectAux page handler</a> following:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">aux_page_handler</span><span style="color: #f8f8f2">(AutoConnectAux</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">arg)</span> <span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">String</span> <span style="color: #a6e22e">aux_page_handler</span><span style="color: #f8f8f2">(AutoConnectAux</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">aux,</span> <span style="color: #f8f8f2">PageArgument</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">arg)</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">Serial.println(arg.arg(</span><span style="color: #e6db74">&quot;date&quot;</span><span style="color: #f8f8f2">));</span>  <span style="color: #75715e">// Obtain a date value entered</span>
   <span style="color: #66d9ef">return</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">;</span>
 <span style="color: #f8f8f2">}</span>
@@ -2085,7 +2576,7 @@ You can use AutoConnectElement to embed JavaScript into the custom Web page as w
 <p>The following screenshot shows an example of accessing AutoConnectText via the DOM using an AutoConnectElement with JavaScript. This web page is a very simple example and returns the result of multiplying the multiplier entered in an AutoConnectInput field.</p>
 <p><img src="images/jsmultiply.png"></p>
 <p>This custom Web page is generated from the following JSON document:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
   <span style="color: #f92672">&quot;uri&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;/jselement&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;title&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Multiply&quot;</span><span style="color: #f8f8f2">,</span>
   <span style="color: #f92672">&quot;menu&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">,</span>
@@ -2117,7 +2608,7 @@ You can use AutoConnectElement to embed JavaScript into the custom Web page as w
 <span style="color: #f8f8f2">}</span>  
 </code></pre></div>
 <p>An input field for a <code>multiplier</code> is defined by AutoConnectInput. The field for displaying the results exists with the name <code>answer</code>. The multiplication function is what AutoConnectElement has as JavaScript and it has the following content:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">multi</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">multi</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;answer&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">innerHTML</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">3</span> <span style="color: #f92672">*</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;multiplier&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">;</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
@@ -2130,7 +2621,7 @@ You can use AutoConnectElement to embed JavaScript into the custom Web page as w
 <p>AutoConnectElement allows having scripts that create sessions based on <a href="https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)"><strong>XHR</strong></a>. XMLHttpRequest (XHR) is a JavaScript API to create AJAX requests. Its methods provide the ability to send network requests between the browser and a server. The Sketch simply implements the server-side process as a response handler to a normal HTTP request and can equip with a dynamic custom Web page. This technique is tricky but does not cause page transitions and is useful for implementing dynamic pages. As a matter of fact, <a href="otabrowser.html#updates-with-the-web-browserupdated-wv115">AutoConnectOTA</a> class is implemented by using this technique and is a custom Web page by AutoConnectAux.</p>
 <p>Here's a simple example of JavaScript-based on XHR and a server-side request handler. It's like a clock that displays the time in real-time on an AutoConnect custom web page. The sketch in the following example is roughly divided into two structures.<br />
 The AutoConnectElement defined with the name <code>js</code> gets the server time with XHR and updates the response via the DOM with the AutoConnectText named <code>time</code> and substance is the following JavaScript:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">var</span> <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">var</span> <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">;</span>
 
 <span style="color: #66d9ef">function</span> <span style="color: #a6e22e">clock</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
     <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">open</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;GET&#39;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&#39;/clock&#39;</span><span style="color: #f8f8f2">);</span>
@@ -2154,7 +2645,7 @@ The AutoConnectElement defined with the name <code>js</code> gets the server tim
 </code></pre></div>
 <p>This script issues a GET request to <code>/clock</code> every second and updates the element of Id=<code>time</code> with the text content of its response. As this script shows, it will issue a send request using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object.</p>
 <p>The other component is located on the AutoConnect-hosted ESP8266WebServer server. This component gets the current time from the NTP server and sends the value as text to the client.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">auxClock</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">auxClock</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
   <span style="color: #66d9ef">time_t</span>  <span style="color: #f8f8f2">t;</span>
   <span style="color: #66d9ef">struct</span> <span style="color: #a6e22e">tm</span> <span style="color: #f92672">*</span><span style="color: #f8f8f2">tm;</span>
   <span style="color: #66d9ef">char</span>    <span style="color: #f8f8f2">dateTime[</span><span style="color: #ae81ff">24</span><span style="color: #f8f8f2">];</span>
@@ -2168,10 +2659,10 @@ The AutoConnectElement defined with the name <code>js</code> gets the server tim
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>Then just register the <code>auxClock</code> function as a <code>/clock</code> URL handler with the hosted ESP8266Server instance.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #f8f8f2">server.on(</span><span style="color: #e6db74">&quot;/clock&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">auxClock);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">server.on(</span><span style="color: #e6db74">&quot;/clock&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">auxClock);</span>
 </code></pre></div>
 <p>As you can see from the above two components, AutoConnect does not intervene in those communications and no page transitions occur. A complete sketch that integrates the above components and includes a custom Web page declaration for time display looks like this:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;Arduino.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;Arduino.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
@@ -2228,7 +2719,7 @@ The AutoConnectElement defined with the name <code>js</code> gets the server tim
 <h2 id="transitions-of-the-custom-web-pages">Transitions of the custom Web pages<a class="headerlink" href="#transitions-of-the-custom-web-pages" title="Permanent link">&para;</a></h2>
 <h3 id="scope-lifetime-of-autoconnectaux">Scope &amp; Lifetime of AutoConnectAux<a class="headerlink" href="#scope-lifetime-of-autoconnectaux" title="Permanent link">&para;</a></h3>
 <p>AutoConnectAux and AutoConnectElements must live while the custom Web pages are available. The implementation of the custom Web page inherits from requestHandler driven from ESP8266WebServer (WebServer for ESP32), so the instance of AutoConnectAux and AutoConnectElements must exist for the duration of effect of handleClient. The following example is incorrect for manipulating custom Web pages. Its AutoConnectAux instance will be destructed at the exit of the setup().</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%; margin: 0;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
 <span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
@@ -2315,58 +2806,62 @@ The AutoConnectElement defined with the name <code>js</code> gets the server tim
             </article>
           </div>
         </div>
+        
       </main>
       
         
 <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
         
-          <a href="acjson.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <a href="acjson.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Web pages with JSON" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Custom Web pages with JSON
             </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Custom Web pages with JSON
-              </div>
-            </div>
-          </a>
+          </div>
+        </a>
+      
+      
         
-        
-          <a href="otaupdate.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                OTA Updates
-              </div>
+        <a href="otaupdate.html" class="md-footer__link md-footer__link--next" aria-label="Next: OTA Updates" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              OTA Updates
             </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-footer-copyright">
         
           <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018-2020 Hieromon Ikasamo
+            Copyright &copy; 2018-2021 Hieromon Ikasamo
           </div>
         
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
       </div>
       
   <div class="md-footer-social">
@@ -2396,19 +2891,13 @@ The AutoConnectElement defined with the name <code>js</code> gets the server tim
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
     
-      <script src="assets/javascripts/vendor.fd16492e.min.js"></script>
-      <script src="assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: ".",
-          features: [],
-          search: Object.assign({
-            worker: "assets/javascripts/worker/search.4ac00218.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    
+      <script src="assets/javascripts/bundle.4fc53ad4.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

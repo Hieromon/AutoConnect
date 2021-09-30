@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.2.0
- * @date 2020-11-11
+ * @version  1.3.0
+ * @date 2021-05-27
  * @copyright  MIT license.
  */
 
@@ -55,7 +55,8 @@ typedef enum {
 typedef enum {
   AC_Tag_None = 0,
   AC_Tag_BR = 1,
-  AC_Tag_P = 2
+  AC_Tag_P = 2,
+  AC_Tag_DIV = 3
 } ACPosterior_t;    /**< Tag to be generated following element */
 
 typedef enum {
@@ -96,6 +97,9 @@ class AutoConnectElementBasis {
   bool    global;     /**< The value available in global scope */
 
  protected:
+  template<typename T>
+  bool    _isCompatible(void);  /**< Verify type integrity */
+
   ACElement_t _type;  /**< Element type identifier */
 };
 
@@ -177,7 +181,7 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
  */
 class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text) : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), apply(apply) {
+  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text, const char* style = "") : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), apply(apply), style(style) {
     _type = AC_Input;
   }
   virtual ~AutoConnectInputBasis() {}
@@ -188,6 +192,7 @@ class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
   String  pattern;    /**< Format pattern to aid validation of input value */
   String  placeholder;  /**< Pre-filled placeholder */
   ACInput_t apply;    /**< An input element type attribute */
+  String  style;      /**< Formatting style */
 };
 
 /**
@@ -313,67 +318,56 @@ class AutoConnectTextBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
  * actual element class.
  */
 template<>
-inline AutoConnectButtonBasis& AutoConnectElementBasis::as<AutoConnectButtonBasis>(void) {
-  if (typeOf() != AC_Button)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectButtonBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectButtonBasis>(void) {
+  return (_type == AC_Button);
 }
 
 template<>
-inline AutoConnectCheckboxBasis& AutoConnectElementBasis::as<AutoConnectCheckboxBasis>(void) {
-  if (typeOf() != AC_Checkbox)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectCheckboxBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectCheckboxBasis>(void) {
+  return (_type == AC_Checkbox);
 }
 
 template<>
-inline AutoConnectFileBasis& AutoConnectElementBasis::as<AutoConnectFileBasis>(void) {
-  if (typeOf() != AC_File)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectFileBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectFileBasis>(void) {
+  return (_type == AC_File);
 }
 
 template<>
-inline AutoConnectInputBasis& AutoConnectElementBasis::as<AutoConnectInputBasis>(void) {
-  if (typeOf() != AC_Input)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectInputBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectInputBasis>(void) {
+  return (_type == AC_Input);
 }
 
 template<>
-inline AutoConnectRadioBasis& AutoConnectElementBasis::as<AutoConnectRadioBasis>(void) {
-  if (typeOf() != AC_Radio)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectRadioBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectRadioBasis>(void) {
+  return (_type == AC_Radio);
 }
 
 template<>
-inline AutoConnectSelectBasis& AutoConnectElementBasis::as<AutoConnectSelectBasis>(void) {
-  if (typeOf() != AC_Select)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectSelectBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectSelectBasis>(void) {
+  return (_type == AC_Select);
 }
 
 template<>
-inline AutoConnectStyleBasis& AutoConnectElementBasis::as<AutoConnectStyleBasis>(void) {
-  if (typeOf() != AC_Style)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectStyleBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectStyleBasis>(void) {
+  return (_type == AC_Style);
 }
 
 template<>
-inline AutoConnectSubmitBasis& AutoConnectElementBasis::as<AutoConnectSubmitBasis>(void) {
-  if (typeOf() != AC_Submit)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectSubmitBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectSubmitBasis>(void) {
+  return (_type == AC_Submit);
 }
 
 template<>
-inline AutoConnectTextBasis& AutoConnectElementBasis::as<AutoConnectTextBasis>(void) {
-  if (typeOf() != AC_Text)
-    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
-  return *(reinterpret_cast<AutoConnectTextBasis*>(this));
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectTextBasis>(void) {
+  return (_type == AC_Text);
 }
-#endif
+
+template<typename T>
+inline T& AutoConnectElementBasis::as(void) {
+  if (!AutoConnectElementBasis::_isCompatible<T>())
+    AC_DBG("%s mismatched type as <%d>\n", name.c_str(), (int)typeOf());
+  return *(reinterpret_cast<T*>(this));
+}
+#endif // AUTOCONNECT_USE_JSON
 
 #endif // _AUTOCONNECTELEMENTBASIS_H_

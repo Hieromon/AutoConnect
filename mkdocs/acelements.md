@@ -57,6 +57,7 @@ AutoConnect will not actively be involved in the layout of custom Web pages gene
 - **`AC_Tag_None`** : No generate additional tags.
 - **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
 - **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
 
 The default interpretation of the post value is specific to each element.
 
@@ -71,6 +72,10 @@ AutoConnectRadio | AC_Tag_BR
 AutoConnectSelect | AC_Tag_BR
 AutoConnectSubmit | AC_Tag_None
 AutoConnectText | AC_Tag_None
+
+!!! note "A placement posterior of AutoConnectText"
+    A placement posterior for AutoConnectText has a slightly peculiar specification. AutoConnectText element without the style attribute will be drained to HTML as a raw value and is accompanied by `<p>`, `<br>` or `<div>` tags according to the post enumeration values.    
+    If the style attribute is specified, the post enumeration value will be ignored and always be enclosed in the `<div>` tag, and the style value will be inserted into `style` attribute of the `<div>` tag.
 
 ### <i class="fa fa-caret-right"></i> type
 
@@ -308,6 +313,10 @@ Specifies the type of input that the text box accepts. AutoConnectInput will gen
 - **`AC_Input_Password`** : `input type="password"`
 - **`AC_Input_Number`** : `input type="number"`
 
+!!! note "Numerical keypad is different"
+    When the AutoConnectInput element with the `AC_Input_Number` applied is focused on the browser, the numeric keypad may be displayed automatically. For popular mobile OSes such as Android and iOS, the numeric keypad has the following styles and is different with each OS.
+    <div style="display:inline-block"><img src="images/html5_forms_number.png"><span style="padding-left:30px"></span><img src="images/html5_forms_number_ios.png"></div>
+
 ## AutoConnectRadio
 
 AutoConnectRadio generates few HTML `#!html <input type="radio">` tags as grouped and the same number of `#!html <label>` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.
@@ -477,7 +486,8 @@ A `format` is a pointer to a null-terminated multi byte string specifying how to
 
 ### <i class="fa fa-caret-right"></i> post
 
-Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_None`.
+Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_None`.  
+AutoConnectText element without the style parameter will be drained to HTML as a raw value and is accompanied by `<p>`, `<br>` or `<div>` tags according to the post enumeration values. If the style parameter is specified, the post enumeration value will be ignored and always be enclosed in the `<div>` tag, and the style value will be inserted into `style` attribute of the `<div>` tag.
 
 ## How to coding for the elements
 
@@ -487,25 +497,25 @@ Variables of each AutoConnetElement can be declared with macros. By using the ma
 
 [^2]: The square brackets in the syntax are optional parameters, the stroke is a selection parameter, the bold fonts are literal.
 
-ACElement ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACElement ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *action* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACButton ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *action* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
  
-ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**true**</small> | <small>**false**</small> <small>\]</small> <small>\[</small> , <small>**AC_Infront**</small> | <small>**AC_Behind**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACCheckbox ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**true**</small> | <small>**false**</small> <small>\]</small> <small>\[</small> , <small>**AC_Infront**</small> | <small>**AC_Behind**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_File\_FS**</small> | <small>**AC\_File\_SD**</small> | <small>**AC\_File\_Extern**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_File\_FS**</small> | <small>**AC\_File\_SD**</small> | <small>**AC\_File\_Extern**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Input\_Text**</small> | <small>**AC\_Input\_Password**</small> | <small>**AC\_Input\_Number**</small> <small>\]</small>)
+ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Input\_Text**</small> | <small>**AC\_Input\_Password**</small> | <small>**AC\_Input\_Number**</small> <small>\]</small>)
 
-ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Horizontal</small>** | <small>**AC\_Vertical**</small> <small>\]</small> <small>\[</small> , *checked* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Horizontal</small>** | <small>**AC\_Vertical**</small> <small>\]</small> <small>\[</small> , *checked* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
 ACStyle ( *name* <small>\[</small> , *value* <small>\]</small> )
 
-ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACSubmit ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *uri* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
-ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> <small>\[</small> , *format* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> <small>\]</small> )
+ACText ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *style* <small>\]</small> <small>\[</small> , *format* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 
 !!! memo "Declaration macro usage"
     For example, *AutoConnectText* can be declared using macros.

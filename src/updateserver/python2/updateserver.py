@@ -18,6 +18,7 @@ import urllib2, urllib, urlparse
 from itertools import imap
 from io import open
 
+
 class UpdateHttpServer(object):
     def __init__(self, port, bind, catalog_dir):
         def handler(*args):
@@ -49,7 +50,7 @@ class UpdateHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
                         path = urlparse.parse_qs(query)['path'][0]
                     except KeyError:
                         path = '.'
-                    self.__send_dir(path)
+                    self.__send_dir(os.path.join(self.catalog_dir, path))
                     result = True
                 else:
                     err = '{0} unknown operation'.format(op)

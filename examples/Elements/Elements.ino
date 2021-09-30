@@ -10,36 +10,26 @@
   values ​​entered in a custom web page into flash.
 */
 
+// To properly include the suitable header files to the target platform.
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <LittleFS.h>
 using WebServerClass = ESP8266WebServer;
+FS& FlashFS = LittleFS;
+#define FORMAT_ON_FAIL
+
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
+#include <FS.h>
 #include <SPIFFS.h>
 using WebServerClass = WebServer;
-#endif
-#include <AutoConnect.h>
-
-/*
-  AC_USE_SPIFFS indicates SPIFFS or LittleFS as available file systems that
-  will become the AUTOCONNECT_USE_SPIFFS identifier and is exported as shown
-  the valid file system. After including AutoConnect.h, the Sketch can determine
-  whether to use FS.h or LittleFS.h by AUTOCONNECT_USE_SPIFFS definition.
-*/
-#include <FS.h>
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifdef AUTOCONNECT_USE_SPIFFS
-FS& FlashFS = SPIFFS;
-#else
-#include <LittleFS.h>
-FS& FlashFS = LittleFS;
-#endif
-#elif defined(ARDUINO_ARCH_ESP32)
-#include <SPIFFS.h>
 fs::SPIFFSFS& FlashFS = SPIFFS;
+#define FORMAT_ON_FAIL  true
 #endif
+
+#include <AutoConnect.h>
 
 #define PARAM_FILE      "/elements.json"
 #define USERNAME        "username_you_wish"   // For HTTP authentication
@@ -196,6 +186,8 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
 
+  FlashFS.begin(FORMAT_ON_FAIL);
+
   // Responder of root page handled directly from WebServer class.
   server.on("/", []() {
     String content = "Place the root page with the sketch application.&ensp;";
@@ -213,13 +205,11 @@ void setup() {
       // Since this handler only supports AutoConnectSubmit called the
       // Load, it uses the uri of the custom web page placed to
       // determine whether the Load was called me or not.
-      FlashFS.begin();
       File param = FlashFS.open(PARAM_FILE, "r");
       if (param) {
         aux.loadElement(param, { "text", "check", "input", "input", "pass", "number", "radio", "select" } );
         param.close();
       }
-      FlashFS.end();
     }
     return String();
   });
@@ -237,11 +227,6 @@ void setup() {
     // formatted text using the format attribute.
     aux["caption"].value = PARAM_FILE;
 
-#if defined(ARDUINO_ARCH_ESP8266)
-    FlashFS.begin();
-#elif defined(ARDUINO_ARCH_ESP32)
-    FlashFS.begin(true);
-#endif
     File param = FlashFS.open(PARAM_FILE, "w");
     if (param) {
       // Save as a loadable set for parameters.
@@ -255,7 +240,6 @@ void setup() {
     else {
       aux["echo"].value = "Filesystem failed to open.";
     }
-    FlashFS.end();
     return String();
   });
 
@@ -265,6 +249,8 @@ void setup() {
   config.username = USERNAME;
   config.password = PASSWORD;
   config.ticker = true;
+  config.autoReconnect = true;
+  config.reconnectInterval = 1;
   portal.config(config);
   portal.begin();
 }
