@@ -121,9 +121,11 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Fixed credentials not erased correctly. (issue #388)
 - Fixed AutoConnectText posterior being unavailable.
 
-##### Important note
+##### Important Notes:
 
-When building a sketch in the PlatformIO environment, a compile error may appear that says "File system header file not found". This error can be avoided by setting the library search mode to the `deep` in with the `platformio.ini` file. See the documentation [FAQ](https://hieromon.github.io/AutoConnect/faq.html#compile-error-due-to-file-system-header-file-not-found) for more details.
+1. Upgraded Arduino core 2.0.0 for ESP32 will increase the compiled sketch binary size. Your sketch may not fit in the flash and may occur an error during the linkage phase.    
+In ESP32 Arduino core 2.0.0, the default maximum sketch binary size is 1280 KB, an area of the same size is reserved for OTA. 1472 KB is added as a file system area to this. You can change this partition definition at will with Arduino IDE for each build. You can also reallocate the SPIFFS area to the sketch binary if the sketch does not require a large file. Select menu `Tool` > `Partition Scheme`, you will be able to find a partition scheme that fits your sketch. Also, in the PlatformIO environment, it can be changed by adding the `board_build.partitions` directive to the `platformio.ini` file. See [FAQ](https://hieromon.github.io/AutoConnect/faq.html#sketch-size) of Documentation for details.
+2. When building a sketch in the PlatformIO environment, a compile error may appear that says: *File system header file not found*. This error can be avoided by setting the library search mode to the `deep` in with the `platformio.ini` file. See [FAQ](https://hieromon.github.io/AutoConnect/faq.html#compile-error-due-to-file-system-header-file-not-found) of Documentation for details.
 
 ### [1.2.3] Jan. 3, 2021
 
