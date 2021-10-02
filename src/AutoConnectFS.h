@@ -54,6 +54,9 @@ extern "C" {
 #include <LittleFS.h>
 #define AUTOCONNECT_APPLIED_FILESYSTEM    LittleFS
 #ifdef ARDUINO_ARCH_ESP32
+extern "C" {
+#include <esp_littlefs.h>
+}
 #define AUTOCONNECT_APPLIED_FILECLASS     fs::LittleFSFS
 #endif
 #endif
