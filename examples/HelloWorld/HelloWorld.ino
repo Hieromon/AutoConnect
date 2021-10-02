@@ -32,22 +32,32 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <LittleFS.h>
-#define FORMAT_ON_FAIL
 using WiFiWebServer = ESP8266WebServer;
-FS& FlashFS = LittleFS;
-
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
-#include <FS.h>
-#include <SPIFFS.h>
-#define FORMAT_ON_FAIL  true
 using WiFiWebServer = WebServer;
-fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
-
 #include <AutoConnect.h>
+
+/*
+  Include AutoConnectFS.h allows the sketch to retrieve the current file
+  system that AutoConnect has selected. It derives a constant
+  AUTOCONNECT_APPLIED_FILESYSTEM according to the definition state of
+  AC_USE_SPIFFS or AC_USE_LITTLEFS in AutoConnectDefs.h.
+  Also, the AutoConnectFS::FS class indicates either SPIFFS or LittleFS
+  and will select the appropriate filesystem class depending on the file
+  system applied to the sketch by the definition AC_USE_SPIFFS or
+  AC_USE_LITTLEFS in AutoConnectDefs.h.
+  You no need to change the sketch due to the file system change, declare
+  the Filesystem object according to the following usage:
+  
+  #include <AutoConnectFS.h>
+  AutoConnectFS::FS& name = AUTOCONNECT_APPLIED_FILESYSTEM;
+  name.begin(AUTOCONECT_FS_INITIALIZATION);
+*/
+#include <AutoConnectFS.h>
+AutoConnectFS::FS& FlashFS = AUTOCONNECT_APPLIED_FILESYSTEM;
 
 // Declare AutoConnectText with only a value.
 // Qualify the Caption by reading style attributes from the style.json file.
@@ -56,7 +66,7 @@ ACText(Caption, "Hello, world", "", "", AC_Tag_DIV);
 ACRadio(Styles, {}, "");
 ACSubmit(Apply, "Apply", HELLO_URI);
 
-//AutoConnectAux for the custom Web page.
+// AutoConnectAux for the custom Web page.
 AutoConnectAux helloPage(HELLO_URI, "Hello", true, { Caption, Styles, Apply });
 AutoConnectConfig config;
 AutoConnect portal;
@@ -65,9 +75,11 @@ AutoConnect portal;
 String ElementJson;
 
 // Load the element from specified file in the flash on board.
-void loadParam(const char* fileName) {
-  Serial.printf("Style %s ", fileName);
-  File param = FlashFS.open(fileName, "r");
+void loadParam(String fileName) {
+  Serial.printf("Style %s ", fileName.c_str());
+  if (!fileName.startsWith("/"))
+    fileName = String("/") + fileName;
+  File param = FlashFS.open(fileName.c_str(), "r");
   if (param) {
     ElementJson = param.readString();
     param.close();
@@ -90,9 +102,7 @@ void onRoot() {
 String onHello(AutoConnectAux& aux, PageArgument& args) {
   // Select the style parameter file and load it into the text element.
   AutoConnectRadio& styles = helloPage["Styles"].as<AutoConnectRadio>();
-  String  styleName = styles.value();
-  if (styleName.length())
-    loadParam(styleName.c_str());
+  loadParam(styles.value());
 
   // List parameter files stored on the flash.
   // Those files need to be uploaded to the filesystem in advance.
@@ -124,7 +134,7 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-  FlashFS.begin(FORMAT_ON_FAIL);
+  FlashFS.begin(AUTOCONECT_FS_INITIALIZATION);
 
   helloPage.on(onHello);      // Register the attribute overwrite handler.
   portal.join(helloPage);     // Join the hello page.
