@@ -73,7 +73,7 @@ namespace AutoConnectFS {
 #if AC_USE_FILESYSTEM == 1
     return esp_spiffs_mounted(NULL);
 #elif AC_USE_FILESYSTEM == 2
-    return esp_littlefs_mounted(NULL);
+    return (esp_littlefs_mounted(NULL) == ESP_OK);
 #endif
 #endif
   }

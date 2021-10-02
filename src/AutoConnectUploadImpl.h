@@ -81,6 +81,7 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
   bool  _open(const char* filename, const char* mode) override {
     _mounted = AutoConnectFS::_isMounted(_media);
     if (!_mounted) {
+      AC_DBG("%s is not mounted, ensure mount\n", AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_APPLIED_FILESYSTEM));
       if (!_media->begin(AUTOCONECT_FS_INITIALIZATION)) {
         AC_DBG("%s mount failed\n", AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_APPLIED_FILESYSTEM));
         return false;
