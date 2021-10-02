@@ -28,6 +28,7 @@
 #define ARDUINOJSON_CREATEARRAY(doc)      doc.createArray()
 #define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = doc.prettyPrintTo(out); s; })
 #define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = doc.printTo(out); s; })
+#define ARDUINOJSON_OBJECT_REFMODIFY
 using ArduinoJsonObject = JsonObject&;
 using ArduinoJsonArray = JsonArray&;
 using ArduinoJsonBuffer = DynamicJsonBuffer;
@@ -38,6 +39,7 @@ using ArduinoJsonBuffer = DynamicJsonBuffer;
 #define ARDUINOJSON_CREATEARRAY(doc)      doc.to<JsonArray>()
 #define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = serializeJsonPretty(doc, out); s; })
 #define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = serializeJson(doc, out); s; })
+#define ARDUINOJSON_OBJECT_REFMODIFY      const
 using ArduinoJsonObject = JsonObject;
 using ArduinoJsonArray = JsonArray;
 #if defined(BOARD_HAS_PSRAM) && ((ARDUINOJSON_VERSION_MAJOR==6 && ARDUINOJSON_VERSION_MINOR>=10) || ARDUINOJSON_VERSION_MAJOR>6)

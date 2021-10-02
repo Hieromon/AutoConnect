@@ -59,7 +59,7 @@ bool AutoConnectElementJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectElement to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectElementJson::serialize(const JsonObject& json) {
+void AutoConnectElementJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACELEMENT));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
@@ -70,7 +70,7 @@ void AutoConnectElementJson::serialize(const JsonObject& json) {
  * This function is base for each element.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectElementJson::_serialize(const JsonObject& json) {
+void AutoConnectElementJson::_serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   json[F(AUTOCONNECT_JSON_KEY_NAME)] = name;
   if (post != _defaultPost) {
     PGM_P posterior;
@@ -152,7 +152,7 @@ bool AutoConnectButtonJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectButton to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectButtonJson::serialize(const JsonObject& json) {
+void AutoConnectButtonJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACBUTTON));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
@@ -203,7 +203,7 @@ bool AutoConnectCheckboxJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectCheckbox to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectCheckboxJson::serialize(const JsonObject& json) {
+void AutoConnectCheckboxJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACCHECKBOX));
   json[F(AUTOCONNECT_JSON_KEY_NAME)] = name;
@@ -258,7 +258,7 @@ bool AutoConnectFileJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectFile to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectFileJson::serialize(const JsonObject& json) {
+void AutoConnectFileJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACFILE));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
@@ -329,7 +329,7 @@ bool AutoConnectInputJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectInput to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectInputJson::serialize(const JsonObject& json) {
+void AutoConnectInputJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACINPUT));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
@@ -405,7 +405,7 @@ bool AutoConnectRadioJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectRadio to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectRadioJson::serialize(const JsonObject& json) {
+void AutoConnectRadioJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACRADIO));
   json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
@@ -468,7 +468,7 @@ bool AutoConnectSelectJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectSelect to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectSelectJson::serialize(const JsonObject& json) {
+void AutoConnectSelectJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACSELECT));
   ArduinoJsonArray options = json.createNestedArray(F(AUTOCONNECT_JSON_KEY_OPTION));
@@ -498,7 +498,7 @@ bool AutoConnectStyleJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectStyle to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectStyleJson::serialize(const JsonObject& json) {
+void AutoConnectStyleJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACSTYLE));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
@@ -535,7 +535,7 @@ bool AutoConnectSubmitJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectSubmit to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectSubmitJson::serialize(const JsonObject& json) {
+void AutoConnectSubmitJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACSUBMIT));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
@@ -575,7 +575,7 @@ bool AutoConnectTextJson::loadMember(const JsonObject& json) {
  * Serialize AutoConnectText to JSON.
  * @param  json  JSON object to be serialized.
  */
-void AutoConnectTextJson::serialize(const JsonObject& json) {
+void AutoConnectTextJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
   _serialize(json);
   json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACTEXT));
   json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
