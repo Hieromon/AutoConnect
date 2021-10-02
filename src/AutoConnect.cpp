@@ -18,10 +18,12 @@
 #ifdef ESP_ARDUINO_VERSION_MAJOR
 #if ESP_ARDUINO_VERSION_MAJOR>=2
 #define AC_ESP_WIFIEVENT_DECLARE(x) ARDUINO_EVENT_WIFI_##x
+#define AC_ESP_WIFIEVENTINFO_DECLARE(x) wifi_sta_##x
 #endif
 #endif
 #ifndef AC_ESP_WIFIEVENT_DECLARE
 #define AC_ESP_WIFIEVENT_DECLARE(x) SYSTEM_EVENT_##x
+#define AC_ESP_WIFIEVENTINFO_DECLARE(x) x
 #endif
 #endif
 
@@ -1570,7 +1572,7 @@ void AutoConnect::_setReconnect(const AC_STARECONNECT_t order) {
 #if defined(ARDUINO_ARCH_ESP32)
   if (order == AC_RECONNECT_SET) {
     _disconnectEventId = WiFi.onEvent([](WiFiEvent_t e, WiFiEventInfo_t info) {
-      AC_DBG("STA lost connection:%d\n", info.disconnected.reason);
+      AC_DBG("STA lost connection:%d\n", info.AC_ESP_WIFIEVENTINFO_DECLARE(disconnected).reason);
       AC_DBG("STA connection %s\n", WiFi.reconnect() ? "restored" : "failed");
     }, WiFiEvent_t::AC_ESP_WIFIEVENT_DECLARE(AP_STADISCONNECTED));
     AC_DBG("Event<%d> handler registered\n", static_cast<int>(WiFiEvent_t::AC_ESP_WIFIEVENT_DECLARE(AP_STADISCONNECTED)));
