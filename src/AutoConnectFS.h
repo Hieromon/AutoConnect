@@ -2,8 +2,8 @@
  * Predefined file system applied for AutoConnect usage.
  * @file AutoConnectFS.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-09-06
+ * @version  1.3.1
+ * @date 2021-10-03
  * @copyright  MIT license.
  */
 

@@ -2,8 +2,8 @@
  * Wrapping definition to ensure version compatibility of ArduinoJson.
  * @file AutoConnectJsonDefs.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-04-25
+ * @version  1.3.1
+ * @date 2021-10-03
  * @copyright  MIT license.
  */
 
