@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.3.0
- *	@date	2021-09-06
+ *	@version	1.3.1
+ *	@date	2021-10-03
  *	@copyright	MIT license.
  */
 
@@ -231,7 +231,7 @@ typedef std::vector<std::reference_wrapper<AutoConnectAux>> AutoConnectAuxVT;
 class AutoConnect {
  public:
   AutoConnect();
-  AutoConnect(WebServerClass& webServer);
+  explicit AutoConnect(WebServerClass& webServer);
   virtual ~AutoConnect();
   bool  begin(void);
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = 0);
