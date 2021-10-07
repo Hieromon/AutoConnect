@@ -3,7 +3,7 @@
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
  *	@version	1.3.1
- *	@date	2021-10-03
+ *	@date	2021-10-07
  *	@copyright	MIT license.
  */
 
@@ -298,6 +298,7 @@ class AutoConnect {
   bool  _getConfigSTA(station_config_t* config);
   bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   bool  _loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent);
+  void  _restoreSTA(const station_config_t& staConfig);
   bool  _seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKMODE_t mode);
   void  _startWebServer(void);
   void  _startDNSServer(void);
