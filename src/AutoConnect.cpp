@@ -3,7 +3,7 @@
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
  *  @version    1.3.1
- *  @date   2021-10-03
+ *  @date   2021-10-07
  *  @copyright  MIT license.
  */
 
@@ -496,6 +496,7 @@ void AutoConnect::handleRequest(void) {
       // multiplied by AUTOCONNECT_UNITTIME.
       if (sc == WIFI_SCAN_FAILED) {
         if (millis() - _attemptPeriod > ((unsigned long)_apConfig.reconnectInterval * AUTOCONNECT_UNITTIME * 1000)) {
+          WiFi.disconnect();
           int8_t  sn = WiFi.scanNetworks(true, true);
           AC_DBG("autoReconnect %s\n", sn == WIFI_SCAN_RUNNING ? "running" : "failed");
           _attemptPeriod = millis();
@@ -987,16 +988,28 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
     else if (strlen(ssid))
       if (credential.load(ssid, &_credential) >= 0) {
         if (_credential.dhcp == STA_STATIC) {
-          _apConfig.staip = static_cast<IPAddress>(_credential.config.sta.ip);
-          _apConfig.staGateway = static_cast<IPAddress>(_credential.config.sta.gateway);
-          _apConfig.staNetmask = static_cast<IPAddress>(_credential.config.sta.netmask);
-          _apConfig.dns1 = static_cast<IPAddress>(_credential.config.sta.dns1);
-          _apConfig.dns2 = static_cast<IPAddress>(_credential.config.sta.dns2);
+          // Restore loaded IP settings to the current STA configuration
+          _restoreSTA(_credential);
         }
         return true;
       }
   }
   return false;
+}
+
+/**
+ *  Restore station IP settings to the current STA settings.
+ *  The restored settings will be used for WiFi.config parameters during
+ *  the next connection request turn.
+ *  @param  staConfig  A reference to station_config_t that contains the
+ *  configuration to restore.
+ */
+void AutoConnect::_restoreSTA(const station_config_t& staConfig) {
+  _apConfig.staip = static_cast<IPAddress>(staConfig.config.sta.ip);
+  _apConfig.staGateway = static_cast<IPAddress>(staConfig.config.sta.gateway);
+  _apConfig.staNetmask = static_cast<IPAddress>(staConfig.config.sta.netmask);
+  _apConfig.dns1 = static_cast<IPAddress>(staConfig.config.sta.dns1);
+  _apConfig.dns2 = static_cast<IPAddress>(staConfig.config.sta.dns2);
 }
 
 /**
@@ -1064,6 +1077,7 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKM
   // Restore the credential that has maximum RSSI.
   if (minRSSI > -120) {
     memcpy(&_credential, &validConfig, sizeof(station_config_t));
+    _restoreSTA(_credential);
     return true;
   }
   return false;
@@ -1317,11 +1331,7 @@ String AutoConnect::_induceConnect(PageArgument& args) {
   }
 
   // Restore the configured IPs to STA configuration
-  _apConfig.staip = static_cast<IPAddress>(_credential.config.sta.ip);
-  _apConfig.staGateway = static_cast<IPAddress>(_credential.config.sta.gateway);
-  _apConfig.staNetmask = static_cast<IPAddress>(_credential.config.sta.netmask);
-  _apConfig.dns1 = static_cast<IPAddress>(_credential.config.sta.dns1);
-  _apConfig.dns2 = static_cast<IPAddress>(_credential.config.sta.dns2);
+  _restoreSTA(_credential);
 
   // Determine the connection channel based on the scan result.
   _connectCh = 0;
