@@ -327,14 +327,15 @@ void AutoConnectCredential::_retrieveEntry(station_config_t* config) {
     config->bssid[i] = _eeprom->read(_dp++);
   // Extended readout for static IP
   config->dhcp = _eeprom->read(_dp++);
-  if (config->dhcp == (uint8_t)STA_STATIC) {
-    for (uint8_t e = 0; e < sizeof(station_config_t::_config::addr) / sizeof(uint32_t); e++) {
-      uint32_t* ip = &config->config.addr[e];
-      *ip = 0;
-      for (uint8_t b = 0; b < sizeof(uint32_t); b++) {
-        *ip <<= 8;
-        *ip += _eeprom->read(_dp++);
-      }
+  for (uint8_t e = 0; e < sizeof(station_config_t::_config::addr) / sizeof(uint32_t); e++) {
+    uint32_t* ip = &config->config.addr[e];
+    *ip = 0;
+    for (uint8_t b = 0; b < sizeof(uint32_t); b++) {
+      uint8_t byte4uint32 = 0;
+      if (config->dhcp == (uint8_t)STA_STATIC)
+        byte4uint32 = _eeprom->read(_dp++);
+      *ip <<= 8;
+      *ip += byte4uint32;
     }
   }
 }
