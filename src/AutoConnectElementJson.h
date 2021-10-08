@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-05-27
+ * @version  1.3.1
+ * @date 2021-10-03
  * @copyright  MIT license.
  */
 
@@ -79,13 +79,13 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
   ~AutoConnectElementJson() {}
   virtual size_t  getObjectSize(void) const;
   virtual bool  loadMember(const JsonObject& json);
-  virtual void  serialize(const JsonObject& json);
+  virtual void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json);
   template<typename T>
   T&  as(void);
 
  protected:
   void  _setMember(const JsonObject& json);
-  void  _serialize(const JsonObject& json);
+  void  _serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json);
 
  protected:
   ACPosterior_t   _defaultPost;
@@ -111,7 +111,7 @@ class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectB
   ~AutoConnectButtonJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -137,7 +137,7 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
   ~AutoConnectCheckboxJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -162,7 +162,7 @@ class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFil
   ~AutoConnectFileJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -190,7 +190,7 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
   ~AutoConnectInputJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -215,7 +215,7 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
   ~AutoConnectRadioJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -239,7 +239,7 @@ class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectS
   ~AutoConnectSelectJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -261,7 +261,7 @@ class AutoConnectStyleJson : public AutoConnectElementJson, public AutoConnectSt
   }
   ~AutoConnectStyleJson() {}
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -285,7 +285,7 @@ class AutoConnectSubmitJson : public AutoConnectElementJson, public AutoConnectS
   ~AutoConnectSubmitJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**
@@ -310,7 +310,7 @@ class AutoConnectTextJson : public AutoConnectElementJson, public AutoConnectTex
   ~AutoConnectTextJson() {}
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
-  void  serialize(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
 };
 
 /**

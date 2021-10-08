@@ -2,8 +2,8 @@
  * Wrapping definition to ensure version compatibility of ArduinoJson.
  * @file AutoConnectJsonDefs.h
  * @author hieromon@gmail.com
- * @version  1.0.0
- * @date 2019-04-25
+ * @version  1.3.1
+ * @date 2021-10-03
  * @copyright  MIT license.
  */
 
@@ -28,6 +28,7 @@
 #define ARDUINOJSON_CREATEARRAY(doc)      doc.createArray()
 #define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = doc.prettyPrintTo(out); s; })
 #define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = doc.printTo(out); s; })
+#define ARDUINOJSON_OBJECT_REFMODIFY
 using ArduinoJsonObject = JsonObject&;
 using ArduinoJsonArray = JsonArray&;
 using ArduinoJsonBuffer = DynamicJsonBuffer;
@@ -38,6 +39,7 @@ using ArduinoJsonBuffer = DynamicJsonBuffer;
 #define ARDUINOJSON_CREATEARRAY(doc)      doc.to<JsonArray>()
 #define ARDUINOJSON_PRETTYPRINT(doc, out) ({ size_t s = serializeJsonPretty(doc, out); s; })
 #define ARDUINOJSON_PRINT(doc, out)       ({ size_t s = serializeJson(doc, out); s; })
+#define ARDUINOJSON_OBJECT_REFMODIFY      const
 using ArduinoJsonObject = JsonObject;
 using ArduinoJsonArray = JsonArray;
 #if defined(BOARD_HAS_PSRAM) && ((ARDUINOJSON_VERSION_MAJOR==6 && ARDUINOJSON_VERSION_MINOR>=10) || ARDUINOJSON_VERSION_MAJOR>6)

@@ -2,8 +2,8 @@
  * Predefined file system applied for AutoConnect usage.
  * @file AutoConnectFS.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-09-06
+ * @version  1.3.1
+ * @date 2021-10-03
  * @copyright  MIT license.
  */
 
@@ -54,6 +54,9 @@ extern "C" {
 #include <LittleFS.h>
 #define AUTOCONNECT_APPLIED_FILESYSTEM    LittleFS
 #ifdef ARDUINO_ARCH_ESP32
+extern "C" {
+#include <esp_littlefs.h>
+}
 #define AUTOCONNECT_APPLIED_FILECLASS     fs::LittleFSFS
 #endif
 #endif
@@ -70,7 +73,7 @@ namespace AutoConnectFS {
 #if AC_USE_FILESYSTEM == 1
     return esp_spiffs_mounted(NULL);
 #elif AC_USE_FILESYSTEM == 2
-    return esp_littlefs_mounted(NULL);
+    return (esp_littlefs_mounted(NULL) == ESP_OK);
 #endif
 #endif
   }

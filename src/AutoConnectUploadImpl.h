@@ -2,8 +2,8 @@
  * The default upload handler implementation.
  * @file AutoConnectUploadImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-06-06
+ * @version  1.3.1
+ * @date 2021-10-03
  * @copyright  MIT license.
  */
 
@@ -74,13 +74,14 @@ void AutoConnectUploadHandler::upload(const String& requestUri, const HTTPUpload
 // Default handler for uploading to the standard SPIFFS class embedded in the core.
 class AutoConnectUploadFS : public AutoConnectUploadHandler {
  public:
-  explicit AutoConnectUploadFS(AutoConnectFS::FS& media) : _media(&media) {}
+  explicit AutoConnectUploadFS(AutoConnectFS::FS& media) : _media(&media), _mounted(false) {}
   ~AutoConnectUploadFS() { _close(HTTPUploadStatus::UPLOAD_FILE_END); }
 
  protected:
   bool  _open(const char* filename, const char* mode) override {
     _mounted = AutoConnectFS::_isMounted(_media);
     if (!_mounted) {
+      AC_DBG("%s is not mounted, ensure mount\n", AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_APPLIED_FILESYSTEM));
       if (!_media->begin(AUTOCONECT_FS_INITIALIZATION)) {
         AC_DBG("%s mount failed\n", AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_APPLIED_FILESYSTEM));
         return false;

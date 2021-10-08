@@ -24,7 +24,6 @@
 #include <ESP8266WebServer.h>
 #include <LittleFS.h>
 #define FORMAT_ON_FAIL
-#define FILE_MODE_R "r"
 using WiFiWebServer = ESP8266WebServer;
 FS& FlashFS = LittleFS;
 
@@ -34,7 +33,6 @@ FS& FlashFS = LittleFS;
 #include <FS.h>
 #include <SPIFFS.h>
 #define FORMAT_ON_FAIL  true
-#define FILE_MODE_R FILE_READ
 using WiFiWebServer = WebServer;
 fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
@@ -51,7 +49,7 @@ static const char PAGE_UPLOAD[] PROGMEM = R"(
     {
       "name": "caption",
       "type": "ACText",
-      "value": "<h2>File uploading platform<h2>"
+      "value": "<h2>File uploading platform</h2>"
     },
     {
       "name": "upload_file",
@@ -79,7 +77,7 @@ static const char PAGE_BROWSE[] PROGMEM = R"(
     {
       "name": "caption",
       "type": "ACText",
-      "value": "<h2>Uploading ended<h2>"
+      "value": "<h2>Uploading ended</h2>"
     },
     {
       "name": "filename",
@@ -177,8 +175,9 @@ String postUpload(AutoConnectAux& aux, PageArgument& args) {
 
   // Include the uploaded content in the object tag to provide feedback
   // in case of success.
-  if (FlashFS.exists(String("/")) + aux_filename.value)
-    auxBrowse["object"].value = String("<object data=\"/") + aux_filename.value + String("\"></object>");
+  String  uploadFileName = String("/") + aux_filename.value;
+  if (FlashFS.exists(uploadFileName.c_str()))
+    auxBrowse["object"].value = String("<object data=\"") + uploadFileName + String("\"></object>");
   else
     auxBrowse["object"].value = "Not saved";
   return String();
@@ -194,8 +193,8 @@ void handleFileRead(void) {
 #elif defined(ARDUINO_ARCH_ESP32)
     server.uri();
 #endif
-  if (FlashFS.exists(filePath)) {
-    File  uploadedFile = FlashFS.open(filePath, FILE_MODE_R);
+  if (FlashFS.exists(filePath.c_str())) {
+    File  uploadedFile = FlashFS.open(filePath, "r");
     String  mime = 
 #if defined(ARDUINO_ARCH_ESP8266)
       mime::getContentType(filePath);

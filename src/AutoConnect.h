@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.3.0
- *	@date	2021-09-06
+ *	@version	1.3.1
+ *	@date	2021-10-07
  *	@copyright	MIT license.
  */
 
@@ -231,7 +231,7 @@ typedef std::vector<std::reference_wrapper<AutoConnectAux>> AutoConnectAuxVT;
 class AutoConnect {
  public:
   AutoConnect();
-  AutoConnect(WebServerClass& webServer);
+  explicit AutoConnect(WebServerClass& webServer);
   virtual ~AutoConnect();
   bool  begin(void);
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = 0);
@@ -298,6 +298,7 @@ class AutoConnect {
   bool  _getConfigSTA(station_config_t* config);
   bool  _loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t principle = AC_PRINCIPLE_RECENT, const bool excludeCurrent = false);
   bool  _loadCurrentCredential(char* ssid, char* password, const AC_PRINCIPLE_t principle, const bool excludeCurrent);
+  void  _restoreSTA(const station_config_t& staConfig);
   bool  _seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKMODE_t mode);
   void  _startWebServer(void);
   void  _startDNSServer(void);
