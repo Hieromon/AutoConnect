@@ -102,6 +102,12 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.3.1] Oct. 09, 2021
+- Fixed an issue that was incompatible with ArduinoJson version 5. (issue #408)
+- Fixed LittleFS mount check not working with ESP32.
+- Fixed autoReconnect not being able to restore a static IP setting. (issue #400)
+- Fixed that static IP settings were not cleared when loading credential.
+
 ### [1.3.0] Sep. 25, 2021
 - Supports ESP8266 3.0.0 Arduino core.
 - Supports ESP32 Arduino core 2.0.0.
