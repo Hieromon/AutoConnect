@@ -987,10 +987,8 @@ bool AutoConnect::_loadAvailCredential(const char* ssid, const AC_PRINCIPLE_t pr
     // Set the IP configuration globally from the saved credential.
     else if (strlen(ssid))
       if (credential.load(ssid, &_credential) >= 0) {
-        if (_credential.dhcp == STA_STATIC) {
-          // Restore loaded IP settings to the current STA configuration
-          _restoreSTA(_credential);
-        }
+        // Restore loaded IP settings to the current STA configuration
+        _restoreSTA(_credential);
         return true;
       }
   }
@@ -1056,6 +1054,7 @@ bool AutoConnect::_seekCredential(const AC_PRINCIPLE_t principle, const AC_SEEKM
           switch (principle) {
           case AC_PRINCIPLE_RECENT:
             // By BSSID, exit to keep the credential just loaded.
+            _restoreSTA(_credential);
             return true;
 
           case AC_PRINCIPLE_RSSI:
