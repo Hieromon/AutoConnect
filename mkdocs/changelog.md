@@ -1,3 +1,10 @@
+### [1.3.2] Nov. 19, 2021
+
+#### Fix
+
+- Fixed an issue where a password is lost when SoftAP is stopped.
+
+---
 ### [1.3.1] Oct. 09, 2021
 
 #### Fixes

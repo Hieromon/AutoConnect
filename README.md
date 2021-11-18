@@ -102,6 +102,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.3.2] Nov. 19, 2021
+
+- Fixed an issue where password is lost when SoftAP is stopped. (issue #425)
+
 ### [1.3.1] Oct. 09, 2021
 - Fixed an issue that was incompatible with ArduinoJson version 5. (issue #408)
 - Fixed LittleFS mount check not working with ESP32.
