@@ -1185,7 +1185,7 @@ void AutoConnect::_stopPortal(void) {
   }
 
   _setReconnect(AC_RECONNECT_RESET);
-  WiFi.softAPdisconnect(false);
+  WiFi.softAPdisconnect(true);
   AC_DBG("Portal stopped\n");
 }
 
