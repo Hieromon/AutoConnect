@@ -26,5 +26,6 @@
     "espressif32"
   ],
   "version": "1.3.2",
-  "license": "MIT"
+  "license": "MIT",
+  "headers": "AutoConnect.h"
 }
