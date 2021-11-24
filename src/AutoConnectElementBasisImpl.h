@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-09-21
+ * @version  1.3.2
+ * @date 2021-11-24
  * @copyright  MIT license.
  */
 
@@ -263,6 +263,53 @@ const String AutoConnectRadioBasis::toHTML(void) const {
 const String& AutoConnectRadioBasis::value(void) const {
   static const String _nullString = String();
   return checked ? _values.at(checked - 1) : _nullString;
+}
+
+/**
+ * Generate an HTML <input type=range> element.
+ * If the magnify is true, place a span field to display the current
+ * value. The entered value can be obtained using the user callback
+ * function registered by AutoConnectAux::on after the form is sent in
+ * combination with AutoConnectSubmit.
+ * @return String  an HTML string.
+ */
+const String AutoConnectRangeBasis::toHTML(void) const {
+  String  html = String("");
+
+  if (enable) {
+    if (label.length())
+      html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
+    
+    String  dispFil;
+    String  onInput("");
+    if  (magnify != AC_Void) {
+      dispFil = String(F("<span class=\"acrange\">")) + String(value) + String(F("</span>"));
+      onInput = String(F(" oninput=\"_ma(this."));
+      if (magnify == AC_Infront) {
+        html += dispFil;
+        // oninput="_ma(this.previousElementSibling)"
+        onInput += String(F("previous"));
+      }
+      else if (magnify == AC_Behind) {
+        // oninput="_ma(this.nextElementSibling)"
+        onInput += String(F("next"));
+      }
+      onInput += String("ElementSibling,this)\"");
+    }
+
+    html += String(F("<input type=\"range\" name=\"")) + name + String(F("\" id=\"")) + name + String(F("\" value=\"")) + String(value) + String(F("\" min=\"")) + String(min) + String(F("\" max=\"")) + String(max) + String("\"");
+    if (step != 1)
+      html += String(F(" step=\"")) + String(step) + String(("\""));
+    html += onInput;
+    if (style.length())
+      html += String(F(" style=\"")) + style + String("\"");
+    html += String(">");
+
+    if (magnify == AC_Behind)
+      html += dispFil;
+    html = AutoConnectElementBasis::posterior(html);
+  }
+  return html;
 }
 
 /**

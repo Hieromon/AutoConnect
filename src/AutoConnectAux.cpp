@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-05-27
+ * @version  1.3.2
+ * @date 2021-11-24
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -65,6 +65,9 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "function _sa(url) {"
   "_bu(url).submit();"
   "}"
+  "function _ma(el,me) {"
+  "el.innerText=me.value;"
+  "}"
   "</script>"
   "</body>"
   "</html>"
@@ -76,16 +79,17 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
  * @param title   Title that applies to both the page and the menu item.
  * @param menu    Appearance in menu.
  * @param addons  Vector of AutoConnect Element that the page contains.
+ * @param responsive  This AUX page will response the built HTML via PageBuilder.
  */
-AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const bool menu, const AutoConnectElementVT addons)
-: _title(title)
-, _menu(menu)
-, _uriStr(uri)
-, _addonElm(addons)
-, _handler(nullptr)
-, _order(AC_EXIT_AHEAD)
-, _uploadHandler(nullptr)
-{
+AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const bool menu, const AutoConnectElementVT addons, const bool responsive)
+    : _title(title),
+      _menu(menu),
+      _responsive(responsive),
+      _uriStr(uri),
+      _addonElm(addons),
+      _handler(nullptr),
+      _order(AC_EXIT_AHEAD),
+      _uploadHandler(nullptr) {
   _uri = _uriStr.c_str();
   transferEncoding(PageBuilder::TransferEncoding_t::AUTOCONNECT_HTTP_TRANSFER);
 }
@@ -259,6 +263,10 @@ bool AutoConnectAux::setElementValue(const String& name, const String value) {
       else if (elm->typeOf() == AC_Radio) {
         AutoConnectRadio* elmRadio = reinterpret_cast<AutoConnectRadio*>(elm);
         elmRadio->check(value);
+      }
+      else if (elm->typeOf() == AC_Range) {
+        AutoConnectRange* elmRange = reinterpret_cast<AutoConnectRange*>(elm);
+        elmRange->value = value.toInt();
       }
       else
         elm->value = value;
@@ -516,6 +524,29 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
 }
 
 /**
+ * AutoConnectAux with responsive=false setting will not send HTTP
+ * response by PageBuilder. Its handler needs to send an HTTP response.
+ * However, it has the opportunity to properly handle the AutoConnectElements
+ * accepted via the HTTP request. This function is an exit that extracts
+ * the value of AutoConnectElements contained in an HTTP request from
+ * the client and calls the user-sketched AutoConnectAux handler.
+ * @param  args  A reference of PageArgument but unused.
+ * @return Response content as null string.
+ */
+const String AutoConnectAux::_nonResponseExit(PageArgument& args) {
+  fetchElement();
+
+  if (_handler) {
+    AC_DBG("CB %s with no responsive\n", uri());
+    (void)_handler(*this, args);
+  }
+
+  // Response sending cancellation due to responsive=false setting.
+  _ac->_responsePage->cancel();
+  return AutoConnect::_emptyString;
+}
+
+/**
  * Insert user defined CSS code to AutoConnectAux page.
  * @param  args  A reference of PageArgument but unused.
  * @return HTML string that should be inserted.
@@ -556,32 +587,44 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       elm = new PageElement();
       // Construct the auxiliary page
       elm->setMold(FPSTR(_PAGE_AUX));
-      elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("AUX_TITLE"), std::bind(&AutoConnectAux::_injectTitle, this, std::placeholders::_1));
-      elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("CSS_UL"), std::bind(&AutoConnect::_token_CSS_UL, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("AUX_CSS"), std::bind(&AutoConnectAux::_insertStyle, this, std::placeholders::_1));
-      elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, mother, std::placeholders::_1));
-      elm->addToken(FPSTR("AUX_URI"), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
-      elm->addToken(FPSTR("ENC_TYPE"), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
-      elm->addToken(FPSTR("AUX_ELEMENT"), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
 
-      // Register authentication
-      // Determine the necessity of authentication from the conditions of
-      // AutoConnectConfig::authScope and derive the method.
-      bool  auth = ((mother->_apConfig.authScope & AC_AUTHSCOPE_AUX) && (mother->_apConfig.auth != AC_AUTH_NONE))
-                || ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
-      HTTPAuthMethod  method;
-      if (mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL)
-        method = _httpAuth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
-      else
-        method = mother->_apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
-      mother->_authentication(auth, method);
+      if (_responsive) {
+        elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("AUX_TITLE"), std::bind(&AutoConnectAux::_injectTitle, this, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_UL"), std::bind(&AutoConnect::_token_CSS_UL, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("AUX_CSS"), std::bind(&AutoConnectAux::_insertStyle, this, std::placeholders::_1));
+        elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("AUX_URI"), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
+        elm->addToken(FPSTR("ENC_TYPE"), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
+        elm->addToken(FPSTR("AUX_ELEMENT"), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
+
+        // Register authentication
+        // Determine the necessity of authentication from the conditions of
+        // AutoConnectConfig::authScope and derive the method.
+        bool  auth = ((mother->_apConfig.authScope & AC_AUTHSCOPE_AUX) && (mother->_apConfig.auth != AC_AUTH_NONE))
+                  || ((mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL) && (_httpAuth != AC_AUTH_NONE));
+        HTTPAuthMethod  method;
+        if (mother->_apConfig.authScope & AC_AUTHSCOPE_PARTIAL)
+          method = _httpAuth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+        else
+          method = mother->_apConfig.auth == AC_AUTH_BASIC ? HTTPAuthMethod::BASIC_AUTH : HTTPAuthMethod::DIGEST_AUTH;
+        mother->_authentication(auth, method);
+      }
+      else {
+        // AutoConnectAux with responsive=false setting refuses to assemble
+        // responsive content. It just obtains the value of AutoConnectElements
+        // from the query string carried by the HTTP request and call the
+        // user-sketched Aux handler.
+        // AutoConnect uses the HEAD token that first appears in the
+        // AutoConnectAux template to call the AUX handler.
+        elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnectAux::_nonResponseExit, this, std::placeholders::_1));
+      }
     }
   }
   return elm;
@@ -746,6 +789,10 @@ AutoConnectElement* AutoConnectAux::_createElement(const JsonObject& json) {
     AutoConnectRadio*  cert_elm = new AutoConnectRadio;
     return reinterpret_cast<AutoConnectElement*>(cert_elm);
   }
+  case AC_Range: {
+    AutoConnectRange*  cert_elm = new AutoConnectRange;
+    return reinterpret_cast<AutoConnectElement*>(cert_elm);
+  }
   case AC_Select: {
     AutoConnectSelect*  cert_elm = new AutoConnectSelect;
     return reinterpret_cast<AutoConnectElement*>(cert_elm);
@@ -828,7 +875,10 @@ bool AutoConnectAux::_load(JsonObject& jb) {
   _title = jb[F(AUTOCONNECT_JSON_KEY_TITLE)].as<String>();
   _uriStr = jb[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
   _uri = _uriStr.c_str();
-  _menu = jb[F(AUTOCONNECT_JSON_KEY_MENU)].as<bool>();
+  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_MENU)))
+    _menu = jb[F(AUTOCONNECT_JSON_KEY_MENU)].as<bool>();
+  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_RESPONSE)))
+    _responsive = jb[F(AUTOCONNECT_JSON_KEY_RESPONSE)].as<bool>();
   String  auth = jb[F(AUTOCONNECT_JSON_KEY_AUTH)].as<String>();
   if (auth.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_BASIC)))
     _httpAuth = AC_AUTH_BASIC;
@@ -963,7 +1013,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
   // Calculate JSON buffer size
   if (amount == 0) {
     bufferSize += JSON_OBJECT_SIZE(4);
-    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT) + sizeof(AUTOCONNECT_JSON_KEY_AUTH) + sizeof(AUTOCONNECT_JSON_VALUE_DIGEST);
+    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_RESPONSE) + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT) + sizeof(AUTOCONNECT_JSON_KEY_AUTH) + sizeof(AUTOCONNECT_JSON_VALUE_DIGEST);
     bufferSize += JSON_ARRAY_SIZE(_addonElm.size());
   }
   else
@@ -999,6 +1049,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
       ArduinoJsonObject json = ARDUINOJSON_CREATEOBJECT(jb);
       json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
       json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
+      json[F(AUTOCONNECT_JSON_KEY_RESPONSE)] = _responsive;
       json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
       if (_httpAuth == AC_AUTH_BASIC)
         json[F(AUTOCONNECT_JSON_KEY_AUTH)] = String(F(AUTOCONNECT_JSON_VALUE_BASIC));
@@ -1043,6 +1094,7 @@ ACElement_t AutoConnectAux::_asElementType(const String& type) {
     { AUTOCONNECT_JSON_TYPE_ACFILE, AC_File },
     { AUTOCONNECT_JSON_TYPE_ACINPUT, AC_Input },
     { AUTOCONNECT_JSON_TYPE_ACRADIO, AC_Radio },
+    { AUTOCONNECT_JSON_TYPE_ACRANGE, AC_Range },
     { AUTOCONNECT_JSON_TYPE_ACSELECT, AC_Select },
     { AUTOCONNECT_JSON_TYPE_ACSTYLE, AC_Style },
     { AUTOCONNECT_JSON_TYPE_ACSUBMIT, AC_Submit },
@@ -1054,6 +1106,7 @@ ACElement_t AutoConnectAux::_asElementType(const String& type) {
     if (type.equalsIgnoreCase(String(FPSTR(types[n].tName))))
       return types[n].tEnum;
   }
+  AC_DBG("%s unknown type", type.c_str());
   return t;
 }
 

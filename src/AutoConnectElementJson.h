@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  1.3.1
- * @date 2021-10-03
+ * @version  1.3.2
+ * @date 2021-11-24
  * @copyright  MIT license.
  */
 
@@ -23,13 +23,18 @@
 #define AUTOCONNECT_JSON_KEY_GLOBAL       "global"
 #define AUTOCONNECT_JSON_KEY_LABEL        "label"
 #define AUTOCONNECT_JSON_KEY_LABELPOSITION "labelposition"
+#define AUTOCONNECT_JSON_KEY_MAGNIFY      "magnify"
+#define AUTOCONNECT_JSON_KEY_MAX          "max"
+#define AUTOCONNECT_JSON_KEY_MIN          "min"
 #define AUTOCONNECT_JSON_KEY_MENU         "menu"
 #define AUTOCONNECT_JSON_KEY_NAME         "name"
 #define AUTOCONNECT_JSON_KEY_OPTION       "option"
 #define AUTOCONNECT_JSON_KEY_PATTERN      "pattern"
 #define AUTOCONNECT_JSON_KEY_PLACEHOLDER  "placeholder"
 #define AUTOCONNECT_JSON_KEY_POSTERIOR    "posterior"
+#define AUTOCONNECT_JSON_KEY_RESPONSE     "response"
 #define AUTOCONNECT_JSON_KEY_SELECTED     "selected"
+#define AUTOCONNECT_JSON_KEY_STEP         "step"
 #define AUTOCONNECT_JSON_KEY_STORE        "store"
 #define AUTOCONNECT_JSON_KEY_STYLE        "style"
 #define AUTOCONNECT_JSON_KEY_TITLE        "title"
@@ -42,6 +47,7 @@
 #define AUTOCONNECT_JSON_TYPE_ACFILE      "ACFile"
 #define AUTOCONNECT_JSON_TYPE_ACINPUT     "ACInput"
 #define AUTOCONNECT_JSON_TYPE_ACRADIO     "ACRadio"
+#define AUTOCONNECT_JSON_TYPE_ACRANGE     "ACRange"
 #define AUTOCONNECT_JSON_TYPE_ACSELECT    "ACSelect"
 #define AUTOCONNECT_JSON_TYPE_ACSTYLE     "ACStyle"
 #define AUTOCONNECT_JSON_TYPE_ACSUBMIT    "ACSubmit"
@@ -62,6 +68,7 @@
 #define AUTOCONNECT_JSON_VALUE_TEXT       "text"
 #define AUTOCONNECT_JSON_VALUE_SD         "sd"
 #define AUTOCONNECT_JSON_VALUE_VERTICAL   "vertical"
+#define AUTOCONNECT_JSON_VALUE_VOID       "void"
 
 /**
  * AutoConnectAux element base with handling with JSON object.
@@ -219,6 +226,38 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
 };
 
 /**
+ * Range-value arrangement class, a part of AutoConnectAux element.
+ * Place an optionally labeled slider-like control that can be added by user sketch.
+ * @param  name     Range-slider name string.
+ * @param  value    Default value.
+ * @param  label    A label string that follows range-slider control.
+ * @param  min      Minimum value possible range.
+ * @param  max      Maximum possible range.
+ * @param  step     Incremental values that are valid.
+ * @param  magnify  Place a value display field in front of the slider.
+ * @param  style    A string of style-code for decoration, optionally.
+ */
+class AutoConnectRangeJson : public AutoConnectElementJson, public AutoConnectRangeBasis {
+ public:
+  explicit AutoConnectRangeJson(const char* name = "", const int value = 0, const char* label = "", const int min = 0, const int max = 0, const int step = 1, const ACPosition_t magnify = AC_Void, const ACPosterior_t post = AC_Tag_BR, const char* style = "") {
+    AutoConnectRangeBasis::name = String(name);
+    AutoConnectRangeBasis::value = value;
+    AutoConnectRangeBasis::label = String(label);
+    AutoConnectRangeBasis::min = min;
+    AutoConnectRangeBasis::max = max;
+    AutoConnectRangeBasis::step = step;
+    AutoConnectRangeBasis::magnify = magnify;
+    AutoConnectRangeBasis::style = String(style);
+    AutoConnectRangeBasis::post = post;
+    _defaultPost = AC_Tag_BR;
+  }
+  ~AutoConnectRangeJson() {}
+  size_t  getObjectSize(void) const override;
+  bool  loadMember(const JsonObject& json) override;
+  void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
+};
+
+/**
  * Selection-box arrangement class, A part of AutoConnectAux element.
  * Place a optionally labeled Selection-box that can be added by user sketch.
  * @param  name     Input-box name string.
@@ -340,6 +379,11 @@ inline bool AutoConnectElementBasis::_isCompatible<AutoConnectInputJson>(void) {
 template<>
 inline bool AutoConnectElementBasis::_isCompatible<AutoConnectRadioJson>(void) {
   return (_type == AC_Radio);
+}
+
+template<>
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectRangeJson>(void) {
+  return (_type == AC_Range);
 }
 
 template<>
