@@ -305,7 +305,7 @@ const String AutoConnectRangeBasis::toHTML(void) const {
       posAlign = nullptr;
     }
     if  (magnify != AC_Void) {
-      dispFil = String(F("<span class=\"acrange\" style=\"padding-")) + String(posPadding) + String(F(":3px;text-align:")) + String(posAlign) + String("\">") + String(value) + String(F("</span>"));
+      dispFil = String(F("<span class=\"magnify\" style=\"padding-")) + String(posPadding) + String(F(":3px;text-align:")) + String(posAlign) + String("\">") + String(value) + String(F("</span>"));
       onInput = String(F(" oninput=\"_ma(this,'")) + String(posMagnify) + String(F("')\""));
     }
 

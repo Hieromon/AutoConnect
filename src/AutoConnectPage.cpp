@@ -134,7 +134,7 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
     "background:#dddddd;"
     "cursor:pointer"
   "}"
-  ".acrange{"
+  ".magnify{"
     "display:inline-block"
   "}"
 };
