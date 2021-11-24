@@ -280,26 +280,41 @@ const String AutoConnectRangeBasis::toHTML(void) const {
     if (label.length())
       html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
     
-    String  dispFil;
+    String  dispFil("");
     String  onInput("");
-    if  (magnify != AC_Void) {
-      dispFil = String(F("<span class=\"acrange\">")) + String(value) + String(F("</span>"));
-      onInput = String(F(" oninput=\"_ma(this."));
-      if (magnify == AC_Infront) {
-        html += dispFil;
-        // oninput="_ma(this.previousElementSibling)"
-        onInput += String(F("previous"));
-      }
-      else if (magnify == AC_Behind) {
-        // oninput="_ma(this.nextElementSibling)"
-        onInput += String(F("next"));
-      }
-      onInput += String("ElementSibling,this)\"");
+    char  posMagnify;
+    PGM_P posRight = PSTR("right");
+    PGM_P posLeft = PSTR("left");
+    PGM_P posPadding;
+    PGM_P posAlign;
+    switch (magnify) {
+    case AC_Infront:
+      posMagnify = 'p';
+      posPadding = posRight;
+      posAlign = posLeft;
+      break;
+    case AC_Behind:
+      posMagnify = 'n';
+      posPadding = posLeft;
+      posAlign = posRight;
+      break;
+    case AC_Void:
+    default:
+      posMagnify = '\0';
+      posPadding = nullptr;
+      posAlign = nullptr;
     }
+    if  (magnify != AC_Void) {
+      dispFil = String(F("<span class=\"acrange\" style=\"padding-")) + String(posPadding) + String(F(":3px;text-align:")) + String(posAlign) + String("\">") + String(value) + String(F("</span>"));
+      onInput = String(F(" oninput=\"_ma(this,'")) + String(posMagnify) + String(F("')\""));
+    }
+
+    if (magnify == AC_Infront)
+      html += dispFil;
 
     html += String(F("<input type=\"range\" name=\"")) + name + String(F("\" id=\"")) + name + String(F("\" value=\"")) + String(value) + String(F("\" min=\"")) + String(min) + String(F("\" max=\"")) + String(max) + String("\"");
     if (step != 1)
-      html += String(F(" step=\"")) + String(step) + String(("\""));
+      html += String(F(" step=\"")) + String(step) + String("\"");
     html += onInput;
     if (style.length())
       html += String(F(" style=\"")) + style + String("\"");
@@ -307,6 +322,7 @@ const String AutoConnectRangeBasis::toHTML(void) const {
 
     if (magnify == AC_Behind)
       html += dispFil;
+
     html = AutoConnectElementBasis::posterior(html);
   }
   return html;

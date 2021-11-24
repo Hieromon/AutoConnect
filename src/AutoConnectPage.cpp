@@ -135,8 +135,7 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
     "cursor:pointer"
   "}"
   ".acrange{"
-    "display:inline-block;"
-    "padding:0 3px 0 0"
+    "display:inline-block"
   "}"
 };
 
