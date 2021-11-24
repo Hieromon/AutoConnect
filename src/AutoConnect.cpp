@@ -43,10 +43,7 @@
  *  AutoConnect default constructor. This entry activates WebServer
  *  internally and the web server is allocated internal.
  */
-AutoConnect::AutoConnect()
-: _scanCount( 0 )
-, _menuTitle( _apConfig.title )
-{
+AutoConnect::AutoConnect() : _scanCount(0), _menuTitle(_apConfig.title) {
   memset(&_credential, 0x00, sizeof(station_config_t));
 }
 
@@ -55,9 +52,7 @@ AutoConnect::AutoConnect()
  *  User's added URI handler response can be included in handleClient method.
  *  @param  webServer   A reference of ESP8266WebServer instance.
  */
-AutoConnect::AutoConnect(WebServerClass& webServer)
-: AutoConnect()
-{
+AutoConnect::AutoConnect(WebServerClass& webServer) : AutoConnect() {
   _webServer = WebserverUP(&webServer, [](WebServerClass*){});
 }
 
