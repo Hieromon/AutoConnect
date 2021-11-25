@@ -224,6 +224,20 @@ bool AutoConnectAux::isValid(void) const {
 }
 
 /**
+ * Send a redirect response from within the AutoConnectAux handler
+ * @param  url
+ */
+void AutoConnectAux::redirect(const char* url) {
+  String  location(url);
+
+  WebServerClass* _webServer = _ac->_webServer.get();
+  _webServer->sendHeader(String(F("Location")), location, true);
+  _webServer->send(302, String(F("text/plain")), "");
+  _webServer->client().stop();
+  AC_DBG("%s redirect to %s\n", _uri.c_str(), location.c_str());
+}
+
+/**
  * Releases the AutoConnectElements with the specified name from 
  * the AutoConnectAux page. Releases all AutoConnectElements with 
  * the same name in AutoConnectAux.
