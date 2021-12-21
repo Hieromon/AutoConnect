@@ -3,7 +3,7 @@
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
  * @version  1.3.2
- * @date 2021-11-24
+ * @date 2021-12-22
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -901,8 +901,10 @@ bool AutoConnectAux::_load(JsonObject& jb) {
     _httpAuth = AC_AUTH_DIGEST;
   if (auth.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_NONE)))
     _httpAuth = AC_AUTH_NONE;
-  JsonVariant elements = jb[F(AUTOCONNECT_JSON_KEY_ELEMENT)];
-  (void)_loadElement(elements, "");
+  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_ELEMENT))) {
+    JsonVariant elements = jb[F(AUTOCONNECT_JSON_KEY_ELEMENT)];
+    (void)_loadElement(elements, "");
+  }
   return true;
 }
 
