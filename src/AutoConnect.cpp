@@ -188,6 +188,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     // Reconnect with a valid credential as the autoReconnect option is enabled.
     if (!cs && _apConfig.autoReconnect && !_rfAdHocBegin) {
       // Load a valid credential.
+      WiFi.disconnect();
       char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
       char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
       AC_DBG("autoReconnect");
