@@ -70,6 +70,7 @@ class ESP32WebCam {
   explicit ESP32WebCam(const ESP32Cam::CameraId model, const uint16_t port = ESP32CAM_DEFAULT_HTTPPORT);
   ~ESP32WebCam();
 
+  esp_err_t  sensorInit(void) { return sensor().init(); }
   esp_err_t  sensorInit(const ESP32Cam::CameraId model) { return sensor().init(model); }
   ESP32Cam&  sensor(void) { return *(_esp32cam.get()); }
   const char* getCaptureUrl(void) const { return _captureUrl.c_str(); }

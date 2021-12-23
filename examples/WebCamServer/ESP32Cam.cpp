@@ -24,19 +24,22 @@
 // to an ESP32Cam instance.
 namespace ESP32Cam_internal {
 
-ESP32Cam* esp32cam = nullptr;
+ESP32Cam* esp32cam;
 volatile  SemaphoreHandle_t xMutex = NULL;
 
 };
 
+ESP32Cam::ESP32Cam() : _sdFile(nullptr), _mounted(MOUNT_NONE), _cameraId(CAMERA_MODEL_UNKNOWN), _pins(nullptr), _sensor(nullptr), _hwTimer(nullptr) {
+  ESP32Cam_internal::esp32cam = nullptr;
+}
 /**
  * ESP32Cam constractor
  * Depending on the sensor device type, determine the ESP32 module's wiring
  * pin assignment.
  * @param  model  The model ID of the sensor to be used.
  */
-ESP32Cam::ESP32Cam(const CameraId model) : _sdFile(nullptr), _mounted(MOUNT_NONE), _pins(nullptr), _hwTimer(nullptr) {
-  init(model);
+ESP32Cam::ESP32Cam(const CameraId model) : _sdFile(nullptr), _mounted(MOUNT_NONE), _cameraId(model), _pins(nullptr), _hwTimer(nullptr) {
+  ESP32Cam_internal::esp32cam = nullptr;
 }
 
 /**

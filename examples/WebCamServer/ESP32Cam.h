@@ -68,7 +68,7 @@ class ESP32Cam {
     CAMERA_MODEL_UNKNOWN
   } CameraId;   // Supported ESP32 module series
 
-  ESP32Cam() : _sdFile(nullptr), _mounted(MOUNT_NONE), _cameraId(CAMERA_MODEL_UNKNOWN), _pins(nullptr), _sensor(nullptr), _hwTimer(nullptr) {}
+  ESP32Cam();
   explicit ESP32Cam(const CameraId model);
   ~ESP32Cam();
 
@@ -76,6 +76,7 @@ class ESP32Cam {
   framesize_t getFramesize(void);
   uint16_t  getFrameHeight(void);
   uint16_t  getFrameWidth(void);
+  esp_err_t init(void) { return init(_cameraId); }
   esp_err_t init(const CameraId model);
   esp_err_t loadSettings(void) { return esp_camera_load_from_nvs(ESP32CAM_NVS_KEYNAME); }
   esp_err_t saveSettings(void) { return esp_camera_save_to_nvs(ESP32CAM_NVS_KEYNAME); }
