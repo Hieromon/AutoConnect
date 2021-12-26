@@ -89,7 +89,7 @@ The [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/
 !!! hint "Parameters for the ThingSpeak MQTT channels"
     Various settings of the MQTT Setting for the ThingSpeak channels via the above AutoConnectAux are following:
 
-    - **Server**: `mqtt.thingspeak.com`
+    - **Server**: `mqtt3.thingspeak.com`
     - **Channel ID**: Specify the channel ID that can be confirmed with [ThingSpeak My Channels page](https://thingspeak.com/channels).
     - **User Key**: Specify the User API Key of the API Keys that can be confirmed with [ThingSpeak My Profile page](https://thingspeak.com/account/profile).
     - **API Key**: Specify the Write API Key that can be confirmed by following navigate to "[ThingSpeak My Channels](https://thingspeak.com/channels) > Your Channel Name > API Keys Tab > **Write API Key**".
