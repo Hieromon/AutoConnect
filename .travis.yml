@@ -47,4 +47,5 @@ script:
   - buildExampleSketch Simple
   - buildExampleSketch Update
   - buildExampleSketch OTAUpdate
+  - if [[ "$BOARD" =~ "esp32:esp32:" ]]; then buildExampleSketch WebCamServer; fi
   - buildExampleSketch WebUpdate

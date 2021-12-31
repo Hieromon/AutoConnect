@@ -44,6 +44,7 @@ nav:
     - 'Tips for data conversion': datatips.md
     - 'Attach the menus': menuize.md
     - 'Custom Web pages w/o JSON': wojson.md
+    - 'Works with ESP32-CAM': esp32cam.md
   - 'Appendix':
     - 'Inside AutoConnect::begin': lsbegin.md
     - 'Saved credentials access': credit.md
