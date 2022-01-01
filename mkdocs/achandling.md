@@ -1395,6 +1395,45 @@ The transition of the custom Web page follows the URI of the page, but the ESP82
 
 In addition to this, there are restrictions in the handler for the custom Web page as shown in the following section.
 
+### An HTTP response from the custom Web page handler
+
+Normally, a custom web page handler does not need to respond to a request from the client. Its HTTP response will be sent by AutoConnect when it returns from the custom web page handler. In that case, the HTTP response code is 200.
+
+However, this structure requires AutoConnectAux to always respond with the page content. If AutoConnectAux does not have page content as an HTTP response, then the custom web page handler can respond with its own HTTP response by following the steps:
+
+1. Declare an [AutoConnectAux](apiaux.md#autoconnectaux) with the `responsive` argument set to `false`, or describe `#!js "response":false` with JSON:
+```cpp
+AutoConnectAux aux("/aux", "AUX", false, {}, false);
+```
+```json
+{
+  "title": "AUX",
+  "uri": "/aux",
+  "response": false,
+  "menu": false
+}
+```
+
+2. Send an HTTP response from a custom web page handler (Case of ESP32):
+```cpp
+WebServer   server;
+AutoConnect portal(server);
+
+String handleAux(AutoConnectAux& aux, PageArgument& args) {
+  server.send(202, "text/plain", "Accepted");
+  return String();
+}
+
+portal.on("/aux", handleAux);
+```
+If you want to respond with a [302](https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.3) from a custom web page handler, you can use the [AutoConnectAux::redirect](apiaux.md#redirect) function.
+```cpp
+String handleAux(AutoConnectAux& aux, PageArgument& args) {
+  aux.redirect("http://redirect.url:port/?query");
+  return String();
+}
+```
+
 ### Limitations
 
 The custom Web pages handler has the following limitations.
