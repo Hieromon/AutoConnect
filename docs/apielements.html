@@ -9,14 +9,13 @@
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
-      
         <meta name="author" content="Hieromon Ikasamo">
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/apielements.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.8b42a75e.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.edf004c2.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -41,9 +40,8 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
-    
     
     
       <link rel="stylesheet" href="css/paragraph.css">
@@ -52,18 +50,17 @@
     
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
   
 
 
   
-
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-EHK8XV10VE",{page_path:t.pathname})})})</script>
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-EHK8XV10VE",{page_path:e.pathname})})})</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE"></script>
 
 
@@ -80,7 +77,6 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -96,6 +92,7 @@
     <div data-md-component="announce">
       
     </div>
+    
     
       
 
@@ -131,8 +128,7 @@
       <label class="md-header__button md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -164,8 +160,7 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -209,8 +204,7 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -705,6 +699,7 @@
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1406,11 +1401,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#autoconnectselect" class="md-nav__link">
-    AutoConnectSelect
+  <a href="#autoconnectrange" class="md-nav__link">
+    AutoConnectRange
   </a>
   
-    <nav class="md-nav" aria-label="AutoConnectSelect">
+    <nav class="md-nav" aria-label="AutoConnectRange">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1443,6 +1438,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#label_4" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#magnify" class="md-nav__link">
+     magnify
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+     max
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+     min
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#name_6" class="md-nav__link">
      name
   </a>
@@ -1450,7 +1473,109 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#label_4" class="md-nav__link">
+  <a href="#post_6" class="md-nav__link">
+     post
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step" class="md-nav__link">
+     step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style" class="md-nav__link">
+     style
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_6" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_6" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_6" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectselect" class="md-nav__link">
+    AutoConnectSelect
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoConnectSelect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_7" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_7" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable_7" class="md-nav__link">
+     enable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global_7" class="md-nav__link">
+     global
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name_7" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_5" class="md-nav__link">
      label
   </a>
   
@@ -1464,7 +1589,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post_6" class="md-nav__link">
+  <a href="#post_7" class="md-nav__link">
      post
   </a>
   
@@ -1483,7 +1608,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#public-member-functions_6" class="md-nav__link">
+  <a href="#public-member-functions_7" class="md-nav__link">
      Public member functions
   </a>
   
@@ -1526,14 +1651,14 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#typeof_6" class="md-nav__link">
+  <a href="#typeof_7" class="md-nav__link">
      typeOf
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#value_6" class="md-nav__link">
+  <a href="#value_7" class="md-nav__link">
      value
   </a>
   
@@ -1555,80 +1680,6 @@
   </a>
   
     <nav class="md-nav" aria-label="AutoConnectStyle">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#constructor_7" class="md-nav__link">
-     Constructor
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#public-member-variables_7" class="md-nav__link">
-     Public member variables
-  </a>
-  
-    <nav class="md-nav" aria-label=" Public member variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#enable_7" class="md-nav__link">
-     enable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#name_7" class="md-nav__link">
-     name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#value_7" class="md-nav__link">
-     value
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#public-member-functions_7" class="md-nav__link">
-     Public member functions
-  </a>
-  
-    <nav class="md-nav" aria-label=" Public member functions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#typeof_7" class="md-nav__link">
-     typeOf
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#autoconnectsubmit" class="md-nav__link">
-    AutoConnectSubmit
-  </a>
-  
-    <nav class="md-nav" aria-label="AutoConnectSubmit">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1654,29 +1705,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#global_7" class="md-nav__link">
-     global
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#name_8" class="md-nav__link">
      name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post_7" class="md-nav__link">
-     post
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uri" class="md-nav__link">
-     uri
   </a>
   
 </li>
@@ -1719,11 +1749,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#autoconnecttext" class="md-nav__link">
-    AutoConnectText
+  <a href="#autoconnectsubmit" class="md-nav__link">
+    AutoConnectSubmit
   </a>
   
-    <nav class="md-nav" aria-label="AutoConnectText">
+    <nav class="md-nav" aria-label="AutoConnectSubmit">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1744,13 +1774,6 @@
           <li class="md-nav__item">
   <a href="#enable_9" class="md-nav__link">
      enable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#format" class="md-nav__link">
-     format
   </a>
   
 </li>
@@ -1777,8 +1800,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#style" class="md-nav__link">
-     style
+  <a href="#uri" class="md-nav__link">
+     uri
   </a>
   
 </li>
@@ -1805,6 +1828,108 @@
         
           <li class="md-nav__item">
   <a href="#typeof_9" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnecttext" class="md-nav__link">
+    AutoConnectText
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoConnectText">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_10" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_10" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable_10" class="md-nav__link">
+     enable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+     format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global_9" class="md-nav__link">
+     global
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name_10" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post_9" class="md-nav__link">
+     post
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style_1" class="md-nav__link">
+     style
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_10" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_10" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_10" class="md-nav__link">
      typeOf
   </a>
   
@@ -1941,6 +2066,20 @@
     <li class="md-nav__item">
       <a href="wojson.html" class="md-nav__link">
         Custom Web pages w/o JSON
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="esp32cam.html" class="md-nav__link">
+        Works with ESP32-CAM
       </a>
     </li>
   
@@ -2114,6 +2253,7 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -2815,11 +2955,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#autoconnectselect" class="md-nav__link">
-    AutoConnectSelect
+  <a href="#autoconnectrange" class="md-nav__link">
+    AutoConnectRange
   </a>
   
-    <nav class="md-nav" aria-label="AutoConnectSelect">
+    <nav class="md-nav" aria-label="AutoConnectRange">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2852,6 +2992,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#label_4" class="md-nav__link">
+     label
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#magnify" class="md-nav__link">
+     magnify
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+     max
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+     min
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#name_6" class="md-nav__link">
      name
   </a>
@@ -2859,7 +3027,109 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#label_4" class="md-nav__link">
+  <a href="#post_6" class="md-nav__link">
+     post
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step" class="md-nav__link">
+     step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style" class="md-nav__link">
+     style
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_6" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_6" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_6" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoconnectselect" class="md-nav__link">
+    AutoConnectSelect
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoConnectSelect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_7" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_7" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable_7" class="md-nav__link">
+     enable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global_7" class="md-nav__link">
+     global
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name_7" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#label_5" class="md-nav__link">
      label
   </a>
   
@@ -2873,7 +3143,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post_6" class="md-nav__link">
+  <a href="#post_7" class="md-nav__link">
      post
   </a>
   
@@ -2892,7 +3162,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#public-member-functions_6" class="md-nav__link">
+  <a href="#public-member-functions_7" class="md-nav__link">
      Public member functions
   </a>
   
@@ -2935,14 +3205,14 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#typeof_6" class="md-nav__link">
+  <a href="#typeof_7" class="md-nav__link">
      typeOf
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#value_6" class="md-nav__link">
+  <a href="#value_7" class="md-nav__link">
      value
   </a>
   
@@ -2964,80 +3234,6 @@
   </a>
   
     <nav class="md-nav" aria-label="AutoConnectStyle">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#constructor_7" class="md-nav__link">
-     Constructor
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#public-member-variables_7" class="md-nav__link">
-     Public member variables
-  </a>
-  
-    <nav class="md-nav" aria-label=" Public member variables">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#enable_7" class="md-nav__link">
-     enable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#name_7" class="md-nav__link">
-     name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#value_7" class="md-nav__link">
-     value
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#public-member-functions_7" class="md-nav__link">
-     Public member functions
-  </a>
-  
-    <nav class="md-nav" aria-label=" Public member functions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#typeof_7" class="md-nav__link">
-     typeOf
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#autoconnectsubmit" class="md-nav__link">
-    AutoConnectSubmit
-  </a>
-  
-    <nav class="md-nav" aria-label="AutoConnectSubmit">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3063,29 +3259,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#global_7" class="md-nav__link">
-     global
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#name_8" class="md-nav__link">
      name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post_7" class="md-nav__link">
-     post
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#uri" class="md-nav__link">
-     uri
   </a>
   
 </li>
@@ -3128,11 +3303,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#autoconnecttext" class="md-nav__link">
-    AutoConnectText
+  <a href="#autoconnectsubmit" class="md-nav__link">
+    AutoConnectSubmit
   </a>
   
-    <nav class="md-nav" aria-label="AutoConnectText">
+    <nav class="md-nav" aria-label="AutoConnectSubmit">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3153,13 +3328,6 @@
           <li class="md-nav__item">
   <a href="#enable_9" class="md-nav__link">
      enable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#format" class="md-nav__link">
-     format
   </a>
   
 </li>
@@ -3186,8 +3354,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#style" class="md-nav__link">
-     style
+  <a href="#uri" class="md-nav__link">
+     uri
   </a>
   
 </li>
@@ -3229,6 +3397,108 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#autoconnecttext" class="md-nav__link">
+    AutoConnectText
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoConnectText">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_10" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-variables_10" class="md-nav__link">
+     Public member variables
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable_10" class="md-nav__link">
+     enable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+     format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global_9" class="md-nav__link">
+     global
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#name_10" class="md-nav__link">
+     name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post_9" class="md-nav__link">
+     post
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#style_1" class="md-nav__link">
+     style
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#value_10" class="md-nav__link">
+     value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-member-functions_10" class="md-nav__link">
+     Public member functions
+  </a>
+  
+    <nav class="md-nav" aria-label=" Public member functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typeof_10" class="md-nav__link">
+     typeOf
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3241,12 +3511,12 @@
             <article class="md-content__inner md-typeset">
               
                 
-                
-                  <h1>AutoConnectElements API</h1>
-                
-                <h2 id="autoconnectbutton">AutoConnectButton<a class="headerlink" href="#autoconnectbutton" title="Permanent link">&para;</a></h2>
+
+  <h1>AutoConnectElements API</h1>
+
+<h2 id="autoconnectbutton">AutoConnectButton<a class="headerlink" href="#autoconnectbutton" title="Permanent link">&para;</a></h2>
 <h3 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">action</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(),</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> action </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> String(), </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_None)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -3290,14 +3560,14 @@
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h3>
 <h4 id="typeof"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>AC_Button</dd></dl></p>
 <h2 id="autoconnectcheckbox">AutoConnectCheckbox<a class="headerlink" href="#autoconnectcheckbox" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_1"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectCheckbox(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosition_t</span> <span style="color: #f8f8f2">labelPosition</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Behind,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectCheckbox(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> label </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> checked </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> false, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosition_t labelPosition </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Behind, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_BR)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -3356,14 +3626,14 @@
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_1"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_1" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_1"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>AC_Checkbox</dd></dl></p>
 <h2 id="autoconnectelement">AutoConnectElement<a class="headerlink" href="#autoconnectelement" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_2"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_2" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_None)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -3402,13 +3672,13 @@
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_2"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_2" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_2"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_2" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>AC_Element</dd></dl></p>
 <h4 id="ast"><i class="fa fa-caret-right"></i> as&lt;T><a class="headerlink" href="#ast" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Casts the reference to the AutoConnectElement the specified type.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
@@ -3417,14 +3687,14 @@
     <dd>A reference to the AutoConnectElement with actual type.</dd></dl></p>
 <h2 id="autoconnectfile">AutoConnectFile<a class="headerlink" href="#autoconnectfile" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_3"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_3" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectFile(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACFile_t</span> <span style="color: #f8f8f2">store</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_File_FS,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectFile(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> label </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACFile_t store </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_File_FS, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_BR)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">File name to be upload.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
-    <dd><span class="apidef">store</span><span class="apidesc">The **ACFile_t** enumerator that represents the media to save the uploaded file.</span></dd>
+    <dd><span class="apidef">store</span><span class="apidesc">The <strong>ACFile_t</strong> enumerator that represents the media to save the uploaded file.</span></dd>
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
 </dl>
 
@@ -3480,7 +3750,7 @@
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_3"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_3" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_3"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_3" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectFile.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
@@ -3488,7 +3758,7 @@
 </dl></p>
 <h2 id="autoconnectinput">AutoConnectInput<a class="headerlink" href="#autoconnectinput" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_4"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_4" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">pattern</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">placeholder</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACInput_t</span> <span style="color: #f8f8f2">apply</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Input_Text)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectInput(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> label </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> pattern </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> placeholder </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_BR, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACInput_t apply </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Input_Text)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -3507,10 +3777,9 @@
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
 <h4 id="global_4"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_4" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.</p>
-<dl class="apidl">    <dt>**Type**</dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
-
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
 <h4 id="label_2"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_2" title="Permanent link">&para;</a></h4>
 <p>A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The input box and the label are connected by the id attribute.<dl class="apidl">
     <dt><strong>Type</strong></dt>
@@ -3554,21 +3823,21 @@
 </ul>
 <h3 id="public-member-functions_4"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_4" title="Permanent link">&para;</a></h3>
 <h4 id="isvalid"><i class="fa fa-caret-right"></i> isValid<a class="headerlink" href="#isvalid" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Evaluate the pattern as a regexp and return whether value matches. Always return true if the pattern is undefined.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">The value matches a pattern.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">The value does not match a pattern.</span></dd></dl></p>
 <h4 id="typeof_4"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_4" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>AC_Input</dd></dl></p>
 <h2 id="autoconnectradio">AutoConnectRadio<a class="headerlink" href="#autoconnectradio" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_5"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_5" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACArrange_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Vertical,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">checked</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> values </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> {}, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> label </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACArrange_t order </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Vertical, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint8_t</span><span style="color: #f8f8f2"> checked </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_BR)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -3611,43 +3880,42 @@
     </span></dd></dl></li>
 </ul>
 <h4 id="post_5"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_5" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.</p>
-<dl class="apidl">
-    <dt>**Type**</dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
-
-- **`AC_Tag_None`** : No generate additional tags.
-- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
-- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
-- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
-</span></dd></dl>
-
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.</li>
+<li><strong><code>AC_Tag_DIV</code></strong> : Include the element in the <code>&lt;div&gt; ~ &lt;/div&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
 <h4 id="values"><i class="fa fa-caret-right"></i> values<a class="headerlink" href="#values" title="Permanent link">&para;</a></h4>
 <p>An array of String type for the radio button options. It is an initialization list can be used. The <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the values.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_5"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_5" title="Permanent link">&para;</a></h3>
 <h4 id="add"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> add(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> value)</span>
 </code></pre></div>
 <p>Adds an option for the radio button.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd></dl></p>
 <h4 id="check"><i class="fa fa-caret-right"></i> check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">check(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> check(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> value)</span>
 </code></pre></div>
 <p>Indicates the check of the specified option for the radio buttons. You can use the <strong>check</strong> function for checking dynamically with arbitrary of the radio button.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">value</span><span class="apidesc">An option string to be checked.</span></dd></dl></p>
 <h4 id="empty"><i class="fa fa-caret-right"></i> empty<a class="headerlink" href="#empty" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> empty(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> reserve </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Clear the array of option strings that AutoConnectRadio has in the values. When the <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.</p>
 <p>The empty function resets the checked value to zero. When the empty function is executed, any button will be turned off.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd></dl></p>
 <h4 id="operator"><i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;<a class="headerlink" href="#operator" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[] (</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> n)</span>
 </code></pre></div>
 <p>Returns a value string of the index specified by <strong><em>n</em></strong>.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
@@ -3655,34 +3923,38 @@
     <dt><strong>Return value</strong></dt>
     <dd>A reference of a value string indexed by the specified the <strong>n</strong>.</dd></dl></p>
 <h4 id="size_1"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns number of options which contained.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>Number of options which contained.</dd></dl></p>
 <h4 id="typeof_5"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_5" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>AC_Radio</dd></dl></p>
 <h4 id="value_5"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_5" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code>  <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">  </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> value(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">) </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"></span>
 </code></pre></div>
 <p>Returns current checked option of the radio buttons.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>A String of an option current checked. If there is no checked option, a null string returned.</dd></dl></p>
-<h2 id="autoconnectselect">AutoConnectSelect<a class="headerlink" href="#autoconnectselect" title="Permanent link">&para;</a></h2>
+<h2 id="autoconnectrange">AutoConnectRange<a class="headerlink" href="#autoconnectrange" title="Permanent link">&para;</a></h2>
 <h3 id="constructor_6"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_6" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">options</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{},</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">label</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">selected</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_BR)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectRange(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> label </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> min </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> max </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> step </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosition_t magnify </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Void, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_BR, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> style </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies a <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">The initial value in the range.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
-    <dd><span class="apidef">selected</span><span class="apidesc">An option should be pre-selected when the page loads.</span></dd>
+    <dd><span class="apidef">min</span><span class="apidesc">The most negative value within the range of allowed values.</span></dd>
+    <dd><span class="apidef">max</span><span class="apidesc">The greatest value in the range of permitted values.</span></dd>
+    <dd><span class="apidef">step</span><span class="apidesc">The granularity that the value must adhere to.</span></dd>
+    <dd><span class="apidef">magnify</span><span class="apidesc">Specifies the display position of the current value of the range.</span></dd>
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
+    <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the range slider.</span></dd>
 </dl>
 
 <h3 id="public-member-variables_6"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_6" title="Permanent link">&para;</a></h3>
@@ -3694,11 +3966,101 @@
 <p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
+<h4 id="label_4"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_4" title="Permanent link">&para;</a></h4>
+<p>A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an id attribute. The range slider and the label are connected by the id attribute.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="magnify"><i class="fa fa-caret-right"></i> magnify<a class="headerlink" href="#magnify" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>Display position of the current value of the range.<dl class="apidl"></dt>
+<dt><dt><strong>Type</strong></dt></dt>
+<dt><dd><span class="apidef">ACPosition_t</span><span class="apidesc"></dt>
+<dd>
+<ul>
+<li><strong>AC_Infront</strong> : Displays the current value on the left side.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_Behind</strong> : Displays the current value on the right side.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>AC_Void</strong> :  No display the current value. This is the default.
+</span></dd></dl></li>
+</ul>
+</dd>
+</dl>
+<h4 id="max"><i class="fa fa-caret-right"></i> max<a class="headerlink" href="#max" title="Permanent link">&para;</a></h4>
+<p>The greatest value in the range.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="min"><i class="fa fa-caret-right"></i> min<a class="headerlink" href="#min" title="Permanent link">&para;</a></h4>
+<p>The most negative value within the range.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="name_6"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_6" title="Permanent link">&para;</a></h4>
 <p>The element name.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
-<h4 id="label_4"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_4" title="Permanent link">&para;</a></h4>
+<h4 id="post_6"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_6" title="Permanent link">&para;</a></h4>
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.</li>
+<li><strong><code>AC_Tag_DIV</code></strong> : Include the element in the <code>&lt;div&gt; ~ &lt;/div&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
+<h4 id="step"><i class="fa fa-caret-right"></i> step<a class="headerlink" href="#step" title="Permanent link">&para;</a></h4>
+<p>The granularity that the value must adhere to.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="style"><i class="fa fa-caret-right"></i> style<a class="headerlink" href="#style" title="Permanent link">&para;</a></h4>
+<p>A style code with CSS format that qualifiers the range slider.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="value_6"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_6" title="Permanent link">&para;</a></h4>
+<p>Value of the element. It becomes a value attribute of an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;range&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag. A value of range in the custom Web page will be sent with a query string of the form.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl></p>
+<h3 id="public-member-functions_6"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_6" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_6"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_6" title="Permanent link">&para;</a></h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Range</dd></dl></p>
+<h2 id="autoconnectselect">AutoConnectSelect<a class="headerlink" href="#autoconnectselect" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_7"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_7" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectSelect(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> options </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> {}, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> label </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint8_t</span><span style="color: #f8f8f2"> selected </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_BR)</span>
+</code></pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">options</span><span class="apidesc">An array of options of the select element. Specifies a <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> object.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">selected</span><span class="apidesc">An option should be pre-selected when the page loads.</span></dd>
+    <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
+</dl>
+
+<h3 id="public-member-variables_7"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_7" title="Permanent link">&para;</a></h3>
+<h4 id="enable_7"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_7" title="Permanent link">&para;</a></h4>
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
+<h4 id="global_7"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_7" title="Permanent link">&para;</a></h4>
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
+<h4 id="name_7"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_7" title="Permanent link">&para;</a></h4>
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="label_5"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_5" title="Permanent link">&para;</a></h4>
 <p>A label is an optional string. A label will be arranged in the top of the selection list.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
@@ -3706,7 +4068,7 @@
 <p>An array of String type for the selection options. It is an initialization list can be used. The <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">option</span> <span style="color: #a6e22e">value</span><span style="color: #f8f8f2">&gt;</span></code> tags will be generated from each entry in the options.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">std::vector&lt;String&gt;</span><span class="apidesc"></span></dd></dl></p>
-<h4 id="post_6"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_6" title="Permanent link">&para;</a></h4>
+<h4 id="post_7"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_7" title="Permanent link">&para;</a></h4>
 <p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
@@ -3721,22 +4083,22 @@
 <p>A <code>selected</code> is an optional value. Specifies 1-based index value of an options array that an option should be pre-selected when the page loads.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">uint8_t</span><span class="apidesc"></span></dd></dl></p>
-<h3 id="public-member-functions_6"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_6" title="Permanent link">&para;</a></h3>
+<h3 id="public-member-functions_7"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_7" title="Permanent link">&para;</a></h3>
 <h4 id="add_1"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">option)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> add(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> option)</span>
 </code></pre></div>
 <p>Adds a selectable option string for the selection list.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd></dl></p>
 <h4 id="empty_1"><i class="fa fa-caret-right"></i> empty<a class="headerlink" href="#empty_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">empty(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">reserve</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> empty(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> reserve </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Clear the array of options list that AutoConnectSelect has in the options. When the <strong><em>reserve</em></strong> parameter is specified, a vector container of that size is reserved.</p>
 <p>The empty function resets the selected value to zero. When the empty function is executed, there are no selected options and the first item is placed at the beginning.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd></dl></p>
 <h4 id="operator_1"><i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;<a class="headerlink" href="#operator_1" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[]</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">n)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[] (</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> std</span><span style="color: #f92672">::</span><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> n)</span>
 </code></pre></div>
 <p>Returns an option string of the index specified by <strong><em>n</em></strong>.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
@@ -3744,32 +4106,32 @@
     <dt><strong>Return value</strong></dt>
     <dd>A reference of a option string indexed by the specified the <strong>n</strong>.</dd></dl></p>
 <h4 id="select"><i class="fa fa-caret-right"></i> select<a class="headerlink" href="#select" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span>  <span style="color: #a6e22e">select</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">value);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">  </span><span style="color: #a6e22e">select</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> value);</span>
 </code></pre></div>
 <p>Selects an option with the value.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">value</span><span class="apidesc">String value that option should be selected in an option array.</span></dd></dl></p>
 <h4 id="size_2"><i class="fa fa-caret-right"></i> size<a class="headerlink" href="#size_2" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> size(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns number of options which contained.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>Number of options which contained.</dd></dl></p>
-<h4 id="typeof_6"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_6" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<h4 id="typeof_7"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_7" title="Permanent link">&para;</a></h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>AC_Select</dd></dl></p>
-<h4 id="value_6"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_6" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #a6e22e">value</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #66d9ef">const</span><span style="color: #f8f8f2">;</span>
+<h4 id="value_7"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_7" title="Permanent link">&para;</a></h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">) </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2">;</span>
 </code></pre></div>
 <p>Returns current selected option of the select list.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>A String of an option current selected. If there is no select option, a null string returned.</dd></dl></p>
 <h2 id="autoconnectstyle">AutoConnectStyle<a class="headerlink" href="#autoconnectstyle" title="Permanent link">&para;</a></h2>
-<h3 id="constructor_7"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_7" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectStyle(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
+<h3 id="constructor_8"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_8" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectStyle(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -3777,29 +4139,29 @@
     <dd><span class="apidef">value</span><span class="apidesc">Raw CSS code to insert into a style block in a custom web page to generate.</span></dd>
 </dl>
 
-<h3 id="public-member-variables_7"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_7" title="Permanent link">&para;</a></h3>
-<h4 id="enable_7"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_7" title="Permanent link">&para;</a></h4>
+<h3 id="public-member-variables_8"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_8" title="Permanent link">&para;</a></h3>
+<h4 id="enable_8"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_8" title="Permanent link">&para;</a></h4>
 <p>Enable HTML tag generation for the element.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
-<h4 id="name_7"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_7" title="Permanent link">&para;</a></h4>
+<h4 id="name_8"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_8" title="Permanent link">&para;</a></h4>
 <p>The element name.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
-<h4 id="value_7"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_7" title="Permanent link">&para;</a></h4>
+<h4 id="value_8"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_8" title="Permanent link">&para;</a></h4>
 <p>Raw CSS code to insert into a style block in a custom web page to generate.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
-<h3 id="public-member-functions_7"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_7" title="Permanent link">&para;</a></h3>
-<h4 id="typeof_7"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_7" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<h3 id="public-member-functions_8"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_8" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_8"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_8" title="Permanent link">&para;</a></h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>AC_Style</dd></dl></p>
 <h2 id="autoconnectsubmit">AutoConnectSubmit<a class="headerlink" href="#autoconnectsubmit" title="Permanent link">&para;</a></h2>
-<h3 id="constructor_8"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_8" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectSubmit(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">uri</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
+<h3 id="constructor_9"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_9" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectSubmit(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> uri </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_None)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -3809,66 +4171,11 @@
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
 </dl>
 
-<h3 id="public-member-variables_8"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_8" title="Permanent link">&para;</a></h3>
-<h4 id="enable_8"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_8" title="Permanent link">&para;</a></h4>
-<p>Enable HTML tag generation for the element.<dl class="apidl">
-    <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
-<h4 id="global_7"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_7" title="Permanent link">&para;</a></h4>
-<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
-    <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
-<h4 id="name_8"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_8" title="Permanent link">&para;</a></h4>
-<p>The element name.<dl class="apidl">
-    <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
-<h4 id="post_7"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_7" title="Permanent link">&para;</a></h4>
-<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
-    <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
-<ul>
-<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
-<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
-<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.</li>
-<li><strong><code>AC_Tag_DIV</code></strong> : Include the element in the <code>&lt;div&gt; ~ &lt;/div&gt;</code> tag.
-</span></dd></dl></li>
-</ul>
-<h4 id="uri"><i class="fa fa-caret-right"></i> uri<a class="headerlink" href="#uri" title="Permanent link">&para;</a></h4>
-<p>Destination URI.<dl class="apidl">    <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
-<h4 id="value_8"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_8" title="Permanent link">&para;</a></h4>
-<p>The name of the submit button. It will also be the label of the button.<dl class="apidl">
-    <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
-<h3 id="public-member-functions_8"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_8" title="Permanent link">&para;</a></h3>
-<h4 id="typeof_8"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_8" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
-</code></pre></div>
-<p>Returns type of AutoConnectElement.<dl class="apidl">
-    <dt><strong>Return value</strong></dt>
-    <dd>AC_Submit</dd></dl></p>
-<h2 id="autoconnecttext">AutoConnectText<a class="headerlink" href="#autoconnecttext" title="Permanent link">&para;</a></h2>
-<h3 id="constructor_9"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_9" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectText(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">style</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">format</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">ACPosterior_t</span> <span style="color: #f8f8f2">post</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_Tag_None)</span>
-</code></pre></div>
-<dl class="apidl">
-    <dt><strong>Parameters</strong></dt>
-    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
-    <dd><span class="apidef">value</span><span class="apidesc">String of content for the text element.</span></dd>
-    <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the text.</span></dd>
-    <dd><span class="apidef">format</span><span class="apidesc">A pointer to a null-terminated multibyte string specifying how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to C-style printf library functions</span></dd>
-    <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
-</dl>
-
 <h3 id="public-member-variables_9"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_9" title="Permanent link">&para;</a></h3>
 <h4 id="enable_9"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_9" title="Permanent link">&para;</a></h4>
 <p>Enable HTML tag generation for the element.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
-<h4 id="format"><i class="fa fa-caret-right"></i> format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h4>
-<p>The conversion format when outputting values. The format string conforms to C-style printf library functions.<dl class="apidl">
-    <dt><strong>Type</strong></dt>
-    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="global_8"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_8" title="Permanent link">&para;</a></h4>
 <p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt><strong>Type</strong></dt>
@@ -3888,17 +4195,72 @@
 <li><strong><code>AC_Tag_DIV</code></strong> : Include the element in the <code>&lt;div&gt; ~ &lt;/div&gt;</code> tag.
 </span></dd></dl></li>
 </ul>
-<h4 id="style"><i class="fa fa-caret-right"></i> style<a class="headerlink" href="#style" title="Permanent link">&para;</a></h4>
-<p>A style code with CSS format that qualifiers the text.<dl class="apidl">
-    <dt><strong>Type</strong></dt>
+<h4 id="uri"><i class="fa fa-caret-right"></i> uri<a class="headerlink" href="#uri" title="Permanent link">&para;</a></h4>
+<p>Destination URI.<dl class="apidl">    <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h4 id="value_9"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_9" title="Permanent link">&para;</a></h4>
-<p>A content string of the text element.<dl class="apidl">
+<p>The name of the submit button. It will also be the label of the button.<dl class="apidl">
     <dt><strong>Type</strong></dt>
     <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
 <h3 id="public-member-functions_9"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_9" title="Permanent link">&para;</a></h3>
 <h4 id="typeof_9"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_9" title="Permanent link">&para;</a></h4>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t</span> <span style="color: #f8f8f2">typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns type of AutoConnectElement.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>AC_Submit</dd></dl></p>
+<h2 id="autoconnecttext">AutoConnectText<a class="headerlink" href="#autoconnecttext" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_10"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_10" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectText(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> style </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> format </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_Tag_None)</span>
+</code></pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">String of content for the text element.</span></dd>
+    <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the text.</span></dd>
+    <dd><span class="apidef">format</span><span class="apidesc">A pointer to a null-terminated multibyte string specifying how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to C-style printf library functions</span></dd>
+    <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
+</dl>
+
+<h3 id="public-member-variables_10"><i class="fa fa-code"></i> Public member variables<a class="headerlink" href="#public-member-variables_10" title="Permanent link">&para;</a></h3>
+<h4 id="enable_10"><i class="fa fa-caret-right"></i> enable<a class="headerlink" href="#enable_10" title="Permanent link">&para;</a></h4>
+<p>Enable HTML tag generation for the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl></p>
+<h4 id="format"><i class="fa fa-caret-right"></i> format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h4>
+<p>The conversion format when outputting values. The format string conforms to C-style printf library functions.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="global_9"><i class="fa fa-caret-right"></i> global<a class="headerlink" href="#global_9" title="Permanent link">&para;</a></h4>
+<p>The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl></p>
+<h4 id="name_10"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_10" title="Permanent link">&para;</a></h4>
+<p>The element name.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="post_9"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_9" title="Permanent link">&para;</a></h4>
+<p>Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc"></p>
+<ul>
+<li><strong><code>AC_Tag_None</code></strong> : No generate additional tags.</li>
+<li><strong><code>AC_Tag_BR</code></strong> : Add a <code>&lt;br&gt;</code> tag to the end of the element.</li>
+<li><strong><code>AC_Tag_P</code></strong> : Include the element in the <code>&lt;p&gt; ~ &lt;/p&gt;</code> tag.</li>
+<li><strong><code>AC_Tag_DIV</code></strong> : Include the element in the <code>&lt;div&gt; ~ &lt;/div&gt;</code> tag.
+</span></dd></dl></li>
+</ul>
+<h4 id="style_1"><i class="fa fa-caret-right"></i> style<a class="headerlink" href="#style_1" title="Permanent link">&para;</a></h4>
+<p>A style code with CSS format that qualifiers the text.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
+<h4 id="value_10"><i class="fa fa-caret-right"></i> value<a class="headerlink" href="#value_10" title="Permanent link">&para;</a></h4>
+<p>A content string of the text element.<dl class="apidl">
+    <dt><strong>Type</strong></dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl></p>
+<h3 id="public-member-functions_10"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions_10" title="Permanent link">&para;</a></h3>
+<h4 id="typeof_10"><i class="fa fa-caret-right"></i> typeOf<a class="headerlink" href="#typeof_10" title="Permanent link">&para;</a></h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ACElement_t typeOf(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns type of AutoConnectElement.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
@@ -3911,11 +4273,6 @@
 </li>
 </ol>
 </div>
-                
-              
-              
-                
-
 
               
             </article>
@@ -3924,8 +4281,7 @@
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
@@ -3964,43 +4320,42 @@
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018-2021 Hieromon Ikasamo
-          </div>
-        
-        
-          Made with
-          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-            Material for MkDocs
-          </a>
-        
-        
-      </div>
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018-2021 Hieromon Ikasamo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
-  <div class="md-footer-social">
+        <div class="md-social">
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-      </a>
+    
+    <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
     
-  </div>
-
+    <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
     </div>
   </div>
 </footer>
@@ -4009,10 +4364,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      <script src="assets/javascripts/bundle.e1a181d9.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

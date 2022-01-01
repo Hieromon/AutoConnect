@@ -9,14 +9,13 @@
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
-      
         <meta name="author" content="Hieromon Ikasamo">
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/adcpcontrol.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.8b42a75e.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.edf004c2.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -41,9 +40,8 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
-    
     
     
       <link rel="stylesheet" href="css/paragraph.css">
@@ -52,18 +50,17 @@
     
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
   
 
 
   
-
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-EHK8XV10VE",{page_path:t.pathname})})})</script>
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-EHK8XV10VE",{page_path:e.pathname})})})</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE"></script>
 
 
@@ -80,7 +77,6 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -96,6 +92,7 @@
     <div data-md-component="announce">
       
     </div>
+    
     
       
 
@@ -131,8 +128,7 @@
       <label class="md-header__button md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -164,8 +160,7 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -209,8 +204,7 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -364,6 +358,7 @@
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -899,6 +894,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="esp32cam.html" class="md-nav__link">
+        Works with ESP32-CAM
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1066,6 +1075,7 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1145,10 +1155,10 @@
             <article class="md-content__inner md-typeset">
               
                 
-                
-                  <h1>Captive portal control</h1>
-                
-                <p>The default behavior of AutoConnect is to launch the captive portal if 1<sup>st</sup>-WiFi.begin attempting inside <a href="api.html#begin">AutoConnect::begin</a> fails. You can change this default behavior through the <a href="apiconfig.html">AutoConnectConfig</a> settings join together with Sketch code that implements to control the WiFi connection attempting.</p>
+
+  <h1>Captive portal control</h1>
+
+<p>The default behavior of AutoConnect is to launch the captive portal if <em>1<sup>st</sup>-WiFi.begin</em> attempting inside <a href="api.html#begin">AutoConnect::begin</a> fails. You can change this default behavior through the <a href="apiconfig.html">AutoConnectConfig</a> settings join together with Sketch code that implements to control the WiFi connection attempting.</p>
 <ul>
 <li><a href="#captive-portal-start-control">Captive portal start control</a></li>
 <li><a href="#captive-portal-start-detection">Captive portal start detection</a></li>
@@ -1162,7 +1172,7 @@
 <h2 id="captive-portal-start-control">Captive portal start control<a class="headerlink" href="#captive-portal-start-control" title="Permanent link">&para;</a></h2>
 <p>AutoConnect will launch the captive portal based on the <a href="apiconfig.html">AutoConnectConfig</a> settings when the WiFi connection status will become to certain conditions. <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> and <a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a> are concern the conditions to launch the captive portal. Also, the <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> controls the continuity of the captive portal state and allows the Sketch to launch the captive portal dynamically even while in a <a href="api.html#handleclient"><strong>handleClient</strong></a> loop.</p>
 <p>The <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> allows or disallows the launch of the captive portal. AutoConnect launches the captive portal only if the autoRise is <strong>true</strong>. If the autoRise is <strong>false</strong>, the captive portal will not start even if the WiFi connection is lost.</p>
-<p>Basically, the captive portal initiation is triggered by the result of 1<sup>st</sup>-WiFi.begin, but Sketch can control it according to direct the following four actions by configuring AutoConnectConfig with two parameters, the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> and the <a href="apiconfig.html#autorise"><strong>autoRise</strong></a>.</p>
+<p>Basically, the captive portal initiation is triggered by the result of <em>1<sup>st</sup>-WiFi.begin</em>, but Sketch can control it according to direct the following four actions by configuring AutoConnectConfig with two parameters, the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> and the <a href="apiconfig.html#autorise"><strong>autoRise</strong></a>.</p>
 <table>
   <tr>
     <th rowspan="2" align="center">AutoConnectConfig<br>::immediateStart</th>
@@ -1174,7 +1184,7 @@
   </tr>
   <tr>
     <td>true</td>
-    <td>Skip 1st-WiFi.begin<br>ESP module becomes SoftAP and the captive portal starts immediately.<br></td>
+    <td>Skip *1st-WiFi.begin*<br>ESP module becomes SoftAP and the captive portal starts immediately.<br></td>
     <td>Not attempt WiFi connection.<br>Only WebServer will start in STA mode.</td>
   </tr>
   <tr>
@@ -1188,112 +1198,112 @@
 <p>However, this behavior can be redundant depending on the Sketch characteristics. In such a case, you can prevent to starting the captive portal during the <code>loop()</code> by <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> setting to <strong>false</strong>.</p>
 <h2 id="captive-portal-start-detection">Captive portal start detection<a class="headerlink" href="#captive-portal-start-detection" title="Permanent link">&para;</a></h2>
 <p>The captive portal will only be activated if 1<sup>st</sup>-WiFi::begin fails. Sketch can detect with the <a href="api.html#ondetect">AutoConnect::onDetect</a> function that the captive portal has started. For example, the Sketch can be written like as follows that turns on the LED at the start captive portal.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect Portal;</span>
 
-<span style="background-color: #49483e"><span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">startCP</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">ip)</span> <span style="color: #f8f8f2">{</span>
-</span>  <span style="color: #f8f8f2">digitalWrite(BUILTIN_LED,</span> <span style="color: #f8f8f2">HIGH);</span>
-  <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;C.P. started, IP:&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">ip.toString());</span>
-  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">true;</span>
+<span style="background-color: #49483e"><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">startCP</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> ip) {</span>
+</span><span style="color: #f8f8f2">  digitalWrite(BUILTIN_LED, HIGH);</span>
+<span style="color: #f8f8f2">  Serial.println(</span><span style="color: #e6db74">&quot;C.P. started, IP:&quot;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> ip.toString());</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> true;</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">pinMode(BUILTIN_LED,</span> <span style="color: #f8f8f2">OUTPUT);</span>
-  <span style="color: #f8f8f2">digitalWrite(BUILTIN_LED,</span> <span style="color: #f8f8f2">LOW);</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Portal.onDetect(startCP);</span>
-</span>  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Portal.begin())</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">digitalWrite(BUILTIN_LED,</span> <span style="color: #f8f8f2">LOW);</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  pinMode(BUILTIN_LED, OUTPUT);</span>
+<span style="color: #f8f8f2">  digitalWrite(BUILTIN_LED, LOW);</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  Portal.onDetect(startCP);</span>
+</span><span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (Portal.begin()) {</span>
+<span style="color: #f8f8f2">    digitalWrite(BUILTIN_LED, LOW);</span>
+<span style="color: #f8f8f2">  }</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <h2 id="captive-portal-timeout-control">Captive portal timeout control<a class="headerlink" href="#captive-portal-timeout-control" title="Permanent link">&para;</a></h2>
-<p>Once AutoConnect has entered the captive portal state due to the above conditions, the default behavior is that <a href="api.html#begin">AutoConnect::begin</a> will not exit until a WiFi connection is established. Captive portal timeout control prevents AutoConnect from blocking the Sketch progress. The Sketch can abort AutoConnect::begin and returns control to the Sketch. </p>
+<p>Once AutoConnect has entered the captive portal state due to the above conditions, the default behavior is that <a href="api.html#begin">AutoConnect::begin</a> will not exit until a WiFi connection is established. Captive portal timeout control prevents AutoConnect from blocking the Sketch progress. It allows Sketch to abort AutoConnect::begin and returns control to Sketch. </p>
 <p>AutoConnect has two parameters for timeout control. The first is the timeout value used when trying to connect to the specified AP. It works like a typical timeout control for connection attempts with WiFi.begin. This setting is specified by the <a href="apiconfig.html#begintimeout"><em>AutoConnectConfig::beginTimeout</em></a> or third argument of the <a href="api.html#begin">AutoConnect::begin</a> function. The default value is the macro defined by <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L103"><strong>AUTOCONNECT_TIMEOUT</strong></a> in the <a href="https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h"><code>AutoConnectDefs.h</code></a> header file.</p>
 <p>Another timeout control is for the captive portal itself. It is useful if you want to keep the Sketch offline running even if a WiFi connection is not possible. You can also combine its setting with the <a href="#launch-the-captive-portal-on-demand-by-external-trigger"><strong>immediateStart</strong></a> option to create highly mobile sketches. The timeout of the captive portal is specified by the <a href="apiconfig.html#portaltimeout"><em>AutoConnectConfig::portalTimeout</em></a> as follows.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span>  <span style="color: #f8f8f2">config;</span>
+<span style="color: #f8f8f2">AutoConnect  portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig  config;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// It will time out in 60 seconds</span>
-</span>  <span style="color: #f8f8f2">portal.config(config);</span>
-  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  config.portalTimeout </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;  </span><span style="color: #75715e">// It will time out in 60 seconds</span>
+</span><span style="color: #f8f8f2">  portal.config(config);</span>
+<span style="color: #f8f8f2">  portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>Also, if you want to stop AutoConnect completely when the captive portal is timed out, you need to call the <a href="api.html#end">AutoConnect::end</a> function. It looks like the following code:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">acEnable;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> acEnable;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// It will time out in 60 seconds</span>
-  <span style="color: #f8f8f2">portal.config(config);</span>
-  <span style="color: #f8f8f2">acEnable</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">portal.begin();</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">acEnable)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">portal.end();</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  config.portalTimeout </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;  </span><span style="color: #75715e">// It will time out in 60 seconds</span>
+<span style="color: #f8f8f2">  portal.config(config);</span>
+<span style="color: #f8f8f2">  acEnable </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> portal.begin();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">acEnable) {</span>
+<span style="color: #f8f8f2">    portal.end();</span>
+<span style="color: #f8f8f2">  }</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(acEnable)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">portal.handleClient();</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (acEnable) {</span>
+<span style="color: #f8f8f2">    portal.handleClient();</span>
+<span style="color: #f8f8f2">  }</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>AutoConnectConfig has another option related to timeouts that you can enable to take advantage of the captive portal feature after a timeout occurrence. The <a href="apiconfig.html#retainportal"><em>AutoConnectConfig::retainPortal</em></a> option will not shut down SoftAP and the internal DNS server even though <a href="api.html#begin">AutoConnect::begin</a> has aborted due to a timeout occurrence. Even after the captive portal times out, you can always try to connect to the AP while keeping the Sketch running offline.</p>
 <p>The following sample code is the Sketch above with the <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> setting added. As you can see, the implementation for captive portal continuation does not affect the main logic of the Sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #f8f8f2">AutoConnect</span>  <span style="color: #f8f8f2">portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span>  <span style="color: #f8f8f2">config;</span>
+<span style="color: #f8f8f2">AutoConnect  portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig  config;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">config.portalTimeout</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;</span>  <span style="color: #75715e">// It will time out in 60 seconds</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">config.retainPortal</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-</span>  <span style="color: #f8f8f2">portal.config(config);</span>
-  <span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  config.portalTimeout </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">60000</span><span style="color: #f8f8f2">;  </span><span style="color: #75715e">// It will time out in 60 seconds</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  config.retainPortal </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+</span><span style="color: #f8f8f2">  portal.config(config);</span>
+<span style="color: #f8f8f2">  portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">portal.handleClient();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Some sketch code for the connected scene is here.</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Some sketch code for not connected scene is here.</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <h2 id="disable-the-captive-portal">Disable the captive portal<a class="headerlink" href="#disable-the-captive-portal" title="Permanent link">&para;</a></h2>
-<p>It can also prevent the captive portal from starting even if the connection at the 1<sup>st</sup>-WiFi.begin fails. In this case, <a href="api.html#begin">AutoConnect::begin</a> behaves same as <em>WiFi.begin</em>.</p>
+<p>It can also prevent the captive portal from starting even if the connection at the <em>1<sup>st</sup>-WiFi.begin</em> fails. In this case, <a href="api.html#begin">AutoConnect::begin</a> behaves same as <em>WiFi.begin</em>.</p>
 <p>For disabling the captive portal, <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> sets to false with <a href="apiconfig.html">AutoConnectConfig</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">acConfig;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect       portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig acConfig;</span>
 
-<span style="background-color: #49483e"><span style="color: #f8f8f2">acConfig.autoRise</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">acConfig.autoRise </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> false;</span>
 </span><span style="color: #f8f8f2">portal.config(acConfig);</span>
 <span style="color: #f8f8f2">portal.begin();</span>
 </code></pre></div>
@@ -1304,39 +1314,39 @@
 <li>
 <p>Offline for usual operation, connect to WiFi with an external switch</p>
 <p>You can use this template if the ESP module does not connect to WiFi at an ordinal situation and need to establish by a manual trigger. In this case, it is desirable that AutoConnect not start until an external switch fires. This behavior is similar to the <a href="https://github.com/tzapu/WiFiManager#on-demand-configuration-portal">WiFiManager's startConfigPortal</a> function.<br />
-<a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a> is an option to launch the portal by the SoftAP immediately without attempting 1<sup>st</sup>-WiFi.begin. Also, by setting the <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> option to false, it is possible to suppress unintended automatic pop-ups of the portal screen when connecting to an ESP module SSID.<br />
+<a href="apiconfig.html#immediatestart"><em>AutoConnectConfig::immediateStart</em></a> is an option to launch the portal by the SoftAP immediately without attempting <em>1<sup>st</sup>-WiFi.begin</em>. Also, by setting the <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> option to false, it is possible to suppress unintended automatic pop-ups of the portal screen when connecting to an ESP module SSID.<br />
 To implement this, execute AutoConnect::config within the <strong>setup()</strong> function as usual, and handle AutoConnect::begin inside the <strong>loop()</strong> function.</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#define TRIGGER_PIN 5     // Trigger switch should be LOW active.</span>
 <span style="color: #75715e">#define HOLD_TIMER  3000</span>
 
-<span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
+<span style="color: #f8f8f2">AutoConnect       Portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig Config;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">pinMode(</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">INPUT_PULLUP);</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.immediateStart</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-</span>  <span style="color: #75715e">// Config.autoRise = false;   // If you don&#39;t need to automatically pop-up the portal when connected to the ESP module&#39;s SSID.</span>
-  <span style="color: #f8f8f2">Portal.config(Config);</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  pinMode(</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">, INPUT_PULLUP);</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  Config.immediateStart </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+</span><span style="color: #f8f8f2">  </span><span style="color: #75715e">// Config.autoRise = false;   // If you don&#39;t need to automatically pop-up the portal when connected to the ESP module&#39;s SSID.</span>
+<span style="color: #f8f8f2">  Portal.config(Config);</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(digitalRead(TRIGGER_PIN)</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">LOW)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">tm</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">millis();</span>
-    <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(digitalRead(TRIGGER_PIN)</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">LOW)</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #f8f8f2">yield();</span>
-    <span style="color: #f8f8f2">}</span>
-    <span style="color: #75715e">// Hold the switch while HOLD_TIMER time to start connect.</span>
-    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(millis()</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">tm</span> <span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">HOLD_TIMER)</span>
-      <span style="color: #f8f8f2">Portal.begin();</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (digitalRead(TRIGGER_PIN) </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> LOW) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">unsigned</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">long</span><span style="color: #f8f8f2"> tm </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> millis();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">while</span><span style="color: #f8f8f2"> (digitalRead(TRIGGER_PIN) </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> LOW) {</span>
+<span style="color: #f8f8f2">      yield();</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Hold the switch while HOLD_TIMER time to start connect.</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (millis() </span><span style="color: #f92672">-</span><span style="color: #f8f8f2"> tm </span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> HOLD_TIMER)</span>
+<span style="color: #f8f8f2">      Portal.begin();</span>
+<span style="color: #f8f8f2">  }</span>
 
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Here, what to do if the module has connected to a WiFi access point</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Here, what to do if the module has connected to a WiFi access point</span>
+<span style="color: #f8f8f2">  }</span>
 
-  <span style="color: #75715e">// Main process of your sketch</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Main process of your sketch</span>
 
-  <span style="color: #f8f8f2">Portal.handleClient();</span>  <span style="color: #75715e">// If WiFi is not connected, handleClient will do nothing.</span>
+<span style="color: #f8f8f2">  Portal.handleClient();  </span><span style="color: #75715e">// If WiFi is not connected, handleClient will do nothing.</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <div class="admonition info">
@@ -1348,54 +1358,54 @@ To implement this, execute AutoConnect::config within the <strong>setup()</stron
 <p>Register new access points on demand</p>
 <p>The following template is useful for controlling the registration of unknown access points. In this case, the ESP module establishes a WiFi connection using WiFi.begin natively without relying on AutoConnect.<br />
 Known access point credentials are saved by AutoConnect, to the ESP module can use the saved credentials to handle WiFi.begin natively. This means that you can explicitly register available access points when needed, and the ESP module will not use unknown access points under normal situations.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">portal</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> portal </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
 
-<span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">detectSwitch</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #75715e">/*</span>
+<span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">detectSwitch</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">/*</span>
 <span style="color: #75715e">  Returns true if an external switch to configure is active.</span>
-<span style="color: #75715e">  */</span>
+<span style="color: #75715e">  */</span><span style="color: #f8f8f2"></span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">connectWiFi</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">ssid,</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">password,</span> <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">timeout)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">WiFi.mode(WiFi_STA);</span>
-  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">WiFi.begin(ssid,</span> <span style="color: #f8f8f2">password);</span>
-  <span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">tm</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">millis();</span>
-  <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">!=</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(millis()</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">tm</span> <span style="color: #f92672">&gt;</span> <span style="color: #f8f8f2">timeout)</span>
-      <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">false;</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">true;</span>
+<span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">connectWiFi</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> ssid, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> password, </span><span style="color: #66d9ef">unsigned</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">long</span><span style="color: #f8f8f2"> timeout) {</span>
+<span style="color: #f8f8f2">  WiFi.mode(WiFi_STA);</span>
+<span style="color: #f8f8f2">  delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  WiFi.begin(ssid, password);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">unsigned</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">long</span><span style="color: #f8f8f2"> tm </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> millis();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">while</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">!=</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (millis() </span><span style="color: #f92672">-</span><span style="color: #f8f8f2"> tm </span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> timeout)</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> false;</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> true;</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">AutoConnectCredential</span> <span style="color: #f8f8f2">credt;</span>
-  <span style="color: #f8f8f2">station_config_t</span>  <span style="color: #f8f8f2">config;</span>
-  <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int8_t</span> <span style="color: #f8f8f2">e</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">e</span> <span style="color: #f92672">&lt;</span> <span style="color: #f8f8f2">credt.entries();</span> <span style="color: #f8f8f2">e</span><span style="color: #f92672">++</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">credt.load(e,</span> <span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">config);</span>
-    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(connectWiFi(config.ssid,</span> <span style="color: #f8f8f2">config.password,</span> <span style="color: #ae81ff">30000</span><span style="color: #f8f8f2">))</span>
-      <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">!=</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #75715e">// Here, do something when WiFi cannot reach.</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  AutoConnectCredential credt;</span>
+<span style="color: #f8f8f2">  station_config_t  config;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">int8_t</span><span style="color: #f8f8f2"> e </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">; e </span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2"> credt.entries(); e</span><span style="color: #f92672">++</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    credt.load(e, </span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">config);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (connectWiFi(config.ssid, config.password, </span><span style="color: #ae81ff">30000</span><span style="color: #f8f8f2">))</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">!=</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Here, do something when WiFi cannot reach.</span>
+<span style="color: #f8f8f2">  }</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(detectSwitch())</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
-    <span style="color: #f8f8f2">config.immediateStart</span><span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">portal)</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #f8f8f2">portal</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">AutoConnect;</span>
-    <span style="color: #f8f8f2">}</span>
-    <span style="color: #f8f8f2">portal</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">config(config);</span>
-    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(portal</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">begin())</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #f8f8f2">portal</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">end();</span>
-      <span style="color: #66d9ef">delete</span> <span style="color: #f8f8f2">portal;</span>
-      <span style="color: #f8f8f2">portal</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
-    <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #75715e">// Here, ordinary sketch logic.</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (detectSwitch()) {</span>
+<span style="color: #f8f8f2">    AutoConnectConfig config;</span>
+<span style="color: #f8f8f2">    config.immediateStart</span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #f92672">!</span><span style="color: #f8f8f2">portal) {</span>
+<span style="color: #f8f8f2">      portal </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">new</span><span style="color: #f8f8f2"> AutoConnect;</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">    portal</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">config(config);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (portal</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">begin()) {</span>
+<span style="color: #f8f8f2">      portal</span><span style="color: #f92672">-&gt;</span><span style="color: #f8f8f2">end();</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">delete</span><span style="color: #f8f8f2"> portal;</span>
+<span style="color: #f8f8f2">      portal </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Here, ordinary sketch logic.</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 </li>
@@ -1404,78 +1414,78 @@ Known access point credentials are saved by AutoConnect, to the ESP module can u
 <p>If the ESP module loses the established WiFi connection during the loop of <a href="api.html#handleclient"><strong>handleClient</strong></a>, you can prevent the ESP module from going absolutely standalone by launching the captive portal on demand.</p>
 <p>When <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> and <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> settings are enabled, AutoConnect will launch SoftAP and start DNS when it detects a WiFi disconnect with the router during a handleClient loop. This behavior will occur caused by a WiFi disconnect detection even if the WiFi mode is STA.</p>
 <p><strong>Since AutoConnect v1.2.0</strong>, An improved <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a> option allows the captive portal to be restarted during a handleClient loop even if it is closed once in <a href="api.html#begin">AutoConnect::begin</a>. In this case, the Sketch execution stage has already transitioned into the loop function, so the Sketch process seems running concurrently with the captive portal loop. Its captive portal launched from inside handleClient does not block the execution of the Sketch, unlike that launched from <a href="api.html#begin">AutoConnect::begin</a>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect       Portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig Config;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.autoRise</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span> <span style="color: #75715e">// It&#39;s the default, no setting is needed explicitly.</span>
-</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.retainPortal</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-</span>  <span style="color: #f8f8f2">Portal.config(Config);</span>
-  <span style="color: #f8f8f2">Portal.begin();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  Config.autoRise </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true; </span><span style="color: #75715e">// It&#39;s the default, no setting is needed explicitly.</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">  Config.retainPortal </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+</span><span style="color: #f8f8f2">  Portal.config(Config);</span>
+<span style="color: #f8f8f2">  Portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Need autoRise enabled</p>
 <p>Need <a href="apiconfig.html#autorise"><em>AutoConnectConfig::autoRise</em></a> setting enabled to start the captive portal on demand during a handleClient loop.</p>
 </div>
-<p>Although the Sketch above specifies the <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a>, it does not instruct starts the captive portal always. AutoConnect will try WiFi.begin once in <a href="api.html#begin">AutoConnect::begin</a> unless the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> option is specified. If AutoConnect fails the 1<sup>st</sup>-WiFi.begin, the captive portal will be launched at that point and the Sketch execution will stay within the <a href="api.html#begin">AutoConnect::begin</a> function.</p>
+<p>Although the Sketch above specifies the <a href="apiconfig.html#retainportal"><strong>retainPortal</strong></a>, it does not instruct starts the captive portal always. AutoConnect will try WiFi.begin once in <a href="api.html#begin">AutoConnect::begin</a> unless the <a href="apiconfig.html#immediatestart"><strong>immediateStart</strong></a> option is specified. If AutoConnect fails the <em>1<sup>st</sup>-WiFi.begin</em>, the captive portal will be launched at that point and the Sketch execution will stay within the <a href="api.html#begin">AutoConnect::begin</a> function.</p>
 <p>There is also a way to avoid starting the captive portal inside <a href="api.html#begin">AutoConnect::begin</a> and start the captive portal according to the WiFi connection status after the Sketch execution transitions to a <strong>handleClient loop</strong>. Adjusting the timing of <a href="apiconfig.html#autorise"><strong>autoRise</strong></a> activation will allow the captive portal to start only from inside <a href="api.html#handleclient">AutoConnect::handleClient</a> function.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect       Portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig Config;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.retainPortal</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.autoRise</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>  <span style="color: #75715e">// Suppresses the launch of the captive portal from AutoConnect::begin.</span>
-</span>  <span style="color: #f8f8f2">Portal.config(Config);</span>    <span style="color: #75715e">// Don&#39;t forget it.</span>
-  <span style="color: #f8f8f2">Portal.begin();</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">Config.autoRise</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>   <span style="color: #75715e">// Enable the launch of the captive portal.</span>
-</span>  <span style="color: #f8f8f2">Portal.config(Config);</span>    <span style="color: #75715e">// Don&#39;t forget it.</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  Config.retainPortal </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">  Config.autoRise </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> false;  </span><span style="color: #75715e">// Suppresses the launch of the captive portal from AutoConnect::begin.</span>
+</span><span style="color: #f8f8f2">  Portal.config(Config);    </span><span style="color: #75715e">// Don&#39;t forget it.</span>
+<span style="color: #f8f8f2">  Portal.begin();</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  Config.autoRise </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;   </span><span style="color: #75715e">// Enable the launch of the captive portal.</span>
+</span><span style="color: #f8f8f2">  Portal.config(Config);    </span><span style="color: #75715e">// Don&#39;t forget it.</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>The <a href="apiconfig.html#retainportal"><em>retainPortal</em></a> option will keep SoftAP even if WiFi has established a connection as a client with the router.  Since it has the effect of stopping the DNS server, the phenomenon that the portal screen will not pop up automatically even though SoftAP is in action occur.<br>
 This is a legacy behavior to ensure backward compatibility with up to AutoConnect v1.1.7. To stop SoftAP on escape from the on-demand captive portal, you need to explicitly call <strong><a href="https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/soft-access-point-class.html#softapdisconnect"><code>WiFi.softAPdisconnect(true)</code></a></strong> and <strong><a href="https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/generic-class.html?highlight=enableAP#other-function-calls"><code>WiFi.enableAP(false)</code></a></strong> in the Sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span>       <span style="color: #f8f8f2">Portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">Config;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect       Portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig Config;</span>
 
-<span style="color: #66d9ef">bool</span>  <span style="color: #f8f8f2">Connected;</span>
-<span style="color: #66d9ef">unsigned</span> <span style="color: #66d9ef">long</span> <span style="color: #f8f8f2">Elapsed;</span>
+<span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">  Connected;</span>
+<span style="color: #66d9ef">unsigned</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">long</span><span style="color: #f8f8f2"> Elapsed;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">onConnect</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">clientIP)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Connected</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-  <span style="color: #f8f8f2">Elapsed</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">millis();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">onConnect</span><span style="color: #f8f8f2">(IPAddress</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> clientIP) {</span>
+<span style="color: #f8f8f2">  Connected </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+<span style="color: #f8f8f2">  Elapsed </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> millis();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Config.retainPortal</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true;</span>
-  <span style="color: #f8f8f2">Portal.config(Config);</span>
-  <span style="color: #f8f8f2">Portal.onConnect(onConnect);</span>
-  <span style="color: #f8f8f2">Portal.begin();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Config.retainPortal </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+<span style="color: #f8f8f2">  Portal.config(Config);</span>
+<span style="color: #f8f8f2">  Portal.onConnect(onConnect);</span>
+<span style="color: #f8f8f2">  Portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">!=</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">connected</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">false;</span>
-    <span style="color: #f8f8f2">Elapsed</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">millis();</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">!=</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    connected </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> false;</span>
+<span style="color: #f8f8f2">    Elapsed </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> millis();</span>
+<span style="color: #f8f8f2">  }</span>
 
-<span style="background-color: #49483e">  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">((WiFi.getMode()</span> <span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">WIFI_AP)</span> <span style="color: #f92672">&amp;&amp;</span> <span style="color: #f8f8f2">Connected)</span> <span style="color: #f8f8f2">{</span>
-</span><span style="background-color: #49483e">    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(millis()</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">Elapsed</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">30000</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-</span><span style="background-color: #49483e">      <span style="color: #f8f8f2">WiFi.softAPdisconnect(true);</span>
-</span><span style="background-color: #49483e">      <span style="color: #f8f8f2">WiFi.enableAP(false);</span>
-</span><span style="background-color: #49483e">    <span style="color: #f8f8f2">}</span>
-</span><span style="background-color: #49483e">  <span style="color: #f8f8f2">}</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> ((WiFi.getMode() </span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> WIFI_AP) </span><span style="color: #f92672">&amp;&amp;</span><span style="color: #f8f8f2"> Connected) {</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (millis() </span><span style="color: #f92672">-</span><span style="color: #f8f8f2"> Elapsed </span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">30000</span><span style="color: #f8f8f2">) {</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">      WiFi.softAPdisconnect(true);</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">      WiFi.enableAP(false);</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">    }</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">  }</span>
 </span>
-  <span style="color: #75715e">// Actual sketch process is here.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Actual sketch process is here.</span>
 
-  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #f8f8f2">  Portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>The above sketch will shutdown the SoftAP after elapsed time exceeds 30 seconds since the connection was re-established. Its logic is a bit tricky and does not stop SoftAP immediately after the connection established, which has several seconds delay. Doing it ensures that AutoConnect can send the HTML response.</p>
@@ -1494,19 +1504,19 @@ But there is a reason why. Even if AutoConnect could establish a connection usin
 </ol>
 <p>Because, for the above reasons, we can not promptly shut down the SoftAP. (However, DNS will stop)</p>
 <p>So, If you want to stop SoftAP after connecting to the access point using the captive portal, you need to implement the shutdown process with Sketch explicitly. A template of the basic sketch that can stop the SoftAP after the connection is the following:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect Portal;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Portal.begin())</span> <span style="color: #f8f8f2">{</span>
-<span style="background-color: #49483e">    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.getMode()</span> <span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">WIFI_AP)</span> <span style="color: #f8f8f2">{</span>
-</span><span style="background-color: #49483e">      <span style="color: #f8f8f2">WiFi.softAPdisconnect(true);</span>
-</span><span style="background-color: #49483e">      <span style="color: #f8f8f2">WiFi.enableAP(false);</span>
-</span><span style="background-color: #49483e">    <span style="color: #f8f8f2">}</span>
-</span>  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (Portal.begin()) {</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.getMode() </span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> WIFI_AP) {</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">      WiFi.softAPdisconnect(true);</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">      WiFi.enableAP(false);</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">    }</span>
+</span><span style="color: #f8f8f2">  }</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <div class="admonition note">
@@ -1518,29 +1528,24 @@ You can expect to receive result notifications if you run <a href="api.html#hand
 <p>With <a href="api.html#begin">AutoConnect::begin</a>, once the captive portal is started without being able to connect to a known WiFi access point, control will not return to sketch until the WiFi connection is established or times out. This behavior helps to pin the ESP module's network participation as a WiFi client (that is, AutoConnect::begin is an alternative to WiFi.begin) but it can not rush into the loop function of the Sketch. Therefore, while the ESP module is in the captive portal state and waiting for a connection operation to the access point, the behavior of the Sketch will be restrained by the <a href="lsbegin.html">escape conditions from AutoConnect::begin</a>.</p>
 <p>The <strong>whileCaptivePortal exit</strong> allows the Sketch to continue the process temporarily while the ESP module remains standalone and the captive portal is open. <a href="api.html#whilecaptiveportal">AutConnect::whileCaptivePortal</a> function registers the user's sketch function to be called by <a href="api.html#begin">AutoConnect::begin</a> or <a href="api.html#handleclient">AutoConnect::handleClient</a> during the execution of the captive portal session loop.</p>
 <p>The whileCaptivePortal exit can be registered by following: </p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect portal;</span>
 
-<span style="color: #66d9ef">bool</span> <span style="color: #a6e22e">whileCP</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">bool</span>  <span style="color: #f8f8f2">rc;</span>
-  <span style="color: #75715e">// Here, something to process while the captive portal is open.</span>
-  <span style="color: #75715e">// To escape from the captive portal loop, this exit function returns false.</span>
-  <span style="color: #75715e">// rc = true;, or rc = false;</span>
-  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">rc;</span>
+<span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">whileCP</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">  rc;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Here, something to process while the captive portal is open.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// To escape from the captive portal loop, this exit function returns false.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// rc = true;, or rc = false;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> rc;</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">...</span>
-<span style="background-color: #49483e">  <span style="color: #f8f8f2">portal.whileCaptivePortal(whileCP);</span>
-</span>  <span style="color: #f8f8f2">portal.begin();</span>
-  <span style="color: #f8f8f2">...</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  ...</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  portal.whileCaptivePortal(whileCP);</span>
+</span><span style="color: #f8f8f2">  portal.begin();</span>
+<span style="color: #f8f8f2">  ...</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>AutoConnect will open the captive portal in the <a href="api.html#bdgin">AutoConnect::begin</a> and <a href="api.html#handleclient">AutoConnect::handleClient</a> scenes, but the whileCaptive portal exit will be called repeatedly from <a href="api.html#begin">AutoConnect::begin</a> until exits from it. The whileCaptivePortal exit will be called repeatedly while the captive portal is open until WiFi connected or times out occurs. In the Sketch, returning a <strong>FALSE</strong> value from the whileCaptivePortal function allows the control to escape from the captive portal loop even before the session elapsed time exceeds the limits.</p>
-                
-              
-              
-                
-
 
               
             </article>
@@ -1549,8 +1554,7 @@ You can expect to receive result notifications if you run <a href="api.html#hand
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
@@ -1589,43 +1593,42 @@ You can expect to receive result notifications if you run <a href="api.html#hand
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018-2021 Hieromon Ikasamo
-          </div>
-        
-        
-          Made with
-          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-            Material for MkDocs
-          </a>
-        
-        
-      </div>
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018-2021 Hieromon Ikasamo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
-  <div class="md-footer-social">
+        <div class="md-social">
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-      </a>
+    
+    <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
     
-  </div>
-
+    <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
     </div>
   </div>
 </footer>
@@ -1634,10 +1637,10 @@ You can expect to receive result notifications if you run <a href="api.html#hand
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      <script src="assets/javascripts/bundle.e1a181d9.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

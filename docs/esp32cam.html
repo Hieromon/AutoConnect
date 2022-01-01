@@ -1,0 +1,2668 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/esp32cam.html">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+    
+    
+      
+        <title>Works with ESP32-CAM - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.edf004c2.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-EHK8XV10VE",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-this-example-presents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-header__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AutoConnect for ESP8266/ESP32
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Works with ESP32-CAM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gettingstarted.html" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menu.html" class="md-nav__link">
+        AutoConnect menu
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="basicusage.html" class="md-nav__link">
+        Basic usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Advanced usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advancedusage.html" class="md-nav__link">
+        Advanced usage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adconnection.html" class="md-nav__link">
+        AutoConnect WiFi connection control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcpcontrol.html" class="md-nav__link">
+        Captive portal control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adnetwork.html" class="md-nav__link">
+        Settings and controls for network and WiFi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adauthentication.html" class="md-nav__link">
+        Authentication settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcredential.html" class="md-nav__link">
+        Credential accesses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adexterior.html" class="md-nav__link">
+        Customizing page appearance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adothers.html" class="md-nav__link">
+        Other operation settings and controls
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Custom Web pages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Custom Web pages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acintro.html" class="md-nav__link">
+        Custom Web pages with AutoConnect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acelements.html" class="md-nav__link">
+        AutoConnectElements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acjson.html" class="md-nav__link">
+        Custom Web pages with JSON
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="achandling.html" class="md-nav__link">
+        Handling the custom Web pages
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          OTA Updates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OTA Updates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaupdate.html" class="md-nav__link">
+        OTA Updates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otabrowser.html" class="md-nav__link">
+        Using Web Browser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaserver.html" class="md-nav__link">
+        Using Update Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filesystem.html" class="md-nav__link">
+        Using Filesystem
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Library APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Library APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        AutoConnect API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiaux.html" class="md-nav__link">
+        AutoConnectAux API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiconfig.html" class="md-nav__link">
+        AutoConnectConfig API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apielements.html" class="md-nav__link">
+        AutoConnectElements API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiupdate.html" class="md-nav__link">
+        AutoConnectUpdate API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiextra.html" class="md-nav__link">
+        Something extra
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="howtoembed.html" class="md-nav__link">
+        How to embed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datatips.html" class="md-nav__link">
+        Tips for data conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menuize.html" class="md-nav__link">
+        Attach the menus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wojson.html" class="md-nav__link">
+        Custom Web pages w/o JSON
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Works with ESP32-CAM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="esp32cam.html" class="md-nav__link md-nav__link--active">
+        Works with ESP32-CAM
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-example-presents" class="md-nav__link">
+    What this example presents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-we-can-not-use-app_httpdcpp-together-with-autoconnect" class="md-nav__link">
+    Why we can not use app_httpd.cpp together with AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategy" class="md-nav__link">
+    Strategy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-a-streaming-server-with-esp32-cam-using-autoconnect" class="md-nav__link">
+    Implementing a Streaming Server with ESP32-CAM using AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#program-structure" class="md-nav__link">
+    Program structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32webcam-class-and-esp32cam-class" class="md-nav__link">
+    ESP32WebCam Class and ESP32Cam Class
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32WebCam Class and ESP32Cam Class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esp32webcam-features" class="md-nav__link">
+    ESP32WebCam features:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#esp32cam-features" class="md-nav__link">
+    ESP32Cam features:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32wemcam-class-apis" class="md-nav__link">
+    ESP32WemCam Class APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32WemCam Class APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcapturepath" class="md-nav__link">
+     getCapturePath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpromptpath" class="md-nav__link">
+     getPromptPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getserverhandle" class="md-nav__link">
+     getServerHandle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getserverport" class="md-nav__link">
+     getServerPort
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getstreampath" class="md-nav__link">
+     getStreamPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isserverstarted" class="md-nav__link">
+     isServerStarted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor" class="md-nav__link">
+     sensor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensorinit" class="md-nav__link">
+     sensorInit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setcapturepath" class="md-nav__link">
+     setCapturePath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setpromptpath" class="md-nav__link">
+     setPromptPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setserverport" class="md-nav__link">
+     setServerPort
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setstreampath" class="md-nav__link">
+     setStreamPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startcameraserver" class="md-nav__link">
+     startCameraServer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopcameraserver" class="md-nav__link">
+     stopCameraServer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32webcam-endpoint-interfaces" class="md-nav__link">
+    ESP32WebCam Endpoint Interfaces
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32WebCam Endpoint Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows" class="md-nav__link">
+    The default settings for the endpoint interface provided by ESP32WebCam are as follows:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capture" class="md-nav__link">
+     Capture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt" class="md-nav__link">
+     Prompt
+  </a>
+  
+    <nav class="md-nav" aria-label=" Prompt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-following-features-are-currently-supported-by-the-prompt-endpoint" class="md-nav__link">
+    The following features are currently supported by the prompt endpoint:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream" class="md-nav__link">
+     Stream
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32cam-class-apis" class="md-nav__link">
+    ESP32Cam Class APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32Cam Class APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getstatus" class="md-nav__link">
+     getStatus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getframesize" class="md-nav__link">
+     getFramesize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getframeheight" class="md-nav__link">
+     getFrameHeight
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getframewidth" class="md-nav__link">
+     getFrameWidth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init" class="md-nav__link">
+     init
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsettings" class="md-nav__link">
+     loadSettings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#savesettings" class="md-nav__link">
+     saveSettings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setstatus" class="md-nav__link">
+     setStatus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setframesize" class="md-nav__link">
+     setFramesize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setimageformat" class="md-nav__link">
+     setImageFormat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oneshot" class="md-nav__link">
+     oneShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timershot" class="md-nav__link">
+     timerShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabletimershot" class="md-nav__link">
+     disableTimerShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabletimershot" class="md-nav__link">
+     enableTimerShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deq" class="md-nav__link">
+     deq
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enq" class="md-nav__link">
+     enq
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#webcamserver-like-as-camerawebserver" class="md-nav__link">
+    WebCamServer like as CameraWebServer
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Appendix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Appendix" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lsbegin.html" class="md-nav__link">
+        Inside AutoConnect::begin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="credit.html" class="md-nav__link">
+        Saved credentials access
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acupload.html" class="md-nav__link">
+        File upload handler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="colorized.html" class="md-nav__link">
+        Custom colorized
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelabel.html" class="md-nav__link">
+        Change label text
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog.html" class="md-nav__link">
+        Change log
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-example-presents" class="md-nav__link">
+    What this example presents
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-we-can-not-use-app_httpdcpp-together-with-autoconnect" class="md-nav__link">
+    Why we can not use app_httpd.cpp together with AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategy" class="md-nav__link">
+    Strategy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementing-a-streaming-server-with-esp32-cam-using-autoconnect" class="md-nav__link">
+    Implementing a Streaming Server with ESP32-CAM using AutoConnect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#program-structure" class="md-nav__link">
+    Program structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32webcam-class-and-esp32cam-class" class="md-nav__link">
+    ESP32WebCam Class and ESP32Cam Class
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32WebCam Class and ESP32Cam Class">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esp32webcam-features" class="md-nav__link">
+    ESP32WebCam features:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#esp32cam-features" class="md-nav__link">
+    ESP32Cam features:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32wemcam-class-apis" class="md-nav__link">
+    ESP32WemCam Class APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32WemCam Class APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcapturepath" class="md-nav__link">
+     getCapturePath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getpromptpath" class="md-nav__link">
+     getPromptPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getserverhandle" class="md-nav__link">
+     getServerHandle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getserverport" class="md-nav__link">
+     getServerPort
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getstreampath" class="md-nav__link">
+     getStreamPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isserverstarted" class="md-nav__link">
+     isServerStarted
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensor" class="md-nav__link">
+     sensor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensorinit" class="md-nav__link">
+     sensorInit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setcapturepath" class="md-nav__link">
+     setCapturePath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setpromptpath" class="md-nav__link">
+     setPromptPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setserverport" class="md-nav__link">
+     setServerPort
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setstreampath" class="md-nav__link">
+     setStreamPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#startcameraserver" class="md-nav__link">
+     startCameraServer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopcameraserver" class="md-nav__link">
+     stopCameraServer
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32webcam-endpoint-interfaces" class="md-nav__link">
+    ESP32WebCam Endpoint Interfaces
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32WebCam Endpoint Interfaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows" class="md-nav__link">
+    The default settings for the endpoint interface provided by ESP32WebCam are as follows:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capture" class="md-nav__link">
+     Capture
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt" class="md-nav__link">
+     Prompt
+  </a>
+  
+    <nav class="md-nav" aria-label=" Prompt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-following-features-are-currently-supported-by-the-prompt-endpoint" class="md-nav__link">
+    The following features are currently supported by the prompt endpoint:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream" class="md-nav__link">
+     Stream
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#esp32cam-class-apis" class="md-nav__link">
+    ESP32Cam Class APIs
+  </a>
+  
+    <nav class="md-nav" aria-label="ESP32Cam Class APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constructor_1" class="md-nav__link">
+     Constructor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getstatus" class="md-nav__link">
+     getStatus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getframesize" class="md-nav__link">
+     getFramesize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getframeheight" class="md-nav__link">
+     getFrameHeight
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getframewidth" class="md-nav__link">
+     getFrameWidth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init" class="md-nav__link">
+     init
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loadsettings" class="md-nav__link">
+     loadSettings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#savesettings" class="md-nav__link">
+     saveSettings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setstatus" class="md-nav__link">
+     setStatus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setframesize" class="md-nav__link">
+     setFramesize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setimageformat" class="md-nav__link">
+     setImageFormat
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oneshot" class="md-nav__link">
+     oneShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timershot" class="md-nav__link">
+     timerShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabletimershot" class="md-nav__link">
+     disableTimerShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabletimershot" class="md-nav__link">
+     enableTimerShot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deq" class="md-nav__link">
+     deq
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enq" class="md-nav__link">
+     enq
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#webcamserver-like-as-camerawebserver" class="md-nav__link">
+    WebCamServer like as CameraWebServer
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+  <h1>Works with ESP32-CAM</h1>
+
+<h2 id="what-this-example-presents">What this example presents<a class="headerlink" href="#what-this-example-presents" title="Permanent link">&para;</a></h2>
+<p>ESP-IDF is offering <a href="https://github.com/espressif/esp32-camera">ESP32 Camera Driver</a> as an interface to small image sensors that can work with ESP32. This driver supports a variety of popular image sensors, such as the OV2640, which has low power consumption and mega-pixel sensing capability. By reading through this chapter you will know how to make the sketch featuring a UI that looks like the followings. Of course, it has the convenience of AutoConnect as well. This example shows how to sketch the Web Camera Application that involves using AutoConnect together with the ESP32 Camera Driver.</p>
+<p><img src="images/webcamserver_ss1.png" style="width:380px;">
+<img src="images/webcamserver_ss2.png" style="width:380px;">
+<img src="images/webcamserver_ss3.png" style="width:380px;"></p>
+<h2 id="why-we-can-not-use-app_httpdcpp-together-with-autoconnect">Why we can not use app_httpd.cpp together with AutoConnect<a class="headerlink" href="#why-we-can-not-use-app_httpdcpp-together-with-autoconnect" title="Permanent link">&para;</a></h2>
+<p>The ESP32 library of the ESP32 Arduino core features a <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer"><code>CameraWebServer.ino</code></a> that includes an interface to drive the Camera Driver. The core process of the server-side of that sketch application is <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Camera/CameraWebServer/app_httpd.cpp"><code>app_httpd.cpp</code></a>, which consists of initializing and configuring the image sensor, configuring and capturing image frames, and sending the image frames through an internally started <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/esp_http_server.html#http-server">HTTP server</a>.</p>
+<p>While Web UI provided by <code>CameraWebServer.ino</code> is sophisticated, the role of <code>app_httpd.cpp</code> is focused on responding to the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch</a> required by the Web UI (which is actually an HTML page specific to each sensor model that is extracted from the gzipped <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Camera/CameraWebServer/camera_index.h"><code>camera_index.h</code></a>). It is a set of primitive functions that are integrated with the Web UI. Also, <code>app_httpd.cpp</code> has hardcoded the TCP port of the internally invoking HTTP server as fixed at 80, which conflicts with the HTTP port used by a typical captive portal. Therefore, It is impossible to apply <code>app_httpd.cpp</code> which has fixed 80 TCP port depending on the WebUI of <code>CameraWebServer.ino</code> to sketches using AutoConnect as it is.</p>
+<div class="admonition info">
+<p class="admonition-title">CameraWebServer.ino extended version available on GitHub</p>
+<p><a href="https://github.com/easytarget/esp32-cam-webserver">An extended version of app_httpd.cpp</a> is available on the GitHub repository to make it a bit more flexible for different usage scenarios. It also can handling the captive portal itself.</p>
+</div>
+<h2 id="strategy">Strategy<a class="headerlink" href="#strategy" title="Permanent link">&para;</a></h2>
+<p>As mentioned earlier, <code>app_httpd.cpp</code> is integrated with <code>CameraWebServer.ino</code>'s Web UI. However, its functionality can be separated into two parts: an interface for driving the image sensor correctly and sending the captured images on the HTTP stream as requested by the client. It also has the ability to configure the sensor settings over the network remotely, but this can be omitted at the expense of interactivity. (We can implement that feature after the initial purpose is achieved)</p>
+<p>So, I have prepared two separate classes with these functions. <a href="#esp32webcam-features"><strong>ESP32WebCam</strong></a> and <a href="#esp32cam-features"><strong>ESP32Cam</strong></a> are independent classes inspired by app-httpd.cpp, and they can interface with the ESP32 Camera Driver individually, or send out motion JPEGs via an HTTP server task running inside the class.</p>
+<p>These two classes are completely independent of the AutoConnect library and can be incorporated into your various other sketches on their own. the source code for the ESP32WebCam and ESP32Cam classes can be found in the <a href="https://github.com/Hieromon/AutoConnect/blob/master/examples/WebCamServer">AutoConnect library examples</a> and are distributed together. The API specifications for these two classes are described later in this chapter.</p>
+<h2 id="implementing-a-streaming-server-with-esp32-cam-using-autoconnect">Implementing a Streaming Server with ESP32-CAM using AutoConnect<a class="headerlink" href="#implementing-a-streaming-server-with-esp32-cam-using-autoconnect" title="Permanent link">&para;</a></h2>
+<p>A minimal sketch that involves the ESP32WebCam and ESP32Cam classes and incorporates them together with AutoConnect is shown below. This sketch will work with <a href="https://docs.aithinker.com/en/esp32-cam">Ai-Thinker ESP32-CAM</a>, which is one of the most popular ESP32 modules with OmniVision OV2640 image sensor.</p>
+<p>In order to experience this sketch, copy the five files <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h"><code>ESP32WebCam.h</code></a>, <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.cpp"><code>ESP32WebCam.cpp</code></a>, <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam.h"><code>ESP32Cam.h</code></a>, <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.cpp"><code>ESP32Cam.cpp</code></a>, and <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam_pins.h"><code>ESP32Cam_pins.h</code></a> from the <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer">WebCamServer folder</a> located AutoConnect library examples to the same folder as the sketchbook folder where you placed this sketch. Connect the ESP32-CAM module to your PC and launch the Arduino IDE. Then select the correct board you using from the Tool menu of Arduino IDE and compile it. (Don't forget to open the serial monitor)</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;Arduino.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&quot;ESP32WebCam.h&quot;</span>
+
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f8f8f2">  CAMERA_VIEWER[] </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">R&quot;*(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;Camera&quot;,</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: false,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;viewport&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACText&quot;,</span>
+<span style="color: #e6db74">      &quot;format&quot;: &quot;&lt;img src=&#39;http://%s&#39;&gt;&quot;,</span>
+<span style="color: #e6db74">      &quot;posterior&quot;: &quot;none&quot;</span>
+<span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;discon&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACElement&quot;,</span>
+<span style="color: #e6db74">      &quot;value&quot;: &quot;&lt;script&gt;window.addEventListener(&#39;pagehide&#39;,function(){window.stop();});&lt;/script&gt;&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)*&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #75715e">// Declare ESP32-CAM handling interface. It contains ESP-IDF Web Server.</span>
+<span style="color: #f8f8f2">ESP32WebCam </span><span style="color: #a6e22e">webcam</span><span style="color: #f8f8f2">(ESP32Cam</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">CAMERA_MODEL_AI_THINKER);</span>
+
+<span style="color: #75715e">// AutoConnect portal. It contains the WebServer from ESP32 Arduino Core.</span>
+<span style="color: #f8f8f2">AutoConnect portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig config;</span>
+
+<span style="color: #75715e">// AutoConnectAux page handler, it starts streaming by adding the ESP32WebCam</span>
+<span style="color: #75715e">// streaming endpoint to the src attribute of the img tag on the AutoConnectAux page.</span>
+<span style="color: #f8f8f2">String </span><span style="color: #a6e22e">viewer</span><span style="color: #f8f8f2">(AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> aux, PageArgument </span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2">args) {</span>
+<span style="color: #f8f8f2">  AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> viewer </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">*</span><span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Set the Streaming server host, port, and endpoint</span>
+<span style="color: #f8f8f2">  viewer[</span><span style="color: #e6db74">&quot;viewport&quot;</span><span style="color: #f8f8f2">].value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> WiFi.localIP().toString() </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;:&quot;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> String(webcam.getServerPort())</span>
+<span style="color: #f8f8f2">                           </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> String(webcam.getStreamPath());</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> String();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  Serial.println();</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Start Image sensor</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (webcam.sensorInit() </span><span style="color: #f92672">!=</span><span style="color: #f8f8f2"> ESP_OK) {</span>
+<span style="color: #f8f8f2">    Serial.println(</span><span style="color: #e6db74">&quot;Camera initialize failed&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Allow automatic re-connection as long as the WiFi connection is established.</span>
+<span style="color: #f8f8f2">  config.autoReconnect </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+<span style="color: #f8f8f2">  config.reconnectInterval </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  portal.config(config);</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Start the portal, it will launch the WebServer for the portal from inside of AutoConnect.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (portal.begin()) {</span>
+<span style="color: #f8f8f2">    portal.load(CAMERA_VIEWER);</span>
+<span style="color: #f8f8f2">    portal.on(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">, viewer);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Start ESP32 Camera Web Server</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (webcam.startCameraServer() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> ESP_OK) {</span>
+<span style="color: #f8f8f2">      Serial.printf(</span><span style="color: #e6db74">&quot;ESP32WebCam server %s port %u ready</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">, WiFi.localIP().toString().c_str(),</span>
+<span style="color: #f8f8f2">        webcam.getServerPort());</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">      Serial.println(</span><span style="color: #e6db74">&quot;ESP32WebCam server start failed&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    }</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>If your ESP32-CAM module still has no connection with any access point, a captive portal will open. Use your cellphone to connect the ESP32-CAM to the access point. When ESP32-CAM successfully connects to the access point, you will see the IP address on the serial monitor. You visit the IP address from your browser, you can see the image captured by the ESP32-CAM.</p>
+<p><img src="images/esp32cam_view.png" width="510px"></p>
+<div class="admonition note">
+<p class="admonition-title">Streaming stops caused by ERR_CONNECTION_RESET</p>
+<p>Sometimes the browser will throw the above error and the streaming will stop. In the simple sketch above, which does not include the transmission error recovery process, the TCP packet transmission is incomplete due to a weak WiFi signal or other reasons, and the browser will stop loading the image. Send errors can be recovered by incorporating an event handler into the img tag, and an example of its implementation is shown later in this chapter.</p>
+</div>
+<h2 id="program-structure">Program structure<a class="headerlink" href="#program-structure" title="Permanent link">&para;</a></h2>
+<p>The sketch of AutoConnect using ESP32WebCam and ESP32Cam classes is divided into several components, which will take a similar form in any sketch application. Their logical components are as follows:</p>
+<ol>
+<li>
+<p>Include ESP32WebCam.h header file.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&quot;ESP32WebCam.h&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>AutoConnectAux defines a custom web page in JSON description. It includes an <code>img</code> tag that displays the captured image. The <code>src</code> attribute of the <code>img</code> tag is not hard-coded and can be dynamically set in a custom web page handler to make the sketch more applicable to various situations.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
+<span style="color: #f8f8f2">  </span><span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;viewport&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #f92672">&quot;format&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;&lt;img src=&#39;http://%s&#39;&gt;&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #f92672">&quot;posterior&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;none&quot;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Insert AutoConnectElement in the JSON description of your custom web page with JavaScript enclosed in <code>&lt;script&gt;~&lt;/script&gt;</code> in HTML to stop streaming on page transition.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">addEventListener</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;pagehide&#39;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span> <span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">});</span>
+</code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">Why window.stop() is needed</p>
+<p>That's because image streaming is achieved by continuous loading of Motion JPEG using <a href="https://docstore.mik.ua/orelly/web2/xhtml/ch13_03.htm">HTTP multipart/x-mixed-replace</a> keep-alive stream. With this type of MIME content, the server will continue to push the content unless the client explicitly notifies the server of the end of the session. The method of notifying the end of the session varies depending on the client browser, and by issuing <code>window.stop()</code>, the difference in the behavior of each browser is absorbed.</p>
+</div>
+</li>
+<li>
+<p>Declare ESP32WebCam instance. It accompanies the parameters with the appropriate model specifiers.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32WebCam </span><span style="color: #a6e22e">webcam</span><span style="color: #f8f8f2">(ESP32Cam</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">CAMERA_MODEL_AI_THINKER);</span>
+</code></pre></div>
+    For details on identifiers that can be specified as image sensor models, please refer to the <a href="#esp32wemcam-class-apis">APIs</a> described below.</p>
+</li>
+<li>
+<p>Declare AutoConnect instance. If your sketch requires a native web page that is not an AutoConnectAux, you can declare a WebServer instance at the same place to make it easier to call from functions in your sketch.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect portal;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Declare AutoConnectConfig to control WiFi connection behavior if necessary.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectConfig config;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Prepare an AutoConnectAux custom page handler for the declared above AutoConnectAux JSON. Typically, this handler is responsible for handling the ESP32Cam class via the endpoint interface provided by the ESP32Cam class. In the above sketch, we have only given the endpoint (i.e. <code>http://{WiFi.localIP}:3000/_stream</code>) for streaming by the ESP32WebCam class as the <code>src</code> attribute of the <code>img</code> tag identified <code>id=viewport</code>, since we are focusing on the minimum necessary processing. ESP32WebCam class will deliver the captured image with just this operation.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> viewer </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">*</span><span style="color: #f8f8f2">portal.aux(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">viewer[</span><span style="color: #e6db74">&quot;viewport&quot;</span><span style="color: #f8f8f2">].value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> WiFi.localIP().toString() </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;:&quot;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> String(webcam.getServerPort())</span>
+<span style="color: #f8f8f2">                         </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> String(webcam.getStreamPath());</span>
+</code></pre></div>
+    For more information about ESP32Cam capability and ESP32WebCam endpoints, please refer to the <a href="#esp32webcam-endpoint-interfaces">Endpoint interfaces</a> described below.</p>
+<div class="admonition hint">
+<p class="admonition-title">Using AutoConnectText with format string</p>
+<p>In the sketch above, the <a href="apielements.html#format">format</a> attribute of AutoConnectText is used to set the <code>src</code> attribute of the <code>img</code> tag. The <a href="apielements.html#format">AutoConnectText format attribute</a> produces the same output as a C-style <code>printf(format, value)</code>, depending on the string that can be derived from the value.<br />
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">printf(</span><span style="color: #e6db74">&quot;&lt;img src=&#39;http://%s&#39;&gt;&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;localhost:3000/_stream&quot;</span><span style="color: #f8f8f2">);</span>
+</code></pre></div></p>
+</div>
+</li>
+<li>
+<p>Start the sketch and initialize the camera using <a href="#sensorinit">ESP32WebCam::sensorInit</a>. <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_err.html#macros"><strong><code>ESP_OK</code></strong></a> will returned on success to initialize the image sensor.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32WebCam </span><span style="color: #a6e22e">webcam</span><span style="color: #f8f8f2">(ESP32Cam</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">CAMERA_MODEL_AI_THINKER);</span>
+
+<span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (webcam.sensorInit() </span><span style="color: #f92672">!=</span><span style="color: #f8f8f2"> ESP_OK) {</span>
+<span style="color: #f8f8f2">  Serial.println(</span><span style="color: #e6db74">&quot;Camera initialize failed&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Configure WiFi state control to maintain connection. Usually, <a href="adconnection.html#automatic-reconnect-background">AutoConnectConfig::autoReconnect</a> will keep WiFi connection stateful.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">config.autoReconnect </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+<span style="color: #f8f8f2">config.reconnectInterval </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">portal.config(config);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Start the portal, and load the view page.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">portal.begin();</span>
+<span style="color: #f8f8f2">portal.load(CAMERA_VIEWER);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Register the view page handler and start the streaming server using <a href="#startcameraserver">ESP32WebCam::startCameraServer</a>. <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_err.html#macros"><strong><code>ESP_OK</code></strong></a> will returned on start the streaming server successfully.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">portal.on(</span><span style="color: #e6db74">&quot;/&quot;</span><span style="color: #f8f8f2">, viewer);</span>
+<span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (webcam.startCameraServer() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> ESP_OK) {</span>
+<span style="color: #f8f8f2">  Serial.printf(</span><span style="color: #e6db74">&quot;ESP32WebCam server ready: %s</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">, WiFi.localIP().toString().c_str());</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  Serial.println(</span><span style="color: #e6db74">&quot;ESP32WebCam server start failed&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Loop for portal.handleClient().</p>
+</li>
+</ol>
+<p>The <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Camera/CameraWebServer/app_httpd.cpp"><code>app_httpd.cpp</code></a>, which is the core of <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer"><code>CameraWebServer.ino</code></a>'s functionality, has a mixture of an interface with the <a href="https://github.com/espressif/esp32-camera">ESP32 Camera Driver</a> and remote control over the network via an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/esp_http_server.html">HTTP server</a>. While it is highly functional, but it will cause a decline in versatility. ESP32WebCam and ESP32Cam separate the mixed functionality of <code>app_httpd.cpp</code> into two classes, each with a single role. This makes them versatile and simple to use. And they can coexist with AutoConnect.</p>
+<p>If you only need to stream from the image sensor, you can simplify the sketch structure as in the example above. The simplicity of the sketch is mainly due to the usefulness of the ESP32WebCam and ESP32Cam classes. In driving the <a href="https://github.com/espressif/esp32-camera">ESP32 Camera Driver</a> on the ESP32-CAM module, the sketch interfaces with the ESP32WebCam class and processes the ESP32Cam class through the ESP32WebCam endpoint interface.</p>
+<p><img alt="ESP32-CAM.ino sketch structure" src="images/esp32-cam_structure.svg" /></p>
+<h2 id="esp32webcam-class-and-esp32cam-class">ESP32WebCam Class and ESP32Cam Class<a class="headerlink" href="#esp32webcam-class-and-esp32cam-class" title="Permanent link">&para;</a></h2>
+<p>The ESP32WebCam class has an endpoint interface to allow the sketch to manipulate the image sensor over the network. The sketch can use HTTP GET method to capture images, stream the captured images, and save them to SD card. It also starts its own HTTP server task internally, and this HTTP server runs as a separate task from the WebServer hosted by AutoConnect.</p>
+<p>The ESP32Cam class is a wrapper that governs the native interface with the <a href="https://github.com/espressif/esp32-camera">ESP32 Camera Driver</a> which is a component of ESP-IDF. It can initialize the sensor, set the sensor characteristics, save and load the settings, and save the captured images to the SD card.</p>
+<p>In the case of accessing image sensors located across a network, the sketch will usually have a UI to remotely control the ESP32-CAM. If the UI is intended to be a web interface, the sketch will use a request handler that is compatible with the ESP32 WebServer hosted by AutoConnect to serve the manipulation web page. That page can be an AutoConnectAux-based custom web page, or it can be the <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/WebServer/src/detail/RequestHandler.h">RequestHanlder</a> callback that can respond to the <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer">ESP32 WebServer class</a>. In any case, those UI pages can remotely access the image sensor of the ESP32-CAM module through the HTTP endpoint interface deployed at a specific URL of the HTTP server launched by the ESP32WebCam class, and do the required processing.</p>
+<h3 id="esp32webcam-features"><a href="#esp32wemcam-class-apis">ESP32WebCam</a> features:<a class="headerlink" href="#esp32webcam-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Run the HTTP server as a background task.</li>
+<li>Stream Motion JPEG via HTTP multipart/x-mixed-replace MIME.</li>
+<li>Serves a captured image via HTTP.</li>
+<li>Instruct the ESP32Cam to save the captured image to the SD card via HTTP.</li>
+</ul>
+<p>Of these processing requests, the ESP32Cam class is responsible for the ones that actually need to interface with the camera driver. (However, reading from the frame buffer is excluded. ESP32WebCam reads image data directly from the frame buffer of the image sensor without ESP32Cam.) The ESP32Cam class manipulates sensor characteristics, including setting image frame properties, image format settings, and exposure, gain, white balance, and band filter settings. It also saves the captured image to an SD card wired to the ESP32-CAM.</p>
+<h3 id="esp32cam-features"><a href="#esp32cam-class-apis">ESP32Cam</a> features:<a class="headerlink" href="#esp32cam-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Directs and acquires sensor settings.</li>
+<li>Save and load the sensor settings to the flash memory on the ESP32 module.</li>
+<li>Save the captured image to the SD card which is wired to ESP32 module.</li>
+<li>Save captured images to SD card periodically using an ESP32 built-in <a href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-timer.h">hardware timer</a>.</li>
+</ul>
+<h2 id="esp32wemcam-class-apis">ESP32WemCam Class APIs<a class="headerlink" href="#esp32wemcam-class-apis" title="Permanent link">&para;</a></h2>
+<h3 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32WebCam(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> port </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> ESP32CAM_DEFAULT_HTTPPORT)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32WebCam(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ESP32Cam</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">CameraId model, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> port </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> ESP32CAM_DEFAULT_HTTPPORT)</span>
+</code></pre></div>
+<p>Instantiate ESP32WebCam. The constructor also instantiates <a href="#esp32cam-class-apis">ESP32Cam</a>, so there is no need to explicitly declare the ESP32Cam class in the sketch. At the time of declaring the constructor, the camera is not initialized and the HTTP server is not started. Each of them requires a separate dedicated function to be called.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">port</span><span class="apidesc">Port number of the HTTP server that ESP32WebCam starts. Default port number defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L36"><code>ESP32CAM_DEFAULT_HTTPPORT</code></a> macro directive in <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h"><code>ESP32WebCam.h</code></a></span></dd>
+    <dd><span class="apidef">model</span><span class="apidesc">Specifies the model of the onboard image sensor. The image sensor models that can be specified are as follows:</p>
+<ul>
+<li>ESP32Cam::CAMERA_MODEL_WROVER_KIT</li>
+<li>ESP32Cam::CAMERA_MODEL_ESP_EYE</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_NO_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_V2_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_WIDE</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_ESP32CAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_UNITCAM</li>
+<li>ESP32Cam::CAMERA_MODEL_AI_THINKER</li>
+<li>ESP32Cam::CAMERA_MODEL_TTGO_T_JOURNAL
+    </span></dd>
+</dl></li>
+</ul>
+<h3 id="getcapturepath"><i class="fa fa-code"></i> getCapturePath<a class="headerlink" href="#getcapturepath" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> getCapturePath(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Get a path containing the first '<code>/</code>' of the currently valid endpoint URL to capture.<dl class="apidl">
+    <dt><strong>Return value</strong></dt><dd>A path of capturing URL. Default path defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_CAPTURE</code></a> macro directive in <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h"><code>ESP32WebCam.h</code></a>.</dd>
+</dl></p>
+<h3 id="getpromptpath"><i class="fa fa-code"></i> getPromptPath<a class="headerlink" href="#getpromptpath" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> getPromptPath(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Get a path containing the first '<code>/</code>' of the currently valid endpoint URL to prompt.<dl class="apidl">
+    <dt><strong>Return value</strong></dt><dd>A path of prompting URL. Default path defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_PROMPT</code></a> macro directive in <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h"><code>ESP32WebCam.h</code></a>.</dd>
+</dl></p>
+<h3 id="getserverhandle"><i class="fa fa-code"></i> getServerHandle<a class="headerlink" href="#getserverhandle" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">httpd_handle_t getServerHandle(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns the <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/esp_http_server.html#_CPPv414httpd_handle_t">handle of the HTTP server</a> started by ESP32WebCam.<dl class="apidl">
+    <dt><strong>Return value</strong></dt><dd>Returns the <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/protocols/esp_http_server.html#_CPPv414httpd_handle_t">httpd_handle_t</a> value of an HTTP server started by ESP32WebCam. If the HTTP server task is not running, <code>nullptr</code> is returned.</dd>
+</dl></p>
+<h3 id="getserverport"><i class="fa fa-code"></i> getServerPort<a class="headerlink" href="#getserverport" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> getServerPort(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns the port number that the HTTP server on listens to.<dl class="apidl">
+    <dt><strong>Return value</strong></dt><dd>Returns a port number of an HTTP server started by ESP32WebCam. Default port number defined by <code>ESP32CAM_DEFAULT_HTTPPORT</code> macro directive in <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L36"><code>ESP32WebCam.h</code></a></dd></dd>
+</dl></p>
+<h3 id="getstreampath"><i class="fa fa-code"></i> getStreamPath<a class="headerlink" href="#getstreampath" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> getStreamPath(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Get a path containing the first '<code>/</code>' of the currently valid endpoint URL to streaming.<dl class="apidl">
+    <dt><strong>Return value</strong></dt><dd>A path of streaming URL. Default path defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_STREAM</code></a> macro directive in <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h"><code>ESP32WebCam.h</code></a>.</dd>
+</dl></p>
+<h3 id="isserverstarted"><i class="fa fa-code"></i> isServerStarted<a class="headerlink" href="#isserverstarted" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> isServerStarted(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns a boolean value indicating whether the HTTP server task is running or not.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">The HTTP Server tasks is running.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">The HTTP server task has not been started.</span></dd>
+</dl></p>
+<h3 id="sensor"><i class="fa fa-code"></i> sensor<a class="headerlink" href="#sensor" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32Cam</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> sensor(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns a reference to <a href="#esp32cam-class-apis">ESP32Cam</a>, which is instantiated internally by ESP32WebCam constructor.<dl class="apidl">
+    <dt><strong>Return value</strong></dt><dd>A reference to ESP32Cam instance. The image sensor is not initialized just by calling the ESP32WebCam constructor. To initialize the sensor, you need to call the <a href="#sensorinit"><code>sensorInit()</code></a> function.<p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32WebCam </span><span style="color: #a6e22e">webcam</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">webcam.sensorInit();</span>
+</code></pre></div>
+</p>
+</dl></p>
+<h3 id="sensorinit"><i class="fa fa-code"></i> sensorInit<a class="headerlink" href="#sensorinit" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t sensorInit(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t sensorInit(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ESP32Cam</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">CameraId model)</span>
+</code></pre></div>
+<p>Initialize the image sensor via the <a href="#esp32cam-class-apis">ESP32Cam</a> class. The sketch needs to initialize the sensor with the sensorInit function prior to all processing of the image sensor.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">model</span><span class="apidesc">Specifies the model of the onboard image sensor. The image sensor models that can be specified are same as the <a href="#constructor">constructor parameter</a>.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc" style="padding-left:300px">An image sensor successfully initialized.</span></dd>
+    <dd><span class="apidef">ESP_ERR_CAMERA_NOT_SUPPORTED</span><span class="aidesc" style="padding-left:300px">Specified model is not supported.</span></dd>
+    <dd><span class="apidef">ESP_ERR_CAMERA_NOT_DETECTED</span><span class="aidesc" style="padding-left:300px">An image sensor not detected.</span></dd>
+    <dd><span class="apidef">ESP_ERR_CAMERA_FAILED_TO_SET_FRAME_SIZE</span><span class="aidesc" style="padding-left:300px">Frame identifier is invalid.</span></dd>
+    <dd><span class="apidef">ESP_ERR_CAMERA_FAILED_TO_SET_OUT_FORMAT</span><span class="aidesc" style="padding-left:300px">Output image format is invalid.</span></dd>
+    <dd><span class="apidef">ESP_FAIL</span><span class="aidesc"  style="padding-left:300px">Other error occurred.</span></dd>
+</dl></p>
+<h3 id="setcapturepath"><i class="fa fa-code"></i> setCapturePath<a class="headerlink" href="#setcapturepath" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> setCapturePath(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> path)</span>
+</code></pre></div>
+<p>Reconfigure the already defined path of the endpoint for capture.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">path</span><span class="apidesc">Specifies the path of the <a href="#capture">capture endpoint</a> to be set newly, as a string starting with '<code>/</code>'. If this path is not specified, the default path defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_CAPTURE</code></a> macro directive will be assumed.</span></dd>
+</dl></p>
+<h3 id="setpromptpath"><i class="fa fa-code"></i> setPromptPath<a class="headerlink" href="#setpromptpath" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> setPromptPath(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> path)</span>
+</code></pre></div>
+<p>Reconfigure the already defined path of the endpoint for prompt.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">path</span><span class="apidesc">Specifies the path of the <a href="#prompt">prompt endpoint</a> to be set newly, as a string starting with '<code>/</code>'. If this path is not specified, the default path defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_PROMPT</code></a> macro directive will be assumed.</span></dd>
+</dl></p>
+<h3 id="setserverport"><i class="fa fa-code"></i> setServerPort<a class="headerlink" href="#setserverport" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> setServerPort(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> port)</span>
+</code></pre></div>
+<p>Reconfigure the already defined port number of an HTTP server.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">port</span><span class="apidesc">Specifies port number of an HTTP Server. Default port number defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L36"><code>ESP32CAM_DEFAULT_HTTPPORT</code></a> macro directive will be assumed.</span></dd>
+</dl></p>
+<h3 id="setstreampath"><i class="fa fa-code"></i> setStreamPath<a class="headerlink" href="#setstreampath" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> setStreamPath(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> path)</span>
+</code></pre></div>
+<p>Reconfigure the already defined path of the endpoint for stream.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">path</span><span class="apidesc">Specifies the path of the <a href="#stream">stream endpoint</a> to be set newly, as a string starting with '<code>/</code>'. If this path is not specified, the default path defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_STREAM</code></a> macro directive will be assumed.</span></dd>
+</dl></p>
+<h3 id="startcameraserver"><i class="fa fa-code"></i> startCameraServer<a class="headerlink" href="#startcameraserver" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t startCameraServer(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> streamPath)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t startCameraServer(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> streamPath, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> capturePath, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> promptPath)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t startCameraServer(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> streamPath, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> capturePath, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> promptPath, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> port)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t startCameraServer(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> streamPath, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> port)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t startCameraServer(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> port)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t startCameraServer(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Begins the HTTP server task, and start the endpoint service. By starting the HTTP server task, the endpoint interface provided by ESP32WebCam will be available.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">streamPath</span><span class="apidesc">Specifies the path of the <a href="#stream">stream endpoint</a>. Default stream path is defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_STREAM</code></a> macro directive in <code>ESP32WebCam.h</code> header file.</span></dd>
+    <dd><span class="apidef">capturePath</span><span class="apidesc">Specifies the path of the <a href="#capture">capture endpoint</a>. Default capture path is defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_CAPTURE</code></a> macro directive in <code>ESP32WebCam.h</code> header file.</span></dd>
+    <dd><span class="apidef">promptPath</span><span class="apidesc">Specifies the path of the <a href="#prompt">prompt endpoint</a>. Default prompt path is defined by <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows"><code>ESP32CAM_DEFAULT_PATH_PROMPT</code></a> macro directive in <code>ESP32WebCam.h</code> header file.</span></dd>
+    <dd><span class="apidef">port</span><span class="apidesc">Specifies port number on which the HTTP server listens. Default port number is <strong>3000</strong> which defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L36"><code>ESP32CAM_DEFAULT_HTTPPORT</code></a> macro directive in <code>ESP32WebCam.h</code> header file.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc" style="padding-left:300px;display:block;position:inherit;">An HTTP server task successfully started.</span></dd>
+    <dd><span class="apidef">ESP_ERR_HTTPD_HANDLERS_FULL</span><span class="aidesc" style="padding-left:300px;display:block;position:inherit;">All slots for registering URI handlers have been consumed.</span></dd>
+    <dd><span class="apidef">ESP_ERR_HTTPD_ALLOC_MEM</span><span class="aidesc" style="padding-left:300px;display:block;position:inherit;">Failed to dynamically allocate memory for resource.</span></dd>
+    <dd><span class="apidef">ESP_ERR_HTTPD_TASK</span><span class="aidesc" style="padding-left:300px;display:block;position:inherit;">Failed to launch server task/thread.</span></dd>
+    <dd><span class="apidef">ESP_FAIL</span><span class="aidesc"  style="padding-left:300px;display:block;position:inherit;">Other error occurred.</span></dd>
+</dl></p>
+<div class="admonition note">
+<p class="admonition-title">HTTP server task stack size</p>
+<p>ESP32WebCam allocates 8KB of stack when it starts the HTTP server task. This stack size is larger than the size allocated by the default <a href="https://github.com/espressif/arduino-esp32/blob/caef4006af491130136b219c1205bdcf8f08bf2b/tools/sdk/esp32/include/esp_http_server/include/esp_http_server.h#L28"><code>HTTPD_DEFAULT_CONFIG</code></a> in ESP-IDF. This is to include the stack consumed by the file system of the SD card triggered by the timer shot. This stack size can be changed as needed, and the default value is defined in the <code>ESP32Cam.h</code> header file as <code>ESP32CAM_TIMERTASK_STACKSIZE</code>.</p>
+</div>
+<h3 id="stopcameraserver"><i class="fa fa-code"></i> stopCameraServer<a class="headerlink" href="#stopcameraserver" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> stopCameraServer(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Stop an HTTP server task and free resources.</p>
+<h2 id="esp32webcam-endpoint-interfaces">ESP32WebCam Endpoint Interfaces<a class="headerlink" href="#esp32webcam-endpoint-interfaces" title="Permanent link">&para;</a></h2>
+<p>ESP32WebCam has endpoint interfaces for simple manipulation of image sensors over the network via an internally launched HTTP server, which follows the traditional HTTP request and response, not WebAPI or REST. It supports the HTTP GET<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> method and will be available after the HTTP server is started by the <a href="#startcameraserver">ESP32WebCam::startCameraServer</a> function.</p>
+<p>If you are using Visual Studio Code as your build system for Arduino sketch, you can easily experiment with the ESP32WebCam endpoint interface using the VSCode extension. <a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client">REST Client</a> is an excellent VSCode extension that allows you to send HTTP requests directly from within the editor. The following screenshot shows the result of sending an HTTP request directly to the capture endpoint of ESP32WebCam using the REST Client on a VSCode with the <a href="https://platformio.org/">PlatformIO</a> build system.</p>
+<p><img alt="Captured by REST-Client" src="images/rest_client.png" /></p>
+<p>The top left editor pane is the sketch code described above, and the bottom pane is the serial monitor output of the sketch. The pane between the top and bottom panes is the REST Client. Run the sketch, and when the serial monitor shows a message that ESP32Cam has started the HTTP server, use the REST client to send an HTTP GET request as <code>GET http://{HOST}:{PORT}/_capture</code> (In the screenshot above, the request is sent to <code>http://192.168.1.19:3000/_capture</code>) to the capture endpoint.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> You will see the response of the image captured by ESP32-CAM in the right pane.</p>
+<h4 id="the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows">The default settings for the endpoint interface provided by ESP32WebCam are as follows:<a class="headerlink" href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Default path</th>
+<th>Function</th>
+<th>Default value defined in <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h"><code>ESP32WebCam.h</code></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Capture</td>
+<td><code>/_capture</code></td>
+<td>Responds as a captured image</td>
+<td><a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L41"><code>ESP32CAM_DEFAULT_PATH_CAPTURE</code></a></td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td><code>/_prompt</code></td>
+<td>Save and load the captured image, Save the sensor settings</td>
+<td><a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L46"><code>ESP32CAM_DEFAULT_PATH_PROMPT</code></a></td>
+</tr>
+<tr>
+<td>Stream</td>
+<td><code>/_stream</code></td>
+<td>Stream image</td>
+<td><a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L51"><code>ESP32CAM_DEFAULT_PATH_STREAM</code></a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="capture"><i class="fa fa-globe"></i> Capture<a class="headerlink" href="#capture" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">GET</span> <span style="color: #f8f8f2">http://{HOST}:{PORT}{PATH}</span>
+</code></pre></div>
+<p>The capture endpoint responds captured image with the image/jpeg mime format.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">HOST</span><span class="apidesc"><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.2">Host</a> address of ESP32-CAM.</span></dd>
+    <dd><span class="apidef">PORT</span><span class="apidesc"><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.3">Port</a> number of HTTP server listening on. Default port number is <strong>3000</strong> which defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L36"><code>ESP32CAM_DEFAULT_HTTPPORT</code></a> macro directive in <code>ESP32WebCam.h</code> header file.</span></dd>
+    <dd><span class="apidef">PATH</span><span class="apidesc">A <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows">path</a> for the capture endpoint.</span></dd>
+    <dt><b>Response code</b></dt>
+    <dd><span class="apidef">200</span><span class="apidesc">Content body contains captured image data.</span></dd>
+</dl></p>
+<h3 id="prompt"><i class="fa fa-globe"></i> Prompt<a class="headerlink" href="#prompt" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">GET</span> <span style="color: #f8f8f2">http://{HOST}:{PORT}{PATH}?{QUERY}</span>
+</code></pre></div>
+<p>You can use the prompt endpoint to save the captured image to the SD card at that moment or in a timer cycle, save the sensor settings, and load them into the flash memory built into the ESP32 module. The instructions for the prompt action performed by ESP32WebCam are specified as the <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4">query string</a> with "<strong>key=value</strong>" form for the parameters of the GET request.<dl class="apidl"><dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">HOST</span><span class="apidesc"><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.2">Host</a> address of ESP32-CAM.</span></dd>
+    <dd><span class="apidef">PORT</span><span class="apidesc"><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.3">Port</a> number of HTTP server listening on. Default port number is <strong>3000</strong> which defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L36"><code>ESP32CAM_DEFAULT_HTTPPORT</code></a> macro directive in <code>ESP32WebCam.h</code> header file.</span></dd>
+    <dd><span class="apidef">PATH</span><span class="apidesc">A <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows">path</a> for the capture endpoint.</span></dd>
+    <dd><span class="apidef">QUERY</span><span class="apidesc">The QUERY that Prompt can accept are different for each feature. The query formats that can be specified and the corresponding functions are shown below.</span></dd>
+    <dt><b>Response code</b></dt>
+    <dd><span class="apidef">202</span><span class="apidesc">Request accepted.</span></dd>
+    <dd><span class="apidef">400</span><span class="apidesc">Query string has syntax error, or Fatal error occurred. Content body has detailed error code.</span></dd>
+</dl></p>
+<h4 id="the-following-features-are-currently-supported-by-the-prompt-endpoint">The following features are currently supported by the prompt endpoint:<a class="headerlink" href="#the-following-features-are-currently-supported-by-the-prompt-endpoint" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Specifying by query string</th>
+<th>Function</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mf=oneshot[&amp;fs={sd|mmc}][&amp;filename=&lt;FILENAME&gt;]</code></td>
+<td>One-shot</td>
+<td>Take a one-shot image and save it to the SD card.</td>
+</tr>
+<tr>
+<td><code>mf=timershot[&amp;fs={sd|mmc}][&amp;filename=&lt;FILENAME&gt;][&amp;period=&lt;INTERVAL&gt;]</code></td>
+<td>Timer-shot</td>
+<td>Repeatedly takes a one-shot image at specified an INTERVAL of seconds and saves it to the SD card.</td>
+</tr>
+<tr>
+<td><code>mf=distimer</code></td>
+<td>Disable timer</td>
+<td>Suspend timer for Timer-shot</td>
+</tr>
+<tr>
+<td><code>mf=entimer</code></td>
+<td>Enable timer</td>
+<td>Resume timer for Timer-shot</td>
+</tr>
+<tr>
+<td><code>mf=load</code></td>
+<td>Load settings</td>
+<td>Load the image sensor settings from the NVS</td>
+</tr>
+<tr>
+<td><code>mf=save</code></td>
+<td>Save settings</td>
+<td>Save the image sensor settings to the NVS</td>
+</tr>
+</tbody>
+</table>
+<p>The query formats that can be specified and their corresponding functions are described below.<dl class="apidl"><dt><strong>Functions: Specifies with the <code>mf=</code> query.</strong></dt>
+    <dd><span class="apidef"><code>oneshot</code></span><span class="apidesc">Capture an image at the requested timing and save them to the SD card. Species either <code>sd</code> or <code>mmc</code> for the <code>fs</code> argument. If the <code>fs</code> argument does not exist, <code>mmc</code> is assumed.<br>Saves the captured image with the file name specified by the <code>filename</code> argument; if the <code>filename</code> argument does not exist, it assumes a file name consisting of a prefix and a timestamp. In that case, the fixed string defined by the <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam.h#L43"><code>ESP32CAM_GLOBAL_IDENTIFIER</code></a> macro directive in <code>ESP32Cam.h</code> is used as the prefix.</span></dd>
+    <dd><span class="apidef"><code>timershot</code></span><span class="apidesc">Repeatedly takes a one-shot image at specified an <code>INTERVAL</code> of <strong>seconds</strong> with <code>period</code> argument and saves it to the SD card. Species either <code>sd</code> or <code>mmc</code> for the <code>fs</code> argument. If the <code>fs</code> argument does not exist, <code>mmc</code> is assumed.<br>Saves the captured image to a file whose name consists of the prefix and timestamp suffix specified by the <code>filename</code> argument. If the <code>filename</code> argument does not exist, the prefix will be assumed a fixed string defined by the <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam.h#L43"><code>ESP32CAM_GLOBAL_IDENTIFIER</code></a> macro directive in <code>ESP32Cam.h</code> header file.</span></dd>
+    <dd><span class="apidef"><code>distimer</code></span><span class="apidesc">Temporarily stops the timer for the <code>timershot</code>. This can be resumed with <code>entimer</code>.</span></dd>
+    <dd><span class="apidef"><code>entimer</code></span><span class="apidesc">Resumes a timer-shot that was temporarily stopped by <code>distimer</code>.</span></dd>
+    <dd><span class="apidef"><code>load</code></span><span class="apidesc">Load the image sensor settings from NVS.</span></dd>
+    <dd><span class="apidef"><code>save</code></span><span class="apidesc">Save the image sensor settings to NVS.</span></dd>
+  </dl></p>
+<div class="admonition note">
+<p class="admonition-title">Whether it is SD or MMC depends on the hardware</p>
+<p>The ESP32 Arduino <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/SD">SD library</a> supports two types of SD cards with different interfaces. Which type of SD card is used depends on the ESP32 module and needs to be chosen appropriately. In the case of the Ai-Thinker ESP32-CAM <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>, the ESP32 is wired to the SD slot with each <a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf">HS2 signal</a>. Hence, We can see from the <a href="https://github.com/SeeedDocument/forum_doc/blob/master/reg/ESP32_CAM_V1.6.pdf">schematic</a> that it is using MMC.</p>
+</div>
+<h3 id="stream"><i class="fa fa-globe"></i> Stream<a class="headerlink" href="#stream" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">GET</span> <span style="color: #f8f8f2">http://{HOST}:{PORT}{PATH}</span>
+</code></pre></div>
+<p>The stream endpoint responds captured image with the image/jpeg mime format with <a href="https://docstore.mik.ua/orelly/web2/xhtml/ch13_03.htm"><code>multipart/x-mixed-replace</code></a> HTTP header.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">HOST</span><span class="apidesc"><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.2">Host</a> address of ESP32-CAM.</span></dd>
+    <dd><span class="apidef">PORT</span><span class="apidesc"><a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.3">Port</a> number of HTTP server listening on. Default port number is <strong>3000</strong> which defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32WebCam.h#L36"><code>ESP32CAM_DEFAULT_HTTPPORT</code></a> macro directive in <code>ESP32WebCam.h</code> header file.</span></dd>
+    <dd><span class="apidef">PATH</span><span class="apidesc">A <a href="#the-default-settings-for-the-endpoint-interface-provided-by-esp32webcam-are-as-follows">path</a> for the stream endpoint.</span></dd>
+    <dt><b>Response code</b></dt>
+    <dd><span class="apidef">200</span><span class="apidesc">Content body contains captured image data with multipart boundary.</span></dd>
+</dl></p>
+<h2 id="esp32cam-class-apis">ESP32Cam Class APIs<a class="headerlink" href="#esp32cam-class-apis" title="Permanent link">&para;</a></h2>
+<h3 id="constructor_1"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor_1" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32Cam()</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32Cam(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> CameraId model)</span>
+</code></pre></div>
+<p>Instantiate ESP32Cam. The image sensor is not initialized just by calling the constructor. To initialize the sensor, you need to call the <a href="#init">init</a> function.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">model</span><span class="apidesc">Specifies the model of the onboard image sensor. The image sensor models that can be specified are as follows:</p>
+<ul>
+<li>ESP32Cam::CAMERA_MODEL_WROVER_KIT</li>
+<li>ESP32Cam::CAMERA_MODEL_ESP_EYE</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_NO_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_V2_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_WIDE</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_ESP32CAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_UNITCAM</li>
+<li>ESP32Cam::CAMERA_MODEL_AI_THINKER</li>
+<li>ESP32Cam::CAMERA_MODEL_TTGO_T_JOURNAL
+    </span></dd>
+</dl></li>
+</ul>
+<h3 id="getstatus"><i class="fa fa-code"></i> getStatus<a class="headerlink" href="#getstatus" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t getStatus(camera_status_t</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> status)</span>
+</code></pre></div>
+<p>Get the <a href="https://github.com/espressif/esp32-camera/blob/6b1efc1eddf03502296bce7aca18d7a18fb00bfe/driver/include/sensor.h#L187"><code>camera_status_t</code></a> data structure from the image sensor.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">status</span><span class="apidesc">Pointer to the buffer to store the acquired <a href="https://github.com/espressif/esp32-camera/blob/6b1efc1eddf03502296bce7aca18d7a18fb00bfe/driver/include/sensor.h#L187"><code>camera_status_t</code></a> structure.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc"><code>camera_status_t</code> is read successfully.</span></dd>
+    <dd><span class="apidef">ESP_FAIL</span><span class="aidesc">Image sensor is not initialized.</span></dd>
+</dl></p>
+<h3 id="getframesize"><i class="fa fa-code"></i> getFramesize<a class="headerlink" href="#getframesize" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">framesize_t getFramesize(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Get the current configuration of the image sensor frame size.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">framesize_t</span><span class="apidesc">The <a href="https://github.com/espressif/esp32-camera/blob/6b1efc1eddf03502296bce7aca18d7a18fb00bfe/driver/include/sensor.h#L94"><code>framesize_t</code></a> enumeration value.</span></dd>
+</dl></p>
+<h3 id="getframeheight"><i class="fa fa-code"></i> getFrameHeight<a class="headerlink" href="#getframeheight" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2">  getFrameHeight(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns the height of the current image frame in pixels.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">uint16_t</span><span class="apidesc">Height of the image frame.</span></dd>
+</dl></p>
+<h3 id="getframewidth"><i class="fa fa-code"></i> getFrameWidth<a class="headerlink" href="#getframewidth" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2">  getFrameWidth(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Returns the width of the current image frame in pixels.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">uint16_t</span><span class="apidesc">Width of the image frame.</span></dd>
+</dl></p>
+<h3 id="init"><i class="fa fa-code"></i> init<a class="headerlink" href="#init" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t init(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t init(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> CameraId model)</span>
+</code></pre></div>
+<p>Initialize the image sensor.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">model</span><span class="apidesc">Specifies the model of the onboard image sensor. The image sensor models that can be specified are as follows:</p>
+<ul>
+<li>ESP32Cam::CAMERA_MODEL_WROVER_KIT</li>
+<li>ESP32Cam::CAMERA_MODEL_ESP_EYE</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_NO_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_V2_PSRAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_WIDE</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_ESP32CAM</li>
+<li>ESP32Cam::CAMERA_MODEL_M5STACK_UNITCAM</li>
+<li>ESP32Cam::CAMERA_MODEL_AI_THINKER</li>
+<li>ESP32Cam::CAMERA_MODEL_TTGO_T_JOURNAL
+    </span></dd>
+</dl></li>
+</ul>
+<h3 id="loadsettings"><i class="fa fa-code"></i> loadSettings<a class="headerlink" href="#loadsettings" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t loadSettings(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> key </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Load the image sensor settings from <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/nvs_flash.html#non-volatile-storage-library">NVS</a> in the ESP32 flash.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">key</span><span class="apidesc">Specifies NVS key name. If key is nullptr or not specified, default key which defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam.h#L53"><code>ESP32CAM_NVS_KEYNAME</code></a> macro directive in <code>ESP32Cam.h</code> header file will be assumed.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc">The image sensor settings has been successfully loaded.</span></dd>
+</dl></p>
+<h3 id="savesettings"><i class="fa fa-code"></i> saveSettings<a class="headerlink" href="#savesettings" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t saveSettings(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> key </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Save the current image sensor settings to <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/nvs_flash.html#non-volatile-storage-library">NVS</a> in the ESP32 flash.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">key</span><span class="apidesc">Specifies NVS key name. If key is nullptr or not specified, default key which defined by <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam.h#L53"><code>ESP32CAM_NVS_KEYNAME</code></a> macro directive in <code>ESP32Cam.h</code> header file will be assumed.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc">The image sensor settings has been successfully saved.</span></dd>
+</dl></p>
+<h3 id="setstatus"><i class="fa fa-code"></i> setStatus<a class="headerlink" href="#setstatus" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t setStatus(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> camera_status_t</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> status)</span>
+</code></pre></div>
+<p>Set the content of <a href="https://github.com/espressif/esp32-camera/blob/6b1efc1eddf03502296bce7aca18d7a18fb00bfe/driver/include/sensor.h#L187"><code>camera_status_t</code></a> structure to the image sensor.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">status</span><span class="apidesc">Reference of the <a href="https://github.com/espressif/esp32-camera/blob/6b1efc1eddf03502296bce7aca18d7a18fb00bfe/driver/include/sensor.h#L187"><code>camera_status_t</code></a> structure.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc"><code>camera_status_t</code> has been set successfully.</span></dd>
+    <dd><span class="apidef">ESP_FAIL</span><span class="aidesc">Image sensor is not initialized.</span></dd>
+</dl></p>
+<h3 id="setframesize"><i class="fa fa-code"></i> setFramesize<a class="headerlink" href="#setframesize" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t setFramesize(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> framesize_t framesize)</span>
+</code></pre></div>
+<p>Set the image sensor frame size.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">framesize</span><span class="apidesc">The <a href="https://github.com/espressif/esp32-camera/blob/6b1efc1eddf03502296bce7aca18d7a18fb00bfe/driver/include/sensor.h#L94"><code>framesize_t</code></a> enumeration value to be set.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc">Framesize has been set.</span></dd>
+    <dd><span class="apidef">ESP_ERR_CAMERA_FAILED_TO_SET_FRAME_SIZE</span><span class="aidesc" style="display:block;position:inherit;padding-left:400px">Image sensor is not initialized, the framesize is invalid, or the pixel format is not JPEG.</span></dd>
+</dl></p>
+<h3 id="setimageformat"><i class="fa fa-code"></i> setImageFormat<a class="headerlink" href="#setimageformat" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t setImageFormat(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> pixformat_t format)</span>
+</code></pre></div>
+<p>Set the image format.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">format</span><span class="apidesc">The <a href="https://github.com/espressif/esp32-camera/blob/6b1efc1eddf03502296bce7aca18d7a18fb00bfe/driver/include/sensor.h#L66"><code>pixformat_t</code></a> enumeration value to be set.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc">Format has been set.</span></dd>
+    <dd><span class="apidef">ESP_ERR_CAMERA_FAILED_TO_SET_OUT_FORMAT</span><span class="aidesc" style="display:block;position:inherit;padding-left:400px">Specified format is invalid.</span></dd>
+    <dd><span class="apidef">ESP_FAIL</span><span class="aidesc">Image sensor is not initialized.</span></dd>
+</dl></p>
+<h3 id="oneshot"><i class="fa fa-code"></i> oneShot<a class="headerlink" href="#oneshot" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t oneShot(fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">SDFS</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> sd, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> filename </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t oneShot(fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">SDMMCFS</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> mmc, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> filename </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Take a one-shot image and save it to the SD card or MMC. This function writes to a file compliant with the <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/SD">ESP32 Arduino SD library</a>. Either <code>fs::SDFS</code> or <code>fs::SDMMCFS</code> can be specified for the file system that represents <code>sd</code> or <code>mmc</code>.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">sd</span><span class="apidesc">Specifies the <code>SD</code> file system when the SD card is wired with <code>SPI</code> interface. In usually, you can use a <code>SD</code> variable that is instantiated and exported globally by the ESP32 Arduino core.</span></dd>
+    <dd><span class="apidef">mmc</span><span class="apidesc">Specifies the <code>SD_MMC</code> file system when the SD card is wired with <code>HS2</code> interface. In usually, you can use a <code>SD_MMC</code> variable that is instantiated and exported globally by the ESP32 Arduino core.</span></dd>
+    <dd><span class="apidef">filename</span><span class="apidesc">Specifies the file name when saving the captured image to the SD card. if the <code>filename</code> does not exist, it assumes a file name consisting of a prefix and a timestamp. In that case, the fixed string defined by the <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam.h#L43"><code>ESP32CAM_GLOBAL_IDENTIFIER</code></a> macro directive in <code>ESP32Cam.h</code> is used as the prefix.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc">Format has been set.</span></dd>
+    <dd><span class="apidef">ESP_ERR_NOT_FOUND</span><span class="aidesc" style="display:block;position:inherit;padding-left:200px">SD card is not mounted.</span></dd>
+    <dd><span class="apidef">ESP_FAIL</span><span class="aidesc">Other error occurred.</span></dd>
+</dl></p>
+<h3 id="timershot"><i class="fa fa-code"></i> timerShot<a class="headerlink" href="#timershot" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t timerShot(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">unsigned</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">long</span><span style="color: #f8f8f2"> period, fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">SDFS</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> sd, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> filePrefix </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">esp_err_t timerShot(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">unsigned</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">long</span><span style="color: #f8f8f2"> period, fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">SDMMCFS</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> mmc, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> filePrefix </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">nullptr</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Repeatedly takes a one-shot image at specified an interval of <strong>seconds</strong> with <code>period</code> parameter and saves it to the SD card or MMC. This function writes to a file compliant with the <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/SD">ESP32 Arduino SD library</a>. Either <code>fs::SDFS</code> or <code>fs::SDMMCFS</code> can be specified for the file system that represents <code>sd</code> or <code>mmc</code>.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">period</span><span class="apidesc">Specifies the shooting interval time in second unit.</span></dd>
+    <dd><span class="apidef">sd</span><span class="apidesc">Specifies the <code>SD</code> file system when the SD card is wired with <code>SPI</code> interface. In usually, you can use a <code>SD</code> variable that is instantiated and exported globally by the ESP32 Arduino core.</span></dd>
+    <dd><span class="apidef">mmc</span><span class="apidesc">Specifies the <code>SD_MMC</code> file system when the SD card is wired with <code>HS2</code> interface. In usually, you can use a <code>SD_MMC</code> variable that is instantiated and exported globally by the ESP32 Arduino core.</span></dd>
+    <dd><span class="apidef">filePrefix</span><span class="apidesc">Specifies the prefix of file name when saving the captured image to the SD card. This function saves files each time whose name consists of the prefix and timestamp suffix specified by the <code>filePrefix</code> parameter. If the <code>filePrefix</code> does not exist, it assumes a fixed string defined by the <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer/ESP32Cam.h#L43"><code>ESP32CAM_GLOBAL_IDENTIFIER</code></a> macro directive in <code>ESP32Cam.h</code> for the prefix.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">ESP_OK</span><span class="apidesc">Format has been set.</span></dd>
+    <dd><span class="apidef">ESP_ERR_NOT_FOUND</span><span class="aidesc" style="display:block;position:inherit;padding-left:200px">SD card is not mounted.</span></dd>
+    <dd><span class="apidef">ESP_FAIL</span><span class="aidesc">Other error occurred.</span></dd>
+</dl></p>
+<h3 id="disabletimershot"><i class="fa fa-code"></i> disableTimerShot<a class="headerlink" href="#disabletimershot" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> disableTimerShot(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Temporarily stops the <a href="#timershot"><code>timerShot</code></a>. To restart it, call <a href="enabletimershot"><code>enableTimerShot</code></a>.</p>
+<h3 id="enabletimershot"><i class="fa fa-code"></i> enableTimerShot<a class="headerlink" href="#enabletimershot" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> enableTimerShot(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Restarts the <a href="#timershot"><code>timerShot</code></a> that was temporarily stopped by <a href="#disabletimershot"><code>disableTimerShot</code></a>.</p>
+<h3 id="deq"><i class="fa fa-code"></i> deq<a class="headerlink" href="#deq" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> deq(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Release a semaphore.</p>
+<h3 id="enq"><i class="fa fa-code"></i> enq<a class="headerlink" href="#enq" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">portBASE_TYPE enq(TickType_t ms)</span>
+</code></pre></div>
+<p>Take a semaphore to prevent resource collisions with the image sensor. ESP32Cam uses a semaphore for each of <a href="#oneshot"><code>oneShot</code></a> and <a href="#timershot"><code>timerShot</code></a> to prevent image sensor resources from colliding while performing each other's tasks. The <code>enq</code> function reserves a semaphore to wait for a subsequent <a href="#oneshot"><code>oneShot</code></a> or <a href="#timershot"><code>timerShot</code></a> task.<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">ms</span><span class="apidesc">Specifies the maximum waiting time in milliseconds for a semaphore to be released. If <code>portMAX_DELAY</code> is specified, it will wait indefinitely for the semaphore to be released.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">pdTRUE</span><span class="apidesc">Semaphore was reserved.</span></dd>
+    <dd><span class="apidef">!pdTRUE</span><span class="apidesc">Semaphore was not released within the specified <code>ms</code> time.</span></dd>
+</dl></p>
+<h2 id="webcamserver-like-as-camerawebserver">WebCamServer like as CameraWebServer<a class="headerlink" href="#webcamserver-like-as-camerawebserver" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer">WebCamServer.ino</a> sketch combines AutoConnectAux's custom web pages with native HTML pages. The image viewer is placed on the native HTML page using the <code>img</code> tag, and the slide-in navigation panel is incorporated using CSS. AutoConnect is only directly involved in the image sensor setup page, which is JSON defined in <code>CAMERA_SETUP_PAGE</code>. The <code>setSensor</code> function in the sketch is a handler for a custom web page for <code>CAMERA_SETUP_PAGE</code>, and its role is to communicate the sensor settings to the ESP32 camera driver via ESP32Cam.</p>
+<p><img alt="webcamview_open" src="images/webcamview_open.png" />
+<img alt="webcamview_set" src="images/webcamview_set.png" /></p>
+<p>In the WebCamServer.ino sketch, most of the front-end is taken care of by the UI, which is a web page written in HTML. The slide-in menu allows navigation to stream images, capture still images, save a one-shot image to the SD card, and the timer-shot. Image streaming and capture are achieved by giving the URLs of the <a href="#stream">Stream</a> endpoint and <a href="#capture">Capture</a> endpoint in the <code>src</code> attribute of the <code>img</code> tag in the HTML using JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API">DOM</a> interface.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">body</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">li</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;onair&quot;</span> <span style="color: #a6e22e">onclick</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;stream(!isStreaming())&quot;</span><span style="color: #f8f8f2">&gt;</span>Start Streaming<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;</span>
+  <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">img</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;img-frame&quot;</span> <span style="color: #f8f8f2">/&gt;</span>
+<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">body</span><span style="color: #f8f8f2">&gt;</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #a6e22e">onAir</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;onair&#39;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">const</span> <span style="color: #a6e22e">imgFrame</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;img-frame&#39;</span><span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">startsWith</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">stream</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">onOff</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">onOff</span> <span style="color: #f92672">&amp;&amp;</span> <span style="color: #f92672">!</span><span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">())</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
+    <span style="color: #a6e22e">imgFrame</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">streamUrl</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">replace</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Start&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">);</span>
+    <span style="color: #a6e22e">content</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">focus</span><span style="color: #f8f8f2">();</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span> <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #a6e22e">onOff</span> <span style="color: #f92672">&amp;&amp;</span> <span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">())</span> <span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
+    <span style="color: #a6e22e">imgFrame</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">noa</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">replace</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Start&quot;</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>Also, One-shot and timer-shot also use JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a> to send a <a href="#the-following-features-are-currently-supported-by-the-prompt-endpoint">query</a> string compliant with each function to the <a href="#prompt">Prompt</a> endpoint.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">li</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;oneshot&quot;</span> <span style="color: #a6e22e">onclick</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;oneshot()&quot;</span><span style="color: #f8f8f2">&gt;</span>One-Shot<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;</span>
+<span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;&lt;</span><span style="color: #f92672">label</span> <span style="color: #a6e22e">for</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;period&quot;</span><span style="color: #f8f8f2">&gt;</span>Period [s]<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;number&quot;</span> <span style="color: #a6e22e">name</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;peirod&quot;</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;period&quot;</span> <span style="color: #a6e22e">min</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;1&quot;</span> <span style="color: #a6e22e">value</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;1&quot;</span> <span style="color: #a6e22e">pattern</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;\d*&quot;</span><span style="color: #f8f8f2">/&gt;&lt;/</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;</span>
+<span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;button&quot;</span> <span style="color: #a6e22e">value</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;ARM&quot;</span> <span style="color: #a6e22e">onclick</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;arm()&quot;</span><span style="color: #f8f8f2">/&gt;&lt;/</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;</span>
+</code></pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">var</span> <span style="color: #a6e22e">promptUrl</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">endpoint</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">host</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">promptPath</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">);</span>
+
+<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">endpoint</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">host</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">path</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">url</span> <span style="color: #f92672">=</span> <span style="color: #f92672">new</span> <span style="color: #a6e22e">URL</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">path</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;http://&quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">host</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #a6e22e">url</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">port</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">url</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">res</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #a6e22e">stream</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">);</span>
+  <span style="color: #a6e22e">fetch</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">)</span>
+    <span style="color: #f8f8f2">.</span><span style="color: #a6e22e">then</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">response</span> <span style="color: #f8f8f2">=&gt;</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #a6e22e">res</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;status:&quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">status</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; &quot;</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ok</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">text</span><span style="color: #f8f8f2">().</span><span style="color: #a6e22e">then</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">text</span> <span style="color: #f8f8f2">=&gt;</span> <span style="color: #f8f8f2">{</span>
+          <span style="color: #66d9ef">throw</span> <span style="color: #f92672">new</span> <span style="color: #a6e22e">Error</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">text</span><span style="color: #f8f8f2">);</span>
+        <span style="color: #f8f8f2">});</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">color</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&#39;#297acc&#39;</span><span style="color: #f8f8f2">;</span>
+        <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">res</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">statusText</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">}</span>
+    <span style="color: #f8f8f2">})</span>
+    <span style="color: #f8f8f2">.</span><span style="color: #66d9ef">catch</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span> <span style="color: #f8f8f2">=&gt;</span> <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">desc</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;0x0103&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #a6e22e">desc</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;SD not mounted&quot;</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;0x0105&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #a6e22e">desc</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;SD open failed&quot;</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">color</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&#39;#cc2929&#39;</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">res</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">desc</span><span style="color: #f8f8f2">;</span>
+    <span style="color: #f8f8f2">});</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">oneshot</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;?mf=oneshot&amp;fs=mmc&quot;</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">arm</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;?mf=timershot&amp;fs=mmc&amp;period=&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;period&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>The following diagram shows the program structure of the WebCamServer.ino sketch. Its structure is somewhat more complex than the simple sketch presented at the beginning of this chapter because of the native HTML intervening.</p>
+<p><img alt="WebCamServer structure" src="images/webcamserver_structure.svg" /></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>ESP32WebCam endpoint interface supports only HTTP GET method, it cannot respond to other HTTP methods such as POST.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Do not use the REST Client to send requests to the stream endpoints, the REST Client does not fully support multipart/x-mixed-replace mime.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>When using MMC on AI-Thinker ES32-CAM, the LED flash on the module blinks every time the SD is accessed, because the <code>HS2 DATA1</code> signal is wired to the driver transistor of the <code>LED FLASH</code>. I can't envision why <code>HS2 DATA1</code> signal was chosen to drive the LED.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="wojson.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Web pages w/o JSON" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Custom Web pages w/o JSON
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="lsbegin.html" class="md-footer__link md-footer__link--next" aria-label="Next: Inside AutoConnect::begin" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Inside AutoConnect::begin
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018-2021 Hieromon Ikasamo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    
+    
+      <script src="assets/javascripts/bundle.e1a181d9.min.js"></script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+  </body>
+</html>
