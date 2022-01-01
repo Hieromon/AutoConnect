@@ -41,10 +41,11 @@ typedef enum {
 /**
  * A class that handles an auxiliary page with AutoConnectElement
  * that placed on it by binding it to the AutoConnect menu.
- * @param  uri     An uri string of this page.
- * @param  title   A title string of this page.
- * @param  addons  A set of AutoConnectElement vector.
- * @param  menu    A switch for item displaying in AutoConnect menu.
+ * @param  uri        An uri string of this page.
+ * @param  title      A title string of this page.
+ * @param  menu       A switch for item displaying in AutoConnect menu.
+ * @param  addons     A set of AutoConnectElement vector.
+ * @param  responsive A switch for whether to make HTTP response or not.
  */
 class AutoConnectAux : public PageBuilder {
  public:
