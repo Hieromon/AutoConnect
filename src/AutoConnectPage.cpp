@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.0
- *  @date   2021-05-21
+ *  @version    1.3.2
+ *  @date   2021-11-24
  *  @copyright  MIT license.
  */
 
@@ -123,11 +123,19 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
     "-moz-appearance:radio;"
     "-webkit-appearance:radio"
   "}"
-  ".noorder input[type=\"text\"],.noorder input[type=\"number\"]{"
+  ".noorder input[type=\"text\"],.noorder input[type=\"password\"],.noorder input[type=\"number\"],.noorder input[type=\"range\"]{"
     "width:auto"
   "}"
   ".noorder input[type=\"text\"]:invalid{"
     "background:#fce4d6"
+  "}"
+  ".noorder input[type=\"range\"]{"
+    "height:7px;"
+    "background:#dddddd;"
+    "cursor:pointer"
+  "}"
+  ".magnify{"
+    "display:inline-block"
   "}"
 };
 

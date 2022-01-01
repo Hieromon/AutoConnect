@@ -1,0 +1,489 @@
+<!-- WebCamServer.ino viewer content. Date:2021-12-22 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+header {
+  align-items: center;
+  background: #585858;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  height: 50px;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 50px;
+}
+
+main > div {
+  margin: 0 auto;
+}
+
+.page {
+  background: #dcdcdc;
+  color: #212121;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: .03em;
+  height: 100vh;
+  width: 100%;
+}
+
+.button {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: auto;
+  position: relative;
+  touch-action: manipulation;
+  margin-left: 25px;
+  height: 50px;
+  width: 30px;
+  z-index: 1;
+}
+
+.icon-bar {
+  background: #aaa;
+  display: block;
+  transition: .3s;
+  height: 3px;
+  width: 100%;
+}
+
+.icon-bar + .icon-bar {
+  margin-top: 5px;
+}
+
+#nav-container {
+  pointer-events: none;
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+}
+
+#nav-container .bg {
+  background: #000;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 50px;
+  transition: .3s;
+  visibility: hidden;
+  height: calc(100% - 50px);
+  width: 100%;
+}
+
+#nav-container:focus-within .bg {
+  opacity: .6;
+  visibility: visible;
+}
+
+#nav-container * {
+  visibility: visible;
+}
+
+#nav-container:focus-within .button {
+  pointer-events: none;
+}
+
+#nav-container:focus-within .icon-bar:nth-of-type(1) {
+  transform: translate3d(0,8px,0) rotate(45deg);
+}
+
+#nav-container:focus-within .icon-bar:nth-of-type(2) {
+  opacity: 0;
+}
+
+#nav-container:focus-within .icon-bar:nth-of-type(3) {
+  transform: translate3d(0,-8px,0) rotate(-45deg);
+}
+
+#nav-content {
+  -ms-overflow-style: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  appearance: none;
+  background: #ececec;
+  contain: paint;
+  left: 0;
+  top: 0;
+  margin-top: 50px;
+  max-width: 240px;
+  overflow-y: scroll;
+  padding: 20px;
+  pointer-events: auto;
+  position: absolute;
+  scrollbar-width: none;
+  transform: translateX(-100%);
+  transition: transform .2s;
+  height: calc(100% - 50px);
+  width: 90%;
+  will-change: transform;
+}
+
+#nav-content::-webkit-scrollbar {
+  display: none;
+}
+
+#nav-content :not(input[type="number"]) {
+  cursor: pointer;
+}
+
+#nav-content :not(input):hover {
+  color: #BF7497;
+}    
+
+#nav-content ul {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  list-style: none;
+  padding: 0;
+}    
+
+#nav-content li {
+  color: #5f6368;
+  display: block;
+  padding: 10px 5px;
+}    
+
+#nav-content li input[type="number"] {
+  border: 1px solid #000;
+}
+
+#nav-content li * {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0px;
+  color: #5f6368;
+  transition: color .1s ease-in-out;
+}
+
+#nav-content li details > summary {
+  list-style: none;  
+}
+#nav-content li details summary::-webkit-details-marker,
+#nav-content li details summary::marker {
+  display: none;
+}
+
+#nav-content li details > summary::after {
+  display: inline-block;
+  position: relative;
+  margin-left: 4px;
+  content: '\025b6 \fe0e';
+}
+
+#nav-content li details > summary:after {
+  transition: .2s;
+}
+
+#nav-content li details[open] > summary:after {
+  transform: rotate(90deg);
+  transition: .2s;
+}
+
+#nav-content li details li {
+  margin: 0 0 0 10px;
+}
+
+#nav-content li details input[type="button"] {
+  height: 25px;
+}
+
+#nav-content li li {
+  align-items: center;
+  display: flex;
+  margin: 10px 0 0 10px;
+}
+
+#nav-content li label {
+  margin-right: 10px;
+}
+
+#nav-content li input {
+  padding: 3px;
+  width: 6.0em;
+}
+
+#nav-content li input[type="button"] {
+  background-color: green;
+  border-radius: 3px;
+  border: 0;
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+  color: #fff;
+  margin-right:10px;
+  transition: 0.2s all;
+}
+    
+#nav-content li input[type="button"]:active {
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  transform: scale(0.96);
+}
+
+#nav-content li:not(.small) + .small {
+  align-self: center;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: auto;
+}
+
+#nav-content a,
+#nav-content a:visited,
+#nav-content a:active,
+#nav-content a:link {
+  text-decoration: none;
+}
+
+#nav-container:focus-within #nav-content {
+  transform: none;
+}
+
+#img-frame {
+  display: block;
+  height: auto;
+  margin-top: 3px;
+  max-width: 100%;
+  width: auto;
+}
+
+#status {
+  font-size: 12px;
+}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header id="title" tabindex="0"></header>
+    <div id="nav-container">
+      <div class="bg"></div>
+      <div class="button" tabindex="0">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </div>
+      <div id="nav-content" tabindex="0">
+        <ul>
+          <li id="onair" onclick="stream(!isStreaming())">Start Streaming</li>
+          <li id="capture" onclick="capture()">Still</li>
+          <li id="oneshot" onclick="oneshot()">One-Shot</li>
+          <li>
+            <details>
+              <summary>Timer-Shot</summary>
+              <ul>
+                <li><label for="period">Period [s]</label><input type="number" name="peirod" id="period" min="1" value="1" pattern="\d*"/></li>
+                <li><input type="button" value="ARM" onclick="arm()"/><input type="button" value="DISARM" onclick="disarm()"/></li>
+              </ul>
+            </details>
+          </li>
+          <li><a id="setting" href="">Settings</a></li>
+          <li class="small"><a id="autoconnect" href="">AutoConnect</a></li>
+          <div id="status"></div>
+        </ul>
+      </div>
+    </div>
+  
+    <main>
+      <div id="content" tabindex="0">
+        <img id="img-frame" />
+      </div>
+    </main>
+  </div>
+  <script>
+    // Get the status of the during streaming
+    function isStreaming() {
+      status.innerText = null;
+      return onAir.innerText.startsWith("Stop");
+    }
+
+    // Toggle the streaming state.
+    function stream(onOff, focus = true) {
+      if (onOff && !isStreaming()) {
+        window.stop();
+        imgFrame.src = streamUrl;
+        onAir.innerText = onAir.innerText.replace("Start", "Stop");
+        if (focus) {
+          content.focus();
+        }
+      }
+      else if (!onOff && isStreaming()) {
+        window.stop();
+        imgFrame.src = noa;
+        onAir.innerText = onAir.innerText.replace("Stop", "Start");
+      }
+    }
+
+    // Capture
+    function capture() {
+      stream(false);
+      captureUrl.search = "?" + new Date().getTime();
+      imgFrame.src = captureUrl;
+      content.focus();
+    }
+
+    // Request the remote control commands
+    function prompt(url) {
+      var res;
+      var streaming = isStreaming();
+      stream(false);
+      fetch(url)
+        .then(response => {
+          res = "status:" + response.status + " ";
+          if (!response.ok) {
+            return response.text().then(text => {
+              throw new Error(text);
+            });
+          }
+          else {
+            status.style.color = '#297acc';
+            status.innerText = res + response.statusText;
+            stream(streaming, false);
+          }
+        })
+        .catch(err => {
+          var desc = err.message;
+          if (err.message.indexOf("0x0103", 1) > 0) {
+            desc = "SD not mounted";
+          }
+          if (err.message.indexOf("0x0105", 1) > 0) {
+            desc = "SD open failed";
+          }
+          status.style.color = '#cc2929';
+          status.innerText = res + desc;
+        });
+    }
+
+    function oneshot() {
+      promptUrl.search = "?mf=oneshot&fs=" + sdfs;
+      prompt(promptUrl);
+    }
+
+    function arm() {
+      promptUrl.search = "?mf=timershot&fs=" + sdfs + "&period=" + document.getElementById('period').value;
+      prompt(promptUrl);
+    }
+
+    function disarm() {
+      promptUrl.search = "?mf=distimer";
+      prompt(promptUrl);
+    }
+
+    // Make an actual URL that aims to the ESP32WebCam instance.
+    function endpoint(host, path, port) {
+      var url = new URL(path, "http://" + host);
+      url.port = port;
+      return url;
+    }
+
+    window.addEventListener('load', () => {
+      const qs = window.location.search;
+      if (qs) {
+        // Parse query parameters
+        var query = qs.substring(1).split('&').map((p) => p.split('=')).reduce((obj, e) => ({...obj, [e[0]]: e[1]}), {});
+        if (typeof query.host != "undefined") {
+          host = query.host;
+        }
+        if (typeof query.port != "undefined") {
+          port = query.port;
+        }
+        if (typeof query.stream != "undefined") {
+          streamPath = query.stream;
+        }
+        if (typeof query.capture != "undefined") {
+          capturePath = query.capture;
+        }
+        if (typeof query.prompt != "undefined") {
+          promptPath = query.prompt;
+        }
+        if (typeof query.setting != "undefined") {
+          settingPath = query.setting;
+        }
+        if (typeof query.fs != "undefined") {
+          sdfs = query.fs;
+        }
+        if (typeof query.ac != "undefined") {
+          autoconnectPath = query.ac;
+        }
+        if (typeof query.title != "undefined") {
+          title = query.title;
+        }
+      }
+      streamUrl = endpoint(host, streamPath, port);
+      captureUrl = endpoint(host, capturePath, port);
+      promptUrl = endpoint(host, promptPath, port);
+      document.getElementById('setting').href = settingPath;
+      document.getElementById('autoconnect').href = autoconnectPath;
+      document.getElementById('title').innerText = title;
+      stream(true);
+    });
+
+    // Disconnect the current streaming connection prior to the page transition.
+    window.addEventListener('pagehide', () => {
+      window.stop();
+    }, {capture: true});
+
+    // Parameters for handling the webcamview
+    // Each parameter can overwrites with query strings.
+    var host = "0.0.0.0";
+    var port = 3000;
+    var sdfs = "mmc";
+    var streamPath = "/_stream";
+    var capturePath = "/_capture";
+    var promptPath = "/_prompt";
+    var settingPath = "/_setting";
+    var autoconnectPath = "/_ac";
+    var streamUrl;
+    var captureUrl;
+    var promptUrl;
+    var title;
+    
+    // Grab the elements to update dynamically according to the navigation.
+    const content = document.getElementById('content');
+    const onAir = document.getElementById('onair');
+    const status = document.getElementById('status');
+    const imgFrame = document.getElementById('img-frame');
+    imgFrame.addEventListener('error', () => {
+      onAir.innerText = onAir.innerText.replace("Stop", "Start");
+    });
+
+    // Figure showing the disable state
+    const noa = 'data:image/png;base64,' +
+      'iVBORw0KGgoAAAANSUhEUgAAADAAAAAmCAYAAACCjRgBAAAACXBIWXMAAA3XAAAN1wFCKJt4AAADhElE' +
+      'QVRYw9WZTWxUVRiGnxZbIkW6kJhGNBME4wJTCKgHGuKmUP8WkgBlwWKQRJcvprBUUXBjSFvyGaMLpfiz' +
+      'wSAKGwLVmDgFekICtElXEDFIN0hNGluCrQILz4VxPJe2sdO5fZcn99w5zz3f/1QBSNoKHAAKQKuZ/c4s' +
+      'UZWkVcBPwLywdhXYYmanZwPAHOfcKeCRorUFQN45N+qcO+O9zzRANVAbWX8AaAe+lfRQ1k1oCXAYWJHy' +
+      'zGXgdWB4mn5zGLhoZtMDEJx4HvAhsH2GPtyPIVhc/98+AOC9Hx8bGzuWy+UuAy8CNWUGWAys8d53TcsN' +
+      'FEvSMuAosGQGbuJJM7s00UOSXgLeDgHmGPCWmd1KnPVfMrMBSSuALmBTmQHqJzj4AqCzxLSXAYPAR0kU' +
+      'IgIxAmwG2oC/KhFdJDUD/Sl+2VgcLkmBAOiU1AMcAR6boYPPBT4Adkw2DyQbV0uqjoCcDSG2ewYO/yzQ' +
+      'N9nDl5rQa8BxSQsjEENAS3Cksnx1Se8CvcBTU83ExWoBzkl6PmZSZvY+sA64Ps0MeWB3mk9OBQDgcaBb' +
+      'UpukmG/8EEyqNyu1UEy1RbVQXQRiEFgLdGQVINEG4IKkxgjE32a2M+SKkawCACwFzkja3traGjOpb4Dl' +
+      'IWZnEoDQ7HzW0NDQFQq/UoifAQd8kVWARNsAL+mJCMRNM8uHZ25kFQDgaaBP0sb6+vqYSX0ONAEXswoA' +
+      'MB84nM/n2yXVRCD6gJWhBLmfnqkUQKI2oCBpUUpBuBHYCdxM2f+JpP1JX1IJAILznpO0LiV7dwDrgSsp' +
+      '+3cA+yoJQJhqdEt6JyV79wRzOZ6yv67SAIneA05IejgC8RvwCrAHuFVpJ76fWoB+SasjELfNbDfwMjCU' +
+      'VQCAR4Nzv5liUidClOrJKkDS7XUCX0uaH4G4Ekrz9qwCJNoMnE8pCP80s10h3I5O4Z39MYDhMkIsBXol' +
+      '5VP67yOhxxiY4D1DwF7g4xjAl2WeQDwIHJT0aUpBeAl4Djg4QVH5S6FQuBvF7mZA7/0159x54AXujdrL' +
+      'oZVArff+P0MC7/249/6oc+7XEM1Ky5Qa4NVcLrfYOXfSez8em8zVFs9dyqBJDXeDz3zHP2PImC4Am6rI' +
+      'sEI7+1XoDGManJNlAO/9uHPuEPAH0ByJmkOZvoGS22gCDnFvQngDWFM9WwDCf3bLge+BMeANM+u/A3qC' +
+      'MR0fV7VwAAAAAElFTkSuQmCC';
+</script>
+</body>
+</html>

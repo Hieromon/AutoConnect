@@ -3,7 +3,7 @@
 ### AutoConnectAux
 
 ```cpp
-AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT())
+AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const responsive = true)
 ```
 
 <dl class="apidl">
@@ -12,6 +12,7 @@ AutoConnectAux(const String& uri = String(""), const String& title = String(""),
     <dd><span class="apidef">title</span><span class="apidesc">Page title of this custom Web page. It will appear on the auto connection menu and at the top of that page.</span></dd>
     <dd><span class="apidef">menu</span><span class="apidesc">Specifies whether to display this page on menu.</span></dd>
     <dd><span class="apidef">addons</span><span class="apidesc">Reference to AutoConnectElement collection.</span></dt>
+    <dd><span class="apidef">responsive</span><span class="apidesc">Specifies whether to make HTTP response or not.</span></dt>
 </dl>
 
 ## <i class="fa fa-code"></i> Public member functions
@@ -303,6 +304,16 @@ typedef struct {
 ```
 
 </p>Refer to '[To upload to a device other than Flash or SD](acupload.md#to-upload-to-a-device-other-than-flash-or-sd)' in section [appendix](acupload.md) for details.</span></dd></dl>
+
+### <i class="fa fa-caret-right"></i> redirect
+
+```cpp
+void redirect(const char* url)
+```
+
+Generate a [Location](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location) header field with the specified `url` and responds with a [302](https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.3) response code to the client. This function is intended to be used from within the Custom Web Page handler. If the AutoConnectAux is going to redirect to another page without responding with page content, declare the `responsive` argument `false` in the [AutoConnectAux constructor](#autoconnectaux). With this construction, AutoConnectAux will not respond to HTTP responses. The `redirect` function can be useful in this situation to respond to a 302 redirect.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">url</span><span class="apidesc">Specifies the URL to redirect a page to.</span></dd>
 
 ### <i class="fa fa-caret-right"></i> release
 

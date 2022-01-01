@@ -8,6 +8,7 @@ Representative HTML elements for making the custom Web page are provided as Auto
 - [AutoConnectFile](#autoconnectfile): File uploader
 - [AutoConnectInput](#autoconnectinput): Labeled text input box
 - [AutoConnectRadio](#autoconnectradio): Labeled radio button
+- [AutoConnectRange](#autoconnectrange): Labeled range slider
 - [AutoConnectSelect](#autoconnectselect): Selection list
 - [AutoConnectStyle](#autoconnectstyle): Custom CSS code
 - [AutoConnectSubmit](#autoconnectsubmit): Submit button
@@ -69,6 +70,7 @@ AutoConnectCheckBox | AC_Tag_BR
 AutoConnectFile | AC_Tag_BR
 AutoConnectInput | AC_Tag_BR
 AutoConnectRadio | AC_Tag_BR
+AutoConnectRange | AC_Tag_BR
 AutoConnectSelect | AC_Tag_BR
 AutoConnectSubmit | AC_Tag_None
 AutoConnectText | AC_Tag_None
@@ -101,6 +103,7 @@ The enumerators for *ACElement_t* are as follows:
 -  AutoConnectFile: **AC_File**
 -  AutoConnectInput: **AC_Input**
 -  AutoConnectRadio: **AC_Radio**
+-  AutoConnectRange: **AC_Range**
 -  AutoConnectSelect: **AC_Select**
 -  AutoConnectStyle: **AC_Style**
 -  AutoConnectSubmit: **AC_Submit**
@@ -361,6 +364,61 @@ A `checked` specifies the index number (1-based) of the **values** to be checked
 
 Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_BR`.
 
+## AutoConnectRange
+
+AutoConnectRange generates an HTML `#!html <input type="range">` tag and a `#!html <label>` tag.
+
+<i class="fa fa-eye"></i> **Sample**<br>
+<small>**`AutoConnectRange range("bri", 0, "Brightness", -2, 2, 1, AC_Infront);`**</small>
+
+<small>On the page:</small><br><img src="images/acrange.png">
+
+### <i class="fa fa-edit"></i> Constructor
+
+```cpp
+AutoConnectRange(const char* name, const int value, const char* label, const int min, const int max, const int step, const ACPosition_t magnify, const ACPosterior_t post, const char* style)
+```
+
+### <i class="fa fa-caret-right"></i> name
+
+It is the `name` of the AutoConnectRange element and matches the name attribute, the id attribute of the input tag. It also becomes the parameter name of the query string when submitted.
+
+### <i class="fa fa-caret-right"></i> value
+
+It becomes a string value of the `value` attribute of an HTML `#!html <input type="range">` tag, which indicates the default value of the range.
+
+### <i class="fa fa-caret-right"></i> label
+
+A `label` is an optional string. A label is always arranged on the left side of the range slider. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The range slider and the label are connected by the id attribute.
+
+### <i class="fa fa-caret-right"></i> min
+
+Specifies the most negative value within the range of allowed values and must not be less than the `value` argument.
+
+### <i class="fa fa-caret-right"></i> max
+
+It defines the greatest value in the range of permitted values.
+
+### <i class="fa fa-caret-right"></i> step
+
+It is a number that specifies the granularity that the value must adhere to. The default is 1. As you move the slider, it increases or decreases the value according to the `step` in granularity.
+
+### <i class="fa fa-caret-right"></i> magnify
+
+Displays the current value of the range on the left or right side of the slider.
+
+- **`AC_Infront`** : Displays the current value on the left side.
+- **`AC_Behind`** : Displays the current value on the right side.
+- **`AC_Void`** : No display the current value. This is the default.
+
+### <i class="fa fa-caret-right"></i> post
+
+Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_BR`.
+
+### <i class="fa fa-caret-right"></i> style
+
+A `style` specifies the qualification style to give to the content and can use the style attribute format as it is.
+
 ## AutoConnectStyle
 
 AutoConnectStyle inserts the string given by the **value** into the style block of a custom Web page as it is raw.
@@ -508,6 +566,8 @@ ACFile ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> 
 ACInput ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *pattern* <small>\]</small> <small>\[</small> , *placeholder* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Input\_Text**</small> | <small>**AC\_Input\_Password**</small> | <small>**AC\_Input\_Number**</small> <small>\]</small>)
 
 ACRadio ( *name* <small>\[</small> , *values* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Horizontal</small>** | <small>**AC\_Vertical**</small> <small>\]</small> <small>\[</small> , *checked* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
+
+ACRange ( *name* <small>\[</small> , *value* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , *min* <small>\]</small> <small>\[</small> , *max* <small>\]</small> <small>\[</small> , *step* </small> <small>]</small> <small>\[</small> , <small>**AC\_Infront**</small> | <small>**AC\_Behind**</small> | <small>**AC\_Void**</small> <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> <small>\[</small> , *style* <small>]</small> )
 
 ACSelect ( *name* <small>\[</small> , *options* <small>\]</small> <small>\[</small> , *label* <small>\]</small> <small>\[</small> , <small>**AC\_Tag\_None**</small> | <small>**AC\_Tag\_BR**</small> | <small>**AC\_Tag\_P**</small> | <small>**AC\_Tag\_DIV**</small> <small>\]</small> )
 

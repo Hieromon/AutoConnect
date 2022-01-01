@@ -1,3 +1,17 @@
+### [1.3.2] Jan. 1, 2022
+
+#### Enhancements
+
+- Supports an [AutoConnectRange](acelements.md#autoconnectrange) as a new AutoConnectElement.
+- Adds the [`responsive`](achandling.md#an-http-response-from-the-custom-web-page-handler) parameter with AutoConnectAux.
+- Adds an [`AutoConnectAux::redirect`](apiaux.md#redirect) function.
+- Adds an example for using AutoConnect with the [ESP32 camera driver](https://github.com/espressif/esp32-camera) as WebCamServer.
+
+#### Fix
+
+- Fixed an issue where a password is lost when SoftAP is stopped.
+
+---
 ### [1.3.1] Oct. 09, 2021
 
 #### Fixes
@@ -19,7 +33,7 @@
 - Supports AutoConnectConfigAux. (Preview)
 - Supports to save credentials always.
 - Adds a `style` attribute with AutoConnectInput.
-- Adda the `div` tag generation with the AutoConnectElement.
+- Adds the `div` tag generation with the AutoConnectElement.
 - Adds `[]` operator with const char for AutoConnectAux.
 - Adds `[]` operator with `__FlashStringHelper` for AutoConnectAux.
 - Adds `AutoConnectAux::content` function to get a number of AutoConnectElements.

@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementJson classes.
  * @file AutoConnectElementJsonImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.1
- * @date 2021-10-03
+ * @version  1.3.2
+ * @date 2021-11-24
  * @copyright  MIT license.
  */
 
@@ -212,6 +212,8 @@ void AutoConnectCheckboxJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject&
   json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
   if (labelPosition == AC_Infront)
     json[F(AUTOCONNECT_JSON_KEY_LABELPOSITION)] = AUTOCONNECT_JSON_VALUE_INFRONT;
+  else if (labelPosition == AC_Behind)
+    json[F(AUTOCONNECT_JSON_KEY_LABELPOSITION)] = AUTOCONNECT_JSON_VALUE_BEHIND;
 }
 
 /**
@@ -425,6 +427,84 @@ void AutoConnectRadioJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& js
   json[F(AUTOCONNECT_JSON_KEY_ARRANGE)] = String(FPSTR(direction));
   if (checked > 0)
     json[F(AUTOCONNECT_JSON_KEY_CHECKED)] = checked;
+}
+
+/**
+ * Returns JSON object size.
+ * @return  An object size for JsonBuffer.
+ */
+size_t AutoConnectRangeJson::getObjectSize(void) const {
+  size_t  size = AutoConnectElementJson::getObjectSize() + JSON_OBJECT_SIZE(5);
+  size += sizeof(AUTOCONNECT_JSON_KEY_LABEL) + label.length() + sizeof('\0') + sizeof(AUTOCONNECT_JSON_KEY_MIN) + sizeof(AUTOCONNECT_JSON_KEY_MAX) + sizeof(AUTOCONNECT_JSON_KEY_STEP) + sizeof(AUTOCONNECT_JSON_KEY_MAGNIFY) + sizeof(AUTOCONNECT_JSON_VALUE_INFRONT) + sizeof(AUTOCONNECT_JSON_KEY_STYLE) + style.length() + sizeof('\0');
+  return size;
+}
+
+/**
+ * Load a input-range element attribute member from the JSON object.
+ * @param  json  JSON object with the definition of AutoConnectElement.
+ * @return true  AutoConnectElement loaded
+ * @return false Type of AutoConnectElement is mismatched.
+ */
+bool AutoConnectRangeJson::loadMember(const JsonObject& json) {
+  String  type = json[F(AUTOCONNECT_JSON_KEY_TYPE)].as<String>();
+  if (type.equalsIgnoreCase(F(AUTOCONNECT_JSON_TYPE_ACRANGE))) {
+    _setMember(json);
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_LABEL)))
+      label = json[F(AUTOCONNECT_JSON_KEY_LABEL)].as<String>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_VALUE)))
+      value = json[F(AUTOCONNECT_JSON_KEY_VALUE)].as<int>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_MIN)))
+      min = json[F(AUTOCONNECT_JSON_KEY_MIN)].as<int>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_MAX)))
+      max = json[F(AUTOCONNECT_JSON_KEY_MAX)].as<int>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STEP)))
+      step = json[F(AUTOCONNECT_JSON_KEY_STEP)].as<int>();
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_MAGNIFY))) {
+      String  magPosition = json[F(AUTOCONNECT_JSON_KEY_MAGNIFY)].as<String>();
+      if (magPosition.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_INFRONT)))
+        magnify = AC_Infront;
+      else if (magPosition.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_BEHIND)))
+        magnify = AC_Behind;
+      else if (magPosition.equalsIgnoreCase(F(AUTOCONNECT_JSON_VALUE_VOID)))
+        magnify = AC_Void;
+      else {
+        AC_DBG("Failed to load %s element, unknown %s\n", name.c_str(), magPosition.c_str());
+        return false;
+      }
+    }
+    if (json.containsKey(F(AUTOCONNECT_JSON_KEY_STYLE)))
+      style = json[F(AUTOCONNECT_JSON_KEY_STYLE)].as<String>();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Serialize AutoConnectInput to JSON.
+ * @param  json  JSON object to be serialized.
+ */
+void AutoConnectRangeJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) {
+  _serialize(json);
+  json[F(AUTOCONNECT_JSON_KEY_TYPE)] = String(F(AUTOCONNECT_JSON_TYPE_ACRANGE));
+  json[F(AUTOCONNECT_JSON_KEY_VALUE)] = value;
+  json[F(AUTOCONNECT_JSON_KEY_LABEL)] = label;
+  json[F(AUTOCONNECT_JSON_KEY_MIN)] = min;
+  json[F(AUTOCONNECT_JSON_KEY_MAX)] = max;
+  json[F(AUTOCONNECT_JSON_KEY_STEP)] = step;
+  PGM_P magPosition;
+  switch (magnify) {
+  case AC_Infront:
+    magPosition = PSTR(AUTOCONNECT_JSON_VALUE_INFRONT);
+    break;
+  case AC_Behind:
+    magPosition = PSTR(AUTOCONNECT_JSON_VALUE_BEHIND);
+    break;
+  case AC_Void:
+    magPosition = PSTR(AUTOCONNECT_JSON_VALUE_VOID);
+    break;
+  }
+  json[F(AUTOCONNECT_JSON_KEY_MAGNIFY)] = magPosition;
+  json[F(AUTOCONNECT_JSON_KEY_STYLE)] = style;
 }
 
 /**

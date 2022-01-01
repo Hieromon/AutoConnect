@@ -9,14 +9,13 @@
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
-      
         <meta name="author" content="Hieromon Ikasamo">
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/faq.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.8b42a75e.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.edf004c2.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -41,9 +40,8 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
-    
     
     
       <link rel="stylesheet" href="css/paragraph.css">
@@ -52,18 +50,17 @@
     
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
   
 
 
   
-
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-EHK8XV10VE",{page_path:t.pathname})})})</script>
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-EHK8XV10VE",{page_path:e.pathname})})})</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE"></script>
 
 
@@ -80,7 +77,6 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -96,6 +92,7 @@
     <div data-md-component="announce">
       
     </div>
+    
     
       
 
@@ -131,8 +128,7 @@
       <label class="md-header__button md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -164,8 +160,7 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -209,8 +204,7 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -812,6 +806,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="esp32cam.html" class="md-nav__link">
+        Works with ESP32-CAM
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -947,6 +955,7 @@
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1299,6 +1308,7 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1613,10 +1623,10 @@
             <article class="md-content__inner md-typeset">
               
                 
-                
-                  <h1>FAQ</h1>
-                
-                <h2 id="after-connected-autoconnect-menu-performs-but-no-happens"><i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.<a class="headerlink" href="#after-connected-autoconnect-menu-performs-but-no-happens" title="Permanent link">&para;</a></h2>
+
+  <h1>FAQ</h1>
+
+<h2 id="after-connected-autoconnect-menu-performs-but-no-happens"><i class="fa fa-question-circle"></i> After connected, AutoConnect menu performs but no happens.<a class="headerlink" href="#after-connected-autoconnect-menu-performs-but-no-happens" title="Permanent link">&para;</a></h2>
 <p>If you can access the <strong>AutoConnect root path</strong> as <a href="http://ESP8266IPADDRESS/_ac">http://ESP8266IPADDRESS/_ac</a> from browser, probably the Sketch uses <em>ESP8266WebServer::handleClient()</em> without <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.<br />
 For AutoConnect menus to work properly, call <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a> after <em>ESP8266WebServer::handleClient()</em> invoked, or use <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a>. <a href="api.html#handleclient"><em>AutoConnect::handleClient()</em></a> is equivalent <em>ESP8266WebServer::handleClient</em> combined <a href="api.html#handlerequest"><em>AutoConnect::handleRequest()</em></a>.</p>
 <p>See also the explanation <a href="basicusage.html#esp8266webserver-hosted-or-parasitic">here</a>.</p>
@@ -1642,20 +1652,20 @@ Consider activating the <a href="adconnection.html#match-with-known-access-point
 <p>We will hypothesize that you keep the ESP module with AP_STA mode by specifing the <strong>retainPortal</strong> and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the <strong>esp32ap</strong>, the OS of your cellphone will determine that the access point (i.e. <strong>esp32ap</strong>) is transparent to the Internet. That is, the captive portal does not pop up.</p>
 <h2 id="compile-error-due-to-file-system-header-file-not-found"><i class="fa fa-question-circle"></i> Compile error due to File system header file not found<a class="headerlink" href="#compile-error-due-to-file-system-header-file-not-found" title="Permanent link">&para;</a></h2>
 <p>In <a href="https://docs.platformio.org/en/latest/">PlatformIO</a>, it may occur compilation error such as the bellows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">In</span> <span style="color: #f8f8f2">file</span> <span style="color: #f8f8f2">included</span> <span style="color: #f8f8f2">from</span> <span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect.h:</span><span style="color: #ae81ff">30</span><span style="color: #f92672">:</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
-                 <span style="color: #f8f8f2">from</span> <span style="color: #f8f8f2">src</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">main.cpp:</span><span style="color: #ae81ff">28</span><span style="color: #f92672">:</span>
-<span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder.h:</span><span style="color: #ae81ff">88</span><span style="color: #f92672">:</span><span style="color: #ae81ff">27</span><span style="color: #f92672">:</span>
-<span style="color: #f8f8f2">fatal</span> <span style="color: #f8f8f2">error:</span> <span style="color: #f8f8f2">SPIFFS.h:</span> <span style="color: #f8f8f2">No</span> <span style="color: #f8f8f2">such</span> <span style="color: #f8f8f2">file</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">directory</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">In file included from C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect.h:</span><span style="color: #ae81ff">30</span><span style="color: #f92672">:</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">                 from src</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">main.cpp:</span><span style="color: #ae81ff">28</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
+<span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder.h:</span><span style="color: #ae81ff">88</span><span style="color: #f92672">:</span><span style="color: #ae81ff">27</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
+<span style="color: #f8f8f2">fatal error: SPIFFS.h: No such file or directory</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">In</span> <span style="color: #f8f8f2">file</span> <span style="color: #f8f8f2">included</span> <span style="color: #f8f8f2">from</span> <span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect.h:</span><span style="color: #ae81ff">30</span><span style="color: #f8f8f2">,</span>
-                 <span style="color: #f8f8f2">from</span> <span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">main.cpp:</span><span style="color: #ae81ff">28</span><span style="color: #f92672">:</span>
-<span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder.h:</span><span style="color: #ae81ff">93</span><span style="color: #f92672">:</span><span style="color: #ae81ff">17</span><span style="color: #f92672">:</span>
-<span style="color: #f8f8f2">fatal</span> <span style="color: #f8f8f2">error:</span> <span style="color: #f8f8f2">LittleFS.h:</span> <span style="color: #f8f8f2">No</span> <span style="color: #f8f8f2">such</span> <span style="color: #f8f8f2">file</span> <span style="color: #f8f8f2">or</span> <span style="color: #f8f8f2">directory</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">In file included from C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect.h:</span><span style="color: #ae81ff">30</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">                 from src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">main.cpp:</span><span style="color: #ae81ff">28</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
+<span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder.h:</span><span style="color: #ae81ff">93</span><span style="color: #f92672">:</span><span style="color: #ae81ff">17</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
+<span style="color: #f8f8f2">fatal error: LittleFS.h: No such file or directory</span>
 </code></pre></div>
 <p>This compilation error is due to PlatformIO's <a href="https://docs.platformio.org/en/latest/librarymanager/ldf.html?highlight=ldf#library-dependency-finder-ldf">Library Dependency Finder</a> not being able to detect <code>#include</code> with default <a href="https://docs.platformio.org/en/latest/librarymanager/ldf.html#dependency-finder-mode">mode</a> <code>chain</code>. Chain mode does not recursively evaluate <code>.cpp</code> files. However, AutoConnect determines the default file system at compile time, depending on the platform. In order for LDF to detect it correctly, it is necessary to recursively scan <code>#include</code> of the header file, which depends on the file system used.</p>
 <p>To avoid compilation errors in PlatformIO, specify <a href="https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode"><code>lib_ldf_mode</code></a> in <a href="https://docs.platformio.org/en/latest/projectconf/index.html#platformio-ini-project-configuration-file"><code>platformio.ini</code></a> as follows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">[env]</span>
-<span style="color: #a6e22e">lib_ldf_mode</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">deep</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">[env]</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">lib_ldf_mode</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">deep</span><span style="color: #f8f8f2"></span>
 </code></pre></div>
 <p>You should specify <strong><code>deep</code></strong> with <a href="https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode"><code>lib_ldf_mode</code></a>.</p>
 <h2 id="compile-error-occurs-due-to-the-text-section-exceeds"><i class="fa fa-question-circle"></i> Compile error occurs due to the text section exceeds<a class="headerlink" href="#compile-error-occurs-due-to-the-text-section-exceeds" title="Permanent link">&para;</a></h2>
@@ -1711,27 +1721,29 @@ You have the following two options to avoid this conflict:</p>
 <h2 id="does-not-appear-esp8266ap-in-smartphone"><i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.<a class="headerlink" href="#does-not-appear-esp8266ap-in-smartphone" title="Permanent link">&para;</a></h2>
 <p>Maybe it is successfully connected at the <a href="lsbegin.html#autoconnectbegin-logic-sequence"><strong>1<sup>st</sup>-WiFi.begin</strong></a>. ESP8266 remembers the last SSID successfully connected and will use at the next. It means SoftAP will only start up when the first <em>WiFi.begin()</em> fails.</p>
 <p>The saved SSID would be cleared by  <em>WiFi.disconnect()</em> with WIFI_STA mode. If you do not want automatic reconnection, you can erase the memorized SSID with the following simple sketch.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">WiFi.mode(WIFI_STA);</span>
-  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">WiFi.begin();</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(WiFi.waitForConnectResult()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">WiFi.disconnect();</span>
-    <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(WiFi.status()</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">WL_CONNECTED)</span>
-      <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #f8f8f2">Serial.println(</span><span style="color: #e6db74">&quot;WiFi disconnected.&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  WiFi.mode(WIFI_STA);</span>
+<span style="color: #f8f8f2">  delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  WiFi.begin();</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (WiFi.waitForConnectResult() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> WL_CONNECTED) {</span>
+<span style="color: #f8f8f2">    WiFi.disconnect();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #66d9ef">while</span><span style="color: #f8f8f2"> (WiFi.status() </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> WL_CONNECTED)</span>
+<span style="color: #f8f8f2">      delay(</span><span style="color: #ae81ff">100</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  Serial.println(</span><span style="color: #e6db74">&quot;WiFi disconnected.&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<details class="hint"><summary>You can interactively check the WiFi state of ESP8266.</summary><p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p>
+<details class="hint">
+<summary>You can interactively check the WiFi state of ESP8266.</summary>
+<p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p>
 <p><img src="images/espshaker.gif" /></p>
 </details>
 <h2 id="does-not-response-from-_ac"><i class="fa fa-question-circle"></i> Does not response from /_ac.<a class="headerlink" href="#does-not-response-from-_ac" title="Permanent link">&para;</a></h2>
@@ -1781,7 +1793,7 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#define AUTOCONNECT_NOUSE_JSON</span>
 </code></pre></div>
 <p>For example, add the following description to the <code>[env]</code> section of the <code>platformio.ini</code> file with the <code>build-flags</code>.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #a6e22e">build-flags</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">-DAUTOCONNECT_NOUSE_JSON</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #a6e22e">build-flags</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">-DAUTOCONNECT_NOUSE_JSON</span><span style="color: #f8f8f2"></span>
 </code></pre></div>
 <h2 id="how-erase-the-credentials-saved-in-eeprom"><i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?<a class="headerlink" href="#how-erase-the-credentials-saved-in-eeprom" title="Permanent link">&para;</a></h2>
 <p>Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with <em>AutoConnectCredential</em>. The <em>AutoConnectCrendential</em> class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '<a href="credit.html#saved-credential-in-eeprom">Saved credential access</a>' on section <a href="credit.html"><em>Appendix</em></a> for details.</p>
@@ -1810,8 +1822,8 @@ To completely remove ArduinoJson at compile-time from the binary, you need to de
 <div class="admonition hint">
 <p class="admonition-title">Change the partition scheme with PlatformIO</p>
 <p>Use <code>board_build.partitions</code> directive with <code>platformio.ini</code>.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">[env:esp32dev]</span>
-<span style="color: #a6e22e">board_build.partitions</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">min_spiffs.csv</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">[env:esp32dev]</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">board_build.partitions</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">min_spiffs.csv</span><span style="color: #f8f8f2"></span>
 </code></pre></div>
 Details for the <a href="https://docs.platformio.org/en/latest/platforms/espressif32.html#partition-tables">PlatformIO documentation</a>.</p>
 </div>
@@ -1820,16 +1832,16 @@ Details for the <a href="https://docs.platformio.org/en/latest/platforms/espress
 <h2 id="how-placing-a-style-qualified-autoconnecttext-horizontally"><i class="fa fa-question-circle"></i> How placing a style-qualified AutoConnectText horizontally?<a class="headerlink" href="#how-placing-a-style-qualified-autoconnecttext-horizontally" title="Permanent link">&para;</a></h2>
 <p>When the <a href="acelements.html#style">style</a> parameter is specified for <a href="acelements.html#autoconnecttext">AutoConnectText</a>, it is always enclosed by the <code>&lt;div&gt;</code> tag, so the element placement direction is vertical and subsequent elements cannot be horizontal. If you want to place an element after AutoConnectText with the style, you can place the AutoConnectText horizontally by specifying the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code></a> CSS property with <code>inline</code> or <code>inline-block</code> in the style value. </p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
-    <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;text1&quot;</span><span style="color: #f8f8f2">,</span>
-    <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
-    <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;Hello,&quot;</span><span style="color: #f8f8f2">,</span>
-    <span style="color: #f92672">&quot;style&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;display:inline;color:#f5ad42;font-weight:bold;margin-right:3px&quot;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;text1&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;Hello,&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;style&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;display:inline;color:#f5ad42;font-weight:bold;margin-right:3px&quot;</span><span style="color: #f8f8f2"></span>
 <span style="color: #f8f8f2">},</span>
 <span style="color: #f8f8f2">{</span>
-    <span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;text2&quot;</span><span style="color: #f8f8f2">,</span>
-    <span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
-    <span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;world&quot;</span><span style="color: #f8f8f2">,</span>
-    <span style="color: #f92672">&quot;posterior&quot;</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&quot;br&quot;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;name&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;text2&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;type&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;value&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;world&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">    </span><span style="color: #f92672">&quot;posterior&quot;</span><span style="color: #f8f8f2">: </span><span style="color: #e6db74">&quot;br&quot;</span><span style="color: #f8f8f2"></span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>See also <a href="acelements.html#post_8">AutoConnectText</a> chapter, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout">CSS Flow Layout</a> by <a href="https://developer.mozilla.org/en-US/">MDN</a>.</p>
@@ -1861,31 +1873,31 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="background-color: #49483e"><span style="color: #75715e">#define AC_DEBUG                                    // No effect</span>
 </span><span style="background-color: #49483e"><span style="color: #75715e">#define AUTOCONNECT_HTTPPORT    8080                // No effect</span>
 </span><span style="background-color: #49483e"><span style="color: #75715e">#define AUTOCONNECT_MENUCOLOR_BACKGROUND  &quot;#696969&quot; // No effect</span>
-</span><span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
-<span style="color: #75715e">#include</span> <span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+</span><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;ESP8266WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;ESP8266WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
 
-<span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">Portal;</span>
+<span style="color: #f8f8f2">AutoConnect Portal;</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Portal.begin();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Portal.begin();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">Portal.handleClient();</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  Portal.handleClient();</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>To enable them, edit <code>AutoConnectDefs.h</code> as the library source code directly, or supply them as the external parameters using a build system like <a href="https://platformio.org/platformio-ide">PlatformIO</a> with <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html?highlight=build_flags#build-flags"><code>platformio.ini</code></a>:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #a6e22e">platform</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">espressif8266</span>
-<span style="color: #a6e22e">board</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">nodemcuv2</span>
-<span style="color: #a6e22e">board_build.f_cpu</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">160000000L</span>
-<span style="color: #a6e22e">board_build.f_flash</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">80000000L</span>
-<span style="color: #a6e22e">board_build.flash_mode</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">dio</span>
-<span style="color: #a6e22e">board_build.filesystem</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">littlefs</span>
-<span style="background-color: #49483e"><span style="color: #a6e22e">build_flags</span> <span style="color: #f92672">=</span>
-</span><span style="background-color: #49483e">  <span style="color: #a6e22e">-DAC_DEBUG</span>
-</span><span style="background-color: #49483e">  <span style="color: #a6e22e">-DAUTOCONNECT_HTTPPORT</span><span style="color: #f92672">=</span><span style="color: #e6db74">8080</span>
-</span><span style="background-color: #49483e">  <span style="color: #a6e22e">-DAUTOCONNECT_MENUCOLOR_BACKGROUND</span><span style="color: #f92672">=</span><span style="color: #e6db74">&#39;&quot;#696969&quot;&#39;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #a6e22e">platform</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">espressif8266</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">board</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">nodemcuv2</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">board_build.f_cpu</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">160000000L</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">board_build.f_flash</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">80000000L</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">board_build.flash_mode</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">dio</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">board_build.filesystem</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">littlefs</span><span style="color: #f8f8f2"></span>
+<span style="background-color: #49483e"><span style="color: #a6e22e">build_flags</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"></span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">  </span><span style="color: #a6e22e">-DAC_DEBUG</span><span style="color: #f8f8f2"></span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">  </span><span style="color: #a6e22e">-DAUTOCONNECT_HTTPPORT</span><span style="color: #f92672">=</span><span style="color: #e6db74">8080</span><span style="color: #f8f8f2"></span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">  </span><span style="color: #a6e22e">-DAUTOCONNECT_MENUCOLOR_BACKGROUND</span><span style="color: #f92672">=</span><span style="color: #e6db74">&#39;&quot;#696969&quot;&#39;</span><span style="color: #f8f8f2"></span>
 </span></code></pre></div>
 <h2 id="unauthorize-error-without-prompting-the-login-dialog"><i class="fa fa-question-circle"></i> Unauthorize error without prompting the login dialog.<a class="headerlink" href="#unauthorize-error-without-prompting-the-login-dialog" title="Permanent link">&para;</a></h2>
 <p>The custom web pages that require authentication will occur unauthorized error always without prompting the login dialog under the captive portal state on some OS. This is a captive portal restriction and expected behavior. The captive portal web browser is almost a complete web browser, but while the captive portal session restricts the response to <code>WWW-authenticate</code> requests. (In intrinsically, the captive portal is a mechanism for authentication in itself)</p>
@@ -1894,12 +1906,12 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
 <p>Both ESP8266 and ESP32 can only work on one channel at any given moment. This will cause your station to lose connectivity on the channel hosting the captive portal. If the channel of the AP which you want to connect is different from the SoftAP channel, the operation of the captive portal will not respond with the screen of the AutoConnect connection attempt remains displayed. In such a case, please try to configure the <a href="apiconfig.html#channel">channel</a> with <a href="apiconfig.html#autoconnectconfig">AutoConnectConfig</a> to match the access point.</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect</span> <span style="color: #f8f8f2">portal;</span>
-<span style="color: #f8f8f2">AutoConnectConfig</span> <span style="color: #f8f8f2">config;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig config;</span>
 
-<span style="color: #f8f8f2">config.channel</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">3</span><span style="color: #f8f8f2">;</span>     <span style="color: #75715e">// Specifies a channel number that matches the AP</span>
-<span style="color: #f8f8f2">portal.config(config);</span>  <span style="color: #75715e">// Apply channel configuration</span>
-<span style="color: #f8f8f2">portal.begin();</span>         <span style="color: #75715e">// Start the portal</span>
+<span style="color: #f8f8f2">config.channel </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">3</span><span style="color: #f8f8f2">;     </span><span style="color: #75715e">// Specifies a channel number that matches the AP</span>
+<span style="color: #f8f8f2">portal.config(config);  </span><span style="color: #75715e">// Apply channel configuration</span>
+<span style="color: #f8f8f2">portal.begin();         </span><span style="color: #75715e">// Start the portal</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Channel selection guide</p>
@@ -1957,11 +1969,6 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 </li>
 </ol>
 </div>
-                
-              
-              
-                
-
 
               
             </article>
@@ -1970,8 +1977,7 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
@@ -2010,43 +2016,42 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018-2021 Hieromon Ikasamo
-          </div>
-        
-        
-          Made with
-          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-            Material for MkDocs
-          </a>
-        
-        
-      </div>
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018-2021 Hieromon Ikasamo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
-  <div class="md-footer-social">
+        <div class="md-social">
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-      </a>
+    
+    <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
     
-  </div>
-
+    <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
     </div>
   </div>
 </footer>
@@ -2055,10 +2060,10 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      <script src="assets/javascripts/bundle.e1a181d9.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

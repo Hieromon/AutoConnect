@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.1
- *  @date   2021-10-07
+ *  @version    1.3.2
+ *  @date   2021-11-19
  *  @copyright  MIT license.
  */
 
@@ -43,10 +43,7 @@
  *  AutoConnect default constructor. This entry activates WebServer
  *  internally and the web server is allocated internal.
  */
-AutoConnect::AutoConnect()
-: _scanCount( 0 )
-, _menuTitle( _apConfig.title )
-{
+AutoConnect::AutoConnect() : _scanCount(0), _menuTitle(_apConfig.title) {
   memset(&_credential, 0x00, sizeof(station_config_t));
 }
 
@@ -55,9 +52,7 @@ AutoConnect::AutoConnect()
  *  User's added URI handler response can be included in handleClient method.
  *  @param  webServer   A reference of ESP8266WebServer instance.
  */
-AutoConnect::AutoConnect(WebServerClass& webServer)
-: AutoConnect()
-{
+AutoConnect::AutoConnect(WebServerClass& webServer) : AutoConnect() {
   _webServer = WebserverUP(&webServer, [](WebServerClass*){});
 }
 
@@ -193,6 +188,7 @@ bool AutoConnect::begin(const char* ssid, const char* passphrase, unsigned long 
     // Reconnect with a valid credential as the autoReconnect option is enabled.
     if (!cs && _apConfig.autoReconnect && !_rfAdHocBegin) {
       // Load a valid credential.
+      WiFi.disconnect();
       char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
       char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
       AC_DBG("autoReconnect");
@@ -1185,7 +1181,7 @@ void AutoConnect::_stopPortal(void) {
   }
 
   _setReconnect(AC_RECONNECT_RESET);
-  WiFi.softAPdisconnect(false);
+  WiFi.softAPdisconnect(true);
   AC_DBG("Portal stopped\n");
 }
 

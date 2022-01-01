@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-05-27
+ * @version  1.3.2
+ * @date 2021-11-24
  * @copyright  MIT license.
  */
 
@@ -41,14 +41,15 @@ typedef enum {
 /**
  * A class that handles an auxiliary page with AutoConnectElement
  * that placed on it by binding it to the AutoConnect menu.
- * @param  uri     An uri string of this page.
- * @param  title   A title string of this page.
- * @param  addons  A set of AutoConnectElement vector.
- * @param  menu    A switch for item displaying in AutoConnect menu.
+ * @param  uri        An uri string of this page.
+ * @param  title      A title string of this page.
+ * @param  menu       A switch for item displaying in AutoConnect menu.
+ * @param  addons     A set of AutoConnectElement vector.
+ * @param  responsive A switch for whether to make HTTP response or not.
  */
 class AutoConnectAux : public PageBuilder {
  public:
-  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT());
+  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const bool responsive = true);
   ~AutoConnectAux();
   AutoConnectElement& operator[](const char* name) { return *getElement(name); }
   AutoConnectElement& operator[](const __FlashStringHelper* name) { return *getElement(name); }
@@ -72,6 +73,7 @@ class AutoConnectAux : public PageBuilder {
   void  menu(const bool post) { _menu = post; }                         /**< Set or reset the display as menu item for this aux */
   bool  isMenu(void) { return _menu; }                                  /**< Return whether embedded in the menu or not */
   bool  isValid(void) const;                                            /**< Validate all AutoConnectInput value */
+  void  redirect(const char* url);                                      /**< Send a redirect response from within the AutoConnectAux handler */ 
   bool  release(const String& name);                                    /**< Release an AutoConnectElement */
   bool  setElementValue(const String& name, const String value);        /**< Set value to specified element */
   bool  setElementValue(const String& name, std::vector<String> const& values);  /**< Set values collection to specified element */
@@ -127,6 +129,7 @@ class AutoConnectAux : public PageBuilder {
   const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
   const String  _indicateUri(PageArgument& args);                       /**< Inject the uri that caused the request */
   const String  _indicateEncType(PageArgument& args);                   /**< Inject the ENCTYPE attribute */
+  const String  _nonResponseExit(PageArgument& args);                   /**< Exit for responsive=false setting */
   void  _storeElements(WebServerClass* webServer);                      /**< Store element values from contained in request arguments */
   template<typename T>
   bool  _isCompatible(const AutoConnectElement* element) const;         /**< Validate a type of AutoConnectElement entity conformity */
@@ -202,6 +205,7 @@ class AutoConnectAux : public PageBuilder {
   String  _title;                             /**< A title of the page */
   bool    _menu;                              /**< Switch for menu displaying */
   bool    _deletable = false;                 /**< Allow deleting itself. */
+  bool    _responsive;                        /**< Whether suppress the sending of HTTP response in PageBuilder */
   AC_AUTH_t _httpAuth = AC_AUTH_NONE;         /**< Applying HTTP authentication */
   String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */
@@ -282,6 +286,16 @@ inline bool AutoConnectAux::_isCompatible<AutoConnectInput>(const AutoConnectEle
 template<>
 inline bool AutoConnectAux::_isCompatible<AutoConnectRadio>(const AutoConnectElement* element) const {
   return (element->typeOf() == AC_Radio);
+}
+
+/**
+ * Validate a type of AutoConnectElement entity conformity.
+ * @param  element  AutoConnectRange
+ * @return true     The element is feasible.
+ */
+template<>
+inline bool AutoConnectAux::_isCompatible<AutoConnectRange>(const AutoConnectElement* element) const {
+  return (element->typeOf() == AC_Range);
 }
 
 /**

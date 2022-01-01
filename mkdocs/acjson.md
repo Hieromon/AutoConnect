@@ -25,6 +25,7 @@ AutoConnectAux will configure custom Web pages with JSON objects. The elements t
   "title" : title,
   "uri" : uri,
   "menu" : true | false,
+  "response" : true | false,
   "auth": authentication,
   "element" : element_array
 }
@@ -41,6 +42,12 @@ AutoConnectAux will configure custom Web pages with JSON objects. The elements t
 #### <i class="fa fa-key"></i> **menu**
 
 : This is a Boolean value indicating whether to include the custom Web page in the AutoConnect menu. If the page only responds to another page and you want to prevent the direct use from the menu, you can exclude from the AutoConnect menu. If this key is false, it will not appear in the menu.
+
+#### <i class="fa fa-key"></i> **response**
+
+: This is a Boolean value indicating whether to respond to HTTP responses independently in its custom web page handler. Normally, AutoConnect will respond with a response code of 200 after its custom web page has processed the request from the client. However, depending on the processing status of the handler, it may be necessary to return a response other than 200. For example, it might respond with a 302 redirect. In such situations, the custom web page handler can apply the sendHeader, sendContent, and send functions of the WebServer library to respond with its own response.
+
+: If the `response` is `false`, AutoConnect will not respond with an HTTP response when it returns from the custom web page handler. The custom web page handler needs to perform the HTTP response by itself.
 
 #### <i class="fa fa-key"></i> **auth**
 
@@ -140,6 +147,7 @@ JSON description for AutoConnectElements describes as an array in the *element* 
 : -  AutoConnectFile: [**ACFile**](#acfile)
 : -  AutoConnectInput: [**ACInput**](#acinput)
 : -  AutoConnectRadio: [**ACRadio**](#acradio)
+: -  AutoConnectRange: [**ACRange**](#acrange)
 : -  AutoConnectSelect: [**ACSelect**](#acselect)
 : -  AutoConnectStyle: [**ACStyle**](#acstyle)
 : -  AutoConnectSubmit: [**ACSubmit**](#acsubmit)
@@ -209,6 +217,20 @@ This is different for each AutoConnectElements, and the key that can be specifie
     : - **vertical** : Vertical arrangement.
 
 : - **checked** : Specifies the index number (1-based) of the radio buttons collection to be checked.
+
+#### <i class="fa fa-caret-right"></i> ACRange
+
+: - **value** : Specifies the initial value in the range. If the [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#value) is not specified, the default value is determined by the following algorithm:<br>`#!js value = (max < min) ? min : min + (max - min)/2;`
+: - **label** : Specifies a label of the range slider. Its placement is always to the left of the input box.
+: - **min** : Specifies the most negative value within the range of allowed values and must not be less than the `value`.
+: - **max** : Specifies the greatest value in the range of permitted values.
+: - **step** : Specifies the granularity that the value must adhere to. The default is 1. As you move the slider, it increases or decreases the `value` according to the `step` in granularity.
+: - **magnify** : Displays the current value of the range on the left or right side of the slider. The `magnify` accepts one of the following:
+    : - **infront** : Displays the current value on the left side.
+    : - **behind** : Displays the current value on the right side.
+    : - **void** :  No display the current value. This is the default.
+
+: - **style** : Specifies the qualification style to give to the content and can use the style attribute format as it is.
 
 #### <i class="fa fa-caret-right"></i> ACSelect
 

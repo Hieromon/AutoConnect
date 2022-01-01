@@ -9,14 +9,13 @@
         <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
       
       
-      
         <meta name="author" content="Hieromon Ikasamo">
       
       
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/apiaux.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
     
     
       
@@ -24,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.8b42a75e.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.edf004c2.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -41,9 +40,8 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
-    
     
     
       <link rel="stylesheet" href="css/paragraph.css">
@@ -52,18 +50,17 @@
     
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     
+    <script>__md_scope=new URL(".",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
   
 
 
   
-
   
 
 
-  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-EHK8XV10VE",{page_path:t.pathname})})})</script>
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-EHK8XV10VE",{page_path:e.pathname})})})</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE"></script>
 
 
@@ -80,7 +77,6 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
-    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -96,6 +92,7 @@
     <div data-md-component="announce">
       
     </div>
+    
     
       
 
@@ -131,8 +128,7 @@
       <label class="md-header__button md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -164,8 +160,7 @@
     
     
       <div class="md-header__source">
-        
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -209,8 +204,7 @@
   </label>
   
     <div class="md-nav__source">
-      
-<a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -677,6 +671,7 @@
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -810,6 +805,13 @@
           <li class="md-nav__item">
   <a href="#onupload" class="md-nav__link">
      onUpload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#redirect" class="md-nav__link">
+     redirect
   </a>
   
 </li>
@@ -1002,6 +1004,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="esp32cam.html" class="md-nav__link">
+        Works with ESP32-CAM
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1169,6 +1185,7 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1307,6 +1324,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#redirect" class="md-nav__link">
+     redirect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#release" class="md-nav__link">
      release
   </a>
@@ -1351,12 +1375,12 @@
             <article class="md-content__inner md-typeset">
               
                 
-                
-                  <h1>AutoConnectAux API</h1>
-                
-                <h2 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
+
+  <h1>AutoConnectAux API</h1>
+
+<h2 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h2>
 <h3 id="autoconnectaux">AutoConnectAux<a class="headerlink" href="#autoconnectaux" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">uri</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">),</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">),</span> <span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">menu</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">true,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AutoConnectElementVT</span> <span style="color: #f8f8f2">addons</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AutoConnectElementVT())</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> uri </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">), </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> title </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">), </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> menu </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> AutoConnectElementVT addons </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AutoConnectElementVT(), </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> responsive </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true)</span>
 </code></pre></div>
 <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -1364,34 +1388,35 @@
     <dd><span class="apidef">title</span><span class="apidesc">Page title of this custom Web page. It will appear on the auto connection menu and at the top of that page.</span></dd>
     <dd><span class="apidef">menu</span><span class="apidesc">Specifies whether to display this page on menu.</span></dd>
     <dd><span class="apidef">addons</span><span class="apidesc">Reference to AutoConnectElement collection.</span></dt>
+    <dd><span class="apidef">responsive</span><span class="apidesc">Specifies whether to make HTTP response or not.</span></dt>
 </dl>
 
 <h2 id="public-member-functions"><i class="fa fa-code"></i> Public member functions<a class="headerlink" href="#public-member-functions" title="Permanent link">&para;</a></h2>
 <h3 id="operator"><i class="fa fa-caret-right"></i> operator [ ]<a class="headerlink" href="#operator" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[](</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[](</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[](</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[](</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> __FlashStringHelper</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 <p></p>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[](</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">operator</span><span style="color: #f8f8f2">[](</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 Returns a reference to the element specified by <strong>name</strong>. An operator <code>[]</code> is a shortcut for <a href="apiaux.html#getelement">getElement</a> function with the reference casting. Unlike getElement, which returns a pointer to that element, an operator <code>[]</code> returns a reference to that element. You also need to cast the return value to the actual type, just like the getElement function.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">name</span><span class="apidesc">Name of the AutoConnectElements to be retrieved.</span></dd>
     <dt><strong>Return value</strong></dt><dd>A reference to AutoConnectElement. It is different from the actual element type.</dd></dl></p>
 <h3 id="add"><i class="fa fa-caret-right"></i> add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">addon)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> add(AutoConnectElement</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> addon)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">add(AutoConnectElementVT</span> <span style="color: #f8f8f2">addons)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> add(AutoConnectElementVT addons)</span>
 </code></pre></div>
 <p>Add an element to the AutoConnectAux. An added element is displayed on the custom Web page invoked from the AutoConnect menu.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">addon</span><span class="apidesc">Reference of AutoConnectElements. Specifies one of the AutoConnectElements classes.</span></dd>
     <dd><span class="apidef">addons</span><span class="apidesc">An array list of reference of AutoConnectElements. The <a href="https://en.cppreference.com/w/cpp/language/list_initialization">list initialization</a> with braced-init-list of the <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a> can be used for the addons parameter cause the actual definition of type <strong>AutoConnectElementVT</strong> is <code>std::vector&lt;std::reference_wrapper&lt;AutoConnectElement&gt;&gt;</code>.</span></dd></dl></p>
 <h3 id="authentication"><i class="fa fa-caret-right"></i> authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">authentication(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AC_AUTH_t</span> <span style="color: #f8f8f2">auth)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> authentication(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> AC_AUTH_t auth)</span>
 </code></pre></div>
 <p>Set to require authentication with access to a page. When you access a page that requires authentication, HTTP authentication will be performed according to the scheme specified with the auth parameter.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -1402,25 +1427,25 @@ Returns a reference to the element specified by <strong>name</strong>. An operat
     </span></dd></dl></li>
 </ul>
 <h3 id="content"><i class="fa fa-caret-right"></i> content<a class="headerlink" href="#content" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">content(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> content(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns the number of AutoConnectElements the AutoConnectAux contains.<dl class="apidl">
     <dt><strong>Return value</strong></dt><dd>A number of the registered AutoConnectElements.</dd></dl></p>
 <h3 id="fetchelement"><i class="fa fa-caret-right"></i> fetchElement<a class="headerlink" href="#fetchelement" title="Permanent link">&para;</a></h3>
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">fetchElement(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> fetchElement(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 Retrieve the values of the AutoConnectElements on the custom Web page. Refer to <a href="achandling.html#retrieve-the-values-with-webserveron-handler">how to use the fetchElement</a>.</p>
 <h3 id="getelement"><i class="fa fa-caret-right"></i> getElement<a class="headerlink" href="#getelement" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">char</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> getElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> getElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> __FlashStringHelper</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">getElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElement</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> getElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 <p>Get a registered AutoConnectElement as specified name. If <strong>T</strong> is specified as an actual type of AutoConnectElements, it returns a reference to that instance.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -1428,45 +1453,45 @@ Retrieve the values of the AutoConnectElements on the custom Web page. Refer to 
     <dd><span class="apidef">name</span><span class="apidesc">Name of the AutoConnectElements to be retrieved.</span></dd>
     <dt><strong>Return value</strong></dt><dd>A reference of the AutoConnectElements. If a type is not specified returns a pointer.</dd></dl></p>
 <h3 id="getelements"><i class="fa fa-caret-right"></i> getElements<a class="headerlink" href="#getelements" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectElementVT</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> getElements(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Get vector of reference of all elements.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd>A reference to std::vector of reference to AutoConnecctElements.</dd></dl></p>
 <p>The getElements returns a reference to std::vector of reference to AutoConnecctElements. This function is provided to handle AutoConnectElemets owned by AutoConnectAux in bulk, and you can use each method of std::vector for a return value.</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">// An example of getting type and name of all AutoConnectElements registered in AutoConnectAux.</span>
-<span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<span style="color: #f8f8f2">AutoConnectAux aux;</span>
 <span style="color: #75715e">// some code here...</span>
-<span style="color: #f8f8f2">AutoConnectElementVt</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elements</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElements();</span>
-<span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(AutoConnectElement</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">elm</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">elements)</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">Serial.printf(</span><span style="color: #e6db74">&quot;name&lt;%s&gt; as type %d</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">elm.name.c_str(),</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)elm.typeOf());</span>
+<span style="color: #f8f8f2">AutoConnectElementVt</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> elements </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> aux.getElements();</span>
+<span style="color: #66d9ef">for</span><span style="color: #f8f8f2"> (AutoConnectElement</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> elm : elements) {</span>
+<span style="color: #f8f8f2">    Serial.printf(</span><span style="color: #e6db74">&quot;name&lt;%s&gt; as type %d</span><span style="color: #ae81ff">\n</span><span style="color: #e6db74">&quot;</span><span style="color: #f8f8f2">, elm.name.c_str(), (</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2">)elm.typeOf());</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <h3 id="ismenu"><i class="fa fa-caret-right"></i> isMenu<a class="headerlink" href="#ismenu" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">isMenu(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> isMenu(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Returns whether embedded in the menu or not. The isMenu is a function that complements the <a href="apiaux.html#menu">menu</a> function.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">The custom Web page has been incorporated into the AutoConnect menu as a menu item.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">This custom Web page is not currently a menu item.</span></dd></dl></p>
 <h3 id="isvalid"><i class="fa fa-caret-right"></i> isValid<a class="headerlink" href="#isvalid" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> isValid(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
 </code></pre></div>
 <p>Performs <a href="apielements.html#isvalid">validation</a> of all <a href="apielements.html#autoconnectinput">AutoConnectInput</a> elements owned by AutoConnectAux and returns the result. The isValid function will return the true even if the AutoConnectAux does not own AutoConnectInputs.<dl class="apidl">
     <dt><strong>Return value</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Validation is successful. A value of all AutoConnectInputs match with each pattern.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Some elements failed validation.</span></dd></dl></p>
 <h3 id="load"><i class="fa fa-caret-right"></i> load<a class="headerlink" href="#load" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> load(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> in)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(PGM_P</span> <span style="color: #f8f8f2">in)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> load(PGM_P in)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">in)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> load(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> __FlashStringHelper</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> in)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">load(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> load(Stream</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> in)</span>
 </code></pre></div>
 <p>Load all AutoConnectElements elements from JSON document into AutoConnectAux as custom Web pages. The JSON document specified by the load function must be the <a href="acjson.html#json-objects-elements-for-the-custom-web-page">document structure</a> of AutoConnectAux. Its JSON document can describe multiple pages as an array.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
@@ -1485,28 +1510,28 @@ Retrieve the values of the AutoConnectElements on the custom Web page. Refer to 
 <p>Multiple custom Web pages can be loaded at once with JSON as an array. But it will consume a lot of memory. By loading a JSON document by page as much as possible, you can reduce memory consumption.</p>
 </div>
 <h3 id="loadelement"><i class="fa fa-caret-right"></i> loadElement<a class="headerlink" href="#loadelement" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> in, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">names)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> in, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> names)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(PGM_P</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(PGM_P in, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(PGM_P</span> <span style="color: #f8f8f2">in,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">names)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(PGM_P in, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> names)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> __FlashStringHelper</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> in, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">__FlashStringHelper</span><span style="color: #f92672">*</span> <span style="color: #f8f8f2">in,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">names)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> __FlashStringHelper</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> in, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> names)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(Stream</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> in, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> String(</span><span style="color: #e6db74">&quot;&quot;</span><span style="color: #f8f8f2">))</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">loadElement(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">in,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">names)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> loadElement(Stream</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> in, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> names)</span>
 </code></pre></div>
 <p>Load specified element from JSON document into AutoConnectAux. The JSON document specified by the loadElement function must be the <a href="acjson.html#json-object-for-autoconnectelements">AutoConnectElement document structure</a>. When loading from a JSON document that describes multiple elements, its description must be an array syntax.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -1539,14 +1564,14 @@ Retrieve the values of the AutoConnectElements on the custom Web page. Refer to 
 The outermost <code>[</code>, <code>]</code> is missing.</p>
 </div>
 <h3 id="menu"><i class="fa fa-caret-right"></i> menu<a class="headerlink" href="#menu" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">menu(</span><span style="color: #66d9ef">const</span> <span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">post)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> menu(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> post)</span>
 </code></pre></div>
 <p>Set or reset the display as menu item for this AutoConnectAux. This function programmatically manipulates the menu parameter of the <a href="apiaux.html#autoconnectaux">AutoConnectAux constructor</a>.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Show on the menu.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Hidden on the menu.</span></dd></dl></p>
 <h3 id="on"><i class="fa fa-caret-right"></i> on<a class="headerlink" href="#on" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">on(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AuxHandlerFunctionT</span> <span style="color: #f8f8f2">handler,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">AutoConnectExitOrder_t</span> <span style="color: #f8f8f2">order</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">AC_EXIT_AHEAD)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> on(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> AuxHandlerFunctionT handler, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> AutoConnectExitOrder_t order </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_EXIT_AHEAD)</span>
 </code></pre></div>
 <dl>
 <dt>Register the handler function of the AutoConnectAux.<dl class="apidl"></dt>
@@ -1573,30 +1598,36 @@ Called even before generating HTML and after generated.</dd></dl></li>
 </dd>
 </dl>
 <h3 id="onupload"><i class="fa fa-caret-right"></i> onUpload<a class="headerlink" href="#onupload" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onUpload</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;&gt;</span><span style="color: #f8f8f2">(T</span> <span style="color: #f8f8f2">handler)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> onUpload</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">T</span><span style="color: #f92672">&amp;&gt;</span><span style="color: #f8f8f2">(T handler)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">onUpload(PageBuilder</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">UploadFuncT</span> <span style="color: #f8f8f2">uploadFunc)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> onUpload(PageBuilder</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">UploadFuncT uploadFunc)</span>
 </code></pre></div>
 <p>Register the upload handler of the AutoConnectAux.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
     <dd><span class="apidef">T</span><span class="apidesc">Specifies a class name of the custom uploader inherited from <a href="acupload.html#upload-handler-base-class">AutoConnectUploadHandler</a> class. Refer to the <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd">appendix</a> for details.</span></dd>
     <dd><span class="apidef">handler</span><span class="apidesc">Specifies the custom uploader inherited from <a href="acupload.html#upload-handler-base-class">AutoConnectUploadHandler</a> class. Refer to the <a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd">appendix</a> for details.</span></dd>
     <dd><span class="apidef">uploadFunc</span><span class="apidesc">A function that behaves when request to upload with the AutoConnectAux page. UploadFuncT type is defined by the following declaration.<p class="apidesc"><code>void(const String&amp;, const HTTPUpload&amp;)</code></p><p>A data structure of the upload file as HTTPUpload. It is defined in the ESP8266WebServer (the WebServer for ESP32) library as follows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">typedef</span> <span style="color: #66d9ef">struct</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">HTTPUploadStatus</span> <span style="color: #f8f8f2">status;</span>
-  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">filename;</span>
-  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">name;</span>
-  <span style="color: #f8f8f2">String</span>  <span style="color: #f8f8f2">type;</span>
-  <span style="color: #66d9ef">size_t</span>  <span style="color: #f8f8f2">totalSize;</span>
-  <span style="color: #66d9ef">size_t</span>  <span style="color: #f8f8f2">currentSize;</span>
-  <span style="color: #66d9ef">size_t</span>  <span style="color: #f8f8f2">contentLength;</span>
-  <span style="color: #66d9ef">uint8_t</span> <span style="color: #f8f8f2">buf[HTTP_UPLOAD_BUFLEN];</span>
-<span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">HTTPUpload;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">typedef</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">struct</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">  HTTPUploadStatus status;</span>
+<span style="color: #f8f8f2">  String  filename;</span>
+<span style="color: #f8f8f2">  String  name;</span>
+<span style="color: #f8f8f2">  String  type;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2">  totalSize;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2">  currentSize;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2">  contentLength;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">uint8_t</span><span style="color: #f8f8f2"> buf[HTTP_UPLOAD_BUFLEN];</span>
+<span style="color: #f8f8f2">} HTTPUpload;</span>
 </code></pre></div>
 <p></p>Refer to '<a href="acupload.html#to-upload-to-a-device-other-than-flash-or-sd">To upload to a device other than Flash or SD</a>' in section <a href="acupload.html">appendix</a> for details.</span></dd></dl></p>
+<h3 id="redirect"><i class="fa fa-caret-right"></i> redirect<a class="headerlink" href="#redirect" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> redirect(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> url)</span>
+</code></pre></div>
+<p>Generate a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location">Location</a> header field with the specified <code>url</code> and responds with a <a href="https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.3">302</a> response code to the client. This function is intended to be used from within the Custom Web Page handler. If the AutoConnectAux is going to redirect to another page without responding with page content, declare the <code>responsive</code> argument <code>false</code> in the <a href="#autoconnectaux">AutoConnectAux constructor</a>. With this construction, AutoConnectAux will not respond to HTTP responses. The <code>redirect</code> function can be useful in this situation to respond to a 302 redirect.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">url</span><span class="apidesc">Specifies the URL to redirect a page to.</span></dd></p>
 <h3 id="release"><i class="fa fa-caret-right"></i> release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">release(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> release(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name)</span>
 </code></pre></div>
 <p>Release a specified AutoConnectElement from AutoConnectAux. The release function is provided to dynamically change the structure of the custom Web pages with the Sketch. By combining the release function and the <a href="apiaux.html#add">add</a> function or the <a href="apiaux.html#loadelement">loadElement</a> function, the Sketch can change the style of the custom Web page according to its behavior.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
@@ -1605,7 +1636,7 @@ Called even before generating HTML and after generated.</dd></dl></li>
     <dd><span class="apidef">true</span><span class="apidesc">The AutoConnectElement successfully released.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">The AutoConnectElement can not be released.</span></dd></dl></p>
 <h3 id="saveelement"><i class="fa fa-caret-right"></i> saveElement<a class="headerlink" href="#saveelement" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span> <span style="color: #f8f8f2">saveElement(Stream</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">out,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">names</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">{})</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">size_t</span><span style="color: #f8f8f2"> saveElement(Stream</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> out, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> names </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> {})</span>
 </code></pre></div>
 <p>Write elements of AutoConnectAux to the stream. The saveElement function outputs the specified AutoConnectElements as a JSON document using the <a href="https://arduinojson.org/v5/api/jsonobject/prettyprintto/">prettyPrintTo</a> function of the <a href="https://arduinojson.org/">ArduinoJson</a> library.<dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -1622,10 +1653,10 @@ Called even before generating HTML and after generated.</dd></dl></li>
 <p>The saveElement function which missing the names parameter without name list to be saved that saves an entire AutoConnectAux element, not just AutoConnectElements. Its saved JSON document is not a complementary input to the loadElement function. The JSON document describing AutoConnectAux saved without the names parameter must be loaded by the <a href="apiaux.html#load">AutoConnectAux::load</a> function or <a href="api.html#load">AutoConnect::load</a> function.</p>
 </div>
 <h3 id="setelementvalue"><i class="fa fa-caret-right"></i> setElementValue<a class="headerlink" href="#setelementvalue" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">setElementValue(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name,</span> <span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span> <span style="color: #f8f8f2">value)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> setElementValue(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String value)</span>
 </code></pre></div>
 <p></p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span> <span style="color: #f8f8f2">setElementValue(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">name,</span> <span style="color: #f8f8f2">std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span> <span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">values)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2"> setElementValue(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> name, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> values)</span>
 </code></pre></div>
 <p>Sets the value of the specified AutoConnectElement. If values ​​is specified as a <em>std::vector</em> of String, the element that can set the values is the <a href="apielements.html#autoconnectradio">AutoConnectRadio</a> or the <a href="apielements.html#autoconnectselect">AutoConnectSelect</a>. <dl class="apidl">
     <dt><strong>Parameters</strong></dt>
@@ -1638,19 +1669,19 @@ Called even before generating HTML and after generated.</dd></dl></li>
 <div class="admonition hint">
 <p class="admonition-title">You can directly access the value member variable.</p>
 <p>If you are gripping with the Sketch to the AutoConnectElements of the target that sets the value, you can access the value member variable directly. The following sketch code has the same effect.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux aux;</span>
 <span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
-<span style="color: #f8f8f2">aux.setElementValue(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">aux.setElementValue(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">);</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux</span> <span style="color: #f8f8f2">aux;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux aux;</span>
 <span style="color: #75715e">// ... Griping the AutoConnectText here.</span>
-<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">text</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">);</span>
-<span style="color: #f8f8f2">text.value</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> text </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> aux.getElement</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectText</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;TEXT_FIELD&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">text.value </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;New value&quot;</span><span style="color: #f8f8f2">;</span>
 </code></pre></div>
 The difference between the setElementValue and the value access with the <a href="apiaux.html#getelement">getElement</a> is the certainty of the registration state for the element. The <a href="apiaux.html#getelement">getElement</a> returns an empty object if the element is not registered then a sketch assigns the value to it. May occur unexpected results and crashes. You should use the setElementValue if its registration is unsettled.</p>
 </div>
 <h3 id="settitle"><i class="fa fa-caret-right"></i> setTitle<a class="headerlink" href="#settitle" title="Permanent link">&para;</a></h3>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span> <span style="color: #f8f8f2">setTitle(</span><span style="color: #66d9ef">const</span> <span style="color: #f8f8f2">String</span><span style="color: #f92672">&amp;</span> <span style="color: #f8f8f2">title)</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> setTitle(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> String</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> title)</span>
 </code></pre></div>
 <p>Set the title string of the custom Web page. This title will be displayed as the menu title of the custom Web page.<dl class="apidl">
     <dt><strong>Parameter</strong></dt>
@@ -1659,11 +1690,6 @@ The difference between the setElementValue and the value access with the <a href
 <p class="admonition-title">Not the menu title</p>
 <p>The setTitle function is not set for the AutoConnect menu title. The effect of this function is that custom Web page only. To change the AutoConnect menu title use <a href="apiconfig.html#title">AutoConnectConfig::title</a>.</p>
 </div>
-                
-              
-              
-                
-
 
               
             </article>
@@ -1672,8 +1698,7 @@ The difference between the setElementValue and the value access with the <a href
         
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
@@ -1712,43 +1737,42 @@ The difference between the setElementValue and the value access with the <a href
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2018-2021 Hieromon Ikasamo
-          </div>
-        
-        
-          Made with
-          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-            Material for MkDocs
-          </a>
-        
-        
-      </div>
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018-2021 Hieromon Ikasamo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
-  <div class="md-footer-social">
+        <div class="md-social">
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-      </a>
+    
+    <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
     
       
       
-        
-        
-      
-      <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-      </a>
     
-  </div>
-
+    <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
     </div>
   </div>
 </footer>
@@ -1757,10 +1781,10 @@ The difference between the setElementValue and the value access with the <a href
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.f8263e09.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.4fc53ad4.min.js"></script>
+      <script src="assets/javascripts/bundle.e1a181d9.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

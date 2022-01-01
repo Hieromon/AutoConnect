@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-05-27
+ * @version  1.3.2
+ * @date 2021-11-24
  * @copyright  MIT license.
  */
 
@@ -34,6 +34,7 @@ typedef enum {
   AC_File,
   AC_Input,
   AC_Radio,
+  AC_Range,
   AC_Select,
   AC_Style,
   AC_Submit,
@@ -61,7 +62,8 @@ typedef enum {
 
 typedef enum {
   AC_Infront,
-  AC_Behind
+  AC_Behind,
+  AC_Void
 } ACPosition_t;     /**< Position of label subordinate to element */
 
 typedef enum {
@@ -78,7 +80,8 @@ typedef enum {
  */
 class AutoConnectElementBasis {
  public:
-  explicit AutoConnectElementBasis(const char* name = "", const char* value = "", const ACPosterior_t post = AC_Tag_None) : name(String(name)), value(String(value)), post(post), enable(true), global(false) {
+  explicit AutoConnectElementBasis(const char* name = "", const char* value = "", const ACPosterior_t post = AC_Tag_None)
+    : name(String(name)), value(String(value)), post(post), enable(true), global(false) {
     _type = AC_Element;
   }
   virtual ~AutoConnectElementBasis() {}
@@ -112,7 +115,8 @@ class AutoConnectElementBasis {
  */
 class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String(""), const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), action(String(action)) {
+  explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String(""), const ACPosterior_t post = AC_Tag_None)
+    : AutoConnectElementBasis(name, value, post), action(String(action)) {
     _type = AC_Button;
   }
   virtual ~AutoConnectButtonBasis() {}
@@ -123,7 +127,7 @@ class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
 
 /**
  * Checkbox arrangement class, a part of AutoConnectAux element.
- * Place a optionally labeled input-box that can be added by user sketch.
+ * Place an optionally labeled input-box that can be added by user sketch.
  * @param  name     Checkbox name string.
  * @param  value    A string value associated with the input.
  * @param  label    A label string that follows checkbox, optionally.
@@ -131,7 +135,8 @@ class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
  */
 class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosition_t labelPosition = AC_Behind, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), checked(checked), labelPosition(labelPosition) {
+  explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosition_t labelPosition = AC_Behind, const ACPosterior_t post = AC_Tag_BR)
+    : AutoConnectElementBasis(name, value, post), label(String(label)), checked(checked), labelPosition(labelPosition) {
     _type = AC_Checkbox;
   }
   virtual ~AutoConnectCheckboxBasis() {}
@@ -144,7 +149,7 @@ class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoCon
 
 /**
  * File-select input arrangement class, a part of AutoConnectAux element.
- * Place a optionally labeled file-select input box that can be added by user sketch.
+ * Place an optionally labeled file-select input box that can be added by user sketch.
  * @param  name     File-select input box name string.
  * @param  value    A string value entered by the selected file name.
  * @param  label    A label string that follows file-select box, optionally.
@@ -152,7 +157,8 @@ class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoCon
  */
 class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectFileBasis(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, value, post), label(String(label)), store(store), size(0) {
+  explicit AutoConnectFileBasis(const char* name = "", const char* value = "", const char* label = "", const ACFile_t store = AC_File_FS, const ACPosterior_t post = AC_Tag_BR)
+    : AutoConnectElementBasis(name, value, post), label(String(label)), store(store), size(0) {
     _type = AC_File;
     _upload.reset();
   }
@@ -173,15 +179,17 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
 
 /**
  * Input-box arrangement class, a part of AutoConnectAux element.
- * Place a optionally labeled input-box that can be added by user sketch.
+ * Place an optionally labeled input-box that can be added by user sketch.
  * @param  name     Input-box name string.
  * @param  value    Default value string. This string display as a placeholder by the default.
- * @param  label    A label string that follows Input-box, optionally.
+ * @param  label    A label string that follows Input-box, optionally. 
  * The label is placed in front of Input-box.
+ * @param  style    A string of style-code for decoration, optionally.
  */
 class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text, const char* style = "") : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), apply(apply), style(style) {
+  explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text, const char* style = "")
+    : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), apply(apply), style(style) {
     _type = AC_Input;
   }
   virtual ~AutoConnectInputBasis() {}
@@ -205,7 +213,8 @@ class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
  */
 class AutoConnectRadioBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, "", post), label(label), order(order), checked(checked), _values(values) {
+  explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0, const ACPosterior_t post = AC_Tag_BR)
+    : AutoConnectElementBasis(name, "", post), label(String(label)), order(order), checked(checked), _values(values) {
     _type = AC_Radio;
   }
   virtual ~AutoConnectRadioBasis() {}
@@ -228,8 +237,38 @@ class AutoConnectRadioBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
 };
 
 /**
+ * Range-value arrangement class, a part of AutoConnectAux element.
+ * Place an optionally labeled slider-like control that can be added by user sketch.
+ * @param  name     Range-slider name string.
+ * @param  value    Default value.
+ * @param  label    A label string that follows range-slider control.
+ * @param  min      Minimum value possible range.
+ * @param  max      Maximum possible range.
+ * @param  step     Incremental values that are valid.
+ * @param  magnify  Place a value display field in front of the slider.
+ * @param  style    A string of style-code for decoration, optionally.
+ */
+class AutoConnectRangeBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+ public:
+  explicit AutoConnectRangeBasis(const char* name = "", const int value = 0, const char* label = "", const int min = 0, const int max = 0, const int step = 1, const ACPosition_t magnify = AC_Void, const ACPosterior_t post = AC_Tag_BR, const char* style = "")
+    : AutoConnectElementBasis(name, "", post), label(String(label)), value(value), min(min), max(max), step(step), magnify(magnify), style(style) {
+    _type = AC_Range;
+  }
+  virtual ~AutoConnectRangeBasis() {}
+  const String  toHTML(void) const override;
+
+  String  label;      /**< A label for a subsequent radio buttons */
+  int     value;      /**< The current value the AutoConnectRange */
+  int     min;        /**< A minimum value of an allowed range */
+  int     max;        /**< A maximun value of an allowed range */
+  int     step;       /**< Incremental values that are valid */
+  ACPosition_t magnify;  /**< Place a value display field in specified position of the slider */
+  String  style;      /**< Formatting style */
+};
+
+/**
  * Selection-box arrangement class, A part of AutoConnectAux element.
- * Place a optionally labeled Selection-box that can be added by user sketch.
+ * Place an optionally labeled Selection-box that can be added by user sketch.
  * @param  name     Input-box name string.
  * @param  options  String array display in a selection list.
  * @param  label    A label string that follows Input-box, optionally.
@@ -237,7 +276,8 @@ class AutoConnectRadioBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
  */
 class AutoConnectSelectBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0, const ACPosterior_t post = AC_Tag_BR) : AutoConnectElementBasis(name, "", post), label(String(label)), selected(selected), _options(options) {
+  explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0, const ACPosterior_t post = AC_Tag_BR)
+    : AutoConnectElementBasis(name, "", post), label(String(label)), selected(selected), _options(options) {
     _type = AC_Select;
   }
   virtual ~AutoConnectSelectBasis() {}
@@ -250,8 +290,8 @@ class AutoConnectSelectBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
   void  empty(const size_t reserve = 0);
   const String& value(void) const;
 
-  String  label;                /**< A label for a subsequent input box */
-  uint8_t selected;             /**< Index of checked value (1-based) */
+  String  label;      /**< A label for a subsequent input box */
+  uint8_t selected;   /**< Index of checked value (1-based) */
 
  protected:
   std::vector<String> _options; /**< List options array */
@@ -264,7 +304,8 @@ class AutoConnectSelectBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
  */
 class AutoConnectStyleBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectStyleBasis(const char* name = "", const char* value = "") : AutoConnectElementBasis(name, value, AC_Tag_None) {
+  explicit AutoConnectStyleBasis(const char* name = "", const char* value = "")
+    : AutoConnectElementBasis(name, value, AC_Tag_None) {
     _type = AC_Style;
   }
   virtual ~AutoConnectStyleBasis() {}
@@ -281,7 +322,8 @@ class AutoConnectStyleBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
  */
 class AutoConnectSubmitBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectSubmitBasis(const char* name = "", const char* value = "", const char* uri = "", const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), uri(String(uri)) {
+  explicit AutoConnectSubmitBasis(const char* name = "", const char* value = "", const char* uri = "", const ACPosterior_t post = AC_Tag_None)
+    : AutoConnectElementBasis(name, value, post), uri(String(uri)) {
     _type = AC_Submit;
   }
   virtual ~AutoConnectSubmitBasis() {}
@@ -302,7 +344,8 @@ class AutoConnectSubmitBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
  */
 class AutoConnectTextBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
  public:
-  explicit AutoConnectTextBasis(const char* name = "", const char* value = "", const char* style = "", const char* format = "", const ACPosterior_t post = AC_Tag_None) : AutoConnectElementBasis(name, value, post), style(String(style)), format(String(format)) {
+  explicit AutoConnectTextBasis(const char* name = "", const char* value = "", const char* style = "", const char* format = "", const ACPosterior_t post = AC_Tag_None)
+    : AutoConnectElementBasis(name, value, post), style(String(style)), format(String(format)) {
     _type = AC_Text;
   }
   virtual ~AutoConnectTextBasis() {}
@@ -340,6 +383,11 @@ inline bool AutoConnectElementBasis::_isCompatible<AutoConnectInputBasis>(void) 
 template<>
 inline bool AutoConnectElementBasis::_isCompatible<AutoConnectRadioBasis>(void) {
   return (_type == AC_Radio);
+}
+
+template<>
+inline bool AutoConnectElementBasis::_isCompatible<AutoConnectRangeBasis>(void) {
+  return (_type == AC_Range);
 }
 
 template<>
