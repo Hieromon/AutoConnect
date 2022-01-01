@@ -252,7 +252,7 @@ AutoConnectFile(const char* name = "", const char* value = "", const char* label
     <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">File name to be upload.</span></dd>
     <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
-    <dd><span class="apidef">store</span><span class="apidesc">The **ACFile_t** enumerator that represents the media to save the uploaded file.</span></dd>
+    <dd><span class="apidef">store</span><span class="apidesc">The <strong>ACFile_t</strong> enumerator that represents the media to save the uploaded file.</span></dd>
     <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
 </dl>
 
@@ -365,8 +365,8 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.
-<dl class="apidl">    <dt>**Type**</dt>
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
 #### <i class="fa fa-caret-right"></i> label
@@ -509,8 +509,7 @@ Specifies the direction to arrange the radio buttons. A label will place in the 
 
 #### <i class="fa fa-caret-right"></i> post
 
-Specifies a tag to add behind the HTML code generated from the element.
-<dl class="apidl">
+Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
         
@@ -601,6 +600,117 @@ Returns type of AutoConnectElement.<dl class="apidl">
 Returns current checked option of the radio buttons.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>A String of an option current checked. If there is no checked option, a null string returned.</dd></dl>
+
+## AutoConnectRange
+
+### <i class="fa fa-code"></i> Constructor
+
+```cpp
+AutoConnectRange(const char* name = "", const int value = 0, const char* label = "", const int min = 0, const int max = 0, const int step = 1, const ACPosition_t magnify = AC_Void, const ACPosterior_t post = AC_Tag_BR, const char* style = "")
+```
+
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">name</span><span class="apidesc">The element name.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">The initial value in the range.</span></dd>
+    <dd><span class="apidef">label</span><span class="apidesc">Label string.</span></dd>
+    <dd><span class="apidef">min</span><span class="apidesc">The most negative value within the range of allowed values.</span></dd>
+    <dd><span class="apidef">max</span><span class="apidesc">The greatest value in the range of permitted values.</span></dd>
+    <dd><span class="apidef">step</span><span class="apidesc">The granularity that the value must adhere to.</span></dd>
+    <dd><span class="apidef">magnify</span><span class="apidesc">Specifies the display position of the current value of the range.</span></dd>
+    <dd><span class="apidef">post</span><span class="apidesc">Specifies the tag to be output afterward the element.</span></dd>
+    <dd><span class="apidef">style</span><span class="apidesc">A style code with CSS format that qualifiers the range slider.</span></dd>
+</dl>
+
+### <i class="fa fa-code"></i> Public member variables
+
+#### <i class="fa fa-caret-right"></i> enable
+
+Enable HTML tag generation for the element.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">AutoConnect will generate the element into HTML only if the enable attribute is true.</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> global
+
+The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> label
+
+A label is an optional string. A label is always arranged on the left side of the input box. Specification of a label will generate an HTML `#!html <label>` tag with an id attribute. The range slider and the label are connected by the id attribute.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> magnify
+
+Display position of the current value of the range.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">ACPosition_t</span><span class="apidesc">
+: - **AC_Infront** : Displays the current value on the left side.
+: - **AC_Behind** : Displays the current value on the right side.
+: - **AC_Void** :  No display the current value. This is the default.
+</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> max
+
+The greatest value in the range.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> min
+
+The most negative value within the range.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> name
+
+The element name.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> post
+
+Specifies a tag to add behind the HTML code generated from the element.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">ACPosterior_t</span><span class="apidesc">
+        
+- **`AC_Tag_None`** : No generate additional tags.
+- **`AC_Tag_BR`** : Add a `<br>` tag to the end of the element.
+- **`AC_Tag_P`** : Include the element in the `<p> ~ </p>` tag.
+- **`AC_Tag_DIV`** : Include the element in the `<div> ~ </div>` tag.
+</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> step
+
+The granularity that the value must adhere to.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> style
+
+A style code with CSS format that qualifiers the range slider.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">String</span><span class="apidesc"></span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> value
+
+Value of the element. It becomes a value attribute of an HTML `#!html <input type="range">` tag. A value of range in the custom Web page will be sent with a query string of the form.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd><span class="apidef">int</span><span class="apidesc"></span></dd></dl>
+
+### <i class="fa fa-code"></i> Public member functions
+
+#### <i class="fa fa-caret-right"></i> typeOf
+
+```cpp
+ACElement_t typeOf(void)
+```
+
+Returns type of AutoConnectElement.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>AC_Range</dd></dl>
 
 ## AutoConnectSelect
 
