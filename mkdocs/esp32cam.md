@@ -149,7 +149,7 @@ window.addEventListener('pagehide', function () {
 ```cpp
 ESP32WebCam webcam(ESP32Cam::CAMERA_MODEL_AI_THINKER);
 ```
-    For details on identifiers that can be specified as image sensor models, please refer to the [APIs](#esp32wemcam-class-apis) described below.
+    For details on identifiers that can be specified as image sensor models, please refer to the [APIs](#esp32webcam-class-apis) described below.
 
 5. Declare AutoConnect instance. If your sketch requires a native web page that is not an AutoConnectAux, you can declare a WebServer instance at the same place to make it easier to call from functions in your sketch.
 ```cpp
@@ -224,7 +224,7 @@ The ESP32Cam class is a wrapper that governs the native interface with the [ESP3
 
 In the case of accessing image sensors located across a network, the sketch will usually have a UI to remotely control the ESP32-CAM. If the UI is intended to be a web interface, the sketch will use a request handler that is compatible with the ESP32 WebServer hosted by AutoConnect to serve the manipulation web page. That page can be an AutoConnectAux-based custom web page, or it can be the [RequestHanlder](https://github.com/espressif/arduino-esp32/blob/master/libraries/WebServer/src/detail/RequestHandler.h) callback that can respond to the [ESP32 WebServer class](https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer). In any case, those UI pages can remotely access the image sensor of the ESP32-CAM module through the HTTP endpoint interface deployed at a specific URL of the HTTP server launched by the ESP32WebCam class, and do the required processing.
 
-### [ESP32WebCam](#esp32wemcam-class-apis) features:
+### [ESP32WebCam](#esp32webcam-class-apis) features:
 
 - Run the HTTP server as a background task.
 - Stream Motion JPEG via HTTP multipart/x-mixed-replace MIME.
@@ -240,7 +240,7 @@ Of these processing requests, the ESP32Cam class is responsible for the ones tha
 - Save the captured image to the SD card which is wired to ESP32 module.
 - Save captured images to SD card periodically using an ESP32 built-in [hardware timer](https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-timer.h).
 
-## ESP32WemCam Class APIs
+## ESP32WebCam Class APIs
 
 ### <i class="fa fa-code"></i> Constructor
 

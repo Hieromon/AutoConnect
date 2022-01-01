@@ -906,11 +906,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#esp32wemcam-class-apis" class="md-nav__link">
-    ESP32WemCam Class APIs
+  <a href="#esp32webcam-class-apis" class="md-nav__link">
+    ESP32WebCam Class APIs
   </a>
   
-    <nav class="md-nav" aria-label="ESP32WemCam Class APIs">
+    <nav class="md-nav" aria-label="ESP32WebCam Class APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1467,11 +1467,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#esp32wemcam-class-apis" class="md-nav__link">
-    ESP32WemCam Class APIs
+  <a href="#esp32webcam-class-apis" class="md-nav__link">
+    ESP32WebCam Class APIs
   </a>
   
-    <nav class="md-nav" aria-label="ESP32WemCam Class APIs">
+    <nav class="md-nav" aria-label="ESP32WebCam Class APIs">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1928,7 +1928,7 @@
 <p>Declare ESP32WebCam instance. It accompanies the parameters with the appropriate model specifiers.
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32WebCam </span><span style="color: #a6e22e">webcam</span><span style="color: #f8f8f2">(ESP32Cam</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">CAMERA_MODEL_AI_THINKER);</span>
 </code></pre></div>
-    For details on identifiers that can be specified as image sensor models, please refer to the <a href="#esp32wemcam-class-apis">APIs</a> described below.</p>
+    For details on identifiers that can be specified as image sensor models, please refer to the <a href="#esp32webcam-class-apis">APIs</a> described below.</p>
 </li>
 <li>
 <p>Declare AutoConnect instance. If your sketch requires a native web page that is not an AutoConnectAux, you can declare a WebServer instance at the same place to make it easier to call from functions in your sketch.
@@ -1998,7 +1998,7 @@
 <p>The ESP32WebCam class has an endpoint interface to allow the sketch to manipulate the image sensor over the network. The sketch can use HTTP GET method to capture images, stream the captured images, and save them to SD card. It also starts its own HTTP server task internally, and this HTTP server runs as a separate task from the WebServer hosted by AutoConnect.</p>
 <p>The ESP32Cam class is a wrapper that governs the native interface with the <a href="https://github.com/espressif/esp32-camera">ESP32 Camera Driver</a> which is a component of ESP-IDF. It can initialize the sensor, set the sensor characteristics, save and load the settings, and save the captured images to the SD card.</p>
 <p>In the case of accessing image sensors located across a network, the sketch will usually have a UI to remotely control the ESP32-CAM. If the UI is intended to be a web interface, the sketch will use a request handler that is compatible with the ESP32 WebServer hosted by AutoConnect to serve the manipulation web page. That page can be an AutoConnectAux-based custom web page, or it can be the <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/WebServer/src/detail/RequestHandler.h">RequestHanlder</a> callback that can respond to the <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/WebServer">ESP32 WebServer class</a>. In any case, those UI pages can remotely access the image sensor of the ESP32-CAM module through the HTTP endpoint interface deployed at a specific URL of the HTTP server launched by the ESP32WebCam class, and do the required processing.</p>
-<h3 id="esp32webcam-features"><a href="#esp32wemcam-class-apis">ESP32WebCam</a> features:<a class="headerlink" href="#esp32webcam-features" title="Permanent link">&para;</a></h3>
+<h3 id="esp32webcam-features"><a href="#esp32webcam-class-apis">ESP32WebCam</a> features:<a class="headerlink" href="#esp32webcam-features" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Run the HTTP server as a background task.</li>
 <li>Stream Motion JPEG via HTTP multipart/x-mixed-replace MIME.</li>
@@ -2013,7 +2013,7 @@
 <li>Save the captured image to the SD card which is wired to ESP32 module.</li>
 <li>Save captured images to SD card periodically using an ESP32 built-in <a href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-timer.h">hardware timer</a>.</li>
 </ul>
-<h2 id="esp32wemcam-class-apis">ESP32WemCam Class APIs<a class="headerlink" href="#esp32wemcam-class-apis" title="Permanent link">&para;</a></h2>
+<h2 id="esp32webcam-class-apis">ESP32WebCam Class APIs<a class="headerlink" href="#esp32webcam-class-apis" title="Permanent link">&para;</a></h2>
 <h3 id="constructor"><i class="fa fa-code"></i> Constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ESP32WebCam(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint16_t</span><span style="color: #f8f8f2"> port </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> ESP32CAM_DEFAULT_HTTPPORT)</span>
 </code></pre></div>
