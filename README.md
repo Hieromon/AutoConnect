@@ -102,8 +102,12 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
-### [1.3.2] Nov. 19, 2021
+### [1.3.2] Jan. 1, 2022
 
+- Supports AutoConnectRange as a new AutoConnectElement.
+- Added the `responsive` parameter with AutoConnectAux.
+- Added an AutoConnectAux::redirect function.
+- Added an example for using AutoConnect with the ESP32 camera driver as WebCamServer. This example includes examples of using the new AutoConnectRange and an AutoConnectAux::redirect function.
 - Fixed an issue where password is lost when SoftAP is stopped. (issue #425)
 
 ### [1.3.1] Oct. 09, 2021
