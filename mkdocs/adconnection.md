@@ -150,6 +150,11 @@ Combining these two parameters allows you to filter the destination AP when mult
 </tr>
 </table>
 
+!!! note "In ESP32, the difference between the [*AutoConnectConfig::principle*](apiconfig.md#principle) and `WIFI_ALL_CHANNEL_SCAN` in `WiFi.begin`"
+    In ESP32, if there are multiple access points with the same SSID and PW within reach, `WiFi.begin` with the SSID and PW explicitly specified will scan all radio channels and connect to the AP which has the highest signal strength. This feature has been enabled since [ESP32 Arduino Release 1.0.6](https://github.com/espressif/arduino-esp32/commit/3253de87). The `principle` setting is slightly different from this feature.  
+    **AutoConnect does not specify the SSID and PW in the 1st-WiFi.begin**. It leaves that to the contents stored in the SDK. Even if there is an AP with a stronger signal nearby, it will try to connect to an AP with a **smaller channel number**. However, in the case where `autoReconnect` setting will attempt to reconnect, AutoConnect will read the SSID and PW from the saved credentials and explicitly pass them to `WiFi.begin`. Therefore, in this case, the connection will be made to the AP with the highest signal strength by `WIFI_ALL_CHANNEL_SCAN`. But it is only **valid across multiple APs with the same SSID and PW**.  
+    On the other hand, **AC_PRINCIPLE_RSSI** tries to connect the AP with the strongest signal from the connection candidates after selecting the SSID when multiple APs with different SSIDs are mixed in the reachable range.
+
 ## Detects connection establishment to AP
 
 The Sketch can detect that the ESP module has established a WiFi connection as a station to the access point. The [AutoConnect::begin](api.md#begin) or [AutoConnect::handleClient](api.md#handleclient) will transit the control temporarily to the function in the Sketch registered by [AutoConnect::onConnect](api.md#onconnect) when the ESP module establish a WiFi connection.  

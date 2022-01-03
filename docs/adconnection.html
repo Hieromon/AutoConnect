@@ -1290,6 +1290,12 @@ Combining these two parameters allows you to filter the destination AP when mult
 </tr>
 </table>
 
+<div class="admonition note">
+<p class="admonition-title">In ESP32, the difference between the <a href="apiconfig.html#principle"><em>AutoConnectConfig::principle</em></a> and <code>WIFI_ALL_CHANNEL_SCAN</code> in <code>WiFi.begin</code></p>
+<p>In ESP32, if there are multiple access points with the same SSID and PW within reach, <code>WiFi.begin</code> with the SSID and PW explicitly specified will scan all radio channels and connect to the AP which has the highest signal strength. This feature has been enabled since <a href="https://github.com/espressif/arduino-esp32/commit/3253de87">ESP32 Arduino Release 1.0.6</a>. The <code>principle</code> setting is slightly different from this feature.<br />
+<strong>AutoConnect does not specify the SSID and PW in the 1<sup>st</sup>-WiFi.begin</strong>. It leaves that to the contents stored in the SDK. Even if there is an AP with a stronger signal nearby, it will try to connect to an AP with a <strong>smaller channel number</strong>. However, in the case where <code>autoReconnect</code> setting will attempt to reconnect, AutoConnect will read the SSID and PW from the saved credentials and explicitly pass them to <code>WiFi.begin</code>. Therefore, in this case, the connection will be made to the AP with the highest signal strength by <code>WIFI_ALL_CHANNEL_SCAN</code>. But it is only <strong>valid across multiple APs with the same SSID and PW</strong>.<br />
+On the other hand, <strong>AC_PRINCIPLE_RSSI</strong> tries to connect the AP with the strongest signal from the connection candidates after selecting the SSID when multiple APs with different SSIDs are mixed in the reachable range.</p>
+</div>
 <h2 id="detects-connection-establishment-to-ap">Detects connection establishment to AP<a class="headerlink" href="#detects-connection-establishment-to-ap" title="Permanent link">&para;</a></h2>
 <p>The Sketch can detect that the ESP module has established a WiFi connection as a station to the access point. The <a href="api.html#begin">AutoConnect::begin</a> or <a href="api.html#handleclient">AutoConnect::handleClient</a> will transit the control temporarily to the function in the Sketch registered by <a href="api.html#onconnect">AutoConnect::onConnect</a> when the ESP module establish a WiFi connection.<br />
 The <strong>ConnectExit</strong> function registered with <a href="api.html#onconnect">AutoConnect::onConnect</a> should have the following types and arguments:</p>
