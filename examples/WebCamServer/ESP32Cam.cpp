@@ -103,7 +103,7 @@ esp_err_t ESP32Cam::init(const CameraId model) {
   config.pin_sscb_scl = _pins->sioc_gpio_num;
   config.pin_pwdn = _pins->pwdn_gpio_num;
   config.pin_reset = _pins->reset_gpio_num;
-  config.xclk_freq_hz = 20000000;
+  config.xclk_freq_hz = ESP32CAM_XCLK_FREQ;
   config.pixel_format = PIXFORMAT_JPEG;
 
   // if PSRAM IC present, init with UXGA resolution and higher JPEG quality for

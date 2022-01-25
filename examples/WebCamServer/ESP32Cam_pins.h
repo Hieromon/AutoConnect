@@ -19,6 +19,17 @@
 #ifndef _ESP32CAM_PINS_H_
 #define _ESP32CAM_PINS_H_
 
+// WiFi throughput is reduced when certain frequencies are offered from XCLK,
+// and we can see this phenomenon at 5MHz, 10MHz, and 20MHz.
+// https://github.com/sohtamei/docs/blob/master/ESP32CameraIssue.md
+// https://github.com/espressif/esp32-camera/issues/150
+// The cause is not clear, but it shifts XCLK phase from the tuned frequency
+// to avoid WiFi weakening occurs.
+#ifndef ESP32CAM_XCLK_FREQ
+#define ESP32CAM_XCLK_FREQ  16500000
+// #define ESP32CAM_XCLK_FREQ  20000000
+#endif // !ESP32CAM_XCLK_FREQ
+
 const ESP32Cam::_pinsAssign_t ESP32Cam::_pinsMap[] = {
   { CAMERA_MODEL_WROVER_KIT, true, {  // Has PSRAM
     /* PWDN_GPIO_NUM  */  -1,
@@ -74,7 +85,7 @@ const ESP32Cam::_pinsAssign_t ESP32Cam::_pinsMap[] = {
     /* HREF_GPIO_NUM  */  26,
     /* PCLK_GPIO_NUM  */  21 }
   },
-  { CAMERA_MODEL_M5STACK_V2_PSRAM, false, { // M5Camera version B Has PSRAM
+  { CAMERA_MODEL_M5STACK_V2_PSRAM, true, { // M5Camera version B Has PSRAM
     /* PWDN_GPIO_NUM  */  -1,
     /* RESET_GPIO_NUM */  15,
     /* XCLK_GPIO_NUM  */  27,

@@ -26,7 +26,7 @@
 
 // The type of hardware timer used by the timer shot
 #ifndef ESP32CAM_OCCUPIED_TIMER
-#define ESP32CAM_OCCUPIED_TIMER       0
+#define ESP32CAM_OCCUPIED_TIMER       1
 #endif // !ESP32CAM_OCCUPIED_TIMER
 
 // Default stack size fo Timer-Shot task
