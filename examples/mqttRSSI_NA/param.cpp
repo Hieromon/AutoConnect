@@ -5,7 +5,7 @@ configuration settings persistence to either ESP8266 or ESP32 platforms.
 These functions save the settings in the EEPROM for ESP8266 and in the
 Preferences area for ESP32.
 
-Copyright (c) 2021 Hieromon Ikasamo.
+Copyright (c) 2022 Hieromon Ikasamo.
 This software is released under the MIT License.
 https://opensource.org/licenses/MIT
 */
@@ -15,7 +15,9 @@ https://opensource.org/licenses/MIT
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <EEPROM.h>
 #include <AutoConnect.h>
+
 extern AutoConnect   portal;
+const char* _mqtt_param_id = MQTT_PARAM_ID;
 
 void getParams(mqtt_param_t& param) {
   // It is important to use getEEPROMUsedSize when the user sketch
@@ -24,17 +26,17 @@ void getParams(mqtt_param_t& param) {
   // Note that the return value of AutoConnect::getEEPROMUsedSize takes
   // effect after giving the boundaryOffset via AutoConnectConfig.
   EEPROM.begin(portal.getEEPROMUsedSize());
-
   EEPROM.get<mqtt_param_t>(0, param);
   EEPROM.end();
 
-  // If the area read from the EEPROM is completely filled with 0xFF,
+  // If the area read from the EEPROM does not contain MQTT_PARAM_ID,
   // that area is before it is initialized with the sketch-owned area.
-  if (*((uint8_t*)&param) == 0xff && !memcmp((uint8_t*)&param, (uint8_t*)&param + 1, sizeof(mqtt_param_t) - 1))
+  if (strcmp(param.id, _mqtt_param_id) != 0)
     memset(&param, 0x00, sizeof(mqtt_param_t));
 }
 
 void putParams(const mqtt_param_t& param) {
+  strcpy(const_cast<char*>(param.id), _mqtt_param_id);
   EEPROM.begin(portal.getEEPROMUsedSize());
   EEPROM.put<mqtt_param_t>(0, param);
   EEPROM.end();
@@ -48,15 +50,16 @@ void putParams(const mqtt_param_t& param) {
 // exist, you will get an unallocated error in the core, but you don't
 // have to worry about that. The area is automatically allocated by
 // Preferences::putBytes.
-const char* PREFS_NAMESPACE = "MQTT";
-const char* PREFS_KEY       = "MQTT";
+const char* PREFS_NAMESPACE = MQTT_PARAM_ID;
+const char* PREFS_KEY       = MQTT_PARAM_ID;
 Preferences prefs;
 
 void getParams(mqtt_param_t &param) {
   memset(&param, 0x00, sizeof(mqtt_param_t));
-  prefs.begin(PREFS_NAMESPACE, true);
-  prefs.getBytes(PREFS_KEY, &param, sizeof(mqtt_param_t));
-  prefs.end();
+  if (prefs.begin(PREFS_NAMESPACE, true)) {
+    prefs.getBytes(PREFS_KEY, &param, sizeof(mqtt_param_t));
+    prefs.end();
+  }
 }
 
 void putParams(const mqtt_param_t& param) {
