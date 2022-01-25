@@ -102,6 +102,11 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.3.3] Jan. 25, 2022
+- Fixed the missing initialization of MQTT parameter settings of mqttRSSI.ino example sketch.
+- Reverted the MQTT API endpoint of Thingspeak.com in the mqttRSSI example sketches.
+- Changed ESP32Cam XCLK to be attenuated to avoid interference with WiFi signals.
+
 ### [1.3.2] Jan. 1, 2022
 
 - Supports AutoConnectRange as a new AutoConnectElement.
