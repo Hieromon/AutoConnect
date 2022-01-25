@@ -2,7 +2,7 @@
   {
     "name": "mqttserver",
     "type": "ACInput",
-    "value": "mqtt3.thingspeak.com"
+    "value": "mqtt.thingspeak.com"
   },
   {
     "name": "channelid",
