@@ -2,8 +2,8 @@
  * AutoConnectOTA class implementation.
  * @file   AutoConnectOTA.cpp
  * @author hieromon@gmail.com
- * @version    1.3.0
- * @date   2021-04-08
+ * @version    1.3.4
+ * @date   2022-02-03
  * @copyright  MIT license.
  */
 
@@ -17,6 +17,7 @@
 #endif
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <Update.h>
+#include <esp_ota_ops.h>
 #ifdef AUTOCONNECT_UPLOAD_ASFIRMWARE_USE_REGEXP
 #include <regex>
 #include <esp_pthread.h>
@@ -243,6 +244,8 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
     uint32_t  maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
     // It only supports FLASH as a sketch area for updating.
     bc = Update.begin(maxSketchSpace, U_FLASH);
+    if (!bc)
+      _setError((String(F("Updater detects err:")) + String(Update.getError())).c_str());
   }
   else {
     // Allocate fs::FS according to the pinned Filesystem.
@@ -285,6 +288,17 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
  */
 size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
   size_t  wsz = 0;
+
+#ifdef ARDUINO_ARCH_ESP32
+  // Check if an available OTA partition exists.
+  const esp_partition_t*  runningPartition = esp_ota_get_running_partition();
+  const esp_partition_t*  otaPartition = esp_ota_get_next_update_partition(NULL);
+  if (!strcmp(runningPartition->label, otaPartition->label)) {
+    // There is only one app partition.
+    _setError("No OTA partition");
+  }
+#endif
+
   if (_tickerPort != -1)
     digitalWrite(_tickerPort, digitalRead(_tickerPort) ^ 0x01);
   if (!_err.length()) {
@@ -384,7 +398,10 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   // to HOME according to the module restarts.
   // When for file uploading, it's not numeric and has the effect of
   // staying on the upload page.
-  result["rc"].value = _dest == OTA_DEST_FIRM ? String(Update.getError()) : String('L');
+  uint8_t rc = Update.getError();
+  if (rc == UPDATE_ERROR_OK && _status != AC_OTA_RIP)
+    rc = 255; // No OTA partition
+  result["rc"].value = _dest == OTA_DEST_FIRM ? String(rc) : String('L');
   return String("");
 }
 
