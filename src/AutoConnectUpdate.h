@@ -155,6 +155,7 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   AC_UPDATEDIALOG_t _dialog;    /**< The type of updating dialog displayed on the client */
   AC_UPDATESTATUS_t _status;    /**< Status of update processing during the cycle of receiving a request */
   String            _binName;   /**< .bin name to update */
+  String            _errString; /**< error text reservation */
   WebServerClass*   _webServer; /**< Hosted WebServer for XMLHttpRequest */
 
   static const AutoConnectAux::ACPage_t         _pageCatalog  PROGMEM;

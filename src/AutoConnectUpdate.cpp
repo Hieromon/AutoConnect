@@ -2,8 +2,8 @@
  * AutoConnectUpdate class implementation.
  * @file   AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
- * @version    1.3.0
- * @date   2021-07-23
+ * @version    1.3.4
+ * @date   2022-02-03
  * @copyright  MIT license.
  */
 
@@ -82,6 +82,7 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 using UpdateVariedClass = UpdaterClass;
 #elif defined(ARDUINO_ARCH_ESP32)
+#include <esp_ota_ops.h>
 using UpdateVariedClass = UpdateClass;
 #endif
 
@@ -258,11 +259,23 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
   if (_binName.length()) {
     WiFiClient  wifiClient;
     AC_DBG("%s:%d/%s update in progress...", host.c_str(), port, uriBin.c_str());
-    t_httpUpdate_return ret = HTTPUpdateClass::update(wifiClient, host, port, uriBin);
+    t_httpUpdate_return ret;
+#ifdef ARDUINO_ARCH_ESP32
+    // Check if an available OTA partition exists.
+    const esp_partition_t*  runningPartition = esp_ota_get_running_partition();
+    const esp_partition_t*  otaPartition = esp_ota_get_next_update_partition(NULL);
+    if (!strcmp(runningPartition->label, otaPartition->label)) {
+      _errString = String(F("No available OTA partition"));
+      ret = HTTP_UPDATE_FAILED;
+    }
+    else
+#endif
+    if ((ret = HTTPUpdateClass::update(wifiClient, host, port, uriBin)) != HTTP_UPDATE_OK)
+      _errString = getLastErrorString();
     switch (ret) {
     case HTTP_UPDATE_FAILED:
       _status = UPDATE_FAIL;
-      AC_DBG_DUMB(" %s\n", getLastErrorString().c_str());
+      AC_DBG_DUMB(" %s\n", _errString.c_str());
       AC_DBG("update returns HTTP_UPDATE_FAILED\n");
       break;
     case HTTP_UPDATE_NO_UPDATES:
@@ -493,7 +506,7 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
     break;
   case UPDATE_FAIL:
     resForm = String(F(" failed."));
-    resForm += String(F("<br>")) + getLastErrorString();
+    resForm += String(F("<br>")) + _errString;
     resColor = String(F("red"));
     break;
   default:
@@ -505,6 +518,7 @@ String AutoConnectUpdateAct::_onResult(AutoConnectAux& result, PageArgument& arg
   resultElm.value = _binName + resForm;
   resultElm.style = String(F("font-size:120%;color:")) + resColor;
   result.getElement<AutoConnectElement>(F("restart")).enable = restart;
+  _errString.clear();
 
   return String("");
 }
