@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.2
- *  @date   2021-11-19
+ *  @version    1.3.4
+ *  @date   2022-02-09
  *  @copyright  MIT license.
  */
 
@@ -1397,6 +1397,43 @@ String AutoConnect::_invokeResult(PageArgument& args) {
   _waitForEndTransmission();  // Wait for response transmission complete
   _responsePage->cancel();
   AC_DBG("Resulting in %s\n", redirect.c_str());
+  return _emptyString;
+}
+
+/**
+ *  Perform interactive deletion of stored credentials available in the
+ *  OPEN SSIDs menu, in the handler of the page request.
+ *  Having performed the credential deletion, this handler will eventually
+ *  respond as the deletion result by redirecting to the URL of the SSIDs list.
+ *  
+ */
+String AutoConnect::_promptDeleteCredential(PageArgument& args) {
+  AutoConnectCredential credt;
+
+  _indelibleSSID = args.arg("del");
+  if (_indelibleSSID.length()) {
+    if (credt.del(_indelibleSSID.c_str())) {
+      AC_DBG("%s has been deleted\n", _indelibleSSID.c_str());
+      _indelibleSSID.clear();
+    }
+  }
+  String redirect = String(F("http://"));
+#if defined(ARDUINO_ARCH_ESP32)
+  // In ESP32, the station IP address just established could not be reached.
+  redirect += _webServer->client().localIP().toString();
+#elif defined(ARDUINO_ARCH_ESP8266)
+  // In ESP8266, the host address that responds for the connection
+  // successful is the IP address of ESP8266 as a station.
+  // This is the specification as before.
+  redirect += _currentHostIP.toString();
+#endif
+  // Redirect to 
+  redirect += String(F(AUTOCONNECT_URI_OPEN));
+  _webServer->sendHeader(String(F("Location")), redirect, true);
+  _webServer->send(302, String(F("text/plain")), _emptyString);
+  _webServer->client().stop();
+  _waitForEndTransmission();
+  _responsePage->cancel();
   return _emptyString;
 }
 

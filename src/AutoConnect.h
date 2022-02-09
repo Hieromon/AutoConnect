@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.3.1
- *	@date	2021-10-07
+ *	@version	1.3.4
+ *	@date	2022-02-09
  *	@copyright	MIT license.
  */
 
@@ -320,6 +320,7 @@ class AutoConnect {
   String  _induceDisconnect(PageArgument& args);
   String  _induceReset(PageArgument& args);
   String  _invokeResult(PageArgument& args);
+  String  _promptDeleteCredential(PageArgument& args);
 
   /** For portal control */
   bool  _captivePortal(void);
@@ -378,6 +379,7 @@ class AutoConnect {
   uint8_t       _connectCh;
   unsigned long _portalAccessPeriod;
   unsigned long _attemptPeriod;
+  String        _indelibleSSID;
 
   /** The control indicators */
   bool  _rfAdHocBegin = false;  /**< Specified with AutoConnect::begin */
@@ -402,6 +404,7 @@ class AutoConnect {
   static const char _CSS_LUXBAR[] PROGMEM;
   static const char _CSS_UL[] PROGMEM;
   static const char _CSS_ICON_LOCK[] PROGMEM;
+  static const char _CSS_ICON_TRASH[] PROGMEM;
   static const char _CSS_INPUT_BUTTON[] PROGMEM;
   static const char _CSS_INPUT_TEXT[] PROGMEM;
   static const char _CSS_TABLE[] PROGMEM;
@@ -423,6 +426,7 @@ class AutoConnect {
   /** Token handlers for PageBuilder */
   String _token_CSS_BASE(PageArgument& args);
   String _token_CSS_ICON_LOCK(PageArgument& args);
+  String _token_CSS_ICON_TRASH(PageArgument& args);
   String _token_CSS_INPUT_BUTTON(PageArgument& args);
   String _token_CSS_INPUT_TEXT(PageArgument& args);
   String _token_CSS_LUXBAR(PageArgument& args);

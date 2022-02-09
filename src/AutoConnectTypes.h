@@ -2,8 +2,8 @@
  *  AutoConnect quoted type declarations.
  *  @file AutoConnectTypes.h
  *  @author hieromon@gmail.com
- *  @version  1.3.0
- *  @date 2021-09-06
+ *  @version  1.3.4
+ *  @date 2022-02-09
  *  @copyright  MIT license.
  */
 
@@ -38,7 +38,8 @@ typedef enum AC_MENUITEM {
   AC_MENUITEM_RESET      = 0x0008,
   AC_MENUITEM_HOME       = 0x0010,
   AC_MENUITEM_UPDATE     = 0x0020,
-  AC_MENUITEM_DEVINFO    = 0x0040
+  AC_MENUITEM_DEVINFO    = 0x0040,
+  AC_MENUITEM_DELETESSID = 0x0080
 } AC_MENUITEM_t;
 
 /**< Specifier for using built-in OTA */
