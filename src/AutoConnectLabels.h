@@ -432,10 +432,15 @@
 #define AUTOCONNECT_PAGETITLE_DISCONNECTED "AutoConnect disconnected"
 #endif // !AUTOCONNECT_PAGETITLE_DISCONNECTED
 
-// Text: Delete a  credential.
+// Text: Delete a credential.
 #ifndef AUTOCONNECT_TEXT_DELETECREDENTIAL
 #define AUTOCONNECT_TEXT_DELETECREDENTIAL "Delete a credential?"
 #endif // !AUTOCONNECT_TEXT_DELETECREDENTIAL
+
+// Text: Could not deleted a credential.
+#ifndef AUTOCONNECT_TEXT_COULDNOTDELETED
+#define AUTOCONNECT_TEXT_COULDNOTDELETED "could not deleted"
+#endif // !AUTOCONNECT_TEXT_COULDNOTDELETED
 
 // Text: No saved credentials.
 #ifndef AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS

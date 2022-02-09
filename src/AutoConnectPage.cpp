@@ -1180,7 +1180,7 @@ String AutoConnect::_token_NETMASK(PageArgument& args) {
 
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  static const char _ssidUndeleted[] PROGMEM = "<div style=\"color:red\">%s could not deleted</div>";
+  static const char _ssidUndeleted[] PROGMEM = "<div style=\"color:red\">%s " AUTOCONNECT_TEXT_COULDNOTDELETED "</div>";
   static const char _ssidList[] PROGMEM = "<input id=\"sb\" type=\"submit\" name=\"%s\" value=\"%s\"><label class=\"slist\">%s</label>%s%s<br>";
   static const char _ssidRssi[] PROGMEM = "%d&#037;&ensp;Ch.%d";
   static const char _ssidNA[]   PROGMEM = "N/A";
