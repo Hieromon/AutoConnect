@@ -212,7 +212,9 @@ This function only works for AutoConnect primary menu items. It has no effect on
 : - **AC_MENUITEM_HOME** :
     [HOME](menu.md#home)
 : - **AC_MENUITEM_DEVINFO** :
-    [Device statistics](menu.md#where-the-from) as AutoConnect root page</dl>
+    [Device statistics](menu.md#where-the-from) as AutoConnect root page
+: - **AC_MENUITEM_DELETESSID** :
+    Enable to delete credentials on [Open SSIDs](http://localhost:8000/AutoConnect/menu.html#open-ssids).</dl>
 
 !!! note "It is added, not replaced."
     The initial configuration of the AutoConnect menu items:  

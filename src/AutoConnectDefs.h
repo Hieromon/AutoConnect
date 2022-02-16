@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-05-27
+ * @version  1.3.4
+ * @date 2022-02-09
  * @copyright  MIT license.
  */
 
@@ -133,6 +133,7 @@
 #define AUTOCONNECT_URI_CONNECT AUTOCONNECT_URI "/connect"
 #define AUTOCONNECT_URI_RESULT  AUTOCONNECT_URI "/result"
 #define AUTOCONNECT_URI_OPEN    AUTOCONNECT_URI "/open"
+#define AUTOCONNECT_URI_DELETE  AUTOCONNECT_URI "/del"
 #define AUTOCONNECT_URI_DISCON  AUTOCONNECT_URI "/disc"
 #define AUTOCONNECT_URI_RESET   AUTOCONNECT_URI "/reset"
 #define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
