@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.2
- *  @date   2021-11-24
+ *  @version    1.3.4
+ *  @date   2022-02-16
  *  @copyright  MIT license.
  */
 
@@ -1486,6 +1486,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   else if (uri == String(AUTOCONNECT_URI_RESET) && (_apConfig.menuItems & AC_MENUITEM_RESET)) {
 
     // Setup /_ac/reset
+    reqAuth = true;
     elm->setMold(FPSTR(_PAGE_RESETTING));
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("BOOTURI"), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));
