@@ -3,7 +3,7 @@
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
  *  @version    1.3.4
- *  @date   2022-02-09
+ *  @date   2022-02-16
  *  @copyright  MIT license.
  */
 
@@ -187,6 +187,7 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
     "width:auto"
   "}"
   "#sb[type=\"submit\"]{"
+    "padding:8px 0;"
     "width:13em"
   "}"
   "input[type=\"submit\"],button[type=\"submit\"]{"
@@ -1505,7 +1506,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("OPEN_SSID"), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
   }
-  else if (uri == String(AUTOCONNECT_URI_DELETE) && (_apConfig.menuItems & AC_MENUITEM_DELETESSID)) {
+  else if (uri == String(AUTOCONNECT_URI_DELETE) && (_apConfig.menuItems & AC_MENUITEM_OPENSSIDS) && (_apConfig.menuItems & AC_MENUITEM_DELETESSID)) {
   
     // Setup /_ac/del
     reqAuth = true;
