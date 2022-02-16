@@ -40,7 +40,11 @@ If you want to configure with static IP, uncheck "**Enable DHCP**". Once the WiF
 
 After WiFi connected, AutoConnect will automatically save the established SSID and password to the flash on the ESP module. **Open SSIDs** menu reads the saved SSID credentials and lists them as below. Listed items are clickable buttons and can initiate a connection to its access point.
 
-<img src="images/open.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
+<img src="images/openssid.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
+
+Also, this menu allows you to interactively delete the stored credentials. <i class="fa fa-trash-alt"></i> icon will appear next to each SSID in the Open SSIDs menu when the credential removal feature is enabled with [AutoConnectConfig::menuItems](apiconfig.md#menuitems). Clicking the <i class="fa fa-trash-alt"></i> on this screen will delete the SSID. This feature is disabled by default.
+
+<img src="images/openssid_trash.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
 !!! note "Saved credentials data structure has changed"
     A structure of AutoConnect saved credentials has changed in v1.1.0 and was lost backward compatibility. Credentials saved by AutoConnect v1.0.3 (or earlier) will not display properly with AutoConnect v1.1.0. You need to erase the flash of the ESP module using the esptool before the Sketch uploading.

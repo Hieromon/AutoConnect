@@ -220,13 +220,25 @@ Configure applying items of the [AutoConnect menu](menu.md). You can arbitrarily
     <dd><span class="apidef">AC_MENUITEM_RESET</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Reset...](menu.md#reset) item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_UPDATE</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [Update](menu.md#update) item.</span></dd>
     <dd><span class="apidef">AC_MENUITEM_HOME</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends [HOME](menu.md#home) item.</span></dd>
-    <dd><span class="apidef">AC_MENUITEM_DEVINFO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends the **Device info** item which links to [AutoConnect statistics page](menu.md##where-the-from).</span></dd></dl>
+    <dd><span class="apidef">AC_MENUITEM_DEVINFO</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Appends the **Device info** item which links to [AutoConnect statistics page](menu.md##where-the-from).</span></dd>
+    <dd><span class="apidef">AC_MENUITEM_DELETESSID</span><span class="apidesc"></span><span class="apidef">&nbsp;</span><span class="apidesc">Enables the ability to interactively delete credentials on the [Open SSIDs](menu.md#open-ssids) menu screen.</span></dd></dl>
 
 !!! info "How to specify the value of the menu items"
     An menuItems accepts the logical OR of AC_MENUITEM_t type value. For example, to enable only Open SSIDs and HOME items, specify:
     ```cpp
+    AutoConnect portal;
     AutoConnectConfig config;
+
     config.menuItems = AC_MENUITEM_OPENSSIDS | AC_MENUITEM_HOME;
+    portal.config(config);
+    ```
+    Also, to enable the credentials removal feature, follow these settings procedures.
+    ```cpp
+    AutoConnect portal;
+    AutoConnectConfig config;
+
+    config.menuItems = config.menuItems | AC_MENUITEM_DELETESSID;
+    portal.config(config);
     ```
     However, even if you specify like the above, the AutoConnectAux page items still display on the menu. To remove the AutoConnectAux items, use the [AutoConnectAux::menu](apiaux.md#menu) function.
 
