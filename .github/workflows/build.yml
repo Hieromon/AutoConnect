@@ -1,0 +1,120 @@
+# AutoConnect library examples build CI
+
+name: build
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+    types:
+      - opened
+  release:
+    types:
+      - published
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  biuld:
+    name: ${{ matrix.board.fqbn }}
+    runs-on: ubuntu-latest
+
+    env:
+      LIBRARIES: |
+        - source-path: ./
+        - name: PageBuilder
+        - name: PubSubClient
+      SKETCHES_PATH: examples
+      SKETCHES_REPORTS_PATH: sketches-reports
+
+    strategy:
+      matrix:
+        board:
+          - fqbn: "esp8266:esp8266:generic"
+            platform-name: esp8266:esp8266
+          - fqbn: "esp32:esp32:esp32"
+            platform-name: esp32:esp32
+
+        library-dependency:
+          - name: ArduinoJson
+            version: 5.13.5
+          - name: ArduinoJson
+
+        include:
+          - board:
+              platform-name: esp8266:esp8266
+            platforms: |
+              - name: esp8266:esp8266
+                source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          - board:
+              platform-name: esp32:esp32
+            platforms: |
+              - name: esp32:esp32
+                source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install ESP32 platform dependencies
+        if: matrix.board.platform-name == 'esp32:esp32'
+        run: pip3 install pyserial
+
+      - name: Combines Platform-compliant sketches for ESP8266
+        if: matrix.board.platform-name == 'esp8266:esp8266'
+        env:
+          BUILD_SKETCHES: |
+            - ${{ env.SKETCHES_PATH }}/EEPROM
+            - ${{ env.SKETCHES_PATH }}/FSBrowser
+
+      - name: Combines Platform-compliant sketches for ESP32
+        if: matrix.board.platform-name == 'esp32:esp32'
+        env:
+          BUILD_SKETCHES: |
+            - ${{ env.SKETCHES_PATH }}/CreditMigrate
+            - ${{ env.SKETCHES_PATH }}/FSBrowser32
+            - ${{ env.SKETCHES_PATH }}/WebCamServer
+
+      - name: Compile example sketches that require ArduinoJson
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: ${{ matrix.platforms }}
+          libraries: |
+            - ${{ env.LIBRARIES }}
+            - ${{ matrix.library-dependency.name }}
+          enable-deltas-report: true
+          sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
+          sketch-paths: |
+            - ${{ env.BUILD_SKETCHES }}
+            - ${{ env.SKETCHES_PATH }}/ConfigIP
+            - ${{ env.SKETCHES_PATH }}/Credential
+            - ${{ env.SKETCHES_PATH }}/Elements
+            - ${{ env.SKETCHES_PATH }}/FileUpload
+            - ${{ env.SKETCHES_PATH }}/HandleClient
+            - ${{ env.SKETCHES_PATH }}/HandlePortal
+            - ${{ env.SKETCHES_PATH }}/HandlePortalEX
+            - ${{ env.SKETCHES_PATH }}/HelloWorld
+            - ${{ env.SKETCHES_PATH }}/mqttRSSI
+            - ${{ env.SKETCHES_PATH }}/mqttRSSI_FS
+            - ${{ env.SKETCHES_PATH }}/Simple
+            - ${{ env.SKETCHES_PATH }}/Update
+            - ${{ env.SKETCHES_PATH }}/OTAUpdate
+            - ${{ env.SKETCHES_PATH }}/WebUpdate
+
+      - name: Compile example sketches without JSON
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: ${{ matrix.platforms }}
+          libraries: |
+            - ${{ env.LIBRARIES }}
+          cli-compile-flags: |
+            - --build-property
+            - compiler.cpp.extra_flags="-DAUTOCONNECT_NOUSE_JSON"
+          enable-deltas-report: true
+          sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
+          sketch-paths: |
+            - ${{ env.SKETCHES_PATH }}/mqttRSSI_NA
