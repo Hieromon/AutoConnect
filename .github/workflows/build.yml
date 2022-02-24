@@ -17,7 +17,6 @@ on:
 env:
   LIBRARIES: |
     - source-path: ./
-    - name: AutoConnect
     - name: PageBuilder
     - name: PubSubClient
 
