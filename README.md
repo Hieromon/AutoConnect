@@ -102,6 +102,15 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.3.4] Feb. 25, 2022
+- Added enablement of credentials removal function with Open SSIDs menu. (Discussions #433)
+- Fixed AutoConnectOTA crashing if there is no OTA partition.
+- Fixed AutoConnectUpdate crashing if there is no OTA partition.
+- Migrate the CI platform to GitHub actions.
+
+##### Breaking changes:
+- Authentication has been applied to **RESET** menu. This avoids resetting modules in an unauthenticated state by direct access to `/_ac/reset`.
+
 ### [1.3.3] Jan. 25, 2022
 - Fixed the missing initialization of MQTT parameter settings of mqttRSSI.ino example sketch.
 - Reverted the MQTT API endpoint of Thingspeak.com in the mqttRSSI example sketches.

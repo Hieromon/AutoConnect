@@ -1,3 +1,16 @@
+### [1.3.4] Feb. 25, 2022
+
+#### Enhancements
+
+- Added enablement of credentials removal function with Open SSIDs menu.
+- Migrate the CI platform to GitHub actions.
+
+#### Fix
+
+- Fixed AutoConnectOTA crashing if there is no OTA partition.
+- Fixed AutoConnectUpdate crashing if there is no OTA partition.
+
+---
 ### [1.3.3] Jan. 25, 2022
 
 #### Fix
