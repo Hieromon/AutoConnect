@@ -1,7 +1,8 @@
-### [1.3.4] Feb. 25, 2022
+### [1.3.4] Mar. 02, 2022
 
 #### Enhancements
 
+- Supports [LittleFS_esp32](https://github.com/lorol/LITTLEFS) legacy library with ESP32 Arduino core 1.0.6 or less.
 - Added enablement of credentials removal function with Open SSIDs menu.
 - Migrate the CI platform to GitHub actions.
 
