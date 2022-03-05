@@ -2,7 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/Hieromon/AutoConnect)](https://github.com/Hieromon/AutoConnect/releases)
 [![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg?)](https://www.ardu-badge.com/AutoConnect)
-[![Build Status](https://app.travis-ci.com/Hieromon/AutoConnect.svg?branch=master)](https://app.travis-ci.com/Hieromon/AutoConnect)
+[![Build Status](https://github.com/Hieromon/AutoConnect/actions/workflows/build.yml/badge.svg)](https://github.com/Hieromon/AutoConnect/actions/workflows/build.yml)
 [![License](https://img.shields.io/github/license/Hieromon/AutoConnect)](https://github.com/Hieromon/AutoConnect/blob/master/LICENSE)
 
 An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface. 
@@ -101,6 +101,16 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - [FAQ](https://hieromon.github.io/AutoConnect/faq.html).
 
 ## Change log
+
+### [1.3.4] Mar. 02, 2022
+- Supports [LittleFS_esp32](https://github.com/lorol/LITTLEFS) legacy library with ESP32 Arduino core 1.0.6 or less.
+- Added enablement of credentials removal function with Open SSIDs menu. (Discussions #433)
+- Fixed AutoConnectOTA crashing if there is no OTA partition.
+- Fixed AutoConnectUpdate crashing if there is no OTA partition.
+- Migrate the CI platform to GitHub actions.
+
+##### Breaking changes:
+- Authentication has been applied to **RESET** menu. This avoids resetting modules in an unauthenticated state by direct access to `/_ac/reset`.
 
 ### [1.3.3] Jan. 25, 2022
 - Fixed the missing initialization of MQTT parameter settings of mqttRSSI.ino example sketch.

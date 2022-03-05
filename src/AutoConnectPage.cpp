@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.2
- *  @date   2021-11-24
+ *  @version    1.3.4
+ *  @date   2022-02-16
  *  @copyright  MIT license.
  */
 
@@ -150,6 +150,18 @@ const char AutoConnect::_CSS_ICON_LOCK[] PROGMEM = {
   "}"
 };
 
+/**< Image icon for inline expansion, the trash mark. */
+const char AutoConnect::_CSS_ICON_TRASH[] PROGMEM = {
+  ".img-trash{"
+    "width:22px;"
+    "height:22px;"
+    "margin-top:14px;"
+    "float:right;"
+    "cursor:pointer;"
+    "background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV/TSkUqDnYQcQhSnSyIijpKFYtgobQVWnUwufQLmjQkKS6OgmvBwY/FqoOLs64OroIg+AHi6OSk6CIl/i8ptIjx4Lgf7+497t4BQqPCVDMwDqiaZaTiMTGbWxWDrxAQRAAzGJaYqSfSixl4jq97+Ph6F+VZ3uf+HL1K3mSATySeY7phEW8QT29aOud94jArSQrxOfGYQRckfuS67PIb56LDAs8MG5nUPHGYWCx2sNzBrGSoxFPEEUXVKF/Iuqxw3uKsVmqsdU/+wlBeW0lzneYQ4lhCAkmIkFFDGRVYiNKqkWIiRfsxD/+g40+SSyZXGYwcC6hCheT4wf/gd7dmYXLCTQrFgK4X2/4YAYK7QLNu29/Htt08AfzPwJXW9lcbwOwn6fW2FjkC+raBi+u2Ju8BlzvAwJMuGZIj+WkKhQLwfkbflAP6b4GeNbe31j5OH4AMdbV8AxwcAqNFyl73eHd3Z2//nmn19wONxHKyvZQ4mgAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAAN1wAADdcBQiibeAAAALdJREFUOMvt1KEKAkEQBuBPMWkzWsRosWg2WEw2wTfQ6LNYfROLwSxWo81o02LQMsJxcJ4KguD9MOzMv8M/u8PsUqDAf2CMM25h5+CeopSzX8MBa6yCG2KAVhR5S3iDKuohsMcl9qpoR8FT8P20QCVDeIc5ljhm5DQwxeKdvnajn91ELOWnc146cbrIFr2Ik34myt8apUL4N4T3mMWa9J8ib9xG6OCKSXAPv/nJTUrxrG85tsn6Fu6nuijCLc4LEwAAAABJRU5ErkJggg==) no-repeat"
+  "}"
+};
+
 /**< INPUT button and submit style */
 const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
   "input[type=\"button\"],input[type=\"submit\"],button[type=\"submit\"],button[type=\"button\"]{"
@@ -159,7 +171,8 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
     "color:#fff;"
     "border:1px solid;"
     "border-radius:2px;"
-    "margin-top:12px"
+    "margin-top:12px;"
+    "cursor:pointer"
   "}"
   "input[type=\"button\"],button[type=\"button\"]{"
     "background-color:#1b5e20;"
@@ -174,7 +187,8 @@ const char AutoConnect::_CSS_INPUT_BUTTON[] PROGMEM = {
     "width:auto"
   "}"
   "#sb[type=\"submit\"]{"
-    "width:15em"
+    "padding:8px 0;"
+    "width:13em"
   "}"
   "input[type=\"submit\"],button[type=\"submit\"]{"
     "padding:8px 30px;"
@@ -728,6 +742,7 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_ICON_LOCK}}"
+      "{{CSS_ICON_TRASH}}"
       "{{CSS_INPUT_BUTTON}}"
       "{{CSS_LUXBAR}}"
     "</style>"
@@ -738,11 +753,14 @@ const char  AutoConnect::_PAGE_OPENCREDT[] PROGMEM = {
       "{{MENU_AUX}}"
       "{{MENU_POST}}"
       "<div class=\"base-panel\">"
-        "<form action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
+        "<form id=\"_sid\" action=\"" AUTOCONNECT_URI_CONNECT "\" method=\"post\">"
           "{{OPEN_SSID}}"
         "</form>"
       "</div>"
     "</div>"
+    "<script type=\"text/javascript\">"
+      "function crdel(e){if(confirm(`${e} " AUTOCONNECT_TEXT_DELETECREDENTIAL "`)){var t=document.getElementById('_sid');t.setAttribute('action','" AUTOCONNECT_URI_DELETE "');var i=document.createElement('input');i.setAttribute('type','hidden'),i.setAttribute('name','del'),i.setAttribute('value',e),t.appendChild(i),t.submit()}}"
+    "</script>"
   "</body>"
   "</html>"
 };
@@ -904,6 +922,11 @@ String AutoConnect::_token_CSS_BASE(PageArgument& args) {
 String AutoConnect::_token_CSS_ICON_LOCK(PageArgument& args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_ICON_LOCK));
+}
+
+String AutoConnect::_token_CSS_ICON_TRASH(PageArgument& args) {
+  AC_UNUSED(args);
+  return (_apConfig.menuItems & AC_MENUITEM_DELETESSID) ? String(FPSTR(_CSS_ICON_TRASH)) : String("");
 }
 
 String AutoConnect::_token_CSS_INPUT_BUTTON(PageArgument& args) {
@@ -1158,24 +1181,33 @@ String AutoConnect::_token_NETMASK(PageArgument& args) {
 
 String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   AC_UNUSED(args);
-  static const char _ssidList[] PROGMEM = "<input id=\"sb\" type=\"submit\" name=\"%s\" value=\"%s\"><label class=\"slist\">%s</label>%s<br>";
+  static const char _ssidUndeleted[] PROGMEM = "<div style=\"color:red\">%s " AUTOCONNECT_TEXT_COULDNOTDELETED "</div>";
+  static const char _ssidList[] PROGMEM = "<input id=\"sb\" type=\"submit\" name=\"%s\" value=\"%s\"><label class=\"slist\">%s</label>%s%s<br>";
   static const char _ssidRssi[] PROGMEM = "%d&#037;&ensp;Ch.%d";
   static const char _ssidNA[]   PROGMEM = "N/A";
+  static const char _ssidTrsh[] PROGMEM = "<a onclick=\"crdel('%s')\" class=\"img-trash\"></a>";
   static const char _ssidLock[] PROGMEM = "<span class=\"img-lock\"></span>";
   static const char _ssidNull[] PROGMEM = "";
   String ssidList;
   station_config_t  entry;
-  char  slCont[176];
+  char  slCont[256];
   char  rssiCont[32];
+  char  trash[80] = {'\0'};
   AutoConnectCredential credit(_apConfig.boundaryOffset);
 
-  uint8_t creEntries = credit.entries();
-  if (creEntries > 0) {
-    ssidList = String("");
-    _scanCount = WiFi.scanNetworks(false, true);
+  if (_indelibleSSID.length()) {
+    char  indelible[82];
+
+    snprintf_P(indelible, sizeof(indelible), _ssidUndeleted, _indelibleSSID.c_str());
+    ssidList = String(indelible);
+    _indelibleSSID.clear();
   }
+
+  uint8_t creEntries = credit.entries();
+  if (creEntries > 0)
+    _scanCount = WiFi.scanNetworks(false, true);
   else
-    ssidList = String(F("<p><b>" AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "</b></p>"));
+    ssidList += String(F("<p><b>" AUTOCONNECT_TEXT_NOSAVEDCREDENTIALS "</b></p>"));
 
   for (uint8_t i = 0; i < creEntries; i++) {
     rssiCont[0] = '\0';
@@ -1196,7 +1228,9 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
         break;
       }
     }
-    snprintf_P(slCont, sizeof(slCont), (PGM_P)_ssidList, AUTOCONNECT_PARAMID_CRED, reinterpret_cast<char*>(entry.ssid), rssiSym, ssidLock);
+    if (_apConfig.menuItems & AC_MENUITEM_DELETESSID)
+      snprintf_P(trash, sizeof(trash), (PGM_P)_ssidTrsh, reinterpret_cast<char*>(entry.ssid));
+    snprintf_P(slCont, sizeof(slCont), (PGM_P)_ssidList, AUTOCONNECT_PARAMID_CRED, reinterpret_cast<char*>(entry.ssid), rssiSym, trash, ssidLock);
     ssidList += String(slCont);
   }
   return ssidList;
@@ -1455,7 +1489,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("CUR_SSID"), std::bind(&AutoConnect::_token_CURRENT_SSID, this, std::placeholders::_1));
- }
+  }
   else if (uri == String(AUTOCONNECT_URI_OPEN) && (_apConfig.menuItems & AC_MENUITEM_OPENSSIDS)) {
 
     // Setup /_ac/open
@@ -1464,12 +1498,20 @@ PageElement* AutoConnect::_setupPage(String& uri) {
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_ICON_LOCK"), std::bind(&AutoConnect::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_ICON_TRASH"), std::bind(&AutoConnect::_token_CSS_ICON_TRASH, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("OPEN_SSID"), std::bind(&AutoConnect::_token_OPEN_SSID, this, std::placeholders::_1));
+  }
+  else if (uri == String(AUTOCONNECT_URI_DELETE) && (_apConfig.menuItems & AC_MENUITEM_OPENSSIDS) && (_apConfig.menuItems & AC_MENUITEM_DELETESSID)) {
+  
+    // Setup /_ac/del
+    reqAuth = true;
+    elm->setMold(FPSTR("{{DELREQ}}"));
+    elm->addToken(FPSTR("DELREQ"), std::bind(&AutoConnect::_promptDeleteCredential, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_DISCON) && (_apConfig.menuItems & AC_MENUITEM_DISCONNECT)) {
 
@@ -1486,6 +1528,7 @@ PageElement* AutoConnect::_setupPage(String& uri) {
   else if (uri == String(AUTOCONNECT_URI_RESET) && (_apConfig.menuItems & AC_MENUITEM_RESET)) {
 
     // Setup /_ac/reset
+    reqAuth = true;
     elm->setMold(FPSTR(_PAGE_RESETTING));
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("BOOTURI"), std::bind(&AutoConnect::_token_BOOTURI, this, std::placeholders::_1));

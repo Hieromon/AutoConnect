@@ -161,6 +161,20 @@ Binary sketch files for updating can be retrieved using the Arduino IDE. Open th
 
 When the compilation is complete, a binary sketch will save with the extension `.bin` in the same folder as the Sketch.
 
+### <i class="fa fa-edit"></i> Select a partition scheme to enable OTA w/ESP32
+
+To enable OTA on the ESP32, you need to build a sketch with a partition scheme that has reserved a binary sketch space for OTA. The ESP32 Arduino core comes with a variety of [pre-configured partition schemes](https://github.com/espressif/arduino-esp32/tree/master/tools/partitions) that can be selected from the **Tools** menu in the Arduino IDE.
+
+![partition](images/partition.png)
+
+In most cases, this is simply a matter of selecting a built-in partition scheme with a reserved OTA area from the **Tools** menu in the Arduino IDE. However, Of the various ESP32-based modules, only a few have many partition schemes pre-configured. If you cannot find a partition scheme with reserved OTA space for your ESP32 module, you will need to modify [`boards.txt`](https://github.com/espressif/arduino-esp32/blob/master/boards.txt) as the board configuration file included in the ESP32Arduino core distribution. The [WebCamServer.ino](https://github.com/Hieromon/AutoConnect/tree/master/examples/WebCamServer) example in the AutoConnect library shows the changes to boards.txt for esp32cam. But this modification is not recommended as it can inadvertently destroy the board configuration and will be overwritten and restored by the Arduino core version upstreams.
+
+Another way to choose a partition scheme is to use [PlatformIO](https://platformio.org/platformio-ide) for your build system. You can easily select the reserved partition scheme for the OTA area using PlatformIO. When using PlatformIO, you can select a partition scheme with OTA reserved space by simply writing the following line in the [`platformio.ini`](https://docs.platformio.org/en/latest/platforms/espressif32.html?highlight=partition#partition-tables) file.
+
+```ini
+board_build.partitions = min_spiffs.csv
+```
+
 ### <i class="fa fa-edit"></i> OTA updates w/browser without using AutoConnectOTA
 
 The legacy OTA method based on ESP8266HTTPUpdateServer without AutoConnectOTA is still valid. To embed the ESP8266HTTPUpdateServer class with AutoConnect into your sketch, basically follow these steps:

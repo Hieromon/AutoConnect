@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version  1.3.2
- * @date 2021-11-24
+ * @version  1.3.4
+ * @date 2022-02-24
  * @copyright  MIT license.
  */
 
@@ -235,6 +235,7 @@ class AutoConnectAux : public PageBuilder {
  */
 template<>
 inline bool AutoConnectAux::_isCompatible<AutoConnectElement>(const AutoConnectElement* element) const {
+  AC_UNUSED(element);
   return true;
 }
 

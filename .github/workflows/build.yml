@@ -1,0 +1,175 @@
+# AutoConnect library examples build CI
+
+name: build
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+    types:
+      - opened
+  release:
+    types:
+      - published
+  repository_dispatch:
+  workflow_dispatch:
+
+env:
+  LIBRARIES: |
+    - source-path: ./
+    - name: PageBuilder
+    - name: PubSubClient
+
+  SKETCHES_PATH: examples
+
+  SKETCHES: |
+    ConfigIP
+    Credential
+    Elements
+    FileUpload
+    HandleClient
+    HandlePortal
+    HandlePortalEX
+    HelloWorld
+    mqttRSSI
+    mqttRSSI_FS
+    OTAUpdate
+    Simple
+    Update
+    WebUpdate
+
+  SKETCHES_WO_JSON: |
+    mqttRSSI_NA
+
+  SKETCHES_ESP8266: |
+    EEPROM
+    FSBrowser
+
+  SKETCHES_ESP32: |
+    CreditMigrate
+    FSBrowser32
+    WebCamServer
+
+  SKETCHES_REPORTS_PATH: sketches-reports
+
+jobs:
+  build_with_ArduinoJson:
+    name: ${{ matrix.board.fqbn }} ${{ matrix.library.dependency }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        board:
+          - fqbn: "esp8266:esp8266:generic"
+            platform-name: esp8266:esp8266
+          - fqbn: "esp32:esp32:esp32"
+            platform-name: esp32:esp32
+
+        library:
+          - name: ArduinoJsonV6
+            dependency: |
+              - name: ArduinoJson
+          - name: ArduinoJsonV5
+            dependency: |
+              - name: ArduinoJson
+                version: 5.13.5
+
+        include:
+          - board:
+              platform-name: esp8266:esp8266
+            platforms: |
+              - name: esp8266:esp8266
+                source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          - board:
+              platform-name: esp32:esp32
+            platforms: |
+              - name: esp32:esp32
+                source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Append sketches depending on ESP8266
+        if: matrix.board.platform-name == 'esp8266:esp8266'
+        run: |
+          echo "BUILD_SKETCHES<<EOF" >> $GITHUB_ENV
+          echo "${{ env.SKETCHES }}${{ env.SKETCHES_WO_JSON }}${{ env.SKETCHES_ESP8266 }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Append sketches depending on ESP32
+        if: matrix.board.platform-name == 'esp32:esp32'
+        run: |
+          echo "BUILD_SKETCHES<<EOF" >> $GITHUB_ENV
+          echo "${{ env.SKETCHES }}${{ env.SKETCHES_WO_JSON }}${{ env.SKETCHES_ESP32 }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Create sketches list
+        run: |
+          echo "BUILD_SKETCHES_LIST<<EOF" >> $GITHUB_ENV
+          echo -n "${{ env.BUILD_SKETCHES }}" | sed -e 's/^/- ${{ env.SKETCHES_PATH }}\//' >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Compile example sketches that require ArduinoJson
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: ${{ matrix.platforms }}
+          libraries: |
+            ${{ env.LIBRARIES }}
+            ${{ matrix.library.dependency }}
+          enable-deltas-report: true
+          sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
+          sketch-paths: |
+            ${{ env.BUILD_SKETCHES_LIST }}
+
+  build_wo_ArduinoJson:
+    name: ${{ matrix.board.fqbn }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        board:
+          - fqbn: "esp8266:esp8266:generic"
+            platform-name: esp8266:esp8266
+          - fqbn: "esp32:esp32:esp32"
+            platform-name: esp32:esp32
+
+        include:
+          - board:
+              platform-name: esp8266:esp8266
+            platforms: |
+              - name: esp8266:esp8266
+                source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          - board:
+              platform-name: esp32:esp32
+            platforms: |
+              - name: esp32:esp32
+                source-url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create sketches list with precluded ArduinoJson
+        run: |
+          echo "BUILD_SKETCHES_LIST_WO_JSON<<EOF" >> $GITHUB_ENV
+          echo -n "${{ env.SKETCHES_WO_JSON }}" | sed -e 's/^/- ${{ env.SKETCHES_PATH }}\//' >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Compile example sketches w/o ArduinoJson
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: ${{ matrix.platforms }}
+          cli-compile-flags: |
+            - --build-property
+            - build.extra_flags=-DAUTOCONNECT_NOUSE_JSON
+          libraries: |
+            ${{ env.LIBRARIES }}
+          enable-deltas-report: true
+          sketches-report-path: ${{ env.SKETCHES_REPORTS_PATH }}
+          sketch-paths: |
+            ${{ env.BUILD_SKETCHES_LIST_WO_JSON }}

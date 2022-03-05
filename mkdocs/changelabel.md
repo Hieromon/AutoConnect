@@ -66,6 +66,8 @@ AutoConnect label texts are pre-assigned with a fixed string so that it can be d
     <tr><td>Passphrase</td><td>AUTOCONNECT_PAGECONFIG_PASSPHRASE</td></tr>
     <tr><td>Enable DHCP</td><td>AUTOCONNECT_PAGECONFIG_ENABLEDHCP</td></tr>
     <tr><td>Apply</td><td>AUTOCONNECT_PAGECONFIG_APPLY</td></tr>
+    <tr><td rowspan="2">Page:[open SSIDs] text</td><td>Delete a credential?</td><td>AUTOCONNECT_TEXT_DELETECREDENTIAL</td></tr>
+    <tr><td>could not deleted</td><td>AUTOCONNECT_TEXT_COULDNOTDELETED</td></tr>
     <tr><td rowspan="4">Page:[update] text</td><td>Updating firmware</td><td>AUTOCONNECT_TEXT_UPDATINGFIRMWARE</td></tr>
     <tr><td>Select firmware:</td><td>AUTOCONNECT_TEXT_SELECTFIRMWARE</td></tr>
     <tr><td>Successfully updated, rebooting...</td><td>AUTOCONNECT_TEXT_OTASUCCESS</td></tr>
