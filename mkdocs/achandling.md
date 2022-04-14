@@ -30,7 +30,7 @@ A list of commonly used functions to access AutoConnectElements with your Sketch
 
 - `[]` operator : Access to an AutoConnectElement by specified element name.
 - `getElement` function : Access to an AutoConnectElement by specified element name.
-- `as<>` function : Cast from a variant of `AutoConnectElemnet` type to an actual type such as `AutoConnectText` or `AutoConnectInput` etc. To access attributes that exist only in the actual type, it is necessary to convert from the `AutoConnectElement` type obtained with `[]` operator or `getElement` function.
+- `as<>` function : Cast from a variant of `AutoConnectElement` type to an actual type such as `AutoConnectText` or `AutoConnectInput` etc. To access attributes that exist only in the actual type, it is necessary to convert from the `AutoConnectElement` type obtained with `[]` operator or `getElement` function.
 
 See the section [Get AutoConnectElement from the AutoConnectAux](achandling.md#get-autoconnectelement-from-the-autoconnectaux) and the section [AutoConnectElements API](apielements.md) for usage examples and API specifications for each above function.
 
