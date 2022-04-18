@@ -50,7 +50,7 @@
 // Declaration to enable AutoConnectConfigAux.
 // AC_USE_CONFIGAUX must be enabled along with AUTOCONNECT_USE_JSON
 // to enable AutoConnectConfigAux.
-//#define AC_USE_CONFIGAUX 
+//#define AC_USE_CONFIGAUX
 #if defined(AC_USE_CONFIGAUX) && defined(AUTOCONNECT_USE_JSON)
 #define AUTOCONNECT_USE_CONFIGAUX
 #endif
@@ -220,7 +220,7 @@
 #define AUTOCONNECT_FLICKER_WIDTHAP   96
 #endif // !AUTOCONNECT_FLICKER_WIDTHAP
 // Flicker pulse width while WiFi is not connected (8bit resolution)
-#ifndef AUTOCONNECT_FLICKER_WIDTHDC 
+#ifndef AUTOCONNECT_FLICKER_WIDTHDC
 #define AUTOCONNECT_FLICKER_WIDTHDC   16
 #endif // !AUTOCONNECT_FLICKER_WIDTHDISCON
 // Ticker port
@@ -265,7 +265,7 @@
 
 // Interval time of progress status periodical inquiry [ms]
 #ifndef AUTOCONNECT_UPDATE_INTERVAL
-#define AUTOCONNECT_UPDATE_INTERVAL   400
+#define AUTOCONNECT_UPDATE_INTERVAL   1500
 #endif // !AUTOCONNECT_UPDATE_INTERVAL
 
 // Wait timer for rebooting after updated
