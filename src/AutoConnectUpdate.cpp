@@ -255,7 +255,11 @@ void AutoConnectUpdateAct::handleUpdate(void) {
  */
 AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
   // Start update
-  String  uriBin = uri + '/' + _binName;
+  String uriBin = '/' + _binName;
+  if (uri != String("."))
+  {
+    uriBin = uri + '/' + _binName;
+  }
   if (_binName.length()) {
     WiFiClient  wifiClient;
     AC_DBG("%s:%d/%s update in progress...", host.c_str(), port, uriBin.c_str());
@@ -304,7 +308,7 @@ AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
  * received AutoConnectAux.
  * @param  aux        An instantiated AutoConnectAux that will configure according to ACPage_t.
  * @param  page       Pre-defined ACPage_t
- * @param  elementNum Number of AutoConnectElements to configure.  
+ * @param  elementNum Number of AutoConnectElements to configure.
  */
 void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage_t* page, const size_t elementNum) {
   for (size_t n = 0; n < elementNum; n++) {
@@ -574,7 +578,7 @@ void AutoConnectUpdateAct::_progress(void) {
   case HTTP_GET:
     switch (_status) {
     case UPDATE_PROGRESS:
-      payload = String(UPDATE_NOTIFY_PROGRESS) + ',' + String(_amount) + ':' + String(_binSize); 
+      payload = String(UPDATE_NOTIFY_PROGRESS) + ',' + String(_amount) + ':' + String(_binSize);
       httpCode = 200;
       break;
     case UPDATE_IDLE:
