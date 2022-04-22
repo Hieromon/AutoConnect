@@ -2,8 +2,8 @@
  * AutoConnectUpdate class implementation.
  * @file   AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
- * @version    1.3.4
- * @date   2022-02-03
+ * @version    1.3.5
+ * @date   2022-04-22
  * @copyright  MIT license.
  */
 
@@ -255,11 +255,9 @@ void AutoConnectUpdateAct::handleUpdate(void) {
  */
 AC_UPDATESTATUS_t AutoConnectUpdateAct::update(void) {
   // Start update
-  String uriBin = '/' + _binName;
-  if (uri != String("."))
-  {
+  String  uriBin = '/' + _binName;
+  if (uri != ".")
     uriBin = uri + '/' + _binName;
-  }
   if (_binName.length()) {
     WiFiClient  wifiClient;
     AC_DBG("%s:%d/%s update in progress...", host.c_str(), port, uriBin.c_str());
@@ -317,12 +315,13 @@ void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectAux::
       element->name = String(FPSTR(page->element[n].name));
       if (page->element[n].value)
         element->value = String(FPSTR(page->element[n].value));
-      aux->add(reinterpret_cast<AutoConnectElement&>(*element));
+      aux->add(*element);
     }
     else if (page->element[n].type == AC_Radio) {
       AutoConnectRadio* element = new AutoConnectRadio;
       element->name = String(FPSTR(page->element[n].name));
-      aux->add(reinterpret_cast<AutoConnectElement&>(*element));
+      element->post = AC_Tag_None;
+      aux->add(*element);
     }
     else if (page->element[n].type == AC_Submit) {
       AutoConnectSubmit* element = new AutoConnectSubmit;
@@ -331,7 +330,13 @@ void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectAux::
         element->value = String(FPSTR(page->element[n].value));
       if (page->element[n].peculiar)
         element->uri = String(FPSTR(page->element[n].peculiar));
-      aux->add(reinterpret_cast<AutoConnectElement&>(*element));
+      aux->add(*element);
+    }
+    else if (page->element[n].type == AC_Style) {
+      AutoConnectStyle* element = new AutoConnectStyle;
+      element->name = String(FPSTR(page->element[n].name));
+      element->value = String(FPSTR(page->element[n].value));
+      aux->add(*element);
     }
     else if (page->element[n].type == AC_Text) {
       AutoConnectText* element = new AutoConnectText;
@@ -340,7 +345,7 @@ void AutoConnectUpdateAct::_buildAux(AutoConnectAux* aux, const AutoConnectAux::
         element->value = String(FPSTR(page->element[n].value));
       if (page->element[n].peculiar)
         element->format = String(FPSTR(page->element[n].peculiar));
-      aux->add(reinterpret_cast<AutoConnectText&>(*element));
+      aux->add(*element);
     }
   }
 }

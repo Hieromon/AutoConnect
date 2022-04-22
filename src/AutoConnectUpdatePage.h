@@ -3,8 +3,8 @@
  * AutoConnectUpdate class.
  * @file   AutoConnectUpdatePage.h
  * @author hieromon@gmail.com
- * @version    1.3.0
- * @date   2021-07-23
+ * @version    1.3.5
+ * @date   2022-04-22
  * @copyright  MIT license.
  */
 
@@ -14,11 +14,11 @@
 // Define the AUTOCONNECT_URI_UPDATE page to select the sketch binary
 // for update and order update execution.
 const AutoConnectAux::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] PROGMEM = {
-  { AC_Style, "s_bin", ".s_bin{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,.bins span{margin:0 .5em 0 .5em;padding:0;text-align:left}", nullptr },
+  { AC_Style, "bins", ".bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,.bins span{margin:0 .5em 0 .5em;padding:0;text-align:left}", nullptr },
   { AC_Text, "caption", nullptr, nullptr },
-  { AC_Element, "c1", "<div class=\"s_bin\">", nullptr },
+  { AC_Element, "c1", "<div class=\"bins\">", nullptr },
   { AC_Radio, "firmwares", nullptr, nullptr },
-  { AC_Element, "c1", "</div>", nullptr },
+  { AC_Element, "c2", "</div>", nullptr },
   { AC_Submit, "update", AUTOCONNECT_BUTTONLABEL_UPDATE, AUTOCONNECT_URI_UPDATE_ACT }
 };
 const AutoConnectAux::ACPage_t AutoConnectUpdateAct::_pageCatalog PROGMEM = {
