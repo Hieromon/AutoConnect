@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version  1.3.2
- * @date 2021-12-22
+ * @version  1.3.5
+ * @date 2022-03-21
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -65,13 +65,17 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "function _sa(url) {"
   "_bu(url).submit();"
   "}"
+  "{{POSTSCRIPT}}"
+  "</script>"
+  "</body>"
+  "</html>"
+};
+
+const char AutoConnectAux::_PAGE_SCRIPT_MA[] PROGMEM = {
   "function _ma(el,pos) {"
   "var mag=pos=='p'?el.previousElementSibling:el.nextElementSibling;"
   "mag.innerText=el.value;"
   "}"
-  "</script>"
-  "</body>"
-  "</html>"
 };
 
 /**
@@ -381,6 +385,14 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
     if (_currentUpload)
       if (_currentUpload->attach(_currentUpload->store)) {
         _upload = std::bind(&AutoConnectUploadHandler::upload, _currentUpload->upload(), std::placeholders::_1, std::placeholders::_2);
+        if (_currentUpload->exitStart())
+          _currentUpload->upload()->onStart(_currentUpload->exitStart());
+        if (_currentUpload->exitEnd())
+          _currentUpload->upload()->onEnd(_currentUpload->exitEnd());
+        if (_currentUpload->exitError())
+          _currentUpload->upload()->onError(_currentUpload->exitError());
+        if (_currentUpload->exitProgress())
+          _currentUpload->upload()->onProgress(_currentUpload->exitProgress());
         AC_DBG_DUMB("attached(%d)\n", (int)_currentUpload->store);
       }
 
@@ -504,7 +516,7 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   String  body = String("");
 
   // When WebServerClass::handleClient calls RequestHandler, the parsed
-  //  http argument has been prepared.
+  // http argument has been prepared.
   // If the current request argument contains AutoConnectElement, it is
   // the form data of the AutoConnectAux page and with this timing save
   // the value of each element.
@@ -519,7 +531,12 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
   }
 
   // Generate HTML for all AutoConnectElements contained in the page.
+  _contains = 0x0000;
   for (AutoConnectElement& addon : _addonElm) {
+    if (addon.typeOf() != AC_Unknown)
+      // Set the type of current AutoConnectElement
+      _contains = _contains | (0b1 << (uint16_t)addon.typeOf());
+
     // Since the style sheet has already drained at the time of the
     // _insertElement function call, it skips the call to the HTML
     // generator by each element.
@@ -536,6 +553,26 @@ const String AutoConnectAux::_insertElement(PageArgument& args) {
     }
   }
   return body;
+}
+
+/**
+ * Insert the JavaScript required for the dynamic behavior of the elements
+ * contained in the page at the tail of the page.
+ * AutoConnectRange and AutoConnectFile require JavaScript; if an AutoConnectAux
+ * page has these elements, the AutoConnectAux handler will automatically insert
+ * the JavaScript necessary for its operation.
+ * @param  args  A reference of PageArgument but unused.
+ * @return HTML string that should be inserted.
+ */
+const String AutoConnectAux::_insertScript(PageArgument& args) {
+  AC_UNUSED(args);
+  String  postscript;
+
+  // Insert a script that advances the progress bar of uploading progress.
+  if ((_contains >> (uint16_t)AC_Range) & 0b1)
+    postscript += String(FPSTR(_PAGE_SCRIPT_MA));
+
+  return postscript;
 }
 
 /**
@@ -618,6 +655,7 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
         elm->addToken(FPSTR("AUX_URI"), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
         elm->addToken(FPSTR("ENC_TYPE"), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
         elm->addToken(FPSTR("AUX_ELEMENT"), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
+        elm->addToken(FPSTR("POSTSCRIPT"), std::bind(&AutoConnectAux::_insertScript, this, std::placeholders::_1));
 
         // Register authentication
         // Determine the necessity of authentication from the conditions of

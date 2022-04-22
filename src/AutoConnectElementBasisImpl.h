@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.2
- * @date 2021-11-24
+ * @version  1.3.5
+ * @date 2022-03-21
  * @copyright  MIT license.
  */
 
@@ -111,6 +111,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
 
   // Release previous handler
   detach();
+  _status = AutoConnectUploadHandler::AC_UPLOAD_IDLE;
   // Classify a handler type and create the corresponding handler
   switch (store) {
   case AC_File_FS:
@@ -125,6 +126,18 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
     break;
   }
   return _upload ? true : false;
+}
+
+/**
+ * Refresh the status of the upload to maintain the last status.
+ * The upload progress status in AutoConnectUploadHandler is kept within
+ * _status, but it does not indicate the latest status. This status function
+ * takes the latest status of the upload handler into the internal _status value. 
+ */
+const AutoConnectUploadHandler::AC_UPLOADStatus_t AutoConnectFileBasis::status(void) {
+  if (_upload)
+    _status = _upload.get()->status();
+  return _status;
 }
 
 /**

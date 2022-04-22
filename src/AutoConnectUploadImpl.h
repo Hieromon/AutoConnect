@@ -2,8 +2,8 @@
  * The default upload handler implementation.
  * @file AutoConnectUploadImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.1
- * @date 2021-10-03
+ * @version  1.3.5
+ * @date 2022-03-28
  * @copyright  MIT license.
  */
 
@@ -36,6 +36,7 @@ AC_HAS_FUNC(end);
 
 template<typename T>
 typename std::enable_if<AutoConnectUtil::has_func_end<T>::value, void>::type end(T* media) {
+  AC_DBG("Ensure SD unmounting\n");
   media->end();
 }
 
@@ -55,21 +56,62 @@ typename std::enable_if<!AutoConnectUtil::has_func_end<T>::value, void>::type en
  */
 void AutoConnectUploadHandler::upload(const String& requestUri, const HTTPUpload& upload) {
   AC_UNUSED(requestUri);
+
   switch (upload.status) {
   case UPLOAD_FILE_START: {
+    _status = AC_UPLOAD_IDLE;
+    _ulAmount = 0;
+    if (_cbStart)   // Notify an OTA status change
+      _cbStart();
     String  absFilename = "/" + upload.filename;
-    (void)_open(absFilename.c_str(), "w");
+    if (!_open(absFilename.c_str(), "w")) {
+      _status = AC_UPLOAD_ERROR_OPEN;
+      _setError(nullptr);
+    }
     break;
   }
-  case UPLOAD_FILE_WRITE:
-    (void)_write(upload.buf, (const size_t)upload.currentSize);
+  case UPLOAD_FILE_WRITE: {
+    size_t  wsz = _write(upload.buf, (const size_t)upload.currentSize);
+    if ((int)wsz != -1) {
+      _ulAmount += wsz;
+      if (_cbProgress)
+        _cbProgress(_ulAmount, wsz);
+    }
+    else {
+      _status = AC_UPLOAD_ERROR_WRITE;
+      _setError(nullptr);
+    }
     break;
-  case UPLOAD_FILE_ABORTED:
+  }
   case UPLOAD_FILE_END:
+  case UPLOAD_FILE_ABORTED:
     _close(upload.status);
+    if (_status == AC_UPLOAD_IDLE) {
+      if (upload.status == UPLOAD_FILE_ABORTED) {
+        _status = AC_UPLOAD_ABORTED;
+        _setError(nullptr);
+      }
+      else
+        _status = AC_UPLOAD_END;
+    }
+    if (_cbEnd)
+      _cbEnd();
     break;
   }
 }
+
+/**
+ * Save the last upload error code and call the declared error exit.
+ * @param err  Error description
+ */
+void AutoConnectUploadHandler::_setError(const char* err) {
+  if (err) {
+    AC_DBG("ACFile err: %s\n", err);
+    _err = String(err);
+  }
+  if (_cbError)
+    _cbError((uint8_t)_status);
+} 
 
 // Default handler for uploading to the standard SPIFFS class embedded in the core.
 class AutoConnectUploadFS : public AutoConnectUploadHandler {
