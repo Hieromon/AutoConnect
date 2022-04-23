@@ -2,7 +2,7 @@
  *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	1.3.3
+ *	@version	1.3.5
  *	@date	2022-04-24
  *	@copyright	MIT license.
  */
