@@ -2,8 +2,8 @@
  *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	1.3.0
- *	@date	2021-03-25
+ *	@version	1.3.3
+ *	@date	2022-04-24
  *	@copyright	MIT license.
  */
 
@@ -515,7 +515,7 @@ size_t AutoConnectCredential::_commit(void) {
     ssid = credt.first;
     credtBody = credt.second;
     sz += ssid.length() + sizeof('\0') + credtBody.password.length() + sizeof('\0') + sizeof(AC_CREDTBODY_t::bssid) + sizeof(AC_CREDTBODY_t::dhcp);
-    if (credtBody.dhcp == (uint32_t)STA_STATIC) {
+    if (credtBody.dhcp == static_cast<uint8_t>(STA_STATIC)) {
       for (uint8_t e = 0; e < sizeof(AC_CREDTBODY_t::ip) / sizeof(uint32_t); e++)
         sz += sizeof(uint32_t);
     }
