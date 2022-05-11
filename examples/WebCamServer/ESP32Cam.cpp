@@ -17,6 +17,7 @@
 */
 
 #include <esp32-hal.h>
+#include <esp32-hal-log.h>
 #include <img_converters.h>
 #include "ESP32Cam.h"
 #include "ESP32Cam_pins.h"
@@ -113,11 +114,13 @@ esp_err_t ESP32Cam::init(const CameraId model) {
     config.frame_size = FRAMESIZE_UXGA;
     config.jpeg_quality = 10;
     config.fb_count = 2;
+    config.grab_mode = CAMERA_GRAB_LATEST;
   } else {
     _psram = false;
     config.frame_size = FRAMESIZE_SVGA;
     config.jpeg_quality = 12;
     config.fb_count = 1;
+    config.fb_location = CAMERA_FB_IN_DRAM;
   }
 
   // The pull-up required for wiring for ESP_EYE, but has not been verified.
@@ -749,7 +752,7 @@ bool ESP32Cam::_autoMount(const SDType_t sdType, fs::FS* sdFile) {
       rc = sd->begin();
     else {
       if (!sd->open(_mountProbe, FILE_WRITE)) {
-        ESP_LOGV("SD mount point may have been removed, remounting\n");
+        ESP_LOGD(ESP32CAM_LOGE_TAG, "SD mount point may have been removed, remounting");
         sd->end();
         rc = sd->begin();
       }
@@ -766,7 +769,7 @@ bool ESP32Cam::_autoMount(const SDType_t sdType, fs::FS* sdFile) {
       rc = sdmmc->begin();
     else {
       if (!sdmmc->open(_mountProbe, FILE_WRITE)) {
-        ESP_LOGV("SDMMC mount point may have been removed, remounting\n");
+        ESP_LOGD(ESP32CAM_LOGE_TAG, "SDMMC mount point may have been removed, remounting");
         sdmmc->end();
         rc = sdmmc->begin();
       }
@@ -833,13 +836,13 @@ esp_err_t ESP32Cam::_export(const char* filename, camera_fb_t* frameBuffer) {
         esp_camera_fb_return(frameBuffer);
         return rc;
       }
-      ESP_LOGE(ESP32CAM_LOGE_TAG, "SD %s open failed\n", fn);
+      ESP_LOGE(ESP32CAM_LOGE_TAG, "SD %s open failed", fn);
       rc = ESP_ERR_NOT_FOUND;
     }
     esp_camera_fb_return(frameBuffer);
   }
   else {
-    ESP_LOGE(ESP32CAM_LOGE_TAG, "failed to esp_camera_fb_get\n");
+    ESP_LOGE(ESP32CAM_LOGE_TAG, "failed to esp_camera_fb_get");
     rc = ESP_FAIL;
   }
 
