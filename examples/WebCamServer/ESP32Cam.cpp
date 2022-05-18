@@ -114,13 +114,19 @@ esp_err_t ESP32Cam::init(const CameraId model) {
     config.frame_size = FRAMESIZE_UXGA;
     config.jpeg_quality = 10;
     config.fb_count = 2;
+#if defined(ESP_IDF_VERSION_MAJOR) && ESP_IDF_VERSION_MAJOR>=4
+    config.fb_location = CAMERA_FB_IN_PSRAM;
     config.grab_mode = CAMERA_GRAB_LATEST;
+#endif
   } else {
     _psram = false;
     config.frame_size = FRAMESIZE_SVGA;
     config.jpeg_quality = 12;
     config.fb_count = 1;
+#if defined(ESP_IDF_VERSION_MAJOR) && ESP_IDF_VERSION_MAJOR>=4
     config.fb_location = CAMERA_FB_IN_DRAM;
+    config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
+#endif
   }
 
   // The pull-up required for wiring for ESP_EYE, but has not been verified.
@@ -146,7 +152,7 @@ esp_err_t ESP32Cam::init(const CameraId model) {
     }
   }
   else
-    ESP_LOGE(ESP32CAM_LOGE_TAG, ESP32CAM_NVS_KEYNAME " init failed 0x%04x", err);
+    ESP_LOGE(ESP32CAM_LOGE_TAG, "Init failed 0x%04x", err);
 
   // Create semaphore to inform us when the timer has fired
   ESP32Cam_internal::xMutex = xSemaphoreCreateMutex();
@@ -605,7 +611,7 @@ void ESP32Cam::_timerShot(const unsigned long period, const char* filenamePrefix
  */
 void IRAM_ATTR ESP32Cam::_timerShotISR(void) {
   if (xTaskCreateUniversal(&ESP32Cam::_timerShotTask, ESP32CAM_GLOBAL_IDENTIFIER, ESP32CAM_TIMERTASK_STACKSIZE, (void*)ESP32Cam_internal::esp32cam, 1, NULL, CONFIG_ARDUINO_RUNNING_CORE) != pdPASS) {
-    ESP_LOGE(ESP32CAM_LOGE_TAG, ESP32CAM_GLOBAL_IDENTIFIER " timerShot task failed");
+    ESP_LOGE(ESP32CAM_LOGE_TAG, "TimerShot task failed");
   }
 }
 

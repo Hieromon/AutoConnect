@@ -37,7 +37,7 @@
 // When using the CORE_DEBUG_LEVEL macro switch to log the esp32cam class,
 // TAG is an empty string.
 #ifndef ESP32CAM_LOGE_TAG
-#define ESP32CAM_LOGE_TAG
+#define ESP32CAM_LOGE_TAG             "ESP32Cam"
 #endif // !ESP32CAM_LOGE_TAG
 #ifndef ESP32CAM_GLOBAL_IDENTIFIER
 #define ESP32CAM_GLOBAL_IDENTIFIER    "ESP32Cam"
