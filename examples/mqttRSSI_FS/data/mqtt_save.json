@@ -7,31 +7,49 @@
       "name": "caption",
       "type": "ACText",
       "value": "<h4>Parameters saved as:</h4>",
-      "style": "text-align:center;color:#2f4f4f;padding:10px;"
+      "style": "text-align:center;color:#2f4f4f;padding:5px;"
     },
     {
       "name": "mqttserver",
       "type": "ACText",
       "format": "Server: %s",
-      "posterior": "br"
+      "posterior": "br",
+      "global": true
+    },
+    {
+      "name": "userkey",
+      "type": "ACText",
+      "format": "User API Key: %s",
+      "posterior": "br",
+      "global": true
     },
     {
       "name": "channelid",
       "type": "ACText",
       "format": "Channel ID: %s",
-      "posterior": "br"
+      "posterior": "br",
+      "global": true
     },
     {
-      "name": "userkey",
+      "name": "clientid",
       "type": "ACText",
-      "format": "User Key: %s",
-      "posterior": "br"
+      "format": "Client ID: %s",
+      "posterior": "br",
+      "global": true
     },
     {
-      "name": "apikey",
+      "name": "username",
       "type": "ACText",
-      "format": "API Key: %s",
-      "posterior": "br"
+      "format": "Username: %s",
+      "posterior": "br",
+      "global": true
+    },
+    {
+      "name": "password",
+      "type": "ACText",
+      "format": "Password: %s",
+      "posterior": "br",
+      "global": true
     },
     {
       "name": "period",

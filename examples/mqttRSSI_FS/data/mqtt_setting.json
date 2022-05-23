@@ -6,56 +6,81 @@
     {
       "name": "style",
       "type": "ACStyle",
-      "value": "label+input,label+select{position:sticky;left:120px;width:230px!important;box-sizing:border-box;}"
+      "value": "label+input,label+select{position:sticky;left:140px;width:230px!important;box-sizing:border-box;}"
     },
     {
       "name": "header",
       "type": "ACText",
-      "value": "<h2>MQTT broker settings</h2>",
-      "style": "text-align:center;color:#2f4f4f;"
+      "value": "<h2>MQTT Broker settings</h2>",
+      "style": "text-align:center;color:#2f4f4f"
     },
     {
       "name": "caption",
       "type": "ACText",
-      "value": "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak",
-      "style": "font-family:serif;color:#4682b4;"
+      "value": "Publish WiFi signal strength via MQTT, publishing the RSSI value of the ESP module to the ThingSpeak public channel.",
+      "style": "font-family:serif;color:#053d76"
     },
     {
       "name": "mqttserver",
       "type": "ACInput",
+      "label": "Server",
+      "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$",
       "placeholder": "MQTT broker server",
-      "label": "Server"
-    },
-    {
-      "name": "channelid",
-      "type": "ACInput",
-      "label": "Channel ID"
-    },
-    {
-      "name": "userkey",
-      "type": "ACInput",
-      "label": "User Key"
+      "global": true
     },
     {
       "name": "apikey",
       "type": "ACInput",
-      "label": "API Key"
+      "label": "User API Key",
+      "global": true
     },
     {
-      "name": "newline",
+      "name": "channelid",
+      "type": "ACInput",
+      "label": "Channel ID",
+      "pattern": "^[0-9]{6}$",
+      "global": true
+    },
+    {
+      "name": "writekey",
+      "type": "ACInput",
+      "label": "Write API Key",
+      "global": true
+    },
+    {
+      "name": "nl1",
       "type": "ACElement",
       "value": "<hr>"
     },
     {
-      "name": "period",
-      "type": "ACRadio",
-      "label": "Update period",
-      "value": [
-        "30 sec.",
-        "60 sec.",
-        "180 sec."
-      ],
-      "arrange": "vertical"
+      "name": "credential",
+      "type": "ACText",
+      "value": "MQTT Device Credentials",
+      "style": "font-weight:bold;color:#1e81b0"
+    },
+    {
+      "name": "clientid",
+      "type": "ACInput",
+      "label": "Client ID",
+      "global": true
+    },
+    {
+      "name": "username",
+      "type": "ACInput",
+      "label": "Username",
+      "global": true
+    },
+    {
+      "name": "password",
+      "type": "ACInput",
+      "label": "Password",
+      "apply": "password",
+      "global": true
+    },
+    {
+      "name": "nl2",
+      "type": "ACElement",
+      "value": "<hr>"
     },
     {
       "name": "uniqueid",
@@ -65,15 +90,27 @@
       "checked": false
     },
     {
+      "name": "period",
+      "type": "ACRadio",
+      "value": [
+        "30 sec.",
+        "60 sec.",
+        "180 sec."
+      ],
+      "label": "Update period",
+      "arrange": "vertical"
+    },
+    {
       "name": "hostname",
       "type": "ACInput",
+      "value": "",
       "label": "ESP host name",
-      "value": ""
+      "pattern": "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,24}$"
     },
     {
       "name": "save",
       "type": "ACSubmit",
-      "value": "Save&Start",
+      "value": "Save&amp;Start",
       "uri": "/mqtt_save"
     },
     {

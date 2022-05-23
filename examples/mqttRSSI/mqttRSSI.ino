@@ -27,29 +27,36 @@ https://opensource.org/licenses/MIT
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
 #include <ESP8266mDNS.h>
-#include <LittleFS.h>
 #define FORMAT_ON_FAIL
 #define GET_CHIPID()    (ESP.getChipId())
 #define GET_HOSTNAME()  (WiFi.hostname())
 using WiFiWebServer = ESP8266WebServer;
-FS& FlashFS = LittleFS;
-
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
 #include <ESPmDNS.h>
-#include <FS.h>
-#include <SPIFFS.h>
 #define FORMAT_ON_FAIL  true
 #define GET_CHIPID()    ((uint16_t)(ESP.getEfuseMac()>>32))
 #define GET_HOSTNAME()  (WiFi.getHostname())
 using WiFiWebServer = WebServer;
-fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
 #include <PubSubClient.h>
 #include <AutoConnect.h>
+
+#ifdef AC_USE_LITTLEFS
+#include <LittleFS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+FS& FlashFS = LittleFS;
+#elif defined(ARDUINO_ARCH_ESP32)
+fs::LittleFSFS& FlashFS = LittleFS;
+#endif
+#else
+#include <FS.h>
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
 
 const char* PARAM_FILE      = "/param.json";
 const char* AUX_SETTING_URI = "/mqtt_setting";
@@ -71,45 +78,79 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "style",
         "type": "ACStyle",
-        "value": "label+input,label+select{position:sticky;left:120px;width:230px!important;box-sizing:border-box;}"
+        "value": "label+input,label+select{position:sticky;left:140px;width:230px!important;box-sizing:border-box;}"
       },
       {
         "name": "header",
         "type": "ACText",
-        "value": "<h2>MQTT broker settings</h2>",
-        "style": "text-align:center;color:#2f4f4f;padding:10px;"
+        "value": "<h2>MQTT Broker settings</h2>",
+        "style": "text-align:center;color:#2f4f4f"
       },
       {
         "name": "caption",
         "type": "ACText",
-        "value": "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak",
-        "style": "font-family:serif;color:#4682b4;"
+        "value": "Publish WiFi signal strength via MQTT, publishing the RSSI value of the ESP module to the ThingSpeak public channel.",
+        "style": "font-family:serif;color:#053d76"
       },
       {
         "name": "mqttserver",
         "type": "ACInput",
         "label": "Server",
         "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$",
-        "placeholder": "MQTT broker server"
+        "placeholder": "MQTT broker server",
+        "global": true
+      },
+      {
+        "name": "apikey",
+        "type": "ACInput",
+        "label": "User API Key",
+        "global": true
       },
       {
         "name": "channelid",
         "type": "ACInput",
         "label": "Channel ID",
-        "pattern": "^[0-9]{6}$"
+        "pattern": "^[0-9]{6}$",
+        "global": true
       },
       {
-        "name": "userkey",
+        "name": "writekey",
         "type": "ACInput",
-        "label": "User Key"
+        "label": "Write API Key",
+        "global": true
       },
       {
-        "name": "apikey",
+        "name": "nl1",
+        "type": "ACElement",
+        "value": "<hr>"
+      },
+      {
+        "name": "credential",
+        "type": "ACText",
+        "value": "MQTT Device Credentials",
+        "style": "font-weight:bold;color:#1e81b0"
+      },
+      {
+        "name": "clientid",
         "type": "ACInput",
-        "label": "API Key"
+        "label": "Client ID",
+        "global": true
       },
       {
-        "name": "newline",
+        "name": "username",
+        "type": "ACInput",
+        "label": "Username",
+        "global": true
+      },
+      {
+        "name": "password",
+        "type": "ACInput",
+        "label": "Password",
+        "apply": "password",
+        "global": true
+      },
+      {
+        "name": "nl2",
         "type": "ACElement",
         "value": "<hr>"
       },
@@ -161,31 +202,49 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "name": "caption",
         "type": "ACText",
         "value": "<h4>Parameters saved as:</h4>",
-        "style": "text-align:center;color:#2f4f4f;padding:10px;"
+        "style": "text-align:center;color:#2f4f4f;padding:5px;"
       },
       {
         "name": "mqttserver",
         "type": "ACText",
         "format": "Server: %s",
-        "posterior": "br"
+        "posterior": "br",
+        "global": true
+      },
+      {
+        "name": "userkey",
+        "type": "ACText",
+        "format": "User API Key: %s",
+        "posterior": "br",
+        "global": true
       },
       {
         "name": "channelid",
         "type": "ACText",
         "format": "Channel ID: %s",
-        "posterior": "br"
+        "posterior": "br",
+        "global": true
       },
       {
-        "name": "userkey",
+        "name": "clientid",
         "type": "ACText",
-        "format": "User Key: %s",
-        "posterior": "br"
+        "format": "Client ID: %s",
+        "posterior": "br",
+        "global": true
       },
       {
-        "name": "apikey",
+        "name": "username",
         "type": "ACText",
-        "format": "API Key: %s",
-        "posterior": "br"
+        "format": "Username: %s",
+        "posterior": "br",
+        "global": true
+      },
+      {
+        "name": "password",
+        "type": "ACText",
+        "format": "Password: %s",
+        "posterior": "br",
+        "global": true
       },
       {
         "name": "period",
@@ -214,12 +273,14 @@ String  apId;
 String  hostName;
 
 String  serverName;
+String  userAPIKey;
 String  channelId;
-String  userKey;
-String  apiKey;
+String  writeAPIKey;
+String  clientID;
+String  username;
+String  password;
 bool  uniqueid;
 unsigned long publishInterval = 0;
-const char* userId = "anyone";
 
 unsigned long lastPub = 0;
 unsigned long lastAttempt = 0;
@@ -228,11 +289,6 @@ bool  reconnect = false;
 int   retry;
 
 bool mqttConnect() {
-  static const char alphanum[] =
-    "0123456789"
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
-  char  clientId[9];
   bool  rc;
 
   rc = serverName.length() > 0;
@@ -241,18 +297,9 @@ bool mqttConnect() {
     mqttClient.setServer(serverName.c_str(), 1883);
     Serial.println(String("Attempting MQTT broker:") + serverName);
 
-    // Changing the client ID each time you open a session with a broker is
-    // important for publishing continuity. Sessions interrupted by
-    // communication anomalies are thrown away and do not interfere with
-    // subsequent publications.
-    uint8_t i = 0;
-    while (i < sizeof(clientId))
-      clientId[i++] = alphanum[random(sizeof(alphanum))];
-    clientId[i - 1] = '\0';
-
-    rc = mqttClient.connect(clientId, userId, userKey.c_str());
+    rc = mqttClient.connect(clientID.c_str(), username.c_str(), password.c_str());
     if (rc)
-      Serial.println("Established:" + String(clientId));
+      Serial.println("Established:" + clientID);
     else
       Serial.println("Connection failed:" + String(mqttClient.state()));
   }
@@ -286,12 +333,18 @@ int getStrength(uint8_t points) {
 void getParams(AutoConnectAux& aux) {
   serverName = aux[F("mqttserver")].value;
   serverName.trim();
+  userAPIKey = aux[F("apikey")].value;
+  userAPIKey.trim();
   channelId = aux[F("channelid")].value;
   channelId.trim();
-  userKey = aux[F("userkey")].value;
-  userKey.trim();
-  apiKey = aux[F("apikey")].value;
-  apiKey.trim();
+  writeAPIKey = aux[F("writekey")].value;
+  writeAPIKey.trim();
+  clientID = aux[F("clientid")].value;
+  clientID.trim();
+  username = aux[F("username")].value;
+  username.trim();
+  password = aux[F("password")].value;
+  password.trim();
   AutoConnectRadio& period = aux[F("period")].as<AutoConnectRadio>();
   publishInterval = period.value().substring(0, 2).toInt() * 1000;
   uniqueid = aux[F("uniqueid")].as<AutoConnectCheckbox>().checked;
@@ -327,22 +380,18 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // The 'where()' function returns the AutoConnectAux that caused
   // the transition to this page.
-  AutoConnectAux&   mqtt_setting = *portal.aux(portal.where());
+  AutoConnectAux& mqtt_setting = *portal.aux(portal.where());
   getParams(mqtt_setting);
 
   // The entered value is owned by AutoConnectAux of /mqtt_setting.
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
   File param = FlashFS.open(PARAM_FILE, "w");
-  mqtt_setting.saveElement(param, {"mqttserver", "channelid", "userkey", "apikey", "uniqueid", "period", "hostname"});
+  mqtt_setting.saveElement(param, {"mqttserver", "apikey", "channelid", "writekey", "clientid", "username", "password", "uniqueid", "period", "hostname"});
   param.close();
 
   // Echo back saved parameters to AutoConnectAux page.
   AutoConnectInput& mqttserver = mqtt_setting[F("mqttserver")].as<AutoConnectInput>();
-  aux[F("mqttserver")].value = serverName + String(mqttserver.isValid() ? " (OK)" : " (ERR)");
-  aux[F("channelid")].value = channelId;
-  aux[F("userkey")].value = userKey;
-  aux[F("apikey")].value = apiKey;
   aux[F("period")].value = String(publishInterval / 1000);
 
   return String();
@@ -370,8 +419,8 @@ void handleClearChannel() {
   HTTPClient  httpClient;
 
   String  endpoint = serverName;
-  endpoint.replace("mqtt", "api");
-  String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userKey;
+  endpoint.replace("mqtt3", "api");
+  String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userAPIKey;
 
   Serial.print("DELETE " + delUrl);
   if (httpClient.begin(wifiClient, delUrl)) {
@@ -466,7 +515,7 @@ void loop() {
       // sketches. It blocks HTTP request replies.
       // The publish interval is guaranteed by measuring the elapsed time.
       if (millis() - lastPub > publishInterval) {
-        String  topic = String("channels/") + channelId + String("/publish/") + apiKey;
+        String  topic = String("channels/") + channelId + String("/publish");
         String  message = String("field1=") + String(getStrength(7));
         mqttPublish(topic, message);
         lastPub = millis();

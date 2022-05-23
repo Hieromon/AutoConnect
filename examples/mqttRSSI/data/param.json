@@ -2,7 +2,12 @@
   {
     "name": "mqttserver",
     "type": "ACInput",
-    "value": "mqtt.thingspeak.com"
+    "value": "mqtt3.thingspeak.com"
+  },
+  {
+    "name": "apikey",
+    "type": "ACInput",
+    "value": "NRTFYGJ6TJFGX4RC"
   },
   {
     "name": "channelid",
@@ -10,14 +15,24 @@
     "value": "454951"
   },
   {
-    "name": "userkey",
-    "type": "ACInput",
-    "value": "NRTFYGJ6TJFGX4RC"
-  },
-  {
-    "name": "apikey",
+    "name": "writekey",
     "type": "ACInput",
     "value": "HBVQ2XV6VYBI4582"
+  },
+  {
+    "name": "clientid",
+    "type": "ACInput",
+    "value": "DS8KNQQqJQscMAE3Fwc1PAc"
+  },
+  {
+    "name": "username",
+    "type": "ACInput",
+    "value": "DS8KNQQqJQscMAE3Fwc1PAc"
+  },
+  {
+    "name": "password",
+    "type": "ACInput",
+    "value": "AgCbClLitxmgK39ApBfUuVxY"
   },
   {
     "name": "period",

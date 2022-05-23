@@ -31,29 +31,36 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
 #include <ESP8266mDNS.h>
-#include <LittleFS.h>
 #define FORMAT_ON_FAIL
 #define GET_CHIPID()    (ESP.getChipId())
 #define GET_HOSTNAME()  (WiFi.hostname())
 using WiFiWebServer = ESP8266WebServer;
-FS& FlashFS = LittleFS;
-
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
 #include <ESPmDNS.h>
-#include <FS.h>
-#include <SPIFFS.h>
 #define FORMAT_ON_FAIL  true
 #define GET_CHIPID()    ((uint16_t)(ESP.getEfuseMac()>>32))
 #define GET_HOSTNAME()  (WiFi.getHostname())
 using WiFiWebServer = WebServer;
-fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
 #include <PubSubClient.h>
 #include <AutoConnect.h>
+
+#ifdef AC_USE_LITTLEFS
+#include <LittleFS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+FS& FlashFS = LittleFS;
+#elif defined(ARDUINO_ARCH_ESP32)
+fs::LittleFSFS& FlashFS = LittleFS;
+#endif
+#else
+#include <FS.h>
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
 
 const char* PARAM_FILE      = "/param.json";
 const char* AUX_SETTING_URI = "/mqtt_setting";
@@ -70,12 +77,14 @@ String  apId;
 String  hostName;
 
 String  serverName;
+String  userAPIKey;
 String  channelId;
-String  userKey;
-String  apiKey;
-bool  uniqueid;
+String  writeAPIKey;
+String  clientID;
+String  username;
+String  password;
 unsigned long publishInterval = 0;
-const char* userId = "anyone";
+bool  uniqueid;
 
 unsigned long lastPub = 0;
 unsigned long lastAttempt = 0;
@@ -84,11 +93,6 @@ bool  reconnect = false;
 int   retry;
 
 bool mqttConnect() {
-  static const char alphanum[] =
-    "0123456789"
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
-  char  clientId[9];
   bool  rc;
 
   rc = serverName.length() > 0;
@@ -97,18 +101,9 @@ bool mqttConnect() {
     mqttClient.setServer(serverName.c_str(), 1883);
     Serial.println(String("Attempting MQTT broker:") + serverName);
 
-    // Changing the client ID each time you open a session with a broker is
-    // important for publishing continuity. Sessions interrupted by
-    // communication anomalies are thrown away and do not interfere with
-    // subsequent publications.
-    uint8_t i = 0;
-    while (i < sizeof(clientId))
-      clientId[i++] = alphanum[random(sizeof(alphanum))];
-    clientId[i - 1] = '\0';
-
-    rc = mqttClient.connect(clientId, userId, userKey.c_str());
+    rc = mqttClient.connect(clientID.c_str(), username.c_str(), password.c_str());
     if (rc)
-      Serial.println("Established:" + String(clientId));
+      Serial.println("Established:" + clientID);
     else
       Serial.println("Connection failed:" + String(mqttClient.state()));
   }
@@ -142,19 +137,20 @@ int getStrength(uint8_t points) {
 void getParams(AutoConnectAux& aux) {
   serverName = aux[F("mqttserver")].value;
   serverName.trim();
+  userAPIKey = aux[F("apikey")].value;
+  userAPIKey.trim();
   channelId = aux[F("channelid")].value;
   channelId.trim();
-  userKey = aux[F("userkey")].value;
-  userKey.trim();
-  apiKey = aux[F("apikey")].value;
-  apiKey.trim();
+  writeAPIKey = aux[F("writekey")].value;
+  writeAPIKey.trim();
+  clientID = aux[F("clientid")].value;
+  clientID.trim();
+  username = aux[F("username")].value;
+  username.trim();
+  password = aux[F("password")].value;
+  password.trim();
   AutoConnectRadio& period = aux[F("period")].as<AutoConnectRadio>();
-  if (period.checked == 1)
-    publishInterval = 30000;
-  else if (period.checked == 2)
-    publishInterval = 60000;
-  else if (period.checked == 3)
-    publishInterval = 180000;
+  publishInterval = period.value().substring(0, 2).toInt() * 1000;
   uniqueid = aux[F("uniqueid")].as<AutoConnectCheckbox>().checked;
   hostName = aux[F("hostname")].value;
   hostName.trim();
@@ -195,15 +191,11 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   // To retrieve the elements of /mqtt_setting, it is necessary to get
   // the AutoConnectAux object of /mqtt_setting.
   File param = FlashFS.open(PARAM_FILE, "w");
-  mqtt_setting.saveElement(param, {"mqttserver", "channelid", "userkey", "apikey", "uniqueid", "period", "hostname"});
+  mqtt_setting.saveElement(param, {"mqttserver", "apikey", "channelid", "writekey", "clientid", "username", "password", "uniqueid", "period", "hostname"});
   param.close();
 
   // Echo back saved parameters to AutoConnectAux page.
   AutoConnectInput& mqttserver = mqtt_setting[F("mqttserver")].as<AutoConnectInput>();
-  aux[F("mqttserver")].value = serverName + String(mqttserver.isValid() ? " (OK)" : " (ERR)");
-  aux[F("channelid")].value = channelId;
-  aux[F("userkey")].value = userKey;
-  aux[F("apikey")].value = apiKey;
   aux[F("period")].value = String(publishInterval / 1000);
 
   return String();
@@ -231,8 +223,8 @@ void handleClearChannel() {
   HTTPClient  httpClient;
 
   String  endpoint = serverName;
-  endpoint.replace("mqtt", "api");
-  String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userKey;
+  endpoint.replace("mqtt3", "api");
+  String  delUrl = "http://" + endpoint + "/channels/" + channelId + "/feeds.json?api_key=" + userAPIKey;
 
   Serial.print("DELETE " + delUrl);
   if (httpClient.begin(wifiClient, delUrl)) {
@@ -347,7 +339,7 @@ void loop() {
       // sketches. It blocks HTTP request replies.
       // The publish interval is guaranteed by measuring the elapsed time.
       if (millis() - lastPub > publishInterval) {
-        String  topic = String("channels/") + channelId + String("/publish/") + apiKey;
+        String  topic = String("channels/") + channelId + String("/publish");
         String  message = String("field1=") + String(getStrength(7));
         mqttPublish(topic, message);
         lastPub = millis();
