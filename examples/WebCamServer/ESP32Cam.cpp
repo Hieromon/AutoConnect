@@ -67,10 +67,6 @@ ESP32Cam::~ESP32Cam() {
  * @param  model  The model ID of the sensor to be used.
  */
 esp_err_t ESP32Cam::init(const CameraId model) {
-  // Allow output log depending on CORE_DEBUG_LOG macro identifier using
-  // the esp-idf component.
-  esp_log_level_set("*", ESP_LOG_ERROR);
-
   // Identify the valid pin-map that a model parameter represent.
   _cameraId = CAMERA_MODEL_UNKNOWN;
   for (uint8_t id = 0; id < (sizeof(_pinsMap) / sizeof(_pinsMap[0])); id++) {
@@ -152,7 +148,7 @@ esp_err_t ESP32Cam::init(const CameraId model) {
     }
   }
   else
-    ESP_LOGE(ESP32CAM_LOGE_TAG, "Init failed 0x%04x", err);
+    log_e("Camera %d init failed 0x%04x\n", (int)_cameraId, err);
 
   // Create semaphore to inform us when the timer has fired
   ESP32Cam_internal::xMutex = xSemaphoreCreateMutex();
@@ -611,7 +607,7 @@ void ESP32Cam::_timerShot(const unsigned long period, const char* filenamePrefix
  */
 void IRAM_ATTR ESP32Cam::_timerShotISR(void) {
   if (xTaskCreateUniversal(&ESP32Cam::_timerShotTask, ESP32CAM_GLOBAL_IDENTIFIER, ESP32CAM_TIMERTASK_STACKSIZE, (void*)ESP32Cam_internal::esp32cam, 1, NULL, CONFIG_ARDUINO_RUNNING_CORE) != pdPASS) {
-    ESP_LOGE(ESP32CAM_LOGE_TAG, "TimerShot task failed");
+    log_e("TimerShot task failed\n");
   }
 }
 
@@ -758,7 +754,7 @@ bool ESP32Cam::_autoMount(const SDType_t sdType, fs::FS* sdFile) {
       rc = sd->begin();
     else {
       if (!sd->open(_mountProbe, FILE_WRITE)) {
-        ESP_LOGD(ESP32CAM_LOGE_TAG, "SD mount point may have been removed, remounting");
+        log_d("SD mount removed, remounting\n");
         sd->end();
         rc = sd->begin();
       }
@@ -775,7 +771,7 @@ bool ESP32Cam::_autoMount(const SDType_t sdType, fs::FS* sdFile) {
       rc = sdmmc->begin();
     else {
       if (!sdmmc->open(_mountProbe, FILE_WRITE)) {
-        ESP_LOGD(ESP32CAM_LOGE_TAG, "SDMMC mount point may have been removed, remounting");
+        log_d("SDMMC mount removed, remounting\n");
         sdmmc->end();
         rc = sdmmc->begin();
       }
@@ -842,13 +838,13 @@ esp_err_t ESP32Cam::_export(const char* filename, camera_fb_t* frameBuffer) {
         esp_camera_fb_return(frameBuffer);
         return rc;
       }
-      ESP_LOGE(ESP32CAM_LOGE_TAG, "SD %s open failed", fn);
+      log_e("SD %s open failed\n", fn);
       rc = ESP_ERR_NOT_FOUND;
     }
     esp_camera_fb_return(frameBuffer);
   }
   else {
-    ESP_LOGE(ESP32CAM_LOGE_TAG, "failed to esp_camera_fb_get");
+    log_e("failed to esp_camera_fb_get\n");
     rc = ESP_FAIL;
   }
 

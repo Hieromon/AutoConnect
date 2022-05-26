@@ -40,7 +40,7 @@
 #define ESP32CAM_LOGE_TAG             "ESP32Cam"
 #endif // !ESP32CAM_LOGE_TAG
 #ifndef ESP32CAM_GLOBAL_IDENTIFIER
-#define ESP32CAM_GLOBAL_IDENTIFIER    "ESP32Cam"
+#define ESP32CAM_GLOBAL_IDENTIFIER    ESP32CAM_LOGE_TAG
 #endif // !ESP32CAM_GLOBAL_IDENTIFIER
 
 // Default extension for a exporting captured image.
