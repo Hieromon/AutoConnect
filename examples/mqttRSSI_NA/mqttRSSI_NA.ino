@@ -19,15 +19,16 @@ https://opensource.org/licenses/MIT
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
 #include <ESP8266mDNS.h>
+#define FORMAT_ON_FAIL
 #define GET_CHIPID()    (ESP.getChipId())
 #define GET_HOSTNAME()  (WiFi.hostname())
 using WiFiWebServer = ESP8266WebServer;
-
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
 #include <ESPmDNS.h>
+#define FORMAT_ON_FAIL  true
 #define GET_CHIPID()    ((uint16_t)(ESP.getEfuseMac()>>32))
 #define GET_HOSTNAME()  (WiFi.getHostname())
 using WiFiWebServer = WebServer;
@@ -36,6 +37,19 @@ using WiFiWebServer = WebServer;
 #include <PubSubClient.h>
 #include <AutoConnect.h>
 #include "param.h"
+
+#ifdef AC_USE_LITTLEFS
+#include <LittleFS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+FS& FlashFS = LittleFS;
+#elif defined(ARDUINO_ARCH_ESP32)
+fs::LittleFSFS& FlashFS = LittleFS;
+#endif
+#else
+#include <FS.h>
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
 
 // MQTT parameter settings page URLs
 const char* AUX_SETTING_URI = "/mqtt_setting";
@@ -49,16 +63,23 @@ const char* AUX_CLEAR_URI   = "/mqtt_clear";
 // facility.
 
 // Declare AutoConnectElements for the page asf /mqtt_setting
-ACStyle(style, "label+input,label+select{position:sticky;left:120px;width:230px!important;box-sizing:border-box;}");
-ACText(header, "<h2>MQTT broker settings</h2>", "text-align:center;color:#2f4f4f;padding:10px;");
-ACText(caption, "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");
+ACStyle(style, "label+input,label+select{position:sticky;left:140px;width:230px!important;box-sizing:border-box;}");
+ACText(header, "<h2>MQTT Broker settings</h2>", "text-align:center;color:#2f4f4f");
+ACText(caption, "Publish WiFi signal strength via MQTT, publishing the RSSI value of the ESP module to the ThingSpeak public channel.", "font-family:serif;color:#053d76");
 ACInput(mqttserver, "", "Server", "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$", "MQTT broker server");
+ACInput(apikey, "", "Uer API Key");
 ACInput(channelid, "", "Channel ID", "^[0-9]{6}$");
-ACInput(userkey, "", "User Key");
-ACInput(apikey, "", "API Key");
-ACElement(newline, "<hr>");
+ACInput(writekey, "", "Write API Key");
+ACElement(nl1, "<hr>");
+ACText(credential, "MQTT Device Credentials", "text-align:center;color:#2f4f4f");
+ACInput(clientid, "", "Client ID");
+ACInput(username, "", "Username");
+ACInput(password, "", "Password");
+ACElement(nl2, "<hr>");
+ACCheckbox(uniqueid, "", "Use APID unique");
 ACRadio(period, { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);
-ACSubmit(save, "Start", AUX_SAVE_URI);
+ACInput(hostname, "ESP host name", "", "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,24}$");
+ACSubmit(save, "Save&amp;Start", AUX_SAVE_URI);
 ACSubmit(discard, "Discard", "/");
 
 // Declare the custom Web page as /mqtt_setting and contains the AutoConnectElements
@@ -67,17 +88,24 @@ AutoConnectAux mqtt_setting(AUX_SETTING_URI, "MQTT Setting", true, {
   header,
   caption,
   mqttserver,
-  channelid,
-  userkey,
   apikey,
-  newline,
+  channelid,
+  writekey,
+  nl1,
+  credential,
+  clientid,
+  username,
+  password,
+  nl2,
+  uniqueid,
   period,
+  hostname,
   save,
   discard
 });
 
 // Declare AutoConnectElements for the page as /mqtt_save
-ACText(caption2, "<h4>Parameters available as:</h4>", "text-align:center;color:#2f4f4f;padding:10px;");
+ACText(caption2, "<h4>Parameters available as:</h4>", "text-align:center;color:#2f4f4f;padding:5px;");
 ACText(parameters);
 ACSubmit(clear, "Clear channel", AUX_CLEAR_URI);
 
@@ -106,11 +134,6 @@ int   retry;
 mqtt_param_t  mqtt_param;
 
 bool mqttConnect() {
-  static const char alphanum[] =
-    "0123456789"
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "abcdefghijklmnopqrstuvwxyz";  // For random generation of client ID.
-  char  clientId[9];
   bool  rc;
 
   rc = mqttserver.value.length() > 0;
@@ -119,18 +142,9 @@ bool mqttConnect() {
     mqttClient.setServer(mqttserver.value.c_str(), 1883);
     Serial.println(String("Attempting MQTT broker:") + mqttserver.value);
 
-    // Changing the client ID each time you open a session with a broker is
-    // important for publishing continuity. Sessions interrupted by
-    // communication anomalies are thrown away and do not interfere with
-    // subsequent publications.
-    uint8_t i = 0;
-    while (i < sizeof(clientId))
-      clientId[i++] = alphanum[random(sizeof(alphanum))];
-    clientId[i - 1] = '\0';
-
-    rc = mqttClient.connect(clientId, userId, userkey.value.c_str());
+    rc = mqttClient.connect(clientid.value.c_str(), username.value.c_str(), password.value.c_str());
     if (rc)
-      Serial.println("Established:" + String(clientId));
+      Serial.println("Established:" + clientid.value);
     else
       Serial.println("Connection failed:" + String(mqttClient.state()));
   }
@@ -164,10 +178,14 @@ int getStrength(uint8_t points) {
 // Load parameters from persistent storage
 String loadParams(AutoConnectAux& aux, PageArgument& args) {
   getParams(mqtt_param);
+
   mqttserver.value = mqtt_param.server;
-  channelid.value = mqtt_param.channelid;
-  userkey.value = mqtt_param.userkey;
-  apikey.value = mqtt_param.apikey;
+  channelid.value = mqtt_param.channelId;
+  apikey.value = mqtt_param.userAPIKey;
+  writekey.value = mqtt_param.writeAPIKey;
+  clientid.value = mqtt_param.clientID;
+  username.value = mqtt_param.username;
+  password.value = mqtt_param.password;
   publishInterval = mqtt_param.publishInterval;
   if (publishInterval == 30000UL)
     period.checked = 1;
@@ -184,8 +202,11 @@ String loadParams(AutoConnectAux& aux, PageArgument& args) {
 String saveParams(AutoConnectAux& aux, PageArgument& args) {
   mqttserver.value.trim();
   channelid.value.trim();
-  userkey.value.trim();
   apikey.value.trim();
+  writekey.value.trim();
+  clientid.value.trim();
+  username.value.trim();
+  password.value.trim();
   if (period.checked == 1)
     publishInterval = 30000UL;
   else if (period.checked == 2)
@@ -194,17 +215,23 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
     publishInterval = 180000UL;
 
   strncpy(mqtt_param.server, mqttserver.value.c_str(), sizeof(mqtt_param_t::server));
-  strncpy(mqtt_param.channelid, channelid.value.c_str(), sizeof(mqtt_param_t::channelid));
-  strncpy(mqtt_param.userkey, userkey.value.c_str(), sizeof(mqtt_param_t::userkey));
-  strncpy(mqtt_param.apikey, apikey.value.c_str(), sizeof(mqtt_param_t::apikey));
+  strncpy(mqtt_param.channelId, channelid.value.c_str(), sizeof(mqtt_param_t::channelId));
+  strncpy(mqtt_param.userAPIKey, apikey.value.c_str(), sizeof(mqtt_param_t::userAPIKey));
+  strncpy(mqtt_param.writeAPIKey, writekey.value.c_str(), sizeof(mqtt_param_t::writeAPIKey));
+  strncpy(mqtt_param.clientID, clientid.value.c_str(), sizeof(mqtt_param_t::clientID));
+  strncpy(mqtt_param.username, username.value.c_str(), sizeof(mqtt_param_t::username));
+  strncpy(mqtt_param.password, password.value.c_str(), sizeof(mqtt_param_t::password));
   mqtt_param.publishInterval = publishInterval;
   putParams(mqtt_param);
 
   // Echo back saved parameters to AutoConnectAux page.
   String echo = "Server: " + mqttserver.value + "<br>";
+  echo += "User API Key: " + apikey.value + "<br>";
   echo += "Channel ID: " + channelid.value + "<br>";
-  echo += "User Key: " + userkey.value + "<br>";
-  echo += "API Key: " + apikey.value + "<br>";
+  echo += "Write API Key: " + writekey.value + "<br>";
+  echo += "Client ID: " + clientid.value + "<br>";
+  echo += "Username: " + username.value + "<br>";
+  echo += "Password: " + password.value + "<br>";
   echo += "Update period: " + String(publishInterval / 1000) + " sec.<br>";
   parameters.value = echo;
 
@@ -233,8 +260,8 @@ void handleClearChannel() {
   HTTPClient  httpClient;
 
   String  endpoint = mqttserver.value;
-  endpoint.replace("mqtt", "api");
-  String  delUrl = "http://" + endpoint + "/channels/" + channelid.value + "/feeds.json?api_key=" + userkey.value;
+  endpoint.replace("mqtt3", "api");
+  String  delUrl = "http://" + endpoint + "/channels/" + channelid.value + "/feeds.json?api_key=" + apikey.value;
 
   Serial.print("DELETE " + delUrl);
   if (httpClient.begin(wifiClient, delUrl)) {
@@ -327,7 +354,7 @@ void loop() {
       // sketches. It blocks HTTP request replies.
       // The publish interval is guaranteed by measuring the elapsed time.
       if (millis() - lastPub > publishInterval) {
-        String  topic = String("channels/") + channelid.value + String("/publish/") + apikey.value;
+        String  topic = String("channels/") + channelid.value + String("/publish");
         String  message = String("field1=") + String(getStrength(7));
         mqttPublish(topic, message);
         lastPub = millis();
