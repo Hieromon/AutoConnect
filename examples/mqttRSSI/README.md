@@ -17,6 +17,7 @@ The ThingSpeak is the open IoT platform. It is capable of sending data privately
 - Arduino Client for MQTT - It's the [PubSubClient](https://github.com/knolleary/pubsubclient), install it to Arduino IDE. If you have the latest version already, this step does not need.
 - Create a channel on ThingSpeak.
 - Get the Channel API Keys from ThingSpeak, put its keys to the sketch.
+- Register your ESP module as the MQTT device to enable publishing and subscribing on that channel.
 
 You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/login). (You are entrusted with the final judgment of account creation for ThingSpeak. Create an account at your own risk.) And you can learn about other steps from the [explanation page](https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application) of this example.
 
@@ -24,14 +25,13 @@ You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/login)
 
 A mqttRSSI requires the following three key data. After completing the above preparation you should be able to get the three key data. Specify those key data to the `value` in each element of the `param.json` file in the `data` folder.
 
-#### Channel ID
+#### Server
 
 ```json
 {
-  "name": "channelid",
+  "name": "mqttserver",
   "type": "ACInput",
-  "value": "",
-  "label": "Channel ID"
+  "value": "mqtt3.thingspeak.com"
 }
 ```
 
@@ -39,10 +39,19 @@ A mqttRSSI requires the following three key data. After completing the above pre
 
 ```json
 {
-  "name": "userkey",
+  "name": "apikey",
   "type": "ACInput",
-  "value": "",
-  "label": "User Key"
+  "value": ""
+}
+```
+
+#### Channel ID
+
+```json
+{
+  "name": "channelid",
+  "type": "ACInput",
+  "value": ""
 }
 ```
 
@@ -50,10 +59,39 @@ A mqttRSSI requires the following three key data. After completing the above pre
 
 ```json
 {
-  "name": "apikey",
+  "name": "writekey",
   "type": "ACInput",
-  "value": "",
-  "label": "API Key"
+  "value": ""
+}
+```
+
+#### Client ID
+
+```json
+{
+  "name": "clientid",
+  "type": "ACInput",
+  "value": ""
+}
+```
+
+#### Username
+
+```json
+{
+  "name": "username",
+  "type": "ACInput",
+  "value": ""
+}
+```
+
+#### Password
+
+```json
+{
+  "name": "password",
+  "type": "ACInput",
+  "value": ""
 }
 ```
 

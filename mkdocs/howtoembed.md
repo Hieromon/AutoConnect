@@ -80,6 +80,20 @@ The last key you need is the **User API Key** and can be confirmed it in the use
 
 <img src="images/USERKey.png" width="70%"/>
 
+#### Add a new MQTT Device
+
+Since January 2022, the ThingSpeak channel authentication scheme has changed, and the following procedures are for the new authentication. You will need to obtain the MQTT device credentials by defining an MQTT device for the channel you created in the previous steps.
+
+Once you have defined your ThingSpeak channel, you can define devices: select **MQTT** from the **Devices** menu that appears in ThingSpeak's channel information to begin registering devices.
+
+<img src="images/mqttdevice.png" width="70%"/>
+
+Give the device a name on the next page that appears after you select the MQTT device. That device, in this example, should be the ESP module that the ThingSpeak MQTT channel would identify. You then specify the channels and message types that you want to allow for that device. (i.e., the ESP module)
+
+Upon successful registration of an MQTT device, **Client ID**, **Username**, and **Password** are issued as credentials for the device. You can retrieve these credentials and save them as JSON. After downloading the credential, open it in a text editor and check its contents.
+
+<img src="images/mqttcredential.png" width="70%"/>
+
 ### Sketch publishes messages
 
 The [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) sketch registered in the [AutoConnect GitHub repository](https://github.com/Hieromon/AutoConnect) is the complete code for publishing RSSI to the ThingSpeak channel. It is a sketch with the AutoConnectAux extension pages that allow you to flexibly configure the channel information you create as ThingSpeak channels.
@@ -90,9 +104,12 @@ The [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/
     Various settings of the MQTT Setting for the ThingSpeak channels via the above AutoConnectAux are following:
 
     - **Server**: `mqtt3.thingspeak.com`
-    - **Channel ID**: Specify the channel ID that can be confirmed with [ThingSpeak My Channels page](https://thingspeak.com/channels).
-    - **User Key**: Specify the User API Key of the API Keys that can be confirmed with [ThingSpeak My Profile page](https://thingspeak.com/account/profile).
-    - **API Key**: Specify the Write API Key that can be confirmed by following navigate to "[ThingSpeak My Channels](https://thingspeak.com/channels) > Your Channel Name > API Keys Tab > **Write API Key**".
+    - **User API Key**: Specify the User API Key that can be confirmed with [ThingSpeak My Profile](https://thingspeak.com/account/profile) page.
+    - **Channel ID**: Specify the channel ID that can be confirmed with [ThingSpeak My Channels](https://thingspeak.com/channels) page.
+    - **Write API Key**: Specify the Write API Key that can be confirmed by following navigate to "[ThingSpeak My Channels](https://thingspeak.com/channels) > Your Channel Name > API Keys Tab > **Write API Key**".
+    - **Client ID**: Specify the client ID from the [MQTT Devices](https://thingspeak.com/devices/mqtt) page according to the previous step.
+    - **Username**: Specify the user name from the [MQTT Devices](https://thingspeak.com/devices/mqtt) page according to the previous step.
+    - **Password**: Specify the password from the [MQTT Devices](https://thingspeak.com/devices/mqtt) page according to the previous step.
 
 ### Publish messages
 
