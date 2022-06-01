@@ -78,7 +78,7 @@ ACInput(password, "", "Password");
 ACElement(nl2, "<hr>");
 ACRadio(period, { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);
 ACCheckbox(uniqueid, "", "Use APID unique");
-ACInput(hostname, "ESP host name", "", "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,24}$");
+ACInput(hostname, "", "ESP host name", "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,24}$");
 ACSubmit(save, "Save&amp;Start", AUX_SAVE_URI);
 ACSubmit(discard, "Discard", "/");
 
@@ -97,8 +97,8 @@ AutoConnectAux mqtt_setting(AUX_SETTING_URI, "MQTT Setting", true, {
   username,
   password,
   nl2,
-  uniqueid,
   period,
+  uniqueid,
   hostname,
   save,
   discard
