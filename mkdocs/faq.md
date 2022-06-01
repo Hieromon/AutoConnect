@@ -284,13 +284,25 @@ See also [AutoConnectText](acelements.md#post_8) chapter, [CSS Flow Layout](http
 
 [AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
 
-## <i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.
+## <i class="fa fa-question-circle"></i> I cannot complete to WiFi login from smartphone.
 
 Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.
 
 ## <i class="fa fa-question-circle"></i> I cannot see the custom Web page.
 
 If the Sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
+
+## <i class="fa fa-question-circle"></i> nvs_open failed: NOT_FOUND occurs.
+
+In ESP32, NVS open failure may occur during execution of AutoConnect::begin with the following message on the Serial monitor.
+
+```ini
+[E][Preferences.cpp:38] begin(): nvs_open failed: NOT_FOUND
+```
+
+This is not a malfunction and expected behavior. AutoConnect will continue to execute normally.
+
+AutoConnect saves the credentials of the access point to which it was able to connect to the NVS of the ESP32 module as [Preferences](https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/api/preferences.html#preferences) instances. The above error occurs when the area keyed for AutoConnect credentials does not exist in NVS. Usually, this error occurs immediately after erasing the ESP32 module flash or when running the AutoConnect sketch for the first time. If the AutoConnect credentials area does not exist in NVS, AutoConnect will automatically allocate it. Therefore, this error can be ignored and will not affect the execution of the sketch.
 
 ## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
 
