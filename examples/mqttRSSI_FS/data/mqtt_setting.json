@@ -83,13 +83,6 @@
       "value": "<hr>"
     },
     {
-      "name": "uniqueid",
-      "type": "ACCheckbox",
-      "value": "unique",
-      "label": "Use APID unique",
-      "checked": false
-    },
-    {
       "name": "period",
       "type": "ACRadio",
       "value": [
@@ -99,6 +92,13 @@
       ],
       "label": "Update period",
       "arrange": "vertical"
+    },
+    {
+      "name": "uniqueid",
+      "type": "ACCheckbox",
+      "value": "unique",
+      "label": "Use APID unique",
+      "checked": false
     },
     {
       "name": "hostname",

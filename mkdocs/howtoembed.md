@@ -98,7 +98,7 @@ Upon successful registration of an MQTT device, **Client ID**, **Username**, and
 
 The [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) sketch registered in the [AutoConnect GitHub repository](https://github.com/Hieromon/AutoConnect) is the complete code for publishing RSSI to the ThingSpeak channel. It is a sketch with the AutoConnectAux extension pages that allow you to flexibly configure the channel information you create as ThingSpeak channels.
 
-<img src="images/ac_mqtt_setting.png" width="40%">
+<img src="images/ac_mqtt_setting.png" width="50%"/>
 
 !!! hint "Parameters for the ThingSpeak MQTT channels"
     Various settings of the MQTT Setting for the ThingSpeak channels via the above AutoConnectAux are following:

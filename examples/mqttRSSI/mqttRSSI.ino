@@ -155,13 +155,6 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "value": "<hr>"
       },
       {
-        "name": "uniqueid",
-        "type": "ACCheckbox",
-        "value": "unique",
-        "label": "Use APID unique",
-        "checked": false
-      },
-      {
         "name": "period",
         "type": "ACRadio",
         "value": [
@@ -171,6 +164,13 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         ],
         "label": "Update period",
         "arrange": "vertical"
+      },
+      {
+        "name": "uniqueid",
+        "type": "ACCheckbox",
+        "value": "unique",
+        "label": "Use APID unique",
+        "checked": false
       },
       {
         "name": "hostname",
