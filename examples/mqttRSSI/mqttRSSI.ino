@@ -78,7 +78,7 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       {
         "name": "style",
         "type": "ACStyle",
-        "value": "label+input,label+select{position:sticky;left:140px;width:230px!important;box-sizing:border-box;}"
+        "value": "label+input,label+select{position:sticky;left:140px;width:204px!important;box-sizing:border-box;}"
       },
       {
         "name": "header",

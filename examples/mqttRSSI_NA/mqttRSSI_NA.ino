@@ -63,7 +63,7 @@ const char* AUX_CLEAR_URI   = "/mqtt_clear";
 // facility.
 
 // Declare AutoConnectElements for the page asf /mqtt_setting
-ACStyle(style, "label+input,label+select{position:sticky;left:140px;width:230px!important;box-sizing:border-box;}");
+ACStyle(style, "label+input,label+select{position:sticky;left:140px;width:204px!important;box-sizing:border-box;}");
 ACText(header, "<h2>MQTT Broker settings</h2>", "text-align:center;color:#2f4f4f");
 ACText(caption, "Publish WiFi signal strength via MQTT, publishing the RSSI value of the ESP module to the ThingSpeak public channel.", "font-family:serif;color:#053d76");
 ACInput(mqttserver, "", "Server", "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\\-]*[A-Za-z0-9])$", "MQTT broker server");
