@@ -10,14 +10,14 @@ The mqttRSSI equips with a custom Web page for configuring broker parameters. Yo
 &nbsp;&nbsp;
 <img src="https://hieromon.github.io/AutoConnect/images/ChannelStatus.png" width="40%"/>
 
-The ThingSpeak is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further.
+The [ThingSpeak](https://thingspeak.com/)&trade; is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further.
 
 ### Advance procedures
 
 - Arduino Client for MQTT - It's the [PubSubClient](https://github.com/knolleary/pubsubclient), install it to Arduino IDE. If you have the latest version already, this step does not need.
 - Create a channel on ThingSpeak.
-- Get the Channel API Keys from ThingSpeak, put its keys to the sketch.
-- Register your ESP module as the MQTT device to enable publishing and subscribing on that channel.
+- Register the ESP module as an MQTT device to a ThingSpeak channel, allowing it to be published and subscribed to on the channel.
+- Get the Channel API Keys and MQTT device credentials from ThingSpeak, and put its keys to the Sketch.
 
 You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/login). (You are entrusted with the final judgment of account creation for ThingSpeak. Create an account at your own risk.) And you can learn about other steps from the [explanation page](https://hieromon.github.io/AutoConnect/howtoembed.html#used-with-mqtt-as-a-client-application) of this example.
 
@@ -37,6 +37,8 @@ A mqttRSSI requires the following three key data. After completing the above pre
 
 #### User API key
 
+Set the User API Key to value of **"value"** key. The User API Key can be found on the **My Profile** page of your ThingSpeak account.
+
 ```json
 {
   "name": "apikey",
@@ -46,6 +48,8 @@ A mqttRSSI requires the following three key data. After completing the above pre
 ```
 
 #### Channel ID
+
+Set the MQTT channel ID you created with ThingSpeak to value of **"value"** key. The Channel ID can be found on the **My Channels** page of your ThingSpeak account.
 
 ```json
 {
@@ -57,6 +61,8 @@ A mqttRSSI requires the following three key data. After completing the above pre
 
 #### Write API key
 
+Set the MQTT channel ID you created with ThingSpeak to value of **"value"** key. The Write API Key is located in the **API Key** tag that you can navigate from the **My Channels** page.
+
 ```json
 {
   "name": "writekey",
@@ -66,6 +72,8 @@ A mqttRSSI requires the following three key data. After completing the above pre
 ```
 
 #### Client ID
+
+Set the Client ID of your ESP module that registered MQTT Device of your ThingSpeak account to value of **"value"** key.
 
 ```json
 {
@@ -77,6 +85,8 @@ A mqttRSSI requires the following three key data. After completing the above pre
 
 #### Username
 
+Set the Username of your ESP module that registered MQTT Device of your ThingSpeak account to value of **"value"** key.
+
 ```json
 {
   "name": "username",
@@ -86,6 +96,8 @@ A mqttRSSI requires the following three key data. After completing the above pre
 ```
 
 #### Password
+
+Set the Password of your ESP module that registered MQTT Device of your ThingSpeak account to value of **"value"** key.
 
 ```json
 {

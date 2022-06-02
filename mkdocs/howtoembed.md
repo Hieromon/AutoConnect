@@ -43,7 +43,8 @@ This example is a good indication of the usefulness of AutoConnect, as RSSI valu
 
 - Arduino Client for MQTT - It's the [PubSubClient](https://github.com/knolleary/pubsubclient), install it to Arduino IDE. If you have the latest version already, this step does not need.
 - Create a channel on ThingSpeak.
-- Get the Channel API Keys from ThingSpeak, put its keys to the Sketch.
+- Register the ESP module as an MQTT device to a ThingSpeak channel, allowing it to be published and subscribed to on that channel.
+- Get the Channel API Keys and MQTT device credentials from ThingSpeak, and put its keys to the Sketch.
 
 The ThingSpeak is the open IoT platform. It is capable of sending data privately to the cloud and analyzing, visualizing its data. If you do not have an account of ThingSpeak, you need that account to proceed further. ThingSpeak has the free plan for the account which uses within the scope of this example.[^1] You can sign up with the [ThingSpeak sign-up page](https://thingspeak.com/login).
 
@@ -82,21 +83,21 @@ The last key you need is the **User API Key** and can be confirmed it in the use
 
 #### Add a new MQTT Device
 
-Since January 2022, the ThingSpeak channel authentication scheme has changed, and the following procedures are for the new authentication. You will need to obtain the MQTT device credentials by defining an MQTT device for the channel you created in the previous steps.
+Since January 2022, the ThingSpeak channel authentication scheme has changed, and the following procedures are for the new authentication. You will need to obtain the credentials of the MQTT device by registering it with the channel you created in the previous step.
 
 Once you have defined your ThingSpeak channel, you can define devices: select **MQTT** from the **Devices** menu that appears in ThingSpeak's channel information to begin registering devices.
 
 <img src="images/mqttdevice.png" width="70%"/>
 
-Give the device a name on the next page that appears after you select the MQTT device. That device, in this example, should be the ESP module that the ThingSpeak MQTT channel would identify. You then specify the channels and message types that you want to allow for that device. (i.e., the ESP module)
+Give the device a name on the next page that appears after you select the MQTT device. In this example, its device should be the ESP module that the ThingSpeak MQTT channel would identify. You then specify the channel and message type you want to allow for the device. (i.e., the ESP module)
 
-Upon successful registration of an MQTT device, **Client ID**, **Username**, and **Password** are issued as credentials for the device. You can retrieve these credentials and save them as JSON. After downloading the credential, open it in a text editor and check its contents.
+Upon successful registration of the MQTT device, **Client ID**, **Username**, and **Password** are issued as credentials for the device. You can retrieve the credentials and save them as JSON. After downloading the credential file, open it with a text editor and check the contents.
 
 <img src="images/mqttcredential.png" width="70%"/>
 
 ### Sketch publishes messages
 
-The [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) sketch registered in the [AutoConnect GitHub repository](https://github.com/Hieromon/AutoConnect) is the complete code for publishing RSSI to the ThingSpeak channel. It is a sketch with the AutoConnectAux extension pages that allow you to flexibly configure the channel information you create as ThingSpeak channels.
+The [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/mqttRSSI/mqttRSSI.ino) sketch in the [AutoConnect repository](https://github.com/Hieromon/AutoConnect) is the complete code for publishing RSSI to the ThingSpeak channel. The sketch comes with an AutoConnectAux custom Web page to flexibly configure channel information created as a ThingSpeak channel.
 
 <img src="images/ac_mqtt_setting.png" width="50%"/>
 
@@ -113,7 +114,7 @@ The [mqttRSSI.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/
 
 ### Publish messages
 
-After upload and reboot complete, the message publishing will start via the access point now set. The message carries RSSI as the current WiFi signal strength. The signal strength variations in RSSI are displayed on ThingSpeak's Channel status screen.
+After uploading the mqttRSSI.ino and restarting the ESP module, Messages will begin to be issued via the connected WiFi access point. The message will carry the RSSI value of the current WiFi signal strength; changes in signal strength due to RSSI will be displayed on the ThingSpeak [Channel Stats](https://thingspeak.com/channels/454951) page.
 
 ### How embed to your sketches
 
