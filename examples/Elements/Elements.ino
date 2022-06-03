@@ -14,22 +14,33 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <LittleFS.h>
-using WebServerClass = ESP8266WebServer;
-FS& FlashFS = LittleFS;
+#include <ESP8266HTTPClient.h>
+#include <ESP8266mDNS.h>
 #define FORMAT_ON_FAIL
-
+using WebServerClass = ESP8266WebServer;
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
-#include <FS.h>
-#include <SPIFFS.h>
-using WebServerClass = WebServer;
-fs::SPIFFSFS& FlashFS = SPIFFS;
+#include <HTTPClient.h>
+#include <ESPmDNS.h>
 #define FORMAT_ON_FAIL  true
+using WebServerClass = WebServer;
 #endif
 
 #include <AutoConnect.h>
+
+#ifdef AUTOCONNECT_USE_LITTLEFS
+#include <LittleFS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+FS& FlashFS = LittleFS;
+#elif defined(ARDUINO_ARCH_ESP32)
+fs::LittleFSFS& FlashFS = LittleFS;
+#endif
+#else
+#include <FS.h>
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
 
 #define PARAM_FILE      "/elements.json"
 #define USERNAME        "username_you_wish"   // For HTTP authentication

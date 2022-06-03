@@ -45,7 +45,7 @@ using WiFiWebServer = WebServer;
 #include <PubSubClient.h>
 #include <AutoConnect.h>
 
-#ifdef AC_USE_LITTLEFS
+#ifdef AUTOCONNECT_USE_LITTLEFS
 #include <LittleFS.h>
 #if defined(ARDUINO_ARCH_ESP8266)
 FS& FlashFS = LittleFS;
