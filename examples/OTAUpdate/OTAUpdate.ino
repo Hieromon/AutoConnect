@@ -33,6 +33,22 @@ WiFiWebServer server;
 AutoConnect portal(server);
 AutoConnectConfig config;
 
+void exitOTAStart() {
+  Serial.println("OTA started");
+}
+
+void exitOTAProgress(unsigned int amount, unsigned int sz) {
+  Serial.printf("OTA in progress: received %d bytes, total %d bytes\n", sz, amount);
+}
+
+void exitOTAEnd() {
+  Serial.println("OTA ended");
+}
+
+void exitOTAError(uint8_t err) {
+  Serial.printf("OTA error occurred %d\n", err);
+}
+
 void setup() {
   delay(1000);
   Serial.begin(115200);
@@ -58,6 +74,10 @@ __AC_LINK__
 
   config.ota = AC_OTA_BUILTIN;
   portal.config(config);
+  portal.onOTAStart(exitOTAStart);
+  portal.onOTAEnd(exitOTAEnd);
+  portal.onOTAProgress(exitOTAProgress);
+  portal.onOTAError(exitOTAError);
   portal.begin();
 }
 
