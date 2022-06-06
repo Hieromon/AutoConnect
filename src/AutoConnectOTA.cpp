@@ -277,28 +277,31 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
  */
 void AutoConnectOTA::_close(const HTTPUploadStatus status) {
   AC_DBG("OTA up%s ", _dest == OTA_DEST_FIRM ? "date" : "load");
-  if (!_err.length()) {
-    if (status == UPLOAD_FILE_END) {
 
-      bool  ec = true;
-      if (_dest == OTA_DEST_FIRM)
-        ec = Update.end(true);
-      else {
-        _file.close();
-      }
-      if (ec) {
-        _otaStatus = AC_OTA_SUCCESS;
-        AC_DBG_DUMB("succeeds");
-      }
-      else {
-        AC_DBG_DUMB("flash failed");
-        _setError();
-        Update.end(false);
-      }
+  // The _close will perform different processes depending on the update
+  // destination. The _close process for firmware updates purges the
+  // Updater class, and native file uploading closes the file.
+  bool  bc = status == UPLOAD_FILE_END;
+
+  if (_dest == OTA_DEST_FIRM) {
+    if (!Update.end(bc)) {
+      _setError();
+      AC_DBG_DUMB("failed to flash");
+    }
+  }
+  else {
+    if (_file)
+      _file.close();
+  }
+
+  if (!_err.length()) {
+    if (bc) {
+      _otaStatus = AC_OTA_SUCCESS;
+      AC_DBG_DUMB("end");
     }
     else {
-      AC_DBG_DUMB("aborted");
       _setError("Aborted");
+      AC_DBG_DUMB("aborted");
     }
   }
   AC_DBG_DUMB(". %s\n", _err.c_str());
