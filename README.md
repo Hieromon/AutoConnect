@@ -105,6 +105,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 ### [1.3.5] Jun. 03, 2022
 - Fixed Fixed OTA exit not being called. (Issue #325)
 - Fixed an ambiguous type call with IPAddress. (Issue #480)
+- Fixed loss of response due to OTA session reset occurrence.
 - Made fit the mqttRSSI examples to ThingSpeak's updated channel authentication.
 
 ### [1.3.4] Mar. 02, 2022

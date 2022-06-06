@@ -4,6 +4,7 @@
 
 - Fixed Fixed OTA exit not being called.
 - Fixed an ambiguous type call with IPAddress.
+- Fixed loss of response due to OTA session reset occurrence.
 - Made fit the mqttRSSI examples to ThingSpeak's updated channel authentication.
 
 !!! info "For ESP-IDF 4.4 with Arduino ESP32 Core"
