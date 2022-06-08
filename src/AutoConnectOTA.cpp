@@ -318,23 +318,25 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
  */
 String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   AC_UNUSED(args);
-  PGM_P   stColor;
   String  st;
+
+  // Pick a color schema appropriate to the OTA completion status.
+  result["dvo"].value = String(F("<div class=\"s_"));
 
   // Build an updating result caption.
   // Change the color of the bin name depending on the result of the update.
   if (_otaStatus == AC_OTA_SUCCESS) {
-    st = _dest == OTA_DEST_FIRM ? String(F(AUTOCONNECT_TEXT_OTASUCCESS)) : String(F(AUTOCONNECT_TEXT_OTAUPLOADED));
-    stColor = PSTR("3d7e9a");
     // Notify to the handleClient of loop() thread that it can reboot.
     _otaStatus = AC_OTA_RIP;
+    st = _dest == OTA_DEST_FIRM ? String(F(AUTOCONNECT_TEXT_OTASUCCESS)) : String(F(AUTOCONNECT_TEXT_OTAUPLOADED));
+    result["dvo"].value += "clr";
   }
   else {
     st = String(F(AUTOCONNECT_TEXT_OTAFAILURE)) + _err;
-    stColor = PSTR("e66157");
+    result["dvo"].value += "err";
   }
+  result["dvo"].value += "\">";
   result["bin"].as<AutoConnectText>().value = _binName;
-  result["bin"].as<AutoConnectText>().style += String(stColor);
   result["result"].as<AutoConnectText>().value = st;
 
   // AutoConnectOTA result page generates a transition after reboot
