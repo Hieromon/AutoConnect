@@ -24,16 +24,9 @@ const AutoConnectAux::ACPage_t AutoConnectOTA::_pageUpdate PROGMEM = {
 };
 
 const AutoConnectAux::ACElementProp_t AutoConnectOTA::_elmResult[] PROGMEM = {
-  { AC_Style, "s_rc", ".s_rc{display:none}", nullptr },
-  { AC_Style, "s_clr", ".s_clr{color:#3d7e9a}", nullptr },
-  { AC_Style, "s_err", ".s_err{color:#e66157}", nullptr },
-  { AC_Element, "dvo", "", nullptr },
-  { AC_Text, "bin", nullptr, "margin-bottom:0.5em;font-size:1.2em;font-weight:bold" },
-  { AC_Element, "dve", "</div>", nullptr },
+  { AC_Text, "bin", nullptr, "margin-bottom:0.5em;font-size:1.2em;font-weight:bold;color:#" },
   { AC_Text, "result", nullptr, nullptr },
-  { AC_Element, "dvr", "<div class=\"s_rc\" id=\"rc\">", nullptr },
-  { AC_Element, "rc", "", nullptr },
-  { AC_Element, "dvc", "</div>", nullptr }
+  { AC_Text, "rc", nullptr, "display:none" }
 };
 
 // The definition of the OTA update result display page.
