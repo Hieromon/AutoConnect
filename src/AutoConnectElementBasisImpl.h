@@ -95,7 +95,7 @@ const String AutoConnectFileBasis::toHTML(void) const {
   if (enable) {
     if (label.length())
       html = String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
-    html += String(F("<input type=\"file\" id=\"")) + name + String(F("\" name=\"")) + name + String("\">");
+    html += String(F("<input type=\"file\" id=\"")) + name + String(F("\" name=\"")) + name + String(F("\" accept=\"application/octet-stream\">"));
     html = AutoConnectElementBasis::posterior(html);
   }
   return html;
