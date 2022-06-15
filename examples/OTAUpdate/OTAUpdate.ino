@@ -5,7 +5,7 @@
   This example is an implementation of a lightweight update feature
   that updates the ESP8266's firmware from your web browser.
   You need a compiled sketch binary file to the actual update and can
-  retrieve it using Arduino-IDE menu: [Sketck] -> [Export compiled binary].
+  retrieve it using Arduino-IDE menu: [Sketch] -> [Export compiled binary].
   Then you will find the .bin file in your sketch folder. Select the.bin
   file on the update UI page to update the firmware.
 
