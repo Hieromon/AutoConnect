@@ -119,6 +119,7 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
     "-webkit-appearance:checkbox"
   "}"
   ".noorder input[type=\"radio\"]{"
+    "cursor:pointer;"
     "margin-right:0.5em;"
     "-moz-appearance:radio;"
     "-webkit-appearance:radio"
@@ -246,6 +247,7 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
   ".aux-page label{"
     "display:inline;"
     "padding:10px 0.5em;"
+    "cursor:pointer"
   "}"
 };
 
