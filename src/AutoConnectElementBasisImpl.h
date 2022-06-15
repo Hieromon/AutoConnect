@@ -3,7 +3,7 @@
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
  * @version  1.3.5
- * @date 2022-03-21
+ * @date 2022-06-15
  * @copyright  MIT license.
  */
 
@@ -441,10 +441,30 @@ const String AutoConnectTextBasis::toHTML(void) const {
       }
     }
 
+    // Conversion of the AutoConnectText element to HTML according to the post attributes.
+    // <span id='name' style='style'>formatted value</span>[<br>]
+    // <p id='name' style='style'>formatted value</p>
+    // <div id='name' style='style'>formatted value</div>
+    PGM_P applyTag;
+    switch (post) {
+    case AC_Tag_None:
+    case AC_Tag_BR:
+      applyTag = PSTR("span");
+      break;
+    case AC_Tag_P:
+      applyTag = PSTR("p");
+      break;
+    case AC_Tag_DIV:
+      applyTag = PSTR("div");
+      break;
+    }
+
+    html = String("<") + String(FPSTR(applyTag)) + String(F(" id=\"")) + name + String("\"");
     if (style.length())
-      html = String(F("<div id=\"")) + name + String(F("\" style=\"")) + style + String("\">") + value_f + String(F("</div>"));
-    else
-      html = AutoConnectElementBasis::posterior(value_f);
+      html += String(F(" style=\"")) + style;
+    html += String(">") + value_f + String("</") + String(FPSTR(applyTag)) + String(">");
+    if (post == AC_Tag_BR)
+      html += String(F("<br>"));
   }
   return html;
 }
