@@ -432,7 +432,7 @@ const String AutoConnectTextBasis::toHTML(void) const {
     String  value_f = value;
 
     if (format.length()) {
-      int   buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
+      size_t  buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
       char* buffer;
       if ((buffer = (char*)malloc(buflen))) {
         snprintf(buffer, buflen, format.c_str(), value.c_str());
@@ -445,10 +445,14 @@ const String AutoConnectTextBasis::toHTML(void) const {
     // <span id='name' style='style'>formatted value</span>[<br>]
     // <p id='name' style='style'>formatted value</p>
     // <div id='name' style='style'>formatted value</div>
-    PGM_P applyTag;
+    const char* elmTextTemp = PSTR("<%s id=\"%s\"%s>%s</%s>%s");
+    const char* applyTag = PSTR("");
+    const char* br = PSTR("");
+    
     switch (post) {
-    case AC_Tag_None:
     case AC_Tag_BR:
+      br = PSTR("<br>");
+    case AC_Tag_None:
       applyTag = PSTR("span");
       break;
     case AC_Tag_P:
@@ -459,12 +463,29 @@ const String AutoConnectTextBasis::toHTML(void) const {
       break;
     }
 
-    html = String("<") + String(FPSTR(applyTag)) + String(F(" id=\"")) + name + String("\"");
-    if (style.length())
-      html += String(F(" style=\"")) + style;
-    html += String(">") + value_f + String("</") + String(FPSTR(applyTag)) + String(">");
-    if (post == AC_Tag_BR)
-      html += String(F("<br>"));
+    const char* attrStyleTemp = PSTR(" style=\"%s\"");
+    const char* applyStyle = PSTR("");
+    char* styleBuffer = nullptr;
+
+    if (style.length()) {
+      size_t  buflen = (sizeof(attrStyleTemp) + style.length() + 16 + 1) & (~0xf);
+      if ((styleBuffer = (char*)malloc(buflen))) {
+        snprintf_P(styleBuffer, buflen, attrStyleTemp, style.c_str());
+        applyStyle = styleBuffer;
+      }
+    }
+
+    char*  elmBuffer;
+    size_t elmLen = (sizeof(elmTextTemp) + (strlen(applyTag) * 2) + strlen(applyStyle) + strlen(br) + name.length() + value_f.length() + 16 + 1) & (~0xf);
+    if ((elmBuffer = (char*)malloc(elmLen)))
+      snprintf_P(elmBuffer, elmLen, elmTextTemp, applyTag, name.c_str(), applyStyle, value_f.c_str(), applyTag, br);
+
+    html = String(elmBuffer);
+
+    if (elmBuffer)
+      free(elmBuffer);
+    if (styleBuffer)
+      free(styleBuffer);
   }
   return html;
 }
