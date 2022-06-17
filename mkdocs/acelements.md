@@ -513,7 +513,12 @@ Specifies a tag to add behind the HTML code generated from the element. The defa
 
 ## AutoConnectText
 
-AutoConnectText generates an HTML `#!html <div>` tag. A `#!html style` attribute will be attached if a [style](#style) parameter is passed.
+AutoConnectText generates a text content enclosed in `#!html <div>`, `#!html <p>` or `#!html <span>` tags; if the [style](#style) parameter is provided, the style attributes is added. A kind of HTML tag applied depends on the value of the [post](#post_9) parameter as follows:
+
+  - **AC_Tag_None**: `<span id='name' style='style'>value</span>`
+  - **AC_Tag_BR**: `<span id='name' style='style'>value</span><br>`
+  - **AC_Tag_P**: `<p id='name' style='style'>value</p>`
+  - **AC_Tag_DIV**: `<div id='name' style='style'>value</div>`
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");`**</small>
@@ -544,8 +549,12 @@ A `format` is a pointer to a null-terminated multi byte string specifying how to
 
 ### <i class="fa fa-caret-right"></i> post
 
-Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_None`.  
-AutoConnectText element without the style parameter will be drained to HTML as a raw value and is accompanied by `<p>`, `<br>` or `<div>` tags according to the post enumeration values. If the style parameter is specified, the post enumeration value will be ignored and always be enclosed in the `<div>` tag, and the style value will be inserted into `style` attribute of the `<div>` tag.
+Specifies an HTML element that completes the text content. AutoConnectText's post parameter does not specify any behind-supplements, unlike when applied to other elements. A kind of HTML tag applied depends on the enumerated value of the [post](#post_9) parameter as follows:
+
+  - **AC_Tag_None**: `<span id='name' style='style'>value</span>`
+  - **AC_Tag_BR**: `<span id='name' style='style'>value</span><br>`
+  - **AC_Tag_P**: `<p id='name' style='style'>value</p>`
+  - **AC_Tag_DIV**: `<div id='name' style='style'>value</div>`
 
 ## How to coding for the elements
 
