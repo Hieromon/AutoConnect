@@ -20,6 +20,11 @@
 #include "AutoConnectElementBasis.h"
 #include "AutoConnectFS.h"
 
+namespace AutoConnectElementBasisImpl {
+  template<size_t N>
+  constexpr size_t  _sizeof(const char (&)[N]) { return N - sizeof('\0'); }
+} // AutoConnectElementBasisImpl
+
 /**
  * Append post-tag according by the post attribute.
  * @param  s  An original string
@@ -46,9 +51,19 @@ const String AutoConnectElementBasis::posterior(const String& s) const {
 const String AutoConnectButtonBasis::toHTML(void) const {
   String  html = String("");
 
+  // Conversion of the AutoConnectButton element to HTML.
+  // <button id="name" name="name" value="value" onclick="action">value</button>
   if (enable) {
-    html = String(F("<button type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"")) + action + String("\">") + value + String(F("</button>"));
-    html = AutoConnectElementBasis::posterior(html);
+    static const char elmButtonTempl[] PROGMEM = "<%s id=\"%s\" name=\"%s\" value=\"%s\" onclick=\"%s\">%s</%s>";
+    static const char applyTag[] PROGMEM = "button";
+
+    size_t  elmLen = (AutoConnectElementBasisImpl::_sizeof(elmButtonTempl) + (AutoConnectElementBasisImpl::_sizeof(applyTag) * 2) + (name.length() * 2) + (value.length() * 2) + action.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 7) + sizeof('\0') + 16) & (~0xf);
+    char*   elmBuffer = new char[elmLen];
+    if (elmBuffer) {
+      snprintf_P(elmBuffer, elmLen, elmButtonTempl, (PGM_P)applyTag, name.c_str(), name.c_str(), value.c_str(), action.c_str(), value.c_str(), (PGM_P)applyTag);
+      html = AutoConnectElementBasis::posterior(String(elmBuffer));
+      delete elmBuffer;
+    }
   }
   return html;
 }
@@ -65,17 +80,39 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    html = String(F("<input type=\"checkbox\" name=\"")) + name + String(F("\" value=\"")) + value + String("\"");
-    if (checked)
-      html += String(F(" checked"));
-    if (label.length())
-      html += String(F(" id=\"")) + name + String("\">");
+    // Conversion of the AutoConnectCheckbox element to HTML.
+    // <input type="checkbox" id="name" name="name" value="value"[ checked]>
+    // [<label for="name">label</label>]
+    static const char elmCheckboxTempl[] PROGMEM = "<input type=\"checkbox\" id=\"%s\" name=\"%s\" value=\"%s\"%s>";
+    static const char attrChecked[] PROGMEM = " checked";
+    static const char tagLabel[] PROGMEM = "label";
+    static const char elmLabelTempl[] PROGMEM = "<%s for=\"%s\">%s</%s>";
+    PGM_P  applyChecked = PSTR("");
+    size_t elmLen = 0;
+
+    if (checked) {
+      applyChecked = (PGM_P)attrChecked;
+      elmLen = AutoConnectElementBasisImpl::_sizeof(attrChecked);
+    }
+    elmLen = (elmLen + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmCheckboxTempl) + (name.length() * 2) + value.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 4) + sizeof('\0') + 16) & (~0xf);
+    char* elmBuffer = new char[elmLen];
+    if (elmBuffer) {
+      snprintf_P(elmBuffer, elmLen, elmCheckboxTempl, name.c_str(), name.c_str(), value.c_str(), applyChecked);
+      html = String(elmBuffer);
+      delete elmBuffer;
+    }
+
     if (label.length()) {
-      String  labelTag = String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
-      if (labelPosition == AC_Infront)
-        html = labelTag + html;
-      else if (labelPosition == AC_Behind)
-        html += labelTag;
+      size_t elmLabelLen = ((AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmLabelTempl) + name.length() + label.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 4) + sizeof('\0') + 16) & (~0xf);
+      char*  elmLabel = new char[elmLabelLen];
+      if (elmLabel) {
+        snprintf_P(elmLabel, elmLabelLen, elmLabelTempl, (PGM_P)tagLabel, name.c_str(), label.c_str(), (PGM_P)tagLabel);
+        if (labelPosition == AC_Infront)
+          html = String(elmLabel) + html;
+        else if (labelPosition == AC_Behind)
+          html += String(elmLabel);
+        delete elmLabel;
+      }
     }
     html = AutoConnectElementBasis::posterior(html);
   }
@@ -93,10 +130,35 @@ const String AutoConnectFileBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    if (label.length())
-      html = String(F("<label for=\"")) + name + String(F("\">")) + label + String(F("</label>"));
-    html += String(F("<input type=\"file\" id=\"")) + name + String(F("\" name=\"")) + name + String(F("\" accept=\"application/octet-stream\">"));
-    html = AutoConnectElementBasis::posterior(html);
+    // Conversion of the AutoConnectFile element to HTML.
+    // [<label for="name">label</label>]
+    // <input type="file" id="name" name="name" accept="application/octet-stream">
+    static const char elmFileTempl[] PROGMEM = "%s<input type=\"file\" id=\"%s\" name=\"%s\" accept=\"application/octet-steam\">";
+    static const char tagLabel[] PROGMEM = "label";
+    static const char elmLabelTempl[] PROGMEM ="<%s for=\"%s\">%s</%s>";
+    static const char*  applyLabel = "";
+    char*   elmLabel = nullptr;
+    size_t  elmLabelLen = 0;
+
+    if (label.length()) {
+      elmLabelLen = (AutoConnectElementBasisImpl::_sizeof(elmLabelTempl) + name.length() + label.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 4) + sizeof('\0') + 16) & (~0xf);
+      elmLabel = new char[elmLabelLen];
+      if (elmLabel) {
+        snprintf_P(elmLabel, elmLabelLen, elmLabelTempl, (PGM_P)tagLabel, name.c_str(), label.c_str(), (PGM_P)tagLabel);
+        applyLabel = elmLabel;
+      }
+    }
+
+    size_t  elmLen = (elmLabelLen + AutoConnectElementBasisImpl::_sizeof(elmFileTempl) + (name.length() * 2) - (AutoConnectElementBasisImpl::_sizeof("%s") * 3) + sizeof('\0') + 16) & (~0xf);
+    char*   elmBuffer = new char[elmLen];
+    if (elmBuffer) {
+      snprintf_P(elmBuffer, elmLen, elmFileTempl, applyLabel, name.c_str(), name.c_str());
+      html = AutoConnectElementBasis::posterior(String(elmBuffer));
+      delete elmBuffer;
+    }
+
+    if (elmLabel)
+      delete elmLabel;
   }
   return html;
 }
@@ -152,8 +214,25 @@ const String AutoConnectInputBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    if (label.length())
-      html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
+    // Conversion of the AutoConnectInput element to HTML.
+    // [<label for="name">label</label>]
+    // <input type="number|password|text" id="name" name="name"[ pattern="pattern"][ placeholder="placeholder"][ value="value"][ style="style"]>
+    static const char elmInputTempl[] PROGMEM = "%s<input type=\"%s\" id=\"%s\" name=\"%s\"%s%s%s%s>";
+    static const char tagLabel[] PROGMEM = "label";
+    static const char elmLabelTempl[] PROGMEM ="<%s for=\"%s\">%s</%s>";
+    static const char*  applyLabel = "";
+    char*   elmLabel = nullptr;
+    size_t  elmLabelLen = 0;
+
+    if (label.length()) {
+      elmLabelLen = (AutoConnectElementBasisImpl::_sizeof(elmLabelTempl) + name.length() + label.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 4) + sizeof('\0') + 16) & (~0xf);
+      elmLabel = new char[elmLabelLen];
+       if (elmLabel) {
+        snprintf_P(elmLabel, elmLabelLen, elmLabelTempl, (PGM_P)tagLabel, name.c_str(), label.c_str(), (PGM_P)tagLabel);
+        applyLabel = elmLabel;
+      }
+    }
+
     PGM_P applyType;
     switch (apply) {
     case AC_Input_Number:
@@ -167,17 +246,74 @@ const String AutoConnectInputBasis::toHTML(void) const {
       applyType = PSTR("text");
       break;
     }
-    html += String(F("<input type=\"")) + String(applyType) + String(F("\" id=\"")) + name + String(F("\" name=\"")) + name + String("\"");
-    if (pattern.length())
-      html += String(F(" pattern=\"")) + pattern + String("\"");
-    if (placeholder.length())
-      html += String(F(" placeholder=\"")) + placeholder + String("\"");
-    if (value.length())
-      html += String(F(" value=\"")) + value + String("\"");
-    if (style.length())
-      html += String(F(" style=\"")) + style + String("\"");
-    html += String(">");
-    html = AutoConnectElementBasis::posterior(html);
+
+    static const char attrPatternTempl[] PROGMEM = " pattern=\"%s\"";
+    static const char attrPlaceholderTempl[] PROGMEM = " placeholder=\"%s\"";
+    static const char attrValueTempl[] PROGMEM = " value=\"%s\"";
+    static const char attrStyleTempl[] PROGMEM = " style=\"%s\"";
+    static const char*  applyPattern = "";
+    static const char*  applyPlaceholder = "";
+    static const char*  applyValue = "";
+    static const char*  applyStyle = "";
+    char*   attrPattern = nullptr;
+    char*   attrPlaceholder = nullptr;
+    char*   attrValue = nullptr;
+    char*   attrStyle = nullptr;
+
+    if (pattern.length()) {
+      size_t  attrLen = (AutoConnectElementBasisImpl::_sizeof(attrPatternTempl) + pattern.length() - AutoConnectElementBasisImpl::_sizeof("%s") + sizeof('\0') + 16) & (~0xf);
+      char  *attrPattern = new char[attrLen];
+      if (attrPattern) {
+        snprintf_P(attrPattern, attrLen, attrPatternTempl, pattern.c_str());
+        applyPattern = attrPattern;
+      }
+    }
+
+    if (placeholder.length()) {
+      size_t  attrLen = (AutoConnectElementBasisImpl::_sizeof(attrPlaceholderTempl) + placeholder.length() - AutoConnectElementBasisImpl::_sizeof("%s") + sizeof('\0') + 16) & (~0xf);
+      char  *attrPlaceholder = new char[attrLen];
+      if (attrPlaceholder) {
+        snprintf_P(attrPlaceholder, attrLen, attrPlaceholderTempl, placeholder.c_str());
+        applyPlaceholder = attrPlaceholder;
+      }
+    }
+
+    if (value.length()) {
+      size_t  attrLen = (AutoConnectElementBasisImpl::_sizeof(attrValueTempl) + value.length() - AutoConnectElementBasisImpl::_sizeof("%s") + sizeof('\0') + 16) & (~0xf);
+      char  *attrValue = new char[attrLen];
+      if (attrValue) {
+        snprintf_P(attrValue, attrLen, attrValueTempl, value.c_str());
+        applyValue = attrValue;
+      }
+    }
+
+    if (style.length()) {
+      size_t  attrLen = (AutoConnectElementBasisImpl::_sizeof(attrStyleTempl) + style.length() - AutoConnectElementBasisImpl::_sizeof("%s") + sizeof('\0') + 16) & (~0xf);
+      char  *attrStyle = new char[attrLen];
+      if (attrStyle) {
+        snprintf_P(attrStyle, attrLen, attrStyleTempl, style.c_str());
+        applyStyle = attrStyle;
+      }
+    }
+
+    size_t  elmLen = (strlen(applyLabel) + AutoConnectElementBasisImpl::_sizeof(elmInputTempl) + strlen(applyType) + (name.length() * 2) + strlen(applyPattern) + strlen(applyPlaceholder) + strlen(applyValue) + strlen(applyStyle) - (AutoConnectElementBasisImpl::_sizeof("%s") * 8) + sizeof('\0') + 16) & (~0xf);
+    char* elmInput = new char[elmLen];
+    if (elmInput) {
+      snprintf_P(elmInput, elmLen, elmInputTempl, applyLabel, applyType, name.c_str(), name.c_str(), applyPattern, applyPlaceholder, applyValue, applyStyle);
+      html = AutoConnectElementBasis::posterior(String(elmInput));
+      delete elmInput;
+    }
+
+    if (elmLabel)
+      delete elmLabel;
+    if (attrPattern)
+      delete attrPattern;
+    if (attrPlaceholder)
+      delete attrPlaceholder;
+    if (attrValue)
+      delete attrValue;
+    if (attrStyle)
+      delete attrStyle;
   }
   return html;
 }
@@ -245,27 +381,58 @@ const String AutoConnectRadioBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
+    // Conversion of the AutoConnectRadio element to HTML.
+    // [<label>label</label>][<br>]
+    // <input type="radio" id="name_N" name="name" value=values[N]"[ checked]><label for="name_N">values[N]</label>[<br>]
+    static const char elmInputTempl[] PROGMEM = "<input type=\"radio\" id=\"%s_%" PRIu8 "\" name=\"%s\" value=\"%s\"%s><%s for=\"%s_%" PRIu8 "\">%s</%s>%s%s";
+    static const char elmLabelTempl[] PROGMEM = "<%s>%s</%s>%s";
+    static const char tagLabel[] PROGMEM = "label";
+    static const char attrChecked[] PROGMEM = " checked";
+    static const char attrNone[] PROGMEM = "";
+    static const char tagBr[] PROGMEM = "<br>";
+    PGM_P applyBr;
+    PGM_P applyChecked;
+
     if (label.length()) {
-      html = label;
-      if (order == AC_Vertical)
-        html += String(F("<br>"));
-    }
-    uint8_t n = 0;
-    for (const String value : _values) {
-      n++;
-      String  id = name + "_" + String(n);
-      String  innerHtml = String(F("<input type=\"radio\" name=\"")) + name + String(F("\" id=\"")) + id + String(F("\" value=\"")) + value + String("\"");
-      if (n == checked)
-        innerHtml += String(F(" checked"));
-      innerHtml += String(F("><label for=\"")) + id + String("\">") + value + String(F("</label>"));
-      if (n <= tags.size())
-        innerHtml += tags[n - 1];
-      if (order == AC_Vertical) {
-        html += innerHtml + String(F("<br>"));
+      size_t  elmLabelLen = AutoConnectElementBasisImpl::_sizeof(elmLabelTempl) + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + label.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 4) + sizeof('\0');
+      applyBr = order == AC_Vertical ? (PGM_P)tagBr : (PGM_P)attrNone;
+      elmLabelLen += strlen(applyBr);
+      elmLabelLen = (elmLabelLen + 16) & (~0xf);
+      char* elmLabel = new char[elmLabelLen];
+      if (elmLabel) {
+        snprintf_P(elmLabel, elmLabelLen, elmLabelTempl, (PGM_P)tagLabel, label.c_str(), (PGM_P)tagLabel, applyBr);
+        html = String(elmLabel);
+        delete elmLabel;
       }
-      else
-        html += AutoConnectElementBasis::posterior(innerHtml);
     }
+
+    uint8_t n = 0;
+    for (const String& value : _values) {
+      applyChecked = (PGM_P)attrNone;
+      applyBr = (PGM_P)attrNone;
+      n++;
+      size_t  elmLen = AutoConnectElementBasisImpl::_sizeof(elmInputTempl) + (name.length() * 4) + (value.length() * 2) - (AutoConnectElementBasisImpl::_sizeof("%s") * 10) - ((AutoConnectElementBasisImpl::_sizeof(PRIu8) - AutoConnectElementBasisImpl::_sizeof("99")) * 2) + sizeof('\0');
+      if (n == checked) {
+        applyChecked =(PGM_P)attrChecked;
+        elmLen += AutoConnectElementBasisImpl::_sizeof(attrChecked);
+      }
+      if (order == AC_Vertical) {
+        applyBr =(PGM_P)tagBr; 
+        elmLen += AutoConnectElementBasisImpl::_sizeof(tagBr);
+      }
+      elmLen = (elmLen + 16) & (~0xf);
+      char* elmBuffer = new char[elmLen];
+      if (elmBuffer) {
+        PGM_P applyTag = (PGM_P)attrNone;
+        if (n <= tags.size())
+          applyTag = tags[n -1].c_str();
+        snprintf_P(elmBuffer, elmLen, elmInputTempl, name.c_str(), n, name.c_str(), value.c_str(), applyChecked, (PGM_P)tagLabel, name.c_str(), n, value.c_str(), tagLabel, applyBr, applyTag);
+        html += String(elmBuffer);
+        delete elmBuffer;
+      }
+    }
+    if (order == AC_Horizontal)
+      html = AutoConnectElementBasis::posterior(html);
   }
   return html;
 }
@@ -290,6 +457,9 @@ const String AutoConnectRangeBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
+    // Conversion of the AutoConnectRange element to HTML.
+    // [<label for="name">label</label>][<br>]
+    // <input type="radio" id="name" name="name" value=values[N]"[ checked]><label for="id_N">values[N]</label>[<br>]
     if (label.length())
       html = String(F("<label for=\"")) + name + String("\">") + label + String(F("</label>"));
     
@@ -414,8 +584,16 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
   String  html = String("");
 
   if (enable) {
-    html = String(F("<input type=\"button\" name=\"")) + name + String(F("\" value=\"")) + value + String(F("\" onclick=\"_sa('")) + uri + String("')\">");
-    html = AutoConnectElementBasis::posterior(html);
+    // Conversion of the AutoConnectSubmit element to HTML.
+    // <input type="button" name="name" value="value" onclick="_sa('uri')">
+    static const char elmSubmitTempl[] PROGMEM ="<input type=\"button\" name=\"%s\" value=\"%s\" onclick=\"_sa('%s')\">";
+    size_t elmLen = (AutoConnectElementBasisImpl::_sizeof(elmSubmitTempl) + name.length() + value.length() + uri.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 3) + sizeof('\0') + 16) & (~0xf);
+    char*  elmSubmit = new char[elmLen];
+    if (elmSubmit) {
+      snprintf_P(elmSubmit, elmLen, name.c_str(), value.c_str(), uri.c_str());
+      delete elmSubmit;
+    }
+    html = AutoConnectElementBasis::posterior(String(elmSubmit));
   }
   return html;
 }
@@ -433,21 +611,21 @@ const String AutoConnectTextBasis::toHTML(void) const {
 
     if (format.length()) {
       size_t  buflen = (value.length() + format.length() + 16 + 1) & (~0xf);
-      char* buffer;
-      if ((buffer = (char*)malloc(buflen))) {
+      char*   buffer = new char[buflen];
+      if (buffer) {
         snprintf(buffer, buflen, format.c_str(), value.c_str());
         value_f = String(buffer);
-        free(buffer);
+        delete buffer;
       }
     }
 
     // Conversion of the AutoConnectText element to HTML according to the post attributes.
-    // <span id='name' style='style'>formatted value</span>[<br>]
-    // <p id='name' style='style'>formatted value</p>
-    // <div id='name' style='style'>formatted value</div>
-    const char* elmTextTemp = PSTR("<%s id=\"%s\"%s>%s</%s>%s");
-    const char* applyTag = PSTR("");
-    const char* br = PSTR("");
+    // <span id="name"[ style="style"]>formatted value</span>[<br>]
+    // <p id="name"[ style="style"]>formatted value</p>
+    // <div id="name"[ style="style"]>formatted value</div>
+    static const char elmTextTempl[] PROGMEM = "<%s id=\"%s\"%s>%s</%s>%s";
+    PGM_P applyTag = PSTR("");
+    PGM_P br = PSTR("");
     
     switch (post) {
     case AC_Tag_BR:
@@ -463,29 +641,28 @@ const String AutoConnectTextBasis::toHTML(void) const {
       break;
     }
 
-    const char* attrStyleTemp = PSTR(" style=\"%s\"");
-    const char* applyStyle = PSTR("");
-    char* styleBuffer = nullptr;
+    static const char attrStyleTempl[] PROGMEM = " style=\"%s\"";
+    static const char* applyStyle = "";
+    size_t  buflen = (AutoConnectElementBasisImpl::_sizeof(attrStyleTempl) + style.length() - AutoConnectElementBasisImpl::_sizeof("%s") + 16 + 1) & (~0xf);
+    char*   styleBuffer = new char[buflen];
 
     if (style.length()) {
-      size_t  buflen = (sizeof(attrStyleTemp) + style.length() + 16 + 1) & (~0xf);
-      if ((styleBuffer = (char*)malloc(buflen))) {
-        snprintf_P(styleBuffer, buflen, attrStyleTemp, style.c_str());
+      if (styleBuffer) {
+        snprintf_P(styleBuffer, buflen, attrStyleTempl, style.c_str());
         applyStyle = styleBuffer;
       }
     }
 
-    char*  elmBuffer;
-    size_t elmLen = (sizeof(elmTextTemp) + (strlen(applyTag) * 2) + strlen(applyStyle) + strlen(br) + name.length() + value_f.length() + 16 + 1) & (~0xf);
-    if ((elmBuffer = (char*)malloc(elmLen)))
-      snprintf_P(elmBuffer, elmLen, elmTextTemp, applyTag, name.c_str(), applyStyle, value_f.c_str(), applyTag, br);
+    size_t elmLen = (AutoConnectElementBasisImpl::_sizeof(elmTextTempl) + (strlen(applyTag) * 2) + strlen(applyStyle) + strlen(br) + name.length() + value_f.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 6) + 16 + 1) & (~0xf);
+    char*  elmBuffer = new char[elmLen];
+    if (elmBuffer) {
+      snprintf_P(elmBuffer, elmLen, elmTextTempl, applyTag, name.c_str(), applyStyle, value_f.c_str(), applyTag, br);
+      html = String(elmBuffer);
+      delete elmBuffer;
+    }
 
-    html = String(elmBuffer);
-
-    if (elmBuffer)
-      free(elmBuffer);
     if (styleBuffer)
-      free(styleBuffer);
+      delete styleBuffer;
   }
   return html;
 }
