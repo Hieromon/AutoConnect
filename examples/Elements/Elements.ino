@@ -61,7 +61,8 @@ static const char PAGE_ELEMENTS[] PROGMEM = R"(
       "name": "text",
       "type": "ACText",
       "value": "AutoConnect element behaviors collection",
-      "style": "font-family:Arial;font-size:18px;font-weight:400;color:#191970"
+      "style": "font-family:Arial;font-size:18px;font-weight:400;color:#191970",
+      "posterior": "div"
     },
     {
       "name": "check",
