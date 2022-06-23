@@ -322,7 +322,7 @@ Specifies the type of input that the text box accepts. AutoConnectInput will gen
 
 ## AutoConnectRadio
 
-AutoConnectRadio generates few HTML `#!html <input type="radio">` tags as grouped and the same number of `#!html <label>` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.
+AutoConnectRadio generates several HTML `#!html <input type="radio">` tags grouped together. It also assigns an equal number of `#!html <label>` tags to each `#!html <input type="radio">` tag and stores the values of the choices that make up a radio button as a String collection.
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);`**</small>
@@ -337,11 +337,11 @@ AutoConnectRadio(const char* name, std::vector<String> const& values, const char
 
 ### <i class="fa fa-caret-right"></i> name
 
-It is the `name` of the AutoConnectRadio element and matches the name attribute of the input tags. It also becomes the parameter name of the query string when submitted.
+It is the name of the AutoConnectRadio element, which matches the name attribute of the input tag and defines the radio group by this name. It is also the `name` parameter in the query string during submission.
 
 ### <i class="fa fa-caret-right"></i> values
 
-A `values` is an array of String type for the radio button options which as actually [std::vector](https://en.cppreference.com/w/cpp/container/vector). It is an initialization list can be used. The input tags will be generated from each entry in the values, the amount of which is the same as the number of items in `values`.
+A group of radio buttons is a set of `#!html <input type="radio">` tags with the same name; AutoConnectRadio defines a radio group based on an array of Strings specified as values. A `values` is an array of String, actually a [std::vector](https://en.cppreference.com/w/cpp/container/vector). The sketch can allocate its String array using std::vector's [List-initialization](https://en.cppreference.com/w/cpp/language/list_initialization).
 
 ### <i class="fa fa-caret-right"></i> label
 
