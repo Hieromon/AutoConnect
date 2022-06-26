@@ -128,7 +128,6 @@ void AutoConnectOTA::_buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage
         element->value = String(FPSTR(page->element[n].value));
       if (page->element[n].peculiar)
         element->style = String(FPSTR(page->element[n].peculiar));
-      element->post = AC_Tag_DIV;
       aux->add(reinterpret_cast<AutoConnectText&>(*element));
     }
   }
