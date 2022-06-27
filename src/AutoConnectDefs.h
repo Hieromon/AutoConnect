@@ -230,7 +230,15 @@
 #else  // Native pin for the arduino
 #define AUTOCONNECT_TICKER_PORT       2
 #endif
+#endif // !AUTOCONNECT_TICKER_PORT
+// Ticker active signal level
+#ifndef AUTOCONNECT_TICKER_LEVEL
+#ifdef ARDUINO_ARCH_ESP32
+#define AUTOCONNECT_TICKER_LEVEL      HIGH
+#else
+#define AUTOCONNECT_TICKER_LEVEL      LOW
 #endif
+#endif // !AUTOCONNECT_TICKER_PORT
 
 // Lowest WiFi signal strength (RSSI) that can be connected.
 #ifndef AUTOCONNECT_MIN_RSSI
