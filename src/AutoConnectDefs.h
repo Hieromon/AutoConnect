@@ -231,14 +231,16 @@
 #define AUTOCONNECT_TICKER_PORT       2
 #endif
 #endif // !AUTOCONNECT_TICKER_PORT
-// Ticker active signal level
+// Ticker active signal level value that the board dependent LED turns on.
+// As a typical example, the ON signal of built-in LED such as the
+// NodeMCU is LOW and the HIGH for the NodeMCU-32S as another example.
 #ifndef AUTOCONNECT_TICKER_LEVEL
 #ifdef ARDUINO_ARCH_ESP32
 #define AUTOCONNECT_TICKER_LEVEL      HIGH
 #else
 #define AUTOCONNECT_TICKER_LEVEL      LOW
 #endif
-#endif // !AUTOCONNECT_TICKER_PORT
+#endif // !AUTOCONNECT_TICKER_LEVEL
 
 // Lowest WiFi signal strength (RSSI) that can be connected.
 #ifndef AUTOCONNECT_MIN_RSSI
@@ -280,14 +282,6 @@
 #ifndef AUTOCONNECT_UPDATE_WAITFORREBOOT
 #define AUTOCONNECT_UPDATE_WAITFORREBOOT  15000
 #endif // !AUTOCONNECT_UPDATE_WAITFORREBOOT
-
-// A signal value that the board dependent LED turns on.
-// As a typical example, the ON signal of built-in LED such as the
-// NodeMCU is LOW and the HIGH for the NodeMCU-32S as another example.
-#ifndef AUTOCONNECT_UPDATE_LEDON
-// #define AUTOCONNECT_UPDATE_LEDON  HIGH
-#define AUTOCONNECT_UPDATE_LEDON  LOW
-#endif // !AUTOCONNECT_UPDATE_LEDON
 
 // URIs of the behaviors owned by the update server
 #ifndef AUTOCONNECT_UPDATE_CATALOG
