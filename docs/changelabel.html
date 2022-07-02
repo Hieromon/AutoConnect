@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/changelabel.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
     
       
@@ -23,15 +23,16 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4a0965b7.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#4051b5">
         
+      
       
     
     
@@ -1224,18 +1225,18 @@
 <h3 id="configuration-of-platformioini">Configuration of platformio.ini<a class="headerlink" href="#configuration-of-platformioini" title="Permanent link">&para;</a></h3>
 <p>You prepare its header file and place it in the <code>src</code> folder of the project folder. You can name the file whatever you like, but for the sake of explanation, let's say <code>mylabels.h</code>.</p>
 <p>When you store <code>mylabels.h</code> containing the new label text definition in the <code>src</code> folder, your Arduino project folder structure should look like this:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">Project</span> <span style="color: #a6e22e">folder</span><span style="color: #f92672">&gt;</span>
-<span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">pio</span><span style="color: #f92672">&gt;</span>
-<span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">vscode</span><span style="color: #f92672">&gt;</span>
-<span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">include</span><span style="color: #f92672">&gt;</span>
-<span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">lib</span><span style="color: #f92672">&gt;</span>
-<span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">src</span><span style="color: #f92672">&gt;</span>
-<span style="color: #f92672">|</span>   <span style="color: #f92672">|--</span> <span style="color: #a6e22e">main</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">cpp</span>
-<span style="color: #f92672">|</span>   <span style="color: #f92672">|--</span> <span style="color: #a6e22e">mylabels</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">h</span>  <span style="color: #f92672">&lt;--</span> <span style="color: #a6e22e">Depends</span> <span style="color: #a6e22e">on</span> <span style="color: #a6e22e">the</span> <span style="color: #a6e22e">project</span>
-<span style="color: #f92672">|--</span> <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">test</span><span style="color: #f92672">&gt;</span>
-<span style="color: #f92672">|--</span> <span style="color: #f8f8f2">.</span><span style="color: #a6e22e">gitignore</span>
-<span style="color: #f92672">|--</span> <span style="color: #f8f8f2">.</span><span style="color: #a6e22e">travis</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">yml</span>
-<span style="color: #f92672">|--</span> <span style="color: #a6e22e">platformio</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ini</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">Project</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">folder</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">pio</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">vscode</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">include</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">lib</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">src</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|</span><span style="color: #f8f8f2">   </span><span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">main</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">cpp</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|</span><span style="color: #f8f8f2">   </span><span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">mylabels</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">h</span><span style="color: #f8f8f2">  </span><span style="color: #f92672">&lt;--</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">Depends</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">on</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">the</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">project</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&lt;</span><span style="color: #a6e22e">test</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> .</span><span style="color: #a6e22e">gitignore</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> .</span><span style="color: #a6e22e">travis</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">yml</span><span style="color: #f8f8f2"></span>
+<span style="color: #f92672">|--</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">platformio</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ini</span><span style="color: #f8f8f2"></span>
 </code></pre></div>
 <p>Then, open <a href="https://docs.platformio.org/en/latest/projectconf.html"><code>platformio.ini</code></a> file and add new <a href="https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags"><code>build_flags</code></a> for including <code>mylabels.h</code> to override the label text.</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #a6e22e">build_flags</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">-DAC_LABELS=&#39;&quot;${PROJECT_SRC_DIR}/mylabels.h&quot;&#39;</span><span style="color: #f8f8f2"></span>
@@ -1254,6 +1255,7 @@
 
               
             </article>
+            
           </div>
         </div>
         
@@ -1261,7 +1263,8 @@
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="colorized.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom colorized" rel="prev">
@@ -1342,10 +1345,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

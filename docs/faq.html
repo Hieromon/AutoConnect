@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/faq.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
     
       
@@ -23,15 +23,16 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4a0965b7.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#4051b5">
         
+      
       
     
     
@@ -1664,19 +1665,22 @@ Consider activating the <a href="adconnection.html#match-with-known-access-point
 <p>We may not be able to immobilize the MAC address of Personal Hotspot on iOS14. This specification change seems to be related to the private network connection enhancement of iOS14 devices. I found this change during the testing phase, but it is not the confirmed information. (iOS14 offers an option to immobilize the MAC address as a client device, but there is still no option to immobilize it where the device became a hotspot)</p>
 </div>
 <h2 id="captive-portal-does-not-pop-up"><i class="fa fa-question-circle"></i> Captive portal does not pop up.<a class="headerlink" href="#captive-portal-does-not-pop-up" title="Permanent link">&para;</a></h2>
-<p>If your ESP module is already transparent to the internet, the captive portal screen will not pop up even if <a href="apiconfig.html#retainportal"><strong>AutoConnectConfig::retainPortal</strong></a> is enabled. Some people have mistaken sometimes about the behavioral condition of the Captive portal, it only pops up automatically when the ESP module is disconnected state from the Internet.</p>
-<p>We will hypothesize that you keep the ESP module with AP_STA mode by specifing the <strong>retainPortal</strong> and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the <strong>esp32ap</strong>, the OS of your cellphone will determine that the access point (i.e. <strong>esp32ap</strong>) is transparent to the Internet. That is, the captive portal does not pop up.</p>
+<p>If the ESP module is already transparent to the Internet, the device's captive portal screen does not pop up even if <a href="apiconfig.html#retainportal"><strong>AutoConnectConfig::retainPortal</strong></a> is enabled. The captive portal popup may also be misinterpreted as automatically activated when AutoConnect is disconnected from the Internet.</p>
+<p>When your device connects to an access point, it determines if it is also transparent to the Internet according to the HTTP response from a specific URL. AutoConnect traps the HTTP request issued by the device and responds with a portal screen for AutoConnect. Then the device automatically pops up the HTML in response. It means the auto-popup when opening a captive portal is a feature your device OS has. In this mechanism, AutoConnect impersonates an internally launched DNS server response to trap HTTP requests for Internet transparency determination.</p>
+<p>However, its DNS response disguise is very rough, redirecting all FQDNs that do not end in .local to the SoftAP IP address of the ESP module. The redirect location is <code>/_ac</code>, and the responder for <code>/_ac</code> is AutoConnect. This kind of hack is also available as an <a href="https://github.com/esp8266/Arduino/blob/master/libraries/DNSServer/examples/CaptivePortal/CaptivePortal.ino">example</a> in the Arduino ESP8266/ESP32 DNS server library.</p>
+<p>The reason AutoConnect shuts down the DNS server after establishing a connection with a WiFi access point and stops hacking HTTP requests for Internet transparency detection is because AutoConnect can only trap a broad range of DNS requests. After the ESP module connects to the access point, the sketch can access the Internet using the FQDN. To prevent it from interfering with that access, AutoConnect will stop the internally launched DNS. In other words, the only scene that allows automatic pop-ups to lead to the captive portal is when the ESP module is not transparent to the Internet.</p>
+<p>Instead, AutoConnect has options to restart the internal DNS server when the ESP module loses WiFi connectivity, allowing the device to auto-pop up a captive portal screen. If the sketch enables <a href="apiconfig.html#retainportal">AutoConnectConfig::retainPotral</a> and <a href="apiconfig.html#autorise">AutoConnectConfig::autoRise</a>, then when the WiFi connection is lost (i.e. <code>WiFi.status() != WL_CONNECTED</code>), AutoConnect will initiate a trap by starting the <strong>SoftAP</strong> and the internal DNS server. At this time, the ESP module will transition to <strong>WIFI_AP_STA</strong> mode. The <a href="api.html#handleclient">AutoConnect::handleClient</a> function performs this restart sequence each time it is called, so the sketch can resume the captive portal automatic pop-up while the <code>loop</code> function is running.</p>
 <h2 id="compile-error-due-to-file-system-header-file-not-found"><i class="fa fa-question-circle"></i> Compile error due to File system header file not found<a class="headerlink" href="#compile-error-due-to-file-system-header-file-not-found" title="Permanent link">&para;</a></h2>
 <p>In <a href="https://docs.platformio.org/en/latest/">PlatformIO</a>, it may occur compilation error such as the bellows:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">In file included from C</span><span style="color: #f92672">:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect.h</span><span style="color: #f92672">:</span><span style="color: #ae81ff">30</span><span style="color: #f92672">:</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span>
-<span style="color: #f8f8f2">                 from src</span><span style="color: #f92672">/</span><span style="color: #f8f8f2">main.cpp</span><span style="color: #f92672">:</span><span style="color: #ae81ff">28</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
-<span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder.h</span><span style="color: #f92672">:</span><span style="color: #ae81ff">88</span><span style="color: #f92672">:</span><span style="color: #ae81ff">27</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
-<span style="color: #f8f8f2">fatal error</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> SPIFFS.h</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> No such file or directory</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #a6e22e">In file included from C:\Users\&lt;user&gt;\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30:0,</span><span style="color: #f8f8f2"></span>
+<span style="color: #f8f8f2">                 </span><span style="color: #a6e22e">from src/main.cpp:28:</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">C:\Users\&lt;user&gt;\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:88:27:</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">fatal error: SPIFFS.h: No such file or directory</span><span style="color: #f8f8f2"></span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">In file included from C</span><span style="color: #f92672">:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">AutoConnect.h</span><span style="color: #f92672">:</span><span style="color: #ae81ff">30</span><span style="color: #f8f8f2">,</span>
-<span style="color: #f8f8f2">                 from src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">main.cpp</span><span style="color: #f92672">:</span><span style="color: #ae81ff">28</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
-<span style="color: #f8f8f2">C:</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Users</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">user</span><span style="color: #f92672">&gt;</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Documents</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">Arduino</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">libraries</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">src</span><span style="color: #960050; background-color: #1e0010">\</span><span style="color: #f8f8f2">PageBuilder.h</span><span style="color: #f92672">:</span><span style="color: #ae81ff">93</span><span style="color: #f92672">:</span><span style="color: #ae81ff">17</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"></span>
-<span style="color: #f8f8f2">fatal error</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> LittleFS.h</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> No such file or directory</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #a6e22e">In file included from C:\Users\&lt;user&gt;\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30,</span><span style="color: #f8f8f2"></span>
+<span style="color: #f8f8f2">                 </span><span style="color: #a6e22e">from src\main.cpp:28:</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">C:\Users\&lt;user&gt;\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:93:17:</span><span style="color: #f8f8f2"></span>
+<span style="color: #a6e22e">fatal error: LittleFS.h: No such file or directory</span><span style="color: #f8f8f2"></span>
 </code></pre></div>
 <p>This compilation error is due to PlatformIO's <a href="https://docs.platformio.org/en/latest/librarymanager/ldf.html?highlight=ldf#library-dependency-finder-ldf">Library Dependency Finder</a> not being able to detect <code>#include</code> with default <a href="https://docs.platformio.org/en/latest/librarymanager/ldf.html#dependency-finder-mode">mode</a> <code>chain</code>. Chain mode does not recursively evaluate <code>.cpp</code> files. However, AutoConnect determines the default file system at compile time, depending on the platform. In order for LDF to detect it correctly, it is necessary to recursively scan <code>#include</code> of the header file, which depends on the file system used.</p>
 <p>To avoid compilation errors in PlatformIO, specify <a href="https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode"><code>lib_ldf_mode</code></a> in <a href="https://docs.platformio.org/en/latest/projectconf/index.html#platformio-ini-project-configuration-file"><code>platformio.ini</code></a> as follows:</p>
@@ -1757,7 +1761,9 @@ You have the following two options to avoid this conflict:</p>
 <span style="color: #f8f8f2">  delay(</span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<details class="hint"><summary>You can interactively check the WiFi state of ESP8266.</summary><p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p>
+<details class="hint">
+<summary>You can interactively check the WiFi state of ESP8266.</summary>
+<p>Please try <a href="https://github.com/Hieromon/ESPShaker"><strong>ESPShaker</strong></a>. It is ESP8266 interactive serial command processor.</p>
 <p><img src="images/espshaker.gif" /></p>
 </details>
 <h2 id="does-not-response-from-_ac"><i class="fa fa-question-circle"></i> Does not response from /_ac.<a class="headerlink" href="#does-not-response-from-_ac" title="Permanent link">&para;</a></h2>
@@ -1992,6 +1998,7 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 
               
             </article>
+            
           </div>
         </div>
         
@@ -1999,7 +2006,8 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="changelabel.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Change label text" rel="prev">
@@ -2080,10 +2088,10 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/filesystem.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
     
       
@@ -23,15 +23,16 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4a0965b7.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#4051b5">
         
+      
       
     
     
@@ -689,6 +690,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#adapts-the-sketch-to-the-selected-file-system-in-autoconnect" class="md-nav__link">
+    Adapts the sketch to the selected file system in AutoConnect
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1154,6 +1162,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#adapts-the-sketch-to-the-selected-file-system-in-autoconnect" class="md-nav__link">
+    Adapts the sketch to the selected file system in AutoConnect
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1432,9 +1447,39 @@ Also, LittleFS support on the ESP32 is expected to be in the future beyond <a hr
 <p><strong><code>/set</code> custom web page handler</strong>: It is named <code>onSet</code> function in above sketch. The <code>onSet</code> handler retrieves PWM settings using ArduinoJson <a href="https://arduinojson.org/v6/api/json/deserializejson/">deserialization</a> from the uploaded <code>param.json</code> file. Each fetched setting value is stored in each global variable. The loop function refers to that value to achieve PWM pulse control.</p>
 </li>
 </ul>
+<h2 id="adapts-the-sketch-to-the-selected-file-system-in-autoconnect">Adapts the sketch to the selected file system in AutoConnect<a class="headerlink" href="#adapts-the-sketch-to-the-selected-file-system-in-autoconnect" title="Permanent link">&para;</a></h2>
+<p>AutoConnect determines the appropriate file system instance according to the <strong>AC_USE_SPIFFS</strong> or <strong>AC_USE_LITTLEFS</strong> macro definition. This determination is made by the c++ preprocessor when the sketch is built. It then exports a macro definition that identifies the determined file system. Its macro definition allows the sketch to reference a valid file system after including the <code>AutoConnect.h</code> header file.</p>
+<p>The following two macro definitions, which can be referenced after including the AutoConnect.h header file, help the sketch choose the appropriate file system.</p>
+<ul>
+<li><strong>AUTOCONNECT_USE_SPIFFS</strong>: AutoConnect uses SPIFFS. The sketch should include <code>SPIFFS.h</code>. Also, the file system instance is <code>SPIFFS</code>.</li>
+<li><strong>AUTOCONNECT_USE_LITTLEFS</strong>: AutoConnect uses LITTLEFS. The sketch should include <code>LittleFS.h</code>. Also, the file system instance is <code>LittleFS</code>.</li>
+</ul>
+<p>Combining the c++ preprocessor directives with the two macro definitions above, you can write a common sketch code for both SPIFFS and LittleFS, as shown in the code as follows:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="background-color: #49483e"><span style="color: #75715e">#ifdef AUTOCONNECT_USE_LITTLEFS</span>
+</span><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;LittleFS.h&gt;</span>
+<span style="color: #75715e">#if defined(ARDUINO_ARCH_ESP8266)</span>
+<span style="color: #f8f8f2">FS</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> FlashFS </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> LittleFS;</span>
+<span style="color: #75715e">#elif defined(ARDUINO_ARCH_ESP32)</span>
+<span style="color: #f8f8f2">fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">LittleFSFS</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> FlashFS </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> LittleFS;</span>
+<span style="color: #75715e">#endif</span>
+<span style="color: #75715e">#else</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;FS.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;SPIFFS.h&gt;</span>
+<span style="color: #f8f8f2">fs</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">SPIFFSFS</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> FlashFS </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> SPIFFS;</span>
+<span style="color: #75715e">#endif</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  ...</span>
+<span style="color: #f8f8f2">  FlashFS.begin();</span>
+<span style="color: #f8f8f2">  ...</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
 
               
             </article>
+            
           </div>
         </div>
         
@@ -1442,7 +1487,8 @@ Also, LittleFS support on the ESP32 is expected to be in the future beyond <a hr
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="otaserver.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using Update Server" rel="prev">
@@ -1523,10 +1569,10 @@ Also, LittleFS support on the ESP32 is expected to be in the future beyond <a hr
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/esp32cam.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
     
       
@@ -23,15 +23,16 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4a0965b7.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#4051b5">
         
+      
       
     
     
@@ -1917,8 +1918,8 @@
 </li>
 <li>
 <p>Insert AutoConnectElement in the JSON description of your custom web page with JavaScript enclosed in <code>&lt;script&gt;~&lt;/script&gt;</code> in HTML to stop streaming on page transition.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">addEventListener</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;pagehide&#39;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">function</span> <span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">addEventListener</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;pagehide&#39;</span><span style="color: #f8f8f2">, </span><span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> () {</span>
+<span style="color: #f8f8f2">  window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
 <span style="color: #f8f8f2">});</span>
 </code></pre></div></p>
 <div class="admonition info">
@@ -2477,26 +2478,26 @@
   <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">img</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;img-frame&quot;</span> <span style="color: #f8f8f2">/&gt;</span>
 <span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">body</span><span style="color: #f8f8f2">&gt;</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span> <span style="color: #a6e22e">onAir</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;onair&#39;</span><span style="color: #f8f8f2">);</span>
-<span style="color: #66d9ef">const</span> <span style="color: #a6e22e">imgFrame</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;img-frame&#39;</span><span style="color: #f8f8f2">);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;onair&#39;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">imgFrame</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;img-frame&#39;</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">startsWith</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">startsWith</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">stream</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">onOff</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">onOff</span> <span style="color: #f92672">&amp;&amp;</span> <span style="color: #f92672">!</span><span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">())</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
-    <span style="color: #a6e22e">imgFrame</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">streamUrl</span><span style="color: #f8f8f2">;</span>
-    <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">replace</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Start&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">);</span>
-    <span style="color: #a6e22e">content</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">focus</span><span style="color: #f8f8f2">();</span>
-  <span style="color: #f8f8f2">}</span>
-  <span style="color: #66d9ef">else</span> <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #a6e22e">onOff</span> <span style="color: #f92672">&amp;&amp;</span> <span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">())</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
-    <span style="color: #a6e22e">imgFrame</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">noa</span><span style="color: #f8f8f2">;</span>
-    <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">replace</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;Start&quot;</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">stream</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">onOff</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #a6e22e">onOff</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&amp;&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">!</span><span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">()) {</span>
+<span style="color: #f8f8f2">    window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">imgFrame</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">streamUrl</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">replace</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Start&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">content</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">focus</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #f92672">!</span><span style="color: #a6e22e">onOff</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&amp;&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">isStreaming</span><span style="color: #f8f8f2">()) {</span>
+<span style="color: #f8f8f2">    window.</span><span style="color: #a6e22e">stop</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">imgFrame</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">src</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">noa</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">onAir</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">replace</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;Stop&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;Start&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  }</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>Also, One-shot and timer-shot also use JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a> to send a <a href="#the-following-features-are-currently-supported-by-the-prompt-endpoint">query</a> string compliant with each function to the <a href="#prompt">Prompt</a> endpoint.</p>
@@ -2504,51 +2505,51 @@
 <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;&lt;</span><span style="color: #f92672">label</span> <span style="color: #a6e22e">for</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;period&quot;</span><span style="color: #f8f8f2">&gt;</span>Period [s]<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;number&quot;</span> <span style="color: #a6e22e">name</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;peirod&quot;</span> <span style="color: #a6e22e">id</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;period&quot;</span> <span style="color: #a6e22e">min</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;1&quot;</span> <span style="color: #a6e22e">value</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;1&quot;</span> <span style="color: #a6e22e">pattern</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;\d*&quot;</span><span style="color: #f8f8f2">/&gt;&lt;/</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;</span>
 <span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;button&quot;</span> <span style="color: #a6e22e">value</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;ARM&quot;</span> <span style="color: #a6e22e">onclick</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;arm()&quot;</span><span style="color: #f8f8f2">/&gt;&lt;/</span><span style="color: #f92672">li</span><span style="color: #f8f8f2">&gt;</span>
 </code></pre></div>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">var</span> <span style="color: #a6e22e">promptUrl</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">endpoint</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">host</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">promptPath</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">);</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">var</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">endpoint</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">host</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">promptPath</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">port</span><span style="color: #f8f8f2">);</span>
 
-<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">endpoint</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">host</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">path</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">url</span> <span style="color: #f92672">=</span> <span style="color: #f92672">new</span> <span style="color: #a6e22e">URL</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">path</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;http://&quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">host</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #a6e22e">url</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">port</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">port</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">url</span><span style="color: #f8f8f2">;</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">endpoint</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">host</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">path</span><span style="color: #f8f8f2">, </span><span style="color: #a6e22e">port</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">var</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">new</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">URL</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">path</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;http://&quot;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">host</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">port</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">port</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">;</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">res</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #a6e22e">stream</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">);</span>
-  <span style="color: #a6e22e">fetch</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">)</span>
-    <span style="color: #f8f8f2">.</span><span style="color: #a6e22e">then</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">response</span> <span style="color: #f8f8f2">=&gt;</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #a6e22e">res</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;status:&quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">status</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; &quot;</span><span style="color: #f8f8f2">;</span>
-      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #f92672">!</span><span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ok</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #66d9ef">return</span> <span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">text</span><span style="color: #f8f8f2">().</span><span style="color: #a6e22e">then</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">text</span> <span style="color: #f8f8f2">=&gt;</span> <span style="color: #f8f8f2">{</span>
-          <span style="color: #66d9ef">throw</span> <span style="color: #f92672">new</span> <span style="color: #a6e22e">Error</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">text</span><span style="color: #f8f8f2">);</span>
-        <span style="color: #f8f8f2">});</span>
-      <span style="color: #f8f8f2">}</span>
-      <span style="color: #66d9ef">else</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">color</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&#39;#297acc&#39;</span><span style="color: #f8f8f2">;</span>
-        <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">res</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">statusText</span><span style="color: #f8f8f2">;</span>
-      <span style="color: #f8f8f2">}</span>
-    <span style="color: #f8f8f2">})</span>
-    <span style="color: #f8f8f2">.</span><span style="color: #66d9ef">catch</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span> <span style="color: #f8f8f2">=&gt;</span> <span style="color: #f8f8f2">{</span>
-      <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">desc</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">;</span>
-      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;0x0103&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #a6e22e">desc</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;SD not mounted&quot;</span><span style="color: #f8f8f2">;</span>
-      <span style="color: #f8f8f2">}</span>
-      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;0x0105&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #a6e22e">desc</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;SD open failed&quot;</span><span style="color: #f8f8f2">;</span>
-      <span style="color: #f8f8f2">}</span>
-      <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">color</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&#39;#cc2929&#39;</span><span style="color: #f8f8f2">;</span>
-      <span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">res</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">desc</span><span style="color: #f8f8f2">;</span>
-    <span style="color: #f8f8f2">});</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">var</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">res</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">stream</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">fetch</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">url</span><span style="color: #f8f8f2">)</span>
+<span style="color: #f8f8f2">    .</span><span style="color: #a6e22e">then</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">response</span><span style="color: #f8f8f2"> =&gt; {</span>
+<span style="color: #f8f8f2">      </span><span style="color: #a6e22e">res</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;status:&quot;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">status</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot; &quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #f92672">!</span><span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ok</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">        </span><span style="color: #66d9ef">return</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">text</span><span style="color: #f8f8f2">().</span><span style="color: #a6e22e">then</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">text</span><span style="color: #f8f8f2"> =&gt; {</span>
+<span style="color: #f8f8f2">          </span><span style="color: #66d9ef">throw</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">new</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">Error</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">text</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">        });</span>
+<span style="color: #f8f8f2">      }</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">        </span><span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">color</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&#39;#297acc&#39;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">        </span><span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">res</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">response</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">statusText</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      }</span>
+<span style="color: #f8f8f2">    })</span>
+<span style="color: #f8f8f2">    .</span><span style="color: #66d9ef">catch</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2"> =&gt; {</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">var</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">desc</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;0x0103&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">) </span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">        </span><span style="color: #a6e22e">desc</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;SD not mounted&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      }</span>
+<span style="color: #f8f8f2">      </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #a6e22e">err</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">message</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">indexOf</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;0x0105&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">) </span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">        </span><span style="color: #a6e22e">desc</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;SD open failed&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      }</span>
+<span style="color: #f8f8f2">      </span><span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">style</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">color</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&#39;#cc2929&#39;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">      </span><span style="color: #a6e22e">status</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">innerText</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">res</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">desc</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    });</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">oneshot</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;?mf=oneshot&amp;fs=mmc&quot;</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">oneshot</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;?mf=oneshot&amp;fs=mmc&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">arm</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;?mf=timershot&amp;fs=mmc&amp;period=&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;period&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">;</span>
-  <span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">);</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">arm</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">search</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;?mf=timershot&amp;fs=mmc&amp;period=&quot;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">+</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;period&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #a6e22e">prompt</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">promptUrl</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>The following diagram shows the program structure of the WebCamServer.ino sketch. Its structure is somewhat more complex than the simple sketch presented at the beginning of this chapter because of the native HTML intervening.</p>
@@ -2570,6 +2571,7 @@
 
               
             </article>
+            
           </div>
         </div>
         
@@ -2577,7 +2579,8 @@
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="wojson.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Web pages w/o JSON" rel="prev">
@@ -2658,10 +2661,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/apiaux.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
     
       
@@ -23,15 +23,16 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4a0965b7.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#4051b5">
         
+      
       
     
     
@@ -1553,14 +1554,14 @@ Retrieve the values of the AutoConnectElements on the custom Web page. Refer to 
 <p class="admonition-title">Maybe it is an array</p>
 <p>Please note that the JSON document that is the input for loadElement is an array syntax of AutoConnectElements when there are multiple elements. For example, the following JSON document has a syntax error:</p>
 <p><div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;name&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;Caption&quot;</span><span style="color: #f8f8f2">,</span>
-  <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
-  <span style="color: #e6db74">&quot;value&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;Hello, world&quot;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #e6db74">&quot;name&quot;</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;Caption&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;ACText&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #e6db74">&quot;value&quot;</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;Hello, world&quot;</span><span style="color: #f8f8f2"></span>
 <span style="color: #f8f8f2">},</span>
 <span style="color: #f8f8f2">{</span>
-  <span style="color: #e6db74">&quot;name&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;Server&quot;</span><span style="color: #f8f8f2">,</span>
-  <span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
-  <span style="color: #e6db74">&quot;label&quot;</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;Server address&quot;</span>
+<span style="color: #f8f8f2">  </span><span style="color: #e6db74">&quot;name&quot;</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;Server&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #e6db74">&quot;type&quot;</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;ACInput&quot;</span><span style="color: #f8f8f2">,</span>
+<span style="color: #f8f8f2">  </span><span style="color: #e6db74">&quot;label&quot;</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;Server address&quot;</span><span style="color: #f8f8f2"></span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 The outermost <code>[</code>, <code>]</code> is missing.</p>
@@ -1695,6 +1696,7 @@ The difference between the setElementValue and the value access with the <a href
 
               
             </article>
+            
           </div>
         </div>
         
@@ -1702,7 +1704,8 @@ The difference between the setElementValue and the value access with the <a href
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="api.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: AutoConnect API" rel="prev">
@@ -1783,10 +1786,10 @@ The difference between the setElementValue and the value access with the <a href
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

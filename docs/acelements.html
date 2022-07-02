@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/acelements.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
     
       
@@ -23,15 +23,16 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4a0965b7.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#4051b5">
         
+      
       
     
     
@@ -2666,7 +2667,7 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <div style="display:inline-block"><img src="images/html5_forms_number.png"><span style="padding-left:30px"></span><img src="images/html5_forms_number_ios.png"></div></p>
 </div>
 <h2 id="autoconnectradio">AutoConnectRadio<a class="headerlink" href="#autoconnectradio" title="Permanent link">&para;</a></h2>
-<p>AutoConnectRadio generates few HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tags as grouped and the same number of <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.</p>
+<p>AutoConnectRadio generates several HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tags grouped together. It also assigns an equal number of <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tags to each <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tag and stores the values of the choices that make up a radio button as a String collection.</p>
 <p><i class="fa fa-eye"></i> <strong>Sample</strong><br>
 <small><strong><code>AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/acradio.png"></p>
@@ -2674,9 +2675,9 @@ Only <i class="far fa-square"></i> will be displayed if a label is not specified
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> name, std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">vector</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">String</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">const</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> values, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> label, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACArrange_t order, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">uint8_t</span><span style="color: #f8f8f2"> checked, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> ACPosterior_t post)</span>
 </code></pre></div>
 <h3 id="name_5"><i class="fa fa-caret-right"></i> name<a class="headerlink" href="#name_5" title="Permanent link">&para;</a></h3>
-<p>It is the <code>name</code> of the AutoConnectRadio element and matches the name attribute of the input tags. It also becomes the parameter name of the query string when submitted.</p>
+<p>It is the name of the AutoConnectRadio element, which matches the name attribute of the input tag and defines the radio group by this name. It is also the <code>name</code> parameter in the query string during submission.</p>
 <h3 id="values"><i class="fa fa-caret-right"></i> values<a class="headerlink" href="#values" title="Permanent link">&para;</a></h3>
-<p>A <code>values</code> is an array of String type for the radio button options which as actually <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a>. It is an initialization list can be used. The input tags will be generated from each entry in the values, the amount of which is the same as the number of items in <code>values</code>.</p>
+<p>A group of radio buttons is a set of <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">input</span> <span style="color: #a6e22e">type</span><span style="color: #f92672">=</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">&gt;</span></code> tags with the same name; AutoConnectRadio defines a radio group based on an array of Strings specified as values. A <code>values</code> is an array of String, actually a <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a>. The sketch can allocate its String array using std::vector's <a href="https://en.cppreference.com/w/cpp/language/list_initialization">List-initialization</a>.</p>
 <h3 id="label_3"><i class="fa fa-caret-right"></i> label<a class="headerlink" href="#label_3" title="Permanent link">&para;</a></h3>
 <p>A label is an optional string. A label will be arranged in the left or top of the radio buttons according to the <strong>order</strong>. Specification of a label will generate an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">label</span><span style="color: #f8f8f2">&gt;</span></code> tag with an <code>id</code> attribute. The radio buttons and the label are connected by the id attribute.</p>
 <h3 id="order"><i class="fa fa-caret-right"></i> order<a class="headerlink" href="#order" title="Permanent link">&para;</a></h3>
@@ -2772,7 +2773,13 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 <h3 id="post_8"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_8" title="Permanent link">&para;</a></h3>
 <p>Specifies a tag to add behind the HTML code generated from the element. The default values is <code>AC_Tag_None</code>.</p>
 <h2 id="autoconnecttext">AutoConnectText<a class="headerlink" href="#autoconnecttext" title="Permanent link">&para;</a></h2>
-<p>AutoConnectText generates an HTML <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">div</span><span style="color: #f8f8f2">&gt;</span></code> tag. A <code class="highlight">style</code> attribute will be attached if a <a href="#style">style</a> parameter is passed.</p>
+<p>AutoConnectText generates a text content enclosed in <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">div</span><span style="color: #f8f8f2">&gt;</span></code>, <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">p</span><span style="color: #f8f8f2">&gt;</span></code> or <code class="highlight"><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">span</span><span style="color: #f8f8f2">&gt;</span></code> tags; if the <a href="#style">style</a> parameter is provided, the style attributes is added. A kind of HTML tag applied depends on the value of the <a href="#post_9">post</a> parameter as follows:</p>
+<ul>
+<li><strong>AC_Tag_None</strong>: <code>&lt;span id='name' style='style'&gt;value&lt;/span&gt;</code></li>
+<li><strong>AC_Tag_BR</strong>: <code>&lt;span id='name' style='style'&gt;value&lt;/span&gt;&lt;br&gt;</code></li>
+<li><strong>AC_Tag_P</strong>: <code>&lt;p id='name' style='style'&gt;value&lt;/p&gt;</code></li>
+<li><strong>AC_Tag_DIV</strong>: <code>&lt;div id='name' style='style'&gt;value&lt;/div&gt;</code></li>
+</ul>
 <p><i class="fa fa-eye"></i> <strong>Sample</strong><br>
 <small><strong><code>AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");</code></strong></small></p>
 <p><small>On the page:</small><br><img src="images/actext.png"></p>
@@ -2788,8 +2795,13 @@ Therefore, specifying the wrong CSS will modulate the behavior of the custom Web
 <h3 id="format"><i class="fa fa-caret-right"></i> format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h3>
 <p>A <code>format</code> is a pointer to a null-terminated multi byte string specifying how to interpret the value. It specifies the conversion format when outputting values. The format string conforms to C-style printf library functions, but depends on the Espressif's SDK implementation. The conversion specification is valid only in <strong>%s</strong> format. (Left and Right justification, width are also valid.)</p>
 <h3 id="post_9"><i class="fa fa-caret-right"></i> post<a class="headerlink" href="#post_9" title="Permanent link">&para;</a></h3>
-<p>Specifies a tag to add behind the HTML code generated from the element. The default values is <code>AC_Tag_None</code>.<br />
-AutoConnectText element without the style parameter will be drained to HTML as a raw value and is accompanied by <code>&lt;p&gt;</code>, <code>&lt;br&gt;</code> or <code>&lt;div&gt;</code> tags according to the post enumeration values. If the style parameter is specified, the post enumeration value will be ignored and always be enclosed in the <code>&lt;div&gt;</code> tag, and the style value will be inserted into <code>style</code> attribute of the <code>&lt;div&gt;</code> tag.</p>
+<p>Specifies an HTML element that completes the text content. AutoConnectText's post parameter does not specify any behind-supplements, unlike when applied to other elements. A kind of HTML tag applied depends on the enumerated value of the <a href="#post_9">post</a> parameter as follows:</p>
+<ul>
+<li><strong>AC_Tag_None</strong>: <code>&lt;span id='name' style='style'&gt;value&lt;/span&gt;</code></li>
+<li><strong>AC_Tag_BR</strong>: <code>&lt;span id='name' style='style'&gt;value&lt;/span&gt;&lt;br&gt;</code></li>
+<li><strong>AC_Tag_P</strong>: <code>&lt;p id='name' style='style'&gt;value&lt;/p&gt;</code></li>
+<li><strong>AC_Tag_DIV</strong>: <code>&lt;div id='name' style='style'&gt;value&lt;/div&gt;</code></li>
+</ul>
 <h2 id="how-to-coding-for-the-elements">How to coding for the elements<a class="headerlink" href="#how-to-coding-for-the-elements" title="Permanent link">&para;</a></h2>
 <h3 id="declaration-for-the-elements-in-sketches"><i class="fa fa-edit"></i> Declaration for the elements in Sketches<a class="headerlink" href="#declaration-for-the-elements-in-sketches" title="Permanent link">&para;</a></h3>
 <p>Variables of each AutoConnetElement can be declared with macros. By using the macros, you can treat element name that is String type as variable in sketches.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
@@ -2835,6 +2847,7 @@ equals by using <em>ACText</em> macro.<br>
 
               
             </article>
+            
           </div>
         </div>
         
@@ -2842,7 +2855,8 @@ equals by using <em>ACText</em> macro.<br>
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="acintro.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Web pages with AutoConnect" rel="prev">
@@ -2923,10 +2937,10 @@ equals by using <em>ACText</em> macro.<br>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       

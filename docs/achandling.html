@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/achandling.html">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.16">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
     
       
@@ -23,15 +23,16 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.1c3799f8.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4a0965b7.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.cc9b2e1e.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.cbb835fc.min.css">
         
           
           
           <meta name="theme-color" content="#4051b5">
         
+      
       
     
     
@@ -2634,8 +2635,8 @@ You can use AutoConnectElement to embed JavaScript into the custom Web page as w
 <span style="color: #f8f8f2">}  </span>
 </code></pre></div>
 <p>An input field for a <code>multiplier</code> is defined by AutoConnectInput. The field for displaying the results exists with the name <code>answer</code>. The multiplication function is what AutoConnectElement has as JavaScript and it has the following content:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">function</span> <span style="color: #a6e22e">multi</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;answer&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">innerHTML</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">3</span> <span style="color: #f92672">*</span> <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;multiplier&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">multi</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;answer&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">innerHTML</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">3</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">*</span><span style="color: #f8f8f2"> document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;multiplier&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">value</span><span style="color: #f8f8f2">;</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
 <p>And the action for calling the <code>multi()</code> function is the <code>=</code> labeled button as the AutoConnectButton element. AutoConnect generates the <a href="acjson.html#name"><strong>name</strong></a> attribute of each AutoConnectElement as the <strong>Id</strong> of the HTML tag. The Id should be useful for DOM access.</p>
@@ -2647,26 +2648,26 @@ You can use AutoConnectElement to embed JavaScript into the custom Web page as w
 <p>AutoConnectElement allows having scripts that create sessions based on <a href="https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)"><strong>XHR</strong></a>. XMLHttpRequest (XHR) is a JavaScript API to create AJAX requests. Its methods provide the ability to send network requests between the browser and a server. The Sketch simply implements the server-side process as a response handler to a normal HTTP request and can equip with a dynamic custom Web page. This technique is tricky but does not cause page transitions and is useful for implementing dynamic pages. As a matter of fact, <a href="otabrowser.html#updates-with-the-web-browserupdated-wv115">AutoConnectOTA</a> class is implemented by using this technique and is a custom Web page by AutoConnectAux.</p>
 <p>Here's a simple example of JavaScript-based on XHR and a server-side request handler. It's like a clock that displays the time in real-time on an AutoConnect custom web page. The sketch in the following example is roughly divided into two structures.<br />
 The AutoConnectElement defined with the name <code>js</code> gets the server time with XHR and updates the response via the DOM with the AutoConnectText named <code>time</code> and substance is the following JavaScript:</p>
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">var</span> <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">;</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">var</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">;</span>
 
-<span style="color: #66d9ef">function</span> <span style="color: #a6e22e">clock</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">open</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;GET&#39;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&#39;/clock&#39;</span><span style="color: #f8f8f2">);</span>
-    <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">responseType</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&#39;text&#39;</span><span style="color: #f8f8f2">;</span>
-    <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">send</span><span style="color: #f8f8f2">();</span>
+<span style="color: #66d9ef">function</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">clock</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">open</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;GET&#39;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&#39;/clock&#39;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">responseType</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&#39;text&#39;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">send</span><span style="color: #f8f8f2">();</span>
 <span style="color: #f8f8f2">}</span>
 
-<span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">onclose</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">abort</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">onclose</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">function</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">abort</span><span style="color: #f8f8f2">();</span>
 <span style="color: #f8f8f2">};</span>
 
-<span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">onload</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-    <span style="color: #a6e22e">xhr</span> <span style="color: #f92672">=</span> <span style="color: #f92672">new</span> <span style="color: #a6e22e">XMLHttpRequest</span><span style="color: #f8f8f2">();</span>
-    <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onreadystatechange</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
-        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">4</span> <span style="color: #f92672">&amp;&amp;</span> <span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">status</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">200</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">{</span>
-            <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;time&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">innerHTML</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">responseText</span><span style="color: #f8f8f2">;</span>
-        <span style="color: #f8f8f2">}</span>
-    <span style="color: #f8f8f2">};</span>
-    <span style="color: #a6e22e">setInterval</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">clock</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">window.</span><span style="color: #a6e22e">onload</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">function</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">new</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">XMLHttpRequest</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">onreadystatechange</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">function</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">        </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (</span><span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">readyState</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">4</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">&amp;&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">xhr</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">status</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">200</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">            document.</span><span style="color: #a6e22e">getElementById</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;time&#39;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">innerHTML</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">this</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">responseText</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">        }</span>
+<span style="color: #f8f8f2">    };</span>
+<span style="color: #f8f8f2">    </span><span style="color: #a6e22e">setInterval</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">clock</span><span style="color: #f8f8f2">, </span><span style="color: #ae81ff">1000</span><span style="color: #f8f8f2">);</span>
 <span style="color: #f8f8f2">};</span>
 </code></pre></div>
 <p>This script issues a GET request to <code>/clock</code> every second and updates the element of Id=<code>time</code> with the text content of its response. As this script shows, it will issue a send request using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> object.</p>
@@ -2782,7 +2783,7 @@ The AutoConnectElement defined with the name <code>js</code> gets the server tim
 <p>However, this structure requires AutoConnectAux to always respond with the page content. If AutoConnectAux does not have page content as an HTTP response, then the custom web page handler can respond with its own HTTP response by following the steps:</p>
 <ol>
 <li>
-<p>Declare an <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> with the <code>responsive</code> argument set to <code>false</code>, or describe <code class="highlight"><span style="color: #e6db74">&quot;response&quot;</span><span style="color: #f92672">:</span><span style="color: #66d9ef">false</span></code> with JSON:
+<p>Declare an <a href="apiaux.html#autoconnectaux">AutoConnectAux</a> with the <code>responsive</code> argument set to <code>false</code>, or describe <code class="highlight"><span style="color: #e6db74">&quot;response&quot;</span><span style="color: #f92672">:</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2"></span></code> with JSON:
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectAux </span><span style="color: #a6e22e">aux</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;/aux&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;AUX&quot;</span><span style="color: #f8f8f2">, false, {}, false);</span>
 </code></pre></div>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{</span>
@@ -2861,6 +2862,7 @@ If you want to respond with a <a href="https://datatracker.ietf.org/doc/html/rfc
 
               
             </article>
+            
           </div>
         </div>
         
@@ -2868,7 +2870,8 @@ If you want to respond with a <a href="https://datatracker.ietf.org/doc/html/rfc
       
         <footer class="md-footer">
   
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
         <a href="acjson.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Web pages with JSON" rel="prev">
@@ -2949,10 +2952,10 @@ If you want to respond with a <a href="https://datatracker.ietf.org/doc/html/rfc
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.3a4b43e5.min.js"></script>
+      <script src="assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="js/gifffer.min.js"></script>
       
