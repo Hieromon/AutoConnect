@@ -240,7 +240,7 @@ Here section describes how to launch on demand the captive portal, and suggests 
     }
 
     bool connectWiFi(const char* ssid, const char* password, unsigned long timeout) {
-      WiFi.mode(WiFi_STA);
+      WiFi.mode(WIFI_STA);
       delay(100);
       WiFi.begin(ssid, password);
       unsigned long tm = millis();

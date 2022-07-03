@@ -3,8 +3,8 @@
  * AutoConnectUpdate class.
  * @file   AutoConnectUpdatePage.h
  * @author hieromon@gmail.com
- * @version    1.3.0
- * @date   2021-07-23
+ * @version    1.3.5
+ * @date   2022-04-22
  * @copyright  MIT license.
  */
 
@@ -14,11 +14,11 @@
 // Define the AUTOCONNECT_URI_UPDATE page to select the sketch binary
 // for update and order update execution.
 const AutoConnectAux::ACElementProp_t AutoConnectUpdateAct::_elmCatalog[] PROGMEM = {
-  { AC_Style, "s_bin", ".s_bin{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,.bins span{margin:0 .5em 0 .5em;padding:0;text-align:left}", nullptr },
+  { AC_Style, "bins", ".bins{display:grid;font-size:14px;grid-gap:10px 0;grid-template-columns:1em repeat(4,max-content);overflow-x:auto}.bins input[type=radio]{-moz-appearance:radio;-webkit-appearance:radio;margin:0;vertical-align:middle}.noorder .bins label,.bins span{margin:0 .5em 0 .5em;padding:0;text-align:left}", nullptr },
   { AC_Text, "caption", nullptr, nullptr },
-  { AC_Element, "c1", "<div class=\"s_bin\">", nullptr },
+  { AC_Element, "c1", "<div class=\"bins\">", nullptr },
   { AC_Radio, "firmwares", nullptr, nullptr },
-  { AC_Element, "c1", "</div>", nullptr },
+  { AC_Element, "c2", "</div>", nullptr },
   { AC_Submit, "update", AUTOCONNECT_BUTTONLABEL_UPDATE, AUTOCONNECT_URI_UPDATE_ACT }
 };
 const AutoConnectAux::ACPage_t AutoConnectUpdateAct::_pageCatalog PROGMEM = {
@@ -40,7 +40,7 @@ const AutoConnectAux::ACElementProp_t AutoConnectUpdateAct::_elmProgress[] PROGM
   { AC_Text, "status", nullptr, nullptr },
   { AC_Element, "c5", "<script type=\"text/javascript\">var lap,cls;function rd(){clearInterval(lap),location.href=\"" AUTOCONNECT_URI_UPDATE_RESULT "\"}function bar(){var t=new FormData;t.append(\"op\",\"#s\");var e=new XMLHttpRequest;e.timeout=" AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_TIMEOUT) ",e.open(\"POST\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),e.onreadystatechange=function(){4==e.readyState&&(200==e.status?(cls=!1,lap=setInterval(upd," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_INTERVAL) ")):document.getElementById(\"status\").textContent=\"Could not start (\"+e.status+\"): \"+e.responseText)},e.send(t)}function upd(){if(!cls){var t=new XMLHttpRequest;t.onload=function(){var t=this.responseText.split(\",\");\"#s\"==t[0]?(window.setTimeout(rd()," AUTOCONNECT_STRING_DEPLOY(AUTOCONNECT_UPDATE_DURATION) ")", nullptr },
   { AC_Element, "enable_loader", ",document.getElementById(\"ld\").className=\"loader\"", nullptr },
-  { AC_Element, "c6", "):\"#e\"==t[0]?(cls=!0,rd()):\"#p\"==t[0]&&incr(t[1])},t.onerror=function(){console.log(\"http err:%d %s\",t.status,t.responseText)},t.open(\"GET\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),t.send()}}function incr(t){", nullptr },
+  { AC_Element, "c6", "):\"#e\"==t[0]?(cls=!0,rd()):\"#p\"==t[0]&&incr(t[1])},t.onerror=function(){document.getElementById(\"status\").textContent=\"Failed to update: \"+t.status,console.log(\"http err:%d %s\",t.status,t.responseText),clearInterval(lap)},t.open(\"GET\",\"" AUTOCONNECT_URI_UPDATE_PROGRESS "\",!0),t.send()}}function incr(t){", nullptr },
   { AC_Element, "inprogress_meter", "var e=t.split(\":\"),n=document.getElementById(\"progress\").getElementsByTagName(\"meter\");n[0].setAttribute(\"value\",e[0]),n[0].setAttribute(\"max\",e[1])", nullptr },
   { AC_Element, "c7", "}window.onload=bar;</script>", nullptr }
 };

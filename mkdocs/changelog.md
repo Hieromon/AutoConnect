@@ -1,3 +1,31 @@
+### [1.3.5] Jun. 03, 2022
+
+#### Fix
+
+- Fixed Fixed OTA exit not being called.
+- Fixed an ambiguous type call with IPAddress.
+- Fixed loss of response due to OTA session reset occurrence.
+- Made fit the mqttRSSI examples to ThingSpeak's updated channel authentication.
+
+!!! info "For ESP-IDF 4.4 with Arduino ESP32 Core"
+    AutoConnect 1.3.5 is the version compatible with both ESP-IDF 4.4 and ESP-IDF 3.3. It is recommended to use Arduino esp32 core 1.0.6 for ESP-IDF 3.3 based and Arduino esp32 core 2.0.3 or later for ESP-IDF 4.4 based.  
+    If you are using PlatformIO as your development platform, you can select any of these two versions by specifying them in **platformio.ini** file.
+    
+    - For ESP-IDF 4.4 with Arduino ESP32 Core 2.0.3
+    
+    ```ini
+    framework = arduino
+    platform = espressif32@4.4.0
+    ```
+    
+    - For ESO-IDF 3.3 with Arduino ESP32 Core 1.0.6
+    
+    ```ini
+    framework = arduino
+    platform = espressif32@3.5.0
+    ```
+
+---
 ### [1.3.4] Mar. 02, 2022
 
 #### Enhancements

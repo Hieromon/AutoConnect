@@ -30,22 +30,28 @@ Consider activating the [AUTOCONNECT_APKEY_SSID](adconnection.md#match-with-know
 
 ## <i class="fa fa-question-circle"></i> Captive portal does not pop up.
 
-If your ESP module is already transparent to the internet, the captive portal screen will not pop up even if [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal) is enabled. Some people have mistaken sometimes about the behavioral condition of the Captive portal, it only pops up automatically when the ESP module is disconnected state from the Internet.
+If the ESP module is already transparent to the Internet, the device's captive portal screen does not pop up even if [**AutoConnectConfig::retainPortal**](apiconfig.md#retainportal) is enabled. The captive portal popup may also be misinterpreted as automatically activated when AutoConnect is disconnected from the Internet.
 
-We will hypothesize that you keep the ESP module with AP_STA mode by specifing the **retainPortal** and already connect to one of the access points which has Internet transparency as a WiFi client. At this time, your ESP module can already quote the DNS globally. Even if you take out the cellphone and access the **esp32ap**, the OS of your cellphone will determine that the access point (i.e. **esp32ap**) is transparent to the Internet. That is, the captive portal does not pop up.
+When your device connects to an access point, it determines if it is also transparent to the Internet according to the HTTP response from a specific URL. AutoConnect traps the HTTP request issued by the device and responds with a portal screen for AutoConnect. Then the device automatically pops up the HTML in response. It means the auto-popup when opening a captive portal is a feature your device OS has. In this mechanism, AutoConnect impersonates an internally launched DNS server response to trap HTTP requests for Internet transparency determination.
+
+However, its DNS response disguise is very rough, redirecting all FQDNs that do not end in .local to the SoftAP IP address of the ESP module. The redirect location is `/_ac`, and the responder for `/_ac` is AutoConnect. This kind of hack is also available as an [example](https://github.com/esp8266/Arduino/blob/master/libraries/DNSServer/examples/CaptivePortal/CaptivePortal.ino) in the Arduino ESP8266/ESP32 DNS server library.
+
+The reason AutoConnect shuts down the DNS server after establishing a connection with a WiFi access point and stops hacking HTTP requests for Internet transparency detection is because AutoConnect can only trap a broad range of DNS requests. After the ESP module connects to the access point, the sketch can access the Internet using the FQDN. To prevent it from interfering with that access, AutoConnect will stop the internally launched DNS. In other words, the only scene that allows automatic pop-ups to lead to the captive portal is when the ESP module is not transparent to the Internet.
+
+Instead, AutoConnect has options to restart the internal DNS server when the ESP module loses WiFi connectivity, allowing the device to auto-pop up a captive portal screen. If the sketch enables [AutoConnectConfig::retainPotral](apiconfig.md#retainportal) and [AutoConnectConfig::autoRise](apiconfig.md#autorise), then when the WiFi connection is lost (i.e. `WiFi.status() != WL_CONNECTED`), AutoConnect will initiate a trap by starting the **SoftAP** and the internal DNS server. At this time, the ESP module will transition to **WIFI_AP_STA** mode. The [AutoConnect::handleClient](api.md#handleclient) function performs this restart sequence each time it is called, so the sketch can resume the captive portal automatic pop-up while the `loop` function is running.
 
 ## <i class="fa fa-question-circle"></i> Compile error due to File system header file not found
 
 In [PlatformIO](https://docs.platformio.org/en/latest/), it may occur compilation error such as the bellows:
 
-```cpp
+```ini
 In file included from C:\Users\<user>\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30:0,
                  from src/main.cpp:28:
 C:\Users\<user>\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:88:27:
 fatal error: SPIFFS.h: No such file or directory
 ```
 
-```cpp
+```ini
 In file included from C:\Users\<user>\Documents\Arduino\libraries\AutoConnect\src\AutoConnect.h:30,
                  from src\main.cpp:28:
 C:\Users\<user>\Documents\Arduino\libraries\PageBuilder\src\PageBuilder.h:93:17:
@@ -284,13 +290,25 @@ See also [AutoConnectText](acelements.md#post_8) chapter, [CSS Flow Layout](http
 
 [AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
 
-## <i class="fa fa-question-circle"></i> I cannot complete to Wi-Fi login from smartphone.
+## <i class="fa fa-question-circle"></i> I cannot complete to WiFi login from smartphone.
 
 Because AutoConnect does not send a login success response to the captive portal requests from the smartphone. The login success response varies iOS, Android and Windows. By analyzing the request URL of different login success inquiries for each OS, the correct behavior can be implemented, but not yet. Please resets ESP8266 from the AutoConnect menu.
 
 ## <i class="fa fa-question-circle"></i> I cannot see the custom Web page.
 
 If the Sketch is correct, a JSON syntax error may have occurred. In this case, activate the [AC_DEBUG](faq.md#3-turn-on-the-debug-log-options) and rerun. If you take the message of JSON syntax error, the [Json Assistant](https://arduinojson.org/v5/assistant/) helps syntax checking. This online tool is provided by the author of ArduinoJson and is most consistent for the AutoConnect. 
+
+## <i class="fa fa-question-circle"></i> nvs_open failed: NOT_FOUND occurs.
+
+In ESP32, NVS open failure may occur during execution of AutoConnect::begin with the following message on the Serial monitor.
+
+```ini
+[E][Preferences.cpp:38] begin(): nvs_open failed: NOT_FOUND
+```
+
+This is not a malfunction and expected behavior. AutoConnect will continue to execute normally.
+
+AutoConnect saves the credentials of the access point to which it was able to connect to the NVS of the ESP32 module as [Preferences](https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/api/preferences.html#preferences) instances. The above error occurs when the area keyed for AutoConnect credentials does not exist in NVS. Usually, this error occurs immediately after erasing the ESP32 module flash or when running the AutoConnect sketch for the first time. If the AutoConnect credentials area does not exist in NVS, AutoConnect will automatically allocate it. Therefore, this error can be ignored and will not affect the execution of the sketch.
 
 ## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
 

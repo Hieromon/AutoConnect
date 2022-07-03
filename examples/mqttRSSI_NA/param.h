@@ -10,9 +10,12 @@
 typedef struct {
   char  id[sizeof(MQTT_PARAM_ID)];
   char  server[33];
-  char  channelid[9];
-  char  userkey[17];
-  char  apikey[17];
+  char  channelId[9];
+  char  userAPIKey[17];
+  char  writeAPIKey[17];
+  char  clientID[24];
+  char  username[24];
+  char  password[24];
   unsigned long publishInterval;
 } mqtt_param_t;
 

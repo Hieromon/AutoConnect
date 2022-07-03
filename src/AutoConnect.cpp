@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.4
- *  @date   2022-02-09
+ *  @version    1.3.5
+ *  @date   2022-04-24
  *  @copyright  MIT license.
  */
 
@@ -324,7 +324,7 @@ bool AutoConnect::config(AutoConnectConfig& Config) {
  *  by Config method.
  */
 bool AutoConnect::_configAP(void) {
-  if (static_cast<uint32_t>(_apConfig.apip) == 0U || static_cast<uint32_t>(_apConfig.gateway) == 0U || static_cast<uint32_t>(_apConfig.netmask) == 0U) {
+  if ((uint32_t)_apConfig.apip == static_cast<uint32_t>(0) || (uint32_t)_apConfig.gateway == static_cast<uint32_t>(0) || (uint32_t)_apConfig.netmask == static_cast<uint32_t>(0)) {
     AC_DBG("Warning: Contains invalid SoftAPIP address(es).\n");
   }
   bool  rc = WiFi.softAPConfig(_apConfig.apip, _apConfig.gateway, _apConfig.netmask);

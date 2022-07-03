@@ -102,12 +102,12 @@ class AutoConnectUpdateVoid {
 
 class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClass {
  public:
-  explicit AutoConnectUpdateAct(const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = AUTOCONNECT_UPDATE_LEDON)
+  explicit AutoConnectUpdateAct(const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = AUTOCONNECT_TICKER_LEVEL)
     : HTTPUpdateClass(timeout), host(host), port(port), uri(uri), _amount(0), _binSize(0), _enable(false), _dialog(UPDATEDIALOG_LOADER), _status(UPDATE_IDLE), _binName(String()), _webServer(nullptr) {
     AC_SETLED(ledOn);       /**< LED blinking during the update that is the default. */
     rebootOnUpdate(false);  /**< Default reboot mode */
   }
-  AutoConnectUpdateAct(AutoConnect& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = AUTOCONNECT_UPDATE_LEDON)
+  AutoConnectUpdateAct(AutoConnect& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = AUTOCONNECT_TICKER_LEVEL)
     : HTTPUpdateClass(timeout), host(host), port(port), uri(uri), _amount(0), _binSize(0), _enable(false), _dialog(UPDATEDIALOG_LOADER), _status(UPDATE_IDLE), _binName(String()), _webServer(nullptr) {
     AC_SETLED(ledOn);
     rebootOnUpdate(false);

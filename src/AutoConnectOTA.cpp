@@ -2,8 +2,8 @@
  * AutoConnectOTA class implementation.
  * @file   AutoConnectOTA.cpp
  * @author hieromon@gmail.com
- * @version    1.3.4
- * @date   2022-02-03
+ * @version    1.3.5
+ * @date   2022-03-29
  * @copyright  MIT license.
  */
 
@@ -79,50 +79,6 @@ void AutoConnectOTA::attach(AutoConnect& portal) {
 }
 
 /**
- * Register a function that will call back when the OTA status
- * transitions to the AC_OTA_START.
- * @param  fn A function that will be called back.
- * @return    An instance of AutoConnectOTA
- */
-AutoConnectOTA& AutoConnectOTA::onStart(StartExit_ft fn) {
-  _cbStart = fn;
-  return *this;
-}
-
-/**
- * Register a function that will call back when the OTA status
- * transitions to the AC_OTA_SUCCESS.
- * @param  fn A function that will be called back.
- * @return    An instance of AutoConnectOTA
- */
-AutoConnectOTA& AutoConnectOTA::onEnd(EndExit_ft fn) {
-  _cbEnd = fn;
-  return *this;
-}
-
-/**
- * Register a function that will call back when the OTA status
- * transitions to the AC_OTA_FAIL.
- * @param  fn A function that will be called back.
- * @return    An instance of AutoConnectOTA
- */
-AutoConnectOTA& AutoConnectOTA::onError(ErrorExit_ft fn) {
-  _cbError = fn;
-  return *this;
-}
-
-/**
- * Register a function that will call back when the OTA status
- * transitions to the AC_OTA_PROGRESS.
- * @param  fn A function that will be called back.
- * @return    An instance of AutoConnectOTA
- */
-AutoConnectOTA& AutoConnectOTA::onProgress(ProgressExit_ft fn) {
-  _cbProgress = fn;
-  return *this;
-}
-
-/**
  * Create the update operation pages using a predefined page structure
  * with two structures as ACPage_t and ACElementProp_t which describe
  * for AutoConnectAux configuration.
@@ -172,6 +128,8 @@ void AutoConnectOTA::_buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage
         element->value = String(FPSTR(page->element[n].value));
       if (page->element[n].peculiar)
         element->style = String(FPSTR(page->element[n].peculiar));
+      else
+        element->post = AC_Tag_DIV;
       aux->add(reinterpret_cast<AutoConnectText&>(*element));
     }
   }
@@ -268,13 +226,9 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
   if (bc) {
     if (_tickerPort != -1)
       pinMode(static_cast<uint8_t>(_tickerPort), OUTPUT);
-    _status = AC_OTA_START;
+    _otaStatus = AC_OTA_START;
     _ulAmount = 0;
     AC_DBG("%s up%s start\n", filename, _dest == OTA_DEST_FIRM ? "dating" : "loading");
-
-    // Notify an OTA status change
-    if (_cbStart)
-      _cbStart();
   }
   return bc;
 }
@@ -302,7 +256,7 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
   if (_tickerPort != -1)
     digitalWrite(_tickerPort, digitalRead(_tickerPort) ^ 0x01);
   if (!_err.length()) {
-    _status = AC_OTA_PROGRESS;
+    _otaStatus = AC_OTA_PROGRESS;
     if (_dest == OTA_DEST_FIRM) {
       wsz = Update.write(const_cast<uint8_t*>(buf), size);
       if (wsz != size)
@@ -312,12 +266,6 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
       wsz = _file.write(buf, size);
       if (wsz != size)
         _setError("Incomplete writing");
-    }
-    // Notify an OTA status change
-    if (wsz) {
-      _ulAmount += wsz;
-      if (_cbProgress)
-        _cbProgress(_ulAmount, wsz);
     }
   }
   return wsz;
@@ -331,30 +279,31 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
  */
 void AutoConnectOTA::_close(const HTTPUploadStatus status) {
   AC_DBG("OTA up%s ", _dest == OTA_DEST_FIRM ? "date" : "load");
-  if (!_err.length()) {
-    if (status == UPLOAD_FILE_END) {
 
-      bool  ec = true;
-      if (_dest == OTA_DEST_FIRM)
-        ec = Update.end(true);
-      else {
-        _file.close();
-      }
-      if (ec) {
-        _status = AC_OTA_SUCCESS;
-        AC_DBG_DUMB("succeeds");
-        if (_cbEnd)  // Notify an OTA status change
-          _cbEnd();
-      }
-      else {
-        AC_DBG_DUMB("flash failed");
-        _setError();
-        Update.end(false);
-      }
+  // The _close will perform different processes depending on the update
+  // destination. The _close process for firmware updates purges the
+  // Updater class, and native file uploading closes the file.
+  bool  bc = status == UPLOAD_FILE_END;
+
+  if (_dest == OTA_DEST_FIRM) {
+    if (!Update.end(bc)) {
+      _setError();
+      AC_DBG_DUMB("failed to flash");
+    }
+  }
+  else {
+    if (_file)
+      _file.close();
+  }
+
+  if (!_err.length()) {
+    if (bc) {
+      _otaStatus = AC_OTA_SUCCESS;
+      AC_DBG_DUMB("end");
     }
     else {
-      AC_DBG_DUMB("aborted");
       _setError("Aborted");
+      AC_DBG_DUMB("aborted");
     }
   }
   AC_DBG_DUMB(". %s\n", _err.c_str());
@@ -371,23 +320,25 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
  */
 String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   AC_UNUSED(args);
-  PGM_P   stColor;
   String  st;
+  PGM_P   ccScheme;
 
   // Build an updating result caption.
   // Change the color of the bin name depending on the result of the update.
-  if (_status == AC_OTA_SUCCESS) {
-    st = _dest == OTA_DEST_FIRM ? String(F(AUTOCONNECT_TEXT_OTASUCCESS)) : String(F(AUTOCONNECT_TEXT_OTAUPLOADED));
-    stColor = PSTR("3d7e9a");
+  if (_otaStatus == AC_OTA_SUCCESS) {
     // Notify to the handleClient of loop() thread that it can reboot.
-    _status = AC_OTA_RIP;
+    _otaStatus = AC_OTA_RIP;
+    st = _dest == OTA_DEST_FIRM ? String(F(AUTOCONNECT_TEXT_OTASUCCESS)) : String(F(AUTOCONNECT_TEXT_OTAUPLOADED));
+    ccScheme = PSTR("#3d7e9a");
   }
   else {
     st = String(F(AUTOCONNECT_TEXT_OTAFAILURE)) + _err;
-    stColor = PSTR("e66157");
+    ccScheme = PSTR("#e66157");
   }
   result["bin"].as<AutoConnectText>().value = _binName;
-  result["bin"].as<AutoConnectText>().style += String(stColor);
+  String& binStyle = result["bin"].as<AutoConnectText>().style;
+  result["bin"].as<AutoConnectText>().style = binStyle.substring(0, binStyle.charAt('#'));
+  result["bin"].as<AutoConnectText>().style.concat(ccScheme);
   result["result"].as<AutoConnectText>().value = st;
 
   // AutoConnectOTA result page generates a transition after reboot
@@ -399,14 +350,15 @@ String AutoConnectOTA::_updated(AutoConnectAux& result, PageArgument& args) {
   // When for file uploading, it's not numeric and has the effect of
   // staying on the upload page.
   uint8_t rc = Update.getError();
-  if (rc == UPDATE_ERROR_OK && _status != AC_OTA_RIP)
+  if (rc == UPDATE_ERROR_OK && _otaStatus != AC_OTA_RIP)
     rc = 255; // No OTA partition
-  result["rc"].value = _dest == OTA_DEST_FIRM ? String(rc) : String('L');
+  result["rc"].as<AutoConnectText>().value = _dest == OTA_DEST_FIRM ? String(rc) : String('L');
   return String("");
 }
 
 /**
- * Save the last error
+ * The error handler for OTA differs from the one for the AutoConnectUpload
+ * class in that the error description is taken from the Update class.
  */
 void AutoConnectOTA::_setError(void) {
   StreamString  eStr;
@@ -414,9 +366,15 @@ void AutoConnectOTA::_setError(void) {
   _setError(eStr.c_str());
 }
 
+/**
+ * Overrides the error handler in the AutoConnectUpload class. The onOTAError
+ * exit takes an error code in the Update class as an argument.
+ * @param err  Error description
+ */
 void AutoConnectOTA::_setError(const char* err) {
-  _err = String(err);
-  _status = AC_OTA_FAIL;
+  _otaStatus = AC_OTA_FAIL;
+  if (err)
+    _err = String(err);
   if (_cbError)
     _cbError(Update.getError());
 }

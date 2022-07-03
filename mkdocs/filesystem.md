@@ -283,3 +283,37 @@ This final sketch consists of four components:
         It is a fault often found in careless sketches. An HTTP request is sent to the ESP8266 module each time you interact with the AutoConnect menu from the client browser. The request is properly answered by the [AutoConnect::handleClient](api.md#handleclient) function. The delay function in the loop obstructs the flow of its processing. Remember that the sketching process will be suspended for the time period you specify by the delay.
 
 - **`/set` custom web page handler**: It is named `onSet` function in above sketch. The `onSet` handler retrieves PWM settings using ArduinoJson [deserialization](https://arduinojson.org/v6/api/json/deserializejson/) from the uploaded `param.json` file. Each fetched setting value is stored in each global variable. The loop function refers to that value to achieve PWM pulse control.
+
+## Adapts the sketch to the selected file system in AutoConnect
+
+AutoConnect determines the appropriate file system instance according to the **AC_USE_SPIFFS** or **AC_USE_LITTLEFS** macro definition. This determination is made by the c++ preprocessor when the sketch is built. It then exports a macro definition that identifies the determined file system. Its macro definition allows the sketch to reference a valid file system after including the `AutoConnect.h` header file.
+
+The following two macro definitions, which can be referenced after including the AutoConnect.h header file, help the sketch choose the appropriate file system.
+
+- **AUTOCONNECT_USE_SPIFFS**: AutoConnect uses SPIFFS. The sketch should include `SPIFFS.h`. Also, the file system instance is `SPIFFS`.
+- **AUTOCONNECT_USE_LITTLEFS**: AutoConnect uses LITTLEFS. The sketch should include `LittleFS.h`. Also, the file system instance is `LittleFS`.
+
+Combining the c++ preprocessor directives with the two macro definitions above, you can write a common sketch code for both SPIFFS and LittleFS, as shown in the code as follows:
+
+```cpp hl_lines="3"
+#include <AutoConnect.h>
+
+#ifdef AUTOCONNECT_USE_LITTLEFS
+#include <LittleFS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+FS& FlashFS = LittleFS;
+#elif defined(ARDUINO_ARCH_ESP32)
+fs::LittleFSFS& FlashFS = LittleFS;
+#endif
+#else
+#include <FS.h>
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
+
+void setup() {
+  ...
+  FlashFS.begin();
+  ...
+}
+```

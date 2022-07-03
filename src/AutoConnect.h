@@ -2,8 +2,8 @@
  *	Declaration of AutoConnect class and accompanying AutoConnectConfig class.
  *	@file	AutoConnect.h
  *	@author	hieromon@gmail.com
- *	@version	1.3.4
- *	@date	2022-02-09
+ *	@version	1.3.5
+ *	@date	2022-04-24
  *	@copyright	MIT license.
  */
 
@@ -77,7 +77,7 @@ class AutoConnectConfig {
     reconnectInterval(0),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
-    tickerOn(LOW),
+    tickerOn(AUTOCONNECT_TICKER_LEVEL),
     ota(AC_OTA_EXTRA),
     auth(AC_AUTH_NONE),
     authScope(AC_AUTHSCOPE_AUX),
@@ -87,11 +87,11 @@ class AutoConnectConfig {
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
     otaExtraCaption(nullptr),
-    staip(0U),
-    staGateway(0U),
-    staNetmask(0U),
-    dns1(0U),
-    dns2(0U) {}
+    staip(static_cast<uint32_t>(0)),
+    staGateway(static_cast<uint32_t>(0)),
+    staNetmask(static_cast<uint32_t>(0)),
+    dns1(static_cast<uint32_t>(0)),
+    dns2(static_cast<uint32_t>(0)) {}
   /**
    *  Configure by SSID for the captive portal access point and password.
    */
@@ -121,7 +121,7 @@ class AutoConnectConfig {
     reconnectInterval(0),
     ticker(false),
     tickerPort(AUTOCONNECT_TICKER_PORT),
-    tickerOn(LOW),
+    tickerOn(AUTOCONNECT_TICKER_LEVEL),
     ota(AC_OTA_EXTRA),
     auth(AC_AUTH_NONE),
     authScope(AC_AUTHSCOPE_AUX),
@@ -131,11 +131,11 @@ class AutoConnectConfig {
     homeUri(AUTOCONNECT_HOMEURI),
     title(AUTOCONNECT_MENU_TITLE),
     otaExtraCaption(nullptr),
-    staip(0U),
-    staGateway(0U),
-    staNetmask(0U),
-    dns1(0U),
-    dns2(0U) {}
+    staip(static_cast<uint32_t>(0)),
+    staGateway(static_cast<uint32_t>(0)),
+    staNetmask(static_cast<uint32_t>(0)),
+    dns1(static_cast<uint32_t>(0)),
+    dns2(static_cast<uint32_t>(0)) {}
 
   ~AutoConnectConfig() {}
 

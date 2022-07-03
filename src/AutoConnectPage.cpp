@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.4
- *  @date   2022-02-16
+ *  @version    1.3.5
+ *  @date   2022-06-20
  *  @copyright  MIT license.
  */
 
@@ -119,7 +119,7 @@ const char AutoConnect::_CSS_UL[] PROGMEM = {
     "-webkit-appearance:checkbox"
   "}"
   ".noorder input[type=\"radio\"]{"
-    "margin-right:0.5em;"
+    "cursor:pointer;"
     "-moz-appearance:radio;"
     "-webkit-appearance:radio"
   "}"
@@ -246,6 +246,7 @@ const char AutoConnect::_CSS_INPUT_TEXT[] PROGMEM = {
   ".aux-page label{"
     "display:inline;"
     "padding:10px 0.5em;"
+    "cursor:pointer"
   "}"
 };
 

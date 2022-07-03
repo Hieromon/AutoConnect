@@ -2,8 +2,8 @@
  * Predefined file system applied for AutoConnect usage.
  * @file AutoConnectFS.h
  * @author hieromon@gmail.com
- * @version  1.3.4
- * @date 2022-03-02
+ * @version  1.3.5
+ * @date 2022-06-03
  * @copyright  MIT license.
  */
 
@@ -82,7 +82,7 @@ namespace AutoConnectFS {
 #if AC_USE_FILESYSTEM == 1
     return esp_spiffs_mounted(NULL);
 #elif AC_USE_FILESYSTEM == 2
-    return (esp_littlefs_mounted(NULL) == ESP_OK);
+    return esp_littlefs_mounted(NULL);
 #endif
 #endif
   }

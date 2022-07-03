@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version  1.3.4
- * @date 2022-02-24
+ * @version  1.3.5
+ * @date 2022-04-06
  * @copyright  MIT license.
  */
 
@@ -124,6 +124,7 @@ class AutoConnectAux : public PageBuilder {
   virtual void  _join(AutoConnect& ac);                                 /**< Make a link to AutoConnect */
   PageElement*  _setupPage(const String& uri);                          /**< AutoConnectAux page builder */
   const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
+  const String  _insertScript(PageArgument& args);                      /**< Insert post-javascript to the page built by PageBuilder */
   const String  _insertStyle(PageArgument& args);                       /**< Insert CSS style */
   const String  _injectTitle(PageArgument& args) const { (void)(args); return _title; } /**< Returns title of this page to PageBuilder */
   const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
@@ -206,6 +207,7 @@ class AutoConnectAux : public PageBuilder {
   bool    _menu;                              /**< Switch for menu displaying */
   bool    _deletable = false;                 /**< Allow deleting itself. */
   bool    _responsive;                        /**< Whether suppress the sending of HTTP response in PageBuilder */
+  uint16_t  _contains;                        /**< Bitmask the type of elements this page contains */
   AC_AUTH_t _httpAuth = AC_AUTH_NONE;         /**< Applying HTTP authentication */
   String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */
@@ -216,6 +218,7 @@ class AutoConnectAux : public PageBuilder {
   PageBuilder::UploadFuncT    _uploadHandler; /**< The AutoConnectFile corresponding to current upload */
   AutoConnectFile*      _currentUpload;       /**< AutoConnectFile handling the current upload */
   static const char _PAGE_AUX[] PROGMEM;      /**< Auxiliary page template */
+  static const char _PAGE_SCRIPT_MA[] PROGMEM; /**< Auxiliary page javascript */
 
   // Protected members can be used from AutoConnect which handles AutoConnectAux pages.
   friend class AutoConnect;

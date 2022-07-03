@@ -322,7 +322,7 @@ Specifies the type of input that the text box accepts. AutoConnectInput will gen
 
 ## AutoConnectRadio
 
-AutoConnectRadio generates few HTML `#!html <input type="radio">` tags as grouped and the same number of `#!html <label>` tags. AutoConnectRadio can keep the value of a radio button as a collection. The grouped values will be placed in the custom Web page to select only one exclusively.
+AutoConnectRadio generates several HTML `#!html <input type="radio">` tags grouped together. It also assigns an equal number of `#!html <label>` tags to each `#!html <input type="radio">` tag and stores the values of the choices that make up a radio button as a String collection.
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectRadio radio("radio", { "30 sec.", "60 sec.", "180 sec." }, "Update period", AC_Vertical, 1);`**</small>
@@ -337,11 +337,11 @@ AutoConnectRadio(const char* name, std::vector<String> const& values, const char
 
 ### <i class="fa fa-caret-right"></i> name
 
-It is the `name` of the AutoConnectRadio element and matches the name attribute of the input tags. It also becomes the parameter name of the query string when submitted.
+It is the name of the AutoConnectRadio element, which matches the name attribute of the input tag and defines the radio group by this name. It is also the `name` parameter in the query string during submission.
 
 ### <i class="fa fa-caret-right"></i> values
 
-A `values` is an array of String type for the radio button options which as actually [std::vector](https://en.cppreference.com/w/cpp/container/vector). It is an initialization list can be used. The input tags will be generated from each entry in the values, the amount of which is the same as the number of items in `values`.
+A group of radio buttons is a set of `#!html <input type="radio">` tags with the same name; AutoConnectRadio defines a radio group based on an array of Strings specified as values. A `values` is an array of String, actually a [std::vector](https://en.cppreference.com/w/cpp/container/vector). The sketch can allocate its String array using std::vector's [List-initialization](https://en.cppreference.com/w/cpp/language/list_initialization).
 
 ### <i class="fa fa-caret-right"></i> label
 
@@ -513,7 +513,12 @@ Specifies a tag to add behind the HTML code generated from the element. The defa
 
 ## AutoConnectText
 
-AutoConnectText generates an HTML `#!html <div>` tag. A `#!html style` attribute will be attached if a [style](#style) parameter is passed.
+AutoConnectText generates a text content enclosed in `#!html <div>`, `#!html <p>` or `#!html <span>` tags; if the [style](#style) parameter is provided, the style attributes is added. A kind of HTML tag applied depends on the value of the [post](#post_9) parameter as follows:
+
+  - **AC_Tag_None**: `<span id='name' style='style'>value</span>`
+  - **AC_Tag_BR**: `<span id='name' style='style'>value</span><br>`
+  - **AC_Tag_P**: `<p id='name' style='style'>value</p>`
+  - **AC_Tag_DIV**: `<div id='name' style='style'>value</div>`
 
 <i class="fa fa-eye"></i> **Sample**<br>
 <small>**`AutoConnectText text("text", "Publishing the WiFi signal strength to MQTT channel. RSSI value of ESP8266 to the channel created on ThingSpeak", "font-family:serif;color:#4682b4;");`**</small>
@@ -544,8 +549,12 @@ A `format` is a pointer to a null-terminated multi byte string specifying how to
 
 ### <i class="fa fa-caret-right"></i> post
 
-Specifies a tag to add behind the HTML code generated from the element. The default values is `AC_Tag_None`.  
-AutoConnectText element without the style parameter will be drained to HTML as a raw value and is accompanied by `<p>`, `<br>` or `<div>` tags according to the post enumeration values. If the style parameter is specified, the post enumeration value will be ignored and always be enclosed in the `<div>` tag, and the style value will be inserted into `style` attribute of the `<div>` tag.
+Specifies an HTML element that completes the text content. AutoConnectText's post parameter does not specify any behind-supplements, unlike when applied to other elements. A kind of HTML tag applied depends on the enumerated value of the [post](#post_9) parameter as follows:
+
+  - **AC_Tag_None**: `<span id='name' style='style'>value</span>`
+  - **AC_Tag_BR**: `<span id='name' style='style'>value</span><br>`
+  - **AC_Tag_P**: `<p id='name' style='style'>value</p>`
+  - **AC_Tag_DIV**: `<div id='name' style='style'>value</div>`
 
 ## How to coding for the elements
 

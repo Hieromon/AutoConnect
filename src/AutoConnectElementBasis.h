@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.3.2
- * @date 2021-11-24
+ * @version  1.3.5
+ * @date 2022-03-21
  * @copyright  MIT license.
  */
 
@@ -165,8 +165,17 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
   virtual ~AutoConnectFileBasis() {}
   const String  toHTML(void) const override;
   bool  attach(const ACFile_t store);
-  void  detach(void) { _upload.reset(); }
+  void  detach(void) { status(); _upload.reset(); }
+  const AutoConnectUploadHandler::AC_UPLOADStatus_t status(void);
   AutoConnectUploadHandler*  upload(void) const { return _upload.get(); }
+  void  onStart(AutoConnectUploadHandler::StartExit_ft fn) { _cbStart = fn; }
+  void  onEnd(AutoConnectUploadHandler::EndExit_ft fn) { _cbEnd = fn; }
+  void  onError(AutoConnectUploadHandler::ErrorExit_ft fn) { _cbError = fn; }
+  void  onProgress(AutoConnectUploadHandler::ProgressExit_ft fn) { _cbProgress = fn; }
+  AutoConnectUploadHandler::StartExit_ft& exitStart(void) { return _cbStart; }
+  AutoConnectUploadHandler::EndExit_ft& exitEnd(void) { return _cbEnd; }
+  AutoConnectUploadHandler::ErrorExit_ft& exitError(void) { return _cbError; }
+  AutoConnectUploadHandler::ProgressExit_ft& exitProgress(void) { return _cbProgress; }
 
   String   label;     /**< A label for a subsequent input box */
   ACFile_t store;     /**< Type of file store */
@@ -175,6 +184,12 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
 
  protected:
   std::unique_ptr<AutoConnectUploadHandler> _upload;
+  AutoConnectUploadHandler::AC_UPLOADStatus_t _status;
+
+  AutoConnectUploadHandler::StartExit_ft    _cbStart;
+  AutoConnectUploadHandler::EndExit_ft      _cbEnd;
+  AutoConnectUploadHandler::ErrorExit_ft    _cbError;
+  AutoConnectUploadHandler::ProgressExit_ft _cbProgress;  
 };
 
 /**

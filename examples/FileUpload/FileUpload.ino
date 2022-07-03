@@ -22,22 +22,33 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <LittleFS.h>
+#include <ESP8266HTTPClient.h>
+#include <ESP8266mDNS.h>
 #define FORMAT_ON_FAIL
 using WiFiWebServer = ESP8266WebServer;
-FS& FlashFS = LittleFS;
-
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
-#include <FS.h>
-#include <SPIFFS.h>
+#include <HTTPClient.h>
+#include <ESPmDNS.h>
 #define FORMAT_ON_FAIL  true
 using WiFiWebServer = WebServer;
-fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
 #include <AutoConnect.h>
+
+#ifdef AUTOCONNECT_USE_LITTLEFS
+#include <LittleFS.h>
+#if defined(ARDUINO_ARCH_ESP8266)
+FS& FlashFS = LittleFS;
+#elif defined(ARDUINO_ARCH_ESP32)
+fs::LittleFSFS& FlashFS = LittleFS;
+#endif
+#else
+#include <FS.h>
+#include <SPIFFS.h>
+fs::SPIFFSFS& FlashFS = SPIFFS;
+#endif
 
 // Upload request custom Web page
 static const char PAGE_UPLOAD[] PROGMEM = R"(
