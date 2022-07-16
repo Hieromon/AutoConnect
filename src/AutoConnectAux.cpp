@@ -2,12 +2,12 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version  1.3.5
- * @date 2022-03-21
- * @copyright  MIT license.
+ * @version 1.4.0
+ * @date 2022-07-14
+ * @copyright MIT license.
  */
 #include <algorithm>
-#include "AutoConnect.h"
+#include "AutoConnectExt.hpp"
 #include "AutoConnectAux.h"
 #include "AutoConnectUploadImpl.h"
 #include "AutoConnectElementBasisImpl.h"
@@ -141,7 +141,7 @@ void AutoConnectAux::add(AutoConnectElementVT addons) {
  * the value of AutoConnectElements carried by AutoConnectAux.
  */
 void AutoConnectAux::fetchElement(void) {
-  WebServerClass*  _webServer = _ac->_webServer.get();
+  WebServer*  _webServer = _ac->_webServer.get();
   if (_webServer->hasArg(String(F(AUTOCONNECT_AUXURI_PARAM)))) {
     _ac->_auxUri = _webServer->arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
     _ac->_auxUri.replace("&#47;", "/");
@@ -234,7 +234,7 @@ bool AutoConnectAux::isValid(void) const {
 void AutoConnectAux::redirect(const char* url) {
   String  location(url);
 
-  WebServerClass* _webServer = _ac->_webServer.get();
+  WebServer* _webServer = _ac->_webServer.get();
   _webServer->sendHeader(String(F("Location")), location, true);
   _webServer->send(302, String(F("text/plain")), "");
   _webServer->client().stop();
@@ -444,7 +444,7 @@ void AutoConnectAux::_concat(AutoConnectAux& aux) {
  * registers AutoConnect in the following AutoConnectAux chain list.
  * @param  ac    A reference of AutoConnect.
  */
-void AutoConnectAux::_join(AutoConnect& ac) {
+void AutoConnectAux::_join(AutoConnectExt<AutoConnectConfigExt>& ac) {
   _ac = &ac;
 
   // Chain to subsequent AutoConnectAux in the list.
@@ -503,7 +503,7 @@ const String AutoConnectAux::_indicateEncType(PageArgument& args) {
     if (elm.typeOf() == AC_File) {
       return String(F("enctype='multipart/form-data'"));
     }
-  return AutoConnect::_emptyString;
+  return AutoConnectExt<AutoConnectConfigExt>::_emptyString;
 }
 
 /**
@@ -595,7 +595,7 @@ const String AutoConnectAux::_nonResponseExit(PageArgument& args) {
 
   // Response sending cancellation due to responsive=false setting.
   _ac->_responsePage->cancel();
-  return AutoConnect::_emptyString;
+  return AutoConnectExt<AutoConnectConfigExt>::_emptyString;
 }
 
 /**
@@ -631,7 +631,7 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
         elm = _next->_setupPage(uri);
       }
     } else {
-      AutoConnect*  mother = _ac;
+      AutoConnectExt<AutoConnectConfigExt>*  mother = _ac;
       // Overwrite actual AutoConnectMenu title to the Aux. page title
       if (_title.length())
         mother->_menuTitle = _title;
@@ -641,17 +641,17 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
       elm->setMold(FPSTR(_PAGE_AUX));
 
       if (_responsive) {
-        elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnect::_token_HEAD, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_HEAD, mother, std::placeholders::_1));
         elm->addToken(FPSTR("AUX_TITLE"), std::bind(&AutoConnectAux::_injectTitle, this, std::placeholders::_1));
-        elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnect::_token_CSS_BASE, mother, std::placeholders::_1));
-        elm->addToken(FPSTR("CSS_UL"), std::bind(&AutoConnect::_token_CSS_UL, mother, std::placeholders::_1));
-        elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnect::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
-        elm->addToken(FPSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnect::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
-        elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnect::_token_CSS_LUXBAR, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_BASE, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_UL"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_UL, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR, mother, std::placeholders::_1));
         elm->addToken(FPSTR("AUX_CSS"), std::bind(&AutoConnectAux::_insertStyle, this, std::placeholders::_1));
-        elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnect::_token_MENU_PRE, mother, std::placeholders::_1));
-        elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnect::_token_MENU_AUX, mother, std::placeholders::_1));
-        elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnect::_token_MENU_POST, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_MENU_PRE, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_MENU_AUX, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_MENU_POST, mother, std::placeholders::_1));
         elm->addToken(FPSTR("AUX_URI"), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
         elm->addToken(FPSTR("ENC_TYPE"), std::bind(&AutoConnectAux::_indicateEncType, this, std::placeholders::_1));
         elm->addToken(FPSTR("AUX_ELEMENT"), std::bind(&AutoConnectAux::_insertElement, this, std::placeholders::_1));
@@ -689,7 +689,7 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
  * this function invoked.
  * @param webServer A pointer to the class object of WebServerClass
  */
-void AutoConnectAux::_storeElements(WebServerClass* webServer) {
+void AutoConnectAux::_storeElements(WebServer* webServer) {
   // Retrieve each element value, Overwrites the value of all cataloged
   // AutoConnectElements with arguments inherited from last http request.
   for (AutoConnectElement& elm : _addonElm) {
@@ -730,83 +730,6 @@ void AutoConnectAux::_storeElements(WebServerClass* webServer) {
 }
 
 #ifdef AUTOCONNECT_USE_JSON
-
-/**
- * Load AutoConnectAux page from JSON description stored in PROGMEM.
- * This function can load AutoConnectAux for multiple AUX pages written
- * in JSON and is registered in AutoConnect.
- * @param  aux  JSON description to be load.
- * @return true Successfully loaded.
- */
-bool AutoConnect::load(PGM_P aux) {
-  return _parseJson<const __FlashStringHelper*>(reinterpret_cast<const __FlashStringHelper*>(aux));
-}
-
-/**
- * Load AutoConnectAux page from JSON description stored in PROGMEM.
- * This function can load AutoConnectAux for multiple AUX pages written
- * in JSON and is registered in AutoConnect.
- * @param  aux  JSON description to be load.
- * @return true Successfully loaded.
- */
-bool AutoConnect::load(const __FlashStringHelper* aux) {
-  return _parseJson<const __FlashStringHelper*>(aux);
-}
-
-/**
- * Load AutoConnectAux page from JSON description stored in the sketch.
- * This function can load AutoConnectAux for multiple AUX pages written
- * in JSON and is registered in AutoConnect.
- * @param  aux  JSON description to be load.
- * @return true Successfully loaded.
- */
-bool AutoConnect::load(const String& aux) {
-  return _parseJson<const String&>(aux);
-}
-
-/**
- * Load AutoConnectAux page from JSON description from the stream.
- * This function can load AutoConnectAux for multiple AUX pages written
- * in JSON and is registered in AutoConnect.
- * @param  aux  Stream for read AutoConnectAux elements.
- * @return true Successfully loaded.
- */
-bool AutoConnect::load(Stream& aux) {
-  return _parseJson<Stream&>(aux);
-}
-
-/**
- * Load AutoConnectAux page from JSON object.
- * @param  aux  A JsonVariant object that stores each element of AutoConnectAux.
- * @return true Successfully loaded.
- */
-bool AutoConnect::_load(JsonVariant& auxJson) {
-  bool  rc = true;
-  if (auxJson.is<JsonArray>()) {
-    ArduinoJsonArray  jb = auxJson.as<JsonArray>();
-    for (ArduinoJsonObject  auxJson : jb) {
-      AutoConnectAux* newAux = new AutoConnectAux;
-      if (newAux->_load(auxJson))
-        join(*newAux);
-      else {
-        delete newAux;
-        rc = false;
-        break;
-      }
-    }
-  }
-  else {
-    ArduinoJsonObject jb = auxJson.as<JsonObject>();
-    AutoConnectAux* newAux = new AutoConnectAux;
-    if (newAux->_load(jb))
-      join(*newAux);
-    else {
-      delete newAux;
-      rc = false;
-    }
-  }
-  return rc;
-}
 
 /**
  * Create an instance from the AutoConnectElement of the JSON object.

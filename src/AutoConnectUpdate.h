@@ -21,9 +21,9 @@
  *   pages are incorporated into the AutoConnect menu.
  * @file AutoConnectUpdate.h
  * @author hieromon@gmail.com
- * @version  1.2.3
- * @date 2021-01-23
- * @copyright  MIT license.
+ * @version 1.4.0
+ * @date 2022-07-13
+ * @copyright MIT license.
  */
 
 #ifndef _AUTOCONNECTUPDATE_H_
@@ -51,7 +51,8 @@ using HTTPUpdateClass = HTTPUpdate;
 #else // !AUTOCONNECT_USE_UPDATE!
 #define AutoConnectUpdate  AutoConnectUpdateVoid
 #endif
-#include "AutoConnect.h"
+// #include "AutoConnect.h"
+#include "AutoConnectExt.hpp"
 
 // Support LED flashing only the board with built-in LED.
 #if defined(BUILTIN_LED) || defined(LED_BUILTIN)
@@ -80,7 +81,7 @@ class AutoConnectUpdateVoid {
     AC_UNUSED(timeout);
     AC_UNUSED(ledOn);
   }
-  AutoConnectUpdateVoid(AutoConnect& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = LOW) {
+  AutoConnectUpdateVoid(AutoConnectExt<AutoConnectConfigExt>& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = LOW) {
     AC_UNUSED(portal);
     AC_UNUSED(host);
     AC_UNUSED(port);
@@ -89,7 +90,7 @@ class AutoConnectUpdateVoid {
     AC_UNUSED(ledOn);
   }
   virtual ~AutoConnectUpdateVoid() {}
-  virtual void  attach(AutoConnect& portal) { AC_UNUSED(portal); }
+  virtual void  attach(AutoConnectExt<AutoConnectConfigExt>& portal) { AC_UNUSED(portal); }
   virtual void  enable(void) {}
   virtual void  disable(const bool activate = false) { AC_UNUSED(activate); }
   virtual void  handleUpdate(void) {}
@@ -107,14 +108,14 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
     AC_SETLED(ledOn);       /**< LED blinking during the update that is the default. */
     rebootOnUpdate(false);  /**< Default reboot mode */
   }
-  AutoConnectUpdateAct(AutoConnect& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = AUTOCONNECT_TICKER_LEVEL)
+  AutoConnectUpdateAct(AutoConnectExt<AutoConnectConfigExt>& portal, const String& host = String(""), const uint16_t port = AUTOCONNECT_UPDATE_PORT, const String& uri = String("."), const int timeout = AUTOCONNECT_UPDATE_TIMEOUT, const uint8_t ledOn = AUTOCONNECT_TICKER_LEVEL)
     : HTTPUpdateClass(timeout), host(host), port(port), uri(uri), _amount(0), _binSize(0), _enable(false), _dialog(UPDATEDIALOG_LOADER), _status(UPDATE_IDLE), _binName(String()), _webServer(nullptr) {
     AC_SETLED(ledOn);
     rebootOnUpdate(false);
     attach(portal);
   }
   ~AutoConnectUpdateAct();
-  void  attach(AutoConnect& portal) override;  /**< Attach the update class to AutoConnect */
+  void  attach(AutoConnectExt<AutoConnectConfigExt>& portal) override;  /**< Attach the update class to AutoConnect */
   void  enable(void) override;       /**< Enable the AutoConnectUpdateAct */
   void  disable(const bool activate = false) override;      /**< Disable the AutoConnectUpdateAct */
   void  handleUpdate(void) override; /**< Behaves the update process */
@@ -156,7 +157,7 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   AC_UPDATESTATUS_t _status;    /**< Status of update processing during the cycle of receiving a request */
   String            _binName;   /**< .bin name to update */
   String            _errString; /**< error text reservation */
-  WebServerClass*   _webServer; /**< Hosted WebServer for XMLHttpRequest */
+  WebServer*        _webServer; /**< Hosted WebServer for XMLHttpRequest */
 
   static const AutoConnectAux::ACPage_t         _pageCatalog  PROGMEM;
   static const AutoConnectAux::ACElementProp_t  _elmCatalog[] PROGMEM;
@@ -167,11 +168,11 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
   static const AutoConnectAux::ACPage_t         _pageResult  PROGMEM;
   static const AutoConnectAux::ACElementProp_t  _elmResult[] PROGMEM;
 
-#if defined(ARDUINO_ARCH_ESP8266)
-  friend ESP8266WebServer;
-#elif defined(ARDUINO_ARCH_ESP32)
-  friend class WebServer;
-#endif
+// #if defined(ARDUINO_ARCH_ESP8266)
+//   friend ESP8266WebServer;
+// #elif defined(ARDUINO_ARCH_ESP32)
+//   friend class WebServer;
+// #endif
 };
 
 #endif // !AUTOCONNECT_USE_UPDATE 

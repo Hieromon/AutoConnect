@@ -9,9 +9,9 @@
  * binary file.
  * @file AutoConnectOTA.h
  * @author hieromon@gmail.com
- * @version  1.3.5
- * @date 2022-03-23
- * @copyright  MIT license.
+ * @version 1.4.0
+ * @date 2022-07-13
+ * @copyright MIT license.
  */
 
 #ifndef _AUTOCONNECTOTA_H_
@@ -19,8 +19,7 @@
 
 #include <functional>
 #include <memory>
-#include "AutoConnect.h"
-#include "AutoConnectTypes.h"
+#include "AutoConnectAux.h"
 #include "AutoConnectUpload.h"
 #include "AutoConnectFS.h"
 
@@ -44,7 +43,7 @@ public:
 
   AutoConnectOTA() : extraCaption(nullptr), _dest(OTA_DEST_FIRM), _otaStatus(AC_OTA_IDLE), _tickerPort(-1), _tickerOn(LOW), _fs(nullptr) {};
   ~AutoConnectOTA();
-  void  attach(AutoConnect& portal);                        /**< Attach itself to AutoConnect */
+  void  attach(AutoConnectExt<AutoConnectConfigExt>& portal); /**< Attach itself to AutoConnect */
   void  authentication(const AC_AUTH_t auth);               /**< Set certain page authentication */
   String  error(void) const { return _err; }                /**< Returns current error string */
   void  menu(const bool post) { _auxUpdate->menu(post); }   /**< Enabel or disable arranging a created AutoConnectOTA page in the menu. */
@@ -55,9 +54,7 @@ public:
   const char* extraCaption;                                 /**< Updating firmware extra caption */
 
 protected:
-  template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept {
-    return N;
-  }
+  template <typename T, size_t N> constexpr size_t lengthOf(T (&)[N]) noexcept { return N; }
   void    _buildAux(AutoConnectAux* aux, const AutoConnectAux::ACPage_t* page, const size_t elementNum);
   bool    _open(const char* filename, const char* mode) override;
   size_t  _write(const uint8_t *buf, const size_t size) override;
