@@ -229,34 +229,8 @@ class AutoConnectCore {
   static const  String  _emptyString; /**< An empty string allocation  **/
 
  private:
-  // The access point collation key is determined at compile time
-  // according to the AUTOCONNECT_APKEY_SSID definition, which is
-  inline bool _isValidAP(const station_config_t& config, const uint8_t item) const {
-#if defined(AUTOCONNECT_APKEY_SSID)
-    return !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item).c_str());
-#else
-    return (config.bssid[0] == 0x00) & !memcmp(&config.bssid[0], &config.bssid[1], sizeof(station_config_t::bssid) - 1) ?
-      !strcmp(reinterpret_cast<const char*>(config.ssid), WiFi.SSID(item).c_str()) :
-      !memcmp(config.bssid, WiFi.BSSID(item), sizeof(station_config_t::bssid));
-#endif
-  }
-
-  // After a reboot without WiFi.disconnect() a WiFi error Reason202
-  // - AUTH_FAIL occurs with some routers: the connection was not broken
-  // off correctly.
-  // The _reconnectDelay makes a duration of the delay to reconnect to
-  // avoid the unconnectedly. issue #292
-  // This functino will be eventually pulled out since the issue will
-  // be gone with the WiFi lib of the arduino-esp32 core.
-  inline void _reconnectDelay(const uint32_t ms) {
-#if defined(ARDUINO_ARCH_ESP32) && AUTOCONNECT_RECONNECT_DELAY > 0
-    AC_DBG_DUMB(", %" PRIu32 " delay duration", AUTOCONNECT_RECONNECT_DELAY);
-    WiFi.disconnect(true, false);
-    delay(ms);
-#else
-    AC_UNUSED(ms);
-#endif
-  }
+  inline bool _isValidAP(const station_config_t& config, const uint8_t item) const;
+  inline void _reconnectDelay(const uint32_t ms);
 
   // The following members are used to separate AutoConnectAux-dependent
   // processes from AutoConnectCore that were mingled with AutoConnect.
