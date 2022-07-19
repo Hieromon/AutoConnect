@@ -134,8 +134,6 @@ bool AutoConnectExt<T>::detach(const String &uri) {
  */
 template<>
 void AutoConnectExt<AutoConnectConfigExt>::join(AutoConnectAux& aux) {
-// template<typename T>
-// void AutoConnectExt<T>::join(AutoConnectAux& aux) {
   if (_aux)
     _aux->_concat(aux);
   else

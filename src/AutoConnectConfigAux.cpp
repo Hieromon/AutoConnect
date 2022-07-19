@@ -2,9 +2,9 @@
  * AutoConnectConfigAux class implementation.
  * @file AutoConnectConfigAux.cpp
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-09-13
- * @copyright  MIT license.
+ * @version 1.4.0
+ * @date 2022-07-18
+ * @copyright MIT license.
  */
 
 #include <algorithm>
@@ -696,7 +696,7 @@ const char AutoConnectConfigAux::_rdlg[] PROGMEM = R"(
  * the inherited JOIN behavior.
  * @param ac  AutoConnect instance
  */
-void AutoConnectConfigAux::_join(AutoConnect& ac) {
+void AutoConnectConfigAux::_join(AutoConnectExt<AutoConnectConfigExt>& ac) {
   AutoConnectAux::_join(ac);
   this->on(std::bind(&AutoConnectConfigAux::_settings, this, std::placeholders::_1, std::placeholders::_2));
   _loadSettings();
@@ -814,7 +814,7 @@ void AutoConnectConfigAux::_saveSettings(AutoConnectAux& me) {
  */
 void AutoConnectConfigAux::_restoreSettings(AutoConnectConfigAux& me) {
   IPAddress univ;
-  AutoConnectConfig&  acConfig = _ac->getConfig();
+  AutoConnectConfigExt& acConfig = _ac->getConfig();
   acConfig.apid = me[AUTOCONNECT_CONFIGAUX_ELM_SSID].as<AutoConnectInput>().value;
   acConfig.psk = me[AUTOCONNECT_CONFIGAUX_ELM_PSK].as<AutoConnectInput>().value;
   acConfig.channel = me[AUTOCONNECT_CONFIGAUX_ELM_CHANNEL].as<AutoConnectInput>().value.toInt();
@@ -905,7 +905,7 @@ void AutoConnectConfigAux::_restoreSettings(AutoConnectConfigAux& me) {
  * @param me  AutoConnectAux (That is, AutoConnectConfigAux itself)
  */
 void AutoConnectConfigAux::_retrieveSettings(AutoConnectConfigAux& me) {
-  AutoConnectConfig&  acConfig = _ac->getConfig();
+  AutoConnectConfigExt&  acConfig = _ac->getConfig();
   me[AUTOCONNECT_CONFIGAUX_ELM_SSID].as<AutoConnectInput>().value = acConfig.apid;
   me[AUTOCONNECT_CONFIGAUX_ELM_PSK].as<AutoConnectInput>().value = acConfig.psk;
   me[AUTOCONNECT_CONFIGAUX_ELM_CHANNEL].as<AutoConnectInput>().value = String(acConfig.channel);
