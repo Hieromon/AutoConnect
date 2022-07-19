@@ -108,3 +108,13 @@ Declaration parameter for the constructor | Use ESP8266WebServer::handleClient o
     The AutoConnect menu function may affect WiFi connection state. It follows that the menu process must execute outside *ESP8266WebServer::handleClient* and *WebServer::handleClient*.  
     [*AutoConnect::handleClient*](api.md#void-handleclient) is equivalent *ESP8266WebServer::handleClient* and *WEbServer::handleClient* included [*AutoConnect::handleRequest*](api.md#void-handlerequest).
 
+## Reducing Binary Size
+
+Typically, the AutoConnect component includes [AutoConnectAux](acelements.md) to handle [Custom Web pages](acintro.md). AutoConnectAux plays a central role in responding to requests for custom web pages. It also brings several AutoConnectElements used by the sketch, so the size after build may exceed 1 MB. These custom web page components can be deactivated depending on your use case. If you don't need custom web pages for the sketch, you can detach the AutoConnectAux component to reduce the post-build binary size.
+
+The [**`AutoConnect.h`**](api.md#autoconnecth) header file enables all AutoConnect components. In a normal sketch, the inclusion of this header will enable all AutoConnect features. On the other hand, sketches that do not allow custom web pages can use the [**`AutoConnectCore.h`**](api.md#autoconnectcoreh) header file.
+
+[**`AutoConnectCore.h`**](api.md#autoconnectcoreh) provides an AutoConnect class that excludes AutoConnectAux and AutoConnectElements from AutoConnect. Therefore, it does not implement the APIs required for custom web page processing. Also, [AutoConnectOTA](otabrowser.md) and [AutoConnectUpdate](otaserver.md) cannot be used. (i.e., to use AutoConnect's equipped OTA Update feature, you must include the full AutoConnect component in your sketch) Instead, the binary size of the AutoConnectCore component is reduced by about 170 KB (1.3 KB for RAM) compared to the ESP32 AutoConnect full component. (60KB/3KB for ESP8266)
+
+!!! info "Either `AutoConnect.h` or `AutoConnectCore.h`"
+    A sketch can include either `AutoConnect.h` or `AutoConnectCore.h`. These two header files are mutually exclusive and cannot be included together at the same time.
