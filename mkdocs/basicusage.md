@@ -116,5 +116,69 @@ The [**`AutoConnect.h`**](api.md#autoconnecth) header file enables all AutoConne
 
 [**`AutoConnectCore.h`**](api.md#autoconnectcoreh) provides an AutoConnect class that excludes AutoConnectAux and AutoConnectElements from AutoConnect. Therefore, it does not implement the APIs required for custom web page processing. Also, [AutoConnectOTA](otabrowser.md) and [AutoConnectUpdate](otaserver.md) cannot be used. (i.e., to use AutoConnect's equipped OTA Update feature, you must include the full AutoConnect component in your sketch) Instead, the binary size of the AutoConnectCore component is reduced by about 170 KB (1.3 KB for RAM) compared to the ESP32 AutoConnect full component. (60KB/3KB for ESP8266)
 
+To switch between AutoConnect and AutoConnectCore, simply change the corresponding header file in `#include` header.
+
+### <i class="fa fa-edit"></i> Using AutoConnect Full component
+
+```cpp hl_lines="3 6"
+#include <WiFi.h>
+#include <WebServer.h>
+#include <AutoConnect.h>
+
+WebServer Server;
+AutoConnect Portal(Server);
+
+void rootPage() {
+  char content[] = "Hello, World";
+  Server.send(200, "text/plain", content);
+}
+
+void setup() {
+  delay(1000);
+  Serial.begin(115200);
+  Serial.println();
+
+  Server.on("/", rootPage);
+  Portal.begin();
+  Serial.println("Web Server started:" + WiFi.localIP().toString());
+}
+
+void loop() {
+  Portal.handleClient();
+}
+```
+
+### <i class="fa fa-edit"></i> Using AutoConnectCore without Custom Web pages and OTA Update facilities
+
+Even if you use AutoConnectCore, the class name remains `AutoConnect`.
+
+```cpp hl_lines="3 6"
+#include <WiFi.h>
+#include <WebServer.h>
+#include <AutoConnectCore.h>
+
+WebServer Server;
+AutoConnect Portal(Server);
+
+void rootPage() {
+  char content[] = "Hello, World";
+  Server.send(200, "text/plain", content);
+}
+
+void setup() {
+  delay(1000);
+  Serial.begin(115200);
+  Serial.println();
+
+  Server.on("/", rootPage);
+  Portal.begin();
+  Serial.println("Web Server started:" + WiFi.localIP().toString());
+}
+
+void loop() {
+  Portal.handleClient();
+}
+```
+
 !!! info "Either `AutoConnect.h` or `AutoConnectCore.h`"
     A sketch can include either `AutoConnect.h` or `AutoConnectCore.h`. These two header files are mutually exclusive and cannot be included together at the same time.
