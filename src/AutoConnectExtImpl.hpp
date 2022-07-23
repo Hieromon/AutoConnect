@@ -3,7 +3,7 @@
  * @file AutoConnectExtImpl.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-15
+ * @date 2022-07-23
  * @copyright MIT license.
  */
 
@@ -175,6 +175,42 @@ bool AutoConnectExt<T>::on(const String& uri, const AuxHandlerFunctionT handler,
     aux = aux->_next;
   }
   return false;
+}
+
+/**
+ * Register a status change notification callback function
+ * @param  fn  A status change notification callback function.
+ */
+template<typename T>
+void AutoConnectExt<T>::onOTAStart(OTAStartExit_ft fn) {
+  _onOTAStartExit = fn;
+}
+
+/**
+ * Register a status change notification callback function
+ * @param  fn  A status change notification callback function.
+ */
+template<typename T>
+void AutoConnectExt<T>::onOTAEnd(OTAEndExit_ft fn) {
+  _onOTAEndExit = fn;
+}
+
+/**
+ * Register a status change notification callback function
+ * @param  fn  A status change notification callback function.
+ */
+template<typename T>
+void AutoConnectExt<T>::onOTAError(OTAErrorExit_ft fn) {
+  _onOTAErrorExit = fn;
+}
+
+/**
+ * Register a status change notification callback function
+ * @param  fn  A status change notification callback function.
+ */
+template<typename T>
+void AutoConnectExt<T>::onOTAProgress(OTAProgressExit_ft fn) {
+  _onOTAProgressExit = fn;
 }
 
 /**
