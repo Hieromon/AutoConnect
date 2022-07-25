@@ -2,8 +2,8 @@
  * AutoConnectUpdate class implementation.
  * @file   AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
- * @version    1.3.5
- * @date   2022-04-22
+ * @version    1.3.6
+ * @date   2022-07-25
  * @copyright  MIT license.
  */
 
@@ -103,15 +103,6 @@ typename std::enable_if<!AutoConnectUtil::has_func_onProgress<T>::value, AutoCon
   return AutoConnectUpdateAct::UPDATEDIALOG_LOADER;
 }
 }
-
-/**
- * Definitions of notification commands to synchronize update processing
- * with the Web client.
- */
-#define UPDATE_NOTIFY_START     "#s"
-#define UPDATE_NOTIFY_PROGRESS  "#p"
-#define UPDATE_NOTIFY_END       "#e"
-#define UPDATE_NOTIFY_REBOOT    "#r"
 
 /**
  * A destructor. Release the update processing dialogue page generated
@@ -555,7 +546,7 @@ void AutoConnectUpdateAct::_progress(void) {
     reqOperand = _webServer->arg(reqOperation);
     switch (_status) {
     case UPDATE_IDLE:
-      if (reqOperand == String(UPDATE_NOTIFY_START)) {
+      if (reqOperand == String(AUTOCONNECT_UPDATE_NOTIFY_START)) {
         httpCode = 200;
         _status = UPDATE_START;
       }
@@ -565,7 +556,7 @@ void AutoConnectUpdateAct::_progress(void) {
       }
       break;
     case UPDATE_SUCCESS:
-      if (reqOperand == String(UPDATE_NOTIFY_REBOOT)) {
+      if (reqOperand == String(AUTOCONNECT_UPDATE_NOTIFY_REBOOT)) {
         _status = UPDATE_RESET;
         httpCode = 200;
       }
@@ -583,14 +574,14 @@ void AutoConnectUpdateAct::_progress(void) {
   case HTTP_GET:
     switch (_status) {
     case UPDATE_PROGRESS:
-      payload = String(UPDATE_NOTIFY_PROGRESS) + ',' + String(_amount) + ':' + String(_binSize);
+      payload = String(AUTOCONNECT_UPDATE_NOTIFY_PROGRESS) + ',' + String(_amount) + ':' + String(_binSize);
       httpCode = 200;
       break;
     case UPDATE_IDLE:
     case UPDATE_SUCCESS:
     case UPDATE_NOAVAIL:
     case UPDATE_FAIL:
-      payload = String(UPDATE_NOTIFY_END);
+      payload = String(AUTOCONNECT_UPDATE_NOTIFY_END);
       httpCode = 200;
       break;
     default:
