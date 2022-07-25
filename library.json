@@ -3,13 +3,11 @@
   "keywords": "communication, http, server, web, wifi, wi-fi",
   "description": "ESP8266/ESP32 WLAN configuration at runtime with web interface.",
   "homepage": "https://hieromon.github.io/AutoConnect",
-  "repository":
-  {
+  "repository": {
     "type": "git",
     "url": "https://github.com/Hieromon/AutoConnect.git"
   },
-  "dependencies":
-  [
+  "dependencies": [
     {
       "name": "PageBuilder",
       "version": ">=1.5.3"
@@ -20,12 +18,11 @@
     }
   ],
   "frameworks": "arduino",
-  "platforms":
-  [
+  "platforms": [
     "espressif8266",
     "espressif32"
   ],
-  "version": "1.3.5",
+  "version": "1.3.6",
   "license": "MIT",
   "headers": "AutoConnect.h"
 }
