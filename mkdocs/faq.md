@@ -265,6 +265,9 @@ Link button to AutoConnect menu can be embedded into Sketch's web page. The root
 
 It consumes about 2K bytes in the static and about 12K bytes are consumed at the moment when menu executed.
 
+!!! info "Reducing Binary Size"
+    For sketches that do not require OTA feature or Custom Web pages, the build size can be reduced. See [Reducing Binary Size](basicusage.md#reducing-binary-size) in [Basic Usage](basicusage.md) for details.
+
 ## <i class="fa fa-question-circle"></i> How placing a style-qualified AutoConnectText horizontally?
 
 When the [style](acelements.md#style) parameter is specified for [AutoConnectText](acelements.md#autoconnecttext), it is always enclosed by the `<div>` tag, so the element placement direction is vertical and subsequent elements cannot be horizontal. If you want to place an element after AutoConnectText with the style, you can place the AutoConnectText horizontally by specifying the [`display`](https://developer.mozilla.org/en-US/docs/Web/CSS/display) CSS property with `inline` or `inline-block` in the style value. 
