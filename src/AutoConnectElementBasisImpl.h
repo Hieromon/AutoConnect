@@ -800,6 +800,7 @@ const String AutoConnectTextBasis::toHTML(void) const {
     case AC_Tag_BR:
       elmBr = (PGM_P)tagBr;
       elmLen += AutoConnectElementBasisImpl::_sizeof(tagBr);
+      [[fallthrough]];
     case AC_Tag_None:
       applyTag = (PGM_P)tagSpan;
       elmLen += AutoConnectElementBasisImpl::_sizeof(tagSpan) * 2;
