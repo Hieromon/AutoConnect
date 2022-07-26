@@ -71,7 +71,7 @@ void AutoConnectUploadHandler::upload(const String& requestUri, const HTTPUpload
     break;
   }
   case UPLOAD_FILE_WRITE: {
-    size_t  wsz = _write(upload.buf, (const size_t)upload.currentSize);
+    size_t  wsz = _write(upload.buf, upload.currentSize);
     if ((int)wsz != -1) {
       _ulAmount += wsz;
       if (_cbProgress)

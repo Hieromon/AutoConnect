@@ -224,7 +224,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
  * _status, but it does not indicate the latest status. This status function
  * takes the latest status of the upload handler into the internal _status value. 
  */
-const AutoConnectUploadHandler::AC_UPLOADStatus_t AutoConnectFileBasis::status(void) {
+AutoConnectUploadHandler::AC_UPLOADStatus_t AutoConnectFileBasis::status(void) {
   if (_upload)
     _status = _upload.get()->status();
   return _status;
