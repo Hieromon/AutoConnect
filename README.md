@@ -102,6 +102,9 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.3.6] Jul. 26, 2022
+- Fixed OTA being incomplete. (Issue #325)
+
 ### [1.3.5] Jun. 03, 2022
 - Fixed Fixed OTA exit not being called. (Issue #325)
 - Fixed an ambiguous type call with IPAddress. (Issue #480)

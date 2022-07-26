@@ -1,3 +1,8 @@
+### [1.3.6] Jul. 26, 2022
+
+- Fixed OTA being incomplete.
+
+---
 ### [1.3.5] Jun. 03, 2022
 
 #### Fix
