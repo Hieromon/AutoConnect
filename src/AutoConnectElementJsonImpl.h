@@ -500,6 +500,7 @@ void AutoConnectRangeJson::serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& js
     magPosition = PSTR(AUTOCONNECT_JSON_VALUE_BEHIND);
     break;
   case AC_Void:
+  default:
     magPosition = PSTR(AUTOCONNECT_JSON_VALUE_VOID);
     break;
   }
