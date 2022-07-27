@@ -1191,9 +1191,9 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
   static const char _ssidNull[] PROGMEM = "";
   String ssidList;
   station_config_t  entry;
-  char  slCont[256];
   char  rssiCont[32];
   char  trash[80] = {'\0'};
+  char  slCont[sizeof(_ssidList) + sizeof(AUTOCONNECT_PARAMID_CRED) + sizeof(station_config_t::ssid) + sizeof(rssiCont) + sizeof(trash) + sizeof(_ssidLock)];
   AutoConnectCredential credit(_apConfig.boundaryOffset);
 
   if (_indelibleSSID.length()) {
@@ -1231,6 +1231,7 @@ String AutoConnect::_token_OPEN_SSID(PageArgument& args) {
     }
     if (_apConfig.menuItems & AC_MENUITEM_DELETESSID)
       snprintf_P(trash, sizeof(trash), (PGM_P)_ssidTrsh, reinterpret_cast<char*>(entry.ssid));
+
     snprintf_P(slCont, sizeof(slCont), (PGM_P)_ssidList, AUTOCONNECT_PARAMID_CRED, reinterpret_cast<char*>(entry.ssid), rssiSym, trash, ssidLock);
     ssidList += String(slCont);
   }
