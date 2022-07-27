@@ -1,6 +1,6 @@
 /*
   ESP32 Camera Sensor Web interface class implementation.
-  Date: 2021-12-28
+  Date: 2022-12-28, Updated: 2022-07-27
   
   Copyright (c) 2021 Hieromon Ikasamo.
   This software is released under the MIT License.
@@ -154,21 +154,30 @@ esp_err_t ESP32WebCam::startCameraServer(const char* streamPath, const char* cap
       .uri = _streamPath.c_str(),
       .method = HTTP_GET,
       .handler = ESP32WebCam::_streamHandler,
-      .user_ctx = nullptr
+      .user_ctx = nullptr,
+      .is_websocket = false,
+      .handle_ws_control_frames = false,
+      .supported_subprotocol = nullptr
     };
     // Register captureUrl handler
     httpd_uri_t captureUri = {
       .uri = _capturePath.c_str(),
       .method = HTTP_GET,
       .handler = ESP32WebCam::_captureHandler,
-      .user_ctx = nullptr
+      .user_ctx = nullptr,
+      .is_websocket = false,
+      .handle_ws_control_frames = false,
+      .supported_subprotocol = nullptr
     };
     // Register promptUrl handler
     httpd_uri_t promptUri = {
       .uri = _promptPath.c_str(),
       .method = HTTP_GET,
       .handler = ESP32WebCam::_promptHandler,
-      .user_ctx = nullptr
+      .user_ctx = nullptr,
+      .is_websocket = false,
+      .handle_ws_control_frames = false,
+      .supported_subprotocol = nullptr
     };
     rc = httpd_register_uri_handler(_stream_d, &captureUri);
     if (rc != ESP_OK)
