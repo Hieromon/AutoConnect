@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.3.5
- * @date 2022-03-21
+ * @version  1.3.6
+ * @date 2022-07-27
  * @copyright  MIT license.
  */
 
