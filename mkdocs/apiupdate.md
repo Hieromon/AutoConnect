@@ -82,6 +82,93 @@ Specifies whether or not to automatically restart the module as a result of the 
 
 This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.
 
+### <i class="fa fa-caret-right"></i> onEnd
+
+```cpp
+void AutoConnectUpdate::onEnd(HTTPUpdateEndCB fn)
+```
+Register the on-end exit routine that is called only once when the update is finished. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called when the update has been finished.</span></dd>
+</dl>
+
+This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.
+
+An *fn* specifies the function called when the update has been finished. Its prototype declaration is defined as *HTTPUpdateEndCB*.
+
+```cpp
+using HTTPUpdateEndCB = std::function<void()>;
+```
+
+### <i class="fa fa-caret-right"></i> onError
+
+```cpp
+void AutoConnectUpdate::onError(HTTPUpdateErrorCB fn)
+```
+
+Register the exit routine that is called when some error occurred. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called when some updating error occurs.</span></dd>
+</dl>
+
+This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.
+
+An *fn* specifies the function called when the some error occurred. Its prototype declaration is defined as *HTTPUpdateErrorCB*.
+
+```cpp
+using HTTPUpdateErrorCB = std::function<void(int error)>;
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">error</span><span class="apidesc">Error code of the Update. It is defined in the <a href="https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266HTTPClient/src/ESP8266HTTPClient.h">ESP8266HTTPClient</a> class, <a href="https://github.com/esp8266/Arduino/blob/ee7ac2f79d4bbf5460bf1c60c58469ab5e3022b9/libraries/ESP8266httpUpdate/src/ESP8266httpUpdate.h">ESP8266HTTPUpdate</a> class or the <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/HTTPUpdate/src/HTTPUpdate.h">HTTPUpdate</a> class of the Arduino core for each platform.</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> onProgress
+
+```cpp
+void AutoConnectUpdate::onProgress(HTTPUpdateProgressCB fn)
+```
+
+Register the exit routine that is called during the update progress. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called during the updating progress.</span></dd></dl>
+
+This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.
+
+An *fn* specifies the function called during the updating progress. Its prototype declaration is defined as *HTTPUpdateProgressCB*.
+
+!!! note "Updating Progress bar will not available"
+    AutoConnectUpdate uses the onProgress exit to update the [progress bar on a web page](otaserver.md#behavior-of-the-autoconnectupdate-class) during updating. If the user sketch registers its own exit routine with the onProgress function, AutoConnectUpdate's progress bar on the web page will not be updated.
+
+```cpp
+using HTTPUpdateProgressCB = std::function<void(int amount, int size)>;
+```
+
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">amount</span><span class="apidesc">Total amount of bytes received.</span></dd>
+    <dd><span class="apidef">size</span><span class="apidesc">Block size of current send.</span></dd>
+</dl>
+
+### <i class="fa fa-caret-right"></i> onStart
+
+```cpp
+void AutoConnectUpdate::onStart(HTTPUpdateStartCB fn)
+```
+
+Register the on-start exit routine that is called only once when the update has been started. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called at the update start.</span></dd></dl>
+
+This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.
+
+An *fn* specifies the function called when the OTA starts. Its prototype declaration is defined as *HTTPUpdateStartCB*.
+
+```cpp
+using HTTPUpdateStartCB = std::function<void()>;
+```
+
 ### <i class="fa fa-caret-right"></i> setLedPin
 
 ```cpp

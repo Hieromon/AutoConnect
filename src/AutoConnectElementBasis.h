@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.3.5
- * @date 2022-03-21
+ * @version  1.3.6
+ * @date 2022-07-27
  * @copyright  MIT license.
  */
 
@@ -166,7 +166,7 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
   const String  toHTML(void) const override;
   bool  attach(const ACFile_t store);
   void  detach(void) { status(); _upload.reset(); }
-  const AutoConnectUploadHandler::AC_UPLOADStatus_t status(void);
+  AutoConnectUploadHandler::AC_UPLOADStatus_t status(void);
   AutoConnectUploadHandler*  upload(void) const { return _upload.get(); }
   void  onStart(AutoConnectUploadHandler::StartExit_ft fn) { _cbStart = fn; }
   void  onEnd(AutoConnectUploadHandler::EndExit_ft fn) { _cbEnd = fn; }
