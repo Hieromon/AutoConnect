@@ -565,11 +565,6 @@ const char  AutoConnectCore<T>::_ELM_MENU_PRE[] PROGMEM = {
 };
 
 template<typename T>
-const char  AutoConnectCore<T>::_ELM_MENU_AUX[] PROGMEM = {
-        "{{AUX_MENU}}"
-};
-
-template<typename T>
 const char  AutoConnectCore<T>::_ELM_MENU_POST[] PROGMEM = {
         "MENU_HOME"
         "MENU_DEVINFO"
