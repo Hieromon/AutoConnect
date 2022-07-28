@@ -3,7 +3,7 @@
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-14
+ * @date 2022-07-27
  * @copyright MIT license.
  */
 #include <algorithm>
@@ -604,6 +604,7 @@ const String AutoConnectAux::_nonResponseExit(PageArgument& args) {
  * @return HTML string that should be inserted.
  */
 const String AutoConnectAux::_insertStyle(PageArgument& args) {
+  AC_UNUSED(args);
   String  css = String("");
 
   for (AutoConnectElement& elm : _addonElm) {

@@ -113,7 +113,7 @@ void rootPage() {
   static const char *wd[7] = { "Sun","Mon","Tue","Wed","Thr","Fri","Sat" };
   struct tm *tm;
   time_t  t;
-  char    dateTime[26];
+  char    dateTime[40];
 
   t = time(NULL);
   tm = localtime(&t);
