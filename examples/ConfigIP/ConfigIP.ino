@@ -52,13 +52,15 @@ static const char AUX_CONFIGIP[] PROGMEM = R"(
       "name": "caption",
       "type": "ACText",
       "value": "<b>Module IP configuration</b>",
-      "style": "color:steelblue"
+      "style": "color:steelblue",
+      "posterior": "div"
     },
     {
       "name": "mac",
       "type": "ACText",
       "format": "MAC: %s",
-      "posterior": "br"
+      "style": "font-size:smaller",
+      "posterior": "par"
     },
     {
       "name": "staip",
@@ -114,7 +116,8 @@ static const char AUX_RESTART[] PROGMEM = R"(
       "name": "caption",
       "type": "ACText",
       "value": "Settings",
-      "style": "font-family:Arial;font-weight:bold;text-align:center;margin-bottom:10px;color:steelblue"
+      "style": "font-family:Arial;font-weight:bold;text-align:center;margin-bottom:10px;color:steelblue",
+      "posterior": "div"
     },
     {
       "name": "staip",
@@ -310,6 +313,7 @@ void setup() {
   config.staGateway = IPAddress(ipconfig.ipconfig.gateway);
   config.staNetmask = IPAddress(ipconfig.ipconfig.netmask);
   config.dns1 = IPAddress(ipconfig.ipconfig.dns1);
+  config.preserveSTA = true;
   portal.config(config);
 
   // Sense the configuration button (external switch)
