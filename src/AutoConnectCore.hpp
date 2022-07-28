@@ -50,6 +50,7 @@ class AutoConnectCore {
   inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   virtual void  end(void);
   T&  getConfig(void) { return _apConfig; }
+  bool  getCurrentCredential(station_config_t* staConfig);
   uint16_t  getEEPROMUsedSize(void);
   void  handleClient(void);
   void  handleRequest(void);

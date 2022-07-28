@@ -428,6 +428,28 @@ void AutoConnectCore<T>::end(void) {
 }
 
 /**
+ * Obtains a credential for the currently active connection.
+ * @param  staConfig Storing area for an obtained credential.
+ * @return true      A credentialfor the current connection is obtained.
+ * @return false     A credential is not stored for the current connection.
+ */
+template<typename T>
+bool AutoConnectCore<T>::getCurrentCredential(station_config_t* staConfig) {
+  if (!_getConfigSTA(staConfig)) {
+    AC_DBG("failed to get station config\n");
+    return false;
+  }
+
+  AutoConnectCredential credt;
+  const char* ssid = reinterpret_cast<const char*>(staConfig->ssid);
+  if (credt.load(ssid, staConfig) < 0) {
+    AC_DBG("%s is not in credentials\n", ssid);
+    return false;
+  }
+  return true;
+}
+
+/**
  * Get the total amount of memory required to hold the AutoConnect credentials
  * and any custom configuration settings stored in EEPROM.
  * This function is available only for ESP8266 use.
