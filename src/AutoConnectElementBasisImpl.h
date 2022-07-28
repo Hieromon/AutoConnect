@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.5
- * @date 2022-06-25
+ * @version  1.3.6
+ * @date 2022-07-27
  * @copyright  MIT license.
  */
 
@@ -224,7 +224,7 @@ bool AutoConnectFileBasis::attach(const ACFile_t store) {
  * _status, but it does not indicate the latest status. This status function
  * takes the latest status of the upload handler into the internal _status value. 
  */
-const AutoConnectUploadHandler::AC_UPLOADStatus_t AutoConnectFileBasis::status(void) {
+AutoConnectUploadHandler::AC_UPLOADStatus_t AutoConnectFileBasis::status(void) {
   if (_upload)
     _status = _upload.get()->status();
   return _status;
@@ -800,6 +800,7 @@ const String AutoConnectTextBasis::toHTML(void) const {
     case AC_Tag_BR:
       elmBr = (PGM_P)tagBr;
       elmLen += AutoConnectElementBasisImpl::_sizeof(tagBr);
+      [[fallthrough]];
     case AC_Tag_None:
       applyTag = (PGM_P)tagSpan;
       elmLen += AutoConnectElementBasisImpl::_sizeof(tagSpan) * 2;

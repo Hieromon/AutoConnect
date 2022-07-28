@@ -278,7 +278,7 @@ size_t AutoConnectOTA::_write(const uint8_t *buf, const size_t size) {
  * @param  status Updater binary upload completion status.
  */
 void AutoConnectOTA::_close(const HTTPUploadStatus status) {
-  AC_DBG("OTA up%s ", _dest == OTA_DEST_FIRM ? "date" : "load");
+  AC_DBG("Closing OTA up%s, status=%d\n", _dest == OTA_DEST_FIRM ? "date" : "load", status);
 
   // The _close will perform different processes depending on the update
   // destination. The _close process for firmware updates purges the
@@ -288,7 +288,7 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
   if (_dest == OTA_DEST_FIRM) {
     if (!Update.end(bc)) {
       _setError();
-      AC_DBG_DUMB("failed to flash");
+      AC_DBG("Failed to flash");
     }
   }
   else {
@@ -299,11 +299,11 @@ void AutoConnectOTA::_close(const HTTPUploadStatus status) {
   if (!_err.length()) {
     if (bc) {
       _otaStatus = AC_OTA_SUCCESS;
-      AC_DBG_DUMB("end");
+      AC_DBG("OTA end");
     }
     else {
       _setError("Aborted");
-      AC_DBG_DUMB("aborted");
+      AC_DBG("OTA aborted");
     }
   }
   AC_DBG_DUMB(". %s\n", _err.c_str());

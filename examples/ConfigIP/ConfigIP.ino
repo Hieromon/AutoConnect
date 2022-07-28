@@ -194,10 +194,10 @@ void loadConfig(IPCONFIG* ipconfig) {
     ipconfig->ipconfig.dns1 = 0U;
 
   Serial.println("IP configuration loaded");
-  Serial.printf("Sta IP :0x%08lx\n", ipconfig->ipconfig.ip);
-  Serial.printf("Gateway:0x%08lx\n", ipconfig->ipconfig.gateway);
-  Serial.printf("Netmask:0x%08lx\n", ipconfig->ipconfig.netmask);
-  Serial.printf("DNS1   :0x%08lx\n", ipconfig->ipconfig.dns1);
+  Serial.printf("Sta IP :0x%08lx\n", (long unsigned int)ipconfig->ipconfig.ip);
+  Serial.printf("Gateway:0x%08lx\n", (long unsigned int)ipconfig->ipconfig.gateway);
+  Serial.printf("Netmask:0x%08lx\n", (long unsigned int)ipconfig->ipconfig.netmask);
+  Serial.printf("DNS1   :0x%08lx\n", (long unsigned int)ipconfig->ipconfig.dns1);
 }
 
 // Save current IP configuration to EEPROM

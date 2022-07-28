@@ -798,6 +798,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#onend" class="md-nav__link">
+     onEnd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onerror" class="md-nav__link">
+     onError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onprogress" class="md-nav__link">
+     onProgress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onstart" class="md-nav__link">
+     onStart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#setledpin" class="md-nav__link">
      setLedPin
   </a>
@@ -1227,6 +1255,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#onend" class="md-nav__link">
+     onEnd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onerror" class="md-nav__link">
+     onError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onprogress" class="md-nav__link">
+     onProgress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onstart" class="md-nav__link">
+     onStart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#setledpin" class="md-nav__link">
      setLedPin
   </a>
@@ -1345,6 +1401,63 @@
     The boot process during the next start turn of the module by reset will copy the updated firmware to the actual program area and a new sketch program will start. The default value is true.</span></dd>
 </dl></p>
 <p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
+<h3 id="onend"><i class="fa fa-caret-right"></i> onEnd<a class="headerlink" href="#onend" title="Permanent link">&para;</a></h3>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">onEnd(HTTPUpdateEndCB fn)</span>
+</code></pre></div>
+Register the on-end exit routine that is called only once when the update is finished. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called when the update has been finished.</span></dd>
+</dl></p>
+<p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
+<p>An <em>fn</em> specifies the function called when the update has been finished. Its prototype declaration is defined as <em>HTTPUpdateEndCB</em>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">using</span><span style="color: #f8f8f2"> HTTPUpdateEndCB </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">()</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">;</span>
+</code></pre></div>
+<h3 id="onerror"><i class="fa fa-caret-right"></i> onError<a class="headerlink" href="#onerror" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">onError(HTTPUpdateErrorCB fn)</span>
+</code></pre></div>
+<p>Register the exit routine that is called when some error occurred. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called when some updating error occurs.</span></dd>
+</dl></p>
+<p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
+<p>An <em>fn</em> specifies the function called when the some error occurred. Its prototype declaration is defined as <em>HTTPUpdateErrorCB</em>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">using</span><span style="color: #f8f8f2"> HTTPUpdateErrorCB </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> error)</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">;</span>
+</code></pre></div>
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">error</span><span class="apidesc">Error code of the Update. It is defined in the <a href="https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266HTTPClient/src/ESP8266HTTPClient.h">ESP8266HTTPClient</a> class, <a href="https://github.com/esp8266/Arduino/blob/ee7ac2f79d4bbf5460bf1c60c58469ab5e3022b9/libraries/ESP8266httpUpdate/src/ESP8266httpUpdate.h">ESP8266HTTPUpdate</a> class or the <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/HTTPUpdate/src/HTTPUpdate.h">HTTPUpdate</a> class of the Arduino core for each platform.</span></dd>
+</dl>
+
+<h3 id="onprogress"><i class="fa fa-caret-right"></i> onProgress<a class="headerlink" href="#onprogress" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">onProgress(HTTPUpdateProgressCB fn)</span>
+</code></pre></div>
+<p>Register the exit routine that is called during the update progress. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called during the updating progress.</span></dd></dl></p>
+<p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
+<p>An <em>fn</em> specifies the function called during the updating progress. Its prototype declaration is defined as <em>HTTPUpdateProgressCB</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Updating Progress bar will not available</p>
+<p>AutoConnectUpdate uses the onProgress exit to update the <a href="otaserver.html#behavior-of-the-autoconnectupdate-class">progress bar on a web page</a> during updating. If the user sketch registers its own exit routine with the onProgress function, AutoConnectUpdate's progress bar on the web page will not be updated.</p>
+</div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">using</span><span style="color: #f8f8f2"> HTTPUpdateProgressCB </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> amount, </span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> size)</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">;</span>
+</code></pre></div>
+<dl class="apidl">
+    <dt><strong>Parameters</strong></dt>
+    <dd><span class="apidef">amount</span><span class="apidesc">Total amount of bytes received.</span></dd>
+    <dd><span class="apidef">size</span><span class="apidesc">Block size of current send.</span></dd>
+</dl>
+
+<h3 id="onstart"><i class="fa fa-caret-right"></i> onStart<a class="headerlink" href="#onstart" title="Permanent link">&para;</a></h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">onStart(HTTPUpdateStartCB fn)</span>
+</code></pre></div>
+<p>Register the on-start exit routine that is called only once when the update has been started. For the ESP32 platform, this function is only available in ESP32 Arduino core 2.0.0 or later.<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">A function called at the update start.</span></dd></dl></p>
+<p>This function inherits from the ESP8266HTTPUpdate (HTTPUpdate for ESP32) class.</p>
+<p>An <em>fn</em> specifies the function called when the OTA starts. Its prototype declaration is defined as <em>HTTPUpdateStartCB</em>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">using</span><span style="color: #f8f8f2"> HTTPUpdateStartCB </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> std</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">function</span><span style="color: #f92672">&lt;</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">()</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">;</span>
+</code></pre></div>
 <h3 id="setledpin"><i class="fa fa-caret-right"></i> setLedPin<a class="headerlink" href="#setledpin" title="Permanent link">&para;</a></h3>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> AutoConnectUpdate</span><span style="color: #f92672">::</span><span style="color: #f8f8f2">setLedPin(</span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> ledPin, </span><span style="color: #66d9ef">uint8_t</span><span style="color: #f8f8f2"> ledOn)</span>
 </code></pre></div>
