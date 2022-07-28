@@ -168,7 +168,7 @@ jobs:
             - --build-property
             - build.extra_flags=-DAUTOCONNECT_NOUSE_JSON
             - --build-property
-            - compiler.cpp.extra_flags=-Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations
+            - compiler.cpp.extra_flags=-Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wno-unused-parameter -Wno-sign-compare
           libraries: |
             ${{ env.LIBRARIES }}
           enable-deltas-report: true
