@@ -391,7 +391,6 @@ String saveParams(AutoConnectAux& aux, PageArgument& args) {
   param.close();
 
   // Echo back saved parameters to AutoConnectAux page.
-  AutoConnectInput& mqttserver = mqtt_setting[F("mqttserver")].as<AutoConnectInput>();
   aux[F("period")].value = String(publishInterval / 1000);
 
   return String();
