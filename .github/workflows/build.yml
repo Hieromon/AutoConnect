@@ -116,6 +116,9 @@ jobs:
         with:
           fqbn: ${{ matrix.board.fqbn }}
           platforms: ${{ matrix.platforms }}
+          cli-compile-flags: |
+            - --build-property
+            - compiler.cpp.extra_flags=-Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wno-unused-parameter -Wno-sign-compare
           libraries: |
             ${{ env.LIBRARIES }}
             ${{ matrix.library.dependency }}
