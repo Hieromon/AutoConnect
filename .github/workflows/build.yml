@@ -89,7 +89,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Append sketches depending on ESP8266
         if: matrix.board.platform-name == 'esp8266:esp8266'
@@ -151,7 +151,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Create sketches list with precluded ArduinoJson
         run: |
@@ -167,6 +167,8 @@ jobs:
           cli-compile-flags: |
             - --build-property
             - build.extra_flags=-DAUTOCONNECT_NOUSE_JSON
+            - --build-property
+            - compiler.cpp.extra_flags=\"-Wno-error=unused-function -Wno-error=unused-variable -Wno-error=deprecated-declarations\"
           libraries: |
             ${{ env.LIBRARIES }}
           enable-deltas-report: true
