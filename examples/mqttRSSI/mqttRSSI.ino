@@ -82,15 +82,15 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
       },
       {
         "name": "header",
-        "type": "ACText",
-        "value": "<h2>MQTT Broker settings</h2>",
-        "style": "text-align:center;color:#2f4f4f"
+        "type": "ACElement",
+        "value": "<h2 style='text-align:center;color:#2f4f4f;margin-top:10px;margin-bottom:10px'>MQTT Broker settings</h2>"
       },
       {
         "name": "caption",
         "type": "ACText",
         "value": "Publish WiFi signal strength via MQTT, publishing the RSSI value of the ESP module to the ThingSpeak public channel.",
-        "style": "font-family:serif;color:#053d76"
+        "style": "font-family:serif;color:#053d76",
+        "posterior": "par"
       },
       {
         "name": "mqttserver",
