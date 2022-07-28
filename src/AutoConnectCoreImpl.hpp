@@ -798,7 +798,8 @@ bool AutoConnectCore<T>::_loadAvailCredential(const char* ssid, const AC_PRINCIP
     else if (strlen(ssid))
       if (credential.load(ssid, &_credential) >= 0) {
         // Restore loaded IP settings to the current STA configuration
-        _restoreSTA(_credential);
+        if (!_apConfig.preserveSTA)
+          _restoreSTA(_credential);
         return true;
       }
   }
