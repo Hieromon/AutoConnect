@@ -211,7 +211,7 @@ bool AutoConnectOTA::_open(const char* filename, const char* mode) {
     if (AutoConnectFS::_isMounted(_fs))
       bc = true;
     else
-      bc = _fs->begin(AUTOCONECT_FS_INITIALIZATION);
+      bc = _fs->begin(AUTOCONNECT_FS_INITIALIZATION);
     if (bc) {
       _file = _fs->open(filename, "w");
       if (!_file) {

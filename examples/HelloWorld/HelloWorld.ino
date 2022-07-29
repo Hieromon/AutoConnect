@@ -54,7 +54,7 @@ using WiFiWebServer = WebServer;
   
   #include <AutoConnectFS.h>
   AutoConnectFS::FS& name = AUTOCONNECT_APPLIED_FILESYSTEM;
-  name.begin(AUTOCONECT_FS_INITIALIZATION);
+  name.begin(AUTOCONNECT_FS_INITIALIZATION);
 */
 #include <AutoConnectFS.h>
 AutoConnectFS::FS& FlashFS = AUTOCONNECT_APPLIED_FILESYSTEM;
@@ -134,7 +134,7 @@ void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
-  FlashFS.begin(AUTOCONECT_FS_INITIALIZATION);
+  FlashFS.begin(AUTOCONNECT_FS_INITIALIZATION);
 
   helloPage.on(onHello);      // Register the attribute overwrite handler.
   portal.join(helloPage);     // Join the hello page.
