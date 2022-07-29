@@ -313,7 +313,7 @@ void setup() {
   config.staGateway = IPAddress(ipconfig.ipconfig.gateway);
   config.staNetmask = IPAddress(ipconfig.ipconfig.netmask);
   config.dns1 = IPAddress(ipconfig.ipconfig.dns1);
-  config.preserveSTA = true;
+  config.preserveIP = true;
   portal.config(config);
 
   // Sense the configuration button (external switch)
