@@ -46,7 +46,7 @@ class AutoConnectConfigBase {
     immediateStart(false),
     retainPortal(false),
     preserveAPMode(false),
-    preserveSTA(false),
+    preserveIP(false),
     beginTimeout(AUTOCONNECT_TIMEOUT),
     portalTimeout(AUTOCONNECT_CAPTIVEPORTAL_TIMEOUT),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
@@ -89,7 +89,7 @@ class AutoConnectConfigBase {
     immediateStart(false),
     retainPortal(false),
     preserveAPMode(false),
-    preserveSTA(false),
+    preserveIP(false),
     beginTimeout(AUTOCONNECT_TIMEOUT),
     portalTimeout(portalTimeout),
     menuItems(AC_MENUITEM_CONFIGNEW | AC_MENUITEM_OPENSSIDS | AC_MENUITEM_DISCONNECT | AC_MENUITEM_RESET | AC_MENUITEM_HOME),
@@ -132,7 +132,7 @@ class AutoConnectConfigBase {
     immediateStart = o.immediateStart;
     retainPortal = o.retainPortal;
     preserveAPMode = o.preserveAPMode;
-    preserveSTA = o.preserveSTA;
+    preserveIP = o.preserveIP;
     beginTimeout = o.beginTimeout;
     portalTimeout = o.portalTimeout;
     menuItems = o.menuItems;
@@ -174,7 +174,7 @@ class AutoConnectConfigBase {
   bool      immediateStart;     /**< Skips WiFi.begin(), start portal immediately */
   bool      retainPortal;       /**< Even if the captive portal times out, it maintains the portal state. */
   bool      preserveAPMode;     /**< Keep existing AP WiFi mode if captive portal won't be started. */
-  bool      preserveSTA;        /**< IP configurations in AutoConnectConfig take precedence over the IP information contained in the stored credentials. */
+  bool      preserveIP;         /**< IP configurations in AutoConnectConfig take precedence over the IP information contained in the stored credentials. */
   unsigned long beginTimeout;   /**< Timeout value for WiFi.begin */
   unsigned long portalTimeout;  /**< Timeout value for stay in the captive portal */
   uint16_t  menuItems;          /**< A compound value of the menu items to be attached */
