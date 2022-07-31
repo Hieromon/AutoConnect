@@ -5,7 +5,7 @@
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-15
+ * @date 2022-07-29
  * @copyright MIT license.
  */
 
@@ -64,6 +64,12 @@ class AutoConnectCore {
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServer::THandlerFunction fn);
   void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
+  template<typename U>
+  bool  saveCredential(const char* filename, U& fs, const bool ensureFS);
+  bool  saveCredential(const char* filename = "/" AC_IDENTIFIER, AUTOCONNECT_APPLIED_FILECLASS& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = true);
+  template<typename U>
+  bool  restoreCredential(const char* filename, U& fs, const bool ensureFS);
+  bool  restoreCredential(const char* filename = "/" AC_IDENTIFIER, AUTOCONNECT_APPLIED_FILECLASS& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = true);
 
  protected:
   typedef enum {

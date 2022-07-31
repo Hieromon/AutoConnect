@@ -3,7 +3,7 @@
  * @file AutoConnectCoreImpl.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-15
+ * @date 2022-07-29
  * @copyright MIT license.
  */
 
@@ -764,6 +764,46 @@ void AutoConnectCore<T>::onDetect(DetectExit_ft fn) {
 template<typename T>
 void AutoConnectCore<T>::onNotFound(WebServer::THandlerFunction fn) {
   _notFoundHandler = fn;
+}
+
+/**
+ * Save AutoConnectCredentials to the filesystem.
+ * @param  filename Destination file namme.
+ * @param  fs       Destination file system.
+ * @return true   All credentials successfully saved.
+ * @return false  Could not save.
+ */
+template<typename T>
+bool AutoConnectCore<T>::saveCredential(const char* filename, AUTOCONNECT_APPLIED_FILECLASS& fs, const bool ensureFS) {
+  AutoConnectCredential credt(_apConfig.boundaryOffset);
+  return credt.backup<AUTOCONNECT_APPLIED_FILECLASS>(filename, fs, ensureFS);
+}
+
+template<typename T>
+template<typename U>
+bool AutoConnectCore<T>::saveCredential(const char* filename, U& fs, const bool ensureFS) {
+  AutoConnectCredential credt(_apConfig.boundaryOffset);
+  return credt.backup<U>(filename, fs, ensureFS);
+}
+
+/**
+ * Restore all credentials from specified file.
+ * @param  filename Destination file namme.
+ * @param  fs       Destination file system.
+ * @return true   Credentials successfully restored.
+ * @return false  Could not restore.
+ */
+template<typename T>
+bool AutoConnectCore<T>::restoreCredential(const char* filename, AUTOCONNECT_APPLIED_FILECLASS& fs, const bool ensureFS) {
+  AutoConnectCredential credt(_apConfig.boundaryOffset);
+  return credt.restore<AUTOCONNECT_APPLIED_FILECLASS>(filename, fs, ensureFS);
+}
+
+template<typename T>
+template<typename U>
+bool AutoConnectCore<T>::restoreCredential(const char* filename, U& fs, const bool ensureFS) {
+  AutoConnectCredential credt(_apConfig.boundaryOffset);
+  return credt.restore<U>(filename, fs, ensureFS);
 }
 
 /**

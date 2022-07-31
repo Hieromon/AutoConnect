@@ -1,10 +1,10 @@
 /**
- *  Declaration of AutoConnectCredential class.
- *  @file AutoConnectCredential.h
- *  @author hieromon@gmail.com
- *  @version  1.2.0
- *  @date 2020-04-22
- *  @copyright  MIT license.
+ * Declaration of AutoConnectCredential class.
+ * @file AutoConnectCredential.h
+ * @author hieromon@gmail.com
+ * @version  1.4.0
+ * @date 2022-07-29
+ * @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTCREDENTIAL_H_
@@ -89,8 +89,30 @@ class AutoConnectCredentialBase {
  protected:
   virtual void  _allocateEntry(void) = 0; /**< Initialize storage for credentials. */
 
+  // Start filesystem for backup and restore
+  template<typename T>
+  bool  _startFilesystem(T& fs, const bool forceMount) {
+    _ensureFS = forceMount;
+    if (_ensureFS)
+      if (!fs.begin(AUTOCONNECT_FS_INITIALIZATION)) {
+        AC_DBG("FS mount failed\n");
+        return false;
+      }
+    return true;
+  }
+
+  // Start filesystem for backup and restore
+  template<typename T>
+  void  _endFilesystem(T& fs) {
+    if (_ensureFS)
+      fs.end();
+  }
+
   uint8_t   _entries;       /**< Count of the available entry */
   uint16_t  _containSize;   /**< Container size */
+
+ private:
+  bool      _ensureFS;      /**< Filesystem starts with begin */
 };
 
 #if AC_CREDENTIAL_PREFERENCES == 0
@@ -109,14 +131,20 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   bool    load(int8_t entry, station_config_t* config) override;
   bool    save(const station_config_t* config) override;
   template<typename T>
-  bool  backup(T& fs, const char* filename);
+  bool  backup(const char* filename, T& fs, const bool ensureFS = true);
   template<typename T>
-  bool  restore(T& fs, const char* filename);
+  bool  restore(const char* filename, T& fs, const bool ensureFS = true);
 
  protected:
   void    _allocateEntry(void) override;  /**< Initialize storage for credentials. */
 
  private:
+  typedef struct __attribute__((__packed__)) {
+    uint8_t ac_credt[sizeof(AC_IDENTIFIER) - sizeof('\0')];
+    uint8_t e;
+    uint16_t ss;
+  } AC_CREDTHEADER_t;       /**< Header of AutConnectCredential */
+
   void    _retrieveEntry(station_config_t* config);   /**< Read an available entry. */
 
   int       _dp;            /**< The current address in EEPROM */
@@ -126,82 +154,91 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
 };
 
 /**
- * Save AutoConnectCredentials to the filesystem.
+ * Save AutoConnectCredentials to the file system.
+ * @param  filename Destination file name.
  * @param  fs       Destination file system.
- * @param  fileName Destination file namme.
+ * @param  ensureFS Starts the file system on begin; omits starting the file system for the false.
  * @return true   All credentials successfully saved.
  * @return false  Could not save.
  */
 template<typename T>
-bool  AutoConnectCredential::backup(T& fs, const char* fileName) {
+bool  AutoConnectCredential::backup(const char* filename, T& fs, const bool ensureFS) {
+  if (!_startFilesystem<T>(fs, ensureFS))
+    return false;
+
   bool  rc = false;
+  uint16_t  stSize = _offset + dataSize();
+  int dp = _offset;
+  AC_CREDTHEADER_t  hdr;
 
-  if (!fs.begin(AUTOCONNECT_FS_INITIALIZATION)) {
-    AC_DBG("FS mount failed\n");
-    return rc;
-  }
-
-  File  bf = fs.open(fileName, "w");
-  if (bf) {
-    uint16_t  stSize = _offset + dataSize();
-    EEPROMClass eeprom;
-    eeprom.begin(stSize);
-    for (int dp = _offset; dp < stSize; dp++)
-      bf.write(eeprom.read(dp));
-    eeprom.end();
-    bf.close();
-    AC_DBG("Credentials %" PRIu16 " bytes saved to %s\n", stSize - _offset, fileName);
-    rc = true;
+  EEPROMClass eeprom;
+  eeprom.begin(stSize);
+  eeprom.get<AC_CREDTHEADER_t>(dp, hdr);
+  if (!memcmp(hdr.ac_credt, AC_IDENTIFIER, sizeof(AC_CREDTHEADER_t::ac_credt))) {
+    File  bf = fs.open(filename, "w");
+    if (bf) {
+      bf.write(reinterpret_cast<uint8_t*>(&hdr), sizeof(AC_CREDTHEADER_t));
+      dp += sizeof(AC_CREDTHEADER_t);
+      while ( dp < stSize)
+        bf.write(eeprom.read(dp++));
+      bf.close();
+      AC_DBG("Credentials %" PRIu16 " bytes saved %s\n", stSize - _offset, filename);
+      rc = true;
+    }
+    else {
+      AC_DBG("Backup %s open failed\n", filename);
+    }
   }
   else {
-    AC_DBG("%s open failed, Credentials not saved\n", fileName);
+    AC_DBG("Cannot identify " AC_IDENTIFIER ", maybe boundaryOffset is wrong\n");
   }
-
-  fs.end();
+  eeprom.end();
+  _endFilesystem<T>(fs);
   return rc;
 }
 
 /**
  * Restore all credentials from specified file.
+ * @param  filename Destination file name.
  * @param  fs       Destination file system.
- * @param  fileName Destination file namme.
+ * @param  ensureFS Starts the file system on begin; omits starting the file system for the false.
  * @return true   Credentials successfully restored.
  * @return false  Could not restore.
  */
 template<typename T>
-bool  AutoConnectCredential::restore(T& fs, const char* fileName) {
+bool  AutoConnectCredential::restore(const char* filename, T& fs, const bool ensureFS) {
+  if (!_startFilesystem<T>(fs, ensureFS))
+    return false;
+
   bool  rc = false;
+  File  rf = fs.open(filename, "r");
+  if (rf) {
+    AC_CREDTHEADER_t  hdr;
 
-  if (!fs.begin()) {
-    AC_DBG("FS mount failed\n");
-    return rc;
-  }
-
-  File  importFile = fs.open(fileName, "r");
-  if (importFile) {
-    typedef struct __attribute__((__packed__)) {
-      uint8_t ac_credt[sizeof(AC_IDENTIFIER) - sizeof('\0')];
-      uint8_t e;
-      uint16_t ss;
-    } _hdr;
-    _hdr  hdr;
-
-    rc = true;
-    importFile.readBytes(reinterpret_cast<char*>(&hdr), sizeof(_hdr));
-    if (!strncmp(reinterpret_cast<const char*>(hdr.ac_credt), AC_IDENTIFIER, sizeof(_hdr::ac_credt))) {
+    rf.readBytes(reinterpret_cast<char*>(&hdr), sizeof(AC_CREDTHEADER_t));
+    if (!memcmp(hdr.ac_credt, AC_IDENTIFIER, sizeof(AC_CREDTHEADER_t::ac_credt))) {
       EEPROMClass eeprom;
 
-      size_t  stSize = _offset + hdr.ss + sizeof(_hdr::ac_credt) + sizeof(_hdr::e);
-      eeprom.begin(stSize);
+      size_t  stSize = _offset + hdr.ss + (sizeof(AC_CREDTHEADER_t) - sizeof(AC_CREDTHEADER_t::ss));
       const char* sp = reinterpret_cast<const char*>(&hdr);
       int dp = _offset;
-      while (dp < static_cast<int>(_offset + sizeof(_hdr)))
+      AC_CREDTHEADER_t  eeprom_hdr;
+
+      eeprom.begin(stSize);
+      // Verify destination EEPROM as AutoConnectCredentail to be restored.
+      eeprom.get<AC_CREDTHEADER_t>(dp, eeprom_hdr);
+      if (memcmp(eeprom_hdr.ac_credt, AC_IDENTIFIER, sizeof(AC_CREDTHEADER_t::ac_credt))) {
+        AC_DBG("Warning:EEPROM has no " AC_IDENTIFIER ", maybe boundaryOffset is wrong\n");
+      }
+      rc = true;
+      // Restore the header
+      while (dp < static_cast<int>(_offset + sizeof(AC_CREDTHEADER_t)))
         eeprom.write(dp++, *sp++);
-      
+      // Restore the body
       while (dp < static_cast<int>(stSize)) {
-        int c = importFile.read();
+        int c = rf.read();
         if (c < 0) {
-          AC_DBG("%s is unexpectedly EOF, file is broken\n", fileName);
+          AC_DBG("%s is unexpectedly EOF, broken\n", filename);
           rc = false;
           break;
         }
@@ -210,18 +247,17 @@ bool  AutoConnectCredential::restore(T& fs, const char* fileName) {
       eeprom.end();
     }
     else {
-      AC_DBG("%s cannot be identified.\n", fileName);
-      rc = false;
+      AC_DBG("%s has no %s\n", filename, AC_IDENTIFIER);
     }
-    importFile.close();
+    rf.close();
   }
   else {
-    AC_DBG("Import %s open failed\n", fileName);
+    AC_DBG("Restore %s open failed\n", filename);
   }
-  fs.end();
+  _endFilesystem<T>(fs);
 
   if (rc) {
-    AC_DBG("Credentials restored from %s\n", fileName);
+    AC_DBG("%s credentials restored\n", filename);
   }
   return rc;
 }
@@ -253,9 +289,9 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   bool    load(int8_t entry, station_config_t* config) override;
   bool    save(const station_config_t* config) override;
   template<typename T>
-  bool  backup(T& fs, const char* fileName);
+  bool  backup(const char* filename, T& fs, const bool ensureFS = true);
   template<typename T>
-  bool  restore(T& fs, const char* fileName);
+  bool  restore(const char* filename, T& fs, const bool ensureFS = true);
 
  protected:
   void    _allocateEntry(void) override;  /**< Initialize storage for credentials. */
@@ -299,13 +335,14 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
 
 /**
  * Save AutoConnectCredentials to the filesystem.
+ * @param  filename Destination file name.
  * @param  fs       Destination file system.
- * @param  fileName Destination file namme.
+ * @param  ensureFS Starts the file system on begin; omits starting the file system for the false.
  * @return true   All credentials successfully saved.
  * @return false  Could not save.
  */
 template<typename T>
-bool AutoConnectCredential::backup(T& fs, const char* fileName) {
+bool AutoConnectCredential::backup(const char* filename, T& fs, const bool ensureFS) {
   if (!_pref->begin(AC_CREDENTIAL_NVSNAME, true)) {
     AC_DBG(AC_CREDENTIAL_NVSNAME " no credentials storage\n");
     return false;
@@ -318,7 +355,7 @@ bool AutoConnectCredential::backup(T& fs, const char* fileName) {
     size_t  blSize = _pref->getBytes(AC_CREDENTIAL_NVSKEY, static_cast<void*>(pfPool), pfSize);
 
     if (blSize > 0) {
-      if (fs.begin(AUTOCONNECT_FS_INITIALIZATION)) {
+      if (_startFilesystem<T>(fs, ensureFS)) {
         File  bf = fs.open(filename, "w");
         if (bf) {
           bf.write(reinterpret_cast<const uint8_t*>(AC_IDENTIFIER), sizeof(AC_IDENTIFIER) - sizeof('\0'));
@@ -326,40 +363,36 @@ bool AutoConnectCredential::backup(T& fs, const char* fileName) {
             bf.write(*dp++);
           bf.close();
           rc = true;
-          AC_DBG("Credentials saved %s\n", fileName);
+          AC_DBG("Credentials saved %s\n", filename);
         }
         else
-          AC_DBG("Backup %s open failed\n", fileName);
-        fs.end();
+          AC_DBG("Backup %s open failed\n", filename);
+        _endFilesystem<T>(fs);
       }
-      else
-        AC_DBG("Filesystem failed to backup credentials\n");
     }
     else
       AC_DBG(AC_CREDENTIAL_NVSKEY " has no credentials\n");
-
     delete pfPool;
   }
   else
     AC_DBG("No " AC_CREDENTIAL_NVSKEY " storage\n");
-
   _pref->end();
+
   return rc;
 }
 
 /**
  * Restore all credentials from specified file.
+ * @param  filename Destination file name.
  * @param  fs       Destination file system.
- * @param  fileName Destination file namme.
+ * @param  ensureFS Starts the file system on begin; omits starting the file system for the false.
  * @return true   Credentials successfully restored.
  * @return false  Could not restore.
  */
 template<typename T>
-bool AutoConnectCredential::restore(T& fs, const char* fileName) {
-  if (!fs.begin(AUTOCONNECT_FS_INITIALIZATION)) {
-    AC_DBG("Filesystem failed to restore credentials\n");
+bool AutoConnectCredential::restore(const char* filename, T& fs, const bool ensureFS) {
+  if (!_startFilesystem<T>(fs, ensureFS))
     return false;
-  }
 
   bool  rc = false;
   File  rf = fs.open(filename, "r");
@@ -375,26 +408,23 @@ bool AutoConnectCredential::restore(T& fs, const char* fileName) {
             _pref->putBytes(AC_CREDENTIAL_NVSKEY, rfPool + idOffset, plSize - idOffset);
             _pref->end();
             rc = true;
-            AC_DBG("%s restores to credentials\n", fileName);
+            AC_DBG("%s credentials restored\n", filename);
           }
         }
         else
           AC_DBG("%s contains wrong %s\n", filename, AC_IDENTIFIER);
-
         delete rfPool;
       }
       else
         AC_DBG("Failed to allocate credential pool\n");
     }
     else
-      AC_DBG("Credentails file %s is empty\n", fileName);
-
+      AC_DBG("Restore %s open failed\n", filename);
     rf.close();
   }
   else
-    AC_DBG("Credentails file %s open failed\n", fileName);
-
-  fs.end();
+    AC_DBG("Credentails file %s open failed\n", filename);
+  _endFilesystem<T>(fs);
 
   return rc;
 }
