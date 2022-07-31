@@ -3,7 +3,7 @@
  * @file AutoConnectConfigBase.h
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-14
+ * @date 2022-07-29
  * @copyright MIT license.
  */
 
