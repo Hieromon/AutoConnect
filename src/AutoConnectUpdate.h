@@ -22,7 +22,7 @@
  * @file AutoConnectUpdate.h
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-13
+ * @date 2022-07-29
  * @copyright MIT license.
  */
 
@@ -45,13 +45,11 @@ using HTTPUpdateClass = ESP8266HTTPUpdate;
 #include <HTTPUpdate.h>
 using HTTPUpdateClass = HTTPUpdate;
 #endif
-// #include <WebSocketsServer.h>
 // Quote the true AutoConnectUpdate class according to AUTOCONNECT_USE_UPDATE.
 #define AutoConnectUpdate  AutoConnectUpdateAct
 #else // !AUTOCONNECT_USE_UPDATE!
 #define AutoConnectUpdate  AutoConnectUpdateVoid
 #endif
-// #include "AutoConnect.h"
 #include "AutoConnectExt.hpp"
 
 // Support LED flashing only the board with built-in LED.
@@ -167,12 +165,6 @@ class AutoConnectUpdateAct : public AutoConnectUpdateVoid, public HTTPUpdateClas
 
   static const AutoConnectAux::ACPage_t         _pageResult  PROGMEM;
   static const AutoConnectAux::ACElementProp_t  _elmResult[] PROGMEM;
-
-// #if defined(ARDUINO_ARCH_ESP8266)
-//   friend ESP8266WebServer;
-// #elif defined(ARDUINO_ARCH_ESP32)
-//   friend class WebServer;
-// #endif
 };
 
 #endif // !AUTOCONNECT_USE_UPDATE 
