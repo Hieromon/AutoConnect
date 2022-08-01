@@ -30,6 +30,7 @@
      GND
 */
 
+#include <SD.h>
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
@@ -38,6 +39,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #define EXTERNAL_SWITCH_PIN 16
+using SDClass = fs::SDFS;
 #endif
 #include <AutoConnect.h>
 #include <EEPROM.h>
@@ -313,8 +315,38 @@ void setup() {
   config.staGateway = IPAddress(ipconfig.ipconfig.gateway);
   config.staNetmask = IPAddress(ipconfig.ipconfig.netmask);
   config.dns1 = IPAddress(ipconfig.ipconfig.dns1);
+
+  /* Prioritizing the IP configuration specified in AutoConnectConfig
+  over existing configuration must be accompanied by an explicit
+  indication via the preserveIP.
+  Background on the need for preserveIP indication:
+  - AutoConnect reserves IP configuration in addition to credentials
+    to restore the connection. By default, AutoConnect will restore
+    the IP configuration saved as part of AutoConnectCredential in
+    preference to the IP configuration such as the staip specified
+    with AutoConnectConfig.
+    The preserveIP setting suppresses restoration from AutoConnectCredential
+    to the predefined IP settings with AutoConnectConfig::staip etc.
+  */
   config.preserveIP = true;
   portal.config(config);
+
+  /* The restoreCredential is paired with the saveCredential function
+  to allow credentials to be restored. The subsequent restoreCredential
+  call example instructs recovery from SD.
+  If the CS signal of SD peripheral (it is sometimes declared as the
+  SS signal in SPI) is different from the default (usually pin #5 on
+  ESP32 DevkitC, #4 on M5Stack CORE TF_CARD_CS_PIN etc.),
+  you will need to make your own call to SD.begin(YOUR_CS_ASSIGNMENT)
+  in the sketch. Then specify false for the 3rd parameter of
+  restoreCredentail and saveCredential.
+  However, if the start of the file system is delegated to AutoConnect,
+  the SD.begin call can be omitted by specifying true for the third parameter.
+  */
+  // SD.begin(CS);
+  // portal.restoreCredential<SDClass>("/credential.dat", SD, false);
+  portal.restoreCredential<SDClass>("/credential.dat", SD, true);
+  // portal.restoreCredential("/credential.dat");  // For restoring from Flash filesystem
 
   // Sense the configuration button (external switch)
   pinMode(ConfigPin, INPUT);
@@ -327,7 +359,16 @@ void setup() {
     portal.join({ auxIPConfig, auxRestart });
   }
 
-  portal.begin();
+  if (portal.begin()) {
+    /* The saveCredential function saves the WiFi credentials currently
+    held by AutoConnect in bulk to an external file. The output file
+    can be input to the restore function prior to AutoConnect::begin.
+    */
+    // portal.saveCredential<SDClass>("/credential.dat", SD, false);
+    portal.saveCredential<SDClass>("/credential.dat", SD, true);
+    // portal.saveCredential("/credential.dat");  // For saving to Flash filesystem
+  }
+
 }
 
 void loop() {

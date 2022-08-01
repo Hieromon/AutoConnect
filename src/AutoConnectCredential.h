@@ -19,6 +19,7 @@
 #define AUTOCONNECT_USE_PREFERENCES
 
 #include <Arduino.h>
+#include <type_traits>
 #include <memory>
 #if defined(ARDUINO_ARCH_ESP8266)
 #define AC_CREDENTIAL_PREFERENCES 0
@@ -33,6 +34,7 @@ extern "C" {
 #endif
 #include <esp_wifi.h>
 #endif
+#include <SD.h>
 #include "AutoConnectDefs.h"
 #include "AutoConnectFS.h"
 
@@ -94,14 +96,14 @@ class AutoConnectCredentialBase {
   bool  _startFilesystem(T& fs, const bool forceMount) {
     _ensureFS = forceMount;
     if (_ensureFS)
-      if (!fs.begin(AUTOCONNECT_FS_INITIALIZATION)) {
+      if (!_beginFS<T>(fs)) {
         AC_DBG("FS mount failed\n");
         return false;
       }
     return true;
   }
 
-  // Start filesystem for backup and restore
+  // End filesystem for backup and restore
   template<typename T>
   void  _endFilesystem(T& fs) {
     if (_ensureFS)
@@ -112,6 +114,19 @@ class AutoConnectCredentialBase {
   uint16_t  _containSize;   /**< Container size */
 
  private:
+  // Make sure an API compatibility of filesystem begin call between
+  // SDClass and fs::FS classes.
+  template<typename T>
+  typename std::enable_if<std::is_same<T, AutoConnectFS::SDClassT>::value, bool>::type
+  inline  _beginFS(T& fs) {
+    return fs.begin(AUTOCONNECT_SD_CS);
+  }
+  template<typename T>
+  typename std::enable_if<!std::is_same<T, AutoConnectFS::SDClassT>::value, bool>::type
+  inline  _beginFS(T& fs) {
+    return fs.begin(AUTOCONNECT_FS_INITIALIZATION);
+  }
+
   bool      _ensureFS;      /**< Filesystem starts with begin */
 };
 
@@ -352,27 +367,30 @@ bool AutoConnectCredential::backup(const char* filename, T& fs, const bool ensur
   size_t  pfSize = _getPrefBytesLength<Preferences>(_pref.get(), AC_CREDENTIAL_NVSKEY);
   if (pfSize) {
     unsigned char*  pfPool = new unsigned char[pfSize];
-    size_t  blSize = _pref->getBytes(AC_CREDENTIAL_NVSKEY, static_cast<void*>(pfPool), pfSize);
-
-    if (blSize > 0) {
-      if (_startFilesystem<T>(fs, ensureFS)) {
-        File  bf = fs.open(filename, "w");
-        if (bf) {
-          bf.write(reinterpret_cast<const uint8_t*>(AC_IDENTIFIER), sizeof(AC_IDENTIFIER) - sizeof('\0'));
-          for (unsigned char* dp = pfPool; blSize > 0; blSize--)
-            bf.write(*dp++);
-          bf.close();
-          rc = true;
-          AC_DBG("Credentials saved %s\n", filename);
+    if (pfPool) {
+      size_t  blSize = _pref->getBytes(AC_CREDENTIAL_NVSKEY, static_cast<void*>(pfPool), pfSize);
+      if (blSize > 0) {
+        if (_startFilesystem<T>(fs, ensureFS)) {
+          File  bf = fs.open(filename, "w");
+          if (bf) {
+            bf.write(reinterpret_cast<const uint8_t*>(AC_IDENTIFIER), sizeof(AC_IDENTIFIER) - sizeof('\0'));
+            for (unsigned char* dp = pfPool; blSize > 0; blSize--)
+              bf.write(*dp++);
+            bf.close();
+            rc = true;
+            AC_DBG("Credentials saved %s\n", filename);
+          }
+          else
+            AC_DBG("Backup %s open failed\n", filename);
+          _endFilesystem<T>(fs);
         }
-        else
-          AC_DBG("Backup %s open failed\n", filename);
-        _endFilesystem<T>(fs);
       }
+      else
+        AC_DBG(AC_CREDENTIAL_NVSKEY " has no credentials\n");
+      delete[] pfPool;
     }
     else
-      AC_DBG(AC_CREDENTIAL_NVSKEY " has no credentials\n");
-    delete pfPool;
+      AC_DBG(AC_CREDENTIAL_NVSKEY " buffer allocation failed\n");
   }
   else
     AC_DBG("No " AC_CREDENTIAL_NVSKEY " storage\n");
@@ -413,7 +431,7 @@ bool AutoConnectCredential::restore(const char* filename, T& fs, const bool ensu
         }
         else
           AC_DBG("%s contains wrong %s\n", filename, AC_IDENTIFIER);
-        delete rfPool;
+        delete[] rfPool;
       }
       else
         AC_DBG("Failed to allocate credential pool\n");
