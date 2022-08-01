@@ -3,7 +3,7 @@
  * @file AutoConnectCredential.h
  * @author hieromon@gmail.com
  * @version  1.4.0
- * @date 2022-07-29
+ * @date 2022-08-01
  * @copyright  MIT license.
  */
 
@@ -77,7 +77,7 @@ typedef struct {
 
 class AutoConnectCredentialBase {
  public:
-  explicit AutoConnectCredentialBase() : _entries(0), _containSize(0) {}
+  explicit AutoConnectCredentialBase() : _entries(0), _containSize(0), _ensureFS(false) {}
   virtual ~AutoConnectCredentialBase() {}
   virtual uint8_t entries(void) { return _entries; }
   virtual uint16_t dataSize(void) const { return sizeof(AC_IDENTIFIER) - 1 + sizeof(uint8_t) + sizeof(uint16_t) + _containSize; }
