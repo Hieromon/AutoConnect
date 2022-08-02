@@ -2,8 +2,8 @@
  *  AutoConnect portal site web page implementation.
  *  @file   AutoConnectPage.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.6
- *  @date   2022-07-27
+ *  @version    1.3.7
+ *  @date   2022-08-02
  *  @copyright  MIT license.
  */
 
@@ -1621,13 +1621,11 @@ void AutoConnect::_authentication(bool allow, const HTTPAuthMethod method) {
   String  fails;
 
   // Enable authentication by setting of AC_AUTHSCOPE_DISCONNECTED even if WiFi is not connected.
-  if (WiFi.status() != WL_CONNECTED && (WiFi.getMode() & WIFI_AP)) {
-    String  accUrl = _webServer->hostHeader();
-    if ((accUrl != WiFi.softAPIP().toString()) && !accUrl.endsWith(F(".local"))) {
-      if (!(_apConfig.authScope & AC_AUTHSCOPE_WITHCP))
-        allow = false;
-    }
-  }
+  String  accUrl = _webServer->hostHeader();
+  if (WiFi.status() != WL_CONNECTED)
+    allow = false;
+  else if ((WiFi.getMode() & WIFI_AP) && ((accUrl == WiFi.softAPIP().toString()) || accUrl.endsWith(F(".local"))))
+    allow = false;
 
   if (allow) {
     // Regiter authentication method
