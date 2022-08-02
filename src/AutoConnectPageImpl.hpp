@@ -7,9 +7,6 @@
  * @copyright MIT license.
  */
 
-#include <type_traits>
-#include "AutoConnectCore.hpp"
-
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 extern "C" {
@@ -1678,13 +1675,12 @@ void AutoConnectCore<T>::_authentication(bool allow, const HTTPAuthMethod method
   String  fails;
 
   // Enable authentication by setting of AC_AUTHSCOPE_DISCONNECTED even if WiFi is not connected.
-  if (WiFi.status() != WL_CONNECTED && (WiFi.getMode() & WIFI_AP)) {
-    String  accUrl = _webServer->hostHeader();
-    if ((accUrl != WiFi.softAPIP().toString()) && !accUrl.endsWith(F(".local"))) {
-      if (!(_apConfig.authScope & AC_AUTHSCOPE_WITHCP))
-        allow = false;
-    }
-  }
+  String  accUrl = _webServer->hostHeader();
+
+  if (WiFi.status() != WL_CONNECTED)
+    allow = _apConfig.authScope & AC_AUTHSCOPE_WITHCP;
+  else if ((WiFi.getMode() & WIFI_AP) && ((accUrl == WiFi.softAPIP().toString()) || accUrl.endsWith(F(".local"))))
+    allow = _apConfig.authScope & AC_AUTHSCOPE_WITHCP;
 
   if (allow) {
     // Regiter authentication method
