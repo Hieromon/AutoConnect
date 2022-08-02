@@ -1622,10 +1622,11 @@ void AutoConnect::_authentication(bool allow, const HTTPAuthMethod method) {
 
   // Enable authentication by setting of AC_AUTHSCOPE_DISCONNECTED even if WiFi is not connected.
   String  accUrl = _webServer->hostHeader();
+
   if (WiFi.status() != WL_CONNECTED)
-    allow = false;
+    allow = _apConfig.authScope & AC_AUTHSCOPE_WITHCP;
   else if ((WiFi.getMode() & WIFI_AP) && ((accUrl == WiFi.softAPIP().toString()) || accUrl.endsWith(F(".local"))))
-    allow = false;
+    allow = _apConfig.authScope & AC_AUTHSCOPE_WITHCP;
 
   if (allow) {
     // Regiter authentication method
