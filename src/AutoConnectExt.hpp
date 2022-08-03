@@ -5,7 +5,7 @@
  * @file AutoConnectExt.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-15
+ * @date 2022-08-03
  * @copyright MIT license.
  */
 
@@ -38,7 +38,6 @@ class AutoConnectExt : public AutoConnectCore<T> {
   AutoConnectAux* append(const String& uri, const String& title);
   AutoConnectAux* append(const String& uri, const String& title, WebServer::THandlerFunction handler);
   bool  detach(const String& uri);
-  void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
 
@@ -99,6 +98,22 @@ class AutoConnectExt : public AutoConnectCore<T> {
 
   friend class AutoConnectAux;
   friend class AutoConnectUpdate;
+
+ public:
+  /**
+   * Append auxiliary pages made up with AutoConnectAux.
+   * @param  aux  A reference to AutoConnectAux that made up
+   * the auxiliary page to be added.
+   */
+  void join(AutoConnectAux& aux) {
+    if (_aux)
+      _aux->_concat(aux);
+    else
+      _aux = &aux;
+    aux._join(*this);
+    AC_DBG("%s on hands\n", aux.uri());
+  }
+
 };
 
 #endif  // _AUTOCONNECTEXT_HPP_

@@ -3,7 +3,7 @@
  * @file AutoConnectExtImpl.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-23
+ * @date 2022-08-03
  * @copyright MIT license.
  */
 
@@ -125,21 +125,6 @@ bool AutoConnectExt<T>::detach(const String &uri) {
   }
   AC_DBG("%s not listed\n", uri.c_str());
   return false;
-}
-
-/**
- * Append auxiliary pages made up with AutoConnectAux.
- * @param  aux  A reference to AutoConnectAux that made up
- * the auxiliary page to be added.
- */
-template<>
-void AutoConnectExt<AutoConnectConfigExt>::join(AutoConnectAux& aux) {
-  if (_aux)
-    _aux->_concat(aux);
-  else
-    _aux = &aux;
-  aux._join(*this);
-  AC_DBG("%s on hands\n", aux.uri());
 }
 
 /**
