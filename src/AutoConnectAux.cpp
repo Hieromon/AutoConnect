@@ -849,9 +849,15 @@ bool AutoConnectAux::load(Stream& in, const size_t size) {
  * @return false loading unsuccessful, JSON parsing error occurred.
  */
 bool AutoConnectAux::_load(JsonObject& jb) {
-  _title = jb[F(AUTOCONNECT_JSON_KEY_TITLE)].as<String>();
-  _uriStr = jb[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
-  _uri = _uriStr.c_str();
+  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_TITLE)))
+    _title = jb[F(AUTOCONNECT_JSON_KEY_TITLE)].as<String>();
+  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_URI))) {
+    _uriStr = jb[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
+    _uri = _uriStr.c_str();
+  }
+  else if (!_uri.length()) {
+    AC_DBG("Warn. %s loaded null %s\n", _title.c_str(), AUTOCONNECT_JSON_KEY_TITLE);
+  }
   if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_MENU)))
     _menu = jb[F(AUTOCONNECT_JSON_KEY_MENU)].as<bool>();
   if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_RESPONSE)))
