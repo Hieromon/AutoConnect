@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version  1.3.6
- * @date 2022-07-27
+ * @version  1.3.7
+ * @date 2022-08-07
  * @copyright  MIT license.
  */
 #include <algorithm>
@@ -90,12 +90,11 @@ AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const boo
     : _title(title),
       _menu(menu),
       _responsive(responsive),
-      _uriStr(uri),
       _addonElm(addons),
       _handler(nullptr),
       _order(AC_EXIT_AHEAD),
       _uploadHandler(nullptr) {
-  _uri = _uriStr.c_str();
+  _uri = uri;
   transferEncoding(PageBuilder::TransferEncoding_t::AUTOCONNECT_HTTP_TRANSFER);
 }
 
@@ -148,7 +147,7 @@ void AutoConnectAux::fetchElement(void) {
     AC_DBG("fetch %s", _ac->_auxUri.c_str());
     AutoConnectAux* aux = _ac->_aux;
     while (aux) {
-      if (aux->_uriStr == _ac->_auxUri) {
+      if (aux->_uri == _ac->_auxUri) {
         // Save the value owned by each element contained in the POST body
         // of a current HTTP request to AutoConnectElements.
         aux->_storeElements(_webServer);
@@ -342,7 +341,7 @@ bool AutoConnectAux::setElementValue(const String& name, std::vector<String> con
  */
 void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) {
   if (upload.status == UPLOAD_FILE_START) {
-    AC_DBG("%s requests upload to %s\n", requestUri.c_str(), _uriStr.c_str());
+    AC_DBG("%s requests upload to %s\n", requestUri.c_str(), _uri.c_str());
     // Selects a valid upload handler before uploading starts.
     // Identify AutoConnectFile with the current upload request and
     // save the value and mimeType attributes.
@@ -352,7 +351,7 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
     AutoConnectElementVT  addons;
     AutoConnectAux* aux = _ac->_aux;
     while (aux) {
-      if (aux->_uriStr == requestUri) {
+      if (aux->_uri == requestUri) {
         addons = aux->_addonElm;
         break;
       }
@@ -475,7 +474,7 @@ const String AutoConnectAux::_injectMenu(PageArgument& args) {
  */
 const String AutoConnectAux::_indicateUri(PageArgument& args) {
   AC_UNUSED(args);
-  String  lastUri = _uriStr;
+  String  lastUri = _uri;
   // The following code contains adding and trimming a blank that is
   // wasteful for this function. It exists for avoiding the bug of
   // WString::replace of ESP8266 arduino core 2.5.2.
@@ -928,10 +927,8 @@ bool AutoConnectAux::load(Stream& in, const size_t size) {
 bool AutoConnectAux::_load(JsonObject& jb) {
   if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_TITLE)))
     _title = jb[F(AUTOCONNECT_JSON_KEY_TITLE)].as<String>();
-  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_URI))) {
-    _uriStr = jb[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
-    _uri = _uriStr.c_str();
-  }
+  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_URI)))
+    _uri = jb[F(AUTOCONNECT_JSON_KEY_URI)].as<String>();
   else if (!_uri.length()) {
     AC_DBG("Warn. %s loaded null %s\n", _title.c_str(), AUTOCONNECT_JSON_KEY_TITLE);
   }
@@ -1075,7 +1072,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
   // Calculate JSON buffer size
   if (amount == 0) {
     bufferSize += JSON_OBJECT_SIZE(4);
-    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uriStr.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_RESPONSE) + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT) + sizeof(AUTOCONNECT_JSON_KEY_AUTH) + sizeof(AUTOCONNECT_JSON_VALUE_DIGEST);
+    bufferSize += sizeof(AUTOCONNECT_JSON_KEY_TITLE) + _title.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_URI) + _uri.length() + 1 + sizeof(AUTOCONNECT_JSON_KEY_RESPONSE) + sizeof(AUTOCONNECT_JSON_KEY_MENU) + sizeof(AUTOCONNECT_JSON_KEY_ELEMENT) + sizeof(AUTOCONNECT_JSON_KEY_AUTH) + sizeof(AUTOCONNECT_JSON_VALUE_DIGEST);
     bufferSize += JSON_ARRAY_SIZE(_addonElm.size());
   }
   else
@@ -1110,7 +1107,7 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
     else if (amount == 0) {
       ArduinoJsonObject json = ARDUINOJSON_CREATEOBJECT(jb);
       json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
-      json[F(AUTOCONNECT_JSON_KEY_URI)] = _uriStr;
+      json[F(AUTOCONNECT_JSON_KEY_URI)] = _uri;
       json[F(AUTOCONNECT_JSON_KEY_RESPONSE)] = _responsive;
       json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
       if (_httpAuth == AC_AUTH_BASIC)
