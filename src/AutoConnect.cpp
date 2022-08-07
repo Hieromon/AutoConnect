@@ -1484,7 +1484,7 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
 void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& upload) {
   AutoConnectAux* aux = _aux;
   while (aux) {
-    if (aux->_uriStr == requestUri) {
+    if (aux->_uri == requestUri) {
       aux->upload(_prevUri, upload);
       break;
     }
