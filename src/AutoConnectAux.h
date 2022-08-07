@@ -3,7 +3,7 @@
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-14
+ * @date 2022-08-07
  * @copyright MIT license.
  */
 
@@ -213,7 +213,6 @@ class AutoConnectAux : public PageBuilder {
   bool    _responsive;                        /**< Whether suppress the sending of HTTP response in PageBuilder */
   uint16_t  _contains;                        /**< Bitmask the type of elements this page contains */
   AC_AUTH_t _httpAuth = AC_AUTH_NONE;         /**< Applying HTTP authentication */
-  String  _uriStr;                            /**< uri as String */
   AutoConnectElementVT  _addonElm;            /**< A vector set of AutoConnectElements placed on this auxiliary page */
   AutoConnectAux*       _next = nullptr;      /**< Auxiliary pages chain list */
   AutoConnectExt<AutoConnectConfigExt>* _ac = nullptr;  /**< Hosted AutoConnect instance */

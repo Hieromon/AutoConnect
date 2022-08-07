@@ -3,7 +3,7 @@
  * @file AutoConnectExtImpl.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-08-03
+ * @date 2022-08-07
  * @copyright MIT license.
  */
 
@@ -298,7 +298,7 @@ template<typename T>
 void AutoConnectExt<T>::_handleUpload(const String& requestUri, const HTTPUpload& upload) {
   AutoConnectAux* aux = _aux;
   while (aux) {
-    if (aux->_uriStr == requestUri) {
+    if (aux->_uri == requestUri) {
       aux->upload(_prevUri, upload);
       break;
     }
