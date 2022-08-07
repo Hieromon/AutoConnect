@@ -553,10 +553,6 @@ const char  AutoConnect::_ELM_MENU_PRE[] PROGMEM = {
         "MENU_LIST"
 };
 
-const char  AutoConnect::_ELM_MENU_AUX[] PROGMEM = {
-        "{{AUX_MENU}}"
-};
-
 const char  AutoConnect::_ELM_MENU_POST[] PROGMEM = {
         "MENU_HOME"
         "MENU_DEVINFO"

@@ -411,7 +411,6 @@ class AutoConnect {
   static const char _CSS_SPINNER[] PROGMEM;
   static const char _ELM_HTML_HEAD[] PROGMEM;
   static const char _ELM_MENU_PRE[] PROGMEM;
-  static const char _ELM_MENU_AUX[] PROGMEM;
   static const char _ELM_MENU_POST[] PROGMEM;
   static const char _PAGE_STAT[] PROGMEM;
   static const char _PAGE_CONFIGNEW[] PROGMEM;
