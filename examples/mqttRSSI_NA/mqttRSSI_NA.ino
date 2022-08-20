@@ -71,7 +71,7 @@ ACInput(apikey, "", "Uer API Key");
 ACInput(channelid, "", "Channel ID", "^[0-9]{6}$");
 ACInput(writekey, "", "Write API Key");
 ACElement(nl1, "<hr>");
-ACText(credential, "MQTT Device Credentials", "text-align:center;color:#2f4f4f");
+ACText(credential, "MQTT Device Credentials", "text-align:center;color:#2f4f4f", "", AC_Tag_DIV);
 ACInput(clientid, "", "Client ID");
 ACInput(username, "", "Username");
 ACInput(password, "", "Password");

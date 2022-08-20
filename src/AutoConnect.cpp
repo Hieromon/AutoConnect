@@ -2,8 +2,8 @@
  *  AutoConnect class implementation.
  *  @file   AutoConnect.cpp
  *  @author hieromon@gmail.com
- *  @version    1.3.5
- *  @date   2022-04-24
+ *  @version    1.3.7
+ *  @date   2022-08-07
  *  @copyright  MIT license.
  */
 
@@ -389,14 +389,14 @@ bool AutoConnect::_getConfigSTA(station_config_t* config) {
 
 #if defined(ARDUINO_ARCH_ESP8266)
   struct station_config current;
+  rc = wifi_station_get_config(&current);
   ssid = current.ssid;
   bssid = current.bssid;
-  rc = wifi_station_get_config(&current);
 #elif defined(ARDUINO_ARCH_ESP32)
   wifi_config_t current;
+  rc = (esp_wifi_get_config(WIFI_IF_STA, &current) == ESP_OK);
   ssid = current.sta.ssid;
   bssid = current.sta.bssid;
-  rc = (esp_wifi_get_config(WIFI_IF_STA, &current) == ESP_OK);
 #endif
   if (rc) {
     memcpy(config->ssid, ssid, sizeof(station_config_t::ssid));
@@ -1484,7 +1484,7 @@ bool AutoConnect::_classifyHandle(HTTPMethod method, String uri) {
 void AutoConnect::_handleUpload(const String& requestUri, const HTTPUpload& upload) {
   AutoConnectAux* aux = _aux;
   while (aux) {
-    if (aux->_uriStr == requestUri) {
+    if (aux->_uri == requestUri) {
       aux->upload(_prevUri, upload);
       break;
     }

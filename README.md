@@ -102,6 +102,10 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.3.7] Aug. 20, 2022
+- Fixed an authentication failure in Captive Portal state. (Issue #518)
+- Fixed loss of current SSID.
+
 ### [1.3.6] Jul. 26, 2022
 - Fixed OTA being incomplete. (Issue #325)
 

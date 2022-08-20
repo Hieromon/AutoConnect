@@ -128,7 +128,8 @@ static const char AUX_mqtt_setting[] PROGMEM = R"raw(
         "name": "credential",
         "type": "ACText",
         "value": "MQTT Device Credentials",
-        "style": "font-weight:bold;color:#1e81b0"
+        "style": "font-weight:bold;color:#1e81b0",
+        "posterior": "div" 
       },
       {
         "name": "clientid",
