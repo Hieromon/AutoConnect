@@ -421,6 +421,25 @@ void AutoConnectAux::upload(const String& requestUri, const HTTPUpload& upload) 
 }
 
 /**
+ * Returns a reference to the AutoConnectAux from which this AutoConnectAux
+ * was called.
+ * @return a reference to the AutoConnectAux from which this AutoConnectAux
+ * was called. If the source of the transition is not an AutoConnectAux page,
+ * it returns a reference to itself. 
+ */
+AutoConnectAux& AutoConnectAux::referer(void) {
+  AutoConnectAux* referer = nullptr;
+
+  if (_ac)
+    referer = _ac->aux(_ac->where());
+
+  if (referer)
+    return *referer;
+  else
+    return *this;
+}
+
+/**
  * Concatenates subsequent AutoConnectAux pages starting from oneself 
  * to the chain list. 
  * AutoConnectAux is collected in the chain list and each object is 
