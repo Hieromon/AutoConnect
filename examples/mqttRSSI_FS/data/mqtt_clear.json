@@ -1,0 +1,6 @@
+{
+  "title": "MQTT Setting",
+  "uri": "/mqtt_clear",
+  "menu": false,
+  "response": false
+}
