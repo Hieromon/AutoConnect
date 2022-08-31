@@ -159,6 +159,7 @@ bool AutoConnectExt<T>::on(const String& uri, const AuxHandlerFunctionT handler,
     }
     aux = aux->_next;
   }
+  AC_DBG("%s not registered, handler ignored\n", uri.c_str());
   return false;
 }
 
