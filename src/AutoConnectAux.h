@@ -89,6 +89,7 @@ class AutoConnectAux : public PageBuilder {
     static_assert(std::is_base_of<AutoConnectUploadHandler, T>::value, "onUpload type must be inherited AutoConnectUploadHandler");
     _uploadHandler = std::bind(&T::upload, &uploadClass, std::placeholders::_1, std::placeholders::_2);
   }
+  AutoConnectAux& referer(void);
 
 #ifdef AUTOCONNECT_USE_JSON
   bool  load(PGM_P in, const size_t docSize = AUTOCONNECT_JSONDOCUMENT_SIZE);                       /**< Load whole elements to AutoConnectAux Page */

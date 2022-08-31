@@ -42,8 +42,8 @@ void AutoConnectExt<T>::end(void) {
  * @param  uri  An uri string.
  * @return A pointer of AutoConnectAux instance.
  */
-template<typename T>
-AutoConnectAux* AutoConnectExt<T>::aux(const String& uri) const {
+template<>
+AutoConnectAux* AutoConnectExt<AutoConnectConfigExt>::aux(const String& uri) const {
   AutoConnectAux* aux_p = _aux;
   while (aux_p) {
     if (!strcmp(aux_p->uri(), uri.c_str()))
