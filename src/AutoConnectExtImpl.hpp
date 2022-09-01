@@ -3,7 +3,7 @@
  * @file AutoConnectExtImpl.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-08-07
+ * @date 2022-09-01
  * @copyright MIT license.
  */
 
@@ -35,29 +35,6 @@ void AutoConnectExt<T>::end(void) {
   // _dnsServer.reset();
   // _webServer.reset();
   AutoConnectCore<T>::end();
-}
-
-/**
- * Returns AutoConnectAux instance of specified.
- * @param  uri  An uri string.
- * @return A pointer of AutoConnectAux instance.
- */
-template<>
-AutoConnectAux* AutoConnectExt<AutoConnectConfigExt>::aux(const String& uri) const {
-  AutoConnectAux* aux_p = _aux;
-  while (aux_p) {
-    if (!strcmp(aux_p->uri(), uri.c_str()))
-      break;
-    aux_p = aux_p->_next;
-  }
-  if (!aux_p) {
-    AC_DBG("'%s' not found in auxiliaries", uri.c_str());
-    if (uri[0] != '/') {
-      AC_DBG_DUMB(", path may be missing '/'");
-    }
-    AC_DBG_DUMB("\n");
-  }
-  return aux_p;
 }
 
 /**
