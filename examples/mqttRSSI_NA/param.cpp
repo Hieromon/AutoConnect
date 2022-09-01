@@ -18,6 +18,7 @@ https://opensource.org/licenses/MIT
 
 extern AutoConnect   portal;
 const char* _mqtt_param_id = MQTT_PARAM_ID;
+const uint16_t  CREDENTIAL_OFFSET = sizeof(mqtt_param_t);
 
 void getParams(mqtt_param_t& param) {
   // It is important to use getEEPROMUsedSize when the user sketch
@@ -52,6 +53,7 @@ void putParams(const mqtt_param_t& param) {
 // Preferences::putBytes.
 const char* PREFS_NAMESPACE = MQTT_PARAM_ID;
 const char* PREFS_KEY       = MQTT_PARAM_ID;
+const uint16_t  CREDENTIAL_OFFSET = 0;
 Preferences prefs;
 
 void getParams(mqtt_param_t &param) {
