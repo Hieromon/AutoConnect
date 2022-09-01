@@ -34,9 +34,11 @@ class AutoConnectExt : public AutoConnectCore<T> {
   void  end(void) override;
   String where(void) const { return _auxUri; }
 
+  AutoConnectAux* aux(const String& uri) const;
   AutoConnectAux* append(const String& uri, const String& title);
   AutoConnectAux* append(const String& uri, const String& title, WebServer::THandlerFunction handler);
   bool  detach(const String& uri);
+  void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
 
@@ -97,44 +99,44 @@ class AutoConnectExt : public AutoConnectCore<T> {
 
   friend class AutoConnectAux;
   friend class AutoConnectUpdate;
-
- public:
-  /**
-   * Returns AutoConnectAux instance of specified.
-   * @param  uri  An uri string.
-   * @return A pointer of AutoConnectAux instance.
-   */
-  AutoConnectAux* aux(const String& uri) const {
-    AutoConnectAux* aux_p = _aux;
-    while (aux_p) {
-      if (!strcmp(aux_p->uri(), uri.c_str()))
-        break;
-      aux_p = aux_p->_next;
-    }
-    if (!aux_p) {
-      AC_DBG("'%s' not found in auxiliaries", uri.c_str());
-      if (uri[0] != '/') {
-        AC_DBG_DUMB(", path may be missing '/'");
-      }
-      AC_DBG_DUMB("\n");
-    }
-    return aux_p;
-  }
-
-  /**
-   * Append auxiliary pages made up with AutoConnectAux.
-   * @param  aux  A reference to AutoConnectAux that made up
-   * the auxiliary page to be added.
-   */
-  void join(AutoConnectAux& aux) {
-    if (_aux)
-      _aux->_concat(aux);
-    else
-      _aux = &aux;
-    aux._join(*this);
-    AC_DBG("%s on hands\n", aux.uri());
-  }
-
 };
+
+/**
+ * Returns AutoConnectAux instance of specified.
+ * @param  uri  An uri string.
+ * @return A pointer of AutoConnectAux instance.
+ */
+template<typename T>
+AutoConnectAux* AutoConnectExt<T>::aux(const String& uri) const {
+  AutoConnectAux* aux_p = _aux;
+  while (aux_p) {
+    if (!strcmp(aux_p->uri(), uri.c_str()))
+      break;
+    aux_p = aux_p->_next;
+  }
+  if (!aux_p) {
+    AC_DBG("'%s' not found in auxiliaries", uri.c_str());
+    if (uri[0] != '/') {
+      AC_DBG_DUMB(", path may be missing '/'");
+    }
+    AC_DBG_DUMB("\n");
+  }
+  return aux_p;
+}
+
+/**
+ * Append auxiliary pages made up with AutoConnectAux.
+ * @param  aux  A reference to AutoConnectAux that made up
+ * the auxiliary page to be added.
+ */
+template<typename T>
+void AutoConnectExt<T>::join(AutoConnectAux& aux) {
+  if (_aux)
+    _aux->_concat(aux);
+  else
+    _aux = &aux;
+  aux._join(*this);
+  AC_DBG("%s on hands\n", aux.uri());
+}
 
 #endif  // _AUTOCONNECTEXT_HPP_
