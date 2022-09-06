@@ -316,7 +316,17 @@ void redirect(const char* url)
 
 Generate a [Location](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location) header field with the specified `url` and responds with a [302](https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.3) response code to the client. This function is intended to be used from within the Custom Web Page handler. If the AutoConnectAux is going to redirect to another page without responding with page content, declare the `responsive` argument `false` in the [AutoConnectAux constructor](#autoconnectaux). With this construction, AutoConnectAux will not respond to HTTP responses. The `redirect` function can be useful in this situation to respond to a 302 redirect.<dl class="apidl">
     <dt>**Parameter**</dt>
-    <dd><span class="apidef">url</span><span class="apidesc">Specifies the URL to redirect a page to.</span></dd>
+    <dd><span class="apidef">url</span><span class="apidesc">Specifies the URL to redirect a page to.</span></dd></dl>
+
+### <i class="fa fa-caret-right"></i> referer
+
+```cpp
+AutoConnectAux& referer(void)
+```
+
+Returns a reference to the AutoConnectAux from which this AutoConnectAux was called.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>A reference to the AutoConnectAux from which this AutoConnectAux was called. If the source of the transition is not an AutoConnectAux page, it returns a reference to itself.</dd></dl>
 
 ### <i class="fa fa-caret-right"></i> release
 
