@@ -18,23 +18,19 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+using WebServer = ESP8266WebServer;
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
 #endif
-#include <PageBuilder.h>
-#include <AutoConnect.h>
+#include <AutoConnectCore.h>
 
 #ifndef BUILTIN_LED
 #define BUILTIN_LED  2  // backward compatibility
 #endif
 
-#if defined(ARDUINO_ARCH_ESP8266)
-ESP8266WebServer server;
-#elif defined(ARDUINO_ARCH_ESP32)
-WebServer server;
-#endif
-AutoConnect      portal(server);
+WebServer   server;
+AutoConnect portal(server);
 
 void sendRedirect(String);
 
