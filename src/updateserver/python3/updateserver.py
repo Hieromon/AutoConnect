@@ -46,8 +46,13 @@ class UpdateHTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                         path = urllib.parse.parse_qs(query)['path'][0]
                     except KeyError:
                         path = '.'
-                    self.__send_dir(os.path.join(self.catalog_dir, path))
-                    result = True
+                    full_path = os.path.join(self.catalog_dir, path)
+                    if os.path.commonprefix((os.path.realpath(full_path), self.catalog_dir)) == self.catalog_dir:
+                        self.__send_dir(full_path)
+                        result = True
+                    else:
+                        err = 'Path traversal detected'
+                        result = False
                 else:
                     err = '{0} unknown operation'.format(op)
                     result = False
