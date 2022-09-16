@@ -1,4 +1,14 @@
+### [1.3.7] Aug. 20, 2022
+
+#### Fix
+
+- Fixed an authentication failure in Captive Portal state.
+- Fixed loss of current SSID.
+
+---
 ### [1.3.6] Jul. 26, 2022
+
+#### Fix
 
 - Fixed OTA being incomplete.
 
