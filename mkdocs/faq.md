@@ -65,10 +65,10 @@ To avoid compilation errors in PlatformIO, specify [`lib_ldf_mode`](https://docs
 
 ```ini
 [env]
-lib_ldf_mode = deep
+lib_ldf_mode = deep+
 ```
 
-You should specify **`deep`** with [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode).
+You should specify **`deep+`** with [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode).
 
 Another option is to explicitly specify the file system to be applied to AutoConnect at build time. The compiler determines the file system to be applied to AutoConnect by preprocessor macro definitions defined in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h). The directives defined as `AC_USE_SPIFFS` and `AC_USE_LITTLEFS` specify that the respective file systems apply. The chapter [Using Filesystem](filesystem.md) details how to explicitly specify a file system for AutoConnect in PlatformIO.
 
