@@ -25,7 +25,8 @@
 They contain in ```AutoConnectDefs.h```.
 
 ```cpp
-#define AC_USE_SPIFFS                           // Use SPIFFS for the file system on the onboard flash, assumes LittleFS if not defined.
+#define AC_USE_SPIFFS                           // Use SPIFFS for the file system on the onboard flash
+#define AC_USE_LITTLEFS                         // Use LittleFS for the file system on the onboard fash
 #define AC_DEBUG                                // Monitor message output activation
 #define AC_DEBUG_PORT           Serial          // Default message output device
 #define AUTOCONNECT_AP_IP       0x011CD9AC      // Default SoftAP IP

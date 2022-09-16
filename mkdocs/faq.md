@@ -70,6 +70,8 @@ lib_ldf_mode = deep
 
 You should specify **`deep`** with [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode).
 
+Another option is to explicitly specify the file system to be applied to AutoConnect at build time. The compiler determines the file system to be applied to AutoConnect by preprocessor macro definitions defined in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h). The directives defined as `AC_USE_SPIFFS` and `AC_USE_LITTLEFS` specify that the respective file systems apply. The chapter [Using Filesystem](filesystem.md) details how to explicitly specify a file system for AutoConnect in PlatformIO.
+
 ## <i class="fa fa-question-circle"></i> Compile error occurs due to the text section exceeds
 
 When building the sketch, you may receive a compilation error message similar that *the text section exceeds the available space on the board*. This error occurs with ESP32 arduino core 2.0.0 or later. Since ESP32 arduino core 2.0.0, the object size of the library tends to be oversized, and the AutoConnect object size is also bloated.
@@ -93,7 +95,7 @@ You can avoid a compile error in one of two ways:
 
 1. Disable an AutoConnectUpdate feature if you don't need.
 
-    You can disable the AutoConnectUpdate feature by commenting out the [**AUTOCONNECT_USE_UPDATE**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L34) macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.
+    You can disable the AutoConnectUpdate feature by commenting out the [**AUTOCONNECT_USE_UPDATE**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L47) macro in the [`AutoConnectDefs.h`](api.md#defined-macros) header file.
     ```cpp
     #define AUTOCONNECT_USE_UPDATE
     ```
@@ -127,7 +129,7 @@ You have the following two options to avoid this conflict:
   You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [AutoConnectConfig::boundaryOffset](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Advanced usage](advancedusage.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
 
 - Suppresses the automatic save operation of credentials by AutoConnect.  
-  You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](advancedusage.md#automatic-reconnect) will be lost.  
+  You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](adconnection.md#automatic-reconnect) will be lost.  
   If you want to stop the automatic saving of the credentials, uses [AutoConnectConfig::autoSave](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#autosave-credential) for details.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
@@ -194,11 +196,11 @@ The correct boot mode for starting the Sketch is **(3, x)**.
 
 ## <i class="fa fa-question-circle"></i> How can I detect the captive portal starting?
 
-You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more details and an implementation example of the onDetect exit routine, refer to the chapter "[Captive portal start detection](advancedusage.md#captive-portal-start-detection)".
+You can use the [AutoConnect::onDetect](api.md#ondetect) exit routine. For more details and an implementation example of the onDetect exit routine, refer to the chapter [Captive portal start detection](adcpcontrol.md#captive-portal-start-detection).
 
 ## <i class="fa fa-question-circle"></i> How change HTTP port?
 
-HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L123) header file. You can change it directly with several editors and must re-compile.
+HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L193) header file. You can change it directly with several editors and must re-compile.
 
 ```cpp
 #define AUTOCONNECT_HTTPPORT    80
@@ -206,7 +208,7 @@ HTTP port number is defined as a macro in [AutoConnectDefs.h](https://github.com
 
 ## <i class="fa fa-question-circle"></i> How change SSID or Password in Captive portal?
 
-You can change both by using [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk). Refer to section [Change SSID and Password for SoftAP](advancedusage.md#change-ssid-and-password-for-softap) in [Advanced usage](advancedusage.md).
+You can change both by using [AutoConnectConfig::apid](apiconfig.md#apid) and [AutoConnectConfig::psk](apiconfig.md#psk). Refer to section [Change SSID and Password for SoftAP](adnetwork.md#change-ssid-and-password-for-softap) in [Settings and controls for network and WiFi](adnetwork.md).
 
 ## <i class="fa fa-question-circle"></i> How do I detach the ArdunoJson?
 
@@ -227,7 +229,7 @@ build-flags = -DAUTOCONNECT_NOUSE_JSON
 
 ## <i class="fa fa-question-circle"></i> How erase the credentials saved in EEPROM?
 
-Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to '[Saved credential access](credit.md#saved-credential-in-eeprom)' on section [*Appendix*](credit.md) for details.
+Make some sketches for erasing the EEPROM area, or some erasing utility is needed. You can prepare the Sketch to erase the saved credential with *AutoConnectCredential*. The *AutoConnectCrendential* class provides the access method to the saved credential in EEPROM and library source file is including it. Refer to [Saved credential access](credit.md#saved-credential-in-eeprom) for details.
 
 !!! hint
     With the [**ESPShaker**](https://github.com/Hieromon/ESPShaker), you can access EEPROM interactively from the serial monitor, and of course you can erase saved credentials.
@@ -291,7 +293,7 @@ See also [AutoConnectText](acelements.md#post_8) chapter, [CSS Flow Layout](http
 
 ## <i class="fa fa-question-circle"></i> How placing HTML elements undefined in AutoConnectElements?
 
-[AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [*Handling the custom Web Pages*](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
+[AutoConnectElement](acelements.md#autoconnectelement-a-basic-class-of-elements) can be applied in many cases when trying to place HTML elements that are undefined in AutoConnectElemets on custom Web pages. See [Handling the custom Web Pages](achandling.md#place-html-elements-undefined-in-autoconnectelements) section.
 
 ## <i class="fa fa-question-circle"></i> I cannot complete to WiFi login from smartphone.
 

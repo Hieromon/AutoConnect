@@ -7,7 +7,7 @@ There are two file systems for utilizing the onboard flash on the ESP8266 or the
 #define AC_USE_LITTLEFS
 ```
 
-The `AC_USE_SPIFFS` and `AC_USE_LITTLEFS` macros declare which file system to apply. Their definitions are contradictory to each other and you **cannot activate both at the same time**.
+The [`AC_USE_SPIFFS`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L61) and [`AC_USE_LITTLEFS`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L62) macros declare which file system to apply. Their definitions are contradictory to each other and you **cannot activate both at the same time**.
 
 Each platform supported by AutoConnect has a default file system, which is LittleFS for ESP8266 and SPIFFS for ESP32. Neither `AC_USE_SPIFFS` nor `AC_USE_LITTLE_FS` needs to be explicitly defined as long as you use the default file system. The default file system for each platform is assumed.
 
