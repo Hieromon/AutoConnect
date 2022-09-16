@@ -3,7 +3,7 @@
  * @file AutoConnectCoreImpl.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-29
+ * @date 2022-09-16
  * @copyright MIT license.
  */
 
@@ -600,7 +600,7 @@ void AutoConnectCore<T>::handleRequest(void) {
           // Successfully conencted
           memcpy(_credential.bssid, WiFi.BSSID(), sizeof(station_config_t::bssid));
           _currentHostIP = WiFi.localIP();
-          _redirectURI = String(F(AUTOCONNECT_URI_SUCCESS));
+          _redirectURI = String(F(AUTOCONNECT_URI_ONSUCCESS));
 
           // Ensures that keeps a connection with the current AP
           // while the portal behaves.
@@ -616,7 +616,7 @@ void AutoConnectCore<T>::handleRequest(void) {
       }
       else {
         _currentHostIP = WiFi.softAPIP();
-        _redirectURI = String(F(AUTOCONNECT_URI_FAIL));
+        _redirectURI = String(F(AUTOCONNECT_URI_ONFAIL));
         _disconnectWiFi(false);
         wl_status_t wl = WiFi.status();
         unsigned long tm = millis();

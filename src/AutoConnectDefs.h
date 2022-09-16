@@ -3,7 +3,7 @@
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
  * @version  1.4.0
- * @date 2022-08-01
+ * @date 2022-09-16
  * @copyright  MIT license.
  */
 
@@ -143,6 +143,16 @@
 #define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
 #define AUTOCONNECT_URI_CONFIGAUX AUTOCONNECT_URI "/acconfig"
+
+// Default URI for connection successful response
+#ifndef AUTOCONNECT_URI_ONSUCCESS
+#define AUTOCONNECT_URI_ONSUCCESS AUTOCONNECT_URI_SUCCESS
+#endif // !AUTOCONNECT_URI_ONSUCCESS
+
+// Default URI for connection failure response
+#ifndef AUTOCONNECT_URI_ONFAIL
+#define AUTOCONNECT_URI_ONFAIL    AUTOCONNECT_URI_FAIL
+#endif // !AUTOCONNECT_URI_ONSUCCESS
 
 // Number of seconds in a unit time [s]
 #ifndef AUTOCONNECT_UNITTIME
