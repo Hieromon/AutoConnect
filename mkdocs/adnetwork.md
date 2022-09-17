@@ -24,11 +24,11 @@ Registering the Not-found handler is a different method than for ESP8266WebServe
 The Sketch HOME path is closely related to the [bootUri](apiconfig.md#booturi) that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:
 
 - **AUTOCONNECT_URI**  
-    The **ROOT** URI of AutoConnect. It is defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L93) file and is assigned to [AutoConnect statistics screen](menu.md#where-the-from) by default.
+    The **ROOT** URI of AutoConnect. It is defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L113) file and is assigned to [AutoConnect statistics screen](menu.md#where-the-from) by default.
 - [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri)  
     It is the hyperlink of listed on the AutoConnect menu as **HOME**.
 - [**AutoConnectConfig::bootUri**](apiconfig.md#booturi)  
-    Which page appears at the captive portal, AUTOCONNECT_URI, or the homeUri. Its page will pop up automatically when you visit the captive portal.
+    Which page appears at the captive portal, `AUTOCONNECT_URI`, or the homeUri. Its page will pop up automatically when you visit the captive portal.
 
 | The definition of **HOME** | Behavior | Specified by | Default value | Possible value |
 |---|---|---|---|---|
@@ -109,7 +109,7 @@ portal.begin();
 
 ## Relocate the AutoConnect home path
 
-A home path of AutoConnect is **/\_ac** by default. You can access from the browser with `http://IPADDRESS_OF_ESP_MODULE/_ac`. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69) macro in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
+A home path of AutoConnect is **/\_ac** by default. You can access from the browser with `http://IPADDRESS_OF_ESP_MODULE/_ac`. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L113) macro in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
 
 ```cpp
 #define AUTOCONNECT_URI         "/_ac"

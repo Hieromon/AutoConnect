@@ -19,7 +19,7 @@ The Sketch enables HTTP authentication with the [*AutoConnectConfig::auth*](apic
 - **AC_AUTH_BASIC**  
     Protect AutoConnect pages and custom Web pages with BASIC authentication.
 
-Note that the authentication scope specified in [*AutoConnectConfig::authScope*](apiconfig.md#authscope) is different from the protection space shown by [**Realm**](https://tools.ietf.org/html/rfc7235#section-2.2) for HTTP authentication. AutoConnect assumes only one Realm and defines it as [**AUTOCONNECT_AUTH_REALM**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L268) in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file. Instead, the Sketch will be able to expand or narrow the range of authentication by [*AutoConnectConfig::authScope*](apiconfig.md#authscope) setting, which can be either as follows:
+Note that the authentication scope specified in [*AutoConnectConfig::authScope*](apiconfig.md#authscope) is different from the protection space shown by [**Realm**](https://tools.ietf.org/html/rfc7235#section-2.2) for HTTP authentication. AutoConnect assumes only one Realm and defines it as [**AUTOCONNECT_AUTH_REALM**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L329) in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file. Instead, the Sketch will be able to expand or narrow the range of authentication by [*AutoConnectConfig::authScope*](apiconfig.md#authscope) setting, which can be either as follows:
 
 - **AC_AUTHSCOPE_PORTAL**  
     Require authentication to access for all AutoConnect pages, including custom Web pages.

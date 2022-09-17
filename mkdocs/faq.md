@@ -3,7 +3,7 @@
 If you can access the **AutoConnect root path** as http://ESP8266IPADDRESS/_ac from browser, probably the Sketch uses *ESP8266WebServer::handleClient()* without [*AutoConnect::handleRequest()*](api.md#handlerequest).  
 For AutoConnect menus to work properly, call [*AutoConnect::handleRequest()*](api.md#handlerequest) after *ESP8266WebServer::handleClient()* invoked, or use [*AutoConnect::handleClient()*](api.md#handleclient). [*AutoConnect::handleClient()*](api.md#handleclient) is equivalent *ESP8266WebServer::handleClient* combined [*AutoConnect::handleRequest()*](api.md#handlerequest).
 
-See also the explanation [here](basicusage.md#esp8266webserver-hosted-or-parasitic).
+See also the explanation [here](basicusage.md#esp8266webserverwebserver-hosted-or-parasitic).
 
 ## <i class="fa fa-question-circle"></i> After updating to AutoConnect v1.0.0, established APs disappear from Open SSIDs with ESP32.
 
@@ -126,11 +126,11 @@ By default, AutoConnect saves the credentials of the established connection into
 You have the following two options to avoid this conflict:
 
 - Move the credential saving area of EEPROM.  
-  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [AutoConnectConfig::boundaryOffset](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Advanced usage](advancedusage.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
+  You can protect your data from corruption by notifying AutoConnect where to save credentials. Notification of the save location for the credentials uses [AutoConnectConfig::boundaryOffset](apiconfig.md#boundaryoffset) option. Refer to the chapter on [Move the saving area of EEPROM for the credentials](adcredential.md#move-the-saving-area-of-eeprom-for-the-credentials) for details.
 
 - Suppresses the automatic save operation of credentials by AutoConnect.  
   You can completely stop saving the credentials by AutoConnect. However, if you select this option, you lose the past credentials which were able to connect to the AP. Therefore, the effect of the [automatic reconnection feature](adconnection.md#automatic-reconnect) will be lost.  
-  If you want to stop the automatic saving of the credentials, uses [AutoConnectConfig::autoSave](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](advancedusage.md#autosave-credential) for details.
+  If you want to stop the automatic saving of the credentials, uses [AutoConnectConfig::autoSave](apiconfig.md#autosave) option specifying **AC_SAVECREDENTIAL_NEVER**. Refer to the chapter on [Advanced usage](adcredential.md#autosave-credential) for details.
 
 ## <i class="fa fa-question-circle"></i> Does not appear esp8266ap in smartphone.
 
@@ -167,7 +167,7 @@ void loop() {
 
 ## <i class="fa fa-question-circle"></i> Does not response from /\_ac.
 
-Probably **WiFi.begin** failed with the specified SSID. Activating the [debug printing](advancedusage.md#debug-print) will help you to track down the cause.
+Probably **WiFi.begin** failed with the specified SSID. Activating the [debug printing](adothers.md#debug-print) will help you to track down the cause.
 
 
 ## <i class="fa fa-question-circle"></i> Hang up after Reset?
@@ -330,7 +330,7 @@ It may be two possibilities as follows:
 2. Heap is insufficient memory. AutoConnect entrusts HTML generation to PageBuilder that makes heavy use the String::concatenate function and causes memory fragmentation. This is a structural problem with PageBuilder, but it is difficult to solve immediately.
 
 If this issue produces with your sketch, Reloading the page may recover.  
-Also, you can check the memory running out status by rebuilding the Sketch with [PageBuilder's debug log option](faq.md#fn:2) turned on.
+Also, you can check the memory running out status by rebuilding the Sketch with [PageBuilder's debug log option](#3-turn-on-the-debug-log-options) turned on.
 
 If the heap memory is insufficient, the following message is displayed on the serial console.
 
