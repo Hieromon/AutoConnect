@@ -1,5 +1,7 @@
 ## <i class="fa fa-code"></i> Include headers
 
+The AutoConnect class is limited in its available APIs by the AutoConnect component it contains. The `AutoConnect.h` header file makes all AutoConnect features available. On the other hand, the `AutoConnectCore.h` header file does not include extensions such as custom web pages or OTAs; AutoConnectCore.h reduces memory consumption by limiting functionality to WiFi connectivity utilities only. See the [Reducing Binary Size](basicusage.md#reducing-binary-size) chapter for details.
+
 ### AutoConnect.h
 
 <p class="badge"><img src="images/tag_ac.png"></p>
