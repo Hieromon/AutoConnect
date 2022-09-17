@@ -13,3 +13,14 @@ For advanced usages, the configuration settings and the Sketch examples are foll
 
 !!! note "Don't forget [**AutoConnect::config**](api.md#config)"
     The configuration cannot be reflected by only changing the member variables of [AutoConnectConfig](apiconfig.md) settings. It will be reflected in the actual ones by [AutoConnect::config](api.md#config) function. Don't forget to run the [AutoConnect::config](api.md#config) after changing the AutoConnectConfig member variables.
+
+    ```cpp hl_lines="6"
+    AutoConnect portal;
+    AutoConnectConfig config;
+
+    void setup() {
+      config.autoReconnect = true;
+      portal.config(config);  // Don't forget.
+      portal.begin();
+    }
+    ```
