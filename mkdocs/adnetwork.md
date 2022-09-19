@@ -159,7 +159,7 @@ portal.begin();
 
 ## Static IP preservation
 
-Prioritizing the station IP configuration specified in [AutoConnectConfig](#static-ip-assignment-as-a-client) over the existing configuration must be accompanied by an explicit indication via the [*AutoConnectConfig::preserveIP*](apiconfig.md#preserveip). The [*AutoConnectConfig::preserveIP*](apiconfig.md#preserveip) setting allows AutoConnect to override existing credentials applied at reconnecting with static IP assignments made with the [*AutoConnectConfig::staip*](apiconfig.md#staip), [*AutoConnectConfig::staGateway*](apiconfig.md#stagateway), and [*AutoConnectConfig::staNetmask*](apiconfig.md#stanetmask) settings. The following sketch shows a use case where the preserveIP setting can override an existing static IP configuration. This example is useful for overwriting stored IP settings with new IP settings entered from the UI.
+Prioritizing the station IP configuration specified in [AutoConnectConfig](#static-ip-assignment-as-a-client) over the existing configuration must be accompanied by an explicit indication via the [*AutoConnectConfig::preserveIP*](apiconfig.md#preserveip). The [*AutoConnectConfig::preserveIP*](apiconfig.md#preserveip) setting allows AutoConnect to override existing credentials applied at reconnecting with static IP assignments made with the [*AutoConnectConfig::staip*](apiconfig.md#staip), [*AutoConnectConfig::staGateway*](apiconfig.md#stagateway), and [*AutoConnectConfig::staNetmask*](apiconfig.md#stanetmask) settings. The following sketch shows a use case where the preserveIP setting can override an existing static IP configuration.
 
 ```cpp hl_lines="19"
 AutoConnect portal;
@@ -191,7 +191,7 @@ void loop() {
 }
 ```
 
-Also, an example sketch with UI for static IP configuration using custom web pages is included in the AutoConnect repository as [ConfigIP.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/ConfigIP/ConfigIP.ino).
+Also, an example sketch with UI for static IP configuration using custom web pages is included in the AutoConnect repository as [ConfigIP.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/ConfigIP/ConfigIP.ino).  This example is useful for overwriting stored IP settings with new IP settings entered from the UI.
 
 !!! info "Background on the need for preserveIP indication"
     By default, [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) restores IP settings along with a credential. So even if the sketch explicitly specifies the static IP settings with AutoConnectConfig, there are cases where they will not be applied upon reconnection.
