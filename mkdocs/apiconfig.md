@@ -352,6 +352,17 @@ Specifies starting the STA while maintaining the state of the SoftAP mode in the
 
 Note that this option is not for starting the SoftAP forcibly in [**AutoConnect::begin**](api.md#begin) and only keeps AP mode, SoftAP initiation is left to the Sketch.
 
+### <i class="fa fa-caret-right"></i> preserveIP
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+When using existing credentials to connect WiFi, the station IP configuration specified with the [**AutoConnectConfig::staip**](apiconfig.md#staip), [**AutoConnectConfig::staGateway**](apiconfig.md#stagateway), and [**AutoConnectConfig::staNetmask**](apiconfig.md#stanetmask) are preferred over the IP settings of the stored credentials. If this value is set to true, IP configurations stored with credentials will not be restored.<dl class="apidl">
+    <dt>**Type**</dt>
+    <dd>bool</dd>
+    <dt>**Value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Use IP addresses specified with the [AutoConnectConfig::staip](apiconfig.md#staip), [AutoConnectConfig::staGateway](apiconfig.md#stagateway), and [AutoConnectConfig::staNetmask](apiconfig.md#stanetmask) as the station IP configuration.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">When reconnecting, the station IP configuration specified with AutoConnectConfig is ignored and the saved credential values are used.</span></dd></dl>
+
 ### <i class="fa fa-caret-right"></i> principle
 
 <p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
