@@ -1,3 +1,7 @@
+The AutoConnectConfig class does not present some members regarding custom web page features due to differences in the AutoConnect component used in the sketch.
+
+Sketch allows by including either `AutoConnect.h` or `AutoConnectCore.h` header file to use the AutoConnect library. If you include the `AutoConnectCore.h` with the sketch, AutoConnect will drop the functions involved custom web page facility. And correspondingly, some members that depend on custom web page functions will omit from the AutoConnectConfig class. See the [Reducing Binary Size](basicusage.md#reducing-binary-size) chapter for details.
+
 ## <i class="fa fa-code"></i> Constructor
 
 ### AutoConnectConfig

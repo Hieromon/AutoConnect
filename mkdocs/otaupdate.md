@@ -1,5 +1,5 @@
 !!! info "Only for AutoConnect"
-    AutoConnect OTA features are valid only for AutoConnect; they are not available for [AutoConnectCore](basicusage.md#using-autoconnectcore-without-custom-web-pages-and-ota-update-facilities).
+    AutoConnect OTA features are valid only for AutoConnect; they are not available for [AutoConnectCore](basicusage.md#basicusage.md#reducing-binary-size).
 
 ## OTA Updates with AutoConnect
 

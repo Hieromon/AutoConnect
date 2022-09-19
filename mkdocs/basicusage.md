@@ -181,4 +181,5 @@ void loop() {
 ```
 
 !!! info "Either `AutoConnect.h` or `AutoConnectCore.h`"
-    A sketch can include either `AutoConnect.h` or `AutoConnectCore.h`. These two header files are mutually exclusive and cannot be included together at the same time.
+    A sketch can include either `AutoConnect.h` or `AutoConnectCore.h`. These two header files are mutually exclusive and cannot be included together at the same time.  
+    Also, If the sketch includes `AutoConnectCore.h`, some members involved in the custom web page facility are excluded from [AutoConnectConfig](apiconfig.md) class.
