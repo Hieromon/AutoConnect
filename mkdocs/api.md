@@ -585,6 +585,65 @@ An *fn* specifies the function called when the OTA starts. Its prototype declara
 typedef std::function<void(void)> OTAStartExit_ft
 ```
 
+### <i class="fa fa-caret-right"></i> restoreCredential
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+- For ESP8266
+
+```cpp
+bool restoreCredential(const char* filename, fs::FS& fs, const bool ensureFS)
+
+```
+
+- For ESP32
+
+```cpp
+bool restoreCredential(const char* filename, fs::SPIFFSFS& fs, const bool ensureFS)
+
+```
+
+```cpp
+bool restoreCredential(const char* filename, fs::LittleFSFS& fs, const bool ensureFS)
+
+```
+
+- Using template
+
+```cpp
+template<typename T>
+bool restoreCredential(const char* filename, T& fs, const bool ensureFS)
+```
+
+### <i class="fa fa-caret-right"></i> saveCredential
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+- For ESP8266
+
+```cpp
+bool saveCredential(const char* filename, fs::FS& fs, const bool ensureFS)
+
+```
+
+- For ESP32
+
+```cpp
+bool saveCredential(const char* filename, fs::SPIFFSFS& fs, const bool ensureFS)
+```
+
+```cpp
+bool saveCredential(const char* filename, fs::LittleFSFS& fs, const bool ensureFS)
+```
+
+- Using template
+
+```cpp
+template<typename T>
+bool saveCredential(const char* filename, T& fs, const bool ensureFS)
+```
+
+
 ### <i class="fa fa-caret-right"></i> where
 
 <p class="badge"><img src="images/tag_ac.png"></p>

@@ -4,6 +4,7 @@ Sketches can access their stored credentials through a class that is independent
 - [Access to saved credentials](#access-to-saved-credentials)
 - [Autosave Credential](#autosave-credential)
 - [Move the saving area of EEPROM for the credentials](#move-the-saving-area-of-eeprom-for-the-credentials)
+- [Save and restore credentials](#save-and-restore-credentials)
 
 ## Access to saved credentials
 
@@ -108,3 +109,7 @@ EEPROM.commit();
 EEPROM.end();
 ...
 ```
+
+## Save and restore credentials
+
+[AutoConnect::saveCredentail](api.md#savecredential) and [AutoConnect::restoreCredential](api.md#restorecredential) functions save and restore credentials applying external files.
