@@ -5,7 +5,7 @@
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
  * @version 1.4.0
- * @date 2022-07-29
+ * @date 2022-09-20
  * @copyright MIT license.
  */
 
@@ -64,12 +64,10 @@ class AutoConnectCore {
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServer::THandlerFunction fn);
   void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
-  template<typename U>
-  bool  saveCredential(const char* filename, U& fs, const bool ensureFS);
-  bool  saveCredential(const char* filename = "/" AC_IDENTIFIER, AUTOCONNECT_APPLIED_FILECLASS& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = true);
-  template<typename U>
-  bool  restoreCredential(const char* filename, U& fs, const bool ensureFS);
-  bool  restoreCredential(const char* filename = "/" AC_IDENTIFIER, AUTOCONNECT_APPLIED_FILECLASS& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = true);
+  template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
+  bool  saveCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = false);
+  template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
+  bool  restoreCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = false);
 
  protected:
   typedef enum {
@@ -249,6 +247,18 @@ class AutoConnectCore {
   virtual inline void _releaseAux(const String& uri) { AC_UNUSED(uri); }
   virtual inline void _saveCurrentUri(const String& uri) { AC_UNUSED(uri); }
   virtual inline String _mold_MENU_AUX(PageArgument& args) { return String(""); }
+
+  // // Make sure an API compatibility of filesystem begin call between SDClass and fs::FS classes.
+  // template<typename U>
+  // typename std::enable_if<std::is_same<U, AutoConnectFS::SDClassT>::value, bool>::type
+  // inline  _beginFS(U& fs) {
+  //   return fs.begin(AUTOCONNECT_SD_CS);
+  // }
+  // template<typename U>
+  // typename std::enable_if<!std::is_same<U, AutoConnectFS::SDClassT>::value, bool>::type
+  // inline  _beginFS(U& fs) {
+  //   return fs.begin(AUTOCONNECT_FS_INITIALIZATION);
+  // }
 };
 
 #endif  // _AUTOCONNECTCORE_HPP_
