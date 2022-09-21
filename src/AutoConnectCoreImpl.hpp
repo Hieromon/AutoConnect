@@ -836,7 +836,7 @@ bool AutoConnectCore<T>::restoreCredential(const char* filename, U& fs, const bo
     AC_DBG("%s credentials restored\n", filename);
   }
   else
-    AC_DBG("%s:%s save failed\n", AC_IDENTIFIER, filename);
+    AC_DBG("%s:%s load failed\n", AC_IDENTIFIER, filename);
 
   if (ensureFS)
     fs.end();
