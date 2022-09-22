@@ -595,22 +595,46 @@ bool AutoConnectCredential::backup(Stream& out) {
  * @return false  Could not restore.
  */
 bool AutoConnectCredential::restore(Stream& in) {
+  uint8_t*  inPool = nullptr;
+  uint8_t inBuffer[16];
+  size_t  psz = 0;
   bool  rc = false;
 
-  uint8_t idc[sizeof(AC_IDENTIFIER) - sizeof('\0')];
-  size_t  idSize = in.readBytes(idc, sizeof(idc));
-  // Verifies AC_CREDT for the specified stream.
-  if (!memcmp(idc, AC_IDENTIFIER, idSize)) {
-    // Restore to NVS
-    if (_pref->begin(AC_CREDENTIAL_NVSNAME, false)) {
-      while (in.available())
-        _pref->putUChar(AC_CREDENTIAL_NVSNAME, in.read());
-      _pref->end();
-      rc = true;
+  // Reads all data from the stream and pools.
+  while (in.available()) {
+    size_t  rsz = in.readBytes(inBuffer, sizeof(inBuffer));
+    inPool = reinterpret_cast<uint8_t*>(realloc(inPool, psz + rsz));
+    if (inPool) {
+      memcpy(inPool + psz, inBuffer, rsz);
+      psz += rsz;
+      if (rsz < sizeof(inBuffer))
+        break;
+    }
+    else {
+      AC_DBG(AC_CREDENTIAL_NVSKEY " buffer allocation failed\n");
+      return false;
     }
   }
+
+  // Verifies AC_CREDT for the specified stream.
+  if (inPool) {
+    constexpr size_t  AC_IDENTIFIER_SIZE = sizeof(AC_IDENTIFIER) - sizeof('\0');
+    if (!memcmp(inPool, AC_IDENTIFIER, AC_IDENTIFIER_SIZE)) {
+      // Restore to NVS
+      if (_pref->begin(AC_CREDENTIAL_NVSNAME, false)) {
+        _pref->putBytes(AC_CREDENTIAL_NVSKEY, inPool + AC_IDENTIFIER_SIZE, psz - AC_IDENTIFIER_SIZE);
+        _pref->end();
+        rc = true;
+      }
+      else
+        AC_DBG(AC_CREDENTIAL_NVSNAME " no credentials storage\n");
+    }
+    else
+      AC_DBG(AC_CREDENTIAL_NVSNAME " contains wrong\n");
+    free(inPool);
+  }
   else
-    AC_DBG(AC_CREDENTIAL_NVSNAME " contains wrong\n");
+    AC_DBG(AC_IDENTIFIER " empty stream\n");
 
   return rc;
 }
