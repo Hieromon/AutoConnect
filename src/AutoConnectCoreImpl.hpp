@@ -768,16 +768,12 @@ void AutoConnectCore<T>::onNotFound(WebServer::THandlerFunction fn) {
 
 /**
  * Save AutoConnectCredentials to the filesystem.
- * @param  filename Destination file namme.
+ * @param  filename Destination file name.
  * @param  fs       Destination file system.
+ * @param  ensureFS Ensure by Begin and End to mount and unmount the file system.
  * @return true   All credentials successfully saved.
  * @return false  Could not save.
  */
-// template<typename T>
-// bool AutoConnectCore<T>::saveCredential(const char* filename, AUTOCONNECT_APPLIED_FILECLASS& fs, const bool ensureFS) {
-//   AutoConnectCredential credt(_apConfig.boundaryOffset);
-//   return credt.backup<AUTOCONNECT_APPLIED_FILECLASS>(filename, fs, ensureFS);
-// }
 template<typename T>
 template<typename U>
 bool AutoConnectCore<T>::saveCredential(const char* filename, U& fs, const bool ensureFS) {
@@ -786,16 +782,19 @@ bool AutoConnectCore<T>::saveCredential(const char* filename, U& fs, const bool 
   if (ensureFS) {
     if (!AutoConnectFS::_beginFS<U>(fs))
       return rc;
+    else
+      AC_DBG("_beginFS<U>(fs) successfull\n");
   }
 
   File sf = fs.open(filename, "w");
   if (sf) {
     AutoConnectCredential credt(_apConfig.boundaryOffset);
-    credt.backup(sf);
+    rc = credt.backup(sf);
     sf.close();
-    rc = true;
-    AC_DBG("%s credentials saved\n", filename);
   }
+
+  if (rc)
+    AC_DBG("%s credentials saved\n", filename);
   else
     AC_DBG("%s:%s save failed\n", AC_IDENTIFIER, filename);
 
@@ -807,16 +806,12 @@ bool AutoConnectCore<T>::saveCredential(const char* filename, U& fs, const bool 
 
 /**
  * Restore all credentials from specified file.
- * @param  filename Destination file namme.
+ * @param  filename Destination file name.
  * @param  fs       Destination file system.
+ * @param  ensureFS Ensure by Begin and End to mount and unmount the file system.
  * @return true   Credentials successfully restored.
  * @return false  Could not restore.
  */
-// template<typename T>
-// bool AutoConnectCore<T>::restoreCredential(const char* filename, AUTOCONNECT_APPLIED_FILECLASS& fs, const bool ensureFS) {
-//   AutoConnectCredential credt(_apConfig.boundaryOffset);
-//   return credt.restore<AUTOCONNECT_APPLIED_FILECLASS>(filename, fs, ensureFS);
-// }
 template<typename T>
 template<typename U>
 bool AutoConnectCore<T>::restoreCredential(const char* filename, U& fs, const bool ensureFS) {
@@ -830,13 +825,14 @@ bool AutoConnectCore<T>::restoreCredential(const char* filename, U& fs, const bo
   File sf = fs.open(filename, "r");
   if (sf) {
     AutoConnectCredential credt(_apConfig.boundaryOffset);
-    credt.restore(sf);
+    rc = credt.restore(sf);
     sf.close();
-    rc = true;
-    AC_DBG("%s credentials restored\n", filename);
   }
+
+  if (rc)
+    AC_DBG("%s credentials restored\n", filename);
   else
-    AC_DBG("%s:%s load failed\n", AC_IDENTIFIER, filename);
+    AC_DBG("%s:%s restore failed\n", AC_IDENTIFIER, filename);
 
   if (ensureFS)
     fs.end();
