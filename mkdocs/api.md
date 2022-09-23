@@ -592,28 +592,35 @@ typedef std::function<void(void)> OTAStartExit_ft
 - For ESP8266
 
 ```cpp
-bool restoreCredential(const char* filename, fs::FS& fs, const bool ensureFS)
+bool restoreCredential(const char* filename = "/ac_credt", fs::FS& fs = FS)
 
 ```
 
 - For ESP32
 
 ```cpp
-bool restoreCredential(const char* filename, fs::SPIFFSFS& fs, const bool ensureFS)
+bool restoreCredential(const char* filename = "/ac_credt", fs::SPIFFSFS& fs = SPIFFS)
 
 ```
 
 ```cpp
-bool restoreCredential(const char* filename, fs::LittleFSFS& fs, const bool ensureFS)
+bool restoreCredential(const char* filename = "/ac_credt", fs::LittleFSFS& fs = LittleFS)
 
 ```
 
-- Using template
+- For using SD
 
 ```cpp
-template<typename T>
-bool restoreCredential(const char* filename, T& fs, const bool ensureFS)
+bool restoreCredential<fs::SDFS>(const char* filename, fs::SDFS& fs)
 ```
+
+Restore credentials from the file as named `filename` with specified `fs` file system. The file containing the credentials of the restore source must have been saved with the [`AutoConnect::saveCredential`](#savecredential) function.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">filename</span><span class="apidesc">Specify the file from which to restore the credentials. The `filename` must include `/`, the root directory. If this parameter is not specified, `ac_credt` is assumed.</span></dd>
+    <dd><span class="apidef">fs</span><span class="apidesc">Specifies the file system of the source file to be restored. It must be mounted by the `begin` function of the file system concerned.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Credentials has been restored.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to restore the credentials. Current credentials may have been lost.</span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> saveCredential
 
@@ -622,27 +629,32 @@ bool restoreCredential(const char* filename, T& fs, const bool ensureFS)
 - For ESP8266
 
 ```cpp
-bool saveCredential(const char* filename, fs::FS& fs, const bool ensureFS)
-
+bool saveCredential(const char* filename = "/ac_credt", fs::FS& fs = FS)
 ```
 
 - For ESP32
 
 ```cpp
-bool saveCredential(const char* filename, fs::SPIFFSFS& fs, const bool ensureFS)
+bool saveCredential(const char* filename = "/ac_credt", fs::SPIFFSFS& fs)
 ```
 
 ```cpp
-bool saveCredential(const char* filename, fs::LittleFSFS& fs, const bool ensureFS)
+bool saveCredential(const char* filename = "/ac_credt", fs::LittleFSFS& fs)
 ```
 
-- Using template
+- For using SD
 
 ```cpp
-template<typename T>
-bool saveCredential(const char* filename, T& fs, const bool ensureFS)
+bool saveCredential<fs::SDFS>(const char* filename, fs::SDFS& fs)
 ```
 
+Saves the current credentials stored by AutoConnect to the specified file. A credential file saved with this function can be treated as input to the [`AutoConnect::restoreCredential`](#restorecredential) function.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">filename</span><span class="apidesc">Specify the file from which to save the credentials. The `filename` must include `/`, the root directory. If this parameter is not specified, `ac_credt` is assumed.</span></dd>
+    <dd><span class="apidef">fs</span><span class="apidesc">Specifies the file system of the destination file to be saved. It must be mounted by the `begin` function of the file system concerned.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Credentials has been saved.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to save the credentials.</span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> where
 
