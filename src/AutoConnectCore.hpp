@@ -65,9 +65,9 @@ class AutoConnectCore {
   void  onNotFound(WebServer::THandlerFunction fn);
   void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
   template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
-  bool  saveCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = false);
+  bool  saveCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM);
   template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
-  bool  restoreCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM, const bool ensureFS = false);
+  bool  restoreCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM);
 
  protected:
   typedef enum {

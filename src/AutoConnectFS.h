@@ -96,18 +96,6 @@ namespace AutoConnectFS {
 #endif
 #endif
   }
-
-  // Make sure an API compatibility of filesystem begin call between SDClass and fs::FS classes.
-  template<typename T>
-  typename std::enable_if<std::is_same<T, AutoConnectFS::SDClassT>::value, bool>::type
-  inline  _beginFS(T& fs) {
-    return fs.begin(AUTOCONNECT_SD_CS);
-  }
-  template<typename T>
-  typename std::enable_if<!std::is_same<T, AutoConnectFS::SDClassT>::value, bool>::type
-  inline  _beginFS(T& fs) {
-    return fs.begin(AUTOCONNECT_FS_INITIALIZATION);
-  }
 };
 
 // Export an actual file system indicator

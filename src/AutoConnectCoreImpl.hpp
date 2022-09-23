@@ -770,37 +770,21 @@ void AutoConnectCore<T>::onNotFound(WebServer::THandlerFunction fn) {
  * Save AutoConnectCredentials to the filesystem.
  * @param  filename Destination file name.
  * @param  fs       Destination file system.
- * @param  ensureFS Ensure by Begin and End to mount and unmount the file system.
  * @return true   All credentials successfully saved.
  * @return false  Could not save.
  */
 template<typename T>
 template<typename U>
-bool AutoConnectCore<T>::saveCredential(const char* filename, U& fs, const bool ensureFS) {
+bool AutoConnectCore<T>::saveCredential(const char* filename, U& fs) {
   bool  rc = false;
 
-  if (ensureFS) {
-    if (!AutoConnectFS::_beginFS<U>(fs))
-      return rc;
-    else
-      AC_DBG("_beginFS<U>(fs) successfull\n");
-  }
-
-  File sf = fs.open(filename, "w");
+  File  sf = fs.open(filename, "w");
   if (sf) {
     AutoConnectCredential credt(_apConfig.boundaryOffset);
     rc = credt.backup(sf);
     sf.close();
   }
-
-  if (rc)
-    AC_DBG("%s credentials saved\n", filename);
-  else
-    AC_DBG("%s:%s save failed\n", AC_IDENTIFIER, filename);
-
-  if (ensureFS)
-    fs.end();
-
+  AC_DBG(AC_IDENTIFIER ":%s save%s\n", filename, rc ? "d" : " failed");
   return rc;
 }
 
@@ -808,35 +792,21 @@ bool AutoConnectCore<T>::saveCredential(const char* filename, U& fs, const bool 
  * Restore all credentials from specified file.
  * @param  filename Destination file name.
  * @param  fs       Destination file system.
- * @param  ensureFS Ensure by Begin and End to mount and unmount the file system.
  * @return true   Credentials successfully restored.
  * @return false  Could not restore.
  */
 template<typename T>
 template<typename U>
-bool AutoConnectCore<T>::restoreCredential(const char* filename, U& fs, const bool ensureFS) {
+bool AutoConnectCore<T>::restoreCredential(const char* filename, U& fs) {
   bool  rc = false;
 
-  if (ensureFS) {
-    if (!AutoConnectFS::_beginFS<U>(fs))
-      return rc;
-  }
-
-  File sf = fs.open(filename, "r");
+  File  sf = fs.open(filename, "r");
   if (sf) {
     AutoConnectCredential credt(_apConfig.boundaryOffset);
     rc = credt.restore(sf);
     sf.close();
   }
-
-  if (rc)
-    AC_DBG("%s credentials restored\n", filename);
-  else
-    AC_DBG("%s:%s restore failed\n", AC_IDENTIFIER, filename);
-
-  if (ensureFS)
-    fs.end();
-
+  AC_DBG(AC_IDENTIFIER ":%s restore%s\n", filename, rc ? "d" : " failed");
   return rc;
 }
 
