@@ -112,7 +112,7 @@ EEPROM.end();
 
 ## Save and restore credentials
 
-AutoConnect can save stored credentials to various file systems. It is also possible to restore from those file systems. The file system can be SPIFFS, LittleFS, or SDFS. [AutoConnect::saveCredential](api.md#savecredential) and [AutoConnect::restoreCredential](api.md#restorecredential) functions allow the skecth to save and restore credentials to files.
+AutoConnect can save stored credentials to various file systems. It is also possible to restore from those file systems. The file system can be SPIFFS, LittleFS, or SDFS. [AutoConnect::saveCredential](api.md#savecredential) and [AutoConnect::restoreCredential](api.md#restorecredential) functions allow the sketch to save and restore credentials to files.
 
 Use the [AutoConnect::saveCredential](api.md#savecredential) function to save AutoConnect credentials. This function bulk outputs while preserving AutoConnect's internal credential data structure, so this output file would be used as an input for restoring by the `restoreCredential` function. The following code snippet is an example of saving AutoConnect credentials to a file on LittleFS with ESP8266. A subsequent snippet that restores credentials saved by `saveCredential` with `restoreCredential` is also shown as an example.
 
