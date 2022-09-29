@@ -20,7 +20,7 @@
      | | 1K ~ 10K
      +-+
       |
-      +--> D2 (for ESP8266, ex: GPIO16 in case of ESP32)
+      +--> D1 (for ESP8266, ex: GPIO16 in case of ESP32)
       |
     | O
   --+
@@ -34,13 +34,14 @@
 #if defined(ARDUINO_ARCH_ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#define EXTERNAL_SWITCH_PIN 4
+#define EXTERNAL_SWITCH_PIN 5
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #include <WebServer.h>
-#define EXTERNAL_SWITCH_PIN 16
 using SDClass = fs::SDFS;
+#define EXTERNAL_SWITCH_PIN 16
 #endif
+#define SD_CS_PIN 4
 #include <AutoConnect.h>
 #include <EEPROM.h>
 
@@ -343,19 +344,10 @@ void setup() {
   However, if the start of the file system is delegated to AutoConnect,
   the SD.begin call can be omitted by specifying true for the third parameter.
   */
-  SD.begin();
+  SD.begin(SD_CS_PIN);
 
-  /* The AutoConnectFS::SDClassT type specified in the template argument
-  of the restoreCredential function below is the SD class type redefined
-  by AutoConnect and equivalent to the SD class declared in the Arduino
-  core for ESP modules.
-  The SD class declaration for the ESP Arduino core is different for
-  ESP8266 and ESP32. AutoConnectFS::SDClassT absorbs these SD class
-  differences between the two modules, so you don't have to sketch with
-  different codes for each ESP module.
-  */
-  portal.restoreCredential<AutoConnectFS::SDClassT>("/credential.dat", SD);
-  // portal.restoreCredential("/credential.dat");  // For restoring from Flash filesystem
+  portal.restoreCredential<SDClass>("/credt.dat", SD);
+  // portal.restoreCredential("/credt.dat");  // For restoring from Flash filesystem
 
   // Sense the configuration button (external switch)
   pinMode(ConfigPin, INPUT);
@@ -373,8 +365,8 @@ void setup() {
     held by AutoConnect in bulk to an external file. The output file
     can be input to the restore function prior to AutoConnect::begin.
     */
-    portal.saveCredential<AutoConnectFS::SDClassT>("/credential.dat", SD);
-    // portal.saveCredential("/credential.dat");  // For saving to Flash filesystem
+    portal.saveCredential<SDClass>("/credt.dat", SD);
+    // portal.saveCredential("/credt.dat");  // For saving to Flash filesystem
   }
 
 }
