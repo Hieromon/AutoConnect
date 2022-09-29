@@ -343,9 +343,18 @@ void setup() {
   However, if the start of the file system is delegated to AutoConnect,
   the SD.begin call can be omitted by specifying true for the third parameter.
   */
-  // SD.begin(CS);
-  // portal.restoreCredential<SDClass>("/credential.dat", SD, false);
-  portal.restoreCredential<SDClass>("/credential.dat", SD, true);
+  SD.begin();
+
+  /* The AutoConnectFS::SDClassT type specified in the template argument
+  of the restoreCredential function below is the SD class type redefined
+  by AutoConnect and equivalent to the SD class declared in the Arduino
+  core for ESP modules.
+  The SD class declaration for the ESP Arduino core is different for
+  ESP8266 and ESP32. AutoConnectFS::SDClassT absorbs these SD class
+  differences between the two modules, so you don't have to sketch with
+  different codes for each ESP module.
+  */
+  portal.restoreCredential<AutoConnectFS::SDClassT>("/credential.dat", SD);
   // portal.restoreCredential("/credential.dat");  // For restoring from Flash filesystem
 
   // Sense the configuration button (external switch)
@@ -364,8 +373,7 @@ void setup() {
     held by AutoConnect in bulk to an external file. The output file
     can be input to the restore function prior to AutoConnect::begin.
     */
-    // portal.saveCredential<SDClass>("/credential.dat", SD, false);
-    portal.saveCredential<SDClass>("/credential.dat", SD, true);
+    portal.saveCredential<AutoConnectFS::SDClassT>("/credential.dat", SD);
     // portal.saveCredential("/credential.dat");  // For saving to Flash filesystem
   }
 
