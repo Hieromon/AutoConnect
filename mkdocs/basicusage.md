@@ -110,35 +110,50 @@ Declaration parameter for the constructor | Use ESP8266WebServer::handleClient o
 
 ## Reducing Binary Size
 
-Typically, the AutoConnect component includes [AutoConnectAux](acelements.md) to handle [Custom Web pages](acintro.md). AutoConnectAux plays a central role in responding to requests for custom web pages. It also brings several AutoConnectElements used by the sketch, so the size after build may exceed 1 MB. These custom web page components can be deactivated depending on your use case. If you don't need custom web pages for the sketch, you can detach the AutoConnectAux component to reduce the post-build binary size.
+Typically, AutoConnect components include [AutoConnectAux](acelements.md) for handling [Custom Web pages](acintro.md); AutoConnectAux plays a central role in responding to requests for Custom Web pages. It also incorporates several AutoConnectElements used in the sketch, which may exceed 1 MB in binary size after the build. To reduce the binary size, you can deactivate the component to handle these custom web pages, depending on the use case. If your sketch does not use Custom web pages, allows you to exclude the AutoConnectAux component to reduce the built binary size.
 
-The [**`AutoConnect.h`**](api.md#autoconnecth) header file enables all AutoConnect components. In a normal sketch, the inclusion of this header will enable all AutoConnect features. On the other hand, sketches that do not allow custom web pages can use the [**`AutoConnectCore.h`**](api.md#autoconnectcoreh) header file.
+[**`AutoConnect.h`**](api.md#autoconnecth) header file enables all AutoConnect components. In a normal sketch, including this header enables all AutoConnect functionality.  
+On the other hand, for sketches that don't use custom web pages, you can apply the [**`AutoConnectCore.h`**](api.md#autoconnectcoreh) header file.
 
-[**`AutoConnectCore.h`**](api.md#autoconnectcoreh) provides an AutoConnect class that excludes AutoConnectAux and AutoConnectElements from AutoConnect. Therefore, it does not implement the APIs required for custom web page processing. Also, [AutoConnectOTA](otabrowser.md) and [AutoConnectUpdate](otaserver.md) cannot be used. (i.e., to use AutoConnect's equipped OTA Update feature, you must include the full AutoConnect component in your sketch) Instead, the binary size of the AutoConnectCore component is reduced by about 170 KB (1.3 KB for RAM) compared to the ESP32 AutoConnect full component. (60KB/3KB for ESP8266)
+[**`AutoConnectCore.h`**](api.md#autoconnectcoreh) provides an AutoConnect class that excludes AutoConnectAux and AutoConnectElements from AutoConnect. Therefore, it does not implement the APIs required for custom web page processing. Also, [AutoConnectOTA](otabrowser.md) and [AutoConnectUpdate](otaserver.md) cannot be used. (i.e., to use AutoConnect's equipped OTA Update feature, you must include the full AutoConnect component in your sketch) Instead, the binary size of the AutoConnectCore component is reduced by about 170 KB (1.3 KB for RAM) compared to the ESP32 AutoConnect full component. (60KB for ESP8266)
 
-To switch between AutoConnect and AutoConnectCore, simply change the corresponding header file in `#include` header.
+To switch between AutoConnect and AutoConnectCore, simply change the corresponding header file with `#include` header.
 
 ### <i class="fa fa-edit"></i> Using AutoConnect Full component
 
-```cpp hl_lines="3 6"
+```cpp hl_lines="3 21"
 #include <WiFi.h>
 #include <WebServer.h>
 #include <AutoConnect.h>
 
+static const char PAGE_HELLO[] = R"(
+{
+  "uri": "/",
+  "title": "Hello",
+  "menu": false,
+  "element": [
+    {
+      "name": "caption",
+      "type": "ACText",
+      "value": "Hello, World"
+    },
+  ]
+}
+)";
+
 WebServer Server;
 AutoConnect Portal(Server);
-
-void rootPage() {
-  char content[] = "Hello, World";
-  Server.send(200, "text/plain", content);
-}
+AutoConnectConfig Config;
 
 void setup() {
   delay(1000);
   Serial.begin(115200);
   Serial.println();
 
-  Server.on("/", rootPage);
+  Config.ota = AC_OTA_BUILTIN;
+  Portal.config(Config);
+
+  portal.load(PAGE_HELLO);
   Portal.begin();
   Serial.println("Web Server started:" + WiFi.localIP().toString());
 }
@@ -150,7 +165,7 @@ void loop() {
 
 ### <i class="fa fa-edit"></i> Using AutoConnectCore without Custom Web pages and OTA Update facilities
 
-Even if you use AutoConnectCore, the class name remains `AutoConnect`.
+Even in the sketch with `AutoConnectCore.h` applied, the class name remains `AutoConnect`.
 
 ```cpp hl_lines="3 6"
 #include <WiFi.h>
