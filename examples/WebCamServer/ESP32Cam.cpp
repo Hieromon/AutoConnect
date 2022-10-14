@@ -96,8 +96,13 @@ esp_err_t ESP32Cam::init(const CameraId model) {
   config.pin_pclk = _pins->pclk_gpio_num;
   config.pin_vsync = _pins->vsync_gpio_num;
   config.pin_href = _pins->href_gpio_num;
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(4, 4, 2)
+  config.pin_sccb_sda = _pins->siod_gpio_num;
+  config.pin_sccb_scl = _pins->sioc_gpio_num;
+#else
   config.pin_sscb_sda = _pins->siod_gpio_num;
   config.pin_sscb_scl = _pins->sioc_gpio_num;
+#endif
   config.pin_pwdn = _pins->pwdn_gpio_num;
   config.pin_reset = _pins->reset_gpio_num;
   config.xclk_freq_hz = ESP32CAM_XCLK_FREQ;
