@@ -1,3 +1,20 @@
+### [1.4.0] Sep. 25, 2022
+
+#### Enhancements
+
+- Custom web page related features were decoupled to allow for two different configurations, AutoConnectCore and AutoConnect. AutoConnectCore reduces memory consumption by focusing only on WiFi connectivity utilities. See [Reducing Binary Size](basicusage.md#reducing-binary-size) chapter in the AutoConnect documentation for more information.
+- Supports credentials backup and restoration.
+- Added an AutoConnect::getCurrentCredential function.
+- Added an AutoConnectAux::referer function.
+- Added an AutoConnectConfig::preserveIP setting.
+- Allow navigate to a custom URL once a WiFi connection is established.
+- Revised mqttRSSI examples program structure.
+
+#### Fix
+
+- Fixed updateserver.py script security vulnerability.
+
+---
 ### [1.3.7] Aug. 20, 2022
 
 #### Fix

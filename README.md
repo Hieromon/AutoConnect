@@ -102,6 +102,16 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.4.0] Sep. 25, 2022
+- Custom web page related features were decoupled to allow for two different configurations, AutoConnectCore and AutoConnect. AutoConnectCore reduces memory consumption by focusing only on WiFi connectivity utilities. See the chapter [Reducing Binary Size](https://hieromon.github.io/AutoConnect/basicusage.html#reducing-binary-size) in the documentation for more information.
+- Supports credentials backup and restoration.
+- Added an AutoConnect::getCurrentCredential function.
+- Added an AutoConnectAux::referer function.
+- Added an AutoConnectConfig::preserveIP setting.
+- Allow navigate to a custom URL once a WiFi connection is established. (Discussions #523)
+- Revised mqttRSSI examples program structure.
+- Fixed updateserver.py script security vulnerability. (Issue #526)
+
 ### [1.3.7] Aug. 20, 2022
 - Fixed an authentication failure in Captive Portal state. (Issue #518)
 - Fixed loss of current SSID.
