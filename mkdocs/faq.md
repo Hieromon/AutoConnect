@@ -315,6 +315,32 @@ This is not a malfunction and expected behavior. AutoConnect will continue to ex
 
 AutoConnect saves the credentials of the access point to which it was able to connect to the NVS of the ESP32 module as [Preferences](https://espressif-docs.readthedocs-hosted.com/projects/arduino-esp32/en/latest/api/preferences.html#preferences) instances. The above error occurs when the area keyed for AutoConnect credentials does not exist in NVS. Usually, this error occurs immediately after erasing the ESP32 module flash or when running the AutoConnect sketch for the first time. If the AutoConnect credentials area does not exist in NVS, AutoConnect will automatically allocate it. Therefore, this error can be ignored and will not affect the execution of the sketch.
 
+## <i class="fa fa-question-circle"></i> Request handler not found in WebServer.
+
+It forms the following message as the most common form.
+
+```ini
+request handler not found
+```
+
+In ESP32, the above message has a detailed issuer.
+
+```ini
+[WebServer.cpp:649] _handleRequest(): request handler not found
+```
+
+If this message appears just by opening your custom web page or AutoConnect built-in page from a browser, it is probably the browser requesting a [favicon](https://en.wikipedia.org/wiki/Favicon) for that html page. Please instead of prematurely assuming that the detection of this message indicates an implementation flaw, identify the URL from which the request originated. You can find it in the AutoConnect trace that outputs to the serial monitor by enabling [`AC_DEBUG`](adothers.md#debug-print) macro.
+
+You can probably find the above message in the `AC_DEBUG` trace log. And if you can find the following trace just before that message, your sketch is working fine.
+
+```ini
+[AC] Host:192.168.1.17,/favicon.ico,ignored
+```
+
+It's just the browser asking for a favicon. Of course, your sketch doesn't have a favicon. That's what the "_request handler not found_" message means.
+
+The `AC_DEBUG` trace will record URL requests for which no request handler exists. If you find a `[AC] Host: IP_ADDRESS, URL, ignored` style message in the `AC_DEBUG` log, the request handler for that URL has not been registered with the WebServer. Even if your sketch has a custom web page with the said URL, it is probably causing a JSON syntax error and failing to deserialize. In such cases, the [ArduinoJson Assistant](https://arduinojson.org/v6/assistant/) can be helpful. It will find syntax errors in the JSON description for your custom web page.
+
 ## <i class="fa fa-question-circle"></i> Saved credentials are wrong or lost.
 
 A structure of AutoConnect saved credentials has changed two times throughout enhancement with v1.0.3 and v1.1.0. In particular, due to enhancements in v1.1.0, AutoConnectCredential data structure has lost the backward compatibility with previous versions. You must erase the flash of the ESP module using the esptool completely to save the credentials correctly with v1.1.0.
