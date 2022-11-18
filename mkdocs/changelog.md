@@ -1,4 +1,4 @@
-### [1.4.0] Sep. 25, 2022
+### [1.4.0] Nov. 20, 2022
 
 #### Enhancements
 
@@ -7,6 +7,7 @@
 - Added an AutoConnect::getCurrentCredential function.
 - Added an AutoConnectAux::referer function.
 - Added an AutoConnectConfig::preserveIP setting.
+- Added the WebSocketServer example.
 - Allow navigate to a custom URL once a WiFi connection is established.
 - Revised mqttRSSI examples program structure.
 
