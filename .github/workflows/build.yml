@@ -19,6 +19,9 @@ env:
     - source-path: ./
     - name: PageBuilder
     - name: PubSubClient
+    - source-url: https://github.com/me-no-dev/AsyncTCP.git
+    - source-url: https://github.com/me-no-dev/ESPAsyncTCP.git
+    - source-url: https://github.com/me-no-dev/ESPAsyncWebServer.git
 
   SKETCHES_PATH: examples
 
@@ -37,6 +40,7 @@ env:
     Simple
     Update
     WebUpdate
+    WebSocketServer
 
   SKETCHES_WO_JSON: |
     mqttRSSI_NA

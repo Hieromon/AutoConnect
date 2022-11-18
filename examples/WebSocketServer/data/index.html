@@ -1,0 +1,359 @@
+<!-- WebSocketServer.ino viewer content. Date:2022-11-17 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>ESP-module WiFi Signal Strength</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@1.27.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2"></script>
+  <style>
+.nav-wrap {
+    position: absolute;
+    top: 0;
+    right: 0; 
+}
+
+.nav-bottom * {
+  font-size: 90%;
+  text-align: center;
+  display: block;
+  position: fixed;
+  bottom: 50px;
+  transform: translate(-50%, 0);
+  left: 50%;
+}
+
+#nav-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 99;
+  width: 280px;
+  min-width: 20%;
+  height: 100%;
+  font-family: sans-serif;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.7);
+  transition: 0.5s;
+  transform: translateX(100%);
+}
+
+#nav-content ul.nav-item {
+  padding: 0;
+  list-style: none;
+  border: none;
+  position: absolute;
+  width: 100%;
+  top: 30%;
+  transform: translateY(-50%);
+}
+
+#nav-content li *, .nav-bottom * {
+  cursor: pointer;
+  padding: 8px;
+  text-decoration: none;
+  color: #d3d0d0;
+  display: inline-block;
+  transition: 0.3s;
+  vertical-align: middle;
+}  
+
+#nav-content li input, #nav-content li select {
+  color: rgb(0,0,0);
+  margin-right: 5px;
+  width: 100px;
+}
+
+#nav-content li input[type="range"] {
+  padding: 0;
+}
+
+#nav-content li input[type="checkbox"] {
+  width: auto;
+}
+
+#nav-checkbox:checked ~ #nav-content {
+  transform: translateX(0);
+  box-shadow: 6px 0 24px rgba(0, 0, 0, 0.16);
+}
+
+#nav-close {
+  display: none;
+  position: fixed;
+  z-index: 98;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0;
+  transition: 0.5s;
+}
+#nav-checkbox:checked ~ #nav-close {
+  display: block;
+}
+
+#nav-checkbox {
+  display: none;
+}
+
+#nav-icon {
+  cursor: pointer;
+  display: inline-block;
+  height: 50px;
+  position: fixed;
+  width: 50px;
+  right: 17px;
+  top: 14px;
+  z-index: 100; 
+}
+
+#nav-icon span {
+    background: #333;
+    display: block;
+    height: 3px;
+    left: 50%;
+    margin: -8% 0 0 -42%;
+    position: absolute;
+    top: 46%;
+    transition: 0.3s;
+    width: 84%;
+}
+
+#nav-icon span::before,
+#nav-icon span::after {
+  -webkit-transform: rotate(0);
+    background: #333;
+    content: "";
+    display: block;
+    height: 100%;
+    left: 50%;
+    margin: -8% 0 0 -50%;
+    position: absolute;
+    top: 50%;
+    transform: rotate(0);
+    transition: 0.3s;
+    width: 100%;
+}
+
+#nav-icon span::before {
+  margin-top: -13px;
+}
+
+#nav-icon span::after {
+  margin-top: 10px;
+}
+
+#nav-checkbox:checked ~ #nav-icon span {
+  background: rgba(51, 51, 51, 0);
+}
+
+#nav-checkbox:checked ~ #nav-icon span::before,
+#nav-checkbox:checked ~ #nav-icon span::after {
+  content: "";
+  display: block;
+  height: 100%;
+  left: 50%;
+  margin: -8% 0 0 -42%;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+#nav-checkbox:checked ~ #nav-icon span::before {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+#nav-checkbox:checked ~ #nav-icon span::after {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <input id="nav-checkbox" type="checkbox">
+    <label id="nav-icon" for="nav-checkbox"><span></span></label>
+    <label id="nav-close" for="nav-checkbox"></label>
+    <div id="nav-content">
+      <ul class="nav-item">
+        <li><input type="range" id="period" min="3" max="60" value="3"><label for="period">Sampling period</label></li>
+        <li><input type="range" id="duration" min="20" max="180" value="180"><label for="duration">Chart duration</label></li>
+        <li><label for="interpolation">Interpolation</label><select id="interpolation">
+          <option value="default">Default</option>
+          <option value="monotone">Monotone</option>
+        </select></li>
+        <li><label for="spangaps">Span gaps</label><input type="checkbox" id="spangaps"></li>
+      </ul>
+      <div class="nav-bottom">
+        <a href="/_ac">AutoConnet settings</a>
+      </div>
+    </div>
+  </div>
+  <div id="content">
+    <canvas id="rssi-chart"></canvas>
+  </div>
+  <script type="text/javascript">
+var rssi;
+
+// Graph Chart implementation relies on Chart.js. It is also enhanced with the
+// Char.js plugin for streaming and zooming.
+// For more information on Chart.js and plug-ins for it, refer to the following URL:
+//  - Chart.js: https://www.chartjs.org/
+//  - Streaming plugin: https://nagix.github.io/chartjs-plugin-streaming/latest/
+//  - Zoom and pan plugin: https://www.chartjs.org/chartjs-plugin-zoom/latest/
+const data = {
+  datasets: [
+    {
+      label: 'dBm',
+      spanGaps: false,
+      pointRadius: 0,
+      pointHoverRadius: 4,
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+      borderColor: 'rgb(54, 162, 235)',
+      cubicInterpolationMode: 'default',
+      data: []
+    }
+  ]
+};
+
+const config = {
+  type: 'line',
+  data: data,
+  options: {
+    responsive: true,
+    scales: {
+      x: {
+        type: 'realtime',
+        realtime: {
+          duration: 180000,
+          refresh: 3000,
+          delay: 3000,
+          frameRate: 15,
+          onRefresh: (chart) => {
+            chart.data.datasets.forEach(dataset => {
+              dataset.data.push({
+                x: Date.now(),
+                y: rssi
+              });
+              chart.update('quiet');
+              rssi = null;
+            });
+          }
+        }
+      },
+      y: {
+        suggestedMin: -100,
+        suggestedMax: -20
+      }
+    },
+    interaction: {
+      intersect: false
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'ESP-module WiFi Signal Strength'
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'x'
+        },
+        zoom: {
+          pinch: {
+            enabled: true
+          },
+          wheel: {
+            enabled: true
+          },
+          mode: 'x'
+        },
+        limits: {
+          x: {
+            minDelay: 0,
+            maxDelay: 2000,
+            minDuration: 1000,
+            maxDuration: 180000
+          }
+        }
+      }
+    }
+  }
+};
+
+const rssiChart = new Chart(document.getElementById("rssi-chart"), config);
+
+// There are two types of setting parameters in the navigation menu: those are
+// completed within the content and change the settings on the ESP module side.
+// Settings for display duration, interpolation, and measurement completion can
+// be completed on the client side by changing the Chart.js configuration, and
+// nothing to communicate with the server.
+// On the other hand, changes in a sampling rate setting are notified to the ESP
+// module side via WebSocket messages.
+// Each of the configuration change event listeners below either updates the
+// Chart.js config or notifies the ESP module of the changed value via WebSocket.
+document.getElementById("period").addEventListener("change", (e) => {
+  let pd = parseInt(e.target.value) * 1000;
+  if (ws.readyState == 1) {
+    ws.send(JSON.stringify({ period: pd }));
+    config.options.scales.x.realtime.refresh = pd + 1000;
+    config.options.scales.x.realtime.duration = pd * 60;
+    config.options.plugins.zoom.limits.x.maxDuration = config.options.scales.x.realtime.duration;
+    rssiChart.update('quiet');
+  }
+});
+
+document.getElementById("duration").addEventListener("change", (e) => {
+  config.options.scales.x.realtime.duration = parseInt(e.target.value) * 1000;
+  rssiChart.update('quiet');
+});  
+
+document.getElementById("interpolation").addEventListener("change", (e) => {
+  data.datasets[0].cubicInterpolationMode = e.target.value;
+  rssiChart.update('quiet');
+});  
+
+document.getElementById("spangaps").addEventListener("change", (e) => {
+  data.datasets[0].spanGaps = e.target.checked;
+  rssiChart.update('quiet');
+});
+
+var ws;
+
+function wsConnect() {
+  ws = new WebSocket("ws://" + location.hostname + ":3000/");
+  
+  ws.onmessage = (e) => {
+    console.log(`on message:${e.data}`);
+    rssi = JSON.parse(e.data)["rssi"];
+  };
+
+  ws.onclose = (e) => {
+    const reconnectInterval = 3000;
+    console.log(`ws is closed(${e.code}) ${e.reason}, reconnect after ${reconnectInterval} msec.`);
+    setTimeout(() => {
+      wsConnect();
+    }, reconnectInterval);
+  };
+  
+  ws.onerror = (e) => {
+    console.log(e.message);
+    ws.close();
+  };
+}
+
+wsConnect();
+</script>
+</body>
+</html>
