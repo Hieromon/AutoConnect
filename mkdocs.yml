@@ -82,7 +82,7 @@ theme:
 extra_css:
   - css/paragraph.css
   - css/extra.css
-  - https://use.fontawesome.com/releases/v5.6.3/css/all.css
+  - https://use.fontawesome.com/releases/v5.14.0/css/all.css
 extra_javascript:
   - js/gifffer.min.js
 extra:
@@ -100,12 +100,7 @@ markdown_extensions:
   - admonition
   - attr_list
   - def_list
-  - pymdownx.highlight:
-      guess_lang: false
-      linenums: none
-      use_pygments: true
-      noclasses: true
-      pygments_style: monokai
+  - fontawesome_markdown
   - footnotes
   - pymdownx.betterem:
       smart_enable: all
@@ -115,6 +110,12 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      guess_lang: false
+      linenums: none
+      use_pygments: true
+      noclasses: true
+      pygments_style: monokai
   - pymdownx.inlinehilite
   - pymdownx.magiclink:
       repo_url_shorthand: true
