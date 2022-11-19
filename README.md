@@ -85,7 +85,7 @@ Alter the platform applying the [arduino-esp32](https://github.com/espressif/ard
 
 Most simple approach to applying AutoConnect for the existing sketches, follow the below steps.
 
-<img src="mkdocs/images/beforeafter.png">
+<img src="mkdocs/images/beforeafter.jpg">
 
 ## More usages and Documentation
 
