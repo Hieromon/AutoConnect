@@ -115,7 +115,7 @@ jobs:
         if: matrix.library.name == 'ArduinoJsonV6'
         run: |
           echo "BUILD_SKETCHES<<EOF" >> $GITHUB_ENV
-          echo "${{ env.SKETCHES_V6_JSON }}" >> $GITHUB_ENV
+          echo "${{ env.BUILD_SKETCHES }}${{ env.SKETCHES_V6_JSON }}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Create sketches list
