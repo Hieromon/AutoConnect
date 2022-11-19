@@ -74,6 +74,9 @@
 // The JSON format is applied to the message body of the WebSocket communication.
 // The ArduinoJson library improves the convenience of sketch coding.
 #include <ArduinoJson.h>
+#if ARDUINOJSON_VERSION_MAJOR < 6
+#error "Requires ArduinoJson version 6 or later"
+#endif
 
 #ifdef AUTOCONNECT_USE_LITTLEFS
 #include <LittleFS.h>

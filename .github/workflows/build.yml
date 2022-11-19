@@ -40,6 +40,8 @@ env:
     Simple
     Update
     WebUpdate
+
+  SKETCHES_V6_JSON: |
     WebSocketServer
 
   SKETCHES_WO_JSON: |
@@ -107,6 +109,13 @@ jobs:
         run: |
           echo "BUILD_SKETCHES<<EOF" >> $GITHUB_ENV
           echo "${{ env.SKETCHES }}${{ env.SKETCHES_WO_JSON }}${{ env.SKETCHES_ESP32 }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Include sketches dependent on ArduinoJson V6
+        if: matrix.library.name == 'ArduinoJsonV6'
+        run: |
+          echo "BUILD_SKETCHES<<EOF" >> $GITHUB_ENV
+          echo "${{ env.SKETCHES_V6_JSON }}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Create sketches list
