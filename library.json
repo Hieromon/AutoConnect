@@ -22,7 +22,10 @@
     "espressif8266",
     "espressif32"
   ],
-  "version": "1.3.7",
+  "version": "1.4.0",
   "license": "MIT",
-  "headers": "AutoConnect.h"
+  "headers": [
+    "AutoConnect.h",
+    "AutoConnectCore.h"
+  ]
 }

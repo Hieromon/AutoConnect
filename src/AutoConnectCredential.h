@@ -1,10 +1,10 @@
 /**
- *  Declaration of AutoConnectCredential class.
- *  @file AutoConnectCredential.h
- *  @author hieromon@gmail.com
- *  @version  1.2.0
- *  @date 2020-04-22
- *  @copyright  MIT license.
+ * Declaration of AutoConnectCredential class.
+ * @file AutoConnectCredential.h
+ * @author hieromon@gmail.com
+ * @version  1.4.0
+ * @date 2022-09-20
+ * @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTCREDENTIAL_H_
@@ -19,6 +19,7 @@
 #define AUTOCONNECT_USE_PREFERENCES
 
 #include <Arduino.h>
+#include <type_traits>
 #include <memory>
 #if defined(ARDUINO_ARCH_ESP8266)
 #define AC_CREDENTIAL_PREFERENCES 0
@@ -33,7 +34,9 @@ extern "C" {
 #endif
 #include <esp_wifi.h>
 #endif
+#include <SD.h>
 #include "AutoConnectDefs.h"
+#include "AutoConnectFS.h"
 
 /**
  * Credential storage area offset specifier in EEPROM.
@@ -76,6 +79,7 @@ typedef struct {
 
 class AutoConnectCredentialBase {
  public:
+  // explicit AutoConnectCredentialBase() : _entries(0), _containSize(0), _ensureFS(false) {}
   explicit AutoConnectCredentialBase() : _entries(0), _containSize(0) {}
   virtual ~AutoConnectCredentialBase() {}
   virtual uint8_t entries(void) { return _entries; }
@@ -84,6 +88,8 @@ class AutoConnectCredentialBase {
   virtual int8_t  load(const char* ssid, station_config_t* config) = 0;
   virtual bool    load(int8_t entry, station_config_t* config) = 0;
   virtual bool    save(const station_config_t* config) = 0;
+  virtual bool    backup(Stream& out) = 0;
+  virtual bool    restore(Stream& in) = 0;
 
  protected:
   virtual void  _allocateEntry(void) = 0; /**< Initialize storage for credentials. */
@@ -107,11 +113,19 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   int8_t  load(const char* ssid, station_config_t* config) override;
   bool    load(int8_t entry, station_config_t* config) override;
   bool    save(const station_config_t* config) override;
+  bool    backup(Stream& out) override;
+  bool    restore(Stream& in) override;
 
  protected:
   void    _allocateEntry(void) override;  /**< Initialize storage for credentials. */
 
  private:
+  typedef struct __attribute__((__packed__)) {
+    uint8_t ac_credt[sizeof(AC_IDENTIFIER) - sizeof('\0')];
+    uint8_t e;
+    uint16_t ss;
+  } AC_CREDTHEADER_t;       /**< Header of AutConnectCredential */
+
   void    _retrieveEntry(station_config_t* config);   /**< Read an available entry. */
 
   int       _dp;            /**< The current address in EEPROM */
@@ -146,6 +160,8 @@ class AutoConnectCredential : public AutoConnectCredentialBase {
   int8_t  load(const char* ssid, station_config_t* config) override;
   bool    load(int8_t entry, station_config_t* config) override;
   bool    save(const station_config_t* config) override;
+  bool    backup(Stream& out) override;
+  bool    restore(Stream& in) override;
 
  protected:
   void    _allocateEntry(void) override;  /**< Initialize storage for credentials. */

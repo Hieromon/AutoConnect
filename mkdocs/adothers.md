@@ -23,7 +23,7 @@ See the [Updates with the Web Browser](otabrowser.md) chapter for details.
 
 For ESP8266, since the Arduino core v2.7.0, SPIFFS has deprecated and the migration to [**LittleFS**](https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html?highlight=littleFS#spiffs-deprecation-warning) is being promoted currently. AutoConnect has adopted LittleFS as the default filesystem to follow the core standard.
 
-However, SPIFFS is still valid. AutoConnect can correctly compile and execute sketches made with SPIFFS assumed. When you make an AutoConnect sketch with SPIFFS enabled, you need to change the macro definition that [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L39) has.  
+However, SPIFFS is still valid. AutoConnect can correctly compile and execute sketches made with SPIFFS assumed. When you make an AutoConnect sketch with SPIFFS enabled, you need to change the macro definition that [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L61) has.  
 **AC_USE_SPIFFS** definition will enable SPIFFS as the filesystem.
 
 ```cpp
@@ -57,7 +57,7 @@ AutoConnect does not automatically start the Serial even if AC_DEBUG is activate
 
 The [built-in OTA update feature](otabrowser.md) can update the firmware as well as upload regular files placed in the file system on the ESP module. It allows a regular file is uploaded via OTA using the [**Update**](menu.md#update) of AutoConnect menu without adding a particular custom Web page that contains AutoConnectFile. This ability is useful for transferring the JSON document of the custom web page definition, the external parameter file of your sketch, and so on into the target ESP module via OTA.
 
-The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, a filename with ends a **`.bin`** extension is subject to firmware updates. A file that has the other extension will be saved as a regular to the filesystem in the flash. The file extension that should be treated as the firmware is defined as the [`AUTOCONNECT_UPLOAD_ASFIRMWARE`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L280) macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file of the library source code. When dealing with another extension for the updating file as firmware change this macro definition.
+The built-in OTA update feature determines where to save the uploaded file according to the filename pattern. By default, a filename with ends a **`.bin`** extension is subject to firmware updates. A file that has the other extension will be saved as a regular to the filesystem in the flash. The file extension that should be treated as the firmware is defined as the [`AUTOCONNECT_UPLOAD_ASFIRMWARE`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L337-#L343) macro in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file of the library source code. When dealing with another extension for the updating file as firmware change this macro definition.
 
 ```cpp
 #define AUTOCONNECT_UPLOAD_ASFIRMWARE ".bin"
@@ -192,7 +192,7 @@ The AutoConnect ticker indicates the WiFi connection status in the following thr
 - Short-on and long-off: No STA connection state. (i.e. WiFi.status != WL_CONNECTED)
 - No blink: WiFi connection with access point established and data link enabled. (i.e. WiFi.status = WL_CONNECTED)
 
-The flicker cycle length is defined by some macros in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L180) header file.
+The flicker cycle length is defined by some macros in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L239-#L255) header file.
 
 ```cpp
 #define AUTOCONNECT_FLICKER_PERIODAP  1000 // [ms]

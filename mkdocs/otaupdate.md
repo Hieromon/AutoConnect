@@ -1,3 +1,6 @@
+!!! info "Only for AutoConnect"
+    AutoConnect OTA features are valid only for AutoConnect; they are not available for [AutoConnectCore](basicusage.md#basicusage.md#reducing-binary-size).
+
 ## OTA Updates with AutoConnect
 
 AutoConnect provides **two type platforms** for updating the binary sketch in the ESP8266 or ESP32 module via OTA. They correspond to the [Web Browser Update](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#web-browser) and [HTTP Server Update](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#http-server) whiches mentioned in the [ESP8266 Arduino Core documentation](https://arduino-esp8266.readthedocs.io/en/latest/ota_updates/readme.html#ota-updates).

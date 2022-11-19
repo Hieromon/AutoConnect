@@ -9,6 +9,7 @@ The configuration settings for the network that can be set by AutoConnect is as 
 - [Relocate the AutoConnect home path](#relocate-the-autoconnect-home-path)
 - [SoftAP access point IP settings](#softap-access-point-ip-settings)
 - [Static IP assignment as a client](#static-ip-assignment-as-a-client)
+- [Static IP preservation](#static-ip-preservation)
 - [Station hostname](#station-hostname)
 
 ## 404 handler
@@ -24,11 +25,11 @@ Registering the Not-found handler is a different method than for ESP8266WebServe
 The Sketch HOME path is closely related to the [bootUri](apiconfig.md#booturi) that specifies the access path on module restart. AutoConnect has the following three parameters concerning control the URIs:
 
 - **AUTOCONNECT_URI**  
-    The **ROOT** URI of AutoConnect. It is defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L93) file and is assigned to [AutoConnect statistics screen](menu.md#where-the-from) by default.
+    The **ROOT** URI of AutoConnect. It is defined in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L113) file and is assigned to [AutoConnect statistics screen](menu.md#where-the-from) by default.
 - [**AutoConnectConfig::homeUri**](apiconfig.md#homeuri)  
     It is the hyperlink of listed on the AutoConnect menu as **HOME**.
 - [**AutoConnectConfig::bootUri**](apiconfig.md#booturi)  
-    Which page appears at the captive portal, AUTOCONNECT_URI, or the homeUri. Its page will pop up automatically when you visit the captive portal.
+    Which page appears at the captive portal, `AUTOCONNECT_URI`, or the homeUri. Its page will pop up automatically when you visit the captive portal.
 
 | The definition of **HOME** | Behavior | Specified by | Default value | Possible value |
 |---|---|---|---|---|
@@ -109,7 +110,7 @@ portal.begin();
 
 ## Relocate the AutoConnect home path
 
-A home path of AutoConnect is **/\_ac** by default. You can access from the browser with `http://IPADDRESS_OF_ESP_MODULE/_ac`. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L69) macro in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
+A home path of AutoConnect is **/\_ac** by default. You can access from the browser with `http://IPADDRESS_OF_ESP_MODULE/_ac`. You can change the home path by revising [**AUTOCONNECT_URI**](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L113) macro in [`AutoConnectDefs.h`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
 
 ```cpp
 #define AUTOCONNECT_URI         "/_ac"
@@ -148,13 +149,52 @@ The above parameters must be set using [AutoConnect::config](apiconfig.md) prior
 ```cpp
 AutoConnect        portal;
 AutoConnectConfig  Config;
-Config.staip = IPAddress(192,168,1,10);
-Config.staGateway = IPAddress(192,168,1,1);
-Config.staNetmask = IPAddress(255,255,255,0);
+Config.staip = IPAddress(192, 168, 1, 10);
+Config.staGateway = IPAddress(192, 168, 1, 1);
+Config.staNetmask = IPAddress(255, 255, 255, 0);
 Config.dns1 = IPAddress(192,168,1,1);
 portal.config(Config);
 portal.begin();
 ```
+
+## Static IP preservation
+
+Prioritizing the station IP configuration specified in [AutoConnectConfig](#static-ip-assignment-as-a-client) over the existing configuration must be accompanied by an explicit indication via the [*AutoConnectConfig::preserveIP*](apiconfig.md#preserveip). The [*AutoConnectConfig::preserveIP*](apiconfig.md#preserveip) setting allows AutoConnect to override existing credentials applied at reconnecting with static IP assignments made with the [*AutoConnectConfig::staip*](apiconfig.md#staip), [*AutoConnectConfig::staGateway*](apiconfig.md#stagateway), and [*AutoConnectConfig::staNetmask*](apiconfig.md#stanetmask) settings. The following sketch shows a use case where the preserveIP setting can override an existing static IP configuration.
+
+```cpp hl_lines="19"
+AutoConnect portal;
+AutoConnectConfig config;
+
+void setup() {
+  // If the connection to the last established AP fails, attempt to
+  // connect to the nearest AP using known credentials.
+  config.autoReconnect = true;
+
+  // Apply the following static IP configuration to reconnect.
+  config.staip = IPAddress(192, 168, 1, 10);
+  config.staGateway = IPAddress(192, 168, 1, 1);
+  config.staNetmask = IPAddress(255, 255, 255, 0);
+  config.dns1 = IPAddress(192, 168, 1, 1);
+
+  // The above settings take precedence over the IP settings of the
+  // stored credentials.
+  // If this value is left false, the station IP configuration contained
+  // in the stored credentials takes precedence.
+  config.preserveIP = true;
+
+  portal.config(config);
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
+Also, an example sketch with UI for static IP configuration using custom web pages is included in the AutoConnect repository as [ConfigIP.ino](https://github.com/Hieromon/AutoConnect/blob/master/examples/ConfigIP/ConfigIP.ino).  This example is useful for overwriting stored IP settings with new IP settings entered from the UI.
+
+!!! info "Background on the need for preserveIP indication"
+    By default, [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) restores IP settings along with a credential. So even if the sketch explicitly specifies the static IP settings with AutoConnectConfig, there are cases where they will not be applied upon reconnection.
 
 ## Station hostname
 

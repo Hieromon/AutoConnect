@@ -65,6 +65,49 @@ AutoConnectCredential(uint16_t offset);
 
 ### <i class="fa fa-code"></i> Public member functions
 
+#### <i class="fa fa-caret-right"></i> backup
+
+```cpp
+bool backup(Stream& out)
+```
+
+Outputs all credentials currently stored by AutoConnect to the stream.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">out</span><span class="apidesc">Output destination stream.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">All credentials were successfully output.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to output.</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> del
+
+```cpp
+bool del(const char* ssid)
+```
+
+Delete a credential the specified SSID.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be deleted.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Successfully deleted.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to delete.</span></dd></dl>
+
+!!! example "Clear saved credentials"
+    There is no particular API for batch clearing of all credential data stored by AutoConnect. It is necessary to prepare a sketch function that combines several AutoConnectCredential APIs  to erase all saved credentials.
+    The following function is an implementation example, and you can use it to achieve batch clearing.
+    
+    ```cpp
+    void deleteAllCredentials(void) {
+      AutoConnectCredential credential;
+      station_config_t config;
+      uint8_t ent = credential.entries();
+
+      while (ent--) {
+        credential.load(0, &config);
+        credential.del((const char*)&config.ssid[0]);
+      }
+    }
+    ```
+
 #### <i class="fa fa-caret-right"></i> entries
 
 ```cpp
@@ -101,6 +144,19 @@ Load a credential entry and store to **config**.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>Save the specified credential entry to `station_config_t` pointed to by the parameter as **config**. -1 is returned if specified number is not saved.</dd></dl>
 
+#### <i class="fa fa-caret-right"></i> restore
+
+```cpp
+bool restore(Stream& in)
+```
+
+The credentials data saved by the backup function is input from Storm and saved as AutoConnect credentials.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">in</span><span class="apidesc">An input stream of a file containing credential data saved with the [backup](#backup) function.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Credentials successfully restored.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to restore.</span></dd></dl>
+
 #### <i class="fa fa-caret-right"></i> save
 
 ```cpp
@@ -113,36 +169,6 @@ Save a credential entry.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">Successfully saved.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Failed to save.</span></dd></dl>
-
-#### <i class="fa fa-caret-right"></i> del
-
-```cpp
-bool del(const char* ssid)
-```
-
-Delete a credential the specified SSID.<dl class="apidl">
-    <dt>**Parameter**</dt>
-    <dd><span class="apidef">ssid</span><span class="apidesc">SSID to be deleted.</span></dd>
-    <dt>**Return value**</dt>
-    <dd><span class="apidef">true</span><span class="apidesc">Successfully deleted.</span></dd>
-    <dd><span class="apidef">false</span><span class="apidesc">Failed to delete.</span></dd></dl>
-
-!!! example "Clear saved credentials"
-    There is no particular API for batch clearing of all credential data stored by AutoConnect. It is necessary to prepare a sketch function that combines several AutoConnectCredential APIs  to erase all saved credentials.
-    The following function is an implementation example, and you can use it to achieve batch clearing.
-    
-    ```cpp
-    void deleteAllCredentials(void) {
-      AutoConnectCredential credential;
-      station_config_t config;
-      uint8_t ent = credential.entries();
-
-      while (ent--) {
-        credential.load(0, &config);
-        credential.del((const char*)&config.ssid[0]);
-      }
-    }
-    ```
 
 ## The data structures
 

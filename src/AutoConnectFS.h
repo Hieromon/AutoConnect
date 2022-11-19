@@ -2,8 +2,8 @@
  * Predefined file system applied for AutoConnect usage.
  * @file AutoConnectFS.h
  * @author hieromon@gmail.com
- * @version  1.3.5
- * @date 2022-06-03
+ * @version  1.4.0
+ * @date 2022-09-20
  * @copyright  MIT license.
  */
 
@@ -72,6 +72,16 @@ extern "C" {
 
 // Deploy the file class for the AutoConnect scope.
 namespace AutoConnectFS {
+  // Types branching to be code commonly for the file system classes with
+  // ESP8266 and ESP32.
+  #if defined(ARDUINO_ARCH_ESP8266)
+  using SDClassT = SDClass;   // SD:File system class
+  using SDFileT = File;       // SD:File class
+  #elif defined(ARDUINO_ARCH_ESP32)
+  using SDClassT = fs::SDFS;
+  using SDFileT = SDFile;
+  #endif
+
   using FS = AUTOCONNECT_APPLIED_FILECLASS;
   inline bool _isMounted(AutoConnectFS::FS* filesystem) {
 #if defined(ARDUINO_ARCH_ESP8266)

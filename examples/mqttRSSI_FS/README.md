@@ -14,7 +14,9 @@ Then open Arduino IDE and load mqttRSSI_FS sketch from the menu using **File > E
 The data folder under the mqttRSSI_FS holds the following three files:
 
 - `mqtt_setting.json`: JSON description of custom web page that should be assigned to the uri: `/mqtt_setting`.
-- `mqtt_save.json`: JSON description of custom web page that should be assigned to uri:`/mqtt_save`.
+- `mqtt_start.json`: JSON description of custom web page that should be assigned to uri:`/mqtt_start`.
+- `mqtt_stop.json`: JSON description of custom web page that should be assigned to uri:`/mqtt_stop`.
+- `mqtt_clear.json`: JSON description of custom web page that should be assigned to uri:`/mqtt_clear`.
 - `param.json`: The default values for the public channel settings on Thingspeak.com. This file keeps the values you will set.
 
 To upload these files, choose Data Upload from Arduino IDE menu via **Tools > ESP8266 LittleFS Data Upload** or **one of the Upload** that fits your module.

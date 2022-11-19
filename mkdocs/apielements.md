@@ -1,3 +1,6 @@
+!!! info "Only for AutoConnect"
+    The following AutoConnectElements are valid only for AutoConnect; they are not available for [AutoConnectCore](basicusage.md#using-autoconnectcore-without-custom-web-pages-and-ota-update-facilities).
+
 ## AutoConnectButton
 
 ### <i class="fa fa-code"></i> Constructor

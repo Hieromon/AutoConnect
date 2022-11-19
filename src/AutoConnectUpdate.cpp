@@ -1,9 +1,9 @@
 /**
  * AutoConnectUpdate class implementation.
- * @file   AutoConnectUpdate.cpp
+ * @file AutoConnectUpdate.cpp
  * @author hieromon@gmail.com
- * @version    1.3.6
- * @date   2022-07-25
+ * @version 1.4.0
+ * @date 2022-07-25
  * @copyright  MIT license.
  */
 
@@ -121,7 +121,7 @@ AutoConnectUpdateAct::~AutoConnectUpdateAct() {
  * the AutoConnect which is the bedrock of the process.
  * @param  portal   A reference of AutoConnect
  */
-void AutoConnectUpdateAct::attach(AutoConnect& portal) {
+void AutoConnectUpdateAct::attach(AutoConnectExt<AutoConnectConfigExt>& portal) {
   AutoConnectAux* updatePage;
 
   updatePage = new AutoConnectAux(String(FPSTR(_pageCatalog.uri)), String(FPSTR(_pageCatalog.title)), _pageCatalog.menu);

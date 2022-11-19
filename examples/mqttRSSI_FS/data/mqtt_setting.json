@@ -57,7 +57,7 @@
       "type": "ACText",
       "value": "MQTT Device Credentials",
       "style": "font-weight:bold;color:#1e81b0",
-      "posterior": "div" 
+      "posterior": "div"
     },
     {
       "name": "clientid",
@@ -92,33 +92,34 @@
         "180 sec."
       ],
       "label": "Update period",
-      "arrange": "vertical"
-    },
-    {
-      "name": "uniqueid",
-      "type": "ACCheckbox",
-      "value": "unique",
-      "label": "Use APID unique",
-      "checked": false
+      "arrange": "vertical",
+      "global": true
     },
     {
       "name": "hostname",
       "type": "ACInput",
       "value": "",
       "label": "ESP host name",
-      "pattern": "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,24}$"
+      "pattern": "^([a-zA-Z0-9]([a-zA-Z0-9-])*[a-zA-Z0-9]){1,24}$",
+      "global": true
     },
     {
       "name": "save",
       "type": "ACSubmit",
       "value": "Save&amp;Start",
-      "uri": "/mqtt_save"
+      "uri": "/mqtt_start"
     },
     {
       "name": "discard",
       "type": "ACSubmit",
       "value": "Discard",
       "uri": "/"
+    },
+    {
+      "name": "stop",
+      "type": "ACSubmit",
+      "value": "Stop publishing",
+      "uri": "/mqtt_stop"
     }
   ]
 }

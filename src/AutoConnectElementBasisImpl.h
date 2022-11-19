@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.6
- * @date 2022-07-27
+ * @version  1.4.0
+ * @date 2022-08-01
  * @copyright  MIT license.
  */
 
@@ -60,7 +60,7 @@ const String AutoConnectElementBasis::posterior(const String& s) const {
   if (elm) {
     snprintf_P(elm, elmLen, elmTempl, s.c_str());
     html = String(elm);
-    delete elm;
+    delete[] elm;
   }
   return html;
 }
@@ -84,7 +84,7 @@ const String AutoConnectButtonBasis::toHTML(void) const {
     if (elmButton) {
       snprintf_P(elmButton, elmLen, elmButtonTempl, (PGM_P)tagButton, (PGM_P)tagButton, name.c_str(), name.c_str(), value.c_str(), action.c_str(), value.c_str(), (PGM_P)tagButton);
       html = AutoConnectElementBasis::posterior(String(elmButton));
-      delete elmButton;
+      delete[] elmButton;
     }
   }
   return html;
@@ -137,11 +137,11 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
     if (elmCheckbox) {
       snprintf_P(elmCheckbox, elmLen, elmCheckboxTempl, elmLabelPre, name.c_str(), name.c_str(), value.c_str(), applyChecked, elmLabelPost);
       html = AutoConnectElementBasis::posterior(String(elmCheckbox));
-      delete elmCheckbox;
+      delete[] elmCheckbox;
     }
 
     if (elmLabel)
-      delete elmLabel;
+      delete[] elmLabel;
   }
   return html;
 }
@@ -182,11 +182,11 @@ const String AutoConnectFileBasis::toHTML(void) const {
     if (elmFile) {
       snprintf_P(elmFile, elmLen, elmFileTempl, elmLabelPre, name.c_str(), name.c_str());
       html = AutoConnectElementBasis::posterior(String(elmFile));
-      delete elmFile;
+      delete[] elmFile;
     }
 
     if (elmLabel)
-      delete elmLabel;
+      delete[] elmLabel;
   }
   return html;
 }
@@ -337,19 +337,19 @@ const String AutoConnectInputBasis::toHTML(void) const {
     if (elmInput) {
       snprintf_P(elmInput, elmLen, elmInputTempl, elmLabelPre, attrType, name.c_str(), name.c_str(), attrPattern, attrPlaceholder, attrValue, attrStyle);
       html = AutoConnectElementBasis::posterior(String(elmInput));
-      delete elmInput;
+      delete[] elmInput;
     }
 
     if (applyPattern)
-      delete applyPattern;
+      delete[] applyPattern;
     if (applyPlaceholder)
-      delete applyPlaceholder;
+      delete[] applyPlaceholder;
     if (applyValue)
-      delete applyValue;
+      delete[] applyValue;
     if (applyStyle)
-      delete attrStyle;
+      delete[] attrStyle;
     if (elmLabel)
-      delete elmLabel;
+      delete[] elmLabel;
   }
   return html;
 }
@@ -441,7 +441,7 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       if (elmLabel) {
         snprintf_P(elmLabel, elmLen, elmLabelTempl, (PGM_P)tagLabel, label.c_str(), (PGM_P)tagLabel, applyBr);
         html = String(elmLabel);
-        delete elmLabel;
+        delete[] elmLabel;
       }
     }
 
@@ -464,7 +464,7 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       if (elmRadio) {
         snprintf_P(elmRadio, elmLen, elmRadioTempl, name.c_str(), n, name.c_str(), value.c_str(), applyChecked, (PGM_P)tagLabel, name.c_str(), n, value.c_str(), tagLabel, applyBr, applyTag);
         html += String(elmRadio);
-        delete elmRadio;
+        delete[] elmRadio;
       }
     }
 
@@ -599,19 +599,19 @@ const String AutoConnectRangeBasis::toHTML(void) const {
     if (elmRange) {
       snprintf_P(elmRange, elmLen, elmRangeTempl, elmLabelPre, elmSpanPre, name.c_str(), name.c_str(), value, min, max, attrStep, attrStyle, attrOninput, elmSpanPost);
       html = AutoConnectElementBasis::posterior(String(elmRange));
-      delete elmRange;
+      delete[] elmRange;
     }
     
     if (elmLabel)
-      delete elmLabel;
+      delete[] elmLabel;
     if (elmSpan)
-      delete elmSpan;
+      delete[] elmSpan;
     if (applyOninput)
-      delete applyOninput;
+      delete[] applyOninput;
     if (applyStep)
-      delete applyStep;
+      delete[] applyStep;
     if (applyStyle)
-      delete applyStyle;
+      delete[] applyStyle;
   }
   return html;
 }
@@ -695,7 +695,7 @@ const String AutoConnectSelectBasis::toHTML(void) const {
         snprintf_P(elmOption, elmOptionLen, elmOptionTempl, option.c_str(), applySelected, option.c_str());
         elmOptions += String(elmOption);
         elmLen += strlen(elmOption);
-        delete elmOption;
+        delete[] elmOption;
       }
     }
 
@@ -706,11 +706,11 @@ const String AutoConnectSelectBasis::toHTML(void) const {
 
     elmOptions.~String();
     if (elmLabel)
-      delete elmLabel;
+      delete[] elmLabel;
 
     if (elmSelect) {
       html = AutoConnectElementBasis::posterior(String(elmSelect));
-      delete elmSelect;
+      delete[] elmSelect;
     }
   }
   return html;
@@ -742,7 +742,7 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
     if (elmSubmit) {
       snprintf_P(elmSubmit, elmLen, elmSubmitTempl, name.c_str(), value.c_str(), uri.c_str());
       html = AutoConnectElementBasis::posterior(String(elmSubmit));
-      delete elmSubmit;
+      delete[] elmSubmit;
     }
   }
   return html;
@@ -766,7 +766,7 @@ const String AutoConnectTextBasis::toHTML(void) const {
       if (buffer) {
         snprintf(buffer, buflen, format.c_str(), value.c_str());
         value_f = String(buffer);
-        delete buffer;
+        delete[] buffer;
       }
     }
 
@@ -820,11 +820,11 @@ const String AutoConnectTextBasis::toHTML(void) const {
     if (elmText) {
       snprintf_P(elmText, elmLen, elmTextTempl, applyTag, name.c_str(), attrStyle, value_f.c_str(), applyTag, elmBr);
       html = String(elmText);
-      delete elmText;
+      delete[] elmText;
     }
 
     if (applyStyle)
-      delete applyStyle;
+      delete[] applyStyle;
   }
   return html;
 }

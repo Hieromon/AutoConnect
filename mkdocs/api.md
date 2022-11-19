@@ -1,17 +1,34 @@
 ## <i class="fa fa-code"></i> Include headers
 
+The AutoConnect class is limited in its available APIs by the AutoConnect component it contains. The `AutoConnect.h` header file makes all AutoConnect features available. On the other hand, the `AutoConnectCore.h` header file does not include extensions such as custom web pages or OTAs; AutoConnectCore.h reduces memory consumption by limiting functionality to WiFi connectivity utilities only. See the [Reducing Binary Size](basicusage.md#reducing-binary-size) chapter for details.
+
 ### AutoConnect.h
+
+<p class="badge"><img src="images/tag_ac.png"></p>
 
 ```cpp
 #include <AutoConnect.h>
 ```
+
+`AutoConnect.h` header file provides all AutoConnect features.
+
+### AutoConnectCore.h
+
+<p class="badge"><img src="images/tag_accore.png"></p>
+
+```cpp
+#include <AutoConnectCore.h>
+```
+
+`AutoConnectCore.h` header file provides the AutoConnect class that excludes Custom Web pages and OTA-related components of the AutoConnect features. When you include this header in your sketch, you cannot use the AutoConnectAux, AutoConnectElements, AutoConnectOTA, and AutoConnectUpdate classes.
 
 ## <i class="fa fa-code"></i> Defined macros
 
 They contain in ```AutoConnectDefs.h```.
 
 ```cpp
-#define AC_USE_SPIFFS                           // Use SPIFFS for the file system on the onboard flash, assumes LittleFS if not defined.
+#define AC_USE_SPIFFS                           // Use SPIFFS for the file system on the onboard flash
+#define AC_USE_LITTLEFS                         // Use LittleFS for the file system on the onboard fash
 #define AC_DEBUG                                // Monitor message output activation
 #define AC_DEBUG_PORT           Serial          // Default message output device
 #define AUTOCONNECT_AP_IP       0x011CD9AC      // Default SoftAP IP
@@ -38,6 +55,8 @@ They contain in ```AutoConnectDefs.h```.
 ## <i class="fa fa-code"></i> Constructors
 
 ### AutoConnect
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 AutoConnect()
@@ -67,6 +86,8 @@ Run the AutoConnect site using the externally ensured ESP8266WebServer for ESP82
 ## <i class="fa fa-code"></i> Public member functions
 
 ### <i class="fa fa-caret-right"></i> append
+
+<p class="badge"><img src="images/tag_ac.png"></p>
 
 - ESP8266/ESP32 Common
 
@@ -101,6 +122,8 @@ Returns the pointer to created AutoConnectAux instance, the `nullptr` if an Auto
 
 ### <i class="fa fa-caret-right"></i> aux
 
+<p class="badge"><img src="images/tag_ac.png"></p>
+
 ```cpp
 AutoConnectAux* aux(const String& uri) const
 ```
@@ -113,6 +136,8 @@ Returns a pointer to AutoConnectAux with the URI specified by *uri*. If AutoConn
 </dl>
 
 ### <i class="fa fa-caret-right"></i> begin
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 bool begin()
@@ -143,6 +168,8 @@ The captive portal will not be started if the connection has been established wi
 
 ### <i class="fa fa-caret-right"></i> config
 
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
 ```cpp
 bool config(AutoConnectConfig& config)
 ```
@@ -164,6 +191,8 @@ Set AutoConnect configuration settings.<dl class="apidl">
 
 ### <i class="fa fa-caret-right"></i> detach
 
+<p class="badge"><img src="images/tag_ac.png"></p>
+
 ```cpp
 bool detach(const String& uri)
 ```
@@ -182,6 +211,8 @@ If the request handler registered in the detaching AutoConnectAux is for a legac
 
 ### <i class="fa fa-caret-right"></i> disableMenu
 
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
 ```cpp
 void disableMenu(const uint16_t items)
 ```
@@ -192,6 +223,8 @@ This function only works for AutoConnect primary menu items. It has no effect on
     <dd><span class="apidef">items</span><span class="apidesc">Specify the combined value of **AC_MENUITEM_t** of the items deleting from the AutoConnect menu. It provides the value calculated from the **logical OR** by the AC_MENUITEM_t value of each item. Refer to the [enableMenu](#enablemenu) about AC_MENUITEM_t.</span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> enableMenu
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 void enableMenu(const uint16_t items)
@@ -223,6 +256,8 @@ This function only works for AutoConnect primary menu items. It has no effect on
 
 ### <i class="fa fa-caret-right"></i> end
 
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
 ```cpp
 void end(void)
 ```
@@ -233,6 +268,8 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
     The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
 
 ### <i class="fa fa-caret-right"></i> getEEPROMUsedSize
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 uint16_t getEEPROMUsedSize(void)
@@ -246,6 +283,8 @@ Returns the total amount of memory required to hold the AutoConnect credentials 
     It is available for only ESP8266 use and will return 0 when used with ESP32.
     
 ### <i class="fa fa-caret-right"></i> handleClient
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 void handleClient(void)
@@ -262,6 +301,8 @@ Process the AutoConnect menu interface. The [ESP8266WebServer::handleClient](htt
 
 ### <i class="fa fa-caret-right"></i> handleRequest
 
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
 ```cpp
 void handleRequest(void)
 ```
@@ -273,6 +314,8 @@ Handling for the AutoConnect menu request.
 
 ### <i class="fa fa-caret-right"></i> home
 
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
 ```cpp
 void home(String& uri)
 ```
@@ -282,6 +325,8 @@ Put a user site's home URI. The URI specified by home is linked from "HOME" in t
     <dd><span class="apidef">uri</span><span class="aidesc">A URI string of user site's home path.</span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> host
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 - For ESP8266
 
@@ -312,6 +357,8 @@ Returns the reference of the ESP8266WebServer/WebServer which is allocated in Au
 
 ### <i class="fa fa-caret-right"></i> join
 
+<p class="badge"><img src="images/tag_ac.png"></p>
+
 ```cpp
 void join(AutoConnectAux& aux)
 ```
@@ -327,6 +374,8 @@ Join the AutoConnectAux object to AutoConnect. AutoConnectAux objects can be joi
     <dd><span class="apidef">aux</span><span class="apidesc">Reference to AutoConnectAux. It can be std::vector of std::reference_wrapper of AutoConnectAux with [list initialization](https://en.cppreference.com/w/cpp/language/list_initialization).</span></dd></dl>
 
 ### <i class="fa fa-caret-right"></i> load
+
+<p class="badge"><img src="images/tag_ac.png"></p>
 
 ```cpp
 bool load(const String& aux)
@@ -359,6 +408,8 @@ Load JSON document of AutoConnectAux which contains AutoConnectElements. If ther
 
 ### <i class="fa fa-caret-right"></i> on
 
+<p class="badge"><img src="images/tag_ac.png"></p>
+
 ```cpp
 bool on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD)
 ```
@@ -379,6 +430,8 @@ Register the handler function of the AutoConnectAux.<dl class="apidl">
     This function effects to AutoConnectAux only. However, it coexists with that of ESP8266WebServer::on or WebServer::on of ESP32. 
 
 ### <i class="fa fa-caret-right"></i> onConnect
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 void onConnect(ConnectExit_ft fn)
@@ -401,6 +454,8 @@ typedef std::function<void(IPaddress& localIP)> ConnectExit_ft
 </dl>
 
 ### <i class="fa fa-caret-right"></i> onDetect
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 void onDetect(DetectExit_ft fn)
@@ -427,6 +482,8 @@ typedef std::function<bool(IPAddress& softapIP)>  DetectExit_ft
 
 ### <i class="fa fa-caret-right"></i> onNotFound
 
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
 - For ESP8266
 
 ```cpp
@@ -445,6 +502,8 @@ Register the handler function for undefined URL request detected.<dl class="apid
 
 ### <i class="fa fa-caret-right"></i> onOTAEnd
 
+<p class="badge"><img src="images/tag_ac.png"></p>
+
 ```cpp
 void onOTAEnd(OTAEndExit_ft fn)
 ```
@@ -461,6 +520,8 @@ typedef std::function<void(void)> OTAEndExit_ft
 ```
 
 ### <i class="fa fa-caret-right"></i> onOTAError
+
+<p class="badge"><img src="images/tag_ac.png"></p>
 
 ```cpp
 void onOTAError(OTAErrorExit_ft fn)
@@ -484,6 +545,8 @@ typedef std::function<void(uint8_t error)> OTAErrorExit_ft
 
 ### <i class="fa fa-caret-right"></i> onOTAProgress
 
+<p class="badge"><img src="images/tag_ac.png"></p>
+
 ```cpp
 void onOTAProgress(OTAProgressExit_ft fn)
 ```
@@ -506,6 +569,8 @@ typedef std::function<void(unsigned int amount, unsigned int size)> OTAProgressE
 
 ### <i class="fa fa-caret-right"></i> onOTAStart
 
+<p class="badge"><img src="images/tag_ac.png"></p>
+
 ```cpp
 void onOTAStart(OTAStartExit_ft fn)
 ```
@@ -520,7 +585,80 @@ An *fn* specifies the function called when the OTA starts. Its prototype declara
 typedef std::function<void(void)> OTAStartExit_ft
 ```
 
+### <i class="fa fa-caret-right"></i> restoreCredential
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+- For ESP8266
+
+```cpp
+bool restoreCredential(const char* filename = "/ac_credt", fs::FS& fs = FS)
+
+```
+
+- For ESP32
+
+```cpp
+bool restoreCredential(const char* filename = "/ac_credt", fs::SPIFFSFS& fs = SPIFFS)
+
+```
+
+```cpp
+bool restoreCredential(const char* filename = "/ac_credt", fs::LittleFSFS& fs = LittleFS)
+
+```
+
+- For using SD
+
+```cpp
+bool restoreCredential<fs::SDFS>(const char* filename, fs::SDFS& fs)
+```
+
+Restore credentials from the file as named `filename` with specified `fs` file system. The file containing the credentials of the restore source must have been saved with the [`AutoConnect::saveCredential`](#savecredential) function.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">filename</span><span class="apidesc">Specify the file from which to restore the credentials. The `filename` must include `/`, the root directory. If this parameter is not specified, `ac_credt` is assumed.</span></dd>
+    <dd><span class="apidef">fs</span><span class="apidesc">Specifies the file system of the source file to be restored. It must be mounted by the `begin` function of the file system concerned.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Credentials has been restored.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to restore the credentials. Current credentials may have been lost.</span></dd></dl>
+
+### <i class="fa fa-caret-right"></i> saveCredential
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+- For ESP8266
+
+```cpp
+bool saveCredential(const char* filename = "/ac_credt", fs::FS& fs = FS)
+```
+
+- For ESP32
+
+```cpp
+bool saveCredential(const char* filename = "/ac_credt", fs::SPIFFSFS& fs)
+```
+
+```cpp
+bool saveCredential(const char* filename = "/ac_credt", fs::LittleFSFS& fs)
+```
+
+- For using SD
+
+```cpp
+bool saveCredential<fs::SDFS>(const char* filename, fs::SDFS& fs)
+```
+
+Saves the current credentials stored by AutoConnect to the specified file. A credential file saved with this function can be treated as input to the [`AutoConnect::restoreCredential`](#restorecredential) function.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">filename</span><span class="apidesc">Specify the file from which to save the credentials. The `filename` must include `/`, the root directory. If this parameter is not specified, `ac_credt` is assumed.</span></dd>
+    <dd><span class="apidef">fs</span><span class="apidesc">Specifies the file system of the destination file to be saved. It must be mounted by the `begin` function of the file system concerned.</span></dd>
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Credentials has been saved.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Failed to save the credentials.</span></dd></dl>
+
 ### <i class="fa fa-caret-right"></i> where
+
+<p class="badge"><img src="images/tag_ac.png"></p>
 
 ```cpp
 String where(void)
@@ -535,6 +673,8 @@ This function is provided to access the fields (ie. the AutoConnectElements) wit
 The **where** function usage is described in the section [*Where to pick up the values*](achandling.md#where-to-pick-up-the-values).
 
 ### <i class="fa fa-caret-right"></i> whileCaptivePortal
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 
 ```cpp
 void whileCaptivePortal(WhileCaptivePortalExit_ft fn)

@@ -64,8 +64,11 @@ onOTAStart	KEYWORD2
 onUpload	KEYWORD2
 reconnectInterval	KEYWORD2
 redirect	KEYWORD2
+referer	KEYWORD2
 release	KEYWORD2
+restoreCredential	KEYWORD2
 save	KEYWORD2
+saveCredential	KEYWORD2
 saveElement	KEYWORD2
 select	KEYWORD2
 setElementValue	KEYWORD2

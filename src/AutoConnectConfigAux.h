@@ -9,22 +9,24 @@
  * AutoConnectAux has.
  * @file AutoConnectConfigAux.h
  * @author hieromon@gmail.com
- * @version  1.3.0
- * @date 2021-05-27
- * @copyright  MIT license.
+ * @version 1.4.0
+ * @date 2022-07-18
+ * @copyright MIT license.
  */
 
 #ifndef _AUTOCONNECTCONFIGAUX_H_
 #define _AUTOCONNECTCONFIGAUX_H_
 
-#include "AutoConnect.h"
-#include "AutoConnectAux.h"
-
-#ifdef AUTOCONNECT_USE_CONFIGAUX
+#include "AutoConnectExt.hpp"
 // AutoConnectConfigAux is an experimental feature that allows 
 // AutoConnectConfig to be persisted and transported. It has been
 // implemented by a custom Web page as AutoConnectAux with a handler
 // that is independent of the existing components of AutoConnect.
+// To enable AutoConnectConfigAux, use the AC_USE_CONFIGAUX macro
+// defined in AutoConnectDefs.h. By default it is disabled.
+// Also, it needs to allow AUTOCONNECT_USE_JSON together.
+#ifdef AUTOCONNECT_USE_CONFIGAUX
+
 // You can access the AutoConnectConfigAux custom web page via the 
 // Config item from the AutoConnect menu, then this page will load the
 // current settings and allows you to change any item. The applied 
@@ -37,7 +39,7 @@
 // AutoConnectConfigAux page.
 // To activate the AutoConnectConfigAux, follow the next procedure with
 // your sketch:
-// 1. Uncommect #define AC_USE_CONFIGAUX in AutoConnectDefs.h
+// 1. Uncomment #define AC_USE_CONFIGAUX in AutoConnectDefs.h
 // 2. Include AutoConnectConfigAux.h header file with your Sketch
 // 3. Declare an AutoConnectConfigAux object globally with your Sketch
 // 4. Join the AutoConnectConfigAux object to AutoConnect using the join function
@@ -53,8 +55,9 @@
 // void loop() {
 //   portal.handleClient();
 // }
-
 #include <type_traits>
+#include "AutoConnectAux.h"
+#include "AutoConnectLabels.h"
 
 class AutoConnectConfigAux : public AutoConnectAux {
  public:
@@ -64,7 +67,7 @@ class AutoConnectConfigAux : public AutoConnectAux {
   ~AutoConnectConfigAux() {}
 
  protected:
-  void  _join(AutoConnect& ac) override;
+  void  _join(AutoConnectExt<AutoConnectConfigExt>& ac) override;
   void  _loadSettings(void);
   void  _retrieveSettings(AutoConnectConfigAux& me);
   void  _restoreSettings(AutoConnectConfigAux& me);

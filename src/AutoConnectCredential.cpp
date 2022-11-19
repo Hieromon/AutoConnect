@@ -2,8 +2,8 @@
  *	AutoConnectCredential class dispatcher.
  *	@file	AutoConnectCredential.cpp
  *	@author	hieromon@gmail.com
- *	@version	1.3.5
- *	@date	2022-04-24
+ *	@version	1.4.0
+ *	@date	2022-09-20
  *	@copyright	MIT license.
  */
 
@@ -297,6 +297,87 @@ bool AutoConnectCredential::save(const station_config_t* config) {
 }
 
 /**
+ * Save AutoConnectCredentials to the stream.
+ * @param  out    Output destination stream.
+ * @return true   All credentials successfully saved.
+ * @return false  Could not save.
+ */
+bool AutoConnectCredential::backup(Stream& out) {
+  bool  rc = false;
+  uint16_t  stSize = _offset + dataSize();
+  int dp = _offset;
+  AC_CREDTHEADER_t  hdr;
+
+  EEPROMClass eeprom;
+  eeprom.begin(stSize);
+  eeprom.get<AC_CREDTHEADER_t>(dp, hdr);
+  if (!memcmp(hdr.ac_credt, AC_IDENTIFIER, sizeof(AC_CREDTHEADER_t::ac_credt))) {
+    out.write(reinterpret_cast<uint8_t*>(&hdr), sizeof(AC_CREDTHEADER_t));
+    dp += sizeof(AC_CREDTHEADER_t);
+    while ( dp < stSize)
+      out.write(eeprom.read(dp++));
+    rc = true;
+    AC_DBG("Credentials %" PRIu16 " bytes saved\n", stSize - _offset);
+  }
+  else {
+    AC_DBG("Cannot identify " AC_IDENTIFIER ", maybe boundaryOffset is wrong\n");
+  }
+
+  return rc;
+}
+
+/**
+ * Restore all credentials from the stream.
+ * @param  in     Input stream.
+ * @return true   Credentials successfully restored.
+ * @return false  Could not restore.
+ */
+bool  AutoConnectCredential::restore(Stream& in) {
+  AC_CREDTHEADER_t  hdr;
+  bool  rc = true;
+
+  in.readBytes(reinterpret_cast<char*>(&hdr), sizeof(AC_CREDTHEADER_t));
+  if (!memcmp(hdr.ac_credt, AC_IDENTIFIER, sizeof(AC_CREDTHEADER_t::ac_credt))) {
+    EEPROMClass eeprom;
+
+    size_t  stSize = _offset + hdr.ss + (sizeof(AC_CREDTHEADER_t) - sizeof(AC_CREDTHEADER_t::ss));
+    const char* sp = reinterpret_cast<const char*>(&hdr);
+    int dp = _offset;
+    AC_CREDTHEADER_t  eeprom_hdr;
+
+    eeprom.begin(stSize);
+    // Verify destination EEPROM as AutoConnectCredentail to be restored.
+    eeprom.get<AC_CREDTHEADER_t>(dp, eeprom_hdr);
+    if (memcmp(eeprom_hdr.ac_credt, AC_IDENTIFIER, sizeof(AC_CREDTHEADER_t::ac_credt))) {
+      AC_DBG("Warning:EEPROM has no " AC_IDENTIFIER ", maybe boundaryOffset is wrong\n");
+    }
+    // Restore the header
+    while (dp < static_cast<int>(_offset + sizeof(AC_CREDTHEADER_t)))
+      eeprom.write(dp++, *sp++);
+    // Restore the body
+    while (dp < static_cast<int>(stSize)) {
+      int c = in.read();
+      if (c < 0) {
+        rc = false;
+        AC_DBG("Credentials file was unexpectedly EOF, corrupted.\n");
+        break;
+      }
+      eeprom.write(dp++, static_cast<uint8_t>(c));
+    }
+    eeprom.end();
+  }
+  else {
+    rc = false;
+    AC_DBG("Credentials file has no %s\n", AC_IDENTIFIER);
+  }
+
+  if (rc)
+    AC_DBG("Credentials restored\n");
+
+  return rc;
+}
+
+/**
  *  Get the SSID and password from EEPROM indicated by _dp as the pointer
  *  of current read address. FF is skipped as unavailable area.
  *  @param  ssid      A SSID storing address.
@@ -466,6 +547,96 @@ bool AutoConnectCredential::save(const station_config_t* config) {
     return _commit() > 0 ? true : false;
   }
   return false;
+}
+
+/**
+ * Save AutoConnectCredentials to the stream.
+ * @param  out    Output destination stream.
+ * @return true   All credentials successfully saved.
+ * @return false  Could not save.
+ */
+bool AutoConnectCredential::backup(Stream& out) {
+  if (!_pref->begin(AC_CREDENTIAL_NVSNAME, true)) {
+    AC_DBG(AC_CREDENTIAL_NVSNAME " no credentials storage\n");
+    return false;
+  }
+
+  bool  rc = false;
+  size_t  pfSize = _getPrefBytesLength<Preferences>(_pref.get(), AC_CREDENTIAL_NVSKEY);
+  if (pfSize) {
+    unsigned char*  pfPool = new unsigned char[pfSize];
+    if (pfPool) {
+      size_t  blSize = _pref->getBytes(AC_CREDENTIAL_NVSKEY, static_cast<void*>(pfPool), pfSize);
+      if (blSize > 0) {
+        // Write AutoConnectCredential identifier
+        out.write(AC_IDENTIFIER, sizeof(AC_IDENTIFIER) - sizeof('\0'));
+        // Write content of the saved credentials
+        out.write(pfPool, pfSize);
+        rc = true;
+      }
+      else
+        AC_DBG(AC_CREDENTIAL_NVSKEY " has no credentials\n");
+      delete[] pfPool;
+    }
+    else
+      AC_DBG(AC_CREDENTIAL_NVSKEY " buffer allocation failed\n");
+  }
+  else
+    AC_DBG("No " AC_CREDENTIAL_NVSKEY " storage\n");
+  _pref->end();
+
+  return rc;
+}
+
+/**
+ * Restore all credentials from the stream.
+ * @param  in     Input stream.
+ * @return true   Credentials successfully restored.
+ * @return false  Could not restore.
+ */
+bool AutoConnectCredential::restore(Stream& in) {
+  uint8_t*  inPool = nullptr;
+  uint8_t inBuffer[16];
+  size_t  psz = 0;
+  bool  rc = false;
+
+  // Reads all data from the stream and pools.
+  while (in.available()) {
+    size_t  rsz = in.readBytes(inBuffer, sizeof(inBuffer));
+    inPool = reinterpret_cast<uint8_t*>(realloc(inPool, psz + rsz));
+    if (inPool) {
+      memcpy(inPool + psz, inBuffer, rsz);
+      psz += rsz;
+      if (rsz < sizeof(inBuffer))
+        break;
+    }
+    else {
+      AC_DBG(AC_CREDENTIAL_NVSKEY " buffer allocation failed\n");
+      return false;
+    }
+  }
+
+  // Verifies AC_CREDT for the specified stream.
+  if (inPool) {
+    constexpr size_t  AC_IDENTIFIER_SIZE = sizeof(AC_IDENTIFIER) - sizeof('\0');
+    if (!memcmp(inPool, AC_IDENTIFIER, AC_IDENTIFIER_SIZE)) {
+      // Restore to NVS
+      if (_pref->begin(AC_CREDENTIAL_NVSNAME, false)) {
+        _pref->putBytes(AC_CREDENTIAL_NVSKEY, inPool + AC_IDENTIFIER_SIZE, psz - AC_IDENTIFIER_SIZE);
+        _pref->end();
+        rc = true;
+      }
+      else
+        AC_DBG(AC_CREDENTIAL_NVSNAME " no credentials storage\n");
+    }
+    else
+      AC_DBG(AC_CREDENTIAL_NVSNAME " contains wrong\n");
+    free(inPool);
+  }
+  else
+    AC_DBG(AC_IDENTIFIER " empty stream\n");
+
+  return rc;
 }
 
 /**

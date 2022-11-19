@@ -7,7 +7,7 @@ There are two file systems for utilizing the onboard flash on the ESP8266 or the
 #define AC_USE_LITTLEFS
 ```
 
-The `AC_USE_SPIFFS` and `AC_USE_LITTLEFS` macros declare which file system to apply. Their definitions are contradictory to each other and you **cannot activate both at the same time**.
+The [`AC_USE_SPIFFS`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L61) and [`AC_USE_LITTLEFS`](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h#L62) macros declare which file system to apply. Their definitions are contradictory to each other and you **cannot activate both at the same time**.
 
 Each platform supported by AutoConnect has a default file system, which is LittleFS for ESP8266 and SPIFFS for ESP32. Neither `AC_USE_SPIFFS` nor `AC_USE_LITTLE_FS` needs to be explicitly defined as long as you use the default file system. The default file system for each platform is assumed.
 
@@ -43,7 +43,7 @@ platform = espressif8266
 board = esp_wroom_02
 framework = arduino
 lib_extra_dirs = ~/Documents/Arduino/libraries
-lib_ldf_mode = deep
+lib_ldf_mode = deep+
 build_flags =
     -DAC_USE_SPIFFS
     -DPB_USE_SPIFFS
@@ -54,7 +54,7 @@ monitor_speed = 115200
 The [`build_flags`](https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags) as [build options](https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-options) allows PlatformIO can provide preprocessor macro definitions. `-D name` for [`build_flags`](https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags), which specifies a predefined content, is treated as 1 equal to the `#define` directive.
 
 !!! hint "Library dependency search with PlatformIO"
-    If `#include <LITTLEFS.h>` becomes **Not Found** with PlatformIO built, try specifying [`lib_ldf_mode=deep`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode) with [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/index.html). Due to the deep nesting by preprocessor instructions, the include file cannot be detected by the [chain mode](https://docs.platformio.org/en/latest/librarymanager/ldf.html#dependency-finder-mode) (nested include search) of PlatformIO's [Library Dependency Finder](https://docs.platformio.org/en/latest/librarymanager/ldf.html#library-dependency-finder-ldf). See also [FAQ](faq.md#compilation-error-due-to-file-system-header-file-not-found).
+    If `#include <LITTLEFS.h>` becomes **Not Found** with PlatformIO built, try specifying [`lib_ldf_mode=deep+`](https://docs.platformio.org/en/latest/projectconf/section_env_library.html#lib-ldf-mode) with [`platformio.ini`](https://docs.platformio.org/en/latest/projectconf/index.html). Due to the deep nesting by preprocessor instructions, the include file cannot be detected by the [chain mode](https://docs.platformio.org/en/latest/librarymanager/ldf.html#dependency-finder-mode) (nested include search) of PlatformIO's [Library Dependency Finder](https://docs.platformio.org/en/latest/librarymanager/ldf.html#library-dependency-finder-ldf). See also [FAQ](faq.md#compilation-error-due-to-file-system-header-file-not-found).
 
 !!! hint "LittleFS for ESP8266 with PlatformIO"
     The SPIFFS file system is used by default in order to keep legacy projects compatible. To choose LittleFS as the file system with ESP8266 platform, it should be explicitly specified using [`board_build.filesystem`](https://docs.platformio.org/en/latest/platforms/espressif8266.html?highlight=filesystem#using-filesystem) option in `platformio.ini` as follows:    

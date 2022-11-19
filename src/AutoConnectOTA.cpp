@@ -1,10 +1,10 @@
 /**
  * AutoConnectOTA class implementation.
- * @file   AutoConnectOTA.cpp
+ * @file AutoConnectOTA.cpp
  * @author hieromon@gmail.com
- * @version    1.3.5
- * @date   2022-03-29
- * @copyright  MIT license.
+ * @version 1.4.0
+ * @date 2022-07-13
+ * @copyright MIT license.
  */
 
 #include <functional>
@@ -25,6 +25,7 @@
 #endif
 #endif
 #include <StreamString.h>
+#include "AutoConnectExt.hpp"
 #include "AutoConnectOTA.h"
 #include "AutoConnectOTAPage.h"
 
@@ -51,7 +52,7 @@ void AutoConnectOTA::authentication(const AC_AUTH_t auth) {
  * AutoConnectAux instance and allows it to receive binary updates.
  * @param  portal A reference of AutoConnect
  */
-void AutoConnectOTA::attach(AutoConnect& portal) {
+void AutoConnectOTA::attach(AutoConnectExt<AutoConnectConfigExt>& portal) {
   AutoConnectAux* updatePage;
 
   updatePage = new AutoConnectAux(String(FPSTR(_pageUpdate.uri)), String(FPSTR(_pageUpdate.title)), _pageUpdate.menu);

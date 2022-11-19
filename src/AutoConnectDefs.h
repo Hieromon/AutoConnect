@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.3.4
- * @date 2022-02-09
+ * @version  1.4.0
+ * @date 2022-09-16
  * @copyright  MIT license.
  */
 
@@ -144,6 +144,16 @@
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
 #define AUTOCONNECT_URI_CONFIGAUX AUTOCONNECT_URI "/acconfig"
 
+// Default URI for connection successful response
+#ifndef AUTOCONNECT_URI_ONSUCCESS
+#define AUTOCONNECT_URI_ONSUCCESS AUTOCONNECT_URI_SUCCESS
+#endif // !AUTOCONNECT_URI_ONSUCCESS
+
+// Default URI for connection failure response
+#ifndef AUTOCONNECT_URI_ONFAIL
+#define AUTOCONNECT_URI_ONFAIL    AUTOCONNECT_URI_FAIL
+#endif // !AUTOCONNECT_URI_ONSUCCESS
+
 // Number of seconds in a unit time [s]
 #ifndef AUTOCONNECT_UNITTIME
 #define AUTOCONNECT_UNITTIME    30
@@ -201,10 +211,30 @@
 #define AUTOCONNECT_SSIDPAGEUNIT_LINES  5
 #endif // !AUTOCONNECT_SSIDPAGEUNIT_LINES
 
+// Fix to be compatibility with backward for ESP8266 core 2.5.1 or later
+// SD pin assignment for AutoConnectFile
+#ifndef AUTOCONNECT_SD_CS
+#if defined(ARDUINO_ARCH_ESP8266)
+#ifndef SD_CHIP_SELECT_PIN
+#define SD_CHIP_SELECT_PIN      SS
+#endif
+#define AUTOCONNECT_SD_CS       SD_CHIP_SELECT_PIN
+#elif defined(ARDUINO_ARCH_ESP32)
+#define AUTOCONNECT_SD_CS       SS
+#endif
+#endif // !AUTOCONNECT_SD_CS
+
 // SPI transfer speed for SD [Hz]
 #ifndef AUTOCONNECT_SD_SPEED
 #define AUTOCONNECT_SD_SPEED    4000000
 #endif // !AUTOCONNECT_SD_SPEED
+
+// Derivation of SCK frequency and ensuring SD.begin compatibility
+#if defined(SD_SCK_HZ)
+#define AC_SD_SPEED(s)  SD_SCK_HZ(s)
+#else
+#define AC_SD_SPEED(s)  s
+#endif
 
 // Flicker signal related factors
 // Flicker cycle during AP operation [ms]

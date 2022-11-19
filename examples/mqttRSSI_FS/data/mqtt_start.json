@@ -1,10 +1,16 @@
 {
   "title": "MQTT Setting",
-  "uri": "/mqtt_save",
+  "uri": "/mqtt_start",
   "menu": false,
   "element": [
     {
-      "name": "caption",
+      "name": "c1",
+      "type": "ACText",
+      "value": "<h4>MQTT publishing has started.</h4>",
+      "style": "text-align:center;color:#2f4f4f;padding:5px;"
+    },
+    {
+      "name": "c2",
       "type": "ACText",
       "value": "<h4>Parameters saved as:</h4>",
       "style": "text-align:center;color:#2f4f4f;padding:5px;"
@@ -17,7 +23,7 @@
       "global": true
     },
     {
-      "name": "userkey",
+      "name": "apikey",
       "type": "ACText",
       "format": "User API Key: %s",
       "posterior": "br",
@@ -27,6 +33,13 @@
       "name": "channelid",
       "type": "ACText",
       "format": "Channel ID: %s",
+      "posterior": "br",
+      "global": true
+    },
+    {
+      "name": "writekey",
+      "type": "ACText",
+      "format": "Write API Key: %s",
       "posterior": "br",
       "global": true
     },
@@ -52,10 +65,18 @@
       "global": true
     },
     {
+      "name": "hostname",
+      "type": "ACText",
+      "format": "ESP host: %s",
+      "posterior": "br",
+      "global": true
+    },
+    {
       "name": "period",
       "type": "ACText",
-      "format": "Update period: %s sec.",
-      "posterior": "br"
+      "format": "Update period: %s",
+      "posterior": "br",
+      "global": true
     },
     {
       "name": "clear",

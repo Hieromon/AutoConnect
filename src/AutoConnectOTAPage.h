@@ -1,14 +1,16 @@
 /**
  * Define pages to operate updates using the AutoConnectUpdate class.
- * @file   AutoConnectOTAPage.h
+ * @file AutoConnectOTAPage.h
  * @author hieromon@gmail.com
- * @version    1.3.5
- * @date   2022-06-03
- * @copyright  MIT license.
+ * @version 1.4.0
+ * @date   2022-07-13
+ * @copyright MIT license.
  */
 
 #ifndef _AUTOCONNECTOTAPAGE_H_
 #define _AUTOCONNECTOTAPAGE_H_
+
+#include "AutoConnectLabels.h"
 
 const AutoConnectAux::ACElementProp_t AutoConnectOTA::_elmUpdate[] PROGMEM = {
   { AC_Style, "s_cap", ".s_cap{display:block;text-align:right;font-size:small}", nullptr},

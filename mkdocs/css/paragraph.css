@@ -36,6 +36,11 @@
   color: rgba(102,217,224,1);
 }
 
+.md-typeset .badge {
+  padding: 0;
+  margin-top: -20px;
+}
+
 .apidl {
   margin-left: 20px;
 }

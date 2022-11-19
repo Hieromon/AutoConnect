@@ -2,8 +2,8 @@
  * The default upload handler implementation.
  * @file AutoConnectUploadImpl.h
  * @author hieromon@gmail.com
- * @version  1.3.6
- * @date 2022-07-27
+ * @version  1.4.0
+ * @date 2022-08-01
  * @copyright  MIT license.
  */
 
@@ -21,15 +21,6 @@
 #include "AutoConnectDefs.h"
 #include "AutoConnectUpload.h"
 #include "AutoConnectFS.h"
-// Types branching to be code commonly for the file system classes with
-// ESP8266 and ESP32.
-#if defined(ARDUINO_ARCH_ESP8266)
-typedef SDClass       SDClassT;   // SD:File system class
-typedef File          SDFileT;    // SD:File class
-#elif defined(ARDUINO_ARCH_ESP32)
-typedef fs::SDFS      SDClassT;
-typedef SDFile        SDFileT;
-#endif
 
 namespace AutoConnectUtil {
 AC_HAS_FUNC(end);
@@ -154,31 +145,10 @@ class AutoConnectUploadFS : public AutoConnectUploadHandler {
   bool                _mounted;     /**< Need to end of the filesystem */
 };
 
-// Fix to be compatibility with backward for ESP8266 core 2.5.1 or later
-// SD pin assignment for AutoConnectFile
-#ifndef AUTOCONNECT_SD_CS
-#if defined(ARDUINO_ARCH_ESP8266)
-#ifndef SD_CHIP_SELECT_PIN
-#define SD_CHIP_SELECT_PIN      SS
-#endif
-#define AUTOCONNECT_SD_CS       SD_CHIP_SELECT_PIN
-#elif defined(ARDUINO_ARCH_ESP32)
-#define AUTOCONNECT_SD_CS       SS
-#endif
-#endif // !AUTOCONNECT_SD_CS
-// Derivation of SCK frequency and ensuring SD.begin compatibility
-#ifdef ARDUINO_ARCH_ESP8266
-#if defined(SD_SCK_HZ)
-#define AC_SD_SPEED(s)  SD_SCK_HZ(s)
-#else
-#define AC_SD_SPEED(s)  s
-#endif
-#endif
-
 // Default handler for uploading to the standard SD class embedded in the core.
 class AutoConnectUploadSD : public AutoConnectUploadHandler {
  public:
-  explicit AutoConnectUploadSD(SDClassT& media, const uint8_t cs = AUTOCONNECT_SD_CS, const uint32_t speed = AUTOCONNECT_SD_SPEED) : _media(&media), _cs(cs), _speed(speed) {}
+  explicit AutoConnectUploadSD(AutoConnectFS::SDClassT& media, const uint8_t cs = AUTOCONNECT_SD_CS, const uint32_t speed = AUTOCONNECT_SD_SPEED) : _media(&media), _cs(cs), _speed(speed) {}
   ~AutoConnectUploadSD() { _close(HTTPUploadStatus::UPLOAD_FILE_END); }
 
  protected:
@@ -246,12 +216,12 @@ class AutoConnectUploadSD : public AutoConnectUploadHandler {
     AC_UNUSED(status);
     if (_file)
       _file.close();
-    AutoConnectUtil::end<SDClassT>(_media);
+    AutoConnectUtil::end<AutoConnectFS::SDClassT>(_media);
   }
 
  private:
-  SDClassT* _media;
-  SDFileT   _file;
+  AutoConnectFS::SDClassT*  _media;
+  AutoConnectFS::SDFileT    _file;
   uint8_t   _cs;
   uint32_t  _speed;
 };
