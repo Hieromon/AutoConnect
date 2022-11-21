@@ -8,8 +8,8 @@
 
 MeasureRSSI::MeasureRSSI(const unsigned long period, const unsigned int cycle, const uint8_t points) :
   period(period),
-  _cycle(cycle),
-  points(points)
+  points(points),
+  _cycle(cycle)
 {
   _n = 0;
   _tm = millis();
