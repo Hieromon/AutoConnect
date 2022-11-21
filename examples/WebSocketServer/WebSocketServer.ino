@@ -91,6 +91,8 @@ fs::LittleFSFS& FlashFS = LittleFS;
 fs::SPIFFSFS& FlashFS = SPIFFS;
 #endif
 
+#include "MeasureRSSI.h"
+
 const int httpPort = 80;
 const int wsPort = 3000;  // Assign port 3000 for WebSocket.
 
@@ -106,25 +108,17 @@ WebServer server(httpPort);
 AutoConnect       portal(server);
 AutoConnectConfig config;
 
-// RSSI measurement cycle
-unsigned long period = 3000;
-unsigned long tm;
+// The MeasureRSSI class measures RSSI in realtime without delay. It measures
+// RSSI a specified number of times at a specified measurement period in msec
+// and detects the average of those RSSI values as the measurement value. It
+// doesn't use the delay function to create a measurement cycle, so using it
+// from within a loop function has no effect on ESPAsyncWebServer asynchronous
+// processing.
+MeasureRSSI rssi(3000);
 
 // JSON object for messages to be applied to and from the client. It is
 // managed by ArduinoJson.
 StaticJsonDocument<32> measurements;
-
-// Measure WiFi signal strength
-int getStrength(uint8_t points) {
-  uint8_t sc = points;
-  long    rssi = 0;
-
-  while (sc--) {
-    rssi += WiFi.RSSI();
-    delay(20);
-  }
-  return points ? static_cast<int>(rssi / points) : 0;
-}
 
 // The HTML for the graph chart is handled by index.html, which has an
 // interactive UI for changing the RSSI measurement cycle and notifying the ESP
@@ -137,7 +131,8 @@ void updatePeriod(const char* message) {
   DeserializationError  err = deserializeJson(measurements, message, strlen(message));
   if (!err) {
     if (measurements.containsKey("period")) {
-      period = measurements["period"].as<unsigned long>();
+      // period = measurements["period"].as<unsigned long>();
+      rssi.period = measurements["period"].as<unsigned long>();
     }
     else {
       Serial.println("[WS] No required key");
@@ -223,11 +218,10 @@ void setup() {
   });
 
   portal.begin();
-  tm = millis();
 }
 
 void loop() {
-  if (millis() - tm > period) {
+  if (rssi.measure()) {
     // RSSI measurement is not performed until the cycle is reached.
     // Do not use DELAY for this waiting process. It will cause unexpected results
     // that will compromise the asynchronous nature of ESPAsyncWebServer.
@@ -236,12 +230,11 @@ void loop() {
 
       // Send a measurement via WebSocket
       measurements.clear();
-      measurements["rssi"] = getStrength(7);
+      measurements["rssi"] = rssi.rssi;
       serializeJson(measurements, payload);
       ws.textAll(payload);
       Serial.printf("[WS] send:%s\n", payload);
     }
-    tm = millis();
   }
 
   portal.handleClient();
