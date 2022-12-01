@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-08-07
+ * @version 1.4.1
+ * @date 2022-12-01
  * @copyright MIT license.
  */
 
@@ -53,7 +53,7 @@ typedef enum {
  */
 class AutoConnectAux : public PageBuilder {
  public:
-  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const bool responsive = true);
+  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const bool responsive = true, const bool CORS = false);
   ~AutoConnectAux();
   AutoConnectElement& operator[](const char* name) { return *getElement(name); }
   AutoConnectElement& operator[](const __FlashStringHelper* name) { return *getElement(name); }

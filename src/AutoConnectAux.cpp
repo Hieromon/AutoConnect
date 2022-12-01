@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-08-07
+ * @version 1.4.1
+ * @date 2022-12-01
  * @copyright MIT license.
  */
 #include <algorithm>
@@ -86,7 +86,7 @@ const char AutoConnectAux::_PAGE_SCRIPT_MA[] PROGMEM = {
  * @param addons  Vector of AutoConnect Element that the page contains.
  * @param responsive  This AUX page will response the built HTML via PageBuilder.
  */
-AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const bool menu, const AutoConnectElementVT addons, const bool responsive)
+AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const bool menu, const AutoConnectElementVT addons, const bool responsive, const bool CORS)
     : _title(title),
       _menu(menu),
       _responsive(responsive),
@@ -96,6 +96,7 @@ AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const boo
       _uploadHandler(nullptr) {
   _uri = uri;
   transferEncoding(PageBuilder::TransferEncoding_t::AUTOCONNECT_HTTP_TRANSFER);
+  enableCORS(CORS);
 }
 
 /**
@@ -874,6 +875,8 @@ bool AutoConnectAux::_load(JsonObject& jb) {
   else if (!_uri.length()) {
     AC_DBG("Warn. %s loaded null %s\n", _title.c_str(), AUTOCONNECT_JSON_KEY_TITLE);
   }
+  if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_CORS)))
+    _cors = jb[F(AUTOCONNECT_JSON_KEY_CORS)].as<bool>();
   if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_MENU)))
     _menu = jb[F(AUTOCONNECT_JSON_KEY_MENU)].as<bool>();
   if (jb.containsKey(F(AUTOCONNECT_JSON_KEY_RESPONSE)))
@@ -1050,7 +1053,10 @@ size_t AutoConnectAux::saveElement(Stream& out, std::vector<String> const& names
       ArduinoJsonObject json = ARDUINOJSON_CREATEOBJECT(jb);
       json[F(AUTOCONNECT_JSON_KEY_TITLE)] = _title;
       json[F(AUTOCONNECT_JSON_KEY_URI)] = _uri;
-      json[F(AUTOCONNECT_JSON_KEY_RESPONSE)] = _responsive;
+      if (_cors)
+        json[F(AUTOCONNECT_JSON_KEY_CORS)] = _cors;
+      if (_responsive)
+        json[F(AUTOCONNECT_JSON_KEY_RESPONSE)] = _responsive;
       json[F(AUTOCONNECT_JSON_KEY_MENU)] = _menu;
       if (_httpAuth == AC_AUTH_BASIC)
         json[F(AUTOCONNECT_JSON_KEY_AUTH)] = String(F(AUTOCONNECT_JSON_VALUE_BASIC));

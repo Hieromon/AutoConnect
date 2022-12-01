@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  1.3.2
- * @date 2021-11-24
+ * @version  1.4.1
+ * @date 2021-12-01
  * @copyright  MIT license.
  */
 
@@ -18,6 +18,7 @@
 #define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
 #define AUTOCONNECT_JSON_KEY_AUTH         "auth"
 #define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
+#define AUTOCONNECT_JSON_KEY_CORS         "cors"
 #define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
 #define AUTOCONNECT_JSON_KEY_FORMAT       "format"
 #define AUTOCONNECT_JSON_KEY_GLOBAL       "global"
