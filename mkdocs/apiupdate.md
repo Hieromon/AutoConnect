@@ -191,7 +191,7 @@ AC_UPDATESTATUS_t AutoConnectUpdate::status(void)
 
 Returns the update process status transition indicator as an enumerated value of the **AC_UPDATESTATUS_t** type that indicates the process status of the AutoConnectUpdate class.<dl class="apidl">
     <dt>**Return value**</dt>
-    <dd>One of the enumerated values ​​indicating the status of the Update class as follows:</dd>
+    <dd>One of the enumerated values indicating the status of the Update class as follows:</dd>
     <dd><span class="apidef"></span><span class="apidesc">
 
 - UPDATE_RESET : Update process ended, need to reset.

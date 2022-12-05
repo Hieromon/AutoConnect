@@ -370,7 +370,7 @@ bool setElementValue(const String& name, const String value)
 bool setElementValue(const String& name, std::vector<String> const& values)
 ```
 
-Sets the value of the specified AutoConnectElement. If values ​​is specified as a *std::vector* of String, the element that can set the values is the [AutoConnectRadio](apielements.md#autoconnectradio) or the [AutoConnectSelect](apielements.md#autoconnectselect). <dl class="apidl">
+Sets the value of the specified AutoConnectElement. If values is specified as a *std::vector* of String, the element that can set the values is the [AutoConnectRadio](apielements.md#autoconnectradio) or the [AutoConnectSelect](apielements.md#autoconnectselect). <dl class="apidl">
     <dt>**Parameters**</dt>
     <dd><span class="apidef">name</span><span class="apidesc">Specifies the name of the AutoConnectElements that you want to set the value.</span></dd>
     <dd><span class="apidef">value</span><span class="apidesc">Specifies the value to be set.</span></dd>

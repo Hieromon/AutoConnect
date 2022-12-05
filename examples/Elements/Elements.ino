@@ -7,7 +7,7 @@
 
   This example demonstrates the typical behavior of AutoConnectElement.
   It also represents a basic structural frame for saving and reusing
-  values ​​entered in a custom web page into flash.
+  values entered in a custom web page into flash.
 */
 
 // To properly include the suitable header files to the target platform.
@@ -228,7 +228,7 @@ void setup() {
 
   saveAux.load(FPSTR(PAGE_SAVE));
   saveAux.on([] (AutoConnectAux& aux, PageArgument& arg) {
-    // You can validate input values ​​before saving with
+    // You can validate input values before saving with
     // AutoConnectInput::isValid function.
     // Verification is using performed regular expression set in the
     // pattern attribute in advance.

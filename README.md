@@ -283,7 +283,7 @@ Since AutoConnect v1.2.3, [PageBuilder](https://github.com/Hieromon/PageBuilder)
 - Fixed bug in AutoConnectCredential when offset is >256. (PR #103)
  
 ### [0.9.10] June 12, 2019
-- Fixed the unable to get AutoConnectElemets values ​​in the sketch with ESP8266 arduino core 2.5.2. (issue #90)
+- Fixed the unable to get AutoConnectElemets values in the sketch with ESP8266 arduino core 2.5.2. (issue #90)
 - Fixed missing psram allocator. (issue #102)
 
 ### [0.9.9] May 25, 2019

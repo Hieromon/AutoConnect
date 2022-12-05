@@ -245,7 +245,7 @@ A `label` is an optional string. A label is always arranged on the left side of 
 
 ### <i class="fa fa-caret-right"></i> store
 
-Specifies the destination to save the uploaded file. The destination can be specified the following values ​​in the *ACFile_t* enumeration type.
+Specifies the destination to save the uploaded file. The destination can be specified the following values in the *ACFile_t* enumeration type.
 
 - **`AC_File_FS`** : Save as the SPIFFS file in flash of ESP8266/ESP32 module.
 - **`AC_File_SD`** : Save to an external SD device connected to ESP8266/ESP32 module.
