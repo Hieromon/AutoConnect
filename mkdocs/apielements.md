@@ -35,7 +35,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -109,7 +109,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -190,7 +190,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -269,7 +269,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -368,7 +368,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -484,7 +484,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -635,7 +635,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -742,7 +742,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -930,7 +930,7 @@ Enable HTML tag generation for the element.<dl class="apidl">
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 
@@ -1008,7 +1008,7 @@ The conversion format when outputting values. The format string conforms to C-st
 
 #### <i class="fa fa-caret-right"></i> global
 
-The global attribute copies input values ​​between elements of the same name on different custom Web pages.<dl class="apidl">
+The global attribute copies input values between elements of the same name on different custom Web pages.<dl class="apidl">
     <dt>**Type**</dt>
     <dd><span class="apidef">bool</span><span class="apidesc">An entered value will be copied to elements of the same name in other AutoConnectAuxes during page transition.<br>However, it will be copied only when the destination element has the true for a global attribute.</span></dd></dl>
 

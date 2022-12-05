@@ -431,4 +431,4 @@ For ESP32 module equips with PSRAM, you can allocate the JSON document buffer to
 
 ## Saving JSON document
 
-the Sketch can persist AutoConnectElements as a JSON document and also uses [this function](achandling.md#saving-autoconnectelements-with-json) to save the values ​​entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the [load function](achandling.md#loading-autoconnectaux-autoconnectelements-with-json). 
+the Sketch can persist AutoConnectElements as a JSON document and also uses [this function](achandling.md#saving-autoconnectelements-with-json) to save the values entered on the custom Web page. And you can reload the saved JSON document into AutoConnectElements as the field in a custom Web page using the [load function](achandling.md#loading-autoconnectaux-autoconnectelements-with-json). 
