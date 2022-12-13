@@ -69,6 +69,8 @@ class AutoConnectCore {
   template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
   bool  restoreCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM);
 
+  bool portalAvailable() { return _portalAvailable; }
+
  protected:
   typedef enum {
     AC_RECONNECT_SET,
@@ -160,6 +162,8 @@ class AutoConnectCore {
 #ifdef ARDUINO_ARCH_ESP32
   WiFiEventId_t _disconnectEventId = -1; /**< STA disconnection event handler registered id  */
 #endif
+  bool _portalAvailable = false; /** will be true when the portal is available **/
+
   /** Only available with ticker enabled */
   std::unique_ptr<AutoConnectTicker>  _ticker;
 
