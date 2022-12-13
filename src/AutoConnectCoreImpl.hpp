@@ -1070,7 +1070,6 @@ template<typename T>
 void AutoConnectCore<T>::_stopPortal(void) {
   _stopDNSServer();
 
-
   if (_webServer) {
     _webServer->client().stop();
     delay(1000);
