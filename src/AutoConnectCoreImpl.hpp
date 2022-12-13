@@ -970,7 +970,6 @@ template<typename T>
 void AutoConnectCore<T>::_softAP(void) {
   WiFi.persistent(false);
   WiFi.enableAP(true);
-  _portalAvailable = true;
   while (!(WiFi.getMode() & WIFI_AP)) {
     delay(1);
     yield();
@@ -1042,6 +1041,7 @@ template<typename T>
 void AutoConnectCore<T>::_startDNSServer(void) {
   // Boot DNS server, set up for captive portal redirection.
   if (!_dnsServer) {
+    _portalAvailable = true;
     _dnsServer.reset(new DNSServer());
     _dnsServer->setErrorReplyCode(DNSReplyCode::NoError);
     _dnsServer->start(AUTOCONNECT_DNSPORT, "*", WiFi.softAPIP());
