@@ -590,7 +590,6 @@ void AutoConnectCore<T>::handleRequest(void) {
         if (!_apConfig.retainPortal) {
           WiFi.softAPdisconnect(true);
           WiFi.enableAP(false);
-          _portalAvailable = false;
         }
         else {
           AC_DBG("Maintain SoftAP\n");
@@ -1056,6 +1055,7 @@ void AutoConnectCore<T>::_startDNSServer(void) {
 template<typename T>
 void AutoConnectCore<T>::_stopDNSServer(void) {
   if (_dnsServer) {
+    _portalAvailable = false;
     _dnsServer->stop();
     _dnsServer.reset();
     AC_DBG("DNS server stopped\n");
@@ -1069,7 +1069,6 @@ void AutoConnectCore<T>::_stopDNSServer(void) {
 template<typename T>
 void AutoConnectCore<T>::_stopPortal(void) {
   _stopDNSServer();
-  _portalAvailable = false;
 
 
   if (_webServer) {
