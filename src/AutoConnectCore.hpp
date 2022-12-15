@@ -217,7 +217,6 @@ class AutoConnectCore {
   String _token_ESTAB_SSID(PageArgument& args);
   String _token_FLASH_SIZE(PageArgument& args);
   String _token_FREE_HEAP(PageArgument& args);
-  String _token_SYSTEM_UPTIME(PageArgument &args);
   String _token_GATEWAY(PageArgument& args);
   String _token_HEAD(PageArgument& args);
   String _token_HIDDEN_COUNT(PageArgument& args);
@@ -229,6 +228,7 @@ class AutoConnectCore {
   String _token_SSID_COUNT(PageArgument& args);
   String _token_STA_MAC(PageArgument& args);
   String _token_STATION_STATUS(PageArgument& args);
+  String _token_SYSTEM_UPTIME(PageArgument &args);
   String _token_UPTIME(PageArgument& args);
   String _token_WIFI_MODE(PageArgument& args);
   String _token_WIFI_STATUS(PageArgument& args);

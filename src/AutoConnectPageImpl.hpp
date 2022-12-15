@@ -941,33 +941,23 @@ uint32_t AutoConnectCore<T>::_getFlashChipRealSize() {
 template <typename T>
 String AutoConnectCore<T>::_getSystemUptime() {
 #if defined(ARDUINO_ARCH_ESP8266)
-  time_t millisecs = millis();
+  unsigned long millisecs = millis();
 #elif defined(ARDUINO_ARCH_ESP32)
-  time_t millisecs = esp_timer_get_time() / 1000;
+  long  millisecs = esp_timer_get_time() / 1000;
 #endif
-  
-  int systemUpTimeM = int((millisecs / (1000 * 60)) % 60);
-  int systemUpTimeH = int((millisecs / (1000 * 60 * 60)) % 24);
-  int systemUpTimeD = int((millisecs / (1000 * 60 * 60 * 24)) % 365);
-  
-  String uptime = String(systemUpTimeM) + "m ";
+  int systemUpTimeM = static_cast<int>((millisecs / (1000 * 60)) % 60);
+  int systemUpTimeH = static_cast<int>((millisecs / (1000 * 60 * 60)) % 24);
+  int systemUpTimeD = static_cast<int>(millisecs / (1000 * 60 * 60 * 24));
+  String  uptime = String(systemUpTimeM) + "m ";
   if (systemUpTimeH > 0)
-  {
     uptime += String(systemUpTimeH) + "h ";
-  }
   if (systemUpTimeD > 0)
-  {
     uptime += String(systemUpTimeD) + "d ";
-  }
   return uptime;
 }
 
-
-
-
 template <typename T>
-String AutoConnectCore<T>::_token_CSS_BASE(PageArgument &args)
-{
+String AutoConnectCore<T>::_token_CSS_BASE(PageArgument &args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_BASE));
 }
@@ -1157,15 +1147,7 @@ String AutoConnectCore<T>::_token_FREE_HEAP(PageArgument& args) {
 }
 
 template <typename T>
-String AutoConnectCore<T>::_token_SYSTEM_UPTIME(PageArgument &args)
-{
-  AC_UNUSED(args);
-  return _getSystemUptime();
-}
-
-template <typename T>
-String AutoConnectCore<T>::_token_GATEWAY(PageArgument &args)
-{
+String AutoConnectCore<T>::_token_GATEWAY(PageArgument &args) {
   AC_UNUSED(args);
   return WiFi.gatewayIP().toString();
 }
@@ -1414,6 +1396,12 @@ String AutoConnectCore<T>::_token_STATION_STATUS(PageArgument& args) {
 #endif
   }
   return String("(") + String(_rsConnect) + String(") ") + String(FPSTR(wlStatusSymbol));
+}
+
+template <typename T>
+String AutoConnectCore<T>::_token_SYSTEM_UPTIME(PageArgument &args) {
+  AC_UNUSED(args);
+  return _getSystemUptime();
 }
 
 template<typename T>
