@@ -56,6 +56,7 @@ class AutoConnectCore {
   void  handleRequest(void);
   void  home(const String& uri);
   WebServer& host(void);
+  bool  isPortalAvailable(void) const;
 
   typedef std::function<bool(IPAddress&)> DetectExit_ft;
   typedef std::function<void(IPAddress&)> ConnectExit_ft;

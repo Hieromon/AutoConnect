@@ -740,6 +740,18 @@ WebServer& AutoConnectCore<T>::host(void) {
 }
 
 /**
+ * Returns availability of captive portal.
+ * @return true  Captive portal is available.
+ */
+template<typename T>
+bool AutoConnectCore<T>::isPortalAvailable(void) const {
+  bool portalState = WiFi.getMode() & WIFI_AP;
+  portalState &= WiFi.softAPIP() == _apConfig.apip;
+  portalState &= _dnsServer.get() != nullptr;
+  return portalState;
+}
+
+/**
  * Register the exit routine that is being called when WiFi connected.
  * @param  fn A function of the exit routine.
  */
