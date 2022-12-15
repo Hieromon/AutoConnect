@@ -120,6 +120,7 @@ class AutoConnectCore {
   String              _attachMenuItem(const AC_MENUITEM_t item);
   static uint32_t     _getChipId(void);
   static uint32_t     _getFlashChipRealSize(void);
+  static String       _getSystemUptime(void);
   static String       _toMACAddressString(const uint8_t mac[]);
   static unsigned int _toWiFiQuality(int32_t rssi);
   ConnectExit_ft      _onConnectExit;
@@ -216,6 +217,7 @@ class AutoConnectCore {
   String _token_ESTAB_SSID(PageArgument& args);
   String _token_FLASH_SIZE(PageArgument& args);
   String _token_FREE_HEAP(PageArgument& args);
+  String _token_SYSTEM_UPTIME(PageArgument &args);
   String _token_GATEWAY(PageArgument& args);
   String _token_HEAD(PageArgument& args);
   String _token_HIDDEN_COUNT(PageArgument& args);

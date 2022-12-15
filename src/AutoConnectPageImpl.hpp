@@ -681,6 +681,10 @@ const char  AutoConnectCore<T>::_PAGE_STAT[] PROGMEM = {
             "<td>" AUTOCONNECT_PAGESTATS_FREEMEM "</td>"
             "<td>{{FREE_HEAP}}</td>"
           "</tr>"
+          "<tr>"
+          "<td>" AUTOCONNECT_PAGESTATS_SYSTEM_UPTIME "</td>"
+          "<td>{{SYSTEM_UPTIME}}</td>"
+          "</tr>"
           "</tbody>"
         "</table>"
       "</div>"
@@ -934,8 +938,36 @@ uint32_t AutoConnectCore<T>::_getFlashChipRealSize() {
 #endif
 }
 
-template<typename T>
-String AutoConnectCore<T>::_token_CSS_BASE(PageArgument& args) {
+template <typename T>
+String AutoConnectCore<T>::_getSystemUptime() {
+#if defined(ARDUINO_ARCH_ESP8266)
+  time_t millisecs = millis();
+#elif defined(ARDUINO_ARCH_ESP32)
+  time_t millisecs = esp_timer_get_time() / 1000;
+#endif
+  
+  int systemUpTimeM = int((millisecs / (1000 * 60)) % 60);
+  int systemUpTimeH = int((millisecs / (1000 * 60 * 60)) % 24);
+  int systemUpTimeD = int((millisecs / (1000 * 60 * 60 * 24)) % 365);
+  
+  String uptime = String(systemUpTimeM) + "m ";
+  if (systemUpTimeH > 0)
+  {
+    uptime += String(systemUpTimeH) + "h ";
+  }
+  if (systemUpTimeD > 0)
+  {
+    uptime += String(systemUpTimeD) + "d ";
+  }
+  return uptime;
+}
+
+
+
+
+template <typename T>
+String AutoConnectCore<T>::_token_CSS_BASE(PageArgument &args)
+{
   AC_UNUSED(args);
   return String(FPSTR(_CSS_BASE));
 }
@@ -1124,8 +1156,16 @@ String AutoConnectCore<T>::_token_FREE_HEAP(PageArgument& args) {
   return String(_freeHeapSize);
 }
 
-template<typename T>
-String AutoConnectCore<T>::_token_GATEWAY(PageArgument& args) {
+template <typename T>
+String AutoConnectCore<T>::_token_SYSTEM_UPTIME(PageArgument &args)
+{
+  AC_UNUSED(args);
+  return _getSystemUptime();
+}
+
+template <typename T>
+String AutoConnectCore<T>::_token_GATEWAY(PageArgument &args)
+{
   AC_UNUSED(args);
   return WiFi.gatewayIP().toString();
 }
@@ -1511,6 +1551,7 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("FLASH_SIZE"), std::bind(&AutoConnectCore<T>::_token_FLASH_SIZE, this, std::placeholders::_1));
     elm->addToken(FPSTR("CHIP_ID"), std::bind(&AutoConnectCore<T>::_token_CHIP_ID, this, std::placeholders::_1));
     elm->addToken(FPSTR("FREE_HEAP"), std::bind(&AutoConnectCore<T>::_token_FREE_HEAP, this, std::placeholders::_1));
+    elm->addToken(FPSTR("SYSTEM_UPTIME"), std::bind(&AutoConnectCore<T>::_token_SYSTEM_UPTIME, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONFIG) && (_apConfig.menuItems & AC_MENUITEM_CONFIGNEW)) {
 

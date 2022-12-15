@@ -167,6 +167,11 @@
 #define AUTOCONNECT_PAGESTATS_FREEMEM "Free memory"
 #endif // !AUTOCONNECT_PAGESTATS_FREEMEM
 
+// Page statistics row: Systemuptime
+#ifndef AUTOCONNECT_PAGESTATS_SYSTEM_UPTIME
+#define AUTOCONNECT_PAGESTATS_SYSTEM_UPTIME "System uptime"
+#endif // !AUTOCONNECT_PAGESTATS_SYSTEM_UPTIME
+
 // Page title: AutoConnect config
 #ifndef AUTOCONNECT_PAGETITLE_CONFIG
 #define AUTOCONNECT_PAGETITLE_CONFIG "AutoConnect config"
