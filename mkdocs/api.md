@@ -445,7 +445,7 @@ Register the function which will call from AutoConnect at the WiFi connection es
 An *fn* specifies the function called when the WiFi connected. Its prototype declaration is defined as *ConnectExit_ft*.
 
 ```cpp
-typedef std::function<void(IPaddress& localIP)> ConnectExit_ft
+typedef std::function<void(IPAddress& localIP)> ConnectExit_ft
 ```
 
 <dl class="apidl">
