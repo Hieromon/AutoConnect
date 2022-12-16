@@ -559,7 +559,7 @@ const char  AutoConnectCore<T>::_ELM_MENU_PRE[] PROGMEM = {
       "<ul class=\"lb-navigation\">"
         "<li class=\"lb-header\">"
           "<a href=\"BOOT_URI\" class=\"lb-brand\">MENU_TITLE</a>"
-#ifdef AC_USE_PORTALIDENTIFIER
+#ifdef AC_SHOW_PORTALIDENTIFIER
           "PORTAL"
 #endif
           "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
@@ -1006,7 +1006,7 @@ String AutoConnectCore<T>::_token_MENU_PRE(PageArgument& args) {
   currentMenu.replace(String(F("MENU_LIST")), menuItem);
   currentMenu.replace(String(F("BOOT_URI")), _getBootUri());
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
-#ifdef AC_USE_PORTALIDENTIFIER
+#ifdef AC_SHOW_PORTALIDENTIFIER
   currentMenu.replace(String(F("PORTAL")), isPortalAvailable() ? String(F(AUTOCONNECT_PORTAL_LINK)) : String());
 #endif
   currentMenu.replace(String(F("{{CUR_SSID}}")), _token_ESTAB_SSID(args));
