@@ -98,4 +98,14 @@
 // AutoConnect menu href
 #define AUTOCONNECT_LINK(s)       "<a href=\"" AUTOCONNECT_URI "\"><img src=\"data:image/png;base64," AUTOCONNECT_GLYPH_ ##s "\" border=\"0\" title=\"AutoConnect menu\" alt=\"AutoConnect menu\"/></a>"
 
+// Icon identifying the availability of a captive portal
+#define AUTOCONNECT_GLYPH_CHECK_16  "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT" \
+                                  "92AAABH0lEQVQ4y5XTPy+DURTH8U+fRiIWr8LQ9hVYSlKDXRhMUhY2Kx2fMDU2DAwMIvECKk" \
+                                  "FCB5OxiLGJ0QvQRDD0Nq6q/vktT/I79/vknnN/J6NbFTmsoYRCcB9xgyOp5/h4JgLHsYNN/+" \
+                                  "sLe9iSav38oA1fYsZwusW8VCsJxu4IMMwibd+gIh96HEYXWIzaySdhYMNoXWoJ+9H8ygnmho" \
+                                  "QPVRSxEvmlJHoqaKIYvr3gGiaiWiHBZ2Q84D4MtImNPjBkEzQiYwGneEVB6qAPDI0kJCzWMk" \
+                                  "7wPgCG60yI7lOPYi20MtFnuLmsujdFk5juKk5hrA9clTrrJHELdyMk8RbbkAV1H4rOw3WnBy" \
+                                  "xTFeXfy/R3nVdDwDoZaeAKx1Iv8fFvVBtExdYBEJwAAAAASUVORK5CYII="
+#define AUTOCONNECT_PORTAL_LINK   "<img src=\"data:image/png;base64," AUTOCONNECT_GLYPH_CHECK_16 "\" border=\"0\"/>"
+
 #endif  // _AutoConnectPage_H_

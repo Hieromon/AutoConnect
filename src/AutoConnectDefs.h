@@ -78,6 +78,10 @@
 // point will be collated by the SSID.
 //#define AUTOCONNECT_APKEY_SSID
 
+// When the captive portal is available, a checkmark icon will appear adjacent
+// to the title of the AutoConnect menu.
+//#define AC_SHOW_PORTALIDENTIFIER
+
 // Predefined parameters
 // SSID that Captive portal started.
 #ifndef AUTOCONNECT_APID

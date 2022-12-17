@@ -23,3 +23,23 @@ To reference the icon, use the **AUTOCONNECT_LINK** macro in the Sketch. It expa
     html += "</html>";
     server.send(200, "text/html", html);
     ```
+## <i class="fas fa-door-open"></i> Captive Portal Availability Identification
+
+A check mark icon can be displayed adjacent to the [AutoConnect menu](menu.md) title to indicate that a captive portal is available. This check mark indicates that the ESP module is not connected to any access point, SoftAP is enabled, and DNS lookup spoofing is working through the AutoConnect-initiated DNS server.
+
+<img align="top" src="images/portalready_ac.png" width="240" />
+<img style="margin-left:30px;" src="images/portalready_el.png" width="240" />
+
+This setting is enabled by turning on the **AC_SHOW_PORTALIDENTIFIER** macro defined in [AutoConnectDefs.h](https://github.com/Hieromon/AutoConnect/blob/master/src/AutoConnectDefs.h) header file.
+
+```cpp
+#define AC_SHOW_PORTALIDENTIFIER
+```
+
+Using the [PlatformIO](https://registry.platformio.org/platforms/platformio/espressif32) as a build environment, you can enable it in the [`build_flags`](https://docs.platformio.org/en/latest/projectconf/section_env_build.html#build-flags) setting without modifying the library's AutoConnectDefs.h source file.
+
+```ini
+platform = espressif32
+framework = arduino
+build_flags = -DAC_SHOW_PORTALIDENTIFIER
+```
