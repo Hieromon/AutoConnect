@@ -2,6 +2,7 @@ The default behavior of AutoConnect is to launch the captive portal if *1st-WiFi
 
 - [Captive portal start control](#captive-portal-start-control)
 - [Captive portal start detection](#captive-portal-start-detection)
+- [Captive portal state identification](#captive-portal-state-identification)
 - [Captive portal timeout control](#captive-portal-timeout-control)
 - [Disable the captive portal](#disable-the-captive-portal)
 - [Launch the captive portal on demand by external trigger](#launch-the-captive-portal-on-demand-by-external-trigger)
@@ -69,6 +70,16 @@ void loop() {
   Portal.handleClient();
 }
 ```
+
+## Captive portal state identification
+
+You can use the [*AutoConnect::isPortalAvailable*](api.md#isportalavailable) function to identify if AutoConnect is in a captive portal state.
+
+[Captive-Portal](https://en.wikipedia.org/wiki/Captive_portal#Implementation) - i.e., just a spoofed response to a DNS lookup for Internet connection verification that occurs on a new connection attempt from the client device; it needs a DNS server and SoftAP to work. AutoConnect implements it with HTTP redirection. The [*AutoConnect::isPortalAvailable*](api.md#isportalavailable) function returns true if all of the following conditions are met.
+
+- ESP module is in WIFI_AP mode and enable SoftAP.
+- IP address assigned to SoftAP is the equivalent of [AutoConnectConfig::apip](apiconfig.md#apip).
+- AutoConnect is running a DNS server for directing to the captive portal. Through its action, DNS lookups issued by client devices for Internet transparency validation are directed to the ESP module SoftAP.
 
 ## Captive portal timeout control
 

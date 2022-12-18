@@ -355,6 +355,25 @@ Returns the reference of the ESP8266WebServer/WebServer which is allocated in Au
     portal.host().handleClient();
     ```
 
+### <i class="fa fa-caret-right"></i> isPortalAvailable
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+```cpp
+bool isPortalAvailable(void)
+```
+
+Returns a boolean value indicating whether a captive portal is available.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Captive portal is available. It has SoftAP enabled and is spoofing DNS lookup responses by AutoConnect. Usually, in this state, requests from client devices for Internet transparency validation are redirected to the ESP module.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">AutoConnect is not in captive portal state.</span></dd></dl>
+
+<p></p>
+
+```cpp
+void join(std::vector<std::reference_wrapper<AutoConnectAux>> aux)
+```
+
 ### <i class="fa fa-caret-right"></i> join
 
 <p class="badge"><img src="images/tag_ac.png"></p>
