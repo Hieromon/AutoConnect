@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.4.1
- * @date 2022-12-07
+ * @version  1.4.0
+ * @date 2022-09-16
  * @copyright  MIT license.
  */
 
@@ -134,20 +134,19 @@
 
 // URIs of AutoConnect menu collection
 #define AUTOCONNECT_URI_CONFIG  AUTOCONNECT_URI "/config"
-#define AUTOCONNECT_URI_CONFIGAUX AUTOCONNECT_URI "/acconfig"
 #define AUTOCONNECT_URI_CONNECT AUTOCONNECT_URI "/connect"
+#define AUTOCONNECT_URI_RESULT  AUTOCONNECT_URI "/result"
+#define AUTOCONNECT_URI_OPEN    AUTOCONNECT_URI "/open"
 #define AUTOCONNECT_URI_DELETE  AUTOCONNECT_URI "/del"
 #define AUTOCONNECT_URI_DISCON  AUTOCONNECT_URI "/disc"
-#define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
-#define AUTOCONNECT_URI_FETCH   AUTOCONNECT_URI "/worker"
-#define AUTOCONNECT_URI_OPEN    AUTOCONNECT_URI "/open"
 #define AUTOCONNECT_URI_RESET   AUTOCONNECT_URI "/reset"
-#define AUTOCONNECT_URI_RESULT  AUTOCONNECT_URI "/result"
 #define AUTOCONNECT_URI_SUCCESS AUTOCONNECT_URI "/success"
+#define AUTOCONNECT_URI_FAIL    AUTOCONNECT_URI "/fail"
 #define AUTOCONNECT_URI_UPDATE  AUTOCONNECT_URI "/update"
 #define AUTOCONNECT_URI_UPDATE_ACT      AUTOCONNECT_URI "/update_act"
 #define AUTOCONNECT_URI_UPDATE_PROGRESS AUTOCONNECT_URI "/update_progress"
 #define AUTOCONNECT_URI_UPDATE_RESULT   AUTOCONNECT_URI "/update_result"
+#define AUTOCONNECT_URI_CONFIGAUX AUTOCONNECT_URI "/acconfig"
 
 // Default URI for connection successful response
 #ifndef AUTOCONNECT_URI_ONSUCCESS
@@ -292,16 +291,6 @@
 #ifndef AUTOCONNECT_JSONPSRAM_SIZE
 #define AUTOCONNECT_JSONPSRAM_SIZE      (16* 1024)
 #endif // !AUTOCONNECT_JSONPSRAM_SIZE
-
-// Names of the hidden script behind the AutoConnectAux pages.
-// Execute AutoConnectSubmit form submission.
-#define AUTOCONNECT_AUXSCRIPT_SUBMIT      "_sa"
-// Driving the Fetch API to submit a form.
-#define AUTOCONNECT_AUXSCRIPT_FETCH       "_fe"
-// Echo back the current value according to the slider operation of AutoConnectRange.
-#define AUTOCONNECT_AUXSCRIPT_RANGEVALUE  "_ma"
-// ID argument of the AutoConnectElement that triggered the Fetch.
-#define AUTOCONNECT_FETCHELEMENT_PARAM    "_on"
 
 // Available HTTP port number for the update
 #ifndef AUTOCONNECT_UPDATE_PORT
