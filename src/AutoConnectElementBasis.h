@@ -2,16 +2,17 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.3.6
- * @date 2022-07-27
+ * @version  1.4.1
+ * @date 2022-12-07
  * @copyright  MIT license.
  */
 
 #ifndef _AUTOCONNECTELEMENTBASIS_H_
 #define _AUTOCONNECTELEMENTBASIS_H_
 
-#include <vector>
+#include <functional>
 #include <memory>
+#include <vector>
 #include "AutoConnectUpload.h"
 
 // AC_AUTOCONNECTELEMENT_ON_VIRTUAL macro absorbs the difference of
@@ -72,6 +73,29 @@ typedef enum {
   AC_Input_Number
 } ACInput_t;        /** Input box type attribute */
 
+// Forward reference for passing AutoConnectAux to the reactor responsible for
+// responding to Fetch requests.
+class AutoConnectAux;
+
+/**
+ * Expand the handling functions required for the Fetch response to each
+ * AutoConnectElement. The template also stores a callback function in the
+ * `_reactor` that matches the type of each AutoConnectElement.
+ */
+template<typename T>
+class AutoConnectElementReactorTempl {
+ public:
+  AutoConnectElementReactorTempl() {}
+  virtual ~AutoConnectElementReactorTempl() {}
+  bool isReactive(void) const { return _reactor != nullptr; }
+  virtual void on(std::function<void(T&, AutoConnectAux&)> reactor) { _reactor = reactor; }
+  virtual void off(void) { _reactor = nullptr; }
+  void worker(T& me, AutoConnectAux& aux) { if (_reactor) _reactor(me, aux); }
+
+ protected:
+  std::function<void(T&, AutoConnectAux&)> _reactor = nullptr;
+};
+
 /**
  * AutoConnectAux element base.
  * Placed a raw text that can be added by user sketch.
@@ -80,6 +104,11 @@ typedef enum {
  */
 class AutoConnectElementBasis {
  public:
+  typedef struct  _ACResponset_t {
+    String  attribute;
+    String  value;
+  } ACResponse_t;     /**< The Fetch response structures of each AutoConnectElement */
+
   explicit AutoConnectElementBasis(const char* name = "", const char* value = "", const ACPosterior_t post = AC_Tag_None)
     : name(String(name)), value(String(value)), post(post), enable(true), global(false) {
     _type = AC_Element;
@@ -93,16 +122,26 @@ class AutoConnectElementBasis {
   T&  as(void);
 #endif
 
+  // A set of functions for assembling response messages to Fetch requests from
+  // individual AutoConnectElement.
+  virtual bool  canHandle(void) const { return false; }
+  virtual void  reply(AutoConnectAux& aux) {}
+  virtual void  response(const char* attribute, const char* value) { responses.push_back(ACResponse_t({ attribute, value })); }
+  virtual void  response(const char* value) {}
+  virtual size_t  responseJSON(char* buffer);
+  virtual size_t  responseLength(void);
+
   String  name;       /**< Element name */
   String  value;      /**< Element value */
   ACPosterior_t post; /**< Tag to be generated with posterior */
   bool    enable;     /**< Enabling the element */
   bool    global;     /**< The value available in global scope */
+  std::vector<ACResponse_t> responses;  /**< the attribute values to be qualified by the response */
 
  protected:
   template<typename T>
-  bool    _isCompatible(void);  /**< Verify type integrity */
-
+  bool  _isCompatible(void);  /**< Verify type integrity */
+  
   ACElement_t _type;  /**< Element type identifier */
 };
 
@@ -113,7 +152,9 @@ class AutoConnectElementBasis {
  * @param  value    Value string with the placed button.
  * @param  action   Script code to execute with the button pushed.
  */
-class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+class AutoConnectButtonBasis :
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis,
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementReactorTempl<AutoConnectButtonBasis> {
  public:
   explicit AutoConnectButtonBasis(const char* name = "", const char* value = "", const String& action = String(""), const ACPosterior_t post = AC_Tag_None)
     : AutoConnectElementBasis(name, value, post), action(String(action)) {
@@ -121,6 +162,9 @@ class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
   }
   virtual ~AutoConnectButtonBasis() {}
   const String  toHTML(void) const override;
+  virtual bool  canHandle(void) const override { return isReactive(); }
+  virtual void  reply(AutoConnectAux& aux) override { worker(*this, aux); }
+  virtual void  response(const char* value) override;
 
   String  action;
 };
@@ -133,7 +177,9 @@ class AutoConnectButtonBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
  * @param  label    A label string that follows checkbox, optionally.
  * The label is placed on the right side of the checkbox.
  */
-class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+class AutoConnectCheckboxBasis :
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis,
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementReactorTempl<AutoConnectCheckboxBasis> {
  public:
   explicit AutoConnectCheckboxBasis(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosition_t labelPosition = AC_Behind, const ACPosterior_t post = AC_Tag_BR)
     : AutoConnectElementBasis(name, value, post), label(String(label)), checked(checked), labelPosition(labelPosition) {
@@ -141,6 +187,9 @@ class AutoConnectCheckboxBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoCon
   }
   virtual ~AutoConnectCheckboxBasis() {}
   const String  toHTML(void) const override;
+  virtual bool  canHandle(void) const override { return isReactive(); }
+  virtual void  reply(AutoConnectAux& aux) override { worker(*this, aux); }
+  virtual void  response(const bool check);
 
   String  label;      /**< A label for a subsequent input box */
   bool    checked;    /**< The element should be pre-selected */
@@ -201,7 +250,9 @@ class AutoConnectFileBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
  * The label is placed in front of Input-box.
  * @param  style    A string of style-code for decoration, optionally.
  */
-class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+class AutoConnectInputBasis :
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis,
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementReactorTempl<AutoConnectInputBasis> {
  public:
   explicit AutoConnectInputBasis(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text, const char* style = "")
     : AutoConnectElementBasis(name, value, post), label(String(label)), pattern(String(pattern)), placeholder(String(placeholder)), apply(apply), style(style) {
@@ -210,6 +261,9 @@ class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
   virtual ~AutoConnectInputBasis() {}
   const String  toHTML(void) const override;
   bool  isValid(void) const;
+  virtual bool  canHandle(void) const override { return isReactive(); }
+  virtual void  reply(AutoConnectAux& aux) override { worker(*this, aux); }
+  virtual void  response(const char* value) override;
 
   String  label;      /**< A label for a subsequent input box */
   String  pattern;    /**< Format pattern to aid validation of input value */
@@ -226,7 +280,9 @@ class AutoConnectInputBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
  * @param  label    A label string that follows radio-buttons group.
  * @param  checked  Index of check marked item.
  */
-class AutoConnectRadioBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+class AutoConnectRadioBasis :
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis,
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementReactorTempl<AutoConnectRadioBasis> {
  public:
   explicit AutoConnectRadioBasis(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0, const ACPosterior_t post = AC_Tag_BR)
     : AutoConnectElementBasis(name, "", post), label(String(label)), order(order), checked(checked), _values(values) {
@@ -241,6 +297,8 @@ class AutoConnectRadioBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
   void  check(const String& value);
   void  empty(const size_t reserve = 0);
   const String& value(void) const;
+  virtual bool  canHandle(void) const override { return isReactive(); }
+  virtual void  reply(AutoConnectAux& aux) override { worker(*this, aux); }
 
   String      label;    /**< A label for a subsequent radio buttons */
   ACArrange_t order;    /**< layout order */
@@ -289,7 +347,9 @@ class AutoConnectRangeBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnec
  * @param  label    A label string that follows Input-box, optionally.
  * The label is placed in front of Input-box.
  */
-class AutoConnectSelectBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis {
+class AutoConnectSelectBasis :
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementBasis,
+  AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnectElementReactorTempl<AutoConnectSelectBasis> {
  public:
   explicit AutoConnectSelectBasis(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0, const ACPosterior_t post = AC_Tag_BR)
     : AutoConnectElementBasis(name, "", post), label(String(label)), selected(selected), _options(options) {
@@ -304,6 +364,8 @@ class AutoConnectSelectBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConne
   void  select(const String& value);
   void  empty(const size_t reserve = 0);
   const String& value(void) const;
+  virtual bool  canHandle(void) const override { return isReactive(); }
+  virtual void  reply(AutoConnectAux& aux) override { worker(*this, aux); }
 
   String  label;      /**< A label for a subsequent input box */
   uint8_t selected;   /**< Index of checked value (1-based) */
@@ -365,6 +427,7 @@ class AutoConnectTextBasis : AC_AUTOCONNECTELEMENT_ON_VIRTUAL public AutoConnect
   }
   virtual ~AutoConnectTextBasis() {}
   const String  toHTML(void) const override;
+  virtual void  response(const char* value) override;
 
   String  style;      /**< CSS style modifier native code */
   String  format;     /**< C string that contains the text to be written */

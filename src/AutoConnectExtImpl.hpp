@@ -2,8 +2,8 @@
  * AutoConnectExt class implementation.
  * @file AutoConnectExtImpl.hpp
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-09-01
+ * @version 1.4.1
+ * @date 2022-12-07
  * @copyright MIT license.
  */
 
@@ -214,6 +214,26 @@ inline void AutoConnectExt<T>::_enableUpdate(void) {
 }
 
 /**
+ * Allow AutoConnect to respond to `/_ac/worker` endpoint requests. That handler
+ * as AutoConnectAux::_fetchEndpoint is registered as a callback function for
+ * the PageElements that make up the AutoConnectAux page. Its organizer is an
+ * AutoConnectExt instance that configures a PageBuilder instance.
+ * @param   uri  URL of the requested endpoint. URL of the requested endpoint.
+ * This argument is unused in this function and is declared only for interface
+ * consistency.
+ * @return  Registered PageElement of the handler returning the endpoint response.
+ */
+template<typename T>
+PageElement* AutoConnectExt<T>::_setupFetch(const String& uri) {
+  AC_UNUSED(uri);
+  PageElement*  endpointElement = new PageElement();
+
+  endpointElement->setMold(FPSTR("{{RES}}"));
+  endpointElement->addToken(FPSTR("RES"), std::bind(&AutoConnectAux::_fetchEndpoint, _aux, std::placeholders::_1));
+  return endpointElement;
+}
+
+/**
  * For OTA, the upload process is handled with each turn of the handleRequst.
  * When the upload is complete and the system is waiting for a reboot, it will
  * prompt a reset operation. If the upload is still in progress, it returns an
@@ -303,8 +323,14 @@ inline void AutoConnectExt<T>::_registerOnUpload(PageBuilder* page) {
 template<typename T>
 inline void AutoConnectExt<T>::_releaseAux(const String& uri) {
   if (!AutoConnectCore<T>::_currentPageElement && _aux) {
-    // Requested URL is not a normal page, exploring AUX pages
-    AutoConnectCore<T>::_currentPageElement.reset(_aux->_setupPage(uri));
+    if (uri == String(F(AUTOCONNECT_URI_FETCH))) {
+      // Fetch-API requested. Prepare to accept by pseudo-endpoint.
+      AutoConnectCore<T>::_currentPageElement.reset(_setupFetch(uri));
+    }
+    else {
+      // Requested URL is not a normal page, exploring AUX pages
+      AutoConnectCore<T>::_currentPageElement.reset(_aux->_setupPage(uri));
+    }
   }
 }
 

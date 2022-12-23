@@ -53,16 +53,20 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "</div>"
   "<script>"
   "function _bu(url) {"
-  "var uri=document.createElement('input');"
-  "uri.setAttribute('type','hidden');"
-  "uri.setAttribute('name','" AUTOCONNECT_AUXURI_PARAM "');"
-  "uri.setAttribute('value','{{AUX_URI}}');"
-  "var fm=document.getElementById('_aux');"
-  "fm.appendChild(uri);"
+  "let fm=document.getElementById('_aux');"
+  "let uri=document.getElementById('_aux_uri');"
+  "if (uri===null) {"
+    "uri=document.createElement('input');"
+    "uri.id='_aux_uri';"
+    "uri.type='hidden';"
+    "uri.name='" AUTOCONNECT_AUXURI_PARAM "';"
+    "uri.value='{{AUX_URI}}';"
+    "fm.append(uri);"
+  "}"
   "fm.action=url;"
   "return fm;"
   "}"
-  "function _sa(url) {"
+  "function " AUTOCONNECT_AUXSCRIPT_SUBMIT "(url) {"
   "_bu(url).submit();"
   "}"
   "{{POSTSCRIPT}}"
@@ -72,9 +76,58 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
 };
 
 const char AutoConnectAux::_PAGE_SCRIPT_MA[] PROGMEM = {
-  "function _ma(el,pos) {"
-  "var mag=pos=='p'?el.previousElementSibling:el.nextElementSibling;"
+  "function " AUTOCONNECT_AUXSCRIPT_RANGEVALUE "(el,pos) {"
+  "let mag=pos=='p'?el.previousElementSibling:el.nextElementSibling;"
   "mag.innerText=el.value;"
+  "}"
+};
+
+const char AutoConnectAux::_PAGE_SCRIPT_FE[] PROGMEM = {
+  "function _ff(url, elm) {"
+    "let ff=_bu(url);"
+    "let src=document.getElementById('_fe_id');"
+    "if (src===null) {"
+      "src=document.createElement('input');"
+      "src.id='_fe_id';"
+      "src.type='hidden';"
+      "src.name='" AUTOCONNECT_FETCHELEMENT_PARAM "';"
+      "ff.append(src);"
+    "}"
+    "src.value=elm.name;"
+    "return ff;"
+  "}"
+  "async function " AUTOCONNECT_AUXSCRIPT_FETCH "(org) {"
+    "const ep='" AUTOCONNECT_URI_FETCH "';"
+    "const fd=new FormData(_ff(ep, org));"
+    "try {"
+      "const res=await fetch(ep, {"
+        "method:'POST',"
+        "mode:'no-cors',"
+        "body:fd"
+      "});"
+      "if (res.status!==200) {"
+        "throw `response.status:${res.status} ${res.statusText}`;"
+      "}"
+      "const json=await res.json();"
+      "json.forEach(re => {"
+        "let elm=document.getElementById(re.id);"
+        "if (elm!=null)"
+          "_ite(elm, re);"
+      "});"
+    "}"
+    "catch (err) {"
+      "console.log(err);"
+    "}"
+  "}"
+  "function _ite(tag, elr) {"
+    "for (const prop in elr) {"
+      "if (prop!=='id') {"
+        "if (typeof elr[prop]=='object')"
+          "_ite(tag[prop], elr[prop]);"
+        "else "
+          "tag[prop]=elr[prop];"
+      "}"
+    "}"
   "}"
 };
 
@@ -591,6 +644,13 @@ const String AutoConnectAux::_insertScript(PageArgument& args) {
   if ((_contains >> (uint16_t)AC_Range) & 0b1)
     postscript += String(FPSTR(_PAGE_SCRIPT_MA));
 
+  // Insert Fetch
+  for (AutoConnectElement& elm : _addonElm)
+    if (elm.canHandle()) {
+      postscript += String(FPSTR(_PAGE_SCRIPT_FE));
+      break;
+    }
+
   return postscript;
 }
 
@@ -701,6 +761,101 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
     }
   }
   return elm;
+}
+
+/**
+ * An exit for the endpoint responding to a Fetch request issued from the
+ * AutoConnectAux client with AutoConnectElement::on.
+ * This responder sends back a response message based on the `responses` member
+ * of each AutoConnectElement held by the requesting AutoConnectAux. 
+ * The structure of the responses member, which is the response source, is
+ * declared an AutoConnectElementBasis::ACResponse_t type to carry values that
+ * can dynamically update the AutoConnectElement on the AutoConnectAux page.
+ * The response content it produces is a JSON message in the following form.
+ * - [ {"name":"value"}, {"name":"value"} ]
+ * @param  args  Request arguments from the Web client.
+ * @return An empty string.
+ */
+String AutoConnectAux::_fetchEndpoint(PageArgument& args) {
+  int responseCode = 500;
+  PGM_P responseContent;
+  char* res = nullptr;
+
+  String  auxPath = args.arg(String(F(AUTOCONNECT_AUXURI_PARAM)));
+  // After identifying the AutoConnectAux that should respond to the endpoint
+  // request, the response message is constructed from the AutoConnectElements
+  // contained within it.
+  if (auxPath.length()) {
+    auxPath.replace("&#47;", "/");
+    if (_uri != auxPath) {
+      if (_next) {
+        _next->_fetchEndpoint(args);
+        return String();
+      }
+      else
+        responseContent = String(String(F("No AutoConnectAux - ")) + auxPath).c_str();
+    }
+    else {
+      AC_DBG("%s fetch accepted\n", auxPath.c_str());
+
+      // Fetch from the client forwards the value of each AutoConnectElement
+      // along with its request to the WebServer as POST body data. `/_ac/work`
+      // endpoint also receives the current value of each forwarded AutoConnectElement.
+      fetchElement();
+
+      // Identify the AutoConnectElement that fired the Fetch and call back the
+      // registered `on` handler with in the sketch.
+      AutoConnectElement* srcElm = getElement(args.arg(AUTOCONNECT_FETCHELEMENT_PARAM));
+      if (srcElm) {
+        srcElm->reply(*this);
+
+        // Construct the JSON message that will serve as the response.
+        size_t  jbSize = sizeof("[]");
+        for (AutoConnectElement& elm : _addonElm)
+          jbSize += elm.responseLength() + sizeof(',');
+
+        res = new char[jbSize];
+        if (res) {
+          char* bp = res;
+          *bp++ = '[';
+          char* tp = bp;
+          for (AutoConnectElement& elm : _addonElm) {
+            char* np = bp;
+            if ((bp += elm.responseJSON(bp)) > np)
+              *bp++ = ',';
+
+            // After exiting the `on` handler, all response data given by the
+            // user sketch is cleared.
+            elm.responses.clear();
+          }
+          if (tp == bp)
+            bp++;
+          *(--bp)++ = ']';
+          *bp = '\0';
+          _ac->_webServer->enableCORS(true);
+          responseCode = 200;
+          responseContent = res;
+        }
+        else
+          responseContent = PSTR("Response message buffer allocation failed");
+      }
+      else {
+        res = new char[64];
+        sprintf_P(res, PSTR("_on element '%s' not found"), args.arg(AUTOCONNECT_FETCHELEMENT_PARAM).c_str());
+        responseContent = PSTR("_onInvalid interface");
+      }
+    }
+  }
+  else
+    responseContent = PSTR("Invalid interface");
+
+  AC_DBG(AUTOCONNECT_URI_FETCH "(%d) %s\n", responseCode, responseContent);
+  _ac->_webServer->sendHeader(String(F("Connection")), String(F("keep-alive")));
+  _ac->_webServer->send(responseCode, responseCode == 200 ? "application/json" : "text/plain", responseContent);
+  cancel(true);
+  if (res)
+    delete[] res;
+  return String();
 }
 
 /**
