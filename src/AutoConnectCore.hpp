@@ -4,8 +4,8 @@
  * that are limited to AutoConnect basic functionality.
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-09-20
+ * @version 1.4.1
+ * @date 2022-12-24
  * @copyright MIT license.
  */
 
@@ -46,6 +46,7 @@ class AutoConnectCore {
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = 0);
   bool  config(T& config);
   bool  config(const char* ap, const char* password = nullptr);
+  void  disconnect(const bool wifiOff = false, const bool clearConfig = false);
   inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
   inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   virtual void  end(void);
@@ -114,7 +115,6 @@ class AutoConnectCore {
   void  _softAP(void);
   wl_status_t _waitForConnect(unsigned long timeout);
   void  _waitForEndTransmission(void);
-  void  _disconnectWiFi(bool wifiOff);
   void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
@@ -250,18 +250,6 @@ class AutoConnectCore {
   virtual inline void _releaseAux(const String& uri) { AC_UNUSED(uri); }
   virtual inline void _saveCurrentUri(const String& uri) { AC_UNUSED(uri); }
   virtual inline String _mold_MENU_AUX(PageArgument& args) { return String(""); }
-
-  // // Make sure an API compatibility of filesystem begin call between SDClass and fs::FS classes.
-  // template<typename U>
-  // typename std::enable_if<std::is_same<U, AutoConnectFS::SDClassT>::value, bool>::type
-  // inline  _beginFS(U& fs) {
-  //   return fs.begin(AUTOCONNECT_SD_CS);
-  // }
-  // template<typename U>
-  // typename std::enable_if<!std::is_same<U, AutoConnectFS::SDClassT>::value, bool>::type
-  // inline  _beginFS(U& fs) {
-  //   return fs.begin(AUTOCONNECT_FS_INITIALIZATION);
-  // }
 };
 
 #endif  // _AUTOCONNECTCORE_HPP_
