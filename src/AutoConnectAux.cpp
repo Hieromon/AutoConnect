@@ -3,7 +3,7 @@
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
  * @version 1.4.1
- * @date 2022-12-01
+ * @date 2022-12-25
  * @copyright MIT license.
  */
 #include <algorithm>
@@ -111,10 +111,13 @@ const char AutoConnectAux::_PAGE_SCRIPT_FE[] PROGMEM = {
       "const json=await res.json();"
       "json.forEach(re=>{"
         "let elm=document.getElementById(re.id);"
-        "if (elm!=null)"
+        "if (elm!==null)"
           "_ite(elm, re);"
       "});"
     "} catch (e) {"
+#ifdef AC_DEBUG
+      "alert(e);"
+#endif      
       "console.log(e);"
     "}"
   "}"
@@ -794,7 +797,7 @@ String AutoConnectAux::_fetchEndpoint(PageArgument& args) {
         responseContent = String(String(F("No AutoConnectAux - ")) + auxPath).c_str();
     }
     else {
-      AC_DBG("%s fetch accepted\n", auxPath.c_str());
+      AC_DBG("Ep %s accepted\n", auxPath.c_str());
 
       // Fetch from the client forwards the value of each AutoConnectElement
       // along with its request to the WebServer as POST body data. `/_ac/work`
@@ -803,7 +806,8 @@ String AutoConnectAux::_fetchEndpoint(PageArgument& args) {
 
       // Identify the AutoConnectElement that fired the Fetch and call back the
       // registered `on` handler with in the sketch.
-      AutoConnectElement* srcElm = getElement(args.arg(AUTOCONNECT_FETCHELEMENT_PARAM));
+      String  currentTarget = args.arg(AUTOCONNECT_FETCHELEMENT_PARAM);
+      AutoConnectElement* srcElm = getElement(currentTarget);
       if (srcElm) {
         srcElm->reply(*this);
 
@@ -835,12 +839,12 @@ String AutoConnectAux::_fetchEndpoint(PageArgument& args) {
           responseContent = res;
         }
         else
-          responseContent = PSTR("Response message buffer allocation failed");
+          responseContent = PSTR("Response buffer allocation failed");
       }
       else {
-        res = new char[64];
-        sprintf_P(res, PSTR("_on element '%s' not found"), args.arg(AUTOCONNECT_FETCHELEMENT_PARAM).c_str());
-        responseContent = PSTR("_onInvalid interface");
+        res = new char[currentTarget.length() + sizeof('\0')];
+        sprintf_P(res, PSTR("No endpoints with " AUTOCONNECT_FETCHELEMENT_PARAM ":%s"), currentTarget.c_str());
+        responseContent = res;
       }
     }
   }
@@ -899,7 +903,7 @@ void AutoConnectAux::_storeElements(WebServer* webServer) {
       }
     }
   }
-  AC_DBG_DUMB(",elements stored\n");
+  AC_DBG_DUMB(", elements stored\n");
 }
 
 #ifdef AUTOCONNECT_USE_JSON
