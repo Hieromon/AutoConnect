@@ -1,8 +1,9 @@
 # AutoConnect for ESP8266/ESP32
 
 [![GitHub release](https://img.shields.io/github/v/release/Hieromon/AutoConnect)](https://github.com/Hieromon/AutoConnect/releases)
-[![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg?)](https://www.ardu-badge.com/AutoConnect)
 [![Build Status](https://github.com/Hieromon/AutoConnect/actions/workflows/build.yml/badge.svg)](https://github.com/Hieromon/AutoConnect/actions/workflows/build.yml)
+[![arduino-library-badge](https://www.ardu-badge.com/badge/AutoConnect.svg?)](https://www.ardu-badge.com/AutoConnect)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/hieromon/library/AutoConnect.svg?version=1.4.0)](https://registry.platformio.org/packages/libraries/hieromon/AutoConnect?version=1.4.0) 
 [![License](https://img.shields.io/github/license/Hieromon/AutoConnect)](https://github.com/Hieromon/AutoConnect/blob/master/LICENSE)
 
 An Arduino library for ESP8266/ESP32 WLAN configuration at run time with web interface. 
