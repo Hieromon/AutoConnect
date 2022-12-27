@@ -1113,7 +1113,7 @@ if (!page.isValid())
   Serial.println("Validation error");
 ```
 
-### <i class="fas fa-exchange-alt"></i> Convert data to actually type
+### <i class="fas fa-magic"></i> Convert data to actually type
 
 The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type. For the typical data type conversion method, refer to section [*Tips for data conversion*](datatips.md#convert-autoconnectelements-value-to-actual-data-type).
 
@@ -1262,9 +1262,31 @@ And the action for calling the `multi()` function is the `=` labeled button as t
 !!! warning "JavaScript that is too long can cause insufficient memory"
     If it reaches thousands of bytes, AutoConnect will not be able to complete the HTML generation for the page.
 
+## Custom Web pages communication without page transitions
+
+The request-response form typically provided by AutoConnectAux is based on stateless HTTP page transitions. Its communication between custom Web pages and sketches involves page transitions in the client browser via the request-response form. However, major Web browsers support HTTP asynchronous communication without page transitions. By embedding those [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) in your custom Web pages, you can implement sketches that do not disrupt the user working flow with page transitions.
+
+There are two Web APIs that allow asynchronous communication that can be used with AutoConnectAux:
+
+- [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)) (XHR):
+
+    JavaScript embedded in a custom web page uses the XMLHttpRequest object to communicate with the request handler on the sketch side. A sketch typically embeds its JavaScript coded as a string value with [AutoConnectElement](apielements.md#autoconnectelement) into a custom Web page JSON description.
+
+    The request handler that is communication partner with the above JavaScript should be implemented in the sketch as the [client request handler](https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WebServer/README.rst#client-request-handlers) of the ESP8266WebServer (WebServer for ESP32) class.
+
+    The procedure for implementing a sketch in this manner is described in a [subsequent section](#communicate-with-the-sketch-using-xhr).
+
+- [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch):
+
+    The Fetch API supported by AutoConnectAux is even easy to implement than XHR. AutoConnectElements can use the Fetch API as an event handler of the AutoConnectElements element to trigger scripts that communicate with the server sketch. Its Fetch API script will automatically be embedded in the HTML source of your custom web page by AutoConnect. Thus you do not need to code any JavaScript code in your sketch.
+
+    Also, the sketch process with which the above Fetch API script communicates can access and update the values and properties of each AutoConnectElement. Updated AutoConnectElement contents are immediately reflected on the custom web page by sending a response.
+
+    The Fetch API-driven approach based on AutoConnectElements event firing is described in the section of [Interact with sketches by AutoConnectElements event](#interact-with-sketches-by-autoconnectelements-event).
+
 ### <i class="fas fa-globe"></i> Communicate with the Sketch using XHR
 
-AutoConnectElement allows having scripts that create sessions based on [**XHR**](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). XMLHttpRequest (XHR) is a JavaScript API to create AJAX requests. Its methods provide the ability to send network requests between the browser and a server. The Sketch simply implements the server-side process as a response handler to a normal HTTP request and can equip with a dynamic custom Web page. This technique is tricky but does not cause page transitions and is useful for implementing dynamic pages. As a matter of fact, [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115) class is implemented by using this technique and is a custom Web page by AutoConnectAux.
+AutoConnectElement allows having scripts that create sessions based on [**XHR**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). XMLHttpRequest (XHR) is a JavaScript API to create AJAX requests. Its methods provide the ability to send network requests between the browser and a server. The Sketch simply implements the server-side process as a response handler to a normal HTTP request and can equip with a dynamic custom Web page. This technique is tricky but does not cause page transitions and is useful for implementing dynamic pages. As a matter of fact, [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115) class is implemented by using this technique and is a custom Web page by AutoConnectAux.
 
 Here's a simple example of JavaScript-based on XHR and a server-side request handler. It's like a clock that displays the time in real-time on an AutoConnect custom web page. The sketch in the following example is roughly divided into two structures.  
 The AutoConnectElement defined with the name `js` gets the server time with XHR and updates the response via the DOM with the AutoConnectText named `time` and substance is the following JavaScript:
@@ -1375,6 +1397,10 @@ void loop() {
   portal.handleClient();
 }
 ```
+
+### <i class="fas fa-exchange-alt"></i> Interact with sketches by AutoConnectElements event
+
+AutoConnectAux supports [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) besides [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) for communication between the client browser and the ESP module. This allows your sketches to get and change values and properties of AutoConnectElements without a page transition on the browser. The changed values and properties are immediately reflected in the page currently being viewed in the browser.
 
 ## Transitions of the custom Web pages
 
