@@ -3,7 +3,7 @@
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
  * @version 1.4.1
- * @date 2022-12-25
+ * @date 2022-12-27
  * @copyright MIT license.
  */
 #include <algorithm>
@@ -114,6 +114,7 @@ const char AutoConnectAux::_PAGE_SCRIPT_FE[] PROGMEM = {
         "if (elm!==null)"
           "_ite(elm, re);"
       "});"
+      "return true;"
     "} catch (e) {"
 #ifdef AC_DEBUG
       "alert(e);"
