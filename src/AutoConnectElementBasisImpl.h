@@ -3,7 +3,7 @@
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
  * @version  1.4.1
- * @date 2022-12-07
+ * @date 2022-12-27
  * @copyright  MIT license.
  */
 
@@ -77,6 +77,8 @@ size_t AutoConnectElementBasis::responseJSON(char* buffer) {
     bp += sprintf(bp, "{\"id\":\"%s\"", name.c_str());
     for (ACResponse_t& res : responses) {
       bp += sprintf(bp, ",\"%s\":", res.attribute.c_str());
+      if (res.attribute.equalsIgnoreCase(F("value")))
+        value = res.value;
       String& vs = res.value;
       vs.trim();
       const char* quote = (vs[0] == '{' && vs[vs.length() - 1] == '}') ? "" : "\"";
@@ -97,10 +99,10 @@ size_t AutoConnectElementBasis::responseJSON(char* buffer) {
 size_t AutoConnectElementBasis::responseLength(void) {
   size_t  size = 0;
 
-  if (responses.size() > 0) {
-    size = sizeof("\"name\"") + name.length() + sizeof("{}");
+  if (responses.size()) {
+    size = sizeof('{') + sizeof("\"id\"") + sizeof(':') + sizeof('"') * 2 + name.length() + sizeof('}');
     for (ACResponse_t& res : responses)
-      size += res.attribute.length() + res.value.length() + sizeof('"') * 2 + sizeof(':') + sizeof(',');
+      size += sizeof(',') + sizeof('"') * 2 + res.attribute.length() + sizeof(':') + sizeof('"') * 2 + res.value.length();
   }
   return size;
 }
@@ -110,7 +112,6 @@ size_t AutoConnectElementBasis::responseLength(void) {
  * @param  value  It is reflected in the value and innerHTML of the button tag.
  */
 void AutoConnectButtonBasis::response(const char* value) {
-  this->value = String(value);
   AutoConnectElementBasis::response("value", value);
   AutoConnectElementBasis::response("innerHTML", value);
 }
@@ -298,7 +299,6 @@ AutoConnectUploadHandler::AC_UPLOADStatus_t AutoConnectFileBasis::status(void) {
  * @param  value  It is reflected in the value of the input tag.
  */
 void AutoConnectInputBasis::response(const char* value) {
-  this->value = String(value);
   AutoConnectElementBasis::response("value", value);
 }
 
@@ -847,7 +847,6 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
  * @param  value  It is reflected in innerHTML of the div tag.
  */
 void AutoConnectTextBasis::response(const char* value) {
-  this->value = String(value);
   AutoConnectElementBasis::response("innerHTML", value);
 }
 
