@@ -27,10 +27,11 @@ nav:
     - 'AutoConnectElements' : acelements.md
     - 'Custom Web pages with JSON' : acjson.md
     - 'Handling the custom Web pages' : achandling.md
+    - 'Interact between Sketch and AutoConnectElements' : acinteract.md
   - 'OTA Updates' : 
     - 'OTA Updates' : otaupdate.md
-    - 'Using Web Browser' : otabrowser.md
-    - 'Using Update Server' : otaserver.md
+    - 'OTA via Web Browser' : otabrowser.md
+    - 'OTA using Update Server' : otaserver.md
   - 'Using Filesystem' : filesystem.md
   - 'Library APIs' :
     - 'AutoConnect API': api.md
@@ -61,7 +62,7 @@ repo_url: https://github.com/Hieromon/AutoConnect
 edit_uri: ""
 
 # Copyright
-copyright: Copyright &copy; 2018-2022 Hieromon Ikasamo
+copyright: Copyright &copy; 2018-2023 Hieromon Ikasamo
 
 # Configuration
 use_directory_urls: false
@@ -77,6 +78,8 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
+  features:
+    - navigation.top
 
 # Customization
 extra_css:
