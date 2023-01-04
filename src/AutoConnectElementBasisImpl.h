@@ -82,7 +82,7 @@ size_t AutoConnectElementBasis::responseJSON(char* buffer) {
       String& vs = res.value;
       vs.trim();
       const char* quote = (vs[0] == '{' && vs[vs.length() - 1] == '}') ? "" : "\"";
-      if (res.attribute.equalsIgnoreCase(F("checked")))
+      if (vs.equalsIgnoreCase("true") || vs.equalsIgnoreCase("false"))
         quote = "";
       bp += sprintf(bp, "%s%s%s", quote, vs.c_str(), quote);
     }
