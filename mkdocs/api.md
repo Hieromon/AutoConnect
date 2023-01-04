@@ -425,6 +425,24 @@ Load JSON document of AutoConnectAux which contains AutoConnectElements. If ther
     <dd><span class="apidef">true</span><span class="apidesc">The JSON document as AutoConnectAux successfully loaded.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the [ArduinoJson Assistant](https://arduinojson.org/v5/assistant/).</span></dd></dl>
 
+### <i class="fa fa-caret-right"></i> locate
+
+<p class="badge"><img src="images/tag_ac.png"></p>
+
+```cpp
+AutoConnectAux& locate(const String& uri)
+```
+
+Returns a reference to the AutoConnectAux assigned to the uri passed in the argument.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">URI string of the custom web page to be located.</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A reference to the AutoConnectAux that has a specified URI.</dd></dl>
+
+!!! caution "AutoConnectAux for the specified uri must exist"
+    If the AutoConnectAux for the uri specified to the [locate](#locate) function does not exist, the function returns a reference to an empty AutoConnectAux. It's just a frame without any AutoConnectElements. No processing can continue using that AutoConnectAux. (causes an exception)
+    A common cause of exceptions for the [locate](#locate) function is syntax errors in the JSON description of a custom web page.
+
 ### <i class="fa fa-caret-right"></i> on
 
 <p class="badge"><img src="images/tag_ac.png"></p>
