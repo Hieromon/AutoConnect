@@ -6,7 +6,7 @@
 ### AutoConnectAux
 
 ```cpp
-AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const responsive = true)
+AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const bool responsive = true, const bool CORS = false)
 ```
 
 <dl class="apidl">
@@ -14,8 +14,9 @@ AutoConnectAux(const String& uri = String(""), const String& title = String(""),
     <dd><span class="apidef">uri</span><span class="apidesc">URI of this custom Web Page.</span></dd>
     <dd><span class="apidef">title</span><span class="apidesc">Page title of this custom Web page. It will appear on the auto connection menu and at the top of that page.</span></dd>
     <dd><span class="apidef">menu</span><span class="apidesc">Specifies whether to display this page on menu.</span></dd>
-    <dd><span class="apidef">addons</span><span class="apidesc">Reference to AutoConnectElement collection.</span></dt>
-    <dd><span class="apidef">responsive</span><span class="apidesc">Specifies whether to make HTTP response or not.</span></dt>
+    <dd><span class="apidef">addons</span><span class="apidesc">Reference to AutoConnectElement collection.</span></dd>
+    <dd><span class="apidef">responsive</span><span class="apidesc">Specifies whether to make HTTP response or not.</span></dd>
+    <dd><span class="apidef">CORS</span><span class="apidesc">Include <code>Access-Control-Allow-Origin:*</code> in the HTTP response headers of the custom web page. This indicates that the response can be shared.</span></dd>
 </dl>
 
 ## <i class="fa fa-code"></i> Public member functions
