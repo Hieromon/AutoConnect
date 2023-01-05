@@ -4,8 +4,8 @@
  * that are limited to AutoConnect basic functionality.
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-09-20
+ * @version 1.4.1
+ * @date 2022-12-24
  * @copyright MIT license.
  */
 
@@ -46,6 +46,7 @@ class AutoConnectCore {
   bool  begin(const char* ssid, const char* passphrase = nullptr, unsigned long timeout = 0);
   bool  config(T& config);
   bool  config(const char* ap, const char* password = nullptr);
+  void  disconnect(const bool wifiOff = false, const bool clearConfig = false);
   inline void disableMenu(const uint16_t items) { _apConfig.menuItems &= (0xffff ^ items); }
   inline void enableMenu(const uint16_t items) { _apConfig.menuItems |= items; }
   virtual void  end(void);
@@ -56,6 +57,7 @@ class AutoConnectCore {
   void  handleRequest(void);
   void  home(const String& uri);
   WebServer& host(void);
+  bool  isPortalAvailable(void) const;
 
   typedef std::function<bool(IPAddress&)> DetectExit_ft;
   typedef std::function<void(IPAddress&)> ConnectExit_ft;
@@ -113,13 +115,13 @@ class AutoConnectCore {
   void  _softAP(void);
   wl_status_t _waitForConnect(unsigned long timeout);
   void  _waitForEndTransmission(void);
-  void  _disconnectWiFi(bool wifiOff);
   void  _setReconnect(const AC_STARECONNECT_t order);
 
   /** Utilities */
   String              _attachMenuItem(const AC_MENUITEM_t item);
   static uint32_t     _getChipId(void);
   static uint32_t     _getFlashChipRealSize(void);
+  static String       _getSystemUptime(void);
   static String       _toMACAddressString(const uint8_t mac[]);
   static unsigned int _toWiFiQuality(int32_t rssi);
   ConnectExit_ft      _onConnectExit;
@@ -227,6 +229,7 @@ class AutoConnectCore {
   String _token_SSID_COUNT(PageArgument& args);
   String _token_STA_MAC(PageArgument& args);
   String _token_STATION_STATUS(PageArgument& args);
+  String _token_SYSTEM_UPTIME(PageArgument &args);
   String _token_UPTIME(PageArgument& args);
   String _token_WIFI_MODE(PageArgument& args);
   String _token_WIFI_STATUS(PageArgument& args);
@@ -247,18 +250,6 @@ class AutoConnectCore {
   virtual inline void _releaseAux(const String& uri) { AC_UNUSED(uri); }
   virtual inline void _saveCurrentUri(const String& uri) { AC_UNUSED(uri); }
   virtual inline String _mold_MENU_AUX(PageArgument& args) { return String(""); }
-
-  // // Make sure an API compatibility of filesystem begin call between SDClass and fs::FS classes.
-  // template<typename U>
-  // typename std::enable_if<std::is_same<U, AutoConnectFS::SDClassT>::value, bool>::type
-  // inline  _beginFS(U& fs) {
-  //   return fs.begin(AUTOCONNECT_SD_CS);
-  // }
-  // template<typename U>
-  // typename std::enable_if<!std::is_same<U, AutoConnectFS::SDClassT>::value, bool>::type
-  // inline  _beginFS(U& fs) {
-  //   return fs.begin(AUTOCONNECT_FS_INITIALIZATION);
-  // }
 };
 
 #endif  // _AUTOCONNECTCORE_HPP_

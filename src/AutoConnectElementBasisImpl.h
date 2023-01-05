@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.4.0
- * @date 2022-08-01
+ * @version  1.4.1
+ * @date 2022-12-27
  * @copyright  MIT license.
  */
 
@@ -66,6 +66,57 @@ const String AutoConnectElementBasis::posterior(const String& s) const {
 }
 
 /**
+ * Generate a JSON response adapting to the Fetch request.
+ * @param  buffer  Buffer to output JSON response data
+ * @return Size of output data
+ */
+size_t AutoConnectElementBasis::responseJSON(char* buffer) {
+  char* bp = buffer;
+
+  if (responses.size() > 0) {
+    bp += sprintf(bp, "{\"id\":\"%s\"", name.c_str());
+    for (ACResponse_t& res : responses) {
+      bp += sprintf(bp, ",\"%s\":", res.attribute.c_str());
+      if (res.attribute.equalsIgnoreCase(F("value")))
+        value = res.value;
+      String& vs = res.value;
+      vs.trim();
+      const char* quote = (vs[0] == '{' && vs[vs.length() - 1] == '}') ? "" : "\"";
+      if (vs.equalsIgnoreCase("true") || vs.equalsIgnoreCase("false"))
+        quote = "";
+      bp += sprintf(bp, "%s%s%s", quote, vs.c_str(), quote);
+    }
+    *bp++ = '}';
+  }
+  *bp = '\0';
+  return (size_t)(bp - buffer);
+}
+
+/**
+ * Calculates the JSON length of the response data contained in `responses`.
+ * @return Size of output data
+ */
+size_t AutoConnectElementBasis::responseLength(void) {
+  size_t  size = 0;
+
+  if (responses.size()) {
+    size = sizeof('{') + sizeof("\"id\"") + sizeof(':') + sizeof('"') * 2 + name.length() + sizeof('}');
+    for (ACResponse_t& res : responses)
+      size += sizeof(',') + sizeof('"') * 2 + res.attribute.length() + sizeof(':') + sizeof('"') * 2 + res.value.length();
+  }
+  return size;
+}
+
+/**
+ * Produces a Fetch response that conforms to the AutoConnectButton::value.
+ * @param  value  It is reflected in the value and innerHTML of the button tag.
+ */
+void AutoConnectButtonBasis::response(const char* value) {
+  AutoConnectElementBasis::response("value", value);
+  AutoConnectElementBasis::response("innerHTML", value);
+}
+
+/**
  * Generate an HTML <button> element. The onclick behavior depends on
  * the code held in factionf member.
  * @return  An HTML string.
@@ -74,20 +125,31 @@ const String AutoConnectButtonBasis::toHTML(void) const {
   String  html;
 
   // Conversion of the AutoConnectButton element to HTML.
-  // <button id="name" name="name" value="value" onclick="action">value</button>
+  // <button id="name" name="name" value="value" onclick="action|_fe(this)">value</button>
   if (enable) {
     static const char elmButtonTempl[] PROGMEM = "<%s type=\"%s\" id=\"%s\" name=\"%s\" value=\"%s\" onclick=\"%s\">%s</%s>";
     static const char tagButton[] PROGMEM = "button";
+    static const char fetch[] PROGMEM = AUTOCONNECT_AUXSCRIPT_FETCH "(this)";
+    const char* onclick = canHandle() ? (PGM_P)fetch : action.c_str();
 
-    size_t  elmLen = (AutoConnectElementBasisImpl::_sizeof(elmButtonTempl) + (AutoConnectElementBasisImpl::_sizeof(tagButton) * 3) + (name.length() * 2) + (value.length() * 2) + action.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 8) + sizeof('\0') + 16) & (~0xf);
+    size_t  elmLen = (AutoConnectElementBasisImpl::_sizeof(elmButtonTempl) + (AutoConnectElementBasisImpl::_sizeof(tagButton) * 3) + (name.length() * 2) + (value.length() * 2) + action.length() + strlen(onclick) - (AutoConnectElementBasisImpl::_sizeof("%s") * 8) + sizeof('\0') + 16) & (~0xf);
     char*   elmButton = new char[elmLen];
     if (elmButton) {
-      snprintf_P(elmButton, elmLen, elmButtonTempl, (PGM_P)tagButton, (PGM_P)tagButton, name.c_str(), name.c_str(), value.c_str(), action.c_str(), value.c_str(), (PGM_P)tagButton);
+      snprintf_P(elmButton, elmLen, elmButtonTempl, (PGM_P)tagButton, (PGM_P)tagButton, name.c_str(), name.c_str(), value.c_str(), onclick, value.c_str(), (PGM_P)tagButton);
       html = AutoConnectElementBasis::posterior(String(elmButton));
       delete[] elmButton;
     }
   }
   return html;
+}
+
+/**
+ * Produces a Fetch response that conforms to the AutoConnectButton::value.
+ * @param  check  It is reflected in the check property of the checkbox tag.
+ */
+void AutoConnectCheckboxBasis::response(const bool check) {
+  checked = check;
+  AutoConnectElementBasis::response("checked", check ? "true" : "false");
 }
 
 /**
@@ -103,13 +165,14 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
 
   if (enable) {
     // Conversion of the AutoConnectCheckbox element to HTML.
-    // <input type="checkbox" id="name" name="name" value="value"[ checked]>
+    // <input type="checkbox" id="name" name="name" value="value"[ checked] [onchange="_fe(this)"]>
     // [<label for="name">label</label>]
-    static const char elmCheckboxTempl[] PROGMEM = "%s<input type=\"checkbox\" id=\"%s\" name=\"%s\" value=\"%s\"%s>%s";
+    static const char elmCheckboxTempl[] PROGMEM = "%s<input type=\"checkbox\" id=\"%s\" name=\"%s\" value=\"%s\"%s%s>%s";
     static const char elmLabelTempl[] PROGMEM = "<%s for=\"%s\">%s</%s>";
     static const char elmNone[] PROGMEM = "";
     static const char tagLabel[] PROGMEM = "label";
     static const char attrChecked[] PROGMEM = " checked";
+    static const char attrOnChange[] PROGMEM = " onchange=\"" AUTOCONNECT_AUXSCRIPT_FETCH "(this)\"";
     PGM_P applyChecked = (PGM_P)elmNone;
     PGM_P elmLabelPre  = (PGM_P)elmNone;
     PGM_P elmLabelPost = (PGM_P)elmNone;
@@ -132,10 +195,11 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
       applyChecked = (PGM_P)attrChecked;
       elmLen += AutoConnectElementBasisImpl::_sizeof(attrChecked);
     }
-    elmLen = (elmLen + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmCheckboxTempl) + (name.length() * 2) + value.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 6) + sizeof('\0') + 16) & (~0xf);
+    const char* onchange = canHandle() ? (PGM_P)attrOnChange : (PGM_P)elmNone;
+    elmLen = (elmLen + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmCheckboxTempl) + (name.length() * 2) + value.length() + strlen(onchange) - (AutoConnectElementBasisImpl::_sizeof("%s") * 6) + sizeof('\0') + 16) & (~0xf);
     char* elmCheckbox = new char[elmLen];
     if (elmCheckbox) {
-      snprintf_P(elmCheckbox, elmLen, elmCheckboxTempl, elmLabelPre, name.c_str(), name.c_str(), value.c_str(), applyChecked, elmLabelPost);
+      snprintf_P(elmCheckbox, elmLen, elmCheckboxTempl, elmLabelPre, name.c_str(), name.c_str(), value.c_str(), applyChecked, onchange, elmLabelPost);
       html = AutoConnectElementBasis::posterior(String(elmCheckbox));
       delete[] elmCheckbox;
     }
@@ -231,6 +295,14 @@ AutoConnectUploadHandler::AC_UPLOADStatus_t AutoConnectFileBasis::status(void) {
 }
 
 /**
+ * Produces a Fetch response that conforms to the AutoConnectInput::value.
+ * @param  value  It is reflected in the value of the input tag.
+ */
+void AutoConnectInputBasis::response(const char* value) {
+  AutoConnectElementBasis::response("value", value);
+}
+
+/**
  * Generate an HTML <input type=text> element.
  * If the value member is contained, it is reflected in the placeholder
  * attribute. The entered value can be obtained using the user callback
@@ -244,8 +316,8 @@ const String AutoConnectInputBasis::toHTML(void) const {
   if (enable) {
     // Conversion of the AutoConnectInput element to HTML.
     // [<label for="name">label</label>]
-    // <input type="number|password|text" id="name" name="name"[ pattern="pattern"][ placeholder="placeholder"][ value="value"][ style="style"]>
-    static const char elmInputTempl[] PROGMEM = "%s<input type=\"%s\" id=\"%s\" name=\"%s\"%s%s%s%s>";
+    // <input type="number|password|text" id="name" name="name"[ pattern="pattern"][ placeholder="placeholder"][ value="value"][ style="style"][ onchange="_fe(this)"]>
+    static const char elmInputTempl[] PROGMEM = "%s<input type=\"%s\" id=\"%s\" name=\"%s\"%s%s%s%s%s>";
     static const char elmLabelTempl[] PROGMEM ="<%s for=\"%s\">%s</%s>";
     static const char elmNone[] PROGMEM = "";
     static const char tagLabel[] PROGMEM = "label";
@@ -270,10 +342,12 @@ const String AutoConnectInputBasis::toHTML(void) const {
     static const char attrPlaceholderTempl[] PROGMEM = " placeholder=\"%s\"";
     static const char attrValueTempl[] PROGMEM = " value=\"%s\"";
     static const char attrStyleTempl[] PROGMEM = " style=\"%s\"";
+    static const char attrOnChange[] PROGMEM = " onchange=\"" AUTOCONNECT_AUXSCRIPT_FETCH "(this)\"";
     PGM_P attrPattern = (PGM_P)elmNone;
     PGM_P attrPlaceholder = (PGM_P)elmNone;
     PGM_P attrValue = (PGM_P)elmNone;
     PGM_P attrStyle = (PGM_P)elmNone;
+    PGM_P applyOnChange = (PGM_P)elmNone;
     char* applyPattern = nullptr;
     char* applyPlaceholder = nullptr;
     char* applyValue = nullptr;
@@ -319,6 +393,11 @@ const String AutoConnectInputBasis::toHTML(void) const {
       }
     }
 
+    if (canHandle()) {
+      applyOnChange = attrOnChange;
+      elmLen += AutoConnectElementBasisImpl::_sizeof(attrOnChange);
+    }
+
     switch (apply) {
     case AC_Input_Number:
       attrType = (PGM_P)attrNumber;
@@ -332,10 +411,10 @@ const String AutoConnectInputBasis::toHTML(void) const {
       break;
     }
 
-    elmLen = (elmLen + AutoConnectElementBasisImpl::_sizeof(elmInputTempl) + strlen_P(attrType) + (name.length() * 2) - (AutoConnectElementBasisImpl::_sizeof("%s") * 8) + sizeof('\0') + 16) & (~0xf);
+    elmLen = (elmLen + AutoConnectElementBasisImpl::_sizeof(elmInputTempl) + strlen_P(attrType) + (name.length() * 2) - (AutoConnectElementBasisImpl::_sizeof("%s") * 9) + sizeof('\0') + 16) & (~0xf);
     char* elmInput = new char[elmLen];
     if (elmInput) {
-      snprintf_P(elmInput, elmLen, elmInputTempl, elmLabelPre, attrType, name.c_str(), name.c_str(), attrPattern, attrPlaceholder, attrValue, attrStyle);
+      snprintf_P(elmInput, elmLen, elmInputTempl, elmLabelPre, attrType, name.c_str(), name.c_str(), attrPattern, attrPlaceholder, attrValue, attrStyle, applyOnChange);
       html = AutoConnectElementBasis::posterior(String(elmInput));
       delete[] elmInput;
     }
@@ -419,16 +498,19 @@ const String AutoConnectRadioBasis::toHTML(void) const {
   if (enable) {
     // Conversion of the AutoConnectRadio element to HTML.
     // [<label>label</label>[<br>]]
-    // <input type="radio" id="name_N" name="name" value=values[N]"[ checked]><label for="name_N">values[N]</label>[<br>]
-    static const char elmRadioTempl[] PROGMEM = "<input type=\"radio\" id=\"%s_%" PRIu8 "\" name=\"%s\" value=\"%s\"%s><%s for=\"%s_%" PRIu8 "\">%s</%s>%s%s";
+    // <input type="radio" id="name_N" name="name" value=values[N]"[ checked][ onchange="_fe(this)"]><label for="name_N">values[N]</label>[<br>]
+    static const char elmRadioTempl[] PROGMEM = "<input type=\"radio\" id=\"%s_%" PRIu8 "\" name=\"%s\" value=\"%s\"%s%s><%s for=\"%s_%" PRIu8 "\">%s</%s>%s%s";
     static const char elmLabelTempl[] PROGMEM = "<%s>%s</%s>%s";
     static const char elmNone[] PROGMEM = "";
     static const char tagLabel[] PROGMEM = "label";
     static const char attrChecked[] PROGMEM = " checked";
+    static const char attrOnChange[] PROGMEM = " onchange=\"" AUTOCONNECT_AUXSCRIPT_FETCH "(this)\"";
     static const char tagBr[] PROGMEM = "<br>";
     PGM_P applyBr = (PGM_P)elmNone;
     PGM_P applyChecked;
+    PGM_P applyOnChange = (PGM_P)elmNone;
     size_t  elmLen = 0;
+    size_t  attrOnChangeLen = 0;
 
     if (order == AC_Vertical) {
       applyBr = (PGM_P)tagBr;
@@ -445,11 +527,16 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       }
     }
 
+    if (canHandle()) {
+      applyOnChange = attrOnChange;
+      attrOnChangeLen = AutoConnectElementBasisImpl::_sizeof(attrOnChange);
+    }
+
     uint8_t n = 0;
     for (const String& value : _values) {
       applyChecked = (PGM_P)elmNone;
       PGM_P applyTag = (PGM_P)elmNone;
-      elmLen = AutoConnectElementBasisImpl::_sizeof(elmRadioTempl) + (name.length() * 3) + (value.length() * 2) - (AutoConnectElementBasisImpl::_sizeof("%s") * 10) - (AutoConnectElementBasisImpl::_sizeof(PRIu8) * 2) + (AutoConnectElementBasisImpl::_sizeof("99") * 2) + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + sizeof('\0');
+      elmLen = AutoConnectElementBasisImpl::_sizeof(elmRadioTempl) + (name.length() * 3) + (value.length() * 2) + attrOnChangeLen - (AutoConnectElementBasisImpl::_sizeof("%s") * 11) - (AutoConnectElementBasisImpl::_sizeof(PRIu8) * 2) + (AutoConnectElementBasisImpl::_sizeof("99") * 2) + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + sizeof('\0');
       n++;
       if (n == checked) {
         applyChecked = (PGM_P)attrChecked;
@@ -462,7 +549,7 @@ const String AutoConnectRadioBasis::toHTML(void) const {
       elmLen = (elmLen + 16) & (~0xf);
       char* elmRadio = new char[elmLen];
       if (elmRadio) {
-        snprintf_P(elmRadio, elmLen, elmRadioTempl, name.c_str(), n, name.c_str(), value.c_str(), applyChecked, (PGM_P)tagLabel, name.c_str(), n, value.c_str(), tagLabel, applyBr, applyTag);
+        snprintf_P(elmRadio, elmLen, elmRadioTempl, name.c_str(), n, name.c_str(), value.c_str(), applyChecked, applyOnChange, (PGM_P)tagLabel, name.c_str(), n, value.c_str(), tagLabel, applyBr, applyTag);
         html += String(elmRadio);
         delete[] elmRadio;
       }
@@ -657,15 +744,17 @@ const String AutoConnectSelectBasis::toHTML(void) const {
   if (enable) {
     // Conversion of the AutoConnectSelect element to HTML.
     // [<label for="name">label</label>]
-    // <select name="name" id="name">
+    // <select name="name" id="name"[ onchange="_fe(this)"]>
     // <option value="_options[N]"[ selected]</option>
     // </select>
-    static const char elmSelectTempl[] PROGMEM = "%s<select id=\"%s\" name=\"%s\">%s</select>";
+    static const char elmSelectTempl[] PROGMEM = "%s<select id=\"%s\" name=\"%s\"%s>%s</select>";
     static const char elmOptionTempl[] PROGMEM = "<option value=\"%s\"%s>%s</option>";
     static const char attrSelected[] PROGMEM = " selected";
+    static const char attrOnChange[] PROGMEM = " onchange=\"" AUTOCONNECT_AUXSCRIPT_FETCH "(this)\"";
     static const char elmLabelTempl[] PROGMEM = "<%s for=\"%s\">%s</%s>";
     static const char elmNone[] PROGMEM = "";
     static const char tagLabel[] PROGMEM = "label";
+    PGM_P applyOnChange = (PGM_P)elmNone;
     PGM_P elmLabelPre = (PGM_P)elmNone;
     char* elmLabel = nullptr;
     size_t  elmLen = 0;
@@ -699,10 +788,15 @@ const String AutoConnectSelectBasis::toHTML(void) const {
       }
     }
 
-    elmLen = (elmLen + AutoConnectElementBasisImpl::_sizeof(elmSelectTempl) + (name.length() * 2) - (AutoConnectElementBasisImpl::_sizeof("%s") * 4) + sizeof('\0') + 16) & (~0xf);
+    if (canHandle()) {
+      applyOnChange = (PGM_P)attrOnChange;
+      elmLen += AutoConnectElementBasisImpl::_sizeof(attrOnChange);
+    }
+
+    elmLen = (elmLen + AutoConnectElementBasisImpl::_sizeof(elmSelectTempl) + (name.length() * 2) - (AutoConnectElementBasisImpl::_sizeof("%s") * 5) + sizeof('\0') + 16) & (~0xf);
     char* elmSelect = new char[elmLen];
     if (elmSelect)
-      snprintf_P(elmSelect, elmLen, elmSelectTempl, elmLabelPre, name.c_str(), name.c_str(), elmOptions.c_str());
+      snprintf_P(elmSelect, elmLen, elmSelectTempl, elmLabelPre, name.c_str(), name.c_str(), applyOnChange, elmOptions.c_str());
 
     elmOptions.~String();
     if (elmLabel)
@@ -736,7 +830,7 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
   if (enable) {
     // Conversion of the AutoConnectSubmit element to HTML.
     // <input type="button" name="name" value="value" onclick="_sa('uri')">
-    static const char elmSubmitTempl[] PROGMEM ="<input type=\"button\" name=\"%s\" value=\"%s\" onclick=\"_sa('%s')\">";
+    static const char elmSubmitTempl[] PROGMEM = "<input type=\"button\" name=\"%s\" value=\"%s\" onclick=\"" AUTOCONNECT_AUXSCRIPT_SUBMIT "('%s')\">";
     size_t elmLen = (AutoConnectElementBasisImpl::_sizeof(elmSubmitTempl) + name.length() + value.length() + uri.length() - (AutoConnectElementBasisImpl::_sizeof("%s") * 3) + sizeof('\0') + 16) & (~0xf);
     char*  elmSubmit = new char[elmLen];
     if (elmSubmit) {
@@ -746,6 +840,14 @@ const String AutoConnectSubmitBasis::toHTML(void) const {
     }
   }
   return html;
+}
+
+/**
+ * Produces a Fetch response that conforms to the AutoConnectText::value.
+ * @param  value  It is reflected in innerHTML of the div tag.
+ */
+void AutoConnectTextBasis::response(const char* value) {
+  AutoConnectElementBasis::response("innerHTML", value);
 }
 
 /**

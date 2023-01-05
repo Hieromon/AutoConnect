@@ -2,8 +2,8 @@
  * AutoConnectCore class implementation.
  * @file AutoConnectCoreImpl.hpp
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-09-20
+ * @version 1.4.1
+ * @date 2022-12-24
  * @copyright MIT license.
  */
 
@@ -173,7 +173,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
       if (!_rfAdHocBegin)
         cs = WiFi.begin() != WL_CONNECT_FAILED;
       else {
-        _disconnectWiFi(false);
+        disconnect(false, true);
         cs = WiFi.begin(ssid, passphrase) != WL_CONNECT_FAILED;
       }
       AC_DBG("WiFi.begin(%s%s%s)", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
@@ -192,7 +192,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
     // Reconnect with a valid credential as the autoReconnect option is enabled.
     if (!cs && _apConfig.autoReconnect && !_rfAdHocBegin) {
       // Load a valid credential.
-      WiFi.disconnect();
+      disconnect(false, true);
       char  ssid_c[sizeof(station_config_t::ssid) + sizeof('\0')];
       char  password_c[sizeof(station_config_t::password) + sizeof('\0')];
       AC_DBG("autoReconnect");
@@ -226,7 +226,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
 
       // Change WiFi working mode, Enable AP with STA
       WiFi.setAutoConnect(false);
-      _disconnectWiFi(false);
+      disconnect(false, true);
 
       // Activate the AP mode with configured softAP and start the access point.
       _softAP();
@@ -360,6 +360,40 @@ bool AutoConnectCore<T>::_configSTA(const IPAddress& ip, const IPAddress& gatewa
   AC_DBG("DHCP client(%s)\n", wifi_station_dhcpc_status() == DHCP_STOPPED ? "STOPPED" : "STARTED");
 #endif
   return rc;
+}
+
+/**
+ * Disconnects the WiFi station and clears the current station settings stored
+ * in the ESP core. It contains the current established SSID, password. Any
+ * subsequent `WiFi.begin` with no arguments attempts after its station
+ * configuration is cleared will fail.
+ * This function does not affect SoftAP.
+ * @param  wifiOff      If true, stops WiFi station.
+ * @param  clearConfig  If true, clears the station configuration.
+ */
+template<typename T>
+void AutoConnectCore<T>::disconnect(const bool wifiOff, const bool clearConfig) {
+  WiFi.mode(WIFI_STA);
+
+#if defined(ARDUINO_ARCH_ESP8266)
+  wifi_station_disconnect();
+  if (clearConfig) {
+    struct station_config staConf;
+
+    *staConf.ssid = 0;
+    *staConf.password = 0;
+    ETS_UART_INTR_DISABLE();
+    wifi_station_set_config(&staConf);
+    ETS_UART_INTR_ENABLE();
+  }
+  if (wifiOff)
+    WiFi.enableSTA(false);
+#elif defined(ARDUINO_ARCH_ESP32)
+  WiFi.disconnect(wifiOff, clearConfig);
+#endif
+
+  while (WiFi.status() == WL_CONNECTED)
+    delay(1);
 }
 
 /**
@@ -525,7 +559,7 @@ void AutoConnectCore<T>::handleRequest(void) {
       // multiplied by AUTOCONNECT_UNITTIME.
       if (sc == WIFI_SCAN_FAILED) {
         if (millis() - _attemptPeriod > ((unsigned long)_apConfig.reconnectInterval * AUTOCONNECT_UNITTIME * 1000)) {
-          WiFi.disconnect();
+          disconnect(false, false);
           int8_t  sn = WiFi.scanNetworks(true, true);
           AC_DBG("autoReconnect %s\n", sn == WIFI_SCAN_RUNNING ? "running" : "failed");
           _attemptPeriod = millis();
@@ -553,7 +587,7 @@ void AutoConnectCore<T>::handleRequest(void) {
   if (_rfConnect) {
     // Leave from the AP currently.
     if (WiFi.status() == WL_CONNECTED)
-      _disconnectWiFi(true);
+      disconnect(true, true);
 
     // Leave current AP, reconfigure station
     _configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2);
@@ -617,7 +651,7 @@ void AutoConnectCore<T>::handleRequest(void) {
       else {
         _currentHostIP = WiFi.softAPIP();
         _redirectURI = String(F(AUTOCONNECT_URI_ONFAIL));
-        _disconnectWiFi(false);
+        disconnect(false, true);
         wl_status_t wl = WiFi.status();
         unsigned long tm = millis();
         while (wl != WL_IDLE_STATUS && wl != WL_DISCONNECTED && wl != WL_NO_SSID_AVAIL) {
@@ -663,7 +697,7 @@ void AutoConnectCore<T>::handleRequest(void) {
     // the session exists.
     if (!_webServer->client()) {
       // Disconnect from the current AP.
-      _disconnectWiFi(false);
+      disconnect(false, true);
       while (WiFi.status() == WL_CONNECTED) {
         delay(10);
         yield();
@@ -737,6 +771,18 @@ void AutoConnectCore<T>::home(const String& uri) {
 template<typename T>
 WebServer& AutoConnectCore<T>::host(void) {
   return  *_webServer;
+}
+
+/**
+ * Returns availability of captive portal.
+ * @return true  Captive portal is available.
+ */
+template<typename T>
+bool AutoConnectCore<T>::isPortalAvailable(void) const {
+  bool portalState = WiFi.getMode() & WIFI_AP;
+  portalState &= WiFi.softAPIP() == _apConfig.apip;
+  portalState &= _dnsServer.get() != nullptr;
+  return portalState;
 }
 
 /**
@@ -1542,23 +1588,6 @@ void AutoConnectCore<T>::_waitForEndTransmission(void) {
   // "Leaves:" and "the time taken to end the session" of the log.
   AC_DBG_DUMB("%d[ms]\n", static_cast<int>(millis() - lt));
 #endif
-}
-
-/**
- * Disconnects the station from an associated access point.
- * @param  wifiOff  The station mode turning switch.
- */
-template<typename T>
-void AutoConnectCore<T>::_disconnectWiFi(bool wifiOff) {
-#if defined(ARDUINO_ARCH_ESP8266)
-  WiFi.disconnect(wifiOff);
-#elif defined(ARDUINO_ARCH_ESP32)
-  WiFi.disconnect(wifiOff, true);
-#endif
-  while (WiFi.status() == WL_CONNECTED) {
-    delay(1);
-    yield();
-  }
 }
 
 /**

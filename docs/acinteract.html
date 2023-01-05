@@ -1,0 +1,1731 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ESP8266/ESP32 WLAN configuration at run time with web interface">
+      
+      
+        <meta name="author" content="Hieromon Ikasamo">
+      
+      
+        <link rel="canonical" href="https://Hieromon.github.io/AutoConnect/acinteract.html">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Interact between Sketch and AutoConnectElements - AutoConnect for ESP8266/ESP32</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.2505c338.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/paragraph.css">
+    
+      <link rel="stylesheet" href="css/extra.css">
+    
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-EHK8XV10VE"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-EHK8XV10VE",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-EHK8XV10VE",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#interaction-with-autoconnectelements-wo-page-transition" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-header__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AutoConnect for ESP8266/ESP32
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interact between Sketch and AutoConnectElements
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="AutoConnect for ESP8266/ESP32" class="md-nav__button md-logo" aria-label="AutoConnect for ESP8266/ESP32" data-md-component="logo">
+      
+  <img src="images/arduino-logo.svg" alt="logo">
+
+    </a>
+    AutoConnect for ESP8266/ESP32
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Hieromon/AutoConnect" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Hieromon/AutoConnect
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="gettingstarted.html" class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menu.html" class="md-nav__link">
+        AutoConnect menu
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="basicusage.html" class="md-nav__link">
+        Basic usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Advanced usage
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced usage" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced usage
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="advancedusage.html" class="md-nav__link">
+        Advanced usage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adconnection.html" class="md-nav__link">
+        AutoConnect WiFi connection control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcpcontrol.html" class="md-nav__link">
+        Captive portal control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adnetwork.html" class="md-nav__link">
+        Settings and controls for network and WiFi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adauthentication.html" class="md-nav__link">
+        Authentication settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adcredential.html" class="md-nav__link">
+        Credential accesses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adexterior.html" class="md-nav__link">
+        Customizing page appearance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="adothers.html" class="md-nav__link">
+        Other operation settings and controls
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Custom Web pages
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Custom Web pages" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Custom Web pages
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acintro.html" class="md-nav__link">
+        Custom Web pages with AutoConnect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acelements.html" class="md-nav__link">
+        AutoConnectElements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acjson.html" class="md-nav__link">
+        Custom Web pages with JSON
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="achandling.html" class="md-nav__link">
+        Handling the custom Web pages
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Interact between Sketch and AutoConnectElements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="acinteract.html" class="md-nav__link md-nav__link--active">
+        Interact between Sketch and AutoConnectElements
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#interaction-with-autoconnectelements-wo-page-transition" class="md-nav__link">
+    Interaction with AutoConnectElements w/o page transition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interact-with-sketches-by-autoconnectelements-event" class="md-nav__link">
+    Interact with sketches by AutoConnectElements event
+  </a>
+  
+    <nav class="md-nav" aria-label="Interact with sketches by AutoConnectElements event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#associate-events-with-autoconnectelements" class="md-nav__link">
+     Associate events with AutoConnectElements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-autoconnectelements-to-have-event-processing" class="md-nav__link">
+     Allow AutoConnectElements to have event processing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-event-handling-for-autoconnectelements" class="md-nav__link">
+     Register Event handling for AutoConnectElements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-handling-for-autoconnectelements" class="md-nav__link">
+     Event handling for AutoConnectElements
+  </a>
+  
+    <nav class="md-nav" aria-label=" Event handling for AutoConnectElements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#event-handler-function" class="md-nav__link">
+    Event handler function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-sent-with-the-event" class="md-nav__link">
+    Data sent with the event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-responses" class="md-nav__link">
+    Make responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overall-the-led-control-sketch" class="md-nav__link">
+     Overall the LED control sketch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          OTA Updates
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OTA Updates" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OTA Updates
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaupdate.html" class="md-nav__link">
+        OTA Updates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otabrowser.html" class="md-nav__link">
+        OTA via Web Browser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="otaserver.html" class="md-nav__link">
+        OTA using Update Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filesystem.html" class="md-nav__link">
+        Using Filesystem
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          Library APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Library APIs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          Library APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api.html" class="md-nav__link">
+        AutoConnect API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiaux.html" class="md-nav__link">
+        AutoConnectAux API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiconfig.html" class="md-nav__link">
+        AutoConnectConfig API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apielements.html" class="md-nav__link">
+        AutoConnectElements API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiupdate.html" class="md-nav__link">
+        AutoConnectUpdate API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apiextra.html" class="md-nav__link">
+        Something extra
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="howtoembed.html" class="md-nav__link">
+        How to embed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="datatips.html" class="md-nav__link">
+        Tips for data conversion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="menuize.html" class="md-nav__link">
+        Attach the menus
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="wojson.html" class="md-nav__link">
+        Custom Web pages w/o JSON
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="esp32cam.html" class="md-nav__link">
+        Works with ESP32-CAM
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          Appendix
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Appendix" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          Appendix
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lsbegin.html" class="md-nav__link">
+        Inside AutoConnect::begin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="credit.html" class="md-nav__link">
+        Saved credentials access
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acupload.html" class="md-nav__link">
+        File upload handler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="colorized.html" class="md-nav__link">
+        Custom colorized
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelabel.html" class="md-nav__link">
+        Change label text
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog.html" class="md-nav__link">
+        Change log
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license.html" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#interaction-with-autoconnectelements-wo-page-transition" class="md-nav__link">
+    Interaction with AutoConnectElements w/o page transition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interact-with-sketches-by-autoconnectelements-event" class="md-nav__link">
+    Interact with sketches by AutoConnectElements event
+  </a>
+  
+    <nav class="md-nav" aria-label="Interact with sketches by AutoConnectElements event">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#associate-events-with-autoconnectelements" class="md-nav__link">
+     Associate events with AutoConnectElements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#allow-autoconnectelements-to-have-event-processing" class="md-nav__link">
+     Allow AutoConnectElements to have event processing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-event-handling-for-autoconnectelements" class="md-nav__link">
+     Register Event handling for AutoConnectElements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-handling-for-autoconnectelements" class="md-nav__link">
+     Event handling for AutoConnectElements
+  </a>
+  
+    <nav class="md-nav" aria-label=" Event handling for AutoConnectElements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#event-handler-function" class="md-nav__link">
+    Event handler function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-sent-with-the-event" class="md-nav__link">
+    Data sent with the event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-responses" class="md-nav__link">
+    Make responses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overall-the-led-control-sketch" class="md-nav__link">
+     Overall the LED control sketch
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Interact between Sketch and AutoConnectElements</h1>
+
+<h2 id="interaction-with-autoconnectelements-wo-page-transition">Interaction with AutoConnectElements w/o page transition<a class="headerlink" href="#interaction-with-autoconnectelements-wo-page-transition" title="Permanent link">&para;</a></h2>
+<p>The substance of the custom web page deployed by AutoConnectAux is just HTML content; AutoConnectAux is just a request handler conforming to the <em>RequestHandler</em> class of the ESP8266 and ESP32 Arduino core's WebServer library.</p>
+<p>Therefore, the request-response form typically provided by AutoConnectAux is based on stateless HTTP page transitions. Its communication between custom Web pages and sketches involves page transitions in the client browser via the request-response form.</p>
+<p>However, major Web browsers support HTTP asynchronous communication without page transitions. By embedding those <a href="https://developer.mozilla.org/en-US/docs/Web/API">Web APIs</a> in your custom web pages, you can implement sketches that do not disrupt the user working flow with page transitions.</p>
+<p><a href="apiaux.html#autoconnectaux">AutoConnectAux</a> allows the custom web page to use two types of Web APIs for asynchronous communication with the sketch. Both methods can be accomplished by having JavaScript inherent in the custom web page to communicate with the server sketch (i.e., the AutoConnectAux event handler). </p>
+<ul>
+<li>
+<p><strong>XMLHttpRequest</strong></p>
+<p>JavaScript embedded in a custom web page uses the <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> (XHR) objects to communicate with the request handler on the sketch side. A sketch typically embeds its JavaScript coded as a string value with <a href="apielements.html#autoconnectelement">AutoConnectElement</a> into a custom web page JSON description.</p>
+<p>The request handler that is communication partner with the JavaScript should be implemented in the sketch as the <a href="https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WebServer/README.rst#client-request-handlers">Client request handlers</a> of the ESP8266WebServer (WebServer for ESP32) class.</p>
+<p>The procedure for implementing a sketch in this manner is covered in <a href="achandling.html#communicate-with-the-sketch-using-xhr">Communicate with the Sketch using XHR</a> section.</p>
+</li>
+<li>
+<p><strong>Fetch API</strong></p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch API</a> supported by AutoConnectAux is even easy to implement than <a href="https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)">XHR</a>. AutoConnectElements can execute Fetch API-driven JavaScript that can communicate with the server sketch. Its script will be triggered by <a href="#register-event-handling-for-autoconnectelements">expected events</a> and automatically be embedded into the HTML source of your custom web page by AutoConnect.</p>
+<p>Also, the sketch process with which the Fetch API scripts communicates can access and update the values and properties of each AutoConnectElement. Updated AutoConnectElement contents are immediately reflected on the custom web page by sending a response.</p>
+<p>This section describes a Fetch API-driven approach based on AutoConnectElements event firing and the specific API for the sketch implementation.</p>
+<div class="admonition info">
+<p class="admonition-title">No retries around Fetch API handling</p>
+<p>The JavaScript containing the Fetch API that AutoConnect automatically embeds in custom web pages <strong>does not include retry handling</strong>. If the connection with the ESP module is unstable, the request will be reset by the client browser without completing the HTTP transmission/reception. However, the state may be difficult to understand at first glance, and the user may not be able to immediately determine what has happened.</p>
+<p>When applying the Fetch API on the AutoConnect custom web page, it is recommended to keep the amount of communication as low as possible.</p>
+</div>
+</li>
+</ul>
+<h2 id="interact-with-sketches-by-autoconnectelements-event">Interact with sketches by AutoConnectElements event<a class="headerlink" href="#interact-with-sketches-by-autoconnectelements-event" title="Permanent link">&para;</a></h2>
+<p>Interaction between AutoConnectElements and sketch without page transitions is very smooth. It allows you to complete data exchange with ESP modules on the same page without interrupting your work.</p>
+<p>The figure below illustrates what a custom web page without page transitions looks like in action. It's a screen capture of a custom web page behavior that controls a simple LED blink (like <code>"hello, world\n"</code> for <em>The C Programming Language</em>), and contains only a caption as <a href="acelements.html#autoconnecttext">AutoConnectText</a> and a button as <a href="acelements.html#autoconnectbutton">AutoConnectButton</a> to turn on or off LED. </p>
+<p><img data-gifffer="images/fetch_led.gif"/></p>
+<p>The LED ON/OFF button as <a href="acelements.html#autoconnectbutton">AutoConnectButton</a> used in <a href="achandling.html#led-control-sketch">this sketch</a> handles the HTML element <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">click event</a> to send the current <a href="acelements.html#value_1">value</a> to the ESP module. The receiver sketch changes the LED signal level according to the received value and responds to the client with the <a href="acelements.html#value_1">button's display text</a> and <a href="acelements.html#style_1">caption color</a>. These send-and-receive exchanges are attribute names and values for <a href="acelements.html#autoconnectbutton">AutoConnectButton</a> and <a href="acelements.html#autoconnecttext">AutoConnectText</a>. This sketch handles these actions with the standard HTTP POST method without causing a page transition.</p>
+<p>The following sections describe APIs and programming methods for interacting with custom web pages with no page transitions, following the sketch structure that implements the above figure.</p>
+<h3 id="associate-events-with-autoconnectelements"><i class="fas fa-bolt"></i> Associate events with AutoConnectElements<a class="headerlink" href="#associate-events-with-autoconnectelements" title="Permanent link">&para;</a></h3>
+<p>Custom web pages derived by AutoConnectAux are regular HTML, so it can contain JavaScript that responds to <a href="https://dom.spec.whatwg.org/#events">DOM events</a>. The reason why the sketch above figure does not cause a page transition is that the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">click event</a> with the AutoConnectButton is trigged to send an HTTP POST to the sketch running in the ESP module using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a>.</p>
+<p>AutoConnect <strong>automatically inserts JavaScript</strong> that communicates via the Fetch API in response to events if AutoConnectElements with registered an event handler is present on the custom web page. The following code is the JSON description of the custom web page shown above. It is no different from the page description with no event handling.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f8f8f2"> LED_ONOFF[] PROGMEM </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/led&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;LED&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;caption&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACText&quot;,</span>
+<span style="color: #e6db74">      &quot;value&quot;: &quot;BUILT-IN LED&quot;,</span>
+<span style="color: #e6db74">      &quot;style&quot;: &quot;font-weight:bold;font-size:25px;text-align:center;&quot;,</span>
+<span style="color: #e6db74">      &quot;posterior&quot;: &quot;div&quot;</span>
+<span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="color: #e6db74">      &quot;name&quot;: &quot;onoff&quot;,</span>
+<span style="color: #e6db74">      &quot;type&quot;: &quot;ACButton&quot;,</span>
+<span style="color: #e6db74">      &quot;value&quot;: &quot;ON&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+</code></pre></div>
+<p>All you need to do is write your custom web page in JSON and write event handlers for AutoConnectElements that apply to user interactions.</p>
+<h3 id="allow-autoconnectelements-to-have-event-processing"><i class="fas fa-bolt"></i> Allow AutoConnectElements to have event processing<a class="headerlink" href="#allow-autoconnectelements-to-have-event-processing" title="Permanent link">&para;</a></h3>
+<p>AutoConnect will automatically embed the JavaScript into the HTML that communicates with a server-side sketch using the Fetch API if the custom web page has AutoConnectElements with an event handler. Use the <code>on</code> function to allow the event-handling capability to elements used for the interaction with the user.</p>
+<p>To give your custom web page the ability to handle events using Fetch API, roughly follow these steps:</p>
+<ol>
+<li>
+<p>Declare AutoConnectElements for user interaction. It can be declared directly using the constructor of each element or embedded in the JSON description. This procedure is no different from the definition in custom web pages.</p>
+</li>
+<li>
+<p>Identify elements that allow events after loading a custom web page. Usually, you use the <a href="apiaux.html#getelement">AutoConnectAux::getElement</a> function (or override <a href="apiaux.html#operator">operator <code>[]</code></a>) accompanied by the <a href="api.html#aux">AutoConnect::aux</a> or <a href="api.html#locate">AutoConnect::locate</a> for this. This function takes the element name as an argument and returns a reference to an instance of AutoConnectElements.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect portal;</span>
+
+<span style="color: #f8f8f2">portal.load(FPSTR(LED_ONOFF));</span>
+<span style="color: #f8f8f2">AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> led </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> portal.locate(</span><span style="color: #e6db74">&quot;/led&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> onOff </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> led[</span><span style="color: #e6db74">&quot;onoff&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+</code></pre></div>
+</li>
+<li>
+<p>Register the event handler with the <a href="apielements.html#on"><code>AutoConnectElement::on</code></a> function.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">onOff.on(ledOnOff);</span>
+</code></pre></div>
+</li>
+<li>
+<p>Write an event handler with the sketch. The event handler will be passed a reference to the instance of AutoConnectElements where the event occurred and a reference to AutoConnectAux. The event handler can use these parameters to receive the element's value of the event occurrence and perform processing according to that value. You can also give attributes such as new values and styles of other elements as return values. Use the <a href="apielements.html#response">AutoConnectElement::response</a> function to set the return values.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">// Event handler that attaches to an AutoConnectButton named `led`.</span>
+<span style="color: #75715e">// This event handler receives a reference to AutoConnectButton as `led`</span>
+<span style="color: #75715e">// and a reference to the AutoConnectAux of the page rendered in the client</span>
+<span style="color: #75715e">// browser.</span>
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">ledOnOff</span><span style="color: #f8f8f2">(AutoConnectButton</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> me, AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> ledOnOff) {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (me.value </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Since &quot;ON&quot; has been passed from the AutoConnectButton as `led`. Let the</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// LED turns on.</span>
+<span style="color: #f8f8f2">    digitalWrite(LED_BUILTIN, HIGH);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Direct assignment to AutoConnectElement values is not reflected on the</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// web page; use the `response` function to update the value of the element</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// on the web page.</span>
+<span style="color: #f8f8f2">    me.response(</span><span style="color: #e6db74">&quot;OFF&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// The `on` event handler attached to AutoConnectElements can override the</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// value and attributes of other elements placed on that AutoConnectAux page.</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// For example, a following statement changes the font color of the `caption`</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// element along with a LED blinking.</span>
+<span style="color: #f8f8f2">    ledOnOff[</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">].response(</span><span style="color: #e6db74">&quot;style&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">color</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">red</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (me.value </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;OFF&quot;</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Since a value &quot;OFF&quot; has been passed from the AutoConnectButton as `led`.</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Let the LED turns off.</span>
+<span style="color: #f8f8f2">    digitalWrite(LED_BUILTIN, LOW);</span>
+<span style="color: #f8f8f2">    me.response(</span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">    ledOnOff[</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">].response(</span><span style="color: #e6db74">&quot;style&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">color</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">black</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+</li>
+</ol>
+<h3 id="register-event-handling-for-autoconnectelements"><i class="fa fa-edit"></i> Register Event handling for AutoConnectElements<a class="headerlink" href="#register-event-handling-for-autoconnectelements" title="Permanent link">&para;</a></h3>
+<p>The <code>on</code> function catches different events for each AutoConnectElements<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>. There are also types of AutoConnectElements for which event handling cannot be registered. The syntax of the <code>on</code> function is as follows:</p>
+<p>void <em>AutoConnectElements</em>::on(<em>eventHandler</em>)</p>
+<p><em>AutoConnectElements</em> that can catch events and the types of events are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Available elements for Event</th>
+<th>Event type</th>
+<th>The moment the event occurs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="apielements.html#on">AutoConnectButton</a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">click</a></td>
+<td>Mouse click (only primary button)</td>
+</tr>
+<tr>
+<td><a href="apielements.html#on_1">AutoConnectCheckbox</a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event">change</a></td>
+<td>When an element is checked or unchecked</td>
+</tr>
+<tr>
+<td><a href="apielements.html#on_2">AutoConnectInput</a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event">change</a></td>
+<td>When the element loses focus after its value was changed</td>
+</tr>
+<tr>
+<td><a href="apielements.html#on_3">AutoConnectRadio</a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event">change</a></td>
+<td>When an element is checked (but not when unchecked)</td>
+</tr>
+<tr>
+<td><a href="apielements.html#on_4">AutoConnectSelect</a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event">change</a></td>
+<td>When the user commits the change explicitly</td>
+</tr>
+</tbody>
+</table>
+<p>The <em>eventHandler</em> parameter specifies the function that handles the event.</p>
+<h3 id="event-handling-for-autoconnectelements"><i class="fa fa-edit"></i> Event handling for AutoConnectElements<a class="headerlink" href="#event-handling-for-autoconnectelements" title="Permanent link">&para;</a></h3>
+<h4 id="event-handler-function">Event handler function<a class="headerlink" href="#event-handler-function" title="Permanent link">&para;</a></h4>
+<p>void <em>eventHandler</em>(<em>AutoConnectElements</em>&amp; me, AutoConnectAux&amp; aux)</p>
+<p><em>AutoConnectElements</em><sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> is actually one of the types listed in the table above for which the event is available. A reference to the element itself and to the AutoConnectAux to which it belongs is passed to the event handler. For example, to receive an event when an <a href="acelements.html#autoconnectradio">AutoConnectRadio</a> named <code>radio</code> changes its checked state by mouse clicking, declare a function like <code>onChangeRadio</code> as follows:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> onChangeRadio(AutoConnectRadio</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> me, AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> aux)</span>
+</code></pre></div>
+<p>Then use the <a href="apielements.html#on_3">AutoConnectRadio::on</a> function to register the <em>onChangeRadio</em> handler function with the <code>radio</code> instance of <a href="apielements.html#autoconnectradio">AutoConnectRadio</a>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectRadio radio(</span><span style="color: #e6db74">&quot;radio&quot;</span><span style="color: #f8f8f2">, {</span><span style="color: #e6db74">&quot;Huey&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;Dewey&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;Louie&quot;</span><span style="color: #f8f8f2">}, </span><span style="color: #e6db74">&quot;Select one&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">...</span>
+<span style="color: #f8f8f2">radio.on(onChangeRadio);</span>
+</code></pre></div>
+<p><em>AutoConnectElements</em><sup id="fnref3:1"><a class="footnote-ref" href="#fn:1">1</a></sup> will handle events if an event handler is registered with the <code>on</code> function. AutoConnect automatically inserts a script containing the Fetch API in the HTML generation of your custom web page when an element with an event handler function is registered.</p>
+<div class="admonition note">
+<p class="admonition-title">A type of event source and type of event handler argument is always the same</p>
+<p>The first argument of the event handler will contain a reference to an instance of an actual AutoConnectElements that is source of the event. So, the type of AutoConnectElements that registers the event handler and the type passed to the event handler are always the same.<br />
+For example, the type of the first argument of the handler that receives the change event of AutoConnectText is the type of AutoConnectText itself.</p>
+</div>
+<h4 id="data-sent-with-the-event">Data sent with the event<a class="headerlink" href="#data-sent-with-the-event" title="Permanent link">&para;</a></h4>
+<p>When the custom web page catches the event, the script inserted by AutoConnect uses the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch API</a> to send the value of each AutoConnectElements on the page to the ESP module. This script sends the value of each element as <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data">form data</a> via <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST">HTTP POST</a>.</p>
+<p>The data sent in this behavior is the same as the data transmission form with page transitions with <a href="apielements.html#autoconnectsubmit">AutoConnectSubmit</a>. Then AutoConnect will store the transmitted data in the actual instance of AutoConnectElements before control is passed to the user sketch. Details of this behavior are covered in the section <a href="achandling.html#custom-field-data-handling">Custom field data handling</a>.</p>
+<p>So in your sketch, you can unconsciously access the value of each AutoConnectElements of the custom web page where the event occurred in the event handler function. A reference to the element where the event originated is passed as the first argument, and a reference to the custom web page where the event triggered as the second argument.</p>
+<h4 id="make-responses">Make responses<a class="headerlink" href="#make-responses" title="Permanent link">&para;</a></h4>
+<p>Responses to an HTTP POST request triggered by the event will be returned by AutoConnect at the end of the event handler function. The event handler continues processing until it exits, depending on the situation. For example, the event handler that controls the LED on/off described above (i.e., <code>ledOnOff</code> function) responds to the requested HTTP POST by setting the signal level to the <code>LED_BUILTIN</code> port to conform to the sent value of the AutoConnectButton by the event. It then rewrites the button's label with the new value.</p>
+<p>Use the <a href="apielements.html#response"><code>response</code></a> function for this. The <a href="apielements.html#response"><code>response</code></a> function has the effect of communicating the contents of AutoConnectElements updated by the event handler to the client browser. In the actual event handler, you should call the <code>response</code> as a member function of AutoConnectElements and specifies the instance of the element that will return the response. For example, to update the value of an <a href="acelements.html#autoconnecttext">AutoConnectText</a> named <code>caption</code> on a page according to the LED ON/OFF control above, the code would look like this:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">...</span>
+
+<span style="color: #f8f8f2">ACButton(onoff, </span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">ACText(caption, </span><span style="color: #e6db74">&quot;LED OFF&quot;</span><span style="color: #f8f8f2">);</span>
+</span>
+<span style="color: #f8f8f2">...</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> eventHandler(AutoConnectButton</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> me, AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> aux) {</span>
+
+<span style="color: #f8f8f2">...</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (me.value </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;OFF&quot;</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    digitalWrite(LED_BUILTIN, LOW);</span>
+<span style="color: #f8f8f2">    me.response(</span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">    caption.response(</span><span style="color: #e6db74">&quot;LED OFF&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (me.value </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    digitalWrite(LED_BUILTIN, HIGH);</span>
+<span style="color: #f8f8f2">    me.response(</span><span style="color: #e6db74">&quot;OFF&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">    caption.response(</span><span style="color: #e6db74">&quot;LED ON&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">...</span>
+
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>The <a href="apielements.html#response">AutoConnectButton::response</a> function rewrites the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-value">value attribute</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">innerHTML property</a> of the <code>onoff</code> element (i.e. <code>button type="button id="onoff"</code> node) on the page, while the <a href="apielements.html#response_3">AutoConnectText::response</a> function rewrites only the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">innerHTML property</a> of the <code>div</code> or <code>span</code> DOM node on the page. In this way, the value returned by response differs depending on the type of AutoConnectElements that generated the event. The following table shows which attributes of elements on the page the <code>response(const char*)</code> function affects.</p>
+<table>
+<thead>
+<tr>
+<th>Available AutoConnectElement::response functions</th>
+<th>Attributes to rewrite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="apielements.html#response"><code>AutoConnectButton::response</code></a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-value">value</a> for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement">HTMLButtonElement</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">innerHTML</a> for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement">HTMLButtonElement</a> node</td>
+</tr>
+<tr>
+<td><a href="apielements.html#response_1"><code>AutoConnectCheckbox::response</code></a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#attr-checked">checked</a> for <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox"><code>&lt;input type="checkbox"&gt;</code></a></td>
+</tr>
+<tr>
+<td><a href="apielements.html#response_2"><code>AutoConnectInput::response</code></a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#value">value</a> for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement">HTMLInputElement</a></td>
+</tr>
+<tr>
+<td><a href="apielements.html#response_3"><code>AutoConnectText::response</code></a></td>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">innerHTML</a> for the <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> node</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">When the <code>response</code> function updates the value of AutoConnectElements</p>
+<p>The <code>response</code> function also updates the value of the element's instance. For example, <a href="apielements.html#response_3">AutoConnectText::response</a> function, in addition to sending the text to be updated to the client browser, also updates the <a href="apielements.html#value_10">value member</a> of the sketch's AutoConnectText variable. However, that update process is done by AutoConnect at the exit of the event handler function.</p>
+<p>So, in the event handler function, even if you execute the response function, the value of AutoConnectElements will be kept as it was before the event occurred.</p>
+</div>
+<p>Each AutoConnectElements has another response function that takes two arguments. The response(const char*) function updates the value of that element, while the <code>response(const char*, const char*)</code> function with two arguments updates the specified attribute or property and is used to change attributes of an element other than its value. For example, citing the LED ON/OFF example above, you can change the button background color according to the LED lighting state using the <code>response</code> function that takes two arguments.</p>
+<p>To change the button background color via an event handler when an event fires, specifies a String of a response form that allows direct access to the inline <a href="https://developer.mozilla.org/ja/docs/Web/API/HTMLElement/style">styles property</a> of the button element using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration">CSSStyleDeclaration</a> object.</p>
+<p>In this case, specify the property name of the HTML element to be changed in the first argument of the response function and the value to be changed in the second argument. This specification format conforms to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types#object_literals">object literals</a> in JavaScript and can be expressed in JSON as follows:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">{ </span><span style="color: #a6e22e">style</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> { </span><span style="color: #a6e22e">backgroundColor</span><span style="color: #f92672">:</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&#39;red&#39;</span><span style="color: #f8f8f2"> }}</span>
+</code></pre></div>
+<p>So, specify <code>style</code> as the property part of the above syntax to the first argument of the response function and the nested <code>{backGroundColor:"red"}</code> part to the second argument.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">response(</span><span style="color: #e6db74">&quot;style&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;{backGroundColor:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">red</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}&quot;</span><span style="color: #f8f8f2">);</span>
+</code></pre></div>
+<p>If the property to be changed is not a nested object property like an inline style, the second argument can be the property value as it is. For example:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">response(</span><span style="color: #e6db74">&quot;placeholder&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;Enter name&quot;</span><span style="color: #f8f8f2">);</span>
+</code></pre></div>
+<p>Also, even if you give a boolean value, specify it as a string in the argument to the <code>response</code> function. AutoConnect automatically converts "true"/"false" as strings to booleans. For example:</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">response(</span><span style="color: #e6db74">&quot;hidden&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;true&quot;</span><span style="color: #f8f8f2">);</span>
+</code></pre></div>
+<h3 id="overall-the-led-control-sketch"><i class="far fa-image"></i> Overall the LED control sketch<a class="headerlink" href="#overall-the-led-control-sketch" title="Permanent link">&para;</a></h3>
+<p>Based on the explanation so far, the following sketch is the implementation of the custom web page shown in the opening figure.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;Arduino.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;WiFi.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;WebServer.h&gt;</span>
+<span style="color: #75715e">#include</span><span style="color: #f8f8f2"> </span><span style="color: #75715e">&lt;AutoConnect.h&gt;</span>
+
+<span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">char</span><span style="color: #f8f8f2"> LED_ONOFF[] PROGMEM </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">R&quot;(</span>
+<span style="color: #e6db74">{</span>
+<span style="color: #e6db74">  &quot;uri&quot;: &quot;/led&quot;,</span>
+<span style="color: #e6db74">  &quot;title&quot;: &quot;LED&quot;,</span>
+<span style="color: #e6db74">  &quot;menu&quot;: true,</span>
+<span style="color: #e6db74">  &quot;element&quot;: [</span>
+<span style="color: #e6db74">    {</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;name&quot;: &quot;caption&quot;,</span>
+</span><span style="background-color: #49483e"><span style="color: #e6db74">      &quot;type&quot;: &quot;ACText&quot;,</span>
+</span><span style="color: #e6db74">      &quot;value&quot;: &quot;BUILT-IN LED&quot;,</span>
+<span style="color: #e6db74">      &quot;style&quot;: &quot;font-weight:bold;font-size:25px;text-align:center;&quot;,</span>
+<span style="color: #e6db74">      &quot;posterior&quot;: &quot;div&quot;</span>
+<span style="color: #e6db74">    },</span>
+<span style="color: #e6db74">    {</span>
+<span style="background-color: #49483e"><span style="color: #e6db74">      &quot;name&quot;: &quot;onoff&quot;,</span>
+</span><span style="background-color: #49483e"><span style="color: #e6db74">      &quot;type&quot;: &quot;ACButton&quot;,</span>
+</span><span style="color: #e6db74">      &quot;value&quot;: &quot;ON&quot;</span>
+<span style="color: #e6db74">    }</span>
+<span style="color: #e6db74">  ]</span>
+<span style="color: #e6db74">}</span>
+<span style="color: #e6db74">)&quot;</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #f8f8f2">AutoConnect portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig config;</span>
+
+<span style="color: #75715e">// Event handler that attaches to an AutoConnectButton named `led`.</span>
+<span style="color: #75715e">// This event handler receives a reference to AutoConnectButton as `led`</span>
+<span style="color: #75715e">// and a reference to the AutoConnectAux of the page rendered in the client</span>
+<span style="color: #75715e">// browser.</span>
+<span style="background-color: #49483e"><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">ledOnOff</span><span style="color: #f8f8f2">(AutoConnectButton</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> me, AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> ledOnOff) {</span>
+</span><span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (me.value </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">) {</span>
+
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Since &quot;ON&quot; has been passed from the AutoConnectButton as `led`. Let the</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// LED turns on.</span>
+<span style="color: #f8f8f2">    digitalWrite(LED_BUILTIN, HIGH);</span>
+
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Direct assignment to AutoConnectElement values is not reflected on the</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// web page; use the `response` function to update the value of the element</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// on the web page.</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">    me.response(</span><span style="color: #e6db74">&quot;OFF&quot;</span><span style="color: #f8f8f2">);</span>
+</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// The `on` event handler attached to AutoConnectElements can override the</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// value and attributes of other elements placed on that AutoConnectAux page.</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// For example, a following statement changes the font color of the `caption`</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// element along with a LED blinking.</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">    ledOnOff[</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">].response(</span><span style="color: #e6db74">&quot;style&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">color</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">red</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">, </span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">font-weight</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">bold</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (me.value </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;OFF&quot;</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Since a value &quot;OFF&quot; has been passed from the AutoConnectButton as `led`.</span>
+<span style="color: #f8f8f2">    </span><span style="color: #75715e">// Let the LED turns off.</span>
+<span style="color: #f8f8f2">    digitalWrite(LED_BUILTIN, LOW);</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">    me.response(</span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">    ledOnOff[</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">].response(</span><span style="color: #e6db74">&quot;style&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">color</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">black</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">, </span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">font-weight</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">normal</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}&quot;</span><span style="color: #f8f8f2">);</span>
+</span><span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  delay(</span><span style="color: #ae81ff">500</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  Serial.begin(</span><span style="color: #ae81ff">115200</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">  Serial.println();</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Built-in LED port setting up</span>
+<span style="color: #f8f8f2">  pinMode(LED_BUILTIN, OUTPUT);</span>
+<span style="color: #f8f8f2">  digitalWrite(LED_BUILTIN, LOW);</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Configure AutoConnect connection behavior.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Various configurations depending on the demands of your situation.</span>
+<span style="color: #f8f8f2">  config.autoReconnect </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> true;</span>
+<span style="color: #f8f8f2">  portal.config(config);</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Load the AutoConnectAux page with the LED ON/OFF button into AutoConnect.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// The sketch can get its instance using the AutoConnect::locate function</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// after AutoConnectAux is loaded.</span>
+<span style="color: #f8f8f2">  portal.load(FPSTR(LED_ONOFF));</span>
+<span style="color: #f8f8f2">  AutoConnectAux</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> led </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> portal.locate(</span><span style="color: #e6db74">&quot;/led&quot;</span><span style="color: #f8f8f2">);</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// The AutoConnectElement::on function allows the sketch to register an event</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// handler that interacts with the element individually.</span>
+<span style="background-color: #49483e"><span style="color: #f8f8f2">  AutoConnectButton</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> onOff </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> led[</span><span style="color: #e6db74">&quot;onoff&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+</span><span style="background-color: #49483e"><span style="color: #f8f8f2">  onOff.on(ledOnOff);</span>
+</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Start a portal</span>
+<span style="color: #f8f8f2">  portal.begin();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>Above custom web page features two major AutoConnectElements:</p>
+<ul>
+<li>
+<p><strong><code>caption</code></strong>: AutoConnectText</p>
+<p>Shows the current LED lighting state. The font color also reflects this status. To change the font color, use the <a href="apielements.html#response_3"><code>response</code></a> function for the <code>caption</code> element according to the value of the AutoConnectButton named <code>onoff</code> in the event handler.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">ledOnOff[</span><span style="color: #e6db74">&quot;caption&quot;</span><span style="color: #f8f8f2">].response(</span><span style="color: #e6db74">&quot;style&quot;</span><span style="color: #f8f8f2">, </span><span style="color: #e6db74">&quot;{</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">color</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">red</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">, </span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">font-weight</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">:</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">bold</span><span style="color: #ae81ff">\&quot;</span><span style="color: #e6db74">}&quot;</span><span style="color: #f8f8f2">);</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong><code>onoff</code></strong>: AutoConnectButton</p>
+<p>LED lighting switch placed on the custom web page. Interact with an event handler of the server sketch by catching click events on the browser. The event handler function name is <code>ledOnOff</code>. Register an event handler with the <a href="apielements.html#on">AutoConnectButton::on</a> function to catch a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event">click event</a> on the <code>onoff</code> element as an AutoConnectButton.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> onOff </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> led[</span><span style="color: #e6db74">&quot;onoff&quot;</span><span style="color: #f8f8f2">].as</span><span style="color: #f92672">&lt;</span><span style="color: #f8f8f2">AutoConnectButton</span><span style="color: #f92672">&gt;</span><span style="color: #f8f8f2">();</span>
+<span style="color: #f8f8f2">onOff.on(ledOnOff);</span>
+</code></pre></div>
+<p>In the event handler, you can get the current value of the <code>onoff</code> through the reference to AutoConnectButton, which is the first argument as <code>me</code>.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (me.value </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> </span><span style="color: #e6db74">&quot;ON&quot;</span><span style="color: #f8f8f2">) {</span>
+<span style="color: #f8f8f2">  digitalWrite(LED_BUILTIN, HIGH);</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<p>The label on the <code>onoff</code> button indicates the instruction to turn the LED signal. So the content will be the opposite of the LED lighting state. Use the <a href="apielements.html#response">AutoConnectButton::response</a> function to rewrite the label.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">me.response(</span><span style="color: #e6db74">&quot;OFF&quot;</span><span style="color: #f8f8f2">);</span>
+</code></pre></div>
+</li>
+</ul>
+<script>
+  window.onload = function() {
+    Gifffer();
+  };
+</script>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><em>AutoConnectElements</em> is a generic term for elements handled by custom web pages. They are actually replaced by types such as <code>AutoConnectInput</code> or <code>AutoConnectText</code> etc.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="achandling.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Handling the custom Web pages" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Handling the custom Web pages
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="otaupdate.html" class="md-footer__link md-footer__link--next" aria-label="Next: OTA Updates" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              OTA Updates
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2018-2023 Hieromon Ikasamo
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/Hieromon" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/hieromon" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.top"], "search": "assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="js/gifffer.min.js"></script>
+      
+    
+    
+  </body>
+</html>

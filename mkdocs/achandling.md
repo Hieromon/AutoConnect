@@ -1071,7 +1071,7 @@ You can validate input data from [AutoConnectInput](apielements.md#autoconnectin
 
 You can also use the [AutoConnectAux::isValid](apiaux.md#isvalid) function to verify the data input to all [AutoConnectInput](apielements.md#autoconnectinput) elements on the custom Web page at once. The two sketches below show the difference between using [AutoConnectInput::isValid](apielements.md#isvalid) and using [AutoConnectAux::isValid](apiaux.md#isvalid). In both cases, it verifies the input data of the same AutoConnectInput, but in the case of using AutoConnectAux::isValid, the amount of sketch coding is small.
 
-**A common declaration**
+#### Common declaration
 
 ```cpp
 const char PAGE[] PROGMEM = R"(
@@ -1097,7 +1097,7 @@ AutoConnectAux page;
 page.load(PAGE);
 ```
 
-**Using AutoConnectInput::isValid**
+#### Using AutoConnectInput::isValid
 
 ```cpp
 AutoConnectInput& input1 = page["input1"].as<AutoConnectInput>();
@@ -1106,14 +1106,14 @@ if (!input1.isValid() || !input2.isValid())
   Serial.println("Validation error");
 ```
 
-**Using AutoConnectAux::isValid**
+#### Using AutoConnectAux::isValid
 
 ```cpp
 if (!page.isValid())
   Serial.println("Validation error");
 ```
 
-### <i class="fas fa-exchange-alt"></i> Convert data to actually type
+### <i class="fas fa-magic"></i> Convert data to actually type
 
 The values in the AutoConnectElements field of the custom Web page are all typed as String. A sketch needs to be converted to an actual data type if the data type required for sketch processing is not a String type. For the typical data type conversion method, refer to section [*Tips for data conversion*](datatips.md#convert-autoconnectelements-value-to-actual-data-type).
 
@@ -1262,9 +1262,31 @@ And the action for calling the `multi()` function is the `=` labeled button as t
 !!! warning "JavaScript that is too long can cause insufficient memory"
     If it reaches thousands of bytes, AutoConnect will not be able to complete the HTML generation for the page.
 
+## Custom Web pages communication without page transitions
+
+The request-response form typically provided by AutoConnectAux is based on stateless HTTP page transitions. Its communication between custom Web pages and sketches involves page transitions in the client browser via the request-response form. However, major Web browsers support HTTP asynchronous communication without page transitions. By embedding those [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) in your custom Web pages, you can implement sketches that do not disrupt the user working flow with page transitions.
+
+There are two types of Web APIs that allow asynchronous communication that can be used with AutoConnectAux:
+
+- **XMLHttpRequest**
+
+    JavaScript embedded in a custom web page uses the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) (XHR) objects to communicate with the request handler on the sketch side. A sketch typically embeds its JavaScript coded as a string value with [AutoConnectElement](apielements.md#autoconnectelement) into a custom web page JSON description.
+
+    The request handler that is communication partner with the above JavaScript should be implemented in the sketch as the [Client request handlers](https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WebServer/README.rst#client-request-handlers) of the ESP8266WebServer (WebServer for ESP32) class.
+
+    The procedure for implementing a sketch in this manner is described in a [subsequent section](#communicate-with-the-sketch-using-xhr).
+
+- **Fetch API**
+
+    The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) supported by AutoConnectAux is even easy to implement than [XHR](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). AutoConnectElements can execute Fetch API-driven JavaScript that can communicate with the server sketch. Its script will be triggered by [expected events](acinteract.md#register-event-handling-for-autoconnectelements) and automatically be embedded into the HTML source of your custom web page by AutoConnect.
+
+    Also, the sketch process with which the above Fetch API script communicates can access and update the values and properties of each AutoConnectElement. Updated AutoConnectElement contents are immediately reflected on the custom web page by sending a response.
+
+    The Fetch API-driven approach based on AutoConnectElements event firing is described in the section of [Interact with sketches by AutoConnectElements event](#interact-with-sketches-by-autoconnectelements-event).
+
 ### <i class="fas fa-globe"></i> Communicate with the Sketch using XHR
 
-AutoConnectElement allows having scripts that create sessions based on [**XHR**](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). XMLHttpRequest (XHR) is a JavaScript API to create AJAX requests. Its methods provide the ability to send network requests between the browser and a server. The Sketch simply implements the server-side process as a response handler to a normal HTTP request and can equip with a dynamic custom Web page. This technique is tricky but does not cause page transitions and is useful for implementing dynamic pages. As a matter of fact, [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115) class is implemented by using this technique and is a custom Web page by AutoConnectAux.
+AutoConnectElement allows having scripts that make HTTP sessions based on [**XHR**](https://en.wikipedia.org/wiki/XMLHttpRequest). XHR ([XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)) is a JavaScript API to create AJAX requests. Its methods allow sending network requests between the browser and a server. The sketch implements the server-side process as a response handler to a standard HTTP request and can equip it with a dynamic custom Web page. This technique is tricky but is useful when implementing dynamic pages because it does not cause page transitions. As a matter of fact, [AutoConnectOTA](otabrowser.md#updates-with-the-web-browserupdated-wv115) class is implemented with this technique and is a custom web page by AutoConnectAux using XHR.
 
 Here's a simple example of JavaScript-based on XHR and a server-side request handler. It's like a clock that displays the time in real-time on an AutoConnect custom web page. The sketch in the following example is roughly divided into two structures.  
 The AutoConnectElement defined with the name `js` gets the server time with XHR and updates the response via the DOM with the AutoConnectText named `time` and substance is the following JavaScript:
@@ -1273,23 +1295,23 @@ The AutoConnectElement defined with the name `js` gets the server time with XHR 
 var xhr;
 
 function clock() {
-    xhr.open('GET', '/clock');
-    xhr.responseType = 'text';
-    xhr.send();
+  xhr.open('GET', '/clock');
+  xhr.responseType = 'text';
+  xhr.send();
 }
 
 window.onclose = function() {
-    xhr.abort();
+  xhr.abort();
 };
 
 window.onload = function() {
-    xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && xhr.status == 200) {
-            document.getElementById('time').innerHTML = this.responseText;
-        }
-    };
-    setInterval(clock, 1000);
+  xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && xhr.status == 200) {
+      document.getElementById('time').innerHTML = this.responseText;
+    }
+  };
+  setInterval(clock, 1000);
 };
 ```
 
@@ -1376,6 +1398,18 @@ void loop() {
 }
 ```
 
+### <i class="fas fa-exchange-alt"></i> Interact with sketches by AutoConnectElements event
+
+AutoConnectAux supports [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) besides [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) for communication between the client browser and the ESP module. This allows your sketches to get and change values and properties of AutoConnectElements without a page transition on the browser. The changed values and properties are immediately reflected in the page currently being viewed in the browser.
+
+The following screenshot shows that a custom web page using the Fetch API can blink the LED on the ESP module without any page transitions. And it allows the custom web page changes the text color and button caption in sync with the LED flashing.
+
+<img data-gifffer="images/fetch_led.gif" data-gifffer-width="636" data-gifffer-height="290"/>
+
+The sketch implemented for the above demonstration does not need to write JavaScript code to handle the Fetch API. Its Fetch API script will automatically be embedded in the HTML source of your custom web page by AutoConnect. All you need to do is describe your custom web page in JSON and write AutoConnectElements event handlers to apply to user interaction. 
+
+How to sketch with the AutoConnectElements events is covered in detail in chapter [Interact with Sketch and AutoConnectElements](acinteract.md).
+
 ## Transitions of the custom Web pages
 
 ### Scope &amp; Lifetime of AutoConnectAux
@@ -1426,37 +1460,40 @@ Normally, a custom web page handler does not need to respond to a request from t
 However, this structure requires AutoConnectAux to always respond with the page content. If AutoConnectAux does not have page content as an HTTP response, then the custom web page handler can respond with its own HTTP response by following the steps:
 
 1. Declare an [AutoConnectAux](apiaux.md#autoconnectaux) with the `responsive` argument set to `false`, or describe `#!js "response":false` with JSON:
-```cpp
-AutoConnectAux aux("/aux", "AUX", false, {}, false);
-```
-```json
-{
-  "title": "AUX",
-  "uri": "/aux",
-  "response": false,
-  "menu": false
-}
-```
+
+    ```cpp
+    AutoConnectAux aux("/aux", "AUX", false, {}, false);
+    ```
+
+    ```json
+    {
+      "title": "AUX",
+      "uri": "/aux",
+      "response": false,
+      "menu": false
+    }
+    ```
 
 2. Send an HTTP response from a custom web page handler (Case of ESP32):
-```cpp
-WebServer   server;
-AutoConnect portal(server);
 
-String handleAux(AutoConnectAux& aux, PageArgument& args) {
-  server.send(202, "text/plain", "Accepted");
-  return String();
-}
+    ```cpp
+    WebServer   server;
+    AutoConnect portal(server);
 
-portal.on("/aux", handleAux);
-```
-If you want to respond with a [302](https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.3) from a custom web page handler, you can use the [AutoConnectAux::redirect](apiaux.md#redirect) function.
-```cpp
-String handleAux(AutoConnectAux& aux, PageArgument& args) {
-  aux.redirect("http://redirect.url:port/?query");
-  return String();
-}
-```
+    String handleAux(AutoConnectAux& aux, PageArgument& args) {
+      server.send(202, "text/plain", "Accepted");
+      return String();
+    }
+
+    portal.on("/aux", handleAux);
+    ```
+    If you want to respond with a [302](https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.3) from a custom web page handler, you can use the [AutoConnectAux::redirect](apiaux.md#redirect) function.
+    ```cpp
+    String handleAux(AutoConnectAux& aux, PageArgument& args) {
+      aux.redirect("http://redirect.url:port/?query");
+      return String();
+    }
+    ```
 
 ### Limitations
 

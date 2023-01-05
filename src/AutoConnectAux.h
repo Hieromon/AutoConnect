@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-08-07
+ * @version 1.4.1
+ * @date 2022-12-01
  * @copyright MIT license.
  */
 
@@ -53,7 +53,7 @@ typedef enum {
  */
 class AutoConnectAux : public PageBuilder {
  public:
-  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const bool responsive = true);
+  explicit AutoConnectAux(const String& uri = String(""), const String& title = String(""), const bool menu = true, const AutoConnectElementVT addons = AutoConnectElementVT(), const bool responsive = true, const bool CORS = false);
   ~AutoConnectAux();
   AutoConnectElement& operator[](const char* name) { return *getElement(name); }
   AutoConnectElement& operator[](const __FlashStringHelper* name) { return *getElement(name); }
@@ -126,17 +126,18 @@ class AutoConnectAux : public PageBuilder {
  protected:
   void  upload(const String& requestUri, const HTTPUpload& upload);     /**< Uploader wrapper */
   void  _concat(AutoConnectAux& aux);                                   /**< Make up chain of AutoConnectAux */
-  virtual void  _join(AutoConnectExt<AutoConnectConfigExt>& ac);         /**< Make a link to AutoConnect */
-  PageElement*  _setupPage(const String& uri);                          /**< AutoConnectAux page builder */
+  String  _fetchEndpoint(PageArgument& args);
+  const String  _indicateEncType(PageArgument& args);                   /**< Inject the ENCTYPE attribute */
+  const String  _indicateUri(PageArgument& args);                       /**< Inject the uri that caused the request */
+  const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
+  const String  _injectTitle(PageArgument& args) const { (void)(args); return _title; } /**< Returns title of this page to PageBuilder */
   const String  _insertElement(PageArgument& args);                     /**< Insert a generated HTML to the page built by PageBuilder */
   const String  _insertScript(PageArgument& args);                      /**< Insert post-javascript to the page built by PageBuilder */
   const String  _insertStyle(PageArgument& args);                       /**< Insert CSS style */
-  const String  _injectTitle(PageArgument& args) const { (void)(args); return _title; } /**< Returns title of this page to PageBuilder */
-  const String  _injectMenu(PageArgument& args);                        /**< Inject menu title of this page to PageBuilder */
-  const String  _indicateUri(PageArgument& args);                       /**< Inject the uri that caused the request */
-  const String  _indicateEncType(PageArgument& args);                   /**< Inject the ENCTYPE attribute */
+  virtual void  _join(AutoConnectExt<AutoConnectConfigExt>& ac);         /**< Make a link to AutoConnect */
   const String  _nonResponseExit(PageArgument& args);                   /**< Exit for responsive=false setting */
-  void  _storeElements(WebServer* webServer);                      /**< Store element values from contained in request arguments */
+  PageElement*  _setupPage(const String& uri);                          /**< AutoConnectAux page builder */
+  void  _storeElements(WebServer* webServer);                           /**< Store element values from contained in request arguments */
   template<typename T>
   bool  _isCompatible(const AutoConnectElement* element) const;         /**< Validate a type of AutoConnectElement entity conformity */
   static AutoConnectElement&  _nullElement(void);                       /**< A static returning value as invalid */
@@ -222,7 +223,8 @@ class AutoConnectAux : public PageBuilder {
   PageBuilder::UploadFuncT  _uploadHandler;   /**< The AutoConnectFile corresponding to current upload */
   AutoConnectFile*      _currentUpload;       /**< AutoConnectFile handling the current upload */
   static const char _PAGE_AUX[] PROGMEM;      /**< Auxiliary page template */
-  static const char _PAGE_SCRIPT_MA[] PROGMEM; /**< Auxiliary page javascript */
+  static const char _PAGE_SCRIPT_MA[] PROGMEM; /**< Auxiliary page javascript for ACRange */
+  static const char _PAGE_SCRIPT_FE[] PROGMEM; /**< Auxiliary page javascript for Fetch */
 
   // Protected members can be used from AutoConnect which handles AutoConnectAux pages.
   friend class AutoConnectExt<AutoConnectConfigExt>;

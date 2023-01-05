@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement extended classes using JSON.
  * @file AutoConnectElementJson.h
  * @author hieromon@gmail.com
- * @version  1.3.2
- * @date 2021-11-24
+ * @version  1.4.1
+ * @date 2021-12-01
  * @copyright  MIT license.
  */
 
@@ -18,6 +18,7 @@
 #define AUTOCONNECT_JSON_KEY_ARRANGE      "arrange"
 #define AUTOCONNECT_JSON_KEY_AUTH         "auth"
 #define AUTOCONNECT_JSON_KEY_CHECKED      "checked"
+#define AUTOCONNECT_JSON_KEY_CORS         "cors"
 #define AUTOCONNECT_JSON_KEY_ELEMENT      "element"
 #define AUTOCONNECT_JSON_KEY_FORMAT       "format"
 #define AUTOCONNECT_JSON_KEY_GLOBAL       "global"
@@ -94,7 +95,6 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
   void  _setMember(const JsonObject& json);
   void  _serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json);
 
- protected:
   ACPosterior_t   _defaultPost;
 };
 
@@ -106,7 +106,10 @@ class AutoConnectElementJson : virtual public AutoConnectElementBasis {
  * @param  value    Value string with the placed button.
  * @param  action   Script code to execute with the button pushed.
  */
-class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectButtonBasis {
+class AutoConnectButtonJson :
+  public AutoConnectElementJson,
+  public AutoConnectButtonBasis,
+  public AutoConnectElementReactorTempl<AutoConnectButtonJson> {
  public:
   explicit AutoConnectButtonJson(const char* name = "", const char* value = "", const String& action = String(""), const ACPosterior_t post = AC_Tag_None) {
     AutoConnectButtonBasis::name = String(name);
@@ -119,6 +122,10 @@ class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectB
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
+
+  virtual bool canHandle(void) const override { return AutoConnectElementReactorTempl<AutoConnectButtonJson>::isReactive(); }
+  virtual void on(std::function<void(AutoConnectButtonJson&, AutoConnectAux&)> reactor) override { AutoConnectElementReactorTempl<AutoConnectButtonJson>::_reactor = reactor; }
+  virtual void reply(AutoConnectAux& aux) override { AutoConnectElementReactorTempl<AutoConnectButtonJson>::worker(*this, aux); }
 };
 
 /**
@@ -130,7 +137,10 @@ class AutoConnectButtonJson : public AutoConnectElementJson, public AutoConnectB
  * @param  label    A label string that follows checkbox, optionally.
  * The label is placed on the right side of the checkbox.
  */
-class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnectCheckboxBasis {
+class AutoConnectCheckboxJson :
+  public AutoConnectElementJson,
+  public AutoConnectCheckboxBasis,
+  public AutoConnectElementReactorTempl<AutoConnectCheckboxJson> {
  public:
   explicit AutoConnectCheckboxJson(const char* name = "", const char* value = "", const char* label = "", const bool checked = false, const ACPosition_t labelPosition = AC_Behind, const ACPosterior_t post = AC_Tag_BR) {
     AutoConnectCheckboxBasis::name = String(name);
@@ -145,6 +155,10 @@ class AutoConnectCheckboxJson : public AutoConnectElementJson, public AutoConnec
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
+
+  virtual bool canHandle(void) const override { return AutoConnectElementReactorTempl<AutoConnectCheckboxJson>::isReactive(); }
+  virtual void on(std::function<void(AutoConnectCheckboxJson&, AutoConnectAux&)> reactor) override { AutoConnectElementReactorTempl<AutoConnectCheckboxJson>::_reactor = reactor; }
+  virtual void reply(AutoConnectAux& aux) override { AutoConnectElementReactorTempl<AutoConnectCheckboxJson>::worker(*this, aux); }
 };
 
 /**
@@ -181,7 +195,10 @@ class AutoConnectFileJson : public AutoConnectElementJson, public AutoConnectFil
  * @param  label    A label string that follows Input-box, optionally.
  * The label is placed in front of Input-box.
  */
-class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectInputBasis {
+class AutoConnectInputJson :
+  public AutoConnectElementJson,
+  public AutoConnectInputBasis,
+  public AutoConnectElementReactorTempl<AutoConnectInputJson> {
  public:
   explicit AutoConnectInputJson(const char* name = "", const char* value = "", const char* label = "", const char* pattern = "", const char* placeholder = "", const ACPosterior_t post = AC_Tag_BR, const ACInput_t apply = AC_Input_Text, const char* style = "") {
     AutoConnectInputBasis::name = String(name);
@@ -198,6 +215,10 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
+
+  virtual bool canHandle(void) const override { return AutoConnectElementReactorTempl<AutoConnectInputJson>::isReactive(); }
+  virtual void on(std::function<void(AutoConnectInputJson&, AutoConnectAux&)> reactor) override { AutoConnectElementReactorTempl<AutoConnectInputJson>::_reactor = reactor; }
+  virtual void reply(AutoConnectAux& aux) override { AutoConnectElementReactorTempl<AutoConnectInputJson>::worker(*this, aux); }
 };
 
 /**
@@ -208,7 +229,10 @@ class AutoConnectInputJson : public AutoConnectElementJson, public AutoConnectIn
 * @param  label    A label string that follows radio-buttons group.
 * @param  checked  Index of check marked item.
 */
-class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRadioBasis {
+class AutoConnectRadioJson :
+  public AutoConnectElementJson,
+  public AutoConnectRadioBasis,
+  public AutoConnectElementReactorTempl<AutoConnectRadioJson> {
  public:
   explicit AutoConnectRadioJson(const char* name = "", std::vector<String> const& values = {}, const char* label = "", const ACArrange_t order = AC_Vertical, const uint8_t checked = 0, const ACPosterior_t post = AC_Tag_BR) {
     AutoConnectRadioBasis::name = String(name);
@@ -223,6 +247,10 @@ class AutoConnectRadioJson : public AutoConnectElementJson, public AutoConnectRa
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
+
+  virtual bool canHandle(void) const override { return AutoConnectElementReactorTempl<AutoConnectRadioJson>::isReactive(); }
+  virtual void on(std::function<void(AutoConnectRadioJson&, AutoConnectAux&)> reactor) override { AutoConnectElementReactorTempl<AutoConnectRadioJson>::_reactor = reactor; }
+  virtual void reply(AutoConnectAux& aux) override { AutoConnectElementReactorTempl<AutoConnectRadioJson>::worker(*this, aux); }
 };
 
 /**
@@ -265,7 +293,10 @@ class AutoConnectRangeJson : public AutoConnectElementJson, public AutoConnectRa
  * @param  label    A label string that follows Input-box, optionally.
  * The label is placed in front of Input-box.
  */
-class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectSelectBasis {
+class AutoConnectSelectJson :
+  public AutoConnectElementJson,
+  public AutoConnectSelectBasis,
+  public AutoConnectElementReactorTempl<AutoConnectSelectJson> {
  public:
   explicit AutoConnectSelectJson(const char* name = "", std::vector<String> const& options = {}, const char* label = "", const uint8_t selected = 0, const ACPosterior_t post = AC_Tag_BR) {
     AutoConnectSelectBasis::name = String(name);
@@ -279,6 +310,10 @@ class AutoConnectSelectJson : public AutoConnectElementJson, public AutoConnectS
   size_t  getObjectSize(void) const override;
   bool  loadMember(const JsonObject& json) override;
   void  serialize(ARDUINOJSON_OBJECT_REFMODIFY JsonObject& json) override;
+
+  virtual bool canHandle(void) const override { return AutoConnectElementReactorTempl<AutoConnectSelectJson>::isReactive(); }
+  virtual void on(std::function<void(AutoConnectSelectJson&, AutoConnectAux&)> reactor) override { AutoConnectElementReactorTempl<AutoConnectSelectJson>::_reactor = reactor; }
+  virtual void reply(AutoConnectAux& aux) override { AutoConnectElementReactorTempl<AutoConnectSelectJson>::worker(*this, aux); }
 };
 
 /**

@@ -2,8 +2,8 @@
  * Alias declarations for an accessible the AutoConnectElement class.
  * @file AutoConnectElement.h
  * @author hieromon@gmail.com
- * @version  1.3.2
- * @date 2021-11-24
+ * @version  1.4.1
+ * @date 2022-12-23
  * @copyright  MIT license.
  */
 
@@ -45,7 +45,7 @@ using AutoConnectText     = AutoConnectTextBasis;
  * arguments. These macros declare the AutoConnectElement variable
  * with the same name as a "name" argument.
  */
-#define ACElement(n, v)    AutoConnectElement n(#n, v)
+#define ACElement(n, ...)  AutoConnectElement n(#n,  ##__VA_ARGS__)
 #define ACButton(n, ...)   AutoConnectButton n(#n, ##__VA_ARGS__)
 #define ACCheckbox(n, ...) AutoConnectCheckbox n(#n, ##__VA_ARGS__)
 #define ACFile(n, ...)     AutoConnectFile n(#n, ##__VA_ARGS__)

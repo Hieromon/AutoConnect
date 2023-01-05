@@ -170,12 +170,14 @@ static const char PAGE_SAVE[] PROGMEM = R"(
     {
       "name": "validated",
       "type": "ACText",
-      "style": "color:red"
+      "style": "color:red",
+      "posterior": "div"
     },
     {
       "name": "echo",
       "type": "ACText",
-      "style": "font-family:monospace;font-size:small;white-space:pre;"
+      "style": "font-family:monospace;font-size:small;white-space:pre;",
+      "posterior": "div"
     },
     {
       "name": "ok",

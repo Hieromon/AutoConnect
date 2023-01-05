@@ -390,7 +390,7 @@ const char AutoConnectCore<T>::_CSS_LUXBAR[] PROGMEM = {
   "}"
   ".lb-brand{"
     "font-size:1.6em;"
-    "padding:18px 24px 18px 24px"
+    "padding:18px 3px 18px 24px"
   "}"
   ".lb-menu{"
     "min-height:58px;"
@@ -559,6 +559,9 @@ const char  AutoConnectCore<T>::_ELM_MENU_PRE[] PROGMEM = {
       "<ul class=\"lb-navigation\">"
         "<li class=\"lb-header\">"
           "<a href=\"BOOT_URI\" class=\"lb-brand\">MENU_TITLE</a>"
+#ifdef AC_SHOW_PORTALIDENTIFIER
+          "PORTAL"
+#endif
           "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
         "</li>"
         "MENU_LIST"
@@ -680,6 +683,10 @@ const char  AutoConnectCore<T>::_PAGE_STAT[] PROGMEM = {
           "<tr>"
             "<td>" AUTOCONNECT_PAGESTATS_FREEMEM "</td>"
             "<td>{{FREE_HEAP}}</td>"
+          "</tr>"
+          "<tr>"
+          "<td>" AUTOCONNECT_PAGESTATS_SYSTEM_UPTIME "</td>"
+          "<td>{{SYSTEM_UPTIME}}</td>"
           "</tr>"
           "</tbody>"
         "</table>"
@@ -934,8 +941,26 @@ uint32_t AutoConnectCore<T>::_getFlashChipRealSize() {
 #endif
 }
 
-template<typename T>
-String AutoConnectCore<T>::_token_CSS_BASE(PageArgument& args) {
+template <typename T>
+String AutoConnectCore<T>::_getSystemUptime() {
+#if defined(ARDUINO_ARCH_ESP8266)
+  unsigned long millisecs = millis();
+#elif defined(ARDUINO_ARCH_ESP32)
+  long  millisecs = esp_timer_get_time() / 1000;
+#endif
+  int systemUpTimeM = static_cast<int>((millisecs / (1000 * 60)) % 60);
+  int systemUpTimeH = static_cast<int>((millisecs / (1000 * 60 * 60)) % 24);
+  int systemUpTimeD = static_cast<int>(millisecs / (1000 * 60 * 60 * 24));
+  String  uptime = String(systemUpTimeM) + "m ";
+  if (systemUpTimeH > 0)
+    uptime += String(systemUpTimeH) + "h ";
+  if (systemUpTimeD > 0)
+    uptime += String(systemUpTimeD) + "d ";
+  return uptime;
+}
+
+template <typename T>
+String AutoConnectCore<T>::_token_CSS_BASE(PageArgument &args) {
   AC_UNUSED(args);
   return String(FPSTR(_CSS_BASE));
 }
@@ -1003,6 +1028,9 @@ String AutoConnectCore<T>::_token_MENU_PRE(PageArgument& args) {
   currentMenu.replace(String(F("MENU_LIST")), menuItem);
   currentMenu.replace(String(F("BOOT_URI")), _getBootUri());
   currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
+#ifdef AC_SHOW_PORTALIDENTIFIER
+  currentMenu.replace(String(F("PORTAL")), isPortalAvailable() ? String(F(AUTOCONNECT_PORTAL_LINK)) : String());
+#endif
   currentMenu.replace(String(F("{{CUR_SSID}}")), _token_ESTAB_SSID(args));
   return currentMenu;
 }
@@ -1124,8 +1152,8 @@ String AutoConnectCore<T>::_token_FREE_HEAP(PageArgument& args) {
   return String(_freeHeapSize);
 }
 
-template<typename T>
-String AutoConnectCore<T>::_token_GATEWAY(PageArgument& args) {
+template <typename T>
+String AutoConnectCore<T>::_token_GATEWAY(PageArgument &args) {
   AC_UNUSED(args);
   return WiFi.gatewayIP().toString();
 }
@@ -1376,6 +1404,12 @@ String AutoConnectCore<T>::_token_STATION_STATUS(PageArgument& args) {
   return String("(") + String(_rsConnect) + String(") ") + String(FPSTR(wlStatusSymbol));
 }
 
+template <typename T>
+String AutoConnectCore<T>::_token_SYSTEM_UPTIME(PageArgument &args) {
+  AC_UNUSED(args);
+  return _getSystemUptime();
+}
+
 template<typename T>
 String AutoConnectCore<T>::_token_UPTIME(PageArgument& args) {
   AC_UNUSED(args);
@@ -1511,6 +1545,7 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("FLASH_SIZE"), std::bind(&AutoConnectCore<T>::_token_FLASH_SIZE, this, std::placeholders::_1));
     elm->addToken(FPSTR("CHIP_ID"), std::bind(&AutoConnectCore<T>::_token_CHIP_ID, this, std::placeholders::_1));
     elm->addToken(FPSTR("FREE_HEAP"), std::bind(&AutoConnectCore<T>::_token_FREE_HEAP, this, std::placeholders::_1));
+    elm->addToken(FPSTR("SYSTEM_UPTIME"), std::bind(&AutoConnectCore<T>::_token_SYSTEM_UPTIME, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_CONFIG) && (_apConfig.menuItems & AC_MENUITEM_CONFIGNEW)) {
 

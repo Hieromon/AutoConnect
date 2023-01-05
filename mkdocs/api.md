@@ -355,6 +355,25 @@ Returns the reference of the ESP8266WebServer/WebServer which is allocated in Au
     portal.host().handleClient();
     ```
 
+### <i class="fa fa-caret-right"></i> isPortalAvailable
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+```cpp
+bool isPortalAvailable(void)
+```
+
+Returns a boolean value indicating whether a captive portal is available.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Captive portal is available. It has SoftAP enabled and is spoofing DNS lookup responses by AutoConnect. Usually, in this state, requests from client devices for Internet transparency validation are redirected to the ESP module.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">AutoConnect is not in captive portal state.</span></dd></dl>
+
+<p></p>
+
+```cpp
+void join(std::vector<std::reference_wrapper<AutoConnectAux>> aux)
+```
+
 ### <i class="fa fa-caret-right"></i> join
 
 <p class="badge"><img src="images/tag_ac.png"></p>
@@ -405,6 +424,24 @@ Load JSON document of AutoConnectAux which contains AutoConnectElements. If ther
     <dt>**Return value**</dt>
     <dd><span class="apidef">true</span><span class="apidesc">The JSON document as AutoConnectAux successfully loaded.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Loading JSON document unsuccessful, probably syntax errors have occurred or insufficient memory. You can diagnose the cause of loading failure using the [ArduinoJson Assistant](https://arduinojson.org/v5/assistant/).</span></dd></dl>
+
+### <i class="fa fa-caret-right"></i> locate
+
+<p class="badge"><img src="images/tag_ac.png"></p>
+
+```cpp
+AutoConnectAux& locate(const String& uri)
+```
+
+Returns a reference to the AutoConnectAux assigned to the uri passed in the argument.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">uri</span><span class="apidesc">URI string of the custom web page to be located.</span></dd>
+    <dt>**Return value**</dt>
+    <dd>A reference to the AutoConnectAux that has a specified URI.</dd></dl>
+
+!!! caution "AutoConnectAux for the specified uri must exist"
+    If the AutoConnectAux for the uri specified to the [locate](#locate) function does not exist, the function returns a reference to an empty AutoConnectAux. It's just a frame without any AutoConnectElements. No processing can continue using that AutoConnectAux. (causes an exception)
+    A common cause of exceptions for the [locate](#locate) function is syntax errors in the JSON description of a custom web page.
 
 ### <i class="fa fa-caret-right"></i> on
 

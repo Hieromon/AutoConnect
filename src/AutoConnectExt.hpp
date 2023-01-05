@@ -4,8 +4,8 @@
  * is instantiated by a template whose argument is AutoConnectConfigExt.
  * @file AutoConnectExt.hpp
  * @author hieromon@gmail.com
- * @version 1.4.0
- * @date 2022-09-01
+ * @version 1.4.1
+ * @date 2022-12-07
  * @copyright MIT license.
  */
 
@@ -40,6 +40,7 @@ class AutoConnectExt : public AutoConnectCore<T> {
   bool  detach(const String& uri);
   void  join(AutoConnectAux& aux);
   void  join(AutoConnectAuxVT auxVector);
+  AutoConnectAux& locate(const String& uri) const { return *aux(uri); }
   bool  on(const String& uri, const AuxHandlerFunctionT handler, AutoConnectExitOrder_t order = AC_EXIT_AHEAD);
 
   /** For AutoConnectAux described in JSON */
@@ -61,6 +62,7 @@ class AutoConnectExt : public AutoConnectCore<T> {
 
  protected:
   void  _handleUpload(const String& requestUri, const HTTPUpload& upload);
+  PageElement*  _setupFetch(const String& uri);
 
 #ifdef AUTOCONNECT_USE_JSON
   template<typename U>

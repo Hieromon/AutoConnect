@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "name": "PageBuilder",
-      "version": ">=1.5.3"
+      "version": ">=1.5.5"
     },
     {
       "name": "ArduinoJson",
@@ -22,7 +22,7 @@
     "espressif8266",
     "espressif32"
   ],
-  "version": "1.4.0",
+  "version": "1.4.1",
   "license": "MIT",
   "headers": [
     "AutoConnect.h",

@@ -65,13 +65,73 @@ Value of the element.<dl class="apidl">
 
 ### <i class="fa fa-code"></i> Public member functions
 
+#### <i class="fa fa-caret-right"></i> canHandle
+
+```cpp
+bool canHandle(void)
+```
+
+Returns whether the AutoConnectButton element has a registered event handler and can respond to a [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) event.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">An event handler is registered. The element can correspond to a click event.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">An event handler is not registered.</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> off
+
+```cpp
+void off(void)
+```
+
+Release a registered event handler so that the element does not react to events. 
+
+#### <i class="fa fa-caret-right"></i> on
+
+```cpp
+void on(std::function<void(AutoConnectButton&, AutoConnectAux&)> eventHandler)
+```
+
+Register an event handler function so that the element can respond to a [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) event.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">eventHandler</span><span class="apidesc">A function instance corresponding to a click event on AutoConnectButton. It allows giving with [lambda expressions](https://en.cppreference.com/w/cpp/language/lambda).</span></dd></dl>
+
+An *eventHandler* function will be called when a click event occurs with the AutoConnectButton. Its prototype declaration is follows:
+
+```cpp
+void eventHandler(AutoConnectButton& me, AutoConnectAux& aux)
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">me</span><span class="apidesc">A reference to the instance of the AutoConnectButton that fired the click event.</span></dd>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to the AutoConnectAux instance to which the AutoConnectButton that generated the click event belongs.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> response
+
+```cpp
+void response(const char* value)
+```
+
+```cpp
+void response(const char* attribute, const char* value)
+```
+
+Reply the value or attribute of an element to the client. The `response` is usually used for sending a reply to the client with the element's value or attribute that has been updated in an event handler function.
+
+The `response` function itself does not perform communication. It only temporarily accumulates updated values. The stored content constitutes the response data to the HTTP POST request sent from the client browser caused by the [AutoConnectElements event](acinteract.md#event-handling-for-autoconnectelements).
+
+The `response` function has two overloads with different numbers of arguments. A `response` function suitable for just one argument will only update the value of the AutoConnectButton. It also stores the updated value of the button caption text (i.e., the `innerHTML` attribute dependent on the `button type="button"` element) into the response data for real-time rendering in the browser upon response. Also, a `response` function suitable for two arguments allows updating all attributes of the HTML `button type="button"` element derived from AutoConnectButton.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">value</span><span class="apidesc">**Suitable for one argument format:** A changing value of [AutoConnectButton::value](acelements.md#value_1) as response. It also will update the `innerHTML` attribute of the `button type="button"` element derived from AutoConnectButton.<br>**Suitable for two argument format:** Specifies a value of the HTML `button type="button"` element to be modified as specified in the `attribute` argument.</span></dd>
+    <dd><span class="apidef">attribute</span><span class="apidesc">An attribute name of an HTML `button type="button"` element to be changed.</span></dd></dl>
+
 #### <i class="fa fa-caret-right"></i> typeOf
 
 ```cpp
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectButton.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Button</dd></dl>
 
@@ -155,13 +215,74 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 
 ### <i class="fa fa-code"></i> Public member functions
 
+#### <i class="fa fa-caret-right"></i> canHandle
+
+```cpp
+bool canHandle(void)
+```
+
+Returns whether the AutoConnectCheckbox element has a registered event handler and can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">An event handler is registered. The element can correspond to a change event.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">An event handler is not registered.</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> off
+
+```cpp
+void off(void)
+```
+
+Release a registered event handler so that the element does not react to events. 
+
+#### <i class="fa fa-caret-right"></i> on
+
+```cpp
+void on(std::function<void(AutoConnectCheckbox&, AutoConnectAux&)> eventHandler)
+```
+
+Register an event handler function so that the element can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">eventHandler</span><span class="apidesc">A function instance corresponding to a change event on AutoConnectCheckbox. It allows giving with [lambda expressions](https://en.cppreference.com/w/cpp/language/lambda).</span></dd></dl>
+
+An *eventHandler* function will be called when a change event occurs with the AutoConnectCheckbox. Its prototype declaration is follows:
+
+```cpp
+void eventHandler(AutoConnectCheckbox& me, AutoConnectAux& aux)
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">me</span><span class="apidesc">A reference to the instance of the AutoConnectCheckbox that fired the change event.</span></dd>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to the AutoConnectAux instance to which the AutoConnectCheckbox that generated the change event belongs.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> response
+
+```cpp
+void response(const bool checked)
+```
+
+```cpp
+void response(const char* attribute, const char* value)
+```
+
+Reply the value or attribute of an element to the client. The `response` is usually used for sending a reply to the client with the element's value or attribute that has been updated in an event handler function.
+
+The `response` function itself does not perform communication. It only temporarily accumulates updated values. The stored content constitutes the response data to the HTTP POST request sent from the client browser caused by the [AutoConnectElements event](acinteract.md#event-handling-for-autoconnectelements).
+
+The `response` function has two overloads with different numbers of arguments. A `response` function suitable for just one argument will only update the check status of the AutoConnectCheckbox. Also, a `response` function suitable for two arguments allows updating all attributes of the HTML `input type="checkbox"` element derived from AutoConnectCheckbox.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">checked</span><span class="apidesc">A changing checked status of [AutoConnectCheckbox::checked](acelements.md#checked) as response.</span></dd>
+    <dd><span class="apidef">value</span><span class="apidesc">Specifies a value of the HTML `input type="checkbox"` element to be modified as specified in the `attribute` argument.</span></dd>
+    <dd><span class="apidef">attribute</span><span class="apidesc">An attribute name of an HTML `input type="checkbox"` element to be changed.</span></dd></dl>
+
 #### <i class="fa fa-caret-right"></i> typeOf
 
 ```cpp
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectCheckbox.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Checkbox</dd></dl>
 
@@ -429,6 +550,17 @@ Specifies the type of input that the text box accepts. AutoConnectInput will gen
 
 ### <i class="fa fa-code"></i> Public member functions
 
+#### <i class="fa fa-caret-right"></i> canHandle
+
+```cpp
+bool canHandle(void)
+```
+
+Returns whether the AutoConnectInput element has a registered event handler and can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">An event handler is registered. The element can correspond to a change event.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">An event handler is not registered.</span></dd></dl>
+
 #### <i class="fa fa-caret-right"></i> isValid
 
 ```cpp
@@ -440,13 +572,62 @@ Evaluate the pattern as a regexp and return whether value matches. Always return
     <dd><span class="apidef">true</span><span class="apidesc">The value matches a pattern.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">The value does not match a pattern.</span></dd></dl>
 
+#### <i class="fa fa-caret-right"></i> off
+
+```cpp
+void off(void)
+```
+
+Release a registered event handler so that the element does not react to events. 
+
+#### <i class="fa fa-caret-right"></i> on
+
+```cpp
+void on(std::function<void(AutoConnectInput&, AutoConnectAux&)> eventHandler)
+```
+
+Register an event handler function so that the element can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">eventHandler</span><span class="apidesc">A function instance corresponding to a change event on AutoConnectInput. It allows giving with [lambda expressions](https://en.cppreference.com/w/cpp/language/lambda).</span></dd></dl>
+
+An *eventHandler* function will be called when a change event occurs with the AutoConnectInput. Its prototype declaration is follows:
+
+```cpp
+void eventHandler(AutoConnectInput& me, AutoConnectAux& aux)
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">me</span><span class="apidesc">A reference to the instance of the AutoConnectInput that fired the change event.</span></dd>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to the AutoConnectAux instance to which the AutoConnectInput that generated the change event belongs.</span></dd>
+</dl>
+
+#### <i class="fa fa-caret-right"></i> response
+
+```cpp
+void response(const char* value)
+```
+
+```cpp
+void response(const char* attribute, const char* value)
+```
+
+Reply the value or attribute of an element to the client. The `response` is usually used for sending a reply to the client with the element's value or attribute that has been updated in an event handler function.
+
+The `response` function itself does not perform communication. It only temporarily accumulates updated values. The stored content constitutes the response data to the HTTP POST request sent from the client browser caused by the [AutoConnectElements event](acinteract.md#event-handling-for-autoconnectelements).
+
+The `response` function has two overloads with different numbers of arguments. A `response` function suitable for just one argument will only update the value of the AutoConnectInput. Also, a `response` function suitable for two arguments allows updating all attributes of the HTML `input type="text"` element derived from AutoConnectInput.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">value</span><span class="apidesc">**Suitable for one argument format:** A changing value of [AutoConnectInput::value](acelements.md#value_4) as response.<br>**Suitable for two argument format:** Specifies a value of the HTML `input type="text"` element to be modified as specified in the `attribute` argument.</span></dd>
+    <dd><span class="apidef">attribute</span><span class="apidesc">An attribute name of an HTML `input type="text"` element to be changed.</span></dd></dl>
+
 #### <i class="fa fa-caret-right"></i> typeOf
 
 ```cpp
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectInput.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Input</dd></dl>
 
@@ -540,6 +721,17 @@ Adds an option for the radio button.<dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">value</span><span class="apidesc">An option string to add to the radio button.</span></dd></dl>
 
+#### <i class="fa fa-caret-right"></i> canHandle
+
+```cpp
+bool canHandle(void)
+```
+
+Returns whether the AutoConnectRadio element has a registered event handler and can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">An event handler is registered. The element can correspond to a change event.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">An event handler is not registered.</span></dd></dl>
+
 #### <i class="fa fa-caret-right"></i> check
 
 ```cpp
@@ -561,6 +753,36 @@ Clear the array of option strings that AutoConnectRadio has in the values. When 
 The empty function resets the checked value to zero. When the empty function is executed, any button will be turned off.<dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the radio button option strings.</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> off
+
+```cpp
+void off(void)
+```
+
+Release a registered event handler so that the element does not react to events. 
+
+#### <i class="fa fa-caret-right"></i> on
+
+```cpp
+void on(std::function<void(AutoConnectRadio&, AutoConnectAux&)> eventHandler)
+```
+
+Register an event handler function so that the element can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">eventHandler</span><span class="apidesc">A function instance corresponding to a change event on AutoConnectRadio. It allows giving with [lambda expressions](https://en.cppreference.com/w/cpp/language/lambda).</span></dd></dl>
+
+An *eventHandler* function will be called when a change event occurs with the AutoConnectRadio. Its prototype declaration is follows:
+
+```cpp
+void eventHandler(AutoConnectRadio& me, AutoConnectAux& aux)
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">me</span><span class="apidesc">A reference to the instance of the AutoConnectRadio that fired the change event.</span></dd>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to the AutoConnectAux instance to which the AutoConnectRadio that generated the change event belongs.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;
 
@@ -590,7 +812,7 @@ Returns number of options which contained.<dl class="apidl">
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectRadio.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Radio</dd></dl>
 
@@ -711,7 +933,7 @@ Value of the element. It becomes a value attribute of an HTML `#!html <input typ
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectRange.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Range</dd></dl>
 
@@ -790,6 +1012,17 @@ A `selected` is an optional value. Specifies 1-based index value of an options a
 void add(const String& option)
 ```
 
+#### <i class="fa fa-caret-right"></i> canHandle
+
+```cpp
+bool canHandle(void)
+```
+
+Returns whether the AutoConnectSelect element has a registered event handler and can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd><span class="apidef">true</span><span class="apidesc">An event handler is registered. The element can correspond to a change event.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">An event handler is not registered.</span></dd></dl>
+
 Adds a selectable option string for the selection list.<dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">option</span><span class="apidesc">A string of selectable item to be contained in the select element.</span></dd></dl>
@@ -805,6 +1038,36 @@ Clear the array of options list that AutoConnectSelect has in the options. When 
 The empty function resets the selected value to zero. When the empty function is executed, there are no selected options and the first item is placed at the beginning.<dl class="apidl">
     <dt>**Parameter**</dt>
     <dd><span class="apidef">reserve</span><span class="apidesc">Reserved size of a container for the options.</span></dd></dl>
+
+#### <i class="fa fa-caret-right"></i> off
+
+```cpp
+void off(void)
+```
+
+Release a registered event handler so that the element does not react to events. 
+
+#### <i class="fa fa-caret-right"></i> on
+
+```cpp
+void on(std::function<void(AutoConnectSelect&, AutoConnectAux&)> eventHandler)
+```
+
+Register an event handler function so that the element can respond to a [change](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event) event.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">eventHandler</span><span class="apidesc">A function instance corresponding to a change event on AutoConnectSelect. It allows giving with [lambda expressions](https://en.cppreference.com/w/cpp/language/lambda).</span></dd></dl>
+
+An *eventHandler* function will be called when a change event occurs with the AutoConnectSelect. Its prototype declaration is follows:
+
+```cpp
+void eventHandler(AutoConnectSelect& me, AutoConnectAux& aux)
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">me</span><span class="apidesc">A reference to the instance of the AutoConnectSelect that fired the change event.</span></dd>
+    <dd><span class="apidef">aux</span><span class="apidesc">Reference to the AutoConnectAux instance to which the AutoConnectSelect that generated the change event belongs.</span></dd>
+</dl>
 
 #### <i class="fa fa-caret-right"></i> operator &#91;&nbsp;&#93;
 
@@ -844,7 +1107,7 @@ Returns number of options which contained.<dl class="apidl">
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectSelect.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Select</dd></dl>
 
@@ -900,7 +1163,7 @@ Raw CSS code to insert into a style block in a custom web page to generate.<dl c
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectStyle.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Style</dd></dl>
 
@@ -971,7 +1234,7 @@ The name of the submit button. It will also be the label of the button.<dl class
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectSubmit.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Submit</dd></dl>
 
@@ -1044,12 +1307,31 @@ A content string of the text element.<dl class="apidl">
 
 ### <i class="fa fa-code"></i> Public member functions
 
+#### <i class="fa fa-caret-right"></i> response
+
+```cpp
+void response(const char* value)
+```
+
+```cpp
+void response(const char* attribute, const char* value)
+```
+
+Reply the value or attribute of an element to the client. The `response` is usually used for sending a reply to the client with the element's value or attribute that has been updated in an event handler function.
+
+The `response` function itself does not perform communication. It only temporarily accumulates updated values. The stored content constitutes the response data to the HTTP POST request sent from the client browser caused by the [AutoConnectElements event](acinteract.md#event-handling-for-autoconnectelements).
+
+The `response` function has two overloads with different numbers of arguments. A `response` function suitable for just one argument will only update the DOM text (i.e., the `innerHTML` attribute dependent on the `div` or `span` node) of the AutoConnectText. Also, a `response` function suitable for two arguments allows updating all attributes of the HTML `div` or `span` node derived from AutoConnectText.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">value</span><span class="apidesc">**Suitable for one argument format:** A changing value of [AutoConnectText::value](acelements.md#value_10) as response. It also will update the `innerHTML` attribute of the `div` or `span` node derived from AutoConnectText.<br>**Suitable for two argument format:** Specifies a value of the HTML `div` or `span` node to be modified as specified in the `attribute` argument.</span></dd>
+    <dd><span class="apidef">attribute</span><span class="apidesc">An attribute name of an HTML `div` or `span` node to be changed.</span></dd></dl>
+
 #### <i class="fa fa-caret-right"></i> typeOf
 
 ```cpp
 ACElement_t typeOf(void)
 ```
 
-Returns type of AutoConnectElement.<dl class="apidl">
+Returns type of AutoConnectText.<dl class="apidl">
     <dt>**Return value**</dt>
     <dd>AC_Text</dd></dl>
