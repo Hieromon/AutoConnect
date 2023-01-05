@@ -18,11 +18,16 @@ However, major Web browsers support HTTP asynchronous communication without page
 
 - **Fetch API**
 
-    The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) supported by AutoConnectAux is even easy to implement than [XHR](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). AutoConnectElements can execute Fetch API-driven JavaScript that can communicate with the server sketch. Its script will be triggered by expected events and automatically be embedded into the HTML source of your custom web page by AutoConnect.
+    The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) supported by AutoConnectAux is even easy to implement than [XHR](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). AutoConnectElements can execute Fetch API-driven JavaScript that can communicate with the server sketch. Its script will be triggered by [expected events](#register-event-handling-for-autoconnectelements) and automatically be embedded into the HTML source of your custom web page by AutoConnect.
 
     Also, the sketch process with which the Fetch API scripts communicates can access and update the values and properties of each AutoConnectElement. Updated AutoConnectElement contents are immediately reflected on the custom web page by sending a response.
 
     This section describes a Fetch API-driven approach based on AutoConnectElements event firing and the specific API for the sketch implementation.
+
+    !!! info "No retries around Fetch API handling"
+        The JavaScript containing the Fetch API that AutoConnect automatically embeds in custom web pages **does not include retry handling**. If the connection with the ESP module is unstable, the request will be reset by the client browser without completing the HTTP transmission/reception. However, the state may be difficult to understand at first glance, and the user may not be able to immediately determine what has happened.
+
+        When applying the Fetch API on the AutoConnect custom web page, it is recommended to keep the amount of communication as low as possible.
 
 ## Interact with sketches by AutoConnectElements event
 
@@ -222,9 +227,11 @@ The [AutoConnectButton::response](apielements.md#response) function rewrites the
 |[`AutoConnectText::response`](apielements.md#response_3)|[innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) for the `<div>` or `<span>` node|
 
 !!! note "When the `response` function updates the value of AutoConnectElements"
-    The `response` function also updates the value of the element's instance. For example, [AutoConnectText::response](apielements.md#response_3) function, in addition to sending the text to be updated to the client browser, also updates the [value member](apielements.md#value_10) of the sketch's AutoConnectText variable. However, that update process is done by AutoConnect at the exit of the event handler function.<br>So, in the event handler function, even if you execute the response function, the value of AutoConnectElements will be kept as it was before the event occurred.
+    The `response` function also updates the value of the element's instance. For example, [AutoConnectText::response](apielements.md#response_3) function, in addition to sending the text to be updated to the client browser, also updates the [value member](apielements.md#value_10) of the sketch's AutoConnectText variable. However, that update process is done by AutoConnect at the exit of the event handler function.
 
-Each AutoConnectElements has another response function that takes two arguments. The response(const char*) function updates the value of that element, while the `response(const char*, const char*)` function with two arguments updates the specified attribute or property. The `response` function, which usually takes **two arguments**, is used to change attributes of an element other than its value. For example, citing the LED ON/OFF example above, you can change the button background color according to the LED lighting state using the `response` function that takes two arguments.
+    So, in the event handler function, even if you execute the response function, the value of AutoConnectElements will be kept as it was before the event occurred.
+
+Each AutoConnectElements has another response function that takes two arguments. The response(const char*) function updates the value of that element, while the `response(const char*, const char*)` function with two arguments updates the specified attribute or property and is used to change attributes of an element other than its value. For example, citing the LED ON/OFF example above, you can change the button background color according to the LED lighting state using the `response` function that takes two arguments.
 
 To change the button background color via an event handler when an event fires, specifies a String of a response form that allows direct access to the inline [styles property](https://developer.mozilla.org/ja/docs/Web/API/HTMLElement/style) of the button element using the [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration) object.
 

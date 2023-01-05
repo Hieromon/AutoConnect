@@ -1278,7 +1278,7 @@ There are two types of Web APIs that allow asynchronous communication that can b
 
 - **Fetch API**
 
-    The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) supported by AutoConnectAux is even easy to implement than [XHR](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). AutoConnectElements can execute Fetch API-driven JavaScript that can communicate with the server sketch. Its script will be triggered by expected events and automatically be embedded into the HTML source of your custom web page by AutoConnect.
+    The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) supported by AutoConnectAux is even easy to implement than [XHR](https://developer.mozilla.org/en-US/docs/Glossary/XHR_(XMLHttpRequest)). AutoConnectElements can execute Fetch API-driven JavaScript that can communicate with the server sketch. Its script will be triggered by [expected events](acinteract.md#register-event-handling-for-autoconnectelements) and automatically be embedded into the HTML source of your custom web page by AutoConnect.
 
     Also, the sketch process with which the above Fetch API script communicates can access and update the values and properties of each AutoConnectElement. Updated AutoConnectElement contents are immediately reflected on the custom web page by sending a response.
 
@@ -1406,7 +1406,7 @@ The following screenshot shows that a custom web page using the Fetch API can bl
 
 <img data-gifffer="images/fetch_led.gif" data-gifffer-width="636" data-gifffer-height="290"/>
 
-The sketch implemented for the above demonstration does not need to write code to handle the Fetch API. Its Fetch API script will automatically be embedded in the HTML source of your custom web page by AutoConnect. All you need to do is describe your custom web page in JSON and write AutoConnectElements event handlers to apply to user interaction. 
+The sketch implemented for the above demonstration does not need to write JavaScript code to handle the Fetch API. Its Fetch API script will automatically be embedded in the HTML source of your custom web page by AutoConnect. All you need to do is describe your custom web page in JSON and write AutoConnectElements event handlers to apply to user interaction. 
 
 How to sketch with the AutoConnectElements events is covered in detail in chapter [Interact with Sketch and AutoConnectElements](acinteract.md).
 
