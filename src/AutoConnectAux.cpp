@@ -853,9 +853,8 @@ String AutoConnectAux::_fetchEndpoint(PageArgument& args) {
     responseContent = PSTR("Invalid interface");
 
   AC_DBG(AUTOCONNECT_URI_FETCH "(%d) %s\n", responseCode, responseContent);
-  _ac->_webServer->sendHeader(String(F("Connection")), String(F("keep-alive")));
   _ac->_webServer->send(responseCode, responseCode == 200 ? "application/json" : "text/plain", responseContent);
-  cancel(true);
+  _ac->_responsePage->cancel();
   if (res)
     delete[] res;
   return String();
