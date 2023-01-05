@@ -1,3 +1,16 @@
+### [1.4.1] Jan. 5, 2023
+
+#### Enhancements
+
+- Supports asynchronous communication of custom web pages using the Fetch API. This allows interaction with the user without page transitions. See the chapter [Interact between Sketch and AutoConnectElements](acinteract.md) for details.
+- Added the FetchLED example.
+- Added an AutoConnect::locate function.
+
+#### Fix
+
+- Fixed AutoConnectConfigBase constructor missing to AutoConnectConfigExt.
+
+---
 ### [1.4.0] Nov. 20, 2022
 
 #### Enhancements
