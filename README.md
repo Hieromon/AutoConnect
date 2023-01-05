@@ -107,7 +107,7 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 - Supports asynchronous communication of custom web pages using the Fetch API. This allows interaction with the user without page transitions. See the [AutoConnect documentation](https://hieromon.github.io/AutoConnect/acinteract.html) for details. (Discussions [#503](https://github.com/Hieromon/AutoConnect/discussions/503))
 - Added the FetchLED example.
 - Added an AutoConnect::locate function.
-- Fixed AutoConnectConfigBase constructor missing to AutoConnectConfigExt. (Issue #551)
+- Fixed AutoConnectConfigBase constructor missing to AutoConnectConfigExt. (Issue [#551](https://github.com/Hieromon/AutoConnect/issues/551))
 
 ### [1.4.0] Nov. 20, 2022
 - Custom web page related features were decoupled to allow for two different configurations, AutoConnectCore and AutoConnect. AutoConnectCore reduces memory consumption by focusing only on WiFi connectivity utilities. See the chapter [Reducing Binary Size](https://hieromon.github.io/AutoConnect/basicusage.html#reducing-binary-size) in the documentation for more information.
