@@ -412,6 +412,12 @@ The custom web pages that require authentication will occur unauthorized error a
 
 Once you exit from the captive portal session and connect SoftAP IP directly afresh, you can access custom web pages along with prompting a login dialog.
 
+## <i class="fa fa-question-circle"></i> Uploaded BIN via OTA, but the sketch stopped after reboot.
+
+Perhaps the current sketch as the uploader does not match the **partition** size of the BIN file to be uploaded. For example, if the current sketch (i.e. it performs OTA) is built with a partition table of `Default.csv` and the new BIN file to be updated is `min_spiffs.csv`.
+
+Also, the file system of the uploader sketch and the uploaded sketch must be the same. If the file system of the uploader sketch is SPIFFS while the uploaded BIN file is LITTLEFS, file system initialization will fail.
+
 ## <i class="fa fa-question-circle"></i> Still, not stable with my sketch.
 
 If AutoConnect behavior is not stable with your sketch, you can try the following measures.
