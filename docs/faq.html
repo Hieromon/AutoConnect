@@ -1232,6 +1232,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#uploaded-bin-via-ota-but-the-sketch-stopped-after-reboot" class="md-nav__link">
+     Uploaded BIN via OTA, but the sketch stopped after reboot.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#still-not-stable-with-my-sketch" class="md-nav__link">
      Still, not stable with my sketch.
   </a>
@@ -1594,6 +1601,13 @@
         <li class="md-nav__item">
   <a href="#unauthorize-error-without-prompting-the-login-dialog" class="md-nav__link">
      Unauthorize error without prompting the login dialog.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploaded-bin-via-ota-but-the-sketch-stopped-after-reboot" class="md-nav__link">
+     Uploaded BIN via OTA, but the sketch stopped after reboot.
   </a>
   
 </li>
@@ -1979,6 +1993,9 @@ Also, you can check the memory running out status by rebuilding the Sketch with 
 <h2 id="unauthorize-error-without-prompting-the-login-dialog"><i class="fa fa-question-circle"></i> Unauthorize error without prompting the login dialog.<a class="headerlink" href="#unauthorize-error-without-prompting-the-login-dialog" title="Permanent link">&para;</a></h2>
 <p>The custom web pages that require authentication will occur unauthorized error always without prompting the login dialog under the captive portal state on some OS. This is a captive portal restriction and expected behavior. The captive portal web browser is almost a complete web browser, but while the captive portal session restricts the response to <code>WWW-authenticate</code> requests. (In intrinsically, the captive portal is a mechanism for authentication in itself)</p>
 <p>Once you exit from the captive portal session and connect SoftAP IP directly afresh, you can access custom web pages along with prompting a login dialog.</p>
+<h2 id="uploaded-bin-via-ota-but-the-sketch-stopped-after-reboot"><i class="fa fa-question-circle"></i> Uploaded BIN via OTA, but the sketch stopped after reboot.<a class="headerlink" href="#uploaded-bin-via-ota-but-the-sketch-stopped-after-reboot" title="Permanent link">&para;</a></h2>
+<p>Perhaps the current sketch as the uploader does not match the <strong>partition</strong> size of the BIN file to be uploaded. For example, if the current sketch (i.e. it performs OTA) is built with a partition table of <code>Default.csv</code> and the new BIN file to be updated is <code>min_spiffs.csv</code>.</p>
+<p>Also, the file system of the uploader sketch and the uploaded sketch must be the same. If the file system of the uploader sketch is SPIFFS while the uploaded BIN file is LITTLEFS, file system initialization will fail.</p>
 <h2 id="still-not-stable-with-my-sketch"><i class="fa fa-question-circle"></i> Still, not stable with my sketch.<a class="headerlink" href="#still-not-stable-with-my-sketch" title="Permanent link">&para;</a></h2>
 <p>If AutoConnect behavior is not stable with your sketch, you can try the following measures.</p>
 <h3 id="1-change-wifi-channel">1. Change WiFi channel<a class="headerlink" href="#1-change-wifi-channel" title="Permanent link">&para;</a></h3>
