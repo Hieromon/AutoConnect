@@ -2,8 +2,8 @@
  * AutoConnectCore class implementation.
  * @file AutoConnectCoreImpl.hpp
  * @author hieromon@gmail.com
- * @version 1.4.1
- * @date 2022-12-24
+ * @version 1.4.2
+ * @date 2023-01-13
  * @copyright MIT license.
  */
 
@@ -866,6 +866,15 @@ void AutoConnectCore<T>::whileCaptivePortal(WhileCaptivePortalExit_ft fn) {
 }
 
 /**
+ * Register an exit routine to call during WiFi connection attempting.
+ * @param  fn A function of the exit routine that calls while WiFi connection attempting.
+ */
+template<typename T>
+void AutoConnectCore<T>::whileConnecting(WhileConnectingExit_ft fn) {
+  _whileConnecting = fn;
+}
+
+/**
  * Load current available credential
  * @param  ssid       A pointer to the buffer that SSID should be stored.
  * @param  password   A pointer to the buffer that password should be stored.
@@ -1505,15 +1514,27 @@ unsigned int AutoConnectCore<T>::_toWiFiQuality(int32_t rssi) {
 template<typename T>
 wl_status_t AutoConnectCore<T>::_waitForConnect(unsigned long timeout) {
   wl_status_t wifiStatus;
+  const unsigned long wt = millis();
+  unsigned long pt = wt;
+  bool  exitInterrupt = false;
 
-  unsigned long st = millis();
   while ((wifiStatus = WiFi.status()) != WL_CONNECTED) {
+    yield();
+    unsigned long ct = millis();
     if (timeout) {
-      if (millis() - st > timeout)
+      if (ct - wt > timeout)
         break;
     }
-    AC_DBG_DUMB("%c", '.');
-    delay(300);
+    if (_whileConnecting) {
+      if ((exitInterrupt = !_whileConnecting())) {
+        AC_DBG_DUMB("interrupted\n");
+        break;
+      }
+    }
+    if (ct - pt > 300) {
+      AC_DBG_DUMB("%c", '.');
+      pt = millis();
+    }
   }
   if (wifiStatus == WL_CONNECTED) {
     AC_DBG_DUMB("established");
@@ -1528,7 +1549,7 @@ wl_status_t AutoConnectCore<T>::_waitForConnect(unsigned long timeout) {
     if (_onConnectExit)
       _onConnectExit(localIP);
   }
-  else {
+  else if (!exitInterrupt) {
     AC_DBG_DUMB("timeout\n");
   }
   _attemptPeriod = millis();  // Save to measure the interval between an autoReconnect.

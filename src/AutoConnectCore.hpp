@@ -4,8 +4,8 @@
  * that are limited to AutoConnect basic functionality.
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
- * @version 1.4.1
- * @date 2022-12-24
+ * @version 1.4.2
+ * @date 2023-01-13
  * @copyright MIT license.
  */
 
@@ -62,10 +62,12 @@ class AutoConnectCore {
   typedef std::function<bool(IPAddress&)> DetectExit_ft;
   typedef std::function<void(IPAddress&)> ConnectExit_ft;
   typedef std::function<bool(void)>       WhileCaptivePortalExit_ft;
+  typedef std::function<bool(void)>       WhileConnectingExit_ft;
   void  onDetect(DetectExit_ft fn);
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServer::THandlerFunction fn);
   void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
+  void  whileConnecting(WhileConnectingExit_ft fn);
   template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
   bool  saveCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM);
   template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
@@ -127,6 +129,7 @@ class AutoConnectCore {
   ConnectExit_ft      _onConnectExit;
   DetectExit_ft       _onDetectExit;
   WhileCaptivePortalExit_ft _whileCaptivePortal;
+  WhileConnectingExit_ft    _whileConnecting;
   WebServer::THandlerFunction  _notFoundHandler;
   size_t              _freeHeapSize;
 
