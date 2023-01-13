@@ -143,6 +143,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
 
     // Prepare valid configuration according to the WiFi connection right order.
     cs = true;
+    bool  as = true;  // The current is available SSID.
     _rfAdHocBegin = ssid == nullptr ? false : (strlen(ssid) > 0);
     if (_rfAdHocBegin) {
       // Save for autoReconnect
@@ -160,7 +161,15 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
           AC_DBG("Adopted:%.32s\n", ssid);
         }
       }
-      _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
+      // At this point `current.ssid` has an available SSID.
+      // If no available SSIDs are stored by the SDK, 1st-WiFi.begin without
+      // specifying an SSID will always fail.
+      // The flag `as` will avoid a useless WiFi.begin and immediately prompt
+      // an autoReconnect attempt or captive portal launch.
+      // And the failure condition for _load is
+      //   1. Zero entries in AutoConnectCredentials
+      //   2. Specified SSID cannot be detected by WiFi.scanNetworks
+      as = _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
     }
 
     if (cs) {
@@ -177,6 +186,10 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
         cs = WiFi.begin(ssid, passphrase) != WL_CONNECT_FAILED;
       }
       AC_DBG("WiFi.begin(%s%s%s)", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
+
+      // Override the validity of 1st-WiFi.begin by the availability of available SSIDs.
+      // It avoids waiting for WiFi.begin to connect which always fails.
+      cs &= as;
       if (cs)
         cs = _waitForConnect(timeout) == WL_CONNECTED;
       else {
