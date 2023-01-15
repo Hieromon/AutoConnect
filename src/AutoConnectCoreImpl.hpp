@@ -1086,6 +1086,7 @@ template<typename T>
 void AutoConnectCore<T>::_startDNSServer(void) {
   // Boot DNS server, set up for captive portal redirection.
   if (!_dnsServer) {
+    _portalAvailable = true;
     _dnsServer.reset(new DNSServer());
     _dnsServer->setErrorReplyCode(DNSReplyCode::NoError);
     _dnsServer->start(AUTOCONNECT_DNSPORT, "*", WiFi.softAPIP());
@@ -1100,6 +1101,7 @@ void AutoConnectCore<T>::_startDNSServer(void) {
 template<typename T>
 void AutoConnectCore<T>::_stopDNSServer(void) {
   if (_dnsServer) {
+    _portalAvailable = false;
     _dnsServer->stop();
     _dnsServer.reset();
     AC_DBG("DNS server stopped\n");
