@@ -97,6 +97,9 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
   if (timeout == 0)
     timeout = _apConfig.beginTimeout;
 
+  // Reset the portal state.
+  _portalStatus = AC_IDLE;
+
   // Ensure persistence to save the connected station_config in the SDK.
   // Correspondence to change of WiFi initial mode due to update to ESP8266 core 3.0.0.
   if (!_isPersistent()) {
@@ -167,8 +170,8 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
       // The flag `as` will avoid a useless WiFi.begin and immediately prompt
       // an autoReconnect attempt or captive portal launch.
       // And the failure condition for _load is
-      //   1. Zero entries in AutoConnectCredentials
-      //   2. Specified SSID cannot be detected by WiFi.scanNetworks
+      // 1. Zero entries in AutoConnectCredentials
+      // 2. Specified SSID cannot be detected by WiFi.scanNetworks
       as = _loadAvailCredential(reinterpret_cast<const char*>(current.ssid));
     }
 
@@ -178,6 +181,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
       if (!_configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2))
         return false;
 
+      _portalStatus |= AC_INPROGRESS;
       // Try to connect by STA immediately.
       if (!_rfAdHocBegin)
         cs = WiFi.begin() != WL_CONNECT_FAILED;
@@ -211,6 +215,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
       AC_DBG("autoReconnect");
       if ((cs = _loadCurrentCredential(ssid_c, password_c, _apConfig.principle, strlen(reinterpret_cast<const char*>(current.ssid)) > 0))) {
         // Try to reconnect with a stored credential.
+        _portalStatus |= AC_AUTORECONNECT;
         AC_DBG_DUMB(", %s(%s) loaded\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
         const char* psk = strlen(password_c) ? password_c : nullptr;
         _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
@@ -267,19 +272,21 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
         _apConfig.retainPortal = true;
 
         // Start the captive portal to make a new connection
-        bool  hasTimeout = false;
         _portalAccessPeriod = millis();
         while (WiFi.status() != WL_CONNECTED && !_rfReset) {
           handleClient();
           // By an exit routine to escape from Captive portal
           if (_whileCaptivePortal) {
-            if (!_whileCaptivePortal())
+            if (!_whileCaptivePortal()) {
+              _portalStatus |= AC_INTERRUPT;
               break;
+            }
           }
           // Force execution of queued processes.
           yield();
           // Check timeout
-          if ((hasTimeout = _hasTimeout(_apConfig.portalTimeout))) {
+          if (_hasTimeout(_apConfig.portalTimeout)) {
+            _portalStatus |= AC_TIMEOUT;
             AC_DBG("CP timeout exceeded:%ld\n", millis() - _portalAccessPeriod);
             break;
           }
@@ -292,7 +299,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
 
         // Captive portal staying time exceeds timeout,
         // Close the portal if an option for keeping the portal is false.
-        if (!cs && hasTimeout) {
+        if (!cs && (_portalStatus & AC_TIMEOUT)) {
           if (_apConfig.retainPortal) {
             _purgePages();
             AC_DBG("Maintain portal\n");
@@ -407,6 +414,7 @@ void AutoConnectCore<T>::disconnect(const bool wifiOff, const bool clearConfig) 
 
   while (WiFi.status() == WL_CONNECTED)
     delay(1);
+  _portalStatus &= ~AC_ESTABLISHED;
 }
 
 /**
@@ -622,6 +630,7 @@ void AutoConnectCore<T>::handleRequest(void) {
 
     // Establish a WiFi connection with the access point.
     if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
+      _portalStatus |= AC_INPROGRESS;
       // Wait for the connection attempt to complete and send a response
       // page to notify the connection result.
       // End the current session to complete a response page transmission.
@@ -784,18 +793,6 @@ void AutoConnectCore<T>::home(const String& uri) {
 template<typename T>
 WebServer& AutoConnectCore<T>::host(void) {
   return  *_webServer;
-}
-
-/**
- * Returns availability of captive portal.
- * @return true  Captive portal is available.
- */
-template<typename T>
-bool AutoConnectCore<T>::isPortalAvailable(void) const {
-  bool portalState = WiFi.getMode() & WIFI_AP;
-  portalState &= WiFi.softAPIP() == _apConfig.apip;
-  portalState &= _dnsServer.get() != nullptr;
-  return portalState;
 }
 
 /**
@@ -1111,6 +1108,7 @@ void AutoConnectCore<T>::_startDNSServer(void) {
     _dnsServer.reset(new DNSServer());
     _dnsServer->setErrorReplyCode(DNSReplyCode::NoError);
     _dnsServer->start(AUTOCONNECT_DNSPORT, "*", WiFi.softAPIP());
+    _portalStatus |= AC_CAPTIVEPORTAL;
     AC_DBG("DNS server started\n");
   }
 }
@@ -1124,6 +1122,7 @@ void AutoConnectCore<T>::_stopDNSServer(void) {
   if (_dnsServer) {
     _dnsServer->stop();
     _dnsServer.reset();
+    _portalStatus &= ~AC_CAPTIVEPORTAL;
     AC_DBG("DNS server stopped\n");
   }
 }
@@ -1535,11 +1534,14 @@ wl_status_t AutoConnectCore<T>::_waitForConnect(unsigned long timeout) {
     yield();
     unsigned long ct = millis();
     if (timeout) {
-      if (ct - wt > timeout)
+      if (ct - wt > timeout) {
+        _portalStatus |= AC_TIMEOUT;
         break;
+      }
     }
     if (_whileConnecting) {
       if ((exitInterrupt = !_whileConnecting())) {
+        _portalStatus |= AC_INTERRUPT;
         AC_DBG_DUMB("interrupted\n");
         break;
       }
@@ -1549,7 +1551,10 @@ wl_status_t AutoConnectCore<T>::_waitForConnect(unsigned long timeout) {
       pt = millis();
     }
   }
+  // Fix the connection state.
+  _portalStatus &= ~AC_INPROGRESS;
   if (wifiStatus == WL_CONNECTED) {
+    _portalStatus |= AC_ESTABLISHED;
     AC_DBG_DUMB("established");
     IPAddress localIP = WiFi.localIP();
     // The esp8266 station reconnection has a problem and can not get
