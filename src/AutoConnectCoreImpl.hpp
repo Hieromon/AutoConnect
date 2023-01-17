@@ -181,7 +181,6 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
       if (!_configSTA(_apConfig.staip, _apConfig.staGateway, _apConfig.staNetmask, _apConfig.dns1, _apConfig.dns2))
         return false;
 
-      _portalStatus |= AC_INPROGRESS;
       // Try to connect by STA immediately.
       if (!_rfAdHocBegin)
         cs = WiFi.begin() != WL_CONNECT_FAILED;
@@ -190,6 +189,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
         cs = WiFi.begin(ssid, passphrase) != WL_CONNECT_FAILED;
       }
       AC_DBG("WiFi.begin(%s%s%s)", ssid == nullptr ? "" : ssid, passphrase == nullptr ? "" : ",", passphrase == nullptr ? "" : passphrase);
+      _portalStatus |= AC_INPROGRESS;
 
       // Override the validity of 1st-WiFi.begin by the availability of available SSIDs.
       // It avoids waiting for WiFi.begin to connect which always fails.
@@ -204,6 +204,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
         _reconnectDelay(AUTOCONNECT_RECONNECT_DELAY);
         AC_DBG_DUMB("\n");
       }
+      _portalStatus &= ~AC_INPROGRESS;
     }
 
     // Reconnect with a valid credential as the autoReconnect option is enabled.
@@ -215,14 +216,16 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
       AC_DBG("autoReconnect");
       if ((cs = _loadCurrentCredential(ssid_c, password_c, _apConfig.principle, strlen(reinterpret_cast<const char*>(current.ssid)) > 0))) {
         // Try to reconnect with a stored credential.
-        _portalStatus |= AC_AUTORECONNECT;
         AC_DBG_DUMB(", %s(%s) loaded\n", ssid_c, _apConfig.principle == AC_PRINCIPLE_RECENT ? "RECENT" : "RSSI");
+        _portalStatus |= AC_AUTORECONNECT;
         const char* psk = strlen(password_c) ? password_c : nullptr;
         _configSTA(IPAddress(_credential.config.sta.ip), IPAddress(_credential.config.sta.gateway), IPAddress(_credential.config.sta.netmask), IPAddress(_credential.config.sta.dns1), IPAddress(_credential.config.sta.dns2));
         cs = WiFi.begin(ssid_c, psk) != WL_CONNECT_FAILED;
         AC_DBG("WiFi.begin(%s%s%s)", ssid_c, psk == nullptr ? "" : ",", psk == nullptr ? "" : psk);
-        if (cs)
+        if (cs) {
+          _portalStatus |= AC_INPROGRESS;
           cs = _waitForConnect(timeout) == WL_CONNECTED;
+        }
       }
       if (!cs) {
         AC_DBG_DUMB(" failed\n");
@@ -594,8 +597,10 @@ void AutoConnectCore<T>::handleRequest(void) {
       else if (sc != WIFI_SCAN_RUNNING) {
         AC_DBG("%d network(s) found\n", (int)sc);
         if (sc > 0) {
-          if (_seekCredential(_apConfig.principle, _rfAdHocBegin ? AC_SEEKMODE_CURRENT : AC_SEEKMODE_ANY))
+          if (_seekCredential(_apConfig.principle, _rfAdHocBegin ? AC_SEEKMODE_CURRENT : AC_SEEKMODE_ANY)) {
+            _portalStatus |= AC_AUTORECONNECT;
             _rfConnect = true;
+          }
         }
         WiFi.scanDelete();
       }
