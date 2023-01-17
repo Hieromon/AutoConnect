@@ -2,8 +2,8 @@
  * Predefined AutoConnect configuration parameters.
  * @file AutoConnectDefs.h
  * @author hieromon@gmail.com
- * @version  1.4.1
- * @date 2022-12-07
+ * @version  1.4.2
+ * @date 2023-01-17
  * @copyright  MIT license.
  */
 
@@ -19,7 +19,11 @@
 #endif // !AC_DEBUG_PORT
 #ifdef AC_DEBUG
 #define AC_DBG_DUMB(fmt, ...) do {AC_DEBUG_PORT.printf_P((PGM_P)PSTR(fmt), ## __VA_ARGS__ );} while (0)
+#ifdef AC_DEBUG_LINETRACE
+#define AC_DBG(fmt, ...) do {AC_DEBUG_PORT.printf_P((PGM_P)PSTR("[AC:%s.%d] " fmt), __FUNCTION__, __LINE__, ## __VA_ARGS__ );} while (0)
+#else
 #define AC_DBG(fmt, ...) do {AC_DEBUG_PORT.printf_P((PGM_P)PSTR("[AC] " fmt), ## __VA_ARGS__ );} while (0)
+#endif
 #else
 #define AC_DBG(...) do {(void)0;} while(0)
 #define AC_DBG_DUMB(...) do {(void)0;} while(0)
