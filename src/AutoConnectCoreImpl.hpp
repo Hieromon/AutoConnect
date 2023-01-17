@@ -584,6 +584,7 @@ void AutoConnectCore<T>::handleRequest(void) {
       if (sc == WIFI_SCAN_FAILED) {
         if (millis() - _attemptPeriod > ((unsigned long)_apConfig.reconnectInterval * AUTOCONNECT_UNITTIME * 1000)) {
           disconnect(false, false);
+          _portalStatus &= ~(AC_AUTORECONNECT | AC_INTERRUPT | ~0xf);
           int8_t  sn = WiFi.scanNetworks(true, true);
           AC_DBG("autoReconnect %s\n", sn == WIFI_SCAN_RUNNING ? "running" : "failed");
           _attemptPeriod = millis();
@@ -634,6 +635,7 @@ void AutoConnectCore<T>::handleRequest(void) {
     _redirectURI = "";
 
     // Establish a WiFi connection with the access point.
+    _portalStatus &= ~AC_TIMEOUT;
     if (WiFi.begin(ssid_c, password_c, ch) != WL_CONNECT_FAILED) {
       _portalStatus |= AC_INPROGRESS;
       // Wait for the connection attempt to complete and send a response
