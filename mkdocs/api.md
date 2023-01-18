@@ -622,6 +622,33 @@ An *fn* specifies the function called when the OTA starts. Its prototype declara
 typedef std::function<void(void)> OTAStartExit_ft
 ```
 
+### <i class="fa fa-caret-right"></i> portalStatus
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+```cpp
+uint8_t portalStatus(void)
+```
+
+Returns the status of the portal inside AutoConnect::begin and AutoConnect::handleClient.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>A bitwise value that indicates each status and is the logical disjunction of multiple states.</dd>
+: - **AutoConnect::AC_IDLE**:
+    Initial state. AutoConnect is not making any WiFi connection attempts. This state is reached immediately after [AutoConnect::begin](#begin) starts.
+: - **AutoConnect::AC_ESTABLISHED**:
+    Successfully connected to the WiFi access point.
+: - **AutoConnect::AC_AUTORECONNECT**:
+    [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) setting was applied during the WiFi connection attempt process. This flag does not indicate a successful connection. It only shows that a condition that triggers autoReconnect has occurred. Whether the connection was actually successful should be determined by `WiFi.status()==WL_CONNECTED`.
+: - **AutoConnect::AC_TIMEOUT**:
+    WiFi connection attempt timed out. Or, the captive portal was shut down by the [AutoConnectConfig::portalTimeout](apiconfig.md#portaltimeout) setting.
+: - **AutoConnect::AC_INTERRUPT**:
+    Connection interrupted due to an indication with the exit. The [whileConnecting exit](#whileconnecting) routine returned false. or the [whileCaptivePortal exit](#whilecaptiveportal) routine returned false. AutoConnect aborted the WiFi connection attempt with those indications.
+: - **AutoConnect::AC_CAPTIVEPORTAL**:
+    Captive portal is available. It means that SoftAP mode is enabled, and the DNS server is available. The state of this flag is equivalent to the return value of [AutoConnect::isPortalAvailable](#isportalavailable) function.
+: - **AutoConnect::AC_INPROGRESS**:
+    `WiFi.begin` in progress. AutoConnect is waiting for the connection to succeed or times out; this state will reset when terminating WiFi.begin attempts.
+</dl>
+
 ### <i class="fa fa-caret-right"></i> restoreCredential
 
 <p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>

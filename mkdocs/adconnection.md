@@ -8,10 +8,11 @@ AutoConnect aims to connect the ESP module as a station to a WiFi access point a
 - [Match with known access points by SSID](#match-with-known-access-points-by-ssid)
 - [Preserve AP mode](#preserve-ap-mode)
 - [Timeout settings for a connection attempt](#timeout-settings-for-a-connection-attempt)
+- [Verify the WiFi connection conditions](#verify-the-wifi-connection-conditions)
 
 ## Automatic reconnect
 
-AutoConnect will change the WiFi mode depending on the situation. The [AutoConnect::begin](lsbegin.md) function starts the webserver with **WIFI_STA** mode when the connection is successful with [*1st-WiFi.begin*](lsbegin.md). If the connection with the last access point fails, AutoConnect will switch the WiFi mode to **WIFI_AP_STA**, launching a DNS server and allowing the ESP module to launch the captive portal.
+AutoConnect will change the WiFi mode depending on the situation. The [AutoConnect::begin](lsbegin.md) function starts the Web Server with **WIFI_STA** mode when the connection is successful with [*1st-WiFi.begin*](lsbegin.md). If the connection with the last access point fails, AutoConnect will switch the WiFi mode to **WIFI_AP_STA**, launching a DNS server and allowing the ESP module to launch the captive portal.
 
 The captive portal launches SoftAP at its start and disconnects the STA. At this time, the ESP module discards its stored station configuration data (known as the SDK's [station_config](https://github.com/esp8266/Arduino/blob/db75d2c448bfccc6dc308bdeb9fbd3efca7927ff/tools/sdk/include/user_interface.h#L249) structure). This is the default behavior of AutoConnect.
 
@@ -102,7 +103,7 @@ The default channel when a captive portal starts and AutoConnect itself becomes 
 
 ## Connects depending on the WiFi signal strength
 
-When the ESP module found the multiple available access points (ie. AutoConnect has connected in the past), the default behavior AutoConnect will attempt to connect to the least recent one. However, If the ESP module can operate properly with any access point, it is advantageous to establish a connection with the best one of the reception sensitivity. 
+When the ESP module found the multiple available access points (i.e. AutoConnect has connected in the past), the default behavior AutoConnect will attempt to connect to the least recent one. However, If the ESP module can operate properly with any access point, it is advantageous to establish a connection with the best one of the reception sensitivity. 
 
 The [*AutoConnectConfig::principle*](apiconfig.md#principle) parameter has the connection disposition, and specifying **AC_PRINCIPLE_RSSI** will attempt to connect to one of the highest RSSI value among multiple available access points. Also You can expect stable WiFi connection by specifying the lower limit of signal strength using [*AutoConnectConfig::minRSSI*](apiconfig.md#minrssi).  
 Combining these two parameters allows you to filter the destination AP when multiple available access points are found.
@@ -233,11 +234,11 @@ build_flags=-DAUTOCONNECT_APKEY_SSID
 
 ## Preserve AP mode
 
-Sketch using AutoConnect can open a gateway to the Internet by connecting to a WiFi router even through use Espressif's peculiar WiFi protocol (eg. [ESP-MESH](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html) or [ESP-NOW](https://www.espressif.com/en/products/software/esp-now)). These specific communication protocols require to keeps AP + STA as the WiFi mode. That is, to apply these protocols, it needs to launch SoftAP by a sketch itself and then call [AutoConnect::begin](api.md#begin). But the default behavior of [AutoConnect::begin](api.md#begin) will turn off SoftAP always then it will unable to open a connection.
+Sketch using AutoConnect can open a gateway to the Internet by connecting to a WiFi router even through use Espressif's peculiar WiFi protocol (e.g. [ESP-MESH](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/esp-wifi-mesh.html) or [ESP-NOW](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html)). These specific communication protocols require to keeps AP + STA as the WiFi mode. That is, to apply these protocols, it needs to launch SoftAP by a sketch itself and then call [AutoConnect::begin](api.md#begin). But the default behavior of [AutoConnect::begin](api.md#begin) will turn off SoftAP always then it will unable to open a connection.
 
 [*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveAPMode) setting maintains WIFI_AP mode without disabling SoftAP inside [AutoConnect::begin](api.md#begin). The Sketch can utilize the WiFi connection via AutoConnect with ESP-MESH and ESP-NOW protocol by enabling this option.
 
-The following diagram quoted from the [ESP-MESH documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/mesh.html#mesh-building-a-network) that illustrates the typical topology of the MESH network. The module located at the Root Node bridges between the mesh network and the router by an application that handles two protocols, TCP/IP and ESP-MESH. Its SoftAP communicates with the internal mesh network as an interface of the mesh layer. On the other hand, STA performs station communication with the WiFi router as an interface of the TCP/IP layer. AutoConnect allows assists the connection between the router and the STA of the Root Node using [*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveapmode) and starting the SoftAP via Sketch separately.
+The following diagram quoted from the [ESP-MESH documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/esp-wifi-mesh.html) that illustrates the typical topology of the MESH network. The module located at the Root Node bridges between the mesh network and the router by an application that handles two protocols, TCP/IP and ESP-MESH. Its SoftAP communicates with the internal mesh network as an interface of the mesh layer. On the other hand, STA performs station communication with the WiFi router as an interface of the TCP/IP layer. AutoConnect allows assists the connection between the router and the STA of the Root Node using [*AutoConnectConfig::preserveAPMode*](apiconfig.md#preserveapmode) and starting the SoftAP via Sketch separately.
 
 <img src="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/_images/mesh-bidirectional-data-stream.png">
 
@@ -267,3 +268,74 @@ In addition, the limit of the waiting time for connection attempts can be specif
 
 !!! note "The beginTimeout has an effect on handleClient"
     The [**beginTimeout**](apiconfig.md#begintimeout) value will be applied with [**handleClient**](api.md#handleclient) when requesting a connection from the captive portal and when attempting to reconnect with [**autoReconnect**](apiconfig.md#autoreconnect).
+
+## Verify the WiFi connection conditions
+
+AutoConnect has the following indicators regarding WiFi connection attempts. These states are indicated as bitwise values and are the logical disjunction of multiple states. For example, if the *1st-WiFi.begin* fails and the connection is restored by the [AutoConnectConfig::autoReconnect](#automatic-reconnect) setting, this status value will indicate both `AC_AUTORECONNECT` and `AC_ESTABLISHED`.
+
+A sketch can get this status value using the [AutoConnect::portalStatus](api.md#portalstatus) function. [AutoConnect::portalStatus](api.md#portalstatus) returns a value of type *uint8_t*. The return value is a bitwise value that indicates each status in the table below. In the sketch, the WiFi connection status is detected by taking the AND of the return value and the `enum` value shown in the following table:
+
+
+| Values of the status indication | WiFi connection situations |
+|---------------------------------|----------------------------|
+| AutoConnect::AC_IDLE | **Initial state**: This is the initial state, AutoConnect is not making any WiFi connection attempts. This state is reached immediately after [AutoConnect::begin](lsbegin.md#autoconnectbegin-logic-sequence) starts. |
+| AutoConnect::AC_ESTABLISHED | **Connection successful**: Successfully connected to the WiFi access point. |
+| AutoConnect::AC_AUTORECONNECT | **The autoReconnect was applied**:  [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) setting was applied during the WiFi connection attempt process. This flag does not indicate a successful connection. It only shows that a condition that triggers autoReconnect has occurred. Whether the connection was actually successful should be determined by `WiFi.status()==WL_CONNECTED`. |
+| AutoConnect::AC_TIMEOUT | **Connection timeout**: WiFi connection attempt timed out. Or, the captive portal was shut down by the [AutoConnectConfig::portalTimeout](adcpcontrol.md#captive-portal-timeout-control) setting. |
+| AutoConnect::AC_INTERRUPT | **Connection interrupted due to an indication with the exit**: The [whileConnecting exit]() routine returned false. or the [whileCaptivePortal exit](adcpcontrol.md#sketch-execution-during-the-captive-portal-loop) routine returned false. AutoConnect aborted the WiFi connection attempt with those indications.|
+| AutoConnect::AC_CAPTIVEPORTAL | **Captive portal is available**: SoftAP mode is enabled, and the DNS server is available. AutoConnect will redirect connection requests to SoftAP from client devices to a captive portal site within AutoConnect. The state of this flag is equivalent to the return value of [AutoConnect::isPortalAvailable](adcpcontrol.md#captive-portal-state-identification) function.<br>**NOTE**: AC_CAPTIVEPORTAL is false if only SoftAP is available and no DNS server is enabled. |
+| AutoConnect::AC_INPROGRESS | **WiFi.begin in progress**: AutoConnect requests WiFi.begin and is waiting for the connection to succeed or times out; this state will reset when terminating WiFi.begin attempts. |
+
+```cpp
+AutoConnect portal;
+AutoConnectConfig config;
+
+uint8_t state;
+
+void setup() {
+  // Configure automatic reconnection and captive portal retention, then start
+  // AutoConnect. In subsequent steps, it will use the portalStatus function to
+  // detect the WiFi connection status in this configuration.
+  config.portalTimeout = 180000;
+  config.autoReconnect = true;
+  config.reconnectInterval = 1;
+  config.retainPortal = true;
+  portal.config(config);
+
+  portal.begin();
+
+  state = portal.portalStatus();
+  if (WiFi.status() == WL_CONNECTED) {
+    if (state & AutoConnect::AC_AUTORECONNECT)
+      Serial.println("Auto reconnection applied");
+  }
+  else {
+    if (state & AutoConnect::AC_TIMEOUT)
+      Serial.println("Connection timeout");
+  }
+
+  if (state & AutoConnect::AC_CAPTIVEPORTAL)
+    Serial.println("Captive portal is still alive");
+  else
+    Serial.println("Captive portal is not available");
+}
+
+void loop() {
+  portal.handleClient();
+  uint8_t transition = portal.portalStatus();
+
+  if (transition != state) {
+    if (transition & AutoConnect::AC_CAPTIVEPORTAL)
+      Serial.println("Captive portal activated");
+    if (transition & AutoConnect::AC_AUTORECONNECT)
+      Serial.println("Auto reconnection applied");
+    if (!(transition & AutoConnect::AC_ESTABLISHED))
+      Serial.println("WiFi connection lost");
+
+    state = transition;
+  }
+}
+```
+
+!!! info "AutoConnect::portalStatus within the loop of AutoConnect::handleClient"
+    AutoConnect::portalStatus function is also valid during the [AutoConnect::handleClient](api.md#handleclient) loop inside the `loop` function. With the [background reconnection](adconnection.md#automatic-reconnect-background) enabled using the [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) and [AutoConnectConfig::reconnectInterval](apiconfig.md#reconnectinterval) settings, the [AutoConnect::portalStatus](api.md#portalstatus) function will return a value indicating the reconnection status at every time [AutoConnect::handleClient](api.md#handleclient) in the `loop()`.
