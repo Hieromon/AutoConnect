@@ -282,6 +282,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
           if (_whileCaptivePortal) {
             if (!_whileCaptivePortal()) {
               _portalStatus |= AC_INTERRUPT;
+              AC_DBG("Leaved portal\n");
               break;
             }
           }
@@ -302,7 +303,7 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
 
         // Captive portal staying time exceeds timeout,
         // Close the portal if an option for keeping the portal is false.
-        if (!cs && (_portalStatus & AC_TIMEOUT)) {
+        if (!cs && (_portalStatus & (AC_TIMEOUT | AC_INTERRUPT))) {
           if (_apConfig.retainPortal) {
             _purgePages();
             AC_DBG("Maintain portal\n");
@@ -550,6 +551,7 @@ void AutoConnectCore<T>::handleRequest(void) {
 
   // Controls reconnection and portal startup when WiFi is disconnected.
   if (WiFi.status() != WL_CONNECTED) {
+    _portalStatus &= ~AC_ESTABLISHED;
 
     // Launch the captive portal when SoftAP is active and autoRise is
     // specified to be maintained.
