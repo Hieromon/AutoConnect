@@ -1535,10 +1535,17 @@ unsigned int AutoConnectCore<T>::_toWiFiQuality(int32_t rssi) {
 template<typename T>
 wl_status_t AutoConnectCore<T>::_waitForConnect(unsigned long timeout) {
   wl_status_t wifiStatus;
+  station_config_t  appliedConfig;
   const unsigned long wt = millis();
   unsigned long pt = wt;
   bool  exitInterrupt = false;
 
+  // Obtain the connecting SSID to pass to whileConnect exit.
+  _getConfigSTA(&appliedConfig);
+  *(reinterpret_cast<char*>(appliedConfig.ssid) + sizeof station_config_t::ssid) = '\0';
+  String  appliedSSID = String(reinterpret_cast<char*>(appliedConfig.ssid));
+
+  // Connection waiting
   while ((wifiStatus = WiFi.status()) != WL_CONNECTED) {
     yield();
     unsigned long ct = millis();
@@ -1549,7 +1556,7 @@ wl_status_t AutoConnectCore<T>::_waitForConnect(unsigned long timeout) {
       }
     }
     if (_whileConnecting) {
-      if ((exitInterrupt = !_whileConnecting())) {
+      if ((exitInterrupt = !_whileConnecting(appliedSSID))) {
         _portalStatus |= AC_INTERRUPT;
         AC_DBG_DUMB("interrupted\n");
         break;

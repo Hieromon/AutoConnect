@@ -73,7 +73,7 @@ class AutoConnectCore {
   typedef std::function<bool(IPAddress&)> DetectExit_ft;
   typedef std::function<void(IPAddress&)> ConnectExit_ft;
   typedef std::function<bool(void)>       WhileCaptivePortalExit_ft;
-  typedef std::function<bool(void)>       WhileConnectingExit_ft;
+  typedef std::function<bool(String&)>    WhileConnectingExit_ft;
   void  onDetect(DetectExit_ft fn);
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServer::THandlerFunction fn);
