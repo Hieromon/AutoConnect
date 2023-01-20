@@ -196,7 +196,7 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
       elmLen += AutoConnectElementBasisImpl::_sizeof(attrChecked);
     }
     const char* onchange = canHandle() ? (PGM_P)attrOnChange : (PGM_P)elmNone;
-    elmLen = (elmLen + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmCheckboxTempl) + (name.length() * 2) + value.length() + strlen(onchange) - (AutoConnectElementBasisImpl::_sizeof("%s") * 6) + sizeof('\0') + 16) & (~0xf);
+    elmLen = (elmLen + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmCheckboxTempl) + (name.length() * 2) + value.length() + strlen_P(onchange) - (AutoConnectElementBasisImpl::_sizeof("%s") * 6) + sizeof('\0') + 16) & (~0xf);
     char* elmCheckbox = new char[elmLen];
     if (elmCheckbox) {
       snprintf_P(elmCheckbox, elmLen, elmCheckboxTempl, elmLabelPre, name.c_str(), name.c_str(), value.c_str(), applyChecked, onchange, elmLabelPost);
