@@ -1205,7 +1205,7 @@ template<typename T>
 String AutoConnectCore<T>::_induceReset(PageArgument& args) {
   AC_UNUSED(args);
   _rfReset = true;
-  return String(F(AUTOCONNECT_BUTTONLABEL_RESET " in progress..."));
+  return String(F(AUTOCONNECT_BUTTONLABEL_RESET AUTOCONNECT_TEXT_RESETINPROGRESS));
 }
 
 /**
