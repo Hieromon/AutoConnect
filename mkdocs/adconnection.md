@@ -275,14 +275,13 @@ AutoConnect has the following indicators regarding WiFi connection attempts. The
 
 A sketch can get this status value using the [AutoConnect::portalStatus](api.md#portalstatus) function. [AutoConnect::portalStatus](api.md#portalstatus) returns a value of type *uint8_t*. The return value is a bitwise value that indicates each status in the table below. In the sketch, the WiFi connection status is detected by taking the AND of the return value and the `enum` value shown in the following table:
 
-
 | Values of the status indication | WiFi connection situations |
 |---------------------------------|----------------------------|
 | AutoConnect::AC_IDLE | **Initial state**: This is the initial state, AutoConnect is not making any WiFi connection attempts. This state is reached immediately after [AutoConnect::begin](lsbegin.md#autoconnectbegin-logic-sequence) starts. |
 | AutoConnect::AC_ESTABLISHED | **Connection successful**: Successfully connected to the WiFi access point. |
 | AutoConnect::AC_AUTORECONNECT | **The autoReconnect was applied**:  [AutoConnectConfig::autoReconnect](apiconfig.md#autoreconnect) setting was applied during the WiFi connection attempt process. This flag does not indicate a successful connection. It only shows that a condition that triggers autoReconnect has occurred. Whether the connection was actually successful should be determined by `WiFi.status()==WL_CONNECTED`. |
 | AutoConnect::AC_TIMEOUT | **Connection timeout**: WiFi connection attempt timed out. Or, the captive portal was shut down by the [AutoConnectConfig::portalTimeout](adcpcontrol.md#captive-portal-timeout-control) setting. |
-| AutoConnect::AC_INTERRUPT | **Connection interrupted due to an indication with the exit**: The [whileConnecting exit]() routine returned false. or the [whileCaptivePortal exit](adcpcontrol.md#sketch-execution-during-the-captive-portal-loop) routine returned false. AutoConnect aborted the WiFi connection attempt with those indications.|
+| AutoConnect::AC_INTERRUPT | **Connection interrupted due to an indication with the exit**: The [whileConnecting exit](api.md#whileconnecting) routine returned false. or the [whileCaptivePortal exit](adcpcontrol.md#sketch-execution-during-the-captive-portal-loop) routine returned false. AutoConnect aborted the WiFi connection attempt with those indications.|
 | AutoConnect::AC_CAPTIVEPORTAL | **Captive portal is available**: SoftAP mode is enabled, and the DNS server is available. AutoConnect will redirect connection requests to SoftAP from client devices to a captive portal site within AutoConnect. The state of this flag is equivalent to the return value of [AutoConnect::isPortalAvailable](adcpcontrol.md#captive-portal-state-identification) function.<br>**NOTE**: AC_CAPTIVEPORTAL is false if only SoftAP is available and no DNS server is enabled. |
 | AutoConnect::AC_INPROGRESS | **WiFi.begin in progress**: AutoConnect requests WiFi.begin and is waiting for the connection to succeed or times out; this state will reset when terminating WiFi.begin attempts. |
 

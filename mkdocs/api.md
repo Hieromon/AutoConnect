@@ -759,3 +759,29 @@ typedef std::function<bool(void)>   WhileCaptivePortalExit_ft
     <dd><span class="apidef">true</span><span class="apidesc">Continues captive portal handling.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Cancel the captive portal. AutoConnect::begin function will return with a false.</span></dd>
 </dl>
+
+### <i class="fa fa-caret-right"></i> whileConnecting
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+```cpp
+void whileConnecting(WhileConnectingExit_ft fn)
+```
+
+Register the function that will call from AutoConnect while waiting for connection after *WiFi.begin*.<dl class="apidl">
+    <dt>**Parameter**</dt>
+    <dd><span class="apidef">fn</span><span class="apidesc">Function that will call from AutoConnect while waiting for connection.</span></dd></dl>
+
+An *fn* specifies the a function called while waiting for a WiFi connection. Its prototype declaration is defined as *WhileConnectingExit_ft*.
+
+```cpp
+typedef std::function<bool(String&)>    WhileConnectingExit_ft
+```
+
+<dl class="apidl">
+    <dt><strong>Parameter</strong></dt>
+    <dd><span class="apidef">ssid</span><span class="apidesc">SSID of an access point to which connection is being attempted.</span></dd>
+    <dt><strong>Return value</strong></dt>
+    <dd><span class="apidef">true</span><span class="apidesc">Continue attempts to connect to WiFi.</span></dd>
+    <dd><span class="apidef">false</span><span class="apidesc">Cancel the WiFi connection attempt.</span></dd>
+</dl>
