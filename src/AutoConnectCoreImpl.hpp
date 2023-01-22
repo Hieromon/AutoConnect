@@ -3,7 +3,7 @@
  * @file AutoConnectCoreImpl.hpp
  * @author hieromon@gmail.com
  * @version 1.4.2
- * @date 2023-01-13
+ * @date 2023-01-23
  * @copyright MIT license.
  */
 
@@ -1214,14 +1214,16 @@ void AutoConnectCore<T>::_handleNotFound(void) {
       _notFoundHandler();
     }
     else {
-      PageElement page404(FPSTR(_PAGE_404), { { F("HEAD"), std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1) } });
-      String html;
-      page404.build(html);
+      String html404;
+      PageElement*  page404 = new PageElement(FPSTR(_PAGE_404));
+      page404->addToken(F("HEAD"), std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1));
+      page404->build(html404);
+      delete page404;
       _webServer->sendHeader(String(F("Cache-Control")), String(F("no-cache, no-store, must-revalidate")), true);
       _webServer->sendHeader(String(F("Pragma")), String(F("no-cache")));
       _webServer->sendHeader(String(F("Expires")), String("-1"));
-      _webServer->sendHeader(String(F("Content-Length")), String(html.length()));
-      _webServer->send(404, String(F("text/html")), html);
+      _webServer->sendHeader(String(F("Content-Length")), String(html404.length()));
+      _webServer->send(404, String(F("text/html")), html404);
     }
   }
 }
