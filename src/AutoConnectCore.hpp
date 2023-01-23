@@ -4,8 +4,8 @@
  * that are limited to AutoConnect basic functionality.
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
- * @version 1.4.1
- * @date 2022-12-24
+ * @version 1.4.2
+ * @date 2023-01-13
  * @copyright MIT license.
  */
 
@@ -39,6 +39,16 @@ using WebServer = ESP8266WebServer;
 template<typename T>
 class AutoConnectCore {
  public:
+  typedef enum {
+    AC_IDLE           = 0x00, /**< .... ....  Initial state */
+    AC_ESTABLISHED    = 0x01, /**< .... ...1  Connection successful. */
+    AC_AUTORECONNECT  = 0x02, /**< .... ..1.  The autoReconnect was applied. */
+    AC_TIMEOUT        = 0x04, /**< .... .1..  Connection timeout. */
+    AC_INTERRUPT      = 0x08, /**< .... 1...  Connection interrupted due to an indication with the exit. */
+    AC_CAPTIVEPORTAL  = 0x40, /**< .1.. ....  Captive portal is available. */
+    AC_INPROGRESS     = 0x80  /**< 1... ....  WiFi.begin in progress. */
+  } AC_PORTALSTATE_t;         /**< AutoConnect::begin and handleClient status of the portal during the period. */
+
   AutoConnectCore();
   explicit AutoConnectCore(WebServer& webServer);
   virtual ~AutoConnectCore();
@@ -57,15 +67,18 @@ class AutoConnectCore {
   void  handleRequest(void);
   void  home(const String& uri);
   WebServer& host(void);
-  bool  isPortalAvailable(void) const;
+  bool  isPortalAvailable(void) const { return portalStatus() & AC_CAPTIVEPORTAL; }
+  uint8_t portalStatus(void) const { return _portalStatus; }
 
   typedef std::function<bool(IPAddress&)> DetectExit_ft;
   typedef std::function<void(IPAddress&)> ConnectExit_ft;
   typedef std::function<bool(void)>       WhileCaptivePortalExit_ft;
+  typedef std::function<bool(String&)>    WhileConnectingExit_ft;
   void  onDetect(DetectExit_ft fn);
   void  onConnect(ConnectExit_ft fn);
   void  onNotFound(WebServer::THandlerFunction fn);
   void  whileCaptivePortal(WhileCaptivePortalExit_ft fn);
+  void  whileConnecting(WhileConnectingExit_ft fn);
   template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
   bool  saveCredential(const char* filename = "/" AC_IDENTIFIER, U& fs = AUTOCONNECT_APPLIED_FILESYSTEM);
   template<typename U = AUTOCONNECT_APPLIED_FILECLASS>
@@ -127,6 +140,7 @@ class AutoConnectCore {
   ConnectExit_ft      _onConnectExit;
   DetectExit_ft       _onDetectExit;
   WhileCaptivePortalExit_ft _whileCaptivePortal;
+  WhileConnectingExit_ft    _whileConnecting;
   WebServer::THandlerFunction  _notFoundHandler;
   size_t              _freeHeapSize;
 
@@ -160,8 +174,10 @@ class AutoConnectCore {
   bool  _rfReset = false;       /**< URI /reset requested */
   wl_status_t   _rsConnect;     /**< connection result */
 #ifdef ARDUINO_ARCH_ESP32
-  WiFiEventId_t _disconnectEventId = -1; /**< STA disconnection event handler registered id  */
+  WiFiEventId_t _disconnectEventId = -1;  /**< STA disconnection event handler registered id  */
 #endif
+  uint8_t       _portalStatus;  /**< Status in the portal */
+
   /** Only available with ticker enabled */
   std::unique_ptr<AutoConnectTicker>  _ticker;
 
