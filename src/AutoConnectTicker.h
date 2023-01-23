@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectTicker class.
  *  @file   AutoConnectTicker.h
  *  @author hieromon@gmail.com
- *  @version    1.2.0
- *  @date   2020-10-30
+ *  @version    1.4.2
+ *  @date   2023-01-23
  *  @copyright  MIT license.
  */
 
@@ -12,12 +12,21 @@
 
 #include <functional>
 #if defined(ARDUINO_ARCH_ESP8266)
+#include <core_version.h>
 #include <ESP8266WiFi.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>
 #endif
 #include <Ticker.h>
 #include "AutoConnectDefs.h"
+
+// Support for Ticker Longer delays with ESP8266.
+// Details for https://github.com/esp8266/Arduino/pull/8625
+#if defined(ARDUINO_ESP8266_MAJOR) && defined(ARDUINO_ESP8266_MINOR) & defined(ARDUINO_ESP8266_REVISION)
+#if ARDUINO_ESP8266_MAJOR >= 3 && ARDUINO_ESP8266_MINOR >= 1 && ARDUINO_ESP8266_REVISION >= 1
+#define AC_TICKER_LONGER_DELAY
+#endif
+#endif
 
 class AutoConnectTicker {
  public:
