@@ -1229,12 +1229,12 @@ String AutoConnectCore<T>::_token_LIST_SSID(PageArgument& args) {
   }
   // Prepare perv. button
   if (page >= 1) {
-    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page - 1, PSTR("Prev."));
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page - 1, PSTR(AUTOCONNECT_PAGECONFIG_PREVIOUS));
     slBuf = ssidList + strlen(ssidList);
   }
   // Prepare next button
   if (validCount > (page + 1) * AUTOCONNECT_SSIDPAGEUNIT_LINES) {
-    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page + 1, PSTR("Next"));
+    snprintf_P(slBuf, bufSize - (slBuf - ssidList), (PGM_P)_ssidPage, page + 1, PSTR(AUTOCONNECT_PAGECONFIG_NEXT));
   }
   String ssidListStr = String(ssidList);
   free(ssidList);
