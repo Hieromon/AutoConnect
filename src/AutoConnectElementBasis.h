@@ -2,8 +2,8 @@
  * Declaration of AutoConnectElement basic class.
  * @file AutoConnectElementBasis.h
  * @author hieromon@gmail.com
- * @version  1.4.1
- * @date 2022-12-07
+ * @version  1.4.2
+ * @date 2023-01-25
  * @copyright  MIT license.
  */
 
@@ -125,9 +125,9 @@ class AutoConnectElementBasis {
   // A set of functions for assembling response messages to Fetch requests from
   // individual AutoConnectElement.
   virtual bool  canHandle(void) const { return false; }
-  virtual void  reply(AutoConnectAux& aux) {}
+  virtual void  reply(AutoConnectAux& aux) { AC_UNUSED(aux); }
   virtual void  response(const char* attribute, const char* value) { responses.push_back(ACResponse_t({ attribute, value })); }
-  virtual void  response(const char* value) {}
+  virtual void  response(const char* value) { AC_UNUSED(value); }
   virtual size_t  responseJSON(char* buffer);
   virtual size_t  responseLength(void);
 

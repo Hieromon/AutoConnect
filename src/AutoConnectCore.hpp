@@ -5,7 +5,7 @@
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
  * @version 1.4.2
- * @date 2023-01-13
+ * @date 2023-01-25
  * @copyright MIT license.
  */
 
@@ -265,7 +265,7 @@ class AutoConnectCore {
   virtual inline void _registerOnUpload(PageBuilder* page) { AC_UNUSED(page); }
   virtual inline void _releaseAux(const String& uri) { AC_UNUSED(uri); }
   virtual inline void _saveCurrentUri(const String& uri) { AC_UNUSED(uri); }
-  virtual inline String _mold_MENU_AUX(PageArgument& args) { return String(""); }
+  virtual inline String _mold_MENU_AUX(PageArgument& args) { AC_UNUSED(args); return String(""); }
 };
 
 #endif  // _AUTOCONNECTCORE_HPP_

@@ -2,8 +2,8 @@
  * Declaration of AutoConnectAux basic class.
  * @file AutoConnectAux.h
  * @author hieromon@gmail.com
- * @version 1.4.1
- * @date 2022-12-01
+ * @version 1.4.2
+ * @date 2023-01-25
  * @copyright MIT license.
  */
 
@@ -161,6 +161,7 @@ class AutoConnectAux : public PageBuilder {
    */
   template<typename T>
   bool _parseJson(T in, const size_t size) {
+    AC_UNUSED(size);
     ArduinoJsonBuffer jsonBuffer(AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE);
   #if ARDUINOJSON_VERSION_MAJOR<=5
     JsonObject& jb = jsonBuffer.parseObject(in);
