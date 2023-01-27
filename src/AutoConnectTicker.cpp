@@ -29,11 +29,7 @@ void AutoConnectTicker::start(const uint32_t cycle, const uint32_t duty) {
 void AutoConnectTicker::start(void) {
   pinMode(_port, OUTPUT);
   _pulse.detach();
-#ifdef AC_TICKER_LONGER_DELAY
-  _period.attach_ms<void(AutoConnectTicker*), AutoConnectTicker*>(_cycle, AutoConnectTicker::_onPeriod, this);
-#else
-  _period.attach_ms<AutoConnectTicker*>(_cycle, AutoConnectTicker::_onPeriod, this);
-#endif
+  _period.attach_ms AC_TICKER_CALLBACK_ARG_T(_cycle, AutoConnectTicker::_onPeriod, this);
 }
 
 /**
@@ -46,11 +42,7 @@ void AutoConnectTicker::start(void) {
  */
 void AutoConnectTicker::_onPeriod(AutoConnectTicker* t) {
   digitalWrite(t->_port, t->_turnOn);
-#ifdef AC_TICKER_LONGER_DELAY
-  t->_pulse.once_ms<void(AutoConnectTicker*), AutoConnectTicker*>(t->_duty, AutoConnectTicker::_onPulse, t);
-#else
-  t->_pulse.once_ms<AutoConnectTicker*>(t->_duty, AutoConnectTicker::_onPulse, t);
-#endif
+  t->_pulse.once_ms AC_TICKER_CALLBACK_ARG_T(t->_duty, AutoConnectTicker::_onPulse, t);
   if (t->_callback)
     t->_callback();
 }
