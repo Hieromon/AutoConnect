@@ -1408,7 +1408,7 @@ String AutoConnectCore<T>::_promptDeleteCredential(PageArgument& args) {
   IPAddress chargeHost = _currentHostIP;
 #endif
   // Redirect to 
-  redirect += chargeHost.toString() + (F(AUTOCONNECT_URI_OPEN));
+  redirect += chargeHost.toString() + F(AUTOCONNECT_URI_OPEN);
   _webServer->sendHeader(String(F("Location")), redirect, true);
   _webServer->send(302, String(F("text/plain")), _emptyString);
   _webServer->client().stop();
