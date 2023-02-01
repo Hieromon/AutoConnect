@@ -682,7 +682,7 @@ void AutoConnectCore<T>::handleRequest(void) {
       else {
         _currentHostIP = WiFi.softAPIP();
         _redirectURI = String(F(AUTOCONNECT_URI_ONFAIL));
-        disconnect(false, true);
+        // Leave station connection completely
         wl_status_t wl = WiFi.status();
         unsigned long tm = millis();
         while (wl != WL_IDLE_STATUS && wl != WL_DISCONNECTED && wl != WL_NO_SSID_AVAIL) {
@@ -781,7 +781,7 @@ void AutoConnectCore<T>::handleRequest(void) {
       _ticker->stop();
       if (tCycle)
         _ticker->start(tCycle, tWidth);
-    }    
+    }
   }
 }
 
@@ -1306,12 +1306,18 @@ String AutoConnectCore<T>::_induceConnect(PageArgument& args) {
   _restoreSTA(_credential);
 
   // Determine the connection channel based on the scan result.
+  // Priority is given to the channel with the strongest signal among multiple
+  // SSIDs signals.
   _connectCh = 0;
+  int8_t  maxRSSI = -128;
   for (uint8_t nn = 0; nn < _scanCount; nn++) {
     String  ssid = WiFi.SSID(nn);
+    int8_t  rssi = WiFi.RSSI(nn);
     if (!strncmp(ssid.c_str(), reinterpret_cast<const char*>(_credential.ssid), sizeof(station_config_t::ssid))) {
-      _connectCh = WiFi.channel(nn);
-      break;
+      if (rssi > maxRSSI) {
+        _connectCh = WiFi.channel(nn);
+        maxRSSI = rssi;
+      }
     }
   }
 
@@ -1346,13 +1352,14 @@ template<typename T>
 String AutoConnectCore<T>::_invokeResult(PageArgument& args) {
   AC_UNUSED(args);
   String redirect = String(F("http://"));
+
+#if defined(ARDUINO_ARCH_ESP32) || (ARDUINO_ESP8266_MAJOR >= 3 && ARDUINO_ESP8266_MINOR >= 1 && ARDUINO_ESP8266_REVISION >= 0)
   // The host address to which the connection result for ESP32 responds
   // changed from v0.9.7. This change is a measure according to the
   // implementation of the arduino-esp32 1.0.1.
-#if defined(ARDUINO_ARCH_ESP32)
   // In ESP32, the station IP address just established could not be reached.
   redirect += _webServer->client().localIP().toString();
-#elif defined(ARDUINO_ARCH_ESP8266)
+#else
   // In ESP8266, the host address that responds for the connection
   // successful is the IP address of ESP8266 as a station.
   // This is the specification as before.
@@ -1388,17 +1395,20 @@ String AutoConnectCore<T>::_promptDeleteCredential(PageArgument& args) {
     }
   }
   String redirect = String(F("http://"));
-#if defined(ARDUINO_ARCH_ESP32)
+#if defined(ARDUINO_ARCH_ESP32) || (ARDUINO_ESP8266_MAJOR >= 3 && ARDUINO_ESP8266_MINOR >= 1 && ARDUINO_ESP8266_REVISION >= 0)
+  // The host address to which the connection result for ESP32 responds
+  // changed from v0.9.7. This change is a measure according to the
+  // implementation of the arduino-esp32 1.0.1.
   // In ESP32, the station IP address just established could not be reached.
-  redirect += _webServer->client().localIP().toString();
-#elif defined(ARDUINO_ARCH_ESP8266)
+  IPAddress chargeHost = _webServer->client().localIP();
+#else
   // In ESP8266, the host address that responds for the connection
   // successful is the IP address of ESP8266 as a station.
   // This is the specification as before.
-  redirect += _currentHostIP.toString();
+  IPAddress chargeHost = _currentHostIP;
 #endif
   // Redirect to 
-  redirect += String(F(AUTOCONNECT_URI_OPEN));
+  redirect += chargeHost.toString() + (F(AUTOCONNECT_URI_OPEN));
   _webServer->sendHeader(String(F("Location")), redirect, true);
   _webServer->send(302, String(F("text/plain")), _emptyString);
   _webServer->client().stop();
