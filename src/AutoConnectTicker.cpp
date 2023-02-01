@@ -11,6 +11,17 @@
 
 #include "AutoConnectTicker.h"
 
+// Support for Ticker Longer delays with ESP8266.
+// Details for https://github.com/esp8266/Arduino/pull/8625
+#define AC_TICKER_CALLBACK_ARG_T  <AutoConnectTicker*>
+#if defined(ARDUINO_ESP8266_MAJOR) && defined(ARDUINO_ESP8266_MINOR) && defined(ARDUINO_ESP8266_REVISION)
+#if ARDUINO_ESP8266_MAJOR >= 3 && ARDUINO_ESP8266_MINOR >= 1 && ARDUINO_ESP8266_REVISION >= 0
+#define AC_TICKER_LONGER_DELAY
+#undef  AC_TICKER_CALLBACK_ARG_T
+#define AC_TICKER_CALLBACK_ARG_T
+#endif
+#endif
+
 /**
  * Start ticker cycle
  * @param cycle Cycle time in [ms]
