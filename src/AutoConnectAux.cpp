@@ -166,7 +166,6 @@ AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const boo
  */
 AutoConnectAux::~AutoConnectAux() {
   _addonElm.clear();
-  _addonElm.swap(_addonElm);
 }
 
 /**

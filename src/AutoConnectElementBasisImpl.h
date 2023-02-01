@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.4.1
- * @date 2022-12-27
+ * @version  1.4.2
+ * @date 2023-01-31
  * @copyright  MIT license.
  */
 
@@ -482,7 +482,6 @@ void AutoConnectRadioBasis::check(const String& value) {
  */
 void AutoConnectRadioBasis::empty(const size_t reserve) {
   _values.clear();
-  std::vector<String>().swap(_values);
   if (reserve)
     _values.reserve(reserve);
   checked = 0;
@@ -711,7 +710,6 @@ const String AutoConnectRangeBasis::toHTML(void) const {
  */
 void AutoConnectSelectBasis::empty(const size_t reserve) {
   _options.clear();
-  std::vector<String>().swap(_options);
   if (reserve)
     _options.reserve(reserve);
   selected = 0;
