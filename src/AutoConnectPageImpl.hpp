@@ -354,7 +354,7 @@ const char AutoConnectCore<T>::_CSS_SPINNER[] PROGMEM = {
 /**< Common menu bar. This style quotes LuxBar. */
 /**< balzss/luxbar is licensed under the MIT License https://github.com/balzss/luxbar */
 template<typename T>
-const char AutoConnectCore<T>::_CSS_LUXBAR[] PROGMEM = {
+const char AutoConnectCore<T>::_CSS_LUXBAR_BODY[] PROGMEM = {
   ".lb-fixed{"
     "width:100%;"
     "position:fixed;"
@@ -378,6 +378,10 @@ const char AutoConnectCore<T>::_CSS_LUXBAR[] PROGMEM = {
   ".lb-cb:checked~.lb-menu li .lb-burger span::after{"
     "margin-top:0"
   "}"
+};
+
+template<typename T>
+const char AutoConnectCore<T>::_CSS_LUXBAR_HEADER[] PROGMEM = {
   ".lb-header{"
     "display:flex;"
     "flex-direction:row;"
@@ -417,6 +421,10 @@ const char AutoConnectCore<T>::_CSS_LUXBAR[] PROGMEM = {
     "padding:18px 24px 18px 24px;"
     "display:block"
   "}"
+};
+
+template<typename T>
+const char AutoConnectCore<T>::_CSS_LUXBAR_BGR[] PROGMEM = {
   ".lb-burger{"
     "padding:18px 24px 18px 24px;"
     "position:relative;"
@@ -445,6 +453,10 @@ const char AutoConnectCore<T>::_CSS_LUXBAR[] PROGMEM = {
     "height:100vh;"
     "overflow:auto"
   "}"
+};
+
+template<typename T>
+const char AutoConnectCore<T>::_CSS_LUXBAR_ANI[] PROGMEM = {
   ".dropdown{"
     "position:relative;"
     "height:auto;"
@@ -480,6 +492,10 @@ const char AutoConnectCore<T>::_CSS_LUXBAR[] PROGMEM = {
     "line-height:29px;"
     "padding:0"
   "}"
+};
+
+template<typename T>
+const char AutoConnectCore<T>::_CSS_LUXBAR_MEDIA[] PROGMEM = {
   "@media screen and (min-width:768px){"
     ".lb-navigation{"
       "flex-flow:row;"
@@ -519,6 +535,10 @@ const char AutoConnectCore<T>::_CSS_LUXBAR[] PROGMEM = {
       "white-space:nowrap;"
     "}"
   "}"
+};
+
+template<typename T>
+const char AutoConnectCore<T>::_CSS_LUXBAR_ITEM[] PROGMEM = {
   ".lb-cb:checked+.lb-menu .lb-burger-dblspin span::before{"
     "transform:rotate(225deg)"
   "}"
@@ -564,7 +584,6 @@ const char  AutoConnectCore<T>::_ELM_MENU_PRE[] PROGMEM = {
 #endif
           "<label class=\"lb-burger lb-burger-dblspin\" id=\"lb-burger\" for=\"lb-cb\"><span></span></label>"
         "</li>"
-        "MENU_LIST"
 };
 
 template<typename T>
@@ -617,12 +636,18 @@ const char  AutoConnectCore<T>::_PAGE_STAT[] PROGMEM = {
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
-      "{{CSS_LUXBAR}}"
+      "{{CSS_LUXBAR_BODY}}"
+      "{{CSS_LUXBAR_HEADER}}"
+      "{{CSS_LUXBAR_BGR}}"
+      "{{CSS_LUXBAR_ANI}}"
+      "{{CSS_LUXBAR_MEDIA}}"
+      "{{CSS_LUXBAR_ITEM}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
       "{{MENU_PRE}}"
+      "{{MENU_LIST}}"
       "{{MENU_AUX}}"
       "{{MENU_POST}}"
       "<div>"
@@ -707,12 +732,18 @@ const char  AutoConnectCore<T>::_PAGE_CONFIGNEW[] PROGMEM = {
       "{{CSS_UL}}"
       "{{CSS_INPUT_BUTTON}}"
       "{{CSS_INPUT_TEXT}}"
-      "{{CSS_LUXBAR}}"
+      "{{CSS_LUXBAR_BODY}}"
+      "{{CSS_LUXBAR_HEADER}}"
+      "{{CSS_LUXBAR_BGR}}"
+      "{{CSS_LUXBAR_ANI}}"
+      "{{CSS_LUXBAR_MEDIA}}"
+      "{{CSS_LUXBAR_ITEM}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
       "{{MENU_PRE}}"
+      "{{MENU_LIST}}"
       "{{MENU_AUX}}"
       "{{MENU_POST}}"
       "<div class=\"base-panel\">"
@@ -765,12 +796,18 @@ const char  AutoConnectCore<T>::_PAGE_OPENCREDT[] PROGMEM = {
       "{{CSS_ICON_LOCK}}"
       "{{CSS_ICON_TRASH}}"
       "{{CSS_INPUT_BUTTON}}"
-      "{{CSS_LUXBAR}}"
+      "{{CSS_LUXBAR_BODY}}"
+      "{{CSS_LUXBAR_HEADER}}"
+      "{{CSS_LUXBAR_BGR}}"
+      "{{CSS_LUXBAR_ANI}}"
+      "{{CSS_LUXBAR_MEDIA}}"
+      "{{CSS_LUXBAR_ITEM}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
       "{{MENU_PRE}}"
+      "{{MENU_LIST}}"
       "{{MENU_AUX}}"
       "{{MENU_POST}}"
       "<div class=\"base-panel\">"
@@ -795,12 +832,18 @@ const char  AutoConnectCore<T>::_PAGE_CONNECTING[] PROGMEM = {
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_SPINNER}}"
-      "{{CSS_LUXBAR}}"
+      "{{CSS_LUXBAR_BODY}}"
+      "{{CSS_LUXBAR_HEADER}}"
+      "{{CSS_LUXBAR_BGR}}"
+      "{{CSS_LUXBAR_ANI}}"
+      "{{CSS_LUXBAR_MEDIA}}"
+      "{{CSS_LUXBAR_ITEM}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
       "{{MENU_PRE}}"
+      "{{MENU_LIST}}"
       "{{MENU_POST}}"
       "<div class=\"spinner\">"
         "<div class=\"dbl-bounce1\"></div>"
@@ -824,12 +867,18 @@ const char  AutoConnectCore<T>::_PAGE_SUCCESS[] PROGMEM = {
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
-      "{{CSS_LUXBAR}}"
+      "{{CSS_LUXBAR_BODY}}"
+      "{{CSS_LUXBAR_HEADER}}"
+      "{{CSS_LUXBAR_BGR}}"
+      "{{CSS_LUXBAR_ANI}}"
+      "{{CSS_LUXBAR_MEDIA}}"
+      "{{CSS_LUXBAR_ITEM}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
       "{{MENU_PRE}}"
+      "{{MENU_LIST}}"
       "{{MENU_AUX}}"
       "{{MENU_POST}}"
       "<div>"
@@ -878,12 +927,18 @@ const char  AutoConnectCore<T>::_PAGE_FAIL[] PROGMEM = {
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
       "{{CSS_TABLE}}"
-      "{{CSS_LUXBAR}}"
+      "{{CSS_LUXBAR_BODY}}"
+      "{{CSS_LUXBAR_HEADER}}"
+      "{{CSS_LUXBAR_BGR}}"
+      "{{CSS_LUXBAR_ANI}}"
+      "{{CSS_LUXBAR_MEDIA}}"
+      "{{CSS_LUXBAR_ITEM}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
       "{{MENU_PRE}}"
+      "{{MENU_LIST}}"
       "{{MENU_AUX}}"
       "{{MENU_POST}}"
       "<div>"
@@ -909,12 +964,18 @@ const char  AutoConnectCore<T>::_PAGE_DISCONN[] PROGMEM = {
     "<title>" AUTOCONNECT_PAGETITLE_DISCONNECTED "</title>"
     "<style type=\"text/css\">"
       "{{CSS_BASE}}"
-      "{{CSS_LUXBAR}}"
+      "{{CSS_LUXBAR_BODY}}"
+      "{{CSS_LUXBAR_HEADER}}"
+      "{{CSS_LUXBAR_BGR}}"
+      "{{CSS_LUXBAR_ANI}}"
+      "{{CSS_LUXBAR_MEDIA}}"
+      "{{CSS_LUXBAR_ITEM}}"
     "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
     "<div class=\"container\">"
       "{{MENU_PRE}}"
+      "{{MENU_LIST}}"
       "{{MENU_POST}}"
     "</div>"
   "</body>"
@@ -990,9 +1051,39 @@ String AutoConnectCore<T>::_token_CSS_INPUT_TEXT(PageArgument& args) {
 }
 
 template<typename T>
-String AutoConnectCore<T>::_token_CSS_LUXBAR(PageArgument& args) {
+String AutoConnectCore<T>::_token_CSS_LUXBAR_BODY(PageArgument& args) {
   AC_UNUSED(args);
-  return String(FPSTR(_CSS_LUXBAR));
+  return String(FPSTR(_CSS_LUXBAR_BODY));
+}
+
+template<typename T>
+String AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_LUXBAR_HEADER));
+}
+
+template<typename T>
+String AutoConnectCore<T>::_token_CSS_LUXBAR_BGR(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_LUXBAR_BGR));
+}
+
+template<typename T>
+String AutoConnectCore<T>::_token_CSS_LUXBAR_ANI(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_LUXBAR_ANI));
+}
+
+template<typename T>
+String AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_LUXBAR_MEDIA));
+}
+
+template<typename T>
+String AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM(PageArgument& args) {
+  AC_UNUSED(args);
+  return String(FPSTR(_CSS_LUXBAR_ITEM));
 }
 
 template<typename T>
@@ -1021,27 +1112,32 @@ String AutoConnectCore<T>::_token_MENU_AUX(PageArgument& args) {
 template<typename T>
 String AutoConnectCore<T>::_token_MENU_PRE(PageArgument& args) {
   String  currentMenu = FPSTR(_ELM_MENU_PRE);
-  String  menuItem = _attachMenuItem(AC_MENUITEM_CONFIGNEW) +
-                     _attachMenuItem(AC_MENUITEM_OPENSSIDS) +
-                     _attachMenuItem(AC_MENUITEM_DISCONNECT) +
-                     _attachMenuItem(AC_MENUITEM_RESET);
-  currentMenu.replace(String(F("MENU_LIST")), menuItem);
-  currentMenu.replace(String(F("BOOT_URI")), _getBootUri());
-  currentMenu.replace(String(F("MENU_TITLE")), _menuTitle);
+  currentMenu.replace(F("BOOT_URI"), _getBootUri());
+  currentMenu.replace(F("MENU_TITLE"), _menuTitle);
 #ifdef AC_SHOW_PORTALIDENTIFIER
-  currentMenu.replace(String(F("PORTAL")), isPortalAvailable() ? String(F(AUTOCONNECT_PORTAL_LINK)) : String());
+  currentMenu.replace(F("PORTAL"), isPortalAvailable() ? String(F(AUTOCONNECT_PORTAL_LINK)) : String());
 #endif
-  currentMenu.replace(String(F("{{CUR_SSID}}")), _token_ESTAB_SSID(args));
   return currentMenu;
+}
+
+template<typename T>
+String AutoConnectCore<T>::_token_MENU_LIST(PageArgument& args) {
+  String  menuItems = _attachMenuItem(AC_MENUITEM_CONFIGNEW) +
+                      _attachMenuItem(AC_MENUITEM_OPENSSIDS) +
+                      _attachMenuItem(AC_MENUITEM_DISCONNECT) +
+                      _attachMenuItem(AC_MENUITEM_RESET);
+  if (menuItems.indexOf(F("{{CUR_SSID}}")))
+    menuItems.replace(F("{{CUR_SSID}}"), _token_ESTAB_SSID(args));
+  return menuItems;
 }
 
 template<typename T>
 String AutoConnectCore<T>::_token_MENU_POST(PageArgument& args) {
   AC_UNUSED(args);
   String  postMenu = FPSTR(_ELM_MENU_POST);
-  postMenu.replace(String(F("MENU_HOME")), _attachMenuItem(AC_MENUITEM_HOME));
-  postMenu.replace(String(F("HOME_URI")), _apConfig.homeUri);
-  postMenu.replace(String(F("MENU_DEVINFO")), _attachMenuItem(AC_MENUITEM_DEVINFO));
+  postMenu.replace(F("MENU_HOME"), _attachMenuItem(AC_MENUITEM_HOME));
+  postMenu.replace(F("HOME_URI"), _apConfig.homeUri);
+  postMenu.replace(F("MENU_DEVINFO"), _attachMenuItem(AC_MENUITEM_DEVINFO));
   return postMenu;
 }
 
@@ -1526,8 +1622,14 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnectCore<T>::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_TABLE"), std::bind(&AutoConnectCore<T>::_token_CSS_TABLE, this, std::placeholders::_1));
-    elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnectCore<T>::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("ESTAB_SSID"), std::bind(&AutoConnectCore<T>::_token_ESTAB_SSID, this, std::placeholders::_1));
@@ -1558,8 +1660,14 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("CSS_ICON_LOCK"), std::bind(&AutoConnectCore<T>::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnectCore<T>::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnectCore<T>::_token_CSS_INPUT_TEXT, this, std::placeholders::_1));
-    elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnectCore<T>::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("LIST_SSID"), std::bind(&AutoConnectCore<T>::_token_LIST_SSID, this, std::placeholders::_1));
@@ -1577,8 +1685,14 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnectCore<T>::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_SPINNER"), std::bind(&AutoConnectCore<T>::_token_CSS_SPINNER, this, std::placeholders::_1));
-    elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("CUR_SSID"), std::bind(&AutoConnectCore<T>::_token_CURRENT_SSID, this, std::placeholders::_1));
   }
@@ -1592,8 +1706,14 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("CSS_ICON_LOCK"), std::bind(&AutoConnectCore<T>::_token_CSS_ICON_LOCK, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_ICON_TRASH"), std::bind(&AutoConnectCore<T>::_token_CSS_ICON_TRASH, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnectCore<T>::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1));
-    elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnectCore<T>::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("OPEN_SSID"), std::bind(&AutoConnectCore<T>::_token_OPEN_SSID, this, std::placeholders::_1));
@@ -1613,8 +1733,14 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("DISCONNECT"), std::bind(&AutoConnectCore<T>::_induceDisconnect, this, std::placeholders::_1));
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnectCore<T>::_token_CSS_BASE, this, std::placeholders::_1));
-    elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1));
   }
   else if (uri == String(AUTOCONNECT_URI_RESET) && (_apConfig.menuItems & AC_MENUITEM_RESET)) {
@@ -1640,8 +1766,14 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnectCore<T>::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_TABLE"), std::bind(&AutoConnectCore<T>::_token_CSS_TABLE, this, std::placeholders::_1));
-    elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnectCore<T>::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("ESTAB_SSID"), std::bind(&AutoConnectCore<T>::_token_ESTAB_SSID, this, std::placeholders::_1));
@@ -1661,8 +1793,14 @@ PageElement* AutoConnectCore<T>::_setupPage(String& uri) {
     elm->addToken(FPSTR("HEAD"), std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_BASE"), std::bind(&AutoConnectCore<T>::_token_CSS_BASE, this, std::placeholders::_1));
     elm->addToken(FPSTR("CSS_TABLE"), std::bind(&AutoConnectCore<T>::_token_CSS_TABLE, this, std::placeholders::_1));
-    elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1));
+    elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1));
+    elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnectCore<T>::_token_MENU_AUX, this, std::placeholders::_1));
     elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1));
     elm->addToken(FPSTR("STATION_STATUS"), std::bind(&AutoConnectCore<T>::_token_STATION_STATUS, this, std::placeholders::_1));

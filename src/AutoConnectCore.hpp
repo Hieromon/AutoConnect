@@ -189,7 +189,12 @@ class AutoConnectCore {
 
   /** PageElements of AutoConnect site. */
   static const char _CSS_BASE[] PROGMEM;
-  static const char _CSS_LUXBAR[] PROGMEM;
+  static const char _CSS_LUXBAR_BODY[] PROGMEM;
+  static const char _CSS_LUXBAR_HEADER[] PROGMEM;
+  static const char _CSS_LUXBAR_BGR[] PROGMEM;
+  static const char _CSS_LUXBAR_ANI[] PROGMEM;
+  static const char _CSS_LUXBAR_MEDIA[] PROGMEM;
+  static const char _CSS_LUXBAR_ITEM[] PROGMEM;
   static const char _CSS_UL[] PROGMEM;
   static const char _CSS_ICON_LOCK[] PROGMEM;
   static const char _CSS_ICON_TRASH[] PROGMEM;
@@ -216,11 +221,17 @@ class AutoConnectCore {
   String _token_CSS_ICON_TRASH(PageArgument& args);
   String _token_CSS_INPUT_BUTTON(PageArgument& args);
   String _token_CSS_INPUT_TEXT(PageArgument& args);
-  String _token_CSS_LUXBAR(PageArgument& args);
+  String _token_CSS_LUXBAR_BODY(PageArgument& args);
+  String _token_CSS_LUXBAR_HEADER(PageArgument& args);
+  String _token_CSS_LUXBAR_BGR(PageArgument& args);
+  String _token_CSS_LUXBAR_ANI(PageArgument& args);
+  String _token_CSS_LUXBAR_MEDIA(PageArgument& args);
+  String _token_CSS_LUXBAR_ITEM(PageArgument& args);
   String _token_CSS_SPINNER(PageArgument& args);
   String _token_CSS_TABLE(PageArgument& args);
   String _token_CSS_UL(PageArgument& args);
   String _token_MENU_AUX(PageArgument& args);
+  String _token_MENU_LIST(PageArgument& args);
   String _token_MENU_POST(PageArgument& args);
   String _token_MENU_PRE(PageArgument& args);
   String _token_AP_MAC(PageArgument& args);
