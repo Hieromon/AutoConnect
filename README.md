@@ -103,6 +103,11 @@ Full documentation is available on https://Hieromon.github.io/AutoConnect, some 
 
 ## Change log
 
+### [1.4.2] Jan. 31, 2023
+- Supports whileConnecting exit called while waiting for WiFi connection. (Discussions [#553](https://github.com/Hieromon/AutoConnect/issues/553))
+- Added AutoConnect::portalStatus function.
+- Fixed compilation error with ESP8266 Arduino Core 3.1.0 or later. (Issue #567)
+
 ### [1.4.1] Jan. 5, 2023
 - Supports asynchronous communication of custom web pages using the Fetch API. This allows interaction with the user without page transitions. See the [AutoConnect documentation](https://hieromon.github.io/AutoConnect/acinteract.html) for details. (Discussions [#503](https://github.com/Hieromon/AutoConnect/discussions/503))
 - Added the FetchLED example.

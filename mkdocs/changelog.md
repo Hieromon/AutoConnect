@@ -1,3 +1,15 @@
+### [1.4.2] Jan. 31, 2023
+
+#### Enhancements
+
+- Supports whileConnecting exit called while waiting for WiFi connection.
+- Added AutoConnect::portalStatus function.
+
+#### Fix
+
+- Fixed compilation error with ESP8266 Arduino Core 3.1.0 or later. 
+
+---
 ### [1.4.1] Jan. 5, 2023
 
 #### Enhancements
