@@ -18,6 +18,42 @@ You can migrate the past saved credentials using [**CreditMigrate.ino**](https:/
 
 Captive portal detection could not be trapped. It is necessary to disconnect and reset ESP8266 to clear memorized connection data in ESP8266. Also, It may be displayed on the smartphone if the connection information of esp8266ap is wrong. In that case, delete the connection information of esp8266ap memorized by the smartphone once.
 
+## <i class="fa fa-question-circle"></i> AutoConnect Web Pages are broken.
+
+When the captive portal opens, AutoConnect's embedded web page may be broken or display an incomplete menu like the one below. This is due to AutoConnect temporarily abandoning HTML generation because the ESP module's heap memory was exhausted. This phenomenon may frequently occur, especially with ESP8266 Arduino core 3.1.0 or later.
+
+![broken page](images/broken_html.png)
+
+ESP8266 Arduino core 3.1.0 or later has increased heap consumption due to the application of Non-OS SDK 3.0.x. This makes the ESP8266 more prone to running out of memory than previous core versions.
+
+To reduce RAM consumption, apply workarounds such as reducing the number of AutoConnectElements placed on the custom web pages, or enabling AutoConnectOTA only when a WiFi connection is established to an access point. For example, the code snippet for enabling OTA when a WiFi connection is established is as follows:
+
+```cpp hl_lines="7 8 16"
+AutoConnect portal;
+AutoConnectConfig config;
+
+void wifiConnect(IPAddress& ip) {
+  Serial.println("WiFi connected:" + WiFi.SSID());
+  Serial.println("IP:" + WiFi.localIP().toString());
+  config.ota = AC_OTA_BUILTIN;
+  portal.config(config);
+}
+
+void setup() {
+  delay(1000);
+  Serial.begin(115200);
+  Serial.println();
+
+  portal.onConnect(wifiConnect);
+
+  portal.begin();
+}
+
+void loop() {
+  portal.handleClient();
+}
+```
+
 ## <i class="fa fa-question-circle"></i> Cannot automatically reconnect to a WiFi Hotspot
 
 WiFi Hotspot ability using a cell phone has no official designation name, but it is commonly referred to as a mobile hotspot or a Personal Hotspot. Generally, this feature using data communication with your cellular to ensure the connection to the Internet. AutoConnect allows you to connect to a WiFi hotspot that has been temporarily launched as an access point and then stores a credential for establishing a connection in the same way as a regular fixed access point.

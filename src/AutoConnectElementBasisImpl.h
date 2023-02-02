@@ -2,8 +2,8 @@
  * Implementation of AutoConnectElementBasis classes.
  * @file AutoConnectElementBasisImpl.h
  * @author hieromon@gmail.com
- * @version  1.4.1
- * @date 2022-12-27
+ * @version  1.4.2
+ * @date 2023-01-31
  * @copyright  MIT license.
  */
 
@@ -196,7 +196,7 @@ const String AutoConnectCheckboxBasis::toHTML(void) const {
       elmLen += AutoConnectElementBasisImpl::_sizeof(attrChecked);
     }
     const char* onchange = canHandle() ? (PGM_P)attrOnChange : (PGM_P)elmNone;
-    elmLen = (elmLen + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmCheckboxTempl) + (name.length() * 2) + value.length() + strlen(onchange) - (AutoConnectElementBasisImpl::_sizeof("%s") * 6) + sizeof('\0') + 16) & (~0xf);
+    elmLen = (elmLen + (AutoConnectElementBasisImpl::_sizeof(tagLabel) * 2) + AutoConnectElementBasisImpl::_sizeof(elmCheckboxTempl) + (name.length() * 2) + value.length() + strlen_P(onchange) - (AutoConnectElementBasisImpl::_sizeof("%s") * 6) + sizeof('\0') + 16) & (~0xf);
     char* elmCheckbox = new char[elmLen];
     if (elmCheckbox) {
       snprintf_P(elmCheckbox, elmLen, elmCheckboxTempl, elmLabelPre, name.c_str(), name.c_str(), value.c_str(), applyChecked, onchange, elmLabelPost);
@@ -482,7 +482,6 @@ void AutoConnectRadioBasis::check(const String& value) {
  */
 void AutoConnectRadioBasis::empty(const size_t reserve) {
   _values.clear();
-  std::vector<String>().swap(_values);
   if (reserve)
     _values.reserve(reserve);
   checked = 0;
@@ -711,7 +710,6 @@ const String AutoConnectRangeBasis::toHTML(void) const {
  */
 void AutoConnectSelectBasis::empty(const size_t reserve) {
   _options.clear();
-  std::vector<String>().swap(_options);
   if (reserve)
     _options.reserve(reserve);
   selected = 0;

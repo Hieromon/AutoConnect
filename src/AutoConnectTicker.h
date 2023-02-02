@@ -2,8 +2,8 @@
  *  Declaration of AutoConnectTicker class.
  *  @file   AutoConnectTicker.h
  *  @author hieromon@gmail.com
- *  @version    1.2.0
- *  @date   2020-10-30
+ *  @version    1.4.2
+ *  @date   2023-01-23
  *  @copyright  MIT license.
  */
 
@@ -12,6 +12,7 @@
 
 #include <functional>
 #if defined(ARDUINO_ARCH_ESP8266)
+#include <core_version.h>
 #include <ESP8266WiFi.h>
 #elif defined(ARDUINO_ARCH_ESP32)
 #include <WiFi.h>

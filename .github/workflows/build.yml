@@ -128,6 +128,7 @@ jobs:
       - name: Compile example sketches that require ArduinoJson
         uses: arduino/compile-sketches@v1
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           fqbn: ${{ matrix.board.fqbn }}
           platforms: ${{ matrix.platforms }}
           cli-compile-flags: |
@@ -179,6 +180,7 @@ jobs:
       - name: Compile example sketches w/o ArduinoJson
         uses: arduino/compile-sketches@v1
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           fqbn: ${{ matrix.board.fqbn }}
           platforms: ${{ matrix.platforms }}
           cli-compile-flags: |

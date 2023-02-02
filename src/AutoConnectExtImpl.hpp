@@ -2,8 +2,8 @@
  * AutoConnectExt class implementation.
  * @file AutoConnectExtImpl.hpp
  * @author hieromon@gmail.com
- * @version 1.4.1
- * @date 2022-12-07
+ * @version 1.4.2
+ * @date 2023-01-13
  * @copyright MIT license.
  */
 
@@ -50,6 +50,7 @@ AutoConnectAux* AutoConnectExt<T>::append(const String& uri, const String& title
   AutoConnectAux* reg = aux(uri);
   if (!reg) {
     reg = new AutoConnectAux(uri, title);
+    AC_DBG("%s newly added\n", uri.c_str());
     reg->_deletable = true;
     join(*reg);
     return reg;

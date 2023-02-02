@@ -2,8 +2,8 @@
  * Implementation of AutoConnectAux class.
  * @file AutoConnectAux.cpp
  * @author hieromon@gmail.com
- * @version 1.4.1
- * @date 2022-12-27
+ * @version 1.4.2
+ * @date 2023-01-30
  * @copyright MIT license.
  */
 #include <algorithm>
@@ -34,13 +34,19 @@ const char AutoConnectAux::_PAGE_AUX[] PROGMEM = {
   "{{CSS_UL}}"
   "{{CSS_INPUT_BUTTON}}"
   "{{CSS_INPUT_TEXT}}"
-  "{{CSS_LUXBAR}}"
+  "{{CSS_LUXBAR_BODY}}"
+  "{{CSS_LUXBAR_HEADER}}"
+  "{{CSS_LUXBAR_BGR}}"
+  "{{CSS_LUXBAR_ANI}}"
+  "{{CSS_LUXBAR_MEDIA}}"
+  "{{CSS_LUXBAR_ITEM}}"
   "{{AUX_CSS}}"
   "</style>"
   "</head>"
   "<body style=\"padding-top:58px;\">"
   "<div class=\"container\">"
   "{{MENU_PRE}}"
+  "{{MENU_LIST}}"
   "{{MENU_AUX}}"
   "{{MENU_POST}}"
   "<div class=\"base-panel\"><div class=\"aux-page\">"
@@ -160,7 +166,6 @@ AutoConnectAux::AutoConnectAux(const String& uri, const String& title, const boo
  */
 AutoConnectAux::~AutoConnectAux() {
   _addonElm.clear();
-  _addonElm.swap(_addonElm);
 }
 
 /**
@@ -729,9 +734,15 @@ PageElement* AutoConnectAux::_setupPage(const String& uri) {
         elm->addToken(FPSTR("CSS_UL"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_UL, mother, std::placeholders::_1));
         elm->addToken(FPSTR("CSS_INPUT_BUTTON"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_INPUT_BUTTON, mother, std::placeholders::_1));
         elm->addToken(FPSTR("CSS_INPUT_TEXT"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_INPUT_TEXT, mother, std::placeholders::_1));
-        elm->addToken(FPSTR("CSS_LUXBAR"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR_BODY"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR_BODY, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR_HEADER"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR_HEADER, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR_BGR"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR_BGR, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR_ANI"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR_ANI, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR_MEDIA"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR_MEDIA, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("CSS_LUXBAR_ITEM"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_CSS_LUXBAR_ITEM, mother, std::placeholders::_1));
         elm->addToken(FPSTR("AUX_CSS"), std::bind(&AutoConnectAux::_insertStyle, this, std::placeholders::_1));
         elm->addToken(FPSTR("MENU_PRE"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_MENU_PRE, mother, std::placeholders::_1));
+        elm->addToken(FPSTR("MENU_LIST"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_MENU_LIST, mother, std::placeholders::_1));
         elm->addToken(FPSTR("MENU_AUX"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_MENU_AUX, mother, std::placeholders::_1));
         elm->addToken(FPSTR("MENU_POST"), std::bind(&AutoConnectExt<AutoConnectConfigExt>::_token_MENU_POST, mother, std::placeholders::_1));
         elm->addToken(FPSTR("AUX_URI"), std::bind(&AutoConnectAux::_indicateUri, this, std::placeholders::_1));
