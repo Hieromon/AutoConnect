@@ -81,6 +81,9 @@ You can use the [*AutoConnect::isPortalAvailable*](api.md#isportalavailable) fun
 - IP address assigned to SoftAP is the equivalent of [AutoConnectConfig::apip](apiconfig.md#apip).
 - AutoConnect is running a DNS server for directing to the captive portal. Through its action, DNS lookups issued by client devices for Internet transparency validation are directed to the ESP module SoftAP.
 
+!!! info "A similar utility is AutoConnect::portalStatus"
+    See [Verify the WiFi connection conditions](adconnection.md#verify-the-wifi-connection-conditions) and [*AutoConnect::portalStatus*](api.md#portalstatus) function.
+
 ## Captive portal timeout control
 
 Once AutoConnect has entered the captive portal state due to the above conditions, the default behavior is that [AutoConnect::begin](api.md#begin) will not exit until a WiFi connection is established. Captive portal timeout control prevents AutoConnect from blocking the Sketch progress. It allows Sketch to abort AutoConnect::begin and returns control to Sketch. 
