@@ -5,7 +5,7 @@
  * @file AutoConnectCore.hpp
  * @author hieromon@gmail.com
  * @version 1.4.2
- * @date 2023-01-25
+ * @date 2023-02-05
  * @copyright MIT license.
  */
 
@@ -209,8 +209,10 @@ class AutoConnectCore {
   static const char _PAGE_CONFIGNEW[] PROGMEM;
   static const char _PAGE_CONNECTING[] PROGMEM;
   static const char _PAGE_OPENCREDT[] PROGMEM;
+  static const char _PAGE_DELREQ[] PROGMEM;
   static const char _PAGE_SUCCESS[] PROGMEM;
   static const char _PAGE_RESETTING[] PROGMEM;
+  static const char _PAGE_RESULT[] PROGMEM;
   static const char _PAGE_DISCONN[] PROGMEM;
   static const char _PAGE_FAIL[] PROGMEM;
   static const char _PAGE_404[] PROGMEM;
@@ -261,6 +263,130 @@ class AutoConnectCore {
   String _token_WIFI_MODE(PageArgument& args);
   String _token_WIFI_STATUS(PageArgument& args);
   static const  String  _emptyString; /**< An empty string allocation  **/
+
+  typedef enum {
+    AP_MAC,
+    BOOTURI,
+    CHANNEL,
+    CHIP_ID,
+    CONFIG_IP,
+    CPU_FREQ,
+    CSS_BASE,
+    CSS_ICON_LOCK,
+    CSS_ICON_TRASH,
+    CSS_INPUT_BUTTON,
+    CSS_INPUT_TEXT,
+    CSS_LUXBAR_ANI,
+    CSS_LUXBAR_BGR,
+    CSS_LUXBAR_BODY,
+    CSS_LUXBAR_HEADER,
+    CSS_LUXBAR_ITEM,
+    CSS_LUXBAR_MEDIA,
+    CSS_SPINNER,
+    CSS_TABLE,
+    CSS_UL,
+    CUR_SSID,
+    DBM,
+    DELREQ,
+    DISCONNECT,
+    ESTAB_SSID,
+    FLASH_SIZE,
+    FREE_HEAP,
+    GATEWAY,
+    HEAD,
+    HIDDEN_COUNT,
+    LIST_SSID,
+    LOCAL_IP,
+    MENU_AUX,
+    MENU_LIST,
+    MENU_POST,
+    MENU_PRE,
+    NETMASK,
+    OPEN_SSID,
+    REQ,
+    RESET,
+    RESULT,
+    SOFTAP_IP,
+    SSID_COUNT,
+    STA_MAC,
+    STATION_STATUS,
+    SYSTEM_UPTIME,
+    UPTIME,
+    WIFI_MODE,
+    WIFI_STATUS
+  } AC_PAGETOKEN_t;
+
+  typedef struct {
+    AC_PAGETOKEN_t  tokenId;
+    PGM_P token;
+  } AC_PAGETOKENSTRING_t;
+
+  typedef struct {
+    AC_PAGETOKEN_t  tokenId;
+    HandleFuncT handler;
+  } AC_PAGETOKENREGISTRY_t;
+
+  typedef struct {
+    PGM_P uri;
+    PGM_P menuTitle;
+    PGM_P mold;
+    uint16_t  appMenus;
+    bool  authRequired;
+    std::vector<AC_PAGETOKEN_t> tokenId;
+  } AC_PAGECONST_t;
+
+  std::vector<AC_PAGETOKENREGISTRY_t> _tokenRegistry = {
+    {AP_MAC, std::bind(&AutoConnectCore<T>::_token_AP_MAC, this, std::placeholders::_1)},
+    {BOOTURI, std::bind(&AutoConnectCore<T>::_token_BOOTURI, this, std::placeholders::_1)},
+    {CHANNEL, std::bind(&AutoConnectCore<T>::_token_CHANNEL, this, std::placeholders::_1)},
+    {CHIP_ID, std::bind(&AutoConnectCore<T>::_token_CHIP_ID, this, std::placeholders::_1)},
+    {CONFIG_IP, std::bind(&AutoConnectCore<T>::_token_CONFIG_STAIP, this, std::placeholders::_1)},
+    {CPU_FREQ, std::bind(&AutoConnectCore<T>::_token_CPU_FREQ, this, std::placeholders::_1)},
+    {CSS_BASE, std::bind(&AutoConnectCore<T>::_token_CSS_BASE, this, std::placeholders::_1)},
+    {CSS_ICON_LOCK, std::bind(&AutoConnectCore<T>::_token_CSS_ICON_LOCK, this, std::placeholders::_1)},
+    {CSS_ICON_TRASH, std::bind(&AutoConnectCore<T>::_token_CSS_ICON_TRASH, this, std::placeholders::_1)},
+    {CSS_INPUT_BUTTON, std::bind(&AutoConnectCore<T>::_token_CSS_INPUT_BUTTON, this, std::placeholders::_1)},
+    {CSS_INPUT_TEXT, std::bind(&AutoConnectCore<T>::_token_CSS_INPUT_TEXT, this, std::placeholders::_1)},
+    {CSS_LUXBAR_ANI, std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ANI, this, std::placeholders::_1)},
+    {CSS_LUXBAR_BGR, std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BGR, this, std::placeholders::_1)},
+    {CSS_LUXBAR_BODY, std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_BODY, this, std::placeholders::_1)},
+    {CSS_LUXBAR_HEADER, std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_HEADER, this, std::placeholders::_1)},
+    {CSS_LUXBAR_ITEM, std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_ITEM, this, std::placeholders::_1)},
+    {CSS_LUXBAR_MEDIA, std::bind(&AutoConnectCore<T>::_token_CSS_LUXBAR_MEDIA, this, std::placeholders::_1)},
+    {CSS_SPINNER, std::bind(&AutoConnectCore<T>::_token_CSS_SPINNER, this, std::placeholders::_1)},
+    {CSS_TABLE, std::bind(&AutoConnectCore<T>::_token_CSS_TABLE, this, std::placeholders::_1)},
+    {CSS_UL, std::bind(&AutoConnectCore<T>::_token_CSS_UL, this, std::placeholders::_1)},
+    {CUR_SSID, std::bind(&AutoConnectCore<T>::_token_CURRENT_SSID, this, std::placeholders::_1)},
+    {DBM, std::bind(&AutoConnectCore<T>::_token_DBM, this, std::placeholders::_1)},
+    {DELREQ, std::bind(&AutoConnectCore<T>::_promptDeleteCredential, this, std::placeholders::_1)},
+    {DISCONNECT, std::bind(&AutoConnectCore<T>::_induceDisconnect, this, std::placeholders::_1)},
+    {ESTAB_SSID, std::bind(&AutoConnectCore<T>::_token_ESTAB_SSID, this, std::placeholders::_1)},
+    {FLASH_SIZE, std::bind(&AutoConnectCore<T>::_token_FLASH_SIZE, this, std::placeholders::_1)},
+    {FREE_HEAP, std::bind(&AutoConnectCore<T>::_token_FREE_HEAP, this, std::placeholders::_1)},
+    {GATEWAY, std::bind(&AutoConnectCore<T>::_token_GATEWAY, this, std::placeholders::_1)},
+    {HEAD, std::bind(&AutoConnectCore<T>::_token_HEAD, this, std::placeholders::_1)},
+    {HIDDEN_COUNT, std::bind(&AutoConnectCore<T>::_token_HIDDEN_COUNT, this, std::placeholders::_1)},
+    {LIST_SSID, std::bind(&AutoConnectCore<T>::_token_LIST_SSID, this, std::placeholders::_1)},
+    {LOCAL_IP, std::bind(&AutoConnectCore<T>::_token_LOCAL_IP, this, std::placeholders::_1)},
+    {MENU_AUX, std::bind(&AutoConnectCore<T>::_token_MENU_AUX, this, std::placeholders::_1)},
+    {MENU_LIST, std::bind(&AutoConnectCore<T>::_token_MENU_LIST, this, std::placeholders::_1)},
+    {MENU_POST, std::bind(&AutoConnectCore<T>::_token_MENU_POST, this, std::placeholders::_1)},
+    {MENU_PRE, std::bind(&AutoConnectCore<T>::_token_MENU_PRE, this, std::placeholders::_1)},
+    {NETMASK, std::bind(&AutoConnectCore<T>::_token_NETMASK, this, std::placeholders::_1)},
+    {OPEN_SSID, std::bind(&AutoConnectCore<T>::_token_OPEN_SSID, this, std::placeholders::_1)},
+    {REQ, std::bind(&AutoConnectCore<T>::_induceConnect, this, std::placeholders::_1)},
+    {RESET, std::bind(&AutoConnectCore<T>::_induceReset, this, std::placeholders::_1)},
+    {SOFTAP_IP, std::bind(&AutoConnectCore<T>::_token_SOFTAP_IP, this, std::placeholders::_1)},
+    {SSID_COUNT, std::bind(&AutoConnectCore<T>::_token_SSID_COUNT, this, std::placeholders::_1)},
+    {STA_MAC, std::bind(&AutoConnectCore<T>::_token_STA_MAC, this, std::placeholders::_1)},
+    {STATION_STATUS, std::bind(&AutoConnectCore<T>::_token_STATION_STATUS, this, std::placeholders::_1)},
+    {SYSTEM_UPTIME, std::bind(&AutoConnectCore<T>::_token_SYSTEM_UPTIME, this, std::placeholders::_1)},
+    {UPTIME, std::bind(&AutoConnectCore<T>::_token_UPTIME, this, std::placeholders::_1)},
+    {WIFI_MODE, std::bind(&AutoConnectCore<T>::_token_WIFI_MODE, this, std::placeholders::_1)},
+    {WIFI_STATUS, std::bind(&AutoConnectCore<T>::_token_WIFI_STATUS, this, std::placeholders::_1)}
+  };
+  static AC_PAGETOKENSTRING_t _tokenStringify[] PROGMEM;
+  static AC_PAGECONST_t _pageConst[];
 
  private:
   inline bool _isValidAP(const station_config_t& config, const uint8_t item) const;
