@@ -244,6 +244,8 @@ This function only works for AutoConnect primary menu items. It has no effect on
     [Reset...](menu.md#reset)
 : - **AC_MENUITEM_HOME** :
     [HOME](menu.md#home)
+: - **AC_MENUITEM_UPDATE** :
+    [Update](menu.md#update)
 : - **AC_MENUITEM_DEVINFO** :
     [Device statistics](menu.md#where-the-from) as AutoConnect root page
 : - **AC_MENUITEM_DELETESSID** :
