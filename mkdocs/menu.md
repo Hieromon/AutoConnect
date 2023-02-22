@@ -69,7 +69,7 @@ Resetting the ESP8266/ESP32 module will initiate a reboot. When the module resta
 
 ## <i class="fa fa-bars"></i> Custom menu items
 
-If the Sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnectmenu).
+If the Sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnect-menu).
 
 ## <i class="fa fa-bars"></i> Update
 
@@ -165,7 +165,7 @@ void loop() {
 !!! note "enableMenu/disableMenu has no effect for custom web page items"
     *AutoConnect::enableMenu* and *disableMenu* functions are not enabled to show/hide menu items for [custom web pages](acintro.md). They only work on AutoConnect's built-in pages[^2]. Use the [AutoConnectAux::menu](apiaux.md#menu) and [AutoConnectAux::isMenu](apiaux.md#ismenu) functions to show/hide menu items for custom web pages. For more information, see [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnect-menu) section.
 
-[^2]: AutoConnect built-in pages are predefined by the [AC_MENUITEM_t](api.html#enablemenu) enum value.
+[^2]: AutoConnect built-in pages are predefined by the [AC_MENUITEM_t](api.md#enablemenu) enum value.
 
 ## <i class="fa fa-bars"></i> Attaching to AutoConnect menu
 
