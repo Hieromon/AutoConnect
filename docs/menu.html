@@ -359,6 +359,19 @@
      Applying the active menu items
   </a>
   
+    <nav class="md-nav" aria-label=" Applying the active menu items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-ota-menu-on-demand-using-an-external-switch-connected-to-a-gpio" class="md-nav__link">
+    Enable OTA menu on demand using an external switch connected to a GPIO.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1201,6 +1214,19 @@
      Applying the active menu items
   </a>
   
+    <nav class="md-nav" aria-label=" Applying the active menu items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-ota-menu-on-demand-using-an-external-switch-connected-to-a-gpio" class="md-nav__link">
+    Enable OTA menu on demand using an external switch connected to a GPIO.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1278,7 +1304,7 @@ Enter SSID and Passphrase and tap "<strong>Apply</strong>" to start a WiFi conne
 <p>The Reset menu is using the <strong>ESP.reset()</strong> function for ESP8266. This is an almost hardware reset. In order to resume the Sketch normally, the <a href="https://github.com/esp8266/esp8266-wiki/wiki/Boot-Process#esp-boot-modes">state of GPIO0</a> is important. Since this depends on the circuit implementation for each module, not every module will be rebooted normally. See also <a href="faq.html#hang-up-after-reset">FAQ</a>.</p>
 </div>
 <h2 id="custom-menu-items"><i class="fa fa-bars"></i> Custom menu items<a class="headerlink" href="#custom-menu-items" title="Permanent link">&para;</a></h2>
-<p>If the Sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for <a href="acintro.html#custom-web-pages-in-autoconnectmenu">Custom Web pages in AutoConnect menu</a>.</p>
+<p>If the Sketch has custom Web pages, the AutoConnect menu lines them up with the AutoConnect's items. Details for <a href="acintro.html#custom-web-pages-in-autoconnect-menu">Custom Web pages in AutoConnect menu</a>.</p>
 <h2 id="update"><i class="fa fa-bars"></i> Update<a class="headerlink" href="#update" title="Permanent link">&para;</a></h2>
 <p>If you specify <a href="apiconfig.html#ota">AutoConnectConfig::ota</a> to import the OTA update feature into Sketch, an item will appear in the menu list as <strong>Update</strong>.</p>
 <div class="admonition note">
@@ -1301,7 +1327,7 @@ For example, by disabling the <a href="#configure-new-ap">Configure new AP</a> a
 <span style="color: #f8f8f2">  portal.config(config);</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<p>The next is another way to achieve the same effect.</p>
+<p>Following code snippet is another way to achieve the same effect.</p>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnect portal;</span>
 
 <span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
@@ -1309,9 +1335,50 @@ For example, by disabling the <a href="#configure-new-ap">Configure new AP</a> a
 <span style="color: #f8f8f2">  portal.config(config);</span>
 <span style="color: #f8f8f2">}</span>
 </code></pre></div>
-<p>The result of executing the above Sketch is as below:</p>
+<p>Here is the result of running the above sketch:</p>
 <p><img src="images/applymenu.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" /></p>
-<p>Details for <a href="apiconfig.html#menuitems">AutoConnectConfig::menuItems</a>.</p>
+<p><a href="apiconfig.html#menuitems">AutoConnectConfig::menuItems</a> section has more details.</p>
+<p>AutoConnect shows and hides menu items when <a href="api.html#begin">AutoConnect::begin</a> is executed and when <a href="api.html#handleclient">AutoConnect::handleClient</a> is executed in a <code>loop</code> function. You can dynamically change the available menu items during the <em>loop()</em> by setting the show/hide items before executing those functions with <a href="api.html#enablemenu">AutoConnect::enableMenu</a> and <a href="api.html#disablemenu">AutoConnect::disableMenu</a>.</p>
+<p>The current menu item settings held by AutoConnectConfig can be retrieved with the <a href="api.html#getconfig">AutoConnect::getConfig</a> function, and the code snippet to reconfigure menu items based on the <code>getConfig</code> return value is as follows:</p>
+<h4 id="enable-ota-menu-on-demand-using-an-external-switch-connected-to-a-gpio">Enable OTA menu on demand using an external switch connected to a GPIO.<a class="headerlink" href="#enable-ota-menu-on-demand-using-an-external-switch-connected-to-a-gpio" title="Permanent link">&para;</a></h4>
+<p><img src="images/menu_ondemand.png" width="320px" /></p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> </span><span style="color: #66d9ef">int</span><span style="color: #f8f8f2"> externalSwitch </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> </span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">;  </span><span style="color: #75715e">// Assign the OTA activation switch to D1 (GPIO5).</span>
+<span style="color: #f8f8f2">AutoConnect portal;</span>
+<span style="color: #f8f8f2">AutoConnectConfig config;</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">setup</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// The logic level of the external switch assumes active LOW.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Note: A said switch is an alternate and must retain its state.</span>
+<span style="color: #f8f8f2">  pinMode(externalSwitch, INPUT_PULLUP);</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Set up OTA, but hide the Update item from the menu list until an external</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// switch is pressed.</span>
+<span style="color: #f8f8f2">  config.ota </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_OTA_BUILTIN;</span>
+<span style="color: #f8f8f2">  portal.config(config);</span>
+<span style="color: #f8f8f2">  portal.disableMenu(AC_MENUITEM_UPDATE);</span>
+<span style="color: #f8f8f2">  portal.begin(); </span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> </span><span style="color: #a6e22e">loop</span><span style="color: #f8f8f2">() {</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Use AutoConnect::getConfig to obtain the current AutoConnectConfig values</span>
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// and indicate the display state of an Update item.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">bool</span><span style="color: #f8f8f2">  menuUpdate </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> portal.getConfig().menuItems </span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> AC_MENUITEM_UPDATE;</span>
+
+<span style="color: #f8f8f2">  </span><span style="color: #75715e">// Hides the Update item from the menu list depending on the state of the switch.</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">if</span><span style="color: #f8f8f2"> (digitalRead(externalSwitch) </span><span style="color: #f92672">==</span><span style="color: #f8f8f2"> LOW </span><span style="color: #f92672">&amp;&amp;</span><span style="color: #f8f8f2"> </span><span style="color: #f92672">!</span><span style="color: #f8f8f2">(menuUpdate)) {</span>
+<span style="color: #f8f8f2">    portal.enableMenu(AC_MENUITEM_UPDATE);</span>
+<span style="color: #f8f8f2">  }</span>
+<span style="color: #f8f8f2">  </span><span style="color: #66d9ef">else</span><span style="color: #f8f8f2"> {</span>
+<span style="color: #f8f8f2">    portal.disableMenu(AC_MENUITEM_UPDATE);</span>
+<span style="color: #f8f8f2">  }</span>
+
+<span style="color: #f8f8f2">  portal.handleClient();</span>
+<span style="color: #f8f8f2">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">enableMenu/disableMenu has no effect for custom web page items</p>
+<p><em>AutoConnect::enableMenu</em> and <em>disableMenu</em> functions are not enabled to show/hide menu items for <a href="acintro.html">custom web pages</a>. They only work on AutoConnect's built-in pages<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. Use the <a href="apiaux.html#menu">AutoConnectAux::menu</a> and <a href="apiaux.html#ismenu">AutoConnectAux::isMenu</a> functions to show/hide menu items for custom web pages. For more information, see <a href="acintro.html#custom-web-pages-in-autoconnect-menu">Custom Web pages in AutoConnect menu</a> section.</p>
+</div>
 <h2 id="attaching-to-autoconnect-menu"><i class="fa fa-bars"></i> Attaching to AutoConnect menu<a class="headerlink" href="#attaching-to-autoconnect-menu" title="Permanent link">&para;</a></h2>
 <p>The AutoConnect menu can contain your sketch's web pages as extra items as a custom. It works for HTML pages implemented by the <strong>ESP8266WebServer::on</strong> handler or the <strong>WebServer::on</strong> handler for ESP32. That is, you can make them invoke the legacy web pages from the AutoConnect menu. The below screen-shot is the result of adding an example sketch for the ESP8266WebServer library known as <a href="https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/examples/FSBrowser">FSBrowser</a> to the AutoConnect menu item. It can add Edit and List items with little modification to the legacy sketch code.</p>
 <div style="float:left;width:auto;height:420px;"><img style="width:auto;height:420px;" src="images/fsbmenu.png"></div>
@@ -1322,6 +1389,9 @@ For example, by disabling the <a href="#configure-new-ap">Configure new AP</a> a
 <ol>
 <li id="fn:1">
 <p>AutoConnect does not check the syntax and validity of the entered IP address. If the entered static IPs are incorrect, it cannot connect to the access point.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>AutoConnect built-in pages are predefined by the <a href="api.html#enablemenu">AC_MENUITEM_t</a> enum value.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

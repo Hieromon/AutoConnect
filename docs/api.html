@@ -813,6 +813,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#getconfig" class="md-nav__link">
+     getConfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#geteepromusedsize" class="md-nav__link">
      getEEPROMUsedSize
   </a>
@@ -1461,6 +1468,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#getconfig" class="md-nav__link">
+     getConfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#geteepromusedsize" class="md-nav__link">
      getEEPROMUsedSize
   </a>
@@ -1890,6 +1904,14 @@ The enableMenu function adds an indication of the specified items to the current
 <p class="admonition-title">Attention to end</p>
 <p>The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.</p>
 </div>
+<h3 id="getconfig"><i class="fa fa-caret-right"></i> getConfig<a class="headerlink" href="#getconfig" title="Permanent link">&para;</a></h3>
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #f8f8f2">AutoConnectConfig</span><span style="color: #f92672">&amp;</span><span style="color: #f8f8f2"> getConfig(</span><span style="color: #66d9ef">void</span><span style="color: #f8f8f2">)</span>
+</code></pre></div>
+<p>Get the current AutoConnectConfig values held by AutoConnect.<dl class="apidl">
+    <dt><strong>Return value</strong></dt>
+    <dd>A reference to an AutoConnectConfig instance retained by AutoConnect. This reference reflects the actual values captured by the <a href="#config">AutoConnect::config</a> function, unlike the AutoConnectConfig value declared in the sketch.</dd></dl></p>
 <h3 id="geteepromusedsize"><i class="fa fa-caret-right"></i> getEEPROMUsedSize<a class="headerlink" href="#geteepromusedsize" title="Permanent link">&para;</a></h3>
 <p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
 

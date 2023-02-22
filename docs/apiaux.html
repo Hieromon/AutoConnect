@@ -1619,6 +1619,11 @@ The outermost <code>[</code>, <code>]</code> is missing.</p>
     <dt><strong>Parameter</strong></dt>
     <dd><span class="apidef">true</span><span class="apidesc">Show on the menu.</span></dd>
     <dd><span class="apidef">false</span><span class="apidesc">Hidden on the menu.</span></dd></dl></p>
+<div class="admonition note">
+<p class="admonition-title">AutoConnectAux::menu and isMenu have no effect on AutoConnect built-in menu items</p>
+<p>Some of AutoConnect's built-in pages make use of AutoConnectAux class. You can use the <a href="api.html#aux">AutoConnect::aux</a> or <a href="api.html#locate">AutoConnect::locate</a> function with those URLs to retrieve the AutoConnectAux for built-in pages, but the <a href="apiaux.html#menu">menu</a> function does not show/hide the <a href="menu.html#right-on-top">built-in items</a> of the menu list.  <br />
+Also, it is not recommended to use <a href="api.html#aux">AutoConnect::aux</a> or <a href="api.html#locate">locate</a> functions to get AutoConnect's built-in pages. Instructions on how to show/hide AutoConnect's built-in menu items can be found in the <a href="menu.html#applying-the-active-menu-items">Applying the active menu items</a> section.</p>
+</div>
 <h3 id="on"><i class="fa fa-caret-right"></i> on<a class="headerlink" href="#on" title="Permanent link">&para;</a></h3>
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%;"><span></span><code><span style="color: #66d9ef">void</span><span style="color: #f8f8f2"> on(</span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> AuxHandlerFunctionT handler, </span><span style="color: #66d9ef">const</span><span style="color: #f8f8f2"> AutoConnectExitOrder_t order </span><span style="color: #f92672">=</span><span style="color: #f8f8f2"> AC_EXIT_AHEAD)</span>
 </code></pre></div>
