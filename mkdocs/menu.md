@@ -103,7 +103,7 @@ void setup() {
 }
 ```
 
-The next is another way to achieve the same effect.
+Following code snippet is another way to achieve the same effect.
 
 ```cpp
 AutoConnect portal;
@@ -114,11 +114,58 @@ void setup() {
 }
 ```
 
-The result of executing the above Sketch is as below:
+Here is the result of running the above sketch:
 
 <img src="images/applymenu.png" style="border-style:solid;border-width:1px;border-color:lightgrey;width:280px;" />
 
-Details for [AutoConnectConfig::menuItems](apiconfig.md#menuitems).
+[AutoConnectConfig::menuItems](apiconfig.md#menuitems) section has more details.
+
+AutoConnect shows and hides menu items when [AutoConnect::begin](api.md#begin) is executed and when [AutoConnect::handleClient](api.md#handleclient) is executed in a `loop` function. You can dynamically change the available menu items during the *loop()* by setting the show/hide items before executing those functions with [AutoConnect::enableMenu](api.md#enablemenu) and [AutoConnect::disableMenu](api.md#disablemenu).
+
+The current menu item settings held by AutoConnectConfig can be retrieved with the [AutoConnect::getConfig](api.md#getconfig) function, and the code snippet to reconfigure menu items based on the `getConfig` return value is as follows:
+
+#### Enable OTA menu on demand using an external switch connected to a GPIO.
+
+<img src="images/menu_ondemand.png" width="320px" />
+
+```cpp
+const int externalSwitch = 5;  // Assign the OTA activation switch to D1 (GPIO5).
+AutoConnect portal;
+AutoConnectConfig config;
+
+void setup() {
+  // The logic level of the external switch assumes active LOW.
+  // Note: A said switch is an alternate and must retain its state.
+  pinMode(externalSwitch, INPUT_PULLUP);
+
+  // Set up OTA, but hide the Update item from the menu list until an external
+  // switch is pressed.
+  config.ota = AC_OTA_BUILTIN;
+  portal.config(config);
+  portal.disableMenu(AC_MENUITEM_UPDATE);
+  portal.begin(); 
+}
+
+void loop() {
+  // Use AutoConnect::getConfig to obtain the current AutoConnectConfig values
+  // and indicate the display state of an Update item.
+  bool  menuUpdate = portal.getConfig().menuItems & AC_MENUITEM_UPDATE;
+
+  // Hides the Update item from the menu list depending on the state of the switch.
+  if (digitalRead(externalSwitch) == LOW && !(menuUpdate)) {
+    portal.enableMenu(AC_MENUITEM_UPDATE);
+  }
+  else {
+    portal.disableMenu(AC_MENUITEM_UPDATE);
+  }
+
+  portal.handleClient();
+}
+```
+!!! note "enableMenu/disableMenu has no effect for custom web page items"
+    *AutoConnect::enableMenu* and *disableMenu* functions are not enabled to show/hide menu items for [custom web pages](acintro.md). They only work on AutoConnect's built-in pages[^2]. Use the [AutoConnectAux::menu](apiaux.md#menu) and [AutoConnectAux::isMenu](apiaux.md#ismenu) functions to show/hide menu items for custom web pages. For more information, see [Custom Web pages in AutoConnect menu](acintro.md#custom-web-pages-in-autoconnect-menu) section.
+
+[^2]: AutoConnect built-in pages are predefined by the [AC_MENUITEM_t](api.html#enablemenu) enum value.
 
 ## <i class="fa fa-bars"></i> Attaching to AutoConnect menu
 

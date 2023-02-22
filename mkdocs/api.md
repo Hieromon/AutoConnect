@@ -269,6 +269,18 @@ Stops AutoConnect captive portal service. Release ESP8266WebServer/WebServer and
 !!! warning "Attention to end"
     The end function releases the instance of ESP8266WebServer/WebServer and DNSServer. It can not process them after the end function.
 
+### <i class="fa fa-caret-right"></i> getConfig
+
+<p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
+
+```cpp
+AutoConnectConfig& getConfig(void)
+```
+
+Get the current AutoConnectConfig values held by AutoConnect.<dl class="apidl">
+    <dt>**Return value**</dt>
+    <dd>A reference to an AutoConnectConfig instance retained by AutoConnect. This reference reflects the actual values captured by the [AutoConnect::config](#config) function, unlike the AutoConnectConfig value declared in the sketch.</dd></dl>
+
 ### <i class="fa fa-caret-right"></i> getEEPROMUsedSize
 
 <p class="badge"><img src="images/tag_ac.png"> <img src="images/tag_accore.png"></p>
