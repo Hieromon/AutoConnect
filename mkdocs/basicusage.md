@@ -198,3 +198,10 @@ void loop() {
 !!! info "Either `AutoConnect.h` or `AutoConnectCore.h`"
     A sketch can include either `AutoConnect.h` or `AutoConnectCore.h`. These two header files are mutually exclusive and cannot be included together at the same time.  
     Also, If the sketch includes `AutoConnectCore.h`, some members involved in the custom web page facility are excluded from [AutoConnectConfig](apiconfig.md) class.
+
+!!! info "With PIO build, specify `lib_ldf_mode`"
+    For a sketch that includes `AutoConnectCore.h` to build successfully with PlatformIO, you must explicitly specify [`lib_ldf_mode`](https://docs.platformio.org/en/latest/projectconf/sections/env/options/library/lib_ldf_mode.html#lib-ldf-mode) in **platformio.ini** file. With the `deep` or `deep+` value, PIO Library Finder will detect enough header files for AutoConnectCore. PIO build will fail if `lib_ldf_mode` is not specified or `chain`/`chain+`.
+
+    ```ini
+    lib_ldf_mode = deep
+    ```
