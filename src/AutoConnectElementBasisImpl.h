@@ -224,7 +224,7 @@ const String AutoConnectFileBasis::toHTML(void) const {
     // Conversion of the AutoConnectFile element to HTML.
     // [<label for="name">label</label>]
     // <input type="file" id="name" name="name" accept="application/octet-stream">
-    static const char elmFileTempl[] PROGMEM = "%s<input type=\"file\" id=\"%s\" name=\"%s\" accept=\"application/octet-steam\">";
+    static const char elmFileTempl[] PROGMEM = "%s<input type=\"file\" id=\"%s\" name=\"%s\" accept=\"application/octet-stream\">";
     static const char elmLabelTempl[] PROGMEM ="<%s for=\"%s\">%s</%s>";
     static const char elmNone[] PROGMEM = "";
     static const char tagLabel[] PROGMEM = "label";
