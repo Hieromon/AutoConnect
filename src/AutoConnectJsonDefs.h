@@ -58,6 +58,17 @@ struct SpiRamAllocatorST {
   void  deallocate(void* pointer) {
     heap_caps_free(pointer);
   }
+  void* reallocate(void *pointer, size_t new_size) {
+    uint32_t caps;
+    if (psramFound())
+      caps = MALLOC_CAP_SPIRAM;
+    else
+    {
+      caps = MALLOC_CAP_8BIT;
+      AC_DBG("PSRAM not found, JSON buffer allocates to the heap.\n");
+    }
+    return heap_caps_realloc(pointer, new_size, caps);
+  }
 };
 #define AUTOCONNECT_JSONBUFFER_PRIMITIVE_SIZE AUTOCONNECT_JSONPSRAM_SIZE
 using ArduinoJsonBuffer = BasicJsonDocument<SpiRamAllocatorST>;

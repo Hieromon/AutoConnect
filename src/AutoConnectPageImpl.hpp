@@ -16,7 +16,13 @@ extern "C" {
 #include <user_interface.h>
 }
 #elif defined(ARDUINO_ARCH_ESP32)
+#ifdef ESP_IDF_VERSION_MAJOR
+#if ESP_IDF_VERSION_MAJOR >= 5
+#include <esp_flash.h>
+#else
 #include <esp_spi_flash.h>
+#endif
+#endif
 #include <WiFi.h>
 #define ENC_TYPE_NONE WIFI_AUTH_OPEN
 #endif
@@ -998,7 +1004,13 @@ uint32_t AutoConnectCore<T>::_getFlashChipRealSize() {
 #if defined(ARDUINO_ARCH_ESP8266)
   return ESP.getFlashChipRealSize();
 #elif defined(ARDUINO_ARCH_ESP32)
+#if ESP_IDF_VERSION_MAJOR >= 5
+  uint32_t size_flash_chip;
+  esp_flash_get_size(NULL, &size_flash_chip);
+  return size_flash_chip;
+#else
   return (uint32_t)spi_flash_get_chip_size();
+#endif
 #endif
 }
 

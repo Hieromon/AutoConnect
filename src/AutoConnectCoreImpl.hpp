@@ -31,10 +31,10 @@
 
 // An actual reset function dependent on the architecture
 #if defined(ARDUINO_ARCH_ESP8266)
-#define SOFT_RESET()  ESP.reset()
+#define SOFT_RESET_ESP()  ESP.reset()
 #define SET_HOSTNAME(x) do { WiFi.hostname(x); } while(0)
 #elif defined(ARDUINO_ARCH_ESP32)
-#define SOFT_RESET()  ESP.restart()
+#define SOFT_RESET_ESP()  ESP.restart()
 #define SET_HOSTNAME(x) do { WiFi.setHostname(x); } while(0)
 #endif
 
@@ -246,7 +246,11 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
     if (_apConfig.autoRise) {
 
       // Change WiFi working mode, Enable AP with STA
-      WiFi.setAutoConnect(false);
+#if defined(ARDUINO_ARCH_ESP32) && ((ESP_IDF_VERSION_MAJOR > 3) || ((ESP_IDF_VERSION_MAJOR == 3) && (ESP_IDF_VERSION_MINOR >= 1)))
+      WiFi.setAutoReconnect(false);
+#else
+      WiFi.setAutoConnect(false); // Deprecated in ESP32 from ESP-IDF v3.1
+#endif
       disconnect(false, true);
 
       // Activate the AP mode with configured softAP and start the access point.
@@ -559,8 +563,13 @@ void AutoConnectCore<T>::handleRequest(void) {
     if (_apConfig.retainPortal && _apConfig.autoRise) {
       // Cancel AutoReconnect to ensure detection for queries to penetrate
       // to the internet from a client.
-      if (WiFi.getAutoConnect())
+#if defined(ARDUINO_ARCH_ESP32) && ((ESP_IDF_VERSION_MAJOR > 3) || ((ESP_IDF_VERSION_MAJOR == 3) && (ESP_IDF_VERSION_MINOR >= 1)))
+      if (WiFi.getAutoReconnect())
         WiFi.setAutoReconnect(false);
+#else
+      if (WiFi.getAutoConnect()) // Deprecated in ESP32 from ESP-IDF v3.1
+        WiFi.setAutoReconnect(false);
+#endif
 
       // Restart the responder for the captive portal detection.
       if (!(WiFi.getMode() & WIFI_AP)) {
@@ -719,7 +728,7 @@ void AutoConnectCore<T>::handleRequest(void) {
     _stopPortal();
     AC_DBG("Reset\n");
     delay(1000);
-    SOFT_RESET();
+    SOFT_RESET_ESP();
     delay(1000);
   }
 
@@ -747,7 +756,7 @@ void AutoConnectCore<T>::handleRequest(void) {
 
       if (_apConfig.autoReset) {
         delay(1000);
-        SOFT_RESET();
+        SOFT_RESET_ESP();
         delay(1000);
       }
     }
